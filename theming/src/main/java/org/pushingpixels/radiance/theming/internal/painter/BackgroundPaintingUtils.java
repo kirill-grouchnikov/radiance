@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.internal.painter;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
@@ -88,7 +89,8 @@ public class BackgroundPaintingUtils {
                 RenderingHints.VALUE_ANTIALIAS_OFF);
         graphics.setComposite(WidgetUtilities.getAlphaComposite(c, g));
 
-        RadianceThemingSlices.DecorationAreaType decorationType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
+        RadianceThemingSlices.DecorationAreaType decorationType =
+            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
         RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
         boolean isShowing = c.isShowing();
         boolean showOverlays = true;
@@ -120,7 +122,9 @@ public class BackgroundPaintingUtils {
             // fill the area with solid color
             Component compForBackgroundFill =
                 ((c instanceof JTextComponent) || (c instanceof JSpinner)) ? c.getParent() : c;
-            Color background = RadianceColorUtilities.getBackgroundFillColor(compForBackgroundFill);
+            Color background = (skin instanceof TonalSkin)
+                ? RadianceColorUtilities.getTonalBackgroundFillColor(compForBackgroundFill)
+                : RadianceColorUtilities.getBackgroundFillColor(compForBackgroundFill);
             graphics.setColor(background);
             graphics.fillRect(0, 0, c.getWidth(), c.getHeight());
 

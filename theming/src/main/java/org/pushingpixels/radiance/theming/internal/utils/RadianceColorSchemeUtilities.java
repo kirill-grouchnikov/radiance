@@ -279,20 +279,40 @@ public class RadianceColorSchemeUtilities {
      * @return Component color scheme.
      */
     public static RadianceColorScheme getDirectColorScheme(Component component,
-            RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
+        RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
         // special case - if the component is marked as flat and
         // it is in the enabled state, get the color scheme of the parent.
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
         if (!(component instanceof JToolBar)
-                && RadianceCoreUtilities.hasFlatAppearance(component, false)
-                && (componentState == ComponentState.ENABLED)) {
+            && RadianceCoreUtilities.hasFlatAppearance(component, false)
+            && (componentState == ComponentState.ENABLED)) {
             component = component.getParent();
         }
 
         RadianceColorScheme nonColorized = RadianceCoreUtilities.getSkin(component)
-                .getDirectColorScheme(component, associationKind, componentState);
+            .getDirectColorScheme(component, associationKind, componentState);
         return getColorizedScheme(component, nonColorized, !componentState.isDisabled());
+    }
+
+    public static ContainerRenderColorTokens getDirectRenderColorTokens(Component component,
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+        ComponentState componentState) {
+        // special case - if the component is marked as flat and
+        // it is in the enabled state, get the color scheme of the parent.
+        // However, flat toolbars should be ignored, since they are
+        // the "top" level decoration area.
+        if (!(component instanceof JToolBar)
+            && RadianceCoreUtilities.hasFlatAppearance(component, false)
+            && (componentState == ComponentState.ENABLED)) {
+            component = component.getParent();
+        }
+
+        ContainerRenderColorTokens nonColorized = RadianceCoreUtilities.getSkin(component)
+            .getDirectRenderColorTokens(component, associationKind, componentState);
+        // TODO: TONAL - colorization
+        return nonColorized;
+//        return getColorizedScheme(component, nonColorized, !componentState.isDisabled());
     }
 
     /**

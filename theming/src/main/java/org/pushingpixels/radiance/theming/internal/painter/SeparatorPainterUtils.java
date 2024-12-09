@@ -35,6 +35,8 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -128,33 +130,65 @@ public class SeparatorPainterUtils {
     public static void paintSeparator(Component c, Graphics g, int width, int height,
             int orientation, boolean hasShadow, int maxGradLengthStart, int maxGradLengthEnd,
             boolean toEnforceAlphaColors) {
-        RadianceColorScheme compScheme = null;
-        Component parent = c.getParent();
-        boolean isParentAPopup = (parent instanceof JPopupMenu) ||
+        if (RadianceCoreUtilities.getSkin(c) instanceof TonalSkin) {
+            ContainerRenderColorTokens renderColorTokens = null;
+            Component parent = c.getParent();
+            boolean isParentAPopup = (parent instanceof JPopupMenu) ||
                 ((parent instanceof JComponent) && ((JComponent) parent).getClientProperty(
-                        DecorationPainterUtils.POPUP_ORIGINATOR_LINK) != null);
-        if (isParentAPopup) {
-            // For separators in popups, first see if we have a color
-            // scheme explicitly registered for the SEPARATOR association kind.
-            compScheme = RadianceColorSchemeUtilities.getDirectColorScheme(c,
-                    RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-            if (compScheme == null) {
-                // Then get a background color scheme associated with the
-                // decoration type of that separator
-                compScheme = RadianceCoreUtilities.getSkin(c).getBackgroundColorScheme(
-                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c));
+                    DecorationPainterUtils.POPUP_ORIGINATOR_LINK) != null);
+            if (isParentAPopup) {
+                // For separators in popups, first see if we have a color
+                // scheme explicitly registered for the SEPARATOR association kind.
+                renderColorTokens = RadianceColorSchemeUtilities.getDirectRenderColorTokens(c,
+                    RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
+                    ComponentState.ENABLED);
+                if (renderColorTokens == null) {
+                    // Then get a background color scheme associated with the
+                    // decoration type of that separator
+                    renderColorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundRenderColorTokens(
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c))
+                        .getSurfaceContainerRenderColorTokens();
+                }
             }
-        }
-        if (compScheme == null) {
-            // And finally, get the separator's color scheme via the regular
-            // route that includes fall back in case there is no explicitly registered
-            // color scheme for the SEPARATOR association kind.
-            compScheme = RadianceColorSchemeUtilities.getColorScheme(c,
-                    RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-        }
+            if (renderColorTokens == null) {
+                // And finally, get the separator's color scheme via the regular
+                // route that includes fall back in case there is no explicitly registered
+                // color scheme for the SEPARATOR association kind.
+                renderColorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(c,
+                    RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR, ComponentState.ENABLED);
+            }
 
-        paintSeparator(c, g, compScheme, width, height, orientation, hasShadow, maxGradLengthStart,
-                maxGradLengthEnd, toEnforceAlphaColors);
+            paintTonalSeparator(c, g, renderColorTokens, width, height, orientation, hasShadow,
+                maxGradLengthStart, maxGradLengthEnd, toEnforceAlphaColors);
+        } else {
+            RadianceColorScheme compScheme = null;
+            Component parent = c.getParent();
+            boolean isParentAPopup = (parent instanceof JPopupMenu) ||
+                ((parent instanceof JComponent) && ((JComponent) parent).getClientProperty(
+                    DecorationPainterUtils.POPUP_ORIGINATOR_LINK) != null);
+            if (isParentAPopup) {
+                // For separators in popups, first see if we have a color
+                // scheme explicitly registered for the SEPARATOR association kind.
+                compScheme = RadianceColorSchemeUtilities.getDirectColorScheme(c,
+                    RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
+                if (compScheme == null) {
+                    // Then get a background color scheme associated with the
+                    // decoration type of that separator
+                    compScheme = RadianceCoreUtilities.getSkin(c).getBackgroundColorScheme(
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c));
+                }
+            }
+            if (compScheme == null) {
+                // And finally, get the separator's color scheme via the regular
+                // route that includes fall back in case there is no explicitly registered
+                // color scheme for the SEPARATOR association kind.
+                compScheme = RadianceColorSchemeUtilities.getColorScheme(c,
+                    RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
+            }
+
+            paintSeparator(c, g, compScheme, width, height, orientation, hasShadow,
+                maxGradLengthStart, maxGradLengthEnd, toEnforceAlphaColors);
+        }
     }
 
     /**
@@ -187,8 +221,8 @@ public class SeparatorPainterUtils {
      *         affect the performance.
      */
     public static void paintSeparator(Component c, Graphics g, RadianceColorScheme scheme,
-            int width, int height, int orientation, boolean hasShadow, int maxGradLengthStart,
-            int maxGradLengthEnd, boolean toEnforceAlphaColors) {
+        int width, int height, int orientation, boolean hasShadow, int maxGradLengthStart,
+        int maxGradLengthEnd, boolean toEnforceAlphaColors) {
 
         if (orientation == JSeparator.HORIZONTAL) {
             height = 1;
@@ -206,179 +240,376 @@ public class SeparatorPainterUtils {
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
-                    RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-                    // use alpha colors when the control is in a painted decoration area
-                    // (where skin can use different background colors) or in a decoration
-                    // area that has overlays.
-                    boolean toUseAlphaColors =
-                            (decorationAreaType == RadianceThemingSlices.DecorationAreaType.NONE)
-                                    ? false
-                                    : skin.isRegisteredAsDecorationArea(decorationAreaType)
-                                    || !skin.getOverlayPainters(decorationAreaType).isEmpty();
-                    toUseAlphaColors = toUseAlphaColors || toEnforceAlphaColors;
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+                // use alpha colors when the control is in a painted decoration area
+                // (where skin can use different background colors) or in a decoration
+                // area that has overlays.
+                boolean toUseAlphaColors =
+                    (decorationAreaType == RadianceThemingSlices.DecorationAreaType.NONE)
+                        ? false
+                        : skin.isRegisteredAsDecorationArea(decorationAreaType)
+                        || !skin.getOverlayPainters(decorationAreaType).isEmpty();
+                toUseAlphaColors = toUseAlphaColors || toEnforceAlphaColors;
 
-                    Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(c);
-                    Color primary = scheme.getSeparatorPrimaryColor();
-                    Color secondary = scheme.getSeparatorSecondaryColor();
+                Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(c);
+                Color primary = scheme.getSeparatorPrimaryColor();
+                Color secondary = scheme.getSeparatorSecondaryColor();
 
-                    Color primaryZero = toUseAlphaColors
-                            ? RadianceColorUtilities.getAlphaColor(primary, 0)
-                            : RadianceColorUtilities.getInterpolatedColor(primary, backgroundFill, 0.0f);
-                    Color secondaryZero = toUseAlphaColors
-                            ? RadianceColorUtilities.getAlphaColor(secondary, 0)
-                            : RadianceColorUtilities.getInterpolatedColor(secondary, backgroundFill, 0.0f);
-                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
-                            BasicStroke.JOIN_ROUND));
-                    if (orientation == JSeparator.VERTICAL) {
-                        int gradStart = Math.min(maxGradLengthStart, scaledHeight / 2);
-                        int gradEnd = Math.min(maxGradLengthEnd, scaledHeight / 2);
-                        float gradStartFraction = (float) gradStart / scaledHeight;
-                        float gradEndFraction = (float) (scaledHeight - gradEnd) / scaledHeight;
-                        float regularX = Math.max(0, scaledWidth / 2.0f - 1.0f);
+                Color primaryZero = toUseAlphaColors
+                    ? RadianceColorUtilities.getAlphaColor(primary, 0)
+                    : RadianceColorUtilities.getInterpolatedColor(primary, backgroundFill, 0.0f);
+                Color secondaryZero = toUseAlphaColors
+                    ? RadianceColorUtilities.getAlphaColor(secondary, 0)
+                    : RadianceColorUtilities.getInterpolatedColor(secondary, backgroundFill, 0.0f);
+                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
+                    BasicStroke.JOIN_ROUND));
+                if (orientation == JSeparator.VERTICAL) {
+                    int gradStart = Math.min(maxGradLengthStart, scaledHeight / 2);
+                    int gradEnd = Math.min(maxGradLengthEnd, scaledHeight / 2);
+                    float gradStartFraction = (float) gradStart / scaledHeight;
+                    float gradEndFraction = (float) (scaledHeight - gradEnd) / scaledHeight;
+                    float regularX = Math.max(0, scaledWidth / 2.0f - 1.0f);
 
-                        // Dynamically create the array of stop fractions and corresponding
-                        // colors. If the start fraction is 0, we need to skip the 0-opacity
-                        // first stop, as identical fractions in LinearGradientPaint lead to
-                        // a crash. The same applies to end fraction 0, and identical start
-                        // and end fraction values
-                        int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 1 +
-                                ((gradEndFraction > gradStartFraction) ? 1 : 0) +
-                                ((gradEndFraction < 1.0f) ? 1 : 0);
-                        float[] stops = new float[stopsCount];
-                        Color[] colors = new Color[stopsCount];
-                        int stopIndex = 0;
-                        if (gradStartFraction > 0.0f) {
-                            stops[stopIndex] = 0.0f;
-                            colors[stopIndex] = primaryZero;
-                            stopIndex++;
-                        }
-                        stops[stopIndex] = gradStartFraction;
-                        colors[stopIndex] = primary;
+                    // Dynamically create the array of stop fractions and corresponding
+                    // colors. If the start fraction is 0, we need to skip the 0-opacity
+                    // first stop, as identical fractions in LinearGradientPaint lead to
+                    // a crash. The same applies to end fraction 0, and identical start
+                    // and end fraction values
+                    int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 1 +
+                        ((gradEndFraction > gradStartFraction) ? 1 : 0) +
+                        ((gradEndFraction < 1.0f) ? 1 : 0);
+                    float[] stops = new float[stopsCount];
+                    Color[] colors = new Color[stopsCount];
+                    int stopIndex = 0;
+                    if (gradStartFraction > 0.0f) {
+                        stops[stopIndex] = 0.0f;
+                        colors[stopIndex] = primaryZero;
                         stopIndex++;
-                        if (gradEndFraction > gradStartFraction) {
-                            stops[stopIndex] = gradEndFraction;
-                            colors[stopIndex] = primary;
-                            stopIndex++;
-                        }
-                        if (gradEndFraction < 1.0f) {
-                            stops[stopIndex] = 1.0f;
-                            colors[stopIndex] = primaryZero;
-                        }
-
-                        LinearGradientPaint primaryPaint = new LinearGradientPaint(
-                                0, 0, 0, scaledHeight,
-                                stops, colors);
-                        graphics1X.setPaint(primaryPaint);
-                        graphics1X.draw(new Line2D.Float(regularX, 0, regularX, scaledHeight));
-
-                        if (hasShadow) {
-                            float shadowX = regularX + 1.0f;
-
-                            stopIndex = 0;
-                            if (gradStartFraction > 0.0f) {
-                                stops[stopIndex] = 0.0f;
-                                colors[stopIndex] = secondaryZero;
-                                stopIndex++;
-                            }
-                            stops[stopIndex] = gradStartFraction;
-                            colors[stopIndex] = secondary;
-                            stopIndex++;
-                            if (gradEndFraction > gradStartFraction) {
-                                stops[stopIndex] = gradEndFraction;
-                                colors[stopIndex] = secondary;
-                                stopIndex++;
-                            }
-                            if (gradEndFraction < 1.0f) {
-                                stops[stopIndex] = 1.0f;
-                                colors[stopIndex] = secondaryZero;
-                            }
-
-                            LinearGradientPaint secondaryPaint = new LinearGradientPaint(
-                                    0, 0, 0, scaledHeight,
-                                    stops, colors);
-                            graphics1X.setPaint(secondaryPaint);
-                            graphics1X.draw(new Line2D.Float(shadowX, 0, shadowX, scaledHeight));
-                        }
-                    } else {
-                        // HORIZONTAL
-                        int gradStart = Math.min(maxGradLengthStart, scaledWidth / 2);
-                        int gradEnd = Math.min(maxGradLengthEnd, scaledWidth / 2);
-                        graphics1X.translate(0, Math.max(0, scaledHeight / 2 - 1));
-
-                        float gradStartFraction = (float) gradStart / scaledWidth;
-                        float gradEndFraction = (float) (scaledWidth - gradEnd) / scaledWidth;
-                        float regularY = Math.max(0, scaledHeight / 2.0f - 1.0f);
-
-                        // Dynamically create the array of stop fractions and corresponding
-                        // colors. If the start fraction is 0, we need to skip the 0-opacity
-                        // first stop, as identical fractions in LinearGradientPaint lead to
-                        // a crash. The same applies to end fraction 0, and identical start
-                        // and end fraction values
-                        int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 1 +
-                                ((gradEndFraction > gradStartFraction) ? 1 : 0) +
-                                ((gradEndFraction < 1.0f) ? 1 : 0);
-                        float[] stops = new float[stopsCount];
-                        Color[] colors = new Color[stopsCount];
-                        int stopIndex = 0;
-                        if (gradStartFraction > 0.0f) {
-                            stops[stopIndex] = 0.0f;
-                            colors[stopIndex] = primaryZero;
-                            stopIndex++;
-                        }
-                        stops[stopIndex] = gradStartFraction;
-                        colors[stopIndex] = primary;
-                        stopIndex++;
-                        if (gradEndFraction > gradStartFraction) {
-                            stops[stopIndex] = gradEndFraction;
-                            colors[stopIndex] = primary;
-                            stopIndex++;
-                        }
-                        if (gradEndFraction < 1.0f) {
-                            stops[stopIndex] = 1.0f;
-                            colors[stopIndex] = primaryZero;
-                        }
-
-                        LinearGradientPaint primaryPaint = new LinearGradientPaint(
-                                0, 0, scaledWidth, 0,
-                                stops, colors);
-                        graphics1X.setPaint(primaryPaint);
-                        graphics1X.draw(new Line2D.Float(0, regularY, scaledWidth, regularY));
-
-                        if (hasShadow) {
-                            float shadowY = regularY + 1.0f;
-
-                            stopIndex = 0;
-                            if (gradStartFraction > 0.0f) {
-                                stops[stopIndex] = 0.0f;
-                                colors[stopIndex] = secondaryZero;
-                                stopIndex++;
-                            }
-                            stops[stopIndex] = gradStartFraction;
-                            colors[stopIndex] = secondary;
-                            stopIndex++;
-                            if (gradEndFraction > gradStartFraction) {
-                                stops[stopIndex] = gradEndFraction;
-                                colors[stopIndex] = secondary;
-                                stopIndex++;
-                            }
-                            if (gradEndFraction < 1.0f) {
-                                stops[stopIndex] = 1.0f;
-                                colors[stopIndex] = secondaryZero;
-                            }
-
-                            LinearGradientPaint secondaryPaint = new LinearGradientPaint(
-                                    0, 0, scaledWidth, 0,
-                                    stops, colors);
-                            graphics1X.setPaint(secondaryPaint);
-                            graphics1X.draw(new Line2D.Float(0, shadowY, scaledWidth, shadowY));
-                        }
                     }
-                });
+                    stops[stopIndex] = gradStartFraction;
+                    colors[stopIndex] = primary;
+                    stopIndex++;
+                    if (gradEndFraction > gradStartFraction) {
+                        stops[stopIndex] = gradEndFraction;
+                        colors[stopIndex] = primary;
+                        stopIndex++;
+                    }
+                    if (gradEndFraction < 1.0f) {
+                        stops[stopIndex] = 1.0f;
+                        colors[stopIndex] = primaryZero;
+                    }
+
+                    LinearGradientPaint primaryPaint = new LinearGradientPaint(
+                        0, 0, 0, scaledHeight,
+                        stops, colors);
+                    graphics1X.setPaint(primaryPaint);
+                    graphics1X.draw(new Line2D.Float(regularX, 0, regularX, scaledHeight));
+
+                    if (hasShadow) {
+                        float shadowX = regularX + 1.0f;
+
+                        stopIndex = 0;
+                        if (gradStartFraction > 0.0f) {
+                            stops[stopIndex] = 0.0f;
+                            colors[stopIndex] = secondaryZero;
+                            stopIndex++;
+                        }
+                        stops[stopIndex] = gradStartFraction;
+                        colors[stopIndex] = secondary;
+                        stopIndex++;
+                        if (gradEndFraction > gradStartFraction) {
+                            stops[stopIndex] = gradEndFraction;
+                            colors[stopIndex] = secondary;
+                            stopIndex++;
+                        }
+                        if (gradEndFraction < 1.0f) {
+                            stops[stopIndex] = 1.0f;
+                            colors[stopIndex] = secondaryZero;
+                        }
+
+                        LinearGradientPaint secondaryPaint = new LinearGradientPaint(
+                            0, 0, 0, scaledHeight,
+                            stops, colors);
+                        graphics1X.setPaint(secondaryPaint);
+                        graphics1X.draw(new Line2D.Float(shadowX, 0, shadowX, scaledHeight));
+                    }
+                } else {
+                    // HORIZONTAL
+                    int gradStart = Math.min(maxGradLengthStart, scaledWidth / 2);
+                    int gradEnd = Math.min(maxGradLengthEnd, scaledWidth / 2);
+                    graphics1X.translate(0, Math.max(0, scaledHeight / 2 - 1));
+
+                    float gradStartFraction = (float) gradStart / scaledWidth;
+                    float gradEndFraction = (float) (scaledWidth - gradEnd) / scaledWidth;
+                    float regularY = Math.max(0, scaledHeight / 2.0f - 1.0f);
+
+                    // Dynamically create the array of stop fractions and corresponding
+                    // colors. If the start fraction is 0, we need to skip the 0-opacity
+                    // first stop, as identical fractions in LinearGradientPaint lead to
+                    // a crash. The same applies to end fraction 0, and identical start
+                    // and end fraction values
+                    int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 1 +
+                        ((gradEndFraction > gradStartFraction) ? 1 : 0) +
+                        ((gradEndFraction < 1.0f) ? 1 : 0);
+                    float[] stops = new float[stopsCount];
+                    Color[] colors = new Color[stopsCount];
+                    int stopIndex = 0;
+                    if (gradStartFraction > 0.0f) {
+                        stops[stopIndex] = 0.0f;
+                        colors[stopIndex] = primaryZero;
+                        stopIndex++;
+                    }
+                    stops[stopIndex] = gradStartFraction;
+                    colors[stopIndex] = primary;
+                    stopIndex++;
+                    if (gradEndFraction > gradStartFraction) {
+                        stops[stopIndex] = gradEndFraction;
+                        colors[stopIndex] = primary;
+                        stopIndex++;
+                    }
+                    if (gradEndFraction < 1.0f) {
+                        stops[stopIndex] = 1.0f;
+                        colors[stopIndex] = primaryZero;
+                    }
+
+                    LinearGradientPaint primaryPaint = new LinearGradientPaint(
+                        0, 0, scaledWidth, 0,
+                        stops, colors);
+                    graphics1X.setPaint(primaryPaint);
+                    graphics1X.draw(new Line2D.Float(0, regularY, scaledWidth, regularY));
+
+                    if (hasShadow) {
+                        float shadowY = regularY + 1.0f;
+
+                        stopIndex = 0;
+                        if (gradStartFraction > 0.0f) {
+                            stops[stopIndex] = 0.0f;
+                            colors[stopIndex] = secondaryZero;
+                            stopIndex++;
+                        }
+                        stops[stopIndex] = gradStartFraction;
+                        colors[stopIndex] = secondary;
+                        stopIndex++;
+                        if (gradEndFraction > gradStartFraction) {
+                            stops[stopIndex] = gradEndFraction;
+                            colors[stopIndex] = secondary;
+                            stopIndex++;
+                        }
+                        if (gradEndFraction < 1.0f) {
+                            stops[stopIndex] = 1.0f;
+                            colors[stopIndex] = secondaryZero;
+                        }
+
+                        LinearGradientPaint secondaryPaint = new LinearGradientPaint(
+                            0, 0, scaledWidth, 0,
+                            stops, colors);
+                        graphics1X.setPaint(secondaryPaint);
+                        graphics1X.draw(new Line2D.Float(0, shadowY, scaledWidth, shadowY));
+                    }
+                }
+            });
+        graphics.dispose();
+    }
+
+    public static void paintTonalSeparator(Component c, Graphics g,
+        ContainerRenderColorTokens renderColorTokens, int width, int height, int orientation,
+        boolean hasShadow, int maxGradLengthStart, int maxGradLengthEnd, boolean toEnforceAlphaColors) {
+
+        if (orientation == JSeparator.HORIZONTAL) {
+            height = 1;
+        }
+        if (orientation == JSeparator.VERTICAL) {
+            width = 1;
+        }
+
+        if ((width == 0) || (height == 0)) {
+            return;
+        }
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+                // use alpha colors when the control is in a painted decoration area
+                // (where skin can use different background colors) or in a decoration
+                // area that has overlays.
+                boolean toUseAlphaColors =
+                    (decorationAreaType == RadianceThemingSlices.DecorationAreaType.NONE)
+                        ? false
+                        : skin.isRegisteredAsDecorationArea(decorationAreaType)
+                        || !skin.getOverlayPainters(decorationAreaType).isEmpty();
+                toUseAlphaColors = toUseAlphaColors || toEnforceAlphaColors;
+
+                Color backgroundFill = RadianceColorUtilities.getTonalBackgroundFillColor(c);
+                Color primary = renderColorTokens.getContainerOutlineColorTokens().getContainerOutline();
+                // TODO: TONAL - verify this across light and dark skins
+                Color secondary = renderColorTokens.getContainerColorTokens().getContainerLow();
+
+                Color primaryZero = toUseAlphaColors
+                    ? RadianceColorUtilities.getAlphaColor(primary, 0)
+                    : RadianceColorUtilities.getInterpolatedColor(primary, backgroundFill, 0.0f);
+                Color secondaryZero = toUseAlphaColors
+                    ? RadianceColorUtilities.getAlphaColor(secondary, 0)
+                    : RadianceColorUtilities.getInterpolatedColor(secondary, backgroundFill, 0.0f);
+                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
+                    BasicStroke.JOIN_ROUND));
+                if (orientation == JSeparator.VERTICAL) {
+                    int gradStart = Math.min(maxGradLengthStart, scaledHeight / 2);
+                    int gradEnd = Math.min(maxGradLengthEnd, scaledHeight / 2);
+                    float gradStartFraction = (float) gradStart / scaledHeight;
+                    float gradEndFraction = (float) (scaledHeight - gradEnd) / scaledHeight;
+                    float regularX = Math.max(0, scaledWidth / 2.0f - 1.0f);
+
+                    // Dynamically create the array of stop fractions and corresponding
+                    // colors. If the start fraction is 0, we need to skip the 0-opacity
+                    // first stop, as identical fractions in LinearGradientPaint lead to
+                    // a crash. The same applies to end fraction 0, and identical start
+                    // and end fraction values
+                    int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 1 +
+                        ((gradEndFraction > gradStartFraction) ? 1 : 0) +
+                        ((gradEndFraction < 1.0f) ? 1 : 0);
+                    float[] stops = new float[stopsCount];
+                    Color[] colors = new Color[stopsCount];
+                    int stopIndex = 0;
+                    if (gradStartFraction > 0.0f) {
+                        stops[stopIndex] = 0.0f;
+                        colors[stopIndex] = primaryZero;
+                        stopIndex++;
+                    }
+                    stops[stopIndex] = gradStartFraction;
+                    colors[stopIndex] = primary;
+                    stopIndex++;
+                    if (gradEndFraction > gradStartFraction) {
+                        stops[stopIndex] = gradEndFraction;
+                        colors[stopIndex] = primary;
+                        stopIndex++;
+                    }
+                    if (gradEndFraction < 1.0f) {
+                        stops[stopIndex] = 1.0f;
+                        colors[stopIndex] = primaryZero;
+                    }
+
+                    LinearGradientPaint primaryPaint = new LinearGradientPaint(
+                        0, 0, 0, scaledHeight,
+                        stops, colors);
+                    graphics1X.setPaint(primaryPaint);
+                    graphics1X.draw(new Line2D.Float(regularX, 0, regularX, scaledHeight));
+
+                    if (hasShadow) {
+                        float shadowX = regularX + 1.0f;
+
+                        stopIndex = 0;
+                        if (gradStartFraction > 0.0f) {
+                            stops[stopIndex] = 0.0f;
+                            colors[stopIndex] = secondaryZero;
+                            stopIndex++;
+                        }
+                        stops[stopIndex] = gradStartFraction;
+                        colors[stopIndex] = secondary;
+                        stopIndex++;
+                        if (gradEndFraction > gradStartFraction) {
+                            stops[stopIndex] = gradEndFraction;
+                            colors[stopIndex] = secondary;
+                            stopIndex++;
+                        }
+                        if (gradEndFraction < 1.0f) {
+                            stops[stopIndex] = 1.0f;
+                            colors[stopIndex] = secondaryZero;
+                        }
+
+                        LinearGradientPaint secondaryPaint = new LinearGradientPaint(
+                            0, 0, 0, scaledHeight,
+                            stops, colors);
+                        graphics1X.setPaint(secondaryPaint);
+                        graphics1X.draw(new Line2D.Float(shadowX, 0, shadowX, scaledHeight));
+                    }
+                } else {
+                    // HORIZONTAL
+                    int gradStart = Math.min(maxGradLengthStart, scaledWidth / 2);
+                    int gradEnd = Math.min(maxGradLengthEnd, scaledWidth / 2);
+                    graphics1X.translate(0, Math.max(0, scaledHeight / 2 - 1));
+
+                    float gradStartFraction = (float) gradStart / scaledWidth;
+                    float gradEndFraction = (float) (scaledWidth - gradEnd) / scaledWidth;
+                    float regularY = Math.max(0, scaledHeight / 2.0f - 1.0f);
+
+                    // Dynamically create the array of stop fractions and corresponding
+                    // colors. If the start fraction is 0, we need to skip the 0-opacity
+                    // first stop, as identical fractions in LinearGradientPaint lead to
+                    // a crash. The same applies to end fraction 0, and identical start
+                    // and end fraction values
+                    int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 1 +
+                        ((gradEndFraction > gradStartFraction) ? 1 : 0) +
+                        ((gradEndFraction < 1.0f) ? 1 : 0);
+                    float[] stops = new float[stopsCount];
+                    Color[] colors = new Color[stopsCount];
+                    int stopIndex = 0;
+                    if (gradStartFraction > 0.0f) {
+                        stops[stopIndex] = 0.0f;
+                        colors[stopIndex] = primaryZero;
+                        stopIndex++;
+                    }
+                    stops[stopIndex] = gradStartFraction;
+                    colors[stopIndex] = primary;
+                    stopIndex++;
+                    if (gradEndFraction > gradStartFraction) {
+                        stops[stopIndex] = gradEndFraction;
+                        colors[stopIndex] = primary;
+                        stopIndex++;
+                    }
+                    if (gradEndFraction < 1.0f) {
+                        stops[stopIndex] = 1.0f;
+                        colors[stopIndex] = primaryZero;
+                    }
+
+                    LinearGradientPaint primaryPaint = new LinearGradientPaint(
+                        0, 0, scaledWidth, 0,
+                        stops, colors);
+                    graphics1X.setPaint(primaryPaint);
+                    graphics1X.draw(new Line2D.Float(0, regularY, scaledWidth, regularY));
+
+                    if (hasShadow) {
+                        float shadowY = regularY + 1.0f;
+
+                        stopIndex = 0;
+                        if (gradStartFraction > 0.0f) {
+                            stops[stopIndex] = 0.0f;
+                            colors[stopIndex] = secondaryZero;
+                            stopIndex++;
+                        }
+                        stops[stopIndex] = gradStartFraction;
+                        colors[stopIndex] = secondary;
+                        stopIndex++;
+                        if (gradEndFraction > gradStartFraction) {
+                            stops[stopIndex] = gradEndFraction;
+                            colors[stopIndex] = secondary;
+                            stopIndex++;
+                        }
+                        if (gradEndFraction < 1.0f) {
+                            stops[stopIndex] = 1.0f;
+                            colors[stopIndex] = secondaryZero;
+                        }
+
+                        LinearGradientPaint secondaryPaint = new LinearGradientPaint(
+                            0, 0, scaledWidth, 0,
+                            stops, colors);
+                        graphics1X.setPaint(secondaryPaint);
+                        graphics1X.draw(new Line2D.Float(0, shadowY, scaledWidth, shadowY));
+                    }
+                }
+            });
         graphics.dispose();
     }
 

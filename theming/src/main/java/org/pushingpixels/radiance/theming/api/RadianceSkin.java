@@ -937,20 +937,38 @@ public abstract class RadianceSkin implements RadianceTrait {
      * the component under the specified component state.
      */
     public final RadianceColorScheme getDirectColorScheme(Component comp,
-            RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
-            ComponentState componentState) {
+        RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
+        ComponentState componentState) {
         // small optimization - lookup the decoration area only if there
         // are decoration-specific scheme bundles.
         if (this.colorSchemeBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType = RadianceThemingCortex.ComponentOrParentChainScope
-                    .getDecorationType(comp);
+            RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
                 return this.colorSchemeBundleMap.get(decorationAreaType)
-                        .getColorScheme(associationKind, componentState, false);
+                    .getColorScheme(associationKind, componentState, false);
             }
         }
         return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-                .getColorScheme(associationKind, componentState, false);
+            .getColorScheme(associationKind, componentState, false);
+    }
+
+    public final ContainerRenderColorTokens getDirectRenderColorTokens(Component comp,
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+        ComponentState componentState) {
+        // small optimization - lookup the decoration area only if there
+        // are decoration-specific scheme bundles.
+        if (this.tonalColorSchemeMap.size() > 1) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                RadianceThemingCortex.ComponentOrParentChainScope
+                .getDecorationType(comp);
+            if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+                return this.tonalColorSchemeMap.get(decorationAreaType)
+                    .getColorRenderTokens(associationKind, componentState, false);
+            }
+        }
+        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getColorRenderTokens(associationKind, componentState, false);
     }
 
     /**
