@@ -850,8 +850,15 @@ public class RadianceColorUtilities {
     public static Color getBackgroundFillColorScrollBar(JScrollBar scrollbar) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(scrollbar);
         RadianceColorScheme scheme =
-                skin.getBackgroundColorScheme(DecorationPainterUtils.getDecorationType(scrollbar));
+            skin.getBackgroundColorScheme(DecorationPainterUtils.getDecorationType(scrollbar));
         return scheme.getAccentedBackgroundFillColor();
+    }
+
+    public static Color getBackgroundTonalFillColorScrollBar(JScrollBar scrollbar) {
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(scrollbar);
+        SurfaceRenderColorTokens renderColorTokens =
+            skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(scrollbar));
+        return renderColorTokens.getSurfaceContainerRenderColorTokens().getContainerColorTokens().getContainerLow();
     }
 
     /**
