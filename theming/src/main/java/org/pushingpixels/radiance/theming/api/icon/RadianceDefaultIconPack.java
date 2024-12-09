@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.api.icon;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.svg.*;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
@@ -183,6 +184,14 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
         RadianceIcon result = adjust_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> RadianceColorUtilities.getAlphaColor(
                 preferredIconColorScheme.getForegroundColor(), 160));
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getInspectIcon(int preferredSize, ContainerRenderColorTokens preferredIconColorTokens) {
+        RadianceIcon result = adjust_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color ->
+            preferredIconColorTokens.getOnContainerColorTokens().getOnContainerVariant());
         return result;
     }
 

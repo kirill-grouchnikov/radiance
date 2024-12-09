@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.preview.PreviewPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -254,6 +255,13 @@ public class ScrollPaneSelector extends JComponent {
                         RadianceThemingCortex.GlobalScope.getIconPack()
                                 .getInspectIcon(dimension, scheme)
                                 .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                            .getInspectIcon(dimension, renderColorTokens)
+                            .paintIcon(null, g, 0, 0);
                     }
 
                     @Override

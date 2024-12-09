@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.icon;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 
 /**
  * Icon pack interface for <b>Radiance</b> look and feel. This class is part of officially
@@ -98,7 +99,10 @@ public interface RadianceIconPack {
             RadianceColorScheme preferredIconColorScheme);
 
     RadianceIcon getInspectIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getInspectIcon(int preferredSize,
+        ContainerRenderColorTokens preferredIconColorTokens);
 
     RadianceIcon getRefreshIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme);
