@@ -110,7 +110,6 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
 
                 float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
                 boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
-                float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
 
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
                 if (skin instanceof TonalSkin) {
@@ -125,9 +124,9 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
 
                     Graphics2D graphics = (Graphics2D) g.create();
                     graphics.translate(x, y);
-                    BladeIconUtils.drawCheckBox(graphics, button, fillPainter, borderPainter,
+                    BladeIconUtils.drawTonalCheckBox(graphics, button, fillPainter, borderPainter,
                         checkMarkSize, currState, mutableRenderColorTokens, visibility, 0.0f,
-                        isCheckMarkFadingOut, alpha);
+                        isCheckMarkFadingOut);
                     graphics.dispose();
                 } else {
                     // Populate color schemes based on the current transition state of the check box.
@@ -137,6 +136,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                         currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
                     BladeUtils.populateColorScheme(mutableMarkColorScheme, button, modelStateInfo,
                         currState, ColorSchemeAssociationKind.MARK, false);
+                    float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
 
                     Graphics2D graphics = (Graphics2D) g.create();
                     graphics.translate(x, y);

@@ -149,8 +149,6 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
-        float iconAlpha = RadianceColorSchemeUtilities.getAlpha(c,
-                modelStateInfo.getCurrModelState());
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
 
@@ -161,7 +159,8 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
                     BladeUtils.getDefaultColorSchemeDelegate(c,
                             this.colorSchemeAssociationKindDelegate),
                     false);
-
+            float iconAlpha = currState.isDisabled()
+                ? mutableRenderColorTokens.onContainerDisabledAlpha : 1.0f;
             this.delegate.drawColorSchemeIcon(graphics, mutableRenderColorTokens, iconAlpha);
         } else {
             BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
@@ -170,6 +169,8 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
                             this.colorSchemeAssociationKindDelegate),
                     false);
 
+            float iconAlpha = RadianceColorSchemeUtilities.getAlpha(c,
+                modelStateInfo.getCurrModelState());
             this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
         }
         graphics.dispose();

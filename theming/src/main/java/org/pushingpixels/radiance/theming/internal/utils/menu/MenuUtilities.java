@@ -31,6 +31,8 @@ package org.pushingpixels.radiance.theming.internal.utils.menu;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -617,25 +619,42 @@ public class MenuUtilities {
             graphics.translate(popupMetrics.maxIconTextGap / 2, 0);
         }
         float textAlpha = RadianceColorSchemeUtilities.getAlpha(menuItem,
-                ComponentState.getState(menuItem.getModel(), menuItem, true));
+            ComponentState.getState(menuItem.getModel(), menuItem, true));
         Color textColor;
         View v = (View) menuItem.getClientProperty(BasicHTML.propertyKey);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
         if (v != null) {
             v.paint(graphics, mli.textRect);
             // This text color may not correspond to the text of the HTML-based rendering, but we
             // still need "something" for filtered icons
-            textColor = RadianceTextUtilities.getForegroundColor(menuItem, currentState, textAlpha);
+            if (skin instanceof TonalSkin) {
+                textColor = RadianceTextUtilities.getTonalMenuComponentForegroundColor(
+                    menuItem, mli.text, stateInfo);
+            } else {
+                textColor = RadianceTextUtilities.getForegroundColor(menuItem, currentState, textAlpha);
+            }
         } else {
-            textColor = RadianceTextUtilities.paintText(graphics, menuItem, mli.textRect,
+            if (skin instanceof TonalSkin) {
+                textColor = RadianceTextUtilities.paintTonalMenuItemText(graphics, menuItem,
+                    mli.textRect, mli.text, menuItem.getDisplayedMnemonicIndex(), stateInfo);
+            } else {
+                textColor = RadianceTextUtilities.paintText(graphics, menuItem, mli.textRect,
                     mli.text, menuItem.getDisplayedMnemonicIndex());
+            }
         }
         // draw the accelerator text
         if (acceleratorText != null && !acceleratorText.equals("")) {
-            RadianceTextUtilities.paintText(graphics, menuItem, mli.acceleratorRect,
-                    acceleratorText, -1);
+            if (skin instanceof TonalSkin) {
+                RadianceTextUtilities.paintTonalMenuItemText(
+                    graphics, menuItem, mli.acceleratorRect, acceleratorText, -1, stateInfo);
+            } else {
+                RadianceTextUtilities.paintText(graphics, menuItem, mli.acceleratorRect, acceleratorText, -1);
+            }
         }
 
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, textAlpha, g2d));
+        if (!(skin instanceof TonalSkin)) {
+            graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, textAlpha, g2d));
+        }
         // draw the check icon
         if (checkIcon != null) {
             if (useCheckAndArrow(menuItem)) {

@@ -548,8 +548,6 @@ public class RadianceColorUtilities {
     public static float getTonalForegroundAlpha(Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo) {
         ComponentState currState = modelStateInfo.getCurrModelState();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-            modelStateInfo.getStateContributionMap();
 
         // special case for enabled buttons with no background -
         // always use the color scheme for the default state.
@@ -705,14 +703,14 @@ public class RadianceColorUtilities {
         // special case - sliders, check boxes and radio buttons. For this,
         // switch to component parent
         if ((component instanceof JCheckBox)
-                || (component instanceof JRadioButton)
-                || (component instanceof JSlider)) {
+            || (component instanceof JRadioButton)
+            || (component instanceof JSlider)) {
             component = component.getParent();
         } else {
             // Fix for 325 - respect the opacity setting of the text
             // component
             if (component instanceof JTextComponent && isBackgroundUiResource &&
-                    (!component.isOpaque() || !((JTextComponent) component).isEditable())) {
+                (!component.isOpaque() || !((JTextComponent) component).isEditable())) {
                 component = component.getParent();
             }
         }
@@ -722,23 +720,22 @@ public class RadianceColorUtilities {
             return backgr;
         }
 
-        // TODO: TONAL complete
         if (!isBackgroundUiResource) {
             // special case for issue 386 - if the colorization
             // is 1.0, return the component background
             if ((RadianceCoreUtilities.getColorizationFactor(component) == 1.0f)
-                    && component.isEnabled()) {
+                && component.isEnabled()) {
                 return backgr;
             }
 
             RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(component,
-                    component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED);
+                component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED);
             backgr = scheme.getBackgroundFillColor();
         } else {
             ComponentState state = component.isEnabled() ? ComponentState.ENABLED
-                    : ComponentState.DISABLED_UNSELECTED;
+                : ComponentState.DISABLED_UNSELECTED;
             JTextComponent matchingTextComp = RadianceCoreUtilities
-                    .getTextComponentForTransitions(component);
+                .getTextComponentForTransitions(component);
             if (matchingTextComp != null) {
                 Component original = component;
                 component = matchingTextComp;
@@ -761,9 +758,79 @@ public class RadianceColorUtilities {
             float alpha = RadianceColorSchemeUtilities.getAlpha(component, state);
             if (alpha < 1.0f) {
                 Color defaultColor = RadianceColorUtilities
-                        .getDefaultBackgroundColor(component, ComponentState.ENABLED);
+                    .getDefaultBackgroundColor(component, ComponentState.ENABLED);
                 backgr = RadianceColorUtilities.getInterpolatedColor(
-                        backgr, defaultColor, 1.0f - (1.0f - alpha) / 2.0f);
+                    backgr, defaultColor, 1.0f - (1.0f - alpha) / 2.0f);
+            }
+        }
+        return backgr;
+    }
+
+    public static Color getTonalBackgroundFillColor(Component component) {
+        Color backgr = component.getBackground();
+        boolean isBackgroundUiResource = backgr instanceof UIResource;
+
+        // special case - sliders, check boxes and radio buttons. For this,
+        // switch to component parent
+        if ((component instanceof JCheckBox)
+            || (component instanceof JRadioButton)
+            || (component instanceof JSlider)) {
+            component = component.getParent();
+        } else {
+            // Fix for 325 - respect the opacity setting of the text
+            // component
+            if (component instanceof JTextComponent && isBackgroundUiResource &&
+                (!component.isOpaque() || !((JTextComponent) component).isEditable())) {
+                component = component.getParent();
+            }
+        }
+
+        // do not change the background color on cell renderers
+        if (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null) {
+            return backgr;
+        }
+
+        ContainerRenderColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
+            component,
+            component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED);
+        if (!isBackgroundUiResource) {
+            // special case for issue 386 - if the colorization
+            // is 1.0, return the component background
+            if ((RadianceCoreUtilities.getColorizationFactor(component) == 1.0f)
+                && component.isEnabled()) {
+                return backgr;
+            }
+            backgr = colorTokens.getContainerColorTokens().getContainer();
+        } else {
+            ComponentState state = component.isEnabled() ? ComponentState.ENABLED
+                : ComponentState.DISABLED_UNSELECTED;
+            JTextComponent matchingTextComp = RadianceCoreUtilities
+                .getTextComponentForTransitions(component);
+            if (matchingTextComp != null) {
+                Component original = component;
+                component = matchingTextComp;
+                boolean isEditable = matchingTextComp.isEditable();
+                if (!isEditable) {
+                    Component parent = component.getParent();
+                    if (original == parent) {
+                        return getTonalBackgroundFillColor(original.getParent());
+                    }
+                    return getTonalBackgroundFillColor(parent);
+                }
+            }
+            // menu items always use the same background color so that the
+            // menu looks continuous
+            if (component instanceof JMenuItem) {
+                state = ComponentState.ENABLED;
+            }
+
+            backgr = RadianceColorUtilities.getDefaultTonalBackgroundColor(component, state);
+            float alpha = state.isDisabled() ? colorTokens.getContainerDisabledAlpha() : 1.0f;
+            if (alpha < 1.0f) {
+                Color defaultColor = RadianceColorUtilities
+                    .getDefaultTonalBackgroundColor(component, ComponentState.ENABLED);
+                backgr = RadianceColorUtilities.getInterpolatedColor(
+                    backgr, defaultColor, 1.0f - (1.0f - alpha) / 2.0f);
             }
         }
         return backgr;
@@ -785,14 +852,25 @@ public class RadianceColorUtilities {
      * class.
      */
     private static ColorUIResource getDefaultBackgroundColor(Component comp,
-            ComponentState compState) {
+        ComponentState compState) {
         if (comp instanceof JTextComponent) {
             // special case for text-based components
             return new ColorUIResource(RadianceCoreUtilities.getTextBackgroundFill(comp, compState));
         }
         return new ColorUIResource(RadianceCoreUtilities.getBackgroundFill(
-                RadianceThemingCortex.ComponentScope.getCurrentSkin(comp),
-                DecorationPainterUtils.getDecorationType(comp)));
+            RadianceThemingCortex.ComponentScope.getCurrentSkin(comp),
+            DecorationPainterUtils.getDecorationType(comp)));
+    }
+
+    private static ColorUIResource getDefaultTonalBackgroundColor(Component comp,
+        ComponentState compState) {
+        if (comp instanceof JTextComponent) {
+            // special case for text-based components
+            return new ColorUIResource(RadianceCoreUtilities.getTextBackgroundFill(comp, compState));
+        }
+        return new ColorUIResource(RadianceCoreUtilities.getBackgroundFill(
+            RadianceThemingCortex.ComponentScope.getCurrentSkin(comp),
+            DecorationPainterUtils.getDecorationType(comp)));
     }
 
     /**

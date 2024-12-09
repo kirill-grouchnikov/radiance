@@ -187,8 +187,7 @@ public class RadianceColorSchemeUtilities {
         boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
                 && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
         if (isButtonThatIsNeverPainted
-                || (RadianceCoreUtilities.hasFlatAppearance(component, false)
-                && (componentState == ComponentState.ENABLED))) {
+                || (RadianceCoreUtilities.hasFlatAppearance(component, false))) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             // TODO: TONAL - colorization
             return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component))
@@ -250,13 +249,11 @@ public class RadianceColorSchemeUtilities {
             ComponentState componentState) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
 
-        // special case - if the component is marked as flat and
-        // it is in the enabled state, get the color scheme of the parent.
+        // special case - if the component is marked as flat, get the color scheme of the parent.
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
         if (!(component instanceof JToolBar)
-                && RadianceCoreUtilities.hasFlatAppearance(component, false)
-                && (componentState == ComponentState.ENABLED)) {
+                && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component))
                     .getSurfaceContainerRenderColorTokens();

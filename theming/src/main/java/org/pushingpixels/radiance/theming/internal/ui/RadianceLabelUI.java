@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -135,6 +136,8 @@ public class RadianceLabelUI extends BasicLabelUI {
             v.paint(g2d, paintTextR);
             // This text color may not correspond to the text of the HTML-based rendering, but we
             // still need "something" for filtered icons
+
+            // TODO: TONAL - support disabled alpha
             textColor = RadianceTextUtilities.getForegroundColor(label, labelState, labelAlpha);
         } else {
             if (label.getClientProperty(RadianceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
@@ -152,8 +155,14 @@ public class RadianceLabelUI extends BasicLabelUI {
             } else {
                 // fix for issue 406 - use the same FG computation
                 // color as for other controls
-                textColor = RadianceTextUtilities.paintText(g2d, label, paintTextR, clippedText,
-                        label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(label);
+                if (skin instanceof TonalSkin) {
+                    textColor = RadianceTextUtilities.paintTonalText(g2d, label, paintTextR,
+                        clippedText, label.getDisplayedMnemonicIndex(), labelState);
+                } else {
+                    textColor = RadianceTextUtilities.paintText(g2d, label, paintTextR,
+                        clippedText, label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
+                }
             }
         }
 

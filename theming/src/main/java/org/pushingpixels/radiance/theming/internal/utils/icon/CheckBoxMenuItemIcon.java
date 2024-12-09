@@ -96,7 +96,6 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
 
         float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
         boolean isCheckMarkFadingOut = !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.SELECTION);
-        float alpha = RadianceColorSchemeUtilities.getAlpha(this.menuItem, currState);
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
 
@@ -107,9 +106,9 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
 
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.translate(x, y);
-            BladeIconUtils.drawCheckBox(graphics, this.menuItem, fillPainter, borderPainter,
+            BladeIconUtils.drawTonalCheckBox(graphics, this.menuItem, fillPainter, borderPainter,
                 this.size, currState, mutableRenderColorTokens, visibility, 0.0f,
-                isCheckMarkFadingOut, alpha);
+                isCheckMarkFadingOut);
             graphics.dispose();
         } else {
             // Populate color schemes based on the current transition state of the menu item.
@@ -119,6 +118,7 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
                 currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
             BladeUtils.populateColorScheme(mutableMarkColorScheme, this.menuItem, modelStateInfo,
                 currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
+            float alpha = RadianceColorSchemeUtilities.getAlpha(this.menuItem, currState);
 
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.translate(x, y);

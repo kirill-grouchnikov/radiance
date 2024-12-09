@@ -134,10 +134,10 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    public static void drawCheckBox(Graphics2D g, JComponent component, RadianceFillPainter fillPainter,
-        RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
+    public static void drawTonalCheckBox(Graphics2D g, JComponent component, RadianceFillPainter fillPainter,
+        RadianceBorderPainter borderPainter, int dimension, ComponentState currentState,
         ContainerRenderColorTokens renderColorTokens, float checkMarkVisibility,
-        float checkMarkFlatness, boolean isCheckMarkFadingOut, float alpha) {
+        float checkMarkFlatness, boolean isCheckMarkFadingOut) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -157,7 +157,9 @@ public class BladeIconUtils {
                     contourDim, contourDim,
                     cornerRadius, null, 0.0f);
 
-                graphics1X.setComposite(getAlphaComposite(alpha));
+                float containerAlpha = currentState.isDisabled()
+                    ? renderColorTokens.getContainerDisabledAlpha() : 1.0f;
+                graphics1X.setComposite(getAlphaComposite(containerAlpha));
                 Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
                     component.getComponentOrientation(),
                     contourDim + 1, contourDim + 1,
@@ -171,15 +173,23 @@ public class BladeIconUtils {
                         component.getComponentOrientation(),
                         contourDim, contourDim, cornerRadius, null, 1.0f)
                     : null;
+                float containerOutlineAlpha = currentState.isDisabled()
+                    ? renderColorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
+                graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
                 borderPainter.paintBorder(graphics1X, component, contourDim, contourDim,
                     contourOuter, contourInner, renderColorTokens);
 
                 float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
                     1.0f : checkMarkVisibility;
+                float onContainerOutlineAlpha = currentState.isDisabled()
+                    ? renderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
                 if (finalCheckMarkVisibility > 0.0) {
                     Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
                     if (isCheckMarkFadingOut) {
-                        graphicsForCheckMark.setComposite(getAlphaComposite(alpha * checkMarkVisibility));
+                        graphicsForCheckMark.setComposite(getAlphaComposite(
+                            onContainerOutlineAlpha * checkMarkVisibility));
+                    } else {
+                        graphicsForCheckMark.setComposite(getAlphaComposite(onContainerOutlineAlpha));
                     }
 
                     drawCheckMarkAtScale1X(graphicsForCheckMark, scaledWidth, renderColorTokens,
@@ -274,10 +284,9 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    public static void drawRadioButton(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,
-        RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
-        ContainerRenderColorTokens renderColorTokens, float checkMarkVisibility,
-        float alpha) {
+    public static void drawTonalRadioButton(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,
+        RadianceBorderPainter borderPainter, int dimension, ComponentState currentState,
+        ContainerRenderColorTokens renderColorTokens, float checkMarkVisibility) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -290,7 +299,9 @@ public class BladeIconUtils {
                 int contourDim = scaledWidth;
                 Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
 
-                graphics1X.setComposite(getAlphaComposite(alpha));
+                float containerAlpha = currentState.isDisabled()
+                    ? renderColorTokens.getContainerDisabledAlpha() : 1.0f;
+                graphics1X.setComposite(getAlphaComposite(containerAlpha));
                 fillPainter.paintContourBackground(graphics1X, button,
                     contourDim, contourDim,
                     new Ellipse2D.Float(0.5f, 0.5f, contourDim, contourDim),
@@ -299,6 +310,9 @@ public class BladeIconUtils {
                 Shape contourInner = borderPainter.isPaintingInnerContour() ?
                     new Ellipse2D.Float(1.0f, 1.0f, contourDim - 2.0f, contourDim - 2.0f)
                     : null;
+                float containerOutlineAlpha = currentState.isDisabled()
+                    ? renderColorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
+                graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
                 borderPainter.paintBorder(graphics1X, button, contourDim, contourDim,
                     contourOuter, contourInner, renderColorTokens);
 
@@ -307,13 +321,16 @@ public class BladeIconUtils {
                 Shape markOval = new Ellipse2D.Double(rc - radius, rc - radius, 2 * radius, 2 * radius);
                 Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
 
+                float onContainerOutlineAlpha = currentState.isDisabled()
+                    ? renderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
                 if (checkMarkVisibility > 0.0) {
                     // mark
-                    graphicsForCheckMark.setComposite(getAlphaComposite(alpha * checkMarkVisibility));
+                    graphicsForCheckMark.setComposite(getAlphaComposite(
+                        onContainerOutlineAlpha * checkMarkVisibility));
                     graphicsForCheckMark.setColor(renderColorTokens.getOnContainerColorTokens().getOnContainer());
                 } else {
                     // draw ghost mark holder
-                    graphicsForCheckMark.setComposite(getAlphaComposite(alpha * 0.3f));
+                    graphicsForCheckMark.setComposite(getAlphaComposite(onContainerOutlineAlpha * 0.3f));
                     graphicsForCheckMark.setPaint(
                         new GradientPaint(
                             rc + radius, rc - radius,

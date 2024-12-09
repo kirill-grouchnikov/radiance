@@ -1862,6 +1862,7 @@ public class RadianceCoreUtilities {
     }
 
     public static Color getTextBackgroundFill(Component component, ComponentState componentState) {
+        // TODO: TONAL - complete
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         RadianceThemingSlices.DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
         Color overlay = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.TEXT_BACKGROUND_FILL,

@@ -139,7 +139,6 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                 ComponentState currState = modelStateInfo.getCurrModelState();
 
                 float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
-                float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
 
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
                 if (skin instanceof TonalSkin) {
@@ -154,8 +153,8 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
 
                     Graphics2D graphics = (Graphics2D) g.create();
                     graphics.translate(x, y);
-                    BladeIconUtils.drawRadioButton(graphics, button, fillPainter, borderPainter,
-                        checkMarkSize, currState, mutableRenderColorTokens, visibility, alpha);
+                    BladeIconUtils.drawTonalRadioButton(graphics, button, fillPainter, borderPainter,
+                        checkMarkSize, currState, mutableRenderColorTokens, visibility);
                     graphics.dispose();
                 } else {
                     // Populate color schemes based on the current transition state of the radio button.
@@ -165,6 +164,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                         currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
                     BladeUtils.populateColorScheme(mutableMarkColorScheme, button, modelStateInfo,
                         currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
+                    float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
 
                     Graphics2D graphics = (Graphics2D) g.create();
                     graphics.translate(x, y);
@@ -321,8 +321,14 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
      */
     private void paintButtonText(Graphics g, AbstractButton button, Rectangle textRect,
             String text) {
-        RadianceTextUtilities.paintText(g, button, textRect, text,
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+        if (skin instanceof TonalSkin) {
+            RadianceTextUtilities.paintTonalText(g, button, textRect, text,
                 button.getDisplayedMnemonicIndex());
+        } else {
+            RadianceTextUtilities.paintText(g, button, textRect, text,
+                button.getDisplayedMnemonicIndex());
+        }
     }
 
     @Override
