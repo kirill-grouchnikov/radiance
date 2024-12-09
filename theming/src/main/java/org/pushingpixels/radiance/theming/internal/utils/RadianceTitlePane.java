@@ -171,9 +171,18 @@ public class RadianceTitlePane extends JComponent {
 
         this.setToolTipText(this.getTitle());
 
-        RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this, RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
-        this.setForeground(RadianceColorUtilities.getForegroundColor(RadianceCoreUtilities
-                .getSkin(this).getBackgroundColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
+        RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this,
+            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(root);
+        if (skin instanceof TonalSkin) {
+            this.setForeground(skin.getBackgroundRenderColorTokens(
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                    .getSurfaceContainerRenderColorTokens().getOnContainerColorTokens()
+                    .getOnContainer());
+        } else {
+            this.setForeground(RadianceColorUtilities.getForegroundColor(
+                skin.getBackgroundColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
+        }
     }
 
     /**

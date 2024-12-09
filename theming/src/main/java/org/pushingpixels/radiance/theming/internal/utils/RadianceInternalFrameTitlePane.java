@@ -30,9 +30,12 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -95,9 +98,15 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
     protected void installDefaults() {
         super.installDefaults();
         if (RadianceCoreUtilities.isCurrentLookAndFeel()) {
-            this.setForeground(RadianceColorUtilities
-                    .getForegroundColor(RadianceCoreUtilities.getSkin(this.frame)
-                            .getActiveColorScheme(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)));
+            RadianceSkin skin = RadianceCoreUtilities.getSkin(this.frame);
+            if (skin instanceof TonalSkin) {
+                this.setForeground(skin.getActiveColorRenderTokens(
+                        RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)
+                    .getOnContainerColorTokens().getOnContainer());
+            } else {
+                this.setForeground(RadianceColorUtilities.getForegroundColor(
+                    skin.getActiveColorScheme(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)));
+            }
         }
     }
 
@@ -227,8 +236,6 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         int width = this.getWidth();
         int height = this.getHeight() + 2;
 
-        RadianceColorScheme scheme = RadianceCoreUtilities.getSkin(this.frame)
-                .getEnabledColorScheme(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
         JInternalFrame hostFrame = (JInternalFrame) SwingUtilities
                 .getAncestorOfClass(JInternalFrame.class, this);
         JComponent hostForColorization = hostFrame;
@@ -240,14 +247,10 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 hostFrame = desktopIcon.getInternalFrame();
             hostForColorization = desktopIcon;
         }
-        Color backgr = hostFrame.getBackground();
-        if (!(backgr instanceof UIResource)) {
-            double colorization = RadianceCoreUtilities.getColorizationFactor(hostForColorization);
-            scheme = RadianceColorSchemeUtilities.getShiftedScheme(scheme, backgr, colorization,
-                    null, 0.0);
-        }
 
         BackgroundPaintingUtils.update(graphics, RadianceInternalFrameTitlePane.this, false);
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
 
         String theTitle = this.frame.getTitle();
         String displayTitle = getDisplayTitle();
@@ -288,9 +291,31 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
             int yOffset = titleTextRect.y + (int) ((titleTextRect.getHeight() - fm.getHeight()) / 2)
                     + fm.getAscent();
 
-            RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                    scheme.getForegroundColor(), scheme.getEchoColor(), displayTitle,
-                    width, height, xOffset, yOffset);
+            if (skin instanceof TonalSkin) {
+                ContainerRenderColorTokens renderColorTokens = skin.getBackgroundRenderColorTokens(
+                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                    .getSurfaceContainerRenderColorTokens();
+                // TODO: TONAL - support colorization of text
+                // TODO: TONAL - finalize the text echo color logic
+                RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
+                    renderColorTokens.getOnContainerColorTokens().getOnContainer(),
+                    RadianceColorUtilities.getAlphaColor(
+                        renderColorTokens.getOnContainerColorTokens().getOnContainerVariant(),
+                        100),
+                    displayTitle, width, height, xOffset, yOffset);
+            } else {
+                RadianceColorScheme scheme = RadianceCoreUtilities.getSkin(this.frame)
+                    .getEnabledColorScheme(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
+                Color backgr = hostFrame.getBackground();
+                if (!(backgr instanceof UIResource)) {
+                    double colorization = RadianceCoreUtilities.getColorizationFactor(hostForColorization);
+                    scheme = RadianceColorSchemeUtilities.getShiftedScheme(scheme, backgr,
+                        colorization, null, 0.0);
+                }
+                RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
+                    scheme.getForegroundColor(), scheme.getEchoColor(), displayTitle, width, height,
+                    xOffset, yOffset);
+            }
         }
 
         graphics.dispose();
@@ -316,6 +341,11 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                     }
 
                     @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
+                        restoreButtonProvider.drawIcon(g, renderColorTokens, alpha, RadianceSizeUtils.getTitlePaneIconSize());
+                    }
+
+                    @Override
                     public Dimension getIconDimension() {
                         int size = RadianceSizeUtils.getTitlePaneIconSize();
                         return new Dimension(size, size);
@@ -327,6 +357,11 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
                         maximizeButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
+                    }
+
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
+                        maximizeButtonProvider.drawIcon(g, renderColorTokens, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
                     @Override
@@ -344,6 +379,11 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                     }
 
                     @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
+                        iconifyButtonProvider.drawIcon(g, renderColorTokens, alpha, RadianceSizeUtils.getTitlePaneIconSize());
+                    }
+
+                    @Override
                     public Dimension getIconDimension() {
                         int size = RadianceSizeUtils.getTitlePaneIconSize();
                         return new Dimension(size, size);
@@ -355,6 +395,11 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
                         closeButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
+                    }
+
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
+                        closeButtonProvider.drawIcon(g, renderColorTokens, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
                     @Override
@@ -418,14 +463,11 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         closeButton = new RadianceTitleButton("InternalFrameTitlePane.closeButtonAccessibleName");
         closeButton.addActionListener(closeAction);
 
-        RadianceTitlePaneUtilities.ExtraComponentKind buttonExtraComponentKind = RadianceTitlePaneUtilities
-                .getTitlePaneControlButtonKind(this.frame.getRootPane());
-        RadianceTitlePaneUtilities.markTitlePaneExtraComponent(iconButton,
-                buttonExtraComponentKind);
-        RadianceTitlePaneUtilities.markTitlePaneExtraComponent(maxButton,
-                buttonExtraComponentKind);
-        RadianceTitlePaneUtilities.markTitlePaneExtraComponent(closeButton,
-                buttonExtraComponentKind);
+        RadianceTitlePaneUtilities.ExtraComponentKind buttonExtraComponentKind =
+            RadianceTitlePaneUtilities.getTitlePaneControlButtonKind(this.frame.getRootPane());
+        RadianceTitlePaneUtilities.markTitlePaneExtraComponent(iconButton, buttonExtraComponentKind);
+        RadianceTitlePaneUtilities.markTitlePaneExtraComponent(maxButton, buttonExtraComponentKind);
+        RadianceTitlePaneUtilities.markTitlePaneExtraComponent(closeButton, buttonExtraComponentKind);
 
         setButtonIcons();
 

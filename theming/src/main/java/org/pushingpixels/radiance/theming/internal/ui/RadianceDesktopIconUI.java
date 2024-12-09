@@ -29,10 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
+import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalFrameTitlePane;
 
@@ -79,10 +80,10 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 			this.desktopIcon.setFont(UIManager.getFont("DesktopIcon.font"));
 		}
 		this.width = UIManager.getInt("DesktopIcon.width");
-		this.desktopIcon.setBackground(
-				RadianceCoreUtilities.getBackgroundFill(
-						RadianceCoreUtilities.getSkin(this.desktopIcon.getInternalFrame()),
-						RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE));
+
+		RadianceSkin skin = RadianceCoreUtilities.getSkin(this.desktopIcon.getInternalFrame());
+		this.desktopIcon.setBackground(RadianceCoreUtilities.getBackgroundFill(
+			skin, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE));
 
 		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
 			themingWidget.installDefaults();
@@ -143,10 +144,8 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 	protected void uninstallListeners() {
 		((RadianceInternalFrameTitlePane) this.iconPane).uninstallListeners();
 
-		this.iconPane
-				.removeMouseMotionListener(this.radianceLabelMouseInputListener);
-		this.iconPane
-				.removeMouseListener(this.radianceLabelMouseInputListener);
+		this.iconPane.removeMouseMotionListener(this.radianceLabelMouseInputListener);
+		this.iconPane.removeMouseListener(this.radianceLabelMouseInputListener);
 		this.radianceLabelMouseInputListener = null;
 
 		for (RadianceThemingWidget themingWidget : this.themingWidgets) {

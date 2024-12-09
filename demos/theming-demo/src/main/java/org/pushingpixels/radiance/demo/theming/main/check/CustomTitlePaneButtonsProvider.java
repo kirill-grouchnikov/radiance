@@ -81,7 +81,7 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
 
                 Stroke primaryStroke = new BasicStroke(1.5f,
-                        BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
                 graphics.setStroke(primaryStroke);
                 graphics.setColor(primaryColor);
@@ -123,6 +123,32 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
 
                 graphics.dispose();
             }
+
+            @Override
+            public void drawIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha, int iconSize) {
+                Graphics2D graphics = (Graphics2D) g.create();
+                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+                graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                int start = iconSize / 4;
+                int end = iconSize - start;
+
+                Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+
+                Stroke primaryStroke = new BasicStroke(1.5f,
+                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+                graphics.setStroke(primaryStroke);
+                graphics.setColor(primaryColor);
+                // Arrow to top-right
+                graphics.drawLine(start, end, end, start);
+                graphics.drawLine(start, start, end, start);
+                graphics.drawLine(end, end, end, start);
+
+                graphics.dispose();
+            }
         };
     }
 
@@ -144,6 +170,32 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
 
                 Stroke primaryStroke = new BasicStroke(1.5f,
                         BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+                graphics.setStroke(primaryStroke);
+                graphics.setColor(primaryColor);
+                // Arrow to bottom-left
+                graphics.drawLine(start, end, end, start);
+                graphics.drawLine(start, start, start, end);
+                graphics.drawLine(start, end, end, end);
+
+                graphics.dispose();
+            }
+
+            @Override
+            public void drawIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha, int iconSize) {
+                Graphics2D graphics = (Graphics2D) g.create();
+                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+                graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                int start = iconSize / 4;
+                int end = iconSize - start;
+
+                Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+
+                Stroke primaryStroke = new BasicStroke(1.5f,
+                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
                 graphics.setStroke(primaryStroke);
                 graphics.setColor(primaryColor);
@@ -176,6 +228,32 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
 
                 Stroke primaryStroke = new BasicStroke(1.5f,
                         BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+                graphics.setStroke(primaryStroke);
+                graphics.setColor(primaryColor);
+
+                graphics.drawLine(mid, start, mid, end);
+                graphics.drawLine(start, end, end, end);
+
+                graphics.dispose();
+            }
+
+            @Override
+            public void drawIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha, int iconSize) {
+                Graphics2D graphics = (Graphics2D) g.create();
+                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+                graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                int start = iconSize / 4;
+                int end = iconSize - start;
+                int mid = (start + end) / 2;
+
+                Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+
+                Stroke primaryStroke = new BasicStroke(1.5f,
+                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
                 graphics.setStroke(primaryStroke);
                 graphics.setColor(primaryColor);
