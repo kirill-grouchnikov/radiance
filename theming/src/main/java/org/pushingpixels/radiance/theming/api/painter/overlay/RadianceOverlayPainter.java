@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.overlay;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import java.awt.*;
@@ -42,23 +42,23 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public interface RadianceOverlayPainter extends RadianceTrait {
-	/**
-	 * Paints the overlay.
-	 * 
-	 * @param graphics
-	 *            Graphics context.
-	 * @param comp
-	 *            Component.
-	 * @param decorationAreaType
-	 *            Decoration area type. Must not be <code>null</code>.
-	 * @param width
-	 *            Width.
-	 * @param height
-	 *            Height.
-	 * @param skin
-	 *            Skin for painting the overlay.
-	 */
+    /**
+     * Paints the overlay.
+     *
+     * @param graphics
+     *     Graphics context.
+     * @param comp
+     *     Component.
+     * @param decorationAreaType
+     *     Decoration area type. Must not be <code>null</code>.
+     * @param width
+     *     Width.
+     * @param height
+     *     Height.
+     * @param skin
+     *     Skin for painting the overlay.
+     */
     void paintOverlay(Graphics2D graphics, Component comp,
-                      RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-                      RadianceSkin skin);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+        RadianceSkin skin);
 }
