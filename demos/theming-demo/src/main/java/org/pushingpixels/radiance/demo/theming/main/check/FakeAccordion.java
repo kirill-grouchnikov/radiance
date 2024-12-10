@@ -33,6 +33,10 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -83,10 +87,18 @@ public class FakeAccordion extends JPanel {
                     if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                         // Get the accented background fill to delineate the content
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-                        RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                        Color accentedFill = Color.RED;
+                        if (skin instanceof TonalSkin) {
+                            SurfaceRenderColorTokens colorTokens = skin.getBackgroundRenderColorTokens(
+                                DecorationPainterUtils.getDecorationType(this));
+                            accentedFill = colorTokens.getSurfaceContainerRenderColorTokens()
+                                .getContainerColorTokens().getContainerLow();
+                        } else {
+                            RadianceThemingSlices.DecorationAreaType decorationAreaType =
                                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-                        RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
-                        Color accentedFill = scheme.getAccentedBackgroundFillColor();
+                            RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
+                            accentedFill = scheme.getAccentedBackgroundFillColor();
+                        }
 
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(accentedFill);
@@ -147,20 +159,28 @@ public class FakeAccordion extends JPanel {
                             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                                 RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(contentWrapper);
                                 RadianceBorderPainter borderPainter = skin.getBorderPainter();
-                                RadianceColorScheme borderScheme = skin.getColorScheme(contentWrapper,
-                                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                                        ComponentState.ENABLED);
 
                                 float radiusOuter = (float) scaleFactor * 5.0f;
-
                                 GeneralPath inner = getOutline(0, 0, scaledWidth, scaledHeight,
                                         1.0f, 1.0f, radiusOuter - 1.0f);
                                 GeneralPath outer = getOutline(0, 0, scaledWidth, scaledHeight,
                                         1.0f, 0, radiusOuter);
-                                borderPainter.paintBorder(graphics1X, contentWrapper,
-                                        scaledWidth, scaledHeight,
-                                        outer, inner, borderScheme);
 
+                                if (skin instanceof TonalSkin) {
+                                    ContainerRenderColorTokens containerTokens = skin.getColorRenderTokens(
+                                        contentWrapper,
+                                        RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                                        ComponentState.ENABLED,
+                                        RadianceThemingSlices.ContainerType.MUTED);
+                                    borderPainter.paintBorder(graphics1X, contentWrapper,
+                                        scaledWidth, scaledHeight, outer, inner, containerTokens);
+                                } else {
+                                    RadianceColorScheme borderScheme = skin.getColorScheme(contentWrapper,
+                                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                                        ComponentState.ENABLED);
+                                    borderPainter.paintBorder(graphics1X, contentWrapper,
+                                        scaledWidth, scaledHeight, outer, inner, borderScheme);
+                                }
                             });
                     graphics.dispose();
                 }
