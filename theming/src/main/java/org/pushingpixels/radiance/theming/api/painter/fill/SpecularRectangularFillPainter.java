@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.api.painter.fill;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
@@ -78,8 +79,7 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
             Shape contour, RadianceColorScheme fillScheme) {
-        this.baseFillPainter.paintContourBackground(g, comp, width, height, contour,
-                fillScheme);
+        this.baseFillPainter.paintContourBackground(g, comp, width, height, contour, fillScheme);
 
         int iw = (int) width;
         int ih = (int) height;
@@ -108,6 +108,44 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
             graphics.clip(contour);
             graphics.drawImage(shineImage, 0, 0, iw, ih / 2, 0, 0,
                     shineImage.getWidth(), shineImage.getHeight(), null);
+
+            graphics.dispose();
+        }
+    }
+
+    @Override
+    public void paintContourBackground(Graphics g, Component comp, float width, float height,
+        Shape contour, ContainerRenderColorTokens renderColorTokens) {
+
+        this.baseFillPainter.paintContourBackground(g, comp, width, height, contour, renderColorTokens);
+
+        int iw = (int) width;
+        int ih = (int) height;
+
+        int shineWidth = iw / SCALE;
+        int shineHeight = ih / (2 * SCALE);
+
+        if ((shineWidth > 0) && (shineHeight > 0)) {
+            BufferedImage shineImage = getShineImage(comp, contour,
+                renderColorTokens.getContainerColorTokens().getContainerLowest(),
+                renderColorTokens.getContainerColorTokens().getContainerLow(),
+                this.alpha, shineWidth, shineHeight);
+
+            Graphics2D graphics = (Graphics2D) g.create();
+
+            // Set rendering hints to favor speed over quality, since the visuals of the emulated
+            // shine spot are subtle and don't have to be pixel perfect
+            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+            graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
+                RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
+            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+                RenderingHints.VALUE_COLOR_RENDER_SPEED);
+
+            graphics.clip(contour);
+            graphics.drawImage(shineImage, 0, 0, iw, ih / 2, 0, 0,
+                shineImage.getWidth(), shineImage.getHeight(), null);
 
             graphics.dispose();
         }

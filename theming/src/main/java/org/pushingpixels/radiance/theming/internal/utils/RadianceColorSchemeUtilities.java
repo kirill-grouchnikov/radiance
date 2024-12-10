@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
@@ -177,7 +178,7 @@ public class RadianceColorSchemeUtilities {
     }
 
     public static ContainerRenderColorTokens getRenderColorTokens(Component component,
-            ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
         Component orig = component;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         // special case - if the component is marked as flat and
@@ -185,21 +186,50 @@ public class RadianceColorSchemeUtilities {
         // that is never painting its background - get the color scheme of the
         // parent
         boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
-                && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
+            && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
         if (isButtonThatIsNeverPainted
-                || (RadianceCoreUtilities.hasFlatAppearance(component, false))) {
+            || (RadianceCoreUtilities.hasFlatAppearance(component, false))) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             // TODO: TONAL - colorization
             return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component))
-                    .getSurfaceContainerRenderColorTokens();
+                .getSurfaceContainerRenderColorTokens();
 //            component = component.getParent();
         }
 
         if (skin == null) {
             RadianceCoreUtilities.traceRadianceApiUsage(component,
-                    "Radiance delegate used when Radiance is not the current LAF");
+                "Radiance delegate used when Radiance is not the current LAF");
         }
         ContainerRenderColorTokens nonColorized = skin.getColorRenderTokens(component,
+            componentState, inactiveContainerType);
+        // TODO: TONAL - colorization
+        return nonColorized;
+        //        return getColorizedScheme(orig, nonColorized, !componentState.isDisabled());
+    }
+
+    public static SurfaceRenderColorTokens getSurfaceRenderTokens(Component component,
+        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        Component orig = component;
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        // special case - if the component is marked as flat and
+        // it is in the default state, or it is a button
+        // that is never painting its background - get the color scheme of the
+        // parent
+        boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
+            && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
+        if (isButtonThatIsNeverPainted
+            || (RadianceCoreUtilities.hasFlatAppearance(component, false))) {
+            // TODO: TONAL - verify that we don't need to use the old logic.
+            // TODO: TONAL - colorization
+            return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component));
+//            component = component.getParent();
+        }
+
+        if (skin == null) {
+            RadianceCoreUtilities.traceRadianceApiUsage(component,
+                "Radiance delegate used when Radiance is not the current LAF");
+        }
+        SurfaceRenderColorTokens nonColorized = skin.getSurfaceColorRenderTokens(component,
             componentState, inactiveContainerType);
         // TODO: TONAL - colorization
         return nonColorized;

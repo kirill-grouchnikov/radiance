@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
 
 import java.util.*;
 
@@ -209,7 +210,7 @@ public class RadianceColorSchemeBundle2 {
         }
 
         RadianceColorScheme2 registered = this.colorSchemeMap.get(
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
             return componentState.isActive() ? registered.getStateRenderTokens(componentState)
                 : registered.getContainerTokens(inactiveContainerType);
@@ -217,6 +218,23 @@ public class RadianceColorSchemeBundle2 {
 
         return componentState.isActive() ? this.mainColorScheme.getStateRenderTokens(componentState)
             : this.mainColorScheme.getContainerTokens(inactiveContainerType);
+    }
+
+    public SurfaceRenderColorTokens getSurfaceRenderTokens(ComponentState componentState,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        if (componentState.isDisabled()) {
+            return getSurfaceRenderTokens(componentState.getEnabledMatch(), inactiveContainerType);
+        }
+
+        RadianceColorScheme2 registered = this.colorSchemeMap.get(
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
+        if (registered != null) {
+            return componentState.isActive() ? registered.getSurfaceStateRenderTokens(componentState)
+                : registered.getSurfaceTokens(inactiveContainerType);
+        }
+
+        return componentState.isActive() ? this.mainColorScheme.getSurfaceStateRenderTokens(componentState)
+            : this.mainColorScheme.getSurfaceTokens(inactiveContainerType);
     }
 
     public ContainerRenderColorTokens getSystemColorRenderTokens(

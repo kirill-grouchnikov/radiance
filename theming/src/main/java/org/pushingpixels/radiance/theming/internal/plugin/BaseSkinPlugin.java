@@ -111,6 +111,9 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(SentinelSkin.NAME, SentinelSkin.class::getName,
                 RadianceSentinelLookAndFeel.class::getName));
 
+        result.add(new SkinInfo(SaharaSkin.SaharaTonalSkin.NAME, SaharaSkin.SaharaTonalSkin.class::getName,
+            RadianceSaharaLookAndFeel.RadianceSaharaTonalLookAndFeel.class::getName));
+
         return result;
     }
 }

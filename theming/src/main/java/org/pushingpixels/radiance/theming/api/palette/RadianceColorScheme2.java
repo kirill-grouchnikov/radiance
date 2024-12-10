@@ -51,6 +51,33 @@ public interface RadianceColorScheme2 {
 
     ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState);
 
+    default SurfaceRenderColorTokens getSurfaceStateRenderTokens(ComponentState componentState) {
+        RadianceColorScheme2 me = this;
+        ContainerRenderColorTokens stateRenderTokens = getStateRenderTokens(componentState);
+
+        return new SurfaceRenderColorTokens() {
+            @Override
+            public Color getSurface() {
+                return me.getSurface();
+            }
+
+            @Override
+            public Color getSurfaceDim() {
+                return me.getSurfaceDim();
+            }
+
+            @Override
+            public Color getSurfaceBright() {
+                return me.getSurfaceBright();
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSurfaceContainerRenderColorTokens() {
+                return stateRenderTokens;
+            }
+        };
+    }
+
     default ContainerRenderColorTokens getContainerTokens(RadianceThemingSlices.ContainerType containerType) {
         switch (containerType) {
             case MUTED: return this.getMutedContainerTokens();
@@ -70,6 +97,16 @@ public interface RadianceColorScheme2 {
     ContainerRenderColorTokens getSystemSuccessContainerTokens();
 
     ContainerRenderColorTokens getSystemEmergencyContainerTokens();
+
+    default SurfaceRenderColorTokens getSurfaceTokens(RadianceThemingSlices.ContainerType containerType) {
+        switch (containerType) {
+            case MUTED: return this.getMutedSurfaceRenderColorTokens();
+            case TONAL: return this.getTonalSurfaceRenderColorTokens();
+            case PRIMARY: return this.getPrimarySurfaceRenderColorTokens();
+            case SURFACE:
+            default: return this.getSurfaceRenderColorTokens();
+        }
+    }
 
     default SurfaceRenderColorTokens getSurfaceRenderColorTokens() {
         return getSurfaceRenderColorTokens(getSurfaceContainerTokens());

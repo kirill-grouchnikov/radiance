@@ -29,19 +29,25 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.DesertSandColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.MetallicColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.Palettes;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -93,6 +99,77 @@ public class SaharaSkin extends RadianceSkin {
 		this.borderPainter = new ClassicBorderPainter();
 		this.decorationPainter = new MatteDecorationPainter();
 		this.highlightFillPainter = new ClassicFillPainter();
+	}
+
+	public static class SaharaTonalSkin extends SaharaSkin implements TonalSkin {
+		public static final String NAME = "Sahara Tonal";
+
+		public SaharaTonalSkin() {
+			Hct desertSandHct = Hct.fromInt(0xFFB6C877);
+			double desertSandHue = desertSandHct.getHue();
+			double desertSandChroma = desertSandHct.getChroma();
+
+			TonalPalette desertSandPrimary =
+				TonalPalette.fromHueAndChroma(desertSandHue, desertSandChroma);
+			TonalPalette desertSandNeutral = TonalPalette.fromHueAndChroma(desertSandHue, 0.0);
+			TonalPalette desertSandNeutralVariant = TonalPalette.fromHueAndChroma(desertSandHue, 3.0);
+
+			Palettes desertSandPalettes = Palettes.builder()
+				.setNeutralPalette(desertSandNeutral)
+				.setNeutralVariantPalette(desertSandNeutralVariant)
+				.setPrimaryPalette(desertSandPrimary)
+				.build();
+
+			RadianceColorScheme2 desertSandColorScheme = ColorSchemeUtils.getLightColorScheme(
+				desertSandPalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+
+			RadianceColorSchemeBundle2 desertSandDefaultBundle =
+				new RadianceColorSchemeBundle2(desertSandColorScheme);
+
+			Hct desertHighlightHct = Hct.fromInt(0xFFB9BFA1);
+			double desertHighlightHue = desertHighlightHct.getHue();
+			double desertHighlightChroma = desertHighlightHct.getChroma();
+
+			TonalPalette desertHighlightPrimary =
+				TonalPalette.fromHueAndChroma(desertHighlightHue, desertHighlightChroma);
+			TonalPalette desertHighlightNeutral =
+				TonalPalette.fromHueAndChroma(desertHighlightHue, 2.0);
+			TonalPalette desertHighlightNeutralVariant =
+				TonalPalette.fromHueAndChroma(desertHighlightHue, 4.0);
+
+			Palettes desertHighlightPalettes = Palettes.builder()
+				.setNeutralPalette(desertHighlightNeutral)
+				.setNeutralVariantPalette(desertHighlightNeutralVariant)
+				.setPrimaryPalette(desertHighlightPrimary)
+				.build();
+
+			RadianceColorScheme2 desertHighlightColorScheme = ColorSchemeUtils.getLightColorScheme(
+				desertHighlightPalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+
+			desertSandDefaultBundle.registerColorScheme(desertHighlightColorScheme,
+				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+				ComponentState.getActiveStates());
+
+			this.registerDecorationAreaSchemeBundle(desertSandDefaultBundle,
+				RadianceThemingSlices.DecorationAreaType.NONE);
+
+			this.registerAsDecorationArea(
+				desertSandColorScheme.getTonalSurfaceRenderColorTokens(),
+				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.HEADER);
+
+			this.buttonShaper = new ClassicButtonShaper();
+			this.fillPainter = new SpecularRectangularFillPainter(new ClassicTonalFillPainter(), 1.0f);
+			this.borderPainter = new ClassicTonalBorderPainter();
+			this.decorationPainter = new MatteDecorationPainter();
+			this.highlightFillPainter = new ClassicTonalFillPainter();
+		}
+
+		@Override
+		public String getDisplayName() {
+			return SaharaTonalSkin.NAME;
+		}
 	}
 
 	@Override

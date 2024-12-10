@@ -445,6 +445,43 @@ public abstract class RadianceSkin implements RadianceTrait {
         return registered;
     }
 
+    public final SurfaceRenderColorTokens getSurfaceColorRenderTokens(Component comp,
+        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        if (componentState.isDisabled()) {
+            // TODO: TONAL - finalize this
+            // Use the enabled match, and alpha will be applied during rendering
+            return getSurfaceColorRenderTokens(comp, componentState.getEnabledMatch(), inactiveContainerType);
+        }
+
+        // small optimization - lookup the decoration area only if there
+        // are decoration-specific scheme bundles.
+        if (this.tonalColorSchemeMap.size() > 1) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
+                RadianceThemingSlices.DecorationAreaType.NONE :
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+            if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+                SurfaceRenderColorTokens registered = this.tonalColorSchemeMap
+                    .get(decorationAreaType).getSurfaceRenderTokens(componentState, inactiveContainerType);
+                if (registered == null) {
+                    throw new IllegalStateException("Color tokens shouldn't be null here. Please "
+                        + "report this issue");
+                }
+
+                return registered;
+            }
+        }
+
+        SurfaceRenderColorTokens registered = this.tonalColorSchemeMap
+            .get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getSurfaceRenderTokens(componentState, inactiveContainerType);
+        if (registered == null) {
+            throw new IllegalStateException("Color tokens scheme shouldn't be null here. Please report " + "this issue");
+        }
+
+
+        return registered;
+    }
+
     public final ContainerRenderColorTokens getSystemColorRenderTokens(Component comp,
         RadianceThemingSlices.SystemContainerType systemContainerType) {
         // small optimization - lookup the decoration area only if there

@@ -106,17 +106,17 @@ public class ColorSchemeUtils {
 
             @Override
             public float getContainerDisabledAlpha() {
-                return 0.2f;
+                return 0.3f;
             }
 
             @Override
             public float getOnContainerDisabledAlpha() {
-                return 0.35f;
+                return 0.45f;
             }
 
             @Override
             public float getContainerOutlineDisabledAlpha() {
-                return 0.25f;
+                return 0.35f;
             }
         };
     }

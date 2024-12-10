@@ -55,8 +55,8 @@ public interface RadianceDecorationPainter extends RadianceTrait {
      * @param skin               Skin for painting the decoration area.
      */
     void paintDecorationArea(Graphics2D graphics, Component comp,
-                             RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-                             RadianceSkin skin);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+        RadianceSkin skin);
 
     /**
      * Paints the decoration area as a specified shape.
@@ -68,8 +68,8 @@ public interface RadianceDecorationPainter extends RadianceTrait {
      * @param colorScheme        Color scheme for painting the decoration area.
      */
     void paintDecorationArea(Graphics2D graphics, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-            RadianceColorScheme colorScheme);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+        RadianceColorScheme colorScheme);
 
     default void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,

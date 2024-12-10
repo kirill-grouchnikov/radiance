@@ -60,7 +60,7 @@ public class PaletteDemo extends JFrame {
                 "p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
-        Hct seedHct = Hct.fromInt(0xFF20F290);
+        Hct seedHct = Hct.fromInt(0xFFB6C877);
         double seedHue = seedHct.getHue();
         double seedChroma = seedHct.getChroma();
 

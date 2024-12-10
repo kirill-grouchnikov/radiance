@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 import org.pushingpixels.radiance.demo.theming.main.Check;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.colorscheme.AquaColorScheme;
+import org.pushingpixels.radiance.theming.api.skin.SaharaSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +41,8 @@ import java.awt.event.ComponentEvent;
 
 public class TonalCheck {
     public static void main(String[] args) {
-        RadianceSkin tonalSkin = new ControlStates.SampleSkin(new AquaColorScheme());
+        RadianceSkin tonalSkin = new SaharaSkin.SaharaTonalSkin();
+        //new ControlStates.SampleSkin(new AquaColorScheme());
 
         RadianceThemingCortex.GlobalScope.registerWidget("org.pushingpixels.radiance.theming" +
             ".extras.api.tabbed.TabHoverPreviewWidget", JTabbedPane.class, false);

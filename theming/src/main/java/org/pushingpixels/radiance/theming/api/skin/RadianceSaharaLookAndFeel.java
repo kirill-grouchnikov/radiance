@@ -51,4 +51,10 @@ public class RadianceSaharaLookAndFeel extends RadianceLookAndFeel {
 	public RadianceSaharaLookAndFeel() {
 		super(new SaharaSkin());
 	}
+
+	public static class RadianceSaharaTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceSaharaTonalLookAndFeel() {
+			super(new SaharaSkin.SaharaTonalSkin());
+		}
+	}
 }

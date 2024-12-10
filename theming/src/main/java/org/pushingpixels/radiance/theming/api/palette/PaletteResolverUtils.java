@@ -42,47 +42,47 @@ public class PaletteResolverUtils {
         return new PaletteContainerColorsResolver() {
             @Override
             public Color getContainerLowest(Palettes palettes) {
-                return new Color(source.get(palettes).tone(94));
+                return new Color(source.get(palettes).tone(89));
             }
 
             @Override
             public Color getContainerLow(Palettes palettes) {
-                return new Color(source.get(palettes).tone(92));
+                return new Color(source.get(palettes).tone(87));
             }
 
             @Override
             public Color getContainer(Palettes palettes) {
-                return new Color(source.get(palettes).tone(90));
+                return new Color(source.get(palettes).tone(85));
             }
 
             @Override
             public Color getContainerHigh(Palettes palettes) {
-                return new Color(source.get(palettes).tone(88));
+                return new Color(source.get(palettes).tone(83));
             }
 
             @Override
             public Color getContainerHighest(Palettes palettes) {
-                return new Color(source.get(palettes).tone(86));
+                return new Color(source.get(palettes).tone(81));
             }
 
             @Override
             public Color getOnContainer(Palettes palettes) {
-                return new Color(source.get(palettes).tone(30));
+                return new Color(source.get(palettes).tone(25));
             }
 
             @Override
             public Color getOnContainerVariant(Palettes palettes) {
-                return new Color(source.get(palettes).tone(40));
+                return new Color(source.get(palettes).tone(35));
             }
 
             @Override
             public Color getContainerOutline(Palettes palettes) {
-                return new Color(source.get(palettes).tone(50));
+                return new Color(source.get(palettes).tone(45));
             }
 
             @Override
             public Color getContainerOutlineVariant(Palettes palettes) {
-                return new Color(source.get(palettes).tone(70));
+                return new Color(source.get(palettes).tone(65));
             }
         };
     }
