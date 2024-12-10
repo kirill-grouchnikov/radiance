@@ -106,47 +106,38 @@ public class SaharaSkin extends RadianceSkin {
 	public static class SaharaTonalSkin extends SaharaSkin implements TonalSkin {
 		public static final String NAME = "Sahara Tonal";
 
-		public SaharaTonalSkin() {
-			Hct desertSandHct = Hct.fromInt(0xFFB6C877);
-			double desertSandHue = desertSandHct.getHue();
-			double desertSandChroma = desertSandHct.getChroma();
+		private static RadianceColorScheme2 getLightColorScheme(
+			Hct seed, double primaryChroma, double neutralChroma, double neutralVariantChroma) {
 
-			TonalPalette desertSandPrimary =
-				TonalPalette.fromHueAndChroma(desertSandHue, desertSandChroma);
-			TonalPalette desertSandNeutral = TonalPalette.fromHueAndChroma(desertSandHue, 0.0);
-			TonalPalette desertSandNeutralVariant = TonalPalette.fromHueAndChroma(desertSandHue, 3.0);
+			double seedHue = seed.getHue();
 
-			Palettes desertSandPalettes = Palettes.builder()
-				.setNeutralPalette(desertSandNeutral)
-				.setNeutralVariantPalette(desertSandNeutralVariant)
-				.setPrimaryPalette(desertSandPrimary)
+			TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seedHue, primaryChroma);
+			TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seedHue, neutralChroma);
+			TonalPalette neutralVariantPalette =
+				TonalPalette.fromHueAndChroma(seedHue, neutralVariantChroma);
+
+			Palettes palettes = Palettes.builder()
+				.setPrimaryPalette(primaryPalette)
+				.setNeutralPalette(neutralPalette)
+				.setNeutralVariantPalette(neutralVariantPalette)
 				.build();
 
-			RadianceColorScheme2 desertSandColorScheme = ColorSchemeUtils.getLightColorScheme(
-				desertSandPalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+			RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
+				palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+
+			return result;
+		}
+
+		public SaharaTonalSkin() {
+			RadianceColorScheme2 desertSandColorScheme =
+				getLightColorScheme(Hct.fromInt(0xFFB6C877), 40.0, 0.0, 3.0);
+			RadianceColorScheme2 desertHighlightColorScheme =
+				getLightColorScheme(Hct.fromInt(0xFFB9BFA1), 36.0, 2.0, 4.0);
+			RadianceColorScheme2 desertHeaderColorScheme =
+				getLightColorScheme(Hct.fromInt(0xFF9FB166), 40.0, 0.0, 2.0);
 
 			RadianceColorSchemeBundle2 desertSandDefaultBundle =
 				new RadianceColorSchemeBundle2(desertSandColorScheme);
-
-			Hct desertHighlightHct = Hct.fromInt(0xFFB9BFA1);
-			double desertHighlightHue = desertHighlightHct.getHue();
-			double desertHighlightChroma = desertHighlightHct.getChroma();
-
-			TonalPalette desertHighlightPrimary =
-				TonalPalette.fromHueAndChroma(desertHighlightHue, desertHighlightChroma);
-			TonalPalette desertHighlightNeutral =
-				TonalPalette.fromHueAndChroma(desertHighlightHue, 2.0);
-			TonalPalette desertHighlightNeutralVariant =
-				TonalPalette.fromHueAndChroma(desertHighlightHue, 4.0);
-
-			Palettes desertHighlightPalettes = Palettes.builder()
-				.setNeutralPalette(desertHighlightNeutral)
-				.setNeutralVariantPalette(desertHighlightNeutralVariant)
-				.setPrimaryPalette(desertHighlightPrimary)
-				.build();
-
-			RadianceColorScheme2 desertHighlightColorScheme = ColorSchemeUtils.getLightColorScheme(
-				desertHighlightPalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
 
 			desertSandDefaultBundle.registerColorScheme(desertHighlightColorScheme,
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -156,7 +147,7 @@ public class SaharaSkin extends RadianceSkin {
 				RadianceThemingSlices.DecorationAreaType.NONE);
 
 			this.registerAsDecorationArea(
-				desertSandColorScheme.getTonalSurfaceRenderColorTokens(),
+				desertHeaderColorScheme.getTonalSurfaceRenderColorTokens(),
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.HEADER);
