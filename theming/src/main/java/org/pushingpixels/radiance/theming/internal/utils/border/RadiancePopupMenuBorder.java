@@ -30,10 +30,15 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.border.Border;
 import javax.swing.plaf.UIResource;
@@ -42,12 +47,21 @@ import java.awt.*;
 public class RadiancePopupMenuBorder implements Border, UIResource {
 	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-		RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(c,
-				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.translate(x, y);
-		BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f, borderScheme);
+
+		RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+		if (skin instanceof TonalSkin) {
+			ContainerRenderColorTokens containerTokens =
+				RadianceColorSchemeUtilities.getRenderColorTokens(c, ComponentState.ENABLED,
+					RadianceThemingSlices.ContainerType.MUTED);
+			BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
+				containerTokens);
+		} else {
+			RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(c,
+				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
+			BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f, borderScheme);
+		}
 		graphics.dispose();
 	}
 
