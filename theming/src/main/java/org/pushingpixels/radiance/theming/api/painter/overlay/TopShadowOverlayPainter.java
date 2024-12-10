@@ -88,10 +88,10 @@ public final class TopShadowOverlayPainter implements RadianceOverlayPainter {
         RadianceSkin skin) {
 
         Color shadowColor = (skin instanceof TonalSkin)
-            ? RadianceColorUtilities.deriveByBrightness(
-                RadianceColorUtilities.getBackgroundFillColor(comp), -0.4f)
-            : RadianceColorSchemeUtilities.getSurfaceRenderTokens(comp, ComponentState.ENABLED,
-                RadianceThemingSlices.ContainerType.SURFACE).getSurfaceDim();
+            ? RadianceColorSchemeUtilities.getSurfaceRenderTokens(comp, ComponentState.ENABLED,
+                RadianceThemingSlices.ContainerType.SURFACE).getSurfaceDim()
+            :RadianceColorUtilities.deriveByBrightness(
+                RadianceColorUtilities.getBackgroundFillColor(comp), -0.4f);
 
         // need to handle components "embedded" in other components
         Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
