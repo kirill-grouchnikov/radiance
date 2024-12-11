@@ -113,6 +113,8 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
 
         result.add(new SkinInfo(SaharaSkin.SaharaTonalSkin.NAME, SaharaSkin.SaharaTonalSkin.class::getName,
             RadianceSaharaLookAndFeel.RadianceSaharaTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(ModerateSkin.ModerateTonalSkin.NAME, ModerateSkin.ModerateTonalSkin.class::getName,
+            RadianceModerateLookAndFeel.RadianceModerateTonalLookAndFeel.class::getName));
 
         return result;
     }
