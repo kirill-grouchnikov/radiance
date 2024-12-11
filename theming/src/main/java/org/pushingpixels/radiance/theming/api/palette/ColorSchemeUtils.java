@@ -606,6 +606,12 @@ public class ColorSchemeUtils {
     }
 
     public static RadianceColorScheme2 getLightTonalColorScheme(
+        Hct seed, double neutralChroma, double neutralVariantChroma) {
+
+        return getLightTonalColorScheme(seed, seed.getChroma(), neutralChroma, neutralVariantChroma);
+    }
+
+    public static RadianceColorScheme2 getLightTonalColorScheme(
         Hct seed, double primaryChroma, double neutralChroma, double neutralVariantChroma) {
 
         double seedHue = seed.getHue();

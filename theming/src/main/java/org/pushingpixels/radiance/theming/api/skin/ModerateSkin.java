@@ -119,15 +119,15 @@ public class ModerateSkin extends RadianceSkin {
             RadianceColorScheme2 steelBlueColorScheme =
                 ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFF68A8CF), 28.0, 0.0, 3.0);
             RadianceColorScheme2 steelBlueHighlightColorScheme =
-                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFF1D59A), 24.0, 2.0, 4.0);
+                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFF1D59A), 2.0, 4.0);
 
             RadianceColorScheme2 steelBlueHeaderColorScheme =
-                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFF6D9BBA), 30.0, 0.0, 2.0);
+                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFF6D9BBA), 0.0, 2.0);
             RadianceColorScheme2 steelBlueHeaderHighlightColorScheme =
                 ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFF679FC3), 42.0, 2.0, 4.0);
 
             RadianceColorScheme2 controlPaneColorScheme =
-                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFD1D3D7), 5.0, 2.0, 4.0);
+                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFD1D3D7), 2.0, 4.0);
 
             RadianceColorSchemeBundle2 steelBlueDefaultBundle =
                 new RadianceColorSchemeBundle2(steelBlueColorScheme);
