@@ -70,12 +70,10 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
         }
 
         if (skin instanceof TonalSkin) {
-            ContainerRenderColorTokens backgroundRenderColorTokens = skin.getBackgroundRenderColorTokens(
-                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getSurfaceContainerRenderColorTokens();
             Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
-                    SwingUtilities.windowForComponent(c));
+                SwingUtilities.windowForComponent(c));
             ContainerRenderColorTokens titleRenderColorTokens = skin.getColorRenderTokens(
-                    titlePaneComp, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.SURFACE);
+                titlePaneComp, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.TONAL);
 
             Graphics2D graphics = (Graphics2D) g.create();
 
@@ -84,23 +82,23 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 
             // bottom and right in ultra dark
-            graphics.setColor(titleRenderColorTokens.getOnContainerColorTokens().getOnContainer());
+            graphics.setColor(titleRenderColorTokens.getContainerOutlineColorTokens().getContainerOutline());
             graphics.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
             graphics.drawLine(x + w - 1, y, x + w - 1, y + h - 1);
             // top and left
-            graphics.setColor(titleRenderColorTokens.getOnContainerColorTokens().getOnContainerVariant());
+            graphics.setColor(titleRenderColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant());
             graphics.drawLine(x, y, x + w - 2, y);
             graphics.drawLine(x, y, x, y + h - 2);
             // inner bottom and right
-            graphics.setColor(backgroundRenderColorTokens.getContainerColorTokens().getContainerHigh());
+            graphics.setColor(titleRenderColorTokens.getContainerColorTokens().getContainer());
             graphics.drawLine(x + 1, y + h - 2, x + w - 2, y + h - 2);
             graphics.drawLine(x + w - 2, y + 1, x + w - 2, y + h - 2);
             // inner top and left
-            graphics.setColor(backgroundRenderColorTokens.getContainerColorTokens().getContainerHigh());
+            graphics.setColor(titleRenderColorTokens.getContainerColorTokens().getContainer());
             graphics.drawLine(x + 1, y + 1, x + w - 3, y + 1);
             graphics.drawLine(x + 1, y + 1, x + 1, y + h - 3);
             // inner 2 and 3
-            graphics.setColor(backgroundRenderColorTokens.getContainerColorTokens().getContainer());
+            graphics.setColor(titleRenderColorTokens.getContainerColorTokens().getContainerLowest());
             graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
             graphics.drawRect(x + 3, y + 3, w - 7, h - 7);
             graphics.drawRect(x + 4, y + 4, w - 9, h - 9);

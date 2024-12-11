@@ -29,21 +29,23 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+
 import java.awt.*;
 
 public interface PaletteColorResolver {
-    Color getSurface(Palettes palettes);
-    Color getSurfaceDim(Palettes palettes);
-    Color getSurfaceBright(Palettes palettes);
+    Color getSurface(DynamicScheme dynamicScheme);
+    Color getSurfaceDim(DynamicScheme dynamicScheme);
+    Color getSurfaceBright(DynamicScheme dynamicScheme);
 
-    PaletteContainerColorsResolver getSurfaceContainerResolver(Palettes palettes);
-    PaletteContainerColorsResolver getMutedContainerResolver(Palettes palettes);
-    PaletteContainerColorsResolver getTonalContainerResolver(Palettes palettes);
-    PaletteContainerColorsResolver getPrimaryContainerResolver(Palettes palettes);
+    PaletteContainerColorsResolver getSurfaceContainerResolver();
+    PaletteContainerColorsResolver getMutedContainerResolver();
+    PaletteContainerColorsResolver getTonalContainerResolver();
+    PaletteContainerColorsResolver getPrimaryContainerResolver();
 
-    PaletteContainerColorsResolver getSystemInfoContainerResolver(Palettes palettes);
-    PaletteContainerColorsResolver getSystemWarningContainerResolver(Palettes palettes);
-    PaletteContainerColorsResolver getSystemErrorContainerResolver(Palettes palettes);
-    PaletteContainerColorsResolver getSystemSuccessContainerResolver(Palettes palettes);
-    PaletteContainerColorsResolver getSystemEmergencyContainerResolver(Palettes palettes);
+    PaletteContainerColorsResolver getSystemInfoContainerResolver();
+    PaletteContainerColorsResolver getSystemWarningContainerResolver();
+    PaletteContainerColorsResolver getSystemErrorContainerResolver();
+    PaletteContainerColorsResolver getSystemSuccessContainerResolver();
+    PaletteContainerColorsResolver getSystemEmergencyContainerResolver();
 }

@@ -53,6 +53,7 @@ allprojects {
     version = findProperty('VERSION_NAME')
 
     repositories {
+        mavenLocal()
         mavenCentral()
         maven {
             url "https://maven.pkg.jetbrains.space/kotlin/p/dokka/dev"

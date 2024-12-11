@@ -95,7 +95,7 @@ public class UpdateOptimizationInfo {
         if (this.highlightRenderColorTokens == null) {
             this.highlightRenderColorTokens = new HashMap<>();
         }
-        ContainerRenderColorTokens result = this.highlightRenderColorTokens.get(state);
+        ContainerRenderColorTokens result = null;//this.highlightRenderColorTokens.get(state);
         if (result == null) {
             result = RadianceColorSchemeUtilities.getRenderColorTokens(this.component,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,

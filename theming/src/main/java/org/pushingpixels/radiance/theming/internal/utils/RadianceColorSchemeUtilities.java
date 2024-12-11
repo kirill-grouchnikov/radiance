@@ -188,7 +188,8 @@ public class RadianceColorSchemeUtilities {
         boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
             && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
         if (isButtonThatIsNeverPainted
-            || (RadianceCoreUtilities.hasFlatAppearance(component, false))) {
+            || (!componentState.isActive()
+                && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             // TODO: TONAL - colorization
             return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component))
@@ -218,7 +219,8 @@ public class RadianceColorSchemeUtilities {
         boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
             && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
         if (isButtonThatIsNeverPainted
-            || (RadianceCoreUtilities.hasFlatAppearance(component, false))) {
+            || (!componentState.isActive()
+            && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             // TODO: TONAL - colorization
             return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component));
@@ -284,7 +286,8 @@ public class RadianceColorSchemeUtilities {
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
         if (!(component instanceof JToolBar)
-                && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
+            && !componentState.isActive()
+            && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component))
                     .getSurfaceContainerRenderColorTokens();

@@ -42,6 +42,8 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPa
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.Palettes;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
@@ -108,10 +110,11 @@ public class ControlStates extends JFrame {
             TonalPalette neutralVariant = TonalPalette.fromHueAndChroma(seedHue, 8.0);
 
             Palettes samplePalettes = Palettes.builder()
-                    .setNeutralPalette(neutral)
-                    .setNeutralVariantPalette(neutralVariant)
-                    .setPrimaryPalette(primary)
-                    .build();
+                .setPrimarySourceHct(seedHct)
+                .setPrimaryPalette(primary)
+                .setNeutralPalette(neutral)
+                .setNeutralVariantPalette(neutralVariant)
+                .build();
 
             RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightColorScheme(
                 samplePalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
@@ -127,9 +130,10 @@ public class ControlStates extends JFrame {
             TonalPalette neutralVariantMark = TonalPalette.fromHueAndChroma(seedMarkHue, 8.0);
 
             Palettes samplePalettesMark = Palettes.builder()
+                .setPrimarySourceHct(seedMarkHct)
+                .setPrimaryPalette(primaryMark)
                 .setNeutralPalette(neutralMark)
                 .setNeutralVariantPalette(neutralVariantMark)
-                .setPrimaryPalette(primaryMark)
                 .build();
 
             RadianceColorScheme2 lightMarkColorScheme = ColorSchemeUtils.getLightColorScheme(
@@ -156,7 +160,7 @@ public class ControlStates extends JFrame {
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
             this.buttonShaper = new ClassicButtonShaper();
-            this.fillPainter = new ClassicTonalFillPainter();
+            this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 1.0f);
             this.borderPainter = new ClassicTonalBorderPainter();
 
             ImageWrapperDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();

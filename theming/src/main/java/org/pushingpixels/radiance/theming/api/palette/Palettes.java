@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 
@@ -36,6 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Palettes {
+    private Hct primarySourceHct;
     private TonalPalette neutralPalette;
     private TonalPalette neutralVariantPalette;
     private TonalPalette primaryPalette;
@@ -46,14 +48,16 @@ public class Palettes {
     private TonalPalette systemSuccessPalette;
     private TonalPalette systemEmergencyPalette;
 
-    private Palettes(TonalPalette neutralPalette, TonalPalette neutralVariantPalette,
-        TonalPalette primaryPalette, Map<ComponentState, TonalPalette> statePalettes,
+    private Palettes(Hct primarySourceHct, TonalPalette primaryPalette,
+        TonalPalette neutralPalette, TonalPalette neutralVariantPalette,
+        Map<ComponentState, TonalPalette> statePalettes,
         TonalPalette systemInfoPalette, TonalPalette systemWarningPalette, TonalPalette systemErrorPalette,
         TonalPalette systemSuccessPalette, TonalPalette systemEmergencyPalette) {
 
+        this.primarySourceHct = primarySourceHct;
+        this.primaryPalette = primaryPalette;
         this.neutralPalette = neutralPalette;
         this.neutralVariantPalette = neutralVariantPalette;
-        this.primaryPalette = primaryPalette;
         this.statePalettes = statePalettes;
         this.systemInfoPalette = systemInfoPalette;
         this.systemWarningPalette = systemWarningPalette;
@@ -62,16 +66,20 @@ public class Palettes {
         this.systemEmergencyPalette = systemEmergencyPalette;
     }
 
+    public Hct getPrimarySourceHct() {
+        return this.primarySourceHct;
+    }
+
+    public TonalPalette getPrimaryPalette() {
+        return this.primaryPalette;
+    }
+
     public TonalPalette getNeutralPalette() {
         return this.neutralPalette;
     }
 
     public TonalPalette getNeutralVariantPalette() {
         return this.neutralVariantPalette;
-    }
-
-    public TonalPalette getPrimaryPalette() {
-        return this.primaryPalette;
     }
 
     public Map<ComponentState, TonalPalette> getStatePalettes() {
@@ -103,9 +111,10 @@ public class Palettes {
     }
 
     public static class Builder {
+        private Hct primarySourceHct;
+        private TonalPalette primaryPalette;
         private TonalPalette neutralPalette;
         private TonalPalette neutralVariantPalette;
-        private TonalPalette primaryPalette;
         private Map<ComponentState, TonalPalette> statePalettes = new HashMap<>();
 
         // TODO - TONAL: Does this need to be configured by the app side?
@@ -114,6 +123,16 @@ public class Palettes {
         private TonalPalette systemErrorPalette = TonalPalette.fromInt(0xFFFF7829);
         private TonalPalette systemSuccessPalette = TonalPalette.fromInt(0xFF068B3A);
         private TonalPalette systemEmergencyPalette = TonalPalette.fromInt(0xFFD72A17);
+
+        public Builder setPrimarySourceHct(Hct primarySourceHct) {
+            this.primarySourceHct = primarySourceHct;
+            return this;
+        }
+
+        public Builder setPrimaryPalette(TonalPalette primaryPalette) {
+            this.primaryPalette = primaryPalette;
+            return this;
+        }
 
         public Builder setNeutralPalette(TonalPalette neutralPalette) {
             this.neutralPalette = neutralPalette;
@@ -125,11 +144,6 @@ public class Palettes {
             return this;
         }
 
-        public Builder setPrimaryPalette(TonalPalette primaryPalette) {
-            this.primaryPalette = primaryPalette;
-            return this;
-        }
-
         public Builder setStatePalettes(Map<ComponentState, TonalPalette> statePalettes) {
             this.statePalettes.clear();
             this.statePalettes.putAll(statePalettes);
@@ -138,8 +152,8 @@ public class Palettes {
 
         public Palettes build() {
             return new Palettes(
-                this.neutralPalette, this.neutralVariantPalette,
-                this.primaryPalette, this.statePalettes,
+                this.primarySourceHct, this.primaryPalette,
+                this.neutralPalette, this.neutralVariantPalette, this.statePalettes,
                 this.systemInfoPalette, this.systemWarningPalette, this.systemErrorPalette,
                 this.systemSuccessPalette, this.systemEmergencyPalette);
         }

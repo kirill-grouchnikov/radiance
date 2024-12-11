@@ -60,7 +60,7 @@ public class PaletteDemo extends JFrame {
                 "p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
-        Hct seedHct = Hct.fromInt(0xFFB6C877);
+        Hct seedHct = Hct.fromInt(0xFF76A8C8);
         double seedHue = seedHct.getHue();
         double seedChroma = seedHct.getChroma();
 
@@ -69,10 +69,11 @@ public class PaletteDemo extends JFrame {
         TonalPalette neutralVariant = TonalPalette.fromHueAndChroma(seedHue, 16.0);
 
         Palettes samplePalettes = Palettes.builder()
-                .setNeutralPalette(neutral)
-                .setNeutralVariantPalette(neutralVariant)
-                .setPrimaryPalette(primary)
-                .build();
+            .setPrimarySourceHct(seedHct)
+            .setPrimaryPalette(primary)
+            .setNeutralPalette(neutral)
+            .setNeutralVariantPalette(neutralVariant)
+            .build();
 
         int row = 1;
 

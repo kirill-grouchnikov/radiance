@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.DesertSandColorScheme;
@@ -45,7 +44,10 @@ import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFi
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.palette.*;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -106,48 +108,32 @@ public class SaharaSkin extends RadianceSkin {
 	public static class SaharaTonalSkin extends SaharaSkin implements TonalSkin {
 		public static final String NAME = "Sahara Tonal";
 
-		private static RadianceColorScheme2 getLightColorScheme(
-			Hct seed, double primaryChroma, double neutralChroma, double neutralVariantChroma) {
-
-			double seedHue = seed.getHue();
-
-			TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seedHue, primaryChroma);
-			TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seedHue, neutralChroma);
-			TonalPalette neutralVariantPalette =
-				TonalPalette.fromHueAndChroma(seedHue, neutralVariantChroma);
-
-			Palettes palettes = Palettes.builder()
-				.setPrimaryPalette(primaryPalette)
-				.setNeutralPalette(neutralPalette)
-				.setNeutralVariantPalette(neutralVariantPalette)
-				.build();
-
-			RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
-				palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
-
-			return result;
-		}
-
 		public SaharaTonalSkin() {
 			RadianceColorScheme2 desertSandColorScheme =
-				getLightColorScheme(Hct.fromInt(0xFFB6C877), 40.0, 0.0, 3.0);
+				ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFA5BB59), 40.0, 0.0, 0.0);
 			RadianceColorScheme2 desertHighlightColorScheme =
-				getLightColorScheme(Hct.fromInt(0xFFB9BFA1), 36.0, 2.0, 4.0);
+				ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFCAD0BE), 10.0, 2.0, 4.0);
+
 			RadianceColorScheme2 desertHeaderColorScheme =
-				getLightColorScheme(Hct.fromInt(0xFF9FB166), 40.0, 0.0, 2.0);
+				ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFA4B270), 36.0, 0.0, 2.0);
+			RadianceColorScheme2 desertHeaderHighlightColorScheme =
+				ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFB2BC91), 20.0, 2.0, 4.0);
 
 			RadianceColorSchemeBundle2 desertSandDefaultBundle =
 				new RadianceColorSchemeBundle2(desertSandColorScheme);
-
 			desertSandDefaultBundle.registerColorScheme(desertHighlightColorScheme,
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
-
 			this.registerDecorationAreaSchemeBundle(desertSandDefaultBundle,
 				RadianceThemingSlices.DecorationAreaType.NONE);
 
-			this.registerAsDecorationArea(
-				desertHeaderColorScheme.getTonalSurfaceRenderColorTokens(),
+			RadianceColorSchemeBundle2 desertHeaderDefaultBundle =
+				new RadianceColorSchemeBundle2(desertHeaderColorScheme);
+			desertHeaderDefaultBundle.registerColorScheme(desertHeaderHighlightColorScheme,
+				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+				ComponentState.getActiveStates());
+			this.registerDecorationAreaSchemeBundle(desertHeaderDefaultBundle,
+				desertHeaderDefaultBundle.getMainColorScheme().getTonalSurfaceRenderColorTokens(),
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.HEADER);

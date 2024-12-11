@@ -29,18 +29,20 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+
 import java.awt.*;
 
 public interface PaletteContainerColorsResolver {
-    Color getContainerLowest(Palettes palettes);
-    Color getContainerLow(Palettes palettes);
-    Color getContainer(Palettes palettes);
-    Color getContainerHigh(Palettes palettes);
-    Color getContainerHighest(Palettes palettes);
+    Color getContainerLowest(DynamicScheme dynamicScheme);
+    Color getContainerLow(DynamicScheme dynamicScheme);
+    Color getContainer(DynamicScheme dynamicScheme);
+    Color getContainerHigh(DynamicScheme dynamicScheme);
+    Color getContainerHighest(DynamicScheme dynamicScheme);
 
-    Color getOnContainer(Palettes palettes);
-    Color getOnContainerVariant(Palettes palettes);
+    Color getOnContainer(DynamicScheme dynamicScheme);
+    Color getOnContainerVariant(DynamicScheme dynamicScheme);
 
-    Color getContainerOutline(Palettes palettes);
-    Color getContainerOutlineVariant(Palettes palettes);
+    Color getContainerOutline(DynamicScheme dynamicScheme);
+    Color getContainerOutlineVariant(DynamicScheme dynamicScheme);
 }

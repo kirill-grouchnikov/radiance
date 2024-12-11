@@ -29,6 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
@@ -40,8 +43,8 @@ public class ColorSchemeUtils {
         TONAL, PRIMARY
     }
 
-    private static ContainerRenderColorTokens getContainerRenderColorTokens(
-        Palettes palettes, PaletteContainerColorsResolver tonalContainerColorResolver) {
+   private static ContainerRenderColorTokens getContainerRenderColorTokens(
+        DynamicScheme dynamicScheme, PaletteContainerColorsResolver tonalContainerColorResolver) {
 
         return new ContainerRenderColorTokens() {
             @Override
@@ -49,27 +52,27 @@ public class ColorSchemeUtils {
                 return new ContainerColorTokens() {
                     @Override
                     public Color getContainerLowest() {
-                        return tonalContainerColorResolver.getContainerLowest(palettes);
+                        return tonalContainerColorResolver.getContainerLowest(dynamicScheme);
                     }
 
                     @Override
                     public Color getContainerLow() {
-                        return tonalContainerColorResolver.getContainerLow(palettes);
+                        return tonalContainerColorResolver.getContainerLow(dynamicScheme);
                     }
 
                     @Override
                     public Color getContainer() {
-                        return tonalContainerColorResolver.getContainer(palettes);
+                        return tonalContainerColorResolver.getContainer(dynamicScheme);
                     }
 
                     @Override
                     public Color getContainerHigh() {
-                        return tonalContainerColorResolver.getContainerHigh(palettes);
+                        return tonalContainerColorResolver.getContainerHigh(dynamicScheme);
                     }
 
                     @Override
                     public Color getContainerHighest() {
-                        return tonalContainerColorResolver.getContainerHighest(palettes);
+                        return tonalContainerColorResolver.getContainerHighest(dynamicScheme);
                     }
                 };
             }
@@ -79,12 +82,12 @@ public class ColorSchemeUtils {
                 return new OnContainerColorTokens() {
                     @Override
                     public Color getOnContainer() {
-                        return tonalContainerColorResolver.getOnContainer(palettes);
+                        return tonalContainerColorResolver.getOnContainer(dynamicScheme);
                     }
 
                     @Override
                     public Color getOnContainerVariant() {
-                        return tonalContainerColorResolver.getOnContainerVariant(palettes);
+                        return tonalContainerColorResolver.getOnContainerVariant(dynamicScheme);
                     }
                 };
             }
@@ -94,12 +97,12 @@ public class ColorSchemeUtils {
                 return new ContainerOutlineColorTokens() {
                     @Override
                     public Color getContainerOutline() {
-                        return tonalContainerColorResolver.getContainerOutline(palettes);
+                        return tonalContainerColorResolver.getContainerOutline(dynamicScheme);
                     }
 
                     @Override
                     public Color getContainerOutlineVariant() {
-                        return tonalContainerColorResolver.getContainerOutlineVariant(palettes);
+                        return tonalContainerColorResolver.getContainerOutlineVariant(dynamicScheme);
                     }
                 };
             }
@@ -124,70 +127,58 @@ public class ColorSchemeUtils {
     public static RadianceColorScheme2 getLightColorScheme(
         Palettes palettes, ActiveStatesContainerType activeStatesContainerType) {
 
+        DynamicScheme lightScheme = new DynamicScheme(
+            /* sourceColorHct */ palettes.getPrimarySourceHct(),
+            /* isDark */ false,
+            /* contrastLevel */ 0.0,
+            /* primaryPalette */ palettes.getPrimaryPalette(),
+            /* neutralPalette */ palettes.getNeutralPalette(),
+            /* neutralVariantPalette */ palettes.getNeutralVariantPalette(),
+            /* systemInfoPalette */ palettes.getSystemInfoPalette(),
+            /* systemWarningPalette */ palettes.getSystemWarningPalette(),
+            /* systemErrorPalette */ palettes.getSystemErrorPalette(),
+            /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
+            /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
+
         PaletteColorResolver paletteColorResolver =
-                PaletteResolverUtils.getLightPaletteColorResolver();
+                PaletteResolverUtils.getPaletteColorResolver2();
 
-        PaletteContainerColorsResolver surfaceContainerColorResolver =
-                paletteColorResolver.getSurfaceContainerResolver(palettes);
         ContainerRenderColorTokens surfaceContainerTokens = getContainerRenderColorTokens(
-            palettes, surfaceContainerColorResolver);
-
-        PaletteContainerColorsResolver mutedContainerColorResolver =
-                paletteColorResolver.getMutedContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSurfaceContainerResolver());
         ContainerRenderColorTokens mutedContainerTokens = getContainerRenderColorTokens(
-            palettes, mutedContainerColorResolver);
-
-        PaletteContainerColorsResolver tonalContainerColorResolver =
-                paletteColorResolver.getTonalContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getMutedContainerResolver());
         ContainerRenderColorTokens tonalContainerTokens = getContainerRenderColorTokens(
-            palettes, tonalContainerColorResolver);
-
-        PaletteContainerColorsResolver primaryContainerColorResolver =
-                paletteColorResolver.getPrimaryContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getTonalContainerResolver());
         ContainerRenderColorTokens primaryContainerTokens = getContainerRenderColorTokens(
-            palettes, primaryContainerColorResolver);
+            lightScheme, paletteColorResolver.getPrimaryContainerResolver());
 
-        PaletteContainerColorsResolver systemInfoContainerColorResolver =
-            paletteColorResolver.getSystemInfoContainerResolver(palettes);
         ContainerRenderColorTokens systemInfoContainerTokens = getContainerRenderColorTokens(
-            palettes, systemInfoContainerColorResolver);
-
-        PaletteContainerColorsResolver systemWarningContainerColorResolver =
-            paletteColorResolver.getSystemWarningContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSystemInfoContainerResolver());
         ContainerRenderColorTokens systemWarningContainerTokens = getContainerRenderColorTokens(
-            palettes, systemWarningContainerColorResolver);
-
-        PaletteContainerColorsResolver systemErrorContainerColorResolver =
-            paletteColorResolver.getSystemErrorContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSystemWarningContainerResolver());
         ContainerRenderColorTokens systemErrorContainerTokens = getContainerRenderColorTokens(
-            palettes, systemErrorContainerColorResolver);
-
-        PaletteContainerColorsResolver systemSuccessContainerColorResolver =
-            paletteColorResolver.getSystemSuccessContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSystemErrorContainerResolver());
         ContainerRenderColorTokens systemSuccessContainerTokens = getContainerRenderColorTokens(
-            palettes, systemSuccessContainerColorResolver);
-
-        PaletteContainerColorsResolver systemEmergencyContainerColorResolver =
-            paletteColorResolver.getSystemEmergencyContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSystemSuccessContainerResolver());
         ContainerRenderColorTokens systemEmergencyContainerTokens = getContainerRenderColorTokens(
-            palettes, systemEmergencyContainerColorResolver);
+            lightScheme, paletteColorResolver.getSystemEmergencyContainerResolver());
 
         return new RadianceColorScheme2() {
             private HashMap<ComponentState, ContainerRenderColorTokens> stateTokens = new HashMap<>();
 
             @Override
             public Color getSurface() {
-                return paletteColorResolver.getSurface(palettes);
+                return paletteColorResolver.getSurface(lightScheme);
             }
 
             @Override
             public Color getSurfaceDim() {
-                return paletteColorResolver.getSurfaceDim(palettes);
+                return paletteColorResolver.getSurfaceDim(lightScheme);
             }
 
             @Override
             public Color getSurfaceBright() {
-                return paletteColorResolver.getSurfaceBright(palettes);
+                return paletteColorResolver.getSurfaceBright(lightScheme);
             }
 
             @Override
@@ -303,70 +294,58 @@ public class ColorSchemeUtils {
     public static RadianceColorScheme2 getDarkColorScheme(
         Palettes palettes, ActiveStatesContainerType activeStatesContainerType) {
 
+        DynamicScheme lightScheme = new DynamicScheme(
+            /* sourceColorHct */ palettes.getPrimarySourceHct(),
+            /* isDark */ false,
+            /* contrastLevel */ 0.0,
+            /* primaryPalette */ palettes.getPrimaryPalette(),
+            /* neutralPalette */ palettes.getNeutralPalette(),
+            /* neutralVariantPalette */ palettes.getNeutralVariantPalette(),
+            /* systemInfoPalette */ palettes.getSystemInfoPalette(),
+            /* systemWarningPalette */ palettes.getSystemWarningPalette(),
+            /* systemErrorPalette */ palettes.getSystemErrorPalette(),
+            /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
+            /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
+
         PaletteColorResolver paletteColorResolver =
-                PaletteResolverUtils.getDarkPaletteColorResolver();
+            PaletteResolverUtils.getPaletteColorResolver2();
 
-        PaletteContainerColorsResolver surfaceContainerColorResolver =
-            paletteColorResolver.getSurfaceContainerResolver(palettes);
         ContainerRenderColorTokens surfaceContainerTokens = getContainerRenderColorTokens(
-            palettes, surfaceContainerColorResolver);
-
-        PaletteContainerColorsResolver mutedContainerColorResolver =
-            paletteColorResolver.getMutedContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSurfaceContainerResolver());
         ContainerRenderColorTokens mutedContainerTokens = getContainerRenderColorTokens(
-            palettes, mutedContainerColorResolver);
-
-        PaletteContainerColorsResolver tonalContainerColorResolver =
-            paletteColorResolver.getTonalContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getMutedContainerResolver());
         ContainerRenderColorTokens tonalContainerTokens = getContainerRenderColorTokens(
-            palettes, tonalContainerColorResolver);
-
-        PaletteContainerColorsResolver primaryContainerColorResolver =
-            paletteColorResolver.getPrimaryContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getTonalContainerResolver());
         ContainerRenderColorTokens primaryContainerTokens = getContainerRenderColorTokens(
-            palettes, primaryContainerColorResolver);
+            lightScheme, paletteColorResolver.getPrimaryContainerResolver());
 
-        PaletteContainerColorsResolver systemInfoContainerColorResolver =
-            paletteColorResolver.getSystemInfoContainerResolver(palettes);
         ContainerRenderColorTokens systemInfoContainerTokens = getContainerRenderColorTokens(
-            palettes, systemInfoContainerColorResolver);
-
-        PaletteContainerColorsResolver systemWarningContainerColorResolver =
-            paletteColorResolver.getSystemWarningContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSystemInfoContainerResolver());
         ContainerRenderColorTokens systemWarningContainerTokens = getContainerRenderColorTokens(
-            palettes, systemWarningContainerColorResolver);
-
-        PaletteContainerColorsResolver systemErrorContainerColorResolver =
-            paletteColorResolver.getSystemErrorContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSystemWarningContainerResolver());
         ContainerRenderColorTokens systemErrorContainerTokens = getContainerRenderColorTokens(
-            palettes, systemErrorContainerColorResolver);
-
-        PaletteContainerColorsResolver systemSuccessContainerColorResolver =
-            paletteColorResolver.getSystemSuccessContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSystemErrorContainerResolver());
         ContainerRenderColorTokens systemSuccessContainerTokens = getContainerRenderColorTokens(
-            palettes, systemSuccessContainerColorResolver);
-
-        PaletteContainerColorsResolver systemEmergencyContainerColorResolver =
-            paletteColorResolver.getSystemEmergencyContainerResolver(palettes);
+            lightScheme, paletteColorResolver.getSystemSuccessContainerResolver());
         ContainerRenderColorTokens systemEmergencyContainerTokens = getContainerRenderColorTokens(
-            palettes, systemEmergencyContainerColorResolver);
+            lightScheme, paletteColorResolver.getSystemEmergencyContainerResolver());
 
         return new RadianceColorScheme2() {
             private HashMap<ComponentState, ContainerRenderColorTokens> stateTokens = new HashMap<>();
 
             @Override
             public Color getSurface() {
-                return paletteColorResolver.getSurface(palettes);
+                return paletteColorResolver.getSurface(lightScheme);
             }
 
             @Override
             public Color getSurfaceDim() {
-                return paletteColorResolver.getSurfaceDim(palettes);
+                return paletteColorResolver.getSurfaceDim(lightScheme);
             }
 
             @Override
             public Color getSurfaceBright() {
-                return paletteColorResolver.getSurfaceBright(palettes);
+                return paletteColorResolver.getSurfaceBright(lightScheme);
             }
 
             @Override
@@ -624,5 +603,51 @@ public class ColorSchemeUtils {
                 return 0.4f;
             }
         };
+    }
+
+    public static RadianceColorScheme2 getLightTonalColorScheme(
+        Hct seed, double primaryChroma, double neutralChroma, double neutralVariantChroma) {
+
+        double seedHue = seed.getHue();
+
+        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seedHue, primaryChroma);
+        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seedHue, neutralChroma);
+        TonalPalette neutralVariantPalette =
+            TonalPalette.fromHueAndChroma(seedHue, neutralVariantChroma);
+
+        Palettes palettes = Palettes.builder()
+            .setPrimarySourceHct(seed)
+            .setPrimaryPalette(primaryPalette)
+            .setNeutralPalette(neutralPalette)
+            .setNeutralVariantPalette(neutralVariantPalette)
+            .build();
+
+        RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
+            palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+
+        return result;
+    }
+
+    public static RadianceColorScheme2 getLightPrimaryColorScheme(
+        Hct seed, double primaryChroma, double neutralChroma, double neutralVariantChroma) {
+
+        double seedHue = seed.getHue();
+
+        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seedHue, primaryChroma);
+        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seedHue, neutralChroma);
+        TonalPalette neutralVariantPalette =
+            TonalPalette.fromHueAndChroma(seedHue, neutralVariantChroma);
+
+        Palettes palettes = Palettes.builder()
+            .setPrimarySourceHct(seed)
+            .setPrimaryPalette(primaryPalette)
+            .setNeutralPalette(neutralPalette)
+            .setNeutralVariantPalette(neutralVariantPalette)
+            .build();
+
+        RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
+            palettes, ActiveStatesContainerType.PRIMARY);
+
+        return result;
     }
 }
