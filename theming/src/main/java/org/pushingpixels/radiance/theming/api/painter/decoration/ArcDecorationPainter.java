@@ -64,13 +64,14 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
             RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
             RadianceSkin skin) {
         if (skin instanceof TonalSkin) {
+            SurfaceRenderColorTokens renderColorTokens =
+                skin.getBackgroundRenderColorTokens(decorationAreaType);
             if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
                     (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
-                this.paintTitleBackground(graphics, comp, width, height,
-                        skin.getBackgroundRenderColorTokens(decorationAreaType));
+                this.paintTitleBackground(graphics, comp, width, height, renderColorTokens);
             } else {
                 this.paintExtraBackground(graphics, RadianceCoreUtilities.getHeaderParent(comp),
-                        comp, width, height, skin.getBackgroundRenderColorTokens(decorationAreaType));
+                        comp, width, height, renderColorTokens);
             }
         } else {
             if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||

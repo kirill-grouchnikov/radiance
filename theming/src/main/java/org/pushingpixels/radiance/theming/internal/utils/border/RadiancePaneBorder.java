@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -72,8 +73,9 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
         if (skin instanceof TonalSkin) {
             Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
                 SwingUtilities.windowForComponent(c));
-            ContainerRenderColorTokens titleRenderColorTokens = skin.getColorRenderTokens(
-                titlePaneComp, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.TONAL);
+            ContainerRenderColorTokens titleRenderColorTokens = 
+                skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(titlePaneComp))
+                    .getSurfaceContainerRenderColorTokens();
 
             Graphics2D graphics = (Graphics2D) g.create();
 

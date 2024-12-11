@@ -51,4 +51,10 @@ public class RadianceBusinessLookAndFeel extends RadianceLookAndFeel {
 	public RadianceBusinessLookAndFeel() {
 		super(new BusinessSkin());
 	}
+
+	public static class RadianceBusinessTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceBusinessTonalLookAndFeel() {
+			super(new BusinessSkin.BusinessTonalSkin());
+		}
+	}
 }

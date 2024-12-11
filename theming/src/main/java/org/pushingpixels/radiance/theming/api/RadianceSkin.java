@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorat
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
@@ -84,7 +85,7 @@ public abstract class RadianceSkin implements RadianceTrait {
 
             public AccentBuilder withAccentResource(String colorSchemeResourceName) {
                 this.accentColorSchemes = RadianceSkin.getColorSchemes(
-                        AccentBuilder.class.getClassLoader().getResourceAsStream(colorSchemeResourceName));
+                    AccentBuilder.class.getClassLoader().getResourceAsStream(colorSchemeResourceName));
                 return this;
             }
 
@@ -185,6 +186,78 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
 
         public RadianceColorScheme getWindowChromeAccent() {
+            return this.windowChromeAccent;
+        }
+    }
+
+    public static abstract class TonalAccented extends RadianceSkin implements TonalSkin {
+        public final static class AccentBuilder {
+            private RadianceColorScheme2 windowChromeAccent;
+            private RadianceColorScheme2 enabledControlsAccent;
+            private RadianceColorScheme2 activeControlsAccent;
+            private RadianceColorScheme2 highlightsAccent;
+            private RadianceColorScheme2 backgroundAccent;
+
+            public AccentBuilder() {
+            }
+
+            public AccentBuilder withWindowChromeAccent(RadianceColorScheme2 windowChromeAccent) {
+                this.windowChromeAccent = windowChromeAccent;
+                return this;
+            }
+
+            public AccentBuilder withActiveControlsAccent(RadianceColorScheme2 activeControlsAccent) {
+                this.activeControlsAccent = activeControlsAccent;
+                return this;
+            }
+
+            public AccentBuilder withEnabledControlsAccent(RadianceColorScheme2 enabledControlsAccent) {
+                this.enabledControlsAccent = enabledControlsAccent;
+                return this;
+            }
+
+            public AccentBuilder withHighlightsAccent(RadianceColorScheme2 highlightsAccent) {
+                this.highlightsAccent = highlightsAccent;
+                return this;
+            }
+
+            public AccentBuilder withBackgroundAccent(RadianceColorScheme2 backgroundAccent) {
+                this.backgroundAccent = backgroundAccent;
+                return this;
+            }
+        }
+
+        private final RadianceColorScheme2 windowChromeAccent;
+        private final RadianceColorScheme2 activeControlsAccent;
+        private final RadianceColorScheme2 enabledControlsAccent;
+        private final RadianceColorScheme2 highlightsAccent;
+        private final RadianceColorScheme2 backgroundAccent;
+
+        protected TonalAccented(AccentBuilder accentBuilder) {
+            this.windowChromeAccent = accentBuilder.windowChromeAccent;
+            this.activeControlsAccent = accentBuilder.activeControlsAccent;
+            this.enabledControlsAccent = accentBuilder.enabledControlsAccent;
+            this.highlightsAccent = accentBuilder.highlightsAccent;
+            this.backgroundAccent = accentBuilder.backgroundAccent;
+        }
+
+        public RadianceColorScheme2 getBackgroundAccent() {
+            return this.backgroundAccent;
+        }
+
+        public RadianceColorScheme2 getActiveControlsAccent() {
+            return this.activeControlsAccent;
+        }
+
+        public RadianceColorScheme2 getEnabledControlsAccent() {
+            return this.enabledControlsAccent;
+        }
+
+        public RadianceColorScheme2 getHighlightsAccent() {
+            return this.highlightsAccent;
+        }
+
+        public RadianceColorScheme2 getWindowChromeAccent() {
             return this.windowChromeAccent;
         }
     }

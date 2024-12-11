@@ -29,6 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+
 /**
  * <code>Business</code> skin. This class is part of officially supported API.
  *
@@ -45,10 +48,10 @@ public class BusinessSkin extends BusinessAccentedSkin {
      */
     public BusinessSkin() {
         super(new AccentBuilder()
-                .withAccentResource("org/pushingpixels/radiance/theming/api/skin/business.colorschemes")
-                .withWindowChromeAccent("Business Enabled")
-                .withActiveControlsAccent("Business Active")
-                .withHighlightsAccent("Business Highlight"));
+            .withAccentResource("org/pushingpixels/radiance/theming/api/skin/business.colorschemes")
+            .withWindowChromeAccent("Business Enabled")
+            .withActiveControlsAccent("Business Active")
+            .withHighlightsAccent("Business Highlight"));
     }
 
     @Override
@@ -56,4 +59,22 @@ public class BusinessSkin extends BusinessAccentedSkin {
         return NAME;
     }
 
+    public static class BusinessTonalSkin extends BusinessAccentedTonalSkin {
+        public static final String NAME = "Business Tonal";
+
+        public BusinessTonalSkin() {
+            super(new AccentBuilder()
+                .withWindowChromeAccent(ColorSchemeUtils.getLightTonalColorScheme(
+                    Hct.fromInt(0xFFBDC6CF), 0.0, 3.0))
+                .withActiveControlsAccent(ColorSchemeUtils.getLightTonalColorScheme(
+                    Hct.fromInt(0xFFE6E9EE), 0.0, 3.0))
+                .withHighlightsAccent(ColorSchemeUtils.getLightTonalColorScheme(
+                    Hct.fromInt(0xFFEBD296), 2.0, 5.0)));
+        }
+
+        @Override
+        public String getDisplayName() {
+            return NAME;
+        }
+    }
 }
