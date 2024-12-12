@@ -66,6 +66,7 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 //				RadianceThemingSlices.ColorSchemeAssociationKind.TAB, ComponentState.SELECTED,
 //				ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,
+			businessDefaultBundle.getMainColorScheme().getTonalSurfaceRenderColorTokens(),
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.registerAsDecorationArea(this.getWindowChromeAccent().getTonalSurfaceRenderColorTokens(),
@@ -75,7 +76,7 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 		RadianceColorScheme2 controlPaneColorScheme =
-			ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFDBDFE4), 1.0, 3.0);
+			ColorSchemeUtils.getLightTonalBalancedColorScheme(Hct.fromInt(0xFFDBDFE4), 3.0, 1.0);
 		this.registerAsDecorationArea(controlPaneColorScheme.getTonalSurfaceRenderColorTokens(),
 				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 

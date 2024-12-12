@@ -37,10 +37,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Palettes {
+    private boolean isFidelity;
     private Hct primarySourceHct;
-    private TonalPalette neutralPalette;
-    private TonalPalette neutralVariantPalette;
+    private Hct mutedSourceHct;
+    private Hct neutralSourceHct;
     private TonalPalette primaryPalette;
+    private TonalPalette mutedPalette;
+    private TonalPalette neutralPalette;
     private Map<ComponentState, TonalPalette> statePalettes;
     private TonalPalette systemInfoPalette;
     private TonalPalette systemWarningPalette;
@@ -48,16 +51,20 @@ public class Palettes {
     private TonalPalette systemSuccessPalette;
     private TonalPalette systemEmergencyPalette;
 
-    private Palettes(Hct primarySourceHct, TonalPalette primaryPalette,
-        TonalPalette neutralPalette, TonalPalette neutralVariantPalette,
+    private Palettes(boolean isFidelity,
+        Hct primarySourceHct, Hct mutedSourceHct, Hct neutralSourceHct,
+        TonalPalette primaryPalette, TonalPalette mutedPalette, TonalPalette neutralPalette,
         Map<ComponentState, TonalPalette> statePalettes,
         TonalPalette systemInfoPalette, TonalPalette systemWarningPalette, TonalPalette systemErrorPalette,
         TonalPalette systemSuccessPalette, TonalPalette systemEmergencyPalette) {
 
+        this.isFidelity = isFidelity;
         this.primarySourceHct = primarySourceHct;
+        this.mutedSourceHct = mutedSourceHct;
+        this.neutralSourceHct = neutralSourceHct;
         this.primaryPalette = primaryPalette;
         this.neutralPalette = neutralPalette;
-        this.neutralVariantPalette = neutralVariantPalette;
+        this.mutedPalette = mutedPalette;
         this.statePalettes = statePalettes;
         this.systemInfoPalette = systemInfoPalette;
         this.systemWarningPalette = systemWarningPalette;
@@ -66,8 +73,20 @@ public class Palettes {
         this.systemEmergencyPalette = systemEmergencyPalette;
     }
 
+    public boolean isFidelity() {
+        return this.isFidelity;
+    }
+
     public Hct getPrimarySourceHct() {
         return this.primarySourceHct;
+    }
+
+    public Hct getMutedSourceHct() {
+        return this.mutedSourceHct;
+    }
+
+    public Hct getNeutralSourceHct() {
+        return this.neutralSourceHct;
     }
 
     public TonalPalette getPrimaryPalette() {
@@ -78,8 +97,8 @@ public class Palettes {
         return this.neutralPalette;
     }
 
-    public TonalPalette getNeutralVariantPalette() {
-        return this.neutralVariantPalette;
+    public TonalPalette getMutedPalette() {
+        return this.mutedPalette;
     }
 
     public Map<ComponentState, TonalPalette> getStatePalettes() {
@@ -111,10 +130,13 @@ public class Palettes {
     }
 
     public static class Builder {
+        private boolean isFidelity;
         private Hct primarySourceHct;
+        private Hct mutedSourceHct;
+        private Hct neutralSourceHct;
         private TonalPalette primaryPalette;
+        private TonalPalette mutedPalette;
         private TonalPalette neutralPalette;
-        private TonalPalette neutralVariantPalette;
         private Map<ComponentState, TonalPalette> statePalettes = new HashMap<>();
 
         // TODO - TONAL: Does this need to be configured by the app side?
@@ -124,8 +146,23 @@ public class Palettes {
         private TonalPalette systemSuccessPalette = TonalPalette.fromInt(0xFF068B3A);
         private TonalPalette systemEmergencyPalette = TonalPalette.fromInt(0xFFD72A17);
 
+        public Builder setFidelity(boolean fidelity) {
+            this.isFidelity = fidelity;
+            return this;
+        }
+
         public Builder setPrimarySourceHct(Hct primarySourceHct) {
             this.primarySourceHct = primarySourceHct;
+            return this;
+        }
+
+        public Builder setMutedSourceHct(Hct mutedSourceHct) {
+            this.mutedSourceHct = mutedSourceHct;
+            return this;
+        }
+
+        public Builder setNeutralSourceHct(Hct neutralSourceHct) {
+            this.neutralSourceHct = neutralSourceHct;
             return this;
         }
 
@@ -134,13 +171,13 @@ public class Palettes {
             return this;
         }
 
-        public Builder setNeutralPalette(TonalPalette neutralPalette) {
-            this.neutralPalette = neutralPalette;
+        public Builder setMutedPalette(TonalPalette mutedPalette) {
+            this.mutedPalette = mutedPalette;
             return this;
         }
 
-        public Builder setNeutralVariantPalette(TonalPalette neutralVariantPalette) {
-            this.neutralVariantPalette = neutralVariantPalette;
+        public Builder setNeutralPalette(TonalPalette neutralPalette) {
+            this.neutralPalette = neutralPalette;
             return this;
         }
 
@@ -152,8 +189,8 @@ public class Palettes {
 
         public Palettes build() {
             return new Palettes(
-                this.primarySourceHct, this.primaryPalette,
-                this.neutralPalette, this.neutralVariantPalette, this.statePalettes,
+                this.isFidelity, this.primarySourceHct, this.mutedSourceHct, this.neutralSourceHct,
+                this.primaryPalette, this.mutedPalette, this.neutralPalette, this.statePalettes,
                 this.systemInfoPalette, this.systemWarningPalette, this.systemErrorPalette,
                 this.systemSuccessPalette, this.systemEmergencyPalette);
         }

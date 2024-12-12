@@ -117,17 +117,21 @@ public class ModerateSkin extends RadianceSkin {
 
         public ModerateTonalSkin() {
             RadianceColorScheme2 steelBlueColorScheme =
-                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFF68A8CF), 28.0, 0.0, 3.0);
+                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF6CA9CE),
+                    Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
             RadianceColorScheme2 steelBlueHighlightColorScheme =
-                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFF1D59A), 2.0, 4.0);
+                ColorSchemeUtils.getLightTonalBalancedColorScheme(Hct.fromInt(0xFFF1D59A), 4.0, 2.0);
 
             RadianceColorScheme2 steelBlueHeaderColorScheme =
-                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFF6D9BBA), 0.0, 2.0);
+                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF6D9BBA),
+                    Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
             RadianceColorScheme2 steelBlueHeaderHighlightColorScheme =
-                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFF679FC3), 42.0, 2.0, 4.0);
+                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF6EA7CA),
+                    Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
 
             RadianceColorScheme2 controlPaneColorScheme =
-                ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFD1D3D7), 2.0, 4.0);
+                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFD1D3D7),
+                    Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
 
             RadianceColorSchemeBundle2 steelBlueDefaultBundle =
                 new RadianceColorSchemeBundle2(steelBlueColorScheme);

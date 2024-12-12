@@ -73,7 +73,7 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
         if (skin instanceof TonalSkin) {
             Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
                 SwingUtilities.windowForComponent(c));
-            ContainerRenderColorTokens titleRenderColorTokens = 
+            ContainerRenderColorTokens titleRenderColorTokens =
                 skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(titlePaneComp))
                     .getSurfaceContainerRenderColorTokens();
 
@@ -83,23 +83,23 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             float strokeWidth = (scaleFactor <= 2.0f) ? 0.5f + (float) scaleFactor / 2.0f : (float) scaleFactor;
             graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 
-            // bottom and right in ultra dark
+            // bottom and right border as outline
             graphics.setColor(titleRenderColorTokens.getContainerOutlineColorTokens().getContainerOutline());
             graphics.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
             graphics.drawLine(x + w - 1, y, x + w - 1, y + h - 1);
-            // top and left
+            // top and left border as outline variant
             graphics.setColor(titleRenderColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant());
             graphics.drawLine(x, y, x + w - 2, y);
             graphics.drawLine(x, y, x, y + h - 2);
-            // inner bottom and right
+            // inner bottom and right fill as container
             graphics.setColor(titleRenderColorTokens.getContainerColorTokens().getContainer());
             graphics.drawLine(x + 1, y + h - 2, x + w - 2, y + h - 2);
             graphics.drawLine(x + w - 2, y + 1, x + w - 2, y + h - 2);
-            // inner top and left
+            // inner top and left fill as container
             graphics.setColor(titleRenderColorTokens.getContainerColorTokens().getContainer());
             graphics.drawLine(x + 1, y + 1, x + w - 3, y + 1);
             graphics.drawLine(x + 1, y + 1, x + 1, y + h - 3);
-            // inner 2 and 3
+            // inner 2 and 3 fill as container lowest
             graphics.setColor(titleRenderColorTokens.getContainerColorTokens().getContainerLowest());
             graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
             graphics.drawRect(x + 3, y + 3, w - 7, h - 7);

@@ -33,13 +33,11 @@ import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.layout.CellConstraints;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.Palettes;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.skin.CremeSkin;
 
@@ -60,25 +58,10 @@ public class PaletteDemo extends JFrame {
                 "p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
-        Hct seedHct = Hct.fromInt(0xFF76A8C8);
-        double seedHue = seedHct.getHue();
-        double seedChroma = seedHct.getChroma();
-
-        TonalPalette primary = TonalPalette.fromHueAndChroma(seedHue, seedChroma);
-        TonalPalette neutral = TonalPalette.fromHueAndChroma(seedHue, 10.0);
-        TonalPalette neutralVariant = TonalPalette.fromHueAndChroma(seedHue, 16.0);
-
-        Palettes samplePalettes = Palettes.builder()
-            .setPrimarySourceHct(seedHct)
-            .setPrimaryPalette(primary)
-            .setNeutralPalette(neutral)
-            .setNeutralVariantPalette(neutralVariant)
-            .build();
-
         int row = 1;
 
-        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightColorScheme(
-            samplePalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightTonalBalancedColorScheme(
+            Hct.fromInt(0xFF76A8C8), 16.0, 10.0);
         builder.addSeparator("LIGHT").xyw(1, row, 3, CellConstraints.CENTER, CellConstraints.FILL);
         row += 2;
         builder.addROLabel("Surfaces").xy(1, row)
@@ -96,8 +79,8 @@ public class PaletteDemo extends JFrame {
         builder.addROLabel("Primary container").xy(1, row)
                 .add(new ContainerPalettePreview(lightColorScheme.getPrimaryContainerTokens())).xy(3, row);
 
-        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getDarkColorScheme(
-            samplePalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getDarkTonalBalancedColorScheme(
+            Hct.fromInt(0xFF76A8C8), 16.0, 10.0);
         row += 2;
         builder.addSeparator("DARK").xyw(1, row, 3, CellConstraints.CENTER, CellConstraints.FILL);
         row += 2;

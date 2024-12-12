@@ -38,7 +38,7 @@ public interface PaletteColorResolver {
     Color getSurfaceDim(DynamicScheme dynamicScheme);
     Color getSurfaceBright(DynamicScheme dynamicScheme);
 
-    PaletteContainerColorsResolver getSurfaceContainerResolver();
+    PaletteContainerColorsResolver getNeutralContainerResolver();
     PaletteContainerColorsResolver getMutedContainerResolver();
     PaletteContainerColorsResolver getTonalContainerResolver();
     PaletteContainerColorsResolver getPrimaryContainerResolver();

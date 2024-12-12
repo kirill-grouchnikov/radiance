@@ -110,14 +110,17 @@ public class SaharaSkin extends RadianceSkin {
 
 		public SaharaTonalSkin() {
 			RadianceColorScheme2 desertSandColorScheme =
-				ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFA5BB59), 40.0, 0.0, 0.0);
+				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFA5BB59),
+					Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB));
 			RadianceColorScheme2 desertHighlightColorScheme =
-				ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFCAD0BE), 2.0, 4.0);
+				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFCAD0BE),
+					Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB));
 
 			RadianceColorScheme2 desertHeaderColorScheme =
-				ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFA4B270), 36.0, 0.0, 2.0);
+				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF99A764),
+					Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB));
 			RadianceColorScheme2 desertHeaderHighlightColorScheme =
-				ColorSchemeUtils.getLightTonalColorScheme(Hct.fromInt(0xFFB2BC91), 2.0, 4.0);
+				ColorSchemeUtils.getLightTonalBalancedColorScheme(Hct.fromInt(0xFFB2BC91), 4.0, 2.0);
 
 			RadianceColorSchemeBundle2 desertSandDefaultBundle =
 				new RadianceColorSchemeBundle2(desertSandColorScheme);

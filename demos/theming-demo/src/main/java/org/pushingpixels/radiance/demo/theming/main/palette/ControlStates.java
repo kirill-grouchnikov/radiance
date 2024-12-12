@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.AquaColorScheme;
@@ -45,7 +44,6 @@ import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPaint
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.Palettes;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -100,51 +98,20 @@ public class ControlStates extends JFrame {
                     RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                     RadianceThemingSlices.DecorationAreaType.HEADER);
 
-            // First tonal configuration
-            Hct seedHct = Hct.fromInt(0xFF9020F4);
-            double seedHue = seedHct.getHue();
-            double seedChroma = seedHct.getChroma();
-
-            TonalPalette primary = TonalPalette.fromHueAndChroma(seedHue, seedChroma);
-            TonalPalette neutral = TonalPalette.fromHueAndChroma(seedHue, 6.0);
-            TonalPalette neutralVariant = TonalPalette.fromHueAndChroma(seedHue, 8.0);
-
-            Palettes samplePalettes = Palettes.builder()
-                .setPrimarySourceHct(seedHct)
-                .setPrimaryPalette(primary)
-                .setNeutralPalette(neutral)
-                .setNeutralVariantPalette(neutralVariant)
-                .build();
-
-            RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightColorScheme(
-                samplePalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+            RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightTonalBalancedColorScheme(
+                Hct.fromInt(0xFF9020F4), 8.0, 6.0);
 
             RadianceColorSchemeBundle2 bundle2 = new RadianceColorSchemeBundle2(lightColorScheme);
 
-            Hct seedMarkHct = Hct.fromInt(0xFF20F490);
-            double seedMarkHue = seedMarkHct.getHue();
-            double seedMarkChroma = seedMarkHct.getChroma();
-
-            TonalPalette primaryMark = TonalPalette.fromHueAndChroma(seedMarkHue, seedMarkChroma);
-            TonalPalette neutralMark = TonalPalette.fromHueAndChroma(seedMarkHue, 6.0);
-            TonalPalette neutralVariantMark = TonalPalette.fromHueAndChroma(seedMarkHue, 8.0);
-
-            Palettes samplePalettesMark = Palettes.builder()
-                .setPrimarySourceHct(seedMarkHct)
-                .setPrimaryPalette(primaryMark)
-                .setNeutralPalette(neutralMark)
-                .setNeutralVariantPalette(neutralVariantMark)
-                .build();
-
-            RadianceColorScheme2 lightMarkColorScheme = ColorSchemeUtils.getLightColorScheme(
-                samplePalettesMark, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+            RadianceColorScheme2 lightMarkColorScheme =
+                ColorSchemeUtils.getLightTonalBalancedColorScheme(Hct.fromInt(0xFF20F490), 8.0, 6.0);
 
             bundle2.registerColorScheme(lightMarkColorScheme,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.getActiveStates());
 
-            RadianceColorScheme2 lightHighlightColorScheme = ColorSchemeUtils.getLightColorScheme(
-                samplePalettesMark, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
+            RadianceColorScheme2 lightHighlightColorScheme =
+                ColorSchemeUtils.getLightTonalBalancedColorScheme(Hct.fromInt(0xFF20F490), 8.0, 6.0);
 
             bundle2.registerColorScheme(lightHighlightColorScheme,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,

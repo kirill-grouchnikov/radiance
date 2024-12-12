@@ -128,12 +128,15 @@ public class ColorSchemeUtils {
         Palettes palettes, ActiveStatesContainerType activeStatesContainerType) {
 
         DynamicScheme lightScheme = new DynamicScheme(
-            /* sourceColorHct */ palettes.getPrimarySourceHct(),
+            /* primarySourceColorHct */ palettes.getPrimarySourceHct(),
+            /* mutedSourceColorHct */ palettes.getMutedSourceHct(),
+            /* neutralSourceColorHct */ palettes.getNeutralSourceHct(),
+            /* isFidelity */ palettes.isFidelity(),
             /* isDark */ false,
             /* contrastLevel */ 0.0,
             /* primaryPalette */ palettes.getPrimaryPalette(),
+            /* mutedPalette */ palettes.getMutedPalette(),
             /* neutralPalette */ palettes.getNeutralPalette(),
-            /* neutralVariantPalette */ palettes.getNeutralVariantPalette(),
             /* systemInfoPalette */ palettes.getSystemInfoPalette(),
             /* systemWarningPalette */ palettes.getSystemWarningPalette(),
             /* systemErrorPalette */ palettes.getSystemErrorPalette(),
@@ -143,8 +146,8 @@ public class ColorSchemeUtils {
         PaletteColorResolver paletteColorResolver =
                 PaletteResolverUtils.getPaletteColorResolver2();
 
-        ContainerRenderColorTokens surfaceContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getSurfaceContainerResolver());
+        ContainerRenderColorTokens neutralContainerTokens = getContainerRenderColorTokens(
+            lightScheme, paletteColorResolver.getNeutralContainerResolver());
         ContainerRenderColorTokens mutedContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getMutedContainerResolver());
         ContainerRenderColorTokens tonalContainerTokens = getContainerRenderColorTokens(
@@ -183,7 +186,7 @@ public class ColorSchemeUtils {
 
             @Override
             public ContainerRenderColorTokens getSurfaceContainerTokens() {
-                return surfaceContainerTokens;
+                return neutralContainerTokens;
             }
 
             @Override
@@ -294,13 +297,16 @@ public class ColorSchemeUtils {
     public static RadianceColorScheme2 getDarkColorScheme(
         Palettes palettes, ActiveStatesContainerType activeStatesContainerType) {
 
-        DynamicScheme lightScheme = new DynamicScheme(
-            /* sourceColorHct */ palettes.getPrimarySourceHct(),
-            /* isDark */ false,
+        DynamicScheme darkScheme = new DynamicScheme(
+            /* primarySourceColorHct */ palettes.getPrimarySourceHct(),
+            /* mutedSourceColorHct */ palettes.getMutedSourceHct(),
+            /* neutralSourceColorHct */ palettes.getNeutralSourceHct(),
+            /* isFidelity */ palettes.isFidelity(),
+            /* isDark */ true,
             /* contrastLevel */ 0.0,
             /* primaryPalette */ palettes.getPrimaryPalette(),
+            /* mutedPalette */ palettes.getMutedPalette(),
             /* neutralPalette */ palettes.getNeutralPalette(),
-            /* neutralVariantPalette */ palettes.getNeutralVariantPalette(),
             /* systemInfoPalette */ palettes.getSystemInfoPalette(),
             /* systemWarningPalette */ palettes.getSystemWarningPalette(),
             /* systemErrorPalette */ palettes.getSystemErrorPalette(),
@@ -311,41 +317,41 @@ public class ColorSchemeUtils {
             PaletteResolverUtils.getPaletteColorResolver2();
 
         ContainerRenderColorTokens surfaceContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getSurfaceContainerResolver());
+            darkScheme, paletteColorResolver.getNeutralContainerResolver());
         ContainerRenderColorTokens mutedContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getMutedContainerResolver());
+            darkScheme, paletteColorResolver.getMutedContainerResolver());
         ContainerRenderColorTokens tonalContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getTonalContainerResolver());
+            darkScheme, paletteColorResolver.getTonalContainerResolver());
         ContainerRenderColorTokens primaryContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getPrimaryContainerResolver());
+            darkScheme, paletteColorResolver.getPrimaryContainerResolver());
 
         ContainerRenderColorTokens systemInfoContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getSystemInfoContainerResolver());
+            darkScheme, paletteColorResolver.getSystemInfoContainerResolver());
         ContainerRenderColorTokens systemWarningContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getSystemWarningContainerResolver());
+            darkScheme, paletteColorResolver.getSystemWarningContainerResolver());
         ContainerRenderColorTokens systemErrorContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getSystemErrorContainerResolver());
+            darkScheme, paletteColorResolver.getSystemErrorContainerResolver());
         ContainerRenderColorTokens systemSuccessContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getSystemSuccessContainerResolver());
+            darkScheme, paletteColorResolver.getSystemSuccessContainerResolver());
         ContainerRenderColorTokens systemEmergencyContainerTokens = getContainerRenderColorTokens(
-            lightScheme, paletteColorResolver.getSystemEmergencyContainerResolver());
+            darkScheme, paletteColorResolver.getSystemEmergencyContainerResolver());
 
         return new RadianceColorScheme2() {
             private HashMap<ComponentState, ContainerRenderColorTokens> stateTokens = new HashMap<>();
 
             @Override
             public Color getSurface() {
-                return paletteColorResolver.getSurface(lightScheme);
+                return paletteColorResolver.getSurface(darkScheme);
             }
 
             @Override
             public Color getSurfaceDim() {
-                return paletteColorResolver.getSurfaceDim(lightScheme);
+                return paletteColorResolver.getSurfaceDim(darkScheme);
             }
 
             @Override
             public Color getSurfaceBright() {
-                return paletteColorResolver.getSurfaceBright(lightScheme);
+                return paletteColorResolver.getSurfaceBright(darkScheme);
             }
 
             @Override
@@ -605,27 +611,33 @@ public class ColorSchemeUtils {
         };
     }
 
-    public static RadianceColorScheme2 getLightTonalColorScheme(
-        Hct seed, double neutralChroma, double neutralVariantChroma) {
+    public static RadianceColorScheme2 getLightTonalBalancedColorScheme(
+        Hct seed, double mutedChroma, double neutralChroma) {
 
-        return getLightTonalColorScheme(seed, seed.getChroma(), neutralChroma, neutralVariantChroma);
+        Hct mutedSeed = Hct.fromInt(seed.toInt());
+        mutedSeed.setChroma(mutedChroma);
+
+        Hct neutralSeed = Hct.fromInt(seed.toInt());
+        neutralSeed.setChroma(neutralChroma);
+
+        return getLightTonalBalancedColorScheme(seed, seed.getChroma(), mutedChroma, neutralChroma);
     }
 
-    public static RadianceColorScheme2 getLightTonalColorScheme(
-        Hct seed, double primaryChroma, double neutralChroma, double neutralVariantChroma) {
+    public static RadianceColorScheme2 getLightTonalBalancedColorScheme(
+        Hct seed, double primaryChroma, double mutedChroma, double neutralChroma) {
 
-        double seedHue = seed.getHue();
-
-        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seedHue, primaryChroma);
-        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seedHue, neutralChroma);
-        TonalPalette neutralVariantPalette =
-            TonalPalette.fromHueAndChroma(seedHue, neutralVariantChroma);
+        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seed.getHue(), primaryChroma);
+        TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(seed.getHue(), mutedChroma);
+        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seed.getHue(), neutralChroma);
 
         Palettes palettes = Palettes.builder()
+            .setFidelity(false)
             .setPrimarySourceHct(seed)
+            .setMutedSourceHct(seed)
+            .setNeutralSourceHct(seed)
             .setPrimaryPalette(primaryPalette)
+            .setMutedPalette(mutedPalette)
             .setNeutralPalette(neutralPalette)
-            .setNeutralVariantPalette(neutralVariantPalette)
             .build();
 
         RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
@@ -634,25 +646,199 @@ public class ColorSchemeUtils {
         return result;
     }
 
-    public static RadianceColorScheme2 getLightPrimaryColorScheme(
-        Hct seed, double primaryChroma, double neutralChroma, double neutralVariantChroma) {
+    public static RadianceColorScheme2 getLightTonalFidelityColorScheme(
+        Hct primarySeed, Hct mutedSeed, Hct neutralSeed) {
 
-        double seedHue = seed.getHue();
-
-        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seedHue, primaryChroma);
-        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seedHue, neutralChroma);
-        TonalPalette neutralVariantPalette =
-            TonalPalette.fromHueAndChroma(seedHue, neutralVariantChroma);
+        TonalPalette primaryPalette = TonalPalette.fromHct(primarySeed);
+        TonalPalette mutedPalette = TonalPalette.fromHct(mutedSeed);
+        TonalPalette neutralPalette = TonalPalette.fromHct(neutralSeed);
 
         Palettes palettes = Palettes.builder()
-            .setPrimarySourceHct(seed)
+            .setFidelity(true)
+            .setPrimarySourceHct(primarySeed)
+            .setMutedSourceHct(mutedSeed)
+            .setNeutralSourceHct(neutralSeed)
             .setPrimaryPalette(primaryPalette)
+            .setMutedPalette(mutedPalette)
             .setNeutralPalette(neutralPalette)
-            .setNeutralVariantPalette(neutralVariantPalette)
             .build();
 
         RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
-            palettes, ActiveStatesContainerType.PRIMARY);
+            palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+
+        return result;
+    }
+
+    public static RadianceColorScheme2 getLightPrimaryBalancedColorScheme(
+        Hct seed, double mutedChroma, double neutralChroma) {
+
+        Hct mutedSeed = Hct.fromInt(seed.toInt());
+        mutedSeed.setChroma(mutedChroma);
+
+        Hct neutralSeed = Hct.fromInt(seed.toInt());
+        neutralSeed.setChroma(neutralChroma);
+
+        return getLightPrimaryBalancedColorScheme(seed, seed.getChroma(), mutedChroma, neutralChroma);
+    }
+
+    public static RadianceColorScheme2 getLightPrimaryBalancedColorScheme(
+        Hct seed, double primaryChroma, double mutedChroma, double neutralChroma) {
+
+        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seed.getHue(), primaryChroma);
+        TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(seed.getHue(), mutedChroma);
+        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seed.getHue(), neutralChroma);
+
+        Palettes palettes = Palettes.builder()
+            .setFidelity(false)
+            .setPrimarySourceHct(seed)
+            .setMutedSourceHct(seed)
+            .setNeutralSourceHct(seed)
+            .setPrimaryPalette(primaryPalette)
+            .setMutedPalette(mutedPalette)
+            .setNeutralPalette(neutralPalette)
+            .build();
+
+        RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
+            palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
+
+        return result;
+    }
+
+    public static RadianceColorScheme2 getLightPrimaryFidelityColorScheme(
+        Hct primarySeed, Hct mutedSeed, Hct neutralSeed) {
+
+        TonalPalette primaryPalette = TonalPalette.fromHct(primarySeed);
+        TonalPalette mutedPalette = TonalPalette.fromHct(mutedSeed);
+        TonalPalette neutralPalette = TonalPalette.fromHct(neutralSeed);
+
+        Palettes palettes = Palettes.builder()
+            .setFidelity(true)
+            .setPrimarySourceHct(primarySeed)
+            .setMutedSourceHct(mutedSeed)
+            .setNeutralSourceHct(neutralSeed)
+            .setPrimaryPalette(primaryPalette)
+            .setMutedPalette(mutedPalette)
+            .setNeutralPalette(neutralPalette)
+            .build();
+
+        RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
+            palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
+
+        return result;
+    }
+
+    public static RadianceColorScheme2 getDarkTonalBalancedColorScheme(
+        Hct seed, double mutedChroma, double neutralChroma) {
+
+        Hct mutedSeed = Hct.fromInt(seed.toInt());
+        mutedSeed.setChroma(mutedChroma);
+
+        Hct neutralSeed = Hct.fromInt(seed.toInt());
+        neutralSeed.setChroma(neutralChroma);
+
+        return getDarkTonalBalancedColorScheme(seed, seed.getChroma(), mutedChroma, neutralChroma);
+    }
+
+    public static RadianceColorScheme2 getDarkTonalBalancedColorScheme(
+        Hct seed, double primaryChroma, double mutedChroma, double neutralChroma) {
+
+        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seed.getHue(), primaryChroma);
+        TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(seed.getHue(), mutedChroma);
+        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seed.getHue(), neutralChroma);
+
+        Palettes palettes = Palettes.builder()
+            .setFidelity(false)
+            .setPrimarySourceHct(seed)
+            .setMutedSourceHct(seed)
+            .setNeutralSourceHct(seed)
+            .setPrimaryPalette(primaryPalette)
+            .setMutedPalette(mutedPalette)
+            .setNeutralPalette(neutralPalette)
+            .build();
+
+        RadianceColorScheme2 result = ColorSchemeUtils.getDarkColorScheme(
+            palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+
+        return result;
+    }
+
+    public static RadianceColorScheme2 getDarkTonalFidelityColorScheme(
+        Hct primarySeed, Hct mutedSeed, Hct neutralSeed) {
+
+        TonalPalette primaryPalette = TonalPalette.fromHct(primarySeed);
+        TonalPalette mutedPalette = TonalPalette.fromHct(mutedSeed);
+        TonalPalette neutralPalette = TonalPalette.fromHct(neutralSeed);
+
+        Palettes palettes = Palettes.builder()
+            .setFidelity(true)
+            .setPrimarySourceHct(primarySeed)
+            .setMutedSourceHct(mutedSeed)
+            .setNeutralSourceHct(neutralSeed)
+            .setPrimaryPalette(primaryPalette)
+            .setMutedPalette(mutedPalette)
+            .setNeutralPalette(neutralPalette)
+            .build();
+
+        RadianceColorScheme2 result = ColorSchemeUtils.getDarkColorScheme(
+            palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+
+        return result;
+    }
+
+    public static RadianceColorScheme2 getDarkPrimaryBalancedColorScheme(
+        Hct seed, double mutedChroma, double neutralChroma) {
+
+        Hct mutedSeed = Hct.fromInt(seed.toInt());
+        mutedSeed.setChroma(mutedChroma);
+
+        Hct neutralSeed = Hct.fromInt(seed.toInt());
+        neutralSeed.setChroma(neutralChroma);
+
+        return getDarkPrimaryBalancedColorScheme(seed, seed.getChroma(), mutedChroma, neutralChroma);
+    }
+
+    public static RadianceColorScheme2 getDarkPrimaryBalancedColorScheme(
+        Hct seed, double primaryChroma, double mutedChroma, double neutralChroma) {
+
+        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seed.getHue(), primaryChroma);
+        TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(seed.getHue(), mutedChroma);
+        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seed.getHue(), neutralChroma);
+
+        Palettes palettes = Palettes.builder()
+            .setFidelity(false)
+            .setPrimarySourceHct(seed)
+            .setMutedSourceHct(seed)
+            .setNeutralSourceHct(seed)
+            .setPrimaryPalette(primaryPalette)
+            .setMutedPalette(mutedPalette)
+            .setNeutralPalette(neutralPalette)
+            .build();
+
+        RadianceColorScheme2 result = ColorSchemeUtils.getDarkColorScheme(
+            palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
+
+        return result;
+    }
+
+    public static RadianceColorScheme2 getDarkPrimaryFidelityColorScheme(
+        Hct primarySeed, Hct mutedSeed, Hct neutralSeed) {
+
+        TonalPalette primaryPalette = TonalPalette.fromHct(primarySeed);
+        TonalPalette mutedPalette = TonalPalette.fromHct(mutedSeed);
+        TonalPalette neutralPalette = TonalPalette.fromHct(neutralSeed);
+
+        Palettes palettes = Palettes.builder()
+            .setFidelity(true)
+            .setPrimarySourceHct(primarySeed)
+            .setMutedSourceHct(mutedSeed)
+            .setNeutralSourceHct(neutralSeed)
+            .setPrimaryPalette(primaryPalette)
+            .setMutedPalette(mutedPalette)
+            .setNeutralPalette(neutralPalette)
+            .build();
+
+        RadianceColorScheme2 result = ColorSchemeUtils.getDarkColorScheme(
+            palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
 
         return result;
     }

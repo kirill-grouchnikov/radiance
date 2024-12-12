@@ -103,8 +103,7 @@ public class RadianceMenuBackgroundDelegate {
 				if (skin instanceof TonalSkin) {
 					SurfaceRenderColorTokens surfaceRenderTokens =
 						skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(menuItem));
-					graphics.setColor(surfaceRenderTokens.getSurfaceContainerRenderColorTokens()
-						.getContainerColorTokens().getContainerLowest());
+					graphics.setColor(surfaceRenderTokens.getSurface());
 				} else {
 					RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
 						menuItem, ComponentState.ENABLED);

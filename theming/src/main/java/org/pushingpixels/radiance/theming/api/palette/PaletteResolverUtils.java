@@ -35,51 +35,51 @@ import java.awt.*;
 
 public class PaletteResolverUtils {
    public static PaletteColorResolver getPaletteColorResolver2() {
-        PaletteContainerColorsResolver surfaceContainerResolver =
+        PaletteContainerColorsResolver neutralContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
                 public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSurfaceContainerLowest());
+                    return new Color(dynamicScheme.getNeutralContainerLowest());
                 }
 
                 @Override
                 public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSurfaceContainerLow());
+                    return new Color(dynamicScheme.getNeutralContainerLow());
                 }
 
                 @Override
                 public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSurfaceContainer());
+                    return new Color(dynamicScheme.getNeutralContainer());
                 }
 
                 @Override
                 public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSurfaceContainerHigh());
+                    return new Color(dynamicScheme.getNeutralContainerHigh());
                 }
 
                 @Override
                 public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSurfaceContainerHighest());
+                    return new Color(dynamicScheme.getNeutralContainerHighest());
                 }
 
                 @Override
                 public Color getOnContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getOnSurfaceContainer());
+                    return new Color(dynamicScheme.getOnNeutralContainer());
                 }
 
                 @Override
                 public Color getOnContainerVariant(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getOnSurfaceContainerVariant());
+                    return new Color(dynamicScheme.getOnNeutralContainerVariant());
                 }
 
                 @Override
                 public Color getContainerOutline(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSurfaceContainerOutline());
+                    return new Color(dynamicScheme.getNeutralContainerOutline());
                 }
 
                 @Override
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSurfaceContainerOutlineVariant());
+                    return new Color(dynamicScheme.getNeutralContainerOutlineVariant());
                 }
             };
 
@@ -484,8 +484,8 @@ public class PaletteResolverUtils {
             }
 
             @Override
-            public PaletteContainerColorsResolver getSurfaceContainerResolver() {
-                return surfaceContainerResolver;
+            public PaletteContainerColorsResolver getNeutralContainerResolver() {
+                return neutralContainerResolver;
             }
 
             @Override

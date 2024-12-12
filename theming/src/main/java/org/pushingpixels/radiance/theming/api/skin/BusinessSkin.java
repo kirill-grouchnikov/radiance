@@ -64,12 +64,12 @@ public class BusinessSkin extends BusinessAccentedSkin {
 
         public BusinessTonalSkin() {
             super(new AccentBuilder()
-                .withWindowChromeAccent(ColorSchemeUtils.getLightTonalColorScheme(
-                    Hct.fromInt(0xFFBDC6CF), 0.0, 3.0))
-                .withActiveControlsAccent(ColorSchemeUtils.getLightTonalColorScheme(
-                    Hct.fromInt(0xFFE6E9EE), 0.0, 3.0))
-                .withHighlightsAccent(ColorSchemeUtils.getLightTonalColorScheme(
-                    Hct.fromInt(0xFFEBD296), 2.0, 5.0)));
+                .withWindowChromeAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
+                    Hct.fromInt(0xFFB9C4CE), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFF9F9F9)))
+                .withActiveControlsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
+                    Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFF9F9F9)))
+                .withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedColorScheme(
+                    Hct.fromInt(0xFFEBD296), 5.0, 2.0)));
         }
 
         @Override
