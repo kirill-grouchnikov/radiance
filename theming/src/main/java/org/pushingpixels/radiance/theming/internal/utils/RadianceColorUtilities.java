@@ -856,6 +856,8 @@ public class RadianceColorUtilities {
 
     public static Color getBackgroundTonalFillColorScrollBar(JScrollBar scrollbar) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(scrollbar);
+        RadianceColorUtilities.getTonalBackgroundFillColor(scrollbar,
+            RadianceThemingSlices.ContainerType.NEUTRAL);
         ExtendedContainerRenderColorTokens renderColorTokens =
             skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(scrollbar));
         return renderColorTokens.getSurfaceContainerTokens().getContainerColorTokens().getContainerLow();

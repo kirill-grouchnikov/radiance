@@ -422,7 +422,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
                 // No support yet for transitions between disabled and enabled / active
                 // states
                 Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(b, originalIcon,
-                    currentState, this.textColor, RadianceThemingSlices.ContainerType.SURFACE);
+                    currentState, this.textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
                 disabledIcon.paintIcon(b, graphics, 0, 0);
             } else {
                 // Active states are painted on top of the icon that corresponds to the

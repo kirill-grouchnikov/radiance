@@ -159,7 +159,7 @@ public class RadianceLabelUI extends BasicLabelUI {
                 if (skin instanceof TonalSkin) {
                     textColor = RadianceTextUtilities.paintTonalText(g2d, label, paintTextR,
                         clippedText, label.getDisplayedMnemonicIndex(), labelState,
-                        RadianceThemingSlices.ContainerType.SURFACE);
+                        RadianceThemingSlices.ContainerType.NEUTRAL);
                 } else {
                     textColor = RadianceTextUtilities.paintText(g2d, label, paintTextR,
                         clippedText, label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
@@ -187,13 +187,13 @@ public class RadianceLabelUI extends BasicLabelUI {
                 // No support yet for transitions between disabled and enabled / active
                 // states
                 Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(label,
-                        icon, labelState, textColor, RadianceThemingSlices.ContainerType.SURFACE);
+                        icon, labelState, textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
                 disabledIcon.paintIcon(c, g2d, 0, 0);
             } else {
                 // Active states are painted on top of the icon that corresponds to the
                 // enabled state
                 Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(label,
-                        icon, labelState, textColor, RadianceThemingSlices.ContainerType.SURFACE);
+                        icon, labelState, textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
                 enabledIcon.paintIcon(c, g2d, 0, 0);
                 if (activeContributions != null) {
                     for (Map.Entry<ComponentState, Float> entry : activeContributions.entrySet()) {
@@ -203,7 +203,7 @@ public class RadianceLabelUI extends BasicLabelUI {
                         float contribution = entry.getValue();
                         if (contribution > 0.0f) {
                             Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(label,
-                                    icon, entry.getKey(), textColor, RadianceThemingSlices.ContainerType.SURFACE);
+                                    icon, entry.getKey(), textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
                             if (activeIcon != enabledIcon) {
                                 g2d.setComposite(WidgetUtilities.getAlphaComposite(label, contribution, g));
                                 activeIcon.paintIcon(c, g2d, 0, 0);

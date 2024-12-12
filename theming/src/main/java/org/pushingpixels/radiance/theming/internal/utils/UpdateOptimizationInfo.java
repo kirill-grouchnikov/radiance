@@ -99,7 +99,7 @@ public class UpdateOptimizationInfo {
         if (result == null) {
             result = RadianceColorSchemeUtilities.getRenderColorTokens(this.component,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
-                RadianceThemingSlices.ContainerType.SURFACE);
+                RadianceThemingSlices.ContainerType.NEUTRAL);
             this.highlightRenderColorTokens.put(state, result);
         }
         return result;

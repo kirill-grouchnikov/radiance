@@ -226,14 +226,14 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
             if (updateOptimizationInfo == null) {
                 return RadianceColorSchemeUtilities.getRenderColorTokens(list,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
-                    RadianceThemingSlices.ContainerType.SURFACE);
+                    RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getHighlightColorTokens(state);
             }
         } else {
             if (updateOptimizationInfo == null) {
                 return RadianceColorSchemeUtilities.getRenderColorTokens(list, state,
-                    RadianceThemingSlices.ContainerType.SURFACE);
+                    RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }

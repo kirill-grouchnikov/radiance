@@ -150,7 +150,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                     if (isDropLocation) {
                         colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(list,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                            currState, RadianceThemingSlices.ContainerType.SURFACE);
+                            currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                     }
                     super.setForeground(new ColorUIResource(
                         colorTokens.getOnContainerColorTokens().getOnContainer()));
@@ -225,7 +225,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
         if (state == ComponentState.ENABLED) {
             if (updateOptimizationInfo == null) {
                 return RadianceColorSchemeUtilities.getRenderColorTokens(list, state,
-                    RadianceThemingSlices.ContainerType.SURFACE);
+                    RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }
@@ -233,7 +233,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
             if (updateOptimizationInfo == null) {
                 return RadianceColorSchemeUtilities.getRenderColorTokens(list,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
-                    RadianceThemingSlices.ContainerType.SURFACE);
+                    RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getHighlightColorTokens(state);
             }

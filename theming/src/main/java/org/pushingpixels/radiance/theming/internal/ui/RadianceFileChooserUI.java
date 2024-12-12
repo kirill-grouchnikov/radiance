@@ -142,7 +142,7 @@ public class RadianceFileChooserUI extends MetalFileChooserUI {
                     fileChooser, ComponentState.ENABLED, labelAlpha);
             icon = RadianceCoreUtilities.getFilteredIcon(fileChooser,
                 icon, ComponentState.ENABLED, textColor,
-                RadianceThemingSlices.ContainerType.SURFACE);
+                RadianceThemingSlices.ContainerType.NEUTRAL);
 
             return icon;
         }

@@ -347,7 +347,13 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         }
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.scrollbar);
         if (skin instanceof TonalSkin) {
-            graphics.setColor(RadianceColorUtilities.getBackgroundTonalFillColorScrollBar(this.scrollbar));
+            Color backgroundFill = RadianceColorSchemeUtilities.getRenderColorTokens(
+                    this.scrollbar,
+                    this.scrollbar.isEnabled() ? ComponentState.ENABLED :
+                        ComponentState.DISABLED_UNSELECTED,
+                    RadianceThemingSlices.ContainerType.NEUTRAL)
+                .getContainerColorTokens().getContainer();
+            graphics.setColor(backgroundFill);
         } else {
             graphics.setColor(RadianceColorUtilities.getBackgroundFillColorScrollBar(this.scrollbar));
         }

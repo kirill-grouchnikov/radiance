@@ -690,13 +690,13 @@ public class MenuUtilities {
                     // No support yet for transitions between disabled and enabled / active
                     // states
                     Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(menuItem,
-                            icon, currentState, textColor, RadianceThemingSlices.ContainerType.SURFACE);
+                            icon, currentState, textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
                     disabledIcon.paintIcon(menuItem, graphics, 0, 0);
                 } else {
                     // Active states are painted on top of the icon that corresponds to the
                     // enabled state
                     Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(menuItem,
-                            icon, ComponentState.ENABLED, textColor, RadianceThemingSlices.ContainerType.SURFACE);
+                            icon, ComponentState.ENABLED, textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
                     enabledIcon.paintIcon(menuItem, graphics, 0, 0);
                     if (stateTracker.getActiveStrength() > 0.0f) {
                         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
@@ -707,7 +707,7 @@ public class MenuUtilities {
                             float contribution = entry.getValue().getContribution();
                             if (contribution > 0.0f) {
                                 Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(menuItem,
-                                        icon, entry.getKey(), textColor, RadianceThemingSlices.ContainerType.SURFACE);
+                                        icon, entry.getKey(), textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
                                 if (activeIcon != enabledIcon) {
                                     graphics.setComposite(WidgetUtilities.getAlphaComposite(
                                             menuItem, contribution, g));

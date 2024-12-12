@@ -423,9 +423,9 @@ public class RadianceTextUtilities {
         }
 
         Color fgColor = RadianceColorUtilities.getTonalMenuComponentForegroundColor(
-            menuComponent, modelStateInfo, RadianceThemingSlices.ContainerType.SURFACE);
+            menuComponent, modelStateInfo, RadianceThemingSlices.ContainerType.NEUTRAL);
         float fgAlpha = RadianceColorUtilities.getTonalMenuComponentForegroundAlpha(
-            menuComponent, modelStateInfo, RadianceThemingSlices.ContainerType.SURFACE);
+            menuComponent, modelStateInfo, RadianceThemingSlices.ContainerType.NEUTRAL);
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (255.0f * fgAlpha));
     }
 

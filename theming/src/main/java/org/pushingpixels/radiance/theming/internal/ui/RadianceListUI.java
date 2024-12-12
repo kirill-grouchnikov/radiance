@@ -561,7 +561,7 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
                 ContainerRenderColorTokens renderColorTokens =
                     RadianceColorSchemeUtilities.getRenderColorTokens(list,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                        currState, RadianceThemingSlices.ContainerType.SURFACE);
+                        currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                 Rectangle cellRect = new Rectangle(cx, cy, cw, ch);
                 HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererComponent,
                     cellRect, 0.8f, null, renderColorTokens);
@@ -694,7 +694,7 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
         Graphics2D g2d = (Graphics2D) g.create();
         RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
         RadianceStripingUtils.setup(c);
-        this.updateInfo = new UpdateOptimizationInfo(c, RadianceThemingSlices.ContainerType.SURFACE);
+        this.updateInfo = new UpdateOptimizationInfo(c, RadianceThemingSlices.ContainerType.NEUTRAL);
         this.paint(g2d, c);
         RadianceStripingUtils.tearDown(c);
         g2d.dispose();

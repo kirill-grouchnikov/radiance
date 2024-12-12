@@ -321,7 +321,7 @@ public class RadianceExoLabelUI extends ComponentUI {
             }
 
             Icon filteredIcon = RadianceCoreUtilities.getFilteredIcon(label,
-                this.icon, state, textColor, RadianceThemingSlices.ContainerType.SURFACE);
+                this.icon, state, textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
             filteredIcon.paintIcon(label, g2d, 0, 0);
         }
 

@@ -178,7 +178,7 @@ public class RadianceMenuBackgroundDelegate {
 				ContainerRenderColorTokens renderColorTokens =
 					RadianceColorSchemeUtilities.getRenderColorTokens(
 						menuItem, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-						activeState, RadianceThemingSlices.ContainerType.SURFACE);
+						activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
 				HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
 					new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
 					null, renderColorTokens);

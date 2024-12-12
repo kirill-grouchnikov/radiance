@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.internal.ui;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
+import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
@@ -39,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -282,8 +284,13 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
                 Graphics2D g2d = (Graphics2D) g.create();
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(this.scrollpane);
                 if (skin instanceof TonalSkin) {
-                    g2d.setColor(RadianceColorUtilities.getBackgroundTonalFillColorScrollBar(
-                        this.scrollpane.getVerticalScrollBar()));
+                    Color backgroundFill = RadianceColorSchemeUtilities.getRenderColorTokens(
+                        this.scrollpane.getVerticalScrollBar(),
+                        this.scrollpane.isEnabled() ? ComponentState.ENABLED :
+                            ComponentState.DISABLED_UNSELECTED,
+                        RadianceThemingSlices.ContainerType.NEUTRAL)
+                        .getContainerColorTokens().getContainer();
+                    g2d.setColor(backgroundFill);
                 } else {
                     g2d.setColor(RadianceColorUtilities.getBackgroundFillColorScrollBar(
                         this.scrollpane.getVerticalScrollBar()));

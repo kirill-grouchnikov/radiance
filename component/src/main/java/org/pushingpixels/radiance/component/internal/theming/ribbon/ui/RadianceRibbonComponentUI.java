@@ -63,7 +63,7 @@ public class RadianceRibbonComponentUI extends BasicRibbonComponentUI {
         Color textColor = RadianceTextUtilities.getForegroundColor(
                 ribbonComp, state, labelAlpha);
         icon = RadianceCoreUtilities.getFilteredIcon(ribbonComp, icon, state, textColor,
-            RadianceThemingSlices.ContainerType.SURFACE);
+            RadianceThemingSlices.ContainerType.NEUTRAL);
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(x, y);

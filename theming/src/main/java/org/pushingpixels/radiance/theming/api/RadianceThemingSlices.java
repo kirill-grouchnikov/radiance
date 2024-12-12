@@ -831,7 +831,7 @@ public final class RadianceThemingSlices {
     }
 
     public enum ContainerType {
-        SURFACE,
+        NEUTRAL,
         MUTED,
         TONAL,
         PRIMARY

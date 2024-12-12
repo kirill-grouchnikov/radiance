@@ -324,7 +324,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
         if (skin instanceof TonalSkin) {
             RadianceTextUtilities.paintTonalText(g, button, textRect, text,
-                button.getDisplayedMnemonicIndex(), RadianceThemingSlices.ContainerType.SURFACE);
+                button.getDisplayedMnemonicIndex(), RadianceThemingSlices.ContainerType.NEUTRAL);
         } else {
             RadianceTextUtilities.paintText(g, button, textRect, text,
                 button.getDisplayedMnemonicIndex());

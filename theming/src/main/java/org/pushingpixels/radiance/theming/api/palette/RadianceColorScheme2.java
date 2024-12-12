@@ -83,7 +83,7 @@ public interface RadianceColorScheme2 {
             case MUTED: return this.getMutedContainerTokens();
             case TONAL: return this.getTonalContainerTokens();
             case PRIMARY: return this.getPrimaryContainerTokens();
-            case SURFACE:
+            case NEUTRAL:
             default: return this.getNeutralContainerTokens();
         }
     }
@@ -103,7 +103,7 @@ public interface RadianceColorScheme2 {
             case MUTED: return this.getExtendedMutedContainerTokens();
             case TONAL: return this.getExtendedTonalContainerTokens();
             case PRIMARY: return this.getExtendedPrimaryContainerTokens();
-            case SURFACE:
+            case NEUTRAL:
             default: return this.getExtendedNeutralContainerTokens();
         }
     }
