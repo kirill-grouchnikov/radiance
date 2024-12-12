@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
@@ -89,9 +89,9 @@ public class FakeAccordion extends JPanel {
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
                         Color accentedFill = Color.RED;
                         if (skin instanceof TonalSkin) {
-                            SurfaceRenderColorTokens colorTokens = skin.getBackgroundRenderColorTokens(
+                            ExtendedContainerRenderColorTokens colorTokens = skin.getBackgroundRenderColorTokens(
                                 DecorationPainterUtils.getDecorationType(this));
-                            accentedFill = colorTokens.getSurfaceContainerRenderColorTokens()
+                            accentedFill = colorTokens.getSurfaceContainerTokens()
                                 .getContainerColorTokens().getContainerLow();
                         } else {
                             RadianceThemingSlices.DecorationAreaType decorationAreaType =
@@ -167,7 +167,7 @@ public class FakeAccordion extends JPanel {
                                         1.0f, 0, radiusOuter);
 
                                 if (skin instanceof TonalSkin) {
-                                    ContainerRenderColorTokens containerTokens = skin.getColorRenderTokens(
+                                    ContainerRenderColorTokens containerTokens = skin.getRenderColorTokens(
                                         contentWrapper,
                                         RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                                         ComponentState.ENABLED,

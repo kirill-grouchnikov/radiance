@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
@@ -101,7 +101,7 @@ public class RadianceMenuBackgroundDelegate {
 						menuItem, fillAlpha, g));
 				RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
 				if (skin instanceof TonalSkin) {
-					SurfaceRenderColorTokens surfaceRenderTokens =
+					ExtendedContainerRenderColorTokens surfaceRenderTokens =
 						skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(menuItem));
 					graphics.setColor(surfaceRenderTokens.getSurface());
 				} else {

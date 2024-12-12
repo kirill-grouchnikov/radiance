@@ -185,7 +185,7 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerRenderColorTokens getSurfaceContainerTokens() {
+            public ContainerRenderColorTokens getNeutralContainerTokens() {
                 return neutralContainerTokens;
             }
 
@@ -205,10 +205,10 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
+            public ContainerRenderColorTokens getContainerTokensForState(ComponentState componentState) {
                 if (componentState.isDisabled()) {
                     // TODO: TONAL - finalize this
-                    return getStateRenderTokens(componentState.getEnabledMatch());
+                    return getContainerTokensForState(componentState.getEnabledMatch());
                 }
 
                 // TODO: TONAL - configurable at the skin definition level
@@ -258,7 +258,7 @@ public class ColorSchemeUtils {
 
                 ComponentState hardFallback = componentState.getHardFallback();
                 if (hardFallback != null) {
-                    return this.getStateRenderTokens(hardFallback);
+                    return this.getContainerTokensForState(hardFallback);
                 }
 
                 if (componentState == ComponentState.ENABLED) {
@@ -355,7 +355,7 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerRenderColorTokens getSurfaceContainerTokens() {
+            public ContainerRenderColorTokens getNeutralContainerTokens() {
                 return surfaceContainerTokens;
             }
 
@@ -375,10 +375,10 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
+            public ContainerRenderColorTokens getContainerTokensForState(ComponentState componentState) {
                 if (componentState.isDisabled()) {
                     // TODO: TONAL - finalize this
-                    return getStateRenderTokens(componentState.getEnabledMatch());
+                    return getContainerTokensForState(componentState.getEnabledMatch());
                 }
 
                 // TODO: TONAL - configurable at the skin definition level
@@ -428,7 +428,7 @@ public class ColorSchemeUtils {
 
                 ComponentState hardFallback = componentState.getHardFallback();
                 if (hardFallback != null) {
-                    return this.getStateRenderTokens(hardFallback);
+                    return this.getContainerTokensForState(hardFallback);
                 }
 
                 if (componentState == ComponentState.ENABLED) {

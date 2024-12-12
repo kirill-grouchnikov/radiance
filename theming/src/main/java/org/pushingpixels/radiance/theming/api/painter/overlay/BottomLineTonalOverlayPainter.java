@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -79,10 +79,10 @@ public final class BottomLineTonalOverlayPainter implements RadianceOverlayPaint
 
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height, (graphics1X, x, y,
             scaledWidth, scaledHeight, scaleFactor) -> {
-            SurfaceRenderColorTokens surfaceTokens =
+            ExtendedContainerRenderColorTokens surfaceTokens =
                 skin.getBackgroundRenderColorTokens(decorationAreaType);
             Color lineColor = this.containerTokensQuery.query(
-                surfaceTokens.getSurfaceContainerRenderColorTokens());
+                surfaceTokens.getSurfaceContainerTokens());
             graphics1X.setColor(RadianceColorUtilities.getAlphaColor(lineColor, 128));
 
             int bottomY = (int) (scaleFactor * topMostWithSameDecorationAreaType.getHeight() - 1);

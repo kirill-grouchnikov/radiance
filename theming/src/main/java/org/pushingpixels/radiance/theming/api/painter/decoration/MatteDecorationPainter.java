@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -63,7 +63,7 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height, RadianceSkin skin) {
 
         if (skin instanceof TonalSkin) {
-            SurfaceRenderColorTokens renderColorTokens =
+            ExtendedContainerRenderColorTokens renderColorTokens =
                 skin.getBackgroundRenderColorTokens(decorationAreaType);
             if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
                 (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
@@ -98,7 +98,7 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
     }
 
     private void paintTitleBackground(Graphics2D graphics, int width, int height,
-        SurfaceRenderColorTokens renderColorTokens) {
+        ExtendedContainerRenderColorTokens renderColorTokens) {
         Graphics2D g2d = (Graphics2D) graphics.create();
         this.fill(g2d, renderColorTokens, 0, 0, 0, width, height);
         g2d.dispose();
@@ -122,7 +122,7 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
     }
 
     private void paintExtraBackground(Graphics2D graphics, Component comp, int width, int height,
-        SurfaceRenderColorTokens renderColorTokens) {
+        ExtendedContainerRenderColorTokens renderColorTokens) {
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
         Graphics2D g2d = (Graphics2D) graphics.create();
         this.fill(g2d, renderColorTokens, offset.y, 0, 0, width, height);
@@ -163,14 +163,14 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
         graphics.fillRect(x, y, width, height);
     }
 
-    protected void fill(Graphics2D graphics, SurfaceRenderColorTokens renderColorTokens,
+    protected void fill(Graphics2D graphics, ExtendedContainerRenderColorTokens renderColorTokens,
         int offsetY, int x, int y, int width, int height) {
         // 0 - flex : light -> medium
         // flex - : medium fill
 
-        Color startColor = renderColorTokens.getSurfaceContainerRenderColorTokens()
+        Color startColor = renderColorTokens.getSurfaceContainerTokens()
             .getContainerColorTokens().getContainerLowest();
-        Color endColor = renderColorTokens.getSurfaceContainerRenderColorTokens()
+        Color endColor = renderColorTokens.getSurfaceContainerTokens()
             .getContainerColorTokens().getContainer();
 
         int gradientHeight = Math.max(FLEX_POINT, height + offsetY);
@@ -213,13 +213,13 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-        SurfaceRenderColorTokens renderColorTokens) {
+        ExtendedContainerRenderColorTokens renderColorTokens) {
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
 
-        Color startColor = renderColorTokens.getSurfaceContainerRenderColorTokens()
+        Color startColor = renderColorTokens.getSurfaceContainerTokens()
             .getContainerColorTokens().getContainerHigh();
-        Color endColor = renderColorTokens.getSurfaceContainerRenderColorTokens()
+        Color endColor = renderColorTokens.getSurfaceContainerTokens()
             .getContainerColorTokens().getContainerHighest();
 
         int gradientHeight = Math.max(FLEX_POINT, comp.getHeight() + offset.y);

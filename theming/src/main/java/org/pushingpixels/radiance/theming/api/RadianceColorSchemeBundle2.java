@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
 
 import java.util.*;
 
@@ -212,32 +212,32 @@ public class RadianceColorSchemeBundle2 {
         RadianceColorScheme2 registered = this.colorSchemeMap.get(
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
-            return componentState.isActive() ? registered.getStateRenderTokens(componentState)
+            return componentState.isActive() ? registered.getContainerTokensForState(componentState)
                 : registered.getContainerTokens(inactiveContainerType);
         }
 
-        return componentState.isActive() ? this.mainColorScheme.getStateRenderTokens(componentState)
+        return componentState.isActive() ? this.mainColorScheme.getContainerTokensForState(componentState)
             : this.mainColorScheme.getContainerTokens(inactiveContainerType);
     }
 
-    public SurfaceRenderColorTokens getSurfaceRenderTokens(ComponentState componentState,
+    public ExtendedContainerRenderColorTokens getExtendedRenderColorTokens(ComponentState componentState,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (componentState.isDisabled()) {
-            return getSurfaceRenderTokens(componentState.getEnabledMatch(), inactiveContainerType);
+            return getExtendedRenderColorTokens(componentState.getEnabledMatch(), inactiveContainerType);
         }
 
         RadianceColorScheme2 registered = this.colorSchemeMap.get(
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
-            return componentState.isActive() ? registered.getSurfaceStateRenderTokens(componentState)
-                : registered.getSurfaceTokens(inactiveContainerType);
+            return componentState.isActive() ? registered.getExtendedContainerRenderTokens(componentState)
+                : registered.getExtendedContainerTokens(inactiveContainerType);
         }
 
-        return componentState.isActive() ? this.mainColorScheme.getSurfaceStateRenderTokens(componentState)
-            : this.mainColorScheme.getSurfaceTokens(inactiveContainerType);
+        return componentState.isActive() ? this.mainColorScheme.getExtendedContainerRenderTokens(componentState)
+            : this.mainColorScheme.getExtendedContainerTokens(inactiveContainerType);
     }
 
-    public ContainerRenderColorTokens getSystemColorRenderTokens(
+    public ContainerRenderColorTokens getSystemRenderColorTokens(
         RadianceThemingSlices.SystemContainerType systemContainerType) {
 
         switch (systemContainerType) {
@@ -379,7 +379,7 @@ public class RadianceColorSchemeBundle2 {
         RadianceColorScheme2 registered =
             this.colorSchemeMap.get(associationKind).get(componentState);
         if (registered != null) {
-            return componentState.isActive() ? registered.getStateRenderTokens(componentState)
+            return componentState.isActive() ? registered.getContainerTokensForState(componentState)
                 : registered.getContainerTokens(inactiveContainerType);
         }
 
@@ -393,7 +393,7 @@ public class RadianceColorSchemeBundle2 {
         if (bestFit != null) {
             registered = this.colorSchemeMap.get(associationKind).get(bestFit);
             if (registered != null)
-                return componentState.isActive() ? registered.getStateRenderTokens(componentState)
+                return componentState.isActive() ? registered.getContainerTokensForState(componentState)
                     : registered.getContainerTokens(inactiveContainerType);
         }
 

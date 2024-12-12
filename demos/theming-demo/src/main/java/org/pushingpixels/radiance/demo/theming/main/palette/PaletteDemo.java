@@ -68,7 +68,7 @@ public class PaletteDemo extends JFrame {
                 .add(new SurfacePreview(lightColorScheme)).xy(3, row);
         row += 2;
         builder.addROLabel("Surface container").xy(1, row)
-                .add(new ContainerPalettePreview(lightColorScheme.getSurfaceContainerTokens())).xy(3, row);
+                .add(new ContainerPalettePreview(lightColorScheme.getNeutralContainerTokens())).xy(3, row);
         row += 2;
         builder.addROLabel("Muted container").xy(1, row)
                 .add(new ContainerPalettePreview(lightColorScheme.getMutedContainerTokens())).xy(3, row);
@@ -88,7 +88,7 @@ public class PaletteDemo extends JFrame {
                 .add(new SurfacePreview(darkColorScheme)).xy(3, row);
         row += 2;
         builder.addROLabel("Surface container").xy(1, row)
-                .add(new ContainerPalettePreview(darkColorScheme.getSurfaceContainerTokens())).xy(3, row);
+                .add(new ContainerPalettePreview(darkColorScheme.getNeutralContainerTokens())).xy(3, row);
         row += 2;
         builder.addROLabel("Muted container").xy(1, row)
                 .add(new ContainerPalettePreview(darkColorScheme.getMutedContainerTokens())).xy(3, row);

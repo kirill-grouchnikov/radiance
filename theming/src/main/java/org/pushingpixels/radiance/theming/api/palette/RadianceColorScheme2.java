@@ -41,7 +41,7 @@ public interface RadianceColorScheme2 {
 
     Color getSurfaceBright();
 
-    ContainerRenderColorTokens getSurfaceContainerTokens();
+    ContainerRenderColorTokens getNeutralContainerTokens();
 
     ContainerRenderColorTokens getMutedContainerTokens();
 
@@ -49,13 +49,13 @@ public interface RadianceColorScheme2 {
 
     ContainerRenderColorTokens getPrimaryContainerTokens();
 
-    ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState);
+    ContainerRenderColorTokens getContainerTokensForState(ComponentState componentState);
 
-    default SurfaceRenderColorTokens getSurfaceStateRenderTokens(ComponentState componentState) {
+    default ExtendedContainerRenderColorTokens getExtendedContainerRenderTokens(ComponentState componentState) {
         RadianceColorScheme2 me = this;
-        ContainerRenderColorTokens stateRenderTokens = getStateRenderTokens(componentState);
+        ContainerRenderColorTokens stateRenderTokens = getContainerTokensForState(componentState);
 
-        return new SurfaceRenderColorTokens() {
+        return new ExtendedContainerRenderColorTokens() {
             @Override
             public Color getSurface() {
                 return me.getSurface();
@@ -72,7 +72,7 @@ public interface RadianceColorScheme2 {
             }
 
             @Override
-            public ContainerRenderColorTokens getSurfaceContainerRenderColorTokens() {
+            public ContainerRenderColorTokens getSurfaceContainerTokens() {
                 return stateRenderTokens;
             }
         };
@@ -84,7 +84,7 @@ public interface RadianceColorScheme2 {
             case TONAL: return this.getTonalContainerTokens();
             case PRIMARY: return this.getPrimaryContainerTokens();
             case SURFACE:
-            default: return this.getSurfaceContainerTokens();
+            default: return this.getNeutralContainerTokens();
         }
     }
 
@@ -98,36 +98,36 @@ public interface RadianceColorScheme2 {
 
     ContainerRenderColorTokens getSystemEmergencyContainerTokens();
 
-    default SurfaceRenderColorTokens getSurfaceTokens(RadianceThemingSlices.ContainerType containerType) {
+    default ExtendedContainerRenderColorTokens getExtendedContainerTokens(RadianceThemingSlices.ContainerType containerType) {
         switch (containerType) {
-            case MUTED: return this.getMutedSurfaceRenderColorTokens();
-            case TONAL: return this.getTonalSurfaceRenderColorTokens();
-            case PRIMARY: return this.getPrimarySurfaceRenderColorTokens();
+            case MUTED: return this.getExtendedMutedContainerTokens();
+            case TONAL: return this.getExtendedTonalContainerTokens();
+            case PRIMARY: return this.getExtendedPrimaryContainerTokens();
             case SURFACE:
-            default: return this.getSurfaceRenderColorTokens();
+            default: return this.getExtendedNeutralContainerTokens();
         }
     }
 
-    default SurfaceRenderColorTokens getSurfaceRenderColorTokens() {
-        return getSurfaceRenderColorTokens(getSurfaceContainerTokens());
+    default ExtendedContainerRenderColorTokens getExtendedNeutralContainerTokens() {
+        return getExtendedContainerTokens(getNeutralContainerTokens());
     }
 
-    default SurfaceRenderColorTokens getMutedSurfaceRenderColorTokens() {
-        return getSurfaceRenderColorTokens(getMutedContainerTokens());
+    default ExtendedContainerRenderColorTokens getExtendedMutedContainerTokens() {
+        return getExtendedContainerTokens(getMutedContainerTokens());
     }
 
-    default SurfaceRenderColorTokens getTonalSurfaceRenderColorTokens() {
-        return getSurfaceRenderColorTokens(getTonalContainerTokens());
+    default ExtendedContainerRenderColorTokens getExtendedTonalContainerTokens() {
+        return getExtendedContainerTokens(getTonalContainerTokens());
     }
 
-    default SurfaceRenderColorTokens getPrimarySurfaceRenderColorTokens() {
-        return getSurfaceRenderColorTokens(getPrimaryContainerTokens());
+    default ExtendedContainerRenderColorTokens getExtendedPrimaryContainerTokens() {
+        return getExtendedContainerTokens(getPrimaryContainerTokens());
     }
 
-    private SurfaceRenderColorTokens getSurfaceRenderColorTokens(
+    private ExtendedContainerRenderColorTokens getExtendedContainerTokens(
         ContainerRenderColorTokens containerRenderColorTokens) {
         RadianceColorScheme2 me = this;
-        return new SurfaceRenderColorTokens() {
+        return new ExtendedContainerRenderColorTokens() {
             @Override
             public Color getSurface() {
                 return me.getSurface();
@@ -144,7 +144,7 @@ public interface RadianceColorScheme2 {
             }
 
             @Override
-            public ContainerRenderColorTokens getSurfaceContainerRenderColorTokens() {
+            public ContainerRenderColorTokens getSurfaceContainerTokens() {
                 return containerRenderColorTokens;
             }
         };

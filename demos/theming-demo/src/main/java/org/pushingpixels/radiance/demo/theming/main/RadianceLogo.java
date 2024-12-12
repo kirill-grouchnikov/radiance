@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,10 +53,10 @@ public class RadianceLogo {
         return base;
     }
 
-    public static RadianceIcon getLogoIcon(SurfaceRenderColorTokens renderColorTokens) {
+    public static RadianceIcon getLogoIcon(ExtendedContainerRenderColorTokens renderColorTokens) {
         // Step 1 - create a colorized version of the transcoded Radiance logo
         RadianceIcon base = radiance_menu.factory().createNewIcon();
-        base.setColorFilter(color -> renderColorTokens.getSurfaceContainerRenderColorTokens()
+        base.setColorFilter(color -> renderColorTokens.getSurfaceContainerTokens()
             .getOnContainerColorTokens().getOnContainer());
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(new Dimension(16, 16));
@@ -68,7 +68,7 @@ public class RadianceLogo {
         return getLogoIcon(scheme).toImage(RadianceCommonCortex.getScaleFactor(comp));
     }
 
-    public static BufferedImage getLogoImage(Component comp, SurfaceRenderColorTokens renderColorTokens) {
+    public static BufferedImage getLogoImage(Component comp, ExtendedContainerRenderColorTokens renderColorTokens) {
         return getLogoIcon(renderColorTokens).toImage(RadianceCommonCortex.getScaleFactor(comp));
     }
 

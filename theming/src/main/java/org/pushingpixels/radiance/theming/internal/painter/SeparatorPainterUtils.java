@@ -147,7 +147,7 @@ public class SeparatorPainterUtils {
                     // decoration type of that separator
                     renderColorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundRenderColorTokens(
                         RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c))
-                        .getSurfaceContainerRenderColorTokens();
+                        .getSurfaceContainerTokens();
                 }
             }
             if (renderColorTokens == null) {

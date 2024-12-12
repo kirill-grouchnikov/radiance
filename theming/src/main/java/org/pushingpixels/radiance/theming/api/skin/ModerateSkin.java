@@ -147,13 +147,13 @@ public class ModerateSkin extends RadianceSkin {
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
             this.registerDecorationAreaSchemeBundle(steelBlueHeaderBundle,
-                steelBlueHeaderBundle.getMainColorScheme().getTonalSurfaceRenderColorTokens(),
+                steelBlueHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
             this.registerAsDecorationArea(
-                controlPaneColorScheme.getTonalSurfaceRenderColorTokens(),
+                controlPaneColorScheme.getExtendedTonalContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
             this.buttonShaper = new ClassicButtonShaper();
