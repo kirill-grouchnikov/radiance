@@ -69,11 +69,18 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 			businessDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		this.registerAsDecorationArea(this.getWindowChromeAccent().getExtendedTonalContainerTokens(),
+		RadianceColorSchemeBundle2 businessDefaultHeaderBundle =
+			new RadianceColorSchemeBundle2(this.getWindowChromeAccent());
+		if (this.getWindowChromeHighlightsAccent() != null) {
+			businessDefaultHeaderBundle.registerColorScheme(this.getWindowChromeHighlightsAccent(),
+				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+				ComponentState.getActiveStates());
+		}
+		this.registerDecorationAreaSchemeBundle(businessDefaultHeaderBundle,
+			businessDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-			RadianceThemingSlices.DecorationAreaType.HEADER,
-			RadianceThemingSlices.DecorationAreaType.FOOTER);
+			RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		RadianceColorScheme2 controlPaneColorScheme =
 			ColorSchemeUtils.getLightTonalBalancedColorScheme(Hct.fromInt(0xFFDBDFE4), 3.0, 1.0);

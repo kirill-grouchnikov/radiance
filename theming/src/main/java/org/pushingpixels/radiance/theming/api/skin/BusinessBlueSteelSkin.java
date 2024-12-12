@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
 /**
  * <code>Business Blue Steel</code> skin. This class is part of officially supported API.
@@ -92,4 +92,41 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 	public String getDisplayName() {
 		return NAME;
 	}
+
+	public static class BusinessBlueSteelTonalSkin extends BusinessAccentedTonalSkin {
+		public static final String NAME = "Business Blue Steel Tonal";
+
+		public BusinessBlueSteelTonalSkin() {
+			super(new AccentBuilder()
+				.withWindowChromeAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
+					Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFEAEAF0)))
+				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
+					Hct.fromInt(0xFF83AFCE), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFEAEAF0)))
+				.withActiveControlsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
+					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFEAEAF0)))
+				.withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedColorScheme(
+					Hct.fromInt(0xFFEBD296), 5.0, 2.0)));
+
+			RadianceColorScheme2 controlPaneColorScheme =
+				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF94B9D3),
+					Hct.fromInt(0xFFBFCFDB), Hct.fromInt(0xFFBFCFDB));
+
+			RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
+				new RadianceColorSchemeBundle2(controlPaneColorScheme);
+			businessBlueSteelControlBundle.registerColorScheme(
+				getActiveControlsAccent(),
+				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+				ComponentState.getActiveStates());
+			this.registerDecorationAreaSchemeBundle(businessBlueSteelControlBundle,
+				controlPaneColorScheme.getExtendedMutedContainerTokens(),
+				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
+				RadianceThemingSlices.DecorationAreaType.FOOTER);
+		}
+
+		@Override
+		public String getDisplayName() {
+			return NAME;
+		}
+	}
+
 }

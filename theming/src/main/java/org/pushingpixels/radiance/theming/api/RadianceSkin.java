@@ -193,6 +193,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     public static abstract class TonalAccented extends RadianceSkin implements TonalSkin {
         public final static class AccentBuilder {
             private RadianceColorScheme2 windowChromeAccent;
+            private RadianceColorScheme2 windowChromeHighlightsAccent;
             private RadianceColorScheme2 enabledControlsAccent;
             private RadianceColorScheme2 activeControlsAccent;
             private RadianceColorScheme2 highlightsAccent;
@@ -203,6 +204,11 @@ public abstract class RadianceSkin implements RadianceTrait {
 
             public AccentBuilder withWindowChromeAccent(RadianceColorScheme2 windowChromeAccent) {
                 this.windowChromeAccent = windowChromeAccent;
+                return this;
+            }
+
+            public AccentBuilder withWindowChromeHighlightsAccent(RadianceColorScheme2 windowChromeHighlightsAccent) {
+                this.windowChromeHighlightsAccent = windowChromeHighlightsAccent;
                 return this;
             }
 
@@ -228,6 +234,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
 
         private final RadianceColorScheme2 windowChromeAccent;
+        private final RadianceColorScheme2 windowChromeHighlightsAccent;
         private final RadianceColorScheme2 activeControlsAccent;
         private final RadianceColorScheme2 enabledControlsAccent;
         private final RadianceColorScheme2 highlightsAccent;
@@ -235,6 +242,7 @@ public abstract class RadianceSkin implements RadianceTrait {
 
         protected TonalAccented(AccentBuilder accentBuilder) {
             this.windowChromeAccent = accentBuilder.windowChromeAccent;
+            this.windowChromeHighlightsAccent = accentBuilder.windowChromeHighlightsAccent;
             this.activeControlsAccent = accentBuilder.activeControlsAccent;
             this.enabledControlsAccent = accentBuilder.enabledControlsAccent;
             this.highlightsAccent = accentBuilder.highlightsAccent;
@@ -259,6 +267,10 @@ public abstract class RadianceSkin implements RadianceTrait {
 
         public RadianceColorScheme2 getWindowChromeAccent() {
             return this.windowChromeAccent;
+        }
+
+        public RadianceColorScheme2 getWindowChromeHighlightsAccent() {
+            return this.windowChromeHighlightsAccent;
         }
     }
 
