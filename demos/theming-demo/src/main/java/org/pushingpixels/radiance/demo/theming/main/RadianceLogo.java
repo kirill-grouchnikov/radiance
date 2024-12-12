@@ -56,7 +56,7 @@ public class RadianceLogo {
     public static RadianceIcon getLogoIcon(ExtendedContainerRenderColorTokens renderColorTokens) {
         // Step 1 - create a colorized version of the transcoded Radiance logo
         RadianceIcon base = radiance_menu.factory().createNewIcon();
-        base.setColorFilter(color -> renderColorTokens.getSurfaceContainerTokens()
+        base.setColorFilter(color -> renderColorTokens.getBaseContainerColorTokens()
             .getOnContainerColorTokens().getOnContainer());
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(new Dimension(16, 16));

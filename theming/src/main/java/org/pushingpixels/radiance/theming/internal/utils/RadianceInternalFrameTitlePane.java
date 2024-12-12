@@ -294,7 +294,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
             if (skin instanceof TonalSkin) {
                 ContainerRenderColorTokens renderColorTokens = skin.getBackgroundRenderColorTokens(
                     RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getSurfaceContainerTokens();
+                    .getBaseContainerColorTokens();
                 // TODO: TONAL - support colorization of text
                 // TODO: TONAL - finalize the text echo color logic
                 RadianceTextUtilities.paintTextWithDropShadow(this, graphics,

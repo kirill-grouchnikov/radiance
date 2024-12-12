@@ -913,7 +913,7 @@ public class RadianceColorUtilities {
             ExtendedContainerRenderColorTokens colorTokens = skin.getBackgroundRenderColorTokens(
                 DecorationPainterUtils.getDecorationType(component));
             return (rowIndex % 2 == 0) ? colorTokens.getSurface()
-                : colorTokens.getSurfaceContainerTokens().getContainerColorTokens().getContainerLow();
+                : colorTokens.getBaseContainerColorTokens().getContainerColorTokens().getContainerLow();
         } else {
             RadianceColorScheme scheme = skin.getBackgroundColorScheme(
                 DecorationPainterUtils.getDecorationType(component));

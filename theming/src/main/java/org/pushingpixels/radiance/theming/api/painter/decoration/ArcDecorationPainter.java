@@ -150,7 +150,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     private void paintTitleBackground(Graphics2D original, Component comp, int width, int height,
             ExtendedContainerRenderColorTokens renderColorTokens) {
         ContainerColorTokens containerColorTokens =
-            renderColorTokens.getSurfaceContainerTokens().getContainerColorTokens();
+            renderColorTokens.getBaseContainerColorTokens().getContainerColorTokens();
 
         // Create a new Graphics2D object so that we can apply clipping to it without having
         // to reset the state after we're done
@@ -248,7 +248,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     private void paintExtraBackground(Graphics2D graphics, Container parent, Component comp,
             int width, int height, ExtendedContainerRenderColorTokens renderColorTokens) {
         ContainerColorTokens containerColorTokens =
-            renderColorTokens.getSurfaceContainerTokens().getContainerColorTokens();
+            renderColorTokens.getBaseContainerColorTokens().getContainerColorTokens();
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
         JRootPane rootPane = SwingUtilities.getRootPane(parent);
@@ -308,7 +308,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
         ExtendedContainerRenderColorTokens renderColorTokens) {
 
         ContainerColorTokens containerColorTokens =
-            renderColorTokens.getSurfaceContainerTokens().getContainerColorTokens();
+            renderColorTokens.getBaseContainerColorTokens().getContainerColorTokens();
 
         Component parent = RadianceCoreUtilities.getHeaderParent(comp);
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);

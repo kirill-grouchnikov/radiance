@@ -121,7 +121,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             ExtendedContainerRenderColorTokens tileRenderColorTokens =
                     skin.getBackgroundRenderColorTokens(decorationAreaType);
             if (this.baseDecorationPainter == null) {
-                graphics.setColor(tileRenderColorTokens.getSurfaceContainerTokens().
+                graphics.setColor(tileRenderColorTokens.getBaseContainerColorTokens().
                     getContainerColorTokens().getContainerHigh());
                 graphics.fillRect(0, 0, width, height);
             } else {
@@ -174,7 +174,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             if (this.baseDecorationPainter != null) {
                 this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, width, height, skin);
             } else {
-                graphics.setColor(tileRenderColorTokens.getSurfaceContainerTokens()
+                graphics.setColor(tileRenderColorTokens.getBaseContainerColorTokens()
                     .getContainerColorTokens().getContainerHigh());
                 graphics.fillRect(0, 0, width, height);
             }
@@ -225,7 +225,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
                     contour, renderColorTokens);
         } else {
-            graphics.setColor(renderColorTokens.getSurfaceContainerTokens()
+            graphics.setColor(renderColorTokens.getBaseContainerColorTokens()
                 .getContainerColorTokens().getContainerHigh());
             graphics.fill(contour);
         }
@@ -371,7 +371,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
                     (int) ( tileHeight / scale), null);
             tile2D.dispose();
             result = RadianceImageCreator.getColorSchemeImage(tileBi,
-                renderColorTokens.getSurfaceContainerTokens(), 0.0f, 1.0f);
+                renderColorTokens.getBaseContainerColorTokens(), 0.0f, 1.0f);
             this.colorizedTileMap.put(key, result);
         }
         return result;

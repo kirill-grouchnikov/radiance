@@ -193,7 +193,7 @@ public class RadianceColorSchemeUtilities {
             // TODO: TONAL - verify that we don't need to use the old logic.
             // TODO: TONAL - colorization
             return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component))
-                .getSurfaceContainerTokens();
+                .getBaseContainerColorTokens();
 //            component = component.getParent();
         }
 
@@ -290,7 +290,7 @@ public class RadianceColorSchemeUtilities {
             && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component))
-                    .getSurfaceContainerTokens();
+                    .getBaseContainerColorTokens();
 //            component = component.getParent();
         }
 

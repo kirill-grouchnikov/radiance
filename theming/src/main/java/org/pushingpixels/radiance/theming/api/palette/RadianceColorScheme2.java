@@ -72,7 +72,7 @@ public interface RadianceColorScheme2 {
             }
 
             @Override
-            public ContainerRenderColorTokens getSurfaceContainerTokens() {
+            public ContainerRenderColorTokens getBaseContainerColorTokens() {
                 return stateRenderTokens;
             }
         };
@@ -144,7 +144,7 @@ public interface RadianceColorScheme2 {
             }
 
             @Override
-            public ContainerRenderColorTokens getSurfaceContainerTokens() {
+            public ContainerRenderColorTokens getBaseContainerColorTokens() {
                 return containerRenderColorTokens;
             }
         };
