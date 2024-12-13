@@ -41,6 +41,7 @@ public class BladeContainerRenderColorTokens implements ContainerRenderColorToke
     private OnContainerColorTokens onContainerColorTokens;
     private ContainerOutlineColorTokens containerOutlineColorTokens;
 
+    public boolean isDark = false;
     public Color containerLowest = Color.white;
     public Color containerLow = Color.white;
     public Color container = Color.white;
@@ -104,6 +105,11 @@ public class BladeContainerRenderColorTokens implements ContainerRenderColorToke
                 return containerOutlineVariant;
             }
         };
+    }
+
+    @Override
+    public boolean isDark() {
+        return this.isDark;
     }
 
     @Override

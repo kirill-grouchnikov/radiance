@@ -48,6 +48,11 @@ public class ColorSchemeUtils {
 
         return new ContainerRenderColorTokens() {
             @Override
+            public boolean isDark() {
+                return dynamicScheme.isDark;
+            }
+
+            @Override
             public ContainerColorTokens getContainerColorTokens() {
                 return new ContainerColorTokens() {
                     @Override
@@ -534,6 +539,11 @@ public class ColorSchemeUtils {
         Color containerOutlineVariant = original.getContainerOutlineColorTokens().getContainerOutlineVariant();
 
         return new ContainerRenderColorTokens() {
+            @Override
+            public boolean isDark() {
+                return original.isDark();
+            }
+
             @Override
             public ContainerColorTokens getContainerColorTokens() {
                 return new ContainerColorTokens() {

@@ -162,6 +162,7 @@ public class BladeUtils {
 
         bladeRenderColorTokens.combinedName = "[" + warningColorTokens.hashCode() + ":" + modificationCyclePosition
             + "], [" + emergencyColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
+        bladeRenderColorTokens.isDark = warningColorTokens.isDark() && emergencyColorTokens.isDark();
     }
 
     public static void populateColorScheme(
@@ -319,6 +320,8 @@ public class BladeUtils {
 
         nameBuilder.append(currColorTokens.hashCode());
 
+        boolean isDark = currColorTokens.isDark();
+
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                 (modelStateInfo == null) ? null : modelStateInfo.getStateContributionMap();
 
@@ -367,6 +370,7 @@ public class BladeUtils {
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                         .append(amount).append("]");
+                isDark = isDark && contributionColorTokens.isDark();
             }
         }
 
@@ -385,6 +389,7 @@ public class BladeUtils {
         bladeRenderColorTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
 
         bladeRenderColorTokens.combinedName = nameBuilder.toString();
+        bladeRenderColorTokens.isDark = isDark;
     }
 
     public interface ColorSchemeDelegate {
@@ -585,6 +590,8 @@ public class BladeUtils {
 
         nameBuilder.append(currColorTokens.hashCode());
 
+        boolean isDark = currColorTokens.isDark();
+
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                 (modelStateInfo == null) ? null :
                         (useNoSelectionStateContributionMap ? modelStateInfo.getStateNoSelectionContributionMap()
@@ -633,6 +640,7 @@ public class BladeUtils {
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                         .append(amount).append("]");
+                isDark = isDark && contributionColorTokens.isDark();
             }
         }
 
@@ -651,6 +659,7 @@ public class BladeUtils {
         bladeRenderColorTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
 
         bladeRenderColorTokens.combinedName = nameBuilder.toString();
+        bladeRenderColorTokens.isDark = isDark;
     }
 
     public static void populateColorScheme(

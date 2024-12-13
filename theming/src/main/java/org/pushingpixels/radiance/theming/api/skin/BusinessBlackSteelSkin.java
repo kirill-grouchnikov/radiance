@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
 /**
  * <code>Business Black Steel</code> skin. This class is part of officially supported API.
@@ -101,5 +101,41 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 	@Override
 	public String getDisplayName() {
 		return NAME;
+	}
+
+	public static class BusinessBlackSteelTonalSkin extends BusinessAccentedTonalSkin {
+		public static final String NAME = "Business Black Steel Tonal";
+
+		public BusinessBlackSteelTonalSkin() {
+			super(new AccentBuilder()
+				.withWindowChromeAccent(ColorSchemeUtils.getDarkTonalFidelityColorScheme(
+					Hct.fromInt(0xFF404040), Hct.fromInt(0xFF565656), Hct.fromInt(0xFF616161)))
+				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
+					Hct.fromInt(0xFF85A3B5), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
+				.withActiveControlsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
+					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
+				.withHighlightsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
+					Hct.fromInt(0xFFA1BCCF), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0))));
+
+			RadianceColorScheme2 controlPaneColorScheme =
+				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFAFBEC7),
+					Hct.fromInt(0xFFD5DBDF), Hct.fromInt(0xFFD0D7DC));
+
+			RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
+				new RadianceColorSchemeBundle2(controlPaneColorScheme);
+			businessBlueSteelControlBundle.registerColorScheme(
+				getActiveControlsAccent(),
+				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+				ComponentState.getActiveStates());
+			this.registerDecorationAreaSchemeBundle(businessBlueSteelControlBundle,
+				controlPaneColorScheme.getExtendedMutedContainerTokens(),
+				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
+				RadianceThemingSlices.DecorationAreaType.FOOTER);
+		}
+
+		@Override
+		public String getDisplayName() {
+			return NAME;
+		}
 	}
 }

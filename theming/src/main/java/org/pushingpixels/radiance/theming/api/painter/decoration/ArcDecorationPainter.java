@@ -149,6 +149,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
 
     private void paintTitleBackground(Graphics2D original, Component comp, int width, int height,
             ExtendedContainerRenderColorTokens renderColorTokens) {
+        boolean isDark = renderColorTokens.getBaseContainerColorTokens().isDark();
         ContainerColorTokens containerColorTokens =
             renderColorTokens.getBaseContainerColorTokens().getContainerColorTokens();
 
@@ -169,7 +170,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
             new float[] { 0.0f, 0.5f, 1.0f },
             new Color[] {
                 containerColorTokens.getContainer(),
-                containerColorTokens.getContainerLowest(),
+                isDark ? containerColorTokens.getContainerHighest() : containerColorTokens.getContainerLowest(),
                 containerColorTokens.getContainer() },
             CycleMethod.REPEAT);
         g2d.setPaint(gradientTop);
@@ -186,9 +187,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
         LinearGradientPaint gradientBottom = new LinearGradientPaint(0, 0, width, 0,
             new float[] { 0.0f, 0.5f, 1.0f },
             new Color[] {
-                containerColorTokens.getContainerHighest(),
+                isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest(),
                 containerColorTokens.getContainer(),
-                containerColorTokens.getContainerHighest()
+                isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest()
             },
             CycleMethod.REPEAT);
         g2d.setPaint(gradientBottom);
@@ -247,6 +248,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
 
     private void paintExtraBackground(Graphics2D graphics, Container parent, Component comp,
             int width, int height, ExtendedContainerRenderColorTokens renderColorTokens) {
+        boolean isDark = renderColorTokens.getBaseContainerColorTokens().isDark();
         ContainerColorTokens containerColorTokens =
             renderColorTokens.getBaseContainerColorTokens().getContainerColorTokens();
 
@@ -264,9 +266,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
                 -offset.x, 0, -offset.x + pWidth, 0,
                 new float[] { 0.0f, 0.5f, 1.0f },
                 new Color[] {
-                    containerColorTokens.getContainerHighest(),
+                    isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest(),
                     containerColorTokens.getContainer(),
-                    containerColorTokens.getContainerHighest()
+                    isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest()
                 },
                 CycleMethod.REPEAT);
             Graphics2D g2d = (Graphics2D) graphics.create();
@@ -307,6 +309,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
         RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
         ExtendedContainerRenderColorTokens renderColorTokens) {
 
+        boolean isDark = renderColorTokens.getBaseContainerColorTokens().isDark();
         ContainerColorTokens containerColorTokens =
             renderColorTokens.getBaseContainerColorTokens().getContainerColorTokens();
 
@@ -325,9 +328,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
                 -offset.x, 0, -offset.x + pWidth, 0,
                 new float[] { 0.0f, 0.5f, 1.0f },
                 new Color[] {
-                    containerColorTokens.getContainerHighest(),
+                    isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest(),
                     containerColorTokens.getContainer(),
-                    containerColorTokens.getContainerHighest()
+                    isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest()
                 },
                 CycleMethod.REPEAT);
             Graphics2D g2d = (Graphics2D) graphics.create();

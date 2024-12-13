@@ -76,6 +76,7 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             ContainerRenderColorTokens titleRenderColorTokens =
                 skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(titlePaneComp))
                     .getBaseContainerColorTokens();
+            boolean isDark = titleRenderColorTokens.isDark();
 
             Graphics2D graphics = (Graphics2D) g.create();
 
@@ -91,16 +92,20 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             graphics.setColor(titleRenderColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant());
             graphics.drawLine(x, y, x + w - 2, y);
             graphics.drawLine(x, y, x, y + h - 2);
-            // inner bottom and right fill as container
-            graphics.setColor(titleRenderColorTokens.getContainerColorTokens().getContainer());
+
+            // primary inner outline
+            graphics.setColor(isDark
+                ? titleRenderColorTokens.getContainerColorTokens().getContainerHigh()
+                : titleRenderColorTokens.getContainerColorTokens().getContainer());
             graphics.drawLine(x + 1, y + h - 2, x + w - 2, y + h - 2);
             graphics.drawLine(x + w - 2, y + 1, x + w - 2, y + h - 2);
-            // inner top and left fill as container
-            graphics.setColor(titleRenderColorTokens.getContainerColorTokens().getContainer());
             graphics.drawLine(x + 1, y + 1, x + w - 3, y + 1);
             graphics.drawLine(x + 1, y + 1, x + 1, y + h - 3);
-            // inner 2 and 3 fill as container lowest
-            graphics.setColor(titleRenderColorTokens.getContainerColorTokens().getContainerLowest());
+
+            // secondary inner outline
+            graphics.setColor(isDark
+                ? titleRenderColorTokens.getContainerColorTokens().getContainerHighest()
+                : titleRenderColorTokens.getContainerColorTokens().getContainerLowest());
             graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
             graphics.drawRect(x + 3, y + 3, w - 7, h - 7);
             graphics.drawRect(x + 4, y + 4, w - 9, h - 9);

@@ -30,6 +30,8 @@
 package org.pushingpixels.radiance.theming.api.palette;
 
 public interface ContainerRenderColorTokens {
+    boolean isDark();
+
     ContainerColorTokens getContainerColorTokens();
     OnContainerColorTokens getOnContainerColorTokens();
     ContainerOutlineColorTokens getContainerOutlineColorTokens();
