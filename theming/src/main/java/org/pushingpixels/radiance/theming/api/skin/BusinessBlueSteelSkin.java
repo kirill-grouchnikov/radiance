@@ -99,11 +99,11 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 		public BusinessBlueSteelTonalSkin() {
 			super(new AccentBuilder()
 				.withWindowChromeAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
-					Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFEAEAF0)))
+					Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
 				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
-					Hct.fromInt(0xFF83AFCE), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFEAEAF0)))
+					Hct.fromInt(0xFF83AFCE), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
 				.withActiveControlsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
-					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFEAEAF0)))
+					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
 				.withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedColorScheme(
 					Hct.fromInt(0xFFEBD296), 5.0, 2.0)));
 

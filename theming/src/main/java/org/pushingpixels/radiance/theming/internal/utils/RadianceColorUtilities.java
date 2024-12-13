@@ -910,8 +910,10 @@ public class RadianceColorUtilities {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (skin instanceof TonalSkin) {
-            ExtendedContainerRenderColorTokens colorTokens = skin.getBackgroundRenderColorTokens(
-                DecorationPainterUtils.getDecorationType(component));
+            ExtendedContainerRenderColorTokens colorTokens = skin.getExtendedRenderColorTokens(
+                component,
+                component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
+                RadianceThemingSlices.ContainerType.NEUTRAL);
             return (rowIndex % 2 == 0) ? colorTokens.getSurface()
                 : colorTokens.getBaseContainerColorTokens().getContainerColorTokens().getContainerLow();
         } else {

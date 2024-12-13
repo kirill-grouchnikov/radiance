@@ -69,7 +69,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                 .withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedColorScheme(
                     Hct.fromInt(0xFFEBD296), 5.0, 2.0))
                 .withActiveControlsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                    Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFEAEAF0)))
+                    Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)))
                 .withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedColorScheme(
                     Hct.fromInt(0xFFEBD296), 5.0, 2.0)));
         }
