@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -46,7 +46,7 @@ import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
-import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 
 import javax.swing.*;
@@ -63,7 +63,7 @@ import java.util.Set;
 public class ButtonBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
+    private BladeContainerColorTokens mutableRenderColorTokens = new BladeContainerColorTokens();
 
     private void drawBackground(
         Graphics2D graphics, AbstractButton button,
@@ -280,7 +280,7 @@ public class ButtonBackgroundDelegate {
 
     private void drawTonalBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
         RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
-        int height, ContainerRenderColorTokens renderColorTokens,
+        int height, ContainerColorTokens colorTokens,
         Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled,
         boolean isBorderPainted, ComponentState currState, float overallAlpha) {
 
@@ -321,12 +321,12 @@ public class ButtonBackgroundDelegate {
                         scaledHeight + deltaTop + deltaBottom + 1.0f, scaleFactor, false) :
                         contourOuter;
                 float containerAlpha = overallAlpha *
-                    (currState.isDisabled() ? renderColorTokens.getContainerDisabledAlpha() : 1.0f);
+                    (currState.isDisabled() ? colorTokens.getContainerDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
                     overallAlpha * containerAlpha, g));
                 fillPainter.paintContourBackground(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
-                        scaledHeight + deltaTop + deltaBottom, contourFill, renderColorTokens);
+                        scaledHeight + deltaTop + deltaBottom, contourFill, colorTokens);
             }
 
             if (isBorderPainted) {
@@ -335,13 +335,13 @@ public class ButtonBackgroundDelegate {
                                 scaledWidth + deltaLeft + deltaRight,
                                 scaledHeight + deltaTop + deltaBottom, scaleFactor, true) : null;
                 float containerOutlineAlpha = overallAlpha *
-                    (currState.isDisabled() ? renderColorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
                     overallAlpha * containerOutlineAlpha, g));
                 borderPainter.paintBorder(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
                         scaledHeight + deltaTop + deltaBottom, contourOuter, contourInner,
-                        renderColorTokens);
+                        colorTokens);
             }
             graphics1X.translate(deltaLeft, deltaTop);
         });

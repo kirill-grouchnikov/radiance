@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -89,7 +89,7 @@ public class HighlightPainterUtils {
 
     public static void paintHighlight(Graphics g, CellRendererPane rendererPane, Component c,
         Rectangle rect, float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
-        ContainerRenderColorTokens renderColorTokens) {
+        ContainerColorTokens colorTokens) {
         // fix for bug 65
         if ((rect.width <= 0) || (rect.height <= 0)) {
             return;
@@ -105,7 +105,7 @@ public class HighlightPainterUtils {
         if (openSides == null) {
             openSides = EnumSet.noneOf(RadianceThemingSlices.Side.class);
         }
-        paintHighlight(g2d, c, rect, borderAlpha, openSides, renderColorTokens,
+        paintHighlight(g2d, c, rect, borderAlpha, openSides, colorTokens,
             highlightPainter, highlightBorderPainter);
         g2d.dispose();
     }
@@ -125,13 +125,13 @@ public class HighlightPainterUtils {
 
     private static void paintHighlight(Graphics g, Component c, Rectangle rect,
         float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
-        ContainerRenderColorTokens renderColorTokens, RadianceFillPainter highlightPainter,
+        ContainerColorTokens colorTokens, RadianceFillPainter highlightPainter,
         RadianceBorderPainter highlightBorderPainter) {
         Graphics2D g2d = (Graphics2D) g.create();
-        highlightPainter.paintContourBackground(g2d, c, rect.width, rect.height, rect, renderColorTokens);
+        highlightPainter.paintContourBackground(g2d, c, rect.width, rect.height, rect, colorTokens);
         g2d.translate(rect.x, rect.y);
         paintHighlightBorder1X(g2d, c, rect.width, rect.height, borderAlpha, openSides,
-            highlightBorderPainter, renderColorTokens);
+            highlightBorderPainter, colorTokens);
         g2d.dispose();
     }
 
@@ -184,7 +184,7 @@ public class HighlightPainterUtils {
 
     public static void paintHighlightBorder1X(Graphics2D g, Component comp, int width,
         int height, float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
-        RadianceBorderPainter highlightBorderPainter, ContainerRenderColorTokens renderColorTokens) {
+        RadianceBorderPainter highlightBorderPainter, ContainerColorTokens colorTokens) {
         if (borderAlpha <= 0.0f) {
             return;
         }
@@ -220,7 +220,7 @@ public class HighlightPainterUtils {
                 highlightBorderPainter.paintBorder(graphics1X, comp,
                     scaledWidth + deltaLeft + deltaRight,
                     scaledHeight + deltaTop + deltaBottom,
-                    contour, contourInner, renderColorTokens);
+                    contour, contourInner, colorTokens);
                 graphics1X.translate(deltaLeft, deltaTop);
             });
         graphics.dispose();

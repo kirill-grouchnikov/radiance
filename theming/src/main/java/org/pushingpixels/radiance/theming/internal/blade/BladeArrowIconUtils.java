@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
@@ -119,7 +119,7 @@ public class BladeArrowIconUtils {
     }
 
     public static void drawArrow(Graphics2D g, int fontSize, Dimension boundingBox,
-        int direction, ContainerRenderColorTokens renderColorTokens, float alpha) {
+        int direction, ContainerColorTokens colorTokens, float alpha) {
         float origWidth = RadianceSizeUtils.getArrowIconWidth(fontSize);
         float origHeight = RadianceSizeUtils.getArrowIconHeight(fontSize);
         float width = origWidth;
@@ -133,12 +133,12 @@ public class BladeArrowIconUtils {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(dx, dy);
-        drawArrow(graphics, width, height, strokeWidth, direction, renderColorTokens, alpha);
+        drawArrow(graphics, width, height, strokeWidth, direction, colorTokens, alpha);
         graphics.dispose();
     }
 
     public static void drawArrow(Graphics2D g, float width, float height,
-        float strokeWidth, int direction, ContainerRenderColorTokens renderColorTokens, float alpha) {
+        float strokeWidth, int direction, ContainerColorTokens colorTokens, float alpha) {
         if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
             float tmp = width;
             width = height;
@@ -154,7 +154,7 @@ public class BladeArrowIconUtils {
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
             RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        Color arrowColor = renderColorTokens.getOnContainer();
+        Color arrowColor = colorTokens.getOnContainer();
 
         graphics.setColor(RadianceColorUtilities.getAlphaColor(arrowColor, (int) (255 * alpha)));
         Stroke stroke = new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
@@ -163,10 +163,10 @@ public class BladeArrowIconUtils {
         if (direction == SwingConstants.CENTER) {
             float smallHeight = (height - strokeWidth) / 2;
             drawArrow(graphics, width, smallHeight, strokeWidth,
-                SwingConstants.NORTH, renderColorTokens, alpha);
+                SwingConstants.NORTH, colorTokens, alpha);
             graphics.translate(0, (int) (height / 2.0));
             drawArrow(graphics, width, smallHeight, strokeWidth,
-                SwingConstants.SOUTH, renderColorTokens, alpha);
+                SwingConstants.SOUTH, colorTokens, alpha);
         } else {
             float cushion = strokeWidth / 2.0f;
             GeneralPath gp = new GeneralPath();

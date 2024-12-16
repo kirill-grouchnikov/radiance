@@ -33,8 +33,8 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
@@ -89,7 +89,7 @@ public class FakeAccordion extends JPanel {
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
                         Color accentedFill = Color.RED;
                         if (skin instanceof TonalSkin) {
-                            ExtendedContainerRenderColorTokens colorTokens = skin.getBackgroundRenderColorTokens(
+                            ExtendedContainerColorTokens colorTokens = skin.getBackgroundColorTokens(
                                 DecorationPainterUtils.getDecorationType(this));
                             accentedFill = colorTokens.getBaseContainerColorTokens()
                                 .getContainerLow();
@@ -167,7 +167,7 @@ public class FakeAccordion extends JPanel {
                                         1.0f, 0, radiusOuter);
 
                                 if (skin instanceof TonalSkin) {
-                                    ContainerRenderColorTokens containerTokens = skin.getRenderColorTokens(
+                                    ContainerColorTokens containerTokens = skin.getRenderColorTokens(
                                         contentWrapper,
                                         RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                                         ComponentState.ENABLED,

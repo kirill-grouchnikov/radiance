@@ -41,21 +41,21 @@ public interface RadianceColorScheme2 {
 
     Color getSurfaceBright();
 
-    ContainerRenderColorTokens getNeutralContainerTokens();
+    ContainerColorTokens getNeutralContainerTokens();
 
-    ContainerRenderColorTokens getMutedContainerTokens();
+    ContainerColorTokens getMutedContainerTokens();
 
-    ContainerRenderColorTokens getTonalContainerTokens();
+    ContainerColorTokens getTonalContainerTokens();
 
-    ContainerRenderColorTokens getPrimaryContainerTokens();
+    ContainerColorTokens getPrimaryContainerTokens();
 
-    ContainerRenderColorTokens getContainerTokensForState(ComponentState componentState);
+    ContainerColorTokens getContainerTokensForState(ComponentState componentState);
 
-    default ExtendedContainerRenderColorTokens getExtendedContainerRenderTokens(ComponentState componentState) {
+    default ExtendedContainerColorTokens getExtendedContainerRenderTokens(ComponentState componentState) {
         RadianceColorScheme2 me = this;
-        ContainerRenderColorTokens stateRenderTokens = getContainerTokensForState(componentState);
+        ContainerColorTokens stateRenderTokens = getContainerTokensForState(componentState);
 
-        return new ExtendedContainerRenderColorTokens() {
+        return new ExtendedContainerColorTokens() {
             @Override
             public Color getSurface() {
                 return me.getSurface();
@@ -72,13 +72,13 @@ public interface RadianceColorScheme2 {
             }
 
             @Override
-            public ContainerRenderColorTokens getBaseContainerColorTokens() {
+            public ContainerColorTokens getBaseContainerColorTokens() {
                 return stateRenderTokens;
             }
         };
     }
 
-    default ContainerRenderColorTokens getContainerTokens(RadianceThemingSlices.ContainerType containerType) {
+    default ContainerColorTokens getContainerTokens(RadianceThemingSlices.ContainerType containerType) {
         switch (containerType) {
             case MUTED: return this.getMutedContainerTokens();
             case TONAL: return this.getTonalContainerTokens();
@@ -88,17 +88,17 @@ public interface RadianceColorScheme2 {
         }
     }
 
-    ContainerRenderColorTokens getSystemInfoContainerTokens();
+    ContainerColorTokens getSystemInfoContainerTokens();
 
-    ContainerRenderColorTokens getSystemWarningContainerTokens();
+    ContainerColorTokens getSystemWarningContainerTokens();
 
-    ContainerRenderColorTokens getSystemErrorContainerTokens();
+    ContainerColorTokens getSystemErrorContainerTokens();
 
-    ContainerRenderColorTokens getSystemSuccessContainerTokens();
+    ContainerColorTokens getSystemSuccessContainerTokens();
 
-    ContainerRenderColorTokens getSystemEmergencyContainerTokens();
+    ContainerColorTokens getSystemEmergencyContainerTokens();
 
-    default ExtendedContainerRenderColorTokens getExtendedContainerTokens(RadianceThemingSlices.ContainerType containerType) {
+    default ExtendedContainerColorTokens getExtendedContainerTokens(RadianceThemingSlices.ContainerType containerType) {
         switch (containerType) {
             case MUTED: return this.getExtendedMutedContainerTokens();
             case TONAL: return this.getExtendedTonalContainerTokens();
@@ -108,26 +108,26 @@ public interface RadianceColorScheme2 {
         }
     }
 
-    default ExtendedContainerRenderColorTokens getExtendedNeutralContainerTokens() {
+    default ExtendedContainerColorTokens getExtendedNeutralContainerTokens() {
         return getExtendedContainerTokens(getNeutralContainerTokens());
     }
 
-    default ExtendedContainerRenderColorTokens getExtendedMutedContainerTokens() {
+    default ExtendedContainerColorTokens getExtendedMutedContainerTokens() {
         return getExtendedContainerTokens(getMutedContainerTokens());
     }
 
-    default ExtendedContainerRenderColorTokens getExtendedTonalContainerTokens() {
+    default ExtendedContainerColorTokens getExtendedTonalContainerTokens() {
         return getExtendedContainerTokens(getTonalContainerTokens());
     }
 
-    default ExtendedContainerRenderColorTokens getExtendedPrimaryContainerTokens() {
+    default ExtendedContainerColorTokens getExtendedPrimaryContainerTokens() {
         return getExtendedContainerTokens(getPrimaryContainerTokens());
     }
 
-    private ExtendedContainerRenderColorTokens getExtendedContainerTokens(
-        ContainerRenderColorTokens containerRenderColorTokens) {
+    private ExtendedContainerColorTokens getExtendedContainerTokens(
+        ContainerColorTokens containerColorTokens) {
         RadianceColorScheme2 me = this;
-        return new ExtendedContainerRenderColorTokens() {
+        return new ExtendedContainerColorTokens() {
             @Override
             public Color getSurface() {
                 return me.getSurface();
@@ -144,8 +144,8 @@ public interface RadianceColorScheme2 {
             }
 
             @Override
-            public ContainerRenderColorTokens getBaseContainerColorTokens() {
-                return containerRenderColorTokens;
+            public ContainerColorTokens getBaseContainerColorTokens() {
+                return containerColorTokens;
             }
         };
     }

@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
 
 import java.util.*;
 
@@ -203,7 +203,7 @@ public class RadianceColorSchemeBundle2 {
      * @return The color scheme of the component in the specified component
      * state.
      */
-    public ContainerRenderColorTokens getColorRenderTokens(ComponentState componentState,
+    public ContainerColorTokens getColorRenderTokens(ComponentState componentState,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (componentState.isDisabled()) {
             return getColorRenderTokens(componentState.getEnabledMatch(), inactiveContainerType);
@@ -220,7 +220,7 @@ public class RadianceColorSchemeBundle2 {
             : this.mainColorScheme.getContainerTokens(inactiveContainerType);
     }
 
-    public ExtendedContainerRenderColorTokens getExtendedRenderColorTokens(ComponentState componentState,
+    public ExtendedContainerColorTokens getExtendedRenderColorTokens(ComponentState componentState,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (componentState.isDisabled()) {
             return getExtendedRenderColorTokens(componentState.getEnabledMatch(), inactiveContainerType);
@@ -237,7 +237,7 @@ public class RadianceColorSchemeBundle2 {
             : this.mainColorScheme.getExtendedContainerTokens(inactiveContainerType);
     }
 
-    public ContainerRenderColorTokens getSystemRenderColorTokens(
+    public ContainerColorTokens getSystemRenderColorTokens(
         RadianceThemingSlices.SystemContainerType systemContainerType) {
 
         switch (systemContainerType) {
@@ -361,7 +361,7 @@ public class RadianceColorSchemeBundle2 {
      * the component under the specified component state.
      * @see #registerColorScheme(RadianceColorScheme2, ComponentState...)
      */
-    public ContainerRenderColorTokens getColorRenderTokens(
+    public ContainerColorTokens getColorRenderTokens(
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         ComponentState componentState, boolean allowFallback,
         RadianceThemingSlices.ContainerType inactiveContainerType) {

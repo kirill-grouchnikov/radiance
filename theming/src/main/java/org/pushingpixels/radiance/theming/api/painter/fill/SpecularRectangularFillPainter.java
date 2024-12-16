@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.painter.fill;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
@@ -115,9 +115,9 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
 
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
-        Shape contour, ContainerRenderColorTokens renderColorTokens) {
+        Shape contour, ContainerColorTokens colorTokens) {
 
-        this.baseFillPainter.paintContourBackground(g, comp, width, height, contour, renderColorTokens);
+        this.baseFillPainter.paintContourBackground(g, comp, width, height, contour, colorTokens);
 
         int iw = (int) width;
         int ih = (int) height;
@@ -127,8 +127,8 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
 
         if ((shineWidth > 0) && (shineHeight > 0)) {
             BufferedImage shineImage = getShineImage(comp, contour,
-                renderColorTokens.getContainerLowest(),
-                renderColorTokens.getContainerLow(),
+                colorTokens.getContainerLowest(),
+                colorTokens.getContainerLow(),
                 this.alpha, shineWidth, shineHeight);
 
             Graphics2D graphics = (Graphics2D) g.create();

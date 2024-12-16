@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -135,7 +135,7 @@ public class RadianceBorder implements Border, UIResource {
 
 		RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
 		if (skin instanceof TonalSkin) {
-			ContainerRenderColorTokens renderColorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
+			ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
 				c, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
 				RadianceThemingSlices.ContainerType.MUTED);
 
@@ -145,7 +145,7 @@ public class RadianceBorder implements Border, UIResource {
 			float baseRadius = this.radiusScaleFactor *
 				RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
 			BladeDrawingUtils.paintBladeTonalBorder(c, graphics, x, y, width, height, baseRadius,
-				renderColorTokens);
+				colorTokens);
 		} else {
 			RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities.getColorScheme(
 				c, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);

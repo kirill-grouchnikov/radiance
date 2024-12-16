@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import java.awt.*;
@@ -62,7 +62,7 @@ public interface RadianceFillPainter extends RadianceTrait {
 			float height, Shape contour, RadianceColorScheme fillScheme);
 
 	default void paintContourBackground(Graphics g, Component comp, float width, float height,
-			Shape contour, ContainerRenderColorTokens renderColorTokens) {
+			Shape contour, ContainerColorTokens colorTokens) {
 	}
 
 	Color getRepresentativeColor(RadianceColorScheme fillScheme);

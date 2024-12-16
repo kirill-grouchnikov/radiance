@@ -35,13 +35,13 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
@@ -427,8 +427,8 @@ public class RadianceColorUtilities {
                 getColorBrightness(getNegativeColor(color.getRGB()))) / 255.0f;
     }
 
-    private static BladeContainerRenderColorTokens mutableRenderColorTokens =
-        new BladeContainerRenderColorTokens();
+    private static BladeContainerColorTokens mutableRenderColorTokens =
+        new BladeContainerColorTokens();
 
     /**
      * Returns the foreground text color of the specified component.
@@ -525,7 +525,7 @@ public class RadianceColorUtilities {
             }
         }
 
-        ContainerRenderColorTokens colorTokens =
+        ContainerColorTokens colorTokens =
             skin.getRenderColorTokens(component, currState, inactiveContainerType);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return colorTokens.getOnContainer();
@@ -539,7 +539,7 @@ public class RadianceColorUtilities {
             ComponentState activeState = activeEntry.getKey();
             float alpha = activeEntry.getValue().getContribution();
 
-            ContainerRenderColorTokens activeColorTokens =
+            ContainerColorTokens activeColorTokens =
                 RadianceColorSchemeUtilities.getRenderColorTokens(component, activeState,
                     inactiveContainerType);
             Color activeForeground = activeColorTokens.getOnContainer();
@@ -589,9 +589,9 @@ public class RadianceColorUtilities {
             }
         }
 
-        ContainerRenderColorTokens renderColorTokens =
+        ContainerColorTokens colorTokens =
             skin.getRenderColorTokens(component, currState, inactiveContainerType);
-        return currState.isDisabled() ? renderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
+        return currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha() : 1.0f;
     }
 
     /**
@@ -654,11 +654,11 @@ public class RadianceColorUtilities {
         RadianceThemingSlices.ContainerColorTokensAssociationKind currAssocKind =
             currState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
                 : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
-        ContainerRenderColorTokens renderColorTokens =
+        ContainerColorTokens colorTokens =
             RadianceColorSchemeUtilities.getRenderColorTokens(
                 menuComponent, currAssocKind, currState, inactiveContainerType);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            return renderColorTokens.getOnContainer();
+            return colorTokens.getOnContainer();
         }
 
         float aggrRed = 0;
@@ -673,7 +673,7 @@ public class RadianceColorUtilities {
             RadianceThemingSlices.ContainerColorTokensAssociationKind assocKind =
                 activeState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
                     : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
-            ContainerRenderColorTokens activeRenderColorTokens =
+            ContainerColorTokens activeRenderColorTokens =
                 RadianceColorSchemeUtilities.getRenderColorTokens(
                     menuComponent, assocKind, activeState, inactiveContainerType);
             Color activeForeground = activeRenderColorTokens.getOnContainer();
@@ -693,10 +693,10 @@ public class RadianceColorUtilities {
         RadianceThemingSlices.ContainerColorTokensAssociationKind currAssocKind =
             currState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
                 : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
-        ContainerRenderColorTokens renderColorTokens =
+        ContainerColorTokens colorTokens =
             RadianceColorSchemeUtilities.getRenderColorTokens(
                 menuComponent, currAssocKind, currState, inactiveContainerType);
-        return currState.isDisabled() ? renderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
+        return currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha() : 1.0f;
     }
 
     /**
@@ -800,7 +800,7 @@ public class RadianceColorUtilities {
             return backgr;
         }
 
-        ContainerRenderColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
+        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
             component,
             component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
             inactiveContainerType);
@@ -855,7 +855,7 @@ public class RadianceColorUtilities {
     }
 
     public static Color getBackgroundTonalFillColorScrollBar(JScrollBar scrollbar) {
-        ContainerRenderColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
+        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
             scrollbar,
             scrollbar.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
             RadianceThemingSlices.ContainerType.NEUTRAL);
@@ -910,7 +910,7 @@ public class RadianceColorUtilities {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (skin instanceof TonalSkin) {
-            ExtendedContainerRenderColorTokens colorTokens = skin.getExtendedRenderColorTokens(
+            ExtendedContainerColorTokens colorTokens = skin.getExtendedColorTokens(
                 component,
                 component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
                 RadianceThemingSlices.ContainerType.NEUTRAL);

@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
-import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -67,8 +67,8 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
-    private BladeContainerRenderColorTokens mutableRenderColorTokens =
-        new BladeContainerRenderColorTokens();
+    private BladeContainerColorTokens mutableRenderColorTokens =
+        new BladeContainerColorTokens();
 
     /**
      * Creates a new icon.

@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetReposito
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
-import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -70,8 +70,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeContainerRenderColorTokens mutableRenderColorTokens =
-        new BladeContainerRenderColorTokens();
+    private BladeContainerColorTokens mutableRenderColorTokens =
+        new BladeContainerColorTokens();
 
     /**
      * Listener for thumb transition animations.

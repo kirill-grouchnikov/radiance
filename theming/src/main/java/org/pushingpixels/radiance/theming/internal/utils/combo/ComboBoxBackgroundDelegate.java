@@ -36,12 +36,12 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
-import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -58,7 +58,7 @@ import java.util.Map;
 public class ComboBoxBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
+    private BladeContainerColorTokens mutableRenderColorTokens = new BladeContainerColorTokens();
 
     public void drawBackground(
             Graphics2D graphics, JComboBox combo,
@@ -131,7 +131,7 @@ public class ComboBoxBackgroundDelegate {
     private void drawBackground(Graphics2D g, JComboBox combo,
         RadianceFillPainter fillPainter,
         RadianceBorderPainter borderPainter, int width, int height,
-        ContainerRenderColorTokens renderColorTokens) {
+        ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -154,7 +154,7 @@ public class ComboBoxBackgroundDelegate {
                     combo.getComponentOrientation(),
                     scaledWidth, scaledHeight, radius, null, 0.5f);
                 fillPainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
-                    contourFill, renderColorTokens);
+                    contourFill, colorTokens);
 
                 Shape contourInner = borderPainter.isPaintingInnerContour() ?
                     RadianceOutlineUtilities.getBaseOutline(
@@ -162,7 +162,7 @@ public class ComboBoxBackgroundDelegate {
                         scaledWidth - 1, scaledHeight - 1, radius - 1, null, 1)
                     : null;
                 borderPainter.paintBorder(graphics1X, combo, scaledWidth, scaledHeight,
-                    contourOuter, contourInner, renderColorTokens);
+                    contourOuter, contourInner, colorTokens);
             });
     }
 

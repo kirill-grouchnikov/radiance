@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.theming.api.painter.fill;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
@@ -62,13 +62,13 @@ public class FractionBasedTonalFillPainter extends FractionBasedTonalPainter imp
 
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
-            Shape contour, ContainerRenderColorTokens renderColorTokens) {
+            Shape contour, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
 
         Color[] fillColors = new Color[this.fractions.length];
         for (int i = 0; i < this.fractions.length; i++) {
             ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
-            fillColors[i] = colorQuery.query(renderColorTokens);
+            fillColors[i] = colorQuery.query(colorTokens);
         }
 
         MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, this.fractions,

@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.theming.api.painter.border;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowButton;
 
 import java.awt.*;
@@ -66,7 +66,7 @@ public class FractionBasedTonalBorderPainter extends FractionBasedTonalPainter
 	}
 
 	@Override
-	public void paintBorder(Graphics g, Component c, float width, float height, Shape contour, Shape innerContour, ContainerRenderColorTokens renderColorTokens) {
+	public void paintBorder(Graphics g, Component c, float width, float height, Shape contour, Shape innerContour, ContainerColorTokens colorTokens) {
 		if (contour == null)
 			return;
 
@@ -75,7 +75,7 @@ public class FractionBasedTonalBorderPainter extends FractionBasedTonalPainter
 		Color[] drawColors = new Color[this.fractions.length];
 		for (int i = 0; i < this.fractions.length; i++) {
 			ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
-			drawColors[i] = colorQuery.query(renderColorTokens);
+			drawColors[i] = colorQuery.query(colorTokens);
 		}
 
 		// issue 433 - the "c" can be null when painting

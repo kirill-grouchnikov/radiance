@@ -30,16 +30,16 @@
 package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class ContainerPalettePreview extends JComponent {
-    private ContainerRenderColorTokens colorTokens;
+    private ContainerColorTokens colorTokens;
 
-    public ContainerPalettePreview(ContainerRenderColorTokens colorTokens) {
+    public ContainerPalettePreview(ContainerColorTokens colorTokens) {
         this.colorTokens = colorTokens;
     }
 

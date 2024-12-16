@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFac
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
@@ -558,13 +558,13 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
         if (dropLocation != null && !dropLocation.isInsert() && dropLocation.getIndex() == row) {
             // mark drop location
             if (skin instanceof TonalSkin) {
-                ContainerRenderColorTokens renderColorTokens =
+                ContainerColorTokens colorTokens =
                     RadianceColorSchemeUtilities.getRenderColorTokens(list,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                 Rectangle cellRect = new Rectangle(cx, cy, cw, ch);
                 HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererComponent,
-                    cellRect, 0.8f, null, renderColorTokens);
+                    cellRect, 0.8f, null, colorTokens);
             } else {
                 RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
                     list, ColorSchemeAssociationKind.HIGHLIGHT, currState);
@@ -581,11 +581,11 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
                     float alpha = this.updateInfo.getHighlightAlpha(currState);
                     if (alpha > 0.0f) {
                         if (skin instanceof TonalSkin) {
-                            ContainerRenderColorTokens renderColorTokens =
+                            ContainerColorTokens colorTokens =
                                 this.updateInfo.getHighlightColorTokens(currState);
                             g2d.setComposite(WidgetUtilities.getAlphaComposite(list, alpha, g));
                             HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
-                                rendererComponent, cellRect, 0.8f, null, renderColorTokens);
+                                rendererComponent, cellRect, 0.8f, null, colorTokens);
                             g2d.setComposite(WidgetUtilities.getAlphaComposite(list, g));
                         } else {
                             RadianceColorScheme fillScheme =
@@ -607,11 +607,11 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
                         if (alpha == 0.0f)
                             continue;
                         if (skin instanceof TonalSkin) {
-                            ContainerRenderColorTokens renderColorTokens =
+                            ContainerColorTokens colorTokens =
                                 this.updateInfo.getHighlightColorTokens(activeState);
                             g2d.setComposite(WidgetUtilities.getAlphaComposite(list, alpha, g));
                             HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
-                                rendererComponent, cellRect, 0.8f, null, renderColorTokens);
+                                rendererComponent, cellRect, 0.8f, null, colorTokens);
                             g2d.setComposite(WidgetUtilities.getAlphaComposite(list, g));
                         } else {
                             RadianceColorScheme fillScheme =

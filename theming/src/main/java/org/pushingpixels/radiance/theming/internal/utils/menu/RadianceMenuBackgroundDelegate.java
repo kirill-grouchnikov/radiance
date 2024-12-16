@@ -34,8 +34,8 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
@@ -101,8 +101,8 @@ public class RadianceMenuBackgroundDelegate {
 						menuItem, fillAlpha, g));
 				RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
 				if (skin instanceof TonalSkin) {
-					ExtendedContainerRenderColorTokens surfaceRenderTokens =
-						skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(menuItem));
+					ExtendedContainerColorTokens surfaceRenderTokens =
+						skin.getBackgroundColorTokens(DecorationPainterUtils.getDecorationType(menuItem));
 					graphics.setColor(surfaceRenderTokens.getSurface());
 				} else {
 					RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
@@ -175,13 +175,13 @@ public class RadianceMenuBackgroundDelegate {
 
 			graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, alpha, g));
 			if (skin instanceof TonalSkin) {
-				ContainerRenderColorTokens renderColorTokens =
+				ContainerColorTokens colorTokens =
 					RadianceColorSchemeUtilities.getRenderColorTokens(
 						menuItem, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 						activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
 				HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
 					new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
-					null, renderColorTokens);
+					null, colorTokens);
 			} else {
 				RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
 					menuItem, ColorSchemeAssociationKind.HIGHLIGHT, activeState);

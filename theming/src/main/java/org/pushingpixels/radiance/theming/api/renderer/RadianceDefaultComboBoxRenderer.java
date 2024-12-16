@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
@@ -126,10 +126,10 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                 ComponentState currState = listUI.getCellState(index, result);
                 if (modelStateInfo == null) {
                     if (skin instanceof TonalSkin) {
-                        ContainerRenderColorTokens renderColorTokens = getColorTokensForState(
+                        ContainerColorTokens colorTokens = getColorTokensForState(
                             list, index, listUI, currState);
                         result.setForeground(new ColorUIResource(
-                            renderColorTokens.getOnContainer()));
+                            colorTokens.getOnContainer()));
                     } else {
                         RadianceColorScheme scheme = getColorSchemeForState(list, index, listUI, currState);
                         result.setForeground(new ColorUIResource(scheme.getForegroundColor()));
@@ -140,10 +140,10 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                     if (currState.isDisabled() || (activeStates == null)
                             || (activeStates.size() == 1)) {
                         if (skin instanceof TonalSkin) {
-                            ContainerRenderColorTokens renderColorTokens = getColorTokensForState(
+                            ContainerColorTokens colorTokens = getColorTokensForState(
                                 list, index, listUI, currState);
                             super.setForeground(new ColorUIResource(
-                                renderColorTokens.getOnContainer()));
+                                colorTokens.getOnContainer()));
                         } else {
                             RadianceColorScheme colorScheme = getColorSchemeForState(list, index,
                                 listUI, currState);
@@ -162,7 +162,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                                 continue;
 
                             if (skin instanceof TonalSkin) {
-                                ContainerRenderColorTokens colorTokens = getColorTokensForState(
+                                ContainerColorTokens colorTokens = getColorTokensForState(
                                     list, index, listUI, activeState);
                                 Color schemeFg =
                                     colorTokens.getOnContainer();
@@ -215,7 +215,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
         }
     }
 
-    private ContainerRenderColorTokens getColorTokensForState(JList list, int index,
+    private ContainerColorTokens getColorTokensForState(JList list, int index,
         RadianceListUI listUI, ComponentState state) {
         boolean toUseHighlightKindForCurrState = (index >= 0)
             && (state.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER) || state

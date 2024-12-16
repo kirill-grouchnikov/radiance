@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceListUI;
@@ -154,7 +154,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                 if (currState.isDisabled() || (activeStates == null)
                         || (activeStates.size() == 1)) {
                     if (skin instanceof TonalSkin) {
-                        ContainerRenderColorTokens colorTokens = getColorTokensForState(list, ui, currState);
+                        ContainerColorTokens colorTokens = getColorTokensForState(list, ui, currState);
                         labelForeground = new ColorUIResource(
                             colorTokens.getOnContainer());
 
@@ -172,7 +172,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                         ComponentState activeState = activeEntry.getKey();
                         float contribution = activeEntry.getValue().getContribution();
                         if (skin instanceof TonalSkin) {
-                            ContainerRenderColorTokens colorTokens = getColorTokensForState(
+                            ContainerColorTokens colorTokens = getColorTokensForState(
                                 list, ui, activeState);
                             Color schemeFg = colorTokens.getOnContainer();
                             aggrRed += schemeFg.getRed() * contribution;
@@ -191,7 +191,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                 }
             } else {
                 if (skin instanceof TonalSkin) {
-                    ContainerRenderColorTokens colorTokens = getColorTokensForState(list, ui, currState);
+                    ContainerColorTokens colorTokens = getColorTokensForState(list, ui, currState);
                     if (isDropLocation) {
                         colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(list,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -265,7 +265,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
         }
     }
 
-    private ContainerRenderColorTokens getColorTokensForState(JList list, RadianceListUI ui,
+    private ContainerColorTokens getColorTokensForState(JList list, RadianceListUI ui,
         ComponentState state) {
         UpdateOptimizationInfo updateOptimizationInfo = ui.getUpdateOptimizationInfo();
         if (state == ComponentState.ENABLED) {

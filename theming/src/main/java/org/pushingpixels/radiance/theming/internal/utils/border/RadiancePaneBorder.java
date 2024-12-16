@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -73,8 +73,8 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
         if (skin instanceof TonalSkin) {
             Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
                 SwingUtilities.windowForComponent(c));
-            ContainerRenderColorTokens titleRenderColorTokens =
-                skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(titlePaneComp))
+            ContainerColorTokens titleRenderColorTokens =
+                skin.getBackgroundColorTokens(DecorationPainterUtils.getDecorationType(titlePaneComp))
                     .getBaseContainerColorTokens();
             boolean isDark = titleRenderColorTokens.isDark();
 

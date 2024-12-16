@@ -38,7 +38,7 @@ import java.awt.*;
  */
 @FunctionalInterface
 public interface ContainerColorTokensSingleColorQuery {
-	Color query(ContainerRenderColorTokens colorTokens);
+	Color query(ContainerColorTokens colorTokens);
 
 	ContainerColorTokensSingleColorQuery CONTAINER_LOWEST = (colorTokens) ->
 		colorTokens.getContainerLowest();

@@ -33,10 +33,10 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ColorSchemeFilter;
+import org.pushingpixels.radiance.theming.internal.utils.filters.ColorTokensFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ImageColorFilter;
-import org.pushingpixels.radiance.theming.internal.utils.filters.RenderColorTokensFilter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -405,7 +405,7 @@ public final class RadianceImageCreator {
     }
 
     public static BufferedImage getColorSchemeImage(Component comp, Icon original,
-        ContainerRenderColorTokens renderColorTokens, float originalBrightnessFactor) {
+        ContainerColorTokens colorTokens, float originalBrightnessFactor) {
         int w = original.getIconWidth();
         int h = original.getIconHeight();
         if ((w == 0) || (h == 0)) {
@@ -419,7 +419,7 @@ public final class RadianceImageCreator {
         original.paintIcon(comp, origImage.getGraphics(), 0, 0);
         g2d.dispose();
 
-        BufferedImage result = getColorSchemeImage(origImage, renderColorTokens,
+        BufferedImage result = getColorSchemeImage(origImage, colorTokens,
             originalBrightnessFactor, 1.0f);
         return result;
     }
@@ -441,9 +441,9 @@ public final class RadianceImageCreator {
     }
 
     public static BufferedImage getColorSchemeImage(BufferedImage original,
-            ContainerRenderColorTokens renderColorTokens, float originalBrightnessFactor,
+            ContainerColorTokens colorTokens, float originalBrightnessFactor,
             float alpha) {
-        return RenderColorTokensFilter.getColorSchemeFilter(renderColorTokens, originalBrightnessFactor, alpha)
+        return ColorTokensFilter.getColorSchemeFilter(colorTokens, originalBrightnessFactor, alpha)
                 .filter(original, null);
     }
 

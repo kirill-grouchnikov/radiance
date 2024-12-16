@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
@@ -175,7 +175,7 @@ public class RadianceTitlePane extends JComponent {
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
         RadianceSkin skin = RadianceCoreUtilities.getSkin(root);
         if (skin instanceof TonalSkin) {
-            this.setForeground(skin.getBackgroundRenderColorTokens(
+            this.setForeground(skin.getBackgroundColorTokens(
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
                     .getBaseContainerColorTokens().getOnContainer());
         } else {
@@ -481,8 +481,8 @@ public class RadianceTitlePane extends JComponent {
                     }
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
-                        closeButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        closeButtonProvider.drawIcon(g, colorTokens, alpha,
                                 RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
@@ -519,8 +519,8 @@ public class RadianceTitlePane extends JComponent {
                         }
 
                         @Override
-                        public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
-                            minimizeButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                        public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                            minimizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                     RadianceSizeUtils.getTitlePaneIconSize());
                         }
 
@@ -555,8 +555,8 @@ public class RadianceTitlePane extends JComponent {
                             }
 
                             @Override
-                            public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
-                                restoreButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                restoreButtonProvider.drawIcon(g, colorTokens, alpha,
                                         RadianceSizeUtils.getTitlePaneIconSize());
                             }
 
@@ -582,8 +582,8 @@ public class RadianceTitlePane extends JComponent {
 
                             @Override
                             public void drawColorSchemeIcon(Graphics2D g,
-                                    ContainerRenderColorTokens renderColorTokens, float alpha) {
-                                maximizeButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                                    ContainerColorTokens colorTokens, float alpha) {
+                                maximizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                         RadianceSizeUtils.getTitlePaneIconSize());
                             }
 
@@ -681,8 +681,8 @@ public class RadianceTitlePane extends JComponent {
 
                                     @Override
                                     public void drawColorSchemeIcon(Graphics2D g,
-                                            ContainerRenderColorTokens renderColorTokens, float alpha) {
-                                        restoreButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                                            ContainerColorTokens colorTokens, float alpha) {
+                                        restoreButtonProvider.drawIcon(g, colorTokens, alpha,
                                                 RadianceSizeUtils.getTitlePaneIconSize());
                                     }
 
@@ -709,8 +709,8 @@ public class RadianceTitlePane extends JComponent {
 
                                     @Override
                                     public void drawColorSchemeIcon(Graphics2D g,
-                                            ContainerRenderColorTokens renderColorTokens, float alpha) {
-                                        maximizeButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                                            ContainerColorTokens colorTokens, float alpha) {
+                                        maximizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                                 RadianceSizeUtils.getTitlePaneIconSize());
                                     }
 
@@ -890,13 +890,13 @@ public class RadianceTitlePane extends JComponent {
                     + fm.getAscent();
 
             if (skin instanceof TonalSkin) {
-                ContainerRenderColorTokens renderColorTokens = skin.getBackgroundRenderColorTokens(
+                ContainerColorTokens colorTokens = skin.getBackgroundColorTokens(
                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerColorTokens();
                 // TODO: TONAL - finalize the text echo color logic
                 RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                        renderColorTokens.getOnContainer(),
+                        colorTokens.getOnContainer(),
                         RadianceColorUtilities.getAlphaColor(
-                            renderColorTokens.getOnContainerVariant(),
+                            colorTokens.getOnContainerVariant(),
                             100),
                         displayTitle, width, height, xOffset, yOffset);
             } else {
@@ -933,8 +933,8 @@ public class RadianceTitlePane extends JComponent {
                                 }
 
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
-                                    closeButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                                public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                    closeButtonProvider.drawIcon(g, colorTokens, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }
 
@@ -972,8 +972,8 @@ public class RadianceTitlePane extends JComponent {
                                 }
 
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
-                                    minimizeButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                                public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                    minimizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }
 
@@ -1013,9 +1013,9 @@ public class RadianceTitlePane extends JComponent {
 
                                 @Override
                                 public void drawColorSchemeIcon(Graphics2D g,
-                                        ContainerRenderColorTokens renderColorTokens,
+                                        ContainerColorTokens colorTokens,
                                         float alpha) {
-                                    restoreButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                                    restoreButtonProvider.drawIcon(g, colorTokens, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }
 
@@ -1061,8 +1061,8 @@ public class RadianceTitlePane extends JComponent {
                                 }
 
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
-                                    maximizeButtonProvider.drawIcon(g, renderColorTokens, alpha,
+                                public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                    maximizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }
 

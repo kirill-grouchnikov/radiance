@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -52,7 +52,7 @@ public class RadiancePopupMenuBorder implements Border, UIResource {
 
 		RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
 		if (skin instanceof TonalSkin) {
-			ContainerRenderColorTokens containerTokens =
+			ContainerColorTokens containerTokens =
 				RadianceColorSchemeUtilities.getRenderColorTokens(c, ComponentState.ENABLED,
 					RadianceThemingSlices.ContainerType.MUTED);
 			BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,

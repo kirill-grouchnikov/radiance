@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 
 import javax.swing.*;
@@ -48,13 +48,13 @@ public class UpdateOptimizationInfo {
 
     private Map<ComponentState, RadianceColorScheme> highlightBorderSchemeMap;
 
-    private Map<ComponentState, ContainerRenderColorTokens> highlightRenderColorTokens;
+    private Map<ComponentState, ContainerColorTokens> highlightRenderColorTokens;
 
     private Map<ComponentState, Float> highlightAlphaMap;
 
     private RadianceColorScheme defaultScheme;
 
-    private ContainerRenderColorTokens defaultColorTokens;
+    private ContainerColorTokens defaultColorTokens;
 
     public RadianceThemingSlices.DecorationAreaType decorationAreaType;
 
@@ -91,11 +91,11 @@ public class UpdateOptimizationInfo {
         return result;
     }
 
-    public ContainerRenderColorTokens getHighlightColorTokens(ComponentState state) {
+    public ContainerColorTokens getHighlightColorTokens(ComponentState state) {
         if (this.highlightRenderColorTokens == null) {
             this.highlightRenderColorTokens = new HashMap<>();
         }
-        ContainerRenderColorTokens result = null;//this.highlightRenderColorTokens.get(state);
+        ContainerColorTokens result = this.highlightRenderColorTokens.get(state);
         if (result == null) {
             result = RadianceColorSchemeUtilities.getRenderColorTokens(this.component,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
@@ -135,7 +135,7 @@ public class UpdateOptimizationInfo {
         return this.defaultScheme;
     }
 
-    public ContainerRenderColorTokens getDefaultColorTokens() {
+    public ContainerColorTokens getDefaultColorTokens() {
         return this.defaultColorTokens;
     }
 }

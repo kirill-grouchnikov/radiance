@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -76,7 +76,7 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
-    private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
+    private BladeContainerColorTokens mutableRenderColorTokens = new BladeContainerColorTokens();
 
     public BladeArrowButtonTransitionAwareIcon(final AbstractButton button,
             final Dimension iconDimension,
@@ -105,10 +105,10 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
             }
 
             @Override
-            public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
+            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(component);
                 BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(), orientation,
-                    renderColorTokens, alpha);
+                    colorTokens, alpha);
             }
 
             @Override

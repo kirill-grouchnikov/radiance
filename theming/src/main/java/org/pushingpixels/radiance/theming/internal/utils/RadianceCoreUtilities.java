@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
@@ -909,21 +909,21 @@ public class RadianceCoreUtilities {
             getIconFilterStrategy(comp, componentState);
         RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);
         if (skin instanceof TonalSkin) {
-            ContainerRenderColorTokens renderColorTokens =
+            ContainerColorTokens colorTokens =
                 RadianceColorSchemeUtilities.getRenderColorTokens(comp, componentState, inactiveContainerType);
             switch (iconFilterStrategy) {
                 case ORIGINAL:
                     return orig;
                 case THEMED_FOLLOW_TEXT:
                     Color foreground = (textColor != null) ? textColor
-                        : renderColorTokens.getOnContainer();
+                        : colorTokens.getOnContainer();
                     return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
                         comp, orig, foreground, 1.0f), scale);
                 case THEMED_FOLLOW_COLOR_SCHEME:
                     // TODO: TONAL - check brightness
                     //float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
                     return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorSchemeImage(
-                        comp, orig, renderColorTokens, 0.4f), scale);
+                        comp, orig, colorTokens, 0.4f), scale);
             }
         } else {
             RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
@@ -1855,7 +1855,7 @@ public class RadianceCoreUtilities {
         }
         if (skin instanceof TonalSkin) {
             // TODO: TONAL - need configuration APIs?
-            return skin.getBackgroundRenderColorTokens(decorationAreaType).getSurface();
+            return skin.getBackgroundColorTokens(decorationAreaType).getSurface();
         } else {
             return skin.getBackgroundColorScheme(decorationAreaType).getBackgroundFillColor();
         }

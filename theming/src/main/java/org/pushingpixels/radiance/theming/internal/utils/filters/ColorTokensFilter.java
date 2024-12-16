@@ -35,7 +35,7 @@
 package org.pushingpixels.radiance.theming.internal.utils.filters;
 
 import org.pushingpixels.radiance.common.api.filter.RadianceAbstractFilter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.HashMapKey;
 import org.pushingpixels.radiance.theming.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -51,76 +51,76 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 
-public class RenderColorTokensFilter extends RadianceAbstractFilter {
+public class ColorTokensFilter extends RadianceAbstractFilter {
     private int[] interpolated;
 
     private static final int MAPSTEPS = 512;
 
-    private final static LazyResettableHashMap<RenderColorTokensFilter> filters =
+    private final static LazyResettableHashMap<ColorTokensFilter> filters =
             new LazyResettableHashMap<>("ColorSchemeFilter");
 
     private float originalBrightnessFactor;
     private float alpha;
 
-    public static RenderColorTokensFilter getColorTokensFilter(
-            ContainerRenderColorTokens containerRenderColorTokens,
+    public static ColorTokensFilter getColorTokensFilter(
+            ContainerColorTokens containerColorTokens,
             float originalBrightnessFactor, float alpha) {
-        HashMapKey key = RadianceCoreUtilities.getHashKey(containerRenderColorTokens.hashCode(),
+        HashMapKey key = RadianceCoreUtilities.getHashKey(containerColorTokens.hashCode(),
                 originalBrightnessFactor, alpha);
-        RenderColorTokensFilter filter = filters.get(key);
+        ColorTokensFilter filter = filters.get(key);
         if (filter == null) {
-            filter = new RenderColorTokensFilter(containerRenderColorTokens, originalBrightnessFactor, alpha);
+            filter = new ColorTokensFilter(containerColorTokens, originalBrightnessFactor, alpha);
             filters.put(key, filter);
         }
         return filter;
     }
 
-    public static RenderColorTokensFilter getColorSchemeFilter(
-            ContainerRenderColorTokens renderColorTokens,
+    public static ColorTokensFilter getColorSchemeFilter(
+            ContainerColorTokens colorTokens,
             float originalBrightnessFactor, float alpha) {
-        HashMapKey key = RadianceCoreUtilities.getHashKey(renderColorTokens.hashCode(),
+        HashMapKey key = RadianceCoreUtilities.getHashKey(colorTokens.hashCode(),
                 originalBrightnessFactor, alpha);
-        RenderColorTokensFilter filter = filters.get(key);
+        ColorTokensFilter filter = filters.get(key);
         if (filter == null) {
-            filter = new RenderColorTokensFilter(renderColorTokens, originalBrightnessFactor, alpha);
+            filter = new ColorTokensFilter(colorTokens, originalBrightnessFactor, alpha);
             filters.put(key, filter);
         }
         return filter;
     }
 
-    public static int[] getInterpolatedColors(ContainerRenderColorTokens renderColorTokens) {
+    public static int[] getInterpolatedColors(ContainerColorTokens colorTokens) {
         // collect the brightness factors of the color tokens
         Map<Integer, Color> tokenColorMapping = new TreeMap<>();
 
-        int containerLowest = renderColorTokens.getContainerLowest().getRGB();
-        int containerLow = renderColorTokens.getContainerLow().getRGB();
-        int container = renderColorTokens.getContainer().getRGB();
-        int containerHigh = renderColorTokens.getContainerHigh().getRGB();
-        int containerHighest = renderColorTokens.getContainerHighest().getRGB();
-        int onContainerVariant = renderColorTokens.getOnContainerVariant().getRGB();
-        int onContainer = renderColorTokens.getOnContainer().getRGB();
+        int containerLowest = colorTokens.getContainerLowest().getRGB();
+        int containerLow = colorTokens.getContainerLow().getRGB();
+        int container = colorTokens.getContainer().getRGB();
+        int containerHigh = colorTokens.getContainerHigh().getRGB();
+        int containerHighest = colorTokens.getContainerHighest().getRGB();
+        int onContainerVariant = colorTokens.getOnContainerVariant().getRGB();
+        int onContainer = colorTokens.getOnContainer().getRGB();
 
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(containerLowest),
-                renderColorTokens.getContainerLowest());
+                colorTokens.getContainerLowest());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(containerLow),
-                renderColorTokens.getContainerLow());
+                colorTokens.getContainerLow());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(container),
-                renderColorTokens.getContainer());
+                colorTokens.getContainer());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(containerHigh),
-                renderColorTokens.getContainerHigh());
+                colorTokens.getContainerHigh());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(containerHighest),
-                renderColorTokens.getContainerHighest());
+                colorTokens.getContainerHighest());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(onContainerVariant),
-                renderColorTokens.getOnContainerVariant());
+                colorTokens.getOnContainerVariant());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(onContainer),
-                renderColorTokens.getOnContainer());
+                colorTokens.getOnContainer());
 
         List<Integer> tokensBrightness = new ArrayList<>(tokenColorMapping.keySet());
         Collections.sort(tokensBrightness);
@@ -173,17 +173,17 @@ public class RenderColorTokensFilter extends RadianceAbstractFilter {
     }
 
     /**
-     * @throws IllegalArgumentException if <code>containerRenderColorTokens</code> is null
+     * @throws IllegalArgumentException if <code>containerColorTokens</code> is null
      */
-    private RenderColorTokensFilter(ContainerRenderColorTokens containerRenderColorTokens,
+    private ColorTokensFilter(ContainerColorTokens containerColorTokens,
             float originalBrightnessFactor, float alpha) {
-        if (containerRenderColorTokens == null) {
+        if (containerColorTokens == null) {
             throw new IllegalArgumentException("Color tokens cannot be null");
         }
 
         this.originalBrightnessFactor = originalBrightnessFactor;
         this.alpha = alpha;
-        this.interpolated = getInterpolatedColors(containerRenderColorTokens);
+        this.interpolated = getInterpolatedColors(containerColorTokens);
     }
 
     @Override

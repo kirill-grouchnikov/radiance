@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.StateContributionInfo;
@@ -96,7 +96,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                         modelStateInfo.getStateContributionMap();
                 if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
                     if (skin instanceof TonalSkin) {
-                        ContainerRenderColorTokens colorTokens = getColorTokensForState(list, ui, currState);
+                        ContainerColorTokens colorTokens = getColorTokensForState(list, ui, currState);
                         super.setForeground(new ColorUIResource(
                             colorTokens.getOnContainer()));
                     } else {
@@ -120,7 +120,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                         }
 
                         if (skin instanceof TonalSkin) {
-                            ContainerRenderColorTokens colorTokens = getColorTokensForState(
+                            ContainerColorTokens colorTokens = getColorTokensForState(
                                 list, ui, activeState);
                             Color schemeFg = colorTokens.getOnContainer();
                             aggrRed += schemeFg.getRed() * contribution;
@@ -146,7 +146,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                 this.activeContributions.put(currState, isActive ? 1.0f : 0.0f);
 
                 if (skin instanceof TonalSkin) {
-                    ContainerRenderColorTokens colorTokens = getColorTokensForState(list, ui, currState);
+                    ContainerColorTokens colorTokens = getColorTokensForState(list, ui, currState);
                     if (isDropLocation) {
                         colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(list,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -219,7 +219,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
         }
     }
 
-    private ContainerRenderColorTokens getColorTokensForState(JList list, RadianceListUI ui,
+    private ContainerColorTokens getColorTokensForState(JList list, RadianceListUI ui,
         ComponentState state) {
         UpdateOptimizationInfo updateOptimizationInfo = ui.getUpdateOptimizationInfo();
         if (state == ComponentState.ENABLED) {

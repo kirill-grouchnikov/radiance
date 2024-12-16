@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -99,7 +99,7 @@ public class BladeUtils {
     }
 
     public static void populateModificationAwareColorTokens(
-        BladeContainerRenderColorTokens bladeRenderColorTokens, Component component,
+        BladeContainerColorTokens bladeRenderColorTokens, Component component,
         float modificationCyclePosition) {
 
         if (!SwingUtilities.isEventDispatchThread()) {
@@ -110,9 +110,9 @@ public class BladeUtils {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        ContainerRenderColorTokens warningColorTokens = skin.getSystemColorRenderTokens(
+        ContainerColorTokens warningColorTokens = skin.getSystemColorTokens(
             component, RadianceThemingSlices.SystemContainerType.WARNING);
-        ContainerRenderColorTokens emergencyColorTokens = skin.getSystemColorRenderTokens(
+        ContainerColorTokens emergencyColorTokens = skin.getSystemColorTokens(
             component, RadianceThemingSlices.SystemContainerType.EMERGENCY);
 
         bladeRenderColorTokens.containerLowest = RadianceColorUtilities.getInterpolatedColor(
@@ -290,7 +290,7 @@ public class BladeUtils {
     }
 
     public static void populateColorTokens(
-        BladeContainerRenderColorTokens bladeRenderColorTokens, Component component,
+        BladeContainerColorTokens bladeRenderColorTokens, Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo, ComponentState currState,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         boolean treatEnabledAsActive, RadianceThemingSlices.ContainerType inactiveContainerType) {
@@ -302,7 +302,7 @@ public class BladeUtils {
         }
 
         StringBuilder nameBuilder = new StringBuilder();
-        ContainerRenderColorTokens currColorTokens = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
+        ContainerColorTokens currColorTokens = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
                 ? RadianceColorSchemeUtilities.getActiveRenderColorTokens(component, currState)
                 : RadianceColorSchemeUtilities.getRenderColorTokens(component, associationKind, currState, inactiveContainerType);
         Color containerLowest = currColorTokens.getContainerLowest();
@@ -338,7 +338,7 @@ public class BladeUtils {
                     continue;
                 }
                 // Get the color scheme that matches the contribution state
-                ContainerRenderColorTokens contributionColorTokens = (treatEnabledAsActive && (activeState == ComponentState.ENABLED))
+                ContainerColorTokens contributionColorTokens = (treatEnabledAsActive && (activeState == ComponentState.ENABLED))
                         ? RadianceColorSchemeUtilities.getActiveRenderColorTokens(component, activeState)
                         : RadianceColorSchemeUtilities.getRenderColorTokens(component, associationKind, activeState, inactiveContainerType);
 
@@ -396,11 +396,11 @@ public class BladeUtils {
         RadianceColorScheme getColorSchemeForCurrentState(ComponentState state);
         RadianceColorScheme getColorSchemeForActiveState(ComponentState state);
 
-        default ContainerRenderColorTokens getRenderColorTokensForCurrentState(ComponentState state) {
+        default ContainerColorTokens getRenderColorTokensForCurrentState(ComponentState state) {
             return null;
         }
 
-        default ContainerRenderColorTokens getRenderColorTokensForActiveState(ComponentState state) {
+        default ContainerColorTokens getRenderColorTokensForActiveState(ComponentState state) {
             return null;
         }
     }
@@ -421,14 +421,14 @@ public class BladeUtils {
             }
 
             @Override
-            public ContainerRenderColorTokens getRenderColorTokensForCurrentState(ComponentState state) {
+            public ContainerColorTokens getRenderColorTokensForCurrentState(ComponentState state) {
                 return RadianceColorSchemeUtilities.getRenderColorTokens(component,
                     colorSchemeAssociationKindDelegate.getContainterColorTokensAssociationKind(state), state,
                     RadianceThemingSlices.ContainerType.MUTED);
             }
 
             @Override
-            public ContainerRenderColorTokens getRenderColorTokensForActiveState(ComponentState state) {
+            public ContainerColorTokens getRenderColorTokensForActiveState(ComponentState state) {
                 return RadianceColorSchemeUtilities.getRenderColorTokens(component,
                     colorSchemeAssociationKindDelegate.getContainterColorTokensAssociationKind(state), state,
                     RadianceThemingSlices.ContainerType.MUTED);
@@ -558,7 +558,7 @@ public class BladeUtils {
     }
 
     public static void populateColorTokens(
-            BladeContainerRenderColorTokens bladeRenderColorTokens,
+            BladeContainerColorTokens bladeRenderColorTokens,
             StateTransitionTracker.ModelStateInfo modelStateInfo,
             ComponentState currState,
             ColorSchemeDelegate colorSchemeDelegate,
@@ -572,7 +572,7 @@ public class BladeUtils {
 
         StringBuilder nameBuilder = new StringBuilder();
 
-        ContainerRenderColorTokens currColorTokens =
+        ContainerColorTokens currColorTokens =
                 colorSchemeDelegate.getRenderColorTokensForCurrentState(currState);
 
         Color containerLowest = currColorTokens.getContainerLowest();
@@ -609,7 +609,7 @@ public class BladeUtils {
                     continue;
                 }
                 // Get the color tokens that match the contribution state
-                ContainerRenderColorTokens contributionColorTokens =
+                ContainerColorTokens contributionColorTokens =
                         colorSchemeDelegate.getRenderColorTokensForActiveState(activeEntry.getKey());
 
                 // And interpolate the colors

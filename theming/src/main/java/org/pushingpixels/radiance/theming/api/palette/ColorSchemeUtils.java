@@ -43,10 +43,10 @@ public class ColorSchemeUtils {
         TONAL, PRIMARY
     }
 
-   private static ContainerRenderColorTokens getContainerRenderColorTokens(
+   private static ContainerColorTokens getContainerRenderColorTokens(
         DynamicScheme dynamicScheme, PaletteContainerColorsResolver tonalContainerColorResolver) {
 
-        return new ContainerRenderColorTokens() {
+        return new ContainerColorTokens() {
             @Override
             public boolean isDark() {
                 return dynamicScheme.isDark;
@@ -136,28 +136,28 @@ public class ColorSchemeUtils {
         PaletteColorResolver paletteColorResolver =
                 PaletteResolverUtils.getPaletteColorResolver2();
 
-        ContainerRenderColorTokens neutralContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens neutralContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getNeutralContainerResolver());
-        ContainerRenderColorTokens mutedContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens mutedContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getMutedContainerResolver());
-        ContainerRenderColorTokens tonalContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens tonalContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getTonalContainerResolver());
-        ContainerRenderColorTokens primaryContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens primaryContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getPrimaryContainerResolver());
 
-        ContainerRenderColorTokens systemInfoContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemInfoContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getSystemInfoContainerResolver());
-        ContainerRenderColorTokens systemWarningContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemWarningContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getSystemWarningContainerResolver());
-        ContainerRenderColorTokens systemErrorContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemErrorContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getSystemErrorContainerResolver());
-        ContainerRenderColorTokens systemSuccessContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemSuccessContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getSystemSuccessContainerResolver());
-        ContainerRenderColorTokens systemEmergencyContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemEmergencyContainerTokens = getContainerRenderColorTokens(
             lightScheme, paletteColorResolver.getSystemEmergencyContainerResolver());
 
         return new RadianceColorScheme2() {
-            private HashMap<ComponentState, ContainerRenderColorTokens> stateTokens = new HashMap<>();
+            private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
             @Override
             public Color getSurface() {
@@ -175,34 +175,34 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerRenderColorTokens getNeutralContainerTokens() {
+            public ContainerColorTokens getNeutralContainerTokens() {
                 return neutralContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getMutedContainerTokens() {
+            public ContainerColorTokens getMutedContainerTokens() {
                 return mutedContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getTonalContainerTokens() {
+            public ContainerColorTokens getTonalContainerTokens() {
                 return tonalContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getPrimaryContainerTokens() {
+            public ContainerColorTokens getPrimaryContainerTokens() {
                 return primaryContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getContainerTokensForState(ComponentState componentState) {
+            public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
                 if (componentState.isDisabled()) {
                     // TODO: TONAL - finalize this
                     return getContainerTokensForState(componentState.getEnabledMatch());
                 }
 
                 // TODO: TONAL - configurable at the skin definition level
-                ContainerRenderColorTokens defaultActive =
+                ContainerColorTokens defaultActive =
                     (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
                     ? this.getPrimaryContainerTokens()
                     : this.getTonalContainerTokens();
@@ -258,27 +258,27 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemInfoContainerTokens() {
+            public ContainerColorTokens getSystemInfoContainerTokens() {
                 return systemInfoContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemWarningContainerTokens() {
+            public ContainerColorTokens getSystemWarningContainerTokens() {
                 return systemWarningContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemErrorContainerTokens() {
+            public ContainerColorTokens getSystemErrorContainerTokens() {
                 return systemErrorContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemSuccessContainerTokens() {
+            public ContainerColorTokens getSystemSuccessContainerTokens() {
                 return systemSuccessContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemEmergencyContainerTokens() {
+            public ContainerColorTokens getSystemEmergencyContainerTokens() {
                 return systemEmergencyContainerTokens;
             }
         };
@@ -306,28 +306,28 @@ public class ColorSchemeUtils {
         PaletteColorResolver paletteColorResolver =
             PaletteResolverUtils.getPaletteColorResolver2();
 
-        ContainerRenderColorTokens surfaceContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens surfaceContainerTokens = getContainerRenderColorTokens(
             darkScheme, paletteColorResolver.getNeutralContainerResolver());
-        ContainerRenderColorTokens mutedContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens mutedContainerTokens = getContainerRenderColorTokens(
             darkScheme, paletteColorResolver.getMutedContainerResolver());
-        ContainerRenderColorTokens tonalContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens tonalContainerTokens = getContainerRenderColorTokens(
             darkScheme, paletteColorResolver.getTonalContainerResolver());
-        ContainerRenderColorTokens primaryContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens primaryContainerTokens = getContainerRenderColorTokens(
             darkScheme, paletteColorResolver.getPrimaryContainerResolver());
 
-        ContainerRenderColorTokens systemInfoContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemInfoContainerTokens = getContainerRenderColorTokens(
             darkScheme, paletteColorResolver.getSystemInfoContainerResolver());
-        ContainerRenderColorTokens systemWarningContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemWarningContainerTokens = getContainerRenderColorTokens(
             darkScheme, paletteColorResolver.getSystemWarningContainerResolver());
-        ContainerRenderColorTokens systemErrorContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemErrorContainerTokens = getContainerRenderColorTokens(
             darkScheme, paletteColorResolver.getSystemErrorContainerResolver());
-        ContainerRenderColorTokens systemSuccessContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemSuccessContainerTokens = getContainerRenderColorTokens(
             darkScheme, paletteColorResolver.getSystemSuccessContainerResolver());
-        ContainerRenderColorTokens systemEmergencyContainerTokens = getContainerRenderColorTokens(
+        ContainerColorTokens systemEmergencyContainerTokens = getContainerRenderColorTokens(
             darkScheme, paletteColorResolver.getSystemEmergencyContainerResolver());
 
         return new RadianceColorScheme2() {
-            private HashMap<ComponentState, ContainerRenderColorTokens> stateTokens = new HashMap<>();
+            private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
             @Override
             public Color getSurface() {
@@ -345,34 +345,34 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerRenderColorTokens getNeutralContainerTokens() {
+            public ContainerColorTokens getNeutralContainerTokens() {
                 return surfaceContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getMutedContainerTokens() {
+            public ContainerColorTokens getMutedContainerTokens() {
                 return mutedContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getTonalContainerTokens() {
+            public ContainerColorTokens getTonalContainerTokens() {
                 return tonalContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getPrimaryContainerTokens() {
+            public ContainerColorTokens getPrimaryContainerTokens() {
                 return primaryContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getContainerTokensForState(ComponentState componentState) {
+            public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
                 if (componentState.isDisabled()) {
                     // TODO: TONAL - finalize this
                     return getContainerTokensForState(componentState.getEnabledMatch());
                 }
 
                 // TODO: TONAL - configurable at the skin definition level
-                ContainerRenderColorTokens defaultActive =
+                ContainerColorTokens defaultActive =
                     (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
                         ? this.getPrimaryContainerTokens()
                         : this.getTonalContainerTokens();
@@ -428,34 +428,34 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemInfoContainerTokens() {
+            public ContainerColorTokens getSystemInfoContainerTokens() {
                 return systemInfoContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemWarningContainerTokens() {
+            public ContainerColorTokens getSystemWarningContainerTokens() {
                 return systemWarningContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemErrorContainerTokens() {
+            public ContainerColorTokens getSystemErrorContainerTokens() {
                 return systemErrorContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemSuccessContainerTokens() {
+            public ContainerColorTokens getSystemSuccessContainerTokens() {
                 return systemSuccessContainerTokens;
             }
 
             @Override
-            public ContainerRenderColorTokens getSystemEmergencyContainerTokens() {
+            public ContainerColorTokens getSystemEmergencyContainerTokens() {
                 return systemEmergencyContainerTokens;
             }
         };
     }
 
-    private static ContainerRenderColorTokens getRolloverUnselectedTokens(
-        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+    private static ContainerColorTokens getRolloverUnselectedTokens(
+        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 20% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -463,8 +463,8 @@ public class ColorSchemeUtils {
             0.2f);
     }
 
-    private static ContainerRenderColorTokens getRolloverSelectedTokens(
-        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+    private static ContainerColorTokens getRolloverSelectedTokens(
+        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -472,8 +472,8 @@ public class ColorSchemeUtils {
             0.3f);
     }
 
-    private static ContainerRenderColorTokens getRolloverArmedTokens(
-        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+    private static ContainerColorTokens getRolloverArmedTokens(
+        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -481,8 +481,8 @@ public class ColorSchemeUtils {
             0.3f);
     }
 
-    private static ContainerRenderColorTokens getPressedUnselectedTokens(
-        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+    private static ContainerColorTokens getPressedUnselectedTokens(
+        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -490,8 +490,8 @@ public class ColorSchemeUtils {
             0.5f);
     }
 
-    private static ContainerRenderColorTokens getPressedSelectedTokens(
-        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+    private static ContainerColorTokens getPressedSelectedTokens(
+        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -499,7 +499,7 @@ public class ColorSchemeUtils {
             0.4f);
     }
 
-    private static ContainerRenderColorTokens overlay(ContainerRenderColorTokens original,
+    private static ContainerColorTokens overlay(ContainerColorTokens original,
         Color overlay, float overlayAmount) {
 
         Color overlayWithAlpha = RadianceColorUtilities.getAlphaColor(
@@ -523,7 +523,7 @@ public class ColorSchemeUtils {
         Color containerOutline = original.getContainerOutline();
         Color containerOutlineVariant = original.getContainerOutlineVariant();
 
-        return new ContainerRenderColorTokens() {
+        return new ContainerColorTokens() {
             @Override
             public boolean isDark() {
                 return original.isDark();

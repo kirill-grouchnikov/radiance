@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
  * Custom Radiance icon pack based on Tango icons (license in resources/TangoIcons.license).
@@ -152,7 +152,7 @@ public class TangoIconPack implements RadianceIconPack {
 
     @Override
     public RadianceIcon getInspectIcon(int preferredSize,
-        ContainerRenderColorTokens preferredIconColorTokens) {
+        ContainerColorTokens preferredIconColorTokens) {
         return system_search.uiResourceOf(preferredSize, preferredSize);
     }
 

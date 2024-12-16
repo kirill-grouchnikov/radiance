@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
-import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -87,7 +87,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
     protected BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     protected BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
 
-    protected BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
+    protected BladeContainerColorTokens mutableRenderColorTokens = new BladeContainerColorTokens();
 
     @Override
     protected void installListeners(final AbstractButton b) {

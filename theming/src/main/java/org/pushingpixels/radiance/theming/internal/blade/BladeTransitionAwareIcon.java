@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -65,7 +65,7 @@ public class BladeTransitionAwareIcon implements Icon {
     public interface Delegate {
         void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha);
 
-        default void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens,
+        default void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens,
                 float alpha) {}
 
         Dimension getIconDimension();
@@ -96,7 +96,7 @@ public class BladeTransitionAwareIcon implements Icon {
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
-    private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
+    private BladeContainerColorTokens mutableRenderColorTokens = new BladeContainerColorTokens();
 
     public BladeTransitionAwareIcon(final AbstractButton button, Delegate delegate) {
         this((button == null) ? null : () -> (TransitionAwareUI) button.getUI(), delegate,

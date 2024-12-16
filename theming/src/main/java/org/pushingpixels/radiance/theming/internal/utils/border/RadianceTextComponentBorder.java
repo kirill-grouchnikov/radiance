@@ -33,12 +33,12 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
-import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -62,8 +62,8 @@ public class RadianceTextComponentBorder implements Border, UIResource {
      */
     protected Insets myInsets;
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeContainerRenderColorTokens mutableRenderColorTokens =
-        new BladeContainerRenderColorTokens();
+    private BladeContainerColorTokens mutableRenderColorTokens =
+        new BladeContainerColorTokens();
 
     /**
      * Creates a new border with the specified insets.
@@ -145,13 +145,13 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                 : ComponentState.DISABLED_UNSELECTED;
 
         if (skin instanceof TonalSkin) {
-            ContainerRenderColorTokens renderColorTokens =
+            ContainerColorTokens colorTokens =
                 RadianceColorSchemeUtilities.getRenderColorTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                     currState, RadianceThemingSlices.ContainerType.MUTED);
 
             graphics.translate(x, y);
-            BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f, renderColorTokens);
+            BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f, colorTokens);
             graphics.dispose();
 
         } else {

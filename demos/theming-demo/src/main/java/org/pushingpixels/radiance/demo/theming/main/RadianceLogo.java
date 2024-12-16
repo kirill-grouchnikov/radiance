@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,10 +53,10 @@ public class RadianceLogo {
         return base;
     }
 
-    public static RadianceIcon getLogoIcon(ExtendedContainerRenderColorTokens renderColorTokens) {
+    public static RadianceIcon getLogoIcon(ExtendedContainerColorTokens colorTokens) {
         // Step 1 - create a colorized version of the transcoded Radiance logo
         RadianceIcon base = radiance_menu.factory().createNewIcon();
-        base.setColorFilter(color -> renderColorTokens.getBaseContainerColorTokens()
+        base.setColorFilter(color -> colorTokens.getBaseContainerColorTokens()
             .getOnContainer());
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(new Dimension(16, 16));
@@ -68,8 +68,8 @@ public class RadianceLogo {
         return getLogoIcon(scheme).toImage(RadianceCommonCortex.getScaleFactor(comp));
     }
 
-    public static BufferedImage getLogoImage(Component comp, ExtendedContainerRenderColorTokens renderColorTokens) {
-        return getLogoIcon(renderColorTokens).toImage(RadianceCommonCortex.getScaleFactor(comp));
+    public static BufferedImage getLogoImage(Component comp, ExtendedContainerColorTokens colorTokens) {
+        return getLogoIcon(colorTokens).toImage(RadianceCommonCortex.getScaleFactor(comp));
     }
 
     public static void configureOn(JFrame frame) {
@@ -86,11 +86,11 @@ public class RadianceLogo {
     public static void tonalConfigureOn(JFrame frame) {
         frame.setIconImage(RadianceLogo.getLogoImage(frame,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                    .getBackgroundRenderColorTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
+                    .getBackgroundColorTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
                 () -> frame.setIconImage(RadianceLogo.getLogoImage(frame,
                         RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                                .getBackgroundRenderColorTokens(
+                                .getBackgroundColorTokens(
                                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)))));
     }
 }

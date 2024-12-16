@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.internal.blade;
 
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import java.awt.*;
 
-public class BladeContainerRenderColorTokens implements ContainerRenderColorTokens {
+public class BladeContainerColorTokens implements ContainerColorTokens {
     public boolean isDark = false;
     public Color containerLowest = Color.white;
     public Color containerLow = Color.white;
@@ -49,7 +49,7 @@ public class BladeContainerRenderColorTokens implements ContainerRenderColorToke
     public float containerOutlineDisabledAlpha = 0.0f;
     public String combinedName = "";
 
-    public BladeContainerRenderColorTokens() {
+    public BladeContainerColorTokens() {
     }
 
     @Override

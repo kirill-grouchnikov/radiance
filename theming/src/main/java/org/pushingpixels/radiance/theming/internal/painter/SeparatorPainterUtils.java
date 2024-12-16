@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -131,7 +131,7 @@ public class SeparatorPainterUtils {
             int orientation, boolean hasShadow, int maxGradLengthStart, int maxGradLengthEnd,
             boolean toEnforceAlphaColors) {
         if (RadianceCoreUtilities.getSkin(c) instanceof TonalSkin) {
-            ContainerRenderColorTokens renderColorTokens = null;
+            ContainerColorTokens colorTokens = null;
             Component parent = c.getParent();
             boolean isParentAPopup = (parent instanceof JPopupMenu) ||
                 ((parent instanceof JComponent) && ((JComponent) parent).getClientProperty(
@@ -139,27 +139,27 @@ public class SeparatorPainterUtils {
             if (isParentAPopup) {
                 // For separators in popups, first see if we have a color
                 // scheme explicitly registered for the SEPARATOR association kind.
-                renderColorTokens = RadianceColorSchemeUtilities.getDirectRenderColorTokens(c,
+                colorTokens = RadianceColorSchemeUtilities.getDirectRenderColorTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                     ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-                if (renderColorTokens == null) {
+                if (colorTokens == null) {
                     // Then get a background color scheme associated with the
                     // decoration type of that separator
-                    renderColorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundRenderColorTokens(
+                    colorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundColorTokens(
                         RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c))
                         .getBaseContainerColorTokens();
                 }
             }
-            if (renderColorTokens == null) {
+            if (colorTokens == null) {
                 // And finally, get the separator's color scheme via the regular
                 // route that includes fall back in case there is no explicitly registered
                 // color scheme for the SEPARATOR association kind.
-                renderColorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(c,
+                colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                     ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
             }
 
-            paintTonalSeparator(c, g, renderColorTokens, width, height, orientation, hasShadow,
+            paintTonalSeparator(c, g, colorTokens, width, height, orientation, hasShadow,
                 maxGradLengthStart, maxGradLengthEnd, toEnforceAlphaColors);
         } else {
             RadianceColorScheme compScheme = null;
@@ -418,7 +418,7 @@ public class SeparatorPainterUtils {
     }
 
     public static void paintTonalSeparator(Component c, Graphics g,
-        ContainerRenderColorTokens renderColorTokens, int width, int height, int orientation,
+        ContainerColorTokens colorTokens, int width, int height, int orientation,
         boolean hasShadow, int maxGradLengthStart, int maxGradLengthEnd, boolean toEnforceAlphaColors) {
 
         if (orientation == JSeparator.HORIZONTAL) {
@@ -455,11 +455,11 @@ public class SeparatorPainterUtils {
 
                 Color backgroundFill = RadianceColorUtilities.getTonalBackgroundFillColor(
                     c, RadianceThemingSlices.ContainerType.NEUTRAL);
-                Color primary = renderColorTokens.isDark()
-                    ? renderColorTokens.getContainerOutlineVariant()
-                    : renderColorTokens.getContainerOutline();
+                Color primary = colorTokens.isDark()
+                    ? colorTokens.getContainerOutlineVariant()
+                    : colorTokens.getContainerOutline();
                 // TODO: TONAL - verify this across light and dark skins
-                Color secondary = renderColorTokens.getContainerLow();
+                Color secondary = colorTokens.getContainerLow();
                 System.out.println("Separator in " + decorationAreaType +
                     ": primary=" + RadianceColorUtilities.encode(primary) + ", secondary=" +
                     RadianceColorUtilities.encode(secondary));

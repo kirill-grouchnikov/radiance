@@ -87,7 +87,7 @@ public class Check extends JFrame {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this.getRootPane());
             if (skin instanceof TonalSkin) {
                 setIconImage(RadianceLogo.getLogoImage(this,
-                    skin.getBackgroundRenderColorTokens(
+                    skin.getBackgroundColorTokens(
                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
             } else {
                 setIconImage(RadianceLogo.getLogoImage(this,
@@ -99,7 +99,7 @@ public class Check extends JFrame {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(getRootPane());
             if (skin instanceof TonalSkin) {
                 setIconImage(RadianceLogo.getLogoImage(Check.this,
-                    skin.getBackgroundRenderColorTokens(
+                    skin.getBackgroundColorTokens(
                         DecorationAreaType.PRIMARY_TITLE_PANE)));
             } else {
                 setIconImage(RadianceLogo.getLogoImage(Check.this,
