@@ -90,7 +90,7 @@ public final class TopShadowOverlayPainter implements RadianceOverlayPainter {
         Color shadowColor = (skin instanceof TonalSkin)
             ? RadianceColorSchemeUtilities.getExtendedRenderColorTokens(comp, ComponentState.ENABLED,
                 RadianceThemingSlices.ContainerType.NEUTRAL).getBaseContainerColorTokens()
-                .getContainerOutlineColorTokens().getContainerOutline()
+                .getContainerOutline()
             :RadianceColorUtilities.deriveByBrightness(
                 RadianceColorUtilities.getBackgroundFillColor(comp), -0.4f);
 

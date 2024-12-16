@@ -92,7 +92,7 @@ public class FakeAccordion extends JPanel {
                             ExtendedContainerRenderColorTokens colorTokens = skin.getBackgroundRenderColorTokens(
                                 DecorationPainterUtils.getDecorationType(this));
                             accentedFill = colorTokens.getBaseContainerColorTokens()
-                                .getContainerColorTokens().getContainerLow();
+                                .getContainerLow();
                         } else {
                             RadianceThemingSlices.DecorationAreaType decorationAreaType =
                                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);

@@ -29,18 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.internal.blade;
 
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ContainerOutlineColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.OnContainerColorTokens;
 
 import java.awt.*;
 
 public class BladeContainerRenderColorTokens implements ContainerRenderColorTokens {
-    private ContainerColorTokens containerColorTokens;
-    private OnContainerColorTokens onContainerColorTokens;
-    private ContainerOutlineColorTokens containerOutlineColorTokens;
-
     public boolean isDark = false;
     public Color containerLowest = Color.white;
     public Color containerLow = Color.white;
@@ -57,54 +50,6 @@ public class BladeContainerRenderColorTokens implements ContainerRenderColorToke
     public String combinedName = "";
 
     public BladeContainerRenderColorTokens() {
-        this.containerColorTokens = new ContainerColorTokens() {
-            @Override
-            public Color getContainerLowest() {
-                return containerLowest;
-            }
-
-            @Override
-            public Color getContainerLow() {
-                return containerLow;
-            }
-
-            @Override
-            public Color getContainer() {
-                return container;
-            }
-
-            @Override
-            public Color getContainerHigh() {
-                return containerHigh;
-            }
-
-            @Override
-            public Color getContainerHighest() {
-                return containerHighest;
-            }
-        };
-        this.onContainerColorTokens = new OnContainerColorTokens() {
-            @Override
-            public Color getOnContainer() {
-                return onContainer;
-            }
-
-            @Override
-            public Color getOnContainerVariant() {
-                return onContainerVariant;
-            }
-        };
-        this.containerOutlineColorTokens = new ContainerOutlineColorTokens() {
-            @Override
-            public Color getContainerOutline() {
-                return containerOutline;
-            }
-
-            @Override
-            public Color getContainerOutlineVariant() {
-                return containerOutlineVariant;
-            }
-        };
     }
 
     @Override
@@ -113,18 +58,47 @@ public class BladeContainerRenderColorTokens implements ContainerRenderColorToke
     }
 
     @Override
-    public ContainerColorTokens getContainerColorTokens() {
-        return this.containerColorTokens;
+    public Color getContainerLowest() {
+        return containerLowest;
     }
 
     @Override
-    public OnContainerColorTokens getOnContainerColorTokens() {
-        return this.onContainerColorTokens;
+    public Color getContainerLow() {
+        return containerLow;
     }
 
     @Override
-    public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-        return this.containerOutlineColorTokens;
+    public Color getContainer() {
+        return container;
+    }
+
+    @Override
+    public Color getContainerHigh() {
+        return containerHigh;
+    }
+
+    @Override
+    public Color getContainerHighest() {
+        return containerHighest;
+    }
+
+    @Override
+    public Color getOnContainer() {
+        return onContainer;
+    }
+
+    @Override
+    public Color getOnContainerVariant() {
+        return onContainerVariant;
+    }
+    @Override
+    public Color getContainerOutline() {
+        return containerOutline;
+    }
+
+    @Override
+    public Color getContainerOutlineVariant() {
+        return containerOutlineVariant;
     }
 
     @Override

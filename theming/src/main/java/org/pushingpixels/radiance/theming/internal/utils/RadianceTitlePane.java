@@ -177,8 +177,7 @@ public class RadianceTitlePane extends JComponent {
         if (skin instanceof TonalSkin) {
             this.setForeground(skin.getBackgroundRenderColorTokens(
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getBaseContainerColorTokens().getOnContainerColorTokens()
-                    .getOnContainer());
+                    .getBaseContainerColorTokens().getOnContainer());
         } else {
             this.setForeground(RadianceColorUtilities.getForegroundColor(
                 skin.getBackgroundColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
@@ -895,9 +894,9 @@ public class RadianceTitlePane extends JComponent {
                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerColorTokens();
                 // TODO: TONAL - finalize the text echo color logic
                 RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                        renderColorTokens.getOnContainerColorTokens().getOnContainer(),
+                        renderColorTokens.getOnContainer(),
                         RadianceColorUtilities.getAlphaColor(
-                            renderColorTokens.getOnContainerColorTokens().getOnContainerVariant(),
+                            renderColorTokens.getOnContainerVariant(),
                             100),
                         displayTitle, width, height, xOffset, yOffset);
             } else {

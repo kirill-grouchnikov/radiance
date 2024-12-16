@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -150,8 +150,8 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     private void paintTitleBackground(Graphics2D original, Component comp, int width, int height,
             ExtendedContainerRenderColorTokens renderColorTokens) {
         boolean isDark = renderColorTokens.getBaseContainerColorTokens().isDark();
-        ContainerColorTokens containerColorTokens =
-            renderColorTokens.getBaseContainerColorTokens().getContainerColorTokens();
+        ContainerRenderColorTokens containerColorTokens =
+            renderColorTokens.getBaseContainerColorTokens();
 
         // Create a new Graphics2D object so that we can apply clipping to it without having
         // to reset the state after we're done
@@ -249,8 +249,8 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     private void paintExtraBackground(Graphics2D graphics, Container parent, Component comp,
             int width, int height, ExtendedContainerRenderColorTokens renderColorTokens) {
         boolean isDark = renderColorTokens.getBaseContainerColorTokens().isDark();
-        ContainerColorTokens containerColorTokens =
-            renderColorTokens.getBaseContainerColorTokens().getContainerColorTokens();
+        ContainerRenderColorTokens containerColorTokens =
+            renderColorTokens.getBaseContainerColorTokens();
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
         JRootPane rootPane = SwingUtilities.getRootPane(parent);
@@ -310,8 +310,8 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
         ExtendedContainerRenderColorTokens renderColorTokens) {
 
         boolean isDark = renderColorTokens.getBaseContainerColorTokens().isDark();
-        ContainerColorTokens containerColorTokens =
-            renderColorTokens.getBaseContainerColorTokens().getContainerColorTokens();
+        ContainerRenderColorTokens containerColorTokens =
+            renderColorTokens.getBaseContainerColorTokens();
 
         Component parent = RadianceCoreUtilities.getHeaderParent(comp);
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);

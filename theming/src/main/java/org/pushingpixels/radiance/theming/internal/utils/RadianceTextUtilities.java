@@ -339,7 +339,7 @@ public class RadianceTextUtilities {
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
                 : RadianceColorSchemeUtilities.getRenderColorTokens(component, state, inactiveContainerType)
-                    .getOnContainerColorTokens().getOnContainer();
+                    .getOnContainer();
         float fgAlpha = toEnforceFgColor ? component.getForeground().getAlpha() / 255.0f
             : (state.isDisabled()
                 ? RadianceColorSchemeUtilities.getRenderColorTokens(component, state, inactiveContainerType)

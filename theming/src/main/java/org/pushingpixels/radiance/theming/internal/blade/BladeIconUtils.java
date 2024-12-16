@@ -224,7 +224,7 @@ public class BladeIconUtils {
         path.lineTo(0.48f * dimension, 0.72f * dimension - 0.22f * dimension * checkMarkFlatness);
         path.lineTo(0.76f * dimension, 0.27f * dimension + 0.23f * dimension * checkMarkFlatness);
 
-        graphics1X.setColor(renderColorTokens.getOnContainerColorTokens().getOnContainer());
+        graphics1X.setColor(renderColorTokens.getOnContainer());
         Stroke stroke = new BasicStroke((float) 0.15 * dimension, BasicStroke.CAP_ROUND,
             BasicStroke.JOIN_ROUND);
         graphics1X.setStroke(stroke);
@@ -327,16 +327,16 @@ public class BladeIconUtils {
                     // mark
                     graphicsForCheckMark.setComposite(getAlphaComposite(
                         onContainerOutlineAlpha * checkMarkVisibility));
-                    graphicsForCheckMark.setColor(renderColorTokens.getOnContainerColorTokens().getOnContainer());
+                    graphicsForCheckMark.setColor(renderColorTokens.getOnContainer());
                 } else {
                     // draw ghost mark holder
                     graphicsForCheckMark.setComposite(getAlphaComposite(onContainerOutlineAlpha * 0.3f));
                     graphicsForCheckMark.setPaint(
                         new GradientPaint(
                             rc + radius, rc - radius,
-                            renderColorTokens.getContainerColorTokens().getContainerHigh(),
+                            renderColorTokens.getContainerHigh(),
                             rc - radius, rc + radius,
-                            renderColorTokens.getContainerColorTokens().getContainerLow()));
+                            renderColorTokens.getContainerLow()));
                 }
                 graphicsForCheckMark.fill(markOval);
                 graphicsForCheckMark.dispose();
@@ -528,7 +528,7 @@ public class BladeIconUtils {
         int start = iconSize / 4;
         int end = iconSize - start;
 
-        Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+        Color primaryColor = renderColorTokens.getOnContainer();
 
         Stroke primaryStroke = new BasicStroke(primaryStrokeWidth,
                 BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
@@ -572,7 +572,7 @@ public class BladeIconUtils {
         int end = 3 * iconSize / 4;
         int size = end - start - 2;
 
-        Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+        Color primaryColor = renderColorTokens.getOnContainer();
 
         graphics.setColor(primaryColor);
         graphics.fillRect(start + 2, end - 1, size, 3);
@@ -615,7 +615,7 @@ public class BladeIconUtils {
         int start = iconSize / 4 - 1;
         int end = iconSize - start;
 
-        Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+        Color primaryColor = renderColorTokens.getOnContainer();
 
         graphics.setColor(primaryColor);
         // top (thicker)
@@ -682,7 +682,7 @@ public class BladeIconUtils {
         int start = iconSize / 4 - 1;
         int end = iconSize - start;
         int smallSquareSize = end - start - 3;
-        Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+        Color primaryColor = renderColorTokens.getOnContainer();
 
         graphics.setColor(primaryColor);
 

@@ -456,10 +456,10 @@ public class SeparatorPainterUtils {
                 Color backgroundFill = RadianceColorUtilities.getTonalBackgroundFillColor(
                     c, RadianceThemingSlices.ContainerType.NEUTRAL);
                 Color primary = renderColorTokens.isDark()
-                    ? renderColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant()
-                    : renderColorTokens.getContainerOutlineColorTokens().getContainerOutline();
+                    ? renderColorTokens.getContainerOutlineVariant()
+                    : renderColorTokens.getContainerOutline();
                 // TODO: TONAL - verify this across light and dark skins
-                Color secondary = renderColorTokens.getContainerColorTokens().getContainerLow();
+                Color secondary = renderColorTokens.getContainerLow();
                 System.out.println("Separator in " + decorationAreaType +
                     ": primary=" + RadianceColorUtilities.encode(primary) + ", secondary=" +
                     RadianceColorUtilities.encode(secondary));

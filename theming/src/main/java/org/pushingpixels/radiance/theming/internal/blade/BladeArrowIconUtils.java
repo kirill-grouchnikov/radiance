@@ -154,7 +154,7 @@ public class BladeArrowIconUtils {
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
             RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        Color arrowColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+        Color arrowColor = renderColorTokens.getOnContainer();
 
         graphics.setColor(RadianceColorUtilities.getAlphaColor(arrowColor, (int) (255 * alpha)));
         Stroke stroke = new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);

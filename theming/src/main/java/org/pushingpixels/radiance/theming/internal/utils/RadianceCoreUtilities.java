@@ -916,7 +916,7 @@ public class RadianceCoreUtilities {
                     return orig;
                 case THEMED_FOLLOW_TEXT:
                     Color foreground = (textColor != null) ? textColor
-                        : renderColorTokens.getOnContainerColorTokens().getOnContainer();
+                        : renderColorTokens.getOnContainer();
                     return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
                         comp, orig, foreground, 1.0f), scale);
                 case THEMED_FOLLOW_COLOR_SCHEME:

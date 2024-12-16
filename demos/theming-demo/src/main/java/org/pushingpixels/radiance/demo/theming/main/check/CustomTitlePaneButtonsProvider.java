@@ -78,7 +78,7 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 int start = iconSize / 4;
                 int end = iconSize - start;
 
-                Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+                Color primaryColor = renderColorTokens.getOnContainer();
 
                 Stroke primaryStroke = new BasicStroke(1.5f,
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
@@ -135,7 +135,7 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 int start = iconSize / 4;
                 int end = iconSize - start;
 
-                Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+                Color primaryColor = renderColorTokens.getOnContainer();
 
                 Stroke primaryStroke = new BasicStroke(1.5f,
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
@@ -192,7 +192,7 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 int start = iconSize / 4;
                 int end = iconSize - start;
 
-                Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+                Color primaryColor = renderColorTokens.getOnContainer();
 
                 Stroke primaryStroke = new BasicStroke(1.5f,
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
@@ -250,7 +250,7 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 int end = iconSize - start;
                 int mid = (start + end) / 2;
 
-                Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+                Color primaryColor = renderColorTokens.getOnContainer();
 
                 Stroke primaryStroke = new BasicStroke(1.5f,
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);

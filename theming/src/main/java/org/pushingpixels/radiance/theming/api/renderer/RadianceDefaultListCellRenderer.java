@@ -98,7 +98,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                     if (skin instanceof TonalSkin) {
                         ContainerRenderColorTokens colorTokens = getColorTokensForState(list, ui, currState);
                         super.setForeground(new ColorUIResource(
-                            colorTokens.getOnContainerColorTokens().getOnContainer()));
+                            colorTokens.getOnContainer()));
                     } else {
                         RadianceColorScheme colorScheme = getColorSchemeForState(list, ui, currState);
                         super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
@@ -122,7 +122,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                         if (skin instanceof TonalSkin) {
                             ContainerRenderColorTokens colorTokens = getColorTokensForState(
                                 list, ui, activeState);
-                            Color schemeFg = colorTokens.getOnContainerColorTokens().getOnContainer();
+                            Color schemeFg = colorTokens.getOnContainer();
                             aggrRed += schemeFg.getRed() * contribution;
                             aggrGreen += schemeFg.getGreen() * contribution;
                             aggrBlue += schemeFg.getBlue() * contribution;
@@ -153,7 +153,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                             currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                     }
                     super.setForeground(new ColorUIResource(
-                        colorTokens.getOnContainerColorTokens().getOnContainer()));
+                        colorTokens.getOnContainer()));
                 } else {
                     RadianceColorScheme scheme = getColorSchemeForState(list, ui, currState);
                     if (isDropLocation) {

@@ -127,8 +127,8 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
 
         if ((shineWidth > 0) && (shineHeight > 0)) {
             BufferedImage shineImage = getShineImage(comp, contour,
-                renderColorTokens.getContainerColorTokens().getContainerLowest(),
-                renderColorTokens.getContainerColorTokens().getContainerLow(),
+                renderColorTokens.getContainerLowest(),
+                renderColorTokens.getContainerLow(),
                 this.alpha, shineWidth, shineHeight);
 
             Graphics2D graphics = (Graphics2D) g.create();

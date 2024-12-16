@@ -129,7 +129,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                         ContainerRenderColorTokens renderColorTokens = getColorTokensForState(
                             list, index, listUI, currState);
                         result.setForeground(new ColorUIResource(
-                            renderColorTokens.getOnContainerColorTokens().getOnContainer()));
+                            renderColorTokens.getOnContainer()));
                     } else {
                         RadianceColorScheme scheme = getColorSchemeForState(list, index, listUI, currState);
                         result.setForeground(new ColorUIResource(scheme.getForegroundColor()));
@@ -143,7 +143,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                             ContainerRenderColorTokens renderColorTokens = getColorTokensForState(
                                 list, index, listUI, currState);
                             super.setForeground(new ColorUIResource(
-                                renderColorTokens.getOnContainerColorTokens().getOnContainer()));
+                                renderColorTokens.getOnContainer()));
                         } else {
                             RadianceColorScheme colorScheme = getColorSchemeForState(list, index,
                                 listUI, currState);
@@ -165,7 +165,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                                 ContainerRenderColorTokens colorTokens = getColorTokensForState(
                                     list, index, listUI, activeState);
                                 Color schemeFg =
-                                    colorTokens.getOnContainerColorTokens().getOnContainer();
+                                    colorTokens.getOnContainer();
                                 aggrRed += schemeFg.getRed() * activeContribution;
                                 aggrGreen += schemeFg.getGreen() * activeContribution;
                                 aggrBlue += schemeFg.getBlue() * activeContribution;

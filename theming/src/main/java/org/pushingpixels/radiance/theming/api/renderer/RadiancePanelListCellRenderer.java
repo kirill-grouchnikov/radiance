@@ -156,7 +156,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                     if (skin instanceof TonalSkin) {
                         ContainerRenderColorTokens colorTokens = getColorTokensForState(list, ui, currState);
                         labelForeground = new ColorUIResource(
-                            colorTokens.getOnContainerColorTokens().getOnContainer());
+                            colorTokens.getOnContainer());
 
                     } else {
                         RadianceColorScheme colorScheme = getColorSchemeForState(list, ui, currState);
@@ -174,7 +174,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                         if (skin instanceof TonalSkin) {
                             ContainerRenderColorTokens colorTokens = getColorTokensForState(
                                 list, ui, activeState);
-                            Color schemeFg = colorTokens.getOnContainerColorTokens().getOnContainer();
+                            Color schemeFg = colorTokens.getOnContainer();
                             aggrRed += schemeFg.getRed() * contribution;
                             aggrGreen += schemeFg.getGreen() * contribution;
                             aggrBlue += schemeFg.getBlue() * contribution;
@@ -197,7 +197,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                             currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                     }
-                    labelForeground = new ColorUIResource(colorTokens.getOnContainerColorTokens().getOnContainer());
+                    labelForeground = new ColorUIResource(colorTokens.getOnContainer());
                 } else {
                     RadianceColorScheme scheme = getColorSchemeForState(list, ui, currState);
                     if (isDropLocation) {

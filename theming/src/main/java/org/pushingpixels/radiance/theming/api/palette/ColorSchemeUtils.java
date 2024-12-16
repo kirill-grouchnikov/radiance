@@ -53,63 +53,48 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerColorTokens getContainerColorTokens() {
-                return new ContainerColorTokens() {
-                    @Override
-                    public Color getContainerLowest() {
-                        return tonalContainerColorResolver.getContainerLowest(dynamicScheme);
-                    }
-
-                    @Override
-                    public Color getContainerLow() {
-                        return tonalContainerColorResolver.getContainerLow(dynamicScheme);
-                    }
-
-                    @Override
-                    public Color getContainer() {
-                        return tonalContainerColorResolver.getContainer(dynamicScheme);
-                    }
-
-                    @Override
-                    public Color getContainerHigh() {
-                        return tonalContainerColorResolver.getContainerHigh(dynamicScheme);
-                    }
-
-                    @Override
-                    public Color getContainerHighest() {
-                        return tonalContainerColorResolver.getContainerHighest(dynamicScheme);
-                    }
-                };
+            public Color getContainerLowest() {
+                return tonalContainerColorResolver.getContainerLowest(dynamicScheme);
             }
 
             @Override
-            public OnContainerColorTokens getOnContainerColorTokens() {
-                return new OnContainerColorTokens() {
-                    @Override
-                    public Color getOnContainer() {
-                        return tonalContainerColorResolver.getOnContainer(dynamicScheme);
-                    }
-
-                    @Override
-                    public Color getOnContainerVariant() {
-                        return tonalContainerColorResolver.getOnContainerVariant(dynamicScheme);
-                    }
-                };
+            public Color getContainerLow() {
+                return tonalContainerColorResolver.getContainerLow(dynamicScheme);
             }
 
             @Override
-            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-                return new ContainerOutlineColorTokens() {
-                    @Override
-                    public Color getContainerOutline() {
-                        return tonalContainerColorResolver.getContainerOutline(dynamicScheme);
-                    }
+            public Color getContainer() {
+                return tonalContainerColorResolver.getContainer(dynamicScheme);
+            }
 
-                    @Override
-                    public Color getContainerOutlineVariant() {
-                        return tonalContainerColorResolver.getContainerOutlineVariant(dynamicScheme);
-                    }
-                };
+            @Override
+            public Color getContainerHigh() {
+                return tonalContainerColorResolver.getContainerHigh(dynamicScheme);
+            }
+
+            @Override
+            public Color getContainerHighest() {
+                return tonalContainerColorResolver.getContainerHighest(dynamicScheme);
+            }
+
+            @Override
+            public Color getOnContainer() {
+                return tonalContainerColorResolver.getOnContainer(dynamicScheme);
+            }
+
+            @Override
+            public Color getOnContainerVariant() {
+                return tonalContainerColorResolver.getOnContainerVariant(dynamicScheme);
+            }
+
+            @Override
+            public Color getContainerOutline() {
+                return tonalContainerColorResolver.getContainerOutline(dynamicScheme);
+            }
+
+            @Override
+            public Color getContainerOutlineVariant() {
+                return tonalContainerColorResolver.getContainerOutlineVariant(dynamicScheme);
             }
 
             @Override
@@ -522,21 +507,21 @@ public class ColorSchemeUtils {
 
         // Apply overlay on the container tokens
         Color containerLowest = RadianceColorUtilities.overlayColor(
-            original.getContainerColorTokens().getContainerLowest(), overlayWithAlpha);
+            original.getContainerLowest(), overlayWithAlpha);
         Color containerLow = RadianceColorUtilities.overlayColor(
-            original.getContainerColorTokens().getContainerLow(), overlayWithAlpha);
+            original.getContainerLow(), overlayWithAlpha);
         Color container = RadianceColorUtilities.overlayColor(
-            original.getContainerColorTokens().getContainer(), overlayWithAlpha);
+            original.getContainer(), overlayWithAlpha);
         Color containerHigh = RadianceColorUtilities.overlayColor(
-            original.getContainerColorTokens().getContainerHigh(), overlayWithAlpha);
+            original.getContainerHigh(), overlayWithAlpha);
         Color containerHighest = RadianceColorUtilities.overlayColor(
-            original.getContainerColorTokens().getContainerHighest(), overlayWithAlpha);
+            original.getContainerHighest(), overlayWithAlpha);
 
         // Leave on container and container outline tokens as they are
-        Color onContainer = original.getOnContainerColorTokens().getOnContainer();
-        Color onContainerVariant = original.getOnContainerColorTokens().getOnContainerVariant();
-        Color containerOutline = original.getContainerOutlineColorTokens().getContainerOutline();
-        Color containerOutlineVariant = original.getContainerOutlineColorTokens().getContainerOutlineVariant();
+        Color onContainer = original.getOnContainer();
+        Color onContainerVariant = original.getOnContainerVariant();
+        Color containerOutline = original.getContainerOutline();
+        Color containerOutlineVariant = original.getContainerOutlineVariant();
 
         return new ContainerRenderColorTokens() {
             @Override
@@ -545,63 +530,48 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerColorTokens getContainerColorTokens() {
-                return new ContainerColorTokens() {
-                    @Override
-                    public Color getContainerLowest() {
-                        return containerLowest;
-                    }
-
-                    @Override
-                    public Color getContainerLow() {
-                        return containerLow;
-                    }
-
-                    @Override
-                    public Color getContainer() {
-                        return container;
-                    }
-
-                    @Override
-                    public Color getContainerHigh() {
-                        return containerHigh;
-                    }
-
-                    @Override
-                    public Color getContainerHighest() {
-                        return containerHighest;
-                    }
-                };
+            public Color getContainerLowest() {
+                return containerLowest;
             }
 
             @Override
-            public OnContainerColorTokens getOnContainerColorTokens() {
-                return new OnContainerColorTokens() {
-                    @Override
-                    public Color getOnContainer() {
-                        return onContainer;
-                    }
-
-                    @Override
-                    public Color getOnContainerVariant() {
-                        return onContainerVariant;
-                    }
-                };
+            public Color getContainerLow() {
+                return containerLow;
             }
 
             @Override
-            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-                return new ContainerOutlineColorTokens() {
-                    @Override
-                    public Color getContainerOutline() {
-                        return containerOutline;
-                    }
+            public Color getContainer() {
+                return container;
+            }
 
-                    @Override
-                    public Color getContainerOutlineVariant() {
-                        return containerOutlineVariant;
-                    }
-                };
+            @Override
+            public Color getContainerHigh() {
+                return containerHigh;
+            }
+
+            @Override
+            public Color getContainerHighest() {
+                return containerHighest;
+            }
+
+            @Override
+            public Color getOnContainer() {
+                return onContainer;
+            }
+
+            @Override
+            public Color getOnContainerVariant() {
+                return onContainerVariant;
+            }
+
+            @Override
+            public Color getContainerOutline() {
+                return containerOutline;
+            }
+
+            @Override
+            public Color getContainerOutlineVariant() {
+                return containerOutlineVariant;
             }
 
             @Override

@@ -58,29 +58,29 @@ public class ContainerPalettePreview extends JComponent {
         int xOffset = 0;
 
         // Container colors
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerColorTokens().getContainerLowest());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerLowest());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerColorTokens().getContainerLow());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerLow());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerColorTokens().getContainer());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainer());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerColorTokens().getContainerHigh());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerHigh());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerColorTokens().getContainerHighest());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerHighest());
 
         xOffset += (height + bigGap);
 
         // On container colors
-        paintSquare(g2d, xOffset, height, colorTokens.getOnContainerColorTokens().getOnContainer());
+        paintSquare(g2d, xOffset, height, colorTokens.getOnContainer());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getOnContainerColorTokens().getOnContainerVariant());
+        paintSquare(g2d, xOffset, height, colorTokens.getOnContainerVariant());
 
         xOffset += (height + bigGap);
 
         // Container outline colors
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerOutlineColorTokens().getContainerOutline());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerOutline());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerOutlineVariant());
 
         g2d.dispose();
     }

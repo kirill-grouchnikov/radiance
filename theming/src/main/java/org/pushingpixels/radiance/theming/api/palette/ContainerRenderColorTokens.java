@@ -29,12 +29,22 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
+import java.awt.*;
+
 public interface ContainerRenderColorTokens {
     boolean isDark();
 
-    ContainerColorTokens getContainerColorTokens();
-    OnContainerColorTokens getOnContainerColorTokens();
-    ContainerOutlineColorTokens getContainerOutlineColorTokens();
+    Color getContainerLowest();
+    Color getContainerLow();
+    Color getContainer();
+    Color getContainerHigh();
+    Color getContainerHighest();
+
+    Color getOnContainer();
+    Color getOnContainerVariant();
+
+    Color getContainerOutline();
+    Color getContainerOutlineVariant();
 
     float getContainerDisabledAlpha();
     float getOnContainerDisabledAlpha();
