@@ -76,7 +76,7 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
-    private BladeContainerColorTokens mutableRenderColorTokens = new BladeContainerColorTokens();
+    private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     public BladeArrowButtonTransitionAwareIcon(final AbstractButton button,
             final Dimension iconDimension,
@@ -155,13 +155,13 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
         if (skin instanceof TonalSkin) {
-            BladeUtils.populateColorTokens(mutableRenderColorTokens, modelStateInfo, currState,
+            BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
                     BladeUtils.getDefaultColorSchemeDelegate(c,
                             this.colorSchemeAssociationKindDelegate),
                     false);
             float iconAlpha = currState.isDisabled()
-                ? mutableRenderColorTokens.onContainerDisabledAlpha : 1.0f;
-            this.delegate.drawColorSchemeIcon(graphics, mutableRenderColorTokens, iconAlpha);
+                ? mutableContainerTokens.onContainerDisabledAlpha : 1.0f;
+            this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
         } else {
             BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
                     currState,

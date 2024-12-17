@@ -67,7 +67,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
-    private BladeContainerColorTokens mutableRenderColorTokens =
+    private BladeContainerColorTokens mutableContainerTokens =
         new BladeContainerColorTokens();
 
     /**
@@ -98,14 +98,14 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 
         if (skin instanceof TonalSkin) {
             // Populate color tokens based on the current transition state of the menu item.
-            BladeUtils.populateColorTokens(mutableRenderColorTokens, this.menuItem, modelStateInfo,
+            BladeUtils.populateColorTokens(mutableContainerTokens, this.menuItem, modelStateInfo,
                 currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, false,
                 RadianceThemingSlices.ContainerType.MUTED);
 
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.translate(x, y);
             BladeIconUtils.drawTonalRadioButton(graphics, this.menuItem, fillPainter, borderPainter,
-                this.size, currState, mutableRenderColorTokens, visibility);
+                this.size, currState, mutableContainerTokens, visibility);
             graphics.dispose();
         } else {
             // Populate color schemes based on the current transition state of the menu item.

@@ -53,7 +53,7 @@ public class RadiancePopupMenuBorder implements Border, UIResource {
 		RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
 		if (skin instanceof TonalSkin) {
 			ContainerColorTokens containerTokens =
-				RadianceColorSchemeUtilities.getRenderColorTokens(c, ComponentState.ENABLED,
+				RadianceColorSchemeUtilities.getContainerTokens(c, ComponentState.ENABLED,
 					RadianceThemingSlices.ContainerType.MUTED);
 			BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
 				containerTokens);

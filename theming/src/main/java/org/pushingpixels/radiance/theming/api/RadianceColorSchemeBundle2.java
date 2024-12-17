@@ -203,10 +203,10 @@ public class RadianceColorSchemeBundle2 {
      * @return The color scheme of the component in the specified component
      * state.
      */
-    public ContainerColorTokens getColorRenderTokens(ComponentState componentState,
+    public ContainerColorTokens getContainerTokens(ComponentState componentState,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (componentState.isDisabled()) {
-            return getColorRenderTokens(componentState.getEnabledMatch(), inactiveContainerType);
+            return getContainerTokens(componentState.getEnabledMatch(), inactiveContainerType);
         }
 
         RadianceColorScheme2 registered = this.colorSchemeMap.get(
@@ -220,24 +220,24 @@ public class RadianceColorSchemeBundle2 {
             : this.mainColorScheme.getContainerTokens(inactiveContainerType);
     }
 
-    public ExtendedContainerColorTokens getExtendedRenderColorTokens(ComponentState componentState,
+    public ExtendedContainerColorTokens getExtendedContainerTokens(ComponentState componentState,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (componentState.isDisabled()) {
-            return getExtendedRenderColorTokens(componentState.getEnabledMatch(), inactiveContainerType);
+            return getExtendedContainerTokens(componentState.getEnabledMatch(), inactiveContainerType);
         }
 
         RadianceColorScheme2 registered = this.colorSchemeMap.get(
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
-            return componentState.isActive() ? registered.getExtendedContainerRenderTokens(componentState)
+            return componentState.isActive() ? registered.getExtendedContainerTokens(componentState)
                 : registered.getExtendedContainerTokens(inactiveContainerType);
         }
 
-        return componentState.isActive() ? this.mainColorScheme.getExtendedContainerRenderTokens(componentState)
+        return componentState.isActive() ? this.mainColorScheme.getExtendedContainerTokens(componentState)
             : this.mainColorScheme.getExtendedContainerTokens(inactiveContainerType);
     }
 
-    public ContainerColorTokens getSystemRenderColorTokens(
+    public ContainerColorTokens getSystemContainerTokens(
         RadianceThemingSlices.SystemContainerType systemContainerType) {
 
         switch (systemContainerType) {
@@ -361,18 +361,18 @@ public class RadianceColorSchemeBundle2 {
      * the component under the specified component state.
      * @see #registerColorScheme(RadianceColorScheme2, ComponentState...)
      */
-    public ContainerColorTokens getColorRenderTokens(
+    public ContainerColorTokens getContainerTokens(
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         ComponentState componentState, boolean allowFallback,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (associationKind == RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT) {
-            return this.getColorRenderTokens(componentState, inactiveContainerType);
+            return this.getContainerTokens(componentState, inactiveContainerType);
         }
 
         if (componentState.isDisabled()) {
             // TODO: TONAL - finalize this
             // Use the enabled match, and alpha will be applied during rendering
-            return getColorRenderTokens(associationKind, componentState.getEnabledMatch(),
+            return getContainerTokens(associationKind, componentState.getEnabledMatch(),
                 allowFallback, inactiveContainerType);
         }
 
@@ -401,7 +401,7 @@ public class RadianceColorSchemeBundle2 {
             return null;
         }
 
-        return getColorRenderTokens(
+        return getContainerTokens(
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, componentState,
             true, inactiveContainerType);
     }

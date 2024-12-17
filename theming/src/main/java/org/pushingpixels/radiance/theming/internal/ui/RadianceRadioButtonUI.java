@@ -87,7 +87,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
     protected BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     protected BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
 
-    protected BladeContainerColorTokens mutableRenderColorTokens = new BladeContainerColorTokens();
+    protected BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     @Override
     protected void installListeners(final AbstractButton b) {
@@ -147,14 +147,14 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                     // colors
 
                     // Populate color schemes based on the current transition state of the radio button.
-                    BladeUtils.populateColorTokens(mutableRenderColorTokens, button, modelStateInfo,
+                    BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                         false, RadianceThemingSlices.ContainerType.MUTED);
 
                     Graphics2D graphics = (Graphics2D) g.create();
                     graphics.translate(x, y);
                     BladeIconUtils.drawTonalRadioButton(graphics, button, fillPainter, borderPainter,
-                        checkMarkSize, currState, mutableRenderColorTokens, visibility);
+                        checkMarkSize, currState, mutableContainerTokens, visibility);
                     graphics.dispose();
                 } else {
                     // Populate color schemes based on the current transition state of the radio button.

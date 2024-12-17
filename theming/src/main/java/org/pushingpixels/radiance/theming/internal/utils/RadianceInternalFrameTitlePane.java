@@ -100,7 +100,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         if (RadianceCoreUtilities.isCurrentLookAndFeel()) {
             RadianceSkin skin = RadianceCoreUtilities.getSkin(this.frame);
             if (skin instanceof TonalSkin) {
-                this.setForeground(skin.getActiveColorRenderTokens(
+                this.setForeground(skin.getActiveContainerTokens(
                         RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)
                     .getOnContainer());
             } else {
@@ -292,9 +292,9 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                     + fm.getAscent();
 
             if (skin instanceof TonalSkin) {
-                ContainerColorTokens colorTokens = skin.getBackgroundColorTokens(
+                ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
                     RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getBaseContainerColorTokens();
+                    .getBaseContainerTokens();
                 // TODO: TONAL - support colorization of text
                 // TODO: TONAL - finalize the text echo color logic
                 RadianceTextUtilities.paintTextWithDropShadow(this, graphics,

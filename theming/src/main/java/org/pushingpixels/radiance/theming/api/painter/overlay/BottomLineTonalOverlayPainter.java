@@ -80,9 +80,9 @@ public final class BottomLineTonalOverlayPainter implements RadianceOverlayPaint
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height, (graphics1X, x, y,
             scaledWidth, scaledHeight, scaleFactor) -> {
             ExtendedContainerColorTokens surfaceTokens =
-                skin.getBackgroundColorTokens(decorationAreaType);
+                skin.getBackgroundExtendedContainerTokens(decorationAreaType);
             Color lineColor = this.containerTokensQuery.query(
-                surfaceTokens.getBaseContainerColorTokens());
+                surfaceTokens.getBaseContainerTokens());
             graphics1X.setColor(RadianceColorUtilities.getAlphaColor(lineColor, 128));
 
             int bottomY = (int) (scaleFactor * topMostWithSameDecorationAreaType.getHeight() - 1);

@@ -135,7 +135,7 @@ public class RadianceBorder implements Border, UIResource {
 
 		RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
 		if (skin instanceof TonalSkin) {
-			ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
+			ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
 				c, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
 				RadianceThemingSlices.ContainerType.MUTED);
 

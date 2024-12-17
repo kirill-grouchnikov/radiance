@@ -48,7 +48,7 @@ public class UpdateOptimizationInfo {
 
     private Map<ComponentState, RadianceColorScheme> highlightBorderSchemeMap;
 
-    private Map<ComponentState, ContainerColorTokens> highlightRenderColorTokens;
+    private Map<ComponentState, ContainerColorTokens> highlightContainerTokens;
 
     private Map<ComponentState, Float> highlightAlphaMap;
 
@@ -67,7 +67,7 @@ public class UpdateOptimizationInfo {
         this.defaultScheme = RadianceColorSchemeUtilities.getColorScheme(
             this.component, ComponentState.ENABLED);
         this.defaultColorTokens = (RadianceCoreUtilities.getSkin(component) instanceof TonalSkin)
-            ? RadianceColorSchemeUtilities.getRenderColorTokens(this.component,
+            ? RadianceColorSchemeUtilities.getContainerTokens(this.component,
                 ComponentState.ENABLED, inactiveContainerType)
             : null;
         this.decorationAreaType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.component);
@@ -92,15 +92,15 @@ public class UpdateOptimizationInfo {
     }
 
     public ContainerColorTokens getHighlightColorTokens(ComponentState state) {
-        if (this.highlightRenderColorTokens == null) {
-            this.highlightRenderColorTokens = new HashMap<>();
+        if (this.highlightContainerTokens == null) {
+            this.highlightContainerTokens = new HashMap<>();
         }
-        ContainerColorTokens result = this.highlightRenderColorTokens.get(state);
+        ContainerColorTokens result = this.highlightContainerTokens.get(state);
         if (result == null) {
-            result = RadianceColorSchemeUtilities.getRenderColorTokens(this.component,
+            result = RadianceColorSchemeUtilities.getContainerTokens(this.component,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
                 RadianceThemingSlices.ContainerType.NEUTRAL);
-            this.highlightRenderColorTokens.put(state, result);
+            this.highlightContainerTokens.put(state, result);
         }
         return result;
     }

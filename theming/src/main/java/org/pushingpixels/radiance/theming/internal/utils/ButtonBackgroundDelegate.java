@@ -63,7 +63,7 @@ import java.util.Set;
 public class ButtonBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeContainerColorTokens mutableRenderColorTokens = new BladeContainerColorTokens();
+    private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     private void drawBackground(
         Graphics2D graphics, AbstractButton button,
@@ -191,23 +191,23 @@ public class ButtonBackgroundDelegate {
             Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
             if (modificationTimeline != null) {
                 if (modificationTimeline.getState() != TimelineState.IDLE) {
-                    BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
+                    BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                         button, modificationTimeline.getTimelinePosition());
 
                     drawTonalBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
-                        mutableRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted,
+                        mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted,
                         currState, overallAlpha);
                     return;
                 }
             }
         }
 
-        BladeUtils.populateColorTokens(mutableRenderColorTokens, button, modelStateInfo,
+        BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             false, RadianceThemingSlices.ContainerType.MUTED);
 
         drawTonalBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
-            mutableRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted, currState,
+            mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted, currState,
             overallAlpha);
     }
 

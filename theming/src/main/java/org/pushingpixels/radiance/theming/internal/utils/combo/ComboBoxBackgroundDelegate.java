@@ -58,7 +58,7 @@ import java.util.Map;
 public class ComboBoxBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeContainerColorTokens mutableRenderColorTokens = new BladeContainerColorTokens();
+    private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     public void drawBackground(
             Graphics2D graphics, JComboBox combo,
@@ -71,12 +71,12 @@ public class ComboBoxBackgroundDelegate {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(combo);
         if (skin instanceof TonalSkin) {
-            BladeUtils.populateColorTokens(mutableRenderColorTokens, combo, modelStateInfo,
+            BladeUtils.populateColorTokens(mutableContainerTokens, combo, modelStateInfo,
                 currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                 false, RadianceThemingSlices.ContainerType.MUTED);
 
             drawBackground(graphics, combo, fillPainter, borderPainter, width, height,
-                mutableRenderColorTokens);
+                mutableContainerTokens);
         } else {
             // Populate fill and border color schemes based on the current transition state of the button.
             // Important - don't do it on pulsating buttons (such as close button of modified frames).

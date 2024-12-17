@@ -338,11 +338,11 @@ public class RadianceTextUtilities {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
-                : RadianceColorSchemeUtilities.getRenderColorTokens(component, state, inactiveContainerType)
+                : RadianceColorSchemeUtilities.getContainerTokens(component, state, inactiveContainerType)
                     .getOnContainer();
         float fgAlpha = toEnforceFgColor ? component.getForeground().getAlpha() / 255.0f
             : (state.isDisabled()
-                ? RadianceColorSchemeUtilities.getRenderColorTokens(component, state, inactiveContainerType)
+                ? RadianceColorSchemeUtilities.getContainerTokens(component, state, inactiveContainerType)
                     .getOnContainerDisabledAlpha()
                 : 1.0f);
 

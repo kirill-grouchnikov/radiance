@@ -51,9 +51,9 @@ public interface RadianceColorScheme2 {
 
     ContainerColorTokens getContainerTokensForState(ComponentState componentState);
 
-    default ExtendedContainerColorTokens getExtendedContainerRenderTokens(ComponentState componentState) {
+    default ExtendedContainerColorTokens getExtendedContainerTokens(ComponentState componentState) {
         RadianceColorScheme2 me = this;
-        ContainerColorTokens stateRenderTokens = getContainerTokensForState(componentState);
+        ContainerColorTokens stateTokens = getContainerTokensForState(componentState);
 
         return new ExtendedContainerColorTokens() {
             @Override
@@ -72,8 +72,8 @@ public interface RadianceColorScheme2 {
             }
 
             @Override
-            public ContainerColorTokens getBaseContainerColorTokens() {
-                return stateRenderTokens;
+            public ContainerColorTokens getBaseContainerTokens() {
+                return stateTokens;
             }
         };
     }
@@ -144,7 +144,7 @@ public interface RadianceColorScheme2 {
             }
 
             @Override
-            public ContainerColorTokens getBaseContainerColorTokens() {
+            public ContainerColorTokens getBaseContainerTokens() {
                 return containerColorTokens;
             }
         };

@@ -139,22 +139,22 @@ public class SeparatorPainterUtils {
             if (isParentAPopup) {
                 // For separators in popups, first see if we have a color
                 // scheme explicitly registered for the SEPARATOR association kind.
-                colorTokens = RadianceColorSchemeUtilities.getDirectRenderColorTokens(c,
+                colorTokens = RadianceColorSchemeUtilities.getDirectContainerTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                     ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
                 if (colorTokens == null) {
                     // Then get a background color scheme associated with the
                     // decoration type of that separator
-                    colorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundColorTokens(
+                    colorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundExtendedContainerTokens(
                         RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c))
-                        .getBaseContainerColorTokens();
+                        .getBaseContainerTokens();
                 }
             }
             if (colorTokens == null) {
                 // And finally, get the separator's color scheme via the regular
                 // route that includes fall back in case there is no explicitly registered
                 // color scheme for the SEPARATOR association kind.
-                colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(c,
+                colorTokens = RadianceColorSchemeUtilities.getContainerTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                     ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
             }

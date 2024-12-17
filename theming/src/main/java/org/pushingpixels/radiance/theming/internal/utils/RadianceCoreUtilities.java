@@ -910,7 +910,7 @@ public class RadianceCoreUtilities {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);
         if (skin instanceof TonalSkin) {
             ContainerColorTokens colorTokens =
-                RadianceColorSchemeUtilities.getRenderColorTokens(comp, componentState, inactiveContainerType);
+                RadianceColorSchemeUtilities.getContainerTokens(comp, componentState, inactiveContainerType);
             switch (iconFilterStrategy) {
                 case ORIGINAL:
                     return orig;
@@ -1855,7 +1855,7 @@ public class RadianceCoreUtilities {
         }
         if (skin instanceof TonalSkin) {
             // TODO: TONAL - need configuration APIs?
-            return skin.getBackgroundColorTokens(decorationAreaType).getSurface();
+            return skin.getBackgroundExtendedContainerTokens(decorationAreaType).getSurface();
         } else {
             return skin.getBackgroundColorScheme(decorationAreaType).getBackgroundFillColor();
         }

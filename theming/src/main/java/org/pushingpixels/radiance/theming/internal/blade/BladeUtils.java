@@ -99,7 +99,7 @@ public class BladeUtils {
     }
 
     public static void populateModificationAwareColorTokens(
-        BladeContainerColorTokens bladeRenderColorTokens, Component component,
+        BladeContainerColorTokens bladeContainerTokens, Component component,
         float modificationCyclePosition) {
 
         if (!SwingUtilities.isEventDispatchThread()) {
@@ -110,59 +110,59 @@ public class BladeUtils {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        ContainerColorTokens warningColorTokens = skin.getSystemColorTokens(
+        ContainerColorTokens warningColorTokens = skin.getSystemContainerTokens(
             component, RadianceThemingSlices.SystemContainerType.WARNING);
-        ContainerColorTokens emergencyColorTokens = skin.getSystemColorTokens(
+        ContainerColorTokens emergencyColorTokens = skin.getSystemContainerTokens(
             component, RadianceThemingSlices.SystemContainerType.EMERGENCY);
 
-        bladeRenderColorTokens.containerLowest = RadianceColorUtilities.getInterpolatedColor(
+        bladeContainerTokens.containerLowest = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerLowest(),
             emergencyColorTokens.getContainerLowest(),
             modificationCyclePosition);
-        bladeRenderColorTokens.containerLow = RadianceColorUtilities.getInterpolatedColor(
+        bladeContainerTokens.containerLow = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerLow(),
             emergencyColorTokens.getContainerLow(),
             modificationCyclePosition);
-        bladeRenderColorTokens.container = RadianceColorUtilities.getInterpolatedColor(
+        bladeContainerTokens.container = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainer(),
             emergencyColorTokens.getContainer(),
             modificationCyclePosition);
-        bladeRenderColorTokens.containerHigh = RadianceColorUtilities.getInterpolatedColor(
+        bladeContainerTokens.containerHigh = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerHigh(),
             emergencyColorTokens.getContainerHigh(),
             modificationCyclePosition);
-        bladeRenderColorTokens.containerHighest = RadianceColorUtilities.getInterpolatedColor(
+        bladeContainerTokens.containerHighest = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerHighest(),
             emergencyColorTokens.getContainerHighest(),
             modificationCyclePosition);
 
-        bladeRenderColorTokens.onContainer = RadianceColorUtilities.getInterpolatedColor(
+        bladeContainerTokens.onContainer = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getOnContainer(),
             emergencyColorTokens.getOnContainer(),
             modificationCyclePosition);
-        bladeRenderColorTokens.onContainerVariant = RadianceColorUtilities.getInterpolatedColor(
+        bladeContainerTokens.onContainerVariant = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getOnContainerVariant(),
             emergencyColorTokens.getOnContainerVariant(),
             modificationCyclePosition);
 
-        bladeRenderColorTokens.containerOutline = RadianceColorUtilities.getInterpolatedColor(
+        bladeContainerTokens.containerOutline = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerOutline(),
             emergencyColorTokens.getContainerOutlineVariant(),
             modificationCyclePosition);
 
-        bladeRenderColorTokens.containerDisabledAlpha =
+        bladeContainerTokens.containerDisabledAlpha =
             (1.0f - modificationCyclePosition) * warningColorTokens.getContainerDisabledAlpha() +
                 modificationCyclePosition * emergencyColorTokens.getContainerDisabledAlpha();
-        bladeRenderColorTokens.onContainerDisabledAlpha =
+        bladeContainerTokens.onContainerDisabledAlpha =
             (1.0f - modificationCyclePosition) * warningColorTokens.getOnContainerDisabledAlpha() +
                 modificationCyclePosition * emergencyColorTokens.getOnContainerDisabledAlpha();
-        bladeRenderColorTokens.containerOutlineDisabledAlpha =
+        bladeContainerTokens.containerOutlineDisabledAlpha =
             (1.0f - modificationCyclePosition) * warningColorTokens.getContainerOutlineDisabledAlpha() +
                 modificationCyclePosition * emergencyColorTokens.getContainerOutlineDisabledAlpha();
 
-        bladeRenderColorTokens.combinedName = "[" + warningColorTokens.hashCode() + ":" + modificationCyclePosition
+        bladeContainerTokens.combinedName = "[" + warningColorTokens.hashCode() + ":" + modificationCyclePosition
             + "], [" + emergencyColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
-        bladeRenderColorTokens.isDark = warningColorTokens.isDark() && emergencyColorTokens.isDark();
+        bladeContainerTokens.isDark = warningColorTokens.isDark() && emergencyColorTokens.isDark();
     }
 
     public static void populateColorScheme(
@@ -290,7 +290,7 @@ public class BladeUtils {
     }
 
     public static void populateColorTokens(
-        BladeContainerColorTokens bladeRenderColorTokens, Component component,
+        BladeContainerColorTokens bladeContainerTokens, Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo, ComponentState currState,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         boolean treatEnabledAsActive, RadianceThemingSlices.ContainerType inactiveContainerType) {
@@ -303,8 +303,8 @@ public class BladeUtils {
 
         StringBuilder nameBuilder = new StringBuilder();
         ContainerColorTokens currColorTokens = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
-                ? RadianceColorSchemeUtilities.getActiveRenderColorTokens(component, currState)
-                : RadianceColorSchemeUtilities.getRenderColorTokens(component, associationKind, currState, inactiveContainerType);
+                ? RadianceColorSchemeUtilities.getActiveContainerTokens(component, currState)
+                : RadianceColorSchemeUtilities.getContainerTokens(component, associationKind, currState, inactiveContainerType);
         Color containerLowest = currColorTokens.getContainerLowest();
         Color containerLow = currColorTokens.getContainerLow();
         Color container = currColorTokens.getContainer();
@@ -339,8 +339,8 @@ public class BladeUtils {
                 }
                 // Get the color scheme that matches the contribution state
                 ContainerColorTokens contributionColorTokens = (treatEnabledAsActive && (activeState == ComponentState.ENABLED))
-                        ? RadianceColorSchemeUtilities.getActiveRenderColorTokens(component, activeState)
-                        : RadianceColorSchemeUtilities.getRenderColorTokens(component, associationKind, activeState, inactiveContainerType);
+                        ? RadianceColorSchemeUtilities.getActiveContainerTokens(component, activeState)
+                        : RadianceColorSchemeUtilities.getContainerTokens(component, associationKind, activeState, inactiveContainerType);
 
                 // And interpolate the colors
                 containerLowest = RadianceColorUtilities.getInterpolatedColor(containerLowest,
@@ -375,32 +375,32 @@ public class BladeUtils {
         }
 
         // Update the mutable color tokens with the interpolated colors
-        bladeRenderColorTokens.containerLowest = containerLowest;
-        bladeRenderColorTokens.containerLow = containerLow;
-        bladeRenderColorTokens.container = container;
-        bladeRenderColorTokens.containerHigh = containerHigh;
-        bladeRenderColorTokens.containerHighest = containerHighest;
-        bladeRenderColorTokens.onContainer = onContainer;
-        bladeRenderColorTokens.onContainerVariant = onContainerVariant;
-        bladeRenderColorTokens.containerOutline = containerOutline;
-        bladeRenderColorTokens.containerOutlineVariant = containerOutlineVariant;
-        bladeRenderColorTokens.containerDisabledAlpha = containerDisabledAlpha;
-        bladeRenderColorTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
-        bladeRenderColorTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
+        bladeContainerTokens.containerLowest = containerLowest;
+        bladeContainerTokens.containerLow = containerLow;
+        bladeContainerTokens.container = container;
+        bladeContainerTokens.containerHigh = containerHigh;
+        bladeContainerTokens.containerHighest = containerHighest;
+        bladeContainerTokens.onContainer = onContainer;
+        bladeContainerTokens.onContainerVariant = onContainerVariant;
+        bladeContainerTokens.containerOutline = containerOutline;
+        bladeContainerTokens.containerOutlineVariant = containerOutlineVariant;
+        bladeContainerTokens.containerDisabledAlpha = containerDisabledAlpha;
+        bladeContainerTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
+        bladeContainerTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
 
-        bladeRenderColorTokens.combinedName = nameBuilder.toString();
-        bladeRenderColorTokens.isDark = isDark;
+        bladeContainerTokens.combinedName = nameBuilder.toString();
+        bladeContainerTokens.isDark = isDark;
     }
 
     public interface ColorSchemeDelegate {
         RadianceColorScheme getColorSchemeForCurrentState(ComponentState state);
         RadianceColorScheme getColorSchemeForActiveState(ComponentState state);
 
-        default ContainerColorTokens getRenderColorTokensForCurrentState(ComponentState state) {
+        default ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
             return null;
         }
 
-        default ContainerColorTokens getRenderColorTokensForActiveState(ComponentState state) {
+        default ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
             return null;
         }
     }
@@ -421,15 +421,15 @@ public class BladeUtils {
             }
 
             @Override
-            public ContainerColorTokens getRenderColorTokensForCurrentState(ComponentState state) {
-                return RadianceColorSchemeUtilities.getRenderColorTokens(component,
+            public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
+                return RadianceColorSchemeUtilities.getContainerTokens(component,
                     colorSchemeAssociationKindDelegate.getContainterColorTokensAssociationKind(state), state,
                     RadianceThemingSlices.ContainerType.MUTED);
             }
 
             @Override
-            public ContainerColorTokens getRenderColorTokensForActiveState(ComponentState state) {
-                return RadianceColorSchemeUtilities.getRenderColorTokens(component,
+            public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
+                return RadianceColorSchemeUtilities.getContainerTokens(component,
                     colorSchemeAssociationKindDelegate.getContainterColorTokensAssociationKind(state), state,
                     RadianceThemingSlices.ContainerType.MUTED);
             }
@@ -558,7 +558,7 @@ public class BladeUtils {
     }
 
     public static void populateColorTokens(
-            BladeContainerColorTokens bladeRenderColorTokens,
+            BladeContainerColorTokens bladeContainerTokens,
             StateTransitionTracker.ModelStateInfo modelStateInfo,
             ComponentState currState,
             ColorSchemeDelegate colorSchemeDelegate,
@@ -573,7 +573,7 @@ public class BladeUtils {
         StringBuilder nameBuilder = new StringBuilder();
 
         ContainerColorTokens currColorTokens =
-                colorSchemeDelegate.getRenderColorTokensForCurrentState(currState);
+                colorSchemeDelegate.getContainerTokensForCurrentState(currState);
 
         Color containerLowest = currColorTokens.getContainerLowest();
         Color containerLow = currColorTokens.getContainerLow();
@@ -610,7 +610,7 @@ public class BladeUtils {
                 }
                 // Get the color tokens that match the contribution state
                 ContainerColorTokens contributionColorTokens =
-                        colorSchemeDelegate.getRenderColorTokensForActiveState(activeEntry.getKey());
+                        colorSchemeDelegate.getContainerTokensForActiveState(activeEntry.getKey());
 
                 // And interpolate the colors
                 containerLowest = RadianceColorUtilities.getInterpolatedColor(containerLowest,
@@ -645,21 +645,21 @@ public class BladeUtils {
         }
 
         // Update the mutable color scheme with the interpolated colors
-        bladeRenderColorTokens.containerLowest = containerLowest;
-        bladeRenderColorTokens.containerLow = containerLow;
-        bladeRenderColorTokens.container = container;
-        bladeRenderColorTokens.containerHigh = containerHigh;
-        bladeRenderColorTokens.containerHighest = containerHighest;
-        bladeRenderColorTokens.onContainer = onContainer;
-        bladeRenderColorTokens.onContainerVariant = onContainerVariant;
-        bladeRenderColorTokens.containerOutline = containerOutline;
-        bladeRenderColorTokens.containerOutlineVariant = containerOutlineVariant;
-        bladeRenderColorTokens.containerDisabledAlpha = containerDisabledAlpha;
-        bladeRenderColorTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
-        bladeRenderColorTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
+        bladeContainerTokens.containerLowest = containerLowest;
+        bladeContainerTokens.containerLow = containerLow;
+        bladeContainerTokens.container = container;
+        bladeContainerTokens.containerHigh = containerHigh;
+        bladeContainerTokens.containerHighest = containerHighest;
+        bladeContainerTokens.onContainer = onContainer;
+        bladeContainerTokens.onContainerVariant = onContainerVariant;
+        bladeContainerTokens.containerOutline = containerOutline;
+        bladeContainerTokens.containerOutlineVariant = containerOutlineVariant;
+        bladeContainerTokens.containerDisabledAlpha = containerDisabledAlpha;
+        bladeContainerTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
+        bladeContainerTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
 
-        bladeRenderColorTokens.combinedName = nameBuilder.toString();
-        bladeRenderColorTokens.isDark = isDark;
+        bladeContainerTokens.combinedName = nameBuilder.toString();
+        bladeContainerTokens.isDark = isDark;
     }
 
     public static void populateColorScheme(

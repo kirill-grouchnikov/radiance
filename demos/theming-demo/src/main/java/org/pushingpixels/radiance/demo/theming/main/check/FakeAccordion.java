@@ -89,9 +89,9 @@ public class FakeAccordion extends JPanel {
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
                         Color accentedFill = Color.RED;
                         if (skin instanceof TonalSkin) {
-                            ExtendedContainerColorTokens colorTokens = skin.getBackgroundColorTokens(
+                            ExtendedContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
                                 DecorationPainterUtils.getDecorationType(this));
-                            accentedFill = colorTokens.getBaseContainerColorTokens()
+                            accentedFill = colorTokens.getBaseContainerTokens()
                                 .getContainerLow();
                         } else {
                             RadianceThemingSlices.DecorationAreaType decorationAreaType =
@@ -167,7 +167,7 @@ public class FakeAccordion extends JPanel {
                                         1.0f, 0, radiusOuter);
 
                                 if (skin instanceof TonalSkin) {
-                                    ContainerColorTokens containerTokens = skin.getRenderColorTokens(
+                                    ContainerColorTokens containerTokens = skin.getContainerTokens(
                                         contentWrapper,
                                         RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                                         ComponentState.ENABLED,

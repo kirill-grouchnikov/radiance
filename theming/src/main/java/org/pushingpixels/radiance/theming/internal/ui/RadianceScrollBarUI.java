@@ -70,7 +70,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeContainerColorTokens mutableRenderColorTokens =
+    private BladeContainerColorTokens mutableContainerTokens =
         new BladeContainerColorTokens();
 
     /**
@@ -170,7 +170,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             // Populate color schemes based on the current transition state of the scrollbar.
             // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
             // parameter to "populateColorScheme").
-            BladeUtils.populateColorTokens(mutableRenderColorTokens, this.scrollbar, modelStateInfo,
+            BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
                 currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, true,
                 RadianceThemingSlices.ContainerType.MUTED);
 
@@ -196,18 +196,18 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     graphics1X.transform(at);
 
                     float containerAlpha = currState.isDisabled()
-                        ? mutableRenderColorTokens.getContainerDisabledAlpha() : 1.0f;
+                        ? mutableContainerTokens.getContainerDisabledAlpha() : 1.0f;
                     graphics1X.setComposite(AlphaComposite.getInstance(
                         AlphaComposite.SRC_OVER, containerAlpha));
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                        contour, mutableRenderColorTokens);
+                        contour, mutableContainerTokens);
 
                     float containerOutlineAlpha = currState.isDisabled()
-                        ? mutableRenderColorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
+                        ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                     graphics1X.setComposite(AlphaComposite.getInstance(
                         AlphaComposite.SRC_OVER, containerOutlineAlpha));
                     borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                        contour, null, mutableRenderColorTokens);
+                        contour, null, mutableContainerTokens);
                 });
             graphics.dispose();
         } else {
@@ -270,7 +270,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             // Populate color schemes based on the current transition state of the scrollbar.
             // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
             // parameter to "populateColorScheme").
-            BladeUtils.populateColorTokens(mutableRenderColorTokens, this.scrollbar, modelStateInfo,
+            BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
                 currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, true,
                 RadianceThemingSlices.ContainerType.MUTED);
 
@@ -290,18 +290,18 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     graphics1X.translate(x, y + voffset * scaleFactor);
 
                     float containerAlpha = currState.isDisabled()
-                        ? mutableRenderColorTokens.getContainerDisabledAlpha() : 1.0f;
+                        ? mutableContainerTokens.getContainerDisabledAlpha() : 1.0f;
                     graphics1X.setComposite(AlphaComposite.getInstance(
                         AlphaComposite.SRC_OVER, containerAlpha));
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                        contour, mutableRenderColorTokens);
+                        contour, mutableContainerTokens);
 
                     float containerOutlineAlpha = currState.isDisabled()
-                        ? mutableRenderColorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
+                        ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                     graphics1X.setComposite(AlphaComposite.getInstance(
                         AlphaComposite.SRC_OVER, containerOutlineAlpha));
                     borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                        contour, null, mutableRenderColorTokens);
+                        contour, null, mutableContainerTokens);
                 });
             graphics.dispose();
         } else {

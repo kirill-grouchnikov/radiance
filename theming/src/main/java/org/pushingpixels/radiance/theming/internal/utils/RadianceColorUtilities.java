@@ -381,7 +381,7 @@ public class RadianceColorUtilities {
                 return overlay;
             }
             if (skin instanceof TonalSkin) {
-                return skin.getRenderColorTokens(comp, currState, RadianceThemingSlices.ContainerType.MUTED)
+                return skin.getContainerTokens(comp, currState, RadianceThemingSlices.ContainerType.MUTED)
                     .getOnContainer();
             } else {
                 RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
@@ -402,7 +402,7 @@ public class RadianceColorUtilities {
             Color active;
             if (skin instanceof TonalSkin) {
                 active = (overlay != null) ? overlay :
-                    skin.getRenderColorTokens(comp, activeState, RadianceThemingSlices.ContainerType.MUTED)
+                    skin.getContainerTokens(comp, activeState, RadianceThemingSlices.ContainerType.MUTED)
                         .getOnContainer();
             } else {
                 active = (overlay != null) ? overlay :
@@ -427,7 +427,7 @@ public class RadianceColorUtilities {
                 getColorBrightness(getNegativeColor(color.getRGB()))) / 255.0f;
     }
 
-    private static BladeContainerColorTokens mutableRenderColorTokens =
+    private static BladeContainerColorTokens mutableContainerTokens =
         new BladeContainerColorTokens();
 
     /**
@@ -517,16 +517,16 @@ public class RadianceColorUtilities {
                 Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
                 if (modificationTimeline != null) {
                     if (modificationTimeline.getState() != Timeline.TimelineState.IDLE) {
-                        BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
+                        BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                             button, modificationTimeline.getTimelinePosition());
-                        return mutableRenderColorTokens.getOnContainer();
+                        return mutableContainerTokens.getOnContainer();
                     }
                 }
             }
         }
 
         ContainerColorTokens colorTokens =
-            skin.getRenderColorTokens(component, currState, inactiveContainerType);
+            skin.getContainerTokens(component, currState, inactiveContainerType);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return colorTokens.getOnContainer();
         }
@@ -540,7 +540,7 @@ public class RadianceColorUtilities {
             float alpha = activeEntry.getValue().getContribution();
 
             ContainerColorTokens activeColorTokens =
-                RadianceColorSchemeUtilities.getRenderColorTokens(component, activeState,
+                RadianceColorSchemeUtilities.getContainerTokens(component, activeState,
                     inactiveContainerType);
             Color activeForeground = activeColorTokens.getOnContainer();
             aggrRed += alpha * activeForeground.getRed();
@@ -580,17 +580,17 @@ public class RadianceColorUtilities {
                 Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
                 if (modificationTimeline != null) {
                     if (modificationTimeline.getState() != Timeline.TimelineState.IDLE) {
-                        BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
+                        BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                             button, modificationTimeline.getTimelinePosition());
                         return currState.isDisabled()
-                            ? mutableRenderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
+                            ? mutableContainerTokens.getOnContainerDisabledAlpha() : 1.0f;
                     }
                 }
             }
         }
 
         ContainerColorTokens colorTokens =
-            skin.getRenderColorTokens(component, currState, inactiveContainerType);
+            skin.getContainerTokens(component, currState, inactiveContainerType);
         return currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha() : 1.0f;
     }
 
@@ -655,7 +655,7 @@ public class RadianceColorUtilities {
             currState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
                 : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
         ContainerColorTokens colorTokens =
-            RadianceColorSchemeUtilities.getRenderColorTokens(
+            RadianceColorSchemeUtilities.getContainerTokens(
                 menuComponent, currAssocKind, currState, inactiveContainerType);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return colorTokens.getOnContainer();
@@ -673,10 +673,10 @@ public class RadianceColorUtilities {
             RadianceThemingSlices.ContainerColorTokensAssociationKind assocKind =
                 activeState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
                     : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
-            ContainerColorTokens activeRenderColorTokens =
-                RadianceColorSchemeUtilities.getRenderColorTokens(
+            ContainerColorTokens activeContainerTokens =
+                RadianceColorSchemeUtilities.getContainerTokens(
                     menuComponent, assocKind, activeState, inactiveContainerType);
-            Color activeForeground = activeRenderColorTokens.getOnContainer();
+            Color activeForeground = activeContainerTokens.getOnContainer();
             aggrRed += alpha * activeForeground.getRed();
             aggrGreen += alpha * activeForeground.getGreen();
             aggrBlue += alpha * activeForeground.getBlue();
@@ -694,7 +694,7 @@ public class RadianceColorUtilities {
             currState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
                 : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
         ContainerColorTokens colorTokens =
-            RadianceColorSchemeUtilities.getRenderColorTokens(
+            RadianceColorSchemeUtilities.getContainerTokens(
                 menuComponent, currAssocKind, currState, inactiveContainerType);
         return currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha() : 1.0f;
     }
@@ -800,7 +800,7 @@ public class RadianceColorUtilities {
             return backgr;
         }
 
-        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
+        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
             component,
             component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
             inactiveContainerType);
@@ -855,7 +855,7 @@ public class RadianceColorUtilities {
     }
 
     public static Color getBackgroundTonalFillColorScrollBar(JScrollBar scrollbar) {
-        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
+        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
             scrollbar,
             scrollbar.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
             RadianceThemingSlices.ContainerType.NEUTRAL);
@@ -910,12 +910,12 @@ public class RadianceColorUtilities {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (skin instanceof TonalSkin) {
-            ExtendedContainerColorTokens colorTokens = skin.getExtendedColorTokens(
+            ExtendedContainerColorTokens colorTokens = skin.getExtendedContainerTokens(
                 component,
                 component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
                 RadianceThemingSlices.ContainerType.NEUTRAL);
             return (rowIndex % 2 == 0) ? colorTokens.getSurface()
-                : colorTokens.getBaseContainerColorTokens().getContainerLow();
+                : colorTokens.getBaseContainerTokens().getContainerLow();
         } else {
             RadianceColorScheme scheme = skin.getBackgroundColorScheme(
                 DecorationPainterUtils.getDecorationType(component));

@@ -118,10 +118,10 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
             RadianceSkin skin) {
         if (skin instanceof TonalSkin) {
-            ExtendedContainerColorTokens tileRenderColorTokens =
-                    skin.getBackgroundColorTokens(decorationAreaType);
+            ExtendedContainerColorTokens tileContainerTokens =
+                    skin.getBackgroundExtendedContainerTokens(decorationAreaType);
             if (this.baseDecorationPainter == null) {
-                graphics.setColor(tileRenderColorTokens.getBaseContainerColorTokens().getContainerHigh());
+                graphics.setColor(tileContainerTokens.getBaseContainerTokens().getContainerHigh());
                 graphics.fillRect(0, 0, width, height);
             } else {
                 this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
@@ -129,7 +129,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             }
 
             Graphics2D temp = (Graphics2D) graphics.create();
-            this.tileArea(temp, comp, tileRenderColorTokens, 0, 0, width, height);
+            this.tileArea(temp, comp, tileContainerTokens, 0, 0, width, height);
             temp.dispose();
         } else {
             RadianceColorScheme tileScheme = skin.getBackgroundColorScheme(decorationAreaType);
@@ -168,17 +168,17 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
 
         if (skin instanceof TonalSkin) {
-            ExtendedContainerColorTokens tileRenderColorTokens =
-                skin.getBackgroundColorTokens(decorationAreaType);
+            ExtendedContainerColorTokens tileContainerTokens =
+                skin.getBackgroundExtendedContainerTokens(decorationAreaType);
             if (this.baseDecorationPainter != null) {
                 this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, width, height, skin);
             } else {
-                graphics.setColor(tileRenderColorTokens.getBaseContainerColorTokens()
+                graphics.setColor(tileContainerTokens.getBaseContainerTokens()
                     .getContainerHigh());
                 graphics.fillRect(0, 0, width, height);
             }
             Graphics2D temp = (Graphics2D) graphics.create();
-            this.tileArea(temp, comp, tileRenderColorTokens, offset.x, offset.y, width, height);
+            this.tileArea(temp, comp, tileContainerTokens, offset.x, offset.y, width, height);
             temp.dispose();
         } else {
             RadianceColorScheme tileScheme = skin.getBackgroundColorScheme(decorationAreaType);
@@ -224,7 +224,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
                     contour, colorTokens);
         } else {
-            graphics.setColor(colorTokens.getBaseContainerColorTokens()
+            graphics.setColor(colorTokens.getBaseContainerTokens()
                 .getContainerHigh());
             graphics.fill(contour);
         }
@@ -284,13 +284,13 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
         graphics.dispose();
     }
 
-    private void tileArea(Graphics2D g, Component comp, ExtendedContainerColorTokens tileRenderColorTokens,
+    private void tileArea(Graphics2D g, Component comp, ExtendedContainerColorTokens tileContainerTokens,
             int offsetTextureX, int offsetTextureY, int width, int height) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(comp, this.textureAlpha, g));
 
         double scale = RadianceCommonCortex.getScaleFactor(comp);
-        Image colorizedTile = this.getColorizedTile(scale, tileRenderColorTokens);
+        Image colorizedTile = this.getColorizedTile(scale, tileContainerTokens);
         int tileWidth = (int) (colorizedTile.getWidth(null) / scale);
         int tileHeight = (int) (colorizedTile.getHeight(null) / scale);
 
@@ -370,7 +370,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
                     (int) ( tileHeight / scale), null);
             tile2D.dispose();
             result = RadianceImageCreator.getColorSchemeImage(tileBi,
-                colorTokens.getBaseContainerColorTokens(), 0.0f, 1.0f);
+                colorTokens.getBaseContainerTokens(), 0.0f, 1.0f);
             this.colorizedTileMap.put(key, result);
         }
         return result;

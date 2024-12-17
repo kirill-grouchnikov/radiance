@@ -559,7 +559,7 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
             // mark drop location
             if (skin instanceof TonalSkin) {
                 ContainerColorTokens colorTokens =
-                    RadianceColorSchemeUtilities.getRenderColorTokens(list,
+                    RadianceColorSchemeUtilities.getContainerTokens(list,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                 Rectangle cellRect = new Rectangle(cx, cy, cw, ch);

@@ -56,7 +56,7 @@ public class RadianceLogo {
     public static RadianceIcon getLogoIcon(ExtendedContainerColorTokens colorTokens) {
         // Step 1 - create a colorized version of the transcoded Radiance logo
         RadianceIcon base = radiance_menu.factory().createNewIcon();
-        base.setColorFilter(color -> colorTokens.getBaseContainerColorTokens()
+        base.setColorFilter(color -> colorTokens.getBaseContainerTokens()
             .getOnContainer());
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(new Dimension(16, 16));
@@ -86,11 +86,11 @@ public class RadianceLogo {
     public static void tonalConfigureOn(JFrame frame) {
         frame.setIconImage(RadianceLogo.getLogoImage(frame,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                    .getBackgroundColorTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
+                    .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
                 () -> frame.setIconImage(RadianceLogo.getLogoImage(frame,
                         RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                                .getBackgroundColorTokens(
+                                .getBackgroundExtendedContainerTokens(
                                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)))));
     }
 }

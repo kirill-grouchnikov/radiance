@@ -177,7 +177,7 @@ public class RadianceColorSchemeUtilities {
         return getColorizedScheme(orig, nonColorized, !componentState.isDisabled());
     }
 
-    public static ContainerColorTokens getRenderColorTokens(Component component,
+    public static ContainerColorTokens getContainerTokens(Component component,
         ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
         Component orig = component;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
@@ -192,8 +192,8 @@ public class RadianceColorSchemeUtilities {
                 && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             // TODO: TONAL - colorization
-            return skin.getBackgroundColorTokens(DecorationPainterUtils.getDecorationType(component))
-                .getBaseContainerColorTokens();
+            return skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(component))
+                .getBaseContainerTokens();
 //            component = component.getParent();
         }
 
@@ -201,14 +201,14 @@ public class RadianceColorSchemeUtilities {
             RadianceCoreUtilities.traceRadianceApiUsage(component,
                 "Radiance delegate used when Radiance is not the current LAF");
         }
-        ContainerColorTokens nonColorized = skin.getRenderColorTokens(component,
+        ContainerColorTokens nonColorized = skin.getContainerTokens(component,
             componentState, inactiveContainerType);
         // TODO: TONAL - colorization
         return nonColorized;
         //        return getColorizedScheme(orig, nonColorized, !componentState.isDisabled());
     }
 
-    public static ExtendedContainerColorTokens getExtendedRenderColorTokens(Component component,
+    public static ExtendedContainerColorTokens getExtendedContainerTokens(Component component,
         ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
         Component orig = component;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
@@ -223,7 +223,7 @@ public class RadianceColorSchemeUtilities {
             && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             // TODO: TONAL - colorization
-            return skin.getBackgroundColorTokens(DecorationPainterUtils.getDecorationType(component));
+            return skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(component));
 //            component = component.getParent();
         }
 
@@ -231,7 +231,7 @@ public class RadianceColorSchemeUtilities {
             RadianceCoreUtilities.traceRadianceApiUsage(component,
                 "Radiance delegate used when Radiance is not the current LAF");
         }
-        ExtendedContainerColorTokens nonColorized = skin.getExtendedColorTokens(component,
+        ExtendedContainerColorTokens nonColorized = skin.getExtendedContainerTokens(component,
             componentState, inactiveContainerType);
         // TODO: TONAL - colorization
         return nonColorized;
@@ -277,7 +277,7 @@ public class RadianceColorSchemeUtilities {
      * @param componentState  Component state.
      * @return Component color scheme.
      */
-    public static ContainerColorTokens getRenderColorTokens(Component component,
+    public static ContainerColorTokens getContainerTokens(Component component,
             RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
             ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
@@ -289,8 +289,8 @@ public class RadianceColorSchemeUtilities {
             && !componentState.isActive()
             && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
             // TODO: TONAL - verify that we don't need to use the old logic.
-            return skin.getBackgroundColorTokens(DecorationPainterUtils.getDecorationType(component))
-                    .getBaseContainerColorTokens();
+            return skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(component))
+                    .getBaseContainerTokens();
 //            component = component.getParent();
         }
 
@@ -298,7 +298,7 @@ public class RadianceColorSchemeUtilities {
             RadianceCoreUtilities.traceRadianceApiUsage(component,
                     "Radiance delegate used when Radiance is not the current LAF");
         }
-        ContainerColorTokens nonColorized = skin.getRenderColorTokens(component,
+        ContainerColorTokens nonColorized = skin.getContainerTokens(component,
                 associationKind, componentState, inactiveContainerType);
         // TODO: TONAL - add colorization
         return nonColorized;
@@ -329,7 +329,7 @@ public class RadianceColorSchemeUtilities {
         return getColorizedScheme(component, nonColorized, !componentState.isDisabled());
     }
 
-    public static ContainerColorTokens getDirectRenderColorTokens(Component component,
+    public static ContainerColorTokens getDirectContainerTokens(Component component,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
         // special case - if the component is marked as flat and
@@ -343,7 +343,7 @@ public class RadianceColorSchemeUtilities {
         }
 
         ContainerColorTokens nonColorized = RadianceCoreUtilities.getSkin(component)
-            .getDirectColorTokens(component, associationKind, componentState, inactiveContainerType);
+            .getDirectContainerTokens(component, associationKind, componentState, inactiveContainerType);
         // TODO: TONAL - colorization
         return nonColorized;
 //        return getColorizedScheme(component, nonColorized, !componentState.isDisabled());
@@ -373,7 +373,7 @@ public class RadianceColorSchemeUtilities {
         return getColorizedScheme(component, nonColorized, !componentState.isDisabled());
     }
 
-    public static ContainerColorTokens getActiveRenderColorTokens(Component component,
+    public static ContainerColorTokens getActiveContainerTokens(Component component,
             ComponentState componentState) {
         // special case - if the component is marked as flat and
         // it is in the enabled state, get the color scheme of the parent.
@@ -386,7 +386,7 @@ public class RadianceColorSchemeUtilities {
         }
 
         ContainerColorTokens nonColorized = RadianceCoreUtilities.getSkin(component)
-                .getActiveColorRenderTokens(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component));
+                .getActiveContainerTokens(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component));
         // TODO: TONAL - colorization
         return nonColorized;
 //        return getColorizedScheme(component, nonColorized, !componentState.isDisabled());

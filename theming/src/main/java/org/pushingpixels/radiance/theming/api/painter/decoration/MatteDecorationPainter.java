@@ -64,7 +64,7 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
 
         if (skin instanceof TonalSkin) {
             ExtendedContainerColorTokens colorTokens =
-                skin.getBackgroundColorTokens(decorationAreaType);
+                skin.getBackgroundExtendedContainerTokens(decorationAreaType);
             if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
                 (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
                 this.paintTitleBackground(graphics, width, height, colorTokens);
@@ -168,9 +168,9 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
         // 0 - flex : light -> medium
         // flex - : medium fill
 
-        Color startColor = colorTokens.getBaseContainerColorTokens()
+        Color startColor = colorTokens.getBaseContainerTokens()
             .getContainerLowest();
-        Color endColor = colorTokens.getBaseContainerColorTokens()
+        Color endColor = colorTokens.getBaseContainerTokens()
             .getContainer();
 
         int gradientHeight = Math.max(FLEX_POINT, height + offsetY);
@@ -217,9 +217,9 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
 
-        Color startColor = colorTokens.getBaseContainerColorTokens()
+        Color startColor = colorTokens.getBaseContainerTokens()
             .getContainerHigh();
-        Color endColor = colorTokens.getBaseContainerColorTokens()
+        Color endColor = colorTokens.getBaseContainerTokens()
             .getContainerHighest();
 
         int gradientHeight = Math.max(FLEX_POINT, comp.getHeight() + offset.y);

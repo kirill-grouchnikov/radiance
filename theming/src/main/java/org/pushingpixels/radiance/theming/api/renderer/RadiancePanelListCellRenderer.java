@@ -154,7 +154,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                 if (currState.isDisabled() || (activeStates == null)
                         || (activeStates.size() == 1)) {
                     if (skin instanceof TonalSkin) {
-                        ContainerColorTokens colorTokens = getColorTokensForState(list, ui, currState);
+                        ContainerColorTokens colorTokens = getContainerTokensForState(list, ui, currState);
                         labelForeground = new ColorUIResource(
                             colorTokens.getOnContainer());
 
@@ -172,7 +172,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                         ComponentState activeState = activeEntry.getKey();
                         float contribution = activeEntry.getValue().getContribution();
                         if (skin instanceof TonalSkin) {
-                            ContainerColorTokens colorTokens = getColorTokensForState(
+                            ContainerColorTokens colorTokens = getContainerTokensForState(
                                 list, ui, activeState);
                             Color schemeFg = colorTokens.getOnContainer();
                             aggrRed += schemeFg.getRed() * contribution;
@@ -191,9 +191,9 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                 }
             } else {
                 if (skin instanceof TonalSkin) {
-                    ContainerColorTokens colorTokens = getColorTokensForState(list, ui, currState);
+                    ContainerColorTokens colorTokens = getContainerTokensForState(list, ui, currState);
                     if (isDropLocation) {
-                        colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(list,
+                        colorTokens = RadianceColorSchemeUtilities.getContainerTokens(list,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                             currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                     }
@@ -265,19 +265,19 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
         }
     }
 
-    private ContainerColorTokens getColorTokensForState(JList list, RadianceListUI ui,
+    private ContainerColorTokens getContainerTokensForState(JList list, RadianceListUI ui,
         ComponentState state) {
         UpdateOptimizationInfo updateOptimizationInfo = ui.getUpdateOptimizationInfo();
         if (state == ComponentState.ENABLED) {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getRenderColorTokens(list, state,
+                return RadianceColorSchemeUtilities.getContainerTokens(list, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }
         } else {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getRenderColorTokens(list,
+                return RadianceColorSchemeUtilities.getContainerTokens(list,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {

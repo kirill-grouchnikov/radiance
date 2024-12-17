@@ -62,7 +62,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
      */
     protected Insets myInsets;
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeContainerColorTokens mutableRenderColorTokens =
+    private BladeContainerColorTokens mutableContainerTokens =
         new BladeContainerColorTokens();
 
     /**
@@ -122,12 +122,12 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                 graphics.translate(x, y);
 
                 if (skin instanceof TonalSkin) {
-                    BladeUtils.populateColorTokens(mutableRenderColorTokens, c, modelStateInfo,
+                    BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                         false, RadianceThemingSlices.ContainerType.MUTED);
 
                     BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
-                        mutableRenderColorTokens);
+                        mutableContainerTokens);
                 } else {
                     BladeUtils.populateColorScheme(mutableBorderColorScheme, c, modelStateInfo,
                         currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
@@ -146,7 +146,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
 
         if (skin instanceof TonalSkin) {
             ContainerColorTokens colorTokens =
-                RadianceColorSchemeUtilities.getRenderColorTokens(c,
+                RadianceColorSchemeUtilities.getContainerTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                     currState, RadianceThemingSlices.ContainerType.MUTED);
 

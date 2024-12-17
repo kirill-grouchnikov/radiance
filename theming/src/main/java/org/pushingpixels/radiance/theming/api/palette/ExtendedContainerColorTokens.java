@@ -35,5 +35,5 @@ public interface ExtendedContainerColorTokens {
     Color getSurface();
     Color getSurfaceDim();
     Color getSurfaceBright();
-    ContainerColorTokens getBaseContainerColorTokens();
+    ContainerColorTokens getBaseContainerTokens();
 }
