@@ -34,12 +34,11 @@ import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.layout.CellConstraints;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.skin.CremeSkin;
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
@@ -47,13 +46,10 @@ public class PaletteDemo extends JFrame {
     public PaletteDemo() {
         super("Chroma Palette");
 
-        setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.ComponentScope.getCurrentSkin(this.getRootPane())
-                        .getColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                                RadianceThemingSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         FormBuilder builder = FormBuilder.create().
-                columns("right:pref, 4dlu, fill:pref:grow").
+                columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
                 rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, 12dlu, p, $lg, p, $lg, p, $lg, " +
                 "p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
@@ -62,42 +58,51 @@ public class PaletteDemo extends JFrame {
 
         RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightTonalBalancedColorScheme(
             Hct.fromInt(0xFF76A8C8), 16.0, 10.0);
-        builder.addSeparator("LIGHT").xyw(1, row, 3, CellConstraints.CENTER, CellConstraints.FILL);
-        row += 2;
-        builder.addROLabel("Surfaces").xy(1, row)
-                .add(new SurfacePreview(lightColorScheme)).xy(3, row);
-        row += 2;
-        builder.addROLabel("Surface container").xy(1, row)
-                .add(new ContainerPalettePreview(lightColorScheme.getNeutralContainerTokens())).xy(3, row);
-        row += 2;
-        builder.addROLabel("Muted container").xy(1, row)
-                .add(new ContainerPalettePreview(lightColorScheme.getMutedContainerTokens())).xy(3, row);
-        row += 2;
-        builder.addROLabel("Tonal container").xy(1, row)
-                .add(new ContainerPalettePreview(lightColorScheme.getTonalContainerTokens())).xy(3, row);
-        row += 2;
-        builder.addROLabel("Primary container").xy(1, row)
-                .add(new ContainerPalettePreview(lightColorScheme.getPrimaryContainerTokens())).xy(3, row);
-
         RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getDarkTonalBalancedColorScheme(
             Hct.fromInt(0xFF76A8C8), 16.0, 10.0);
-        row += 2;
-        builder.addSeparator("DARK").xyw(1, row, 3, CellConstraints.CENTER, CellConstraints.FILL);
+
+        builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
+        builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);
+
         row += 2;
         builder.addROLabel("Surfaces").xy(1, row)
-                .add(new SurfacePreview(darkColorScheme)).xy(3, row);
+            .add(new SurfacePreview(lightColorScheme)).xy(3, row)
+            .add(new SurfacePreview(darkColorScheme)).xy(5, row);
         row += 2;
-        builder.addROLabel("Surface container").xy(1, row)
-                .add(new ContainerPalettePreview(darkColorScheme.getNeutralContainerTokens())).xy(3, row);
+        builder.addROLabel("Neutral container").xy(1, row)
+            .add(new ContainerPalettePreview(lightColorScheme.getNeutralContainerTokens())).xy(3, row)
+            .add(new ContainerPalettePreview(darkColorScheme.getNeutralContainerTokens())).xy(5, row);
         row += 2;
         builder.addROLabel("Muted container").xy(1, row)
-                .add(new ContainerPalettePreview(darkColorScheme.getMutedContainerTokens())).xy(3, row);
+            .add(new ContainerPalettePreview(lightColorScheme.getMutedContainerTokens())).xy(3, row)
+            .add(new ContainerPalettePreview(darkColorScheme.getMutedContainerTokens())).xy(5, row);
         row += 2;
         builder.addROLabel("Tonal container").xy(1, row)
-                .add(new ContainerPalettePreview(darkColorScheme.getTonalContainerTokens())).xy(3, row);
+            .add(new ContainerPalettePreview(lightColorScheme.getTonalContainerTokens())).xy(3, row)
+            .add(new ContainerPalettePreview(darkColorScheme.getTonalContainerTokens())).xy(5, row);
         row += 2;
         builder.addROLabel("Primary container").xy(1, row)
-                .add(new ContainerPalettePreview(darkColorScheme.getPrimaryContainerTokens())).xy(3, row);
+            .add(new ContainerPalettePreview(lightColorScheme.getPrimaryContainerTokens())).xy(3, row)
+            .add(new ContainerPalettePreview(darkColorScheme.getPrimaryContainerTokens())).xy(5, row);
+
+        row += 2;
+        builder.addROLabel("Neutral container").xy(1, row)
+            .add(new ContainerPreview(lightColorScheme.getNeutralContainerTokens(), "Neutral")).xy(3, row)
+            .add(new ContainerPreview(darkColorScheme.getNeutralContainerTokens(), "Neutral")).xy(5, row);
+        row += 2;
+        builder.addROLabel("Muted container").xy(1, row)
+            .add(new ContainerPreview(lightColorScheme.getMutedContainerTokens(), "Muted")).xy(3, row)
+            .add(new ContainerPreview(darkColorScheme.getMutedContainerTokens(), "Muted")).xy(5, row);
+        row += 2;
+        builder.addROLabel("Tonal container").xy(1, row)
+            .add(new ContainerPreview(lightColorScheme.getTonalContainerTokens(), "Tonal")).xy(3, row)
+            .add(new ContainerPreview(darkColorScheme.getTonalContainerTokens(), "Tonal")).xy(5, row);
+        row += 2;
+        builder.addROLabel("Primary container").xy(1, row)
+            .add(new ContainerPreview(lightColorScheme.getPrimaryContainerTokens(), "Primary")).xy(3, row)
+            .add(new ContainerPreview(darkColorScheme.getPrimaryContainerTokens(), "Primary")).xy(5, row);
+
+
         this.add(builder.build());
 
         this.pack();
@@ -109,7 +114,7 @@ public class PaletteDemo extends JFrame {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
-            RadianceThemingCortex.GlobalScope.setSkin(new CremeSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin.BusinessTonalSkin());
             new PaletteDemo().setVisible(true);
         });
     }
