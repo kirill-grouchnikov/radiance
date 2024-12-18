@@ -915,14 +915,13 @@ public class RadianceCoreUtilities {
                 case ORIGINAL:
                     return orig;
                 case THEMED_FOLLOW_TEXT:
-                    Color foreground = (textColor != null) ? textColor
-                        : colorTokens.getOnContainer();
+                    Color foreground = (textColor != null) ? textColor : colorTokens.getOnContainer();
                     return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
                         comp, orig, foreground, 1.0f), scale);
                 case THEMED_FOLLOW_COLOR_SCHEME:
                     // TODO: TONAL - check brightness
                     //float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorSchemeImage(
+                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getContainerTokensImage(
                         comp, orig, colorTokens, 0.4f), scale);
             }
         } else {

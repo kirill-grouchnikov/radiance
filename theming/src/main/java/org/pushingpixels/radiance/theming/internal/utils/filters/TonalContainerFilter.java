@@ -51,38 +51,25 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 
-public class ColorTokensFilter extends RadianceAbstractFilter {
+public class TonalContainerFilter extends RadianceAbstractFilter {
     private int[] interpolated;
 
     private static final int MAPSTEPS = 512;
 
-    private final static LazyResettableHashMap<ColorTokensFilter> filters =
-            new LazyResettableHashMap<>("ColorSchemeFilter");
+    private final static LazyResettableHashMap<TonalContainerFilter> filters =
+            new LazyResettableHashMap<>("TonalContainerFilter");
 
     private float originalBrightnessFactor;
     private float alpha;
 
-    public static ColorTokensFilter getColorTokensFilter(
-            ContainerColorTokens containerColorTokens,
-            float originalBrightnessFactor, float alpha) {
-        HashMapKey key = RadianceCoreUtilities.getHashKey(containerColorTokens.hashCode(),
-                originalBrightnessFactor, alpha);
-        ColorTokensFilter filter = filters.get(key);
-        if (filter == null) {
-            filter = new ColorTokensFilter(containerColorTokens, originalBrightnessFactor, alpha);
-            filters.put(key, filter);
-        }
-        return filter;
-    }
-
-    public static ColorTokensFilter getColorSchemeFilter(
+    public static TonalContainerFilter getContainerTokensFilter(
             ContainerColorTokens colorTokens,
             float originalBrightnessFactor, float alpha) {
         HashMapKey key = RadianceCoreUtilities.getHashKey(colorTokens.hashCode(),
                 originalBrightnessFactor, alpha);
-        ColorTokensFilter filter = filters.get(key);
+        TonalContainerFilter filter = filters.get(key);
         if (filter == null) {
-            filter = new ColorTokensFilter(colorTokens, originalBrightnessFactor, alpha);
+            filter = new TonalContainerFilter(colorTokens, originalBrightnessFactor, alpha);
             filters.put(key, filter);
         }
         return filter;
@@ -175,7 +162,7 @@ public class ColorTokensFilter extends RadianceAbstractFilter {
     /**
      * @throws IllegalArgumentException if <code>containerColorTokens</code> is null
      */
-    private ColorTokensFilter(ContainerColorTokens containerColorTokens,
+    private TonalContainerFilter(ContainerColorTokens containerColorTokens,
             float originalBrightnessFactor, float alpha) {
         if (containerColorTokens == null) {
             throw new IllegalArgumentException("Color tokens cannot be null");

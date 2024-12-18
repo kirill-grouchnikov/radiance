@@ -35,8 +35,8 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ColorSchemeFilter;
-import org.pushingpixels.radiance.theming.internal.utils.filters.ColorTokensFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ImageColorFilter;
+import org.pushingpixels.radiance.theming.internal.utils.filters.TonalContainerFilter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -404,7 +404,7 @@ public final class RadianceImageCreator {
         return result;
     }
 
-    public static BufferedImage getColorSchemeImage(Component comp, Icon original,
+    public static BufferedImage getContainerTokensImage(Component comp, Icon original,
         ContainerColorTokens colorTokens, float originalBrightnessFactor) {
         int w = original.getIconWidth();
         int h = original.getIconHeight();
@@ -419,7 +419,7 @@ public final class RadianceImageCreator {
         original.paintIcon(comp, origImage.getGraphics(), 0, 0);
         g2d.dispose();
 
-        BufferedImage result = getColorSchemeImage(origImage, colorTokens,
+        BufferedImage result = getContainerTokensImage(origImage, colorTokens,
             originalBrightnessFactor, 1.0f);
         return result;
     }
@@ -440,10 +440,10 @@ public final class RadianceImageCreator {
                 .filter(original, null);
     }
 
-    public static BufferedImage getColorSchemeImage(BufferedImage original,
+    public static BufferedImage getContainerTokensImage(BufferedImage original,
             ContainerColorTokens colorTokens, float originalBrightnessFactor,
             float alpha) {
-        return ColorTokensFilter.getColorSchemeFilter(colorTokens, originalBrightnessFactor, alpha)
+        return TonalContainerFilter.getContainerTokensFilter(colorTokens, originalBrightnessFactor, alpha)
                 .filter(original, null);
     }
 

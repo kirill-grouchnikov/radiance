@@ -369,7 +369,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             tile2D.drawImage(this.originalTile, 0, 0, (int) (tileWidth / scale),
                     (int) ( tileHeight / scale), null);
             tile2D.dispose();
-            result = RadianceImageCreator.getColorSchemeImage(tileBi,
+            result = RadianceImageCreator.getContainerTokensImage(tileBi,
                 colorTokens.getBaseContainerTokens(), 0.0f, 1.0f);
             this.colorizedTileMap.put(key, result);
         }
