@@ -102,7 +102,6 @@ public class PaletteDemo extends JFrame {
             .add(new ContainerPreview(lightColorScheme.getPrimaryContainerTokens(), "Primary")).xy(3, row)
             .add(new ContainerPreview(darkColorScheme.getPrimaryContainerTokens(), "Primary")).xy(5, row);
 
-
         this.add(builder.build());
 
         this.pack();

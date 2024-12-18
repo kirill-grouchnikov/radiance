@@ -50,18 +50,24 @@ public class ContainerPreview extends JPanel {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
 
                 int width = getWidth();
                 int height = getHeight();
+                int arc = 8;
+                int strokeThickness = 2;
 
                 g2d.setColor(colorTokens.getContainer());
-                g2d.fillRect(0, 0, width, height);
+                g2d.fillRoundRect(strokeThickness, strokeThickness,
+                    width - 2 * strokeThickness + 1, height - 2 * strokeThickness + 1, arc, arc);
 
                 g2d.setColor(colorTokens.getContainerOutline());
-                g2d.setStroke(new BasicStroke(2.0f));
-                g2d.drawRect(1, 1, width - 2, height - 2);
+                g2d.setStroke(new BasicStroke(strokeThickness));
+                g2d.drawRoundRect(1, 1, width - 2, height - 2, arc, arc);
 
-                Font font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getTitleFont();
+                Font font =
+                    RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getTitleFont();
                 g2d.setFont(font);
                 RadianceCommonCortex.installDesktopHints(g2d, font);
                 FontMetrics fm = g2d.getFontMetrics();
