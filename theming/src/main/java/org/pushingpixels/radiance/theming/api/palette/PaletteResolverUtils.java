@@ -38,28 +38,28 @@ public class PaletteResolverUtils {
         PaletteContainerColorsResolver neutralContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
-                public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getNeutralContainerLowest());
+                public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getNeutralContainerSurfaceLowest());
                 }
 
                 @Override
-                public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getNeutralContainerLow());
+                public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getNeutralContainerSurfaceLow());
                 }
 
                 @Override
-                public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getNeutralContainer());
+                public Color getContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getNeutralContainerSurface());
                 }
 
                 @Override
-                public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getNeutralContainerHigh());
+                public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getNeutralContainerSurfaceHigh());
                 }
 
                 @Override
-                public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getNeutralContainerHighest());
+                public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getNeutralContainerSurfaceHighest());
                 }
 
                 @Override
@@ -86,28 +86,28 @@ public class PaletteResolverUtils {
         PaletteContainerColorsResolver mutedContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
-                public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getMutedContainerLowest());
+                public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getMutedContainerSurfaceLowest());
                 }
 
                 @Override
-                public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getMutedContainerLow());
+                public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getMutedContainerSurfaceLow());
                 }
 
                 @Override
-                public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getMutedContainer());
+                public Color getContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getMutedContainerSurface());
                 }
 
                 @Override
-                public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getMutedContainerHigh());
+                public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getMutedContainerSurfaceHigh());
                 }
 
                 @Override
-                public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getMutedContainerHighest());
+                public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getMutedContainerSurfaceHighest());
                 }
 
                 @Override
@@ -134,28 +134,28 @@ public class PaletteResolverUtils {
         PaletteContainerColorsResolver tonalContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
-                public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getTonalContainerLowest());
+                public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getTonalContainerSurfaceLowest());
                 }
 
                 @Override
-                public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getTonalContainerLow());
+                public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getTonalContainerSurfaceLow());
                 }
 
                 @Override
-                public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getTonalContainer());
+                public Color getContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getTonalContainerSurface());
                 }
 
                 @Override
-                public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getTonalContainerHigh());
+                public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getTonalContainerSurfaceHigh());
                 }
 
                 @Override
-                public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getTonalContainerHighest());
+                public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getTonalContainerSurfaceHighest());
                 }
 
                 @Override
@@ -182,28 +182,28 @@ public class PaletteResolverUtils {
         PaletteContainerColorsResolver primaryContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
-                public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getPrimaryContainerLowest());
+                public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getPrimaryContainerSurfaceLowest());
                 }
 
                 @Override
-                public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getPrimaryContainerLow());
+                public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getPrimaryContainerSurfaceLow());
                 }
 
                 @Override
-                public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getPrimaryContainer());
+                public Color getContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getPrimaryContainerSurface());
                 }
 
                 @Override
-                public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getPrimaryContainerHigh());
+                public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getPrimaryContainerSurfaceHigh());
                 }
 
                 @Override
-                public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getPrimaryContainerHighest());
+                public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getPrimaryContainerSurfaceHighest());
                 }
 
                 @Override
@@ -230,28 +230,28 @@ public class PaletteResolverUtils {
         PaletteContainerColorsResolver systemInfoContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
-                public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemInfoContainerLowest());
+                public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemInfoContainerSurfaceLowest());
                 }
 
                 @Override
-                public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemInfoContainerLow());
+                public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemInfoContainerSurfaceLow());
                 }
 
                 @Override
-                public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemInfoContainer());
+                public Color getContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemInfoContainerSurface());
                 }
 
                 @Override
-                public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemInfoContainerHigh());
+                public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemInfoContainerSurfaceHigh());
                 }
 
                 @Override
-                public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemInfoContainerHighest());
+                public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemInfoContainerSurfaceHighest());
                 }
 
                 @Override
@@ -278,28 +278,28 @@ public class PaletteResolverUtils {
         PaletteContainerColorsResolver systemWarningContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
-                public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemWarningContainerLowest());
+                public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemWarningContainerSurfaceLowest());
                 }
 
                 @Override
-                public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemWarningContainerLow());
+                public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemWarningContainerSurfaceLow());
                 }
 
                 @Override
-                public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemWarningContainer());
+                public Color getContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemWarningContainerSurface());
                 }
 
                 @Override
-                public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemWarningContainerHigh());
+                public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemWarningContainerSurfaceHigh());
                 }
 
                 @Override
-                public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemWarningContainerHighest());
+                public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemWarningContainerSurfaceHighest());
                 }
 
                 @Override
@@ -326,28 +326,28 @@ public class PaletteResolverUtils {
         PaletteContainerColorsResolver systemErrorContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
-                public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemErrorContainerLowest());
+                public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemErrorContainerSurfaceLowest());
                 }
 
                 @Override
-                public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemErrorContainerLow());
+                public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemErrorContainerSurfaceLow());
                 }
 
                 @Override
-                public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemErrorContainer());
+                public Color getContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemErrorContainerSurface());
                 }
 
                 @Override
-                public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemErrorContainerHigh());
+                public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemErrorContainerSurfaceHigh());
                 }
 
                 @Override
-                public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemErrorContainerHighest());
+                public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemErrorContainerSurfaceHighest());
                 }
 
                 @Override
@@ -374,28 +374,28 @@ public class PaletteResolverUtils {
         PaletteContainerColorsResolver systemSuccessContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
-                public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemSuccessContainerLowest());
+                public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemSuccessContainerSurfaceLowest());
                 }
 
                 @Override
-                public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemSuccessContainerLow());
+                public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemSuccessContainerSurfaceLow());
                 }
 
                 @Override
-                public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemSuccessContainer());
+                public Color getContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemSuccessContainerSurface());
                 }
 
                 @Override
-                public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemSuccessContainerHigh());
+                public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemSuccessContainerSurfaceHigh());
                 }
 
                 @Override
-                public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemSuccessContainerHighest());
+                public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemSuccessContainerSurfaceHighest());
                 }
 
                 @Override
@@ -422,28 +422,28 @@ public class PaletteResolverUtils {
         PaletteContainerColorsResolver systemEmergencyContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override
-                public Color getContainerLowest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemEmergencyContainerLowest());
+                public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemEmergencyContainerSurfaceLowest());
                 }
 
                 @Override
-                public Color getContainerLow(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemEmergencyContainerLow());
+                public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemEmergencyContainerSurfaceLow());
                 }
 
                 @Override
-                public Color getContainer(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemEmergencyContainer());
+                public Color getContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemEmergencyContainerSurface());
                 }
 
                 @Override
-                public Color getContainerHigh(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemEmergencyContainerHigh());
+                public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemEmergencyContainerSurfaceHigh());
                 }
 
                 @Override
-                public Color getContainerHighest(DynamicScheme dynamicScheme) {
-                    return new Color(dynamicScheme.getSystemEmergencyContainerHighest());
+                public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getSystemEmergencyContainerSurfaceHighest());
                 }
 
                 @Override

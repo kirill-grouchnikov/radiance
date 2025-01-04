@@ -158,7 +158,7 @@ public class BladeIconUtils {
                     cornerRadius, null, 0.0f);
 
                 float containerAlpha = currentState.isDisabled()
-                    ? colorTokens.getContainerDisabledAlpha() : 1.0f;
+                    ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerAlpha));
                 Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
                     component.getComponentOrientation(),
@@ -300,7 +300,7 @@ public class BladeIconUtils {
                 Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
 
                 float containerAlpha = currentState.isDisabled()
-                    ? colorTokens.getContainerDisabledAlpha() : 1.0f;
+                    ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerAlpha));
                 fillPainter.paintContourBackground(graphics1X, button,
                     contourDim, contourDim,
@@ -334,9 +334,9 @@ public class BladeIconUtils {
                     graphicsForCheckMark.setPaint(
                         new GradientPaint(
                             rc + radius, rc - radius,
-                            colorTokens.getContainerHigh(),
+                            colorTokens.getContainerSurfaceHigh(),
                             rc - radius, rc + radius,
-                            colorTokens.getContainerLow()));
+                            colorTokens.getContainerSurfaceLow()));
                 }
                 graphicsForCheckMark.fill(markOval);
                 graphicsForCheckMark.dispose();

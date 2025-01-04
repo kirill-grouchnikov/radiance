@@ -41,15 +41,15 @@ public interface ContainerColorTokensSingleColorQuery {
 	Color query(ContainerColorTokens colorTokens);
 
 	ContainerColorTokensSingleColorQuery CONTAINER_LOWEST = (colorTokens) ->
-		colorTokens.getContainerLowest();
+		colorTokens.getContainerSurfaceLowest();
 	ContainerColorTokensSingleColorQuery CONTAINER_LOW = (colorTokens) ->
-			colorTokens.getContainerLow();
+			colorTokens.getContainerSurfaceLow();
 	ContainerColorTokensSingleColorQuery CONTAINER = (colorTokens) ->
-			colorTokens.getContainer();
+			colorTokens.getContainerSurface();
 	ContainerColorTokensSingleColorQuery CONTAINER_HIGH = (colorTokens) ->
-			colorTokens.getContainerHigh();
+			colorTokens.getContainerSurfaceHigh();
 	ContainerColorTokensSingleColorQuery CONTAINER_HIGHEST = (colorTokens) ->
-			colorTokens.getContainerHighest();
+			colorTokens.getContainerSurfaceHighest();
 
 	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE = (colorTokens) ->
 			colorTokens.getContainerOutline();

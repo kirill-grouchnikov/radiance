@@ -169,9 +169,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
         LinearGradientPaint gradientTop = new LinearGradientPaint(0, 0, width, 0,
             new float[] { 0.0f, 0.5f, 1.0f },
             new Color[] {
-                containerColorTokens.getContainer(),
-                isDark ? containerColorTokens.getContainerHighest() : containerColorTokens.getContainerLowest(),
-                containerColorTokens.getContainer() },
+                containerColorTokens.getContainerSurface(),
+                isDark ? containerColorTokens.getContainerSurfaceHighest() : containerColorTokens.getContainerSurfaceLowest(),
+                containerColorTokens.getContainerSurface() },
             CycleMethod.REPEAT);
         g2d.setPaint(gradientTop);
         g2d.fillRect(0, 0, width, height);
@@ -187,9 +187,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
         LinearGradientPaint gradientBottom = new LinearGradientPaint(0, 0, width, 0,
             new float[] { 0.0f, 0.5f, 1.0f },
             new Color[] {
-                isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest(),
-                containerColorTokens.getContainer(),
-                isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest()
+                isDark ? containerColorTokens.getContainerSurfaceLowest() : containerColorTokens.getContainerSurfaceHighest(),
+                containerColorTokens.getContainerSurface(),
+                isDark ? containerColorTokens.getContainerSurfaceLowest() : containerColorTokens.getContainerSurfaceHighest()
             },
             CycleMethod.REPEAT);
         g2d.setPaint(gradientBottom);
@@ -266,9 +266,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
                 -offset.x, 0, -offset.x + pWidth, 0,
                 new float[] { 0.0f, 0.5f, 1.0f },
                 new Color[] {
-                    isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest(),
-                    containerColorTokens.getContainer(),
-                    isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest()
+                    isDark ? containerColorTokens.getContainerSurfaceLowest() : containerColorTokens.getContainerSurfaceHighest(),
+                    containerColorTokens.getContainerSurface(),
+                    isDark ? containerColorTokens.getContainerSurfaceLowest() : containerColorTokens.getContainerSurfaceHighest()
                 },
                 CycleMethod.REPEAT);
             Graphics2D g2d = (Graphics2D) graphics.create();
@@ -328,9 +328,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
                 -offset.x, 0, -offset.x + pWidth, 0,
                 new float[] { 0.0f, 0.5f, 1.0f },
                 new Color[] {
-                    isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest(),
-                    containerColorTokens.getContainer(),
-                    isDark ? containerColorTokens.getContainerLowest() : containerColorTokens.getContainerHighest()
+                    isDark ? containerColorTokens.getContainerSurfaceLowest() : containerColorTokens.getContainerSurfaceHighest(),
+                    containerColorTokens.getContainerSurface(),
+                    isDark ? containerColorTokens.getContainerSurfaceLowest() : containerColorTokens.getContainerSurfaceHighest()
                 },
                 CycleMethod.REPEAT);
             Graphics2D g2d = (Graphics2D) graphics.create();

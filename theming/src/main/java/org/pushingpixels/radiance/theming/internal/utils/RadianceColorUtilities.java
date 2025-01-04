@@ -811,7 +811,7 @@ public class RadianceColorUtilities {
                 && component.isEnabled()) {
                 return backgr;
             }
-            backgr = colorTokens.getContainer();
+            backgr = colorTokens.getContainerSurface();
         } else {
             ComponentState state = component.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
@@ -836,7 +836,7 @@ public class RadianceColorUtilities {
             }
 
             backgr = RadianceColorUtilities.getDefaultTonalBackgroundColor(component, state);
-            float alpha = state.isDisabled() ? colorTokens.getContainerDisabledAlpha() : 1.0f;
+            float alpha = state.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
             if (alpha < 1.0f) {
                 Color defaultColor = RadianceColorUtilities
                     .getDefaultTonalBackgroundColor(component, ComponentState.ENABLED);
@@ -859,7 +859,7 @@ public class RadianceColorUtilities {
             scrollbar,
             scrollbar.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
             RadianceThemingSlices.ContainerType.NEUTRAL);
-        return colorTokens.getContainer();
+        return colorTokens.getContainerSurface();
     }
 
     /**
@@ -915,7 +915,7 @@ public class RadianceColorUtilities {
                 component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
                 RadianceThemingSlices.ContainerType.NEUTRAL);
             return (rowIndex % 2 == 0) ? colorTokens.getSurface()
-                : colorTokens.getBaseContainerTokens().getContainerLow();
+                : colorTokens.getBaseContainerTokens().getContainerSurfaceLow();
         } else {
             RadianceColorScheme scheme = skin.getBackgroundColorScheme(
                 DecorationPainterUtils.getDecorationType(component));

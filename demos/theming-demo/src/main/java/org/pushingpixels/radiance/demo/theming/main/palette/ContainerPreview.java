@@ -58,7 +58,7 @@ public class ContainerPreview extends JPanel {
                 int arc = 8;
                 int strokeThickness = 2;
 
-                g2d.setColor(colorTokens.getContainer());
+                g2d.setColor(colorTokens.getContainerSurface());
                 g2d.fillRoundRect(strokeThickness, strokeThickness,
                     width - 2 * strokeThickness + 1, height - 2 * strokeThickness + 1, arc, arc);
 

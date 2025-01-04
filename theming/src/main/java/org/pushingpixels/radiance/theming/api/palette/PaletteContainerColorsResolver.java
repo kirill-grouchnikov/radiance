@@ -34,11 +34,11 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import java.awt.*;
 
 public interface PaletteContainerColorsResolver {
-    Color getContainerLowest(DynamicScheme dynamicScheme);
-    Color getContainerLow(DynamicScheme dynamicScheme);
-    Color getContainer(DynamicScheme dynamicScheme);
-    Color getContainerHigh(DynamicScheme dynamicScheme);
-    Color getContainerHighest(DynamicScheme dynamicScheme);
+    Color getContainerSurfaceLowest(DynamicScheme dynamicScheme);
+    Color getContainerSurfaceLow(DynamicScheme dynamicScheme);
+    Color getContainerSurface(DynamicScheme dynamicScheme);
+    Color getContainerSurfaceHigh(DynamicScheme dynamicScheme);
+    Color getContainerSurfaceHighest(DynamicScheme dynamicScheme);
 
     Color getOnContainer(DynamicScheme dynamicScheme);
     Color getOnContainerVariant(DynamicScheme dynamicScheme);

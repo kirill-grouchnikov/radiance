@@ -58,15 +58,15 @@ public class ContainerPalettePreview extends JComponent {
         int xOffset = 0;
 
         // Container colors
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerLowest());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceLowest());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerLow());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceLow());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainer());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurface());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerHigh());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceHigh());
         xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerHighest());
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceHighest());
 
         xOffset += (height + bigGap);
 

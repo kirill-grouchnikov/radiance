@@ -196,7 +196,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     graphics1X.transform(at);
 
                     float containerAlpha = currState.isDisabled()
-                        ? mutableContainerTokens.getContainerDisabledAlpha() : 1.0f;
+                        ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
                     graphics1X.setComposite(AlphaComposite.getInstance(
                         AlphaComposite.SRC_OVER, containerAlpha));
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
@@ -290,7 +290,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     graphics1X.translate(x, y + voffset * scaleFactor);
 
                     float containerAlpha = currState.isDisabled()
-                        ? mutableContainerTokens.getContainerDisabledAlpha() : 1.0f;
+                        ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
                     graphics1X.setComposite(AlphaComposite.getInstance(
                         AlphaComposite.SRC_OVER, containerAlpha));
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,

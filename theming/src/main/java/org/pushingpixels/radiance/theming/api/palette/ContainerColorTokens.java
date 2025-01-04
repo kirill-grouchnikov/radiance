@@ -34,11 +34,11 @@ import java.awt.*;
 public interface ContainerColorTokens {
     boolean isDark();
 
-    Color getContainerLowest();
-    Color getContainerLow();
-    Color getContainer();
-    Color getContainerHigh();
-    Color getContainerHighest();
+    Color getContainerSurfaceLowest();
+    Color getContainerSurfaceLow();
+    Color getContainerSurface();
+    Color getContainerSurfaceHigh();
+    Color getContainerSurfaceHighest();
 
     Color getOnContainer();
     Color getOnContainerVariant();
@@ -46,7 +46,7 @@ public interface ContainerColorTokens {
     Color getContainerOutline();
     Color getContainerOutlineVariant();
 
-    float getContainerDisabledAlpha();
+    float getContainerSurfaceDisabledAlpha();
     float getOnContainerDisabledAlpha();
     float getContainerOutlineDisabledAlpha();
 }

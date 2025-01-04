@@ -116,24 +116,24 @@ public class BladeUtils {
             component, RadianceThemingSlices.SystemContainerType.EMERGENCY);
 
         bladeContainerTokens.containerLowest = RadianceColorUtilities.getInterpolatedColor(
-            warningColorTokens.getContainerLowest(),
-            emergencyColorTokens.getContainerLowest(),
+            warningColorTokens.getContainerSurfaceLowest(),
+            emergencyColorTokens.getContainerSurfaceLowest(),
             modificationCyclePosition);
         bladeContainerTokens.containerLow = RadianceColorUtilities.getInterpolatedColor(
-            warningColorTokens.getContainerLow(),
-            emergencyColorTokens.getContainerLow(),
+            warningColorTokens.getContainerSurfaceLow(),
+            emergencyColorTokens.getContainerSurfaceLow(),
             modificationCyclePosition);
         bladeContainerTokens.container = RadianceColorUtilities.getInterpolatedColor(
-            warningColorTokens.getContainer(),
-            emergencyColorTokens.getContainer(),
+            warningColorTokens.getContainerSurface(),
+            emergencyColorTokens.getContainerSurface(),
             modificationCyclePosition);
         bladeContainerTokens.containerHigh = RadianceColorUtilities.getInterpolatedColor(
-            warningColorTokens.getContainerHigh(),
-            emergencyColorTokens.getContainerHigh(),
+            warningColorTokens.getContainerSurfaceHigh(),
+            emergencyColorTokens.getContainerSurfaceHigh(),
             modificationCyclePosition);
         bladeContainerTokens.containerHighest = RadianceColorUtilities.getInterpolatedColor(
-            warningColorTokens.getContainerHighest(),
-            emergencyColorTokens.getContainerHighest(),
+            warningColorTokens.getContainerSurfaceHighest(),
+            emergencyColorTokens.getContainerSurfaceHighest(),
             modificationCyclePosition);
 
         bladeContainerTokens.onContainer = RadianceColorUtilities.getInterpolatedColor(
@@ -151,8 +151,8 @@ public class BladeUtils {
             modificationCyclePosition);
 
         bladeContainerTokens.containerDisabledAlpha =
-            (1.0f - modificationCyclePosition) * warningColorTokens.getContainerDisabledAlpha() +
-                modificationCyclePosition * emergencyColorTokens.getContainerDisabledAlpha();
+            (1.0f - modificationCyclePosition) * warningColorTokens.getContainerSurfaceDisabledAlpha() +
+                modificationCyclePosition * emergencyColorTokens.getContainerSurfaceDisabledAlpha();
         bladeContainerTokens.onContainerDisabledAlpha =
             (1.0f - modificationCyclePosition) * warningColorTokens.getOnContainerDisabledAlpha() +
                 modificationCyclePosition * emergencyColorTokens.getOnContainerDisabledAlpha();
@@ -305,16 +305,16 @@ public class BladeUtils {
         ContainerColorTokens currColorTokens = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
                 ? RadianceColorSchemeUtilities.getActiveContainerTokens(component, currState)
                 : RadianceColorSchemeUtilities.getContainerTokens(component, associationKind, currState, inactiveContainerType);
-        Color containerLowest = currColorTokens.getContainerLowest();
-        Color containerLow = currColorTokens.getContainerLow();
-        Color container = currColorTokens.getContainer();
-        Color containerHigh = currColorTokens.getContainerHigh();
-        Color containerHighest = currColorTokens.getContainerHighest();
+        Color containerLowest = currColorTokens.getContainerSurfaceLowest();
+        Color containerLow = currColorTokens.getContainerSurfaceLow();
+        Color container = currColorTokens.getContainerSurface();
+        Color containerHigh = currColorTokens.getContainerSurfaceHigh();
+        Color containerHighest = currColorTokens.getContainerSurfaceHighest();
         Color onContainer = currColorTokens.getOnContainer();
         Color onContainerVariant = currColorTokens.getOnContainerVariant();
         Color containerOutline = currColorTokens.getContainerOutline();
         Color containerOutlineVariant = currColorTokens.getContainerOutlineVariant();
-        float containerDisabledAlpha = currColorTokens.getContainerDisabledAlpha();
+        float containerDisabledAlpha = currColorTokens.getContainerSurfaceDisabledAlpha();
         float onContainerDisabledAlpha = currColorTokens.getOnContainerDisabledAlpha();
         float containerOutlineDisabledAlpha = currColorTokens.getContainerOutlineDisabledAlpha();
 
@@ -344,15 +344,15 @@ public class BladeUtils {
 
                 // And interpolate the colors
                 containerLowest = RadianceColorUtilities.getInterpolatedColor(containerLowest,
-                        contributionColorTokens.getContainerLowest(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurfaceLowest(), 1.0f - amount);
                 containerLow = RadianceColorUtilities.getInterpolatedColor(containerLow,
-                        contributionColorTokens.getContainerLow(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurfaceLow(), 1.0f - amount);
                 container = RadianceColorUtilities.getInterpolatedColor(container,
-                        contributionColorTokens.getContainer(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurface(), 1.0f - amount);
                 containerHigh = RadianceColorUtilities.getInterpolatedColor(containerHigh,
-                        contributionColorTokens.getContainerHigh(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurfaceHigh(), 1.0f - amount);
                 containerHighest = RadianceColorUtilities.getInterpolatedColor(containerHighest,
-                        contributionColorTokens.getContainerHighest(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurfaceHighest(), 1.0f - amount);
                 onContainer = RadianceColorUtilities.getInterpolatedColor(onContainer,
                         contributionColorTokens.getOnContainer(), 1.0f - amount);
                 onContainerVariant = RadianceColorUtilities.getInterpolatedColor(onContainerVariant,
@@ -362,7 +362,7 @@ public class BladeUtils {
                 containerOutlineVariant = RadianceColorUtilities.getInterpolatedColor(containerOutlineVariant,
                         contributionColorTokens.getContainerOutlineVariant(), 1.0f - amount);
                 containerDisabledAlpha = (1.0f - amount) * containerDisabledAlpha +
-                    amount * contributionColorTokens.getContainerDisabledAlpha();
+                    amount * contributionColorTokens.getContainerSurfaceDisabledAlpha();
                 onContainerDisabledAlpha = (1.0f - amount) * onContainerDisabledAlpha +
                     amount * contributionColorTokens.getOnContainerDisabledAlpha();
                 containerOutlineDisabledAlpha = (1.0f - amount) * containerOutlineDisabledAlpha +
@@ -575,16 +575,16 @@ public class BladeUtils {
         ContainerColorTokens currColorTokens =
                 colorSchemeDelegate.getContainerTokensForCurrentState(currState);
 
-        Color containerLowest = currColorTokens.getContainerLowest();
-        Color containerLow = currColorTokens.getContainerLow();
-        Color container = currColorTokens.getContainer();
-        Color containerHigh = currColorTokens.getContainerHigh();
-        Color containerHighest = currColorTokens.getContainerHighest();
+        Color containerLowest = currColorTokens.getContainerSurfaceLowest();
+        Color containerLow = currColorTokens.getContainerSurfaceLow();
+        Color container = currColorTokens.getContainerSurface();
+        Color containerHigh = currColorTokens.getContainerSurfaceHigh();
+        Color containerHighest = currColorTokens.getContainerSurfaceHighest();
         Color onContainer = currColorTokens.getOnContainer();
         Color onContainerVariant = currColorTokens.getOnContainerVariant();
         Color containerOutline = currColorTokens.getContainerOutline();
         Color containerOutlineVariant = currColorTokens.getContainerOutlineVariant();
-        float containerDisabledAlpha = currColorTokens.getContainerDisabledAlpha();
+        float containerDisabledAlpha = currColorTokens.getContainerSurfaceDisabledAlpha();
         float onContainerDisabledAlpha = currColorTokens.getOnContainerDisabledAlpha();
         float containerOutlineDisabledAlpha = currColorTokens.getContainerOutlineDisabledAlpha();
 
@@ -614,15 +614,15 @@ public class BladeUtils {
 
                 // And interpolate the colors
                 containerLowest = RadianceColorUtilities.getInterpolatedColor(containerLowest,
-                        contributionColorTokens.getContainerLowest(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurfaceLowest(), 1.0f - amount);
                 containerLow = RadianceColorUtilities.getInterpolatedColor(containerLow,
-                        contributionColorTokens.getContainerLow(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurfaceLow(), 1.0f - amount);
                 container = RadianceColorUtilities.getInterpolatedColor(container,
-                        contributionColorTokens.getContainer(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurface(), 1.0f - amount);
                 containerHigh = RadianceColorUtilities.getInterpolatedColor(containerHigh,
-                        contributionColorTokens.getContainerHigh(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurfaceHigh(), 1.0f - amount);
                 containerHighest = RadianceColorUtilities.getInterpolatedColor(containerHighest,
-                        contributionColorTokens.getContainerHighest(), 1.0f - amount);
+                        contributionColorTokens.getContainerSurfaceHighest(), 1.0f - amount);
                 onContainer = RadianceColorUtilities.getInterpolatedColor(onContainer,
                         contributionColorTokens.getOnContainer(), 1.0f - amount);
                 onContainerVariant = RadianceColorUtilities.getInterpolatedColor(onContainerVariant,
@@ -632,7 +632,7 @@ public class BladeUtils {
                 containerOutlineVariant = RadianceColorUtilities.getInterpolatedColor(containerOutlineVariant,
                         contributionColorTokens.getContainerOutlineVariant(), 1.0f - amount);
                 containerDisabledAlpha = (1.0f - amount) * containerDisabledAlpha +
-                    amount * contributionColorTokens.getContainerDisabledAlpha();
+                    amount * contributionColorTokens.getContainerSurfaceDisabledAlpha();
                 onContainerDisabledAlpha = (1.0f - amount) * onContainerDisabledAlpha +
                     amount * contributionColorTokens.getOnContainerDisabledAlpha();
                 containerOutlineDisabledAlpha = (1.0f - amount) * containerOutlineDisabledAlpha +

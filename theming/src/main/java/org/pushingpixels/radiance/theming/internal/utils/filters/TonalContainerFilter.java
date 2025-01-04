@@ -79,29 +79,29 @@ public class TonalContainerFilter extends RadianceAbstractFilter {
         // collect the brightness factors of the color tokens
         Map<Integer, Color> tokenColorMapping = new TreeMap<>();
 
-        int containerLowest = colorTokens.getContainerLowest().getRGB();
-        int containerLow = colorTokens.getContainerLow().getRGB();
-        int container = colorTokens.getContainer().getRGB();
-        int containerHigh = colorTokens.getContainerHigh().getRGB();
-        int containerHighest = colorTokens.getContainerHighest().getRGB();
+        int containerLowest = colorTokens.getContainerSurfaceLowest().getRGB();
+        int containerLow = colorTokens.getContainerSurfaceLow().getRGB();
+        int container = colorTokens.getContainerSurface().getRGB();
+        int containerHigh = colorTokens.getContainerSurfaceHigh().getRGB();
+        int containerHighest = colorTokens.getContainerSurfaceHighest().getRGB();
         int onContainerVariant = colorTokens.getOnContainerVariant().getRGB();
         int onContainer = colorTokens.getOnContainer().getRGB();
 
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(containerLowest),
-                colorTokens.getContainerLowest());
+                colorTokens.getContainerSurfaceLowest());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(containerLow),
-                colorTokens.getContainerLow());
+                colorTokens.getContainerSurfaceLow());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(container),
-                colorTokens.getContainer());
+                colorTokens.getContainerSurface());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(containerHigh),
-                colorTokens.getContainerHigh());
+                colorTokens.getContainerSurfaceHigh());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(containerHighest),
-                colorTokens.getContainerHighest());
+                colorTokens.getContainerSurfaceHighest());
         tokenColorMapping.put(
                 RadianceColorUtilities.getColorBrightness(onContainerVariant),
                 colorTokens.getOnContainerVariant());

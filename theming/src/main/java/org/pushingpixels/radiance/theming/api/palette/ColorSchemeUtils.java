@@ -53,28 +53,28 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public Color getContainerLowest() {
-                return tonalContainerColorResolver.getContainerLowest(dynamicScheme);
+            public Color getContainerSurfaceLowest() {
+                return tonalContainerColorResolver.getContainerSurfaceLowest(dynamicScheme);
             }
 
             @Override
-            public Color getContainerLow() {
-                return tonalContainerColorResolver.getContainerLow(dynamicScheme);
+            public Color getContainerSurfaceLow() {
+                return tonalContainerColorResolver.getContainerSurfaceLow(dynamicScheme);
             }
 
             @Override
-            public Color getContainer() {
-                return tonalContainerColorResolver.getContainer(dynamicScheme);
+            public Color getContainerSurface() {
+                return tonalContainerColorResolver.getContainerSurface(dynamicScheme);
             }
 
             @Override
-            public Color getContainerHigh() {
-                return tonalContainerColorResolver.getContainerHigh(dynamicScheme);
+            public Color getContainerSurfaceHigh() {
+                return tonalContainerColorResolver.getContainerSurfaceHigh(dynamicScheme);
             }
 
             @Override
-            public Color getContainerHighest() {
-                return tonalContainerColorResolver.getContainerHighest(dynamicScheme);
+            public Color getContainerSurfaceHighest() {
+                return tonalContainerColorResolver.getContainerSurfaceHighest(dynamicScheme);
             }
 
             @Override
@@ -98,7 +98,7 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public float getContainerDisabledAlpha() {
+            public float getContainerSurfaceDisabledAlpha() {
                 return 0.3f;
             }
 
@@ -507,15 +507,15 @@ public class ColorSchemeUtils {
 
         // Apply overlay on the container tokens
         Color containerLowest = RadianceColorUtilities.overlayColor(
-            original.getContainerLowest(), overlayWithAlpha);
+            original.getContainerSurfaceLowest(), overlayWithAlpha);
         Color containerLow = RadianceColorUtilities.overlayColor(
-            original.getContainerLow(), overlayWithAlpha);
+            original.getContainerSurfaceLow(), overlayWithAlpha);
         Color container = RadianceColorUtilities.overlayColor(
-            original.getContainer(), overlayWithAlpha);
+            original.getContainerSurface(), overlayWithAlpha);
         Color containerHigh = RadianceColorUtilities.overlayColor(
-            original.getContainerHigh(), overlayWithAlpha);
+            original.getContainerSurfaceHigh(), overlayWithAlpha);
         Color containerHighest = RadianceColorUtilities.overlayColor(
-            original.getContainerHighest(), overlayWithAlpha);
+            original.getContainerSurfaceHighest(), overlayWithAlpha);
 
         // Leave on container and container outline tokens as they are
         Color onContainer = original.getOnContainer();
@@ -530,27 +530,27 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public Color getContainerLowest() {
+            public Color getContainerSurfaceLowest() {
                 return containerLowest;
             }
 
             @Override
-            public Color getContainerLow() {
+            public Color getContainerSurfaceLow() {
                 return containerLow;
             }
 
             @Override
-            public Color getContainer() {
+            public Color getContainerSurface() {
                 return container;
             }
 
             @Override
-            public Color getContainerHigh() {
+            public Color getContainerSurfaceHigh() {
                 return containerHigh;
             }
 
             @Override
-            public Color getContainerHighest() {
+            public Color getContainerSurfaceHighest() {
                 return containerHighest;
             }
 
@@ -575,7 +575,7 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public float getContainerDisabledAlpha() {
+            public float getContainerSurfaceDisabledAlpha() {
                 return 0.4f;
             }
 

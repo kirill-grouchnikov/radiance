@@ -95,8 +95,8 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
 
             // primary inner outline
             graphics.setColor(isDark
-                ? titleContainerTokens.getContainerHigh()
-                : titleContainerTokens.getContainer());
+                ? titleContainerTokens.getContainerSurfaceHigh()
+                : titleContainerTokens.getContainerSurface());
             graphics.drawLine(x + 1, y + h - 2, x + w - 2, y + h - 2);
             graphics.drawLine(x + w - 2, y + 1, x + w - 2, y + h - 2);
             graphics.drawLine(x + 1, y + 1, x + w - 3, y + 1);
@@ -104,8 +104,8 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
 
             // secondary inner outline
             graphics.setColor(isDark
-                ? titleContainerTokens.getContainerHighest()
-                : titleContainerTokens.getContainerLowest());
+                ? titleContainerTokens.getContainerSurfaceHighest()
+                : titleContainerTokens.getContainerSurfaceLowest());
             graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
             graphics.drawRect(x + 3, y + 3, w - 7, h - 7);
             graphics.drawRect(x + 4, y + 4, w - 9, h - 9);
