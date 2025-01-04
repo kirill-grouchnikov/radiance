@@ -36,8 +36,8 @@ import org.gradle.api.Project;
 public class RadianceSvgTranscoderGradlePlugin implements Plugin<Project> {
 
     public void apply(Project project) {
-        project.getTasks().create("transcode", TranscodeTask.class);
-        project.getTasks().create("transcodeDeep", TranscodeDeepTask.class);
+        project.getTasks().register("transcode", TranscodeTask.class);
+        project.getTasks().register("transcodeDeep", TranscodeDeepTask.class);
     }
 
 }
