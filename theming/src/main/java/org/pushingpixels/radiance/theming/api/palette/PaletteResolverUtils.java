@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import java.awt.*;
 
 public class PaletteResolverUtils {
-   public static PaletteColorResolver getPaletteColorResolver2() {
+   public static PaletteColorResolver getPaletteColorResolver() {
         PaletteContainerColorsResolver neutralContainerResolver =
             new PaletteContainerColorsResolver() {
                 @Override

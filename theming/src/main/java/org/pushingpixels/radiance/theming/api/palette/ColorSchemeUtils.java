@@ -133,8 +133,7 @@ public class ColorSchemeUtils {
             /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
             /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
 
-        PaletteColorResolver paletteColorResolver =
-                PaletteResolverUtils.getPaletteColorResolver2();
+        PaletteColorResolver paletteColorResolver = PaletteResolverUtils.getPaletteColorResolver();
 
         ContainerColorTokens neutralContainerTokens = getContainerTokens(
             lightScheme, paletteColorResolver.getNeutralContainerResolver());
@@ -303,8 +302,7 @@ public class ColorSchemeUtils {
             /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
             /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
 
-        PaletteColorResolver paletteColorResolver =
-            PaletteResolverUtils.getPaletteColorResolver2();
+        PaletteColorResolver paletteColorResolver = PaletteResolverUtils.getPaletteColorResolver();
 
         ContainerColorTokens neutralContainerTokens = getContainerTokens(
             darkScheme, paletteColorResolver.getNeutralContainerResolver());
