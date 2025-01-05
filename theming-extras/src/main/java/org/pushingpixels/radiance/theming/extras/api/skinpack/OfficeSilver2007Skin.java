@@ -291,7 +291,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             RadianceColorScheme2 pressedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
                 Hct.fromInt(0xFFFF8C18), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
             RadianceColorScheme2 pressedSelectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                Hct.fromInt(0xFFFF991C), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));;
+                Hct.fromInt(0xFFFF991C), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
 
             // register state-specific color schemes on rollovers, presses and selections
             officeSilverDefaultBundle.registerColorScheme(rolloverScheme2,
@@ -315,12 +315,6 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             officeSilverDefaultBundle.registerColorScheme(rolloverSelectedScheme2,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.ROLLOVER_SELECTED);
-
-            // marks
-            RadianceColorScheme2 markEnabledScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                Hct.fromInt(0xFFFDD07C), Hct.fromInt(0xFFF1F3F3), Hct.fromInt(0xFFF2F5F5));
-            officeSilverDefaultBundle.registerColorScheme(markEnabledScheme2,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, ComponentState.ENABLED);
 
             this.registerDecorationAreaSchemeBundle(officeSilverDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);

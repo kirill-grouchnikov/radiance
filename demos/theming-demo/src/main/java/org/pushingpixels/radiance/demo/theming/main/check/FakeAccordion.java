@@ -87,7 +87,7 @@ public class FakeAccordion extends JPanel {
                     if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                         // Get the accented background fill to delineate the content
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-                        Color accentedFill = Color.RED;
+                        Color accentedFill;
                         if (skin instanceof TonalSkin) {
                             ExtendedContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
                                 DecorationPainterUtils.getDecorationType(this));
