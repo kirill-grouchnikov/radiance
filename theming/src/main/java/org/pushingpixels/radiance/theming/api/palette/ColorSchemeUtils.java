@@ -837,55 +837,55 @@ public class ColorSchemeUtils {
 
             @Override
             public Color getContainerSurfaceLowest() {
-                return new Color(Blend.hctHue(original.getContainerSurfaceLowest().getRGB(),
+                return new Color(Blend.cam16Ucs(original.getContainerSurfaceLowest().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
 
             @Override
             public Color getContainerSurfaceLow() {
-                return new Color(Blend.hctHue(original.getContainerSurfaceLow().getRGB(),
+                return new Color(Blend.cam16Ucs(original.getContainerSurfaceLow().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
 
             @Override
             public Color getContainerSurface() {
-                return new Color(Blend.hctHue(original.getContainerSurface().getRGB(),
+                return new Color(Blend.cam16Ucs(original.getContainerSurface().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
 
             @Override
             public Color getContainerSurfaceHigh() {
-                return new Color(Blend.hctHue(original.getContainerSurfaceHigh().getRGB(),
+                return new Color(Blend.cam16Ucs(original.getContainerSurfaceHigh().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
 
             @Override
             public Color getContainerSurfaceHighest() {
-                return new Color(Blend.hctHue(original.getContainerSurfaceHighest().getRGB(),
+                return new Color(Blend.cam16Ucs(original.getContainerSurfaceHighest().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
 
             @Override
             public Color getOnContainer() {
-                return new Color(Blend.hctHue(original.getOnContainer().getRGB(),
+                return new Color(Blend.cam16Ucs(original.getOnContainer().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
 
             @Override
             public Color getOnContainerVariant() {
-                return new Color(Blend.hctHue(original.getOnContainerVariant().getRGB(),
+                return new Color(Blend.cam16Ucs(original.getOnContainerVariant().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
 
             @Override
             public Color getContainerOutline() {
-                return new Color(Blend.hctHue(original.getContainerOutline().getRGB(),
+                return new Color(Blend.cam16Ucs(original.getContainerOutline().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
 
             @Override
             public Color getContainerOutlineVariant() {
-                return new Color(Blend.hctHue(original.getContainerOutlineVariant().getRGB(),
+                return new Color(Blend.cam16Ucs(original.getContainerOutlineVariant().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
 

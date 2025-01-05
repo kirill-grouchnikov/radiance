@@ -284,15 +284,14 @@ public class OfficeSilver2007Skin extends RadianceSkin implements TonalSkin {
                     ContainerColorTokensSingleColorQuery.CONTAINER_LOW});
 
         FractionBasedTonalBorderPainter outerBorderPainter = new FractionBasedTonalBorderPainter(
-                "Office Silver 2007 Outer", new float[] {0.0f, 0.5f, 1.0f},
+                "Office Silver 2007 Outer", new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
-                ContainerColorTokensSingleColorQuery.CONTAINER_HIGHEST,
-                ContainerColorTokensSingleColorQuery.CONTAINER
+                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
+                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE
             });
         RadianceBorderPainter innerBorderPainter = new DelegateFractionBasedTonalBorderPainter(
                 "Office Silver 2007 Inner", outerBorderPainter,
-                new int[] {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+                new int[] {0xFFFFFFFF, 0xFFFFFFFF},
                 scheme -> ColorSchemeUtils.tint(scheme, 0.8f));
         this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
                 outerBorderPainter, innerBorderPainter);
