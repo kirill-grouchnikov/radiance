@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -910,12 +909,16 @@ public class RadianceColorUtilities {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (skin instanceof TonalSkin) {
-            ExtendedContainerColorTokens colorTokens = skin.getExtendedContainerTokens(
-                component,
-                component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
-                RadianceThemingSlices.ContainerType.NEUTRAL);
-            return (rowIndex % 2 == 0) ? colorTokens.getSurface()
-                : colorTokens.getBaseContainerTokens().getContainerSurfaceLow();
+            if (rowIndex % 2 == 0) {
+                // Surface for even rows
+                RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component);
+                return skin.getBackgroundExtendedContainerTokens(decorationAreaType).getSurface();
+            } else {
+                // Container surface low for odd rows
+                return skin.getContainerTokens(component, ComponentState.ENABLED,
+                    RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLow();
+            }
         } else {
             RadianceColorScheme scheme = skin.getBackgroundColorScheme(
                 DecorationPainterUtils.getDecorationType(component));

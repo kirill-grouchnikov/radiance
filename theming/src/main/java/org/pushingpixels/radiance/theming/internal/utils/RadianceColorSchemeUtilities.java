@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
@@ -202,36 +201,6 @@ public class RadianceColorSchemeUtilities {
                 "Radiance delegate used when Radiance is not the current LAF");
         }
         ContainerColorTokens nonColorized = skin.getContainerTokens(component,
-            componentState, inactiveContainerType);
-        // TODO: TONAL - colorization
-        return nonColorized;
-        //        return getColorizedScheme(orig, nonColorized, !componentState.isDisabled());
-    }
-
-    public static ExtendedContainerColorTokens getExtendedContainerTokens(Component component,
-        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
-        Component orig = component;
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        // special case - if the component is marked as flat and
-        // it is in the default state, or it is a button
-        // that is never painting its background - get the color scheme of the
-        // parent
-        boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
-            && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
-        if (isButtonThatIsNeverPainted
-            || (!componentState.isActive()
-            && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
-            // TODO: TONAL - verify that we don't need to use the old logic.
-            // TODO: TONAL - colorization
-            return skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(component));
-//            component = component.getParent();
-        }
-
-        if (skin == null) {
-            RadianceCoreUtilities.traceRadianceApiUsage(component,
-                "Radiance delegate used when Radiance is not the current LAF");
-        }
-        ExtendedContainerColorTokens nonColorized = skin.getExtendedContainerTokens(component,
             componentState, inactiveContainerType);
         // TODO: TONAL - colorization
         return nonColorized;

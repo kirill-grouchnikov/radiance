@@ -53,33 +53,6 @@ public interface RadianceColorScheme2 {
 
     ContainerColorTokens getContainerTokensForState(ComponentState componentState);
 
-    default ExtendedContainerColorTokens getExtendedContainerTokens(ComponentState componentState) {
-        RadianceColorScheme2 me = this;
-        ContainerColorTokens stateTokens = getContainerTokensForState(componentState);
-
-        return new ExtendedContainerColorTokens() {
-            @Override
-            public Color getSurface() {
-                return me.getSurface();
-            }
-
-            @Override
-            public Color getSurfaceDim() {
-                return me.getSurfaceDim();
-            }
-
-            @Override
-            public Color getSurfaceBright() {
-                return me.getSurfaceBright();
-            }
-
-            @Override
-            public ContainerColorTokens getBaseContainerTokens() {
-                return stateTokens;
-            }
-        };
-    }
-
     default ContainerColorTokens getContainerTokens(RadianceThemingSlices.ContainerType containerType) {
         switch (containerType) {
             case MUTED: return this.getMutedContainerTokens();
@@ -99,16 +72,6 @@ public interface RadianceColorScheme2 {
     ContainerColorTokens getSystemSuccessContainerTokens();
 
     ContainerColorTokens getSystemEmergencyContainerTokens();
-
-    default ExtendedContainerColorTokens getExtendedContainerTokens(RadianceThemingSlices.ContainerType containerType) {
-        switch (containerType) {
-            case MUTED: return this.getExtendedMutedContainerTokens();
-            case TONAL: return this.getExtendedTonalContainerTokens();
-            case PRIMARY: return this.getExtendedPrimaryContainerTokens();
-            case NEUTRAL:
-            default: return this.getExtendedNeutralContainerTokens();
-        }
-    }
 
     default ExtendedContainerColorTokens getExtendedNeutralContainerTokens() {
         return getExtendedContainerTokens(getNeutralContainerTokens());

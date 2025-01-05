@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
 import java.util.HashMap;
@@ -127,25 +126,6 @@ public class RadianceColorSchemeBundle2 {
         return componentState.isActive()
             ? this.mainColorScheme.getContainerTokensForState(componentState)
             : this.mainColorScheme.getContainerTokens(inactiveContainerType);
-    }
-
-    public ExtendedContainerColorTokens getExtendedContainerTokens(ComponentState componentState,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
-        if (componentState.isDisabled()) {
-            return getExtendedContainerTokens(componentState.getEnabledMatch(), inactiveContainerType);
-        }
-
-        RadianceColorScheme2 registered = this.colorSchemeMap.get(
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
-        if (registered != null) {
-            // If we're here, the component state is guaranteed to be active due to restrictions
-            // in registerColorScheme
-            return registered.getExtendedContainerTokens(componentState);
-        }
-
-        return componentState.isActive()
-            ? this.mainColorScheme.getExtendedContainerTokens(componentState)
-            : this.mainColorScheme.getExtendedContainerTokens(inactiveContainerType);
     }
 
     public ContainerColorTokens getSystemContainerTokens(
