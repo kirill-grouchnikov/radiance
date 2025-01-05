@@ -33,16 +33,18 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.DelegateFractionBasedTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedTonalDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
@@ -55,7 +57,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public class OfficeSilver2007Skin extends RadianceSkin implements TonalSkin {
+public class OfficeSilver2007Skin extends RadianceSkin {
     /**
      * Display name for <code>this</code> skin.
      */
@@ -218,64 +220,129 @@ public class OfficeSilver2007Skin extends RadianceSkin implements TonalSkin {
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE);
 
-        RadianceColorScheme2 officeSilverColorScheme =
-            ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFC6CACF),
-                Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
-        RadianceColorSchemeBundle2 officeSilverDefaultBundle =
-            new RadianceColorSchemeBundle2(officeSilverColorScheme);
-
-        RadianceColorScheme2 rolloverScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-            Hct.fromInt(0xFFFFD111), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
-        RadianceColorScheme2 selectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-            Hct.fromInt(0xFFFFB340), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
-        RadianceColorScheme2 rolloverSelectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-            Hct.fromInt(0xFFFFA400), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
-        RadianceColorScheme2 pressedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-            Hct.fromInt(0xFFFF8C18), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
-        RadianceColorScheme2 pressedSelectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-            Hct.fromInt(0xFFFF991C), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));;
-
-        // register state-specific color schemes on rollovers, presses and selections
-        officeSilverDefaultBundle.registerColorScheme(rolloverScheme2,
-            ComponentState.ROLLOVER_UNSELECTED);
-        officeSilverDefaultBundle.registerColorScheme(rolloverSelectedScheme2,
-            ComponentState.ROLLOVER_SELECTED);
-        officeSilverDefaultBundle.registerColorScheme(selectedScheme2,
-            ComponentState.SELECTED);
-        officeSilverDefaultBundle.registerColorScheme(pressedScheme2,
-            ComponentState.PRESSED_UNSELECTED);
-        officeSilverDefaultBundle.registerColorScheme(pressedSelectedScheme2,
-            ComponentState.PRESSED_SELECTED);
-
-        // register state-specific highlight color schemes on rollover and selections
-        officeSilverDefaultBundle.registerColorScheme(rolloverScheme2,
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-            ComponentState.ROLLOVER_UNSELECTED);
-        officeSilverDefaultBundle.registerColorScheme(selectedScheme2,
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-            ComponentState.SELECTED, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-        officeSilverDefaultBundle.registerColorScheme(rolloverSelectedScheme2,
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-            ComponentState.ROLLOVER_SELECTED);
-
-        // marks
-        RadianceColorScheme2 markEnabledScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-            Hct.fromInt(0xFFFDD07C), Hct.fromInt(0xFFF1F3F3), Hct.fromInt(0xFFF2F5F5));
-        officeSilverDefaultBundle.registerColorScheme(markEnabledScheme2,
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, ComponentState.ENABLED);
-
-        this.registerDecorationAreaSchemeBundle(officeSilverDefaultBundle,
-            RadianceThemingSlices.DecorationAreaType.NONE);
-
-        this.addOverlayPainter(new BottomLineTonalOverlayPainter(
-            ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE, ColorTransform.alpha(72))),
-            DecorationAreaType.PRIMARY_TITLE_PANE,
-            DecorationAreaType.SECONDARY_TITLE_PANE);
+        this.configureOverlayPainters();
 
         this.buttonShaper = new ClassicButtonShaper();
 
-        this.fillPainter = new FractionBasedTonalFillPainter("Office Silver 2007",
+        this.fillPainter = new FractionBasedFillPainter("Office Silver 2007",
+            new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
+            new ColorSchemeSingleColorQuery[] {
+                ColorSchemeSingleColorQuery.ULTRALIGHT,
+                ColorSchemeSingleColorQuery.LIGHT,
+                ColorSchemeSingleColorQuery.ULTRADARK,
+                ColorSchemeSingleColorQuery.EXTRALIGHT});
+
+        FractionBasedBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
+            "Office Silver 2007 Outer", new float[] {0.0f, 0.5f, 1.0f},
+            new ColorSchemeSingleColorQuery[] {
+                ColorSchemeSingleColorQuery.LIGHT,
+                ColorSchemeSingleColorQuery.ULTRADARK,
+                ColorSchemeSingleColorQuery.MID});
+        RadianceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
+            "Office Silver 2007 Inner", outerBorderPainter,
+            new int[] {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+            scheme -> scheme.tint(0.8f));
+        this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
+            outerBorderPainter, innerBorderPainter);
+
+        this.decorationPainter = new FractionBasedDecorationPainter(
+            "Office Silver 2007",
+            new float[] {0.0f, 0.2499999f, 0.25f, 0.3f, 0.7f, 1.0f},
+            new ColorSchemeSingleColorQuery[] {
+                ColorSchemeSingleColorQuery.ULTRALIGHT,
+                ColorSchemeSingleColorQuery.EXTRALIGHT,
+                ColorSchemeSingleColorQuery.DARK,
+                ColorSchemeSingleColorQuery.MID,
+                ColorSchemeSingleColorQuery.LIGHT,
+                ColorSchemeSingleColorQuery.ULTRALIGHT});
+
+        this.highlightFillPainter = new ClassicFillPainter();
+    }
+
+    void configureOverlayPainters() {
+        this.addOverlayPainter(new BottomLineOverlayPainter(
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                    ColorTransform.alpha(72))),
+            DecorationAreaType.PRIMARY_TITLE_PANE,
+            DecorationAreaType.SECONDARY_TITLE_PANE);
+    }
+
+    @Override
+    public String getDisplayName() {
+        return NAME;
+    }
+
+    public static class OfficeSilver2007TonalSkin extends OfficeSilver2007Skin implements TonalSkin {
+        public static final String NAME = "Office Silver 2007 Tonal";
+
+        public OfficeSilver2007TonalSkin() {
+            RadianceColorScheme2 officeSilverColorScheme =
+                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFC6CACF),
+                    Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
+            RadianceColorSchemeBundle2 officeSilverDefaultBundle =
+                new RadianceColorSchemeBundle2(officeSilverColorScheme);
+
+            RadianceColorScheme2 rolloverScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
+                Hct.fromInt(0xFFFFD111), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
+            RadianceColorScheme2 selectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
+                Hct.fromInt(0xFFFFBD51), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
+            RadianceColorScheme2 rolloverSelectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
+                Hct.fromInt(0xFFFFA400), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
+            RadianceColorScheme2 pressedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
+                Hct.fromInt(0xFFFF8C18), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
+            RadianceColorScheme2 pressedSelectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
+                Hct.fromInt(0xFFFF991C), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));;
+
+            // register state-specific color schemes on rollovers, presses and selections
+            officeSilverDefaultBundle.registerColorScheme(rolloverScheme2,
+                ComponentState.ROLLOVER_UNSELECTED);
+            officeSilverDefaultBundle.registerColorScheme(rolloverSelectedScheme2,
+                ComponentState.ROLLOVER_SELECTED);
+            officeSilverDefaultBundle.registerColorScheme(selectedScheme2,
+                ComponentState.SELECTED);
+            officeSilverDefaultBundle.registerColorScheme(pressedScheme2,
+                ComponentState.PRESSED_UNSELECTED);
+            officeSilverDefaultBundle.registerColorScheme(pressedSelectedScheme2,
+                ComponentState.PRESSED_SELECTED);
+
+            // register state-specific highlight color schemes on rollover and selections
+            officeSilverDefaultBundle.registerColorScheme(rolloverScheme2,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.ROLLOVER_UNSELECTED);
+            officeSilverDefaultBundle.registerColorScheme(selectedScheme2,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.SELECTED, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+            officeSilverDefaultBundle.registerColorScheme(rolloverSelectedScheme2,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.ROLLOVER_SELECTED);
+
+            // marks
+            RadianceColorScheme2 markEnabledScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
+                Hct.fromInt(0xFFFDD07C), Hct.fromInt(0xFFF1F3F3), Hct.fromInt(0xFFF2F5F5));
+            officeSilverDefaultBundle.registerColorScheme(markEnabledScheme2,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, ComponentState.ENABLED);
+
+            this.registerDecorationAreaSchemeBundle(officeSilverDefaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
+
+            RadianceColorScheme2 officeSilverHeaderColorScheme =
+                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFCFD4DE),
+                    Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFDDDEE1));
+            this.registerAsDecorationArea(
+                officeSilverHeaderColorScheme.getExtendedTonalContainerTokens(),
+                DecorationAreaType.FOOTER, DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR);
+
+            RadianceColorScheme2 officeSilverTitleColorScheme =
+                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFC6CACF),
+                    Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFCFCFD0));
+            this.registerAsDecorationArea(
+                officeSilverTitleColorScheme.getExtendedTonalContainerTokens(),
+                DecorationAreaType.CONTROL_PANE, DecorationAreaType.PRIMARY_TITLE_PANE,
+                DecorationAreaType.SECONDARY_TITLE_PANE);
+
+            this.buttonShaper = new ClassicButtonShaper();
+
+            this.fillPainter = new FractionBasedTonalFillPainter("Office Silver 2007",
                 new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
@@ -283,20 +350,20 @@ public class OfficeSilver2007Skin extends RadianceSkin implements TonalSkin {
                     ContainerColorTokensSingleColorQuery.CONTAINER,
                     ContainerColorTokensSingleColorQuery.CONTAINER_LOW});
 
-        FractionBasedTonalBorderPainter outerBorderPainter = new FractionBasedTonalBorderPainter(
+            FractionBasedTonalBorderPainter outerBorderPainter = new FractionBasedTonalBorderPainter(
                 "Office Silver 2007 Outer", new float[] {0.0f, 1.0f},
-            new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE
-            });
-        RadianceBorderPainter innerBorderPainter = new DelegateFractionBasedTonalBorderPainter(
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE
+                });
+            RadianceBorderPainter innerBorderPainter = new DelegateFractionBasedTonalBorderPainter(
                 "Office Silver 2007 Inner", outerBorderPainter,
                 new int[] {0xFFFFFFFF, 0xFFFFFFFF},
                 scheme -> ColorSchemeUtils.tint(scheme, 0.8f));
-        this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
+            this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
                 outerBorderPainter, innerBorderPainter);
 
-        this.decorationPainter = new FractionBasedTonalDecorationPainter(
+            this.decorationPainter = new FractionBasedTonalDecorationPainter(
                 "Office Silver 2007",
                 new float[] {0.0f, 0.2499999f, 0.25f, 0.3f, 0.7f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
@@ -307,11 +374,22 @@ public class OfficeSilver2007Skin extends RadianceSkin implements TonalSkin {
                     ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
                     ContainerColorTokensSingleColorQuery.CONTAINER_LOWEST});
 
-        this.highlightFillPainter = new ClassicTonalFillPainter();
+            this.highlightFillPainter = new ClassicTonalFillPainter();
+        }
+
+        @Override
+        void configureOverlayPainters() {
+            this.addOverlayPainter(new BottomLineTonalOverlayPainter(
+                    ContainerColorTokensSingleColorQuery.composite(
+                        ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE, ColorTransform.alpha(72))),
+                DecorationAreaType.PRIMARY_TITLE_PANE,
+                DecorationAreaType.SECONDARY_TITLE_PANE);
+        }
+
+        @Override
+        public String getDisplayName() {
+            return OfficeSilver2007TonalSkin.NAME;
+        }
     }
 
-    @Override
-    public String getDisplayName() {
-        return NAME;
-    }
 }
