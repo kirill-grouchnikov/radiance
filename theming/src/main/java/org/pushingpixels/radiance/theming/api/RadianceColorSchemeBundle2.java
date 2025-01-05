@@ -34,9 +34,7 @@ import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorToke
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Color scheme bundle. Defines the visual appearance of a single decoration area of a skin.
@@ -49,13 +47,6 @@ import java.util.Set;
 public class RadianceColorSchemeBundle2 {
     // The main color scheme of this bundle
     private RadianceColorScheme2 mainColorScheme;
-
-    /**
-     * Maps from component state to the alpha channel applied on color scheme.
-     * This map doesn't have to contain entries for all {@link ComponentState}
-     * instances.
-     */
-    private Map<ComponentState, Float> stateAlphaMap;
 
     /**
      * Maps from color scheme association kinds to the map of color schemes.
@@ -91,31 +82,11 @@ public class RadianceColorSchemeBundle2 {
         }
 
         this.mainColorScheme = mainColorScheme;
-        this.stateAlphaMap = new HashMap<>();
-        //this.stateHighlightAlphaMap = new HashMap<>();
 
         this.colorSchemeMap = new HashMap<>();
         for (RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind :
             RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
             this.colorSchemeMap.put(associationKind, new HashMap<>());
-        }
-    }
-
-    /**
-     * Registers an alpha channel value for the specific component states.
-     *
-     * @param alpha  Alpha channel value.
-     * @param states Component states.
-     */
-    public void registerAlpha(float alpha, ComponentState... states) {
-        if ((states == null) || (states.length == 0)) {
-            for (ComponentState state : ComponentState.getAllStates()) {
-                this.stateAlphaMap.put(state, alpha);
-            }
-        } else {
-            for (ComponentState state : states) {
-                this.stateAlphaMap.put(state, alpha);
-            }
         }
     }
 
@@ -148,11 +119,13 @@ public class RadianceColorSchemeBundle2 {
         RadianceColorScheme2 registered = this.colorSchemeMap.get(
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
-            return componentState.isActive() ? registered.getActiveContainerTokens()
-                : registered.getContainerTokens(inactiveContainerType);
+            // If we're here, the component state is guaranteed to be active due to restrictions
+            // in registerColorScheme
+            return registered.getActiveContainerTokens();
         }
 
-        return componentState.isActive() ? this.mainColorScheme.getContainerTokensForState(componentState)
+        return componentState.isActive()
+            ? this.mainColorScheme.getContainerTokensForState(componentState)
             : this.mainColorScheme.getContainerTokens(inactiveContainerType);
     }
 
@@ -165,11 +138,13 @@ public class RadianceColorSchemeBundle2 {
         RadianceColorScheme2 registered = this.colorSchemeMap.get(
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
-            return componentState.isActive() ? registered.getExtendedContainerTokens(componentState)
-                : registered.getExtendedContainerTokens(inactiveContainerType);
+            // If we're here, the component state is guaranteed to be active due to restrictions
+            // in registerColorScheme
+            return registered.getExtendedContainerTokens(componentState);
         }
 
-        return componentState.isActive() ? this.mainColorScheme.getExtendedContainerTokens(componentState)
+        return componentState.isActive()
+            ? this.mainColorScheme.getExtendedContainerTokens(componentState)
             : this.mainColorScheme.getExtendedContainerTokens(inactiveContainerType);
     }
 
@@ -185,27 +160,6 @@ public class RadianceColorSchemeBundle2 {
             default:
                 return this.mainColorScheme.getSystemEmergencyContainerTokens();
         }
-    }
-
-    public boolean hasAlphaFor(ComponentState componentState) {
-        return this.stateAlphaMap.containsKey(componentState);
-    }
-
-    /**
-     * Returns the alpha channel of color schemes for the specified component state.
-     * Before calling this API, call {@link #hasAlphaFor(ComponentState)}. This API returns
-     * 1.0f for states that do not have an explicitly registered alpha channel value.
-     *
-     * @param componentState Component state.
-     * @return Color scheme alpha channel.
-     */
-    public float getAlpha(ComponentState componentState) {
-        Float registered = this.stateAlphaMap.get(componentState);
-        if (registered != null) {
-            return registered.floatValue();
-        }
-
-        return 1.0f;
     }
 
     /**
@@ -246,21 +200,14 @@ public class RadianceColorSchemeBundle2 {
         }
 
         if ((states == null) || (states.length == 0)) {
-            for (ComponentState state : ComponentState.getAllStates()) {
-                if (this.colorSchemeMap.get(associationKind).containsKey(state)) {
-                    continue;
-                }
-                if (state.getHardFallback() != null) {
-                    // Skip states with hard fallback - that link will be traversed in
-                    // getColorScheme() logic
-                    continue;
-                }
-                this.colorSchemeMap.get(associationKind).put(state, scheme);
+            throw new IllegalArgumentException("Must pass at least one state");
+        }
+
+        for (ComponentState state : states) {
+            if (state.isDisabled() || !state.isActive()) {
+                throw new IllegalArgumentException("Only active states can have custom color schemes");
             }
-        } else {
-            for (ComponentState state : states) {
-                this.colorSchemeMap.get(associationKind).put(state, scheme);
-            }
+            this.colorSchemeMap.get(associationKind).put(state, scheme);
         }
     }
 
@@ -280,6 +227,7 @@ public class RadianceColorSchemeBundle2 {
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         ComponentState componentState, boolean allowFallback,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
+
         if (associationKind == RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT) {
             return this.getContainerTokens(componentState, inactiveContainerType);
         }
@@ -294,8 +242,9 @@ public class RadianceColorSchemeBundle2 {
         RadianceColorScheme2 registered =
             this.colorSchemeMap.get(associationKind).get(componentState);
         if (registered != null) {
-            return componentState.isActive() ? registered.getActiveContainerTokens()
-                : registered.getContainerTokens(inactiveContainerType);
+            // If we're here, the component state is guaranteed to be active due to restrictions
+            // in registerColorScheme
+            return registered.getActiveContainerTokens();
         }
 
         RadianceColorScheme2 enabledForAssociationKind =
@@ -313,22 +262,5 @@ public class RadianceColorSchemeBundle2 {
         return getContainerTokens(
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, componentState,
             true, inactiveContainerType);
-    }
-
-    /**
-     * Returns the set of all component states that have non-trivial alpha
-     * associated with them. Non-trivial alpha is a value that is strictly less
-     * than 1.0.
-     *
-     * @return All component states that have associated non-trivial alpha values.
-     */
-    Set<ComponentState> getStatesWithAlpha() {
-        Set<ComponentState> result = new HashSet<>();
-        for (Map.Entry<ComponentState, Float> alphaEntry : this.stateAlphaMap.entrySet()) {
-            if (alphaEntry.getValue() < 1.0f) {
-                result.add(alphaEntry.getKey());
-            }
-        }
-        return result;
     }
 }
