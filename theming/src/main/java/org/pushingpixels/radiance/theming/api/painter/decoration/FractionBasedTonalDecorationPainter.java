@@ -31,9 +31,10 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.FractionBasedPainter;
+import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -50,13 +51,13 @@ import java.util.Set;
  * 
  * @author Kirill Grouchnikov
  */
-public class FractionBasedDecorationPainter extends FractionBasedPainter
+public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPainter
 		implements RadianceDecorationPainter {
 	private Set<RadianceThemingSlices.DecorationAreaType> decoratedAreas;
 
 	/**
 	 * Creates a new fraction-based decoration painter.
-	 * 
+	 *
 	 * @param displayName
 	 *            The display name of this painter.
 	 * @param fractions
@@ -67,8 +68,8 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	 *            the fractions array, and all entries must be non-
 	 *            <code>null</code>.
 	 */
-	public FractionBasedDecorationPainter(String displayName,
-			float[] fractions, ColorSchemeSingleColorQuery[] colorQueries) {
+	public FractionBasedTonalDecorationPainter(String displayName,
+			float[] fractions, ContainerColorTokensSingleColorQuery[] colorQueries) {
 		this(displayName, fractions, colorQueries,
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
@@ -76,7 +77,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 
 	/**
 	 * Creates a new fraction-based decoration painter.
-	 * 
+	 *
 	 * @param displayName
 	 *            The display name of this painter.
 	 * @param fractions
@@ -91,8 +92,8 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	 *            queries. All the rest will be filled with a solid color from
 	 *            the background color scheme of the matching decoration area.
 	 */
-	public FractionBasedDecorationPainter(String displayName,
-			float[] fractions, ColorSchemeSingleColorQuery[] colorQueries,
+	public FractionBasedTonalDecorationPainter(String displayName,
+			float[] fractions, ContainerColorTokensSingleColorQuery[] colorQueries,
 			RadianceThemingSlices.DecorationAreaType... decorationAreas) {
 		super(displayName, fractions, colorQueries);
 		this.decoratedAreas = new HashSet<>();
@@ -105,12 +106,13 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
 			RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
 			RadianceSkin skin) {
-	    RadianceColorScheme colorScheme = skin.getBackgroundColorScheme(decorationAreaType);
+		ExtendedContainerColorTokens colorTokens =
+			skin.getBackgroundExtendedContainerTokens(decorationAreaType);
 		if (this.decoratedAreas.contains(decorationAreaType)) {
 			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
-					width, height, colorScheme);
+					width, height, colorTokens);
 		} else {
-			this.paintSolidBackground(graphics, width, height, colorScheme);
+			this.paintSolidBackground(graphics, width, height, colorTokens);
 		}
 	}
 
@@ -118,22 +120,30 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
 		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
 		RadianceColorScheme colorScheme) {
-        if (this.decoratedAreas.contains(decorationAreaType)) {
-            this.paintDecoratedBackground(graphics, comp, decorationAreaType,
-                    contour, colorScheme);
-        } else {
-            this.paintSolidBackground(graphics, contour, colorScheme);
-        }
+	}
+
+	@Override
+	public void paintDecorationArea(Graphics2D graphics, Component comp,
+		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+		ExtendedContainerColorTokens colorTokens) {
+
+		if (this.decoratedAreas.contains(decorationAreaType)) {
+			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
+				contour, colorTokens);
+		} else {
+			this.paintSolidBackground(graphics, contour, colorTokens);
+		}
 	}
 
 	private void paintDecoratedBackground(Graphics2D graphics, Component comp,
-		  RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-		  RadianceColorScheme scheme) {
+		RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+		ExtendedContainerColorTokens colorTokens) {
+
 		Graphics2D g2d = (Graphics2D) graphics.create();
 		Color[] fillColors = new Color[this.fractions.length];
 		for (int i = 0; i < this.fractions.length; i++) {
-			ColorSchemeSingleColorQuery colorQuery = this.colorQueries[i];
-			fillColors[i] = colorQuery.query(scheme);
+			ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
+			fillColors[i] = colorQuery.query(colorTokens.getBaseContainerTokens());
 		}
 
 		Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
@@ -154,13 +164,14 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	}
 
 	private void paintDecoratedBackground(Graphics2D graphics, Component comp,
-		  RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-		  RadianceColorScheme scheme) {
+		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+		ExtendedContainerColorTokens colorTokens) {
+
 		Graphics2D g2d = (Graphics2D) graphics.create();
 		Color[] fillColors = new Color[this.fractions.length];
 		for (int i = 0; i < this.fractions.length; i++) {
-			ColorSchemeSingleColorQuery colorQuery = this.colorQueries[i];
-			fillColors[i] = colorQuery.query(scheme);
+			ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
+			fillColors[i] = colorQuery.query(colorTokens.getBaseContainerTokens());
 		}
 
 		Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
@@ -180,13 +191,17 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 		g2d.dispose();
 	}
 
-	private void paintSolidBackground(Graphics2D graphics, int width, int height, RadianceColorScheme scheme) {
-		graphics.setColor(scheme.getMidColor());
+	private void paintSolidBackground(Graphics2D graphics, int width, int height,
+		ExtendedContainerColorTokens colorTokens) {
+
+		graphics.setColor(colorTokens.getBaseContainerTokens().getContainerSurface());
 		graphics.fillRect(0, 0, width, height);
 	}
 
-	private void paintSolidBackground(Graphics2D graphics, Shape contour, RadianceColorScheme scheme) {
-		graphics.setColor(scheme.getMidColor());
+	private void paintSolidBackground(Graphics2D graphics, Shape contour,
+		ExtendedContainerColorTokens colorTokens) {
+
+		graphics.setColor(colorTokens.getBaseContainerTokens().getContainerSurface());
 		graphics.fill(contour);
 	}
 }

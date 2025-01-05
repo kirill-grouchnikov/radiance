@@ -33,7 +33,10 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Color scheme bundle. Defines the visual appearance of a single decoration area of a skin.
@@ -59,7 +62,7 @@ public class RadianceColorSchemeBundle2 {
      * scheme. This map doesn't have to contain entries for all
      * {@link ComponentState} instances.
      */
-    private Map<ComponentState, Float> stateHighlightAlphaMap;
+    //private Map<ComponentState, Float> stateHighlightAlphaMap;
 
     /**
      * Maps from color scheme association kinds to the map of color schemes.
@@ -99,7 +102,7 @@ public class RadianceColorSchemeBundle2 {
 
         this.mainColorScheme = mainColorScheme;
         this.stateAlphaMap = new HashMap<>();
-        this.stateHighlightAlphaMap = new HashMap<>();
+        //this.stateHighlightAlphaMap = new HashMap<>();
 
         this.colorSchemeMap = new HashMap<>();
         for (RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind :
@@ -153,29 +156,29 @@ public class RadianceColorSchemeBundle2 {
      * @param states               Component states. If <code>null</code>, the specified color
      *                             scheme will be applied for all states left unspecified.
      */
-    public void registerHighlightColorScheme(RadianceColorScheme2 stateHighlightScheme, ComponentState... states) {
-        if (stateHighlightScheme == null) {
-            throw new IllegalArgumentException("Cannot pass null color scheme");
-        }
-        if ((states == null) || (states.length == 0)) {
-            for (ComponentState state : ComponentState.getAllStates()) {
-                if (this.colorSchemeMap.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT).containsKey(state)) {
-                    continue;
-                }
-                if (state.isDisabled()) {
-                    continue;
-                }
-                if (state == ComponentState.ENABLED) {
-                    continue;
-                }
-                this.colorSchemeMap.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT).put(state, stateHighlightScheme);
-            }
-        } else {
-            for (ComponentState state : states) {
-                this.colorSchemeMap.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT).put(state, stateHighlightScheme);
-            }
-        }
-    }
+//    public void registerHighlightColorScheme(RadianceColorScheme2 stateHighlightScheme, ComponentState... states) {
+//        if (stateHighlightScheme == null) {
+//            throw new IllegalArgumentException("Cannot pass null color scheme");
+//        }
+//        if ((states == null) || (states.length == 0)) {
+//            for (ComponentState state : ComponentState.getAllStates()) {
+//                if (this.colorSchemeMap.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT).containsKey(state)) {
+//                    continue;
+//                }
+//                if (state.isDisabled()) {
+//                    continue;
+//                }
+//                if (state == ComponentState.ENABLED) {
+//                    continue;
+//                }
+//                this.colorSchemeMap.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT).put(state, stateHighlightScheme);
+//            }
+//        } else {
+//            for (ComponentState state : states) {
+//                this.colorSchemeMap.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT).put(state, stateHighlightScheme);
+//            }
+//        }
+//    }
 
     /**
      * Registers a highlight alpha channel value for the specific component states.
@@ -183,17 +186,17 @@ public class RadianceColorSchemeBundle2 {
      * @param alpha  Highlight alpha channel value.
      * @param states Component states.
      */
-    public void registerHighlightAlpha(float alpha, ComponentState... states) {
-        if ((states == null) || (states.length == 0)) {
-            for (ComponentState state : ComponentState.getAllStates()) {
-                this.stateHighlightAlphaMap.put(state, alpha);
-            }
-        } else {
-            for (ComponentState state : states) {
-                this.stateHighlightAlphaMap.put(state, alpha);
-            }
-        }
-    }
+//    public void registerHighlightAlpha(float alpha, ComponentState... states) {
+//        if ((states == null) || (states.length == 0)) {
+//            for (ComponentState state : ComponentState.getAllStates()) {
+//                this.stateHighlightAlphaMap.put(state, alpha);
+//            }
+//        } else {
+//            for (ComponentState state : states) {
+//                this.stateHighlightAlphaMap.put(state, alpha);
+//            }
+//        }
+//    }
 
     /**
      * Returns the color scheme of the specified component in the specified
@@ -212,7 +215,7 @@ public class RadianceColorSchemeBundle2 {
         RadianceColorScheme2 registered = this.colorSchemeMap.get(
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
-            return componentState.isActive() ? registered.getContainerTokensForState(componentState)
+            return componentState.isActive() ? registered.getActiveContainerTokens()
                 : registered.getContainerTokens(inactiveContainerType);
         }
 
@@ -251,9 +254,9 @@ public class RadianceColorSchemeBundle2 {
         }
     }
 
-    public boolean hasHighlightAlphaFor(ComponentState componentState) {
-        return this.stateHighlightAlphaMap.containsKey(componentState);
-    }
+//    public boolean hasHighlightAlphaFor(ComponentState componentState) {
+//        return this.stateHighlightAlphaMap.containsKey(componentState);
+//    }
 
     /**
      * Returns the alpha channel of the highlight color schemes for the specified component state.
@@ -263,14 +266,14 @@ public class RadianceColorSchemeBundle2 {
      * @param componentState Component state.
      * @return Highlight color scheme alpha channel.
      */
-    public float getHighlightAlpha(ComponentState componentState) {
-        Float registered = this.stateHighlightAlphaMap.get(componentState);
-        if (registered != null) {
-            return registered.floatValue();
-        }
-
-        return 1.0f;
-    }
+//    public float getHighlightAlpha(ComponentState componentState) {
+//        Float registered = this.stateHighlightAlphaMap.get(componentState);
+//        if (registered != null) {
+//            return registered.floatValue();
+//        }
+//
+//        return 1.0f;
+//    }
 
     public boolean hasAlphaFor(ComponentState componentState) {
         return this.stateAlphaMap.containsKey(componentState);
@@ -379,23 +382,31 @@ public class RadianceColorSchemeBundle2 {
         RadianceColorScheme2 registered =
             this.colorSchemeMap.get(associationKind).get(componentState);
         if (registered != null) {
-            return componentState.isActive() ? registered.getContainerTokensForState(componentState)
+            return componentState.isActive() ? registered.getActiveContainerTokens()
                 : registered.getContainerTokens(inactiveContainerType);
         }
 
-        // for now look for the best fit only on active states
-        Map<ComponentState, ComponentState> bestFitForState = this.bestFillMap.get(associationKind);
-        if (!bestFitForState.containsKey(componentState)) {
-            Collection<ComponentState> registeredStates = this.colorSchemeMap.get(associationKind).keySet();
-            bestFitForState.put(componentState, componentState.bestFit(registeredStates));
+        RadianceColorScheme2 enabledForAssociationKind =
+            this.colorSchemeMap.get(associationKind).get(ComponentState.ENABLED);
+        if (enabledForAssociationKind != null) {
+            return componentState.isActive()
+                ? enabledForAssociationKind.getContainerTokensForState(componentState)
+                : enabledForAssociationKind.getContainerTokens(inactiveContainerType);
         }
-        ComponentState bestFit = bestFitForState.get(componentState);
-        if (bestFit != null) {
-            registered = this.colorSchemeMap.get(associationKind).get(bestFit);
-            if (registered != null)
-                return componentState.isActive() ? registered.getContainerTokensForState(componentState)
-                    : registered.getContainerTokens(inactiveContainerType);
-        }
+
+//        // for now look for the best fit only on active states
+//        Map<ComponentState, ComponentState> bestFitForState = this.bestFillMap.get(associationKind);
+//        if (!bestFitForState.containsKey(componentState)) {
+//            Collection<ComponentState> registeredStates = this.colorSchemeMap.get(associationKind).keySet();
+//            bestFitForState.put(componentState, componentState.bestFit(registeredStates));
+//        }
+//        ComponentState bestFit = bestFitForState.get(componentState);
+//        if (bestFit != null) {
+//            registered = this.colorSchemeMap.get(associationKind).get(bestFit);
+//            if (registered != null)
+//                return componentState.isActive() ? registered.getContainerTokensForState(componentState)
+//                    : registered.getContainerTokens(inactiveContainerType);
+//        }
 
         if (!allowFallback) {
             return null;

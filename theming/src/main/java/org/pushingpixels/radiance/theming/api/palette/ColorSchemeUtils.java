@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
+import org.pushingpixels.ephemeral.chroma.blend.Blend;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
@@ -194,17 +195,20 @@ public class ColorSchemeUtils {
             }
 
             @Override
+            public ContainerColorTokens getActiveContainerTokens() {
+                return (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
+                    ? this.getPrimaryContainerTokens()
+                    : this.getTonalContainerTokens();
+            }
+
+            @Override
             public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
                 if (componentState.isDisabled()) {
                     // TODO: TONAL - finalize this
                     return getContainerTokensForState(componentState.getEnabledMatch());
                 }
 
-                // TODO: TONAL - configurable at the skin definition level
-                ContainerColorTokens defaultActive =
-                    (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
-                    ? this.getPrimaryContainerTokens()
-                    : this.getTonalContainerTokens();
+                ContainerColorTokens defaultActive = getActiveContainerTokens();
                 if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
                     (componentState == ComponentState.ARMED)) {
                     if (!stateTokens.containsKey(componentState)) {
@@ -363,17 +367,20 @@ public class ColorSchemeUtils {
             }
 
             @Override
+            public ContainerColorTokens getActiveContainerTokens() {
+                return (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
+                    ? this.getPrimaryContainerTokens()
+                    : this.getTonalContainerTokens();
+            }
+
+            @Override
             public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
                 if (componentState.isDisabled()) {
                     // TODO: TONAL - finalize this
                     return getContainerTokensForState(componentState.getEnabledMatch());
                 }
 
-                // TODO: TONAL - configurable at the skin definition level
-                ContainerColorTokens defaultActive =
-                    (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
-                        ? this.getPrimaryContainerTokens()
-                        : this.getTonalContainerTokens();
+                ContainerColorTokens defaultActive = getActiveContainerTokens();
                 if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
                     (componentState == ComponentState.ARMED)) {
                     if (!stateTokens.containsKey(componentState)) {
@@ -819,5 +826,83 @@ public class ColorSchemeUtils {
             palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
 
         return result;
+    }
+
+    public static ContainerColorTokens tint(ContainerColorTokens original, float tintFactor) {
+        return new ContainerColorTokens() {
+            @Override
+            public boolean isDark() {
+                return original.isDark();
+            }
+
+            @Override
+            public Color getContainerSurfaceLowest() {
+                return new Color(Blend.hctHue(original.getContainerSurfaceLowest().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getContainerSurfaceLow() {
+                return new Color(Blend.hctHue(original.getContainerSurfaceLow().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getContainerSurface() {
+                return new Color(Blend.hctHue(original.getContainerSurface().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getContainerSurfaceHigh() {
+                return new Color(Blend.hctHue(original.getContainerSurfaceHigh().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getContainerSurfaceHighest() {
+                return new Color(Blend.hctHue(original.getContainerSurfaceHighest().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getOnContainer() {
+                return new Color(Blend.hctHue(original.getOnContainer().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getOnContainerVariant() {
+                return new Color(Blend.hctHue(original.getOnContainerVariant().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getContainerOutline() {
+                return new Color(Blend.hctHue(original.getContainerOutline().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant() {
+                return new Color(Blend.hctHue(original.getContainerOutlineVariant().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public float getContainerSurfaceDisabledAlpha() {
+                return original.getContainerSurfaceDisabledAlpha();
+            }
+
+            @Override
+            public float getOnContainerDisabledAlpha() {
+                return original.getOnContainerDisabledAlpha();
+            }
+
+            @Override
+            public float getContainerOutlineDisabledAlpha() {
+                return original.getContainerOutlineDisabledAlpha();
+            }
+        };
     }
 }

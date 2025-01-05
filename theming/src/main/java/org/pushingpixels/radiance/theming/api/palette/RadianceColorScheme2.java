@@ -49,6 +49,8 @@ public interface RadianceColorScheme2 {
 
     ContainerColorTokens getPrimaryContainerTokens();
 
+    ContainerColorTokens getActiveContainerTokens();
+
     ContainerColorTokens getContainerTokensForState(ComponentState componentState);
 
     default ExtendedContainerColorTokens getExtendedContainerTokens(ComponentState componentState) {

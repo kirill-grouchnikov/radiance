@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api.painter;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 /**
@@ -132,10 +132,11 @@ public abstract class FractionBasedTonalPainter implements RadianceTrait {
 	 * 
 	 * @return Color queries of this painter.
 	 */
-	public ColorSchemeSingleColorQuery[] getColorQueries() {
-		ColorSchemeSingleColorQuery[] result = new ColorSchemeSingleColorQuery[this.colorQueries.length];
+	public ContainerColorTokensSingleColorQuery[] getColorQueries() {
+		ContainerColorTokensSingleColorQuery[] result =
+			new ContainerColorTokensSingleColorQuery[this.colorQueries.length];
 		System.arraycopy(this.colorQueries, 0, result, 0,
-				this.colorQueries.length);
+			this.colorQueries.length);
 		return result;
 	}
 }

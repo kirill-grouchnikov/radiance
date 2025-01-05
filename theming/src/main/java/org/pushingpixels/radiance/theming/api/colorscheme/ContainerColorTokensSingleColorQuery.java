@@ -27,34 +27,45 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.radiance.theming.api.painter.fill;
+package org.pushingpixels.radiance.theming.api.colorscheme;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+
+import java.awt.*;
 
 /**
- * Fill painter that draws visuals with glass appearance. This class is part
- * of officially supported API.
+ * Defines a query that returns a single color based on a color scheme.
  * 
  * @author Kirill Grouchnikov
  */
-public class GlassTonalFillPainter extends FractionBasedTonalFillPainter {
-	/**
-	 * Reusable instance of this painter.
-	 */
-	public static final GlassTonalFillPainter INSTANCE = new GlassTonalFillPainter();
+@FunctionalInterface
+public interface ContainerColorTokensSingleColorQuery {
+	Color query(ContainerColorTokens colorTokens);
 
-	/**
-	 * Creates a new classic gradient painter.
-	 */
-	public GlassTonalFillPainter() {
-		super("Classic",
-			new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
-			new ContainerColorTokensSingleColorQuery[] {
-				ContainerColorTokensSingleColorQuery.CONTAINER,
-				ContainerColorTokensSingleColorQuery.CONTAINER_LOWEST,
-				ContainerColorTokensSingleColorQuery.CONTAINER_HIGH,
-				ContainerColorTokensSingleColorQuery.CONTAINER_HIGH,
+	ContainerColorTokensSingleColorQuery CONTAINER_LOWEST = (colorTokens) ->
+		colorTokens.getContainerSurfaceLowest();
+	ContainerColorTokensSingleColorQuery CONTAINER_LOW = (colorTokens) ->
+			colorTokens.getContainerSurfaceLow();
+	ContainerColorTokensSingleColorQuery CONTAINER = (colorTokens) ->
+			colorTokens.getContainerSurface();
+	ContainerColorTokensSingleColorQuery CONTAINER_HIGH = (colorTokens) ->
+			colorTokens.getContainerSurfaceHigh();
+	ContainerColorTokensSingleColorQuery CONTAINER_HIGHEST = (colorTokens) ->
+			colorTokens.getContainerSurfaceHighest();
+
+	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE = (colorTokens) ->
+			colorTokens.getContainerOutline();
+	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE_VARIANT = (colorTokens) ->
+			colorTokens.getContainerOutlineVariant();
+
+	static ContainerColorTokensSingleColorQuery composite(
+		ContainerColorTokensSingleColorQuery base, ColorTransform... transforms) {
+		return colorTokens -> {
+			Color result = base.query(colorTokens);
+			for (ColorTransform transform: transforms) {
+				result = transform.transform(result);
 			}
-		);
+			return result;
+		};
 	}
 }

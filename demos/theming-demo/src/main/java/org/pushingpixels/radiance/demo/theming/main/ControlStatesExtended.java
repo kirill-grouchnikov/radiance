@@ -31,11 +31,8 @@ package org.pushingpixels.radiance.demo.theming.main;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.extras.api.skinpack.OfficeSilver2007Skin;
 
 import javax.swing.*;
@@ -44,10 +41,7 @@ public class ControlStatesExtended extends JFrame {
     public ControlStatesExtended() {
         super("States");
 
-        setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.ComponentScope.getCurrentSkin(this.getRootPane())
-                        .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow").

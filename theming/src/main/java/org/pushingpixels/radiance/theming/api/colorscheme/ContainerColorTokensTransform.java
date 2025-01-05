@@ -27,33 +27,23 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.radiance.theming.api.palette;
+package org.pushingpixels.radiance.theming.api.colorscheme;
 
-import java.awt.*;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
- * Defines a query that returns a single color based on a color scheme.
+ * Defines a transformation on a color scheme.
  * 
  * @author Kirill Grouchnikov
  */
 @FunctionalInterface
-public interface ContainerColorTokensSingleColorQuery {
-	Color query(ContainerColorTokens colorTokens);
-
-	ContainerColorTokensSingleColorQuery CONTAINER_LOWEST = (colorTokens) ->
-		colorTokens.getContainerSurfaceLowest();
-	ContainerColorTokensSingleColorQuery CONTAINER_LOW = (colorTokens) ->
-			colorTokens.getContainerSurfaceLow();
-	ContainerColorTokensSingleColorQuery CONTAINER = (colorTokens) ->
-			colorTokens.getContainerSurface();
-	ContainerColorTokensSingleColorQuery CONTAINER_HIGH = (colorTokens) ->
-			colorTokens.getContainerSurfaceHigh();
-	ContainerColorTokensSingleColorQuery CONTAINER_HIGHEST = (colorTokens) ->
-			colorTokens.getContainerSurfaceHighest();
-
-	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE = (colorTokens) ->
-			colorTokens.getContainerOutline();
-	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE_VARIANT = (colorTokens) ->
-			colorTokens.getContainerOutlineVariant();
-
+public interface ContainerColorTokensTransform {
+	/**
+	 * Transforms the specified color tokens.
+	 * 
+	 * @param containerColorTokens
+	 *            The original color tokens to transform.
+	 * @return The transformed color tokens.
+	 */
+	ContainerColorTokens transform(ContainerColorTokens containerColorTokens);
 }

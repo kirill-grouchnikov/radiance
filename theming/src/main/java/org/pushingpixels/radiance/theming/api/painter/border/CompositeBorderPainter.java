@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.border;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import java.awt.*;
 
@@ -81,12 +82,21 @@ public class CompositeBorderPainter implements RadianceBorderPainter {
 	public void paintBorder(Graphics g, Component c, float width, float height,
 			Shape contour, Shape innerContour, RadianceColorScheme borderScheme) {
 		if (innerContour != null) {
-			this.inner.paintBorder(g, c, width, height, innerContour, null,
-					borderScheme);
+			this.inner.paintBorder(g, c, width, height, innerContour, null, borderScheme);
 		}
 		if (contour != null) {
-			this.outer.paintBorder(g, c, width, height, contour, null,
-					borderScheme);
+			this.outer.paintBorder(g, c, width, height, contour, null, borderScheme);
+		}
+	}
+
+	@Override
+	public void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
+		Shape innerContour, ContainerColorTokens colorTokens) {
+		if (innerContour != null) {
+			this.inner.paintBorder(g, c, width, height, innerContour, null, colorTokens);
+		}
+		if (contour != null) {
+			this.outer.paintBorder(g, c, width, height, contour, null, colorTokens);
 		}
 	}
 

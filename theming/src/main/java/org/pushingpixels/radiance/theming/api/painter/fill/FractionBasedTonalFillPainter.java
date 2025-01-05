@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;

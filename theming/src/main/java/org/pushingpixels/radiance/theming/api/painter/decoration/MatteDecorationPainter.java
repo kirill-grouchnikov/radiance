@@ -168,10 +168,8 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
         // 0 - flex : light -> medium
         // flex - : medium fill
 
-        Color startColor = colorTokens.getBaseContainerTokens()
-            .getContainerSurfaceLowest();
-        Color endColor = colorTokens.getBaseContainerTokens()
-            .getContainerSurface();
+        Color startColor = colorTokens.getBaseContainerTokens().getContainerSurfaceLowest();
+        Color endColor = colorTokens.getBaseContainerTokens().getContainerSurface();
 
         int gradientHeight = Math.max(FLEX_POINT, height + offsetY);
         Paint paint = (gradientHeight == FLEX_POINT) ?
