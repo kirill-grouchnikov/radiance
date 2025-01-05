@@ -40,7 +40,7 @@ import java.util.Map;
  *
  * @author Kirill Grouchnikov
  * @see RadianceThemingSlices.DecorationAreaType
- * @see RadianceThemingSlices.ColorSchemeAssociationKind
+ * @see RadianceThemingSlices.ContainerColorTokensAssociationKind
  * @see RadianceSkin
  */
 public class RadianceColorSchemeBundle2 {
@@ -48,23 +48,21 @@ public class RadianceColorSchemeBundle2 {
     private RadianceColorScheme2 mainColorScheme;
 
     /**
-     * Maps from color scheme association kinds to the map of color schemes.
-     * Different visual parts of controls in the specific decoration are can be
-     * painted with different color schemes. For example, a rollover button can
-     * use a light orange scheme for the gradient fill and a dark gray scheme
-     * for the border. In this case, this map will have:
+     * Maps from color scheme association kinds to the map of color tokens. Controls in the specific
+     * decoration area can use different colors for different active states, for example yellow
+     * for rollover and deep orange for pressed. In this case, this map will have an entry with
+     * {@link RadianceThemingSlices.ContainerColorTokensAssociationKind#DEFAULT} key and a value
+     * map with two entries:
      *
      * <ul>
-     * <li>An entry with key {@link RadianceThemingSlices.ColorSchemeAssociationKind#FILL}. This entry
-     * has a map entry with key {@link ComponentState#SELECTED} and value that
-     * points to the light orange scheme.</li>
-     * <li>An entry with key {@link RadianceThemingSlices.ColorSchemeAssociationKind#BORDER}. This
-     * entry has a map entry with key {@link ComponentState#SELECTED} and value
-     * that points to the dark gray scheme.</li>
+     * <li>A map entry with key {@link ComponentState#ROLLOVER_UNSELECTED} and value that
+     * points to the yellow color tokens.</li>
+     * <li>A map entry with key {@link ComponentState#PRESSED_UNSELECTED} and value that
+     * points to the deep orange color tokens.</li>
      * </ul>
      */
     private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind,
-        Map<ComponentState, RadianceColorScheme2>> colorSchemeMap;
+        Map<ComponentState, ContainerColorTokens>> colorTokensForActiveStates;
 
     public interface Overlay {
         void overlay(RadianceColorSchemeBundle2 bundle);
@@ -82,10 +80,10 @@ public class RadianceColorSchemeBundle2 {
 
         this.mainColorScheme = mainColorScheme;
 
-        this.colorSchemeMap = new HashMap<>();
+        this.colorTokensForActiveStates = new HashMap<>();
         for (RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind :
             RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
-            this.colorSchemeMap.put(associationKind, new HashMap<>());
+            this.colorTokensForActiveStates.put(associationKind, new HashMap<>());
         }
     }
 
@@ -115,12 +113,12 @@ public class RadianceColorSchemeBundle2 {
             return getContainerTokens(componentState.getEnabledMatch(), inactiveContainerType);
         }
 
-        RadianceColorScheme2 registered = this.colorSchemeMap.get(
+        ContainerColorTokens registered = this.colorTokensForActiveStates.get(
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
             // If we're here, the component state is guaranteed to be active due to restrictions
             // in registerColorScheme
-            return registered.getActiveContainerTokens();
+            return registered;
         }
 
         return componentState.isActive()
@@ -187,7 +185,7 @@ public class RadianceColorSchemeBundle2 {
             if (state.isDisabled() || !state.isActive()) {
                 throw new IllegalArgumentException("Only active states can have custom color schemes");
             }
-            this.colorSchemeMap.get(associationKind).put(state, scheme);
+            this.colorTokensForActiveStates.get(associationKind).put(state, scheme.getActiveContainerTokens());
         }
     }
 
@@ -219,28 +217,18 @@ public class RadianceColorSchemeBundle2 {
                 allowFallback, inactiveContainerType);
         }
 
-        RadianceColorScheme2 registered =
-            this.colorSchemeMap.get(associationKind).get(componentState);
+        ContainerColorTokens registered =
+            this.colorTokensForActiveStates.get(associationKind).get(componentState);
         if (registered != null) {
             // If we're here, the component state is guaranteed to be active due to restrictions
             // in registerColorScheme
-            return registered.getActiveContainerTokens();
-        }
-
-        RadianceColorScheme2 enabledForAssociationKind =
-            this.colorSchemeMap.get(associationKind).get(ComponentState.ENABLED);
-        if (enabledForAssociationKind != null) {
-            return componentState.isActive()
-                ? enabledForAssociationKind.getContainerTokensForState(componentState)
-                : enabledForAssociationKind.getContainerTokens(inactiveContainerType);
+            return registered;
         }
 
         if (!allowFallback) {
             return null;
         }
 
-        return getContainerTokens(
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, componentState,
-            true, inactiveContainerType);
+        return getContainerTokens(componentState, inactiveContainerType);
     }
 }

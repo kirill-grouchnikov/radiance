@@ -86,7 +86,7 @@ public class ControlStatesExtended extends JFrame {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
-            RadianceThemingCortex.GlobalScope.setSkin(new OfficeSilver2007Skin());
+            RadianceThemingCortex.GlobalScope.setSkin(new OfficeSilver2007Skin.OfficeSilver2007TonalSkin());
             new ControlStatesExtended().setVisible(true);
         });
     }
