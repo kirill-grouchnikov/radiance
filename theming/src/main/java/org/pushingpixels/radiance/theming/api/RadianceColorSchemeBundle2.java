@@ -58,13 +58,6 @@ public class RadianceColorSchemeBundle2 {
     private Map<ComponentState, Float> stateAlphaMap;
 
     /**
-     * Maps from component state to the alpha channel applied on highlight color
-     * scheme. This map doesn't have to contain entries for all
-     * {@link ComponentState} instances.
-     */
-    //private Map<ComponentState, Float> stateHighlightAlphaMap;
-
-    /**
      * Maps from color scheme association kinds to the map of color schemes.
      * Different visual parts of controls in the specific decoration are can be
      * painted with different color schemes. For example, a rollover button can
@@ -82,9 +75,6 @@ public class RadianceColorSchemeBundle2 {
      */
     private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind,
         Map<ComponentState, RadianceColorScheme2>> colorSchemeMap;
-
-    private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind,
-        Map<ComponentState, ComponentState>> bestFillMap;
 
     public interface Overlay {
         void overlay(RadianceColorSchemeBundle2 bundle);
@@ -108,12 +98,6 @@ public class RadianceColorSchemeBundle2 {
         for (RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind :
             RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
             this.colorSchemeMap.put(associationKind, new HashMap<>());
-        }
-
-        this.bestFillMap = new HashMap<>();
-        for (RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind :
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
-            this.bestFillMap.put(associationKind, new HashMap<>());
         }
     }
 
@@ -146,57 +130,6 @@ public class RadianceColorSchemeBundle2 {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             states);
     }
-
-    /**
-     * Registers a highlight color scheme for the specific component state if
-     * the component state is not <code>null</code>, or a global highlight color
-     * scheme otherwise.
-     *
-     * @param stateHighlightScheme Highlight color scheme for the specified component state.
-     * @param states               Component states. If <code>null</code>, the specified color
-     *                             scheme will be applied for all states left unspecified.
-     */
-//    public void registerHighlightColorScheme(RadianceColorScheme2 stateHighlightScheme, ComponentState... states) {
-//        if (stateHighlightScheme == null) {
-//            throw new IllegalArgumentException("Cannot pass null color scheme");
-//        }
-//        if ((states == null) || (states.length == 0)) {
-//            for (ComponentState state : ComponentState.getAllStates()) {
-//                if (this.colorSchemeMap.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT).containsKey(state)) {
-//                    continue;
-//                }
-//                if (state.isDisabled()) {
-//                    continue;
-//                }
-//                if (state == ComponentState.ENABLED) {
-//                    continue;
-//                }
-//                this.colorSchemeMap.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT).put(state, stateHighlightScheme);
-//            }
-//        } else {
-//            for (ComponentState state : states) {
-//                this.colorSchemeMap.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT).put(state, stateHighlightScheme);
-//            }
-//        }
-//    }
-
-    /**
-     * Registers a highlight alpha channel value for the specific component states.
-     *
-     * @param alpha  Highlight alpha channel value.
-     * @param states Component states.
-     */
-//    public void registerHighlightAlpha(float alpha, ComponentState... states) {
-//        if ((states == null) || (states.length == 0)) {
-//            for (ComponentState state : ComponentState.getAllStates()) {
-//                this.stateHighlightAlphaMap.put(state, alpha);
-//            }
-//        } else {
-//            for (ComponentState state : states) {
-//                this.stateHighlightAlphaMap.put(state, alpha);
-//            }
-//        }
-//    }
 
     /**
      * Returns the color scheme of the specified component in the specified
@@ -253,27 +186,6 @@ public class RadianceColorSchemeBundle2 {
                 return this.mainColorScheme.getSystemEmergencyContainerTokens();
         }
     }
-
-//    public boolean hasHighlightAlphaFor(ComponentState componentState) {
-//        return this.stateHighlightAlphaMap.containsKey(componentState);
-//    }
-
-    /**
-     * Returns the alpha channel of the highlight color schemes for the specified component state.
-     * Before calling this API, call {@link #hasHighlightAlphaFor(ComponentState)}. This API returns
-     * 1.0f for states that do not have an explicitly registered alpha channel value.
-     *
-     * @param componentState Component state.
-     * @return Highlight color scheme alpha channel.
-     */
-//    public float getHighlightAlpha(ComponentState componentState) {
-//        Float registered = this.stateHighlightAlphaMap.get(componentState);
-//        if (registered != null) {
-//            return registered.floatValue();
-//        }
-//
-//        return 1.0f;
-//    }
 
     public boolean hasAlphaFor(ComponentState componentState) {
         return this.stateAlphaMap.containsKey(componentState);
@@ -393,20 +305,6 @@ public class RadianceColorSchemeBundle2 {
                 ? enabledForAssociationKind.getContainerTokensForState(componentState)
                 : enabledForAssociationKind.getContainerTokens(inactiveContainerType);
         }
-
-//        // for now look for the best fit only on active states
-//        Map<ComponentState, ComponentState> bestFitForState = this.bestFillMap.get(associationKind);
-//        if (!bestFitForState.containsKey(componentState)) {
-//            Collection<ComponentState> registeredStates = this.colorSchemeMap.get(associationKind).keySet();
-//            bestFitForState.put(componentState, componentState.bestFit(registeredStates));
-//        }
-//        ComponentState bestFit = bestFitForState.get(componentState);
-//        if (bestFit != null) {
-//            registered = this.colorSchemeMap.get(associationKind).get(bestFit);
-//            if (registered != null)
-//                return componentState.isActive() ? registered.getContainerTokensForState(componentState)
-//                    : registered.getContainerTokens(inactiveContainerType);
-//        }
 
         if (!allowFallback) {
             return null;
