@@ -100,6 +100,46 @@ public class RadianceColorSchemeBundle2 {
     }
 
     /**
+     * Registers the color scheme to be used for the specified visual area of
+     * controls under the specified states. For example, if the light orange
+     * scheme has to be used for gradient fill for rollover selected and rollover
+     * controls, the parameters would be:
+     *
+     * <ul>
+     * <li><code>scheme</code>=light orange scheme</li>
+     * <li>
+     * <code>associationKind</code>={@link RadianceThemingSlices.ColorSchemeAssociationKind#FILL}</li>
+     * <li>
+     * <code>states</code>={@link ComponentState#ROLLOVER_SELECTED},
+     * {@link ComponentState#ROLLOVER_UNSELECTED}</li>
+     * </ul>
+     *
+     * @param scheme          Color scheme.
+     * @param associationKind Color scheme association kind that specifies the visual areas
+     *                        of controls to be painted with this color scheme.
+     * @param states          Component states that further restrict the usage of the
+     *                        specified color scheme.
+     */
+    public void registerColorScheme(RadianceColorScheme2 scheme,
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+        ComponentState... states) {
+        if (scheme == null) {
+            throw new IllegalArgumentException("Cannot pass null color scheme");
+        }
+
+        if ((states == null) || (states.length == 0)) {
+            throw new IllegalArgumentException("Must pass at least one state");
+        }
+
+        for (ComponentState state : states) {
+            if (state.isDisabled() || !state.isActive()) {
+                throw new IllegalArgumentException("Only active states can have custom color schemes");
+            }
+            this.colorTokensForActiveStates.get(associationKind).put(state, scheme.getActiveContainerTokens());
+        }
+    }
+
+    /**
      * Returns the color scheme of the specified component in the specified
      * component state.
      *
@@ -147,46 +187,6 @@ public class RadianceColorSchemeBundle2 {
      */
     public RadianceColorScheme2 getMainColorScheme() {
         return this.mainColorScheme;
-    }
-
-    /**
-     * Registers the color scheme to be used for the specified visual area of
-     * controls under the specified states. For example, if the light orange
-     * scheme has to be used for gradient fill for rollover selected and rollover
-     * controls, the parameters would be:
-     *
-     * <ul>
-     * <li><code>scheme</code>=light orange scheme</li>
-     * <li>
-     * <code>associationKind</code>={@link RadianceThemingSlices.ColorSchemeAssociationKind#FILL}</li>
-     * <li>
-     * <code>states</code>={@link ComponentState#ROLLOVER_SELECTED},
-     * {@link ComponentState#ROLLOVER_UNSELECTED}</li>
-     * </ul>
-     *
-     * @param scheme          Color scheme.
-     * @param associationKind Color scheme association kind that specifies the visual areas
-     *                        of controls to be painted with this color scheme.
-     * @param states          Component states that further restrict the usage of the
-     *                        specified color scheme.
-     */
-    public void registerColorScheme(RadianceColorScheme2 scheme,
-            RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-            ComponentState... states) {
-        if (scheme == null) {
-            throw new IllegalArgumentException("Cannot pass null color scheme");
-        }
-
-        if ((states == null) || (states.length == 0)) {
-            throw new IllegalArgumentException("Must pass at least one state");
-        }
-
-        for (ComponentState state : states) {
-            if (state.isDisabled() || !state.isActive()) {
-                throw new IllegalArgumentException("Only active states can have custom color schemes");
-            }
-            this.colorTokensForActiveStates.get(associationKind).put(state, scheme.getActiveContainerTokens());
-        }
     }
 
     /**

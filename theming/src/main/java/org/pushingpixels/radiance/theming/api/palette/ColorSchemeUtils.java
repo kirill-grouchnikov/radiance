@@ -45,7 +45,7 @@ public class ColorSchemeUtils {
     }
 
    private static ContainerColorTokens getContainerTokens(
-        DynamicScheme dynamicScheme, PaletteContainerColorsResolver tonalContainerColorResolver) {
+        DynamicScheme dynamicScheme, SchemeContainerColorsResolver tonalContainerColorResolver) {
 
         return new ContainerColorTokens() {
             @Override
@@ -134,44 +134,44 @@ public class ColorSchemeUtils {
             /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
             /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
 
-        PaletteColorResolver paletteColorResolver = PaletteResolverUtils.getPaletteColorResolver();
+        SchemeColorResolver schemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
 
         ContainerColorTokens neutralContainerTokens = getContainerTokens(
-            lightScheme, paletteColorResolver.getNeutralContainerResolver());
+            lightScheme, schemeColorResolver.getNeutralContainerResolver());
         ContainerColorTokens mutedContainerTokens = getContainerTokens(
-            lightScheme, paletteColorResolver.getMutedContainerResolver());
+            lightScheme, schemeColorResolver.getMutedContainerResolver());
         ContainerColorTokens tonalContainerTokens = getContainerTokens(
-            lightScheme, paletteColorResolver.getTonalContainerResolver());
+            lightScheme, schemeColorResolver.getTonalContainerResolver());
         ContainerColorTokens primaryContainerTokens = getContainerTokens(
-            lightScheme, paletteColorResolver.getPrimaryContainerResolver());
+            lightScheme, schemeColorResolver.getPrimaryContainerResolver());
 
         ContainerColorTokens systemInfoContainerTokens = getContainerTokens(
-            lightScheme, paletteColorResolver.getSystemInfoContainerResolver());
+            lightScheme, schemeColorResolver.getSystemInfoContainerResolver());
         ContainerColorTokens systemWarningContainerTokens = getContainerTokens(
-            lightScheme, paletteColorResolver.getSystemWarningContainerResolver());
+            lightScheme, schemeColorResolver.getSystemWarningContainerResolver());
         ContainerColorTokens systemErrorContainerTokens = getContainerTokens(
-            lightScheme, paletteColorResolver.getSystemErrorContainerResolver());
+            lightScheme, schemeColorResolver.getSystemErrorContainerResolver());
         ContainerColorTokens systemSuccessContainerTokens = getContainerTokens(
-            lightScheme, paletteColorResolver.getSystemSuccessContainerResolver());
+            lightScheme, schemeColorResolver.getSystemSuccessContainerResolver());
         ContainerColorTokens systemEmergencyContainerTokens = getContainerTokens(
-            lightScheme, paletteColorResolver.getSystemEmergencyContainerResolver());
+            lightScheme, schemeColorResolver.getSystemEmergencyContainerResolver());
 
         return new RadianceColorScheme2() {
             private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
             @Override
             public Color getSurface() {
-                return paletteColorResolver.getSurface(lightScheme);
+                return schemeColorResolver.getSurface(lightScheme);
             }
 
             @Override
             public Color getSurfaceDim() {
-                return paletteColorResolver.getSurfaceDim(lightScheme);
+                return schemeColorResolver.getSurfaceDim(lightScheme);
             }
 
             @Override
             public Color getSurfaceBright() {
-                return paletteColorResolver.getSurfaceBright(lightScheme);
+                return schemeColorResolver.getSurfaceBright(lightScheme);
             }
 
             @Override
@@ -306,44 +306,44 @@ public class ColorSchemeUtils {
             /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
             /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
 
-        PaletteColorResolver paletteColorResolver = PaletteResolverUtils.getPaletteColorResolver();
+        SchemeColorResolver schemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
 
         ContainerColorTokens neutralContainerTokens = getContainerTokens(
-            darkScheme, paletteColorResolver.getNeutralContainerResolver());
+            darkScheme, schemeColorResolver.getNeutralContainerResolver());
         ContainerColorTokens mutedContainerTokens = getContainerTokens(
-            darkScheme, paletteColorResolver.getMutedContainerResolver());
+            darkScheme, schemeColorResolver.getMutedContainerResolver());
         ContainerColorTokens tonalContainerTokens = getContainerTokens(
-            darkScheme, paletteColorResolver.getTonalContainerResolver());
+            darkScheme, schemeColorResolver.getTonalContainerResolver());
         ContainerColorTokens primaryContainerTokens = getContainerTokens(
-            darkScheme, paletteColorResolver.getPrimaryContainerResolver());
+            darkScheme, schemeColorResolver.getPrimaryContainerResolver());
 
         ContainerColorTokens systemInfoContainerTokens = getContainerTokens(
-            darkScheme, paletteColorResolver.getSystemInfoContainerResolver());
+            darkScheme, schemeColorResolver.getSystemInfoContainerResolver());
         ContainerColorTokens systemWarningContainerTokens = getContainerTokens(
-            darkScheme, paletteColorResolver.getSystemWarningContainerResolver());
+            darkScheme, schemeColorResolver.getSystemWarningContainerResolver());
         ContainerColorTokens systemErrorContainerTokens = getContainerTokens(
-            darkScheme, paletteColorResolver.getSystemErrorContainerResolver());
+            darkScheme, schemeColorResolver.getSystemErrorContainerResolver());
         ContainerColorTokens systemSuccessContainerTokens = getContainerTokens(
-            darkScheme, paletteColorResolver.getSystemSuccessContainerResolver());
+            darkScheme, schemeColorResolver.getSystemSuccessContainerResolver());
         ContainerColorTokens systemEmergencyContainerTokens = getContainerTokens(
-            darkScheme, paletteColorResolver.getSystemEmergencyContainerResolver());
+            darkScheme, schemeColorResolver.getSystemEmergencyContainerResolver());
 
         return new RadianceColorScheme2() {
             private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
             @Override
             public Color getSurface() {
-                return paletteColorResolver.getSurface(darkScheme);
+                return schemeColorResolver.getSurface(darkScheme);
             }
 
             @Override
             public Color getSurfaceDim() {
-                return paletteColorResolver.getSurfaceDim(darkScheme);
+                return schemeColorResolver.getSurfaceDim(darkScheme);
             }
 
             @Override
             public Color getSurfaceBright() {
-                return paletteColorResolver.getSurfaceBright(darkScheme);
+                return schemeColorResolver.getSurfaceBright(darkScheme);
             }
 
             @Override

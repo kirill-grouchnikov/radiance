@@ -33,10 +33,10 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 
 import java.awt.*;
 
-public class PaletteResolverUtils {
-   public static PaletteColorResolver getPaletteColorResolver() {
-        PaletteContainerColorsResolver neutralContainerResolver =
-            new PaletteContainerColorsResolver() {
+public class SchemeResolverUtils {
+   public static SchemeColorResolver getSchemeColorResolver() {
+        SchemeContainerColorsResolver neutralContainerResolver =
+            new SchemeContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getNeutralContainerSurfaceLowest());
@@ -83,8 +83,8 @@ public class PaletteResolverUtils {
                 }
             };
 
-        PaletteContainerColorsResolver mutedContainerResolver =
-            new PaletteContainerColorsResolver() {
+        SchemeContainerColorsResolver mutedContainerResolver =
+            new SchemeContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getMutedContainerSurfaceLowest());
@@ -131,8 +131,8 @@ public class PaletteResolverUtils {
                 }
             };
 
-        PaletteContainerColorsResolver tonalContainerResolver =
-            new PaletteContainerColorsResolver() {
+        SchemeContainerColorsResolver tonalContainerResolver =
+            new SchemeContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getTonalContainerSurfaceLowest());
@@ -179,8 +179,8 @@ public class PaletteResolverUtils {
                 }
             };
 
-        PaletteContainerColorsResolver primaryContainerResolver =
-            new PaletteContainerColorsResolver() {
+        SchemeContainerColorsResolver primaryContainerResolver =
+            new SchemeContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getPrimaryContainerSurfaceLowest());
@@ -227,8 +227,8 @@ public class PaletteResolverUtils {
                 }
             };
 
-        PaletteContainerColorsResolver systemInfoContainerResolver =
-            new PaletteContainerColorsResolver() {
+        SchemeContainerColorsResolver systemInfoContainerResolver =
+            new SchemeContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemInfoContainerSurfaceLowest());
@@ -275,8 +275,8 @@ public class PaletteResolverUtils {
                 }
             };
 
-        PaletteContainerColorsResolver systemWarningContainerResolver =
-            new PaletteContainerColorsResolver() {
+        SchemeContainerColorsResolver systemWarningContainerResolver =
+            new SchemeContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemWarningContainerSurfaceLowest());
@@ -323,8 +323,8 @@ public class PaletteResolverUtils {
                 }
             };
 
-        PaletteContainerColorsResolver systemErrorContainerResolver =
-            new PaletteContainerColorsResolver() {
+        SchemeContainerColorsResolver systemErrorContainerResolver =
+            new SchemeContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemErrorContainerSurfaceLowest());
@@ -371,8 +371,8 @@ public class PaletteResolverUtils {
                 }
             };
 
-        PaletteContainerColorsResolver systemSuccessContainerResolver =
-            new PaletteContainerColorsResolver() {
+        SchemeContainerColorsResolver systemSuccessContainerResolver =
+            new SchemeContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemSuccessContainerSurfaceLowest());
@@ -419,8 +419,8 @@ public class PaletteResolverUtils {
                 }
             };
 
-        PaletteContainerColorsResolver systemEmergencyContainerResolver =
-            new PaletteContainerColorsResolver() {
+        SchemeContainerColorsResolver systemEmergencyContainerResolver =
+            new SchemeContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemEmergencyContainerSurfaceLowest());
@@ -467,7 +467,7 @@ public class PaletteResolverUtils {
                 }
             };
 
-        return new PaletteColorResolver() {
+        return new SchemeColorResolver() {
             @Override
             public Color getSurface(DynamicScheme dynamicScheme) {
                 return new Color(dynamicScheme.getSurface());
@@ -484,47 +484,47 @@ public class PaletteResolverUtils {
             }
 
             @Override
-            public PaletteContainerColorsResolver getNeutralContainerResolver() {
+            public SchemeContainerColorsResolver getNeutralContainerResolver() {
                 return neutralContainerResolver;
             }
 
             @Override
-            public PaletteContainerColorsResolver getMutedContainerResolver() {
+            public SchemeContainerColorsResolver getMutedContainerResolver() {
                 return mutedContainerResolver;
             }
 
             @Override
-            public PaletteContainerColorsResolver getTonalContainerResolver() {
+            public SchemeContainerColorsResolver getTonalContainerResolver() {
                 return tonalContainerResolver;
             }
 
             @Override
-            public PaletteContainerColorsResolver getPrimaryContainerResolver() {
+            public SchemeContainerColorsResolver getPrimaryContainerResolver() {
                 return primaryContainerResolver;
             }
 
             @Override
-            public PaletteContainerColorsResolver getSystemInfoContainerResolver() {
+            public SchemeContainerColorsResolver getSystemInfoContainerResolver() {
                 return systemInfoContainerResolver;
             }
 
             @Override
-            public PaletteContainerColorsResolver getSystemWarningContainerResolver() {
+            public SchemeContainerColorsResolver getSystemWarningContainerResolver() {
                 return systemWarningContainerResolver;
             }
 
             @Override
-            public PaletteContainerColorsResolver getSystemErrorContainerResolver() {
+            public SchemeContainerColorsResolver getSystemErrorContainerResolver() {
                 return systemErrorContainerResolver;
             }
 
             @Override
-            public PaletteContainerColorsResolver getSystemSuccessContainerResolver() {
+            public SchemeContainerColorsResolver getSystemSuccessContainerResolver() {
                 return systemSuccessContainerResolver;
             }
 
             @Override
-            public PaletteContainerColorsResolver getSystemEmergencyContainerResolver() {
+            public SchemeContainerColorsResolver getSystemEmergencyContainerResolver() {
                 return systemEmergencyContainerResolver;
             }
         };
