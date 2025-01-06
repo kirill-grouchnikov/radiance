@@ -923,7 +923,7 @@ public class ColorSchemeUtils {
             /* palette */ TonalPalette.fromHct(seed));
     }
 
-    public static ContainerColorTokens getLightBalancedContainerTokens(Hct seed) {
+    public static ContainerColorTokens getLightTonalBalancedContainerTokens(Hct seed) {
         return ColorSchemeUtils.getLightTonalContainerTokens(
             /* sourceColorHct */ seed,
             /* isFidelity */ false,

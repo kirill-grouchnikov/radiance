@@ -104,7 +104,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 					Hct.fromInt(0xFF83AFCE)))
 				.withActiveControlsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
 					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
-				.withHighlightsAccent(ColorSchemeUtils.getLightBalancedContainerTokens(
+				.withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedContainerTokens(
 					Hct.fromInt(0xFFEBD296))));
 
 			RadianceColorScheme2 controlPaneColorScheme =
