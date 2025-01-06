@@ -121,7 +121,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             ExtendedContainerColorTokens tileContainerTokens =
                     skin.getBackgroundExtendedContainerTokens(decorationAreaType);
             if (this.baseDecorationPainter == null) {
-                graphics.setColor(tileContainerTokens.getBaseContainerTokens().getContainerSurfaceHigh());
+                graphics.setColor(tileContainerTokens.getBaseContainerTokens().getContainerSurface());
                 graphics.fillRect(0, 0, width, height);
             } else {
                 this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
@@ -173,8 +173,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             if (this.baseDecorationPainter != null) {
                 this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, width, height, skin);
             } else {
-                graphics.setColor(tileContainerTokens.getBaseContainerTokens()
-                    .getContainerSurfaceHigh());
+                graphics.setColor(tileContainerTokens.getBaseContainerTokens().getContainerSurface());
                 graphics.fillRect(0, 0, width, height);
             }
             Graphics2D temp = (Graphics2D) graphics.create();
@@ -224,8 +223,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
                     contour, colorTokens);
         } else {
-            graphics.setColor(colorTokens.getBaseContainerTokens()
-                .getContainerSurfaceHigh());
+            graphics.setColor(colorTokens.getBaseContainerTokens().getContainerSurface());
             graphics.fill(contour);
         }
         Graphics2D temp = (Graphics2D) graphics.create();

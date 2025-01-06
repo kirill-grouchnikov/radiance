@@ -29,21 +29,20 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.DelegateFractionBasedBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.*;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -99,23 +98,14 @@ public class AutumnSkin extends RadianceSkin {
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		this.registerAsDecorationArea(backgroundScheme,
-				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE, RadianceThemingSlices.DecorationAreaType.FOOTER,
+		if (!(this instanceof TonalSkin)) {
+			this.registerAsDecorationArea(backgroundScheme,
+				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
+				RadianceThemingSlices.DecorationAreaType.FOOTER,
 				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+		}
 
-		// add an overlay painter to paint a drop shadow along the top
-		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(50),
-				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-		// add an overlay painter to paint separator lines along the bottom
-		// edges of title panes and menu bars
-		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
-				ColorSchemeSingleColorQuery.DARK);
-		this.addOverlayPainter(bottomLineOverlayPainter,
-				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.HEADER);
+		this.configureOverlayPainters();
 
 		this.buttonShaper = new ClassicButtonShaper();
 		this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 1.0f);
@@ -136,9 +126,94 @@ public class AutumnSkin extends RadianceSkin {
 		this.decorationPainter = decorationPainter;
 	}
 
+	void configureOverlayPainters() {
+		// add an overlay painter to paint a drop shadow along the top
+		// edge of toolbars
+		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(50),
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+		// add an overlay painter to paint separator lines along the bottom
+		// edges of title panes and menu bars
+		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
+			ColorSchemeSingleColorQuery.DARK);
+		this.addOverlayPainter(bottomLineOverlayPainter,
+			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.HEADER);
+	}
+
 	@Override
 	public String getDisplayName() {
 		return NAME;
 	}
 
+	public static class AutumnTonalSkin extends AutumnSkin implements TonalSkin {
+		public static final String NAME = "Autumn Tonal";
+
+		public AutumnTonalSkin() {
+			RadianceColorScheme2 autumnColorScheme =
+				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFFDBD72),
+					Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4));
+
+			RadianceColorSchemeBundle2 autumnDefaultBundle =
+				new RadianceColorSchemeBundle2(autumnColorScheme);
+			this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
+				RadianceThemingSlices.DecorationAreaType.NONE);
+
+			this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
+				autumnDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.HEADER);
+
+			RadianceColorScheme2 autumnControlPaneColorScheme =
+				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFFDBD72),
+					Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFDDB9));
+			RadianceColorSchemeBundle2 autumnControlPaneBundle =
+				new RadianceColorSchemeBundle2(autumnControlPaneColorScheme);
+			this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
+				ColorSchemeUtils.getLightTonalFidelityExtendedContainerTokens(Hct.fromInt(0xFFFED8B2)),
+				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+
+			this.buttonShaper = new ClassicButtonShaper();
+			this.fillPainter = new SpecularRectangularFillPainter(new MatteTonalFillPainter(), 1.0f);
+			this.borderPainter = new CompositeBorderPainter("Autumn",
+				new DelegateFractionBasedTonalBorderPainter(
+					"Autumn Outer", new ClassicTonalBorderPainter(),
+					new int[]{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+					scheme -> ColorSchemeUtils.shade(scheme, 0.1f)),
+				new DelegateFractionBasedTonalBorderPainter(
+					"Autumn Inner", new ClassicTonalBorderPainter(),
+					new int[]{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+					scheme -> ColorSchemeUtils.tint(scheme, 0.8f)));
+
+			this.highlightFillPainter = new ClassicTonalFillPainter();
+
+			MarbleNoiseDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
+			decorationPainter.setTextureAlpha(0.7f);
+			this.decorationPainter = decorationPainter;
+		}
+
+		@Override
+		void configureOverlayPainters() {
+			// add an overlay painter to paint a drop shadow along the top
+			// edge of toolbars
+			this.addOverlayPainter(TopShadowOverlayPainter.getInstance(50),
+				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+			// add an overlay painter to paint separator lines along the bottom
+			// edges of title panes and menu bars
+			BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+				ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE);
+			this.addOverlayPainter(bottomLineOverlayPainter,
+				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.HEADER);
+		}
+
+		@Override
+		public String getDisplayName() {
+			return AutumnTonalSkin.NAME;
+		}
+	}
 }

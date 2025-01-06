@@ -38,6 +38,21 @@ public class PaletteResolverUtils {
        PaletteContainerColorsResolver result =
             new PaletteContainerColorsResolver() {
                 @Override
+                public Color getSurface(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getSurface());
+                }
+
+                @Override
+                public Color getSurfaceBright(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getSurfaceBright());
+                }
+
+                @Override
+                public Color getSurfaceDim(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getSurfaceDim());
+                }
+
+                @Override
                 public Color getContainerSurfaceLowest(DynamicPalette dynamicPalette) {
                     return new Color(dynamicPalette.getTonalContainerSurfaceLowest());
                 }

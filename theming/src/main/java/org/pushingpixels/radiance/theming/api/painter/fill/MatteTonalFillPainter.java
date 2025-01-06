@@ -29,35 +29,30 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 
 /**
- * Fill painter that draws visuals with matte appearance. This class is part of
- * officially supported API.
+ * Fill painter that draws visuals with matte appearance. This class is part
+ * of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class MatteFillPainter extends FractionBasedFillPainter {
+public class MatteTonalFillPainter extends FractionBasedTonalFillPainter {
 	/**
 	 * Reusable instance of this painter.
 	 */
-	public static final MatteFillPainter INSTANCE = new MatteFillPainter();
+	public static final MatteTonalFillPainter INSTANCE = new MatteTonalFillPainter();
 
 	/**
 	 * Creates a new matte fill painter.
 	 */
-	public MatteFillPainter() {
-		super("Matte",
-				new float[] {0.0f, 0.5f, 1.0f},
-				new ColorSchemeSingleColorQuery[] {
-						scheme -> RadianceColorUtilities.getInterpolatedColor(
-								scheme.getMidColor(), scheme.getUltraLightColor(), 0.35f),
-						scheme -> RadianceColorUtilities.getInterpolatedColor(
-								scheme.getMidColor(), scheme.getUltraLightColor(), 0.49f),
-						scheme -> RadianceColorUtilities.getInterpolatedColor(
-								scheme.getMidColor(), scheme.getUltraLightColor(), 0.7f),
-				}
+	public MatteTonalFillPainter() {
+		super("Classic",
+			new float[] {0.0f, 1.0f},
+			new ContainerColorTokensSingleColorQuery[] {
+				ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
+				ContainerColorTokensSingleColorQuery.CONTAINER
+			}
 		);
 	}
 }

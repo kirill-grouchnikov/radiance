@@ -34,9 +34,7 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
-import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -89,10 +87,8 @@ public class FakeAccordion extends JPanel {
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
                         Color accentedFill;
                         if (skin instanceof TonalSkin) {
-                            ExtendedContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
-                                DecorationPainterUtils.getDecorationType(this));
-                            accentedFill = colorTokens.getBaseContainerTokens()
-                                .getContainerSurfaceLow();
+                            accentedFill = skin.getContainerTokens(this, ComponentState.ENABLED,
+                                RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLow();
                         } else {
                             RadianceThemingSlices.DecorationAreaType decorationAreaType =
                                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
