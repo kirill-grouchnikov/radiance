@@ -42,8 +42,8 @@ import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
-public class PaletteDemo extends JFrame {
-    public PaletteDemo() {
+public class PaletteFidelityDemo extends JFrame {
+    public PaletteFidelityDemo() {
         super("Chroma Palette");
 
         RadianceLogo.tonalConfigureOn(this);
@@ -56,10 +56,10 @@ public class PaletteDemo extends JFrame {
 
         int row = 1;
 
-        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightTonalBalancedColorScheme(
-            Hct.fromInt(0xFF76A8C8), 16.0, 10.0);
-        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getDarkTonalBalancedColorScheme(
-            Hct.fromInt(0xFF76A8C8), 16.0, 10.0);
+        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightTonalFidelityColorScheme(
+            Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4));
+        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getDarkTonalFidelityColorScheme(
+            Hct.fromInt(0xFF663E00), Hct.fromInt(0xFF402200), Hct.fromInt(0xFF201200));
 
         builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
         builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);
@@ -114,7 +114,7 @@ public class PaletteDemo extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin.BusinessTonalSkin());
-            new PaletteDemo().setVisible(true);
+            new PaletteFidelityDemo().setVisible(true);
         });
     }
 }
