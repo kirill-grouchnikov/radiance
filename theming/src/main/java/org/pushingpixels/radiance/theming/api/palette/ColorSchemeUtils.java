@@ -900,8 +900,8 @@ public class ColorSchemeUtils {
         return result;
     }
 
-    public static ContainerColorTokens getLightContainerTokens(Hct sourceColorHct,
-        boolean isFidelity, TonalPalette palette, ActiveStatesContainerType activeStatesContainerType) {
+    public static ContainerColorTokens getLightTonalContainerTokens(Hct sourceColorHct,
+        boolean isFidelity, TonalPalette palette) {
 
         DynamicPalette dynamicPalette = new DynamicPalette(
             /* sourceColorHct */ sourceColorHct,
@@ -911,25 +911,23 @@ public class ColorSchemeUtils {
             /* palette */ palette);
 
         PaletteContainerColorsResolver paletteColorResolver =
-            PaletteResolverUtils.getPaletteColorResolver();
+            PaletteResolverUtils.getPaletteTonalColorResolver();
 
         return getContainerTokens(dynamicPalette, paletteColorResolver);
     }
 
     public static ContainerColorTokens getLightTonalFidelityContainerTokens(Hct seed) {
-        return ColorSchemeUtils.getLightContainerTokens(
+        return ColorSchemeUtils.getLightTonalContainerTokens(
             /* sourceColorHct */ seed,
             /* isFidelity */ true,
-            /* palette */ TonalPalette.fromHct(seed),
-            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+            /* palette */ TonalPalette.fromHct(seed));
     }
 
-    public static ContainerColorTokens getLightTonalBalancedContainerTokens(Hct seed) {
-        return ColorSchemeUtils.getLightContainerTokens(
+    public static ContainerColorTokens getLightBalancedContainerTokens(Hct seed) {
+        return ColorSchemeUtils.getLightTonalContainerTokens(
             /* sourceColorHct */ seed,
             /* isFidelity */ false,
-            /* palette */ TonalPalette.fromHct(seed),
-            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+            /* palette */ TonalPalette.fromHct(seed));
     }
 
     public static ContainerColorTokens tint(ContainerColorTokens original, float tintFactor) {

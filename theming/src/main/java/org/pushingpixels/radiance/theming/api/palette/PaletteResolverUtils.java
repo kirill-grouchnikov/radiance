@@ -34,52 +34,52 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import java.awt.*;
 
 public class PaletteResolverUtils {
-   public static PaletteContainerColorsResolver getPaletteColorResolver() {
+   public static PaletteContainerColorsResolver getPaletteTonalColorResolver() {
        PaletteContainerColorsResolver result =
             new PaletteContainerColorsResolver() {
                 @Override
                 public Color getContainerSurfaceLowest(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getContainerSurfaceLowest());
+                    return new Color(dynamicPalette.getTonalContainerSurfaceLowest());
                 }
 
                 @Override
                 public Color getContainerSurfaceLow(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getContainerSurfaceLow());
+                    return new Color(dynamicPalette.getTonalContainerSurfaceLow());
                 }
 
                 @Override
                 public Color getContainerSurface(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getContainerSurface());
+                    return new Color(dynamicPalette.getTonalContainerSurface());
                 }
 
                 @Override
                 public Color getContainerSurfaceHigh(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getContainerSurfaceHigh());
+                    return new Color(dynamicPalette.getTonalContainerSurfaceHigh());
                 }
 
                 @Override
                 public Color getContainerSurfaceHighest(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getContainerSurfaceHighest());
+                    return new Color(dynamicPalette.getTonalContainerSurfaceHighest());
                 }
 
                 @Override
                 public Color getOnContainer(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getOnContainer());
+                    return new Color(dynamicPalette.getOnTonalContainer());
                 }
 
                 @Override
                 public Color getOnContainerVariant(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getOnContainerVariant());
+                    return new Color(dynamicPalette.getOnTonalContainerVariant());
                 }
 
                 @Override
                 public Color getContainerOutline(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getContainerOutline());
+                    return new Color(dynamicPalette.getTonalContainerOutline());
                 }
 
                 @Override
                 public Color getContainerOutlineVariant(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getContainerOutlineVariant());
+                    return new Color(dynamicPalette.getTonalContainerOutlineVariant());
                 }
             };
         return result;
