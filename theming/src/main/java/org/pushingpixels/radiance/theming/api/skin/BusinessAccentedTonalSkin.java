@@ -58,7 +58,7 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 
 		RadianceColorSchemeBundle2 businessDefaultBundle =
 			new RadianceColorSchemeBundle2(this.getActiveControlsAccent());
-		businessDefaultBundle.registerColorScheme(this.getHighlightsAccent(),
+		businessDefaultBundle.registerContainerTokens(this.getHighlightsAccent(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		// TODO: TONAL tabs
@@ -72,7 +72,8 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 		RadianceColorSchemeBundle2 businessDefaultHeaderBundle =
 			new RadianceColorSchemeBundle2(this.getWindowChromeAccent());
 		if (this.getWindowChromeHighlightsAccent() != null) {
-			businessDefaultHeaderBundle.registerColorScheme(this.getWindowChromeHighlightsAccent(),
+			businessDefaultHeaderBundle.registerContainerTokens(
+				this.getWindowChromeHighlightsAccent(),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 		}

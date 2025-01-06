@@ -193,10 +193,10 @@ public abstract class RadianceSkin implements RadianceTrait {
     public static abstract class TonalAccented extends RadianceSkin implements TonalSkin {
         public final static class AccentBuilder {
             private RadianceColorScheme2 windowChromeAccent;
-            private RadianceColorScheme2 windowChromeHighlightsAccent;
+            private ContainerColorTokens windowChromeHighlightsAccent;
             private RadianceColorScheme2 enabledControlsAccent;
             private RadianceColorScheme2 activeControlsAccent;
-            private RadianceColorScheme2 highlightsAccent;
+            private ContainerColorTokens highlightsAccent;
             private RadianceColorScheme2 backgroundAccent;
 
             public AccentBuilder() {
@@ -207,7 +207,7 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
-            public AccentBuilder withWindowChromeHighlightsAccent(RadianceColorScheme2 windowChromeHighlightsAccent) {
+            public AccentBuilder withWindowChromeHighlightsAccent(ContainerColorTokens windowChromeHighlightsAccent) {
                 this.windowChromeHighlightsAccent = windowChromeHighlightsAccent;
                 return this;
             }
@@ -222,7 +222,7 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
-            public AccentBuilder withHighlightsAccent(RadianceColorScheme2 highlightsAccent) {
+            public AccentBuilder withHighlightsAccent(ContainerColorTokens highlightsAccent) {
                 this.highlightsAccent = highlightsAccent;
                 return this;
             }
@@ -234,10 +234,10 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
 
         private final RadianceColorScheme2 windowChromeAccent;
-        private final RadianceColorScheme2 windowChromeHighlightsAccent;
+        private final ContainerColorTokens windowChromeHighlightsAccent;
         private final RadianceColorScheme2 activeControlsAccent;
         private final RadianceColorScheme2 enabledControlsAccent;
-        private final RadianceColorScheme2 highlightsAccent;
+        private final ContainerColorTokens highlightsAccent;
         private final RadianceColorScheme2 backgroundAccent;
 
         protected TonalAccented(AccentBuilder accentBuilder) {
@@ -261,7 +261,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             return this.enabledControlsAccent;
         }
 
-        public RadianceColorScheme2 getHighlightsAccent() {
+        public ContainerColorTokens getHighlightsAccent() {
             return this.highlightsAccent;
         }
 
@@ -269,7 +269,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             return this.windowChromeAccent;
         }
 
-        public RadianceColorScheme2 getWindowChromeHighlightsAccent() {
+        public ContainerColorTokens getWindowChromeHighlightsAccent() {
             return this.windowChromeHighlightsAccent;
         }
     }

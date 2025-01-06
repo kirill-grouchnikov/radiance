@@ -47,6 +47,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFil
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -282,37 +283,37 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             RadianceColorSchemeBundle2 officeSilverDefaultBundle =
                 new RadianceColorSchemeBundle2(officeSilverColorScheme);
 
-            RadianceColorScheme2 rolloverScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                Hct.fromInt(0xFFFFD111), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
-            RadianceColorScheme2 selectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                Hct.fromInt(0xFFFFBD51), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
-            RadianceColorScheme2 rolloverSelectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                Hct.fromInt(0xFFFFA400), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
-            RadianceColorScheme2 pressedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                Hct.fromInt(0xFFFF8C18), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
-            RadianceColorScheme2 pressedSelectedScheme2 = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                Hct.fromInt(0xFFFF991C), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
+            ContainerColorTokens rolloverContainerTokens =
+                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFFD111));
+            ContainerColorTokens selectedContainerTokens =
+                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFFBD51));
+            ContainerColorTokens rolloverSelectedContainerTokens =
+                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFFA400));
+            ContainerColorTokens pressedContainerTokens =
+                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFF8C18));
+            ContainerColorTokens pressedSelectedContainerTokens =
+                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFF991C));
 
             // register state-specific color schemes on rollovers, presses and selections
-            officeSilverDefaultBundle.registerColorScheme(rolloverScheme2,
+            officeSilverDefaultBundle.registerContainerTokens(rolloverContainerTokens,
                 ComponentState.ROLLOVER_UNSELECTED);
-            officeSilverDefaultBundle.registerColorScheme(rolloverSelectedScheme2,
+            officeSilverDefaultBundle.registerContainerTokens(rolloverSelectedContainerTokens,
                 ComponentState.ROLLOVER_SELECTED);
-            officeSilverDefaultBundle.registerColorScheme(selectedScheme2,
+            officeSilverDefaultBundle.registerContainerTokens(selectedContainerTokens,
                 ComponentState.SELECTED);
-            officeSilverDefaultBundle.registerColorScheme(pressedScheme2,
+            officeSilverDefaultBundle.registerContainerTokens(pressedContainerTokens,
                 ComponentState.PRESSED_UNSELECTED);
-            officeSilverDefaultBundle.registerColorScheme(pressedSelectedScheme2,
+            officeSilverDefaultBundle.registerContainerTokens(pressedSelectedContainerTokens,
                 ComponentState.PRESSED_SELECTED);
 
             // register state-specific highlight color schemes on rollover and selections
-            officeSilverDefaultBundle.registerColorScheme(rolloverScheme2,
+            officeSilverDefaultBundle.registerContainerTokens(rolloverContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.ROLLOVER_UNSELECTED);
-            officeSilverDefaultBundle.registerColorScheme(selectedScheme2,
+            officeSilverDefaultBundle.registerContainerTokens(selectedContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.SELECTED, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-            officeSilverDefaultBundle.registerColorScheme(rolloverSelectedScheme2,
+            officeSilverDefaultBundle.registerContainerTokens(rolloverSelectedContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.ROLLOVER_SELECTED);
 

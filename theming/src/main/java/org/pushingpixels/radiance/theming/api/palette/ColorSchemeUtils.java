@@ -924,6 +924,14 @@ public class ColorSchemeUtils {
             /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL);
     }
 
+    public static ContainerColorTokens getLightTonalBalancedContainerTokens(Hct seed) {
+        return ColorSchemeUtils.getLightContainerTokens(
+            /* sourceColorHct */ seed,
+            /* isFidelity */ false,
+            /* palette */ TonalPalette.fromHct(seed),
+            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+    }
+
     public static ContainerColorTokens tint(ContainerColorTokens original, float tintFactor) {
         return new ContainerColorTokens() {
             @Override

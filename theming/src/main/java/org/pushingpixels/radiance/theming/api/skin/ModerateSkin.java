@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -115,15 +116,14 @@ public class ModerateSkin extends RadianceSkin {
             RadianceColorScheme2 steelBlueColorScheme =
                 ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF6CA9CE),
                     Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
-            RadianceColorScheme2 steelBlueHighlightColorScheme =
-                ColorSchemeUtils.getLightTonalBalancedColorScheme(Hct.fromInt(0xFFF1D59A), 4.0, 2.0);
+            ContainerColorTokens steelBlueHighlightContainerTokens =
+                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFF1D59A));
 
             RadianceColorScheme2 steelBlueHeaderColorScheme =
                 ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF6D9BBA),
                     Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
-            RadianceColorScheme2 steelBlueHeaderHighlightColorScheme =
-                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF6EA7CA),
-                    Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
+            ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
+                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFF6EA7CA));
 
             RadianceColorScheme2 controlPaneColorScheme =
                 ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFD1D3D7),
@@ -131,7 +131,7 @@ public class ModerateSkin extends RadianceSkin {
 
             RadianceColorSchemeBundle2 steelBlueDefaultBundle =
                 new RadianceColorSchemeBundle2(steelBlueColorScheme);
-            steelBlueDefaultBundle.registerColorScheme(steelBlueHighlightColorScheme,
+            steelBlueDefaultBundle.registerContainerTokens(steelBlueHighlightContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
             this.registerDecorationAreaSchemeBundle(steelBlueDefaultBundle,
@@ -139,7 +139,7 @@ public class ModerateSkin extends RadianceSkin {
 
             RadianceColorSchemeBundle2 steelBlueHeaderBundle =
                 new RadianceColorSchemeBundle2(steelBlueHeaderColorScheme);
-            steelBlueHeaderBundle.registerColorScheme(steelBlueHeaderHighlightColorScheme,
+            steelBlueHeaderBundle.registerContainerTokens(steelBlueHeaderHighlightContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
             this.registerDecorationAreaSchemeBundle(steelBlueHeaderBundle,

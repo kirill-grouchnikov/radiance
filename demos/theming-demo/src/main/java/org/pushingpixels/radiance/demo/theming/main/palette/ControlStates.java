@@ -103,17 +103,13 @@ public class ControlStates extends JFrame {
 
             RadianceColorSchemeBundle2 bundle2 = new RadianceColorSchemeBundle2(lightColorScheme);
 
-            RadianceColorScheme2 lightMarkColorScheme =
-                ColorSchemeUtils.getLightTonalBalancedColorScheme(Hct.fromInt(0xFF20F490), 8.0, 6.0);
-
-            bundle2.registerColorScheme(lightMarkColorScheme,
+            bundle2.registerContainerTokens(
+                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFF20F490)),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.getActiveStates());
 
-            RadianceColorScheme2 lightHighlightColorScheme =
-                ColorSchemeUtils.getLightTonalBalancedColorScheme(Hct.fromInt(0xFF20F490), 8.0, 6.0);
-
-            bundle2.registerColorScheme(lightHighlightColorScheme,
+            bundle2.registerContainerTokens(
+                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFF20F490)),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
 

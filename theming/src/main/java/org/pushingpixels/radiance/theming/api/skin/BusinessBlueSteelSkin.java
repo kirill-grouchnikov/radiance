@@ -100,12 +100,12 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 			super(new AccentBuilder()
 				.withWindowChromeAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
 					Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
-				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
-					Hct.fromInt(0xFF83AFCE), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
+				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalFidelityContainerTokens(
+					Hct.fromInt(0xFF83AFCE)))
 				.withActiveControlsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
 					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
-				.withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedColorScheme(
-					Hct.fromInt(0xFFEBD296), 5.0, 2.0)));
+				.withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedContainerTokens(
+					Hct.fromInt(0xFFEBD296))));
 
 			RadianceColorScheme2 controlPaneColorScheme =
 				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF94B9D3),
@@ -113,8 +113,8 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 
 			RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
 				new RadianceColorSchemeBundle2(controlPaneColorScheme);
-			businessBlueSteelControlBundle.registerColorScheme(
-				getActiveControlsAccent(),
+			businessBlueSteelControlBundle.registerContainerTokens(
+				getActiveControlsAccent().getActiveContainerTokens(),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 			this.registerDecorationAreaSchemeBundle(businessBlueSteelControlBundle,

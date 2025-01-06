@@ -88,54 +88,51 @@ public class RadianceColorSchemeBundle2 {
     }
 
     /**
-     * Registers a color scheme for the specific component state.
+     * Registers container color tokens for the specific active component states.
      *
-     * @param stateColorScheme Color scheme for the specified component state.
-     * @param states           Component states.
+     * @param stateContainerTokens Container color tokens for the specified active component states.
+     * @param activeStates         Component states.
      */
-    public void registerColorScheme(RadianceColorScheme2 stateColorScheme, ComponentState... states) {
-        this.registerColorScheme(stateColorScheme,
+    public void registerContainerTokens(ContainerColorTokens stateContainerTokens,
+        ComponentState... activeStates) {
+        this.registerContainerTokens(stateContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-            states);
+            activeStates);
     }
 
     /**
-     * Registers the color scheme to be used for the specified visual area of
-     * controls under the specified states. For example, if the light orange
-     * scheme has to be used for gradient fill for rollover selected and rollover
-     * controls, the parameters would be:
+     * Registers the container color tokens to be used for controls in specified active states.
+     * For example, if light orange color tokens are to be used for rollover selected and rollover
+     * controls in highlights, the parameters would be:
      *
      * <ul>
-     * <li><code>scheme</code>=light orange scheme</li>
-     * <li>
-     * <code>associationKind</code>={@link RadianceThemingSlices.ColorSchemeAssociationKind#FILL}</li>
-     * <li>
-     * <code>states</code>={@link ComponentState#ROLLOVER_SELECTED},
-     * {@link ComponentState#ROLLOVER_UNSELECTED}</li>
+     * <li><code>stateContainerTokens</code>=light orange color tokens</li>
+     * <li><code>associationKind</code>={@link RadianceThemingSlices.ContainerColorTokensAssociationKind#HIGHLIGHT}</li>
+     * <li><code>states</code>={@link ComponentState#ROLLOVER_SELECTED}, {@link ComponentState#ROLLOVER_UNSELECTED}</li>
      * </ul>
      *
-     * @param scheme          Color scheme.
+     * @param stateContainerTokens Container color tokens for the specified active component states.
      * @param associationKind Color scheme association kind that specifies the visual areas
      *                        of controls to be painted with this color scheme.
-     * @param states          Component states that further restrict the usage of the
+     * @param activeStates          Component states that further restrict the usage of the
      *                        specified color scheme.
      */
-    public void registerColorScheme(RadianceColorScheme2 scheme,
+    public void registerContainerTokens(ContainerColorTokens stateContainerTokens,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        ComponentState... states) {
-        if (scheme == null) {
-            throw new IllegalArgumentException("Cannot pass null color scheme");
+        ComponentState... activeStates) {
+        if (stateContainerTokens == null) {
+            throw new IllegalArgumentException("Cannot pass null color tokens");
         }
 
-        if ((states == null) || (states.length == 0)) {
+        if ((activeStates == null) || (activeStates.length == 0)) {
             throw new IllegalArgumentException("Must pass at least one state");
         }
 
-        for (ComponentState state : states) {
+        for (ComponentState state : activeStates) {
             if (state.isDisabled() || !state.isActive()) {
                 throw new IllegalArgumentException("Only active states can have custom color schemes");
             }
-            this.colorTokensForActiveStates.get(associationKind).put(state, scheme.getActiveContainerTokens());
+            this.colorTokensForActiveStates.get(associationKind).put(state, stateContainerTokens);
         }
     }
 
@@ -190,16 +187,17 @@ public class RadianceColorSchemeBundle2 {
     }
 
     /**
-     * Returns the color scheme to be used for painting the specified visual
-     * area of the component under the specified component state.
+     * Returns the color tokens to be used for painting components under the specified component
+     * state.
      *
      * @param associationKind Color scheme association kind.
      * @param componentState  Component state.
-     * @param allowFallback   If true, this method will return a color scheme for the fallback
+     * @param allowFallback   If true, this method will return color tokens for the fallback
      *                        association kind.
-     * @return Color scheme to be used for painting the specified visual area of
+     * @return Color tokens to be used for painting the specified visual area of
      * the component under the specified component state.
-     * @see #registerColorScheme(RadianceColorScheme2, ComponentState...)
+     * @see #registerContainerTokens(ContainerColorTokens, ComponentState...)
+     * @see #registerContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
      */
     public ContainerColorTokens getContainerTokens(
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
