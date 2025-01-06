@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.palette;
 
 import org.pushingpixels.ephemeral.chroma.blend.Blend;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
@@ -44,7 +45,7 @@ public class ColorSchemeUtils {
         TONAL, PRIMARY
     }
 
-   private static ContainerColorTokens getContainerTokens(
+    private static ContainerColorTokens getContainerTokens(
         DynamicScheme dynamicScheme, SchemeContainerColorsResolver tonalContainerColorResolver) {
 
         return new ContainerColorTokens() {
@@ -96,6 +97,77 @@ public class ColorSchemeUtils {
             @Override
             public Color getContainerOutlineVariant() {
                 return tonalContainerColorResolver.getContainerOutlineVariant(dynamicScheme);
+            }
+
+            @Override
+            public float getContainerSurfaceDisabledAlpha() {
+                return 0.3f;
+            }
+
+            @Override
+            public float getOnContainerDisabledAlpha() {
+                return 0.45f;
+            }
+
+            @Override
+            public float getContainerOutlineDisabledAlpha() {
+                return 0.35f;
+            }
+        };
+    }
+
+    private static ContainerColorTokens getContainerTokens(
+        DynamicPalette dynamicPalette, PaletteContainerColorsResolver colorResolver) {
+
+        return new ContainerColorTokens() {
+            @Override
+            public boolean isDark() {
+                return dynamicPalette.isDark;
+            }
+
+            @Override
+            public Color getContainerSurfaceLowest() {
+                return colorResolver.getContainerSurfaceLowest(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceLow() {
+                return colorResolver.getContainerSurfaceLow(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurface() {
+                return colorResolver.getContainerSurface(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceHigh() {
+                return colorResolver.getContainerSurfaceHigh(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceHighest() {
+                return colorResolver.getContainerSurfaceHighest(dynamicPalette);
+            }
+
+            @Override
+            public Color getOnContainer() {
+                return colorResolver.getOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getOnContainerVariant() {
+                return colorResolver.getOnContainerVariant(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerOutline() {
+                return colorResolver.getContainerOutline(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerOutlineVariant() {
+                return colorResolver.getContainerOutlineVariant(dynamicPalette);
             }
 
             @Override
@@ -826,6 +898,30 @@ public class ColorSchemeUtils {
             palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
 
         return result;
+    }
+
+    public static ContainerColorTokens getLightContainerTokens(Hct sourceColorHct,
+        boolean isFidelity, TonalPalette palette, ActiveStatesContainerType activeStatesContainerType) {
+
+        DynamicPalette dynamicPalette = new DynamicPalette(
+            /* sourceColorHct */ sourceColorHct,
+            /* isFidelity */ isFidelity,
+            /* isDark */ false,
+            /* contrastLevel */ 0.0,
+            /* palette */ palette);
+
+        PaletteContainerColorsResolver paletteColorResolver =
+            PaletteResolverUtils.getPaletteColorResolver();
+
+        return getContainerTokens(dynamicPalette, paletteColorResolver);
+    }
+
+    public static ContainerColorTokens getLightTonalFidelityContainerTokens(Hct seed) {
+        return ColorSchemeUtils.getLightContainerTokens(
+            /* sourceColorHct */ seed,
+            /* isFidelity */ true,
+            /* palette */ TonalPalette.fromHct(seed),
+            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL);
     }
 
     public static ContainerColorTokens tint(ContainerColorTokens original, float tintFactor) {
