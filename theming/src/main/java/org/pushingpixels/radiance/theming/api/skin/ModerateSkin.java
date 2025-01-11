@@ -117,7 +117,11 @@ public class ModerateSkin extends RadianceSkin {
                 /* isDark */ false,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
             ContainerColorTokens steelBlueHighlightContainerTokens =
-                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFF1D59A));
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFF1D59A),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
             RadianceColorScheme2 steelBlueHeaderColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
@@ -126,7 +130,11 @@ public class ModerateSkin extends RadianceSkin {
                 /* isDark */ false,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
             ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
-                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFF6EA7CA));
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF6EA7CA),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
             RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(

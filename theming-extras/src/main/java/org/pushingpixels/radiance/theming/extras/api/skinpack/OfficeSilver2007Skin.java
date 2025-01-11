@@ -283,16 +283,31 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             RadianceColorSchemeBundle2 officeSilverDefaultBundle =
                 new RadianceColorSchemeBundle2(officeSilverColorScheme);
 
-            ContainerColorTokens rolloverContainerTokens =
-                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFFD111));
-            ContainerColorTokens selectedContainerTokens =
-                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFFBD51));
-            ContainerColorTokens rolloverSelectedContainerTokens =
-                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFFA400));
-            ContainerColorTokens pressedContainerTokens =
-                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFF8C18));
-            ContainerColorTokens pressedSelectedContainerTokens =
-                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFFF991C));
+            ContainerColorTokens rolloverContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFD111),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+            ContainerColorTokens selectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFBD51),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+            ContainerColorTokens rolloverSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFA400),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+            ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF8C18),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+            ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF991C),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
             // register state-specific color schemes on rollovers, presses and selections
             officeSilverDefaultBundle.registerContainerTokens(rolloverContainerTokens,

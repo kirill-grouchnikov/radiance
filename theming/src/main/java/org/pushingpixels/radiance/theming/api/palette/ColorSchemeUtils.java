@@ -116,77 +116,6 @@ public class ColorSchemeUtils {
         };
     }
 
-    private static ContainerColorTokens getContainerTokens(
-        DynamicPalette dynamicPalette, PaletteContainerColorsResolver colorResolver) {
-
-        return new ContainerColorTokens() {
-            @Override
-            public boolean isDark() {
-                return dynamicPalette.isDark;
-            }
-
-            @Override
-            public Color getContainerSurfaceLowest() {
-                return colorResolver.getContainerSurfaceLowest(dynamicPalette);
-            }
-
-            @Override
-            public Color getContainerSurfaceLow() {
-                return colorResolver.getContainerSurfaceLow(dynamicPalette);
-            }
-
-            @Override
-            public Color getContainerSurface() {
-                return colorResolver.getContainerSurface(dynamicPalette);
-            }
-
-            @Override
-            public Color getContainerSurfaceHigh() {
-                return colorResolver.getContainerSurfaceHigh(dynamicPalette);
-            }
-
-            @Override
-            public Color getContainerSurfaceHighest() {
-                return colorResolver.getContainerSurfaceHighest(dynamicPalette);
-            }
-
-            @Override
-            public Color getOnContainer() {
-                return colorResolver.getOnContainer(dynamicPalette);
-            }
-
-            @Override
-            public Color getOnContainerVariant() {
-                return colorResolver.getOnContainerVariant(dynamicPalette);
-            }
-
-            @Override
-            public Color getContainerOutline() {
-                return colorResolver.getContainerOutline(dynamicPalette);
-            }
-
-            @Override
-            public Color getContainerOutlineVariant() {
-                return colorResolver.getContainerOutlineVariant(dynamicPalette);
-            }
-
-            @Override
-            public float getContainerSurfaceDisabledAlpha() {
-                return 0.3f;
-            }
-
-            @Override
-            public float getOnContainerDisabledAlpha() {
-                return 0.45f;
-            }
-
-            @Override
-            public float getContainerOutlineDisabledAlpha() {
-                return 0.35f;
-            }
-        };
-    }
-
     private static ContainerColorTokens getRolloverUnselectedTokens(
         RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 20% of surface bright on top of base
@@ -571,65 +500,116 @@ public class ColorSchemeUtils {
         };
     }
 
-    public static ContainerColorTokens getLightTonalContainerTokens(Hct sourceColorHct,
-        boolean isFidelity, TonalPalette palette) {
+    public static ContainerColorTokens getContainerTokens(
+        Hct seed,
+        boolean isFidelity,
+        boolean isDark,
+        PaletteContainerColorsResolver colorResolver) {
 
         DynamicPalette dynamicPalette = new DynamicPalette(
-            /* sourceColorHct */ sourceColorHct,
+            /* sourceColorHct */ seed,
             /* isFidelity */ isFidelity,
-            /* isDark */ false,
+            /* isDark */ isDark,
             /* contrastLevel */ 0.0,
-            /* palette */ palette);
-
-        PaletteContainerColorsResolver paletteColorResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver();
-
-        return getContainerTokens(dynamicPalette, paletteColorResolver);
-    }
-
-    public static ContainerColorTokens getLightTonalFidelityContainerTokens(Hct seed) {
-        return ColorSchemeUtils.getLightTonalContainerTokens(
-            /* sourceColorHct */ seed,
-            /* isFidelity */ true,
             /* palette */ TonalPalette.fromHct(seed));
+
+        return new ContainerColorTokens() {
+            @Override
+            public boolean isDark() {
+                return dynamicPalette.isDark;
+            }
+
+            @Override
+            public Color getContainerSurfaceLowest() {
+                return colorResolver.getContainerSurfaceLowest(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceLow() {
+                return colorResolver.getContainerSurfaceLow(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurface() {
+                return colorResolver.getContainerSurface(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceHigh() {
+                return colorResolver.getContainerSurfaceHigh(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceHighest() {
+                return colorResolver.getContainerSurfaceHighest(dynamicPalette);
+            }
+
+            @Override
+            public Color getOnContainer() {
+                return colorResolver.getOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getOnContainerVariant() {
+                return colorResolver.getOnContainerVariant(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerOutline() {
+                return colorResolver.getContainerOutline(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerOutlineVariant() {
+                return colorResolver.getContainerOutlineVariant(dynamicPalette);
+            }
+
+            @Override
+            public float getContainerSurfaceDisabledAlpha() {
+                return 0.3f;
+            }
+
+            @Override
+            public float getOnContainerDisabledAlpha() {
+                return 0.45f;
+            }
+
+            @Override
+            public float getContainerOutlineDisabledAlpha() {
+                return 0.35f;
+            }
+        };
     }
 
-    public static ContainerColorTokens getLightTonalBalancedContainerTokens(Hct seed) {
-        return ColorSchemeUtils.getLightTonalContainerTokens(
-            /* sourceColorHct */ seed,
-            /* isFidelity */ false,
-            /* palette */ TonalPalette.fromHct(seed));
-    }
-
-    public static ExtendedContainerColorTokens getLightTonalExtendedContainerTokens(
-        Hct sourceColorHct, boolean isFidelity, TonalPalette palette) {
+    public static ExtendedContainerColorTokens getExtendedContainerTokens(
+        Hct seed,
+        boolean isFidelity,
+        boolean isDark,
+        PaletteContainerColorsResolver colorResolver) {
 
         DynamicPalette dynamicPalette = new DynamicPalette(
-            /* sourceColorHct */ sourceColorHct,
+            /* sourceColorHct */ seed,
             /* isFidelity */ isFidelity,
-            /* isDark */ false,
+            /* isDark */ isDark,
             /* contrastLevel */ 0.0,
-            /* palette */ palette);
+            /* palette */ TonalPalette.fromHct(seed));
 
-        PaletteContainerColorsResolver paletteColorResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver();
-
-        ContainerColorTokens baseTokens = getContainerTokens(dynamicPalette, paletteColorResolver);
+        ContainerColorTokens baseTokens = getContainerTokens(seed, isFidelity, isDark, colorResolver);
 
         return new ExtendedContainerColorTokens() {
             @Override
             public Color getSurface() {
-                return paletteColorResolver.getSurface(dynamicPalette);
+                return colorResolver.getSurface(dynamicPalette);
             }
 
             @Override
             public Color getSurfaceDim() {
-                return paletteColorResolver.getSurfaceDim(dynamicPalette);
+                return colorResolver.getSurfaceDim(dynamicPalette);
             }
 
             @Override
             public Color getSurfaceBright() {
-                return paletteColorResolver.getSurfaceBright(dynamicPalette);
+                return colorResolver.getSurfaceBright(dynamicPalette);
             }
 
             @Override
@@ -637,20 +617,6 @@ public class ColorSchemeUtils {
                 return baseTokens;
             }
         };
-    }
-
-    public static ExtendedContainerColorTokens getLightTonalFidelityExtendedContainerTokens(Hct seed) {
-        return ColorSchemeUtils.getLightTonalExtendedContainerTokens(
-            /* sourceColorHct */ seed,
-            /* isFidelity */ true,
-            /* palette */ TonalPalette.fromHct(seed));
-    }
-
-    public static ExtendedContainerColorTokens getLightTonalBalancedExtendedContainerTokens(Hct seed) {
-        return ColorSchemeUtils.getLightTonalExtendedContainerTokens(
-            /* sourceColorHct */ seed,
-            /* isFidelity */ false,
-            /* palette */ TonalPalette.fromHct(seed));
     }
 
     public static ContainerColorTokens tint(ContainerColorTokens original, float tintFactor) {

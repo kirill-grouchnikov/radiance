@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
@@ -71,16 +72,22 @@ public class BusinessSkin extends BusinessAccentedSkin {
                     /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                     /* isDark */ false,
                     /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
-                .withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedContainerTokens(
-                    Hct.fromInt(0xFFEBD296)))
+                .withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFEBD296),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()))
                 .withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                             Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
                     /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                     /* isDark */ false,
                     /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
-                .withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedContainerTokens(
-                    Hct.fromInt(0xFFEBD296))));
+                .withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFEBD296),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
         }
 
         @Override

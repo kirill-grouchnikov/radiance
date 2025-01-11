@@ -110,7 +110,11 @@ public class SaharaSkin extends RadianceSkin {
 				/* isDark */ false,
 				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 			ContainerColorTokens desertHighlightContainerTokens =
-				ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFCAD0BE));
+				ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFCAD0BE),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
 			RadianceColorScheme2 desertHeaderColorScheme = ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
@@ -119,7 +123,11 @@ public class SaharaSkin extends RadianceSkin {
 				/* isDark */ false,
 				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 			ContainerColorTokens desertHeaderHighlightContainerTokens =
-				ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFB2BC91));
+				ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFB2BC91),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
 			RadianceColorSchemeBundle2 desertSandDefaultBundle =
 				new RadianceColorSchemeBundle2(desertSandColorScheme);

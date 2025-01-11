@@ -33,6 +33,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
@@ -115,17 +116,22 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
 					/* isDark */ true,
 					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
-				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalFidelityContainerTokens(
-					Hct.fromInt(0xFF85A3B5)))
-				.withActiveControlsAccent(
-					ColorSchemeUtils.getColorScheme(
-						/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-							Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
-						/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
-						/* isDark */ false,
-						/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
-				.withHighlightsAccent(ColorSchemeUtils.getLightTonalFidelityContainerTokens(
-					Hct.fromInt(0xFFA1BCCF))));
+				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFF85A3B5),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()))
+				.withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
+					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+						Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
+					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* isDark */ false,
+					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+				.withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFA1BCCF),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
 
 			RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(

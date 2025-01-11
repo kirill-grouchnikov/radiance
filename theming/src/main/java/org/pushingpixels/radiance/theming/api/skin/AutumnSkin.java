@@ -40,10 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.*;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -179,7 +176,11 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceColorSchemeBundle2 autumnControlPaneBundle =
 				new RadianceColorSchemeBundle2(autumnControlPaneColorScheme);
 			this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
-				ColorSchemeUtils.getLightTonalFidelityExtendedContainerTokens(Hct.fromInt(0xFFFED8B2)),
+				ColorSchemeUtils.getExtendedContainerTokens(
+					/* seed */ Hct.fromInt(0xFFFED8B2),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
 				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 			this.buttonShaper = new ClassicButtonShaper();

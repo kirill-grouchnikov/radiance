@@ -43,10 +43,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDeco
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 
@@ -108,12 +105,20 @@ public class ControlStates extends JFrame {
             RadianceColorSchemeBundle2 bundle2 = new RadianceColorSchemeBundle2(lightColorScheme);
 
             bundle2.registerContainerTokens(
-                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFF20F490)),
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF20F490),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.getActiveStates());
 
             bundle2.registerContainerTokens(
-                ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFF20F490)),
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF20F490),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
 
