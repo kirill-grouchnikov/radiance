@@ -32,13 +32,13 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            url "https://plugins.gradle.org/m2/"
+            url = "https://plugins.gradle.org/m2/"
         }
         maven {
-            url "https://maven.pkg.jetbrains.space/kotlin/p/dokka/dev"
+            url = "https://maven.pkg.jetbrains.space/kotlin/p/dokka/dev"
         }
         maven {
-            url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven"
+            url = "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven"
         }
     }
     dependencies {
@@ -56,13 +56,13 @@ allprojects {
         mavenLocal()
         mavenCentral()
         maven {
-            url "https://maven.pkg.jetbrains.space/kotlin/p/dokka/dev"
+            url = "https://maven.pkg.jetbrains.space/kotlin/p/dokka/dev"
         }
         maven {
-            url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven"
+            url = "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven"
         }
         maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots"
+            url = "https://oss.sonatype.org/content/repositories/snapshots"
         }
     }
 
@@ -177,7 +177,7 @@ task getDemoDependencies(type: Copy) {
 
 // Collects all the dependencies of the demo modules in build/libs-demo
 task getToolsDependencies(type: Copy) {
-    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     into 'build/libs-tools'
     from {
         subprojects.findAll { it.designation == "tools" && it.name != "tools" }.collect { it.configurations.compileClasspath }
