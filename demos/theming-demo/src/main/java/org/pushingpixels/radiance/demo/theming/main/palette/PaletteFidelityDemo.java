@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -56,10 +57,18 @@ public class PaletteFidelityDemo extends JFrame {
 
         int row = 1;
 
-        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightTonalFidelityColorScheme(
-            Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4));
-        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getDarkTonalFidelityColorScheme(
-            Hct.fromInt(0xFF663E00), Hct.fromInt(0xFF402200), Hct.fromInt(0xFF201200));
+        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4)),
+            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+            /* isDark */ false,
+            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                Hct.fromInt(0xFF663E00), Hct.fromInt(0xFF402200), Hct.fromInt(0xFF201200)),
+            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+            /* isDark */ true,
+            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
         builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
         builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);

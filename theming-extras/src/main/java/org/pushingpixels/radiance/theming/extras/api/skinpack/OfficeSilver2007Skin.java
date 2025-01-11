@@ -46,10 +46,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPain
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -277,9 +274,12 @@ public class OfficeSilver2007Skin extends RadianceSkin {
         public static final String NAME = "Office Silver 2007 Tonal";
 
         public OfficeSilver2007TonalSkin() {
-            RadianceColorScheme2 officeSilverColorScheme =
-                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFC6CACF),
-                    Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5));
+            RadianceColorScheme2 officeSilverColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5)),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ false,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
             RadianceColorSchemeBundle2 officeSilverDefaultBundle =
                 new RadianceColorSchemeBundle2(officeSilverColorScheme);
 
@@ -320,16 +320,22 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             this.registerDecorationAreaSchemeBundle(officeSilverDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
-            RadianceColorScheme2 officeSilverHeaderColorScheme =
-                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFCFD4DE),
-                    Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFDDDEE1));
+            RadianceColorScheme2 officeSilverHeaderColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFCFD4DE), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFDDDEE1)),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ false,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
             this.registerAsDecorationArea(
                 officeSilverHeaderColorScheme.getExtendedTonalContainerTokens(),
                 DecorationAreaType.FOOTER, DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR);
 
-            RadianceColorScheme2 officeSilverTitleColorScheme =
-                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFC6CACF),
-                    Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFCFCFD0));
+            RadianceColorScheme2 officeSilverTitleColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFCFCFD0)),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ false,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
             this.registerAsDecorationArea(
                 officeSilverTitleColorScheme.getExtendedTonalContainerTokens(),
                 DecorationAreaType.CONTROL_PANE, DecorationAreaType.PRIMARY_TITLE_PANE,

@@ -187,350 +187,6 @@ public class ColorSchemeUtils {
         };
     }
 
-    public static RadianceColorScheme2 getLightColorScheme(
-        Palettes palettes, ActiveStatesContainerType activeStatesContainerType) {
-
-        DynamicScheme lightScheme = new DynamicScheme(
-            /* primarySourceColorHct */ palettes.getPrimarySourceHct(),
-            /* mutedSourceColorHct */ palettes.getMutedSourceHct(),
-            /* neutralSourceColorHct */ palettes.getNeutralSourceHct(),
-            /* isFidelity */ palettes.isFidelity(),
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
-            /* primaryPalette */ palettes.getPrimaryPalette(),
-            /* mutedPalette */ palettes.getMutedPalette(),
-            /* neutralPalette */ palettes.getNeutralPalette(),
-            /* systemInfoPalette */ palettes.getSystemInfoPalette(),
-            /* systemWarningPalette */ palettes.getSystemWarningPalette(),
-            /* systemErrorPalette */ palettes.getSystemErrorPalette(),
-            /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
-            /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
-
-        SchemeColorResolver schemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-
-        ContainerColorTokens neutralContainerTokens = getContainerTokens(
-            lightScheme, schemeColorResolver.getNeutralContainerResolver());
-        ContainerColorTokens mutedContainerTokens = getContainerTokens(
-            lightScheme, schemeColorResolver.getMutedContainerResolver());
-        ContainerColorTokens tonalContainerTokens = getContainerTokens(
-            lightScheme, schemeColorResolver.getTonalContainerResolver());
-        ContainerColorTokens primaryContainerTokens = getContainerTokens(
-            lightScheme, schemeColorResolver.getPrimaryContainerResolver());
-
-        ContainerColorTokens systemInfoContainerTokens = getContainerTokens(
-            lightScheme, schemeColorResolver.getSystemInfoContainerResolver());
-        ContainerColorTokens systemWarningContainerTokens = getContainerTokens(
-            lightScheme, schemeColorResolver.getSystemWarningContainerResolver());
-        ContainerColorTokens systemErrorContainerTokens = getContainerTokens(
-            lightScheme, schemeColorResolver.getSystemErrorContainerResolver());
-        ContainerColorTokens systemSuccessContainerTokens = getContainerTokens(
-            lightScheme, schemeColorResolver.getSystemSuccessContainerResolver());
-        ContainerColorTokens systemEmergencyContainerTokens = getContainerTokens(
-            lightScheme, schemeColorResolver.getSystemEmergencyContainerResolver());
-
-        return new RadianceColorScheme2() {
-            private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
-
-            @Override
-            public Color getSurface() {
-                return schemeColorResolver.getSurface(lightScheme);
-            }
-
-            @Override
-            public Color getSurfaceDim() {
-                return schemeColorResolver.getSurfaceDim(lightScheme);
-            }
-
-            @Override
-            public Color getSurfaceBright() {
-                return schemeColorResolver.getSurfaceBright(lightScheme);
-            }
-
-            @Override
-            public ContainerColorTokens getNeutralContainerTokens() {
-                return neutralContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getMutedContainerTokens() {
-                return mutedContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getTonalContainerTokens() {
-                return tonalContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getPrimaryContainerTokens() {
-                return primaryContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getActiveContainerTokens() {
-                return (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
-                    ? this.getPrimaryContainerTokens()
-                    : this.getTonalContainerTokens();
-            }
-
-            @Override
-            public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
-                if (componentState.isDisabled()) {
-                    // TODO: TONAL - finalize this
-                    return getContainerTokensForState(componentState.getEnabledMatch());
-                }
-
-                ContainerColorTokens defaultActive = getActiveContainerTokens();
-                if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
-                    (componentState == ComponentState.ARMED)) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getPressedUnselectedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.PRESSED_SELECTED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getPressedSelectedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.SELECTED) {
-                    return defaultActive;
-                }
-                if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getRolloverUnselectedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.ROLLOVER_SELECTED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getRolloverSelectedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.ROLLOVER_ARMED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getRolloverArmedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-
-                ComponentState hardFallback = componentState.getHardFallback();
-                if (hardFallback != null) {
-                    return this.getContainerTokensForState(hardFallback);
-                }
-
-                if (componentState == ComponentState.ENABLED) {
-                    return getMutedContainerTokens();
-                }
-                return defaultActive;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemInfoContainerTokens() {
-                return systemInfoContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemWarningContainerTokens() {
-                return systemWarningContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemErrorContainerTokens() {
-                return systemErrorContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemSuccessContainerTokens() {
-                return systemSuccessContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemEmergencyContainerTokens() {
-                return systemEmergencyContainerTokens;
-            }
-        };
-    }
-
-    public static RadianceColorScheme2 getDarkColorScheme(
-        Palettes palettes, ActiveStatesContainerType activeStatesContainerType) {
-
-        DynamicScheme darkScheme = new DynamicScheme(
-            /* primarySourceColorHct */ palettes.getPrimarySourceHct(),
-            /* mutedSourceColorHct */ palettes.getMutedSourceHct(),
-            /* neutralSourceColorHct */ palettes.getNeutralSourceHct(),
-            /* isFidelity */ palettes.isFidelity(),
-            /* isDark */ true,
-            /* contrastLevel */ 0.0,
-            /* primaryPalette */ palettes.getPrimaryPalette(),
-            /* mutedPalette */ palettes.getMutedPalette(),
-            /* neutralPalette */ palettes.getNeutralPalette(),
-            /* systemInfoPalette */ palettes.getSystemInfoPalette(),
-            /* systemWarningPalette */ palettes.getSystemWarningPalette(),
-            /* systemErrorPalette */ palettes.getSystemErrorPalette(),
-            /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
-            /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
-
-        SchemeColorResolver schemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-
-        ContainerColorTokens neutralContainerTokens = getContainerTokens(
-            darkScheme, schemeColorResolver.getNeutralContainerResolver());
-        ContainerColorTokens mutedContainerTokens = getContainerTokens(
-            darkScheme, schemeColorResolver.getMutedContainerResolver());
-        ContainerColorTokens tonalContainerTokens = getContainerTokens(
-            darkScheme, schemeColorResolver.getTonalContainerResolver());
-        ContainerColorTokens primaryContainerTokens = getContainerTokens(
-            darkScheme, schemeColorResolver.getPrimaryContainerResolver());
-
-        ContainerColorTokens systemInfoContainerTokens = getContainerTokens(
-            darkScheme, schemeColorResolver.getSystemInfoContainerResolver());
-        ContainerColorTokens systemWarningContainerTokens = getContainerTokens(
-            darkScheme, schemeColorResolver.getSystemWarningContainerResolver());
-        ContainerColorTokens systemErrorContainerTokens = getContainerTokens(
-            darkScheme, schemeColorResolver.getSystemErrorContainerResolver());
-        ContainerColorTokens systemSuccessContainerTokens = getContainerTokens(
-            darkScheme, schemeColorResolver.getSystemSuccessContainerResolver());
-        ContainerColorTokens systemEmergencyContainerTokens = getContainerTokens(
-            darkScheme, schemeColorResolver.getSystemEmergencyContainerResolver());
-
-        return new RadianceColorScheme2() {
-            private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
-
-            @Override
-            public Color getSurface() {
-                return schemeColorResolver.getSurface(darkScheme);
-            }
-
-            @Override
-            public Color getSurfaceDim() {
-                return schemeColorResolver.getSurfaceDim(darkScheme);
-            }
-
-            @Override
-            public Color getSurfaceBright() {
-                return schemeColorResolver.getSurfaceBright(darkScheme);
-            }
-
-            @Override
-            public ContainerColorTokens getNeutralContainerTokens() {
-                return neutralContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getMutedContainerTokens() {
-                return mutedContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getTonalContainerTokens() {
-                return tonalContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getPrimaryContainerTokens() {
-                return primaryContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getActiveContainerTokens() {
-                return (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
-                    ? this.getPrimaryContainerTokens()
-                    : this.getTonalContainerTokens();
-            }
-
-            @Override
-            public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
-                if (componentState.isDisabled()) {
-                    // TODO: TONAL - finalize this
-                    return getContainerTokensForState(componentState.getEnabledMatch());
-                }
-
-                ContainerColorTokens defaultActive = getActiveContainerTokens();
-                if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
-                    (componentState == ComponentState.ARMED)) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getPressedUnselectedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.PRESSED_SELECTED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getPressedSelectedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.SELECTED) {
-                    return defaultActive;
-                }
-                if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getRolloverUnselectedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.ROLLOVER_SELECTED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getRolloverSelectedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.ROLLOVER_ARMED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getRolloverArmedTokens(this,
-                            defaultActive));
-                    }
-                    return stateTokens.get(componentState);
-                }
-
-                ComponentState hardFallback = componentState.getHardFallback();
-                if (hardFallback != null) {
-                    return this.getContainerTokensForState(hardFallback);
-                }
-
-                if (componentState == ComponentState.ENABLED) {
-                    return getMutedContainerTokens();
-                }
-                return defaultActive;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemInfoContainerTokens() {
-                return systemInfoContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemWarningContainerTokens() {
-                return systemWarningContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemErrorContainerTokens() {
-                return systemErrorContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemSuccessContainerTokens() {
-                return systemSuccessContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemEmergencyContainerTokens() {
-                return systemEmergencyContainerTokens;
-            }
-        };
-    }
-
     private static ContainerColorTokens getRolloverUnselectedTokens(
         RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 20% of surface bright on top of base
@@ -668,236 +324,251 @@ public class ColorSchemeUtils {
         };
     }
 
-    public static RadianceColorScheme2 getLightTonalBalancedColorScheme(
-        Hct seed, double mutedChroma, double neutralChroma) {
-
-        Hct mutedSeed = Hct.fromInt(seed.toInt());
-        mutedSeed.setChroma(mutedChroma);
-
-        Hct neutralSeed = Hct.fromInt(seed.toInt());
-        neutralSeed.setChroma(neutralChroma);
-
-        return getLightTonalBalancedColorScheme(seed, seed.getChroma(), mutedChroma, neutralChroma);
+    public interface PalettesSource {
+        Palettes getPalettes();
     }
 
-    public static RadianceColorScheme2 getLightTonalBalancedColorScheme(
-        Hct seed, double primaryChroma, double mutedChroma, double neutralChroma) {
+    public static class BalancedPaletteSource implements PalettesSource {
+        private Hct seed;
+        private double primaryChroma;
+        private double mutedChroma;
+        private double neutralChroma;
 
-        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seed.getHue(), primaryChroma);
-        TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(seed.getHue(), mutedChroma);
-        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seed.getHue(), neutralChroma);
+        public BalancedPaletteSource(Hct seed, double mutedChroma, double neutralChroma) {
+            this(seed, seed.getChroma(), mutedChroma, neutralChroma);
+        }
 
-        Palettes palettes = Palettes.builder()
-            .setFidelity(false)
-            .setPrimarySourceHct(seed)
-            .setMutedSourceHct(seed)
-            .setNeutralSourceHct(seed)
-            .setPrimaryPalette(primaryPalette)
-            .setMutedPalette(mutedPalette)
-            .setNeutralPalette(neutralPalette)
-            .build();
+        public BalancedPaletteSource(Hct seed, double primaryChroma, double mutedChroma,
+            double neutralChroma) {
+            this.seed = seed;
+            this.primaryChroma = primaryChroma;
+            this.mutedChroma = mutedChroma;
+            this.neutralChroma = neutralChroma;
+        }
 
-        RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
-            palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+        @Override
+        public Palettes getPalettes() {
+            TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(
+                this.seed.getHue(), this.primaryChroma);
+            TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(
+                this.seed.getHue(), this.mutedChroma);
+            TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(
+                this.seed.getHue(), this.neutralChroma);
 
-        return result;
+            return  Palettes.builder()
+                .setFidelity(false)
+                .setPrimarySourceHct(this.seed)
+                .setMutedSourceHct(this.seed)
+                .setNeutralSourceHct(this.seed)
+                .setPrimaryPalette(primaryPalette)
+                .setMutedPalette(mutedPalette)
+                .setNeutralPalette(neutralPalette)
+                .build();
+        }
     }
 
-    public static RadianceColorScheme2 getLightTonalFidelityColorScheme(
-        Hct primarySeed, Hct mutedSeed, Hct neutralSeed) {
+    public static class FidelityPaletteSource implements PalettesSource {
+        private Hct primarySeed;
+        private Hct mutedSeed;
+        private Hct neutralSeed;
 
-        TonalPalette primaryPalette = TonalPalette.fromHct(primarySeed);
-        TonalPalette mutedPalette = TonalPalette.fromHct(mutedSeed);
-        TonalPalette neutralPalette = TonalPalette.fromHct(neutralSeed);
+        public FidelityPaletteSource(Hct primarySeed, Hct mutedSeed, Hct neutralSeed) {
+            this.primarySeed = primarySeed;
+            this.mutedSeed = mutedSeed;
+            this.neutralSeed = neutralSeed;
+        }
 
-        Palettes palettes = Palettes.builder()
-            .setFidelity(true)
-            .setPrimarySourceHct(primarySeed)
-            .setMutedSourceHct(mutedSeed)
-            .setNeutralSourceHct(neutralSeed)
-            .setPrimaryPalette(primaryPalette)
-            .setMutedPalette(mutedPalette)
-            .setNeutralPalette(neutralPalette)
-            .build();
+        @Override
+        public Palettes getPalettes() {
+            TonalPalette primaryPalette = TonalPalette.fromHct(this.primarySeed);
+            TonalPalette mutedPalette = TonalPalette.fromHct(this.mutedSeed);
+            TonalPalette neutralPalette = TonalPalette.fromHct(this.neutralSeed);
 
-        RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
-            palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
-
-        return result;
+            return Palettes.builder()
+                .setFidelity(true)
+                .setPrimarySourceHct(this.primarySeed)
+                .setMutedSourceHct(this.mutedSeed)
+                .setNeutralSourceHct(this.neutralSeed)
+                .setPrimaryPalette(primaryPalette)
+                .setMutedPalette(mutedPalette)
+                .setNeutralPalette(neutralPalette)
+                .build();
+        }
     }
 
-    public static RadianceColorScheme2 getLightPrimaryBalancedColorScheme(
-        Hct seed, double mutedChroma, double neutralChroma) {
+    public static RadianceColorScheme2 getColorScheme(
+        PalettesSource palettesSource,
+        ActiveStatesContainerType activeStatesContainerType,
+        boolean isDark,
+        SchemeColorResolver schemeColorResolver) {
 
-        Hct mutedSeed = Hct.fromInt(seed.toInt());
-        mutedSeed.setChroma(mutedChroma);
+        Palettes palettes = palettesSource.getPalettes();
 
-        Hct neutralSeed = Hct.fromInt(seed.toInt());
-        neutralSeed.setChroma(neutralChroma);
+        DynamicScheme scheme = new DynamicScheme(
+            /* primarySourceColorHct */ palettes.getPrimarySourceHct(),
+            /* mutedSourceColorHct */ palettes.getMutedSourceHct(),
+            /* neutralSourceColorHct */ palettes.getNeutralSourceHct(),
+            /* isFidelity */ palettes.isFidelity(),
+            /* isDark */ isDark,
+            /* contrastLevel */ 0.0,
+            /* primaryPalette */ palettes.getPrimaryPalette(),
+            /* mutedPalette */ palettes.getMutedPalette(),
+            /* neutralPalette */ palettes.getNeutralPalette(),
+            /* systemInfoPalette */ palettes.getSystemInfoPalette(),
+            /* systemWarningPalette */ palettes.getSystemWarningPalette(),
+            /* systemErrorPalette */ palettes.getSystemErrorPalette(),
+            /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
+            /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
 
-        return getLightPrimaryBalancedColorScheme(seed, seed.getChroma(), mutedChroma, neutralChroma);
-    }
+        ContainerColorTokens neutralContainerTokens = getContainerTokens(
+            scheme, schemeColorResolver.getNeutralContainerResolver());
+        ContainerColorTokens mutedContainerTokens = getContainerTokens(
+            scheme, schemeColorResolver.getMutedContainerResolver());
+        ContainerColorTokens tonalContainerTokens = getContainerTokens(
+            scheme, schemeColorResolver.getTonalContainerResolver());
+        ContainerColorTokens primaryContainerTokens = getContainerTokens(
+            scheme, schemeColorResolver.getPrimaryContainerResolver());
 
-    public static RadianceColorScheme2 getLightPrimaryBalancedColorScheme(
-        Hct seed, double primaryChroma, double mutedChroma, double neutralChroma) {
+        ContainerColorTokens systemInfoContainerTokens = getContainerTokens(
+            scheme, schemeColorResolver.getSystemInfoContainerResolver());
+        ContainerColorTokens systemWarningContainerTokens = getContainerTokens(
+            scheme, schemeColorResolver.getSystemWarningContainerResolver());
+        ContainerColorTokens systemErrorContainerTokens = getContainerTokens(
+            scheme, schemeColorResolver.getSystemErrorContainerResolver());
+        ContainerColorTokens systemSuccessContainerTokens = getContainerTokens(
+            scheme, schemeColorResolver.getSystemSuccessContainerResolver());
+        ContainerColorTokens systemEmergencyContainerTokens = getContainerTokens(
+            scheme, schemeColorResolver.getSystemEmergencyContainerResolver());
 
-        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seed.getHue(), primaryChroma);
-        TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(seed.getHue(), mutedChroma);
-        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seed.getHue(), neutralChroma);
+        return new RadianceColorScheme2() {
+            private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
-        Palettes palettes = Palettes.builder()
-            .setFidelity(false)
-            .setPrimarySourceHct(seed)
-            .setMutedSourceHct(seed)
-            .setNeutralSourceHct(seed)
-            .setPrimaryPalette(primaryPalette)
-            .setMutedPalette(mutedPalette)
-            .setNeutralPalette(neutralPalette)
-            .build();
+            @Override
+            public Color getSurface() {
+                return schemeColorResolver.getSurface(scheme);
+            }
 
-        RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
-            palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
+            @Override
+            public Color getSurfaceDim() {
+                return schemeColorResolver.getSurfaceDim(scheme);
+            }
 
-        return result;
-    }
+            @Override
+            public Color getSurfaceBright() {
+                return schemeColorResolver.getSurfaceBright(scheme);
+            }
 
-    public static RadianceColorScheme2 getLightPrimaryFidelityColorScheme(
-        Hct primarySeed, Hct mutedSeed, Hct neutralSeed) {
+            @Override
+            public ContainerColorTokens getNeutralContainerTokens() {
+                return neutralContainerTokens;
+            }
 
-        TonalPalette primaryPalette = TonalPalette.fromHct(primarySeed);
-        TonalPalette mutedPalette = TonalPalette.fromHct(mutedSeed);
-        TonalPalette neutralPalette = TonalPalette.fromHct(neutralSeed);
+            @Override
+            public ContainerColorTokens getMutedContainerTokens() {
+                return mutedContainerTokens;
+            }
 
-        Palettes palettes = Palettes.builder()
-            .setFidelity(true)
-            .setPrimarySourceHct(primarySeed)
-            .setMutedSourceHct(mutedSeed)
-            .setNeutralSourceHct(neutralSeed)
-            .setPrimaryPalette(primaryPalette)
-            .setMutedPalette(mutedPalette)
-            .setNeutralPalette(neutralPalette)
-            .build();
+            @Override
+            public ContainerColorTokens getTonalContainerTokens() {
+                return tonalContainerTokens;
+            }
 
-        RadianceColorScheme2 result = ColorSchemeUtils.getLightColorScheme(
-            palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
+            @Override
+            public ContainerColorTokens getPrimaryContainerTokens() {
+                return primaryContainerTokens;
+            }
 
-        return result;
-    }
+            @Override
+            public ContainerColorTokens getActiveContainerTokens() {
+                return (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
+                    ? this.getPrimaryContainerTokens()
+                    : this.getTonalContainerTokens();
+            }
 
-    public static RadianceColorScheme2 getDarkTonalBalancedColorScheme(
-        Hct seed, double mutedChroma, double neutralChroma) {
+            @Override
+            public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
+                if (componentState.isDisabled()) {
+                    // TODO: TONAL - finalize this
+                    return getContainerTokensForState(componentState.getEnabledMatch());
+                }
 
-        Hct mutedSeed = Hct.fromInt(seed.toInt());
-        mutedSeed.setChroma(mutedChroma);
+                ContainerColorTokens defaultActive = getActiveContainerTokens();
+                if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
+                    (componentState == ComponentState.ARMED)) {
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState, getPressedUnselectedTokens(this,
+                            defaultActive));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.PRESSED_SELECTED) {
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState, getPressedSelectedTokens(this,
+                            defaultActive));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.SELECTED) {
+                    return defaultActive;
+                }
+                if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState, getRolloverUnselectedTokens(this,
+                            defaultActive));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.ROLLOVER_SELECTED) {
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState, getRolloverSelectedTokens(this,
+                            defaultActive));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.ROLLOVER_ARMED) {
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState, getRolloverArmedTokens(this,
+                            defaultActive));
+                    }
+                    return stateTokens.get(componentState);
+                }
 
-        Hct neutralSeed = Hct.fromInt(seed.toInt());
-        neutralSeed.setChroma(neutralChroma);
+                ComponentState hardFallback = componentState.getHardFallback();
+                if (hardFallback != null) {
+                    return this.getContainerTokensForState(hardFallback);
+                }
 
-        return getDarkTonalBalancedColorScheme(seed, seed.getChroma(), mutedChroma, neutralChroma);
-    }
+                if (componentState == ComponentState.ENABLED) {
+                    return getMutedContainerTokens();
+                }
+                return defaultActive;
+            }
 
-    public static RadianceColorScheme2 getDarkTonalBalancedColorScheme(
-        Hct seed, double primaryChroma, double mutedChroma, double neutralChroma) {
+            @Override
+            public ContainerColorTokens getSystemInfoContainerTokens() {
+                return systemInfoContainerTokens;
+            }
 
-        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seed.getHue(), primaryChroma);
-        TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(seed.getHue(), mutedChroma);
-        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seed.getHue(), neutralChroma);
+            @Override
+            public ContainerColorTokens getSystemWarningContainerTokens() {
+                return systemWarningContainerTokens;
+            }
 
-        Palettes palettes = Palettes.builder()
-            .setFidelity(false)
-            .setPrimarySourceHct(seed)
-            .setMutedSourceHct(seed)
-            .setNeutralSourceHct(seed)
-            .setPrimaryPalette(primaryPalette)
-            .setMutedPalette(mutedPalette)
-            .setNeutralPalette(neutralPalette)
-            .build();
+            @Override
+            public ContainerColorTokens getSystemErrorContainerTokens() {
+                return systemErrorContainerTokens;
+            }
 
-        RadianceColorScheme2 result = ColorSchemeUtils.getDarkColorScheme(
-            palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
+            @Override
+            public ContainerColorTokens getSystemSuccessContainerTokens() {
+                return systemSuccessContainerTokens;
+            }
 
-        return result;
-    }
-
-    public static RadianceColorScheme2 getDarkTonalFidelityColorScheme(
-        Hct primarySeed, Hct mutedSeed, Hct neutralSeed) {
-
-        TonalPalette primaryPalette = TonalPalette.fromHct(primarySeed);
-        TonalPalette mutedPalette = TonalPalette.fromHct(mutedSeed);
-        TonalPalette neutralPalette = TonalPalette.fromHct(neutralSeed);
-
-        Palettes palettes = Palettes.builder()
-            .setFidelity(true)
-            .setPrimarySourceHct(primarySeed)
-            .setMutedSourceHct(mutedSeed)
-            .setNeutralSourceHct(neutralSeed)
-            .setPrimaryPalette(primaryPalette)
-            .setMutedPalette(mutedPalette)
-            .setNeutralPalette(neutralPalette)
-            .build();
-
-        RadianceColorScheme2 result = ColorSchemeUtils.getDarkColorScheme(
-            palettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
-
-        return result;
-    }
-
-    public static RadianceColorScheme2 getDarkPrimaryBalancedColorScheme(
-        Hct seed, double mutedChroma, double neutralChroma) {
-
-        Hct mutedSeed = Hct.fromInt(seed.toInt());
-        mutedSeed.setChroma(mutedChroma);
-
-        Hct neutralSeed = Hct.fromInt(seed.toInt());
-        neutralSeed.setChroma(neutralChroma);
-
-        return getDarkPrimaryBalancedColorScheme(seed, seed.getChroma(), mutedChroma, neutralChroma);
-    }
-
-    public static RadianceColorScheme2 getDarkPrimaryBalancedColorScheme(
-        Hct seed, double primaryChroma, double mutedChroma, double neutralChroma) {
-
-        TonalPalette primaryPalette = TonalPalette.fromHueAndChroma(seed.getHue(), primaryChroma);
-        TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(seed.getHue(), mutedChroma);
-        TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(seed.getHue(), neutralChroma);
-
-        Palettes palettes = Palettes.builder()
-            .setFidelity(false)
-            .setPrimarySourceHct(seed)
-            .setMutedSourceHct(seed)
-            .setNeutralSourceHct(seed)
-            .setPrimaryPalette(primaryPalette)
-            .setMutedPalette(mutedPalette)
-            .setNeutralPalette(neutralPalette)
-            .build();
-
-        RadianceColorScheme2 result = ColorSchemeUtils.getDarkColorScheme(
-            palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
-
-        return result;
-    }
-
-    public static RadianceColorScheme2 getDarkPrimaryFidelityColorScheme(
-        Hct primarySeed, Hct mutedSeed, Hct neutralSeed) {
-
-        TonalPalette primaryPalette = TonalPalette.fromHct(primarySeed);
-        TonalPalette mutedPalette = TonalPalette.fromHct(mutedSeed);
-        TonalPalette neutralPalette = TonalPalette.fromHct(neutralSeed);
-
-        Palettes palettes = Palettes.builder()
-            .setFidelity(true)
-            .setPrimarySourceHct(primarySeed)
-            .setMutedSourceHct(mutedSeed)
-            .setNeutralSourceHct(neutralSeed)
-            .setPrimaryPalette(primaryPalette)
-            .setMutedPalette(mutedPalette)
-            .setNeutralPalette(neutralPalette)
-            .build();
-
-        RadianceColorScheme2 result = ColorSchemeUtils.getDarkColorScheme(
-            palettes, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
-
-        return result;
+            @Override
+            public ContainerColorTokens getSystemEmergencyContainerTokens() {
+                return systemEmergencyContainerTokens;
+            }
+        };
     }
 
     public static ContainerColorTokens getLightTonalContainerTokens(Hct sourceColorHct,

@@ -41,10 +41,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFi
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -106,15 +103,21 @@ public class SaharaSkin extends RadianceSkin {
 		public static final String NAME = "Sahara Tonal";
 
 		public SaharaTonalSkin() {
-			RadianceColorScheme2 desertSandColorScheme =
-				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFA5BB59),
-					Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB));
+			RadianceColorScheme2 desertSandColorScheme = ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFFA5BB59), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
+				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+				/* isDark */ false,
+				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 			ContainerColorTokens desertHighlightContainerTokens =
 				ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFCAD0BE));
 
-			RadianceColorScheme2 desertHeaderColorScheme =
-				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF99A764),
-					Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB));
+			RadianceColorScheme2 desertHeaderColorScheme = ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFF99A764), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
+				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+				/* isDark */ false,
+				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 			ContainerColorTokens desertHeaderHighlightContainerTokens =
 				ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFB2BC91));
 

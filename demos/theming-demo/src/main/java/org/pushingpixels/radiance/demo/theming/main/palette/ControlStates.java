@@ -45,6 +45,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -98,8 +99,11 @@ public class ControlStates extends JFrame {
                     RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                     RadianceThemingSlices.DecorationAreaType.HEADER);
 
-            RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightTonalBalancedColorScheme(
-                Hct.fromInt(0xFF9020F4), 8.0, 6.0);
+            RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF9020F4), 8.0, 6.0),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ false,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
             RadianceColorSchemeBundle2 bundle2 = new RadianceColorSchemeBundle2(lightColorScheme);
 

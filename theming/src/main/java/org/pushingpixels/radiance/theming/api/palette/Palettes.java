@@ -31,10 +31,6 @@ package org.pushingpixels.radiance.theming.api.palette;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Palettes {
     private boolean isFidelity;
@@ -44,7 +40,6 @@ public class Palettes {
     private TonalPalette primaryPalette;
     private TonalPalette mutedPalette;
     private TonalPalette neutralPalette;
-    private Map<ComponentState, TonalPalette> statePalettes;
     private TonalPalette systemInfoPalette;
     private TonalPalette systemWarningPalette;
     private TonalPalette systemErrorPalette;
@@ -54,7 +49,6 @@ public class Palettes {
     private Palettes(boolean isFidelity,
         Hct primarySourceHct, Hct mutedSourceHct, Hct neutralSourceHct,
         TonalPalette primaryPalette, TonalPalette mutedPalette, TonalPalette neutralPalette,
-        Map<ComponentState, TonalPalette> statePalettes,
         TonalPalette systemInfoPalette, TonalPalette systemWarningPalette, TonalPalette systemErrorPalette,
         TonalPalette systemSuccessPalette, TonalPalette systemEmergencyPalette) {
 
@@ -65,7 +59,6 @@ public class Palettes {
         this.primaryPalette = primaryPalette;
         this.neutralPalette = neutralPalette;
         this.mutedPalette = mutedPalette;
-        this.statePalettes = statePalettes;
         this.systemInfoPalette = systemInfoPalette;
         this.systemWarningPalette = systemWarningPalette;
         this.systemErrorPalette = systemErrorPalette;
@@ -101,10 +94,6 @@ public class Palettes {
         return this.mutedPalette;
     }
 
-    public Map<ComponentState, TonalPalette> getStatePalettes() {
-        return this.statePalettes;
-    }
-
     public TonalPalette getSystemInfoPalette() {
         return this.systemInfoPalette;
     }
@@ -137,7 +126,6 @@ public class Palettes {
         private TonalPalette primaryPalette;
         private TonalPalette mutedPalette;
         private TonalPalette neutralPalette;
-        private Map<ComponentState, TonalPalette> statePalettes = new HashMap<>();
 
         // TODO - TONAL: Does this need to be configured by the app side?
         private TonalPalette systemInfoPalette = TonalPalette.fromInt(0xFF95C1DB);
@@ -181,16 +169,10 @@ public class Palettes {
             return this;
         }
 
-        public Builder setStatePalettes(Map<ComponentState, TonalPalette> statePalettes) {
-            this.statePalettes.clear();
-            this.statePalettes.putAll(statePalettes);
-            return this;
-        }
-
         public Palettes build() {
             return new Palettes(
                 this.isFidelity, this.primarySourceHct, this.mutedSourceHct, this.neutralSourceHct,
-                this.primaryPalette, this.mutedPalette, this.neutralPalette, this.statePalettes,
+                this.primaryPalette, this.mutedPalette, this.neutralPalette,
                 this.systemInfoPalette, this.systemWarningPalette, this.systemErrorPalette,
                 this.systemSuccessPalette, this.systemEmergencyPalette);
         }

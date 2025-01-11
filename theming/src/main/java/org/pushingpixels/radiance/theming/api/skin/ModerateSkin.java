@@ -39,10 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.*;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -113,21 +110,30 @@ public class ModerateSkin extends RadianceSkin {
         public static final String NAME = "Moderate Tonal";
 
         public ModerateTonalSkin() {
-            RadianceColorScheme2 steelBlueColorScheme =
-                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF6CA9CE),
-                    Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
+            RadianceColorScheme2 steelBlueColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF6CA9CE), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ false,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
             ContainerColorTokens steelBlueHighlightContainerTokens =
                 ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFFF1D59A));
 
-            RadianceColorScheme2 steelBlueHeaderColorScheme =
-                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF6D9BBA),
-                    Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
+            RadianceColorScheme2 steelBlueHeaderColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF6D9BBA), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ false,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
             ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
                 ColorSchemeUtils.getLightTonalFidelityContainerTokens(Hct.fromInt(0xFF6EA7CA));
 
-            RadianceColorScheme2 controlPaneColorScheme =
-                ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFD1D3D7),
-                    Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB));
+            RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFD1D3D7), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ false,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
             RadianceColorSchemeBundle2 steelBlueDefaultBundle =
                 new RadianceColorSchemeBundle2(steelBlueColorScheme);

@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
  * <code>Business</code> skin. This class is part of officially supported API.
@@ -64,12 +65,20 @@ public class BusinessSkin extends BusinessAccentedSkin {
 
         public BusinessTonalSkin() {
             super(new AccentBuilder()
-                .withWindowChromeAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                    Hct.fromInt(0xFFBDC8D3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFE4EAF0)))
+                .withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFFBDC8D3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFE4EAF0)),
+                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                    /* isDark */ false,
+                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
                 .withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedContainerTokens(
                     Hct.fromInt(0xFFEBD296)))
-                .withActiveControlsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
-                    Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)))
+                .withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                            Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
+                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                    /* isDark */ false,
+                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
                 .withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedContainerTokens(
                     Hct.fromInt(0xFFEBD296))));
         }

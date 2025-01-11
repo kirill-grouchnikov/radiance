@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
  * <code>Business Blue Steel</code> skin. This class is part of officially supported API.
@@ -98,18 +99,30 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 
 		public BusinessBlueSteelTonalSkin() {
 			super(new AccentBuilder()
-				.withWindowChromeAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
-					Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
+				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
+					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+							Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
+					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* isDark */ false,
+					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
 				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getLightTonalFidelityContainerTokens(
 					Hct.fromInt(0xFF83AFCE)))
-				.withActiveControlsAccent(ColorSchemeUtils.getLightTonalFidelityColorScheme(
-					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)))
+				.withActiveControlsAccent(
+					ColorSchemeUtils.getColorScheme(
+						/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+							Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
+						/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+						/* isDark */ false,
+						/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
 				.withHighlightsAccent(ColorSchemeUtils.getLightTonalBalancedContainerTokens(
 					Hct.fromInt(0xFFEBD296))));
 
-			RadianceColorScheme2 controlPaneColorScheme =
-				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFF94B9D3),
-					Hct.fromInt(0xFFBFCFDB), Hct.fromInt(0xFFBFCFDB));
+			RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFF94B9D3), Hct.fromInt(0xFFBFCFDB), Hct.fromInt(0xFFBFCFDB)),
+				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+				/* isDark */ false,
+				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
 			RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
 				new RadianceColorSchemeBundle2(controlPaneColorScheme);

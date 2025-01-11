@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -56,10 +57,16 @@ public class PaletteBalancedDemo extends JFrame {
 
         int row = 1;
 
-        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightTonalBalancedColorScheme(
-            Hct.fromInt(0xFF76A8C8), 16.0, 10.0);
-        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getDarkTonalBalancedColorScheme(
-            Hct.fromInt(0xFF76A8C8), 16.0, 10.0);
+        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF76A8C8), 16.0, 10.0),
+            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+            /* isDark */ false,
+            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF76A8C8), 16.0, 10.0),
+            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+            /* isDark */ true,
+            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
         builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
         builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);
