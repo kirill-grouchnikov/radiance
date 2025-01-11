@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOve
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -151,9 +152,12 @@ public class AutumnSkin extends RadianceSkin {
 		public static final String NAME = "Autumn Tonal";
 
 		public AutumnTonalSkin() {
-			RadianceColorScheme2 autumnColorScheme =
-				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFFDBD72),
-					Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4));
+			RadianceColorScheme2 autumnColorScheme = ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4)),
+				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+				/* isDark */ false,
+				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
 			RadianceColorSchemeBundle2 autumnDefaultBundle =
 				new RadianceColorSchemeBundle2(autumnColorScheme);
@@ -166,9 +170,12 @@ public class AutumnSkin extends RadianceSkin {
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.HEADER);
 
-			RadianceColorScheme2 autumnControlPaneColorScheme =
-				ColorSchemeUtils.getLightTonalFidelityColorScheme(Hct.fromInt(0xFFFDBD72),
-					Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFDDB9));
+			RadianceColorScheme2 autumnControlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFDDB9)),
+				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+				/* isDark */ false,
+				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 			RadianceColorSchemeBundle2 autumnControlPaneBundle =
 				new RadianceColorSchemeBundle2(autumnControlPaneColorScheme);
 			this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
@@ -176,15 +183,12 @@ public class AutumnSkin extends RadianceSkin {
 				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 			this.buttonShaper = new ClassicButtonShaper();
-			this.fillPainter = new SpecularRectangularFillPainter(new MatteTonalFillPainter(), 1.0f);
+			this.fillPainter = new SpecularRectangularFillPainter(new MatteTonalFillPainter(), 0.5f);
 			this.borderPainter = new CompositeBorderPainter("Autumn",
+				new SubduedTonalBorderPainter(),
 				new DelegateFractionBasedTonalBorderPainter(
-					"Autumn Outer", new ClassicTonalBorderPainter(),
-					new int[]{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
-					scheme -> ColorSchemeUtils.shade(scheme, 0.1f)),
-				new DelegateFractionBasedTonalBorderPainter(
-					"Autumn Inner", new ClassicTonalBorderPainter(),
-					new int[]{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+					"Autumn Inner", new SubduedTonalBorderPainter(),
+					new int[]{0xFFFFFFFF, 0xFFFFFFFF},
 					scheme -> ColorSchemeUtils.tint(scheme, 0.8f)));
 
 			this.highlightFillPainter = new ClassicTonalFillPainter();

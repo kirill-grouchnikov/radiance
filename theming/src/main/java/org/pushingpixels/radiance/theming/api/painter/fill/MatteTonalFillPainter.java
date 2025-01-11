@@ -47,10 +47,11 @@ public class MatteTonalFillPainter extends FractionBasedTonalFillPainter {
 	 * Creates a new matte fill painter.
 	 */
 	public MatteTonalFillPainter() {
-		super("Classic",
-			new float[] {0.0f, 1.0f},
+		super("Matte",
+			new float[] {0.0f, 0.25f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
 				ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
+				ContainerColorTokensSingleColorQuery.CONTAINER,
 				ContainerColorTokensSingleColorQuery.CONTAINER
 			}
 		);
