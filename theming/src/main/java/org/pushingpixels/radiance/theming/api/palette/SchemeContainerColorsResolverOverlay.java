@@ -31,25 +31,49 @@ package org.pushingpixels.radiance.theming.api.palette;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 
-import java.awt.*;
+import java.util.function.Function;
 
-public interface SchemeColorResolver {
-    Color getSurface(DynamicScheme dynamicScheme);
-    Color getSurfaceDim(DynamicScheme dynamicScheme);
-    Color getSurfaceBright(DynamicScheme dynamicScheme);
+public class SchemeContainerColorsResolverOverlay {
+    private Function<DynamicScheme, Integer> containerOutline;
+    private Function<DynamicScheme, Integer> containerOutlineVariant;
 
-    SchemeContainerColorsResolver getNeutralContainerResolver();
-    SchemeContainerColorsResolver getMutedContainerResolver();
-    SchemeContainerColorsResolver getTonalContainerResolver();
-    SchemeContainerColorsResolver getPrimaryContainerResolver();
+    public static Builder builder() {
+        return new Builder();
+    }
 
-    SchemeContainerColorsResolver getSystemInfoContainerResolver();
-    SchemeContainerColorsResolver getSystemWarningContainerResolver();
-    SchemeContainerColorsResolver getSystemErrorContainerResolver();
-    SchemeContainerColorsResolver getSystemSuccessContainerResolver();
-    SchemeContainerColorsResolver getSystemEmergencyContainerResolver();
+    private SchemeContainerColorsResolverOverlay() {}
 
-    default SchemeColorResolver overlayWith(SchemeColorResolverOverlay overlay) {
-        return SchemeResolverUtils.overlayWith(this, overlay);
+    public Function<DynamicScheme, Integer> getContainerOutline() {
+        return this.containerOutline;
+    }
+
+    public Function<DynamicScheme, Integer> getContainerOutlineVariant() {
+        return this.containerOutlineVariant;
+    }
+
+    public final static class Builder {
+        private Function<DynamicScheme, Integer> containerOutline;
+        private Function<DynamicScheme, Integer> containerOutlineVariant;
+
+        private Builder() {}
+
+        public Builder containerOutlineOverlay(
+            Function<DynamicScheme, Integer> containerOutline) {
+            this.containerOutline = containerOutline;
+            return this;
+        }
+
+        public Builder containerOutlineVariantOverlay(
+            Function<DynamicScheme, Integer> containerOutlineVariant) {
+            this.containerOutlineVariant = containerOutlineVariant;
+            return this;
+        }
+
+        public SchemeContainerColorsResolverOverlay build() {
+            SchemeContainerColorsResolverOverlay result = new SchemeContainerColorsResolverOverlay();
+            result.containerOutline = containerOutline;
+            result.containerOutlineVariant = containerOutlineVariant;
+            return result;
+        }
     }
 }

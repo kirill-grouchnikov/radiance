@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.palette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 
 import java.awt.*;
+import java.util.function.Function;
 
 public class SchemeResolverUtils {
    public static SchemeColorResolver getSchemeColorResolver() {
@@ -528,5 +529,137 @@ public class SchemeResolverUtils {
                 return systemEmergencyContainerResolver;
             }
         };
+    }
+
+    public static SchemeContainerColorsResolver overlayWith(SchemeContainerColorsResolver original,
+        SchemeContainerColorsResolverOverlay overlay) {
+       return new SchemeContainerColorsResolver() {
+           @Override
+           public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
+               return original.getContainerSurfaceLowest(dynamicScheme);
+           }
+
+           @Override
+           public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
+               return original.getContainerSurfaceLow(dynamicScheme);
+           }
+
+           @Override
+           public Color getContainerSurface(DynamicScheme dynamicScheme) {
+               return original.getContainerSurface(dynamicScheme);
+           }
+
+           @Override
+           public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
+               return original.getContainerSurfaceHigh(dynamicScheme);
+           }
+
+           @Override
+           public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
+               return original.getContainerSurfaceHighest(dynamicScheme);
+           }
+
+           @Override
+           public Color getOnContainer(DynamicScheme dynamicScheme) {
+               return original.getOnContainer(dynamicScheme);
+           }
+
+           @Override
+           public Color getOnContainerVariant(DynamicScheme dynamicScheme) {
+               return original.getOnContainerVariant(dynamicScheme);
+           }
+
+           @Override
+           public Color getContainerOutline(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Integer> spec = overlay.getContainerOutline();
+               if (spec == null) {
+                   return original.getContainerOutline(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
+           }
+
+           @Override
+           public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Integer> spec = overlay.getContainerOutlineVariant();
+               if (spec == null) {
+                   return original.getContainerOutlineVariant(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
+           }
+       };
+    }
+
+    public static SchemeColorResolver overlayWith(SchemeColorResolver original,
+        SchemeColorResolverOverlay overlay) {
+       return new SchemeColorResolver() {
+           @Override
+           public Color getSurface(DynamicScheme dynamicScheme) {
+               return original.getSurface(dynamicScheme);
+           }
+
+           @Override
+           public Color getSurfaceDim(DynamicScheme dynamicScheme) {
+               return original.getSurfaceDim(dynamicScheme);
+           }
+
+           @Override
+           public Color getSurfaceBright(DynamicScheme dynamicScheme) {
+               return original.getSurfaceBright(dynamicScheme);
+           }
+
+           @Override
+           public SchemeContainerColorsResolver getNeutralContainerResolver() {
+               return original.getNeutralContainerResolver();
+           }
+
+           @Override
+           public SchemeContainerColorsResolver getMutedContainerResolver() {
+               SchemeContainerColorsResolverOverlay spec =
+                   overlay.getMutedContainerResolverOverlay();
+               if (spec == null) {
+                   return original.getMutedContainerResolver();
+               } else {
+                   return SchemeResolverUtils.overlayWith(
+                       original.getMutedContainerResolver(), spec);
+               }
+           }
+
+           @Override
+           public SchemeContainerColorsResolver getTonalContainerResolver() {
+               return original.getTonalContainerResolver();
+           }
+
+           @Override
+           public SchemeContainerColorsResolver getPrimaryContainerResolver() {
+               return original.getPrimaryContainerResolver();
+           }
+
+           @Override
+           public SchemeContainerColorsResolver getSystemInfoContainerResolver() {
+               return original.getSystemInfoContainerResolver();
+           }
+
+           @Override
+           public SchemeContainerColorsResolver getSystemWarningContainerResolver() {
+               return original.getSystemWarningContainerResolver();
+           }
+
+           @Override
+           public SchemeContainerColorsResolver getSystemErrorContainerResolver() {
+               return original.getSystemErrorContainerResolver();
+           }
+
+           @Override
+           public SchemeContainerColorsResolver getSystemSuccessContainerResolver() {
+               return original.getSystemSuccessContainerResolver();
+           }
+
+           @Override
+           public SchemeContainerColorsResolver getSystemEmergencyContainerResolver() {
+               return original.getSystemEmergencyContainerResolver();
+           }
+       };
     }
 }

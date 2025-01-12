@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
@@ -149,12 +150,26 @@ public class AutumnSkin extends RadianceSkin {
 		public static final String NAME = "Autumn Tonal";
 
 		public AutumnTonalSkin() {
+			SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
+			// Set up token resolution overlays:
+			// 1. Use tonal outlines for muted containers (consistent borders for enabled and active
+			//    controls)
+			// 2. Use tonal outlines for on container content (more muted text and icon colors)
+			SchemeColorResolver autumnColorResolver = defaultSchemeColorResolver.overlayWith(
+				SchemeColorResolverOverlay.builder()
+					.mutedContainerResolverOverlay(
+						SchemeContainerColorsResolverOverlay.builder()
+							.containerOutlineOverlay(DynamicScheme::getTonalContainerOutline)
+							.containerOutlineVariantOverlay(DynamicScheme::getTonalContainerOutlineVariant)
+							.build())
+					.build());
+
 			RadianceColorScheme2 autumnColorScheme = ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4)),
 				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
 				/* isDark */ false,
-				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+				/* schemeColorResolver */ autumnColorResolver);
 
 			RadianceColorSchemeBundle2 autumnDefaultBundle =
 				new RadianceColorSchemeBundle2(autumnColorScheme);
@@ -172,7 +187,7 @@ public class AutumnSkin extends RadianceSkin {
 					Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFDDB9)),
 				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
 				/* isDark */ false,
-				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+				/* schemeColorResolver */ autumnColorResolver);
 			RadianceColorSchemeBundle2 autumnControlPaneBundle =
 				new RadianceColorSchemeBundle2(autumnControlPaneColorScheme);
 			this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,

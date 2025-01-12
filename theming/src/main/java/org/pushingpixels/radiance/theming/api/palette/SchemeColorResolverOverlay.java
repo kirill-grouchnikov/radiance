@@ -29,27 +29,34 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+public class SchemeColorResolverOverlay {
+    private SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay;
 
-import java.awt.*;
+    public static Builder builder() {
+        return new Builder();
+    }
 
-public interface SchemeColorResolver {
-    Color getSurface(DynamicScheme dynamicScheme);
-    Color getSurfaceDim(DynamicScheme dynamicScheme);
-    Color getSurfaceBright(DynamicScheme dynamicScheme);
+    private SchemeColorResolverOverlay() {}
 
-    SchemeContainerColorsResolver getNeutralContainerResolver();
-    SchemeContainerColorsResolver getMutedContainerResolver();
-    SchemeContainerColorsResolver getTonalContainerResolver();
-    SchemeContainerColorsResolver getPrimaryContainerResolver();
+    public SchemeContainerColorsResolverOverlay getMutedContainerResolverOverlay() {
+        return this.mutedContainerResolverOverlay;
+    }
 
-    SchemeContainerColorsResolver getSystemInfoContainerResolver();
-    SchemeContainerColorsResolver getSystemWarningContainerResolver();
-    SchemeContainerColorsResolver getSystemErrorContainerResolver();
-    SchemeContainerColorsResolver getSystemSuccessContainerResolver();
-    SchemeContainerColorsResolver getSystemEmergencyContainerResolver();
+    public final static class Builder {
+        private SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay;
 
-    default SchemeColorResolver overlayWith(SchemeColorResolverOverlay overlay) {
-        return SchemeResolverUtils.overlayWith(this, overlay);
+        private Builder() {}
+
+        public Builder mutedContainerResolverOverlay(
+            SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay) {
+            this.mutedContainerResolverOverlay = mutedContainerResolverOverlay;
+            return this;
+        }
+
+        public SchemeColorResolverOverlay build() {
+            SchemeColorResolverOverlay result = new SchemeColorResolverOverlay();
+            result.mutedContainerResolverOverlay = mutedContainerResolverOverlay;
+            return result;
+        }
     }
 }
