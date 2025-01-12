@@ -154,13 +154,31 @@ public class AutumnSkin extends RadianceSkin {
 			// Set up token resolution overlays:
 			// 1. Use tonal outlines for muted containers (consistent borders for enabled and active
 			//    controls)
-			// 2. Use tonal outlines for on container content (more muted text and icon colors)
+			// 2. Use tonal outlines for on container content (softer text and icon colors)
 			SchemeColorResolver autumnColorResolver = defaultSchemeColorResolver.overlayWith(
 				SchemeColorResolverOverlay.builder()
+					// For neutral containers, use softer outlines and softer text / icon colors
+					.neutralContainerResolverOverlay(
+						SchemeContainerColorsResolverOverlay.builder()
+							.containerOutline((s) -> s.getTonalContainerOutlineVariant() & 0x40FFFFFF)
+							.containerOutlineVariant((s) -> s.getTonalContainerOutlineVariant() & 0x40FFFFFF)
+							.onContainer(DynamicScheme::getTonalContainerOutline)
+							.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
+							.build())
+					// For muted containers (enabled controls), use tonal outlines for border
+					// consistency with active controls, and softer text / icon colors
 					.mutedContainerResolverOverlay(
 						SchemeContainerColorsResolverOverlay.builder()
-							.containerOutlineOverlay(DynamicScheme::getTonalContainerOutline)
-							.containerOutlineVariantOverlay(DynamicScheme::getTonalContainerOutlineVariant)
+							.containerOutline(DynamicScheme::getTonalContainerOutline)
+							.containerOutlineVariant(DynamicScheme::getTonalContainerOutlineVariant)
+							.onContainer(DynamicScheme::getTonalContainerOutline)
+							.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
+							.build())
+					// For tonal containers (active controls), use softer text / icon colors
+					.tonalContainerResolverOverlay(
+						SchemeContainerColorsResolverOverlay.builder()
+							.onContainer(DynamicScheme::getTonalContainerOutline)
+							.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
 							.build())
 					.build());
 
@@ -224,7 +242,7 @@ public class AutumnSkin extends RadianceSkin {
 			// add an overlay painter to paint separator lines along the bottom
 			// edges of title panes and menu bars
 			BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-				ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE);
+				ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT);
 			this.addOverlayPainter(bottomLineOverlayPainter,
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

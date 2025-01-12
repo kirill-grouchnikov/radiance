@@ -536,37 +536,72 @@ public class SchemeResolverUtils {
        return new SchemeContainerColorsResolver() {
            @Override
            public Color getContainerSurfaceLowest(DynamicScheme dynamicScheme) {
-               return original.getContainerSurfaceLowest(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getContainerSurfaceLowest();
+               if (spec == null) {
+                   return original.getContainerSurfaceLowest(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
            public Color getContainerSurfaceLow(DynamicScheme dynamicScheme) {
-               return original.getContainerSurfaceLow(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getContainerSurfaceLow();
+               if (spec == null) {
+                   return original.getContainerSurfaceLow(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
            public Color getContainerSurface(DynamicScheme dynamicScheme) {
-               return original.getContainerSurface(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getContainerSurface();
+               if (spec == null) {
+                   return original.getContainerSurface(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
            public Color getContainerSurfaceHigh(DynamicScheme dynamicScheme) {
-               return original.getContainerSurfaceHigh(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getContainerSurfaceHigh();
+               if (spec == null) {
+                   return original.getContainerSurfaceHigh(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
            public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
-               return original.getContainerSurfaceHighest(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getContainerSurfaceHighest();
+               if (spec == null) {
+                   return original.getContainerSurfaceHighest(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
            public Color getOnContainer(DynamicScheme dynamicScheme) {
-               return original.getOnContainer(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getOnContainer();
+               if (spec == null) {
+                   return original.getOnContainer(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
            public Color getOnContainerVariant(DynamicScheme dynamicScheme) {
-               return original.getOnContainerVariant(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getOnContainerVariant();
+               if (spec == null) {
+                   return original.getOnContainerVariant(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
@@ -596,22 +631,44 @@ public class SchemeResolverUtils {
        return new SchemeColorResolver() {
            @Override
            public Color getSurface(DynamicScheme dynamicScheme) {
-               return original.getSurface(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getSurface();
+               if (spec == null) {
+                   return original.getSurface(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
            public Color getSurfaceDim(DynamicScheme dynamicScheme) {
-               return original.getSurfaceDim(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getSurfaceDim();
+               if (spec == null) {
+                   return original.getSurfaceDim(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
            public Color getSurfaceBright(DynamicScheme dynamicScheme) {
-               return original.getSurfaceBright(dynamicScheme);
+               Function<DynamicScheme, Integer> spec = overlay.getSurfaceBright();
+               if (spec == null) {
+                   return original.getSurfaceBright(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme));
+               }
            }
 
            @Override
            public SchemeContainerColorsResolver getNeutralContainerResolver() {
-               return original.getNeutralContainerResolver();
+               SchemeContainerColorsResolverOverlay spec =
+                   overlay.getNeutralContainerResolverOverlay();
+               if (spec == null) {
+                   return original.getNeutralContainerResolver();
+               } else {
+                   return SchemeResolverUtils.overlayWith(
+                       original.getNeutralContainerResolver(), spec);
+               }
            }
 
            @Override
@@ -628,12 +685,26 @@ public class SchemeResolverUtils {
 
            @Override
            public SchemeContainerColorsResolver getTonalContainerResolver() {
-               return original.getTonalContainerResolver();
+               SchemeContainerColorsResolverOverlay spec =
+                   overlay.getTonalContainerResolverOverlay();
+               if (spec == null) {
+                   return original.getTonalContainerResolver();
+               } else {
+                   return SchemeResolverUtils.overlayWith(
+                       original.getTonalContainerResolver(), spec);
+               }
            }
 
            @Override
            public SchemeContainerColorsResolver getPrimaryContainerResolver() {
-               return original.getPrimaryContainerResolver();
+               SchemeContainerColorsResolverOverlay spec =
+                   overlay.getPrimaryContainerResolverOverlay();
+               if (spec == null) {
+                   return original.getPrimaryContainerResolver();
+               } else {
+                   return SchemeResolverUtils.overlayWith(
+                       original.getPrimaryContainerResolver(), spec);
+               }
            }
 
            @Override

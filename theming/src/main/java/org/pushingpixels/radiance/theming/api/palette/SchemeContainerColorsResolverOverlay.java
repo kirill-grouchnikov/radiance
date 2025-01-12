@@ -34,6 +34,13 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import java.util.function.Function;
 
 public class SchemeContainerColorsResolverOverlay {
+    private Function<DynamicScheme, Integer> containerSurfaceLowest;
+    private Function<DynamicScheme, Integer> containerSurfaceLow;
+    private Function<DynamicScheme, Integer> containerSurface;
+    private Function<DynamicScheme, Integer> containerSurfaceHigh;
+    private Function<DynamicScheme, Integer> containerSurfaceHighest;
+    private Function<DynamicScheme, Integer> onContainer;
+    private Function<DynamicScheme, Integer> onContainerVariant;
     private Function<DynamicScheme, Integer> containerOutline;
     private Function<DynamicScheme, Integer> containerOutlineVariant;
 
@@ -42,6 +49,34 @@ public class SchemeContainerColorsResolverOverlay {
     }
 
     private SchemeContainerColorsResolverOverlay() {}
+
+    public Function<DynamicScheme, Integer> getContainerSurfaceLowest() {
+        return this.containerSurfaceLowest;
+    }
+
+    public Function<DynamicScheme, Integer> getContainerSurfaceLow() {
+        return this.containerSurfaceLow;
+    }
+
+    public Function<DynamicScheme, Integer> getContainerSurface() {
+        return this.containerSurface;
+    }
+
+    public Function<DynamicScheme, Integer> getContainerSurfaceHigh() {
+        return this.containerSurfaceHigh;
+    }
+
+    public Function<DynamicScheme, Integer> getContainerSurfaceHighest() {
+        return this.containerSurfaceHighest;
+    }
+
+    public Function<DynamicScheme, Integer> getOnContainer() {
+        return this.onContainer;
+    }
+
+    public Function<DynamicScheme, Integer> getOnContainerVariant() {
+        return this.onContainerVariant;
+    }
 
     public Function<DynamicScheme, Integer> getContainerOutline() {
         return this.containerOutline;
@@ -52,27 +87,73 @@ public class SchemeContainerColorsResolverOverlay {
     }
 
     public final static class Builder {
+        private Function<DynamicScheme, Integer> containerSurfaceLowest;
+        private Function<DynamicScheme, Integer> containerSurfaceLow;
+        private Function<DynamicScheme, Integer> containerSurface;
+        private Function<DynamicScheme, Integer> containerSurfaceHigh;
+        private Function<DynamicScheme, Integer> containerSurfaceHighest;
+        private Function<DynamicScheme, Integer> onContainer;
+        private Function<DynamicScheme, Integer> onContainerVariant;
         private Function<DynamicScheme, Integer> containerOutline;
         private Function<DynamicScheme, Integer> containerOutlineVariant;
 
         private Builder() {}
 
-        public Builder containerOutlineOverlay(
-            Function<DynamicScheme, Integer> containerOutline) {
+        public Builder containerSurfaceLowest(Function<DynamicScheme, Integer> containerSurfaceLowest) {
+            this.containerSurfaceLowest = containerSurfaceLowest;
+            return this;
+        }
+
+        public Builder containerSurfaceLow(Function<DynamicScheme, Integer> containerSurfaceLow) {
+            this.containerSurfaceLow = containerSurfaceLow;
+            return this;
+        }
+
+        public Builder containerSurface(Function<DynamicScheme, Integer> containerSurface) {
+            this.containerSurface = containerSurface;
+            return this;
+        }
+
+        public Builder containerSurfaceHigh(Function<DynamicScheme, Integer> containerSurfaceHigh) {
+            this.containerSurfaceHigh = containerSurfaceHigh;
+            return this;
+        }
+
+        public Builder containerSurfaceHighest(Function<DynamicScheme, Integer> containerSurfaceHighest) {
+            this.containerSurfaceHighest = containerSurfaceHighest;
+            return this;
+        }
+
+        public Builder onContainer(Function<DynamicScheme, Integer> onContainer) {
+            this.onContainer = onContainer;
+            return this;
+        }
+
+        public Builder onContainerVariant(Function<DynamicScheme, Integer> onContainerVariant) {
+            this.onContainerVariant = onContainerVariant;
+            return this;
+        }
+        public Builder containerOutline(Function<DynamicScheme, Integer> containerOutline) {
             this.containerOutline = containerOutline;
             return this;
         }
 
-        public Builder containerOutlineVariantOverlay(
-            Function<DynamicScheme, Integer> containerOutlineVariant) {
+        public Builder containerOutlineVariant(Function<DynamicScheme, Integer> containerOutlineVariant) {
             this.containerOutlineVariant = containerOutlineVariant;
             return this;
         }
 
         public SchemeContainerColorsResolverOverlay build() {
             SchemeContainerColorsResolverOverlay result = new SchemeContainerColorsResolverOverlay();
-            result.containerOutline = containerOutline;
-            result.containerOutlineVariant = containerOutlineVariant;
+            result.containerSurfaceLowest = this.containerSurfaceLowest;
+            result.containerSurfaceLow = this.containerSurfaceLow;
+            result.containerSurface = this.containerSurface;
+            result.containerSurfaceHigh = this.containerSurfaceHigh;
+            result.containerSurfaceHighest = this.containerSurfaceHighest;
+            result.onContainer = this.onContainer;
+            result.onContainerVariant = this.onContainerVariant;
+            result.containerOutline = this.containerOutline;
+            result.containerOutlineVariant = this.containerOutlineVariant;
             return result;
         }
     }

@@ -29,8 +29,18 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+
+import java.util.function.Function;
+
 public class SchemeColorResolverOverlay {
+    private Function<DynamicScheme, Integer> surface;
+    private Function<DynamicScheme, Integer> surfaceDim;
+    private Function<DynamicScheme, Integer> surfaceBright;
+    private SchemeContainerColorsResolverOverlay neutralContainerResolverOverlay;
     private SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay;
+    private SchemeContainerColorsResolverOverlay tonalContainerResolverOverlay;
+    private SchemeContainerColorsResolverOverlay primaryContainerResolverOverlay;
 
     public static Builder builder() {
         return new Builder();
@@ -38,14 +48,65 @@ public class SchemeColorResolverOverlay {
 
     private SchemeColorResolverOverlay() {}
 
+    public Function<DynamicScheme, Integer> getSurface() {
+        return this.surface;
+    }
+
+    public Function<DynamicScheme, Integer> getSurfaceDim() {
+        return this.surfaceDim;
+    }
+
+    public Function<DynamicScheme, Integer> getSurfaceBright() {
+        return this.surfaceBright;
+    }
+
+    public SchemeContainerColorsResolverOverlay getNeutralContainerResolverOverlay() {
+        return this.neutralContainerResolverOverlay;
+    }
+
     public SchemeContainerColorsResolverOverlay getMutedContainerResolverOverlay() {
         return this.mutedContainerResolverOverlay;
     }
 
+    public SchemeContainerColorsResolverOverlay getTonalContainerResolverOverlay() {
+        return this.tonalContainerResolverOverlay;
+    }
+
+    public SchemeContainerColorsResolverOverlay getPrimaryContainerResolverOverlay() {
+        return this.primaryContainerResolverOverlay;
+    }
+
     public final static class Builder {
+        private Function<DynamicScheme, Integer> surface;
+        private Function<DynamicScheme, Integer> surfaceDim;
+        private Function<DynamicScheme, Integer> surfaceBright;
+        private SchemeContainerColorsResolverOverlay neutralContainerResolverOverlay;
         private SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay;
+        private SchemeContainerColorsResolverOverlay tonalContainerResolverOverlay;
+        private SchemeContainerColorsResolverOverlay primaryContainerResolverOverlay;
 
         private Builder() {}
+
+        public Builder surface(Function<DynamicScheme, Integer> surface) {
+            this.surface = surface;
+            return this;
+        }
+
+        public Builder surfaceDim(Function<DynamicScheme, Integer> surfaceDim) {
+            this.surfaceDim = surfaceDim;
+            return this;
+        }
+
+        public Builder surfaceBright(Function<DynamicScheme, Integer> surfaceBright) {
+            this.surfaceBright = surfaceBright;
+            return this;
+        }
+
+        public Builder neutralContainerResolverOverlay(
+            SchemeContainerColorsResolverOverlay neutralContainerResolverOverlay) {
+            this.neutralContainerResolverOverlay = neutralContainerResolverOverlay;
+            return this;
+        }
 
         public Builder mutedContainerResolverOverlay(
             SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay) {
@@ -53,9 +114,27 @@ public class SchemeColorResolverOverlay {
             return this;
         }
 
+        public Builder tonalContainerResolverOverlay(
+            SchemeContainerColorsResolverOverlay tonalContainerResolverOverlay) {
+            this.tonalContainerResolverOverlay = tonalContainerResolverOverlay;
+            return this;
+        }
+
+        public Builder primaryContainerResolverOverlay(
+            SchemeContainerColorsResolverOverlay primaryContainerResolverOverlay) {
+            this.primaryContainerResolverOverlay = primaryContainerResolverOverlay;
+            return this;
+        }
+
         public SchemeColorResolverOverlay build() {
             SchemeColorResolverOverlay result = new SchemeColorResolverOverlay();
-            result.mutedContainerResolverOverlay = mutedContainerResolverOverlay;
+            result.surface = this.surface;
+            result.surfaceDim = this.surfaceDim;
+            result.surfaceBright = this.surfaceBright;
+            result.neutralContainerResolverOverlay = this.neutralContainerResolverOverlay;
+            result.mutedContainerResolverOverlay = this.mutedContainerResolverOverlay;
+            result.tonalContainerResolverOverlay = this.tonalContainerResolverOverlay;
+            result.primaryContainerResolverOverlay = this.primaryContainerResolverOverlay;
             return result;
         }
     }
