@@ -133,6 +133,7 @@ public class SchemeContainerColorsResolverOverlay {
             this.onContainerVariant = onContainerVariant;
             return this;
         }
+
         public Builder containerOutline(Function<DynamicScheme, Integer> containerOutline) {
             this.containerOutline = containerOutline;
             return this;

@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -55,14 +54,6 @@ public class RadianceSeparatorUI extends BasicSeparatorUI {
     }
 
     protected RadianceSeparatorUI() {
-    }
-
-    @Override
-    protected void installDefaults(JSeparator s) {
-        super.installDefaults(s);
-
-        RadianceThemingCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(s,
-            RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT);
     }
 
     @Override

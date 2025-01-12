@@ -160,8 +160,8 @@ public class AutumnSkin extends RadianceSkin {
 					// For neutral containers, use softer outlines and softer text / icon colors
 					.neutralContainerResolverOverlay(
 						SchemeContainerColorsResolverOverlay.builder()
-							.containerOutline((s) -> s.getTonalContainerOutlineVariant() & 0x40FFFFFF)
-							.containerOutlineVariant((s) -> s.getTonalContainerOutlineVariant() & 0x40FFFFFF)
+							.containerOutline((s) -> s.getTonalContainerOutline() & 0x99FFFFFF)
+							.containerOutlineVariant((s) -> s.getTonalContainerOutlineVariant() & 0x99FFFFFF)
 							.onContainer(DynamicScheme::getTonalContainerOutline)
 							.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
 							.build())

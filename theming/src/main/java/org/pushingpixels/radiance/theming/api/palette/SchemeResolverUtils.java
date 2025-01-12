@@ -540,7 +540,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getContainerSurfaceLowest(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -550,7 +550,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getContainerSurfaceLow(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -560,7 +560,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getContainerSurface(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -570,7 +570,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getContainerSurfaceHigh(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -580,7 +580,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getContainerSurfaceHighest(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -590,7 +590,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getOnContainer(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -600,7 +600,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getOnContainerVariant(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -610,7 +610,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getContainerOutline(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -620,7 +620,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getContainerOutlineVariant(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
        };
@@ -635,7 +635,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getSurface(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -645,7 +645,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getSurfaceDim(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
@@ -655,7 +655,7 @@ public class SchemeResolverUtils {
                if (spec == null) {
                    return original.getSurfaceBright(dynamicScheme);
                } else {
-                   return new Color(spec.apply(dynamicScheme));
+                   return new Color(spec.apply(dynamicScheme), true);
                }
            }
 
