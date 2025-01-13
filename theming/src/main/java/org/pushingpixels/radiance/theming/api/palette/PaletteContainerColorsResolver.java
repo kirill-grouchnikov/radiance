@@ -49,4 +49,8 @@ public interface PaletteContainerColorsResolver {
 
     Color getContainerOutline(DynamicPalette dynamicPalette);
     Color getContainerOutlineVariant(DynamicPalette dynamicPalette);
+
+    default PaletteContainerColorsResolver overlayWith(PaletteContainerColorsResolverOverlay overlay) {
+        return PaletteResolverUtils.overlayWith(this, overlay);
+    }
 }

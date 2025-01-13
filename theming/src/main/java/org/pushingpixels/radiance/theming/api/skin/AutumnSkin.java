@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
@@ -191,12 +192,17 @@ public class AutumnSkin extends RadianceSkin {
 
 			RadianceColorSchemeBundle2 autumnDefaultBundle =
 				new RadianceColorSchemeBundle2(autumnColorScheme);
-			// Slightly deeper color for the selected state
+			// Custom visuals for controls in selected state:
+			// 1. Deeper container surfaces (more saturated seed in fidelity mode)
+			// 2. Softer on container, mapped to container outline (used for texts and icons)
 			autumnDefaultBundle.registerContainerTokens(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFFDBD72),
 					/* isFidelity */ true,
 					/* isDark */ false,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+					PaletteContainerColorsResolverOverlay.builder()
+						.onContainer(DynamicPalette::getTonalContainerOutline)
+						.build())),
 				ComponentState.SELECTED);
 			this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
 				RadianceThemingSlices.DecorationAreaType.NONE);

@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.palette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 
 import java.awt.*;
+import java.util.function.Function;
 
 public class PaletteResolverUtils {
    public static PaletteContainerColorsResolver getPaletteTonalColorResolver() {
@@ -98,5 +99,130 @@ public class PaletteResolverUtils {
                 }
             };
         return result;
+    }
+
+    public static PaletteContainerColorsResolver overlayWith(PaletteContainerColorsResolver original,
+        PaletteContainerColorsResolverOverlay overlay) {
+        return new PaletteContainerColorsResolver() {
+            @Override
+            public Color getSurface(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getSurface();
+                if (spec == null) {
+                    return original.getSurface(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getSurfaceDim(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getSurfaceDim();
+                if (spec == null) {
+                    return original.getSurfaceDim(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getSurfaceBright(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getSurfaceBright();
+                if (spec == null) {
+                    return original.getSurfaceBright(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerSurfaceLowest(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getContainerSurfaceLowest();
+                if (spec == null) {
+                    return original.getContainerSurfaceLowest(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerSurfaceLow(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getContainerSurfaceLow();
+                if (spec == null) {
+                    return original.getContainerSurfaceLow(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerSurface(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getContainerSurface();
+                if (spec == null) {
+                    return original.getContainerSurface(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerSurfaceHigh(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getContainerSurfaceHigh();
+                if (spec == null) {
+                    return original.getContainerSurfaceHigh(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerSurfaceHighest(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getContainerSurfaceHighest();
+                if (spec == null) {
+                    return original.getContainerSurfaceHighest(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getOnContainer(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getOnContainer();
+                if (spec == null) {
+                    return original.getOnContainer(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getOnContainerVariant(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getOnContainerVariant();
+                if (spec == null) {
+                    return original.getOnContainerVariant(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerOutline(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getContainerOutline();
+                if (spec == null) {
+                    return original.getContainerOutline(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getContainerOutlineVariant();
+                if (spec == null) {
+                    return original.getContainerOutlineVariant(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+        };
     }
 }
