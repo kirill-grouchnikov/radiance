@@ -97,6 +97,21 @@ public class PaletteResolverUtils {
                 public Color getContainerOutlineVariant(DynamicPalette dynamicPalette) {
                     return new Color(dynamicPalette.getTonalContainerOutlineVariant());
                 }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicPalette dynamicPalette) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicPalette dynamicPalette) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicPalette dynamicPalette) {
+                    return 0.35f;
+                }
             };
         return result;
     }
@@ -221,6 +236,36 @@ public class PaletteResolverUtils {
                     return original.getContainerOutlineVariant(dynamicPalette);
                 } else {
                     return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public float getContainerSurfaceDisabledAlpha(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Float> spec = overlay.getContainerSurfaceDisabledAlpha();
+                if (spec == null) {
+                    return original.getContainerSurfaceDisabledAlpha(dynamicPalette);
+                } else {
+                    return spec.apply(dynamicPalette);
+                }
+            }
+
+            @Override
+            public float getOnContainerDisabledAlpha(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Float> spec = overlay.getOnContainerDisabledAlpha();
+                if (spec == null) {
+                    return original.getOnContainerDisabledAlpha(dynamicPalette);
+                } else {
+                    return spec.apply(dynamicPalette);
+                }
+            }
+
+            @Override
+            public float getContainerOutlineDisabledAlpha(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Float> spec = overlay.getContainerOutlineDisabledAlpha();
+                if (spec == null) {
+                    return original.getContainerOutlineDisabledAlpha(dynamicPalette);
+                } else {
+                    return spec.apply(dynamicPalette);
                 }
             }
         };

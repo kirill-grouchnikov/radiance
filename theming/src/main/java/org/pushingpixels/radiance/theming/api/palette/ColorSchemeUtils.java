@@ -101,17 +101,17 @@ public class ColorSchemeUtils {
 
             @Override
             public float getContainerSurfaceDisabledAlpha() {
-                return 0.3f;
+                return tonalContainerColorResolver.getContainerSurfaceDisabledAlpha(dynamicScheme);
             }
 
             @Override
             public float getOnContainerDisabledAlpha() {
-                return 0.45f;
+                return tonalContainerColorResolver.getOnContainerDisabledAlpha(dynamicScheme);
             }
 
             @Override
             public float getContainerOutlineDisabledAlpha() {
-                return 0.35f;
+                return tonalContainerColorResolver.getContainerOutlineDisabledAlpha(dynamicScheme);
             }
         };
     }
@@ -238,17 +238,17 @@ public class ColorSchemeUtils {
 
             @Override
             public float getContainerSurfaceDisabledAlpha() {
-                return 0.4f;
+                return original.getContainerSurfaceDisabledAlpha();
             }
 
             @Override
             public float getOnContainerDisabledAlpha() {
-                return 0.7f;
+                return original.getOnContainerDisabledAlpha();
             }
 
             @Override
             public float getContainerOutlineDisabledAlpha() {
-                return 0.4f;
+                return original.getContainerOutlineDisabledAlpha();
             }
         };
     }
@@ -566,17 +566,17 @@ public class ColorSchemeUtils {
 
             @Override
             public float getContainerSurfaceDisabledAlpha() {
-                return 0.3f;
+                return colorResolver.getContainerSurfaceDisabledAlpha(dynamicPalette);
             }
 
             @Override
             public float getOnContainerDisabledAlpha() {
-                return 0.45f;
+                return colorResolver.getOnContainerDisabledAlpha(dynamicPalette);
             }
 
             @Override
             public float getContainerOutlineDisabledAlpha() {
-                return 0.35f;
+                return colorResolver.getContainerOutlineDisabledAlpha(dynamicPalette);
             }
         };
     }

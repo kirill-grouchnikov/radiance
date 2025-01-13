@@ -50,6 +50,10 @@ public interface PaletteContainerColorsResolver {
     Color getContainerOutline(DynamicPalette dynamicPalette);
     Color getContainerOutlineVariant(DynamicPalette dynamicPalette);
 
+    float getContainerSurfaceDisabledAlpha(DynamicPalette dynamicPalette);
+    float getOnContainerDisabledAlpha(DynamicPalette dynamicPalette);
+    float getContainerOutlineDisabledAlpha(DynamicPalette dynamicPalette);
+
     default PaletteContainerColorsResolver overlayWith(PaletteContainerColorsResolverOverlay overlay) {
         return PaletteResolverUtils.overlayWith(this, overlay);
     }

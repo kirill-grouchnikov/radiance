@@ -46,6 +46,9 @@ public class PaletteContainerColorsResolverOverlay {
     private Function<DynamicPalette, Integer> onContainerVariant;
     private Function<DynamicPalette, Integer> containerOutline;
     private Function<DynamicPalette, Integer> containerOutlineVariant;
+    private Function<DynamicPalette, Float> containerSurfaceDisabledAlpha;
+    private Function<DynamicPalette, Float> onContainerDisabledAlpha;
+    private Function<DynamicPalette, Float> containerOutlineDisabledAlpha;
 
     public static Builder builder() {
         return new Builder();
@@ -101,6 +104,18 @@ public class PaletteContainerColorsResolverOverlay {
         return this.containerOutlineVariant;
     }
 
+    public Function<DynamicPalette, Float> getContainerSurfaceDisabledAlpha() {
+        return this.containerSurfaceDisabledAlpha;
+    }
+
+    public Function<DynamicPalette, Float> getOnContainerDisabledAlpha() {
+        return this.onContainerDisabledAlpha;
+    }
+
+    public Function<DynamicPalette, Float> getContainerOutlineDisabledAlpha() {
+        return this.containerOutlineDisabledAlpha;
+    }
+
     public final static class Builder {
         private Function<DynamicPalette, Integer> surface;
         private Function<DynamicPalette, Integer> surfaceDim;
@@ -114,6 +129,9 @@ public class PaletteContainerColorsResolverOverlay {
         private Function<DynamicPalette, Integer> onContainerVariant;
         private Function<DynamicPalette, Integer> containerOutline;
         private Function<DynamicPalette, Integer> containerOutlineVariant;
+        private Function<DynamicPalette, Float> containerSurfaceDisabledAlpha;
+        private Function<DynamicPalette, Float> onContainerDisabledAlpha;
+        private Function<DynamicPalette, Float> containerOutlineDisabledAlpha;
 
         private Builder() {}
 
@@ -177,6 +195,24 @@ public class PaletteContainerColorsResolverOverlay {
             return this;
         }
 
+        public Builder containerSurfaceDisabledAlpha(
+            Function<DynamicPalette, Float> containerSurfaceDisabledAlpha) {
+            this.containerSurfaceDisabledAlpha = containerSurfaceDisabledAlpha;
+            return this;
+        }
+
+        public Builder onContainerDisabledAlpha(
+            Function<DynamicPalette, Float> onContainerDisabledAlpha) {
+            this.onContainerDisabledAlpha = onContainerDisabledAlpha;
+            return this;
+        }
+
+        public Builder containerOutlineDisabledAlpha(
+            Function<DynamicPalette, Float> containerOutlineDisabledAlpha) {
+            this.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
+            return this;
+        }
+
         public PaletteContainerColorsResolverOverlay build() {
             PaletteContainerColorsResolverOverlay result = new PaletteContainerColorsResolverOverlay();
             result.surface = this.surface;
@@ -191,6 +227,9 @@ public class PaletteContainerColorsResolverOverlay {
             result.onContainerVariant = this.onContainerVariant;
             result.containerOutline = this.containerOutline;
             result.containerOutlineVariant = this.containerOutlineVariant;
+            result.containerSurfaceDisabledAlpha = this.containerSurfaceDisabledAlpha;
+            result.onContainerDisabledAlpha = this.onContainerDisabledAlpha;
+            result.containerOutlineDisabledAlpha = this.containerOutlineDisabledAlpha;
             return result;
         }
     }

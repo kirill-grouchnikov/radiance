@@ -174,12 +174,18 @@ public class AutumnSkin extends RadianceSkin {
 							.containerOutlineVariant(DynamicScheme::getTonalContainerOutlineVariant)
 							.onContainer(DynamicScheme::getTonalContainerOutline)
 							.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
+							.containerSurfaceDisabledAlpha((s) -> 0.5f)
+							.onContainerDisabledAlpha((s) -> 0.6f)
+							.containerOutlineDisabledAlpha((s) -> 0.55f)
 							.build())
 					// For tonal containers (active controls), use softer text / icon colors
 					.tonalContainerResolverOverlay(
 						SchemeContainerColorsResolverOverlay.builder()
 							.onContainer(DynamicScheme::getTonalContainerOutline)
 							.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
+							.containerSurfaceDisabledAlpha((s) -> 0.5f)
+							.onContainerDisabledAlpha((s) -> 0.6f)
+							.containerOutlineDisabledAlpha((s) -> 0.55f)
 							.build())
 					.build());
 
@@ -202,6 +208,9 @@ public class AutumnSkin extends RadianceSkin {
 					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.onContainer(DynamicPalette::getTonalContainerOutline)
+						.containerSurfaceDisabledAlpha((s) -> 0.5f)
+						.onContainerDisabledAlpha((s) -> 0.6f)
+						.containerOutlineDisabledAlpha((s) -> 0.55f)
 						.build())),
 				ComponentState.SELECTED);
 			this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,

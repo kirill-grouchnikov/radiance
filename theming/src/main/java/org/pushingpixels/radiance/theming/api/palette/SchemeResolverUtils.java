@@ -82,6 +82,21 @@ public class SchemeResolverUtils {
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getNeutralContainerOutlineVariant());
                 }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.35f;
+                }
             };
 
         SchemeContainerColorsResolver mutedContainerResolver =
@@ -129,6 +144,21 @@ public class SchemeResolverUtils {
                 @Override
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getMutedContainerOutlineVariant());
+                }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.35f;
                 }
             };
 
@@ -178,6 +208,21 @@ public class SchemeResolverUtils {
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getTonalContainerOutlineVariant());
                 }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.35f;
+                }
             };
 
         SchemeContainerColorsResolver primaryContainerResolver =
@@ -225,6 +270,21 @@ public class SchemeResolverUtils {
                 @Override
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getPrimaryContainerOutlineVariant());
+                }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.35f;
                 }
             };
 
@@ -274,6 +334,21 @@ public class SchemeResolverUtils {
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemInfoContainerOutlineVariant());
                 }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.35f;
+                }
             };
 
         SchemeContainerColorsResolver systemWarningContainerResolver =
@@ -321,6 +396,21 @@ public class SchemeResolverUtils {
                 @Override
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemWarningContainerOutlineVariant());
+                }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.35f;
                 }
             };
 
@@ -370,6 +460,21 @@ public class SchemeResolverUtils {
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemErrorContainerOutlineVariant());
                 }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.35f;
+                }
             };
 
         SchemeContainerColorsResolver systemSuccessContainerResolver =
@@ -418,6 +523,21 @@ public class SchemeResolverUtils {
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemSuccessContainerOutlineVariant());
                 }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.35f;
+                }
             };
 
         SchemeContainerColorsResolver systemEmergencyContainerResolver =
@@ -465,6 +585,21 @@ public class SchemeResolverUtils {
                 @Override
                 public Color getContainerOutlineVariant(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getSystemEmergencyContainerOutlineVariant());
+                }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+                    return 0.35f;
                 }
             };
 
@@ -621,6 +756,36 @@ public class SchemeResolverUtils {
                    return original.getContainerOutlineVariant(dynamicScheme);
                } else {
                    return new Color(spec.apply(dynamicScheme), true);
+               }
+           }
+
+           @Override
+           public float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Float> spec = overlay.getContainerSurfaceDisabledAlpha();
+               if (spec == null) {
+                   return original.getContainerSurfaceDisabledAlpha(dynamicScheme);
+               } else {
+                   return spec.apply(dynamicScheme);
+               }
+           }
+
+           @Override
+           public float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Float> spec = overlay.getOnContainerDisabledAlpha();
+               if (spec == null) {
+                   return original.getOnContainerDisabledAlpha(dynamicScheme);
+               } else {
+                   return spec.apply(dynamicScheme);
+               }
+           }
+
+           @Override
+           public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Float> spec = overlay.getContainerOutlineDisabledAlpha();
+               if (spec == null) {
+                   return original.getContainerOutlineDisabledAlpha(dynamicScheme);
+               } else {
+                   return spec.apply(dynamicScheme);
                }
            }
        };

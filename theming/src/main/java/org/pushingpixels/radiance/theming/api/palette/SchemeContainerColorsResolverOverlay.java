@@ -43,6 +43,9 @@ public class SchemeContainerColorsResolverOverlay {
     private Function<DynamicScheme, Integer> onContainerVariant;
     private Function<DynamicScheme, Integer> containerOutline;
     private Function<DynamicScheme, Integer> containerOutlineVariant;
+    private Function<DynamicScheme, Float> containerSurfaceDisabledAlpha;
+    private Function<DynamicScheme, Float> onContainerDisabledAlpha;
+    private Function<DynamicScheme, Float> containerOutlineDisabledAlpha;
 
     public static Builder builder() {
         return new Builder();
@@ -86,6 +89,18 @@ public class SchemeContainerColorsResolverOverlay {
         return this.containerOutlineVariant;
     }
 
+    public Function<DynamicScheme, Float> getContainerSurfaceDisabledAlpha() {
+        return this.containerSurfaceDisabledAlpha;
+    }
+
+    public Function<DynamicScheme, Float> getOnContainerDisabledAlpha() {
+        return this.onContainerDisabledAlpha;
+    }
+
+    public Function<DynamicScheme, Float> getContainerOutlineDisabledAlpha() {
+        return containerOutlineDisabledAlpha;
+    }
+
     public final static class Builder {
         private Function<DynamicScheme, Integer> containerSurfaceLowest;
         private Function<DynamicScheme, Integer> containerSurfaceLow;
@@ -96,6 +111,9 @@ public class SchemeContainerColorsResolverOverlay {
         private Function<DynamicScheme, Integer> onContainerVariant;
         private Function<DynamicScheme, Integer> containerOutline;
         private Function<DynamicScheme, Integer> containerOutlineVariant;
+        private Function<DynamicScheme, Float> containerSurfaceDisabledAlpha;
+        private Function<DynamicScheme, Float> onContainerDisabledAlpha;
+        private Function<DynamicScheme, Float> containerOutlineDisabledAlpha;
 
         private Builder() {}
 
@@ -144,6 +162,24 @@ public class SchemeContainerColorsResolverOverlay {
             return this;
         }
 
+        public Builder containerSurfaceDisabledAlpha(
+            Function<DynamicScheme, Float> containerSurfaceDisabledAlpha) {
+            this.containerSurfaceDisabledAlpha = containerSurfaceDisabledAlpha;
+            return this;
+        }
+
+        public Builder onContainerDisabledAlpha(
+            Function<DynamicScheme, Float> onContainerDisabledAlpha) {
+            this.onContainerDisabledAlpha = onContainerDisabledAlpha;
+            return this;
+        }
+
+        public Builder containerOutlineDisabledAlpha(
+            Function<DynamicScheme, Float> containerOutlineDisabledAlpha) {
+            this.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
+            return this;
+        }
+
         public SchemeContainerColorsResolverOverlay build() {
             SchemeContainerColorsResolverOverlay result = new SchemeContainerColorsResolverOverlay();
             result.containerSurfaceLowest = this.containerSurfaceLowest;
@@ -155,6 +191,9 @@ public class SchemeContainerColorsResolverOverlay {
             result.onContainerVariant = this.onContainerVariant;
             result.containerOutline = this.containerOutline;
             result.containerOutlineVariant = this.containerOutlineVariant;
+            result.containerSurfaceDisabledAlpha = this.containerSurfaceDisabledAlpha;
+            result.onContainerDisabledAlpha = this.onContainerDisabledAlpha;
+            result.containerOutlineDisabledAlpha = this.containerOutlineDisabledAlpha;
             return result;
         }
     }
