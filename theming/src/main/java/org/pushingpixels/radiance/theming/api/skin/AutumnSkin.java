@@ -167,7 +167,8 @@ public class AutumnSkin extends RadianceSkin {
 							.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
 							.build())
 					// For muted containers (enabled controls), use tonal outlines for border
-					// consistency with active controls, and softer text / icon colors
+					// consistency with active controls, and softer text / icon colors. Also use
+					// higher alpha values for disabled controls for better contrast.
 					.mutedContainerResolverOverlay(
 						SchemeContainerColorsResolverOverlay.builder()
 							.containerOutline(DynamicScheme::getTonalContainerOutline)
@@ -178,12 +179,13 @@ public class AutumnSkin extends RadianceSkin {
 							.onContainerDisabledAlpha((s) -> 0.6f)
 							.containerOutlineDisabledAlpha((s) -> 0.55f)
 							.build())
-					// For tonal containers (active controls), use softer text / icon colors
+					// For tonal containers (active controls), use softer text / icon colors.
+					// Also use higher alpha values for disabled controls for better contrast.
 					.tonalContainerResolverOverlay(
 						SchemeContainerColorsResolverOverlay.builder()
 							.onContainer(DynamicScheme::getTonalContainerOutline)
 							.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
-							.containerSurfaceDisabledAlpha((s) -> 0.5f)
+							.containerSurfaceDisabledAlpha((s) -> 0.4f)
 							.onContainerDisabledAlpha((s) -> 0.6f)
 							.containerOutlineDisabledAlpha((s) -> 0.55f)
 							.build())
@@ -201,6 +203,7 @@ public class AutumnSkin extends RadianceSkin {
 			// Custom visuals for controls in selected state:
 			// 1. Deeper container surfaces (more saturated seed in fidelity mode)
 			// 2. Softer on container, mapped to container outline (used for texts and icons)
+			// 3. Higher alpha values for disabled controls for better contrast
 			autumnDefaultBundle.registerContainerTokens(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFFDBD72),
 					/* isFidelity */ true,
@@ -208,7 +211,7 @@ public class AutumnSkin extends RadianceSkin {
 					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.onContainer(DynamicPalette::getTonalContainerOutline)
-						.containerSurfaceDisabledAlpha((s) -> 0.5f)
+						.containerSurfaceDisabledAlpha((s) -> 0.4f)
 						.onContainerDisabledAlpha((s) -> 0.6f)
 						.containerOutlineDisabledAlpha((s) -> 0.55f)
 						.build())),
