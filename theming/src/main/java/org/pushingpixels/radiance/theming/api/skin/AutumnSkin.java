@@ -219,12 +219,17 @@ public class AutumnSkin extends RadianceSkin {
 			this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
 				RadianceThemingSlices.DecorationAreaType.NONE);
 
+			// Deeper container surfaces in title / header decoration areas, along with slightly
+			// softer texts / icons (on container overlaid to be on container variant).
 			this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
 				ColorSchemeUtils.getExtendedContainerTokens(
 					/* seed */ Hct.fromInt(0xFFFFCA8B),
 					/* isFidelity */ true,
 					/* isDark */ false,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+						PaletteContainerColorsResolverOverlay.builder()
+							.onContainer(DynamicPalette::getOnTonalContainerVariant)
+							.build())),
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.HEADER);
