@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -53,9 +54,23 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
 
     private RadianceFillPainter baseFillPainter;
     private float alpha;
+    private ContainerColorTokensSingleColorQuery topQuery;
+    private ContainerColorTokensSingleColorQuery bottomQuery;
 
     public SpecularRectangularFillPainter(RadianceFillPainter baseFillPainter, float alpha) {
+        this(baseFillPainter,
+            ContainerColorTokensSingleColorQuery.CONTAINER_LOWEST,
+            ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
+            alpha);
+    }
+
+    public SpecularRectangularFillPainter(RadianceFillPainter baseFillPainter,
+        ContainerColorTokensSingleColorQuery topQuery,
+        ContainerColorTokensSingleColorQuery bottomQuery,
+        float alpha) {
         this.baseFillPainter = baseFillPainter;
+        this.topQuery = topQuery;
+        this.bottomQuery = bottomQuery;
         this.alpha = alpha;
     }
 
@@ -127,8 +142,8 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
 
         if ((shineWidth > 0) && (shineHeight > 0)) {
             BufferedImage shineImage = getShineImage(comp, contour,
-                colorTokens.getContainerSurfaceLowest(),
-                colorTokens.getContainerSurfaceLow(),
+                this.topQuery.query(colorTokens),
+                this.bottomQuery.query(colorTokens),
                 this.alpha, shineWidth, shineHeight);
 
             Graphics2D graphics = (Graphics2D) g.create();

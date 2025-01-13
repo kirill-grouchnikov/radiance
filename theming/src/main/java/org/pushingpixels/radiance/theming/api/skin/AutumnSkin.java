@@ -184,18 +184,29 @@ public class AutumnSkin extends RadianceSkin {
 
 			RadianceColorScheme2 autumnColorScheme = ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4)),
+					Hct.fromInt(0xFFFFCB90), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE2C1)),
 				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
 				/* isDark */ false,
 				/* schemeColorResolver */ autumnColorResolver);
 
 			RadianceColorSchemeBundle2 autumnDefaultBundle =
 				new RadianceColorSchemeBundle2(autumnColorScheme);
+			// Slightly deeper color for the selected state
+			autumnDefaultBundle.registerContainerTokens(ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFFDBD72),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				ComponentState.SELECTED);
 			this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
 				RadianceThemingSlices.DecorationAreaType.NONE);
 
 			this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
-				autumnDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+				ColorSchemeUtils.getExtendedContainerTokens(
+					/* seed */ Hct.fromInt(0xFFFFCA8B),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.HEADER);
@@ -217,7 +228,11 @@ public class AutumnSkin extends RadianceSkin {
 				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 			this.buttonShaper = new ClassicButtonShaper();
-			this.fillPainter = new SpecularRectangularFillPainter(new MatteTonalFillPainter(), 0.5f);
+			this.fillPainter = new SpecularRectangularFillPainter(
+				new MatteTonalFillPainter(),
+				ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
+				ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
+				1.0f);
 			this.borderPainter = new CompositeBorderPainter("Autumn",
 				new SubduedTonalBorderPainter(),
 				new DelegateFractionBasedTonalBorderPainter(
@@ -225,7 +240,13 @@ public class AutumnSkin extends RadianceSkin {
 					new int[]{0xFFFFFFFF, 0xFFFFFFFF},
 					scheme -> ColorSchemeUtils.tint(scheme, 0.8f)));
 
-			this.highlightFillPainter = new ClassicTonalFillPainter();
+			this.highlightFillPainter = new FractionBasedTonalFillPainter("Autumn",
+				new float[] {0.0f, 0.5f, 1.0f},
+				new ContainerColorTokensSingleColorQuery[] {
+					ContainerColorTokensSingleColorQuery.CONTAINER_HIGH,
+					ContainerColorTokensSingleColorQuery.CONTAINER,
+					ContainerColorTokensSingleColorQuery.CONTAINER_LOW
+				});
 
 			MarbleNoiseDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
 			decorationPainter.setTextureAlpha(0.7f);

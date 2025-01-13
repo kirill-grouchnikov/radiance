@@ -84,6 +84,8 @@ public class TonalContainerFilter extends RadianceAbstractFilter {
         int container = colorTokens.getContainerSurface().getRGB();
         int containerHigh = colorTokens.getContainerSurfaceHigh().getRGB();
         int containerHighest = colorTokens.getContainerSurfaceHighest().getRGB();
+        int containerOutlineVariant = colorTokens.getContainerOutlineVariant().getRGB();
+        int containerOutline = colorTokens.getContainerOutline().getRGB();
 
         tokenColorMapping.put(
             RadianceColorUtilities.getColorBrightness(containerLowest),
@@ -100,6 +102,12 @@ public class TonalContainerFilter extends RadianceAbstractFilter {
         tokenColorMapping.put(
             RadianceColorUtilities.getColorBrightness(containerHighest),
             colorTokens.getContainerSurfaceHighest());
+        tokenColorMapping.put(
+            RadianceColorUtilities.getColorBrightness(containerOutlineVariant),
+            colorTokens.getContainerOutlineVariant());
+        tokenColorMapping.put(
+            RadianceColorUtilities.getColorBrightness(containerOutline),
+            colorTokens.getContainerOutline());
 
         List<Integer> tokensBrightness = new ArrayList<>(tokenColorMapping.keySet());
         Collections.sort(tokensBrightness);
