@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
@@ -331,6 +332,56 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             officeSilverDefaultBundle.registerContainerTokens(rolloverSelectedContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.ROLLOVER_SELECTED);
+
+            PaletteContainerColorsResolver activeMarksColorResolver =
+                PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .onContainer(DynamicPalette::getTonalContainerOutline)
+                        .build());
+
+            ContainerColorTokens rolloverMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFD111),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ activeMarksColorResolver);
+            ContainerColorTokens selectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFBD51),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ activeMarksColorResolver);
+            ContainerColorTokens rolloverSelectedMarkContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFA400),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ activeMarksColorResolver);
+            ContainerColorTokens pressedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF8C18),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ activeMarksColorResolver);
+            ContainerColorTokens pressedSelectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF991C),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* colorResolver */ activeMarksColorResolver);
+
+            // register state-specific color schemes on mark rollovers, presses and selections
+            officeSilverDefaultBundle.registerContainerTokens(rolloverMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.ROLLOVER_UNSELECTED);
+            officeSilverDefaultBundle.registerContainerTokens(rolloverSelectedMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.ROLLOVER_SELECTED);
+            officeSilverDefaultBundle.registerContainerTokens(selectedMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.SELECTED);
+            officeSilverDefaultBundle.registerContainerTokens(pressedMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.PRESSED_UNSELECTED);
+            officeSilverDefaultBundle.registerContainerTokens(pressedSelectedMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.PRESSED_SELECTED);
 
             this.registerDecorationAreaSchemeBundle(officeSilverDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
