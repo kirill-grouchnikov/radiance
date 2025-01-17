@@ -43,7 +43,10 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDeco
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.*;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 
@@ -108,8 +111,7 @@ public class ControlStates extends JFrame {
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
                     /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                    /* isDark */ false),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.getActiveStates());
 
@@ -117,8 +119,7 @@ public class ControlStates extends JFrame {
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
                     /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                    /* isDark */ false),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
 

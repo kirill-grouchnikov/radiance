@@ -287,28 +287,23 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             ContainerColorTokens rolloverContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFD111),
                 /* isFidelity */ true,
-                /* isDark */ false,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                /* isDark */ false);
             ContainerColorTokens selectedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFBD51),
                 /* isFidelity */ true,
-                /* isDark */ false,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                /* isDark */ false);
             ContainerColorTokens rolloverSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFA400),
                 /* isFidelity */ true,
-                /* isDark */ false,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                /* isDark */ false);
             ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF8C18),
                 /* isFidelity */ true,
-                /* isDark */ false,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                /* isDark */ false);
             ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF991C),
                 /* isFidelity */ true,
-                /* isDark */ false,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                /* isDark */ false);
 
             // register state-specific color schemes on rollovers, presses and selections
             officeSilverDefaultBundle.registerContainerTokens(rolloverContainerTokens,
@@ -343,27 +338,32 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 /* seed */ Hct.fromInt(0xFFFFD111),
                 /* isFidelity */ true,
                 /* isDark */ false,
+                /* contrastLevel */ 0.0,
                 /* colorResolver */ activeMarksColorResolver);
             ContainerColorTokens selectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFBD51),
                 /* isFidelity */ true,
                 /* isDark */ false,
+                /* contrastLevel */ 0.0,
                 /* colorResolver */ activeMarksColorResolver);
             ContainerColorTokens rolloverSelectedMarkContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFA400),
                 /* isFidelity */ true,
                 /* isDark */ false,
+                /* contrastLevel */ 0.0,
                 /* colorResolver */ activeMarksColorResolver);
             ContainerColorTokens pressedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF8C18),
                 /* isFidelity */ true,
                 /* isDark */ false,
+                /* contrastLevel */ 0.0,
                 /* colorResolver */ activeMarksColorResolver);
             ContainerColorTokens pressedSelectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF991C),
                 /* isFidelity */ true,
                 /* isDark */ false,
+                /* contrastLevel */ 0.0,
                 /* colorResolver */ activeMarksColorResolver);
 
             // register state-specific color schemes on mark rollovers, presses and selections

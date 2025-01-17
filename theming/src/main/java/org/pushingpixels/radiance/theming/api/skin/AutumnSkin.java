@@ -208,6 +208,7 @@ public class AutumnSkin extends RadianceSkin {
 					/* seed */ Hct.fromInt(0xFFFDBD72),
 					/* isFidelity */ true,
 					/* isDark */ false,
+					/* contrastLevel */ 0.0,
 					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.onContainer(DynamicPalette::getTonalContainerOutline)
@@ -226,6 +227,7 @@ public class AutumnSkin extends RadianceSkin {
 					/* seed */ Hct.fromInt(0xFFFFCA8B),
 					/* isFidelity */ true,
 					/* isDark */ false,
+					/* contrastLevel */ 0.0,
 					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 						PaletteContainerColorsResolverOverlay.builder()
 							.onContainer(DynamicPalette::getOnTonalContainerVariant)
@@ -246,8 +248,7 @@ public class AutumnSkin extends RadianceSkin {
 				ColorSchemeUtils.getExtendedContainerTokens(
 					/* seed */ Hct.fromInt(0xFFFED8B2),
 					/* isFidelity */ true,
-					/* isDark */ false,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+					/* isDark */ false),
 				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 			this.buttonShaper = new ClassicButtonShaper();

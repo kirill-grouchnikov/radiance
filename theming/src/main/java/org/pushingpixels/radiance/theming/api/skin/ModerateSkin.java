@@ -120,8 +120,7 @@ public class ModerateSkin extends RadianceSkin {
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFF1D59A),
                     /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                    /* isDark */ false);
 
             RadianceColorScheme2 steelBlueHeaderColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
@@ -133,8 +132,7 @@ public class ModerateSkin extends RadianceSkin {
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF6EA7CA),
                     /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                    /* isDark */ false);
 
             RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(

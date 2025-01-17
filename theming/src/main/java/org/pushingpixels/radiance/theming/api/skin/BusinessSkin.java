@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
@@ -75,8 +74,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                 .withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFEBD296),
                     /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()))
+                    /* isDark */ false))
                 .withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                             Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
@@ -86,8 +84,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                 .withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFEBD296),
                     /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+                    /* isDark */ false)));
         }
 
         @Override

@@ -29,21 +29,24 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.*;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -61,18 +64,18 @@ public class MarinerSkin extends RadianceSkin {
      * Overlay painter to paint a dark line along the bottom edge of the
      * menubar.
      */
-    private BottomLineOverlayPainter menuOverlayPainter;
+    protected RadianceOverlayPainter menuOverlayPainter;
 
     /**
      * Overlay painter to paint a dark line along the bottom edge of the
      * toolbars.
      */
-    private BottomLineOverlayPainter toolbarBottomLineOverlayPainter;
+    protected RadianceOverlayPainter toolbarBottomLineOverlayPainter;
 
     /**
      * Overlay painter to paint a bezel line along the top edge of the footer.
      */
-    private TopBezelOverlayPainter footerTopBezelOverlayPainter;
+    protected RadianceOverlayPainter footerTopBezelOverlayPainter;
 
     /**
      * Creates a new <code>Mariner</code> skin.
@@ -187,29 +190,7 @@ public class MarinerSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(footerSchemeBundle, footerBackgroundColorScheme,
                 RadianceThemingSlices.DecorationAreaType.FOOTER, RadianceThemingSlices.DecorationAreaType.TOOLBAR, RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        // add an overlay painter to paint a bezel line along the top
-        // edge of footer
-        this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-                ColorSchemeSingleColorQuery.ULTRADARK, ColorSchemeSingleColorQuery.LIGHT);
-        this.addOverlayPainter(this.footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
-
-        // add an overlay painters to create a line between
-        // menu bar and toolbars
-        this.menuOverlayPainter = new BottomLineOverlayPainter(
-                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                        ColorTransform.brightness(-0.5f)));
-        this.addOverlayPainter(this.menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
-
-        // add overlay painter to paint drop shadows along the bottom
-        // edges of toolbars
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
-                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add overlay painter to paint a dark line along the bottom
-        // edge of toolbars
-        this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-                ColorSchemeSingleColorQuery.ULTRADARK);
-        this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+        this.configureOverlayPainters();
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new FractionBasedFillPainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
@@ -226,8 +207,166 @@ public class MarinerSkin extends RadianceSkin {
         this.highlightBorderPainter = new ClassicBorderPainter();
     }
 
+    void configureOverlayPainters() {
+        // add an overlay painter to paint a bezel line along the top
+        // edge of footer
+        this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+            ColorSchemeSingleColorQuery.ULTRADARK, ColorSchemeSingleColorQuery.LIGHT);
+        this.addOverlayPainter(this.footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+        // add an overlay painter to create a line between
+        // menu bar and toolbars
+        this.menuOverlayPainter = new BottomLineOverlayPainter(
+            ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                ColorTransform.brightness(-0.5f)));
+        this.addOverlayPainter(this.menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+
+        // add overlay painter to paint drop shadows along the bottom
+        // edges of toolbars
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // add overlay painter to paint a dark line along the bottom
+        // edge of toolbars
+        this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+            ColorSchemeSingleColorQuery.ULTRADARK);
+        this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+    }
+
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class MarinerTonalSkin extends MarinerSkin implements TonalSkin {
+        public static final String NAME = "Mariner Tonal";
+
+        public MarinerTonalSkin() {
+            RadianceColorScheme2 marinerColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFF6DD9D), Hct.fromInt(0xFFD9D8D5), Hct.fromInt(0xFFECF0F3)),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ false,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+
+            ContainerColorTokens marinerSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFF5D47A),
+                /* isFidelity */ true,
+                /* isDark */ false);
+
+            RadianceColorSchemeBundle2 marinerDefaultBundle =
+                new RadianceColorSchemeBundle2(marinerColorScheme);
+            // More saturated seed for controls in selected state
+            marinerDefaultBundle.registerContainerTokens(marinerSelectedContainerTokens,
+                ComponentState.SELECTED);
+            this.registerDecorationAreaSchemeBundle(marinerDefaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
+
+            RadianceColorScheme2 marinerHeaderColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFF5D47A), Hct.fromInt(0xFF281D1E), Hct.fromInt(0xFF2C2021)),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ true,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+
+            RadianceColorSchemeBundle2 marinerHeaderBundle =
+                new RadianceColorSchemeBundle2(marinerHeaderColorScheme);
+            // More saturated seed for controls in selected state
+            marinerHeaderBundle.registerContainerTokens(marinerSelectedContainerTokens,
+                ComponentState.SELECTED);
+            marinerHeaderBundle.registerContainerTokens(
+                marinerSelectedContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.getActiveStates());
+            this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF261D1E),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                        PaletteContainerColorsResolverOverlay.builder()
+                            .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
+                            .build())),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.HEADER);
+
+            RadianceColorScheme2 marinerFooterColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFF6DD9D), Hct.fromInt(0xFFC5C4C2), Hct.fromInt(0xFFB9B7B9)),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* isDark */ false,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+
+            RadianceColorSchemeBundle2 marinerFooterBundle =
+                new RadianceColorSchemeBundle2(marinerFooterColorScheme);
+            this.registerDecorationAreaSchemeBundle(marinerFooterBundle,
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFB9B7B9),
+                    /* isFidelity */ true,
+                    /* isDark */ false),
+                RadianceThemingSlices.DecorationAreaType.FOOTER,
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+
+            this.buttonShaper = new ClassicButtonShaper();
+            this.fillPainter = new FractionBasedTonalFillPainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
+                    ContainerColorTokensSingleColorQuery.CONTAINER,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_HIGH});
+
+            this.decorationPainter = new MatteDecorationPainter();
+            this.highlightFillPainter = new ClassicTonalFillPainter();
+
+            this.borderPainter = new FractionBasedTonalBorderPainter("Mariner",
+                new float[] {0.0f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE});
+            this.highlightBorderPainter = new ClassicTonalBorderPainter();
+        }
+
+        @Override
+        void configureOverlayPainters() {
+            // add an overlay painter to paint a bezel line along the top
+            // edge of footer
+            this.footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
+                    ColorTransform.alpha(128)),
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT,
+                    ColorTransform.alpha(128)));
+            this.addOverlayPainter(this.footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+            // add an overlay painter to create a line between
+            // menu bar and toolbars
+            this.menuOverlayPainter = new BottomLineTonalOverlayPainter(
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
+                    ColorTransform.brightness(-0.5f)));
+            this.addOverlayPainter(this.menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+
+            // add overlay painter to paint drop shadows along the bottom
+            // edges of toolbars
+            this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+            // add overlay painter to paint a dark line along the bottom
+            // edge of toolbars
+            this.toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
+                    ColorTransform.alpha(128)));
+            this.addOverlayPainter(this.toolbarBottomLineOverlayPainter,
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+        }
+
+        @Override
+        public String getDisplayName() {
+            return MarinerTonalSkin.NAME;
+        }
     }
 }

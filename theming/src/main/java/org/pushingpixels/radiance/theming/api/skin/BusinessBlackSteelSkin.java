@@ -33,7 +33,6 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
@@ -119,8 +118,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFF85A3B5),
 					/* isFidelity */ true,
-					/* isDark */ false,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()))
+					/* isDark */ false))
 				.withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 						Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
@@ -130,8 +128,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				.withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFA1BCCF),
 					/* isFidelity */ true,
-					/* isDark */ false,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+					/* isDark */ false)));
 
 			RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(

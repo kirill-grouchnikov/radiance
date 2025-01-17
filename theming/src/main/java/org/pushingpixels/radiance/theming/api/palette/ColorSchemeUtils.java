@@ -503,14 +503,23 @@ public class ColorSchemeUtils {
     public static ContainerColorTokens getContainerTokens(
         Hct seed,
         boolean isFidelity,
+        boolean isDark) {
+        return getContainerTokens(seed, isFidelity, isDark, 0.0,
+            PaletteResolverUtils.getPaletteTonalColorResolver());
+    }
+
+    public static ContainerColorTokens getContainerTokens(
+        Hct seed,
+        boolean isFidelity,
         boolean isDark,
+        double contrastLevel,
         PaletteContainerColorsResolver colorResolver) {
 
         DynamicPalette dynamicPalette = new DynamicPalette(
             /* sourceColorHct */ seed,
             /* isFidelity */ isFidelity,
             /* isDark */ isDark,
-            /* contrastLevel */ 0.0,
+            /* contrastLevel */ contrastLevel,
             /* palette */ TonalPalette.fromHct(seed));
 
         return new ContainerColorTokens() {
@@ -584,17 +593,27 @@ public class ColorSchemeUtils {
     public static ExtendedContainerColorTokens getExtendedContainerTokens(
         Hct seed,
         boolean isFidelity,
+        boolean isDark) {
+        return getExtendedContainerTokens(seed, isFidelity, isDark, 0.0,
+            PaletteResolverUtils.getPaletteTonalColorResolver());
+    }
+
+    public static ExtendedContainerColorTokens getExtendedContainerTokens(
+        Hct seed,
+        boolean isFidelity,
         boolean isDark,
+        double contrastLevel,
         PaletteContainerColorsResolver colorResolver) {
 
         DynamicPalette dynamicPalette = new DynamicPalette(
             /* sourceColorHct */ seed,
             /* isFidelity */ isFidelity,
             /* isDark */ isDark,
-            /* contrastLevel */ 0.0,
+            /* contrastLevel */ contrastLevel,
             /* palette */ TonalPalette.fromHct(seed));
 
-        ContainerColorTokens baseTokens = getContainerTokens(seed, isFidelity, isDark, colorResolver);
+        ContainerColorTokens baseTokens = getContainerTokens(seed, isFidelity, isDark,
+            contrastLevel, colorResolver);
 
         return new ExtendedContainerColorTokens() {
             @Override
