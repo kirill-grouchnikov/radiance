@@ -49,6 +49,10 @@ public class PaletteContainerColorsResolverOverlay {
     private Function<DynamicPalette, Float> containerSurfaceDisabledAlpha;
     private Function<DynamicPalette, Float> onContainerDisabledAlpha;
     private Function<DynamicPalette, Float> containerOutlineDisabledAlpha;
+    private Function<DynamicPalette, Integer> inverseSurface;
+    private Function<DynamicPalette, Integer> inverseContainerSurface;
+    private Function<DynamicPalette, Integer> inverseOnContainer;
+    private Function<DynamicPalette, Integer> inverseContainerOutline;
 
     public static Builder builder() {
         return new Builder();
@@ -116,6 +120,22 @@ public class PaletteContainerColorsResolverOverlay {
         return this.containerOutlineDisabledAlpha;
     }
 
+    public Function<DynamicPalette, Integer> getInverseSurface() {
+        return this.inverseSurface;
+    }
+
+    public Function<DynamicPalette, Integer> getInverseContainerSurface() {
+        return this.inverseContainerSurface;
+    }
+
+    public Function<DynamicPalette, Integer> getInverseOnContainer() {
+        return this.inverseOnContainer;
+    }
+
+    public Function<DynamicPalette, Integer> getInverseContainerOutline() {
+        return this.inverseContainerOutline;
+    }
+
     public final static class Builder {
         private Function<DynamicPalette, Integer> surface;
         private Function<DynamicPalette, Integer> surfaceDim;
@@ -132,6 +152,10 @@ public class PaletteContainerColorsResolverOverlay {
         private Function<DynamicPalette, Float> containerSurfaceDisabledAlpha;
         private Function<DynamicPalette, Float> onContainerDisabledAlpha;
         private Function<DynamicPalette, Float> containerOutlineDisabledAlpha;
+        private Function<DynamicPalette, Integer> inverseSurface;
+        private Function<DynamicPalette, Integer> inverseContainerSurface;
+        private Function<DynamicPalette, Integer> inverseOnContainer;
+        private Function<DynamicPalette, Integer> inverseContainerOutline;
 
         private Builder() {}
 
@@ -213,6 +237,28 @@ public class PaletteContainerColorsResolverOverlay {
             return this;
         }
 
+        public Builder inverseSurface(Function<DynamicPalette, Integer> inverseSurface) {
+            this.inverseSurface = inverseSurface;
+            return this;
+        }
+
+        public Builder inverseContainerSurface(
+            Function<DynamicPalette, Integer> inverseContainerSurface) {
+            this.inverseContainerSurface = inverseContainerSurface;
+            return this;
+        }
+
+        public Builder inverseOnContainer(Function<DynamicPalette, Integer> inverseOnContainer) {
+            this.inverseOnContainer = inverseOnContainer;
+            return this;
+        }
+
+        public Builder inverseContainerOutline(
+            Function<DynamicPalette, Integer> inverseContainerOutline) {
+            this.inverseContainerOutline = inverseContainerOutline;
+            return this;
+        }
+
         public PaletteContainerColorsResolverOverlay build() {
             PaletteContainerColorsResolverOverlay result = new PaletteContainerColorsResolverOverlay();
             result.surface = this.surface;
@@ -230,6 +276,10 @@ public class PaletteContainerColorsResolverOverlay {
             result.containerSurfaceDisabledAlpha = this.containerSurfaceDisabledAlpha;
             result.onContainerDisabledAlpha = this.onContainerDisabledAlpha;
             result.containerOutlineDisabledAlpha = this.containerOutlineDisabledAlpha;
+            result.inverseSurface = this.inverseSurface;
+            result.inverseContainerSurface = this.inverseContainerSurface;
+            result.inverseOnContainer = this.inverseOnContainer;
+            result.inverseContainerOutline = this.inverseContainerOutline;
             return result;
         }
     }

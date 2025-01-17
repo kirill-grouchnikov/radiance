@@ -49,4 +49,8 @@ public interface ContainerColorTokens {
     float getContainerSurfaceDisabledAlpha();
     float getOnContainerDisabledAlpha();
     float getContainerOutlineDisabledAlpha();
+
+    Color getInverseContainerSurface();
+    Color getInverseOnContainer();
+    Color getInverseContainerOutline();
 }

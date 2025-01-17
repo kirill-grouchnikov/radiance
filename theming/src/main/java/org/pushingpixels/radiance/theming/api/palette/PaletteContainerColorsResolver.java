@@ -54,6 +54,11 @@ public interface PaletteContainerColorsResolver {
     float getOnContainerDisabledAlpha(DynamicPalette dynamicPalette);
     float getContainerOutlineDisabledAlpha(DynamicPalette dynamicPalette);
 
+    Color getInverseSurface(DynamicPalette dynamicPalette);
+    Color getInverseContainerSurface(DynamicPalette dynamicPalette);
+    Color getInverseOnContainer(DynamicPalette dynamicPalette);
+    Color getInverseContainerOutline(DynamicPalette dynamicPalette);
+
     default PaletteContainerColorsResolver overlayWith(PaletteContainerColorsResolverOverlay overlay) {
         return PaletteResolverUtils.overlayWith(this, overlay);
     }

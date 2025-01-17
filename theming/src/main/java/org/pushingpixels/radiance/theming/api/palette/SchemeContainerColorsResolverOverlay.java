@@ -46,6 +46,9 @@ public class SchemeContainerColorsResolverOverlay {
     private Function<DynamicScheme, Float> containerSurfaceDisabledAlpha;
     private Function<DynamicScheme, Float> onContainerDisabledAlpha;
     private Function<DynamicScheme, Float> containerOutlineDisabledAlpha;
+    private Function<DynamicScheme, Integer> inverseContainerSurface;
+    private Function<DynamicScheme, Integer> inverseOnContainer;
+    private Function<DynamicScheme, Integer> inverseContainerOutline;
 
     public static Builder builder() {
         return new Builder();
@@ -98,7 +101,19 @@ public class SchemeContainerColorsResolverOverlay {
     }
 
     public Function<DynamicScheme, Float> getContainerOutlineDisabledAlpha() {
-        return containerOutlineDisabledAlpha;
+        return this.containerOutlineDisabledAlpha;
+    }
+
+    public Function<DynamicScheme, Integer> getInverseContainerSurface() {
+        return this.inverseContainerSurface;
+    }
+
+    public Function<DynamicScheme, Integer> getInverseOnContainer() {
+        return this.inverseOnContainer;
+    }
+
+    public Function<DynamicScheme, Integer> getInverseContainerOutline() {
+        return this.inverseContainerOutline;
     }
 
     public final static class Builder {
@@ -114,6 +129,9 @@ public class SchemeContainerColorsResolverOverlay {
         private Function<DynamicScheme, Float> containerSurfaceDisabledAlpha;
         private Function<DynamicScheme, Float> onContainerDisabledAlpha;
         private Function<DynamicScheme, Float> containerOutlineDisabledAlpha;
+        private Function<DynamicScheme, Integer> inverseContainerSurface;
+        private Function<DynamicScheme, Integer> inverseOnContainer;
+        private Function<DynamicScheme, Integer> inverseContainerOutline;
 
         private Builder() {}
 
@@ -180,6 +198,21 @@ public class SchemeContainerColorsResolverOverlay {
             return this;
         }
 
+        public Builder inverseContainerSurface(Function<DynamicScheme, Integer> inverseContainerSurface) {
+            this.inverseContainerSurface = inverseContainerSurface;
+            return this;
+        }
+
+        public Builder inverseOnContainer(Function<DynamicScheme, Integer> inverseOnContainer) {
+            this.inverseOnContainer = inverseOnContainer;
+            return this;
+        }
+
+        public Builder inverseContainerOutline(Function<DynamicScheme, Integer> inverseContainerOutline) {
+            this.inverseContainerOutline = inverseContainerOutline;
+            return this;
+        }
+
         public SchemeContainerColorsResolverOverlay build() {
             SchemeContainerColorsResolverOverlay result = new SchemeContainerColorsResolverOverlay();
             result.containerSurfaceLowest = this.containerSurfaceLowest;
@@ -194,6 +227,9 @@ public class SchemeContainerColorsResolverOverlay {
             result.containerSurfaceDisabledAlpha = this.containerSurfaceDisabledAlpha;
             result.onContainerDisabledAlpha = this.onContainerDisabledAlpha;
             result.containerOutlineDisabledAlpha = this.containerOutlineDisabledAlpha;
+            result.inverseContainerSurface = this.inverseContainerSurface;
+            result.inverseOnContainer = this.inverseOnContainer;
+            result.inverseContainerOutline = this.inverseContainerOutline;
             return result;
         }
     }

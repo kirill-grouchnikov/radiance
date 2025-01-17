@@ -37,6 +37,7 @@ public class SchemeColorResolverOverlay {
     private Function<DynamicScheme, Integer> surface;
     private Function<DynamicScheme, Integer> surfaceDim;
     private Function<DynamicScheme, Integer> surfaceBright;
+    private Function<DynamicScheme, Integer> inverseSurface;
     private SchemeContainerColorsResolverOverlay neutralContainerResolverOverlay;
     private SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay;
     private SchemeContainerColorsResolverOverlay tonalContainerResolverOverlay;
@@ -60,6 +61,10 @@ public class SchemeColorResolverOverlay {
         return this.surfaceBright;
     }
 
+    public Function<DynamicScheme, Integer> getInverseSurface() {
+        return this.inverseSurface;
+    }
+
     public SchemeContainerColorsResolverOverlay getNeutralContainerResolverOverlay() {
         return this.neutralContainerResolverOverlay;
     }
@@ -80,6 +85,7 @@ public class SchemeColorResolverOverlay {
         private Function<DynamicScheme, Integer> surface;
         private Function<DynamicScheme, Integer> surfaceDim;
         private Function<DynamicScheme, Integer> surfaceBright;
+        private Function<DynamicScheme, Integer> inverseSurface;
         private SchemeContainerColorsResolverOverlay neutralContainerResolverOverlay;
         private SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay;
         private SchemeContainerColorsResolverOverlay tonalContainerResolverOverlay;
@@ -99,6 +105,11 @@ public class SchemeColorResolverOverlay {
 
         public Builder surfaceBright(Function<DynamicScheme, Integer> surfaceBright) {
             this.surfaceBright = surfaceBright;
+            return this;
+        }
+
+        public Builder inverseSurface(Function<DynamicScheme, Integer> inverseSurface) {
+            this.inverseSurface = inverseSurface;
             return this;
         }
 
@@ -131,6 +142,7 @@ public class SchemeColorResolverOverlay {
             result.surface = this.surface;
             result.surfaceDim = this.surfaceDim;
             result.surfaceBright = this.surfaceBright;
+            result.inverseSurface = this.inverseSurface;
             result.neutralContainerResolverOverlay = this.neutralContainerResolverOverlay;
             result.mutedContainerResolverOverlay = this.mutedContainerResolverOverlay;
             result.tonalContainerResolverOverlay = this.tonalContainerResolverOverlay;

@@ -50,6 +50,10 @@ public interface SchemeContainerColorsResolver {
     float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme);
     float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme);
 
+    Color getInverseContainerSurface(DynamicScheme dynamicScheme);
+    Color getInverseOnContainer(DynamicScheme dynamicScheme);
+    Color getInverseContainerOutline(DynamicScheme dynamicScheme);
+
     default SchemeContainerColorsResolver overlayWith(SchemeContainerColorsResolverOverlay overlay) {
         return SchemeResolverUtils.overlayWith(this, overlay);
     }

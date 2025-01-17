@@ -41,6 +41,8 @@ public interface RadianceColorScheme2 {
 
     Color getSurfaceBright();
 
+    Color getInverseSurface();
+
     ContainerColorTokens getNeutralContainerTokens();
 
     ContainerColorTokens getMutedContainerTokens();
@@ -106,6 +108,11 @@ public interface RadianceColorScheme2 {
             @Override
             public Color getSurfaceBright() {
                 return me.getSurfaceBright();
+            }
+
+            @Override
+            public Color getInverseSurface() {
+                return me.getInverseSurface();
             }
 
             @Override

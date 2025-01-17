@@ -35,11 +35,11 @@ import java.awt.*;
 
 public class BladeContainerColorTokens implements ContainerColorTokens {
     public boolean isDark = false;
-    public Color containerLowest = Color.white;
-    public Color containerLow = Color.white;
-    public Color container = Color.white;
-    public Color containerHigh = Color.white;
-    public Color containerHighest = Color.white;
+    public Color containerSurfaceLowest = Color.white;
+    public Color containerSurfaceLow = Color.white;
+    public Color containerSurface = Color.white;
+    public Color containerSurfaceHigh = Color.white;
+    public Color containerSurfaceHighest = Color.white;
     public Color onContainer = Color.white;
     public Color onContainerVariant = Color.white;
     public Color containerOutline = Color.white;
@@ -47,6 +47,9 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     public float containerDisabledAlpha = 0.0f;
     public float onContainerDisabledAlpha = 0.0f;
     public float containerOutlineDisabledAlpha = 0.0f;
+    public Color inverseContainerSurface = Color.white;
+    public Color inverseOnContainer = Color.white;
+    public Color inverseContainerOutline = Color.white;
     public String combinedName = "";
 
     public BladeContainerColorTokens() {
@@ -59,27 +62,27 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
 
     @Override
     public Color getContainerSurfaceLowest() {
-        return containerLowest;
+        return containerSurfaceLowest;
     }
 
     @Override
     public Color getContainerSurfaceLow() {
-        return containerLow;
+        return containerSurfaceLow;
     }
 
     @Override
     public Color getContainerSurface() {
-        return container;
+        return containerSurface;
     }
 
     @Override
     public Color getContainerSurfaceHigh() {
-        return containerHigh;
+        return containerSurfaceHigh;
     }
 
     @Override
     public Color getContainerSurfaceHighest() {
-        return containerHighest;
+        return containerSurfaceHighest;
     }
 
     @Override
@@ -91,6 +94,7 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     public Color getOnContainerVariant() {
         return onContainerVariant;
     }
+
     @Override
     public Color getContainerOutline() {
         return containerOutline;
@@ -114,6 +118,21 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     @Override
     public float getContainerOutlineDisabledAlpha() {
         return this.containerOutlineDisabledAlpha;
+    }
+
+    @Override
+    public Color getInverseContainerSurface() {
+        return this.inverseContainerSurface;
+    }
+
+    @Override
+    public Color getInverseOnContainer() {
+        return this.inverseOnContainer;
+    }
+
+    @Override
+    public Color getInverseContainerOutline() {
+        return this.inverseContainerOutline;
     }
 
     @Override

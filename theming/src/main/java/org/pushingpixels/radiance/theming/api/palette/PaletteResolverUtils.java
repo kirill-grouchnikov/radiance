@@ -112,6 +112,26 @@ public class PaletteResolverUtils {
                 public float getContainerOutlineDisabledAlpha(DynamicPalette dynamicPalette) {
                     return 0.35f;
                 }
+
+                @Override
+                public Color getInverseSurface(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getInverseSurface());
+                }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getInverseTonalContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getInverseOnTonalContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getInverseTonalContainerOutline());
+                }
             };
         return result;
     }
@@ -266,6 +286,46 @@ public class PaletteResolverUtils {
                     return original.getContainerOutlineDisabledAlpha(dynamicPalette);
                 } else {
                     return spec.apply(dynamicPalette);
+                }
+            }
+
+            @Override
+            public Color getInverseSurface(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getInverseSurface();
+                if (spec == null) {
+                    return original.getInverseSurface(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getInverseContainerSurface(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getInverseContainerSurface();
+                if (spec == null) {
+                    return original.getInverseContainerSurface(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getInverseOnContainer(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getInverseOnContainer();
+                if (spec == null) {
+                    return original.getInverseOnContainer(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getInverseContainerOutline(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getInverseContainerOutline();
+                if (spec == null) {
+                    return original.getInverseContainerOutline(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
                 }
             }
         };

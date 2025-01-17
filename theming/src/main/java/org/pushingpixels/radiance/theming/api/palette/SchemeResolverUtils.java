@@ -97,6 +97,21 @@ public class SchemeResolverUtils {
                 public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
                     return 0.35f;
                 }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseNeutralContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseOnNeutralContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseNeutralContainerOutline());
+                }
             };
 
         SchemeContainerColorsResolver mutedContainerResolver =
@@ -159,6 +174,21 @@ public class SchemeResolverUtils {
                 @Override
                 public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
                     return 0.35f;
+                }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseMutedContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseOnMutedContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseMutedContainerOutline());
                 }
             };
 
@@ -223,6 +253,21 @@ public class SchemeResolverUtils {
                 public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
                     return 0.35f;
                 }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseTonalContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseOnTonalContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseTonalContainerOutline());
+                }
             };
 
         SchemeContainerColorsResolver primaryContainerResolver =
@@ -285,6 +330,21 @@ public class SchemeResolverUtils {
                 @Override
                 public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
                     return 0.35f;
+                }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInversePrimaryContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseOnPrimaryContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInversePrimaryContainerOutline());
                 }
             };
 
@@ -349,6 +409,21 @@ public class SchemeResolverUtils {
                 public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
                     return 0.35f;
                 }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemInfoContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseOnSystemInfoContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemInfoContainerOutline());
+                }
             };
 
         SchemeContainerColorsResolver systemWarningContainerResolver =
@@ -411,6 +486,21 @@ public class SchemeResolverUtils {
                 @Override
                 public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
                     return 0.35f;
+                }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemWarningContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseOnSystemWarningContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemWarningContainerOutline());
                 }
             };
 
@@ -475,6 +565,21 @@ public class SchemeResolverUtils {
                 public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
                     return 0.35f;
                 }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemErrorContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseOnSystemErrorContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemErrorContainerOutline());
+                }
             };
 
         SchemeContainerColorsResolver systemSuccessContainerResolver =
@@ -537,6 +642,21 @@ public class SchemeResolverUtils {
                 @Override
                 public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
                     return 0.35f;
+                }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemSuccessContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseOnSystemSuccessContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemSuccessContainerOutline());
                 }
             };
 
@@ -601,6 +721,21 @@ public class SchemeResolverUtils {
                 public float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme) {
                     return 0.35f;
                 }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemEmergencyContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseOnSystemEmergencyContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getInverseSystemEmergencyContainerOutline());
+                }
             };
 
         return new SchemeColorResolver() {
@@ -617,6 +752,11 @@ public class SchemeResolverUtils {
             @Override
             public Color getSurfaceBright(DynamicScheme dynamicScheme) {
                 return new Color(dynamicScheme.getSurfaceBright());
+            }
+
+            @Override
+            public Color getInverseSurface(DynamicScheme dynamicScheme) {
+                return new Color(dynamicScheme.getInverseSurface());
             }
 
             @Override
@@ -788,6 +928,36 @@ public class SchemeResolverUtils {
                    return spec.apply(dynamicScheme);
                }
            }
+
+           @Override
+           public Color getInverseContainerSurface(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Integer> spec = overlay.getInverseContainerSurface();
+               if (spec == null) {
+                   return original.getInverseContainerSurface(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme), true);
+               }
+           }
+
+           @Override
+           public Color getInverseOnContainer(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Integer> spec = overlay.getInverseOnContainer();
+               if (spec == null) {
+                   return original.getInverseOnContainer(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme), true);
+               }
+           }
+
+           @Override
+           public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Integer> spec = overlay.getInverseContainerOutline();
+               if (spec == null) {
+                   return original.getInverseContainerOutline(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme), true);
+               }
+           }
        };
     }
 
@@ -819,6 +989,16 @@ public class SchemeResolverUtils {
                Function<DynamicScheme, Integer> spec = overlay.getSurfaceBright();
                if (spec == null) {
                    return original.getSurfaceBright(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme), true);
+               }
+           }
+
+           @Override
+           public Color getInverseSurface(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Integer> spec = overlay.getInverseSurface();
+               if (spec == null) {
+                   return original.getInverseSurface(dynamicScheme);
                } else {
                    return new Color(spec.apply(dynamicScheme), true);
                }

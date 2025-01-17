@@ -113,6 +113,21 @@ public class ColorSchemeUtils {
             public float getContainerOutlineDisabledAlpha() {
                 return tonalContainerColorResolver.getContainerOutlineDisabledAlpha(dynamicScheme);
             }
+
+            @Override
+            public Color getInverseContainerSurface() {
+                return tonalContainerColorResolver.getInverseContainerSurface(dynamicScheme);
+            }
+
+            @Override
+            public Color getInverseOnContainer() {
+                return tonalContainerColorResolver.getInverseOnContainer(dynamicScheme);
+            }
+
+            @Override
+            public Color getInverseContainerOutline() {
+                return tonalContainerColorResolver.getInverseContainerOutline(dynamicScheme);
+            }
         };
     }
 
@@ -168,22 +183,27 @@ public class ColorSchemeUtils {
             overlay, (int) (255 * overlayAmount));
 
         // Apply overlay on the container tokens
-        Color containerLowest = RadianceColorUtilities.overlayColor(
+        Color containerSurfaceLowest = RadianceColorUtilities.overlayColor(
             original.getContainerSurfaceLowest(), overlayWithAlpha);
-        Color containerLow = RadianceColorUtilities.overlayColor(
+        Color containerSurfaceLow = RadianceColorUtilities.overlayColor(
             original.getContainerSurfaceLow(), overlayWithAlpha);
-        Color container = RadianceColorUtilities.overlayColor(
+        Color containerSurface = RadianceColorUtilities.overlayColor(
             original.getContainerSurface(), overlayWithAlpha);
-        Color containerHigh = RadianceColorUtilities.overlayColor(
+        Color containerSurfaceHigh = RadianceColorUtilities.overlayColor(
             original.getContainerSurfaceHigh(), overlayWithAlpha);
-        Color containerHighest = RadianceColorUtilities.overlayColor(
+        Color containerSurfaceHighest = RadianceColorUtilities.overlayColor(
             original.getContainerSurfaceHighest(), overlayWithAlpha);
+        Color inverseContainerSurface = RadianceColorUtilities.overlayColor(
+            original.getInverseContainerSurface(), overlayWithAlpha);
 
         // Leave on container and container outline tokens as they are
         Color onContainer = original.getOnContainer();
         Color onContainerVariant = original.getOnContainerVariant();
         Color containerOutline = original.getContainerOutline();
         Color containerOutlineVariant = original.getContainerOutlineVariant();
+
+        Color inverseOnContainer = original.getInverseOnContainer();
+        Color inverseContainerOutline = original.getInverseContainerOutline();
 
         return new ContainerColorTokens() {
             @Override
@@ -193,27 +213,27 @@ public class ColorSchemeUtils {
 
             @Override
             public Color getContainerSurfaceLowest() {
-                return containerLowest;
+                return containerSurfaceLowest;
             }
 
             @Override
             public Color getContainerSurfaceLow() {
-                return containerLow;
+                return containerSurfaceLow;
             }
 
             @Override
             public Color getContainerSurface() {
-                return container;
+                return containerSurface;
             }
 
             @Override
             public Color getContainerSurfaceHigh() {
-                return containerHigh;
+                return containerSurfaceHigh;
             }
 
             @Override
             public Color getContainerSurfaceHighest() {
-                return containerHighest;
+                return containerSurfaceHighest;
             }
 
             @Override
@@ -249,6 +269,21 @@ public class ColorSchemeUtils {
             @Override
             public float getContainerOutlineDisabledAlpha() {
                 return original.getContainerOutlineDisabledAlpha();
+            }
+
+            @Override
+            public Color getInverseContainerSurface() {
+                return inverseContainerSurface;
+            }
+
+            @Override
+            public Color getInverseOnContainer() {
+                return inverseOnContainer;
+            }
+
+            @Override
+            public Color getInverseContainerOutline() {
+                return inverseContainerOutline;
             }
         };
     }
@@ -385,6 +420,11 @@ public class ColorSchemeUtils {
             @Override
             public Color getSurfaceBright() {
                 return schemeColorResolver.getSurfaceBright(scheme);
+            }
+
+            @Override
+            public Color getInverseSurface() {
+                return schemeColorResolver.getInverseSurface(scheme);
             }
 
             @Override
@@ -587,6 +627,21 @@ public class ColorSchemeUtils {
             public float getContainerOutlineDisabledAlpha() {
                 return colorResolver.getContainerOutlineDisabledAlpha(dynamicPalette);
             }
+
+            @Override
+            public Color getInverseContainerSurface() {
+                return colorResolver.getInverseContainerSurface(dynamicPalette);
+            }
+
+            @Override
+            public Color getInverseOnContainer() {
+                return colorResolver.getInverseOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getInverseContainerOutline() {
+                return colorResolver.getInverseContainerOutline(dynamicPalette);
+            }
         };
     }
 
@@ -629,6 +684,11 @@ public class ColorSchemeUtils {
             @Override
             public Color getSurfaceBright() {
                 return colorResolver.getSurfaceBright(dynamicPalette);
+            }
+
+            @Override
+            public Color getInverseSurface() {
+                return colorResolver.getInverseSurface(dynamicPalette);
             }
 
             @Override
@@ -713,6 +773,24 @@ public class ColorSchemeUtils {
             public float getContainerOutlineDisabledAlpha() {
                 return original.getContainerOutlineDisabledAlpha();
             }
+
+            @Override
+            public Color getInverseContainerSurface() {
+                return new Color(Blend.cam16Ucs(original.getInverseContainerSurface().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getInverseOnContainer() {
+                return new Color(Blend.cam16Ucs(original.getInverseOnContainer().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
+
+            @Override
+            public Color getInverseContainerOutline() {
+                return new Color(Blend.cam16Ucs(original.getInverseContainerOutline().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
         };
     }
 
@@ -790,6 +868,24 @@ public class ColorSchemeUtils {
             @Override
             public float getContainerOutlineDisabledAlpha() {
                 return original.getContainerOutlineDisabledAlpha();
+            }
+
+            @Override
+            public Color getInverseContainerSurface() {
+                return new Color(Blend.cam16Ucs(original.getInverseContainerSurface().getRGB(),
+                    Color.BLACK.getRGB(), shadeFactor));
+            }
+
+            @Override
+            public Color getInverseOnContainer() {
+                return new Color(Blend.cam16Ucs(original.getInverseOnContainer().getRGB(),
+                    Color.BLACK.getRGB(), shadeFactor));
+            }
+
+            @Override
+            public Color getInverseContainerOutline() {
+                return new Color(Blend.cam16Ucs(original.getInverseContainerOutline().getRGB(),
+                    Color.BLACK.getRGB(), shadeFactor));
             }
         };
     }
