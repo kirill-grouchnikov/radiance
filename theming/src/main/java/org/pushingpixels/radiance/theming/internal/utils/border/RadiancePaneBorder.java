@@ -85,11 +85,15 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 
             // bottom and right border as outline
-            graphics.setColor(titleContainerTokens.getContainerOutline());
+            graphics.setColor(isDark
+                ? titleContainerTokens.getContainerSurfaceLowest()
+                : titleContainerTokens.getContainerOutline());
             graphics.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
             graphics.drawLine(x + w - 1, y, x + w - 1, y + h - 1);
             // top and left border as outline variant
-            graphics.setColor(titleContainerTokens.getContainerOutlineVariant());
+            graphics.setColor(isDark
+                ? titleContainerTokens.getContainerSurfaceLow()
+                : titleContainerTokens.getContainerOutlineVariant());
             graphics.drawLine(x, y, x + w - 2, y);
             graphics.drawLine(x, y, x, y + h - 2);
 

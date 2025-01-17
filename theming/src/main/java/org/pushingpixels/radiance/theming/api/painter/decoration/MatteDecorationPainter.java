@@ -165,10 +165,12 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
 
     protected void fill(Graphics2D graphics, ExtendedContainerColorTokens colorTokens,
         int offsetY, int x, int y, int width, int height) {
-        // 0 - flex : light -> medium
-        // flex - : medium fill
+        // 0 - flex : gradient
+        // flex - : fill
 
-        Color startColor = colorTokens.getBaseContainerTokens().getContainerSurfaceLowest();
+        Color startColor = colorTokens.getBaseContainerTokens().isDark()
+            ? colorTokens.getBaseContainerTokens().getContainerSurfaceHigh()
+            : colorTokens.getBaseContainerTokens().getContainerSurfaceLowest();
         Color endColor = colorTokens.getBaseContainerTokens().getContainerSurface();
 
         int gradientHeight = Math.max(FLEX_POINT, height + offsetY);

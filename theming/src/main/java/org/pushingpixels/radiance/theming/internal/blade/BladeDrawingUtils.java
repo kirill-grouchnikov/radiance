@@ -140,7 +140,9 @@ public class BladeDrawingUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                Color borderColor = colorTokens.getContainerOutline();
+                Color borderColor = colorTokens.isDark()
+                    ? colorTokens.getContainerSurfaceLowest()
+                    : colorTokens.getContainerOutline();
                 graphics1X.setColor(borderColor);
                 if (baseRadius == 0.0f) {
                     graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));

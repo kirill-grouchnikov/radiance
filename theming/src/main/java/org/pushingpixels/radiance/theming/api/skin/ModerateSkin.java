@@ -143,7 +143,7 @@ public class ModerateSkin extends RadianceSkin {
 
             RadianceColorSchemeBundle2 steelBlueDefaultBundle =
                 new RadianceColorSchemeBundle2(steelBlueColorScheme);
-            steelBlueDefaultBundle.registerContainerTokens(steelBlueHighlightContainerTokens,
+            steelBlueDefaultBundle.registerActiveContainerTokens(steelBlueHighlightContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
             this.registerDecorationAreaSchemeBundle(steelBlueDefaultBundle,
@@ -151,7 +151,7 @@ public class ModerateSkin extends RadianceSkin {
 
             RadianceColorSchemeBundle2 steelBlueHeaderBundle =
                 new RadianceColorSchemeBundle2(steelBlueHeaderColorScheme);
-            steelBlueHeaderBundle.registerContainerTokens(steelBlueHeaderHighlightContainerTokens,
+            steelBlueHeaderBundle.registerActiveContainerTokens(steelBlueHeaderHighlightContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
             this.registerDecorationAreaSchemeBundle(steelBlueHeaderBundle,

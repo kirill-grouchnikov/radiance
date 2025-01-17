@@ -274,15 +274,28 @@ public class MarinerSkin extends RadianceSkin {
             // More saturated seed for controls in selected state
             marinerHeaderBundle.registerActiveContainerTokens(marinerSelectedContainerTokens,
                 ComponentState.SELECTED);
+            // More saturated highlights
             marinerHeaderBundle.registerActiveContainerTokens(
                 marinerSelectedContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
+            // More muted separators
+            marinerHeaderBundle.registerEnabledContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF261D1E),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ -0.7,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                        PaletteContainerColorsResolverOverlay.builder()
+                            //.containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
+                            .build())),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
             this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
                 ColorSchemeUtils.getExtendedContainerTokens(
                     /* seed */ Hct.fromInt(0xFF261D1E),
                     /* isFidelity */ true,
-                    /* isDark */ false,
+                    /* isDark */ true,
                     /* contrastLevel */ 1.0,
                     /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                         PaletteContainerColorsResolverOverlay.builder()
@@ -313,7 +326,7 @@ public class MarinerSkin extends RadianceSkin {
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new FractionBasedTonalFillPainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_LOWEST,
                     ContainerColorTokensSingleColorQuery.CONTAINER,
                     ContainerColorTokensSingleColorQuery.CONTAINER_HIGH});
 
@@ -344,9 +357,7 @@ public class MarinerSkin extends RadianceSkin {
             // add an overlay painter to create a line between
             // menu bar and toolbars
             this.menuOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
-                    ColorTransform.brightness(-0.5f)));
+                ContainerColorTokensSingleColorQuery.CONTAINER_HIGHEST);
             this.addOverlayPainter(this.menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
             // add overlay painter to paint drop shadows along the bottom
