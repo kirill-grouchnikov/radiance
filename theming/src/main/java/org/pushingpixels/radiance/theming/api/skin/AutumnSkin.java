@@ -254,8 +254,8 @@ public class AutumnSkin extends RadianceSkin {
 			this.buttonShaper = new ClassicButtonShaper();
 			this.fillPainter = new SpecularRectangularFillPainter(
 				new MatteTonalFillPainter(),
-				ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
-				ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
+				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
+				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
 				1.0f);
 			this.borderPainter = new CompositeBorderPainter("Autumn",
 				new SubduedTonalBorderPainter(),
@@ -267,9 +267,9 @@ public class AutumnSkin extends RadianceSkin {
 			this.highlightFillPainter = new FractionBasedTonalFillPainter("Autumn",
 				new float[] {0.0f, 0.5f, 1.0f},
 				new ContainerColorTokensSingleColorQuery[] {
-					ContainerColorTokensSingleColorQuery.CONTAINER_HIGH,
-					ContainerColorTokensSingleColorQuery.CONTAINER,
-					ContainerColorTokensSingleColorQuery.CONTAINER_LOW
+					ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+					ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+					ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW
 				});
 
 			MarbleNoiseDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();

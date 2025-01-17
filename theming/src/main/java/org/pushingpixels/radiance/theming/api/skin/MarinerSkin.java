@@ -326,9 +326,9 @@ public class MarinerSkin extends RadianceSkin {
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new FractionBasedTonalFillPainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_LOWEST,
-                    ContainerColorTokensSingleColorQuery.CONTAINER,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_HIGH});
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH});
 
             this.decorationPainter = new MatteDecorationPainter();
             this.highlightFillPainter = new ClassicTonalFillPainter();
@@ -348,16 +348,16 @@ public class MarinerSkin extends RadianceSkin {
             this.footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
                     ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
-                    ColorTransform.alpha(128)),
+                    ColorTransform.alpha(80)),
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT,
-                    ColorTransform.alpha(128)));
+                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ColorTransform.alpha(48)));
             this.addOverlayPainter(this.footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
             // add an overlay painter to create a line between
             // menu bar and toolbars
             this.menuOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_HIGHEST);
+                ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGHEST);
             this.addOverlayPainter(this.menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
             // add overlay painter to paint drop shadows along the bottom

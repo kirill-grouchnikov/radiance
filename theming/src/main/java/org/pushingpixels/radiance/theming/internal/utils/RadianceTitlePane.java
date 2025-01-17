@@ -895,9 +895,7 @@ public class RadianceTitlePane extends JComponent {
                 // TODO: TONAL - finalize the text echo color logic
                 RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
                         colorTokens.getOnContainer(),
-                        RadianceColorUtilities.getAlphaColor(
-                            colorTokens.getOnContainerVariant(),
-                            100),
+                        colorTokens.getInverseOnContainer(),
                         displayTitle, width, height, xOffset, yOffset);
             } else {
                 RadianceColorScheme scheme = skin.getEnabledColorScheme(

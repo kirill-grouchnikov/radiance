@@ -42,21 +42,26 @@ import java.awt.*;
 public interface ContainerColorTokensSingleColorQuery {
 	Color query(ContainerColorTokens colorTokens);
 
-	ContainerColorTokensSingleColorQuery CONTAINER_LOWEST = (colorTokens) ->
+	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE_LOWEST = (colorTokens) ->
 		colorTokens.getContainerSurfaceLowest();
-	ContainerColorTokensSingleColorQuery CONTAINER_LOW = (colorTokens) ->
+	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE_LOW = (colorTokens) ->
 			colorTokens.getContainerSurfaceLow();
-	ContainerColorTokensSingleColorQuery CONTAINER = (colorTokens) ->
+	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE = (colorTokens) ->
 			colorTokens.getContainerSurface();
-	ContainerColorTokensSingleColorQuery CONTAINER_HIGH = (colorTokens) ->
+	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE_HIGH = (colorTokens) ->
 			colorTokens.getContainerSurfaceHigh();
-	ContainerColorTokensSingleColorQuery CONTAINER_HIGHEST = (colorTokens) ->
+	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE_HIGHEST = (colorTokens) ->
 			colorTokens.getContainerSurfaceHighest();
 
 	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE = (colorTokens) ->
 			colorTokens.getContainerOutline();
 	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE_VARIANT = (colorTokens) ->
 			colorTokens.getContainerOutlineVariant();
+
+	ContainerColorTokensSingleColorQuery INVERSE_CONTAINTER_SURFACE = (colorTokens) ->
+		colorTokens.getInverseContainerSurface();
+	ContainerColorTokensSingleColorQuery INVERSE_CONTAINER_OUTLINE = (colorTokens) ->
+		colorTokens.getInverseContainerOutline();
 
 	static ContainerColorTokensSingleColorQuery composite(
 		ContainerColorTokensSingleColorQuery base, ColorTransform... transforms) {

@@ -412,10 +412,10 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             this.fillPainter = new FractionBasedTonalFillPainter("Office Silver 2007",
                 new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_LOWEST,
-                    ContainerColorTokensSingleColorQuery.CONTAINER,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_LOW});
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW});
 
             FractionBasedTonalBorderPainter outerBorderPainter = new FractionBasedTonalBorderPainter(
                 "Office Silver 2007 Outer", new float[] {0.0f, 1.0f},
@@ -434,12 +434,12 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 "Office Silver 2007",
                 new float[] {0.0f, 0.2499999f, 0.25f, 0.3f, 0.7f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_LOWEST,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_HIGH,
-                    ContainerColorTokensSingleColorQuery.CONTAINER,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_LOWEST});
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST});
 
             this.highlightFillPainter = new ClassicTonalFillPainter();
         }

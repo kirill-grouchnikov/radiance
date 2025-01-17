@@ -50,10 +50,10 @@ public class GlassTonalFillPainter extends FractionBasedTonalFillPainter {
 		super("Classic",
 			new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
-				ContainerColorTokensSingleColorQuery.CONTAINER,
-				ContainerColorTokensSingleColorQuery.CONTAINER_LOWEST,
-				ContainerColorTokensSingleColorQuery.CONTAINER_HIGH,
-				ContainerColorTokensSingleColorQuery.CONTAINER_HIGH,
+				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
+				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
 			}
 		);
 	}
