@@ -306,25 +306,25 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 /* isDark */ false);
 
             // register state-specific color schemes on rollovers, presses and selections
-            officeSilverDefaultBundle.registerContainerTokens(rolloverContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(rolloverContainerTokens,
                 ComponentState.ROLLOVER_UNSELECTED);
-            officeSilverDefaultBundle.registerContainerTokens(rolloverSelectedContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(rolloverSelectedContainerTokens,
                 ComponentState.ROLLOVER_SELECTED);
-            officeSilverDefaultBundle.registerContainerTokens(selectedContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(selectedContainerTokens,
                 ComponentState.SELECTED);
-            officeSilverDefaultBundle.registerContainerTokens(pressedContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(pressedContainerTokens,
                 ComponentState.PRESSED_UNSELECTED);
-            officeSilverDefaultBundle.registerContainerTokens(pressedSelectedContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(pressedSelectedContainerTokens,
                 ComponentState.PRESSED_SELECTED);
 
             // register state-specific highlight color schemes on rollover and selections
-            officeSilverDefaultBundle.registerContainerTokens(rolloverContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(rolloverContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.ROLLOVER_UNSELECTED);
-            officeSilverDefaultBundle.registerContainerTokens(selectedContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(selectedContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.SELECTED, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-            officeSilverDefaultBundle.registerContainerTokens(rolloverSelectedContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(rolloverSelectedContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.ROLLOVER_SELECTED);
 
@@ -367,19 +367,19 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 /* colorResolver */ activeMarksColorResolver);
 
             // register state-specific color schemes on mark rollovers, presses and selections
-            officeSilverDefaultBundle.registerContainerTokens(rolloverMarkContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(rolloverMarkContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.ROLLOVER_UNSELECTED);
-            officeSilverDefaultBundle.registerContainerTokens(rolloverSelectedMarkContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(rolloverSelectedMarkContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.ROLLOVER_SELECTED);
-            officeSilverDefaultBundle.registerContainerTokens(selectedMarkContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(selectedMarkContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.SELECTED);
-            officeSilverDefaultBundle.registerContainerTokens(pressedMarkContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(pressedMarkContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.PRESSED_UNSELECTED);
-            officeSilverDefaultBundle.registerContainerTokens(pressedSelectedMarkContainerTokens,
+            officeSilverDefaultBundle.registerActiveContainerTokens(pressedSelectedMarkContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.PRESSED_SELECTED);
 

@@ -93,9 +93,9 @@ public class RadianceColorSchemeBundle2 {
      * @param stateContainerTokens Container color tokens for the specified active component states.
      * @param activeStates         Component states.
      */
-    public void registerContainerTokens(ContainerColorTokens stateContainerTokens,
+    public void registerActiveContainerTokens(ContainerColorTokens stateContainerTokens,
         ComponentState... activeStates) {
-        this.registerContainerTokens(stateContainerTokens,
+        this.registerActiveContainerTokens(stateContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             activeStates);
     }
@@ -117,7 +117,7 @@ public class RadianceColorSchemeBundle2 {
      * @param activeStates          Component states that further restrict the usage of the
      *                        specified color scheme.
      */
-    public void registerContainerTokens(ContainerColorTokens stateContainerTokens,
+    public void registerActiveContainerTokens(ContainerColorTokens stateContainerTokens,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         ComponentState... activeStates) {
         if (stateContainerTokens == null) {
@@ -196,8 +196,8 @@ public class RadianceColorSchemeBundle2 {
      *                        association kind.
      * @return Color tokens to be used for painting the specified visual area of
      * the component under the specified component state.
-     * @see #registerContainerTokens(ContainerColorTokens, ComponentState...)
-     * @see #registerContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, ComponentState...)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
      */
     public ContainerColorTokens getContainerTokens(
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,

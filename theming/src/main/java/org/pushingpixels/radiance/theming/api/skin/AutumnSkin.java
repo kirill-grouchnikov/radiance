@@ -204,7 +204,7 @@ public class AutumnSkin extends RadianceSkin {
 			// 1. Deeper container surfaces (more saturated seed in fidelity mode)
 			// 2. Softer on container, mapped to container outline (used for texts and icons)
 			// 3. Higher alpha values for disabled controls for better contrast
-			autumnDefaultBundle.registerContainerTokens(ColorSchemeUtils.getContainerTokens(
+			autumnDefaultBundle.registerActiveContainerTokens(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFFDBD72),
 					/* isFidelity */ true,
 					/* isDark */ false,

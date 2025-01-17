@@ -257,7 +257,7 @@ public class MarinerSkin extends RadianceSkin {
             RadianceColorSchemeBundle2 marinerDefaultBundle =
                 new RadianceColorSchemeBundle2(marinerColorScheme);
             // More saturated seed for controls in selected state
-            marinerDefaultBundle.registerContainerTokens(marinerSelectedContainerTokens,
+            marinerDefaultBundle.registerActiveContainerTokens(marinerSelectedContainerTokens,
                 ComponentState.SELECTED);
             this.registerDecorationAreaSchemeBundle(marinerDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
@@ -272,9 +272,9 @@ public class MarinerSkin extends RadianceSkin {
             RadianceColorSchemeBundle2 marinerHeaderBundle =
                 new RadianceColorSchemeBundle2(marinerHeaderColorScheme);
             // More saturated seed for controls in selected state
-            marinerHeaderBundle.registerContainerTokens(marinerSelectedContainerTokens,
+            marinerHeaderBundle.registerActiveContainerTokens(marinerSelectedContainerTokens,
                 ComponentState.SELECTED);
-            marinerHeaderBundle.registerContainerTokens(
+            marinerHeaderBundle.registerActiveContainerTokens(
                 marinerSelectedContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());

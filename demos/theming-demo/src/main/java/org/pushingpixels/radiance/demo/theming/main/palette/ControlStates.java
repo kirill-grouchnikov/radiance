@@ -107,7 +107,7 @@ public class ControlStates extends JFrame {
 
             RadianceColorSchemeBundle2 bundle2 = new RadianceColorSchemeBundle2(lightColorScheme);
 
-            bundle2.registerContainerTokens(
+            bundle2.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
                     /* isFidelity */ true,
@@ -115,7 +115,7 @@ public class ControlStates extends JFrame {
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 ComponentState.getActiveStates());
 
-            bundle2.registerContainerTokens(
+            bundle2.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
                     /* isFidelity */ true,
