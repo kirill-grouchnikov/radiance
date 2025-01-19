@@ -822,4 +822,118 @@ public class BladeUtils {
 
         bladeColorScheme.displayName = nameBuilder.toString();
     }
+
+
+    public static void populateColorTokens(
+        BladeContainerColorTokens bladeContainerTokens, JTabbedPane tabbedPane, int tabIndex,
+        StateTransitionTracker.ModelStateInfo modelStateInfo, ComponentState currState,
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
+                "Color scheme population must be done on Event Dispatch Thread");
+            uiThreadingViolationError.printStackTrace(System.err);
+            throw uiThreadingViolationError;
+        }
+
+        StringBuilder nameBuilder = new StringBuilder();
+        ContainerColorTokens currColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+            tabbedPane, tabIndex, associationKind, currState);
+        Color containerSurfaceLowest = currColorTokens.getContainerSurfaceLowest();
+        Color containerSurfaceLow = currColorTokens.getContainerSurfaceLow();
+        Color containerSurface = currColorTokens.getContainerSurface();
+        Color containerSurfaceHigh = currColorTokens.getContainerSurfaceHigh();
+        Color containerSurfaceHighest = currColorTokens.getContainerSurfaceHighest();
+        Color onContainer = currColorTokens.getOnContainer();
+        Color onContainerVariant = currColorTokens.getOnContainerVariant();
+        Color containerOutline = currColorTokens.getContainerOutline();
+        Color containerOutlineVariant = currColorTokens.getContainerOutlineVariant();
+        float containerDisabledAlpha = currColorTokens.getContainerSurfaceDisabledAlpha();
+        float onContainerDisabledAlpha = currColorTokens.getOnContainerDisabledAlpha();
+        float containerOutlineDisabledAlpha = currColorTokens.getContainerOutlineDisabledAlpha();
+        Color inverseContainerSurface = currColorTokens.getInverseContainerSurface();
+        Color inverseOnContainer = currColorTokens.getInverseOnContainer();
+        Color inverseContainerOutline = currColorTokens.getInverseContainerOutline();
+
+        nameBuilder.append(currColorTokens.hashCode());
+
+        boolean isDark = currColorTokens.isDark();
+
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+            (modelStateInfo == null) ? null : modelStateInfo.getStateContributionMap();
+
+        if (!currState.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates.entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                if (activeState == currState) {
+                    // Already accounted for the currently active state
+                    continue;
+                }
+                float amount = activeEntry.getValue().getContribution();
+                if (amount == 0.0f) {
+                    // Skip a zero-amount contribution
+                    continue;
+                }
+                // Get the color scheme that matches the contribution state
+                ContainerColorTokens contributionColorTokens =
+                    RadianceColorSchemeUtilities.getContainerTokens(
+                        tabbedPane, tabIndex, associationKind, activeState);
+
+                // And interpolate the colors
+                containerSurfaceLowest = RadianceColorUtilities.getInterpolatedColor(containerSurfaceLowest,
+                    contributionColorTokens.getContainerSurfaceLowest(), 1.0f - amount);
+                containerSurfaceLow = RadianceColorUtilities.getInterpolatedColor(containerSurfaceLow,
+                    contributionColorTokens.getContainerSurfaceLow(), 1.0f - amount);
+                containerSurface = RadianceColorUtilities.getInterpolatedColor(containerSurface,
+                    contributionColorTokens.getContainerSurface(), 1.0f - amount);
+                containerSurfaceHigh = RadianceColorUtilities.getInterpolatedColor(containerSurfaceHigh,
+                    contributionColorTokens.getContainerSurfaceHigh(), 1.0f - amount);
+                containerSurfaceHighest = RadianceColorUtilities.getInterpolatedColor(containerSurfaceHighest,
+                    contributionColorTokens.getContainerSurfaceHighest(), 1.0f - amount);
+                onContainer = RadianceColorUtilities.getInterpolatedColor(onContainer,
+                    contributionColorTokens.getOnContainer(), 1.0f - amount);
+                onContainerVariant = RadianceColorUtilities.getInterpolatedColor(onContainerVariant,
+                    contributionColorTokens.getOnContainerVariant(), 1.0f - amount);
+                containerOutline = RadianceColorUtilities.getInterpolatedColor(containerOutline,
+                    contributionColorTokens.getContainerOutline(), 1.0f - amount);
+                containerOutlineVariant = RadianceColorUtilities.getInterpolatedColor(containerOutlineVariant,
+                    contributionColorTokens.getContainerOutlineVariant(), 1.0f - amount);
+                containerDisabledAlpha = (1.0f - amount) * containerDisabledAlpha +
+                    amount * contributionColorTokens.getContainerSurfaceDisabledAlpha();
+                onContainerDisabledAlpha = (1.0f - amount) * onContainerDisabledAlpha +
+                    amount * contributionColorTokens.getOnContainerDisabledAlpha();
+                containerOutlineDisabledAlpha = (1.0f - amount) * containerOutlineDisabledAlpha +
+                    amount * contributionColorTokens.getContainerOutlineDisabledAlpha();
+                inverseContainerSurface = RadianceColorUtilities.getInterpolatedColor(inverseContainerSurface,
+                    contributionColorTokens.getInverseContainerSurface(), 1.0f - amount);
+                inverseOnContainer = RadianceColorUtilities.getInterpolatedColor(inverseOnContainer,
+                    contributionColorTokens.getInverseOnContainer(), 1.0f - amount);
+                inverseContainerOutline = RadianceColorUtilities.getInterpolatedColor(inverseContainerOutline,
+                    contributionColorTokens.getInverseContainerOutline(), 1.0f - amount);
+
+                nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
+                    .append(amount).append("]");
+                isDark = isDark && contributionColorTokens.isDark();
+            }
+        }
+
+        // Update the mutable color tokens with the interpolated colors
+        bladeContainerTokens.containerSurfaceLowest = containerSurfaceLowest;
+        bladeContainerTokens.containerSurfaceLow = containerSurfaceLow;
+        bladeContainerTokens.containerSurface = containerSurface;
+        bladeContainerTokens.containerSurfaceHigh = containerSurfaceHigh;
+        bladeContainerTokens.containerSurfaceHighest = containerSurfaceHighest;
+        bladeContainerTokens.onContainer = onContainer;
+        bladeContainerTokens.onContainerVariant = onContainerVariant;
+        bladeContainerTokens.containerOutline = containerOutline;
+        bladeContainerTokens.containerOutlineVariant = containerOutlineVariant;
+        bladeContainerTokens.containerDisabledAlpha = containerDisabledAlpha;
+        bladeContainerTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
+        bladeContainerTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
+        bladeContainerTokens.inverseContainerSurface = inverseContainerSurface;
+        bladeContainerTokens.inverseOnContainer = inverseOnContainer;
+        bladeContainerTokens.inverseContainerOutline = inverseContainerOutline;
+
+        bladeContainerTokens.combinedName = nameBuilder.toString();
+        bladeContainerTokens.isDark = isDark;
+    }
 }

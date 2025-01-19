@@ -44,8 +44,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * Utilities related to color schemes. This class is for internal use only.
@@ -126,22 +126,56 @@ public class RadianceColorSchemeUtilities {
      * @return The color scheme of the specified tabbed pane tab.
      */
     public static RadianceColorScheme getColorScheme(final JTabbedPane jtp, final int tabIndex,
-            RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
+        RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(jtp);
         if (skin == null) {
             RadianceCoreUtilities.traceRadianceApiUsage(jtp,
-                    "Radiance delegate used when Radiance is not the current LAF");
+                "Radiance delegate used when Radiance is not the current LAF");
         }
         RadianceColorScheme nonColorized = skin.getColorScheme(jtp, associationKind,
-                componentState);
+            componentState);
         if (tabIndex >= 0) {
             Component component = jtp.getComponentAt(tabIndex);
             return getColorizedScheme(component, nonColorized,
-                    jtp.getForegroundAt(tabIndex), jtp.getBackgroundAt(tabIndex),
-                    !componentState.isDisabled());
+                jtp.getForegroundAt(tabIndex), jtp.getBackgroundAt(tabIndex),
+                !componentState.isDisabled());
         } else {
             return getColorizedScheme(jtp, nonColorized, !componentState.isDisabled());
         }
+    }
+
+    /**
+     * Returns the color scheme of the specified tabbed pane tab.
+     *
+     * @param jtp            Tabbed pane.
+     * @param tabIndex       Tab index.
+     * @param componentState Tab component state.
+     * @return The color scheme of the specified tabbed pane tab.
+     */
+    public static ContainerColorTokens getContainerTokens(final JTabbedPane jtp, final int tabIndex,
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+        ComponentState componentState) {
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(jtp);
+        if (skin == null) {
+            RadianceCoreUtilities.traceRadianceApiUsage(jtp,
+                "Radiance delegate used when Radiance is not the current LAF");
+        }
+        // TODO: TONAL - container type
+        ContainerColorTokens nonColorized = skin.getContainerTokens(jtp, associationKind,
+            componentState,
+            (tabIndex == jtp.getSelectedIndex())
+                ? RadianceThemingSlices.ContainerType.TONAL
+                : RadianceThemingSlices.ContainerType.MUTED);
+        return nonColorized;
+        // TODO: TONAL - colorization
+//        if (tabIndex >= 0) {
+//            Component component = jtp.getComponentAt(tabIndex);
+//            return getColorizedScheme(component, nonColorized,
+//                jtp.getForegroundAt(tabIndex), jtp.getBackgroundAt(tabIndex),
+//                !componentState.isDisabled());
+//        } else {
+//            return getColorizedScheme(jtp, nonColorized, !componentState.isDisabled());
+//        }
     }
 
     /**

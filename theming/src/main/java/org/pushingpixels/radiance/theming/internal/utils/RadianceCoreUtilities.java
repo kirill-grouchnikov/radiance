@@ -67,8 +67,8 @@ import java.awt.*;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * Various utility functions. This class is <b>for internal use only</b>.
@@ -944,24 +944,43 @@ public class RadianceCoreUtilities {
     }
 
     public static Icon getFilteredIcon(JTabbedPane tab, Icon orig,
-            ComponentState componentState, Color textColor) {
+        ComponentState componentState, Color textColor,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         double scale = RadianceCommonCortex.getScaleFactor(tab);
 
         RadianceThemingSlices.IconFilterStrategy iconFilterStrategy = getIconFilterStrategy(tab, componentState);
         RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
                 tab, componentState);
-        switch (iconFilterStrategy) {
-            case ORIGINAL:
-                return orig;
-            case THEMED_FOLLOW_TEXT:
-                Color foreground = (textColor != null) ? textColor
-                        : colorScheme.getForegroundColor();
-                return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(tab);
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens colorTokens =
+                RadianceColorSchemeUtilities.getContainerTokens(tab, componentState, inactiveContainerType);
+            switch (iconFilterStrategy) {
+                case ORIGINAL:
+                    return orig;
+                case THEMED_FOLLOW_TEXT:
+                    Color foreground = (textColor != null) ? textColor : colorTokens.getOnContainer();
+                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
                         tab, orig, foreground, 1.0f), scale);
-            case THEMED_FOLLOW_COLOR_SCHEME:
-                float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-                return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorSchemeImage(
+                case THEMED_FOLLOW_COLOR_SCHEME:
+                    // TODO: TONAL - check brightness
+                    //float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
+                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getContainerTokensImage(
+                        tab, orig, colorTokens, 0.4f), scale);
+            }
+        } else {
+            switch (iconFilterStrategy) {
+                case ORIGINAL:
+                    return orig;
+                case THEMED_FOLLOW_TEXT:
+                    Color foreground = (textColor != null) ? textColor : colorScheme.getForegroundColor();
+                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
+                        tab, orig, foreground, 1.0f), scale);
+                case THEMED_FOLLOW_COLOR_SCHEME:
+                    float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
+                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorSchemeImage(
                         tab, orig, colorScheme, brightnessFactor), scale);
+            }
         }
         return null;
     }
