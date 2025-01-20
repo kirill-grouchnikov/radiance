@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceSplitPaneUI;
@@ -223,7 +224,7 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                     ComponentState activeState = activeEntry.getKey();
                     graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane,
                             alpha * contribution, g));
-                    RadianceImageCreator.paintSplitDividerBumpImage(graphics, this, gripX, gripY,
+                    BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
                             thumbWidth, gripHeight, false,
                             RadianceColorSchemeUtilities.getColorScheme(this,
                                     RadianceThemingSlices.ColorSchemeAssociationKind.MARK, activeState));
@@ -252,7 +253,7 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                     ComponentState activeState = activeEntry.getKey();
                     graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane,
                             alpha * contribution, g));
-                    RadianceImageCreator.paintSplitDividerBumpImage(graphics, this, gripX, gripY,
+                    BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
                             gripWidth, thumbHeight, true,
                             RadianceColorSchemeUtilities.getColorScheme(this,
                                     RadianceThemingSlices.ColorSchemeAssociationKind.MARK, activeState));

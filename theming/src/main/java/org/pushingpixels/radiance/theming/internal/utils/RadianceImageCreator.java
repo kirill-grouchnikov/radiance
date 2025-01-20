@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.utils;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ColorSchemeFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ImageColorFilter;
@@ -41,7 +40,6 @@ import org.pushingpixels.radiance.theming.internal.utils.filters.TonalContainerF
 import javax.swing.*;
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -62,64 +60,6 @@ public final class RadianceImageCreator {
         else if (finalAlpha > 1.0f)
             finalAlpha = 1.0f;
         return AlphaComposite.getInstance(AlphaComposite.SRC_OVER, finalAlpha);
-    }
-
-    /**
-     * Paints the bump dots on the split pane dividers.
-     *
-     * @param g            Graphics context.
-     * @param divider      Split pane divider.
-     * @param x            X coordinate of the bump dots.
-     * @param y            Y coordinate of the bump dots.
-     * @param width        Width of the bump dots area.
-     * @param height       Height of the bump dots area.
-     * @param isHorizontal Indicates whether the dots are horizontal.
-     * @param colorScheme  Color scheme.
-     */
-    public static void paintSplitDividerBumpImage(Graphics g, RadianceSplitPaneDivider divider,
-            int x, int y, int width, int height, boolean isHorizontal,
-            RadianceColorScheme colorScheme) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.translate(x, y);
-
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        int componentFontSize = RadianceSizeUtils.getComponentFontSize(divider);
-        int bumpDotDiameter = RadianceSizeUtils.getBigDragBumpDiameter(componentFontSize);
-        int bumpCellSize = (int) (1.5 * bumpDotDiameter + 1);
-        int bumpRows = isHorizontal ? 1 : Math.max(1, height / bumpCellSize - 1);
-        int bumpColumns = isHorizontal ? Math.max(1, (width - 2) / bumpCellSize) : 1;
-
-        int bumpRowOffset = (height - bumpCellSize * bumpRows) / 2;
-        int bumpColOffset = 1 + (width - bumpCellSize * bumpColumns) / 2;
-
-        double scale = RadianceCommonCortex.getScaleFactor(divider);
-        BufferedImage singleDot = RadianceCoreUtilities.getBlankImage(
-                scale, bumpDotDiameter, bumpDotDiameter);
-        Graphics2D dotGraphics = (Graphics2D) singleDot.getGraphics();
-        dotGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        dotGraphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_PURE);
-
-        dotGraphics.setColor(colorScheme.getMarkColor());
-        dotGraphics.fillOval(0, 0, bumpDotDiameter, bumpDotDiameter);
-
-        dotGraphics.setComposite(getAlphaComposite(0.4f));
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(divider);
-        borderPainter.paintBorder(dotGraphics, divider, bumpDotDiameter, bumpDotDiameter,
-                new Ellipse2D.Float(0, 0, bumpDotDiameter, bumpDotDiameter), null, colorScheme);
-
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(divider, 0.8f, g));
-        for (int col = 0; col < bumpColumns; col++) {
-            int cx = bumpColOffset + col * bumpCellSize;
-            for (int row = 0; row < bumpRows; row++) {
-                int cy = bumpRowOffset + row * bumpCellSize + (bumpCellSize - bumpDotDiameter) / 2;
-                RadianceCommonCortex.drawImageWithScale(graphics, scale, singleDot, cx, cy);
-            }
-        }
-        graphics.dispose();
     }
 
     /**
