@@ -320,10 +320,10 @@ public class ButtonBackgroundDelegate {
                         scaledWidth + deltaLeft + deltaRight + 1.0f,
                         scaledHeight + deltaTop + deltaBottom + 1.0f, scaleFactor, false) :
                         contourOuter;
-                float containerAlpha = overallAlpha *
+                float containerSurfaceAlpha = overallAlpha *
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
-                    overallAlpha * containerAlpha, g));
+                    overallAlpha * containerSurfaceAlpha, g));
                 fillPainter.paintContourBackground(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
                         scaledHeight + deltaTop + deltaBottom, contourFill, colorTokens);

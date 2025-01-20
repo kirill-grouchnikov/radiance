@@ -414,6 +414,7 @@ public class RadianceColorSchemeUtilities {
      * @return Color scheme alpha channel.
      */
     public static float getAlpha(Component component, ComponentState componentState) {
+        // TODO: TONAL - remove this
         return RadianceCoreUtilities.getSkin(component).getAlpha(component, componentState);
     }
 

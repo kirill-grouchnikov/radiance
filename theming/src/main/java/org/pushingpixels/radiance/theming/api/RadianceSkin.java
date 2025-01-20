@@ -49,8 +49,8 @@ import org.pushingpixels.radiance.theming.internal.utils.SkinUtilities;
 import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * Base abstract class for Radiance skins.
@@ -609,6 +609,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @return Color scheme alpha channel.
      */
     public final float getAlpha(Component comp, ComponentState componentState) {
+        // TODO: TONAL - remove this
         if (this instanceof TonalSkin) {
             // TODO: TONAL - finalize this
             if (componentState.isDisabled()) {

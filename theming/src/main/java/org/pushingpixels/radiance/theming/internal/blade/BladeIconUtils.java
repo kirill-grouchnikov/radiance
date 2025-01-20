@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -345,109 +346,228 @@ public class BladeIconUtils {
     }
 
     public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
-            RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
-            int width, int height,
-            RadianceColorScheme fillColorScheme,
-            RadianceColorScheme borderColorScheme, float alpha) {
+        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+        int width, int height,
+        RadianceColorScheme fillColorScheme,
+        RadianceColorScheme borderColorScheme, float alpha) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    graphics1X.setComposite(getAlphaComposite(alpha));
-                    fillPainter.paintContourBackground(graphics1X, slider,
-                            scaledWidth, scaledHeight,
-                            RadianceOutlineUtilities.getTriangleButtonOutline(
-                                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
-                            fillColorScheme);
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                graphics1X.setComposite(getAlphaComposite(alpha));
+                fillPainter.paintContourBackground(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    RadianceOutlineUtilities.getTriangleButtonOutline(
+                        scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
+                    fillColorScheme);
 
-                    Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
-                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
-                    Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
-                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
-                    borderPainter.paintBorder(graphics1X, slider,
-                            scaledWidth, scaledHeight,
-                            contourOuter, contourInner, borderColorScheme);
-                });
+                Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
+                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
+                Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
+                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
+                borderPainter.paintBorder(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    contourOuter, contourInner, borderColorScheme);
+            });
+        graphics.dispose();
+    }
+
+    public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
+        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+        int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                float containerSurfaceAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerSurfaceAlpha, g));
+                fillPainter.paintContourBackground(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    RadianceOutlineUtilities.getTriangleButtonOutline(
+                        scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
+                    colorTokens);
+
+                Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
+                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
+                Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
+                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
+                float containerOutlineAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerOutlineAlpha, g));
+                borderPainter.paintBorder(graphics1X, slider,
+                    scaledWidth, scaledHeight, contourOuter, contourInner, colorTokens);
+            });
         graphics.dispose();
     }
 
     public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
-            RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
-            int width, int height,
-            RadianceColorScheme fillColorScheme,
-            RadianceColorScheme borderColorScheme, float alpha) {
+        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+        int width, int height,
+        RadianceColorScheme fillColorScheme,
+        RadianceColorScheme borderColorScheme, float alpha) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    AffineTransform at = AffineTransform.getTranslateInstance(0, scaledHeight);
-                    at.rotate(-Math.PI / 2);
-                    graphics1X.transform(at);
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                AffineTransform at = AffineTransform.getTranslateInstance(0, scaledHeight);
+                at.rotate(-Math.PI / 2);
+                graphics1X.transform(at);
 
-                    if (!slider.getComponentOrientation().isLeftToRight()) {
-                        AffineTransform mirror = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
-                        mirror.rotate(Math.PI);
-                        graphics1X.transform(mirror);
-                    }
+                if (!slider.getComponentOrientation().isLeftToRight()) {
+                    AffineTransform mirror = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
+                    mirror.rotate(Math.PI);
+                    graphics1X.transform(mirror);
+                }
 
-                    graphics1X.setComposite(getAlphaComposite(alpha));
-                    fillPainter.paintContourBackground(graphics1X, slider,
-                            scaledWidth, scaledHeight,
-                            RadianceOutlineUtilities.getTriangleButtonOutline(
-                                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
-                            fillColorScheme);
+                graphics1X.setComposite(getAlphaComposite(alpha));
+                fillPainter.paintContourBackground(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    RadianceOutlineUtilities.getTriangleButtonOutline(
+                        scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
+                    fillColorScheme);
 
-                    Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
-                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
-                    Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
-                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
-                    borderPainter.paintBorder(graphics1X, slider,
-                            scaledWidth, scaledHeight,
-                            contourOuter, contourInner, borderColorScheme);
-                });
+                Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
+                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
+                Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
+                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
+                borderPainter.paintBorder(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    contourOuter, contourInner, borderColorScheme);
+            });
+        graphics.dispose();
+    }
+
+    public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
+        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+        int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                AffineTransform at = AffineTransform.getTranslateInstance(0, scaledHeight);
+                at.rotate(-Math.PI / 2);
+                graphics1X.transform(at);
+
+                if (!slider.getComponentOrientation().isLeftToRight()) {
+                    AffineTransform mirror = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
+                    mirror.rotate(Math.PI);
+                    graphics1X.transform(mirror);
+                }
+
+                float containerSurfaceAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerSurfaceAlpha, g));
+                fillPainter.paintContourBackground(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    RadianceOutlineUtilities.getTriangleButtonOutline(
+                        scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
+                    colorTokens);
+
+                Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
+                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
+                Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
+                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
+                float containerOutlineAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerOutlineAlpha, g));
+                borderPainter.paintBorder(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    contourOuter, contourInner, colorTokens);
+            });
         graphics.dispose();
     }
 
     public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
-            RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
-            int dimension,
-            RadianceColorScheme fillColorScheme,
-            RadianceColorScheme borderColorScheme, float alpha) {
+        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+        int dimension,
+        RadianceColorScheme fillColorScheme,
+        RadianceColorScheme borderColorScheme, float alpha) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    graphics1X.setComposite(getAlphaComposite(alpha));
-                    fillPainter.paintContourBackground(graphics1X, slider,
-                            scaledWidth, scaledHeight,
-                            new Ellipse2D.Float(0.5f, 0.5f,
-                                    scaledWidth - 2.0f, scaledHeight - 2.0f),
-                            fillColorScheme);
+                graphics1X.setComposite(getAlphaComposite(alpha));
+                fillPainter.paintContourBackground(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    new Ellipse2D.Float(0.5f, 0.5f,
+                        scaledWidth - 2.0f, scaledHeight - 2.0f),
+                    fillColorScheme);
 
-                    Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f,
-                            scaledWidth - 1.0f, scaledHeight - 1.0f);
-                    Shape contourInner = new Ellipse2D.Float(1.0f, 1.0f,
-                            scaledWidth - 3.0f, scaledHeight - 3.0f);
-                    borderPainter.paintBorder(graphics1X, slider,
-                            scaledWidth, scaledHeight,
-                            contourOuter, contourInner, borderColorScheme);
-                });
+                Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f,
+                    scaledWidth - 1.0f, scaledHeight - 1.0f);
+                Shape contourInner = new Ellipse2D.Float(1.0f, 1.0f,
+                    scaledWidth - 3.0f, scaledHeight - 3.0f);
+                borderPainter.paintBorder(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    contourOuter, contourInner, borderColorScheme);
+            });
+        graphics.dispose();
+    }
+
+    public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
+        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+        int dimension, ContainerColorTokens colorTokens, ComponentState currState) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                float containerSurfaceAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerSurfaceAlpha, g));
+                fillPainter.paintContourBackground(graphics1X, slider,
+                    scaledWidth, scaledHeight,
+                    new Ellipse2D.Float(0.5f, 0.5f,
+                        scaledWidth - 2.0f, scaledHeight - 2.0f),
+                    colorTokens);
+
+                Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f,
+                    scaledWidth - 1.0f, scaledHeight - 1.0f);
+                Shape contourInner = new Ellipse2D.Float(1.0f, 1.0f,
+                    scaledWidth - 3.0f, scaledHeight - 3.0f);
+                float containerOutlineAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerOutlineAlpha, g));
+                borderPainter.paintBorder(graphics1X, slider,
+                    scaledWidth, scaledHeight, contourOuter, contourInner, colorTokens);
+            });
         graphics.dispose();
     }
 

@@ -31,15 +31,19 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
@@ -99,6 +103,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
 
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
+    private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
 
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -217,54 +222,107 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                             .getModelStateInfo();
                     ComponentState currState = modelStateInfo.getCurrModelState();
 
-                    RadianceColorScheme trackSchemeUnselected = RadianceColorSchemeUtilities
-                            .getColorScheme(this.slider, this.slider.isEnabled() ? ComponentState.ENABLED
+                    RadianceSkin skin = RadianceCoreUtilities.getSkin(this.slider);
+                    if (skin instanceof TonalSkin) {
+                        ContainerColorTokens trackColorTokensUnselected =
+                            RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+                                this.slider.isEnabled() ? ComponentState.ENABLED
+                                    : ComponentState.DISABLED_UNSELECTED,
+                                RadianceThemingSlices.ContainerType.MUTED);
+                        this.paintSliderTrack1X(graphics1X, trackColorTokensUnselected,
+                            scaledWidth, scaledHeight, scaleFactor, currState);
+
+                        // Populate color schemes based on the current transition state of the slider.
+                        BladeUtils.populateColorTokens(mutableColorTokens, this.slider,
+                            modelStateInfo, currState,
+                            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, false,
+                            RadianceThemingSlices.ContainerType.MUTED);
+                        this.paintSliderTrackSelected1X(graphics1X, drawInverted, paintRect,
+                            mutableColorTokens, scaledWidth, scaledHeight, scaleFactor, currState);
+                    } else {
+                        RadianceColorScheme trackSchemeUnselected =
+                            RadianceColorSchemeUtilities.getColorScheme(this.slider,
+                                this.slider.isEnabled() ? ComponentState.ENABLED
                                     : ComponentState.DISABLED_UNSELECTED);
-                    RadianceColorScheme trackBorderSchemeUnselected = RadianceColorSchemeUtilities
-                            .getColorScheme(this.slider, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                                    this.slider.isEnabled() ? ComponentState.ENABLED
-                                            : ComponentState.DISABLED_UNSELECTED);
-                    this.paintSliderTrack1X(graphics1X, trackSchemeUnselected,
+                        RadianceColorScheme trackBorderSchemeUnselected =
+                            RadianceColorSchemeUtilities.getColorScheme(this.slider,
+                                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                                this.slider.isEnabled() ? ComponentState.ENABLED
+                                    : ComponentState.DISABLED_UNSELECTED);
+                        this.paintSliderTrack1X(graphics1X, trackSchemeUnselected,
                             trackBorderSchemeUnselected, scaledWidth, scaledHeight, scaleFactor);
 
-                    // Populate color schemes based on the current transition state of the slider.
-                    BladeUtils.populateColorScheme(mutableFillColorScheme, this.slider,
-                            modelStateInfo, currState,
-                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                            false);
-                    BladeUtils.populateColorScheme(mutableBorderColorScheme, this.slider,
-                            modelStateInfo, currState,
-                            RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                            false);
-                    this.paintSliderTrackSelected1X(graphics1X, drawInverted, paintRect,
-                            mutableFillColorScheme, mutableBorderColorScheme,
-                            scaledWidth, scaledHeight, scaleFactor);
+                        // Populate color schemes based on the current transition state of the slider.
+                        BladeUtils.populateColorScheme(mutableFillColorScheme, this.slider,
+                            modelStateInfo, currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
+                        BladeUtils.populateColorScheme(mutableBorderColorScheme, this.slider,
+                            modelStateInfo, currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
+                        this.paintSliderTrackSelected1X(graphics1X, drawInverted, paintRect,
+                            mutableFillColorScheme, mutableBorderColorScheme, scaledWidth, scaledHeight, scaleFactor);
+                    }
                 });
         g2d.dispose();
     }
 
     private void paintSliderTrack1X(Graphics2D graphics1X,
-            RadianceColorScheme fillColorScheme, RadianceColorScheme borderScheme,
-            int width, int height, double scaleFactor) {
+        RadianceColorScheme fillColorScheme, RadianceColorScheme borderScheme,
+        int width, int height, double scaleFactor) {
         RadianceFillPainter fillPainter = ClassicFillPainter.INSTANCE;
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
 
         int componentFontSize = RadianceSizeUtils.getComponentFontSize(this.slider);
         float radius = (float) scaleFactor *
-                RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
+            RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
 
         Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                this.slider.getComponentOrientation(),
-                width, height, radius, null, 1.0f);
+            this.slider.getComponentOrientation(),
+            width, height, radius, null, 1.0f);
 
         fillPainter.paintContourBackground(graphics1X, slider, width, height,
-                contour, fillColorScheme);
+            contour, fillColorScheme);
 
         Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
-                this.slider.getComponentOrientation(),
-                width, height, radius - 1.0f, null, 2.0f);
+            this.slider.getComponentOrientation(),
+            width, height, radius - 1.0f, null, 2.0f);
         borderPainter.paintBorder(graphics1X, slider, width, height,
-                contour, contourInner, borderScheme);
+            contour, contourInner, borderScheme);
+    }
+
+    private void paintSliderTrack1X(Graphics2D graphics1X,
+        ContainerColorTokens colorTokens, int width, int height, double scaleFactor,
+        ComponentState currState) {
+
+        Graphics2D graphics1Xextra = (Graphics2D) graphics1X.create();
+
+        RadianceFillPainter fillPainter = ClassicFillPainter.INSTANCE;
+        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
+
+        int componentFontSize = RadianceSizeUtils.getComponentFontSize(this.slider);
+        float radius = (float) scaleFactor *
+            RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
+
+        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+            this.slider.getComponentOrientation(),
+            width, height, radius, null, 1.0f);
+
+        float containerSurfaceAlpha =
+            (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+        graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
+            containerSurfaceAlpha, graphics1X));
+        fillPainter.paintContourBackground(graphics1Xextra, slider, width, height,
+            contour, colorTokens);
+
+        Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
+            this.slider.getComponentOrientation(),
+            width, height, radius - 1.0f, null, 2.0f);
+        float containerOutlineAlpha =
+            (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+        graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
+            containerOutlineAlpha, graphics1X));
+        borderPainter.paintBorder(graphics1Xextra, slider, width, height,
+            contour, contourInner, colorTokens);
+
+        graphics1Xextra.dispose();
     }
 
     /**
@@ -280,8 +338,8 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
      * @param height       Track height.
      */
     private void paintSliderTrackSelected1X(Graphics2D graphics1X, boolean drawInverted,
-            Rectangle paintRect, RadianceColorScheme fillScheme, RadianceColorScheme borderScheme,
-            int width, int height, double scaleFactor) {
+        Rectangle paintRect, RadianceColorScheme fillScheme, RadianceColorScheme borderScheme,
+        int width, int height, double scaleFactor) {
 
         Graphics2D g2d = (Graphics2D) graphics1X.create();
         Insets insets = this.slider.getInsets();
@@ -293,7 +351,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(this.slider);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
         float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                RadianceSizeUtils.getComponentFontSize(slider)) / 2.0f;
+            RadianceSizeUtils.getComponentFontSize(slider)) / 2.0f;
 
         // fill selected portion
         if (this.slider.isEnabled()) {
@@ -314,13 +372,13 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 int fillHeight = height;
                 if ((fillWidth > 0) && (fillHeight > 0)) {
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                            this.slider.getComponentOrientation(),
-                            fillWidth, fillHeight, radius, null, 1.0f);
+                        this.slider.getComponentOrientation(),
+                        fillWidth, fillHeight, radius, null, 1.0f);
                     g2d.translate(fillMinX, 0);
                     fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
-                            contour, fillScheme);
+                        contour, fillScheme);
                     borderPainter.paintBorder(g2d, this.slider, fillWidth, fillHeight, contour,
-                            null, borderScheme);
+                        null, borderScheme);
                 }
             } else {
                 int middleOfThumb = (int) (scaleFactor * (this.thumbRect.y + (this.thumbRect.height / 2) - paintRect.y));
@@ -341,17 +399,120 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 int fillHeight = height;
                 if ((fillWidth > 0) && (fillHeight > 0)) {
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                            this.slider.getComponentOrientation(),
-                            fillWidth, fillHeight, radius, null, 1.0f);
+                        this.slider.getComponentOrientation(),
+                        fillWidth, fillHeight, radius, null, 1.0f);
 
                     fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
-                            contour, fillScheme);
+                        contour, fillScheme);
                     borderPainter.paintBorder(g2d, this.slider, fillWidth, fillHeight, contour,
-                            null, borderScheme);
+                        null, borderScheme);
                 }
             }
         }
         g2d.dispose();
+    }
+
+    /**
+     * Paints the selected part of the slider track.
+     *
+     * @param graphics1X   Graphics.
+     * @param drawInverted Indicates whether the value-range shown for the slider is
+     *                     reversed.
+     * @param paintRect    Selected portion.
+     * @param colorTokens  Color tokens.
+     * @param width        Track width.
+     * @param height       Track height.
+     */
+    private void paintSliderTrackSelected1X(Graphics2D graphics1X, boolean drawInverted,
+        Rectangle paintRect, ContainerColorTokens colorTokens,
+        int width, int height, double scaleFactor, ComponentState currState) {
+
+        Graphics2D graphics1Xextra = (Graphics2D) graphics1X.create();
+        Insets insets = this.slider.getInsets();
+        insets.top /= 2;
+        insets.left /= 2;
+        insets.bottom /= 2;
+        insets.right /= 2;
+
+        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(this.slider);
+        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
+        float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
+            RadianceSizeUtils.getComponentFontSize(slider)) / 2.0f;
+
+        // fill selected portion
+        if (this.slider.getOrientation() == SwingConstants.HORIZONTAL) {
+            int middleOfThumb = (int) (scaleFactor * (this.thumbRect.x + (this.thumbRect.width / 2) - paintRect.x));
+            int fillMinX;
+            int fillMaxX;
+
+            if (drawInverted) {
+                fillMinX = middleOfThumb;
+                fillMaxX = width;
+            } else {
+                fillMinX = 0;
+                fillMaxX = middleOfThumb;
+            }
+
+            int fillWidth = fillMaxX - fillMinX;
+            int fillHeight = height;
+            if ((fillWidth > 0) && (fillHeight > 0)) {
+                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    this.slider.getComponentOrientation(),
+                    fillWidth, fillHeight, radius, null, 1.0f);
+                graphics1Xextra.translate(fillMinX, 0);
+
+                float containerSurfaceAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerSurfaceAlpha, graphics1X));
+                fillPainter.paintContourBackground(graphics1Xextra, this.slider, fillWidth, fillHeight,
+                    contour, colorTokens);
+
+                float containerOutlineAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+                graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerOutlineAlpha, graphics1X));
+                borderPainter.paintBorder(graphics1Xextra, this.slider, fillWidth, fillHeight, contour,
+                    null, colorTokens);
+            }
+        } else {
+            int middleOfThumb = (int) (scaleFactor * (this.thumbRect.y + (this.thumbRect.height / 2) - paintRect.y));
+            int fillMin;
+            int fillMax;
+
+            if (this.drawInverted()) {
+                fillMin = 0;
+                fillMax = middleOfThumb;
+                // fix for issue 368 - inverted vertical sliders
+                graphics1Xextra.translate(width + 2 - middleOfThumb, 0);
+            } else {
+                fillMin = middleOfThumb;
+                fillMax = width;
+            }
+
+            int fillWidth = fillMax - fillMin;
+            int fillHeight = height;
+            if ((fillWidth > 0) && (fillHeight > 0)) {
+                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    this.slider.getComponentOrientation(),
+                    fillWidth, fillHeight, radius, null, 1.0f);
+
+                float containerSurfaceAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerSurfaceAlpha, graphics1X));
+                fillPainter.paintContourBackground(graphics1Xextra, this.slider, fillWidth, fillHeight,
+                    contour, colorTokens);
+
+                float containerOutlineAlpha =
+                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+                graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
+                    containerOutlineAlpha, graphics1X));
+                borderPainter.paintBorder(graphics1Xextra, this.slider, fillWidth, fillHeight, contour,
+                    null, colorTokens);
+            }
+        }
+        graphics1Xextra.dispose();
     }
 
     @Override
@@ -414,7 +575,8 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         Graphics2D graphics = (Graphics2D) g.create();
 
         ComponentState currState = ComponentState.getState(this.thumbModel, this.slider);
-        float alpha = RadianceColorSchemeUtilities.getAlpha(this.slider, currState);
+        float alpha = (RadianceCoreUtilities.getSkin(this.slider) instanceof TonalSkin) ? 1.0f
+            : RadianceColorSchemeUtilities.getAlpha(this.slider, currState);
 
         BackgroundPaintingUtils.updateIfOpaque(graphics, c);
 
@@ -736,15 +898,13 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
 
     @Override
     public Dimension getPreferredHorizontalSize() {
-        return new Dimension(
-                RadianceSizeUtils.getAdjustedSize(
-                        RadianceSizeUtils.getComponentFontSize(this.slider), 200, 1, 20, false),
-                21);
+        return new Dimension(RadianceSizeUtils.getAdjustedSize(
+            RadianceSizeUtils.getComponentFontSize(this.slider), 200, 1, 20, false), 21);
     }
 
     @Override
     public Dimension getPreferredVerticalSize() {
         return new Dimension(21, RadianceSizeUtils.getAdjustedSize(
-                RadianceSizeUtils.getComponentFontSize(this.slider), 200, 1, 20, false));
+            RadianceSizeUtils.getComponentFontSize(this.slider), 200, 1, 20, false));
     }
 }
