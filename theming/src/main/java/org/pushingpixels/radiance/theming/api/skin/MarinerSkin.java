@@ -42,7 +42,6 @@ import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedBorder
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
@@ -253,11 +252,21 @@ public class MarinerSkin extends RadianceSkin {
                 /* seed */ Hct.fromInt(0xFFF5D47A),
                 /* isFidelity */ true,
                 /* isDark */ false);
+            ContainerColorTokens marinerSelectedHighlightContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFF7D997),
+                    /* isFidelity */ true,
+                    /* isDark */ false);
 
             RadianceColorSchemeBundle2 marinerDefaultBundle =
                 new RadianceColorSchemeBundle2(marinerColorScheme);
             // More saturated seed for controls in selected state
             marinerDefaultBundle.registerActiveContainerTokens(marinerSelectedContainerTokens,
+                ComponentState.SELECTED);
+            // And less saturated seed for selected highlights
+            marinerDefaultBundle.registerActiveContainerTokens(
+                marinerSelectedHighlightContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.SELECTED);
             this.registerDecorationAreaSchemeBundle(marinerDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
@@ -331,7 +340,13 @@ public class MarinerSkin extends RadianceSkin {
                     ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH});
 
             this.decorationPainter = new MatteDecorationPainter();
-            this.highlightFillPainter = new ClassicTonalFillPainter();
+            this.highlightFillPainter = new FractionBasedTonalFillPainter("Mariner",
+                new float[] {0.0f, 0.5f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW
+                });
 
             this.borderPainter = new FractionBasedTonalBorderPainter("Mariner",
                 new float[] {0.0f, 1.0f},
