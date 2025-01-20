@@ -62,10 +62,10 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 		businessDefaultBundle.registerActiveContainerTokens(this.getHighlightsAccent(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
-		// TODO: TONAL tabs
-//		defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
-//				RadianceThemingSlices.ColorSchemeAssociationKind.TAB, ComponentState.SELECTED,
-//				ComponentState.ROLLOVER_SELECTED);
+		businessDefaultBundle.registerActiveContainerTokens(
+			this.getActiveControlsAccent().getActiveContainerTokens(),
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
+			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,
 			businessDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.NONE);

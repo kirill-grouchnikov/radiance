@@ -721,7 +721,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         graphics1X.fill(contour);
         Graphics2D clipped = (Graphics2D) graphics1X.create();
         clipped.clipRect(0, 0, width, (int) (0.2f * height));
-        clipped.setColor(colorTokens.getContainerSurface());
+        clipped.setColor(colorTokens.isDark()
+            ? colorTokens.getContainerSurfaceHigh()
+            : colorTokens.getContainerSurfaceLow());
         clipped.fill(contour);
         clipped.dispose();
 
