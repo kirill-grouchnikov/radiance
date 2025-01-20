@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
@@ -282,6 +283,13 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                     }
 
                     @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                            RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                            SwingConstants.NORTH, colorTokens, alpha);
+                    }
+
+                    @Override
                     public Dimension getIconDimension() {
                         return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
                     }
@@ -298,14 +306,20 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                     }
 
                     @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                            RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                            SwingConstants.WEST, colorTokens, alpha);
+                    }
+
+                    @Override
                     public Dimension getIconDimension() {
                         return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
                     }
                 }
         );
-        oneTouchButton.setIcon(
-                this.splitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT ? verticalSplit
-                        : horizontalSplit);
+        oneTouchButton.setIcon(this.splitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT
+            ? verticalSplit : horizontalSplit);
 
         RadianceThemingCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(oneTouchButton,
                 RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER);
@@ -335,6 +349,13 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                     }
 
                     @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                            RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                            SwingConstants.SOUTH, colorTokens, alpha);
+                    }
+
+                    @Override
                     public Dimension getIconDimension() {
                         return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
                     }
@@ -350,14 +371,20 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                     }
 
                     @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                            RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                            SwingConstants.EAST, colorTokens, alpha);
+                    }
+
+                    @Override
                     public Dimension getIconDimension() {
                         return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
                     }
                 }
         );
-        oneTouchButton.setIcon(
-                this.splitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT ? verticalSplit
-                        : horizontalSplit);
+        oneTouchButton.setIcon(this.splitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT
+            ? verticalSplit : horizontalSplit);
 
         RadianceThemingCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(oneTouchButton,
                 RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER);
@@ -392,6 +419,13 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                             }
 
                             @Override
+                            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                    RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                    SwingConstants.NORTH, colorTokens, alpha);
+                            }
+
+                            @Override
                             public Dimension getIconDimension() {
                                 return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
                             }
@@ -410,6 +444,13 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                                 BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
                                         RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                                         SwingConstants.SOUTH, scheme, alpha);
+                            }
+
+                            @Override
+                            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                    RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                    SwingConstants.SOUTH, colorTokens, alpha);
                             }
 
                             @Override
@@ -435,6 +476,13 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                             }
 
                             @Override
+                            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                    RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                    SwingConstants.WEST, colorTokens, alpha);
+                            }
+
+                            @Override
                             public Dimension getIconDimension() {
                                 return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
                             }
@@ -453,6 +501,13 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                                 BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
                                         RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                                         SwingConstants.EAST, scheme, alpha);
+                            }
+
+                            @Override
+                            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                    RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                    SwingConstants.EAST, colorTokens, alpha);
                             }
 
                             @Override
