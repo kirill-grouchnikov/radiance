@@ -918,4 +918,55 @@ public class BladeIconUtils {
             });
         graphics.dispose();
     }
+
+
+    public static void drawSplitDividerBumpImage(Graphics g, RadianceSplitPaneDivider divider,
+        int x, int y, int width, int height, boolean isHorizontal,
+        ContainerColorTokens colorTokens, ComponentState state) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(x, y);
+
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+            (graphics1X, offsetX, offsetY, scaledWidth, scaledHeight, scaleFactor) -> {
+                int componentFontSize = RadianceSizeUtils.getComponentFontSize(divider);
+                int bumpDotDiameter = (int) (scaleFactor *
+                    RadianceSizeUtils.getBigDragBumpDiameter(componentFontSize));
+                int bumpCellSize = (int) (1.5 * bumpDotDiameter + 1);
+                int bumpRows = isHorizontal ? 1 : Math.max(1, scaledHeight / bumpCellSize - 1);
+                int bumpColumns = isHorizontal ? Math.max(1, (scaledWidth - 2) / bumpCellSize) : 1;
+
+                int bumpRowOffset = (scaledHeight - bumpCellSize * bumpRows) / 2;
+                int bumpColOffset = 1 + (scaledWidth - bumpCellSize * bumpColumns) / 2;
+
+                for (int col = 0; col < bumpColumns; col++) {
+                    int cx = bumpColOffset + col * bumpCellSize;
+                    for (int row = 0; row < bumpRows; row++) {
+                        int cy = bumpRowOffset + row * bumpCellSize + (bumpCellSize - bumpDotDiameter) / 2;
+
+                        graphics1X.translate(cx, cy);
+
+                        float containerSurfaceAlpha =
+                            (state.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                        graphics1X.setComposite(getAlphaComposite(containerSurfaceAlpha * 0.8f));
+                        graphics1X.setColor(colorTokens.getOnContainer());
+                        graphics1X.fillOval(0, 0, bumpDotDiameter, bumpDotDiameter);
+
+                        float containerOutlineAlpha =
+                            (state.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+                        graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha * 0.32f));
+                        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(divider);
+                        borderPainter.paintBorder(graphics1X, divider, bumpDotDiameter, bumpDotDiameter,
+                            new Ellipse2D.Float(0, 0, bumpDotDiameter, bumpDotDiameter), null, colorTokens);
+
+                        graphics1X.translate(-cx, -cy);
+                    }
+                }
+            });
+        graphics.dispose();
+    }
 }

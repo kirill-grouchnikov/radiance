@@ -30,10 +30,12 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
@@ -195,7 +197,9 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
                 .getStateContributionMap();
 
-        float alpha = RadianceColorSchemeUtilities.getAlpha(this.splitPane, currState);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.splitPane);
+        float alpha = (skin instanceof TonalSkin) ? 1.0f
+            : RadianceColorSchemeUtilities.getAlpha(this.splitPane, currState);
 
         // compute the grip handle dimension
         int minSizeForGripPresence = RadianceSizeUtils
@@ -215,19 +219,30 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                 int gripY = (thumbHeight - gripHeight) / 2;
 
                 // draw the grip bumps
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                        .entrySet()) {
-                    float contribution = activeEntry.getValue().getContribution();
-                    if (contribution == 0.0f)
-                        continue;
-
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
+                    : activeStates.entrySet()) {
                     ComponentState activeState = activeEntry.getKey();
-                    graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane,
+                    float contribution = activeEntry.getValue().getContribution();
+                    if (contribution == 0.0f) {
+                        continue;
+                    }
+
+                    if (skin instanceof TonalSkin) {
+                        graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane,
+                            contribution, g));
+                        BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
+                            thumbWidth, gripHeight, false, RadianceColorSchemeUtilities.getContainerTokens(
+                                this,
+                                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, activeState,
+                                RadianceThemingSlices.ContainerType.MUTED),
+                            activeState);
+                    } else {
+                        graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane,
                             alpha * contribution, g));
-                    BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
-                            thumbWidth, gripHeight, false,
-                            RadianceColorSchemeUtilities.getColorScheme(this,
-                                    RadianceThemingSlices.ColorSchemeAssociationKind.MARK, activeState));
+                        BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
+                            thumbWidth, gripHeight, false, RadianceColorSchemeUtilities.getColorScheme(
+                                this, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, activeState));
+                    }
                 }
             }
         } else {
@@ -244,19 +259,28 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                 int gripY = 1;
 
                 // draw the grip bumps
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                        .entrySet()) {
-                    float contribution = activeEntry.getValue().getContribution();
-                    if (contribution == 0.0f)
-                        continue;
-
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
+                    : activeStates.entrySet()) {
                     ComponentState activeState = activeEntry.getKey();
-                    graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane,
+                    float contribution = activeEntry.getValue().getContribution();
+                    if (contribution == 0.0f) {
+                        continue;
+                    }
+
+                    if (skin instanceof TonalSkin) {
+                        graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane, contribution, g));
+                        BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
+                            gripWidth, thumbHeight, true, RadianceColorSchemeUtilities.getContainerTokens(
+                                this, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                                activeState, RadianceThemingSlices.ContainerType.MUTED),
+                            activeState);
+                    } else {
+                        graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane,
                             alpha * contribution, g));
-                    BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
-                            gripWidth, thumbHeight, true,
-                            RadianceColorSchemeUtilities.getColorScheme(this,
-                                    RadianceThemingSlices.ColorSchemeAssociationKind.MARK, activeState));
+                        BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
+                            gripWidth, thumbHeight, true, RadianceColorSchemeUtilities.getColorScheme(
+                                this, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, activeState));
+                    }
                 }
             }
         }
