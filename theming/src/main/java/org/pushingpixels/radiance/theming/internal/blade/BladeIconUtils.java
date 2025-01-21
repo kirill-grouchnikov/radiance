@@ -32,10 +32,13 @@ package org.pushingpixels.radiance.theming.internal.blade;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -67,6 +70,24 @@ public class BladeIconUtils {
                     scheme -> RadianceColorUtilities.getInterpolatedColor(
                         scheme.getMidColor(), scheme.getUltraLightColor(), 0.5f),
                     ColorSchemeSingleColorQuery.MID
+                }
+            );
+        }
+    }
+
+    private static class SimplisticSoftBorderReverseTonalFillPainter extends FractionBasedTonalFillPainter {
+        /**
+         * Singleton instance.
+         */
+        public static final RadianceFillPainter INSTANCE = new SimplisticSoftBorderReverseTonalFillPainter();
+
+        private SimplisticSoftBorderReverseTonalFillPainter() {
+            super("Simplistic Soft Border Reverse Tonal",
+                new float[] {0.0f, 0.5f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE
                 }
             );
         }
@@ -607,6 +628,47 @@ public class BladeIconUtils {
                         graphics1X.draw(new Line2D.Float(mid, mid - length / 2, mid, mid + length / 2));
                     }
                 });
+        graphics.dispose();
+    }
+
+    public static void drawTreeIcon(Graphics2D g, JTree tree, int size,
+        ContainerColorTokens colorTokens, boolean isCollapsed) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, size, size,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                RadianceFillPainter fillPainter = SimplisticSoftBorderReverseTonalFillPainter.INSTANCE;
+                RadianceBorderPainter borderPainter = new FlatTonalBorderPainter();
+
+                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    tree.getComponentOrientation(),
+                    scaledWidth, scaledHeight,
+                    (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
+                        RadianceSizeUtils.getComponentFontSize(tree)) / 1.5f, null,
+                    1.0f);
+
+                fillPainter.paintContourBackground(graphics1X, tree, scaledWidth, scaledHeight,
+                    contour, colorTokens);
+                borderPainter.paintBorder(graphics1X, tree, scaledWidth, scaledHeight, contour,
+                    null, colorTokens);
+
+                Color signColor = colorTokens.getOnContainer();
+                graphics1X.setColor(signColor);
+                float mid = scaledWidth / 2;
+                float length = 7 * scaledWidth / 12;
+                // Horizontal stroke
+                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
+                graphics1X.draw(new Line2D.Float(mid - length / 2, mid, mid + length / 2, mid));
+                if (isCollapsed) {
+                    // Vertical stroke
+                    graphics1X.draw(new Line2D.Float(mid, mid - length / 2, mid, mid + length / 2));
+                }
+            });
         graphics.dispose();
     }
 

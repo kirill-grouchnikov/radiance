@@ -97,8 +97,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                 if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
                     if (skin instanceof TonalSkin) {
                         ContainerColorTokens colorTokens = getContainerTokensForState(list, ui, currState);
-                        super.setForeground(new ColorUIResource(
-                            colorTokens.getOnContainer()));
+                        super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
                     } else {
                         RadianceColorScheme colorScheme = getColorSchemeForState(list, ui, currState);
                         super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
@@ -152,8 +151,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                             currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                     }
-                    super.setForeground(new ColorUIResource(
-                        colorTokens.getOnContainer()));
+                    super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
                 } else {
                     RadianceColorScheme scheme = getColorSchemeForState(list, ui, currState);
                     if (isDropLocation) {

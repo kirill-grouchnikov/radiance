@@ -31,12 +31,16 @@ package org.pushingpixels.radiance.theming.api.renderer;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTreeUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -132,6 +136,8 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
         if (treeUI instanceof RadianceTreeUI) {
             RadianceTreeUI ui = (RadianceTreeUI) treeUI;
 
+            RadianceSkin skin = RadianceCoreUtilities.getSkin(tree);
+
             RadianceTreeUI.TreePathId pathId = new RadianceTreeUI.TreePathId(tree.getPathForRow(row));
 
             StateTransitionTracker.ModelStateInfo modelStateInfo = ui.getModelStateInfo(pathId);
@@ -146,35 +152,58 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
             if (!isDropLocation && (modelStateInfo != null)) {
                 Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                         modelStateInfo.getStateContributionMap();
-                RadianceColorScheme colorScheme = getColorSchemeForState(tree, ui, currState);
-                if (currState.isDisabled() || (activeStates == null)
-                        || (activeStates.size() == 1)) {
-                    labelForeground = new ColorUIResource(colorScheme.getForegroundColor());
+                if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+                    if (skin instanceof TonalSkin) {
+                        ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
+                        labelForeground = new ColorUIResource(colorTokens.getOnContainer());
+                    } else {
+                        RadianceColorScheme colorScheme = getColorSchemeForState(tree, ui, currState);
+                        labelForeground = new ColorUIResource(colorScheme.getForegroundColor());
+                    }
                 } else {
                     float aggrRed = 0;
                     float aggrGreen = 0;
                     float aggrBlue = 0;
 
-                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : modelStateInfo
-                            .getStateContributionMap().entrySet()) {
+                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
+                        : modelStateInfo.getStateContributionMap().entrySet()) {
                         ComponentState activeState = activeEntry.getKey();
                         float contribution = activeEntry.getValue().getContribution();
-                        RadianceColorScheme scheme = getColorSchemeForState(tree, ui, activeState);
-                        Color schemeFg = scheme.getForegroundColor();
-                        aggrRed += schemeFg.getRed() * contribution;
-                        aggrGreen += schemeFg.getGreen() * contribution;
-                        aggrBlue += schemeFg.getBlue() * contribution;
+
+                        if (skin instanceof TonalSkin) {
+                            ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, activeState);
+                            Color schemeFg = colorTokens.getOnContainer();
+                            aggrRed += schemeFg.getRed() * contribution;
+                            aggrGreen += schemeFg.getGreen() * contribution;
+                            aggrBlue += schemeFg.getBlue() * contribution;
+                        } else {
+                            RadianceColorScheme scheme = getColorSchemeForState(tree, ui, activeState);
+                            Color schemeFg = scheme.getForegroundColor();
+                            aggrRed += schemeFg.getRed() * contribution;
+                            aggrGreen += schemeFg.getGreen() * contribution;
+                            aggrBlue += schemeFg.getBlue() * contribution;
+                        }
                     }
                     labelForeground = new ColorUIResource(
                             new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue));
                 }
             } else {
-                RadianceColorScheme scheme = getColorSchemeForState(tree, ui, currState);
-                if (isDropLocation) {
-                    scheme = RadianceColorSchemeUtilities.getColorScheme(tree,
+                if (skin instanceof TonalSkin) {
+                    ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
+                    if (isDropLocation) {
+                        colorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
+                            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                            currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+                    }
+                    labelForeground = new ColorUIResource(colorTokens.getOnContainer());
+                } else {
+                    RadianceColorScheme scheme = getColorSchemeForState(tree, ui, currState);
+                    if (isDropLocation) {
+                        scheme = RadianceColorSchemeUtilities.getColorScheme(tree,
                             RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+                    }
+                    labelForeground = new ColorUIResource(scheme.getForegroundColor());
                 }
-                labelForeground = new ColorUIResource(scheme.getForegroundColor());
             }
         } else {
             if (selected) {
@@ -226,5 +255,20 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
                     RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, activeState);
         }
         return scheme;
+    }
+
+    private ContainerColorTokens getContainerTokensForState(JTree tree, RadianceTreeUI ui,
+        ComponentState activeState) {
+        ContainerColorTokens colorTokens = (activeState == ComponentState.ENABLED)
+            ? ui.getDefaultColorTokens()
+            : RadianceColorSchemeUtilities.getContainerTokens(tree,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
+            RadianceThemingSlices.ContainerType.NEUTRAL);
+        if (colorTokens == null) {
+            colorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
+                RadianceThemingSlices.ContainerType.NEUTRAL);
+        }
+        return colorTokens;
     }
 }
