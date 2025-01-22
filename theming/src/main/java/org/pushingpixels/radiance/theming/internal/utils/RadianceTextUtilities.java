@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -441,20 +442,66 @@ public class RadianceTextUtilities {
                 StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
 
                 float lightnessFactor = RadianceColorSchemeUtilities.getColorScheme(componentForTransitions,
-                        componentForTransitions.isEnabled() ? ComponentState.ENABLED
-                                : ComponentState.DISABLED_UNSELECTED).isDark() ? 0.1f : 0.4f;
+                    componentForTransitions.isEnabled() ? ComponentState.ENABLED
+                        : ComponentState.DISABLED_UNSELECTED).isDark() ? 0.1f : 0.4f;
                 Color lighterFill = RadianceColorUtilities.getLighterColor(backgroundFillColor,
-                        lightnessFactor);
+                    lightnessFactor);
                 lighterFill = RadianceColorUtilities.getInterpolatedColor(lighterFill,
-                        backgroundFillColor, 0.6);
+                    backgroundFillColor, 0.6);
 
-                float selectionStrength = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
-                float rolloverStrength = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
+                float selectionStrength = stateTransitionTracker.getFacetStrength(
+                    RadianceThemingSlices.ComponentStateFacet.SELECTION);
+                float rolloverStrength = stateTransitionTracker.getFacetStrength(
+                    RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
+                System.out.println(componentForTransitions.getText() + ":" + selectionStrength +
+                    ":" + rolloverStrength);
                 backgroundFillColor = RadianceColorUtilities.getInterpolatedColor(lighterFill,
-                        backgroundFillColor, Math.max(selectionStrength, rolloverStrength) / 4.0f);
+                    backgroundFillColor, Math.max(selectionStrength, rolloverStrength) / 4.0f);
             }
         }
         return backgroundFillColor;
+    }
+
+    public static Color getTextBackgroundTonalFillColor(JComponent comp) {
+        Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(comp,
+            RadianceThemingSlices.ContainerType.NEUTRAL);
+
+        JTextComponent componentForTransitions = RadianceCoreUtilities.getTextComponentForTransitions(comp);
+        if (componentForTransitions == null) {
+            return backgroundFillColor;
+        }
+
+            ComponentUI ui = componentForTransitions.getUI();
+            if (ui instanceof TransitionAwareUI) {
+                TransitionAwareUI trackable = (TransitionAwareUI) ui;
+                StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
+
+                float selectionStrength = stateTransitionTracker.getFacetStrength(
+                    RadianceThemingSlices.ComponentStateFacet.SELECTION);
+                float rolloverStrength = stateTransitionTracker.getFacetStrength(
+                    RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
+
+                if (selectionStrength > 0.0f) {
+                    // Account for the selected strength
+                    backgroundFillColor =
+                        RadianceColorUtilities.getInterpolatedColor(backgroundFillColor,
+                            RadianceColorSchemeUtilities.getContainerTokens(componentForTransitions,
+                                ComponentState.SELECTED,
+                                RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurface(),
+                            1.0f - 0.2f * selectionStrength);
+                }
+                if (rolloverStrength > 0.0f) {
+                    // Account for the selected strength
+                    backgroundFillColor =
+                        RadianceColorUtilities.getInterpolatedColor(backgroundFillColor,
+                            RadianceColorSchemeUtilities.getContainerTokens(componentForTransitions,
+                                ComponentState.ROLLOVER_UNSELECTED,
+                                RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurface(),
+                            1.0f - 0.2f * rolloverStrength);
+                }
+            }
+
+            return backgroundFillColor;
     }
 
     public static Color getTextSelectionBackground(JTextComponent comp) {
@@ -556,7 +603,6 @@ public class RadianceTextUtilities {
 
         BackgroundPaintingUtils.update(g2d, comp, false);
 
-        // TODO - TONAL convert
         Color backgroundFillColor = getTextBackgroundFillColor(comp);
         g2d.setColor(backgroundFillColor);
 
@@ -564,19 +610,19 @@ public class RadianceTextUtilities {
         // border
         float borderStrokeWidth = RadianceSizeUtils.getBorderStrokeWidth(comp);
         g2d.fill(new Rectangle2D.Float(borderStrokeWidth / 2.0f, borderStrokeWidth / 2.0f,
-                comp.getWidth() - borderStrokeWidth, comp.getHeight() - borderStrokeWidth));
+            comp.getWidth() - borderStrokeWidth, comp.getHeight() - borderStrokeWidth));
 
         ComponentState state = comp.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = null;
         JTextComponent componentForTransitions = RadianceCoreUtilities
-                .getTextComponentForTransitions(comp);
+            .getTextComponentForTransitions(comp);
         if (componentForTransitions != null) {
             ComponentUI ui = componentForTransitions.getUI();
             if (ui instanceof TransitionAwareUI) {
                 TransitionAwareUI trackable = (TransitionAwareUI) ui;
                 StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
                 StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                        .getModelStateInfo();
+                    .getModelStateInfo();
                 state = modelStateInfo.getCurrModelState();
                 activeStates = modelStateInfo.getStateContributionMap();
             }
@@ -590,14 +636,14 @@ public class RadianceTextUtilities {
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(comp);
         // Get the base border color
         RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(comp,
-                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
+            RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
         Color borderColor = borderPainter.getRepresentativeColor(baseBorderScheme);
 
         if (!state.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
             // If we have more than one active state, compute the composite color from all
             // the contributions
             for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                    activeStates.entrySet()) {
+                activeStates.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
                 if (activeState == state) {
                     continue;
@@ -614,11 +660,11 @@ public class RadianceTextUtilities {
                 }
 
                 RadianceColorScheme activeBorderScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(componentForTransitions, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                                activeState);
+                    .getColorScheme(componentForTransitions, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                        activeState);
                 Color activeBorderColor = borderPainter.getRepresentativeColor(activeBorderScheme);
                 borderColor = RadianceColorUtilities.getInterpolatedColor(borderColor,
-                        activeBorderColor, 1.0f - contribution * alpha);
+                    activeBorderColor, 1.0f - contribution * alpha);
             }
         }
         // At this point we should have the color that matches the border color. Use that to
@@ -627,11 +673,96 @@ public class RadianceTextUtilities {
             int shadowHeight = 6;
             int topAlpha = state.isDisabled() ? 16 : 32;
             g2d.setPaint(new GradientPaint(0, 0,
-                    RadianceColorUtilities.getAlphaColor(borderColor, topAlpha), 0, shadowHeight,
-                    RadianceColorUtilities.getAlphaColor(borderColor, 0)));
+                RadianceColorUtilities.getAlphaColor(borderColor, topAlpha), 0, shadowHeight,
+                RadianceColorUtilities.getAlphaColor(borderColor, 0)));
             float yTop = RadianceSizeUtils.getBorderStrokeWidth(comp);
             g2d.fill(new Rectangle2D.Float(borderStrokeWidth, yTop,
-                    comp.getWidth() - 2 * borderStrokeWidth, shadowHeight));
+                comp.getWidth() - 2 * borderStrokeWidth, shadowHeight));
+        }
+        g2d.dispose();
+    }
+    /**
+     * Paints background of the specified text component.
+     *
+     * @param g    Graphics context.
+     * @param comp Component.
+     */
+    public static void paintTextCompTonalBackground(Graphics g, JComponent comp) {
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        BackgroundPaintingUtils.update(g2d, comp, false);
+
+        Color backgroundFillColor = getTextBackgroundTonalFillColor(comp);
+        g2d.setColor(backgroundFillColor);
+
+        // Match the logic / shape in RadianceImageCreator.paintSimpleBorder that draws the
+        // border
+        float borderStrokeWidth = RadianceSizeUtils.getBorderStrokeWidth(comp);
+        g2d.fill(new Rectangle2D.Float(borderStrokeWidth / 2.0f, borderStrokeWidth / 2.0f,
+            comp.getWidth() - borderStrokeWidth, comp.getHeight() - borderStrokeWidth));
+
+        ComponentState state = comp.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = null;
+        JTextComponent componentForTransitions = RadianceCoreUtilities
+            .getTextComponentForTransitions(comp);
+        if (componentForTransitions != null) {
+            ComponentUI ui = componentForTransitions.getUI();
+            if (ui instanceof TransitionAwareUI) {
+                TransitionAwareUI trackable = (TransitionAwareUI) ui;
+                StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
+                StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
+                    .getModelStateInfo();
+                state = modelStateInfo.getCurrModelState();
+                activeStates = modelStateInfo.getStateContributionMap();
+            }
+        }
+
+        if ((componentForTransitions != null) && !componentForTransitions.isEditable()) {
+            // don't paint top shadow on non-editable text fields
+            return;
+        }
+
+        // Get the base border color
+        ContainerColorTokens baseColorTokens = RadianceColorSchemeUtilities.getContainerTokens(comp,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
+            RadianceThemingSlices.ContainerType.NEUTRAL);
+        Color borderColor = baseColorTokens.getContainerOutline();
+
+        if (!state.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
+            // If we have more than one active state, compute the composite color from all
+            // the contributions
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                if (activeState == state) {
+                    continue;
+                }
+
+                float contribution = activeEntry.getValue().getContribution();
+                if (contribution == 0.0f) {
+                    continue;
+                }
+
+                ContainerColorTokens activeColorTokens = RadianceColorSchemeUtilities.getContainerTokens(comp,
+                    RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, activeState,
+                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                Color activeBorderColor = activeColorTokens.getContainerOutline();
+                borderColor = RadianceColorUtilities.getInterpolatedColor(borderColor,
+                    activeBorderColor, 1.0f - contribution);
+            }
+        }
+        // At this point we should have the color that matches the border color. Use that to
+        // paint emulated drop shadow along the top edge of the component.
+        if (hasRadianceTextBorder(comp)) {
+            int shadowHeight = 6;
+            int topAlpha = state.isDisabled()
+                ? (int) (32 * baseColorTokens.getContainerOutlineDisabledAlpha()) : 32;
+            g2d.setPaint(new GradientPaint(0, 0,
+                RadianceColorUtilities.getAlphaColor(borderColor, topAlpha), 0, shadowHeight,
+                RadianceColorUtilities.getAlphaColor(borderColor, 0)));
+            float yTop = RadianceSizeUtils.getBorderStrokeWidth(comp);
+            g2d.fill(new Rectangle2D.Float(borderStrokeWidth, yTop,
+                comp.getWidth() - 2 * borderStrokeWidth, shadowHeight));
         }
         g2d.dispose();
     }

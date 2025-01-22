@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRenderer;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -401,7 +402,11 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
 
         int componentFontSize = RadianceSizeUtils.getComponentFontSize(this.comboBox);
         if (this.comboBox.isEditable()) {
-            RadianceTextUtilities.paintTextCompBackground(g, c);
+            if (RadianceCoreUtilities.getSkin(c) instanceof TonalSkin) {
+                RadianceTextUtilities.paintTextCompTonalBackground(g, c);
+            } else {
+                RadianceTextUtilities.paintTextCompBackground(g, c);
+            }
         } else {
             this.delegate.updateBackground(graphics, this.comboBox);
 

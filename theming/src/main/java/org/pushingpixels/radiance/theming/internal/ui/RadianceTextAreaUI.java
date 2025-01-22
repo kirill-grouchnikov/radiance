@@ -218,7 +218,11 @@ public class RadianceTextAreaUI extends BasicTextAreaUI implements TransitionAwa
 
     @Override
     protected void paintBackground(Graphics g) {
-        RadianceTextUtilities.paintTextCompBackground(g, this.textArea);
+        if (RadianceCoreUtilities.getSkin(this.textArea) instanceof TonalSkin) {
+            RadianceTextUtilities.paintTextCompTonalBackground(g, this.textArea);
+        } else {
+            RadianceTextUtilities.paintTextCompBackground(g, this.textArea);
+        }
     }
 
     @Override

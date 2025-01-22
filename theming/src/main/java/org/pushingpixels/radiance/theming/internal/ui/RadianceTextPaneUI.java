@@ -211,7 +211,11 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
 
     @Override
     protected void paintBackground(Graphics g) {
-        RadianceTextUtilities.paintTextCompBackground(g, this.textPane);
+        if (RadianceCoreUtilities.getSkin(this.textPane) instanceof TonalSkin) {
+            RadianceTextUtilities.paintTextCompTonalBackground(g, this.textPane);
+        } else {
+            RadianceTextUtilities.paintTextCompBackground(g, this.textPane);
+        }
     }
 
     @Override

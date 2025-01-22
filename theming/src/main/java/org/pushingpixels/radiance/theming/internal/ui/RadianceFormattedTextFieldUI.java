@@ -228,7 +228,11 @@ public class RadianceFormattedTextFieldUI extends BasicFormattedTextFieldUI
 
     @Override
     protected void paintBackground(Graphics g) {
-        RadianceTextUtilities.paintTextCompBackground(g, this.textField);
+        if (RadianceCoreUtilities.getSkin(this.textField) instanceof TonalSkin) {
+            RadianceTextUtilities.paintTextCompTonalBackground(g, this.textField);
+        } else {
+            RadianceTextUtilities.paintTextCompBackground(g, this.textField);
+        }
     }
 
     @Override
