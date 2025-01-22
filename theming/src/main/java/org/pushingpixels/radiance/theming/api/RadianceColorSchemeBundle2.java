@@ -257,6 +257,11 @@ public class RadianceColorSchemeBundle2 {
             return null;
         }
 
+        RadianceThemingSlices.ContainerColorTokensAssociationKind fallback = associationKind.getFallback();
+        if (fallback != null) {
+            return getContainerTokens(fallback, componentState, allowFallback, inactiveContainerType);
+        }
+
         return getContainerTokens(componentState, inactiveContainerType);
     }
 }

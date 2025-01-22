@@ -1107,12 +1107,25 @@ public final class RadianceThemingSlices {
         private String name;
 
         /**
+         * Fallback for this association kind. This is used when no color scheme is associated with
+         * this kind. For example, {@link #HIGHLIGHT_TEXT} specifies that its fallback is
+         * {@link #HIGHLIGHT}. When the {@link JTextField} UI delegate is painting its selected
+         * part, it will try to use the color tokens associated with {@link #HIGHLIGHT_TEXT}.
+         * If none was registered, it will fall back to use the color tokens associated with
+         * {@link #HIGHLIGHT}, and if that is not registered as well, will use the color tokens
+         * associated with {@link #DEFAULT}.
+         */
+        private ContainerColorTokensAssociationKind fallback;
+
+        /**
          * Creates a new association kind.
          *
          * @param name     Association kind name.
          */
-        public ContainerColorTokensAssociationKind(String name) {
+        public ContainerColorTokensAssociationKind(String name,
+            ContainerColorTokensAssociationKind fallback) {
             this.name = name;
+            this.fallback = fallback;
             values.add(this);
         }
 
@@ -1125,38 +1138,38 @@ public final class RadianceThemingSlices {
          * The default visual area that is used for the inner part of most controls.
          */
         public static final ContainerColorTokensAssociationKind DEFAULT =
-            new ContainerColorTokensAssociationKind("default");
+            new ContainerColorTokensAssociationKind("default", null);
 
         /**
          * Fill visual area of the tabs.
          */
         public static final ContainerColorTokensAssociationKind TAB =
-            new ContainerColorTokensAssociationKind("tab");
+            new ContainerColorTokensAssociationKind("tab", DEFAULT);
 
         /**
          * Visual area of marks. Used for painting check marks of checkboxes and radio buttons, as
          * well as arrow icons of combo boxes, spinners and more.
          */
         public static final ContainerColorTokensAssociationKind MARK =
-            new ContainerColorTokensAssociationKind("mark");
+            new ContainerColorTokensAssociationKind("mark", DEFAULT);
 
         /**
          * Highlight visual areas for lists, tables, trees and menus.
          */
         public static final ContainerColorTokensAssociationKind HIGHLIGHT =
-            new ContainerColorTokensAssociationKind("highlight");
+            new ContainerColorTokensAssociationKind("highlight", DEFAULT);
 
         /**
          * Highlight visual areas for text components.
          */
         public static final ContainerColorTokensAssociationKind HIGHLIGHT_TEXT =
-            new ContainerColorTokensAssociationKind("highlight_text");
+            new ContainerColorTokensAssociationKind("highlight_text", HIGHLIGHT);
 
         /**
          * Visual area of separators.
          */
         public static final ContainerColorTokensAssociationKind SEPARATOR =
-            new ContainerColorTokensAssociationKind("separator");
+            new ContainerColorTokensAssociationKind("separator", DEFAULT);
 
         /**
          * Returns all available association kinds.
@@ -1165,6 +1178,10 @@ public final class RadianceThemingSlices {
          */
         public static Set<ContainerColorTokensAssociationKind> values() {
             return Collections.unmodifiableSet(values);
+        }
+
+        public ContainerColorTokensAssociationKind getFallback() {
+            return this.fallback;
         }
     }
 

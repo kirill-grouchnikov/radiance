@@ -37,6 +37,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.inputmap.InputMapSet;
 import org.pushingpixels.radiance.theming.api.inputmap.RadianceInputMapUtilities;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.utils.border.*;
@@ -107,17 +109,31 @@ public class SkinUtilities {
         int lcb = RadianceColorUtilities.getColorBrightness(lineColor.getRGB());
         Color lineBwColor = new ColorUIResource(new Color(lcb, lcb, lcb));
 
-        RadianceColorScheme textHighlightColorScheme = skin.getColorScheme(
-                (Component) null, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
-                ComponentState.SELECTED);
-        if (textHighlightColorScheme == null) {
-            textHighlightColorScheme = skin.getColorScheme(null,
-                    ComponentState.ROLLOVER_SELECTED);
-        }
-        Color selectionTextBackgroundColor = new ColorUIResource(
+        Color selectionTextBackgroundColor;
+        Color selectionTextForegroundColor;
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens textHighlightColorTokens = skin.getContainerTokens(null,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
+                ComponentState.SELECTED, RadianceThemingSlices.ContainerType.TONAL);
+            if (textHighlightColorTokens == null) {
+                textHighlightColorTokens = skin.getContainerTokens(null,
+                    ComponentState.ROLLOVER_SELECTED, RadianceThemingSlices.ContainerType.TONAL);
+            }
+            selectionTextBackgroundColor = new ColorUIResource(
+                textHighlightColorTokens.getContainerSurfaceLow());
+            selectionTextForegroundColor = new ColorUIResource(
+                textHighlightColorTokens.getOnContainer());
+        } else {
+            RadianceColorScheme textHighlightColorScheme = skin.getColorScheme((Component) null,
+                RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_TEXT, ComponentState.SELECTED);
+            if (textHighlightColorScheme == null) {
+                textHighlightColorScheme = skin.getColorScheme(null, ComponentState.ROLLOVER_SELECTED);
+            }
+            selectionTextBackgroundColor = new ColorUIResource(
                 textHighlightColorScheme.getSelectionBackgroundColor());
-        Color selectionTextForegroundColor = new ColorUIResource(
+            selectionTextForegroundColor = new ColorUIResource(
                 textHighlightColorScheme.getSelectionForegroundColor());
+        }
 
         RadianceColorScheme highlightColorScheme = skin.getColorScheme(
                 (Component) null, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT,
