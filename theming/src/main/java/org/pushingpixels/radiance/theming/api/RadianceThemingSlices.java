@@ -1147,6 +1147,12 @@ public final class RadianceThemingSlices {
             new ContainerColorTokensAssociationKind("highlight");
 
         /**
+         * Highlight visual areas for text components.
+         */
+        public static final ContainerColorTokensAssociationKind HIGHLIGHT_TEXT =
+            new ContainerColorTokensAssociationKind("highlight_text");
+
+        /**
          * Visual area of separators.
          */
         public static final ContainerColorTokensAssociationKind SEPARATOR =

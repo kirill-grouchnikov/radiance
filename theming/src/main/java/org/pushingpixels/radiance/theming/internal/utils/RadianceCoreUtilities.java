@@ -1888,7 +1888,13 @@ public class RadianceCoreUtilities {
         if (overlay != null) {
             return overlay;
         }
-        return RadianceColorSchemeUtilities.getColorScheme(component, componentState).getTextBackgroundFillColor();
+        if (skin instanceof TonalSkin) {
+            return RadianceColorSchemeUtilities.getContainerTokens(component, componentState,
+                RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLowest();
+        } else {
+            return RadianceColorSchemeUtilities.getColorScheme(component, componentState)
+                .getTextBackgroundFillColor();
+        }
     }
 
     public static Color getTextSelectionBackground(Component component, ComponentState componentState) {
@@ -1899,8 +1905,15 @@ public class RadianceCoreUtilities {
         if (overlay != null) {
             return overlay;
         }
-        return RadianceColorSchemeUtilities.getColorScheme(
-                component, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_TEXT, componentState).getSelectionBackgroundColor();
+        if (skin instanceof TonalSkin) {
+            return RadianceColorSchemeUtilities.getContainerTokens(component,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT, componentState,
+                RadianceThemingSlices.ContainerType.TONAL).getContainerSurfaceLow();
+        } else {
+            return RadianceColorSchemeUtilities.getColorScheme(component,
+                    RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_TEXT, componentState)
+                .getSelectionBackgroundColor();
+        }
     }
 
     public static Color getTextSelectionForeground(Component component, ComponentState componentState) {
@@ -1911,7 +1924,14 @@ public class RadianceCoreUtilities {
         if (overlay != null) {
             return overlay;
         }
-        return RadianceColorSchemeUtilities.getColorScheme(
-                component, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_TEXT, componentState).getSelectionForegroundColor();
+        if (skin instanceof TonalSkin) {
+            return RadianceColorSchemeUtilities.getContainerTokens(component,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT, componentState,
+                RadianceThemingSlices.ContainerType.TONAL).getOnContainer();
+        } else {
+            return RadianceColorSchemeUtilities.getColorScheme(component,
+                    RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_TEXT, componentState)
+                .getSelectionForegroundColor();
+        }
     }
 }
