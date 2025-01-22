@@ -37,11 +37,16 @@ import org.pushingpixels.radiance.animation.api.ease.Spline;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -65,9 +70,20 @@ import java.util.Set;
  */
 public class RadianceProgressBarUI extends BasicProgressBarUI {
     private static final RadianceFillPainter progressFillPainter = new FractionBasedFillPainter(
-            "Progress fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
-            new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.EXTRALIGHT,
-                    ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.MID});
+        "Progress fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
+        new ColorSchemeSingleColorQuery[]{
+            ColorSchemeSingleColorQuery.EXTRALIGHT,
+            ColorSchemeSingleColorQuery.LIGHT,
+            ColorSchemeSingleColorQuery.MID}
+    );
+
+    private static final RadianceFillPainter progressTonalFillPainter = new FractionBasedTonalFillPainter(
+        "Progress tonal fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
+        new ContainerColorTokensSingleColorQuery[]{
+            ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+            ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+            ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGHEST}
+    );
 
     private final class RadianceChangeListener implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
@@ -250,9 +266,55 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         graphics.dispose();
     }
 
+    private void drawDeterminateBackground(Graphics2D g, JProgressBar bar, int width, int height,
+        ContainerColorTokens colorTokens, RadianceFillPainter fillPainter, int orientation,
+        ComponentState currState) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        float containerSurfaceAlpha =
+            (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(bar, containerSurfaceAlpha, g));
+
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        if (orientation == SwingConstants.HORIZONTAL) {
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
+                        .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                        bar.getComponentOrientation(),
+                        scaledWidth, scaledHeight, radius, null);
+                    fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                        contour, colorTokens);
+                });
+        } else {
+            // Flip width and height, and then apply a rotation transformation
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    // Rotate the graphics context for correct "orientation" of the visuals
+                    AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
+                    at.translate(x - scaledWidth, y);
+                    graphics1X.transform(at);
+
+                    float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
+                        .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                        bar.getComponentOrientation(),
+                        scaledWidth, scaledHeight, radius, null);
+                    fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                        contour, colorTokens);
+                });
+        }
+        graphics.dispose();
+    }
+
     private void drawDeterminateProgress(Graphics2D g, JProgressBar bar, int width, int height,
             boolean isFull, RadianceColorScheme scheme, RadianceFillPainter fillPainter,
-            int orientation, ComponentOrientation componentOrientation) {
+            int orientation) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -296,6 +358,57 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         graphics.dispose();
     }
 
+    private void drawDeterminateProgress(Graphics2D g, JProgressBar bar, int width, int height,
+        boolean isFull, ContainerColorTokens colorTokens, RadianceFillPainter fillPainter,
+        int orientation, ComponentState currState) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        float containerSurfaceAlpha =
+            (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(bar, containerSurfaceAlpha, g));
+
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        if (orientation == SwingConstants.HORIZONTAL) {
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
+                        .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
+                    RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.TRAILING;
+                    Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                        bar.getComponentOrientation(),
+                        scaledWidth, scaledHeight, radius, straightSides);
+                    fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                        contour, colorTokens);
+                });
+        } else {
+            // Flip width and height, and then apply a rotation transformation
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    // Rotate the graphics context for correct "orientation" of the visuals
+                    AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
+                    at.translate(x - scaledWidth, y);
+                    graphics1X.transform(at);
+
+                    float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
+                        .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
+                    RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.TRAILING;
+                    Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
+
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                        bar.getComponentOrientation(),
+                        scaledWidth, scaledHeight, radius, straightSides);
+                    fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                        contour, colorTokens);
+                });
+        }
+        graphics.dispose();
+    }
+
     @Override
     public void paintDeterminate(Graphics g, JComponent c) {
         if (!(g instanceof Graphics2D)) {
@@ -313,55 +426,98 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                 barRectHeight);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        // install state-aware alpha channel (support for skins
-        // that use translucency on disabled states).
-        float stateAlpha = RadianceColorSchemeUtilities.getAlpha(progressBar, fillState);
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(progressBar, stateAlpha, g));
 
-        RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(progressBar,
-                fillState);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.progressBar);
 
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(progressBar);
-        g2d.translate(margin, margin);
-        drawDeterminateBackground(g2d, progressBar, barRectWidth, barRectHeight,
-                fillScheme, fillPainter, progressBar.getOrientation());
-        g2d.translate(-margin, -margin);
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens fillColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                progressBar, fillState, RadianceThemingSlices.ContainerType.MUTED);
 
-        if (amountFull > 0) {
-            boolean isFull = (this.progressBar.getModel().getValue() == this.progressBar
-                    .getMaximum());
-            RadianceColorScheme progressColorScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(progressBar, progressState);
-            if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
-                if (barRectHeight > 0) {
-                    int dx = progressBar.getComponentOrientation().isLeftToRight() ? margin
+            RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(progressBar);
+            g2d.translate(margin, margin);
+            drawDeterminateBackground(g2d, progressBar, barRectWidth, barRectHeight,
+                fillColorTokens, fillPainter, progressBar.getOrientation(), fillState);
+            g2d.translate(-margin, -margin);
+
+            if (amountFull > 0) {
+                boolean isFull = (this.progressBar.getModel().getValue() == this.progressBar.getMaximum());
+                ContainerColorTokens progressColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    progressBar, progressState, RadianceThemingSlices.ContainerType.MUTED);
+
+                if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
+                    if (barRectHeight > 0) {
+                        int dx = progressBar.getComponentOrientation().isLeftToRight() ? margin
                             : margin + barRectWidth - amountFull;
-                    g2d.translate(dx, margin);
-                    drawDeterminateProgress(g2d, progressBar, amountFull, barRectHeight,
-                            isFull, progressColorScheme, progressFillPainter,
-                            progressBar.getOrientation(),
-                            this.progressBar.getComponentOrientation());
-                    g2d.translate(-dx, -margin);
+                        g2d.translate(dx, margin);
+                        drawDeterminateProgress(g2d, progressBar, amountFull, barRectHeight,
+                            isFull, progressColorTokens, progressTonalFillPainter,
+                            progressBar.getOrientation(), progressState);
+                        g2d.translate(-dx, -margin);
+                    }
+                } else { // VERTICAL
+                    if (barRectWidth > 0) {
+                        g2d.translate(margin, margin + barRectHeight - amountFull);
+                        // Vertical progress is "growing" from the bottom
+                        drawDeterminateProgress(g2d, progressBar, barRectWidth, amountFull,
+                            isFull, progressColorTokens, progressTonalFillPainter,
+                            progressBar.getOrientation(), progressState);
+                        g2d.translate(-margin, -(margin + barRectHeight - amountFull));
+                    }
                 }
-            } else { // VERTICAL
-                if (barRectWidth > 0) {
-                    g2d.translate(margin, margin + barRectHeight - amountFull);
-                    // Vertical progress is "growing" from the bottom
-                    drawDeterminateProgress(g2d, progressBar, barRectWidth, amountFull,
-                            isFull, progressColorScheme, progressFillPainter,
-                            progressBar.getOrientation(),
-                            this.progressBar.getComponentOrientation());
-                    g2d.translate(-margin, -(margin + barRectHeight - amountFull));
+            }
+
+            // Deal with possible text painting
+            if (progressBar.isStringPainted()) {
+                this.paintString(g2d, margin, margin, barRectWidth, barRectHeight, amountFull,
+                    new Insets(margin, margin, margin, margin));
+            }
+        } else {
+            // install state-aware alpha channel (support for skins
+            // that use translucency on disabled states).
+            float stateAlpha = RadianceColorSchemeUtilities.getAlpha(progressBar, fillState);
+            g2d.setComposite(WidgetUtilities.getAlphaComposite(progressBar, stateAlpha, g));
+
+            RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
+                progressBar, fillState);
+
+            RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(progressBar);
+            g2d.translate(margin, margin);
+            drawDeterminateBackground(g2d, progressBar, barRectWidth, barRectHeight, fillScheme,
+                fillPainter, progressBar.getOrientation());
+            g2d.translate(-margin, -margin);
+
+            if (amountFull > 0) {
+                boolean isFull = (this.progressBar.getModel().getValue() == this.progressBar.getMaximum());
+                RadianceColorScheme progressColorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                    progressBar, progressState);
+                if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
+                    if (barRectHeight > 0) {
+                        int dx = progressBar.getComponentOrientation().isLeftToRight() ? margin
+                            : margin + barRectWidth - amountFull;
+                        g2d.translate(dx, margin);
+                        drawDeterminateProgress(g2d, progressBar, amountFull, barRectHeight,
+                            isFull, progressColorScheme, progressFillPainter, progressBar.getOrientation());
+                        g2d.translate(-dx, -margin);
+                    }
+                } else { // VERTICAL
+                    if (barRectWidth > 0) {
+                        g2d.translate(margin, margin + barRectHeight - amountFull);
+                        // Vertical progress is "growing" from the bottom
+                        drawDeterminateProgress(g2d, progressBar, barRectWidth, amountFull,
+                            isFull, progressColorScheme, progressFillPainter, progressBar.getOrientation());
+                        g2d.translate(-margin, -(margin + barRectHeight - amountFull));
+                    }
                 }
+            }
+
+            // Deal with possible text painting
+            if (progressBar.isStringPainted()) {
+                g2d.setComposite(WidgetUtilities.getAlphaComposite(progressBar, 1.0f, g));
+                this.paintString(g2d, margin, margin, barRectWidth, barRectHeight, amountFull,
+                    new Insets(margin, margin, margin, margin));
             }
         }
 
-        // Deal with possible text painting
-        if (progressBar.isStringPainted()) {
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(progressBar, 1.0f, g));
-            this.paintString(g2d, margin, margin, barRectWidth, barRectHeight, amountFull,
-                    new Insets(margin, margin, margin, margin));
-        }
         g2d.dispose();
     }
 
@@ -369,18 +525,32 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     protected Color getSelectionBackground() {
         ComponentState fillState = getFillState();
 
-        RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(progressBar,
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.progressBar);
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens fillColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                this.progressBar, fillState, RadianceThemingSlices.ContainerType.MUTED);
+            return RadianceColorUtilities.getForegroundColor(fillColorTokens);
+        } else {
+            RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(progressBar,
                 fillState);
-        return RadianceColorUtilities.getForegroundColor(scheme);
+            return RadianceColorUtilities.getForegroundColor(scheme);
+        }
     }
 
     @Override
     protected Color getSelectionForeground() {
         ComponentState progressState = getProgressState();
 
-        RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(progressBar,
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.progressBar);
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens progressColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                this.progressBar, progressState, RadianceThemingSlices.ContainerType.MUTED);
+            return RadianceColorUtilities.getForegroundColor(progressColorTokens);
+        } else {
+            RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(progressBar,
                 progressState);
-        return RadianceColorUtilities.getForegroundColor(scheme);
+            return RadianceColorUtilities.getForegroundColor(scheme);
+        }
     }
 
     private void paintRectangularStripedBackground(Graphics g,
@@ -450,6 +620,83 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         graphics.dispose();
     }
 
+    private void paintRectangularStripedBackground(Graphics g,
+        int startX, int startY, int width, int height, ContainerColorTokens colorTokens,
+        final int stripeOffset, float borderAlpha, ComponentState currState, boolean isVertical) {
+        Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
+        if (!isVertical) {
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, scaledHeight,
+                        new float[]{0.0f, 0.2f, 0.5f, 0.8f, 1.0f},
+                        new Color[]{
+                            colorTokens.getContainerSurfaceHighest(),
+                            colorTokens.getContainerSurface(),
+                            colorTokens.getContainerSurfaceHigh(),
+                            colorTokens.getContainerSurface(),
+                            colorTokens.getContainerSurfaceHighest()},
+                        MultipleGradientPaint.CycleMethod.REPEAT);
+                    graphics1X.setPaint(paint);
+                    graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+
+                    int stripeSize = scaledHeight;
+                    int stripeCount = scaledWidth / stripeSize;
+                    int finalStripeOffset = (int) (scaleFactor * stripeOffset % (2 * stripeSize));
+                    for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
+                        int stripePos = stripe * stripeSize + finalStripeOffset;
+                        graphics1X.translate(stripePos, 0);
+                        drawStripe1X(graphics1X, stripeSize, colorTokens.getContainerSurfaceLow());
+                        graphics1X.translate(-stripePos, 0);
+                    }
+                });
+        } else {
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    // Rotate the graphics context for correct "orientation" of the visuals
+                    AffineTransform at = AffineTransform.getRotateInstance(Math.PI / 2);
+                    at.translate(x, y - scaledHeight);
+                    graphics1X.transform(at);
+
+                    LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, scaledHeight,
+                        new float[]{0.0f, 0.2f, 0.5f, 0.8f, 1.0f},
+                        new Color[]{
+                            colorTokens.getContainerSurfaceHighest(),
+                            colorTokens.getContainerSurface(),
+                            colorTokens.getContainerSurfaceHigh(),
+                            colorTokens.getContainerSurface(),
+                            colorTokens.getContainerSurfaceHighest()},
+                        MultipleGradientPaint.CycleMethod.REPEAT);
+                    graphics1X.setPaint(paint);
+                    graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+
+                    int stripeSize = scaledHeight;
+                    int stripeCount = scaledWidth / stripeSize;
+                    int finalStripeOffset = (int) (scaleFactor * stripeOffset % (2 * stripeSize));
+                    for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
+                        int stripePos = stripe * stripeSize + finalStripeOffset;
+                        graphics1X.translate(stripePos, 0);
+                        drawStripe1X(graphics1X, stripeSize, colorTokens.getContainerSurfaceLow());
+                        graphics1X.translate(-stripePos, 0);
+                    }
+                });
+        }
+
+        if (borderAlpha > 0.0f) {
+            Graphics2D g2d = (Graphics2D) graphics.create();
+
+            float containerOutlineAlpha =
+                (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+            g2d.setComposite(WidgetUtilities.getAlphaComposite(null,
+                borderAlpha * containerOutlineAlpha, graphics));
+
+            BladeDrawingUtils.paintBladeSimpleTonalBorder(this.progressBar, g2d, width, height,
+                RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(this.progressBar)),
+                colorTokens);
+            g2d.dispose();
+        }
+        graphics.dispose();
+    }
+
     @Override
     public void paintIndeterminate(Graphics g, JComponent c) {
         if (!(g instanceof Graphics2D)) {
@@ -469,34 +716,55 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         }
 
         Graphics2D g2d = (Graphics2D) g.create();
-        // install state-aware alpha channel (support for skins
-        // that use translucency on disabled states).
-        float stateAlpha = RadianceColorSchemeUtilities.getAlpha(progressBar, progressState);
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(progressBar, stateAlpha, g));
-        float radius = 0.5f * RadianceSizeUtils
-                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(progressBar));
-        g2d.clip(new RoundRectangle2D.Float(margin, margin, barRectWidth, barRectHeight, radius,
-                radius));
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.progressBar);
+        if (skin instanceof TonalSkin) {
+            float radius = 0.5f * RadianceSizeUtils.getClassicButtonCornerRadius(
+                RadianceSizeUtils.getComponentFontSize(progressBar));
+            g2d.clip(new RoundRectangle2D.Float(margin, margin, barRectWidth, barRectHeight, radius, radius));
 
-        RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(progressBar,
-                progressState);
-        if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
-            paintRectangularStripedBackground(g2d, margin,
-                    margin, barRectWidth, barRectHeight, scheme,
-                    valComplete, 0.6f, false);
-        } else {
-            // fix for issue 95. Vertical progress bar grows from the
-            // bottom.
-            paintRectangularStripedBackground(g2d, margin,
-                    margin, barRectWidth, barRectHeight, scheme,
-                    2 * barRectWidth - valComplete, 0.6f, true);
-        }
+            ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                progressBar, progressState, RadianceThemingSlices.ContainerType.MUTED);
+            if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
+                paintRectangularStripedBackground(g2d, margin, margin, barRectWidth, barRectHeight,
+                    colorTokens, valComplete, 0.6f, progressState, false);
+            } else {
+                // fix for issue 95. Vertical progress bar grows from the
+                // bottom.
+                paintRectangularStripedBackground(g2d, margin, margin, barRectWidth, barRectHeight,
+                    colorTokens, 2 * barRectWidth - valComplete, 0.6f, progressState, true);
+            }
 
-        // Deal with possible text painting
-        if (progressBar.isStringPainted()) {
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(progressBar, 1.0f, g));
-            this.paintString(g2d, margin, margin, barRectWidth, barRectHeight, barRectWidth,
+            // Deal with possible text painting
+            if (progressBar.isStringPainted()) {
+                this.paintString(g2d, margin, margin, barRectWidth, barRectHeight, barRectWidth,
                     new Insets(margin, margin, margin, margin));
+            }
+        } else {
+            // install state-aware alpha channel (support for skins
+            // that use translucency on disabled states).
+            float stateAlpha = RadianceColorSchemeUtilities.getAlpha(progressBar, progressState);
+            g2d.setComposite(WidgetUtilities.getAlphaComposite(progressBar, stateAlpha, g));
+            float radius = 0.5f * RadianceSizeUtils.getClassicButtonCornerRadius(
+                RadianceSizeUtils.getComponentFontSize(progressBar));
+            g2d.clip(new RoundRectangle2D.Float(margin, margin, barRectWidth, barRectHeight, radius, radius));
+
+            RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(progressBar, progressState);
+            if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
+                paintRectangularStripedBackground(g2d, margin, margin, barRectWidth, barRectHeight,
+                    scheme, valComplete, 0.6f, false);
+            } else {
+                // fix for issue 95. Vertical progress bar grows from the
+                // bottom.
+                paintRectangularStripedBackground(g2d, margin, margin, barRectWidth, barRectHeight,
+                    scheme, 2 * barRectWidth - valComplete, 0.6f, true);
+            }
+
+            // Deal with possible text painting
+            if (progressBar.isStringPainted()) {
+                g2d.setComposite(WidgetUtilities.getAlphaComposite(progressBar, 1.0f, g));
+                this.paintString(g2d, margin, margin, barRectWidth, barRectHeight, barRectWidth,
+                    new Insets(margin, margin, margin, margin));
+            }
         }
         g2d.dispose();
     }

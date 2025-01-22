@@ -316,6 +316,10 @@ public class RadianceColorUtilities {
         return new ColorUIResource(scheme.getForegroundColor());
     }
 
+    public static ColorUIResource getForegroundColor(ContainerColorTokens colorTokens) {
+        return new ColorUIResource(colorTokens.getOnContainer());
+    }
+
     /**
      * Returns lighter version of the specified color.
      *
