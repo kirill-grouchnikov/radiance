@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -112,6 +113,13 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
             }
 
             @Override
+            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                    RadianceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.NORTH,
+                    colorTokens, alpha);
+            }
+
+            @Override
             public Dimension getIconDimension() {
                 return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
             }
@@ -148,6 +156,13 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
                 BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
                         RadianceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.SOUTH,
                         scheme, alpha);
+            }
+
+            @Override
+            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                    RadianceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.SOUTH,
+                    colorTokens, alpha);
             }
 
             @Override
