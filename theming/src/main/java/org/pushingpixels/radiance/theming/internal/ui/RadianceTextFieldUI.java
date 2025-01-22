@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
+import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -204,10 +204,15 @@ public class RadianceTextFieldUI extends BasicTextFieldUI implements TransitionA
                 return;
             Color foregr = textField.getForeground();
             if ((foregr == null) || (foregr instanceof UIResource)) {
-                textField.setForeground(RadianceColorUtilities
-                        .getForegroundColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(textField)
-                                .getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope
-                                        .getDecorationType(textField))));
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(textField);
+                if (skin instanceof TonalSkin) {
+                    textField.setForeground(RadianceColorUtilities.getForegroundColor(
+                        skin.getContainerTokens(textField, ComponentState.ENABLED,
+                            RadianceThemingSlices.ContainerType.MUTED)));
+                } else {
+                    textField.setForeground(RadianceColorUtilities.getForegroundColor(
+                        skin.getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(textField))));
+                }
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {

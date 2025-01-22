@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
+import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -184,10 +184,15 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
                 return;
             Color foregr = textPane.getForeground();
             if ((foregr == null) || (foregr instanceof UIResource)) {
-                textPane.setForeground(RadianceColorUtilities
-                        .getForegroundColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(textPane)
-                                .getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope
-                                        .getDecorationType(textPane))));
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(textPane);
+                if (skin instanceof TonalSkin) {
+                    textPane.setForeground(RadianceColorUtilities.getForegroundColor(
+                        skin.getContainerTokens(textPane, ComponentState.ENABLED,
+                            RadianceThemingSlices.ContainerType.MUTED)));
+                } else {
+                    textPane.setForeground(RadianceColorUtilities.getForegroundColor(
+                        skin.getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(textPane))));
+                }
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {

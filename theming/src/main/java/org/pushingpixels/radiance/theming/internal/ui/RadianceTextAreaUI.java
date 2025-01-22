@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
+import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -191,10 +191,15 @@ public class RadianceTextAreaUI extends BasicTextAreaUI implements TransitionAwa
                 return;
             Color foregr = textArea.getForeground();
             if ((foregr == null) || (foregr instanceof UIResource)) {
-                textArea.setForeground(RadianceColorUtilities
-                        .getForegroundColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(textArea)
-                                .getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope
-                                        .getDecorationType(textArea))));
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(textArea);
+                if (skin instanceof TonalSkin) {
+                    textArea.setForeground(RadianceColorUtilities.getForegroundColor(
+                        skin.getContainerTokens(textArea, ComponentState.ENABLED,
+                            RadianceThemingSlices.ContainerType.MUTED)));
+                } else {
+                    textArea.setForeground(RadianceColorUtilities.getForegroundColor(
+                        skin.getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(textArea))));
+                }
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {

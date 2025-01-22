@@ -30,9 +30,8 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
+import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -190,10 +189,15 @@ public class RadianceEditorPaneUI extends BasicEditorPaneUI implements Transitio
             }
             Color foregr = editorPane.getForeground();
             if ((foregr == null) || (foregr instanceof UIResource)) {
-                editorPane.setForeground(RadianceColorUtilities.getForegroundColor(
-                        RadianceThemingCortex.ComponentScope.getCurrentSkin(editorPane)
-                                .getEnabledColorScheme(ComponentOrParentChainScope
-                                        .getDecorationType(editorPane))));
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(editorPane);
+                if (skin instanceof TonalSkin) {
+                    editorPane.setForeground(RadianceColorUtilities.getForegroundColor(
+                        skin.getContainerTokens(editorPane, ComponentState.ENABLED,
+                            RadianceThemingSlices.ContainerType.MUTED)));
+                } else {
+                    editorPane.setForeground(RadianceColorUtilities.getForegroundColor(
+                        skin.getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(editorPane))));
+                }
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {
