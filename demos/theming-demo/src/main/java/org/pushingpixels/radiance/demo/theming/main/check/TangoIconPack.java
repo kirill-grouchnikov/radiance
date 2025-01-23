@@ -49,8 +49,20 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getOptionPaneInformationIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens) {
+        return dialog_information.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getOptionPaneWarningIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return dialog_warning.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getOptionPaneWarningIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens) {
         return dialog_warning.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -61,9 +73,21 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getOptionPaneErrorIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens) {
+        return dialog_error.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         return help_browser.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens) {
+        return null;
     }
 
     @Override

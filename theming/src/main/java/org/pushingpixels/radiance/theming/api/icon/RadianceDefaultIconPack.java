@@ -51,10 +51,26 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getOptionPaneInformationIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = info_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getContainerSurface());
+        return result;
+    }
+
+    @Override
     public RadianceIcon getOptionPaneWarningIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = warning_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getMidColor());
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getOptionPaneWarningIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = warning_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getContainerSurface());
         return result;
     }
 
@@ -67,10 +83,26 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getOptionPaneErrorIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = error_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getContainerSurface());
+        return result;
+    }
+
+    @Override
     public RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = help_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getMidColor());
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = help_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getContainerSurface());
         return result;
     }
 

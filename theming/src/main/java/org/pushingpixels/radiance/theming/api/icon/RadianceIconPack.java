@@ -48,16 +48,28 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
  */
 public interface RadianceIconPack {
     RadianceIcon getOptionPaneInformationIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getOptionPaneInformationIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getOptionPaneWarningIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getOptionPaneWarningIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getOptionPaneErrorIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getOptionPaneErrorIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserNewFolderIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme);

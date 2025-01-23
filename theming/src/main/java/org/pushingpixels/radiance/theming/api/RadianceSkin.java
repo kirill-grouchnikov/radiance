@@ -344,6 +344,8 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     private Map<Integer, RadianceColorScheme> optionPaneIconColorSchemeMap;
 
+    private Map<Integer, ContainerColorTokens> optionPaneIconColorTokenMap;
+
     /**
      * Constructs the basic data structures for a skin.
      */
@@ -366,6 +368,8 @@ public abstract class RadianceSkin implements RadianceTrait {
         this.optionPaneIconColorSchemeMap.put(JOptionPane.WARNING_MESSAGE, sunset);
         this.optionPaneIconColorSchemeMap.put(JOptionPane.INFORMATION_MESSAGE, steelBlue);
         this.optionPaneIconColorSchemeMap.put(JOptionPane.QUESTION_MESSAGE, steelBlue);
+
+        this.optionPaneIconColorTokenMap = new HashMap<>();
 
         this.statesWithAlpha = new HashSet<>();
     }
@@ -1205,6 +1209,34 @@ public abstract class RadianceSkin implements RadianceTrait {
     public RadianceColorScheme getOptionPaneIconColorScheme(int optionPaneMessageType) {
         return this.optionPaneIconColorSchemeMap.get(optionPaneMessageType);
     }
+
+    public ContainerColorTokens getOptionPaneIconColorTokens(int optionPaneMessageType) {
+        // late initialization of tokens. This isn't done at construction time, since
+        // in the constructor of this base skin we don't yet have access to the color tokens
+        // associated with the full skin
+        if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.INFORMATION_MESSAGE)) {
+            this.optionPaneIconColorTokenMap.put(JOptionPane.INFORMATION_MESSAGE,
+                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO,
+                    RadianceThemingSlices.ActiveContainerType.PRIMARY));
+        }
+        if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.QUESTION_MESSAGE)) {
+            this.optionPaneIconColorTokenMap.put(JOptionPane.QUESTION_MESSAGE,
+                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO,
+                    RadianceThemingSlices.ActiveContainerType.PRIMARY));
+        }
+        if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.WARNING_MESSAGE)) {
+            this.optionPaneIconColorTokenMap.put(JOptionPane.WARNING_MESSAGE,
+                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.WARNING,
+                    RadianceThemingSlices.ActiveContainerType.PRIMARY));
+        }
+        if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.ERROR_MESSAGE)) {
+            this.optionPaneIconColorTokenMap.put(JOptionPane.ERROR_MESSAGE,
+                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.ERROR,
+                    RadianceThemingSlices.ActiveContainerType.PRIMARY));
+        }
+        return this.optionPaneIconColorTokenMap.get(optionPaneMessageType);
+    }
+
 
     /**
      * Checks whether this skin is valid. A valid skin must have a color scheme
