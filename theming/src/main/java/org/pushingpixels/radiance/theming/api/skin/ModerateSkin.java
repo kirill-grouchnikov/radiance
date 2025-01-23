@@ -113,33 +113,33 @@ public class ModerateSkin extends RadianceSkin {
             RadianceColorScheme2 steelBlueColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFF6CA9CE), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
-                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
             ContainerColorTokens steelBlueHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFF1D59A),
-                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false);
 
             RadianceColorScheme2 steelBlueHeaderColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFF6D9BBA), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
-                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
             ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF6EA7CA),
-                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false);
 
             RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFD1D3D7), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
-                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 

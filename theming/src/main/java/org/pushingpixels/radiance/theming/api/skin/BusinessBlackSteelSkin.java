@@ -112,30 +112,30 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 						Hct.fromInt(0xFF404040), Hct.fromInt(0xFF565656), Hct.fromInt(0xFF616161)),
-					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ true,
 					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
 				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFF85A3B5),
-					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isFidelity */ true,
 					/* isDark */ false))
 				.withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 						Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
-					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ false,
 					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
 				.withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFA1BCCF),
-					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isFidelity */ true,
 					/* isDark */ false)));
 
 			RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFFAFBEC7), Hct.fromInt(0xFFD5DBDF), Hct.fromInt(0xFFD0D7DC)),
-				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ false,
 				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 

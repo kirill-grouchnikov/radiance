@@ -531,7 +531,8 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     public final ContainerColorTokens getSystemContainerTokens(Component comp,
-        RadianceThemingSlices.SystemContainerType systemContainerType) {
+        RadianceThemingSlices.SystemContainerType systemContainerType,
+        RadianceThemingSlices.ActiveContainerType activeContainerType) {
         // small optimization - lookup the decoration area only if there
         // are decoration-specific scheme bundles.
         if (this.tonalColorSchemeMap.size() > 1) {
@@ -540,12 +541,12 @@ public abstract class RadianceSkin implements RadianceTrait {
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
                 return this.tonalColorSchemeMap.get(decorationAreaType)
-                    .getSystemContainerTokens(systemContainerType);
+                    .getSystemContainerTokens(systemContainerType, activeContainerType);
             }
         }
 
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getSystemContainerTokens(systemContainerType);
+            .getSystemContainerTokens(systemContainerType, activeContainerType);
     }
 
     /**

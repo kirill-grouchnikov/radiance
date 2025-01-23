@@ -102,30 +102,30 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 							Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
-					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ false,
 					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
 				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFF83AFCE),
-					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isFidelity */ true,
 					/* isDark */ false))
 				.withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 						Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
-					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ false,
 					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
 				.withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFEBD296),
-					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isFidelity */ true,
 					/* isDark */ false)));
 
 			RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFF94B9D3), Hct.fromInt(0xFFBFCFDB), Hct.fromInt(0xFFBFCFDB)),
-				/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ false,
 				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 

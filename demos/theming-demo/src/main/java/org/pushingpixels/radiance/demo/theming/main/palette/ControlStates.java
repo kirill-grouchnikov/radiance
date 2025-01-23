@@ -101,7 +101,7 @@ public class ControlStates extends JFrame {
 
             RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF9020F4), 8.0, 6.0),
-                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
@@ -110,7 +110,7 @@ public class ControlStates extends JFrame {
             bundle2.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
-                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
@@ -119,7 +119,7 @@ public class ControlStates extends JFrame {
             bundle2.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
-                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,

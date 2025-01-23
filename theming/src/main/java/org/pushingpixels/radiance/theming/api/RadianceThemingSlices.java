@@ -837,6 +837,10 @@ public final class RadianceThemingSlices {
         PRIMARY
     }
 
+    public enum ActiveContainerType {
+        TONAL, PRIMARY
+    }
+
     public enum SystemContainerType {
         INFO,
         WARNING,

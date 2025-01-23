@@ -29,13 +29,17 @@
  */
 package org.pushingpixels.radiance.theming.internal.widget.text;
 
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
@@ -116,18 +120,42 @@ public class PasswordStrengthCheckerWidget extends RadianceThemingWidget<JPasswo
                 RadianceThemingSlices.PasswordStrength pStrength) {
             Graphics2D g2 = (Graphics2D) g.create();
 
-            RadianceColorScheme colorScheme = null;
+            RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+            if (skin instanceof TonalSkin) {
+                ContainerColorTokens colorTokens = null;
+                if (pStrength == RadianceThemingSlices.PasswordStrength.WEAK) {
+                    colorTokens = skin.getSystemContainerTokens(c,
+                        RadianceThemingSlices.SystemContainerType.EMERGENCY,
+                        RadianceThemingSlices.ActiveContainerType.TONAL);
+                }
+                if (pStrength == RadianceThemingSlices.PasswordStrength.MEDIUM) {
+                    colorTokens = skin.getSystemContainerTokens(c,
+                        RadianceThemingSlices.SystemContainerType.WARNING,
+                        RadianceThemingSlices.ActiveContainerType.TONAL);
+                }
+                if (pStrength == RadianceThemingSlices.PasswordStrength.STRONG) {
+                    colorTokens = skin.getSystemContainerTokens(c,
+                        RadianceThemingSlices.SystemContainerType.SUCCESS,
+                        RadianceThemingSlices.ActiveContainerType.TONAL);
+                }
 
-            if (pStrength == RadianceThemingSlices.PasswordStrength.WEAK)
-                colorScheme = RadianceColorSchemeUtilities.ORANGE;
-            if (pStrength == RadianceThemingSlices.PasswordStrength.MEDIUM)
-                colorScheme = RadianceColorSchemeUtilities.YELLOW;
-            if (pStrength == RadianceThemingSlices.PasswordStrength.STRONG)
-                colorScheme = RadianceColorSchemeUtilities.GREEN;
+                if (colorTokens != null) {
+                    paintRectangularBackground(c, g2, x, y, width, height, colorTokens, 0.8f,
+                        false);
+                }
 
-            if (colorScheme != null) {
-                BladeDrawingUtils.paintRectangularBackground(c, g, x, y, width, height,
-                        colorScheme, 0.5f, false);
+            } else {
+                RadianceColorScheme colorScheme = null;
+                if (pStrength == RadianceThemingSlices.PasswordStrength.WEAK)
+                    colorScheme = RadianceColorSchemeUtilities.ORANGE;
+                if (pStrength == RadianceThemingSlices.PasswordStrength.MEDIUM)
+                    colorScheme = RadianceColorSchemeUtilities.YELLOW;
+                if (pStrength == RadianceThemingSlices.PasswordStrength.STRONG)
+                    colorScheme = RadianceColorSchemeUtilities.GREEN;
+
+                if (colorScheme != null) {
+                    paintRectangularBackground(c, g2, x, y, width, height, colorScheme, 0.5f, false);
+                }
             }
 
             g2.dispose();
@@ -171,5 +199,81 @@ public class PasswordStrengthCheckerWidget extends RadianceThemingWidget<JPasswo
             this.jcomp.setBorder(new BorderUIResource.CompoundBorderUIResource(
                     this.jcomp.getBorder(), new StrengthCheckedBorder()));
         }
+    }
+
+    private static void paintRectangularBackground(Component c, Graphics g, int startX, int startY,
+        int width, int height, RadianceColorScheme colorScheme, float borderAlpha,
+        boolean isVertical) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(startX, startY);
+
+        if (!isVertical) {
+            LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
+                new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
+                new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
+                    colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
+                MultipleGradientPaint.CycleMethod.REPEAT);
+            graphics.setPaint(paint);
+            graphics.fillRect(0, 0, width, height);
+        } else {
+            LinearGradientPaint paint = new LinearGradientPaint(0, 0, width, 0,
+                new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
+                new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
+                    colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
+                MultipleGradientPaint.CycleMethod.REPEAT);
+            graphics.setPaint(paint);
+            graphics.fillRect(0, 0, width, height);
+        }
+
+        if (borderAlpha > 0.0f) {
+            Graphics2D g2d = (Graphics2D) graphics.create();
+            g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
+
+            BladeDrawingUtils.paintBladeSimpleBorder(c, g2d, width, height, 0.0f, colorScheme);
+
+            g2d.dispose();
+        }
+        graphics.dispose();
+    }
+
+    private static void paintRectangularBackground(Component c, Graphics g, int startX, int startY,
+        int width, int height, ContainerColorTokens colorTokens, float borderAlpha,
+        boolean isVertical) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(startX, startY);
+
+        if (!isVertical) {
+            LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
+                new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
+                new Color[] {
+                    colorTokens.getContainerSurface(),
+                    colorTokens.getContainerSurfaceHigh(),
+                    colorTokens.getContainerSurfaceHighest(),
+                    colorTokens.getContainerSurface() },
+                MultipleGradientPaint.CycleMethod.REPEAT);
+            graphics.setPaint(paint);
+            graphics.fillRect(0, 0, width, height);
+        } else {
+            LinearGradientPaint paint = new LinearGradientPaint(0, 0, width, 0,
+                new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
+                new Color[] {
+                    colorTokens.getContainerSurface(),
+                    colorTokens.getContainerSurfaceHigh(),
+                    colorTokens.getContainerSurfaceHighest(),
+                    colorTokens.getContainerSurface() },
+                MultipleGradientPaint.CycleMethod.REPEAT);
+            graphics.setPaint(paint);
+            graphics.fillRect(0, 0, width, height);
+        }
+
+        if (borderAlpha > 0.0f) {
+            Graphics2D g2d = (Graphics2D) graphics.create();
+            g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
+
+            BladeDrawingUtils.paintBladeSimpleTonalBorder(c, g2d, width, height, 0.0f, colorTokens);
+
+            g2d.dispose();
+        }
+        graphics.dispose();
     }
 }

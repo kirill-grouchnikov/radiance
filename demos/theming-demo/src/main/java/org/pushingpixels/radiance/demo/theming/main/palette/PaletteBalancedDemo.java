@@ -59,12 +59,12 @@ public class PaletteBalancedDemo extends JFrame {
 
         RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF76A8C8), 16.0, 10.0),
-            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false,
             /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
         RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF76A8C8), 16.0, 10.0),
-            /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ true,
             /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 

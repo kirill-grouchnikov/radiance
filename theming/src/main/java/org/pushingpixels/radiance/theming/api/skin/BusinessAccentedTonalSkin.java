@@ -86,7 +86,7 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 
 		RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFFDBDFE4), 3.0, 1.0),
-			/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false,
 			/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 		this.registerAsDecorationArea(controlPaneColorScheme.getExtendedTonalContainerTokens(),

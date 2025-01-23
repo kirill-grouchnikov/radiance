@@ -185,16 +185,31 @@ public class RadianceColorSchemeBundle2 {
     }
 
     public ContainerColorTokens getSystemContainerTokens(
-        RadianceThemingSlices.SystemContainerType systemContainerType) {
+        RadianceThemingSlices.SystemContainerType systemContainerType,
+        RadianceThemingSlices.ActiveContainerType activeContainerType) {
 
-        switch (systemContainerType) {
-            case INFO: return this.mainColorScheme.getSystemInfoTonalContainerTokens();
-            case WARNING: return this.mainColorScheme.getSystemWarningTonalContainerTokens();
-            case ERROR: return this.mainColorScheme.getSystemErrorTonalContainerTokens();
-            case SUCCESS: return this.mainColorScheme.getSystemSuccessTonalContainerTokens();
-            case EMERGENCY:
+        switch (activeContainerType) {
+            case TONAL:
+                switch (systemContainerType) {
+                    case INFO: return this.mainColorScheme.getSystemInfoTonalContainerTokens();
+                    case WARNING: return this.mainColorScheme.getSystemWarningTonalContainerTokens();
+                    case ERROR: return this.mainColorScheme.getSystemErrorTonalContainerTokens();
+                    case SUCCESS: return this.mainColorScheme.getSystemSuccessTonalContainerTokens();
+                    case EMERGENCY:
+                    default:
+                        return this.mainColorScheme.getSystemEmergencyTonalContainerTokens();
+                }
+            case PRIMARY:
             default:
-                return this.mainColorScheme.getSystemEmergencyTonalContainerTokens();
+                switch (systemContainerType) {
+                    case INFO: return this.mainColorScheme.getSystemInfoPrimaryContainerTokens();
+                    case WARNING: return this.mainColorScheme.getSystemWarningPrimaryContainerTokens();
+                    case ERROR: return this.mainColorScheme.getSystemErrorPrimaryContainerTokens();
+                    case SUCCESS: return this.mainColorScheme.getSystemSuccessPrimaryContainerTokens();
+                    case EMERGENCY:
+                    default:
+                        return this.mainColorScheme.getSystemEmergencyPrimaryContainerTokens();
+                }
         }
     }
 
