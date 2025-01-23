@@ -112,6 +112,7 @@ public class SaharaSkin extends RadianceSkin {
 			ContainerColorTokens desertHighlightContainerTokens =
 				ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFCAD0BE),
+					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
 					/* isFidelity */ true,
 					/* isDark */ false);
 
@@ -124,6 +125,7 @@ public class SaharaSkin extends RadianceSkin {
 			ContainerColorTokens desertHeaderHighlightContainerTokens =
 				ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFB2BC91),
+					/* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
 					/* isFidelity */ true,
 					/* isDark */ false);
 

@@ -319,7 +319,7 @@ public class ColorSchemeUtils {
             TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(
                 this.seed.getHue(), this.neutralChroma);
 
-            return  Palettes.builder()
+            return Palettes.builder()
                 .setFidelity(false)
                 .setPrimarySourceHct(this.seed)
                 .setMutedSourceHct(this.seed)
@@ -377,12 +377,7 @@ public class ColorSchemeUtils {
             /* contrastLevel */ 0.0,
             /* primaryPalette */ palettes.getPrimaryPalette(),
             /* mutedPalette */ palettes.getMutedPalette(),
-            /* neutralPalette */ palettes.getNeutralPalette(),
-            /* systemInfoPalette */ palettes.getSystemInfoPalette(),
-            /* systemWarningPalette */ palettes.getSystemWarningPalette(),
-            /* systemErrorPalette */ palettes.getSystemErrorPalette(),
-            /* systemSuccessPalette */ palettes.getSystemSuccessPalette(),
-            /* systemEmergencyPalette */ palettes.getSystemEmergencyPalette());
+            /* neutralPalette */ palettes.getNeutralPalette());
 
         ContainerColorTokens neutralContainerTokens = getContainerTokens(
             scheme, schemeColorResolver.getNeutralContainerResolver());
@@ -393,16 +388,36 @@ public class ColorSchemeUtils {
         ContainerColorTokens primaryContainerTokens = getContainerTokens(
             scheme, schemeColorResolver.getPrimaryContainerResolver());
 
-        ContainerColorTokens systemInfoContainerTokens = getContainerTokens(
-            scheme, schemeColorResolver.getSystemInfoContainerResolver());
-        ContainerColorTokens systemWarningContainerTokens = getContainerTokens(
-            scheme, schemeColorResolver.getSystemWarningContainerResolver());
-        ContainerColorTokens systemErrorContainerTokens = getContainerTokens(
-            scheme, schemeColorResolver.getSystemErrorContainerResolver());
-        ContainerColorTokens systemSuccessContainerTokens = getContainerTokens(
-            scheme, schemeColorResolver.getSystemSuccessContainerResolver());
-        ContainerColorTokens systemEmergencyContainerTokens = getContainerTokens(
-            scheme, schemeColorResolver.getSystemEmergencyContainerResolver());
+        ContainerColorTokens systemInfoTonalContainerTokens = getContainerTokens(
+            palettes.getSystemInfoSourceHct(), ActiveStatesContainerType.TONAL,
+            palettes.isFidelity(), isDark);
+        ContainerColorTokens systemInfoPrimaryContainerTokens = getContainerTokens(
+            palettes.getSystemInfoSourceHct(), ActiveStatesContainerType.PRIMARY,
+            palettes.isFidelity(), isDark);
+        ContainerColorTokens systemWarningTonalContainerTokens = getContainerTokens(
+            palettes.getSystemWarningSourceHct(), ActiveStatesContainerType.TONAL,
+            palettes.isFidelity(), isDark);
+        ContainerColorTokens systemWarningPrimaryContainerTokens = getContainerTokens(
+            palettes.getSystemWarningSourceHct(), ActiveStatesContainerType.PRIMARY,
+            palettes.isFidelity(), isDark);
+        ContainerColorTokens systemErrorTonalContainerTokens = getContainerTokens(
+            palettes.getSystemErrorSourceHct(), ActiveStatesContainerType.TONAL,
+            palettes.isFidelity(), isDark);
+        ContainerColorTokens systemErrorPrimaryContainerTokens = getContainerTokens(
+            palettes.getSystemErrorSourceHct(), ActiveStatesContainerType.PRIMARY,
+            palettes.isFidelity(), isDark);
+        ContainerColorTokens systemSuccessTonalContainerTokens = getContainerTokens(
+            palettes.getSystemSuccessSourceHct(), ActiveStatesContainerType.TONAL,
+            palettes.isFidelity(), isDark);
+        ContainerColorTokens systemSuccessPrimaryContainerTokens = getContainerTokens(
+            palettes.getSystemSuccessSourceHct(), ActiveStatesContainerType.PRIMARY,
+            palettes.isFidelity(), isDark);
+        ContainerColorTokens systemEmergencyTonalContainerTokens = getContainerTokens(
+            palettes.getSystemEmergencySourceHct(), ActiveStatesContainerType.TONAL,
+            palettes.isFidelity(), isDark);
+        ContainerColorTokens systemEmergencyPrimaryContainerTokens = getContainerTokens(
+            palettes.getSystemEmergencySourceHct(), ActiveStatesContainerType.PRIMARY,
+            palettes.isFidelity(), isDark);
 
         return new RadianceColorScheme2() {
             private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
@@ -514,38 +529,66 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerColorTokens getSystemInfoContainerTokens() {
-                return systemInfoContainerTokens;
+            public ContainerColorTokens getSystemInfoTonalContainerTokens() {
+                return systemInfoTonalContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemWarningContainerTokens() {
-                return systemWarningContainerTokens;
+            public ContainerColorTokens getSystemInfoPrimaryContainerTokens() {
+                return systemInfoPrimaryContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemErrorContainerTokens() {
-                return systemErrorContainerTokens;
+            public ContainerColorTokens getSystemWarningTonalContainerTokens() {
+                return systemWarningTonalContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemSuccessContainerTokens() {
-                return systemSuccessContainerTokens;
+            public ContainerColorTokens getSystemWarningPrimaryContainerTokens() {
+                return systemWarningPrimaryContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemEmergencyContainerTokens() {
-                return systemEmergencyContainerTokens;
+            public ContainerColorTokens getSystemErrorTonalContainerTokens() {
+                return systemErrorTonalContainerTokens;
+            }
+
+            @Override
+            public ContainerColorTokens getSystemErrorPrimaryContainerTokens() {
+                return systemErrorPrimaryContainerTokens;
+            }
+
+            @Override
+            public ContainerColorTokens getSystemSuccessTonalContainerTokens() {
+                return systemSuccessTonalContainerTokens;
+            }
+
+            @Override
+            public ContainerColorTokens getSystemSuccessPrimaryContainerTokens() {
+                return systemSuccessPrimaryContainerTokens;
+            }
+
+            @Override
+            public ContainerColorTokens getSystemEmergencyTonalContainerTokens() {
+                return systemEmergencyTonalContainerTokens;
+            }
+
+            @Override
+            public ContainerColorTokens getSystemEmergencyPrimaryContainerTokens() {
+                return systemEmergencyPrimaryContainerTokens;
             }
         };
     }
 
     public static ContainerColorTokens getContainerTokens(
         Hct seed,
+        ActiveStatesContainerType activeStatesContainerType,
         boolean isFidelity,
         boolean isDark) {
         return getContainerTokens(seed, isFidelity, isDark, 0.0,
-            PaletteResolverUtils.getPaletteTonalColorResolver());
+            (activeStatesContainerType == ActiveStatesContainerType.TONAL)
+                ? PaletteResolverUtils.getPaletteTonalColorResolver()
+                : PaletteResolverUtils.getPalettePrimaryColorResolver());
     }
 
     public static ContainerColorTokens getContainerTokens(

@@ -286,22 +286,27 @@ public class OfficeSilver2007Skin extends RadianceSkin {
 
             ContainerColorTokens rolloverContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFD111),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
             ContainerColorTokens selectedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFBD51),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
             ContainerColorTokens rolloverSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFA400),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
             ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF8C18),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
             ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF991C),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
 

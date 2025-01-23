@@ -40,17 +40,17 @@ public class Palettes {
     private TonalPalette primaryPalette;
     private TonalPalette mutedPalette;
     private TonalPalette neutralPalette;
-    private TonalPalette systemInfoPalette;
-    private TonalPalette systemWarningPalette;
-    private TonalPalette systemErrorPalette;
-    private TonalPalette systemSuccessPalette;
-    private TonalPalette systemEmergencyPalette;
+    private Hct systemInfoSourceHct;
+    private Hct systemWarningSourceHct;
+    private Hct systemErrorSourceHct;
+    private Hct systemSuccessSourceHct;
+    private Hct systemEmergencySourceHct;
 
     private Palettes(boolean isFidelity,
         Hct primarySourceHct, Hct mutedSourceHct, Hct neutralSourceHct,
         TonalPalette primaryPalette, TonalPalette mutedPalette, TonalPalette neutralPalette,
-        TonalPalette systemInfoPalette, TonalPalette systemWarningPalette, TonalPalette systemErrorPalette,
-        TonalPalette systemSuccessPalette, TonalPalette systemEmergencyPalette) {
+        Hct systemInfoSourceHct, Hct systemWarningSourceHct, Hct systemErrorSourceHct,
+        Hct systemSuccessSourceHct, Hct systemEmergencySourceHct) {
 
         this.isFidelity = isFidelity;
         this.primarySourceHct = primarySourceHct;
@@ -59,11 +59,11 @@ public class Palettes {
         this.primaryPalette = primaryPalette;
         this.neutralPalette = neutralPalette;
         this.mutedPalette = mutedPalette;
-        this.systemInfoPalette = systemInfoPalette;
-        this.systemWarningPalette = systemWarningPalette;
-        this.systemErrorPalette = systemErrorPalette;
-        this.systemSuccessPalette = systemSuccessPalette;
-        this.systemEmergencyPalette = systemEmergencyPalette;
+        this.systemInfoSourceHct = systemInfoSourceHct;
+        this.systemWarningSourceHct = systemWarningSourceHct;
+        this.systemErrorSourceHct = systemErrorSourceHct;
+        this.systemSuccessSourceHct = systemSuccessSourceHct;
+        this.systemEmergencySourceHct = systemEmergencySourceHct;
     }
 
     public boolean isFidelity() {
@@ -94,24 +94,24 @@ public class Palettes {
         return this.mutedPalette;
     }
 
-    public TonalPalette getSystemInfoPalette() {
-        return this.systemInfoPalette;
+    public Hct getSystemInfoSourceHct() {
+        return this.systemInfoSourceHct;
     }
 
-    public TonalPalette getSystemWarningPalette() {
-        return this.systemWarningPalette;
+    public Hct getSystemWarningSourceHct() {
+        return this.systemWarningSourceHct;
     }
 
-    public TonalPalette getSystemErrorPalette() {
-        return this.systemErrorPalette;
+    public Hct getSystemErrorSourceHct() {
+        return this.systemErrorSourceHct;
     }
 
-    public TonalPalette getSystemSuccessPalette() {
-        return this.systemSuccessPalette;
+    public Hct getSystemSuccessSourceHct() {
+        return this.systemSuccessSourceHct;
     }
 
-    public TonalPalette getSystemEmergencyPalette() {
-        return this.systemEmergencyPalette;
+    public Hct getSystemEmergencySourceHct() {
+        return this.systemEmergencySourceHct;
     }
 
     public static Palettes.Builder builder() {
@@ -128,11 +128,11 @@ public class Palettes {
         private TonalPalette neutralPalette;
 
         // TODO - TONAL: Does this need to be configured by the app side?
-        private TonalPalette systemInfoPalette = TonalPalette.fromInt(0xFF95C1DB);
-        private TonalPalette systemWarningPalette = TonalPalette.fromInt(0xFFE237);
-        private TonalPalette systemErrorPalette = TonalPalette.fromInt(0xFFFF7829);
-        private TonalPalette systemSuccessPalette = TonalPalette.fromInt(0xFF068B3A);
-        private TonalPalette systemEmergencyPalette = TonalPalette.fromInt(0xFFD72A17);
+        private Hct systemInfoSourceHct = Hct.fromInt(0xFF95C1DB);
+        private Hct systemWarningSourceHct = Hct.fromInt(0xFFE237);
+        private Hct systemErrorSourceHct = Hct.fromInt(0xFFFF7829);
+        private Hct systemSuccessSourceHct = Hct.fromInt(0xFF068B3A);
+        private Hct systemEmergencySourceHct = Hct.fromInt(0xFFD72A17);
 
         public Builder setFidelity(boolean fidelity) {
             this.isFidelity = fidelity;
@@ -173,8 +173,8 @@ public class Palettes {
             return new Palettes(
                 this.isFidelity, this.primarySourceHct, this.mutedSourceHct, this.neutralSourceHct,
                 this.primaryPalette, this.mutedPalette, this.neutralPalette,
-                this.systemInfoPalette, this.systemWarningPalette, this.systemErrorPalette,
-                this.systemSuccessPalette, this.systemEmergencyPalette);
+                this.systemInfoSourceHct, this.systemWarningSourceHct, this.systemErrorSourceHct,
+                this.systemSuccessSourceHct, this.systemEmergencySourceHct);
         }
     }
 }

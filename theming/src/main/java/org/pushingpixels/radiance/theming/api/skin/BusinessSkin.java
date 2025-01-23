@@ -73,6 +73,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                     /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
                 .withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFEBD296),
+                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false))
                 .withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
@@ -83,6 +84,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                     /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
                 .withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFEBD296),
+                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false)));
         }

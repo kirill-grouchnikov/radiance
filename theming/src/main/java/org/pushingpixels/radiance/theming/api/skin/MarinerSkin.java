@@ -250,11 +250,13 @@ public class MarinerSkin extends RadianceSkin {
 
             ContainerColorTokens marinerSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF5D47A),
+                /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
             ContainerColorTokens marinerSelectedHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFF7D997),
+                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false);
 

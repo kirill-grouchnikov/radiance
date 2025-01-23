@@ -119,6 +119,7 @@ public class ModerateSkin extends RadianceSkin {
             ContainerColorTokens steelBlueHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFF1D59A),
+                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false);
 
@@ -131,6 +132,7 @@ public class ModerateSkin extends RadianceSkin {
             ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF6EA7CA),
+                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false);
 

@@ -110,6 +110,7 @@ public class ControlStates extends JFrame {
             bundle2.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
+                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
@@ -118,6 +119,7 @@ public class ControlStates extends JFrame {
             bundle2.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
+                    /* activeStatesContainerType */ ColorSchemeUtils.ActiveStatesContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,

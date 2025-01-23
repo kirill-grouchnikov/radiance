@@ -53,6 +53,26 @@ public interface RadianceColorScheme2 {
 
     ContainerColorTokens getActiveContainerTokens();
 
+    ContainerColorTokens getSystemInfoTonalContainerTokens();
+
+    ContainerColorTokens getSystemInfoPrimaryContainerTokens();
+
+    ContainerColorTokens getSystemWarningTonalContainerTokens();
+
+    ContainerColorTokens getSystemWarningPrimaryContainerTokens();
+
+    ContainerColorTokens getSystemErrorTonalContainerTokens();
+
+    ContainerColorTokens getSystemErrorPrimaryContainerTokens();
+
+    ContainerColorTokens getSystemSuccessTonalContainerTokens();
+
+    ContainerColorTokens getSystemSuccessPrimaryContainerTokens();
+
+    ContainerColorTokens getSystemEmergencyTonalContainerTokens();
+
+    ContainerColorTokens getSystemEmergencyPrimaryContainerTokens();
+
     ContainerColorTokens getContainerTokensForState(ComponentState componentState);
 
     default ContainerColorTokens getContainerTokens(RadianceThemingSlices.ContainerType containerType) {
@@ -64,16 +84,6 @@ public interface RadianceColorScheme2 {
             default: return this.getNeutralContainerTokens();
         }
     }
-
-    ContainerColorTokens getSystemInfoContainerTokens();
-
-    ContainerColorTokens getSystemWarningContainerTokens();
-
-    ContainerColorTokens getSystemErrorContainerTokens();
-
-    ContainerColorTokens getSystemSuccessContainerTokens();
-
-    ContainerColorTokens getSystemEmergencyContainerTokens();
 
     default ExtendedContainerColorTokens getExtendedNeutralContainerTokens() {
         return getExtendedContainerTokens(getNeutralContainerTokens());

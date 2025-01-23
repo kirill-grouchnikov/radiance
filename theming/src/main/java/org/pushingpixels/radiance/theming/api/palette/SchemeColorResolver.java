@@ -44,12 +44,6 @@ public interface SchemeColorResolver {
     SchemeContainerColorsResolver getTonalContainerResolver();
     SchemeContainerColorsResolver getPrimaryContainerResolver();
 
-    SchemeContainerColorsResolver getSystemInfoContainerResolver();
-    SchemeContainerColorsResolver getSystemWarningContainerResolver();
-    SchemeContainerColorsResolver getSystemErrorContainerResolver();
-    SchemeContainerColorsResolver getSystemSuccessContainerResolver();
-    SchemeContainerColorsResolver getSystemEmergencyContainerResolver();
-
     default SchemeColorResolver overlayWith(SchemeColorResolverOverlay overlay) {
         return SchemeResolverUtils.overlayWith(this, overlay);
     }

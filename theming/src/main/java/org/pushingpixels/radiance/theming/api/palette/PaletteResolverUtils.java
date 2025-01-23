@@ -35,8 +35,8 @@ import java.awt.*;
 import java.util.function.Function;
 
 public class PaletteResolverUtils {
-   public static PaletteContainerColorsResolver getPaletteTonalColorResolver() {
-       PaletteContainerColorsResolver result =
+    public static PaletteContainerColorsResolver getPaletteTonalColorResolver() {
+        PaletteContainerColorsResolver result =
             new PaletteContainerColorsResolver() {
                 @Override
                 public Color getSurface(DynamicPalette dynamicPalette) {
@@ -131,6 +131,107 @@ public class PaletteResolverUtils {
                 @Override
                 public Color getInverseContainerOutline(DynamicPalette dynamicPalette) {
                     return new Color(dynamicPalette.getInverseTonalContainerOutline());
+                }
+            };
+        return result;
+    }
+    
+    public static PaletteContainerColorsResolver getPalettePrimaryColorResolver() {
+        PaletteContainerColorsResolver result =
+            new PaletteContainerColorsResolver() {
+                @Override
+                public Color getSurface(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getSurface());
+                }
+
+                @Override
+                public Color getSurfaceBright(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getSurfaceBright());
+                }
+
+                @Override
+                public Color getSurfaceDim(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getSurfaceDim());
+                }
+
+                @Override
+                public Color getContainerSurfaceLowest(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getPrimaryContainerSurfaceLowest());
+                }
+
+                @Override
+                public Color getContainerSurfaceLow(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getPrimaryContainerSurfaceLow());
+                }
+
+                @Override
+                public Color getContainerSurface(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getPrimaryContainerSurface());
+                }
+
+                @Override
+                public Color getContainerSurfaceHigh(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getPrimaryContainerSurfaceHigh());
+                }
+
+                @Override
+                public Color getContainerSurfaceHighest(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getPrimaryContainerSurfaceHighest());
+                }
+
+                @Override
+                public Color getOnContainer(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getOnPrimaryContainer());
+                }
+
+                @Override
+                public Color getOnContainerVariant(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getOnPrimaryContainerVariant());
+                }
+
+                @Override
+                public Color getContainerOutline(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getPrimaryContainerOutline());
+                }
+
+                @Override
+                public Color getContainerOutlineVariant(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getPrimaryContainerOutlineVariant());
+                }
+
+                @Override
+                public float getContainerSurfaceDisabledAlpha(DynamicPalette dynamicPalette) {
+                    return 0.3f;
+                }
+
+                @Override
+                public float getOnContainerDisabledAlpha(DynamicPalette dynamicPalette) {
+                    return 0.45f;
+                }
+
+                @Override
+                public float getContainerOutlineDisabledAlpha(DynamicPalette dynamicPalette) {
+                    return 0.35f;
+                }
+
+                @Override
+                public Color getInverseSurface(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getInverseSurface());
+                }
+
+                @Override
+                public Color getInverseContainerSurface(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getInversePrimaryContainerSurface());
+                }
+
+                @Override
+                public Color getInverseOnContainer(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getInverseOnPrimaryContainer());
+                }
+
+                @Override
+                public Color getInverseContainerOutline(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getInversePrimaryContainerOutline());
                 }
             };
         return result;

@@ -188,13 +188,13 @@ public class RadianceColorSchemeBundle2 {
         RadianceThemingSlices.SystemContainerType systemContainerType) {
 
         switch (systemContainerType) {
-            case INFO: return this.mainColorScheme.getSystemInfoContainerTokens();
-            case WARNING: return this.mainColorScheme.getSystemWarningContainerTokens();
-            case ERROR: return this.mainColorScheme.getSystemErrorContainerTokens();
-            case SUCCESS: return this.mainColorScheme.getSystemSuccessContainerTokens();
+            case INFO: return this.mainColorScheme.getSystemInfoTonalContainerTokens();
+            case WARNING: return this.mainColorScheme.getSystemWarningTonalContainerTokens();
+            case ERROR: return this.mainColorScheme.getSystemErrorTonalContainerTokens();
+            case SUCCESS: return this.mainColorScheme.getSystemSuccessTonalContainerTokens();
             case EMERGENCY:
             default:
-                return this.mainColorScheme.getSystemEmergencyContainerTokens();
+                return this.mainColorScheme.getSystemEmergencyTonalContainerTokens();
         }
     }
 
