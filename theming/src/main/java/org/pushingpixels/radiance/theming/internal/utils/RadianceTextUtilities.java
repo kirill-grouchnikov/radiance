@@ -471,37 +471,29 @@ public class RadianceTextUtilities {
             return backgroundFillColor;
         }
 
-            ComponentUI ui = componentForTransitions.getUI();
-            if (ui instanceof TransitionAwareUI) {
-                TransitionAwareUI trackable = (TransitionAwareUI) ui;
-                StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
+        ComponentUI ui = componentForTransitions.getUI();
+        if (ui instanceof TransitionAwareUI) {
+            TransitionAwareUI trackable = (TransitionAwareUI) ui;
+            StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
 
-                float selectionStrength = stateTransitionTracker.getFacetStrength(
-                    RadianceThemingSlices.ComponentStateFacet.SELECTION);
-                float rolloverStrength = stateTransitionTracker.getFacetStrength(
-                    RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
+            float selectionStrength = stateTransitionTracker.getFacetStrength(
+                RadianceThemingSlices.ComponentStateFacet.SELECTION);
+            float rolloverStrength = stateTransitionTracker.getFacetStrength(
+                RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
 
-                if (selectionStrength > 0.0f) {
-                    // Account for the selected strength
-                    backgroundFillColor =
-                        RadianceColorUtilities.getInterpolatedColor(backgroundFillColor,
-                            RadianceColorSchemeUtilities.getContainerTokens(componentForTransitions,
-                                ComponentState.SELECTED,
-                                RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurface(),
-                            1.0f - 0.2f * selectionStrength);
-                }
-                if (rolloverStrength > 0.0f) {
-                    // Account for the selected strength
-                    backgroundFillColor =
-                        RadianceColorUtilities.getInterpolatedColor(backgroundFillColor,
-                            RadianceColorSchemeUtilities.getContainerTokens(componentForTransitions,
-                                ComponentState.ROLLOVER_UNSELECTED,
-                                RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurface(),
-                            1.0f - 0.2f * rolloverStrength);
-                }
+            float activeStrength = Math.max(selectionStrength, rolloverStrength);
+            if (activeStrength > 0.0f) {
+                // Account for the selection  / rollover state
+                backgroundFillColor =
+                    RadianceColorUtilities.getInterpolatedColor(backgroundFillColor,
+                        RadianceColorSchemeUtilities.getContainerTokens(componentForTransitions,
+                            ComponentState.ENABLED,
+                            RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLowest(),
+                        1.0f - activeStrength);
             }
+        }
 
-            return backgroundFillColor;
+        return backgroundFillColor;
     }
 
     public static Color getTextSelectionBackground(JTextComponent comp) {
