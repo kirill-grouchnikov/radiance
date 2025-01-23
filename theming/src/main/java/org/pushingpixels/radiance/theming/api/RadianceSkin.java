@@ -1188,21 +1188,40 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     public void setOptionPaneIconColorScheme(RadianceColorScheme colorScheme,
-            int... optionPaneMessageTypes) {
+        int... optionPaneMessageTypes) {
         if (colorScheme == null) {
             throw new IllegalArgumentException("Cannot pass null color scheme");
         }
         for (int optionPaneMessageType : optionPaneMessageTypes) {
             if ((optionPaneMessageType != JOptionPane.ERROR_MESSAGE) &&
-                    (optionPaneMessageType != JOptionPane.WARNING_MESSAGE) &&
-                    (optionPaneMessageType != JOptionPane.INFORMATION_MESSAGE) &&
-                    (optionPaneMessageType != JOptionPane.QUESTION_MESSAGE)) {
+                (optionPaneMessageType != JOptionPane.WARNING_MESSAGE) &&
+                (optionPaneMessageType != JOptionPane.INFORMATION_MESSAGE) &&
+                (optionPaneMessageType != JOptionPane.QUESTION_MESSAGE)) {
                 throw new IllegalArgumentException("Unsupported message type " +
-                        optionPaneMessageType);
+                    optionPaneMessageType);
             }
         }
         for (int optionPaneMessageType : optionPaneMessageTypes) {
             this.optionPaneIconColorSchemeMap.put(optionPaneMessageType, colorScheme);
+        }
+    }
+
+    public void setOptionPaneIconColorScheme(ContainerColorTokens colorTokens,
+        int... optionPaneMessageTypes) {
+        if (colorTokens == null) {
+            throw new IllegalArgumentException("Cannot pass null color tokens");
+        }
+        for (int optionPaneMessageType : optionPaneMessageTypes) {
+            if ((optionPaneMessageType != JOptionPane.ERROR_MESSAGE) &&
+                (optionPaneMessageType != JOptionPane.WARNING_MESSAGE) &&
+                (optionPaneMessageType != JOptionPane.INFORMATION_MESSAGE) &&
+                (optionPaneMessageType != JOptionPane.QUESTION_MESSAGE)) {
+                throw new IllegalArgumentException("Unsupported message type " +
+                    optionPaneMessageType);
+            }
+        }
+        for (int optionPaneMessageType : optionPaneMessageTypes) {
+            this.optionPaneIconColorTokenMap.put(optionPaneMessageType, colorTokens);
         }
     }
 
