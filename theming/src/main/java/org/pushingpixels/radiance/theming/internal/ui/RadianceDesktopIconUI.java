@@ -82,8 +82,8 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 		this.width = UIManager.getInt("DesktopIcon.width");
 
 		RadianceSkin skin = RadianceCoreUtilities.getSkin(this.desktopIcon.getInternalFrame());
-		this.desktopIcon.setBackground(RadianceCoreUtilities.getBackgroundFill(
-			skin, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE));
+		this.desktopIcon.setBackground(RadianceCoreUtilities.getBackgroundFill(skin,
+			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE));
 
 		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
 			themingWidget.installDefaults();
