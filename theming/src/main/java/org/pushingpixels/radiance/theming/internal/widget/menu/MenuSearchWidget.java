@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentSta
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.WidgetType;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
@@ -180,6 +181,11 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
                                 }
 
                                 @Override
+                                public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                    BladeIconUtils.drawHexaMarker(g, finalCount, colorTokens);
+                                }
+
+                                @Override
                                 public Dimension getIconDimension() {
                                     return new Dimension(9, 9);
                                 }
@@ -279,6 +285,13 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
                             RadianceThemingCortex.GlobalScope.getIconPack()
                                     .getInspectIcon(dimension, scheme)
                                     .paintIcon(null, g, 0, 0);
+                        }
+
+                        @Override
+                        public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                            RadianceThemingCortex.GlobalScope.getIconPack()
+                                .getInspectIcon(dimension, colorTokens)
+                                .paintIcon(null, g, 0, 0);
                         }
 
                         @Override
@@ -537,6 +550,11 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
                         @Override
                         public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
                             BladeIconUtils.drawHexaMarker(g, index, scheme);
+                        }
+
+                        @Override
+                        public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                            BladeIconUtils.drawHexaMarker(g, index, colorTokens);
                         }
 
                         @Override
