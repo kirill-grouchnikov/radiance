@@ -29,9 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.decoration;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import java.awt.*;
@@ -55,19 +56,29 @@ public class FlatDecorationPainter implements RadianceDecorationPainter {
 
     @Override
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
-                                    RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-                                    RadianceSkin skin) {
-		graphics.setColor(RadianceCoreUtilities.getBackgroundFill(
-				skin, RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE));
-//				skin.getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)
-//				.getBackgroundFillColor());
+			RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+			RadianceSkin skin) {
+
+		graphics.setColor(RadianceCoreUtilities.getBackgroundFill(skin,
+			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE));
 		graphics.fillRect(0, 0, width, height);
 	}
 
 	@Override
-	public void paintDecorationArea(Graphics2D graphics, Component comp, RadianceThemingSlices.DecorationAreaType decorationAreaType,
-			Shape contour, RadianceColorScheme colorScheme) {
+	public void paintDecorationArea(Graphics2D graphics, Component comp,
+		RadianceThemingSlices.DecorationAreaType decorationAreaType,
+		Shape contour, RadianceColorScheme colorScheme) {
+
         graphics.setColor(colorScheme.getBackgroundFillColor());
         graphics.fill(contour);
+	}
+
+	@Override
+	public void paintDecorationArea(Graphics2D graphics, Component comp,
+		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+		ExtendedContainerColorTokens colorTokens) {
+
+		graphics.setColor(colorTokens.getSurface());
+		graphics.fill(contour);
 	}
 }

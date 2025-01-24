@@ -35,7 +35,9 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -120,6 +122,32 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
+
+    private static class TabBorderPainterLight extends FractionBasedTonalBorderPainter {
+        public TabBorderPainterLight() {
+            super(
+                "Tab Light",
+                new float[]{0.0f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[]{
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE
+                }
+            );
+        }
+    }
+
+    private static class TabBorderPainterDark extends FractionBasedTonalBorderPainter {
+        public TabBorderPainterDark() {
+            super(
+                "Tab Dark",
+                new float[]{0.0f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[]{
+                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE
+                }
+            );
+        }
+    }
 
     /**
      * Tracks changes to the tabbed pane contents. Each tab component is tracked for changes on the
@@ -699,11 +727,21 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         graphics1X.draw(contour);
     }
 
+    private static RadianceBorderPainter getBorderPainter(JTabbedPane tabPane,
+        ContainerColorTokens colorTokens) {
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(tabPane);
+        if (skin instanceof TonalSkin) {
+            // TODO: TONAL - revisit this logic
+            return colorTokens.isDark() ? new TabBorderPainterDark() : new TabBorderPainterLight();
+        } else {
+            return RadianceCoreUtilities.getBorderPainter(tabPane);
+        }
+    }
+
     private static void paintTabBackgroundAt1X(Graphics2D graphics1X,
         JTabbedPane tabPane, int tabIndex, double scaleFactor, int width, int height,
         ContainerColorTokens colorTokens, Color tabColor) {
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(tabPane);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(tabPane);
+        RadianceBorderPainter borderPainter = getBorderPainter(tabPane, colorTokens);
 
         int dy = 3;
         Set<RadianceThemingSlices.Side> straightSides = EnumSet.of(RadianceThemingSlices.Side.BOTTOM);
@@ -739,7 +777,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         ContainerColorTokens blendedContainerTokens = RadianceColorSchemeUtilities.getContainerTokens(
             tabPane, tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
             ComponentState.SELECTED);
-        Color lineColor = blendedContainerTokens.getContainerOutline();
+        Color lineColor = colorTokens.isDark()
+            ? blendedContainerTokens.getInverseContainerOutline()
+            : blendedContainerTokens.getContainerOutline();
         Color lineColorFullTransparency = RadianceColorUtilities.getAlphaColor(lineColor, 0);
         graphics1X.setPaint(new LinearGradientPaint(0.0f, 0.0f, 0.0f, height,
             new float[]{0.0f, 0.5f, 1.0f},
@@ -877,8 +917,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         scaledWidth, scaledHeight, 1, null);
                     fillPainter.paintContourBackground(graphics1X, tabPane,
                         scaledWidth, scaledHeight, contour, colorTokens);
-                    RadianceBorderPainter borderPainter =
-                        RadianceCoreUtilities.getBorderPainter(tabPane);
+                    RadianceBorderPainter borderPainter = getBorderPainter(tabPane, colorTokens);
                     borderPainter.paintBorder(graphics1X, tabPane, scaledWidth, scaledHeight,
                         contour, null, colorTokens);
                 }
@@ -1736,7 +1775,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                             this.tabPane, selectedIndex,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                             ComponentState.SELECTED);
-                        lineColor = colorTokens.getContainerOutline();
+                        lineColor = colorTokens.isDark()
+                            ? colorTokens.getInverseContainerOutline()
+                            : colorTokens.getContainerOutline();
                     } else {
                         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                             this.tabPane, selectedIndex,
@@ -1813,7 +1854,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                             this.tabPane, selectedIndex,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                             ComponentState.SELECTED);
-                        lineColor = colorTokens.getContainerOutline();
+                        lineColor = colorTokens.isDark()
+                            ? colorTokens.getInverseContainerOutline()
+                            : colorTokens.getContainerOutline();
                     } else {
                         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                             this.tabPane, selectedIndex,
@@ -1888,7 +1931,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                             this.tabPane, selectedIndex,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                             ComponentState.SELECTED);
-                        lineColor = colorTokens.getContainerOutline();
+                        lineColor = colorTokens.isDark()
+                            ? colorTokens.getInverseContainerOutline()
+                            : colorTokens.getContainerOutline();
                     } else {
                         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                             this.tabPane, selectedIndex,
@@ -1965,7 +2010,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                             this.tabPane, selectedIndex,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                             ComponentState.SELECTED);
-                        lineColor = colorTokens.getContainerOutline();
+                        lineColor = colorTokens.isDark()
+                            ? colorTokens.getInverseContainerOutline()
+                            : colorTokens.getContainerOutline();
                     } else {
                         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                             this.tabPane, selectedIndex,

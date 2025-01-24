@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -163,15 +164,15 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
         graphics.fillRect(x, y, width, height);
     }
 
-    protected void fill(Graphics2D graphics, ExtendedContainerColorTokens colorTokens,
+    protected void fill(Graphics2D graphics, ExtendedContainerColorTokens extendedColorTokens,
         int offsetY, int x, int y, int width, int height) {
         // 0 - flex : gradient
         // flex - : fill
 
-        Color startColor = colorTokens.getBaseContainerTokens().isDark()
-            ? colorTokens.getBaseContainerTokens().getContainerSurfaceHigh()
-            : colorTokens.getBaseContainerTokens().getContainerSurfaceLowest();
-        Color endColor = colorTokens.getBaseContainerTokens().getContainerSurface();
+        ContainerColorTokens colorTokens = extendedColorTokens.getBaseContainerTokens();
+        Color startColor = colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+            : colorTokens.getContainerSurfaceLowest();
+        Color endColor = colorTokens.getContainerSurface();
 
         int gradientHeight = Math.max(FLEX_POINT, height + offsetY);
         Paint paint = (gradientHeight == FLEX_POINT) ?

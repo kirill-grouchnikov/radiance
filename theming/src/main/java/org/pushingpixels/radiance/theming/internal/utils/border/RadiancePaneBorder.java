@@ -85,22 +85,16 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 
             // bottom and right border as outline
-            graphics.setColor(isDark
-                ? titleContainerTokens.getContainerSurfaceLowest()
-                : titleContainerTokens.getContainerOutline());
+            graphics.setColor(titleContainerTokens.getContainerOutline());
             graphics.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
             graphics.drawLine(x + w - 1, y, x + w - 1, y + h - 1);
             // top and left border as outline variant
-            graphics.setColor(isDark
-                ? titleContainerTokens.getContainerSurfaceLow()
-                : titleContainerTokens.getContainerOutlineVariant());
+            graphics.setColor(titleContainerTokens.getContainerOutlineVariant());
             graphics.drawLine(x, y, x + w - 2, y);
             graphics.drawLine(x, y, x, y + h - 2);
 
             // primary inner outline
-            graphics.setColor(isDark
-                ? titleContainerTokens.getContainerSurfaceHigh()
-                : titleContainerTokens.getContainerSurface());
+            graphics.setColor(titleContainerTokens.getContainerSurface());
             graphics.drawLine(x + 1, y + h - 2, x + w - 2, y + h - 2);
             graphics.drawLine(x + w - 2, y + 1, x + w - 2, y + h - 2);
             graphics.drawLine(x + 1, y + 1, x + w - 3, y + 1);
@@ -108,7 +102,7 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
 
             // secondary inner outline
             graphics.setColor(isDark
-                ? titleContainerTokens.getContainerSurfaceHighest()
+                ? titleContainerTokens.getContainerSurface()
                 : titleContainerTokens.getContainerSurfaceLowest());
             graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
             graphics.drawRect(x + 3, y + 3, w - 7, h - 7);

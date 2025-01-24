@@ -169,10 +169,18 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			RenderingHints.VALUE_ANTIALIAS_ON);
 
-		Color primary = RadianceColorUtilities.getAlphaColor(
-			colorTokens.getContainerOutline(), 160);
-		Color secondary = RadianceColorUtilities.getAlphaColor(
-			colorTokens.getInverseContainerOutline(), 32);
+		Color primary;
+		Color secondary;
+		if (colorTokens.isDark()) {
+			primary = RadianceColorUtilities.getAlphaColor(
+				colorTokens.getInverseContainerOutline(), 160);
+			secondary = RadianceColorUtilities.getAlphaColor(
+				colorTokens.getContainerOutline(), 128);
+		} else {
+			primary = RadianceColorUtilities.getAlphaColor(colorTokens.getContainerOutline(), 160);
+			secondary = RadianceColorUtilities.getAlphaColor(
+				colorTokens.getInverseContainerOutline(), 32);
+		}
 
 		int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
 		int bumpDotDiameter = RadianceSizeUtils.getDragBumpDiameter(componentFontSize);

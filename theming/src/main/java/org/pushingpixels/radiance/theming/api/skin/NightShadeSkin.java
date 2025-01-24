@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
@@ -238,66 +239,27 @@ public class NightShadeSkin extends RadianceSkin {
             this.registerDecorationAreaSchemeBundle(nightShadeDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
-//            RadianceColorScheme2 marinerHeaderColorScheme = ColorSchemeUtils.getColorScheme(
-//                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-//                    Hct.fromInt(0xFFF5D47A), Hct.fromInt(0xFF281D1E), Hct.fromInt(0xFF2C2021)),
-//                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-//                /* isDark */ true,
-//                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-//
-//            RadianceColorSchemeBundle2 marinerHeaderBundle =
-//                new RadianceColorSchemeBundle2(marinerHeaderColorScheme);
-//            // More saturated seed for controls in selected state
-//            marinerHeaderBundle.registerActiveContainerTokens(marinerSelectedContainerTokens,
-//                ComponentState.SELECTED);
-//            // More saturated highlights
-//            marinerHeaderBundle.registerActiveContainerTokens(
-//                marinerSelectedContainerTokens,
-//                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-//                ComponentState.getActiveStates());
-//            // More muted separators
-//            marinerHeaderBundle.registerEnabledContainerTokens(
-//                ColorSchemeUtils.getContainerTokens(
-//                    /* seed */ Hct.fromInt(0xFF261D1E),
-//                    /* isFidelity */ true,
-//                    /* isDark */ true,
-//                    /* contrastLevel */ -0.7,
-//                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-//                        PaletteContainerColorsResolverOverlay.builder()
-//                            //.containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
-//                            .build())),
-//                RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
-//            this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
-//                ColorSchemeUtils.getExtendedContainerTokens(
-//                    /* seed */ Hct.fromInt(0xFF261D1E),
-//                    /* isFidelity */ true,
-//                    /* isDark */ true,
-//                    /* contrastLevel */ 1.0,
-//                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-//                        PaletteContainerColorsResolverOverlay.builder()
-//                            .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
-//                            .build())),
-//                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-//                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-//                RadianceThemingSlices.DecorationAreaType.HEADER);
-//
-//            RadianceColorScheme2 marinerFooterColorScheme = ColorSchemeUtils.getColorScheme(
-//                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-//                    Hct.fromInt(0xFFF6DD9D), Hct.fromInt(0xFFC5C4C2), Hct.fromInt(0xFFB9B7B9)),
-//                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-//                /* isDark */ false,
-//                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-//
-//            RadianceColorSchemeBundle2 marinerFooterBundle =
-//                new RadianceColorSchemeBundle2(marinerFooterColorScheme);
-//            this.registerDecorationAreaSchemeBundle(marinerFooterBundle,
-//                ColorSchemeUtils.getExtendedContainerTokens(
-//                    /* seed */ Hct.fromInt(0xFFB9B7B9),
-//                    /* isFidelity */ true,
-//                    /* isDark */ false),
-//                RadianceThemingSlices.DecorationAreaType.FOOTER,
-//                RadianceThemingSlices.DecorationAreaType.TOOLBAR,
-//                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+            // Toolbars, footers, control panes
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF22252A),
+                    /* isFidelity */ true,
+                    /* isDark */ true),
+                RadianceThemingSlices.DecorationAreaType.FOOTER,
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+
+            // Headers
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF22252A),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.HEADER);
 
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new FractionBasedTonalFillPainter("Night Shade",
@@ -307,7 +269,7 @@ public class NightShadeSkin extends RadianceSkin {
                     ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
                     ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE});
 
-            this.decorationPainter = new MatteDecorationPainter();
+            this.decorationPainter = new FlatDecorationPainter();
             this.highlightFillPainter = new ClassicTonalFillPainter();
 
             this.borderPainter = new CompositeBorderPainter("Night Shade",
@@ -326,10 +288,9 @@ public class NightShadeSkin extends RadianceSkin {
 
         @Override
         void configureOverlayPainters() {
-            // Add overlay painters to paint drop shadows along the bottom
-            // edges of toolbars and footers
+            // Add overlay painters to paint drop shadows along the bottom edges of toolbars
             this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
-                RadianceThemingSlices.DecorationAreaType.TOOLBAR, RadianceThemingSlices.DecorationAreaType.FOOTER);
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
             // add an overlay painter to paint a dark line along the bottom
             // edge of toolbars
@@ -343,7 +304,7 @@ public class NightShadeSkin extends RadianceSkin {
                 ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT,
                 ContainerColorTokensSingleColorQuery.composite(
                     ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
-                    ColorTransform.alpha(32)));
+                    ColorTransform.alpha(72)));
             this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
         }
 
