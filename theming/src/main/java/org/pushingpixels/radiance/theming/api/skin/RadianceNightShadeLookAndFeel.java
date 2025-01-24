@@ -51,4 +51,10 @@ public class RadianceNightShadeLookAndFeel extends RadianceLookAndFeel {
 	public RadianceNightShadeLookAndFeel() {
 		super(new NightShadeSkin());
 	}
+
+	public static class RadianceNightShadeTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceNightShadeTonalLookAndFeel() {
+			super(new NightShadeSkin.NightShadeTonalSkin());
+		}
+	}
 }

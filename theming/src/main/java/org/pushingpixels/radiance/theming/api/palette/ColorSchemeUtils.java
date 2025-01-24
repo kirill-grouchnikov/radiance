@@ -361,6 +361,14 @@ public class ColorSchemeUtils {
     public static RadianceColorScheme2 getColorScheme(
         PalettesSource palettesSource,
         RadianceThemingSlices.ActiveContainerType activeContainerType,
+        boolean isDark) {
+        return getColorScheme(palettesSource, activeContainerType, isDark, 
+            SchemeResolverUtils.getSchemeColorResolver());
+    }
+
+    public static RadianceColorScheme2 getColorScheme(
+        PalettesSource palettesSource,
+        RadianceThemingSlices.ActiveContainerType activeContainerType,
         boolean isDark,
         SchemeColorResolver schemeColorResolver) {
 
