@@ -245,8 +245,7 @@ public class MarinerSkin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFF6DD9D), Hct.fromInt(0xFFD9D8D5), Hct.fromInt(0xFFECF0F3)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isDark */ false);
 
             ContainerColorTokens marinerSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF5D47A),
@@ -277,8 +276,7 @@ public class MarinerSkin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFF5D47A), Hct.fromInt(0xFF281D1E), Hct.fromInt(0xFF2C2021)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ true,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isDark */ true);
 
             RadianceColorSchemeBundle2 marinerHeaderBundle =
                 new RadianceColorSchemeBundle2(marinerHeaderColorScheme);
@@ -320,8 +318,7 @@ public class MarinerSkin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFF6DD9D), Hct.fromInt(0xFFC5C4C2), Hct.fromInt(0xFFB9B7B9)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isDark */ false);
 
             RadianceColorSchemeBundle2 marinerFooterBundle =
                 new RadianceColorSchemeBundle2(marinerFooterColorScheme);

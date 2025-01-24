@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
  * <code>Business</code> skin. This class is part of officially supported API.
@@ -70,8 +69,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                         Hct.fromInt(0xFFBDC8D3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFE4EAF0)),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isDark */ false,
-                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+                    /* isDark */ false))
                 .withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFEBD296),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -81,8 +79,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                             Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isDark */ false,
-                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+                    /* isDark */ false))
                 .withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFEBD296),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

@@ -38,7 +38,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -61,14 +60,12 @@ public class PaletteFidelityDemo extends JFrame {
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-            /* isDark */ false,
-            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+            /* isDark */ false);
         RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF663E00), Hct.fromInt(0xFF402200), Hct.fromInt(0xFF201200)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-            /* isDark */ true,
-            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+            /* isDark */ true);
 
         builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
         builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);

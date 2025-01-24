@@ -196,6 +196,7 @@ public class AutumnSkin extends RadianceSkin {
 					Hct.fromInt(0xFFFFCB90), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE2C1)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ false,
+				/* contrastLevel */ 0.0f,
 				/* schemeColorResolver */ autumnColorResolver);
 
 			RadianceColorSchemeBundle2 autumnDefaultBundle =
@@ -241,6 +242,7 @@ public class AutumnSkin extends RadianceSkin {
 					Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFDDB9)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ false,
+				/* contrastLevel */ 0.0f,
 				/* schemeColorResolver */ autumnColorResolver);
 			RadianceColorSchemeBundle2 autumnControlPaneBundle =
 				new RadianceColorSchemeBundle2(autumnControlPaneColorScheme);

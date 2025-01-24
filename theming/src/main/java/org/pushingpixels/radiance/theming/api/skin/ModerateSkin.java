@@ -39,7 +39,10 @@ import org.pushingpixels.radiance.theming.api.painter.fill.*;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.palette.*;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -114,8 +117,7 @@ public class ModerateSkin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFF6CA9CE), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isDark */ false);
             ContainerColorTokens steelBlueHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFF1D59A),
@@ -127,8 +129,7 @@ public class ModerateSkin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFF6D9BBA), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isDark */ false);
             ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF6EA7CA),
@@ -140,8 +141,7 @@ public class ModerateSkin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFD1D3D7), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isDark */ false);
 
             RadianceColorSchemeBundle2 steelBlueDefaultBundle =
                 new RadianceColorSchemeBundle2(steelBlueColorScheme);

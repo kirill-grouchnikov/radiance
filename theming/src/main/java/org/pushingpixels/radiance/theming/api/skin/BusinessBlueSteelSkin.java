@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
  * <code>Business Blue Steel</code> skin. This class is part of officially supported API.
@@ -103,8 +102,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 							Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isDark */ false,
-					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+					/* isDark */ false))
 				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFF83AFCE),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -114,8 +112,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 						Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isDark */ false,
-					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+					/* isDark */ false))
 				.withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFEBD296),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -126,8 +123,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFF94B9D3), Hct.fromInt(0xFFBFCFDB), Hct.fromInt(0xFFBFCFDB)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isDark */ false,
-				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+				/* isDark */ false);
 
 			RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
 				new RadianceColorSchemeBundle2(controlPaneColorScheme);

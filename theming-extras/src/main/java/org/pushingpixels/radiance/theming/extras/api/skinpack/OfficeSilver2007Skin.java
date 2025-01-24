@@ -279,8 +279,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isDark */ false);
             RadianceColorSchemeBundle2 officeSilverDefaultBundle =
                 new RadianceColorSchemeBundle2(officeSilverColorScheme);
 
@@ -395,8 +394,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFCFD4DE), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFDDDEE1)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isDark */ false);
             this.registerAsDecorationArea(
                 officeSilverHeaderColorScheme.getExtendedTonalContainerTokens(),
                 DecorationAreaType.FOOTER, DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR);
@@ -405,8 +403,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFCFCFD0)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isDark */ false);
             this.registerAsDecorationArea(
                 officeSilverTitleColorScheme.getExtendedTonalContainerTokens(),
                 DecorationAreaType.CONTROL_PANE, DecorationAreaType.PRIMARY_TITLE_PANE,

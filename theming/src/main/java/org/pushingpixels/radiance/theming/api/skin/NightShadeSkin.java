@@ -209,6 +209,7 @@ public class NightShadeSkin extends RadianceSkin {
                     Hct.fromInt(0xFF4e5562), Hct.fromInt(0xFF373B45), Hct.fromInt(0xFF292A32)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ true,
+                /* contrastLevel */ 0.5f,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
             ContainerColorTokens nightShadeSelectedContainerTokens =

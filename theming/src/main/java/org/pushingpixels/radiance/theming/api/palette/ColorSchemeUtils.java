@@ -362,7 +362,7 @@ public class ColorSchemeUtils {
         PalettesSource palettesSource,
         RadianceThemingSlices.ActiveContainerType activeContainerType,
         boolean isDark) {
-        return getColorScheme(palettesSource, activeContainerType, isDark, 
+        return getColorScheme(palettesSource, activeContainerType, isDark, 0.0f,
             SchemeResolverUtils.getSchemeColorResolver());
     }
 
@@ -370,6 +370,7 @@ public class ColorSchemeUtils {
         PalettesSource palettesSource,
         RadianceThemingSlices.ActiveContainerType activeContainerType,
         boolean isDark,
+        double contrastLevel,
         SchemeColorResolver schemeColorResolver) {
 
         Palettes palettes = palettesSource.getPalettes();
@@ -380,7 +381,7 @@ public class ColorSchemeUtils {
             /* neutralSourceColorHct */ palettes.getNeutralSourceHct(),
             /* isFidelity */ palettes.isFidelity(),
             /* isDark */ isDark,
-            /* contrastLevel */ 0.0,
+            /* contrastLevel */ contrastLevel,
             /* primaryPalette */ palettes.getPrimaryPalette(),
             /* mutedPalette */ palettes.getMutedPalette(),
             /* neutralPalette */ palettes.getNeutralPalette());

@@ -42,7 +42,6 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOve
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -87,8 +86,7 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 		RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFFDBDFE4), 3.0, 1.0),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-			/* isDark */ false,
-			/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+			/* isDark */ false);
 		this.registerAsDecorationArea(controlPaneColorScheme.getExtendedTonalContainerTokens(),
 				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
