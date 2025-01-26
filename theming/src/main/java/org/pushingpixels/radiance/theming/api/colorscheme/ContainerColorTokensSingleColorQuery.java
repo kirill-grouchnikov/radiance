@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.colorscheme;
 
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
 
@@ -71,6 +72,16 @@ public interface ContainerColorTokensSingleColorQuery {
 				result = transform.transform(result);
 			}
 			return result;
+		};
+	}
+
+	static ContainerColorTokensSingleColorQuery blend(
+		ContainerColorTokensSingleColorQuery first,
+		ContainerColorTokensSingleColorQuery second,
+		float firstLikeness) {
+		return colorTokens -> {
+			return RadianceColorUtilities.getInterpolatedColor(first.query(colorTokens),
+				second.query(colorTokens), firstLikeness);
 		};
 	}
 }

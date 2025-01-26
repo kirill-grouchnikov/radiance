@@ -152,10 +152,7 @@ public class AutumnSkin extends RadianceSkin {
 
 		public AutumnTonalSkin() {
 			SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-			// Set up token resolution overlays:
-			// 1. Use tonal outlines for muted containers (consistent borders for enabled and active
-			//    controls)
-			// 2. Use tonal outlines for on container content (softer text and icon colors)
+			// Set up token resolution overlays
 			SchemeColorResolver autumnColorResolver = defaultSchemeColorResolver.overlayWith(
 				SchemeColorResolverOverlay.builder()
 					// For neutral containers, use softer outlines and softer text / icon colors
@@ -195,7 +192,11 @@ public class AutumnSkin extends RadianceSkin {
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFFFFCB90), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE2C1)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isDark */ false,
+				/* isPrimaryDark */ false,
+				/* isTonalDark */ false,
+				/* isMutedDark */ false,
+				/* isNeutralDark */ false,
+				/* isSystemDark */ false,
 				/* contrastLevel */ 0.0f,
 				/* schemeColorResolver */ autumnColorResolver);
 
@@ -241,7 +242,11 @@ public class AutumnSkin extends RadianceSkin {
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFDDB9)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isDark */ false,
+				/* isPrimaryDark */ false,
+				/* isTonalDark */ false,
+				/* isMutedDark */ false,
+				/* isNeutralDark */ false,
+				/* isSystemDark */ false,
 				/* contrastLevel */ 0.0f,
 				/* schemeColorResolver */ autumnColorResolver);
 			RadianceColorSchemeBundle2 autumnControlPaneBundle =
@@ -264,7 +269,7 @@ public class AutumnSkin extends RadianceSkin {
 				new DelegateFractionBasedTonalBorderPainter(
 					"Autumn Inner", new SubduedTonalBorderPainter(),
 					new int[]{0xFFFFFFFF, 0xFFFFFFFF},
-					scheme -> ColorSchemeUtils.tint(scheme, 0.8f)));
+					colorTokens -> ColorSchemeUtils.tint(colorTokens, 0.8f)));
 
 			this.highlightFillPainter = new FractionBasedTonalFillPainter("Autumn",
 				new float[] {0.0f, 0.5f, 1.0f},

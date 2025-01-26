@@ -132,6 +132,9 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(NightShadeSkin.NightShadeTonalSkin.NAME,
             NightShadeSkin.NightShadeTonalSkin.class::getName,
             RadianceNightShadeLookAndFeel.RadianceNightShadeTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(TwilightSkin.TwilightTonalSkin.NAME,
+            TwilightSkin.TwilightTonalSkin.class::getName,
+            RadianceTwilightLookAndFeel.RadianceTwilightTonalLookAndFeel.class::getName));
 
         return result;
     }

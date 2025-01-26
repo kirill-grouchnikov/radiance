@@ -201,15 +201,20 @@ public class NightShadeSkin extends RadianceSkin {
     public String getDisplayName() {
         return NAME;
     }
+
     public static class NightShadeTonalSkin extends NightShadeSkin implements TonalSkin {
         public static final String NAME = "Night Shade Tonal";
 
         public NightShadeTonalSkin() {
             RadianceColorScheme2 nightShadeColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFF4e5562), Hct.fromInt(0xFF373B45), Hct.fromInt(0xFF292A32)),
+                    Hct.fromInt(0xFF4E5562), Hct.fromInt(0xFF373B45), Hct.fromInt(0xFF292A32)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ true,
+                /* isPrimaryDark */ true,
+                /* isTonalDark */ true,
+                /* isMutedDark */ true,
+                /* isNeutralDark */ true,
+                /* isSystemDark */ true,
                 /* contrastLevel */ 0.5f,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 

@@ -40,16 +40,19 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.function.Function;
 
 public class ColorSchemeUtils {
 
     private static ContainerColorTokens getContainerTokens(
-        DynamicScheme dynamicScheme, SchemeContainerColorsResolver tonalContainerColorResolver) {
+        DynamicScheme dynamicScheme,
+        Function<DynamicScheme, Boolean> isDark,
+        SchemeContainerColorsResolver tonalContainerColorResolver) {
 
         return new ContainerColorTokens() {
             @Override
             public boolean isDark() {
-                return dynamicScheme.isDark;
+                return isDark.apply(dynamicScheme);
             }
 
             @Override
@@ -362,14 +365,16 @@ public class ColorSchemeUtils {
         PalettesSource palettesSource,
         RadianceThemingSlices.ActiveContainerType activeContainerType,
         boolean isDark) {
-        return getColorScheme(palettesSource, activeContainerType, isDark, 0.0f,
+        return getColorScheme(palettesSource, activeContainerType,
+            isDark, isDark, isDark, isDark, isDark, 0.0f,
             SchemeResolverUtils.getSchemeColorResolver());
     }
 
     public static RadianceColorScheme2 getColorScheme(
         PalettesSource palettesSource,
         RadianceThemingSlices.ActiveContainerType activeContainerType,
-        boolean isDark,
+        boolean isPrimaryDark, boolean isTonalDark, boolean isMutedDark, boolean isNeutralDark,
+        boolean isSystemDark,
         double contrastLevel,
         SchemeColorResolver schemeColorResolver) {
 
@@ -380,51 +385,54 @@ public class ColorSchemeUtils {
             /* mutedSourceColorHct */ palettes.getMutedSourceHct(),
             /* neutralSourceColorHct */ palettes.getNeutralSourceHct(),
             /* isFidelity */ palettes.isFidelity(),
-            /* isDark */ isDark,
+            /* isPrimaryDark */ isPrimaryDark,
+            /* isTonalDark */ isTonalDark,
+            /* isMutedDark */ isMutedDark,
+            /* isNeutralDark */ isNeutralDark,
             /* contrastLevel */ contrastLevel,
             /* primaryPalette */ palettes.getPrimaryPalette(),
             /* mutedPalette */ palettes.getMutedPalette(),
             /* neutralPalette */ palettes.getNeutralPalette());
 
         ContainerColorTokens neutralContainerTokens = getContainerTokens(
-            scheme, schemeColorResolver.getNeutralContainerResolver());
+            scheme, (s) -> s.isNeutralDark, schemeColorResolver.getNeutralContainerResolver());
         ContainerColorTokens mutedContainerTokens = getContainerTokens(
-            scheme, schemeColorResolver.getMutedContainerResolver());
+            scheme, (s) -> s.isMutedDark, schemeColorResolver.getMutedContainerResolver());
         ContainerColorTokens tonalContainerTokens = getContainerTokens(
-            scheme, schemeColorResolver.getTonalContainerResolver());
+            scheme, (s) -> s.isTonalDark, schemeColorResolver.getTonalContainerResolver());
         ContainerColorTokens primaryContainerTokens = getContainerTokens(
-            scheme, schemeColorResolver.getPrimaryContainerResolver());
+            scheme, (s) -> s.isPrimaryDark, schemeColorResolver.getPrimaryContainerResolver());
 
         ContainerColorTokens systemInfoTonalContainerTokens = getContainerTokens(
             palettes.getSystemInfoSourceHct(), RadianceThemingSlices.ActiveContainerType.TONAL,
-            false, isDark);
+            false, isSystemDark);
         ContainerColorTokens systemInfoPrimaryContainerTokens = getContainerTokens(
             palettes.getSystemInfoSourceHct(), RadianceThemingSlices.ActiveContainerType.PRIMARY,
-            false, isDark);
+            false, isSystemDark);
         ContainerColorTokens systemWarningTonalContainerTokens = getContainerTokens(
             palettes.getSystemWarningSourceHct(), RadianceThemingSlices.ActiveContainerType.TONAL,
-            false, isDark);
+            false, isSystemDark);
         ContainerColorTokens systemWarningPrimaryContainerTokens = getContainerTokens(
             palettes.getSystemWarningSourceHct(), RadianceThemingSlices.ActiveContainerType.PRIMARY,
-            false, isDark);
+            false, isSystemDark);
         ContainerColorTokens systemErrorTonalContainerTokens = getContainerTokens(
             palettes.getSystemErrorSourceHct(), RadianceThemingSlices.ActiveContainerType.TONAL,
-            false, isDark);
+            false, isSystemDark);
         ContainerColorTokens systemErrorPrimaryContainerTokens = getContainerTokens(
             palettes.getSystemErrorSourceHct(), RadianceThemingSlices.ActiveContainerType.PRIMARY,
-            false, isDark);
+            false, isSystemDark);
         ContainerColorTokens systemSuccessTonalContainerTokens = getContainerTokens(
             palettes.getSystemSuccessSourceHct(), RadianceThemingSlices.ActiveContainerType.TONAL,
-            false, isDark);
+            false, isSystemDark);
         ContainerColorTokens systemSuccessPrimaryContainerTokens = getContainerTokens(
             palettes.getSystemSuccessSourceHct(), RadianceThemingSlices.ActiveContainerType.PRIMARY,
-            false, isDark);
+            false, isSystemDark);
         ContainerColorTokens systemEmergencyTonalContainerTokens = getContainerTokens(
             palettes.getSystemEmergencySourceHct(), RadianceThemingSlices.ActiveContainerType.TONAL,
-            false, isDark);
+            false, isSystemDark);
         ContainerColorTokens systemEmergencyPrimaryContainerTokens = getContainerTokens(
             palettes.getSystemEmergencySourceHct(), RadianceThemingSlices.ActiveContainerType.PRIMARY,
-            false, isDark);
+            false, isSystemDark);
 
         return new RadianceColorScheme2() {
             private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();

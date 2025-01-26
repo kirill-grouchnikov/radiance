@@ -428,7 +428,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             RadianceBorderPainter innerBorderPainter = new DelegateFractionBasedTonalBorderPainter(
                 "Office Silver 2007 Inner", outerBorderPainter,
                 new int[] {0xFFFFFFFF, 0xFFFFFFFF},
-                scheme -> ColorSchemeUtils.tint(scheme, 0.8f));
+                colorTokens -> ColorSchemeUtils.tint(colorTokens, 0.8f));
             this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
                 outerBorderPainter, innerBorderPainter);
 

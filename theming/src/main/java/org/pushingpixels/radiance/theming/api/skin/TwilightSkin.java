@@ -29,23 +29,23 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.DelegateFractionBasedBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.*;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -58,22 +58,6 @@ public class TwilightSkin extends RadianceSkin {
      * Display name for <code>this</code> skin.
      */
     public static final String NAME = "Twilight";
-
-    /**
-     * Overlay painter to paint a dark line along the bottom edge of the
-     * toolbars.
-     */
-    private BottomLineOverlayPainter toolbarBottomLineOverlayPainter;
-
-    /**
-     * Overlay painter to paint a light line along the top edge of the toolbars.
-     */
-    private TopLineOverlayPainter toolbarTopLineOverlayPainter;
-
-    /**
-     * Overlay painter to paint a bezel line along the top edge of the footer.
-     */
-    private TopBezelOverlayPainter footerTopBezelOverlayPainter;
 
     /**
      * Creates a new <code>Twilight</code> skin.
@@ -180,48 +164,217 @@ public class TwilightSkin extends RadianceSkin {
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        // Add overlay painters to paint drop shadows along the bottom
-        // edges of toolbars and footers
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), RadianceThemingSlices.DecorationAreaType.FOOTER);
-
-        // add an overlay painter to paint a dark line along the bottom
-        // edge of toolbars
-        this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                        ColorTransform.brightness(-0.5f)));
-        this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add an overlay painter to paint a dark line along the bottom
-        // edge of toolbars
-        this.toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
-                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
-                        ColorTransform.alpha(32)));
-        this.addOverlayPainter(this.toolbarTopLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add an overlay painter to paint a bezel line along the top
-        // edge of footer
-        this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                        ColorTransform.brightness(-0.5f)),
-                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
-                        ColorTransform.alpha(32)));
-        this.addOverlayPainter(this.footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
+        this.configureOverlayPainters();
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new FractionBasedFillPainter("Twilight",
-                new float[]{0.0f, 0.5f, 1.0f},
-                new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.ULTRALIGHT,
-                        ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.LIGHT});
+            new float[]{0.0f, 0.5f, 1.0f},
+            new ColorSchemeSingleColorQuery[]{
+                ColorSchemeSingleColorQuery.ULTRALIGHT,
+                ColorSchemeSingleColorQuery.LIGHT,
+                ColorSchemeSingleColorQuery.LIGHT});
         this.decorationPainter = new MatteDecorationPainter();
         this.highlightFillPainter = new ClassicFillPainter();
         this.borderPainter = new CompositeBorderPainter("Twilight", new ClassicBorderPainter(),
-                new DelegateFractionBasedBorderPainter("Twilight Inner", new ClassicBorderPainter(),
-                        new int[]{0x40FFFFFF, 0x20FFFFFF, 0x00FFFFFF},
-                        scheme -> scheme.tint(0.2f)));
+            new DelegateFractionBasedBorderPainter("Twilight Inner", new ClassicBorderPainter(),
+                new int[]{0x40FFFFFF, 0x20FFFFFF, 0x00FFFFFF},
+                scheme -> scheme.tint(0.2f)));
+    }
+
+    void configureOverlayPainters() {
+        // Add overlay painters to paint drop shadows along the bottom
+        // edges of toolbars and footers
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR, RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+        // add an overlay painter to paint a dark line along the bottom
+        // edge of toolbars
+        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+            ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                ColorTransform.brightness(-0.5f)));
+        this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // add an overlay painter to paint a light line along the top
+        // edge of toolbars
+        RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
+            ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                ColorTransform.alpha(32)));
+        this.addOverlayPainter(toolbarTopLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // add an overlay painter to paint a bezel line along the top
+        // edge of footer
+        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+            ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                ColorTransform.brightness(-0.5f)),
+            ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                ColorTransform.alpha(32)));
+        this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
     }
 
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class TwilightTonalSkin extends TwilightSkin implements TonalSkin {
+        public static final String NAME = "Twilight Tonal";
+
+        public TwilightTonalSkin() {
+            SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
+            // Set up token resolution overlays
+            SchemeColorResolver twilightColorResolver = defaultSchemeColorResolver.overlayWith(
+                SchemeColorResolverOverlay.builder()
+                    // For neutral containers, use the text / icon colors from the muted containers
+                    // for better visual consistency
+                    .neutralContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .onContainer(DynamicScheme::getOnMutedContainer)
+                            .onContainerVariant(DynamicScheme::getOnMutedContainerVariant)
+                            .build())
+                    // For muted containers (enabled controls), use higher alpha values for disabled
+                    // controls for better contrast.
+                    .mutedContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .containerSurfaceDisabledAlpha((s) -> 0.5f)
+                            .onContainerDisabledAlpha((s) -> 0.6f)
+                            .containerOutlineDisabledAlpha((s) -> 0.55f)
+                            .build())
+                    // For tonal containers (active controls), use higher alpha values for disabled
+                    // controls for better contrast. Also use muted outlines for border consistency
+                    // with enabled controls.
+                    .tonalContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .containerOutline(DynamicScheme::getMutedContainerOutline)
+                            .containerOutlineVariant(DynamicScheme::getMutedContainerOutlineVariant)
+                            .containerSurfaceDisabledAlpha((s) -> 0.4f)
+                            .onContainerDisabledAlpha((s) -> 0.6f)
+                            .containerOutlineDisabledAlpha((s) -> 0.55f)
+                            .build())
+                    .build());
+
+            PaletteContainerColorsResolver defaultPaletteContainerColorResolver =
+                PaletteResolverUtils.getPaletteTonalColorResolver();
+            PaletteContainerColorsResolver twilightPaletteContainerColorResolver =
+                defaultPaletteContainerColorResolver.overlayWith(
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .containerOutline(DynamicPalette::getOnTonalContainer)
+                        .containerOutlineVariant(DynamicPalette::getOnTonalContainerVariant)
+                        .build());
+
+            RadianceColorScheme2 twilightColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF8F8B7A), Hct.fromInt(0xFF3B3A32), Hct.fromInt(0xFF48443B)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isPrimaryDark */ false,
+                /* isTonalDark */ false,
+                /* isMutedDark */ true,
+                /* isNeutralDark */ true,
+                /* isSystemDark */ true,
+                /* contrastLevel */ -0.1f,
+                /* schemeColorResolver */ twilightColorResolver);
+
+            ContainerColorTokens twilightSelectedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF91865D),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ -0.1f,
+                    /* colorResolver */ twilightPaletteContainerColorResolver);
+            ContainerColorTokens twilightSelectedHighlightContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF6B675A),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false);
+
+            RadianceColorSchemeBundle2 twilightDefaultBundle =
+                new RadianceColorSchemeBundle2(twilightColorScheme);
+            // More saturated seed for controls in selected state
+            twilightDefaultBundle.registerActiveContainerTokens(twilightSelectedContainerTokens,
+                ComponentState.SELECTED);
+            // And less saturated seed for selected highlights
+            twilightDefaultBundle.registerActiveContainerTokens(
+                twilightSelectedHighlightContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.SELECTED);
+            this.registerDecorationAreaSchemeBundle(twilightDefaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
+
+//            // Toolbars, footers, control panes
+//            this.registerAsDecorationArea(
+//                ColorSchemeUtils.getExtendedContainerTokens(
+//                    /* seed */ Hct.fromInt(0xFF22252A),
+//                    /* isFidelity */ true,
+//                    /* isDark */ true),
+//                RadianceThemingSlices.DecorationAreaType.FOOTER,
+//                RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+//                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+//
+//            // Headers
+//            this.registerAsDecorationArea(
+//                ColorSchemeUtils.getExtendedContainerTokens(
+//                    /* seed */ Hct.fromInt(0xFF22252A),
+//                    /* isFidelity */ true,
+//                    /* isDark */ true,
+//                    /* contrastLevel */ 0.6f,
+//                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+//                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+//                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+//                RadianceThemingSlices.DecorationAreaType.HEADER);
+
+            this.buttonShaper = new ClassicButtonShaper();
+            this.fillPainter = new FractionBasedTonalFillPainter("Twilight",
+                new float[] {0.0f, 0.5f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokensSingleColorQuery.blend(
+                        ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+                        ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+                        0.4f),
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE});
+            this.decorationPainter = new FlatDecorationPainter();
+            this.highlightFillPainter = new ClassicTonalFillPainter();
+            this.borderPainter = new CompositeBorderPainter("Twilight",
+                new ClassicTonalBorderPainter(),
+                new DelegateFractionBasedTonalBorderPainter(
+                    "Twilight Inner", new SubduedTonalBorderPainter(),
+                    new int[]{0x50FFFFFF, 0x30FFFFFF, 0x30FFFFFF},
+                    colorTokens -> ColorSchemeUtils.tint(colorTokens, 0.3f)));
+        }
+
+        @Override
+        void configureOverlayPainters() {
+            // Add overlay painters to paint drop shadows along the bottom
+            // edges of toolbars and footers
+            this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR, RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+            // add an overlay painter to paint a dark line along the bottom
+            // edge of toolbars
+            RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT);
+            this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+            // add an overlay painter to paint a light line along the top
+            // edge of toolbars
+            RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineTonalOverlayPainter(
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ColorTransform.alpha(32)));
+            this.addOverlayPainter(toolbarTopLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+            // add an overlay painter to paint a bezel line along the top
+            // edge of footer
+            RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
+                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT,
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ColorTransform.alpha(72)));
+            this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
+        }
+
+        @Override
+        public String getDisplayName() {
+            return TwilightTonalSkin.NAME;
+        }
     }
 }
