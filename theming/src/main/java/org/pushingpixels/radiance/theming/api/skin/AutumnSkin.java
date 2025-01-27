@@ -197,7 +197,10 @@ public class AutumnSkin extends RadianceSkin {
 				/* isMutedDark */ false,
 				/* isNeutralDark */ false,
 				/* isSystemDark */ false,
-				/* contrastLevel */ 0.0f,
+				/* primaryContrastLevel */ 0.0f,
+				/* tonalContrastLevel */ 0.0f,
+				/* mutedContrastLevel */ 0.0f,
+				/* neutralContrastLevel */ 0.0f,
 				/* schemeColorResolver */ autumnColorResolver);
 
 			RadianceColorSchemeBundle2 autumnDefaultBundle =
@@ -247,7 +250,10 @@ public class AutumnSkin extends RadianceSkin {
 				/* isMutedDark */ false,
 				/* isNeutralDark */ false,
 				/* isSystemDark */ false,
-				/* contrastLevel */ 0.0f,
+				/* primaryContrastLevel */ 0.0f,
+				/* tonalContrastLevel */ 0.0f,
+				/* mutedContrastLevel */ 0.0f,
+				/* neutralContrastLevel */ 0.0f,
 				/* schemeColorResolver */ autumnColorResolver);
 			RadianceColorSchemeBundle2 autumnControlPaneBundle =
 				new RadianceColorSchemeBundle2(autumnControlPaneColorScheme);

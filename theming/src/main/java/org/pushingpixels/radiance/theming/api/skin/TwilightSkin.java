@@ -270,7 +270,10 @@ public class TwilightSkin extends RadianceSkin {
                 /* isMutedDark */ true,
                 /* isNeutralDark */ true,
                 /* isSystemDark */ true,
-                /* contrastLevel */ -0.1f,
+                /* primaryContrastLevel */ 0.0f,
+                /* tonalContrastLevel */ 0.2f,
+                /* mutedContrastLevel */ -0.1f,
+                /* neutralContrastLevel */ -0.1f,
                 /* schemeColorResolver */ twilightColorResolver);
 
             ContainerColorTokens twilightSelectedContainerTokens =

@@ -366,7 +366,7 @@ public class ColorSchemeUtils {
         RadianceThemingSlices.ActiveContainerType activeContainerType,
         boolean isDark) {
         return getColorScheme(palettesSource, activeContainerType,
-            isDark, isDark, isDark, isDark, isDark, 0.0f,
+            isDark, isDark, isDark, isDark, isDark, 0.0f, 0.0f, 0.0f, 0.0f,
             SchemeResolverUtils.getSchemeColorResolver());
     }
 
@@ -375,7 +375,8 @@ public class ColorSchemeUtils {
         RadianceThemingSlices.ActiveContainerType activeContainerType,
         boolean isPrimaryDark, boolean isTonalDark, boolean isMutedDark, boolean isNeutralDark,
         boolean isSystemDark,
-        double contrastLevel,
+        double primaryContrastLevel, double tonalContrastLevel,
+        double mutedContrastLevel, double neutralContrastLevel,
         SchemeColorResolver schemeColorResolver) {
 
         Palettes palettes = palettesSource.getPalettes();
@@ -389,7 +390,10 @@ public class ColorSchemeUtils {
             /* isTonalDark */ isTonalDark,
             /* isMutedDark */ isMutedDark,
             /* isNeutralDark */ isNeutralDark,
-            /* contrastLevel */ contrastLevel,
+            /* primaryContrastLevel */ primaryContrastLevel,
+            /* tonalContrastLevel */ tonalContrastLevel,
+            /* mutedContrastLevel */ mutedContrastLevel,
+            /* neutralContrastLevel */ neutralContrastLevel,
             /* primaryPalette */ palettes.getPrimaryPalette(),
             /* mutedPalette */ palettes.getMutedPalette(),
             /* neutralPalette */ palettes.getNeutralPalette());

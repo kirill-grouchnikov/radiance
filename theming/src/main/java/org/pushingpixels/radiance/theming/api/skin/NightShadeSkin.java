@@ -215,7 +215,10 @@ public class NightShadeSkin extends RadianceSkin {
                 /* isMutedDark */ true,
                 /* isNeutralDark */ true,
                 /* isSystemDark */ true,
-                /* contrastLevel */ 0.5f,
+                /* primaryContrastLevel */ 0.5f,
+                /* tonalContrastLevel */ 0.5f,
+                /* mutedContrastLevel */ 0.5f,
+                /* neutralContrastLevel */ 0.5f,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
             ContainerColorTokens nightShadeSelectedContainerTokens =
