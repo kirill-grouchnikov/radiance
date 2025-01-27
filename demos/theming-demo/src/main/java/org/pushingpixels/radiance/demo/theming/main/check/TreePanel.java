@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.se;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTreeCellRenderer;
 
@@ -37,6 +38,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -185,7 +187,10 @@ public class TreePanel extends ControllablePanel {
 
         final JCheckBox rendererCB = new JCheckBox("has custom renderer");
         rendererCB.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
-            if (rendererCB.isSelected()) {
+            boolean isRadiance = UIManager.getLookAndFeel() instanceof RadianceLookAndFeel;
+            if (!isRadiance) {
+                tree.setCellRenderer(new DefaultTreeCellRenderer());
+            } else if (rendererCB.isSelected()) {
                 tree.setCellRenderer(new TestTreeCellRenderer());
             } else {
                 tree.setCellRenderer(new RadianceDefaultTreeCellRenderer());
