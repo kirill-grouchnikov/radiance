@@ -161,7 +161,8 @@ public class TwilightSkin extends RadianceSkin {
         RadianceColorScheme headerBackgroundScheme = schemes.get("Twilight Header Background");
 
         this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerBackgroundScheme,
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.configureOverlayPainters();
@@ -281,10 +282,11 @@ public class TwilightSkin extends RadianceSkin {
                     /* colorResolver */ twilightPaletteContainerColorResolver);
             ContainerColorTokens twilightSelectedHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF6B675A),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* seed */ Hct.fromInt(0xFF8F8B7A),
                     /* isFidelity */ true,
-                    /* isDark */ false);
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.0f,
+                    /* colorResolver */ twilightPaletteContainerColorResolver);
 
             RadianceColorSchemeBundle2 twilightDefaultBundle =
                 new RadianceColorSchemeBundle2(twilightColorScheme);
@@ -318,27 +320,34 @@ public class TwilightSkin extends RadianceSkin {
             this.registerDecorationAreaSchemeBundle(twilightDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
-//            // Toolbars, footers, control panes
-//            this.registerAsDecorationArea(
-//                ColorSchemeUtils.getExtendedContainerTokens(
-//                    /* seed */ Hct.fromInt(0xFF22252A),
-//                    /* isFidelity */ true,
-//                    /* isDark */ true),
-//                RadianceThemingSlices.DecorationAreaType.FOOTER,
-//                RadianceThemingSlices.DecorationAreaType.TOOLBAR,
-//                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
-//
-//            // Headers
-//            this.registerAsDecorationArea(
-//                ColorSchemeUtils.getExtendedContainerTokens(
-//                    /* seed */ Hct.fromInt(0xFF22252A),
-//                    /* isFidelity */ true,
-//                    /* isDark */ true,
-//                    /* contrastLevel */ 0.6f,
-//                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
-//                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-//                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-//                RadianceThemingSlices.DecorationAreaType.HEADER);
+            // Toolbars, footers
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF45433A),
+                    /* isFidelity */ true,
+                    /* isDark */ true),
+                RadianceThemingSlices.DecorationAreaType.FOOTER,
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+            // Control panes
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF504E45),
+                    /* isFidelity */ true,
+                    /* isDark */ true),
+                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+
+            // Headers
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF0E0E0E),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.4f,
+                    /* colorResolver */ defaultPaletteContainerColorResolver),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.HEADER);
 
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new FractionBasedTonalFillPainter("Twilight",

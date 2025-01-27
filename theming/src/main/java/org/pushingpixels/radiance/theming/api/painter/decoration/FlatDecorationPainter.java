@@ -59,8 +59,7 @@ public class FlatDecorationPainter implements RadianceDecorationPainter {
 			RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
 			RadianceSkin skin) {
 
-		graphics.setColor(RadianceCoreUtilities.getBackgroundFill(skin,
-			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE));
+		graphics.setColor(RadianceCoreUtilities.getBackgroundFill(skin, decorationAreaType));
 		graphics.fillRect(0, 0, width, height);
 	}
 
