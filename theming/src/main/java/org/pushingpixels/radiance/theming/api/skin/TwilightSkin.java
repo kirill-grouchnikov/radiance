@@ -296,6 +296,25 @@ public class TwilightSkin extends RadianceSkin {
                 twilightSelectedHighlightContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.SELECTED);
+            // Selected tabs with tonal (not muted) outlines
+            twilightDefaultBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF91865D),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ -0.1f,
+                    /* colorResolver */ defaultPaletteContainerColorResolver),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
+                ComponentState.SELECTED);
+            twilightDefaultBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF8F8B7A),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ -0.1f,
+                    /* colorResolver */ defaultPaletteContainerColorResolver),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
+                ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_UNSELECTED);
             this.registerDecorationAreaSchemeBundle(twilightDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 

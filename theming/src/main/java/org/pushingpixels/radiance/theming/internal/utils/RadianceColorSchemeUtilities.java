@@ -160,12 +160,8 @@ public class RadianceColorSchemeUtilities {
             RadianceCoreUtilities.traceRadianceApiUsage(jtp,
                 "Radiance delegate used when Radiance is not the current LAF");
         }
-        // TODO: TONAL - container type
         ContainerColorTokens nonColorized = skin.getContainerTokens(jtp, associationKind,
-            componentState,
-            (tabIndex == jtp.getSelectedIndex())
-                ? RadianceThemingSlices.ContainerType.TONAL
-                : RadianceThemingSlices.ContainerType.MUTED);
+            componentState, RadianceThemingSlices.ContainerType.MUTED);
         return nonColorized;
         // TODO: TONAL - colorization
 //        if (tabIndex >= 0) {
