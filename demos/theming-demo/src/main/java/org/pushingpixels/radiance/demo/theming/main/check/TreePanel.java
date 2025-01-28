@@ -137,7 +137,9 @@ public class TreePanel extends ControllablePanel {
         });
         this.tree.setDropMode(DropMode.ON);
 
-        RadianceThemingCortex.ComponentScope.setAutomaticDragAndDropSupportPresence(this.tree, true);
+        if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
+            RadianceThemingCortex.ComponentScope.setAutomaticDragAndDropSupportPresence(this.tree, true);
+        }
         this.jsp = new JScrollPane(this.tree);
         this.jsp.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.add(this.jsp, BorderLayout.CENTER);
@@ -219,5 +221,19 @@ public class TreePanel extends ControllablePanel {
 
         this.controlPanel = builder.build();
         // this.tree.setEditable(true);
+    }
+
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        if (this.tree == null) {
+            return;
+        }
+        if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
+            RadianceThemingCortex.ComponentScope.setAutomaticDragAndDropSupportPresence(this.tree, true);
+        } else {
+            tree.setCellRenderer(new DefaultTreeCellRenderer());
+            RadianceThemingCortex.ComponentScope.setAutomaticDragAndDropSupportPresence(this.tree, false);
+        }
     }
 }
