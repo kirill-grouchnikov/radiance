@@ -347,7 +347,7 @@ public class RadianceTextUtilities {
                     .getOnContainerDisabledAlpha()
                 : 1.0f);
 
-        return RadianceColorUtilities.getAlphaColor(fgColor, (int) (255.0f * fgAlpha));
+        return RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * fgAlpha));
     }
 
     /**
@@ -387,7 +387,7 @@ public class RadianceTextUtilities {
 //            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(component);
 //            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, fgAlpha);
 //        }
-        return RadianceColorUtilities.getAlphaColor(fgColor, (int) (255.0f * fgAlpha));
+        return RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * fgAlpha));
     }
 
     /**

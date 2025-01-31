@@ -51,4 +51,10 @@ public class RadianceMagellanLookAndFeel extends RadianceLookAndFeel {
 	public RadianceMagellanLookAndFeel() {
 		super(new MagellanSkin());
 	}
+
+	public static class RadianceMagellanTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceMagellanTonalLookAndFeel() {
+			super(new MagellanSkin.MagellanTonalSkin());
+		}
+	}
 }

@@ -135,6 +135,9 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(TwilightSkin.TwilightTonalSkin.NAME,
             TwilightSkin.TwilightTonalSkin.class::getName,
             RadianceTwilightLookAndFeel.RadianceTwilightTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(MagellanSkin.MagellanTonalSkin.NAME,
+            MagellanSkin.MagellanTonalSkin.class::getName,
+            RadianceMagellanLookAndFeel.RadianceMagellanTonalLookAndFeel.class::getName));
 
         return result;
     }

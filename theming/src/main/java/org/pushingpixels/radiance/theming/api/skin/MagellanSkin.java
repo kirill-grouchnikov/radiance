@@ -29,21 +29,21 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.*;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -56,27 +56,6 @@ public class MagellanSkin extends RadianceSkin {
      * Display name for <code>this</code> skin.
      */
     public static final String NAME = "Magellan";
-
-    /**
-     * Overlay painter to paint a dark line along the bottom edge of the
-     * toolbars.
-     */
-    private BottomLineOverlayPainter toolbarBottomLineOverlayPainter;
-
-    /**
-     * Overlay painter to paint a light line along the top edge of the toolbars.
-     */
-    private TopLineOverlayPainter toolbarTopLineOverlayPainter;
-
-    /**
-     * Overlay painter to paint a shadow along the top edge of the footer.
-     */
-    private TopShadowOverlayPainter footerTopShadowOverlayPainter;
-
-    @Override
-    public String getDisplayName() {
-        return NAME;
-    }
 
     /**
      * Creates a new instance of Magellan skin.
@@ -246,29 +225,7 @@ public class MagellanSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(footerColorSchemeBundle,
                 ultraLightBlueBackground, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        // Add overlay painter to paint drop shadows along the bottom
-        // edges of toolbars
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
-                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add an overlay painter to paint a dark line along the bottom
-        // edge of toolbars
-        this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-                ColorSchemeSingleColorQuery.ULTRADARK);
-        this.addOverlayPainter(this.toolbarBottomLineOverlayPainter,
-                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add an overlay painter to paint a light line along the top
-        // edge of toolbars
-        this.toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
-                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
-                        ColorTransform.alpha(40)));
-        this.addOverlayPainter(this.toolbarTopLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add an overlay painter to paint a bezel line along the top
-        // edge of footer
-        this.footerTopShadowOverlayPainter = TopShadowOverlayPainter.getInstance(100);
-        this.addOverlayPainter(this.footerTopShadowOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
+        this.configureOverlayPainters();
 
         RadianceBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
                 "Magellan Outer", new float[]{0.0f, 0.5f, 1.0f},
@@ -291,5 +248,232 @@ public class MagellanSkin extends RadianceSkin {
         this.highlightFillPainter = new ClassicFillPainter();
         this.decorationPainter = new MatteDecorationPainter();
         this.buttonShaper = new ClassicButtonShaper();
+    }
+
+
+    void configureOverlayPainters() {
+        // Add overlay painter to paint drop shadows along the bottom
+        // edges of toolbars
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // add an overlay painter to paint a dark line along the bottom
+        // edge of toolbars
+        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+            ColorSchemeSingleColorQuery.ULTRADARK);
+        this.addOverlayPainter(toolbarBottomLineOverlayPainter,
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // add an overlay painter to paint a light line along the top
+        // edge of toolbars
+        RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
+            ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                ColorTransform.alpha(40)));
+        this.addOverlayPainter(toolbarTopLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // add an overlay painter to paint a bezel line along the top
+        // edge of footer
+        RadianceOverlayPainter footerTopShadowOverlayPainter = TopShadowOverlayPainter.getInstance(100);
+        this.addOverlayPainter(footerTopShadowOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
+    }
+
+    @Override
+    public String getDisplayName() {
+        return NAME;
+    }
+
+    public static class MagellanTonalSkin extends MagellanSkin implements TonalSkin {
+        public static final String NAME = "Magellan Tonal";
+
+        public MagellanTonalSkin() {
+            SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
+            // Set up token resolution overlays to use softer (slightly translucent) text / icon
+            // colors
+            SchemeColorResolver magellanColorResolver = defaultSchemeColorResolver.overlayWith(
+                SchemeColorResolverOverlay.builder()
+                    // For neutral containers, use softer text / icon colors
+                    .neutralContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .onContainer((s) -> s.getOnNeutralContainer() & 0xD0FFFFFF)
+                            .onContainerVariant((s) -> s.getOnNeutralContainerVariant() & 0xD0FFFFFF)
+                            .build())
+                    // For muted containers (enabled controls), use softer text / icon colors.
+                    .mutedContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .onContainer((s) -> s.getOnMutedContainer() & 0xE0FFFFFF)
+                            .onContainerVariant((s) -> s.getOnNeutralContainerVariant() & 0xE0FFFFFF)
+                            .build())
+                    // For tonal containers (active controls), use softer text / icon colors.
+                    .tonalContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .onContainer((s) -> s.getOnTonalContainer() & 0xE0FFFFFF)
+                            .onContainerVariant((s) -> s.getOnTonalContainerVariant() & 0xE0FFFFFF)
+                            .build())
+                    .build());
+
+            RadianceColorScheme2 magellanColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF0070DF), Hct.fromInt(0xFF004C92), Hct.fromInt(0xFF005CB7)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isPrimaryDark */ true,
+                /* isTonalDark */ true,
+                /* isMutedDark */ true,
+                /* isNeutralDark */ true,
+                /* isSystemDark */ true,
+                /* primaryContrastLevel */ 0.0f,
+                /* tonalContrastLevel */ -0.1f,
+                /* mutedContrastLevel */ -0.1f,
+                /* neutralContrastLevel */ -0.2f,
+                /* schemeColorResolver */ magellanColorResolver);
+
+            ContainerColorTokens magellanSelectedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF006FDB),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.0,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .onContainer((p) -> p.getOnTonalContainer() & 0xE0FFFFFF)
+                        .onContainerVariant((p) -> p.getOnTonalContainerVariant() & 0xE0FFFFFF)
+                        .build()));
+
+            ContainerColorTokens magellanGreenContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF1EBF00),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false);
+            ContainerColorTokens magellanGreenHighlightSelectedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF00B000),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false);
+            ContainerColorTokens magellanGreenHighlightRolloverContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF00A422),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false);
+
+            RadianceColorSchemeBundle2 magellanDefaultBundle =
+                new RadianceColorSchemeBundle2(magellanColorScheme);
+            // More saturated seed for controls in selected state
+            magellanDefaultBundle.registerActiveContainerTokens(magellanSelectedContainerTokens,
+                ComponentState.SELECTED);
+            // Greens for rollovers
+            magellanDefaultBundle.registerActiveContainerTokens(magellanGreenContainerTokens,
+                ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_UNSELECTED,
+                ComponentState.ROLLOVER_ARMED, ComponentState.ARMED);
+            // Greens for active marks
+            magellanDefaultBundle.registerActiveContainerTokens(magellanGreenContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.getActiveStates());
+            // Greens for highlights
+            magellanDefaultBundle.registerActiveContainerTokens(
+                magellanGreenHighlightSelectedContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.SELECTED);
+            magellanDefaultBundle.registerActiveContainerTokens(
+                magellanGreenHighlightRolloverContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_UNSELECTED);
+            this.registerDecorationAreaSchemeBundle(magellanDefaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
+
+            // Toolbars, control panes
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF004D99),
+                    /* isFidelity */ true,
+                    /* isDark */ true),
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+
+            RadianceColorScheme2 magellanFooterColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF006FDB), Hct.fromInt(0xFFA0D8F7), Hct.fromInt(0xFF9DD2FF)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isPrimaryDark */ true,
+                /* isTonalDark */ true,
+                /* isMutedDark */ false,
+                /* isNeutralDark */ false,
+                /* isSystemDark */ false,
+                /* primaryContrastLevel */ 0.0f,
+                /* tonalContrastLevel */ 0.0f,
+                /* mutedContrastLevel */ 0.0f,
+                /* neutralContrastLevel */ 0.0f,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+            RadianceColorSchemeBundle2 magellanFooterBundle =
+                new RadianceColorSchemeBundle2(magellanFooterColorScheme);
+            this.registerDecorationAreaSchemeBundle(magellanFooterBundle,
+                RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+            // Headers
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF003367),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.4f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.HEADER);
+
+            this.buttonShaper = new ClassicButtonShaper();
+            this.fillPainter = new FractionBasedTonalFillPainter("Magellan",
+                new float[] {0.0f, 0.3f, 0.6f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokensSingleColorQuery.blend(
+                        ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGHEST,
+                        ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+                        0.6f),
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST});
+
+            this.decorationPainter = new FlatDecorationPainter();
+            this.highlightFillPainter = new ClassicTonalFillPainter();
+
+            this.borderPainter = new CompositeBorderPainter("Magellan",
+                new FlatTonalBorderPainter(),
+                new DelegateFractionBasedTonalBorderPainter(
+                    "Magellan Inner", new SubduedTonalBorderPainter(),
+                    new int[]{0xA0FFFFFF, 0x80FFFFFF, 0x60FFFFFF},
+                    colorTokens -> ColorSchemeUtils.tint(colorTokens, 0.7f)));
+        }
+
+        @Override
+        void configureOverlayPainters() {
+            // Add overlay painters to paint drop shadows along the bottom edges of toolbars
+            this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+            // add an overlay painter to paint a dark line along the bottom
+            // edge of toolbars
+            RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT);
+            this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+            // add an overlay painter to paint a light line along the top
+            // edge of toolbars
+            RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineTonalOverlayPainter(
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ColorTransform.alpha(96)));
+            this.addOverlayPainter(toolbarTopLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+            // add an overlay painter to paint a bezel line along the top
+            // edge of footer
+            RadianceOverlayPainter footerTopShadowOverlayPainter = TopShadowOverlayPainter.getInstance(100);
+            this.addOverlayPainter(footerTopShadowOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
+        }
+
+        @Override
+        public String getDisplayName() {
+            return MagellanTonalSkin.NAME;
+        }
     }
 }
