@@ -51,4 +51,10 @@ public class RadianceGeminiLookAndFeel extends RadianceLookAndFeel {
 	public RadianceGeminiLookAndFeel() {
 		super(new GeminiSkin());
 	}
+
+	public static class RadianceGeminiTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceGeminiTonalLookAndFeel() {
+			super(new GeminiSkin.GeminiTonalSkin());
+		}
+	}
 }
