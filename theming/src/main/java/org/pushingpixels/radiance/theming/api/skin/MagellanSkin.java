@@ -333,14 +333,27 @@ public class MagellanSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 0.0,
                     /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-                    PaletteContainerColorsResolverOverlay.builder()
-                        .onContainer((p) -> p.getOnTonalContainer() & 0xE0FFFFFF)
-                        .onContainerVariant((p) -> p.getOnTonalContainerVariant() & 0xE0FFFFFF)
-                        .build()));
+                        PaletteContainerColorsResolverOverlay.builder()
+                            .onContainer((p) -> p.getOnTonalContainer() & 0xE0FFFFFF)
+                            .onContainerVariant((p) -> p.getOnTonalContainerVariant() & 0xE0FFFFFF)
+                            .build()));
+
+            ContainerColorTokens magellanPressedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF00AEB8),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false);
 
             ContainerColorTokens magellanGreenContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF1EBF00),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false);
+            ContainerColorTokens magellanGreenRolloverContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF00B933),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false);
@@ -362,13 +375,32 @@ public class MagellanSkin extends RadianceSkin {
             // More saturated seed for controls in selected state
             magellanDefaultBundle.registerActiveContainerTokens(magellanSelectedContainerTokens,
                 ComponentState.SELECTED);
+            // Less saturated seed for controls in pressed states
+            magellanDefaultBundle.registerActiveContainerTokens(magellanPressedContainerTokens,
+                ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
             // Greens for rollovers
             magellanDefaultBundle.registerActiveContainerTokens(magellanGreenContainerTokens,
                 ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_UNSELECTED,
                 ComponentState.ROLLOVER_ARMED, ComponentState.ARMED);
-            // Greens for active marks
+
+            // Marks
             magellanDefaultBundle.registerActiveContainerTokens(magellanGreenContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.SELECTED);
+            magellanDefaultBundle.registerActiveContainerTokens(magellanGreenRolloverContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.ROLLOVER_SELECTED,
+                ComponentState.ROLLOVER_UNSELECTED,
+                ComponentState.ARMED,
+                ComponentState.ROLLOVER_ARMED);
+            magellanDefaultBundle.registerActiveContainerTokens(magellanPressedContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.PRESSED_UNSELECTED,
+                ComponentState.PRESSED_SELECTED);
+
+            // Blues for active tabs
+            magellanDefaultBundle.registerActiveContainerTokens(magellanSelectedContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                 ComponentState.getActiveStates());
             // Greens for highlights
             magellanDefaultBundle.registerActiveContainerTokens(
