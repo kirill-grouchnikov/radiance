@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
@@ -250,7 +251,6 @@ public class MagellanSkin extends RadianceSkin {
         this.buttonShaper = new ClassicButtonShaper();
     }
 
-
     void configureOverlayPainters() {
         // Add overlay painter to paint drop shadows along the bottom
         // edges of toolbars
@@ -436,7 +436,14 @@ public class MagellanSkin extends RadianceSkin {
                 /* tonalContrastLevel */ 0.0f,
                 /* mutedContrastLevel */ 0.0f,
                 /* neutralContrastLevel */ 0.0f,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver().overlayWith(
+                    SchemeColorResolverOverlay.builder()
+                        .mutedContainerResolverOverlay(
+                            SchemeContainerColorsResolverOverlay.builder()
+                                .containerSurfaceLowest(DynamicScheme::getNeutralContainerSurfaceLow)
+                                .build())
+                        .build()
+                ));
             RadianceColorSchemeBundle2 magellanFooterBundle =
                 new RadianceColorSchemeBundle2(magellanFooterColorScheme);
             this.registerDecorationAreaSchemeBundle(magellanFooterBundle,

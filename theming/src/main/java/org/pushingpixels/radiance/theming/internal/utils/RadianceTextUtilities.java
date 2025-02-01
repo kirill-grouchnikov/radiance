@@ -453,8 +453,6 @@ public class RadianceTextUtilities {
                     RadianceThemingSlices.ComponentStateFacet.SELECTION);
                 float rolloverStrength = stateTransitionTracker.getFacetStrength(
                     RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
-                System.out.println(componentForTransitions.getText() + ":" + selectionStrength +
-                    ":" + rolloverStrength);
                 backgroundFillColor = RadianceColorUtilities.getInterpolatedColor(lighterFill,
                     backgroundFillColor, Math.max(selectionStrength, rolloverStrength) / 4.0f);
             }
