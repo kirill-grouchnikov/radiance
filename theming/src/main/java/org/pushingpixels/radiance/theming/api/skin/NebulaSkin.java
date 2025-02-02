@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+
 /**
  * <code>Nebula</code> skin. This class is part of officially supported API.
  *
@@ -52,5 +56,28 @@ public class NebulaSkin extends NebulaAccentedSkin {
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class NebulaTonalSkin extends NebulaAccentedTonalSkin {
+        public static final String NAME = "Nebula Tonal";
+
+        public NebulaTonalSkin() {
+            super(new AccentBuilder()
+                .withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFFBAD2E3), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFD6E3EE)),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isDark */ false))
+                .withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF6B92AF),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ true)));
+        }
+
+        @Override
+        public String getDisplayName() {
+            return NAME;
+        }
     }
 }
