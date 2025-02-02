@@ -55,6 +55,13 @@ public abstract class FractionBasedTonalPainter implements RadianceTrait {
 	protected float[] fractions;
 
 	/**
+	 * The alphas of this painter. Each entry in this array corresponds to the matching entry in
+	 * {@link #fractions} and {@link #colorQueries}. Each entry is applied to the matching
+	 * @link #colorQueries} entry to determine the final color at the {@link #fractions} entry.
+	 */
+	protected int[] alphas;
+
+	/**
 	 * The color queries of this painter. Each entry in this array corresponds
 	 * to the matching index in the {@link #fractions}, specifying which color
 	 * will be used at the relevant gradient control point. If the constructor
@@ -67,26 +74,53 @@ public abstract class FractionBasedTonalPainter implements RadianceTrait {
 	 */
 	protected ContainerColorTokensSingleColorQuery[] colorQueries;
 
+	private static int[] makeDefaultAlphas(int count) {
+		int[] result = new int[count];
+		for (int i = 0; i < count; i++) {
+			result[i] = 255;
+		}
+		return result;
+	}
+
 	/**
-	 * Creates a new fraction-based border painter.
+	 * Creates a new fraction-based painter.
 	 *
 	 * @param displayName
-	 *            The display name of this painter.
+	 *     The display name of this painter.
 	 * @param fractions
-	 *            The fractions of this painter. Must be strictly increasing,
-	 *            starting from 0.0 and ending at 1.0.
+	 *     The fractions of this painter. Must be strictly increasing,
+	 *     starting from 0.0 and ending at 1.0.
 	 * @param colorQueries
-	 *            The color queries of this painter. Must have the same size as
-	 *            the fractions array, and all entries must be non-
-	 *            <code>null</code>.
+	 *     The color queries of this painter. Must have the same size as
+	 *     the fractions array, and all entries must be non-<code>null</code>.
 	 */
-	public FractionBasedTonalPainter(String displayName, float[] fractions,
-			ContainerColorTokensSingleColorQuery[] colorQueries) {
+	protected FractionBasedTonalPainter(String displayName, float[] fractions,
+		ContainerColorTokensSingleColorQuery[] colorQueries) {
+		this(displayName, fractions, makeDefaultAlphas(fractions.length), colorQueries);
+	}
+
+	/**
+	 * Creates a new fraction-based painter.
+	 *
+	 * @param displayName
+	 *     The display name of this painter.
+	 * @param fractions
+	 *     The fractions of this painter. Must be strictly increasing,
+	 *     starting from 0.0 and ending at 1.0.
+	 * @param alphas
+	 *     Alpha channels of this painter. Must have the same size as fractions.
+	 * @param colorQueries
+	 *     The color queries of this painter. Must have the same size as
+	 *     the fractions array, and all entries must be non-<code>null</code>.
+	 */
+	protected FractionBasedTonalPainter(String displayName, float[] fractions,
+		int[] alphas, ContainerColorTokensSingleColorQuery[] colorQueries) {
+
 		this.displayName = displayName;
-		if ((fractions == null) || (colorQueries == null)) {
+		if ((fractions == null) || (alphas == null) || (colorQueries == null)) {
 			throw new IllegalArgumentException("Cannot pass null arguments");
 		}
-		if (fractions.length != colorQueries.length) {
+		if ((fractions.length != alphas.length) || (fractions.length != colorQueries.length)) {
 			throw new IllegalArgumentException("Argument length does not match");
 		}
 		int length = fractions.length;
@@ -105,10 +139,12 @@ public abstract class FractionBasedTonalPainter implements RadianceTrait {
 				throw new IllegalArgumentException("Cannot pass null query");
 			}
 		}
-		this.colorQueries = new ContainerColorTokensSingleColorQuery[length];
-		System.arraycopy(colorQueries, 0, this.colorQueries, 0, length);
 		this.fractions = new float[length];
 		System.arraycopy(fractions, 0, this.fractions, 0, length);
+		this.alphas = new int[length];
+		System.arraycopy(alphas, 0, this.alphas, 0, length);
+		this.colorQueries = new ContainerColorTokensSingleColorQuery[length];
+		System.arraycopy(colorQueries, 0, this.colorQueries, 0, length);
 	}
 
 	@Override
@@ -124,6 +160,12 @@ public abstract class FractionBasedTonalPainter implements RadianceTrait {
 	public float[] getFractions() {
 		float[] result = new float[this.fractions.length];
 		System.arraycopy(this.fractions, 0, result, 0, this.fractions.length);
+		return result;
+	}
+
+	public int[] getAlphas() {
+		int[] result = new int[this.alphas.length];
+		System.arraycopy(this.alphas, 0, result, 0, this.alphas.length);
 		return result;
 	}
 

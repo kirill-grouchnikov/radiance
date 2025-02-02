@@ -390,10 +390,14 @@ public class GeminiSkin extends RadianceSkin {
 
             this.borderPainter = new CompositeBorderPainter("Gemini",
                 new FlatTonalBorderPainter(),
-                new DelegateFractionBasedTonalBorderPainter(
-                    "Gemini Inner", new FlatTonalBorderPainter(),
-                    new int[]{0xA0FFFFFF, 0x80FFFFFF, 0x60FFFFFF},
-                    colorTokens -> ColorSchemeUtils.tint(colorTokens, 0.7f)));
+                new FractionBasedTonalBorderPainter("Gemini Inner",
+                    new float[] {0.0f, 0.5f, 1.0f},
+                    new int[] {96, 64, 32},
+                    new ContainerColorTokensSingleColorQuery[] {
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+                    }));
             this.highlightBorderPainter = new FlatTonalBorderPainter();
         }
 

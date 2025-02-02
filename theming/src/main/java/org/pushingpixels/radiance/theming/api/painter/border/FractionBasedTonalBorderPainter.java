@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowButton;
 
 import java.awt.*;
@@ -61,8 +62,27 @@ public class FractionBasedTonalBorderPainter extends FractionBasedTonalPainter
 	 *            <code>null</code>.
 	 */
 	public FractionBasedTonalBorderPainter(String displayName, float[] fractions,
-			ContainerColorTokensSingleColorQuery[] colorQueries) {
+		ContainerColorTokensSingleColorQuery[] colorQueries) {
 		super(displayName, fractions, colorQueries);
+	}
+
+	/**
+	 * Creates a new fraction-based border painter.
+	 *
+	 * @param displayName
+	 *            The display name of this painter.
+	 * @param fractions
+	 *            The fractions of this painter. Must be strictly increasing,
+	 *            starting from 0.0 and ending at 1.0.
+	 * @param alphas Alpha channels of this painter. Must have the same size as fractions.
+	 * @param colorQueries
+	 *            The color queries of this painter. Must have the same size as
+	 *            the fractions array, and all entries must be non-
+	 *            <code>null</code>.
+	 */
+	public FractionBasedTonalBorderPainter(String displayName, float[] fractions,
+		int[] alphas, ContainerColorTokensSingleColorQuery[] colorQueries) {
+		super(displayName, fractions, alphas, colorQueries);
 	}
 
 	@Override
@@ -76,7 +96,11 @@ public class FractionBasedTonalBorderPainter extends FractionBasedTonalPainter
 		Color[] drawColors = new Color[this.fractions.length];
 		for (int i = 0; i < this.fractions.length; i++) {
 			ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
-			drawColors[i] = colorQuery.query(colorTokens);
+			Color fromQuery = colorQuery.query(colorTokens);
+			int alpha = this.alphas[i];
+			int finalAlpha = fromQuery.getAlpha() * alpha / 255;
+			Color finalColor = RadianceColorUtilities.getAlphaColor(fromQuery, finalAlpha);
+			drawColors[i] = finalColor;
 		}
 
 		// issue 433 - the "c" can be null when painting

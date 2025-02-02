@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -140,10 +141,14 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 		ExtendedContainerColorTokens colorTokens) {
 
 		Graphics2D g2d = (Graphics2D) graphics.create();
-		Color[] fillColors = new Color[this.fractions.length];
+		Color[] drawColors = new Color[this.fractions.length];
 		for (int i = 0; i < this.fractions.length; i++) {
 			ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
-			fillColors[i] = colorQuery.query(colorTokens.getBaseContainerTokens());
+			Color fromQuery = colorQuery.query(colorTokens.getBaseContainerTokens());
+			int alpha = this.alphas[i];
+			int finalAlpha = fromQuery.getAlpha() * alpha / 255;
+			Color finalColor = RadianceColorUtilities.getAlphaColor(fromQuery, finalAlpha);
+			drawColors[i] = finalColor;
 		}
 
 		Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
@@ -154,8 +159,8 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 		int dy = inTopMost.y;
 
 		MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0,
-				topMostWithSameDecorationAreaType.getHeight(), this.fractions,
-				fillColors, CycleMethod.REPEAT);
+			topMostWithSameDecorationAreaType.getHeight(), this.fractions,
+			drawColors, CycleMethod.REPEAT);
 		g2d.setPaint(gradient);
 		g2d.translate(0, -dy);
 		g2d.fillRect(0, 0, width, topMostWithSameDecorationAreaType.getHeight());
@@ -168,10 +173,14 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 		ExtendedContainerColorTokens colorTokens) {
 
 		Graphics2D g2d = (Graphics2D) graphics.create();
-		Color[] fillColors = new Color[this.fractions.length];
+		Color[] drawColors = new Color[this.fractions.length];
 		for (int i = 0; i < this.fractions.length; i++) {
 			ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
-			fillColors[i] = colorQuery.query(colorTokens.getBaseContainerTokens());
+			Color fromQuery = colorQuery.query(colorTokens.getBaseContainerTokens());
+			int alpha = this.alphas[i];
+			int finalAlpha = fromQuery.getAlpha() * alpha / 255;
+			Color finalColor = RadianceColorUtilities.getAlphaColor(fromQuery, finalAlpha);
+			drawColors[i] = finalColor;
 		}
 
 		Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
@@ -182,8 +191,8 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 		int dy = inTopMost.y;
 
 		MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0,
-				topMostWithSameDecorationAreaType.getHeight(), this.fractions,
-				fillColors, CycleMethod.REPEAT);
+			topMostWithSameDecorationAreaType.getHeight(), this.fractions,
+			drawColors, CycleMethod.REPEAT);
 		g2d.setPaint(gradient);
 		g2d.translate(0, -dy);
 		g2d.fill(contour);

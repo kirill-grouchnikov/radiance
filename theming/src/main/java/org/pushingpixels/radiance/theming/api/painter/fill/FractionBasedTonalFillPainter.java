@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
@@ -65,14 +66,18 @@ public class FractionBasedTonalFillPainter extends FractionBasedTonalPainter imp
             Shape contour, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
 
-        Color[] fillColors = new Color[this.fractions.length];
+        Color[] drawColors = new Color[this.fractions.length];
         for (int i = 0; i < this.fractions.length; i++) {
             ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
-            fillColors[i] = colorQuery.query(colorTokens);
+            Color fromQuery = colorQuery.query(colorTokens);
+            int alpha = this.alphas[i];
+            int finalAlpha = fromQuery.getAlpha() * alpha / 255;
+            Color finalColor = RadianceColorUtilities.getAlphaColor(fromQuery, finalAlpha);
+            drawColors[i] = finalColor;
         }
 
         MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, this.fractions,
-                fillColors, CycleMethod.REPEAT);
+            drawColors, CycleMethod.REPEAT);
         graphics.setPaint(gradient);
         graphics.fill(contour);
         graphics.dispose();
