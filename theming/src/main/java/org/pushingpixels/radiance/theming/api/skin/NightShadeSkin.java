@@ -284,13 +284,10 @@ public class NightShadeSkin extends RadianceSkin {
                 new ClassicTonalBorderPainter(),
                 new FractionBasedTonalBorderPainter("Night Shade Inner",
                     new float[]{0.0f, 1.0f},
+                    new int[] {32, 12},
                     new ContainerColorTokensSingleColorQuery[]{
-                        ContainerColorTokensSingleColorQuery.composite(
-                            ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
-                            ColorTransform.alpha(92)),
-                        ContainerColorTokensSingleColorQuery.composite(
-                            ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
-                            ColorTransform.alpha(32))
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
                     }));
         }
 
