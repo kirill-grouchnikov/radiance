@@ -478,10 +478,14 @@ public class MagellanSkin extends RadianceSkin {
 
             this.borderPainter = new CompositeBorderPainter("Magellan",
                 new FlatTonalBorderPainter(),
-                new DelegateFractionBasedTonalBorderPainter(
-                    "Magellan Inner", new SubduedTonalBorderPainter(),
-                    new int[]{0xA0FFFFFF, 0x80FFFFFF, 0x60FFFFFF},
-                    colorTokens -> ColorSchemeUtils.tint(colorTokens, 0.7f)));
+                new FractionBasedTonalBorderPainter("Magellan Inner",
+                    new float[] {0.0f, 0.5f, 1.0f},
+                    new int[] {112, 80, 64},
+                    new ContainerColorTokensSingleColorQuery[] {
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+                    }));
         }
 
         @Override

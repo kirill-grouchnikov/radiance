@@ -366,10 +366,14 @@ public class TwilightSkin extends RadianceSkin {
             this.highlightFillPainter = new ClassicTonalFillPainter();
             this.borderPainter = new CompositeBorderPainter("Twilight",
                 new ClassicTonalBorderPainter(),
-                new DelegateFractionBasedTonalBorderPainter(
-                    "Twilight Inner", new SubduedTonalBorderPainter(),
-                    new int[]{0x50FFFFFF, 0x30FFFFFF, 0x30FFFFFF},
-                    colorTokens -> ColorSchemeUtils.tint(colorTokens, 0.3f)));
+                new FractionBasedTonalBorderPainter("Twilight Inner",
+                    new float[] {0.0f, 0.5f, 1.0f},
+                    new int[] {32, 24, 24},
+                    new ContainerColorTokensSingleColorQuery[] {
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+                    }));
         }
 
         @Override

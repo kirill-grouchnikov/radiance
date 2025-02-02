@@ -776,6 +776,7 @@ public class ColorSchemeUtils {
         };
     }
 
+    // TODO: TONAL - remove?
     public static ContainerColorTokens tint(ContainerColorTokens original, float tintFactor) {
         return new ContainerColorTokens() {
             @Override
@@ -878,6 +879,7 @@ public class ColorSchemeUtils {
         };
     }
 
+    // TODO: TONAL - remove?
     public static ContainerColorTokens shade(ContainerColorTokens original, float shadeFactor) {
         return new ContainerColorTokens() {
             @Override

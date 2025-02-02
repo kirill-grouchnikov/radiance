@@ -272,10 +272,13 @@ public class AutumnSkin extends RadianceSkin {
 				1.0f);
 			this.borderPainter = new CompositeBorderPainter("Autumn",
 				new SubduedTonalBorderPainter(),
-				new DelegateFractionBasedTonalBorderPainter(
-					"Autumn Inner", new SubduedTonalBorderPainter(),
-					new int[]{0xFFFFFFFF, 0xFFFFFFFF},
-					colorTokens -> ColorSchemeUtils.tint(colorTokens, 0.8f)));
+				new FractionBasedTonalBorderPainter("Autumn Inner",
+					new float[] {0.0f, 1.0f},
+					new int[] {240, 240},
+					new ContainerColorTokensSingleColorQuery[] {
+						ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+						ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+					}));
 
 			this.highlightFillPainter = new FractionBasedTonalFillPainter("Autumn",
 				new float[] {0.0f, 0.5f, 1.0f},

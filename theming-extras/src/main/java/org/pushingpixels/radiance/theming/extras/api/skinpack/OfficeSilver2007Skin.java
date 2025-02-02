@@ -425,10 +425,14 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                     ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
                     ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE
                 });
-            RadianceBorderPainter innerBorderPainter = new DelegateFractionBasedTonalBorderPainter(
-                "Office Silver 2007 Inner", outerBorderPainter,
-                new int[] {0xFFFFFFFF, 0xFFFFFFFF},
-                colorTokens -> ColorSchemeUtils.tint(colorTokens, 0.8f));
+            RadianceBorderPainter innerBorderPainter =
+                new FractionBasedTonalBorderPainter("Office Silver 2007 Inner",
+                    new float[] {0.0f, 1.0f},
+                    new int[] {240, 240},
+                    new ContainerColorTokensSingleColorQuery[] {
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+                    });
             this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
                 outerBorderPainter, innerBorderPainter);
 
