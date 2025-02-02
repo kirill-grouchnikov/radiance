@@ -53,4 +53,6 @@ public interface ContainerColorTokens {
     Color getInverseContainerSurface();
     Color getInverseOnContainer();
     Color getInverseContainerOutline();
+
+    Color getComplementaryContainerOutline();
 }

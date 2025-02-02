@@ -315,7 +315,6 @@ public class GeminiSkin extends RadianceSkin {
                             .build()
                     ));
 
-
             RadianceColorSchemeBundle2 geminiDefaultBundle =
                 new RadianceColorSchemeBundle2(geminiColorScheme);
             // Highlight tokens for controls in selected states
@@ -330,6 +329,7 @@ public class GeminiSkin extends RadianceSkin {
                 geminiHighlightContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
+
             this.registerDecorationAreaSchemeBundle(geminiDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
@@ -414,8 +414,8 @@ public class GeminiSkin extends RadianceSkin {
                 ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE);
             RadianceOverlayPainter toolbarOverlayPainter = new TopLineTonalOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
-                    ColorTransform.alpha(72)));
+                    ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                    ColorTransform.alpha(48)));
             this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
             this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 

@@ -135,13 +135,13 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ false);
 
-			RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
+			RadianceColorSchemeBundle2 businessBlackSteelControlBundle =
 				new RadianceColorSchemeBundle2(controlPaneColorScheme);
-			businessBlueSteelControlBundle.registerActiveContainerTokens(
+			businessBlackSteelControlBundle.registerActiveContainerTokens(
 				getActiveControlsAccent().getActiveContainerTokens(),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
-			this.registerDecorationAreaSchemeBundle(businessBlueSteelControlBundle,
+			this.registerDecorationAreaSchemeBundle(businessBlackSteelControlBundle,
 				controlPaneColorScheme.getExtendedMutedContainerTokens(),
 				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
 				RadianceThemingSlices.DecorationAreaType.FOOTER);

@@ -1057,6 +1057,8 @@ public abstract class RadianceSkin implements RadianceTrait {
             if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
                 return this.tonalColorSchemeMap.get(decorationAreaType)
                     .getContainerTokens(associationKind, componentState, false, inactiveContainerType);
+            } else {
+                return null;
             }
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)

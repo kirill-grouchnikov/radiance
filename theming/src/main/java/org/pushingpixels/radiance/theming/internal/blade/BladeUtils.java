@@ -174,6 +174,10 @@ public class BladeUtils {
             warningColorTokens.getInverseContainerOutline(),
             emergencyColorTokens.getInverseContainerOutline(),
             modificationCyclePosition);
+        bladeContainerTokens.complementaryContainerOutline = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getComplementaryContainerOutline(),
+            emergencyColorTokens.getComplementaryContainerOutline(),
+            modificationCyclePosition);
 
         bladeContainerTokens.combinedName = "[" + warningColorTokens.hashCode() + ":" + modificationCyclePosition
             + "], [" + emergencyColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
@@ -335,6 +339,7 @@ public class BladeUtils {
         Color inverseContainerSurface = currColorTokens.getInverseContainerSurface();
         Color inverseOnContainer = currColorTokens.getInverseOnContainer();
         Color inverseContainerOutline = currColorTokens.getInverseContainerOutline();
+        Color complementaryContainerOutline = currColorTokens.getComplementaryContainerOutline();
 
         nameBuilder.append(currColorTokens.hashCode());
 
@@ -391,6 +396,8 @@ public class BladeUtils {
                     contributionColorTokens.getInverseOnContainer(), 1.0f - amount);
                 inverseContainerOutline = RadianceColorUtilities.getInterpolatedColor(inverseContainerOutline,
                     contributionColorTokens.getInverseContainerOutline(), 1.0f - amount);
+                complementaryContainerOutline = RadianceColorUtilities.getInterpolatedColor(complementaryContainerOutline,
+                    contributionColorTokens.getComplementaryContainerOutline(), 1.0f - amount);
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                         .append(amount).append("]");
@@ -414,6 +421,7 @@ public class BladeUtils {
         bladeContainerTokens.inverseContainerSurface = inverseContainerSurface;
         bladeContainerTokens.inverseOnContainer = inverseOnContainer;
         bladeContainerTokens.inverseContainerOutline = inverseContainerOutline;
+        bladeContainerTokens.complementaryContainerOutline = complementaryContainerOutline;
 
         bladeContainerTokens.combinedName = nameBuilder.toString();
         bladeContainerTokens.isDark = isDark;
@@ -617,6 +625,7 @@ public class BladeUtils {
         Color inverseContainerSurface = currColorTokens.getInverseContainerSurface();
         Color inverseOnContainer = currColorTokens.getInverseOnContainer();
         Color inverseContainerOutline = currColorTokens.getInverseContainerOutline();
+        Color complementaryContainerOutline = currColorTokens.getComplementaryContainerOutline();
 
         nameBuilder.append(currColorTokens.hashCode());
 
@@ -673,6 +682,8 @@ public class BladeUtils {
                     contributionColorTokens.getInverseOnContainer(), 1.0f - amount);
                 inverseContainerOutline = RadianceColorUtilities.getInterpolatedColor(inverseContainerOutline,
                     contributionColorTokens.getInverseContainerOutline(), 1.0f - amount);
+                complementaryContainerOutline = RadianceColorUtilities.getInterpolatedColor(complementaryContainerOutline,
+                    contributionColorTokens.getComplementaryContainerOutline(), 1.0f - amount);
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                         .append(amount).append("]");
@@ -696,6 +707,7 @@ public class BladeUtils {
         bladeContainerTokens.inverseContainerSurface = inverseContainerSurface;
         bladeContainerTokens.inverseOnContainer = inverseOnContainer;
         bladeContainerTokens.inverseContainerOutline = inverseContainerOutline;
+        bladeContainerTokens.complementaryContainerOutline = complementaryContainerOutline;
 
         bladeContainerTokens.combinedName = nameBuilder.toString();
         bladeContainerTokens.isDark = isDark;
@@ -855,6 +867,7 @@ public class BladeUtils {
         Color inverseContainerSurface = currColorTokens.getInverseContainerSurface();
         Color inverseOnContainer = currColorTokens.getInverseOnContainer();
         Color inverseContainerOutline = currColorTokens.getInverseContainerOutline();
+        Color complementaryContainerOutline = currColorTokens.getComplementaryContainerOutline();
 
         nameBuilder.append(currColorTokens.hashCode());
 
@@ -911,6 +924,8 @@ public class BladeUtils {
                     contributionColorTokens.getInverseOnContainer(), 1.0f - amount);
                 inverseContainerOutline = RadianceColorUtilities.getInterpolatedColor(inverseContainerOutline,
                     contributionColorTokens.getInverseContainerOutline(), 1.0f - amount);
+                complementaryContainerOutline = RadianceColorUtilities.getInterpolatedColor(complementaryContainerOutline,
+                    contributionColorTokens.getComplementaryContainerOutline(), 1.0f - amount);
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                     .append(amount).append("]");
@@ -934,6 +949,7 @@ public class BladeUtils {
         bladeContainerTokens.inverseContainerSurface = inverseContainerSurface;
         bladeContainerTokens.inverseOnContainer = inverseOnContainer;
         bladeContainerTokens.inverseContainerOutline = inverseContainerOutline;
+        bladeContainerTokens.complementaryContainerOutline = complementaryContainerOutline;
 
         bladeContainerTokens.combinedName = nameBuilder.toString();
         bladeContainerTokens.isDark = isDark;

@@ -142,8 +142,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 "Tab Dark",
                 new float[]{0.0f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[]{
-                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
-                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE
+                    ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                    ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
                 }
             );
         }

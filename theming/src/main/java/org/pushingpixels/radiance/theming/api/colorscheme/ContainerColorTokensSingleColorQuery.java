@@ -63,6 +63,8 @@ public interface ContainerColorTokensSingleColorQuery {
 		colorTokens.getInverseContainerSurface();
 	ContainerColorTokensSingleColorQuery INVERSE_CONTAINER_OUTLINE = (colorTokens) ->
 		colorTokens.getInverseContainerOutline();
+	ContainerColorTokensSingleColorQuery COMPLEMENTARY_CONTAINER_OUTLINE = (colorTokens) ->
+		colorTokens.getComplementaryContainerOutline();
 
 	static ContainerColorTokensSingleColorQuery composite(
 		ContainerColorTokensSingleColorQuery base, ColorTransform... transforms) {

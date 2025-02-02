@@ -54,6 +54,8 @@ public interface SchemeContainerColorsResolver {
     Color getInverseOnContainer(DynamicScheme dynamicScheme);
     Color getInverseContainerOutline(DynamicScheme dynamicScheme);
 
+    Color getComplementaryContainerOutline(DynamicScheme dynamicScheme);
+
     default SchemeContainerColorsResolver overlayWith(SchemeContainerColorsResolverOverlay overlay) {
         return SchemeResolverUtils.overlayWith(this, overlay);
     }

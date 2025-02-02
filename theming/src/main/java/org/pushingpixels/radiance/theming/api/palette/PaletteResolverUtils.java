@@ -132,6 +132,11 @@ public class PaletteResolverUtils {
                 public Color getInverseContainerOutline(DynamicPalette dynamicPalette) {
                     return new Color(dynamicPalette.getInverseTonalContainerOutline());
                 }
+
+                @Override
+                public Color getComplementaryContainerOutline(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getComplementaryTonalContainerOutline());
+                }
             };
         return result;
     }
@@ -232,6 +237,11 @@ public class PaletteResolverUtils {
                 @Override
                 public Color getInverseContainerOutline(DynamicPalette dynamicPalette) {
                     return new Color(dynamicPalette.getInversePrimaryContainerOutline());
+                }
+
+                @Override
+                public Color getComplementaryContainerOutline(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getComplementaryPrimaryContainerOutline());
                 }
             };
         return result;
@@ -425,6 +435,16 @@ public class PaletteResolverUtils {
                 Function<DynamicPalette, Integer> spec = overlay.getInverseContainerOutline();
                 if (spec == null) {
                     return original.getInverseContainerOutline(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getComplementaryContainerOutline(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getComplementaryContainerOutline();
+                if (spec == null) {
+                    return original.getComplementaryContainerOutline(dynamicPalette);
                 } else {
                     return new Color(spec.apply(dynamicPalette), true);
                 }

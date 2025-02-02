@@ -173,13 +173,14 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 		Color secondary;
 		if (colorTokens.isDark()) {
 			primary = RadianceColorUtilities.getAlphaColor(
-				colorTokens.getInverseContainerOutline(), 160);
+				colorTokens.getComplementaryContainerOutline(), 72);
 			secondary = RadianceColorUtilities.getAlphaColor(
-				colorTokens.getContainerOutline(), 128);
+				colorTokens.getContainerOutlineVariant(), 192);
 		} else {
-			primary = RadianceColorUtilities.getAlphaColor(colorTokens.getContainerOutline(), 160);
+			primary = RadianceColorUtilities.getAlphaColor(
+				colorTokens.getContainerOutline(), 96);
 			secondary = RadianceColorUtilities.getAlphaColor(
-				colorTokens.getInverseContainerOutline(), 32);
+				colorTokens.getComplementaryContainerOutline(), 240);
 		}
 
 		int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);

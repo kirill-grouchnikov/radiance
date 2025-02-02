@@ -460,13 +460,14 @@ public class SeparatorPainterUtils {
                 Color secondary;
                 if (colorTokens.isDark()) {
                     primary = RadianceColorUtilities.getAlphaColor(
-                        colorTokens.getInverseContainerOutline(), 128);
+                        colorTokens.getComplementaryContainerOutline(), 72);
                     secondary = RadianceColorUtilities.getAlphaColor(
-                        colorTokens.getContainerOutline(), 192);
+                        colorTokens.getContainerOutlineVariant(), 192);
                 } else {
-                    primary = colorTokens.getContainerOutlineVariant();
+                    primary = RadianceColorUtilities.getAlphaColor(
+                        colorTokens.getContainerOutline(), 96);
                     secondary = RadianceColorUtilities.getAlphaColor(
-                        colorTokens.getInverseContainerOutline(), 64);
+                        colorTokens.getComplementaryContainerOutline(), 240);
                 }
 
                 Color primaryZero = toUseAlphaColors

@@ -50,6 +50,7 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     public Color inverseContainerSurface = Color.white;
     public Color inverseOnContainer = Color.white;
     public Color inverseContainerOutline = Color.white;
+    public Color complementaryContainerOutline = Color.white;
     public String combinedName = "";
 
     public BladeContainerColorTokens() {
@@ -133,6 +134,11 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     @Override
     public Color getInverseContainerOutline() {
         return this.inverseContainerOutline;
+    }
+
+    @Override
+    public Color getComplementaryContainerOutline() {
+        return this.complementaryContainerOutline;
     }
 
     @Override

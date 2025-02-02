@@ -129,6 +129,11 @@ public class ColorSchemeUtils {
             public Color getInverseContainerOutline() {
                 return tonalContainerColorResolver.getInverseContainerOutline(dynamicScheme);
             }
+
+            @Override
+            public Color getComplementaryContainerOutline() {
+                return tonalContainerColorResolver.getComplementaryContainerOutline(dynamicScheme);
+            }
         };
     }
 
@@ -205,6 +210,7 @@ public class ColorSchemeUtils {
 
         Color inverseOnContainer = original.getInverseOnContainer();
         Color inverseContainerOutline = original.getInverseContainerOutline();
+        Color complementaryContainerOutline = original.getComplementaryContainerOutline();
 
         return new ContainerColorTokens() {
             @Override
@@ -285,6 +291,11 @@ public class ColorSchemeUtils {
             @Override
             public Color getInverseContainerOutline() {
                 return inverseContainerOutline;
+            }
+
+            @Override
+            public Color getComplementaryContainerOutline() {
+                return complementaryContainerOutline;
             }
         };
     }
@@ -704,6 +715,11 @@ public class ColorSchemeUtils {
             public Color getInverseContainerOutline() {
                 return colorResolver.getInverseContainerOutline(dynamicPalette);
             }
+
+            @Override
+            public Color getComplementaryContainerOutline() {
+                return colorResolver.getComplementaryContainerOutline(dynamicPalette);
+            }
         };
     }
 
@@ -853,6 +869,12 @@ public class ColorSchemeUtils {
                 return new Color(Blend.cam16Ucs(original.getInverseContainerOutline().getRGB(),
                     Color.WHITE.getRGB(), tintFactor));
             }
+
+            @Override
+            public Color getComplementaryContainerOutline() {
+                return new Color(Blend.cam16Ucs(original.getComplementaryContainerOutline().getRGB(),
+                    Color.WHITE.getRGB(), tintFactor));
+            }
         };
     }
 
@@ -947,6 +969,12 @@ public class ColorSchemeUtils {
             @Override
             public Color getInverseContainerOutline() {
                 return new Color(Blend.cam16Ucs(original.getInverseContainerOutline().getRGB(),
+                    Color.BLACK.getRGB(), shadeFactor));
+            }
+
+            @Override
+            public Color getComplementaryContainerOutline() {
+                return new Color(Blend.cam16Ucs(original.getComplementaryContainerOutline().getRGB(),
                     Color.BLACK.getRGB(), shadeFactor));
             }
         };
