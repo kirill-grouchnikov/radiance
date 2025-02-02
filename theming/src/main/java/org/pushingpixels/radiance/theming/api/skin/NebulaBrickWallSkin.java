@@ -29,7 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.OrangeColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 
 /**
  * <code>Nebula Brick Wall</code> skin. This class is part of officially supported API.
@@ -52,5 +55,23 @@ public class NebulaBrickWallSkin extends NebulaAccentedSkin {
 	@Override
 	public String getDisplayName() {
 		return NAME;
+	}
+
+	public static class NebulaBrickWallTonalSkin extends NebulaAccentedTonalSkin {
+		public static final String NAME = "Nebula Tonal";
+
+		public NebulaBrickWallTonalSkin() {
+			super(new AccentBuilder()
+				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
+					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+						Hct.fromInt(0xFFBAD2E3), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF6C272)),
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+					/* isDark */ false)));
+		}
+
+		@Override
+		public String getDisplayName() {
+			return NAME;
+		}
 	}
 }

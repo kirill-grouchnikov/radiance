@@ -70,7 +70,7 @@ public abstract class NebulaAccentedTonalSkin extends RadianceSkin.TonalAccented
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 
-		ContainerColorTokens nebulaRolloverContainerTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens nebulaRolloverHighlightContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFF6B92AF),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isFidelity */ true,
@@ -99,7 +99,7 @@ public abstract class NebulaAccentedTonalSkin extends RadianceSkin.TonalAccented
 			ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
 		// Highlights
-		nebulaDefaultBundle.registerActiveContainerTokens(nebulaRolloverContainerTokens,
+		nebulaDefaultBundle.registerActiveContainerTokens(nebulaRolloverHighlightContainerTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_UNSELECTED);
 		nebulaDefaultBundle.registerActiveContainerTokens(nebulaSelectedHighlightContainerTokens,
@@ -123,12 +123,10 @@ public abstract class NebulaAccentedTonalSkin extends RadianceSkin.TonalAccented
 
 		RadianceColorSchemeBundle2 nebulaDefaultHeaderBundle =
 			new RadianceColorSchemeBundle2(this.getWindowChromeAccent());
-		if (this.getWindowChromeHighlightsAccent() != null) {
-			nebulaDefaultHeaderBundle.registerActiveContainerTokens(
-				this.getWindowChromeHighlightsAccent(),
-				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-				ComponentState.getActiveStates());
-		}
+		nebulaDefaultHeaderBundle.registerActiveContainerTokens(
+			nebulaRolloverHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(nebulaDefaultHeaderBundle,
 			nebulaDefaultHeaderBundle.getMainColorScheme().getExtendedNeutralContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,

@@ -144,6 +144,9 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(NebulaSkin.NebulaTonalSkin.NAME,
             NebulaSkin.NebulaTonalSkin.class::getName,
             RadianceNebulaLookAndFeel.RadianceNebulaTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(NebulaBrickWallSkin.NebulaBrickWallTonalSkin.NAME,
+            NebulaBrickWallSkin.NebulaBrickWallTonalSkin.class::getName,
+            RadianceNebulaBrickWallLookAndFeel.RadianceNebulaBrickWallTonalLookAndFeel.class::getName));
 
         return result;
     }
