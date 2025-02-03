@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
 /**
  * <code>Nebula Amethyst</code> skin. This class is part of officially supported API.
@@ -91,9 +92,14 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ false)));
 
-			// Also apply the window chrome accent color on the TOOLBAR area
+			// Also extend the window chrome accent color to the TOOLBAR area
+			RadianceColorScheme2 nebulaToolbarColorScheme = ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFFD264EB), Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD1A9F1)),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isDark */ false);
 			RadianceColorSchemeBundle2 nebulaToolbarBundle =
-				new RadianceColorSchemeBundle2(this.getWindowChromeAccent());
+				new RadianceColorSchemeBundle2(nebulaToolbarColorScheme);
 			nebulaToolbarBundle.registerEnabledContainerTokens(
 				ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFD1A9F1),
@@ -103,7 +109,7 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
 			this.registerDecorationAreaSchemeBundle(nebulaToolbarBundle,
-				nebulaToolbarBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+				nebulaToolbarBundle.getMainColorScheme().getExtendedMutedContainerTokens(),
 				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 			// And configure toolbar overlay painters
