@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.PurpleColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 
 /**
  * <code>Nebula Amethyst</code> skin. This class is part of officially supported API.
@@ -78,5 +78,44 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 	@Override
 	public String getDisplayName() {
 		return NAME;
+	}
+
+	public static class NebulaAmethystTonalSkin extends NebulaAccentedTonalSkin {
+		public static final String NAME = "Nebula Amethyst Tonal";
+
+		public NebulaAmethystTonalSkin() {
+			super(new AccentBuilder()
+				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
+					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+						Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+					/* isDark */ false)));
+
+			// Also apply the window chrome accent color on the TOOLBAR area
+			RadianceColorSchemeBundle2 nebulaToolbarBundle =
+				new RadianceColorSchemeBundle2(this.getWindowChromeAccent());
+			nebulaToolbarBundle.registerEnabledContainerTokens(
+				ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFD1A9F1),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* contrastLevel */ -1.0,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
+			this.registerDecorationAreaSchemeBundle(nebulaToolbarBundle,
+				nebulaToolbarBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+			// And configure toolbar overlay painters
+			this.clearOverlayPainters(RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+			this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+			this.addOverlayPainter(this.bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+		}
+
+		@Override
+		public String getDisplayName() {
+			return NAME;
+		}
 	}
 }

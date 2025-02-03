@@ -65,7 +65,7 @@ public class NebulaSkin extends NebulaAccentedSkin {
             super(new AccentBuilder()
                 .withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                        Hct.fromInt(0xFFBAD2E3), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFD6E3EE)),
+                        Hct.fromInt(0xFFD6E3EE), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isDark */ false)));
         }

@@ -128,7 +128,7 @@ public abstract class NebulaAccentedTonalSkin extends RadianceSkin.TonalAccented
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(nebulaDefaultHeaderBundle,
-			nebulaDefaultHeaderBundle.getMainColorScheme().getExtendedNeutralContainerTokens(),
+			nebulaDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

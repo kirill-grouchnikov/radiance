@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
@@ -101,11 +100,13 @@ public class RadianceMenuBackgroundDelegate {
 						menuItem, fillAlpha, g));
 				RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
 				if (skin instanceof TonalSkin) {
-					ExtendedContainerColorTokens backgroundTokens =
-						skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(menuItem));
-					Color gutterColor = backgroundTokens.getBaseContainerTokens().isDark()
-						? backgroundTokens.getBaseContainerTokens().getContainerSurfaceHighest()
-						: backgroundTokens.getSurfaceBright();
+					ContainerColorTokens backgroundTokens =
+						skin.getBackgroundExtendedContainerTokens(
+							DecorationPainterUtils.getDecorationType(menuItem))
+							.getBaseContainerTokens();
+					Color gutterColor = backgroundTokens.isDark()
+						? backgroundTokens.getContainerSurfaceHighest()
+						: backgroundTokens.getContainerSurfaceLowest();
 					graphics.setColor(gutterColor);
 				} else {
 					RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(

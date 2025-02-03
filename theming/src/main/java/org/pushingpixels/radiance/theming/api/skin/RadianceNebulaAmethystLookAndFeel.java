@@ -51,4 +51,10 @@ public class RadianceNebulaAmethystLookAndFeel extends RadianceLookAndFeel {
 	public RadianceNebulaAmethystLookAndFeel() {
 		super(new NebulaAmethystSkin());
 	}
+
+	public static class RadianceNebulaAmethystTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceNebulaAmethystTonalLookAndFeel() {
+			super(new NebulaAmethystSkin.NebulaAmethystTonalSkin());
+		}
+	}
 }

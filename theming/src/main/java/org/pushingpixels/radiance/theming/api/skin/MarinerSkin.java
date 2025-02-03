@@ -295,10 +295,7 @@ public class MarinerSkin extends RadianceSkin {
                     /* isFidelity */ true,
                     /* isDark */ true,
                     /* contrastLevel */ -0.7,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-                        PaletteContainerColorsResolverOverlay.builder()
-                            //.containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
-                            .build())),
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
             this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
                 ColorSchemeUtils.getExtendedContainerTokens(

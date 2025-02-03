@@ -58,13 +58,13 @@ public class NebulaBrickWallSkin extends NebulaAccentedSkin {
 	}
 
 	public static class NebulaBrickWallTonalSkin extends NebulaAccentedTonalSkin {
-		public static final String NAME = "Nebula Tonal";
+		public static final String NAME = "Nebula Brick Wall Tonal";
 
 		public NebulaBrickWallTonalSkin() {
 			super(new AccentBuilder()
 				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-						Hct.fromInt(0xFFBAD2E3), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF6C272)),
+						Hct.fromInt(0xFFF6C272), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ false)));
 		}

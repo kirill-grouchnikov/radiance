@@ -110,7 +110,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 			super(new AccentBuilder()
 				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-						Hct.fromInt(0xFF404040), Hct.fromInt(0xFF565656), Hct.fromInt(0xFF616161)),
+						Hct.fromInt(0xFF555555), Hct.fromInt(0xFF606060), Hct.fromInt(0xFF707070)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ true))
 				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
