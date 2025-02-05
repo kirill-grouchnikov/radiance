@@ -57,11 +57,7 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 		super(accentBuilder);
 
 		RadianceColorSchemeBundle2 businessDefaultBundle =
-			new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
-				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isDark */ false));
+			new RadianceColorSchemeBundle2(this.getDefaultAreaColorScheme());
 		businessDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
