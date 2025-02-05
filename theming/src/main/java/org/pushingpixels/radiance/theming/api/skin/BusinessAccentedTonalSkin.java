@@ -57,12 +57,16 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 		super(accentBuilder);
 
 		RadianceColorSchemeBundle2 businessDefaultBundle =
-			new RadianceColorSchemeBundle2(this.getActiveControlsAccent());
-		businessDefaultBundle.registerActiveContainerTokens(this.getHighlightsAccent(),
+			new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isDark */ false));
+		businessDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightsAccent(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		businessDefaultBundle.registerActiveContainerTokens(
-			this.getActiveControlsAccent().getActiveContainerTokens(),
+			this.getDefaultAreaColorScheme().getActiveContainerTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,
@@ -70,10 +74,10 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		RadianceColorSchemeBundle2 businessDefaultHeaderBundle =
-			new RadianceColorSchemeBundle2(this.getWindowChromeAccent());
-		if (this.getWindowChromeHighlightsAccent() != null) {
+			new RadianceColorSchemeBundle2(this.getHeaderAreaColorScheme());
+		if (this.getHeaderAreaHighlightsAccent() != null) {
 			businessDefaultHeaderBundle.registerActiveContainerTokens(
-				this.getWindowChromeHighlightsAccent(),
+				this.getHeaderAreaHighlightsAccent(),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 		}

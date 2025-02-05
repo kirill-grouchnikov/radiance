@@ -98,22 +98,22 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 
 		public BusinessBlueSteelTonalSkin() {
 			super(new AccentBuilder()
-				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
+				.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 							Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ false))
-				.withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+				.withHeaderAreaHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFF83AFCE),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isFidelity */ true,
 					/* isDark */ false))
-				.withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
+				.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 						Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ false))
-				.withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+				.withDefaultAreaHighlightsAccent(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFEBD296),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isFidelity */ true,
@@ -128,7 +128,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 			RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
 				new RadianceColorSchemeBundle2(controlPaneColorScheme);
 			businessBlueSteelControlBundle.registerActiveContainerTokens(
-				getActiveControlsAccent().getActiveContainerTokens(),
+				getDefaultAreaColorScheme().getActiveContainerTokens(),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 			this.registerDecorationAreaSchemeBundle(businessBlueSteelControlBundle,

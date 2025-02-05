@@ -65,22 +65,22 @@ public class BusinessSkin extends BusinessAccentedSkin {
 
         public BusinessTonalSkin() {
             super(new AccentBuilder()
-                .withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
+                .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                         Hct.fromInt(0xFFBDC8D3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFE4EAF0)),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isDark */ false))
-                .withWindowChromeHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+                .withHeaderAreaHighlightsAccent(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFEBD296),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false))
-                .withActiveControlsAccent(ColorSchemeUtils.getColorScheme(
+                .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                             Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isDark */ false))
-                .withHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+                .withDefaultAreaHighlightsAccent(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFEBD296),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,

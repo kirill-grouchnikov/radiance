@@ -62,7 +62,7 @@ public class NebulaBrickWallSkin extends NebulaAccentedSkin {
 
 		public NebulaBrickWallTonalSkin() {
 			super(new AccentBuilder()
-				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
+				.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 						Hct.fromInt(0xFFF6C272), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

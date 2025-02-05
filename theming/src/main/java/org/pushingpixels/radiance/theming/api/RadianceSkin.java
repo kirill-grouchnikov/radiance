@@ -192,85 +192,61 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     public static abstract class TonalAccented extends RadianceSkin implements TonalSkin {
         public final static class AccentBuilder {
-            private RadianceColorScheme2 windowChromeAccent;
-            private ContainerColorTokens windowChromeHighlightsAccent;
-            private RadianceColorScheme2 enabledControlsAccent;
-            private RadianceColorScheme2 activeControlsAccent;
-            private ContainerColorTokens highlightsAccent;
-            private RadianceColorScheme2 backgroundAccent;
+            private RadianceColorScheme2 defaultAreaColorScheme;
+            private ContainerColorTokens defaultAreaHighlightsAccent;
+            private RadianceColorScheme2 headerAreaColorScheme;
+            private ContainerColorTokens headerAreaHighlightsAccent;
 
             public AccentBuilder() {
             }
 
-            public AccentBuilder withWindowChromeAccent(RadianceColorScheme2 windowChromeAccent) {
-                this.windowChromeAccent = windowChromeAccent;
+            public AccentBuilder withDefaultAreaColorScheme(RadianceColorScheme2 defaultAreaColorScheme) {
+                this.defaultAreaColorScheme = defaultAreaColorScheme;
                 return this;
             }
 
-            public AccentBuilder withWindowChromeHighlightsAccent(ContainerColorTokens windowChromeHighlightsAccent) {
-                this.windowChromeHighlightsAccent = windowChromeHighlightsAccent;
+            public AccentBuilder withDefaultAreaHighlightsAccent(ContainerColorTokens defaultAreaHighlightsAccent) {
+                this.defaultAreaHighlightsAccent = defaultAreaHighlightsAccent;
                 return this;
             }
 
-            public AccentBuilder withActiveControlsAccent(RadianceColorScheme2 activeControlsAccent) {
-                this.activeControlsAccent = activeControlsAccent;
+            public AccentBuilder withHeaderAreaColorScheme(RadianceColorScheme2 headerAreaColorScheme) {
+                this.headerAreaColorScheme = headerAreaColorScheme;
                 return this;
             }
 
-            public AccentBuilder withEnabledControlsAccent(RadianceColorScheme2 enabledControlsAccent) {
-                this.enabledControlsAccent = enabledControlsAccent;
-                return this;
-            }
-
-            public AccentBuilder withHighlightsAccent(ContainerColorTokens highlightsAccent) {
-                this.highlightsAccent = highlightsAccent;
-                return this;
-            }
-
-            public AccentBuilder withBackgroundAccent(RadianceColorScheme2 backgroundAccent) {
-                this.backgroundAccent = backgroundAccent;
+            public AccentBuilder withHeaderAreaHighlightsAccent(ContainerColorTokens headerAreaHighlightsAccent) {
+                this.headerAreaHighlightsAccent = headerAreaHighlightsAccent;
                 return this;
             }
         }
 
-        private final RadianceColorScheme2 windowChromeAccent;
-        private final ContainerColorTokens windowChromeHighlightsAccent;
-        private final RadianceColorScheme2 activeControlsAccent;
-        private final RadianceColorScheme2 enabledControlsAccent;
-        private final ContainerColorTokens highlightsAccent;
-        private final RadianceColorScheme2 backgroundAccent;
+        private final RadianceColorScheme2 defaultAreaColorScheme;
+        private final ContainerColorTokens defaultAreaHighlightsAccent;
+        private final RadianceColorScheme2 headerAreaColorScheme;
+        private final ContainerColorTokens headerAreaHighlightsAccent;
 
         protected TonalAccented(AccentBuilder accentBuilder) {
-            this.windowChromeAccent = accentBuilder.windowChromeAccent;
-            this.windowChromeHighlightsAccent = accentBuilder.windowChromeHighlightsAccent;
-            this.activeControlsAccent = accentBuilder.activeControlsAccent;
-            this.enabledControlsAccent = accentBuilder.enabledControlsAccent;
-            this.highlightsAccent = accentBuilder.highlightsAccent;
-            this.backgroundAccent = accentBuilder.backgroundAccent;
+            this.defaultAreaColorScheme = accentBuilder.defaultAreaColorScheme;
+            this.defaultAreaHighlightsAccent = accentBuilder.defaultAreaHighlightsAccent;
+            this.headerAreaColorScheme = accentBuilder.headerAreaColorScheme;
+            this.headerAreaHighlightsAccent = accentBuilder.headerAreaHighlightsAccent;
         }
 
-        public RadianceColorScheme2 getBackgroundAccent() {
-            return this.backgroundAccent;
+        public RadianceColorScheme2 getDefaultAreaColorScheme() {
+            return this.defaultAreaColorScheme;
         }
 
-        public RadianceColorScheme2 getActiveControlsAccent() {
-            return this.activeControlsAccent;
+        public ContainerColorTokens getDefaultAreaHighlightsAccent() {
+            return this.defaultAreaHighlightsAccent;
         }
 
-        public RadianceColorScheme2 getEnabledControlsAccent() {
-            return this.enabledControlsAccent;
+        public RadianceColorScheme2 getHeaderAreaColorScheme() {
+            return this.headerAreaColorScheme;
         }
 
-        public ContainerColorTokens getHighlightsAccent() {
-            return this.highlightsAccent;
-        }
-
-        public RadianceColorScheme2 getWindowChromeAccent() {
-            return this.windowChromeAccent;
-        }
-
-        public ContainerColorTokens getWindowChromeHighlightsAccent() {
-            return this.windowChromeHighlightsAccent;
+        public ContainerColorTokens getHeaderAreaHighlightsAccent() {
+            return this.headerAreaHighlightsAccent;
         }
     }
 
@@ -827,12 +803,11 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     public final ContainerColorTokens getActiveContainerTokens(
             RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        // TODO: TONAL - configure what is active
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getTonalContainerTokens();
+            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getActiveContainerTokens();
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getMainColorScheme().getTonalContainerTokens();
+            .getMainColorScheme().getActiveContainerTokens();
     }
 
     /**

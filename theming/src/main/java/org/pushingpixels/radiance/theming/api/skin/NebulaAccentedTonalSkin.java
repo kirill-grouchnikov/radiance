@@ -122,7 +122,7 @@ public abstract class NebulaAccentedTonalSkin extends RadianceSkin.TonalAccented
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 		RadianceColorSchemeBundle2 nebulaDefaultHeaderBundle =
-			new RadianceColorSchemeBundle2(this.getWindowChromeAccent());
+			new RadianceColorSchemeBundle2(this.getHeaderAreaColorScheme());
 		nebulaDefaultHeaderBundle.registerActiveContainerTokens(
 			nebulaRolloverHighlightContainerTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,

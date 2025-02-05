@@ -86,7 +86,7 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 
 		public NebulaAmethystTonalSkin() {
 			super(new AccentBuilder()
-				.withWindowChromeAccent(ColorSchemeUtils.getColorScheme(
+				.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
 					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 						Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
