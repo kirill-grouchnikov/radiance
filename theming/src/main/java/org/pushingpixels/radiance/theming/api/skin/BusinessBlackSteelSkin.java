@@ -113,7 +113,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 						Hct.fromInt(0xFF555555), Hct.fromInt(0xFF606060), Hct.fromInt(0xFF707070)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ true))
-				.withHeaderAreaHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+				.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFF85A3B5),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isFidelity */ true,
@@ -123,7 +123,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 						Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isDark */ false))
-				.withDefaultAreaHighlightsAccent(ColorSchemeUtils.getContainerTokens(
+				.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 					/* seed */ Hct.fromInt(0xFFA1BCCF),
 					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 					/* isFidelity */ true,

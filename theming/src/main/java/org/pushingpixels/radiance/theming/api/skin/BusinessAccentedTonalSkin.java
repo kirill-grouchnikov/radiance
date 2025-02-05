@@ -62,7 +62,7 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 					Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ false));
-		businessDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightsAccent(),
+		businessDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		businessDefaultBundle.registerActiveContainerTokens(
@@ -75,9 +75,9 @@ public abstract class BusinessAccentedTonalSkin extends RadianceSkin.TonalAccent
 
 		RadianceColorSchemeBundle2 businessDefaultHeaderBundle =
 			new RadianceColorSchemeBundle2(this.getHeaderAreaColorScheme());
-		if (this.getHeaderAreaHighlightsAccent() != null) {
+		if (this.getHeaderAreaHighlightTokens() != null) {
 			businessDefaultHeaderBundle.registerActiveContainerTokens(
-				this.getHeaderAreaHighlightsAccent(),
+				this.getHeaderAreaHighlightTokens(),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 		}

@@ -193,9 +193,9 @@ public abstract class RadianceSkin implements RadianceTrait {
     public static abstract class TonalAccented extends RadianceSkin implements TonalSkin {
         public final static class AccentBuilder {
             private RadianceColorScheme2 defaultAreaColorScheme;
-            private ContainerColorTokens defaultAreaHighlightsAccent;
+            private ContainerColorTokens defaultAreaHighlightTokens;
             private RadianceColorScheme2 headerAreaColorScheme;
-            private ContainerColorTokens headerAreaHighlightsAccent;
+            private ContainerColorTokens headerAreaHighlightTokens;
 
             public AccentBuilder() {
             }
@@ -205,8 +205,8 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
-            public AccentBuilder withDefaultAreaHighlightsAccent(ContainerColorTokens defaultAreaHighlightsAccent) {
-                this.defaultAreaHighlightsAccent = defaultAreaHighlightsAccent;
+            public AccentBuilder withDefaultAreaHighlightTokens(ContainerColorTokens defaultAreaHighlightTokens) {
+                this.defaultAreaHighlightTokens = defaultAreaHighlightTokens;
                 return this;
             }
 
@@ -215,38 +215,38 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
-            public AccentBuilder withHeaderAreaHighlightsAccent(ContainerColorTokens headerAreaHighlightsAccent) {
-                this.headerAreaHighlightsAccent = headerAreaHighlightsAccent;
+            public AccentBuilder withHeaderAreaHighlightTokens(ContainerColorTokens headerAreaHighlightTokens) {
+                this.headerAreaHighlightTokens = headerAreaHighlightTokens;
                 return this;
             }
         }
 
         private final RadianceColorScheme2 defaultAreaColorScheme;
-        private final ContainerColorTokens defaultAreaHighlightsAccent;
+        private final ContainerColorTokens defaultAreaHighlightTokens;
         private final RadianceColorScheme2 headerAreaColorScheme;
-        private final ContainerColorTokens headerAreaHighlightsAccent;
+        private final ContainerColorTokens headerAreaHighlightTokens;
 
         protected TonalAccented(AccentBuilder accentBuilder) {
             this.defaultAreaColorScheme = accentBuilder.defaultAreaColorScheme;
-            this.defaultAreaHighlightsAccent = accentBuilder.defaultAreaHighlightsAccent;
+            this.defaultAreaHighlightTokens = accentBuilder.defaultAreaHighlightTokens;
             this.headerAreaColorScheme = accentBuilder.headerAreaColorScheme;
-            this.headerAreaHighlightsAccent = accentBuilder.headerAreaHighlightsAccent;
+            this.headerAreaHighlightTokens = accentBuilder.headerAreaHighlightTokens;
         }
 
         public RadianceColorScheme2 getDefaultAreaColorScheme() {
             return this.defaultAreaColorScheme;
         }
 
-        public ContainerColorTokens getDefaultAreaHighlightsAccent() {
-            return this.defaultAreaHighlightsAccent;
+        public ContainerColorTokens getDefaultAreaHighlightTokens() {
+            return this.defaultAreaHighlightTokens;
         }
 
         public RadianceColorScheme2 getHeaderAreaColorScheme() {
             return this.headerAreaColorScheme;
         }
 
-        public ContainerColorTokens getHeaderAreaHighlightsAccent() {
-            return this.headerAreaHighlightsAccent;
+        public ContainerColorTokens getHeaderAreaHighlightTokens() {
+            return this.headerAreaHighlightTokens;
         }
     }
 
