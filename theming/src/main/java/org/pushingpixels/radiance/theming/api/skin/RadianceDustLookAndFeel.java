@@ -51,4 +51,10 @@ public class RadianceDustLookAndFeel extends RadianceLookAndFeel {
 	public RadianceDustLookAndFeel() {
 		super(new DustSkin());
 	}
+
+	public static class RadianceDustTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceDustTonalLookAndFeel() {
+			super(new DustSkin.DustTonalSkin());
+		}
+	}
 }

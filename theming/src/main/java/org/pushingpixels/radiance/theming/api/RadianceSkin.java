@@ -194,6 +194,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         public final static class AccentBuilder {
             private RadianceColorScheme2 defaultAreaColorScheme;
             private ContainerColorTokens defaultAreaHighlightTokens;
+            private ContainerColorTokens defaultAreaSelectedTokens;
             private RadianceColorScheme2 headerAreaColorScheme;
             private ContainerColorTokens headerAreaHighlightTokens;
 
@@ -210,6 +211,11 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
+            public AccentBuilder withDefaultAreaSelectedTokens(ContainerColorTokens defaultAreaSelectedTokens) {
+                this.defaultAreaSelectedTokens = defaultAreaSelectedTokens;
+                return this;
+            }
+
             public AccentBuilder withHeaderAreaColorScheme(RadianceColorScheme2 headerAreaColorScheme) {
                 this.headerAreaColorScheme = headerAreaColorScheme;
                 return this;
@@ -223,12 +229,14 @@ public abstract class RadianceSkin implements RadianceTrait {
 
         private final RadianceColorScheme2 defaultAreaColorScheme;
         private final ContainerColorTokens defaultAreaHighlightTokens;
+        private final ContainerColorTokens defaultAreaSelectedTokens;
         private final RadianceColorScheme2 headerAreaColorScheme;
         private final ContainerColorTokens headerAreaHighlightTokens;
 
         protected TonalAccented(AccentBuilder accentBuilder) {
             this.defaultAreaColorScheme = accentBuilder.defaultAreaColorScheme;
             this.defaultAreaHighlightTokens = accentBuilder.defaultAreaHighlightTokens;
+            this.defaultAreaSelectedTokens = accentBuilder.defaultAreaSelectedTokens;
             this.headerAreaColorScheme = accentBuilder.headerAreaColorScheme;
             this.headerAreaHighlightTokens = accentBuilder.headerAreaHighlightTokens;
         }
@@ -239,6 +247,10 @@ public abstract class RadianceSkin implements RadianceTrait {
 
         public ContainerColorTokens getDefaultAreaHighlightTokens() {
             return this.defaultAreaHighlightTokens;
+        }
+
+        public ContainerColorTokens getDefaultAreaSelectedTokens() {
+            return this.defaultAreaSelectedTokens;
         }
 
         public RadianceColorScheme2 getHeaderAreaColorScheme() {

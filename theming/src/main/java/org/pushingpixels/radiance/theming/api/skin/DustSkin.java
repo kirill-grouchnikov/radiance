@@ -29,7 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 
 /**
  * <code>Dust</code> skin. This class is part of officially supported API.
@@ -57,5 +61,34 @@ public class DustSkin extends DustAccentedSkin {
 	@Override
 	public String getDisplayName() {
 		return NAME;
+	}
+
+	public static class DustTonalSkin extends DustAccentedTonalSkin {
+		public static final String NAME = "Dust Tonal";
+
+		public DustTonalSkin() {
+			super(new AccentBuilder()
+				.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
+					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+						Hct.fromInt(0xFFADA59A), Hct.fromInt(0xFFE5E2DB), Hct.fromInt(0xFFEAE7E2)),
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+					/* isDark */ false))
+				.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFAE9B7A),
+					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+					/* isFidelity */ true,
+					/* isDark */ false))
+				.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFF5E4436),
+					/* isFidelity */ true,
+					/* isDark */ true,
+					/* contrast */ 0.3f,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+		}
+
+		@Override
+		public String getDisplayName() {
+			return NAME;
+		}
 	}
 }
