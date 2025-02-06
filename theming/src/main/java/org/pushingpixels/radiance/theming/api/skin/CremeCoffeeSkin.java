@@ -29,7 +29,12 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
  * <code>Creme Coffee</code> skin. This class is part of officially supported API.
@@ -55,5 +60,43 @@ public class CremeCoffeeSkin extends CremeAccentedSkin {
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class CremeCoffeeTonalSkin extends CremeAccentedTonalSkin {
+        public static final String NAME = "Creme Coffee Tonal";
+
+        public CremeCoffeeTonalSkin() {
+            super(new AccentBuilder()
+                .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFFDEC59D), Hct.fromInt(0xFFF0F1EB), Hct.fromInt(0xFFEEF3E5)),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isPrimaryDark */ false,
+                    /* isTonalDark */ false,
+                    /* isMutedDark */ false,
+                    /* isNeutralDark */ false,
+                    /* isSystemDark */ false,
+                    /* primaryContrastLevel */ 0.6f,
+                    /* tonalContrastLevel */ 0.6f,
+                    /* mutedContrastLevel */ 0.6f,
+                    /* neutralContrastLevel */ 0.6f,
+                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+                .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFDFBF7F),
+                    /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false))
+                .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFE1C591),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrast */ 0.1f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+        }
+
+        @Override
+        public String getDisplayName() {
+            return NAME;
+        }
     }
 }
