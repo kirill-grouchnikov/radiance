@@ -153,6 +153,9 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(DustSkin.DustTonalSkin.NAME,
             DustSkin.DustTonalSkin.class::getName,
             RadianceDustLookAndFeel.RadianceDustTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(DustCoffeeSkin.DustCoffeeTonalSkin.NAME,
+            DustCoffeeSkin.DustCoffeeTonalSkin.class::getName,
+            RadianceDustCoffeeLookAndFeel.RadianceDustCoffeeTonalLookAndFeel.class::getName));
 
         return result;
     }

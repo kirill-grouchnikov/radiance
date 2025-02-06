@@ -29,6 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
+
 /**
  * <code>Dust Coffee</code> skin. This class is part of officially supported API.
  *
@@ -55,5 +60,34 @@ public class DustCoffeeSkin extends DustAccentedSkin {
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class DustCoffeeTonalSkin extends DustAccentedTonalSkin {
+        public static final String NAME = "Dust Coffee Tonal";
+
+        public DustCoffeeTonalSkin() {
+            super(new AccentBuilder()
+                .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFFDDC49C), Hct.fromInt(0xFFDBCFAD), Hct.fromInt(0xFFE9D9B8)),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isDark */ false))
+                .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFDEBD7D),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false))
+                .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF5E4436),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrast */ 0.3f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+        }
+
+        @Override
+        public String getDisplayName() {
+            return NAME;
+        }
     }
 }

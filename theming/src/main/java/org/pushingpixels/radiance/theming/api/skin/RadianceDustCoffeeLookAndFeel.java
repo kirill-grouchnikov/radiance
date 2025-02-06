@@ -52,4 +52,10 @@ public class RadianceDustCoffeeLookAndFeel extends RadianceLookAndFeel {
 	public RadianceDustCoffeeLookAndFeel() {
 		super(new DustCoffeeSkin());
 	}
+
+	public static class RadianceDustCoffeeTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceDustCoffeeTonalLookAndFeel() {
+			super(new DustCoffeeSkin.DustCoffeeTonalSkin());
+		}
+	}
 }
