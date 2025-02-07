@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
  * Fill painter that draws visuals with glass appearance. This class is part
@@ -39,21 +40,19 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
  */
 public class GlassTonalFillPainter extends FractionBasedTonalFillPainter {
 	/**
-	 * Reusable instance of this painter.
-	 */
-	public static final GlassTonalFillPainter INSTANCE = new GlassTonalFillPainter();
-
-	/**
 	 * Creates a new classic gradient painter.
 	 */
 	public GlassTonalFillPainter() {
 		super("Classic",
 			new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
-				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
-				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
-				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+				ContainerColorTokens::getContainerSurface,
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+					: colorTokens.getContainerSurfaceLowest(),
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
+					: colorTokens.getContainerSurfaceHigh(),
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
+					: colorTokens.getContainerSurfaceHigh()
 			}
 		);
 	}

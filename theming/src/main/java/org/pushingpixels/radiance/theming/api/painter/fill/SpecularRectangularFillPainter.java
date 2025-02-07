@@ -59,8 +59,10 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
 
     public SpecularRectangularFillPainter(RadianceFillPainter baseFillPainter, float alpha) {
         this(baseFillPainter,
-            ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
-            ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
+            (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+                : colorTokens.getContainerSurfaceLowest(),
+            (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                : colorTokens.getContainerSurfaceLow(),
             alpha);
     }
 

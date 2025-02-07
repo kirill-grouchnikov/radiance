@@ -29,18 +29,16 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.DarkMetallicColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.EbonyColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.*;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -147,5 +145,114 @@ public class RavenSkin extends RadianceSkin {
 	@Override
 	public String getDisplayName() {
 		return NAME;
+	}
+
+	public static class RavenTonalSkin extends RavenSkin implements TonalSkin {
+		public static final String NAME = "Raven Tonal";
+
+		public RavenTonalSkin() {
+			SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
+			// Set up token resolution overlays
+			SchemeColorResolver ravenColorResolver = defaultSchemeColorResolver.overlayWith(
+				SchemeColorResolverOverlay.builder()
+					// For muted containers (enabled controls), use higher alpha values for
+					// disabled controls for better contrast.
+					.mutedContainerResolverOverlay(
+						SchemeContainerColorsResolverOverlay.builder()
+							.containerSurfaceDisabledAlpha((s) -> 0.5f)
+							.onContainerDisabledAlpha((s) -> 0.3f)
+							.containerOutlineDisabledAlpha((s) -> 0.55f)
+							.build())
+					// For tonal containers (active controls), use higher alpha values for
+					// disabled controls for better contrast.
+					.tonalContainerResolverOverlay(
+						SchemeContainerColorsResolverOverlay.builder()
+							.containerSurfaceDisabledAlpha((s) -> 0.4f)
+							.onContainerDisabledAlpha((s) -> 0.3f)
+							.containerOutlineDisabledAlpha((s) -> 0.55f)
+							.build())
+					.build());
+
+			RadianceColorScheme2 ravenColorScheme = ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFF424242), Hct.fromInt(0xFF504842), Hct.fromInt(0xFF333333)),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isPrimaryDark */ true,
+				/* isTonalDark */ true,
+				/* isMutedDark */ true,
+				/* isNeutralDark */ true,
+				/* isSystemDark */ true,
+				/* primaryContrastLevel */ 0.0f,
+				/* tonalContrastLevel */ 0.4f,
+				/* mutedContrastLevel */ 0.4f,
+				/* neutralContrastLevel */ 0.4f,
+				/* schemeColorResolver */ ravenColorResolver);
+
+			ContainerColorTokens ravenHighlightContainerTokens =
+				ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFC4C3C5),
+					/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+					/* isFidelity */ true,
+					/* isDark */ false);
+
+			ContainerColorTokens ravenSelectedContainerTokens =
+				ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFCDD0D5),
+					/* isFidelity */ false,
+					/* isDark */ false,
+					/* contrast */ 0.3f,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+						PaletteContainerColorsResolverOverlay.builder()
+							.containerSurfaceDisabledAlpha((s) -> 0.4f)
+							.onContainerDisabledAlpha((s) -> 1.0f)
+							.containerOutlineDisabledAlpha((s) -> 0.55f)
+							.build()
+					));
+
+			RadianceColorSchemeBundle2 ravenDefaultBundle =
+				new RadianceColorSchemeBundle2(ravenColorScheme);
+			// Highlight tokens for controls in selected states
+			ravenDefaultBundle.registerActiveContainerTokens(ravenSelectedContainerTokens,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
+				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+			// Highlight rollover for controls in rollover state
+			ravenDefaultBundle.registerActiveContainerTokens(ravenHighlightContainerTokens,
+				ComponentState.ROLLOVER_UNSELECTED);
+			// Highlights
+			ravenDefaultBundle.registerActiveContainerTokens(
+				ravenHighlightContainerTokens,
+				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+				ComponentState.getActiveStates());
+
+			this.registerDecorationAreaSchemeBundle(ravenDefaultBundle,
+				RadianceThemingSlices.DecorationAreaType.NONE);
+
+			// Decoration areas
+			this.registerAsDecorationArea(
+				ColorSchemeUtils.getExtendedContainerTokens(
+					/* seed */ Hct.fromInt(0xFF4E463E),
+					/* isFidelity */ true,
+					/* isDark */ true,
+			        /* contrastLevel */ 0.6f,
+			        /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.HEADER,
+				RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
+				RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+			this.buttonShaper = new ClassicButtonShaper();
+			this.fillPainter = new SpecularRectangularFillPainter(
+				new GlassTonalFillPainter(), 0.5f);
+			this.decorationPainter = new ArcDecorationPainter();
+			this.highlightFillPainter = new ClassicTonalFillPainter();
+			this.borderPainter = new FlatTonalBorderPainter();
+		}
+
+		@Override
+		public String getDisplayName() {
+			return RavenTonalSkin.NAME;
+		}
 	}
 }
