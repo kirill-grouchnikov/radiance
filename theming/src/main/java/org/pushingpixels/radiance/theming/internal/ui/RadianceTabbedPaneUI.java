@@ -129,8 +129,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 "Tab Light",
                 new float[]{0.0f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[]{
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE
+                    ContainerColorTokens::getContainerOutline,
+                    ContainerColorTokens::getContainerOutline
                 }
             );
         }
@@ -142,8 +142,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 "Tab Dark",
                 new float[]{0.0f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[]{
-                    ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-                    ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+                    ContainerColorTokens::getComplementaryContainerOutline,
+                    ContainerColorTokens::getComplementaryContainerOutline
                 }
             );
         }

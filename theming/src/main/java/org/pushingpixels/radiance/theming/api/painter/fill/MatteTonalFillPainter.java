@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
  * Fill painter that draws visuals with matte appearance. This class is part
@@ -39,20 +40,15 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
  */
 public class MatteTonalFillPainter extends FractionBasedTonalFillPainter {
 	/**
-	 * Reusable instance of this painter.
-	 */
-	public static final MatteTonalFillPainter INSTANCE = new MatteTonalFillPainter();
-
-	/**
 	 * Creates a new matte fill painter.
 	 */
 	public MatteTonalFillPainter() {
 		super("Matte",
 			new float[] {0.0f, 0.25f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
-				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
-				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE
+				ContainerColorTokens::getContainerSurfaceLow,
+				ContainerColorTokens::getContainerSurface,
+				ContainerColorTokens::getContainerSurface
 			}
 		);
 	}

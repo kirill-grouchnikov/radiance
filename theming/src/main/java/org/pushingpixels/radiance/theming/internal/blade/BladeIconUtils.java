@@ -85,9 +85,9 @@ public class BladeIconUtils {
             super("Simplistic Soft Border Reverse Tonal",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE
+                    ContainerColorTokens::getContainerSurfaceLowest,
+                    ContainerColorTokens::getContainerSurfaceLow,
+                    ContainerColorTokens::getContainerSurface
                 }
             );
         }

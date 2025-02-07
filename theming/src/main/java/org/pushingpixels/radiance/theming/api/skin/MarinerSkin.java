@@ -331,24 +331,24 @@ public class MarinerSkin extends RadianceSkin {
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new FractionBasedTonalFillPainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH});
+                    ContainerColorTokens::getContainerSurfaceLowest,
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurfaceHigh});
 
             this.decorationPainter = new MatteDecorationPainter();
             this.highlightFillPainter = new FractionBasedTonalFillPainter("Mariner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW
+                    ContainerColorTokens::getContainerSurfaceHigh,
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurfaceLow
                 });
 
             this.borderPainter = new FractionBasedTonalBorderPainter("Mariner",
                 new float[] {0.0f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE});
+                    ContainerColorTokens::getContainerOutline,
+                    ContainerColorTokens::getContainerOutline});
             this.highlightBorderPainter = new ClassicTonalBorderPainter();
         }
 
@@ -358,17 +358,17 @@ public class MarinerSkin extends RadianceSkin {
             // edge of footer
             this.footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
+                    ContainerColorTokens::getContainerOutline,
                     ColorTransform.alpha(80)),
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ContainerColorTokens::getInverseContainerOutline,
                     ColorTransform.alpha(48)));
             this.addOverlayPainter(this.footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
             // add an overlay painter to create a line between
             // menu bar and toolbars
             this.menuOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGHEST);
+                ContainerColorTokens::getContainerSurfaceHighest);
             this.addOverlayPainter(this.menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
             // add overlay painter to paint drop shadows along the bottom
@@ -380,7 +380,7 @@ public class MarinerSkin extends RadianceSkin {
             // edge of toolbars
             this.toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
+                    ContainerColorTokens::getContainerOutline,
                     ColorTransform.alpha(128)));
             this.addOverlayPainter(this.toolbarBottomLineOverlayPainter,
                 RadianceThemingSlices.DecorationAreaType.TOOLBAR);

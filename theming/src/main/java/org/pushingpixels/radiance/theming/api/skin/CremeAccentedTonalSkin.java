@@ -44,6 +44,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOve
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -94,7 +95,7 @@ public abstract class CremeAccentedTonalSkin extends RadianceSkin.TonalAccented 
 
 		// add an overlay painter to paint a dark line along the bottom edge of toolbars
 		RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-			ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE);
+			ContainerColorTokens::getContainerOutline);
 		this.addOverlayPainter(toolbarBottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
@@ -107,8 +108,8 @@ public abstract class CremeAccentedTonalSkin extends RadianceSkin.TonalAccented 
 			new FractionBasedTonalBorderPainter("Creme Inner",
 				new float[] {0.0f, 1.0f},
 				new ContainerColorTokensSingleColorQuery[] {
-					ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-					ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+					ContainerColorTokens::getComplementaryContainerOutline,
+					ContainerColorTokens::getComplementaryContainerOutline
 				}));
 
 		// TODO - TONAL : remove this altogether

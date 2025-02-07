@@ -267,8 +267,8 @@ public class AutumnSkin extends RadianceSkin {
 			this.buttonShaper = new ClassicButtonShaper();
 			this.fillPainter = new SpecularRectangularFillPainter(
 				new MatteTonalFillPainter(),
-				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
-				ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
+				ContainerColorTokens::getContainerSurfaceLow,
+				ContainerColorTokens::getContainerSurfaceLow,
 				1.0f);
 			this.borderPainter = new CompositeBorderPainter("Autumn",
 				new SubduedTonalBorderPainter(),
@@ -276,16 +276,16 @@ public class AutumnSkin extends RadianceSkin {
 					new float[] {0.0f, 1.0f},
 					new int[] {240, 240},
 					new ContainerColorTokensSingleColorQuery[] {
-						ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-						ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+						ContainerColorTokens::getComplementaryContainerOutline,
+						ContainerColorTokens::getComplementaryContainerOutline
 					}));
 
 			this.highlightFillPainter = new FractionBasedTonalFillPainter("Autumn",
 				new float[] {0.0f, 0.5f, 1.0f},
 				new ContainerColorTokensSingleColorQuery[] {
-					ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
-					ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-					ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW
+					ContainerColorTokens::getContainerSurfaceHigh,
+					ContainerColorTokens::getContainerSurface,
+					ContainerColorTokens::getContainerSurfaceLow
 				});
 
 			MarbleNoiseDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
@@ -303,7 +303,7 @@ public class AutumnSkin extends RadianceSkin {
 			// add an overlay painter to paint separator lines along the bottom
 			// edges of title panes and menu bars
 			BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-				ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT);
+				ContainerColorTokens::getContainerOutlineVariant);
 			this.addOverlayPainter(bottomLineOverlayPainter,
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

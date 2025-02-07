@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.border;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
  * Border painter that draws visuals with subdued appearance. This class is
@@ -40,12 +41,12 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 public class SubduedTonalBorderPainter extends FractionBasedTonalBorderPainter {
     public SubduedTonalBorderPainter() {
         super(
-                "Subdued",
-                new float[]{0.0f, 1.0f},
-                new ContainerColorTokensSingleColorQuery[]{
-                        ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT,
-                        ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT
-                }
+            "Subdued",
+            new float[]{0.0f, 1.0f},
+            new ContainerColorTokensSingleColorQuery[]{
+                ContainerColorTokens::getContainerOutlineVariant,
+                ContainerColorTokens::getContainerOutlineVariant
+            }
         );
     }
 }

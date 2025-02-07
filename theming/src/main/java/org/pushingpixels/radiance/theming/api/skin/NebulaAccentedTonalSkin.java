@@ -140,7 +140,7 @@ public abstract class NebulaAccentedTonalSkin extends RadianceSkin.TonalAccented
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
 		this.bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-			ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE);
+			ContainerColorTokens::getContainerOutline);
 		this.addOverlayPainter(bottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

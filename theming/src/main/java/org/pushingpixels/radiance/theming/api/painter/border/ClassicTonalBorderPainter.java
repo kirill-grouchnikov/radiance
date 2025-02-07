@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.border;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
  * Border painter that draws visuals with classic appearance. This class is
@@ -40,12 +41,12 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 public class ClassicTonalBorderPainter extends FractionBasedTonalBorderPainter {
     public ClassicTonalBorderPainter() {
         super(
-                "Classic",
-                new float[]{0.0f, 1.0f},
-                new ContainerColorTokensSingleColorQuery[]{
-                        ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
-                        ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE
-                }
+            "Classic",
+            new float[]{0.0f, 1.0f},
+            new ContainerColorTokensSingleColorQuery[]{
+                    ContainerColorTokens::getContainerOutline,
+                    ContainerColorTokens::getContainerOutline
+            }
         );
     }
 }

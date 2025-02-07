@@ -414,24 +414,24 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             this.fillPainter = new FractionBasedTonalFillPainter("Office Silver 2007",
                 new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW});
+                    ContainerColorTokens::getContainerSurfaceLow,
+                    ContainerColorTokens::getContainerSurfaceLowest,
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurfaceLow});
 
             FractionBasedTonalBorderPainter outerBorderPainter = new FractionBasedTonalBorderPainter(
                 "Office Silver 2007 Outer", new float[] {0.0f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE
+                    ContainerColorTokens::getContainerOutline,
+                    ContainerColorTokens::getContainerOutline
                 });
             RadianceBorderPainter innerBorderPainter =
                 new FractionBasedTonalBorderPainter("Office Silver 2007 Inner",
                     new float[] {0.0f, 1.0f},
                     new int[] {240, 240},
                     new ContainerColorTokensSingleColorQuery[] {
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline
                     });
             this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
                 outerBorderPainter, innerBorderPainter);
@@ -440,12 +440,12 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 "Office Silver 2007",
                 new float[] {0.0f, 0.2499999f, 0.25f, 0.3f, 0.7f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST});
+                    ContainerColorTokens::getContainerSurfaceLowest,
+                    ContainerColorTokens::getContainerSurfaceLow,
+                    ContainerColorTokens::getContainerSurfaceHigh,
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurfaceLow,
+                    ContainerColorTokens::getContainerSurfaceLowest});
 
             this.highlightFillPainter = new ClassicTonalFillPainter();
         }
@@ -454,7 +454,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
         void configureOverlayPainters() {
             this.addOverlayPainter(new BottomLineTonalOverlayPainter(
                     ContainerColorTokensSingleColorQuery.composite(
-                        ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE, ColorTransform.alpha(72))),
+                        ContainerColorTokens::getContainerOutline, ColorTransform.alpha(72))),
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE);
         }

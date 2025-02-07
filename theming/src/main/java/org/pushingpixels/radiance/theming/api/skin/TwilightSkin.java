@@ -357,11 +357,11 @@ public class TwilightSkin extends RadianceSkin {
                 new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokensSingleColorQuery.blend(
-                        ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
-                        ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
+                        ContainerColorTokens::getContainerSurfaceHigh,
+                        ContainerColorTokens::getContainerSurface,
                         0.4f),
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE});
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurface});
             this.decorationPainter = new FlatDecorationPainter();
             this.highlightFillPainter = new ClassicTonalFillPainter();
             this.borderPainter = new CompositeBorderPainter("Twilight",
@@ -370,9 +370,9 @@ public class TwilightSkin extends RadianceSkin {
                     new float[] {0.0f, 0.5f, 1.0f},
                     new int[] {32, 24, 24},
                     new ContainerColorTokensSingleColorQuery[] {
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline
                     }));
         }
 
@@ -386,23 +386,23 @@ public class TwilightSkin extends RadianceSkin {
             // add an overlay painter to paint a dark line along the bottom
             // edge of toolbars
             RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT);
+                ContainerColorTokens::getContainerOutlineVariant);
             this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
             // add an overlay painter to paint a light line along the top
             // edge of toolbars
             RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineTonalOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ContainerColorTokens::getInverseContainerOutline,
                     ColorTransform.alpha(32)));
             this.addOverlayPainter(toolbarTopLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
             // add an overlay painter to paint a bezel line along the top
             // edge of footer
             RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT,
+                ContainerColorTokens::getContainerOutlineVariant,
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ContainerColorTokens::getInverseContainerOutline,
                     ColorTransform.alpha(72)));
             this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
         }

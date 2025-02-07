@@ -44,6 +44,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOve
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -118,10 +119,10 @@ public abstract class DustAccentedTonalSkin extends RadianceSkin.TonalAccented {
 
 		// add two overlay painters to create a bezel line between menu bar and toolbars
 		BottomLineTonalOverlayPainter menuOverlayPainter = new BottomLineTonalOverlayPainter(
-			ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE);
+			ContainerColorTokens::getContainerOutline);
 		RadianceOverlayPainter toolbarOverlayPainter = new TopLineTonalOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
-				ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+				ContainerColorTokens::getInverseContainerOutline,
 				ColorTransform.alpha(96)));
 		this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 		this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
@@ -136,8 +137,8 @@ public abstract class DustAccentedTonalSkin extends RadianceSkin.TonalAccented {
 				new float[] {0.0f, 1.0f},
 				new int[] {64, 64},
 				new ContainerColorTokensSingleColorQuery[] {
-					ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-					ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+					ContainerColorTokens::getComplementaryContainerOutline,
+					ContainerColorTokens::getComplementaryContainerOutline
 				}));
 
 		// TODO - TONAL : remove this altogether

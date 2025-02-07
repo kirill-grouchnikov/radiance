@@ -377,16 +377,16 @@ public class GeminiSkin extends RadianceSkin {
             this.fillPainter = new FractionBasedTonalFillPainter("Gemini",
                 new float[] {0.0f, 0.6f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH});
+                    ContainerColorTokens::getContainerSurfaceLow,
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurfaceHigh});
 
             this.decorationPainter = new MatteDecorationPainter();
             this.highlightFillPainter = new FractionBasedTonalFillPainter("Gemini Highlight",
                 new float[] {0.0f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE});
+                    ContainerColorTokens::getContainerSurfaceLow,
+                    ContainerColorTokens::getContainerSurface});
 
             this.borderPainter = new CompositeBorderPainter("Gemini",
                 new FlatTonalBorderPainter(),
@@ -394,9 +394,9 @@ public class GeminiSkin extends RadianceSkin {
                     new float[] {0.0f, 0.5f, 1.0f},
                     new int[] {96, 64, 32},
                     new ContainerColorTokensSingleColorQuery[] {
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline
                     }));
             this.highlightBorderPainter = new FlatTonalBorderPainter();
         }
@@ -406,19 +406,19 @@ public class GeminiSkin extends RadianceSkin {
             // add an overlay painter to paint a bezel line along the top
             // edge of footer
             RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT,
+                ContainerColorTokens::getContainerOutlineVariant,
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ContainerColorTokens::getInverseContainerOutline,
                     ColorTransform.alpha(72)));
             this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
             // add two overlay painters to create a bezel line between
             // menu bar and toolbars
             RadianceOverlayPainter menuOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE);
+                ContainerColorTokens::getContainerOutline);
             RadianceOverlayPainter toolbarOverlayPainter = new TopLineTonalOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                    ContainerColorTokens::getComplementaryContainerOutline,
                     ColorTransform.alpha(48)));
             this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
             this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
@@ -431,7 +431,7 @@ public class GeminiSkin extends RadianceSkin {
             // add overlay painter to paint a dark line along the bottom
             // edge of toolbars
             RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE);
+                ContainerColorTokens::getContainerOutline);
             this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
         }
 

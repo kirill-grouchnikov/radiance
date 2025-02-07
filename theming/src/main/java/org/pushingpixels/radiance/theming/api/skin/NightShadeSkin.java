@@ -273,9 +273,9 @@ public class NightShadeSkin extends RadianceSkin {
             this.fillPainter = new FractionBasedTonalFillPainter("Night Shade",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOW,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE});
+                    ContainerColorTokens::getContainerSurfaceLow,
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurface});
 
             this.decorationPainter = new FlatDecorationPainter();
             this.highlightFillPainter = new ClassicTonalFillPainter();
@@ -286,8 +286,8 @@ public class NightShadeSkin extends RadianceSkin {
                     new float[]{0.0f, 1.0f},
                     new int[] {32, 12},
                     new ContainerColorTokensSingleColorQuery[]{
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline,
                     }));
         }
 
@@ -300,15 +300,15 @@ public class NightShadeSkin extends RadianceSkin {
             // add an overlay painter to paint a dark line along the bottom
             // edge of toolbars
             RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT);
+                ContainerColorTokens::getContainerOutlineVariant);
             this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
             // add an overlay painter to paint a bezel line along the top
             // edge of footer
             RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT,
+                ContainerColorTokens::getContainerOutlineVariant,
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ContainerColorTokens::getInverseContainerOutline,
                     ColorTransform.alpha(72)));
             this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
         }

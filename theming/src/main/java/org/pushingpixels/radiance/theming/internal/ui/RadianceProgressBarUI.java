@@ -80,9 +80,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     private static final RadianceFillPainter progressTonalFillPainter = new FractionBasedTonalFillPainter(
         "Progress tonal fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
         new ContainerColorTokensSingleColorQuery[]{
-            ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-            ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
-            ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGHEST}
+            ContainerColorTokens::getContainerSurface,
+            ContainerColorTokens::getContainerSurfaceHigh,
+            ContainerColorTokens::getContainerSurfaceHighest}
     );
 
     private final class RadianceChangeListener implements ChangeListener {

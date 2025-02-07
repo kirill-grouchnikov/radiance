@@ -466,12 +466,12 @@ public class MagellanSkin extends RadianceSkin {
                 new float[] {0.0f, 0.3f, 0.6f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokensSingleColorQuery.blend(
-                        ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGHEST,
-                        ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
+                        ContainerColorTokens::getContainerSurfaceHighest,
+                        ContainerColorTokens::getContainerSurfaceHigh,
                         0.6f),
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_HIGH,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE,
-                    ContainerColorTokensSingleColorQuery.CONTAINER_SURFACE_LOWEST});
+                    ContainerColorTokens::getContainerSurfaceHigh,
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurfaceLowest});
 
             this.decorationPainter = new FlatDecorationPainter();
             this.highlightFillPainter = new ClassicTonalFillPainter();
@@ -482,9 +482,9 @@ public class MagellanSkin extends RadianceSkin {
                     new float[] {0.0f, 0.5f, 1.0f},
                     new int[] {112, 80, 64},
                     new ContainerColorTokensSingleColorQuery[] {
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE,
-                        ContainerColorTokensSingleColorQuery.COMPLEMENTARY_CONTAINER_OUTLINE
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline
                     }));
         }
 
@@ -497,14 +497,14 @@ public class MagellanSkin extends RadianceSkin {
             // add an overlay painter to paint a dark line along the bottom
             // edge of toolbars
             RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokensSingleColorQuery.CONTAINER_OUTLINE_VARIANT);
+                ContainerColorTokens::getContainerOutlineVariant);
             this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
             // add an overlay painter to paint a light line along the top
             // edge of toolbars
             RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineTonalOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokensSingleColorQuery.INVERSE_CONTAINER_OUTLINE,
+                    ContainerColorTokens::getInverseContainerOutline,
                     ColorTransform.alpha(96)));
             this.addOverlayPainter(toolbarTopLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 

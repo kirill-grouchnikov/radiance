@@ -43,29 +43,6 @@ import java.awt.*;
 public interface ContainerColorTokensSingleColorQuery {
 	Color query(ContainerColorTokens colorTokens);
 
-	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE_LOWEST = (colorTokens) ->
-		colorTokens.getContainerSurfaceLowest();
-	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE_LOW = (colorTokens) ->
-			colorTokens.getContainerSurfaceLow();
-	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE = (colorTokens) ->
-			colorTokens.getContainerSurface();
-	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE_HIGH = (colorTokens) ->
-			colorTokens.getContainerSurfaceHigh();
-	ContainerColorTokensSingleColorQuery CONTAINER_SURFACE_HIGHEST = (colorTokens) ->
-			colorTokens.getContainerSurfaceHighest();
-
-	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE = (colorTokens) ->
-			colorTokens.getContainerOutline();
-	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE_VARIANT = (colorTokens) ->
-			colorTokens.getContainerOutlineVariant();
-
-	ContainerColorTokensSingleColorQuery INVERSE_CONTAINTER_SURFACE = (colorTokens) ->
-		colorTokens.getInverseContainerSurface();
-	ContainerColorTokensSingleColorQuery INVERSE_CONTAINER_OUTLINE = (colorTokens) ->
-		colorTokens.getInverseContainerOutline();
-	ContainerColorTokensSingleColorQuery COMPLEMENTARY_CONTAINER_OUTLINE = (colorTokens) ->
-		colorTokens.getComplementaryContainerOutline();
-
 	static ContainerColorTokensSingleColorQuery composite(
 		ContainerColorTokensSingleColorQuery base, ColorTransform... transforms) {
 		return colorTokens -> {
@@ -81,9 +58,7 @@ public interface ContainerColorTokensSingleColorQuery {
 		ContainerColorTokensSingleColorQuery first,
 		ContainerColorTokensSingleColorQuery second,
 		float firstLikeness) {
-		return colorTokens -> {
-			return RadianceColorUtilities.getInterpolatedColor(first.query(colorTokens),
-				second.query(colorTokens), firstLikeness);
-		};
+		return colorTokens -> RadianceColorUtilities.getInterpolatedColor(first.query(colorTokens),
+            second.query(colorTokens), firstLikeness);
 	}
 }
