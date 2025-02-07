@@ -29,8 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.AquaColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
  * <code>Mist Aqua</code> skin.
@@ -55,5 +60,38 @@ public class MistAquaSkin extends MistAccentedSkin {
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class MistAquaTonalSkin extends MistAccentedTonalSkin {
+        public static final String NAME = "Mist Aqua Tonal";
+
+        public MistAquaTonalSkin() {
+            super(new AccentBuilder()
+                .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFF8ACBE9), Hct.fromInt(0xFFD6D9DD), Hct.fromInt(0xFFEBF0F4)),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isPrimaryDark */ false,
+                    /* isTonalDark */ false,
+                    /* isMutedDark */ false,
+                    /* isNeutralDark */ false,
+                    /* isSystemDark */ false,
+                    /* primaryContrastLevel */ 0.6f,
+                    /* tonalContrastLevel */ 0.6f,
+                    /* mutedContrastLevel */ 0.6f,
+                    /* neutralContrastLevel */ 0.6f,
+                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+                .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF8CC7E1),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrast */ 0.0f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+        }
+
+        @Override
+        public String getDisplayName() {
+            return NAME;
+        }
     }
 }
