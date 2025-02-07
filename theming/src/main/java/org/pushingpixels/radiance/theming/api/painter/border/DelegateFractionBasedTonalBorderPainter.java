@@ -47,6 +47,7 @@ import java.awt.MultipleGradientPaint.CycleMethod;
  * 
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL - remove?
 public class DelegateFractionBasedTonalBorderPainter implements RadianceBorderPainter {
 	/**
 	 * Display name of this border painter.

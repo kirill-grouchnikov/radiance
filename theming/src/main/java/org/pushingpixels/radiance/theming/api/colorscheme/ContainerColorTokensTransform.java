@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
  * 
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL - remove?
 @FunctionalInterface
 public interface ContainerColorTokensTransform {
 	/**
