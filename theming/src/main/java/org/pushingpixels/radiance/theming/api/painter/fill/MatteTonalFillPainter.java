@@ -46,7 +46,8 @@ public class MatteTonalFillPainter extends FractionBasedTonalFillPainter {
 		super("Matte",
 			new float[] {0.0f, 0.25f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
-				ContainerColorTokens::getContainerSurfaceLow,
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+					: colorTokens.getContainerSurfaceLow(),
 				ContainerColorTokens::getContainerSurface,
 				ContainerColorTokens::getContainerSurface
 			}
