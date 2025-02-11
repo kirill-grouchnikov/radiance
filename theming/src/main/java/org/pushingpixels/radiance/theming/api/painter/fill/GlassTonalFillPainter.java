@@ -48,7 +48,7 @@ public class GlassTonalFillPainter extends FractionBasedTonalFillPainter {
 			new ContainerColorTokensSingleColorQuery[] {
 				ContainerColorTokens::getContainerSurface,
 				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
-					: colorTokens.getContainerSurfaceLowest(),
+					: colorTokens.getContainerSurfaceLow(),
 				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
 					: colorTokens.getContainerSurfaceHigh(),
 				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()

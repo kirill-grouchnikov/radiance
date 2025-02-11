@@ -171,6 +171,9 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(RavenSkin.RavenTonalSkin.NAME,
             RavenSkin.RavenTonalSkin.class::getName,
             RadianceRavenLookAndFeel.RadianceRavenTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(CeruleanSkin.CeruleanTonalSkin.NAME,
+            CeruleanSkin.CeruleanTonalSkin.class::getName,
+            RadianceCeruleanLookAndFeel.RadianceCeruleanTonalLookAndFeel.class::getName));
 
         return result;
     }
