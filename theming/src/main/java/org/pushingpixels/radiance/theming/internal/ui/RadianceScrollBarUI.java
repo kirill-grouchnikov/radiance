@@ -171,8 +171,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
             // parameter to "populateColorScheme").
             BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, true,
-                RadianceThemingSlices.ContainerType.MUTED);
+                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                true, false, RadianceThemingSlices.ContainerType.MUTED);
 
             Graphics2D graphics = (Graphics2D) g.create();
             // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -271,8 +271,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
             // parameter to "populateColorScheme").
             BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, true,
-                RadianceThemingSlices.ContainerType.MUTED);
+                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                true, false, RadianceThemingSlices.ContainerType.MUTED);
 
             Graphics2D graphics = (Graphics2D) g.create();
             // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT

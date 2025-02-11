@@ -312,7 +312,8 @@ public class BladeUtils {
         BladeContainerColorTokens bladeContainerTokens, Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo, ComponentState currState,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        boolean treatEnabledAsActive, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        boolean treatEnabledAsActive, boolean skipFlatCheck,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (!SwingUtilities.isEventDispatchThread()) {
             UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
                     "Color scheme population must be done on Event Dispatch Thread");
@@ -322,8 +323,9 @@ public class BladeUtils {
 
         StringBuilder nameBuilder = new StringBuilder();
         ContainerColorTokens currColorTokens = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
-                ? RadianceColorSchemeUtilities.getActiveContainerTokens(component, currState)
-                : RadianceColorSchemeUtilities.getContainerTokens(component, associationKind, currState, inactiveContainerType);
+            ? RadianceColorSchemeUtilities.getActiveContainerTokens(component, currState)
+            : RadianceColorSchemeUtilities.getContainerTokens(component, associationKind, currState,
+                inactiveContainerType, skipFlatCheck);
         Color containerSurfaceLowest = currColorTokens.getContainerSurfaceLowest();
         Color containerSurfaceLow = currColorTokens.getContainerSurfaceLow();
         Color containerSurface = currColorTokens.getContainerSurface();

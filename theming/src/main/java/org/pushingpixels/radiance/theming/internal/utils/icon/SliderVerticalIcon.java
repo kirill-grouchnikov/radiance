@@ -85,7 +85,7 @@ public class SliderVerticalIcon implements Icon, UIResource {
             // Populate color schemes based on the current transition state of the slider.
             BladeUtils.populateColorTokens(mutableColorTokens, this.slider, modelStateInfo,
                 currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                false, RadianceThemingSlices.ContainerType.MUTED);
+                false, false, RadianceThemingSlices.ContainerType.MUTED);
 
             float activeStrength = stateTransitionTracker.getActiveStrength();
             int height = (int) (this.size * (2.0f + activeStrength) / 3.0f);

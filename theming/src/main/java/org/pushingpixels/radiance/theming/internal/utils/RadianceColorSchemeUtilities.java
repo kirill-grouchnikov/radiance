@@ -277,28 +277,43 @@ public class RadianceColorSchemeUtilities {
      * @return Component color scheme.
      */
     public static ContainerColorTokens getContainerTokens(Component component,
-            RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-            ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        return getContainerTokens(component, associationKind, componentState, inactiveContainerType,
+            false);
+    }
+
+    /**
+     * Returns the color scheme of the component.
+     *
+     * @param component       Component.
+     * @param associationKind Association kind.
+     * @param componentState  Component state.
+     * @return Component color scheme.
+     */
+    public static ContainerColorTokens getContainerTokens(Component component,
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType,
+        boolean skipFlatCheck) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
 
         // special case - if the component is marked as flat, get the color scheme of the parent.
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
-        if (!(component instanceof JToolBar)
+        if (!skipFlatCheck && !(component instanceof JToolBar)
             && !componentState.isActive()
             && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             return skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(component))
-                    .getBaseContainerTokens();
-//            component = component.getParent();
+                .getBaseContainerTokens();
         }
 
         if (skin == null) {
             RadianceCoreUtilities.traceRadianceApiUsage(component,
-                    "Radiance delegate used when Radiance is not the current LAF");
+                "Radiance delegate used when Radiance is not the current LAF");
         }
         ContainerColorTokens nonColorized = skin.getContainerTokens(component,
-                associationKind, componentState, inactiveContainerType);
+            associationKind, componentState, inactiveContainerType);
         // TODO: TONAL - add colorization
         return nonColorized;
     }

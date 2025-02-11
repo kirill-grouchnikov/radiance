@@ -124,7 +124,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                 if (skin instanceof TonalSkin) {
                     BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                        false, RadianceThemingSlices.ContainerType.MUTED);
+                        false, false, RadianceThemingSlices.ContainerType.MUTED);
 
                     BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
                         mutableContainerTokens);

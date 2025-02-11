@@ -73,7 +73,7 @@ public class ComboBoxBackgroundDelegate {
         if (skin instanceof TonalSkin) {
             BladeUtils.populateColorTokens(mutableContainerTokens, combo, modelStateInfo,
                 currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                false, RadianceThemingSlices.ContainerType.MUTED);
+                false, false, RadianceThemingSlices.ContainerType.MUTED);
 
             drawBackground(graphics, combo, fillPainter, borderPainter, width, height,
                 mutableContainerTokens);

@@ -102,8 +102,8 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
         if (skin instanceof TonalSkin) {
             // Populate color tokens based on the current transition state of the menu item.
             BladeUtils.populateColorTokens(mutableContainerTokens, this.menuItem, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, false,
-                RadianceThemingSlices.ContainerType.MUTED);
+                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, false,
+                true, RadianceThemingSlices.ContainerType.MUTED);
 
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.translate(x, y);

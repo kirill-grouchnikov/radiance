@@ -272,6 +272,34 @@ public class SentinelSkin extends RadianceSkin {
                     /* isDark */ false),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
+            // Lighter outlines for checkboxes and radio button menu items
+            sentinelHeaderBundle.registerEnabledContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF4A2C25),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrast */ 0.0f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                        PaletteContainerColorsResolverOverlay.builder()
+                            .containerOutline((p) -> p.getOnTonalContainer() & 0xC0FFFFFF)
+                            .containerOutlineVariant((p) -> p.getOnTonalContainerVariant() & 0xC0FFFFFF)
+                            .build()
+                    )),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK);
+            sentinelHeaderBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF2A0C05),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrast */ 0.2f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                        PaletteContainerColorsResolverOverlay.builder()
+                            .containerOutline((p) -> p.getOnTonalContainer() & 0xC0FFFFFF)
+                            .containerOutlineVariant((p) -> p.getOnTonalContainerVariant() & 0xC0FFFFFF)
+                            .build()
+                    )),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.getActiveStates());
             this.registerDecorationAreaSchemeBundle(sentinelHeaderBundle,
                 ColorSchemeUtils.getExtendedContainerTokens(
                     /* seed */ Hct.fromInt(0xFF2A0C05),

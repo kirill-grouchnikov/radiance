@@ -120,7 +120,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                     // Populate color schemes based on the current transition state of the check box.
                     BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                        false, RadianceThemingSlices.ContainerType.MUTED);
+                        false, true, RadianceThemingSlices.ContainerType.MUTED);
 
                     Graphics2D graphics = (Graphics2D) g.create();
                     graphics.translate(x, y);
