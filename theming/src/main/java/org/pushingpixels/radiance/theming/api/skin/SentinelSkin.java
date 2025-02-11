@@ -29,20 +29,19 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.*;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -181,21 +180,7 @@ public class SentinelSkin extends RadianceSkin {
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        // Add overlay painters to paint drop shadow and a dark line along the bottom
-        // edges of toolbars
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-        this.addOverlayPainter(new BottomLineOverlayPainter(
-                        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                                ColorTransform.brightness(-0.1f))),
-                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // Add overlay painters to paint drop shadow and a dark line along the top
-        // edges of footers
-        this.addOverlayPainter(TopShadowOverlayPainter.getInstance(15), RadianceThemingSlices.DecorationAreaType.FOOTER);
-        this.addOverlayPainter(new TopLineOverlayPainter(
-                        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                                ColorTransform.brightness(-0.1f))),
-                RadianceThemingSlices.DecorationAreaType.FOOTER);
+        this.configureOverlayPainters();
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new ClassicFillPainter();
@@ -204,7 +189,181 @@ public class SentinelSkin extends RadianceSkin {
         this.borderPainter = new ClassicBorderPainter();
     }
 
+    void configureOverlayPainters() {
+        // Add overlay painters to paint drop shadow and a dark line along the bottom
+        // edges of toolbars
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+        this.addOverlayPainter(new BottomLineOverlayPainter(
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                    ColorTransform.brightness(-0.1f))),
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // Add overlay painters to paint drop shadow and a dark line along the top
+        // edges of footers
+        this.addOverlayPainter(TopShadowOverlayPainter.getInstance(15),
+            RadianceThemingSlices.DecorationAreaType.FOOTER);
+        this.addOverlayPainter(new TopLineOverlayPainter(
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                    ColorTransform.brightness(-0.1f))),
+            RadianceThemingSlices.DecorationAreaType.FOOTER);
+    }
+
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class SentinelTonalSkin extends SentinelSkin implements TonalSkin {
+        public static final String NAME = "Sentinel Tonal";
+
+        public SentinelTonalSkin() {
+            RadianceColorScheme2 sentinelColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFFE8C3A6), Hct.fromInt(0xFFFFD8B6)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isDark */ false);
+
+            ContainerColorTokens sentinelSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF9E7B),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isFidelity */ true,
+                /* isDark */ false);
+            ContainerColorTokens sentinelSelectedHighlightContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFFFC0A5),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false);
+
+            RadianceColorSchemeBundle2 sentinelDefaultBundle =
+                new RadianceColorSchemeBundle2(sentinelColorScheme);
+            // More saturated seed for controls in selected state
+            sentinelDefaultBundle.registerActiveContainerTokens(sentinelSelectedContainerTokens,
+                ComponentState.SELECTED);
+            // Less saturated seed for selected highlights
+            sentinelDefaultBundle.registerActiveContainerTokens(
+                sentinelSelectedHighlightContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.SELECTED, ComponentState.ARMED);
+            this.registerDecorationAreaSchemeBundle(sentinelDefaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
+
+            // Headers
+            RadianceColorSchemeBundle2 sentinelHeaderBundle =
+                new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFF2A0C05), Hct.fromInt(0xFF4A2C25), Hct.fromInt(0xFF7A5C55)),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isPrimaryDark */ true,
+                    /* isTonalDark */ true,
+                    /* isMutedDark */ true,
+                    /* isNeutralDark */ true,
+                    /* isSystemDark */ true,
+                    /* primaryContrastLevel */ 0.0f,
+                    /* tonalContrastLevel */ 0.8f,
+                    /* mutedContrastLevel */ 0.8f,
+                    /* neutralContrastLevel */ 0.8f,
+                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
+            sentinelHeaderBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFDE9D87),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ false),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.getActiveStates());
+            this.registerDecorationAreaSchemeBundle(sentinelHeaderBundle,
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF2A0C05),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrast */ 0.6f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.HEADER);
+
+            // Control panes
+            RadianceColorSchemeBundle2 sentinelControlPaneBundle =
+                new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFF8F543B), Hct.fromInt(0xFF754133)),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isPrimaryDark */ false,
+                    /* isTonalDark */ false,
+                    /* isMutedDark */ true,
+                    /* isNeutralDark */ true,
+                    /* isSystemDark */ false,
+                    /* primaryContrastLevel */ 0.0f,
+                    /* tonalContrastLevel */ -0.2f,
+                    /* mutedContrastLevel */ -0.4f,
+                    /* neutralContrastLevel */ -0.4f,
+                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
+            this.registerDecorationAreaSchemeBundle(sentinelControlPaneBundle,
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF754133),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrast */ -0.4f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+
+            // Toolbars and footers
+            RadianceColorSchemeBundle2 sentinelBarsBundle =
+                new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFF703723), Hct.fromInt(0xFF53281A)),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isPrimaryDark */ false,
+                    /* isTonalDark */ false,
+                    /* isMutedDark */ true,
+                    /* isNeutralDark */ true,
+                    /* isSystemDark */ false,
+                    /* primaryContrastLevel */ 0.0f,
+                    /* tonalContrastLevel */ 0.2f,
+                    /* mutedContrastLevel */ 0.3f,
+                    /* neutralContrastLevel */ 0.3f,
+                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
+            this.registerDecorationAreaSchemeBundle(sentinelBarsBundle,
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF53281A),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrast */ 0.3f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+                RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+            this.buttonShaper = new ClassicButtonShaper();
+            this.fillPainter = new MatteTonalFillPainter();
+            this.decorationPainter = new FlatDecorationPainter();
+            this.highlightFillPainter = new MatteTonalFillPainter();
+            this.borderPainter = new FlatTonalBorderPainter();
+            this.highlightBorderPainter = new FlatTonalBorderPainter();
+        }
+
+        @Override
+        void configureOverlayPainters() {
+            // Add overlay painters to paint drop shadow and a dark line along the bottom
+            // edges of toolbars
+            this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+            this.addOverlayPainter(
+                new BottomLineTonalOverlayPainter(ContainerColorTokens::getContainerOutline),
+                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+            // Add overlay painters to paint drop shadow and a dark line along the top
+            // edges of footers
+            this.addOverlayPainter(TopShadowOverlayPainter.getInstance(15),
+                RadianceThemingSlices.DecorationAreaType.FOOTER);
+            this.addOverlayPainter(
+                new TopLineTonalOverlayPainter(ContainerColorTokens::getContainerOutline),
+                RadianceThemingSlices.DecorationAreaType.FOOTER);
+        }
+
+        @Override
+        public String getDisplayName() {
+            return SentinelTonalSkin.NAME;
+        }
     }
 }
