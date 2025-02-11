@@ -323,16 +323,16 @@ public class SentinelSkin extends RadianceSkin {
                     /* isNeutralDark */ true,
                     /* isSystemDark */ false,
                     /* primaryContrastLevel */ 0.0f,
-                    /* tonalContrastLevel */ -0.2f,
-                    /* mutedContrastLevel */ -0.4f,
-                    /* neutralContrastLevel */ -0.4f,
+                    /* tonalContrastLevel */ -0.6f,
+                    /* mutedContrastLevel */ -0.7f,
+                    /* neutralContrastLevel */ -0.7f,
                     /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
             this.registerDecorationAreaSchemeBundle(sentinelControlPaneBundle,
                 ColorSchemeUtils.getExtendedContainerTokens(
                     /* seed */ Hct.fromInt(0xFF754133),
                     /* isFidelity */ true,
                     /* isDark */ true,
-                    /* contrast */ -0.4f,
+                    /* contrast */ -0.7f,
                     /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
                 RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
@@ -348,16 +348,16 @@ public class SentinelSkin extends RadianceSkin {
                     /* isNeutralDark */ true,
                     /* isSystemDark */ false,
                     /* primaryContrastLevel */ 0.0f,
-                    /* tonalContrastLevel */ 0.2f,
-                    /* mutedContrastLevel */ 0.3f,
-                    /* neutralContrastLevel */ 0.3f,
+                    /* tonalContrastLevel */ 0.1f,
+                    /* mutedContrastLevel */ 0.1f,
+                    /* neutralContrastLevel */ 0.1f,
                     /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
             this.registerDecorationAreaSchemeBundle(sentinelBarsBundle,
                 ColorSchemeUtils.getExtendedContainerTokens(
                     /* seed */ Hct.fromInt(0xFF53281A),
                     /* isFidelity */ true,
                     /* isDark */ true,
-                    /* contrast */ 0.3f,
+                    /* contrast */ 0.1f,
                     /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
                 RadianceThemingSlices.DecorationAreaType.TOOLBAR,
                 RadianceThemingSlices.DecorationAreaType.FOOTER);
