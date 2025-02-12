@@ -34,10 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.palette.SchemeColorResolver;
-import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.*;
 
 /**
  * <code>Graphite</code> skin. This class is part of officially supported API.
@@ -107,23 +104,26 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
         public static final String NAME = "Graphite Tonal";
 
         public GraphiteTonalSkin() {
-            this(SchemeResolverUtils.getSchemeColorResolver());
+            this(SchemeResolverUtils.getSchemeColorResolver(),
+                PaletteResolverUtils.getPaletteTonalColorResolver());
         }
 
-        protected GraphiteTonalSkin(SchemeColorResolver schemeColorResolver) {
+        protected GraphiteTonalSkin(SchemeColorResolver schemeColorResolver,
+            PaletteContainerColorsResolver paletteContainerColorsResolver) {
             super(new AccentBuilder()
                 .withDefaultAreaSchemeColorResolver(schemeColorResolver)
                 .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF606060),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,
-                    /* isDark */ true))
+                    /* isDark */ true,
+                    /* contrast */ 0.0f,
+                    /* colorResolver */ paletteContainerColorsResolver))
                 .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFEBECF0),
                     /* isFidelity */ true,
                     /* isDark */ false,
                     /* contrast */ 0.0f,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+                    /* colorResolver */ paletteContainerColorsResolver)));
 
             this.graphiteDefaultBundle.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(
@@ -131,7 +131,7 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
                     /* isFidelity */ true,
                     /* isDark */ false,
                     /* contrast */ 0.6f,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                    /* colorResolver */ paletteContainerColorsResolver),
                 ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED,
                 ComponentState.ROLLOVER_ARMED);
             this.graphiteDefaultBundle.registerActiveContainerTokens(
@@ -140,7 +140,7 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
                     /* isFidelity */ true,
                     /* isDark */ false,
                     /* contrast */ 0.6f,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                    /* colorResolver */ paletteContainerColorsResolver),
                 ComponentState.PRESSED_UNSELECTED, ComponentState.PRESSED_SELECTED);
         }
 

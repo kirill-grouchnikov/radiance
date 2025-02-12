@@ -29,15 +29,15 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.palette.SchemeColorResolverOverlay;
-import org.pushingpixels.radiance.theming.api.palette.SchemeContainerColorsResolverOverlay;
-import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.*;
 
 /**
  * <code>Graphite Chalk</code> skin. This class is part of officially supported API.
@@ -94,28 +94,38 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 		public static final String NAME = "Graphite Chalk Tonal";
 
 		public GraphiteChalkTonalSkin() {
-			super(SchemeResolverUtils.getSchemeColorResolver().overlayWith(
-				SchemeColorResolverOverlay.builder()
-					// For tonal containers (active controls), use complementary outline.
-					.tonalContainerResolverOverlay(
-						SchemeContainerColorsResolverOverlay.builder()
-							.containerOutline((s) -> s.getComplementaryTonalContainerOutline() & 0xA0FFFFFF)
-							.containerOutlineVariant((s) -> s.getComplementaryTonalContainerOutline() & 0x80FFFFFF)
-							.build())
-					// For muted containers (enabled controls), use complementary outline.
-					.mutedContainerResolverOverlay(
-						SchemeContainerColorsResolverOverlay.builder()
-							.containerOutline((s) -> s.getComplementaryMutedContainerOutline() & 0xA0FFFFFF)
-							.containerOutlineVariant((s) -> s.getComplementaryMutedContainerOutline() & 0x80FFFFFF)
-							.build())
-					// For neutral containers (surfaces), use complementary outline.
-					.neutralContainerResolverOverlay(
-						SchemeContainerColorsResolverOverlay.builder()
-							.containerOutline((s) -> s.getComplementaryNeutralContainerOutline() & 0xA0FFFFFF)
-							.containerOutlineVariant((s) -> s.getComplementaryNeutralContainerOutline() & 0x80FFFFFF)
-							.build())
-					.build()
-			));
+			super(
+				SchemeResolverUtils.getSchemeColorResolver().overlayWith(
+					SchemeColorResolverOverlay.builder()
+						// For tonal containers (active controls), use complementary outline.
+						.tonalContainerResolverOverlay(
+							SchemeContainerColorsResolverOverlay.builder()
+								.containerOutline((s) -> s.getComplementaryTonalContainerOutline() & 0xA0FFFFFF)
+								.containerOutlineVariant((s) -> s.getComplementaryTonalContainerOutline() & 0x80FFFFFF)
+								.complementaryContainerOutline(DynamicScheme::getTonalContainerOutline)
+								.build())
+						// For muted containers (enabled controls), use complementary outline.
+						.mutedContainerResolverOverlay(
+							SchemeContainerColorsResolverOverlay.builder()
+								.containerOutline((s) -> s.getComplementaryMutedContainerOutline() & 0xA0FFFFFF)
+								.containerOutlineVariant((s) -> s.getComplementaryMutedContainerOutline() & 0x80FFFFFF)
+								.complementaryContainerOutline(DynamicScheme::getMutedContainerOutline)
+								.build())
+						// For neutral containers (surfaces), use complementary outline.
+						.neutralContainerResolverOverlay(
+							SchemeContainerColorsResolverOverlay.builder()
+								.containerOutline((s) -> s.getComplementaryNeutralContainerOutline() & 0xA0FFFFFF)
+								.containerOutlineVariant((s) -> s.getComplementaryNeutralContainerOutline() & 0x80FFFFFF)
+								.complementaryContainerOutline(DynamicScheme::getNeutralContainerOutline)
+								.build())
+						.build()),
+				PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+					PaletteContainerColorsResolverOverlay.builder()
+						.containerOutline((p) -> p.getComplementaryTonalContainerOutline() & 0xA0FFFFFF)
+						.containerOutlineVariant((p) -> p.getComplementaryTonalContainerOutline() & 0x80FFFFFF)
+						.complementaryContainerOutline(DynamicPalette::getTonalContainerOutline)
+						.build()
+				));
 
 			this.borderPainter = new FlatTonalBorderPainter();
 		}
