@@ -36,6 +36,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.SchemeColorResolver;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
  * <code>Graphite</code> skin. This class is part of officially supported API.
@@ -105,7 +107,12 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
         public static final String NAME = "Graphite Tonal";
 
         public GraphiteTonalSkin() {
+            this(SchemeResolverUtils.getSchemeColorResolver());
+        }
+
+        protected GraphiteTonalSkin(SchemeColorResolver schemeColorResolver) {
             super(new AccentBuilder()
+                .withDefaultAreaSchemeColorResolver(schemeColorResolver)
                 .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF606060),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

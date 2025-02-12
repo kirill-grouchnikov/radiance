@@ -51,4 +51,10 @@ public class RadianceGraphiteChalkLookAndFeel extends RadianceLookAndFeel {
 	public RadianceGraphiteChalkLookAndFeel() {
 		super(new GraphiteChalkSkin());
 	}
+
+	public static class RadianceGraphiteChalkTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceGraphiteChalkTonalLookAndFeel() {
+			super(new GraphiteChalkSkin.GraphiteChalkTonalSkin());
+		}
+	}
 }

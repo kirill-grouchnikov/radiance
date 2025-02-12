@@ -30,10 +30,14 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.palette.SchemeColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.palette.SchemeContainerColorsResolverOverlay;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 
 /**
  * <code>Graphite Chalk</code> skin. This class is part of officially supported API.
@@ -84,5 +88,41 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 	@Override
 	public String getDisplayName() {
 		return NAME;
+	}
+
+	public static class GraphiteChalkTonalSkin extends GraphiteTonalSkin {
+		public static final String NAME = "Graphite Chalk Tonal";
+
+		public GraphiteChalkTonalSkin() {
+			super(SchemeResolverUtils.getSchemeColorResolver().overlayWith(
+				SchemeColorResolverOverlay.builder()
+					// For tonal containers (active controls), use complementary outline.
+					.tonalContainerResolverOverlay(
+						SchemeContainerColorsResolverOverlay.builder()
+							.containerOutline((s) -> s.getComplementaryTonalContainerOutline() & 0xA0FFFFFF)
+							.containerOutlineVariant((s) -> s.getComplementaryTonalContainerOutline() & 0x80FFFFFF)
+							.build())
+					// For muted containers (enabled controls), use complementary outline.
+					.mutedContainerResolverOverlay(
+						SchemeContainerColorsResolverOverlay.builder()
+							.containerOutline((s) -> s.getComplementaryMutedContainerOutline() & 0xA0FFFFFF)
+							.containerOutlineVariant((s) -> s.getComplementaryMutedContainerOutline() & 0x80FFFFFF)
+							.build())
+					// For neutral containers (surfaces), use complementary outline.
+					.neutralContainerResolverOverlay(
+						SchemeContainerColorsResolverOverlay.builder()
+							.containerOutline((s) -> s.getComplementaryNeutralContainerOutline() & 0xA0FFFFFF)
+							.containerOutlineVariant((s) -> s.getComplementaryNeutralContainerOutline() & 0x80FFFFFF)
+							.build())
+					.build()
+			));
+
+			this.borderPainter = new FlatTonalBorderPainter();
+		}
+
+		@Override
+		public String getDisplayName() {
+			return NAME;
+		}
 	}
 }

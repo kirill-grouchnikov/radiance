@@ -62,7 +62,16 @@ public abstract class GraphiteAccentedTonalSkin extends RadianceSkin.TonalAccent
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFF636363), Hct.fromInt(0xFF424242), Hct.fromInt(0xFF424242)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-			/* isDark */ true);
+			/* isPrimaryDark */ true,
+			/* isTonalDark */ true,
+			/* isMutedDark */ true,
+			/* isNeutralDark */ true,
+			/* isSystemDark */ true,
+			/* primaryContrastLevel */ 0.0f,
+			/* tonalContrastLevel */ 0.0f,
+			/* mutedContrastLevel */ 0.f,
+			/* neutralContrastLevel */ 0.0f,
+			/* schemeColorResolver */ this.getDefaultAreaSchemeColorResolver());
 		this.graphiteDefaultBundle =
 			new RadianceColorSchemeBundle2(defaultAreaColorScheme);
 
