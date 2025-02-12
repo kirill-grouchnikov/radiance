@@ -77,11 +77,6 @@ public class GraphiteAquaSkin extends GraphiteAccentedSkin {
 
         public GraphiteAquaTonalSkin() {
             super(new AccentBuilder()
-                .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                        Hct.fromInt(0xFF636363), Hct.fromInt(0xFF424242), Hct.fromInt(0xFF424242)),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isDark */ true))
                 .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF3E70FF),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
@@ -36,9 +37,11 @@ import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPain
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -53,23 +56,31 @@ public abstract class GraphiteAccentedTonalSkin extends RadianceSkin.TonalAccent
 	protected GraphiteAccentedTonalSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
+		RadianceColorScheme2 defaultAreaColorScheme = ColorSchemeUtils.getColorScheme(
+			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+				Hct.fromInt(0xFF636363), Hct.fromInt(0xFF424242), Hct.fromInt(0xFF424242)),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isDark */ true);
 		RadianceColorSchemeBundle2 graphiteDefaultBundle =
-			new RadianceColorSchemeBundle2(this.getDefaultAreaColorScheme());
+			new RadianceColorSchemeBundle2(defaultAreaColorScheme);
+
 		graphiteDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
 			ComponentState.ROLLOVER_UNSELECTED,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
 			ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 		// Highlights
-		graphiteDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
+		graphiteDefaultBundle.registerActiveContainerTokens(
+			this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		// Tabs
 		graphiteDefaultBundle.registerActiveContainerTokens(
-			this.getDefaultAreaColorScheme().getActiveContainerTokens(),
+			this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		// Text highlights
-		graphiteDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
+		graphiteDefaultBundle.registerActiveContainerTokens(
+			this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(graphiteDefaultBundle,
@@ -96,7 +107,7 @@ public abstract class GraphiteAccentedTonalSkin extends RadianceSkin.TonalAccent
 				ContainerColorTokens::getContainerSurface
 			});
 		this.decorationPainter = new FlatDecorationPainter();
-		this.highlightFillPainter = new ClassicTonalFillPainter();
+		this.highlightFillPainter = new MatteTonalFillPainter();
 
 		// TODO - TONAL : remove this altogether
 		ColorSchemes schemes = RadianceSkin.getColorSchemes(

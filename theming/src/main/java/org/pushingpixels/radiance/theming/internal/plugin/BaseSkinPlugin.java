@@ -180,6 +180,9 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(GraphiteAquaSkin.GraphiteAquaTonalSkin.NAME,
             GraphiteAquaSkin.GraphiteAquaTonalSkin.class::getName,
             RadianceGraphiteAquaLookAndFeel.RadianceGraphiteAquaTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(GraphiteElectricSkin.GraphiteElectricTonalSkin.NAME,
+            GraphiteElectricSkin.GraphiteElectricTonalSkin.class::getName,
+            RadianceGraphiteElectricLookAndFeel.RadianceGraphiteElectricTonalLookAndFeel.class::getName));
 
         return result;
     }
