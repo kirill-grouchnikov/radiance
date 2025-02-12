@@ -29,16 +29,21 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.*;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
  * <code>Graphite Glass</code> skin. This class is part of officially supported API.
@@ -83,5 +88,54 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 	@Override
 	public String getDisplayName() {
 		return NAME;
+	}
+
+	public static class GraphiteGlassTonalSkin extends GraphiteTonalSkin {
+		public static final String NAME = "Graphite Glass Tonal";
+
+		public GraphiteGlassTonalSkin() {
+			super();
+
+			// Headers
+			this.registerAsDecorationArea(
+				ColorSchemeUtils.getExtendedContainerTokens(
+					/* seed */ Hct.fromInt(0xFF4F4F4F),
+					/* isFidelity */ true,
+					/* isDark */ true),
+				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+				RadianceThemingSlices.DecorationAreaType.HEADER);
+
+			// add two overlay painters to create a bezel line between
+			// menu bar and toolbars
+			RadianceOverlayPainter menuOverlayPainter = new BottomLineTonalOverlayPainter(
+				ContainerColorTokens::getContainerOutline);
+			RadianceOverlayPainter toolbarOverlayPainter = new TopLineTonalOverlayPainter(
+				ContainerColorTokensSingleColorQuery.composite(
+					ContainerColorTokens::getInverseContainerOutline,
+					ColorTransform.alpha(96)));
+			this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+			this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+			this.fillPainter = new SpecularRectangularFillPainter(new FractionBasedTonalFillPainter(
+				"Graphite Glass",
+				new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
+				new ContainerColorTokensSingleColorQuery[] {
+					ContainerColorTokens::getContainerSurfaceHigh,
+					ContainerColorTokensSingleColorQuery.blend(
+						ContainerColorTokens::getContainerSurfaceHigh,
+						ContainerColorTokens::getContainerSurfaceHighest,
+						0.5f),
+					ContainerColorTokens::getContainerSurface,
+					ContainerColorTokens::getContainerSurface
+				}), 1.0f);
+			this.decorationPainter = new ArcDecorationPainter();
+			this.highlightFillPainter = new GlassTonalFillPainter();
+		}
+
+		@Override
+		public String getDisplayName() {
+			return NAME;
+		}
 	}
 }

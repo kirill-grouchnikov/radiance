@@ -29,10 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 
 /**
  * <code>Graphite</code> skin. This class is part of officially supported API.
@@ -96,5 +99,47 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class GraphiteTonalSkin extends GraphiteAccentedTonalSkin {
+        public static final String NAME = "Graphite Tonal";
+
+        public GraphiteTonalSkin() {
+            super(new AccentBuilder()
+                .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF606060),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isFidelity */ true,
+                    /* isDark */ true))
+                .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFEBECF0),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrast */ 0.0f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+
+            this.graphiteDefaultBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFEBECF0),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrast */ 0.6f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED,
+                ComponentState.ROLLOVER_ARMED);
+            this.graphiteDefaultBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFACB2B9),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrast */ 0.6f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                ComponentState.PRESSED_UNSELECTED, ComponentState.PRESSED_SELECTED);
+        }
+
+        @Override
+        public String getDisplayName() {
+            return NAME;
+        }
     }
 }

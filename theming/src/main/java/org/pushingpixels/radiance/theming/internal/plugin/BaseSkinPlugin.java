@@ -192,6 +192,12 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(GraphiteSunsetSkin.GraphiteSunsetTonalSkin.NAME,
             GraphiteSunsetSkin.GraphiteSunsetTonalSkin.class::getName,
             RadianceGraphiteSunsetLookAndFeel.RadianceGraphiteSunsetTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(GraphiteSkin.GraphiteTonalSkin.NAME,
+            GraphiteSkin.GraphiteTonalSkin.class::getName,
+            RadianceGraphiteLookAndFeel.RadianceGraphiteTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(GraphiteGlassSkin.GraphiteGlassTonalSkin.NAME,
+            GraphiteGlassSkin.GraphiteGlassTonalSkin.class::getName,
+            RadianceGraphiteGlassLookAndFeel.RadianceGraphiteGlassTonalLookAndFeel.class::getName));
 
         return result;
     }

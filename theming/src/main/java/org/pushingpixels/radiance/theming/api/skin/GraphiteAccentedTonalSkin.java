@@ -50,6 +50,8 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  * @author Kirill Grouchnikov
  */
 public abstract class GraphiteAccentedTonalSkin extends RadianceSkin.TonalAccented {
+	protected RadianceColorSchemeBundle2 graphiteDefaultBundle;
+
 	/**
 	 * Creates a new accented <code>Graphite</code> skin.
 	 */
@@ -61,30 +63,30 @@ public abstract class GraphiteAccentedTonalSkin extends RadianceSkin.TonalAccent
 				Hct.fromInt(0xFF636363), Hct.fromInt(0xFF424242), Hct.fromInt(0xFF424242)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ true);
-		RadianceColorSchemeBundle2 graphiteDefaultBundle =
+		this.graphiteDefaultBundle =
 			new RadianceColorSchemeBundle2(defaultAreaColorScheme);
 
-		graphiteDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
+		this.graphiteDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
 			ComponentState.ROLLOVER_UNSELECTED,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
 			ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 		// Highlights
-		graphiteDefaultBundle.registerActiveContainerTokens(
+		this.graphiteDefaultBundle.registerActiveContainerTokens(
 			this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		// Tabs
-		graphiteDefaultBundle.registerActiveContainerTokens(
+		this.graphiteDefaultBundle.registerActiveContainerTokens(
 			this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		// Text highlights
-		graphiteDefaultBundle.registerActiveContainerTokens(
+		this.graphiteDefaultBundle.registerActiveContainerTokens(
 			this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		this.registerDecorationAreaSchemeBundle(graphiteDefaultBundle,
-			graphiteDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+		this.registerDecorationAreaSchemeBundle(this.graphiteDefaultBundle,
+			this.graphiteDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.buttonShaper = new ClassicButtonShaper();

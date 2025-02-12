@@ -52,4 +52,10 @@ public class RadianceGraphiteGlassLookAndFeel extends RadianceLookAndFeel {
 	public RadianceGraphiteGlassLookAndFeel() {
 		super(new GraphiteGlassSkin());
 	}
+
+	public static class RadianceGraphiteGlassTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceGraphiteGlassTonalLookAndFeel() {
+			super(new GraphiteGlassSkin.GraphiteGlassTonalSkin());
+		}
+	}
 }

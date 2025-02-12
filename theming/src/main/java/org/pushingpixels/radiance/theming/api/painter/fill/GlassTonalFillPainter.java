@@ -43,7 +43,7 @@ public class GlassTonalFillPainter extends FractionBasedTonalFillPainter {
 	 * Creates a new classic gradient painter.
 	 */
 	public GlassTonalFillPainter() {
-		super("Classic",
+		super("Glass",
 			new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
 				ContainerColorTokens::getContainerSurface,
