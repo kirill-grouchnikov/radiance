@@ -81,7 +81,7 @@ public class ChatFrame extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Configure the main skin
-            RadianceThemingCortex.GlobalScope.setSkin(new ModerateSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new ModerateSkin.ModerateTonalSkin());
             RadianceThemingCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             JFrame.setDefaultLookAndFeelDecorated(true);
 
