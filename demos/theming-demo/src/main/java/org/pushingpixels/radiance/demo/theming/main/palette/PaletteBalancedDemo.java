@@ -50,20 +50,36 @@ public class PaletteBalancedDemo extends JFrame {
 
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, 12dlu, p, $lg, p, $lg, p, $lg, " +
-                "p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, 12dlu, p, 8dlu, p, $lg, p, $lg, p, $lg, p, $lg, p, " +
+                "12dlu, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
         int row = 1;
 
+        ColorSchemeUtils.PalettesSource source =
+            new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF76A8C8), 16.0, 10.0);
+
         RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF76A8C8), 16.0, 10.0),
+            /* palettesSource */ source,
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
         RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF76A8C8), 16.0, 10.0),
+            /* palettesSource */ source,
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ true);
+
+        builder.addROLabel("Primary palette").xy(1, row)
+            .add(new TonalPalettePreview(source.getPalettes().getPrimaryPalette()))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Muted palette").xy(1, row)
+            .add(new TonalPalettePreview(source.getPalettes().getMutedPalette()))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Neutral palette").xy(1, row)
+            .add(new TonalPalettePreview(source.getPalettes().getNeutralPalette()))
+            .xyw(3, row, 3);
+        row += 2;
 
         builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
         builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);

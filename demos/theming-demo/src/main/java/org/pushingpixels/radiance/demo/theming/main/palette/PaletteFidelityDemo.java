@@ -50,22 +50,50 @@ public class PaletteFidelityDemo extends JFrame {
 
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, 12dlu, p, $lg, p, $lg, p, $lg, " +
-                "p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, 12dlu, p, $lg, p, $lg, p, 12dlu, p, 8dlu, p, $lg, p, " +
+                "$lg, p, $lg, p, $lg, p, 12dlu, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
         int row = 1;
 
+        ColorSchemeUtils.PalettesSource lightSource = new ColorSchemeUtils.FidelityPaletteSource(
+            Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4));
+        ColorSchemeUtils.PalettesSource darkSource = new ColorSchemeUtils.FidelityPaletteSource(
+            Hct.fromInt(0xFF663E00), Hct.fromInt(0xFF402200), Hct.fromInt(0xFF201200));
+
         RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4)),
+            /* palettesSource */ lightSource,
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
         RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF663E00), Hct.fromInt(0xFF402200), Hct.fromInt(0xFF201200)),
+            /* palettesSource */ darkSource,
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ true);
+
+        builder.addROLabel("Primary light palette").xy(1, row)
+            .add(new TonalPalettePreview(lightSource.getPalettes().getPrimaryPalette()))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Muted light palette").xy(1, row)
+            .add(new TonalPalettePreview(lightSource.getPalettes().getMutedPalette()))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Neutral light palette").xy(1, row)
+            .add(new TonalPalettePreview(lightSource.getPalettes().getNeutralPalette()))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Primary dark palette").xy(1, row)
+            .add(new TonalPalettePreview(darkSource.getPalettes().getPrimaryPalette()))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Muted dark palette").xy(1, row)
+            .add(new TonalPalettePreview(darkSource.getPalettes().getMutedPalette()))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Neutral dark palette").xy(1, row)
+            .add(new TonalPalettePreview(darkSource.getPalettes().getNeutralPalette()))
+            .xyw(3, row, 3);
+        row += 2;
 
         builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
         builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);
