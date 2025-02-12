@@ -29,6 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteContainerColorsResolverOverlay;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
+
 /**
  * <code>Graphite Gold</code> skin. This class is part of officially supported API.
  * 
@@ -53,5 +58,35 @@ public class GraphiteGoldSkin extends GraphiteAccentedSkin {
 	@Override
 	public String getDisplayName() {
 		return NAME;
+	}
+
+	public static class GraphiteGoldTonalSkin extends GraphiteAccentedTonalSkin {
+		public static final String NAME = "Graphite Gold Tonal";
+
+		public GraphiteGoldTonalSkin() {
+			super(new AccentBuilder()
+				.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFFFC900),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* contrast */ 0.0f,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+						PaletteContainerColorsResolverOverlay.builder()
+							.containerSurfaceDisabledAlpha((s) -> 0.4f)
+							.onContainerDisabledAlpha((s) -> 0.8f)
+							.containerOutlineDisabledAlpha((s) -> 0.4f)
+							.build())))
+				.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFFFC900),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* contrast */ 0.0f,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+		}
+
+		@Override
+		public String getDisplayName() {
+			return NAME;
+		}
 	}
 }

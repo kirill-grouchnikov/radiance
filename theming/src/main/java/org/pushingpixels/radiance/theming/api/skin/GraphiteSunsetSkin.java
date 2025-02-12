@@ -29,10 +29,14 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.SunsetColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.PaletteContainerColorsResolverOverlay;
+import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 
 /**
  * <code>Graphite Sunset</code> skin. This class is part of officially supported API.
@@ -68,5 +72,35 @@ public class GraphiteSunsetSkin extends GraphiteAccentedSkin {
 	@Override
 	public String getDisplayName() {
 		return NAME;
+	}
+
+	public static class GraphiteSunsetTonalSkin extends GraphiteAccentedTonalSkin {
+		public static final String NAME = "Graphite Sunset Tonal";
+
+		public GraphiteSunsetTonalSkin() {
+			super(new AccentBuilder()
+				.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFFF7B00),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* contrast */ 0.0f,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+						PaletteContainerColorsResolverOverlay.builder()
+							.containerSurfaceDisabledAlpha((s) -> 0.4f)
+							.onContainerDisabledAlpha((s) -> 0.8f)
+							.containerOutlineDisabledAlpha((s) -> 0.4f)
+							.build())))
+				.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFFF6D00),
+					/* isFidelity */ true,
+					/* isDark */ false,
+					/* contrast */ 0.0f,
+					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+		}
+
+		@Override
+		public String getDisplayName() {
+			return NAME;
+		}
 	}
 }

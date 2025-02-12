@@ -52,4 +52,10 @@ public class RadianceGraphiteGoldLookAndFeel extends RadianceLookAndFeel {
 	public RadianceGraphiteGoldLookAndFeel() {
 		super(new GraphiteGoldSkin());
 	}
+
+	public static class RadianceGraphiteGoldTonalLookAndFeel extends RadianceLookAndFeel {
+		public RadianceGraphiteGoldTonalLookAndFeel() {
+			super(new GraphiteGoldSkin.GraphiteGoldTonalSkin());
+		}
+	}
 }
