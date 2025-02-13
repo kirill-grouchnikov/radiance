@@ -39,6 +39,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -52,15 +54,24 @@ public class ThreadPanel extends JPanel {
     public ThreadPanel() {
         this.setLayout(new VerticalStackLayout());
 
+        RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREAD);
+
+        Color iconColor, backgroundColor, innerBackgroundColor;
         RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
-        RadianceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE,
-                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
-        Color iconColor = new Color(fillScheme.getForegroundColor().getRed(),
-                fillScheme.getForegroundColor().getGreen(),
-                fillScheme.getForegroundColor().getBlue(),
-                204);
-        Color backgroundColor = fillScheme.getLightColor();
-        Color innerBackgroundColor = fillScheme.getUltraLightColor();
+        if (currentSkin instanceof TonalSkin) {
+            ContainerColorTokens colorTokens = currentSkin.getContainerTokens(this,
+                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+            Color onContainer = colorTokens.getOnContainer();
+            iconColor = new Color(onContainer.getRed(),
+                onContainer.getGreen(), onContainer.getBlue(), 204);
+            backgroundColor = colorTokens.getContainerSurface();
+            innerBackgroundColor = colorTokens.getContainerSurfaceHighest();
+        } else {
+            RadianceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE, ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
+            iconColor = new Color(fillScheme.getForegroundColor().getRed(), fillScheme.getForegroundColor().getGreen(), fillScheme.getForegroundColor().getBlue(), 204);
+            backgroundColor = fillScheme.getLightColor();
+            innerBackgroundColor = fillScheme.getUltraLightColor();
+        }
 
         this.add(getHeaderActionsPanel(iconColor, backgroundColor));
         this.add(getMessageTitlePanel("Keys found", backgroundColor));

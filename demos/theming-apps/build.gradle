@@ -34,6 +34,7 @@ dependencies {
     implementation libs.jgoodies.common
     implementation libs.jgoodies.forms
     implementation libs.jhlabs
+    implementation libs.ephemeral.chroma
     implementation project(':common')
     implementation project(':theming')
     implementation project(':component')

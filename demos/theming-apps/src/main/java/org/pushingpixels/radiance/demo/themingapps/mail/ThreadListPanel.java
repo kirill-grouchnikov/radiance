@@ -33,11 +33,13 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.person_outline_black_24dp;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 import org.pushingpixels.radiance.theming.internal.svg.edit_black_24dp;
 import org.pushingpixels.radiance.theming.internal.svg.refresh_black_24dp;
@@ -58,13 +60,26 @@ public class ThreadListPanel extends PanelWithRightLine {
         RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
 
         RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREADS);
-        this.setRightLineColor(currentSkin.getColorScheme(VisorMail.THREADS,
-                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED).getDarkColor());
 
-        // Get the color schemes for colorizing the icons.
-        RadianceColorScheme fillScheme = currentSkin.getColorScheme(VisorMail.THREADS,
-                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
-        Color mainSelectorIconColor = fillScheme.getForegroundColor();
+        Color mainSelectorIconColor;
+        Color labelBackgroundColor;
+        if (currentSkin instanceof TonalSkin) {
+            ContainerColorTokens colorTokens = currentSkin.getContainerTokens(this,
+                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+
+            this.setRightLineColor(colorTokens.getContainerOutline());
+            // Get the color schemes for colorizing the icons.
+            mainSelectorIconColor = colorTokens.getOnContainer();
+            labelBackgroundColor = colorTokens.getContainerSurfaceHigh();
+        } else {
+            RadianceColorScheme fillScheme = currentSkin.getColorScheme(
+                VisorMail.THREADS, ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
+
+            this.setRightLineColor(fillScheme.getDarkColor());
+            // Get the color schemes for colorizing the icons.
+            mainSelectorIconColor = fillScheme.getForegroundColor();
+            labelBackgroundColor = fillScheme.getLightColor();
+        }
 
         RadianceIcon editIcon = edit_black_24dp.of(14, 14);
         Color filterColor = new Color(mainSelectorIconColor.getRed(),
@@ -76,7 +91,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
         RadianceIcon mailIcon = refresh_black_24dp.of(12, 12);
         mailIcon.setColorFilter(color -> mainSelectorIconColor);
-        this.add(getInboxLabel("Inbox", mailIcon, fillScheme.getLightColor()));
+        this.add(getInboxLabel("Inbox", mailIcon, labelBackgroundColor));
 
         JList<ThreadInfo> threadList = new JList<>(new ThreadListModel(
                 new ThreadInfo("Bob Macpearson", "5:50pm", "Welcome Natalie",

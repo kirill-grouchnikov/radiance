@@ -40,7 +40,9 @@ public class VisorMail extends JFrame {
     public static final RadianceThemingSlices.DecorationAreaType DESTINATIONS =
             new RadianceThemingSlices.DecorationAreaType("Visor Destinations");
     public static final RadianceThemingSlices.DecorationAreaType THREADS =
-            new RadianceThemingSlices.DecorationAreaType("Visor Threads");
+        new RadianceThemingSlices.DecorationAreaType("Visor Threads");
+    public static final RadianceThemingSlices.DecorationAreaType THREAD =
+        new RadianceThemingSlices.DecorationAreaType("Visor Thread");
 
     public VisorMail() {
         BorderLayout mainLayout = new BorderLayout();
@@ -58,7 +60,7 @@ public class VisorMail extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Configure the main skin
-            RadianceThemingCortex.GlobalScope.setSkin(new VisorSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new VisorSkin.VisorTonalSkin());
             RadianceThemingCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             JFrame.setDefaultLookAndFeelDecorated(true);
 

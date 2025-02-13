@@ -29,20 +29,20 @@
  */
 package org.pushingpixels.radiance.demo.themingapps.mail;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SunGlareColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.TerracottaColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class VisorSkin extends RadianceSkin {
@@ -137,12 +137,131 @@ public class VisorSkin extends RadianceSkin {
                 "Visor Highlight", new float[] { 0.0f, 1.0f },
                 new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.EXTRALIGHT,
                         ColorSchemeSingleColorQuery.EXTRALIGHT });
-
-        this.borderPainter = new ClassicBorderPainter();
     }
 
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class VisorTonalSkin extends VisorSkin implements TonalSkin {
+        public static final String NAME = "Visor Tonal";
+
+        public VisorTonalSkin() {
+            RadianceColorScheme2 visorDefaultColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF99B6CB), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFC4CFD7)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isDark */ false);
+            RadianceColorSchemeBundle2 visorDefaultBundle =
+                new RadianceColorSchemeBundle2(visorDefaultColorScheme);
+            this.registerDecorationAreaSchemeBundle(visorDefaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
+
+            RadianceColorScheme2 visorThreadColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF99B6CB), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFEFF8FF)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isDark */ false);
+            RadianceColorSchemeBundle2 visorThreadBundle =
+                new RadianceColorSchemeBundle2(visorThreadColorScheme);
+            this.registerDecorationAreaSchemeBundle(visorThreadBundle, VisorMail.THREAD);
+
+            // Custom palette resolver for the highlights in the threads decoration area
+            // to set outline colors to be identical to surface colors (effectively removing the
+            // visuals of the outlines)
+            PaletteContainerColorsResolver threadsHighlightsPaletteResolver =
+                PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .containerOutline(DynamicPalette::getTonalContainerSurface)
+                        .containerOutlineVariant(DynamicPalette::getTonalContainerSurfaceHigh)
+                        .build()
+                );
+            RadianceColorScheme2 visorThreadsColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD8E2EA)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isDark */ false);
+            RadianceColorSchemeBundle2 visorThreadsBundle =
+                new RadianceColorSchemeBundle2(visorThreadsColorScheme);
+            visorThreadsBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF5B91F8),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.0f,
+                    /* colorResolver */ threadsHighlightsPaletteResolver),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
+            visorThreadsBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF80B6CB),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.0f,
+                    /* colorResolver */ threadsHighlightsPaletteResolver),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.ROLLOVER_UNSELECTED);
+            this.registerDecorationAreaSchemeBundle(visorThreadsBundle, VisorMail.THREADS);
+
+
+            // Custom palette resolver for the highlights in the threads decoration area
+            // to set outline colors to be identical to surface colors (effectively removing the
+            // visuals of the outlines)
+            PaletteContainerColorsResolver destinationsHighlightsPaletteResolver =
+                PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
+                        .containerOutlineVariant(DynamicPalette::getTonalContainerOutlineVariant)
+                        .build()
+                );
+            RadianceColorScheme2 visorDestinationsColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD3E2EF)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isDark */ false);
+            RadianceColorSchemeBundle2 visorDestinationsBundle =
+                new RadianceColorSchemeBundle2(visorDestinationsColorScheme);
+            visorDestinationsBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFE8EDAF),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ destinationsHighlightsPaletteResolver),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
+            visorDestinationsBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFD7E1C2),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ destinationsHighlightsPaletteResolver),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.ROLLOVER_UNSELECTED);
+            this.registerDecorationAreaSchemeBundle(visorDestinationsBundle, VisorMail.DESTINATIONS);
+
+            this.buttonShaper = new ClassicButtonShaper();
+            this.fillPainter = new MatteTonalFillPainter();
+            this.borderPainter = new FlatTonalBorderPainter();
+
+            BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
+            decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());
+            decorationPainter.setTextureAlpha(0.3f);
+            this.decorationPainter = decorationPainter;
+
+            this.highlightFillPainter = new FractionBasedTonalFillPainter("Visor Highlight",
+                new float[] {0.0f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurface,
+                });
+        }
+
+        @Override
+        public String getDisplayName() {
+            return VisorTonalSkin.NAME;
+        }
     }
 }
