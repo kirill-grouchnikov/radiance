@@ -632,8 +632,7 @@ public class ColorSchemeUtils {
             /* sourceColorHct */ seed,
             /* isFidelity */ isFidelity,
             /* isDark */ isDark,
-            /* contrastLevel */ contrastLevel,
-            /* palette */ TonalPalette.fromHct(seed));
+            /* contrastLevel */ contrastLevel);
 
         return new ContainerColorTokens() {
             @Override
@@ -742,8 +741,7 @@ public class ColorSchemeUtils {
             /* sourceColorHct */ seed,
             /* isFidelity */ isFidelity,
             /* isDark */ isDark,
-            /* contrastLevel */ contrastLevel,
-            /* palette */ TonalPalette.fromHct(seed));
+            /* contrastLevel */ contrastLevel);
 
         ContainerColorTokens baseTokens = getContainerTokens(seed, isFidelity, isDark,
             contrastLevel, colorResolver);
