@@ -51,7 +51,7 @@ public class SeaGlassSkin extends RadianceSkin {
 	public static final String NAME = "SeaGlass";
 
 	/**
-	 * Creates a new <code>Gemini</code> skin.
+	 * Creates a new <code>Sea Glass</code> skin.
 	 */
 	public SeaGlassSkin() {
 		ColorSchemes schemes = RadianceSkin.getColorSchemes(
