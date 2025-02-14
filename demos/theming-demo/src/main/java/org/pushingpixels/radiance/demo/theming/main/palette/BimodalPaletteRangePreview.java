@@ -64,7 +64,7 @@ public class BimodalPaletteRangePreview extends JComponent {
         Graphics2D g2d = (Graphics2D) g.create();
         FontMetrics fm = g2d.getFontMetrics();
 
-        int xOffset = 15;
+        int xOffset = 10;
 
         for (int tone = this.startTone; tone <= this.endTone; tone += this.toneJump) {
             final int finalTone = tone;

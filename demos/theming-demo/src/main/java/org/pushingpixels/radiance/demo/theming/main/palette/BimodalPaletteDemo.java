@@ -31,11 +31,15 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
+import com.jgoodies.forms.layout.CellConstraints;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.BimodalPaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -48,7 +52,8 @@ public class BimodalPaletteDemo extends JFrame {
 
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
-                rows("p, $lg, p, 12dlu, p, $lg, p, 12dlu, p, $lg, p, 12dlu, p, $lg, p, 12dlu, p, $lg, p").
+                rows("p, $lg, p, 12dlu, p, $lg, p, 12dlu, p, $lg, p, 12dlu, " +
+                        "p, $lg, p, $lg, p, 8dlu, p, $lg, p").
                 padding(Paddings.DIALOG);
 
         int row = 1;
@@ -59,26 +64,28 @@ public class BimodalPaletteDemo extends JFrame {
         int startTone = fidelityTone - 10;
         int endTone = fidelityTone + 10;
 
-        DynamicBimodalPalette bimodalPalette1 = DynamicBimodalPalette.fidelity(
-            /* seedOne */ seedOne,
-            /* seedTwo */ seedTwo,
-            /* transitionRange */ DynamicBimodalPalette.TransitionRange.FULL_SPAN,
-            /* isDark */ false,
-            /* fidelityTone */ fidelityTone,
-            /* contrastLevel */ 0.0);
-
-        DynamicBimodalPalette bimodalPalette1Custom = DynamicBimodalPalette.fidelity(
+        ContainerColorTokens tokensOneTwoLight = ColorSchemeUtils.getContainerTokens(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* isDark */ false,
             /* fidelityTone */ fidelityTone,
-            /* contrastLevel */ 0.0);
+            /* contrastLevel */ 0.0f,
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
-        DynamicBimodalPalette bimodalPalette2 = DynamicBimodalPalette.fidelity(
+        ContainerColorTokens tokensTwoOneLight = ColorSchemeUtils.getContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* transitionRange */ DynamicBimodalPalette.TransitionRange.FULL_SPAN,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* isDark */ false,
+            /* fidelityTone */ fidelityTone,
+            /* contrastLevel */ 0.0f,
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+
+        DynamicBimodalPalette bimodalPalette1Custom = DynamicBimodalPalette.fidelity(
+            /* seedOne */ seedOne,
+            /* seedTwo */ seedTwo,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* isDark */ false,
             /* fidelityTone */ fidelityTone,
             /* contrastLevel */ 0.0);
@@ -92,19 +99,11 @@ public class BimodalPaletteDemo extends JFrame {
             /* contrastLevel */ 0.0);
 
         builder.addROLabel("Palette one").xy(1, row)
-            .add(new TonalPalettePreview(bimodalPalette1.paletteOne))
+            .add(new TonalPalettePreview(bimodalPalette1Custom.paletteOne))
             .xyw(3, row, 3);
         row += 2;
         builder.addROLabel("Palette two").xy(1, row)
-            .add(new TonalPalettePreview(bimodalPalette1.paletteTwo))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Bimodal one-two 0:100").xy(1, row)
-            .add(new BimodalPalettePreview(bimodalPalette1))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Zoom").xy(1, row)
-            .add(new BimodalPaletteRangePreview(bimodalPalette1, startTone, endTone, 1))
+            .add(new TonalPalettePreview(bimodalPalette1Custom.paletteTwo))
             .xyw(3, row, 3);
         row += 2;
         builder.addROLabel("Bimodal one-two " + startTone + ":" + endTone).xy(1, row)
@@ -115,14 +114,6 @@ public class BimodalPaletteDemo extends JFrame {
             .add(new BimodalPaletteRangePreview(bimodalPalette1Custom, startTone, endTone, 1))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Bimodal two-one 0:100").xy(1, row)
-            .add(new BimodalPalettePreview(bimodalPalette2))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Zoom").xy(1, row)
-            .add(new BimodalPaletteRangePreview(bimodalPalette2, startTone, endTone, 1))
-            .xyw(3, row, 3);
-        row += 2;
         builder.addROLabel("Bimodal two-one " + startTone + ":" + endTone).xy(1, row)
             .add(new BimodalPalettePreview(bimodalPalette2Custom))
             .xyw(3, row, 3);
@@ -130,6 +121,24 @@ public class BimodalPaletteDemo extends JFrame {
         builder.addROLabel("Zoom").xy(1, row)
             .add(new BimodalPaletteRangePreview(bimodalPalette2Custom, startTone, endTone, 1))
             .xyw(3, row, 3);
+        row += 2;
+
+        builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
+        builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);
+
+        row += 2;
+        builder.addROLabel("Tonal container 1-2").xy(1, row)
+            .add(new ContainerPalettePreview(tokensOneTwoLight)).xy(3, row);
+        row += 2;
+        builder.addROLabel("Tonal container 2-1").xy(1, row)
+            .add(new ContainerPalettePreview(tokensTwoOneLight)).xy(3, row);
+
+        row += 2;
+        builder.addROLabel("Tonal container 1-2").xy(1, row)
+            .add(new ContainerGradientPreview(tokensOneTwoLight, "Tonal")).xy(3, row);
+        row += 2;
+        builder.addROLabel("Tonal container 2-1").xy(1, row)
+            .add(new ContainerGradientPreview(tokensTwoOneLight, "Tonal")).xy(3, row);
 
         this.add(builder.build());
 

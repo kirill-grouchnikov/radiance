@@ -37,10 +37,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class ContainerPreview extends JPanel {
+public class ContainerGradientPreview extends JPanel {
     private ContainerColorTokens colorTokens;
 
-    public ContainerPreview(ContainerColorTokens colorTokens, String text) {
+    public ContainerGradientPreview(ContainerColorTokens colorTokens, String text) {
         this.colorTokens = colorTokens;
 
         this.setLayout(new BorderLayout());
@@ -59,7 +59,15 @@ public class ContainerPreview extends JPanel {
                 int arc = 8;
                 int strokeThickness = 2;
 
-                g2d.setColor(colorTokens.getContainerSurface());
+                MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height,
+                    new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
+                    new Color[] {
+                        colorTokens.getContainerSurfaceLow(),
+                        colorTokens.getContainerSurfaceLowest(),
+                        colorTokens.getContainerSurface(),
+                        colorTokens.getContainerSurfaceLow()
+                    }, MultipleGradientPaint.CycleMethod.REPEAT);
+                g2d.setPaint(gradient);
                 g2d.fillRoundRect(strokeThickness, strokeThickness,
                     width - 2 * strokeThickness + 1, height - 2 * strokeThickness + 1, arc, arc);
 

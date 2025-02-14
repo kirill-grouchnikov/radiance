@@ -35,7 +35,7 @@ import java.awt.*;
 import java.util.function.Function;
 
 public class BimodalPaletteResolverUtils {
-    public static BimodalPaletteContainerColorsResolver getPaletteTonalColorResolver() {
+    public static BimodalPaletteContainerColorsResolver getBimodalPaletteTonalColorResolver() {
         BimodalPaletteContainerColorsResolver result =
             new BimodalPaletteContainerColorsResolver() {
                 @Override

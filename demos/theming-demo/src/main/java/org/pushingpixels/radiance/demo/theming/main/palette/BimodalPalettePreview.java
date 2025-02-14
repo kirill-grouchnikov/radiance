@@ -57,7 +57,7 @@ public class BimodalPalettePreview extends JComponent {
         Graphics2D g2d = (Graphics2D) g.create();
         FontMetrics fm = g2d.getFontMetrics();
 
-        int xOffset = 15;
+        int xOffset = 10;
 
         for (int tone = 0; tone <= 100; tone += 5) {
             final int finalTone = tone;
