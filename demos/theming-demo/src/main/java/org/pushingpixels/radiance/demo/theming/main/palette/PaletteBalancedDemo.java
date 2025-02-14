@@ -48,24 +48,47 @@ public class PaletteBalancedDemo extends JFrame {
 
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p").
+                rows("p, $lg, p, 12dlu, p, $lg, p, 12dlu, p, $lg, p, 12dlu, p, $lg, p, 12dlu, p, $lg, p").
                 padding(Paddings.DIALOG);
 
         int row = 1;
 
-        Hct seedOne = Hct.fromInt(0xFF00C1A9);
-        Hct seedTwo = Hct.fromInt(0xFF00D680);
+        Hct seedOne = Hct.fromInt(0xFFFFD757);
+        Hct seedTwo = Hct.fromInt(0xFFFFA62A);
+        int fidelityTone = (int) seedTwo.getTone();
+        int startTone = fidelityTone - 10;
+        int endTone = fidelityTone + 10;
 
-        DynamicBimodalPalette bimodalPalette1 = DynamicBimodalPalette.balanced(
+        DynamicBimodalPalette bimodalPalette1 = DynamicBimodalPalette.fidelity(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.FULL_SPAN,
             /* isDark */ false,
+            /* fidelityTone */ fidelityTone,
             /* isContrastLevel */ 0.0);
 
-        DynamicBimodalPalette bimodalPalette2 = DynamicBimodalPalette.balanced(
+        DynamicBimodalPalette bimodalPalette1Custom = DynamicBimodalPalette.fidelity(
+            /* seedOne */ seedOne,
+            /* seedTwo */ seedTwo,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* isDark */ false,
+            /* fidelityTone */ fidelityTone,
+            /* isContrastLevel */ 0.0);
+
+        DynamicBimodalPalette bimodalPalette2 = DynamicBimodalPalette.fidelity(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.FULL_SPAN,
             /* isDark */ false,
+            /* fidelityTone */ fidelityTone,
+            /* isContrastLevel */ 0.0);
+
+        DynamicBimodalPalette bimodalPalette2Custom = DynamicBimodalPalette.fidelity(
+            /* seedOne */ seedTwo,
+            /* seedTwo */ seedOne,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* isDark */ false,
+            /* fidelityTone */ fidelityTone,
             /* isContrastLevel */ 0.0);
 
         builder.addROLabel("Palette one").xy(1, row)
@@ -76,12 +99,36 @@ public class PaletteBalancedDemo extends JFrame {
             .add(new TonalPalettePreview(bimodalPalette1.paletteTwo))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Bimodal one-two").xy(1, row)
+        builder.addROLabel("Bimodal one-two 0:100").xy(1, row)
             .add(new BimodalPalettePreview(bimodalPalette1))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Bimodal two-one").xy(1, row)
+        builder.addROLabel("Zoom").xy(1, row)
+            .add(new BimodalPaletteRangePreview(bimodalPalette1, startTone, endTone, 1))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Bimodal one-two " + startTone + ":" + endTone).xy(1, row)
+            .add(new BimodalPalettePreview(bimodalPalette1Custom))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Zoom").xy(1, row)
+            .add(new BimodalPaletteRangePreview(bimodalPalette1Custom, startTone, endTone, 1))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Bimodal two-one 0:100").xy(1, row)
             .add(new BimodalPalettePreview(bimodalPalette2))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Zoom").xy(1, row)
+            .add(new BimodalPaletteRangePreview(bimodalPalette2, startTone, endTone, 1))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Bimodal two-one " + startTone + ":" + endTone).xy(1, row)
+            .add(new BimodalPalettePreview(bimodalPalette2Custom))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Zoom").xy(1, row)
+            .add(new BimodalPaletteRangePreview(bimodalPalette2Custom, startTone, endTone, 1))
             .xyw(3, row, 3);
 
         this.add(builder.build());
