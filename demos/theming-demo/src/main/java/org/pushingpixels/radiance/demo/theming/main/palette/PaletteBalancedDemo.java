@@ -65,7 +65,7 @@ public class PaletteBalancedDemo extends JFrame {
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.FULL_SPAN,
             /* isDark */ false,
             /* fidelityTone */ fidelityTone,
-            /* isContrastLevel */ 0.0);
+            /* contrastLevel */ 0.0);
 
         DynamicBimodalPalette bimodalPalette1Custom = DynamicBimodalPalette.fidelity(
             /* seedOne */ seedOne,
@@ -73,7 +73,7 @@ public class PaletteBalancedDemo extends JFrame {
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* isDark */ false,
             /* fidelityTone */ fidelityTone,
-            /* isContrastLevel */ 0.0);
+            /* contrastLevel */ 0.0);
 
         DynamicBimodalPalette bimodalPalette2 = DynamicBimodalPalette.fidelity(
             /* seedOne */ seedTwo,
@@ -81,7 +81,7 @@ public class PaletteBalancedDemo extends JFrame {
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.FULL_SPAN,
             /* isDark */ false,
             /* fidelityTone */ fidelityTone,
-            /* isContrastLevel */ 0.0);
+            /* contrastLevel */ 0.0);
 
         DynamicBimodalPalette bimodalPalette2Custom = DynamicBimodalPalette.fidelity(
             /* seedOne */ seedTwo,
@@ -89,7 +89,7 @@ public class PaletteBalancedDemo extends JFrame {
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* isDark */ false,
             /* fidelityTone */ fidelityTone,
-            /* isContrastLevel */ 0.0);
+            /* contrastLevel */ 0.0);
 
         builder.addROLabel("Palette one").xy(1, row)
             .add(new TonalPalettePreview(bimodalPalette1.paletteOne))
