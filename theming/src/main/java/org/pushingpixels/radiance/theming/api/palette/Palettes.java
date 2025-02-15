@@ -34,12 +34,12 @@ import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 
 public class Palettes {
     private boolean isFidelity;
-    private Hct primarySourceHct;
-    private Hct mutedSourceHct;
-    private Hct neutralSourceHct;
     private TonalPalette primaryPalette;
     private TonalPalette mutedPalette;
     private TonalPalette neutralPalette;
+    private double primarySourceTone;
+    private double mutedSourceTone;
+    private double neutralSourceTone;
     private Hct systemInfoSourceHct;
     private Hct systemWarningSourceHct;
     private Hct systemErrorSourceHct;
@@ -47,18 +47,18 @@ public class Palettes {
     private Hct systemEmergencySourceHct;
 
     private Palettes(boolean isFidelity,
-        Hct primarySourceHct, Hct mutedSourceHct, Hct neutralSourceHct,
         TonalPalette primaryPalette, TonalPalette mutedPalette, TonalPalette neutralPalette,
+        double primarySourceTone, double mutedSourceTone, double neutralSourceTone,
         Hct systemInfoSourceHct, Hct systemWarningSourceHct, Hct systemErrorSourceHct,
         Hct systemSuccessSourceHct, Hct systemEmergencySourceHct) {
 
         this.isFidelity = isFidelity;
-        this.primarySourceHct = primarySourceHct;
-        this.mutedSourceHct = mutedSourceHct;
-        this.neutralSourceHct = neutralSourceHct;
         this.primaryPalette = primaryPalette;
         this.neutralPalette = neutralPalette;
         this.mutedPalette = mutedPalette;
+        this.primarySourceTone = primarySourceTone;
+        this.mutedSourceTone = mutedSourceTone;
+        this.neutralSourceTone = neutralSourceTone;
         this.systemInfoSourceHct = systemInfoSourceHct;
         this.systemWarningSourceHct = systemWarningSourceHct;
         this.systemErrorSourceHct = systemErrorSourceHct;
@@ -70,16 +70,16 @@ public class Palettes {
         return this.isFidelity;
     }
 
-    public Hct getPrimarySourceHct() {
-        return this.primarySourceHct;
+    public double getPrimarySourceTone() {
+        return primarySourceTone;
     }
 
-    public Hct getMutedSourceHct() {
-        return this.mutedSourceHct;
+    public double getMutedSourceTone() {
+        return this.mutedSourceTone;
     }
 
-    public Hct getNeutralSourceHct() {
-        return this.neutralSourceHct;
+    public double getNeutralSourceTone() {
+        return this.neutralSourceTone;
     }
 
     public TonalPalette getPrimaryPalette() {
@@ -120,12 +120,12 @@ public class Palettes {
 
     public static class Builder {
         private boolean isFidelity;
-        private Hct primarySourceHct;
-        private Hct mutedSourceHct;
-        private Hct neutralSourceHct;
         private TonalPalette primaryPalette;
         private TonalPalette mutedPalette;
         private TonalPalette neutralPalette;
+        private double primarySourceTone;
+        private double mutedSourceTone;
+        private double neutralSourceTone;
 
         // TODO - TONAL: Does this need to be configured by the app side?
         private Hct systemInfoSourceHct = Hct.fromInt(0xFF95C1DB);
@@ -136,21 +136,6 @@ public class Palettes {
 
         public Builder setFidelity(boolean fidelity) {
             this.isFidelity = fidelity;
-            return this;
-        }
-
-        public Builder setPrimarySourceHct(Hct primarySourceHct) {
-            this.primarySourceHct = primarySourceHct;
-            return this;
-        }
-
-        public Builder setMutedSourceHct(Hct mutedSourceHct) {
-            this.mutedSourceHct = mutedSourceHct;
-            return this;
-        }
-
-        public Builder setNeutralSourceHct(Hct neutralSourceHct) {
-            this.neutralSourceHct = neutralSourceHct;
             return this;
         }
 
@@ -169,10 +154,26 @@ public class Palettes {
             return this;
         }
 
+        public Builder setPrimarySourceTone(double primarySourceTone) {
+            this.primarySourceTone = primarySourceTone;
+            return this;
+        }
+
+        public Builder setMutedSourceTone(double mutedSourceTone) {
+            this.mutedSourceTone = mutedSourceTone;
+            return this;
+        }
+
+        public Builder setNeutralSourceTone(double neutralSourceTone) {
+            this.neutralSourceTone = neutralSourceTone;
+            return this;
+        }
+
         public Palettes build() {
             return new Palettes(
-                this.isFidelity, this.primarySourceHct, this.mutedSourceHct, this.neutralSourceHct,
+                this.isFidelity,
                 this.primaryPalette, this.mutedPalette, this.neutralPalette,
+                this.primarySourceTone, this.mutedSourceTone, this.neutralSourceTone,
                 this.systemInfoSourceHct, this.systemWarningSourceHct, this.systemErrorSourceHct,
                 this.systemSuccessSourceHct, this.systemEmergencySourceHct);
         }

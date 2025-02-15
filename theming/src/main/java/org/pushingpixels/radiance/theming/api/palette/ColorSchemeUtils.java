@@ -334,12 +334,12 @@ public class ColorSchemeUtils {
 
             return Palettes.builder()
                 .setFidelity(false)
-                .setPrimarySourceHct(this.seed)
-                .setMutedSourceHct(this.seed)
-                .setNeutralSourceHct(this.seed)
                 .setPrimaryPalette(primaryPalette)
                 .setMutedPalette(mutedPalette)
                 .setNeutralPalette(neutralPalette)
+                .setPrimarySourceTone(this.seed.getTone())
+                .setMutedSourceTone(this.seed.getTone())
+                .setNeutralSourceTone(this.seed.getTone())
                 .build();
         }
     }
@@ -363,12 +363,12 @@ public class ColorSchemeUtils {
 
             return Palettes.builder()
                 .setFidelity(true)
-                .setPrimarySourceHct(this.primarySeed)
-                .setMutedSourceHct(this.mutedSeed)
-                .setNeutralSourceHct(this.neutralSeed)
                 .setPrimaryPalette(primaryPalette)
                 .setMutedPalette(mutedPalette)
                 .setNeutralPalette(neutralPalette)
+                .setPrimarySourceTone(this.primarySeed.getTone())
+                .setMutedSourceTone(this.mutedSeed.getTone())
+                .setNeutralSourceTone(this.neutralSeed.getTone())
                 .build();
         }
     }
@@ -394,9 +394,12 @@ public class ColorSchemeUtils {
         Palettes palettes = palettesSource.getPalettes();
 
         DynamicScheme scheme = new DynamicScheme(
-            /* primarySourceColorHct */ palettes.getPrimarySourceHct(),
-            /* mutedSourceColorHct */ palettes.getMutedSourceHct(),
-            /* neutralSourceColorHct */ palettes.getNeutralSourceHct(),
+            /* primaryPalette */ palettes.getPrimaryPalette(),
+            /* mutedPalette */ palettes.getMutedPalette(),
+            /* neutralPalette */ palettes.getNeutralPalette(),
+            /* primarySourceColorTone */ palettes.getPrimarySourceTone(),
+            /* mutedSourceColorTone */ palettes.getMutedSourceTone(),
+            /* neutralSourceColorTone */ palettes.getNeutralSourceTone(),
             /* isFidelity */ palettes.isFidelity(),
             /* isPrimaryDark */ isPrimaryDark,
             /* isTonalDark */ isTonalDark,
@@ -405,10 +408,7 @@ public class ColorSchemeUtils {
             /* primaryContrastLevel */ primaryContrastLevel,
             /* tonalContrastLevel */ tonalContrastLevel,
             /* mutedContrastLevel */ mutedContrastLevel,
-            /* neutralContrastLevel */ neutralContrastLevel,
-            /* primaryPalette */ palettes.getPrimaryPalette(),
-            /* mutedPalette */ palettes.getMutedPalette(),
-            /* neutralPalette */ palettes.getNeutralPalette());
+            /* neutralContrastLevel */ neutralContrastLevel);
 
         ContainerColorTokens neutralContainerTokens = getContainerTokens(
             scheme, (s) -> s.isNeutralDark, schemeColorResolver.getNeutralContainerResolver());
