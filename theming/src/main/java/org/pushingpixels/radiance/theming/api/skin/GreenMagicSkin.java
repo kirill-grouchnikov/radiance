@@ -29,18 +29,24 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -80,13 +86,7 @@ public class GreenMagicSkin extends RadianceSkin {
         RadianceColorScheme footerFillScheme = schemes.get("Green Magic Footer Fill");
         this.registerAsDecorationArea(footerFillScheme, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        // Add overlay painters to paint drop shadow and a dark line along the bottom
-        // edges of headers
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), RadianceThemingSlices.DecorationAreaType.HEADER);
-        this.addOverlayPainter(new BottomLineOverlayPainter(
-                        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
-                                ColorTransform.alpha(128))),
-                RadianceThemingSlices.DecorationAreaType.HEADER);
+        this.configureOverlayPainters();
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new FractionBasedFillPainter("Green Magic", new float[] {0.0f, 0.5f, 1.0f},
@@ -97,8 +97,128 @@ public class GreenMagicSkin extends RadianceSkin {
         this.highlightFillPainter = new ClassicFillPainter();
     }
 
+    void configureOverlayPainters() {
+        // Add overlay painters to paint drop shadow and a dark line along the bottom
+        // edges of headers
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+            RadianceThemingSlices.DecorationAreaType.HEADER);
+        this.addOverlayPainter(new BottomLineOverlayPainter(
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
+                    ColorTransform.alpha(128))),
+            RadianceThemingSlices.DecorationAreaType.HEADER);
+    }
+
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class GreenMagicTonalSkin extends GreenMagicSkin implements TonalSkin {
+        public static final String NAME = "Green Magic Tonal";
+
+        public GreenMagicTonalSkin() {
+            RadianceColorScheme2 greenMagicDefaultColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF00C5A9), Hct.fromInt(0xFF8CDFB5), Hct.fromInt(0xFFA3ECB9)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isPrimaryDark */ false,
+                /* isTonalDark */ false,
+                /* isMutedDark */ false,
+                /* isNeutralDark */ false,
+                /* isSystemDark */ false,
+                /* primaryContrastLevel */ 0.0f,
+                /* tonalContrastLevel */ 0.6f,
+                /* mutedContrastLevel */ 0.6f,
+                /* neutralContrastLevel */ 0.6f,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+            ContainerColorTokens greenMagicSelectedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seedOne */ Hct.fromInt(0xFF00C6A8),
+                    /* seedTwo */ Hct.fromInt(0xFF00E68A),
+                    /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                    /* isDark */ false,
+                    /* fidelityTone */ 75.0,  // lighter tone for selected and rollover states
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+            ContainerColorTokens greenMagicPressedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seedOne */ Hct.fromInt(0xFF00BF7F),
+                    /* seedTwo */ Hct.fromInt(0xFF00B39A),
+                    /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                    /* isDark */ false,
+                    /* fidelityTone */ 65.0,  // darker tone for pressed states
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+
+            RadianceColorSchemeBundle2 greenMagicDefaultDefaultBundle =
+                new RadianceColorSchemeBundle2(greenMagicDefaultColorScheme);
+            greenMagicDefaultDefaultBundle.registerActiveContainerTokens(greenMagicSelectedContainerTokens,
+                ComponentState.SELECTED, ComponentState.ROLLOVER_UNSELECTED,
+                ComponentState.ROLLOVER_SELECTED,
+                ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+            greenMagicDefaultDefaultBundle.registerActiveContainerTokens(greenMagicSelectedContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.SELECTED, ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED);
+            greenMagicDefaultDefaultBundle.registerActiveContainerTokens(greenMagicPressedContainerTokens,
+                ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
+            greenMagicDefaultDefaultBundle.registerActiveContainerTokens(greenMagicPressedContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
+            this.registerDecorationAreaSchemeBundle(greenMagicDefaultDefaultBundle,
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFA3ECB9),
+                    /* isFidelity */ true,
+                    /* isDark */ false),
+                RadianceThemingSlices.DecorationAreaType.NONE);
+
+            // Headers
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seedOne */ Hct.fromInt(0xFF4ECDAA),
+                    /* seedTwo */ Hct.fromInt(0xFFA3ECB9),
+                    /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                    /* isDark */ false,
+                    /* fidelityTone */ 85.0,
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.HEADER);
+
+            // Footers
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF8ADFB5),
+                    /* isFidelity */ true,
+                    /* isDark */ false),
+                RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+            this.buttonShaper = new ClassicButtonShaper();
+            this.fillPainter = new FractionBasedTonalFillPainter("Green Magic",
+                new float[] {0.0f, 0.5f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokens::getContainerSurfaceLowest,
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurface});
+            this.borderPainter = new ClassicTonalBorderPainter();
+            this.decorationPainter = new ArcDecorationPainter();
+            this.highlightFillPainter = new ClassicTonalFillPainter();
+        }
+
+        @Override
+        void configureOverlayPainters() {
+            // Add overlay painters to paint drop shadow and a dark line along the bottom
+            // edges of headers
+            this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
+                RadianceThemingSlices.DecorationAreaType.HEADER);
+            this.addOverlayPainter(new BottomLineTonalOverlayPainter(
+                ContainerColorTokens::getContainerOutlineVariant),
+                RadianceThemingSlices.DecorationAreaType.HEADER);
+        }
+
+        @Override
+        public String getDisplayName() {
+            return GreenMagicTonalSkin.NAME;
+        }
     }
 }

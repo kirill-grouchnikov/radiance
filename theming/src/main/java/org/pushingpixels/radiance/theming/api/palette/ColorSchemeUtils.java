@@ -775,6 +775,64 @@ public class ColorSchemeUtils {
         };
     }
 
+    public static ExtendedContainerColorTokens getExtendedContainerTokens(
+        Hct seedOne,
+        Hct seedTwo,
+        DynamicBimodalPalette.TransitionRange transitionRange,
+        boolean isDark,
+        double fidelityTone) {
+        return getExtendedContainerTokens(seedOne, seedTwo, transitionRange, isDark, fidelityTone,
+            0.0, BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+    }
+
+    public static ExtendedContainerColorTokens getExtendedContainerTokens(
+        Hct seedOne,
+        Hct seedTwo,
+        DynamicBimodalPalette.TransitionRange transitionRange,
+        boolean isDark,
+        double fidelityTone,
+        double contrastLevel,
+        BimodalPaletteContainerColorsResolver colorResolver) {
+
+        DynamicBimodalPalette dynamicPalette =  DynamicBimodalPalette.fidelity(
+            /* seedOne */ seedOne,
+            /* seedTwo */ seedTwo,
+            /* transitionRange */ transitionRange,
+            /* isDark */ isDark,
+            /* fidelityTone */ fidelityTone,
+            /* isContrastLevel */ contrastLevel);
+
+        ContainerColorTokens baseTokens = getContainerTokens(seedOne, seedTwo,
+            transitionRange, isDark, fidelityTone, contrastLevel, colorResolver);
+
+        return new ExtendedContainerColorTokens() {
+            @Override
+            public Color getSurface() {
+                return colorResolver.getSurface(dynamicPalette);
+            }
+
+            @Override
+            public Color getSurfaceDim() {
+                return colorResolver.getSurfaceDim(dynamicPalette);
+            }
+
+            @Override
+            public Color getSurfaceBright() {
+                return colorResolver.getSurfaceBright(dynamicPalette);
+            }
+
+            @Override
+            public Color getInverseSurface() {
+                return colorResolver.getInverseSurface(dynamicPalette);
+            }
+
+            @Override
+            public ContainerColorTokens getBaseContainerTokens() {
+                return baseTokens;
+            }
+        };
+    }
+
     public static ContainerColorTokens getContainerTokens(
         Hct seedOne,
         Hct seedTwo,
