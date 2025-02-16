@@ -58,8 +58,8 @@ public class BimodalPaletteDemo extends JFrame {
 
         int row = 1;
 
-        Hct seedOne = Hct.fromInt(0xFFFFD757);
-        Hct seedTwo = Hct.fromInt(0xFFFFA62A);
+        Hct seedOne = Hct.fromInt(0xFFFFD007);
+        Hct seedTwo = Hct.fromInt(0xFFFFA300);
         int fidelityTone = (int) seedTwo.getTone();
         int startTone = fidelityTone - 10;
         int endTone = fidelityTone + 10;

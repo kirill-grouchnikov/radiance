@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
@@ -283,21 +284,36 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             RadianceColorSchemeBundle2 officeSilverDefaultBundle =
                 new RadianceColorSchemeBundle2(officeSilverColorScheme);
 
-            ContainerColorTokens rolloverContainerTokens = ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFFFD111),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isFidelity */ true,
-                /* isDark */ false);
-            ContainerColorTokens selectedContainerTokens = ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFFFBD51),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isFidelity */ true,
-                /* isDark */ false);
-            ContainerColorTokens rolloverSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFFFA400),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isFidelity */ true,
-                /* isDark */ false);
+            ContainerColorTokens rolloverContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFFFD111),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                        PaletteContainerColorsResolverOverlay.builder()
+                            .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
+                            .containerOutlineVariant(DynamicPalette::getTonalContainerOutlineVariant)
+                            .build()
+                    ));
+            ContainerColorTokens selectedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seedOne */ Hct.fromInt(0xFFFFA300),
+                    /* seedTwo */ Hct.fromInt(0xFFFFD007),
+                    /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                    /* isDark */ false,
+                    /* fidelityTone */ 83,
+                    /* contrastLevel */ 0.2f,
+                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
+            ContainerColorTokens rolloverSelectedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seedOne */ Hct.fromInt(0xFFFFA300),
+                    /* seedTwo */ Hct.fromInt(0xFFFFD007),
+                    /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                    /* isDark */ false,
+                    /* fidelityTone */ 79,
+                    /* contrastLevel */ 0.2f,
+                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
             ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF8C18),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -390,24 +406,21 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             this.registerDecorationAreaSchemeBundle(officeSilverDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
-            RadianceColorScheme2 officeSilverHeaderColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFCFD4DE), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFDDDEE1)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false);
             this.registerAsDecorationArea(
-                officeSilverHeaderColorScheme.getExtendedTonalContainerTokens(),
-                DecorationAreaType.FOOTER, DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR);
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFCFD4DE),
+                    /* isFidelity */ true,
+                    /* isDark */ false),
+                DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
-            RadianceColorScheme2 officeSilverTitleColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFCFCFD0)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false);
             this.registerAsDecorationArea(
-                officeSilverTitleColorScheme.getExtendedTonalContainerTokens(),
-                DecorationAreaType.CONTROL_PANE, DecorationAreaType.PRIMARY_TITLE_PANE,
-                DecorationAreaType.SECONDARY_TITLE_PANE);
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFCFCFD0),
+                    /* isFidelity */ true,
+                    /* isDark */ false),
+                DecorationAreaType.PRIMARY_TITLE_PANE,
+                DecorationAreaType.SECONDARY_TITLE_PANE,
+                DecorationAreaType.CONTROL_PANE);
 
             this.buttonShaper = new ClassicButtonShaper();
 
@@ -415,7 +428,10 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokens::getContainerSurfaceLow,
-                    ContainerColorTokens::getContainerSurfaceLowest,
+                    ContainerColorTokensSingleColorQuery.blend(
+                        ContainerColorTokens::getContainerSurfaceLow,
+                        ContainerColorTokens::getContainerSurfaceLowest,
+                        0.7f),
                     ContainerColorTokens::getContainerSurface,
                     ContainerColorTokens::getContainerSurfaceLow});
 
