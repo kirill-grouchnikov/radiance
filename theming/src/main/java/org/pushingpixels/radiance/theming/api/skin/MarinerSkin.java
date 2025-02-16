@@ -38,8 +38,8 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
@@ -344,11 +344,7 @@ public class MarinerSkin extends RadianceSkin {
                     ContainerColorTokens::getContainerSurfaceLow
                 });
 
-            this.borderPainter = new FractionBasedTonalBorderPainter("Mariner",
-                new float[] {0.0f, 1.0f},
-                new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokens::getContainerOutline,
-                    ContainerColorTokens::getContainerOutline});
+            this.borderPainter = new FlatTonalBorderPainter();
             this.highlightBorderPainter = new ClassicTonalBorderPainter();
         }
 

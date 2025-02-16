@@ -51,4 +51,10 @@ public class RadianceHarvestLookAndFeel extends RadianceLookAndFeel {
     public RadianceHarvestLookAndFeel() {
         super(new HarvestSkin());
     }
+
+    public static class RadianceHarvestTonalLookAndFeel extends RadianceLookAndFeel {
+        public RadianceHarvestTonalLookAndFeel() {
+            super(new HarvestSkin.HarvestTonalSkin());
+        }
+    }
 }

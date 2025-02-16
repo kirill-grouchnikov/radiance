@@ -69,6 +69,9 @@ public class RadianceThemingExtrasSkinPlugin implements RadianceThemingSkinPlugi
         result.add(new SkinInfo(OfficeBlack2007Skin.OfficeBlack2007TonalSkin.NAME,
             OfficeBlack2007Skin.OfficeBlack2007TonalSkin.class::getName,
             RadianceOfficeBlack2007LookAndFeel.RadianceOfficeBlack2007TonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(HarvestSkin.HarvestTonalSkin.NAME,
+            HarvestSkin.HarvestTonalSkin.class::getName,
+            RadianceHarvestLookAndFeel.RadianceHarvestTonalLookAndFeel.class::getName));
 
         return result;
     }
