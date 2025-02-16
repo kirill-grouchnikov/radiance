@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.demo.theming.main.Check;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.extras.api.RadianceThemingExtrasSkinPlugin;
-import org.pushingpixels.radiance.theming.extras.api.skinpack.OfficeSilver2007Skin;
+import org.pushingpixels.radiance.theming.extras.api.skinpack.OfficeBlue2007Skin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +42,7 @@ import java.awt.event.ComponentEvent;
 
 public class TonalCheck {
     public static void main(String[] args) {
-        RadianceSkin tonalSkin = new OfficeSilver2007Skin.OfficeSilver2007TonalSkin();
+        RadianceSkin tonalSkin = new OfficeBlue2007Skin.OfficeBlue2007TonalSkin();
 
         RadianceThemingCortex.GlobalScope.registerSkinPlugin(new RadianceThemingExtrasSkinPlugin());
         RadianceThemingCortex.GlobalScope.registerWidget("org.pushingpixels.radiance.theming" +
