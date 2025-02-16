@@ -263,25 +263,37 @@ public class OfficeBlue2007Skin extends RadianceSkin {
 
         public OfficeBlue2007TonalSkin() {
             SchemeColorResolver defaultSchemeSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-            // Set up token resolution overlays. For tonal, muted and neutral containers take
-            // primary container surface to be used as the text color, bringing the blue hue
-            // instead of darker greys
+            // Set up token resolution overlays. For tonal, muted and neutral containers:
+            // 1. Take primary container surface to be used as the text color, bringing the blue hue
+            //    instead of darker greys.
+            // 2. Take the same mappings for the outlines with additional alpha to make them softer.
+            // 3. Custom alpha for outlines of disabled controls to have higher contrast and make
+            //    them more visible.
             SchemeColorResolver officeBlueSchemeColorResolver = defaultSchemeSchemeColorResolver.overlayWith(
                 SchemeColorResolverOverlay.builder()
                     .neutralContainerResolverOverlay(
                         SchemeContainerColorsResolverOverlay.builder()
                             .onContainer(DynamicScheme::getPrimaryContainerSurfaceLowest)
                             .onContainerVariant(DynamicScheme::getPrimaryContainerSurfaceLow)
+                            .containerOutline((s) -> s.getPrimaryContainerSurfaceLowest() & 0x70FFFFFF)
+                            .containerOutlineVariant((s) -> s.getPrimaryContainerSurfaceLow() & 0x70FFFFFF)
+                            .containerOutlineDisabledAlpha((s) -> 0.65f)
                             .build())
                     .mutedContainerResolverOverlay(
                         SchemeContainerColorsResolverOverlay.builder()
                             .onContainer(DynamicScheme::getPrimaryContainerSurfaceLowest)
                             .onContainerVariant(DynamicScheme::getPrimaryContainerSurfaceLow)
+                            .containerOutline((s) -> s.getPrimaryContainerSurfaceLowest() & 0x70FFFFFF)
+                            .containerOutlineVariant((s) -> s.getPrimaryContainerSurfaceLow() & 0x70FFFFFF)
+                            .containerOutlineDisabledAlpha((s) -> 0.65f)
                             .build())
                     .tonalContainerResolverOverlay(
                         SchemeContainerColorsResolverOverlay.builder()
                             .onContainer(DynamicScheme::getPrimaryContainerSurfaceLowest)
                             .onContainerVariant(DynamicScheme::getPrimaryContainerSurfaceLow)
+                            .containerOutline((s) -> s.getPrimaryContainerSurfaceLowest() & 0x70FFFFFF)
+                            .containerOutlineVariant((s) -> s.getPrimaryContainerSurfaceLow() & 0x70FFFFFF)
+                            .containerOutlineDisabledAlpha((s) -> 0.65f)
                             .build())
                     .build());
 
@@ -426,13 +438,16 @@ public class OfficeBlue2007Skin extends RadianceSkin {
 
             PaletteContainerColorsResolver defaultPaletteColorResolver =
                 PaletteResolverUtils.getPaletteTonalColorResolver();
-            // Set up token resolution overlays for decoration areas to use on container colors
-            // from the same primary container surface as the default area
+            // Set up token resolution overlays for decoration areas to use on container and
+            // container outline colors from the matching neutral container tokens of the
+            // default area
             PaletteContainerColorsResolver officeBluePaletteColorResolver =
                 defaultPaletteColorResolver.overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
-                        .onContainer((p) -> officeBlueColorScheme.getPrimaryContainerTokens().getContainerSurface().getRGB())
-                        .onContainerVariant((p) -> officeBlueColorScheme.getPrimaryContainerTokens().getContainerSurfaceHigh().getRGB())
+                        .onContainer((p) -> officeBlueColorScheme.getNeutralContainerTokens().getOnContainer().getRGB())
+                        .onContainerVariant((p) -> officeBlueColorScheme.getNeutralContainerTokens().getOnContainerVariant().getRGB())
+                        .containerOutline((p) -> officeBlueColorScheme.getNeutralContainerTokens().getContainerOutline().getRGB())
+                        .containerOutlineVariant((p) -> officeBlueColorScheme.getNeutralContainerTokens().getContainerOutlineVariant().getRGB())
                         .build());
 
             this.registerAsDecorationArea(
