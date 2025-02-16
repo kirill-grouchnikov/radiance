@@ -66,6 +66,9 @@ public class RadianceThemingExtrasSkinPlugin implements RadianceThemingSkinPlugi
         result.add(new SkinInfo(OfficeBlue2007Skin.OfficeBlue2007TonalSkin.NAME,
             OfficeBlue2007Skin.OfficeBlue2007TonalSkin.class::getName,
             RadianceOfficeBlue2007LookAndFeel.RadianceOfficeBlue2007TonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(OfficeBlack2007Skin.OfficeBlack2007TonalSkin.NAME,
+            OfficeBlack2007Skin.OfficeBlack2007TonalSkin.class::getName,
+            RadianceOfficeBlack2007LookAndFeel.RadianceOfficeBlack2007TonalLookAndFeel.class::getName));
 
         return result;
     }

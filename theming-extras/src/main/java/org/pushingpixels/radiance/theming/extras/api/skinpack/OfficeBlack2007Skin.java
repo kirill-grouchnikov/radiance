@@ -29,19 +29,28 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedTonalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -270,10 +279,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         this.registerAsDecorationArea(colorSchemes.get("Office Black Background"),
                 DecorationAreaType.CONTROL_PANE);
 
-        this.addOverlayPainter(new BottomLineOverlayPainter(
-                        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                                ColorTransform.alpha(192))),
-                DecorationAreaType.PRIMARY_TITLE_PANE);
+        this.configureOverlayPainters();
 
         this.buttonShaper = new ClassicButtonShaper();
 
@@ -300,8 +306,284 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         this.highlightFillPainter = new ClassicFillPainter();
     }
 
+    void configureOverlayPainters() {
+        this.addOverlayPainter(new BottomLineOverlayPainter(
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                    ColorTransform.alpha(192))),
+            DecorationAreaType.PRIMARY_TITLE_PANE);
+    }
+
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class OfficeBlack2007TonalSkin extends OfficeBlack2007Skin implements TonalSkin {
+        public static final String NAME = "Office Black 2007 Tonal";
+
+        public OfficeBlack2007TonalSkin() {
+            SchemeColorResolver defaultSchemeSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
+            // Set up token resolution overlays. For tonal, muted and neutral containers:
+            // 1. Outlines with additional alpha to make them softer.
+            // 2. Custom alpha for outlines of disabled controls to have higher contrast and make
+            //    them more visible.
+            SchemeColorResolver officeBlackSchemeColorResolver =
+                defaultSchemeSchemeColorResolver.overlayWith(
+                SchemeColorResolverOverlay.builder()
+                    .neutralContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .onContainer(DynamicScheme::getPrimaryContainerSurfaceLowest)
+                            .onContainerVariant(DynamicScheme::getPrimaryContainerSurfaceLow)
+                            .containerOutline((s) -> s.getNeutralContainerOutline() & 0x60FFFFFF)
+                            .containerOutlineVariant((s) -> s.getNeutralContainerOutlineVariant() & 0x60FFFFFF)
+                            .containerOutlineDisabledAlpha((s) -> 0.75f)
+                            .build())
+                    .mutedContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .containerOutline((s) -> s.getMutedContainerOutline() & 0x60FFFFFF)
+                            .containerOutlineVariant((s) -> s.getMutedContainerOutlineVariant() & 0x60FFFFFF)
+                            .containerOutlineDisabledAlpha((s) -> 0.75f)
+                            .build())
+                    .tonalContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .containerOutline((s) -> s.getTonalContainerOutline() & 0x60FFFFFF)
+                            .containerOutlineVariant((s) -> s.getTonalContainerOutlineVariant() & 0x60FFFFFF)
+                            .containerOutlineDisabledAlpha((s) -> 0.75f)
+                            .build())
+                    .build());
+
+            RadianceColorScheme2 officeBlackColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFB8C0C9), Hct.fromInt(0xFFCFD5DA)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isDark */ false);
+            RadianceColorSchemeBundle2 officeBlackDefaultBundle =
+                new RadianceColorSchemeBundle2(officeBlackColorScheme);
+
+            ContainerColorTokens rolloverContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFFFD111),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                        PaletteContainerColorsResolverOverlay.builder()
+                            .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
+                            .containerOutlineVariant(DynamicPalette::getTonalContainerOutlineVariant)
+                            .build()
+                    ));
+            ContainerColorTokens selectedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seedOne */ Hct.fromInt(0xFFFFA300),
+                    /* seedTwo */ Hct.fromInt(0xFFFFD007),
+                    /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                    /* isDark */ false,
+                    /* fidelityTone */ 83,
+                    /* contrastLevel */ 0.2f,
+                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
+            ContainerColorTokens rolloverSelectedContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seedOne */ Hct.fromInt(0xFFFFA300),
+                    /* seedTwo */ Hct.fromInt(0xFFFFD007),
+                    /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                    /* isDark */ false,
+                    /* fidelityTone */ 79,
+                    /* contrastLevel */ 0.2f,
+                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
+            ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF8C18),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isFidelity */ true,
+                /* isDark */ false);
+            ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF991C),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isFidelity */ true,
+                /* isDark */ false);
+
+            // register state-specific color schemes on rollovers, presses and selections
+            officeBlackDefaultBundle.registerActiveContainerTokens(rolloverContainerTokens,
+                ComponentState.ROLLOVER_UNSELECTED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(rolloverSelectedContainerTokens,
+                ComponentState.ROLLOVER_SELECTED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(selectedContainerTokens,
+                ComponentState.SELECTED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(pressedContainerTokens,
+                ComponentState.PRESSED_UNSELECTED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(pressedSelectedContainerTokens,
+                ComponentState.PRESSED_SELECTED);
+
+            // register state-specific highlight color schemes on rollover and selections
+            officeBlackDefaultBundle.registerActiveContainerTokens(rolloverContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.ROLLOVER_UNSELECTED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(selectedContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.SELECTED, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(rolloverSelectedContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.ROLLOVER_SELECTED);
+
+            PaletteContainerColorsResolver activeMarksColorResolver =
+                PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .onContainer(DynamicPalette::getTonalContainerOutline)
+                        .build());
+
+            ContainerColorTokens rolloverMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFD111),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrastLevel */ 0.0,
+                /* colorResolver */ activeMarksColorResolver);
+            ContainerColorTokens selectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFBD51),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrastLevel */ 0.0,
+                /* colorResolver */ activeMarksColorResolver);
+            ContainerColorTokens rolloverSelectedMarkContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFFFA400),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.0,
+                    /* colorResolver */ activeMarksColorResolver);
+            ContainerColorTokens pressedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF8C18),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrastLevel */ 0.0,
+                /* colorResolver */ activeMarksColorResolver);
+            ContainerColorTokens pressedSelectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF991C),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrastLevel */ 0.0,
+                /* colorResolver */ activeMarksColorResolver);
+
+            // register state-specific color schemes on mark rollovers, presses and selections
+            officeBlackDefaultBundle.registerActiveContainerTokens(rolloverMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.ROLLOVER_UNSELECTED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(rolloverSelectedMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.ROLLOVER_SELECTED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(selectedMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.SELECTED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(pressedMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.PRESSED_UNSELECTED);
+            officeBlackDefaultBundle.registerActiveContainerTokens(pressedSelectedMarkContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.PRESSED_SELECTED);
+
+            this.registerDecorationAreaSchemeBundle(officeBlackDefaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
+
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF3D3D3D),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                DecorationAreaType.PRIMARY_TITLE_PANE,
+                DecorationAreaType.SECONDARY_TITLE_PANE);
+
+            RadianceColorScheme2 officeBlackSecondaryColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFB9BCC1), Hct.fromInt(0xFF454545), Hct.fromInt(0xFF2D2D2D)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isPrimaryDark */ false,
+                /* isTonalDark */ false,
+                /* isMutedDark */ true,
+                /* isNeutralDark */ true,
+                /* isSystemDark */ false,
+                /* primaryContrastLevel */ 0.0f,
+                /* tonalContrastLevel */ 0.6f,
+                /* mutedContrastLevel */ 1.0f,
+                /* neutralContrastLevel */ 1.0f,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+            RadianceColorSchemeBundle2 officeSecondaryBundle =
+                new RadianceColorSchemeBundle2(officeBlackSecondaryColorScheme);
+            officeSecondaryBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFCFD5DA),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                ComponentState.getActiveStates());
+            officeSecondaryBundle.registerActiveContainerTokens(
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFCFD5DA),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.getActiveStates());
+
+            this.registerDecorationAreaSchemeBundle(
+                officeSecondaryBundle,
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF2D2D2D),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
+
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFB3BEC8),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                DecorationAreaType.CONTROL_PANE);
+
+            this.buttonShaper = new ClassicButtonShaper();
+
+            this.fillPainter = new FractionBasedTonalFillPainter("Office Black 2007",
+                new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                        : colorTokens.getContainerSurfaceLow(),
+                    (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                        : colorTokens.getContainerSurfaceLow(),
+                    ContainerColorTokens::getContainerSurface,
+                    (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                        : colorTokens.getContainerSurfaceLow()});
+
+            this.borderPainter = new FlatTonalBorderPainter();
+
+            this.decorationPainter = new FractionBasedTonalDecorationPainter(
+                "Office Black 2007",
+                new float[] {0.0f, 0.29999f, 0.3f, 1.0f},
+                new ContainerColorTokensSingleColorQuery[] {
+                    ContainerColorTokens::getContainerSurface,
+                    ContainerColorTokens::getContainerSurfaceLow,
+                    ContainerColorTokens::getContainerSurfaceLowest,
+                    ContainerColorTokens::getContainerSurfaceLowest});
+
+            this.highlightFillPainter = new MatteTonalFillPainter();
+        }
+
+        @Override
+        void configureOverlayPainters() {
+            this.addOverlayPainter(new BottomLineTonalOverlayPainter(
+                    ContainerColorTokensSingleColorQuery.composite(
+                        ContainerColorTokens::getContainerOutline, ColorTransform.alpha(72))),
+                DecorationAreaType.PRIMARY_TITLE_PANE,
+                DecorationAreaType.SECONDARY_TITLE_PANE);
+        }
+
+        @Override
+        public String getDisplayName() {
+            return OfficeBlack2007TonalSkin.NAME;
+        }
     }
 }
