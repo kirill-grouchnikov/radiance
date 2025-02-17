@@ -72,6 +72,9 @@ public class RadianceThemingExtrasSkinPlugin implements RadianceThemingSkinPlugi
         result.add(new SkinInfo(HarvestSkin.HarvestTonalSkin.NAME,
             HarvestSkin.HarvestTonalSkin.class::getName,
             RadianceHarvestLookAndFeel.RadianceHarvestTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(MagmaSkin.MagmaTonalSkin.NAME,
+            MagmaSkin.MagmaTonalSkin.class::getName,
+            RadianceMagmaLookAndFeel.RadianceMagmaTonalLookAndFeel.class::getName));
 
         return result;
     }

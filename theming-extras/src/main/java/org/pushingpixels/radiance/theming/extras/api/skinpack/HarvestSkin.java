@@ -188,6 +188,7 @@ public class HarvestSkin extends RadianceSkin {
     public String getDisplayName() {
         return NAME;
     }
+
     public static class HarvestTonalSkin extends HarvestSkin implements TonalSkin {
         public static final String NAME = "Harvest Tonal";
 

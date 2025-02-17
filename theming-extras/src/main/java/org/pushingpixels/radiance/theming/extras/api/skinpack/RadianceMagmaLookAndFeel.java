@@ -51,4 +51,10 @@ public class RadianceMagmaLookAndFeel extends RadianceLookAndFeel {
     public RadianceMagmaLookAndFeel() {
         super(new MagmaSkin());
     }
+
+    public static class RadianceMagmaTonalLookAndFeel extends RadianceLookAndFeel {
+        public RadianceMagmaTonalLookAndFeel() {
+            super(new MagmaSkin.MagmaTonalSkin());
+        }
+    }
 }
