@@ -51,4 +51,10 @@ public class RadianceFieldOfWheatLookAndFeel extends RadianceLookAndFeel {
     public RadianceFieldOfWheatLookAndFeel() {
         super(new FieldOfWheatSkin());
     }
+
+    public static class RadianceFieldOfWheatTonalLookAndFeel extends RadianceLookAndFeel {
+        public RadianceFieldOfWheatTonalLookAndFeel() {
+            super(new FieldOfWheatSkin.FieldOfWheatTonalSkin());
+        }
+    }
 }

@@ -78,6 +78,9 @@ public class RadianceThemingExtrasSkinPlugin implements RadianceThemingSkinPlugi
         result.add(new SkinInfo(StreetlightsSkin.StreetlightsTonalSkin.NAME,
             StreetlightsSkin.StreetlightsTonalSkin.class::getName,
             RadianceStreetlightsLookAndFeel.RadianceStreetlightsTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(FieldOfWheatSkin.FieldOfWheatTonalSkin.NAME,
+            FieldOfWheatSkin.FieldOfWheatTonalSkin.class::getName,
+            RadianceFieldOfWheatLookAndFeel.RadianceFieldOfWheatTonalLookAndFeel.class::getName));
 
         return result;
     }

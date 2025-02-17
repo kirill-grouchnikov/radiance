@@ -262,14 +262,14 @@ public class OfficeBlue2007Skin extends RadianceSkin {
         public static final String NAME = "Office Blue 2007 Tonal";
 
         public OfficeBlue2007TonalSkin() {
-            SchemeColorResolver defaultSchemeSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
+            SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
             // Set up token resolution overlays. For tonal, muted and neutral containers:
             // 1. Take primary container surface to be used as the text color, bringing the blue hue
             //    instead of darker greys.
             // 2. Take the same mappings for the outlines with additional alpha to make them softer.
             // 3. Custom alpha for outlines of disabled controls to have higher contrast and make
             //    them more visible.
-            SchemeColorResolver officeBlueSchemeColorResolver = defaultSchemeSchemeColorResolver.overlayWith(
+            SchemeColorResolver officeBlueSchemeColorResolver = defaultSchemeColorResolver.overlayWith(
                 SchemeColorResolverOverlay.builder()
                     .neutralContainerResolverOverlay(
                         SchemeContainerColorsResolverOverlay.builder()

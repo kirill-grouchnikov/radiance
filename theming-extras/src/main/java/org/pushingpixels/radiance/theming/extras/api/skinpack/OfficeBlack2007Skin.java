@@ -322,13 +322,13 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         public static final String NAME = "Office Black 2007 Tonal";
 
         public OfficeBlack2007TonalSkin() {
-            SchemeColorResolver defaultSchemeSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
+            SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
             // Set up token resolution overlays. For tonal, muted and neutral containers:
             // 1. Outlines with additional alpha to make them softer.
             // 2. Custom alpha for outlines of disabled controls to have higher contrast and make
             //    them more visible.
             SchemeColorResolver officeBlackSchemeColorResolver =
-                defaultSchemeSchemeColorResolver.overlayWith(
+                defaultSchemeColorResolver.overlayWith(
                 SchemeColorResolverOverlay.builder()
                     .neutralContainerResolverOverlay(
                         SchemeContainerColorsResolverOverlay.builder()
