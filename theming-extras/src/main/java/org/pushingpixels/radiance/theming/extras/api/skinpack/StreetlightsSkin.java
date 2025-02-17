@@ -29,19 +29,20 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.CharcoalColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.*;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -101,5 +102,95 @@ public class StreetlightsSkin extends RadianceSkin {
     @Override
     public String getDisplayName() {
         return NAME;
+    }
+
+    public static class StreetlightsTonalSkin extends StreetlightsSkin implements TonalSkin {
+        public static final String NAME = "Streetlights Tonal";
+
+        public StreetlightsTonalSkin() {
+            SchemeColorResolver defaultSchemeSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
+            // Set up token resolution overlays. For tonal, muted and neutral containers:
+            // 1. Take primary container surface to be used as the text color, bringing the blue hue
+            //    instead of darker greys.
+            // 2. Take the same mappings for the outlines with additional alpha to make them softer.
+            // 3. Custom alpha for outlines of disabled controls to have higher contrast and make
+            //    them more visible.
+            SchemeColorResolver streetlightsSchemeColorResolver = defaultSchemeSchemeColorResolver.overlayWith(
+                SchemeColorResolverOverlay.builder()
+                    .neutralContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .onContainer(DynamicScheme::getOnMutedContainer)
+                            .onContainerVariant(DynamicScheme::getOnMutedContainerVariant)
+                            .build())
+                    .build());
+
+            RadianceColorScheme2 streetlightsColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFFF6000), Hct.fromInt(0xFF052914), Hct.fromInt(0xFF252A26)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isPrimaryDark */ false,
+                /* isTonalDark */ false,
+                /* isMutedDark */ true,
+                /* isNeutralDark */ true,
+                /* isSystemDark */ true,
+                /* primaryContrastLevel */ 1.0f,
+                /* tonalContrastLevel */ 1.0f,
+                /* mutedContrastLevel */ 1.0f,
+                /* neutralContrastLevel */ 1.0f,
+                /* schemeColorResolver */ streetlightsSchemeColorResolver);
+
+            ContainerColorTokens streetlightsHighlightContainerTokens =
+                ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFFF9000),
+                    /* isFidelity */ true,
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0f,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+
+            RadianceColorSchemeBundle2 streetlightsDefaultBundle =
+                new RadianceColorSchemeBundle2(streetlightsColorScheme);
+            streetlightsDefaultBundle.registerActiveContainerTokens(
+                streetlightsHighlightContainerTokens,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                ComponentState.getActiveStates());
+            this.registerDecorationAreaSchemeBundle(streetlightsDefaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
+
+            this.registerAsDecorationArea(
+                ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF2E332F),
+                    /* isFidelity */ true,
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0,
+                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                        PaletteContainerColorsResolverOverlay.builder()
+                            .onContainer((p) -> streetlightsColorScheme.getMutedContainerTokens().getOnContainer().getRGB())
+                            .onContainerVariant((p) -> streetlightsColorScheme.getMutedContainerTokens().getOnContainerVariant().getRGB())
+                            .build()
+                    )),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.HEADER);
+
+            this.buttonShaper = new ClassicButtonShaper();
+            this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 0.5f);
+            this.decorationPainter = new ArcDecorationPainter();
+
+            this.borderPainter = new FractionBasedTonalBorderPainter("Streetlights",
+                new float[] {0.0f, 1.0f},
+                new int[] {80, 80},
+                new ContainerColorTokensSingleColorQuery[]{
+                    ContainerColorTokens::getComplementaryContainerOutline,
+                    ContainerColorTokens::getComplementaryContainerOutline,
+                });
+
+            this.highlightFillPainter = new ClassicTonalFillPainter();
+            this.highlightBorderPainter = new FlatTonalBorderPainter();
+        }
+
+        @Override
+        public String getDisplayName() {
+            return StreetlightsTonalSkin.NAME;
+        }
     }
 }

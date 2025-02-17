@@ -120,8 +120,6 @@ public class MagmaSkin extends RadianceSkin {
         public static final String NAME = "Magma Tonal";
 
         public MagmaTonalSkin() {
-            SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-
             RadianceColorScheme2 magmaColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFF4900), Hct.fromInt(0xFF5C0C17), Hct.fromInt(0xFF361215)),
@@ -135,7 +133,7 @@ public class MagmaSkin extends RadianceSkin {
                 /* tonalContrastLevel */ 1.0f,
                 /* mutedContrastLevel */ 1.0f,
                 /* neutralContrastLevel */ 1.0f,
-                /* schemeColorResolver */ defaultSchemeColorResolver);
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
             ContainerColorTokens magmaHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
@@ -145,13 +143,13 @@ public class MagmaSkin extends RadianceSkin {
                     /* contrastLevel */ 1.0f,
                     /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
-            RadianceColorSchemeBundle2 harvestDefaultBundle =
+            RadianceColorSchemeBundle2 magmaDefaultBundle =
                 new RadianceColorSchemeBundle2(magmaColorScheme);
-            harvestDefaultBundle.registerActiveContainerTokens(
+            magmaDefaultBundle.registerActiveContainerTokens(
                 magmaHighlightContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
-            this.registerDecorationAreaSchemeBundle(harvestDefaultBundle,
+            this.registerDecorationAreaSchemeBundle(magmaDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
             this.registerAsDecorationArea(

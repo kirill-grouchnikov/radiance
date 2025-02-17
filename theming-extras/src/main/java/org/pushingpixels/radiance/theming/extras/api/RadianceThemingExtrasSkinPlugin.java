@@ -75,6 +75,9 @@ public class RadianceThemingExtrasSkinPlugin implements RadianceThemingSkinPlugi
         result.add(new SkinInfo(MagmaSkin.MagmaTonalSkin.NAME,
             MagmaSkin.MagmaTonalSkin.class::getName,
             RadianceMagmaLookAndFeel.RadianceMagmaTonalLookAndFeel.class::getName));
+        result.add(new SkinInfo(StreetlightsSkin.StreetlightsTonalSkin.NAME,
+            StreetlightsSkin.StreetlightsTonalSkin.class::getName,
+            RadianceStreetlightsLookAndFeel.RadianceStreetlightsTonalLookAndFeel.class::getName));
 
         return result;
     }
