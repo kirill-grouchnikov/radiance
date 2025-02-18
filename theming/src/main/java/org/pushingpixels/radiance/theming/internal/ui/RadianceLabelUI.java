@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -130,6 +131,7 @@ public class RadianceLabelUI extends BasicLabelUI {
                 : ComponentState.DISABLED_UNSELECTED;
         float labelAlpha = RadianceColorSchemeUtilities.getAlpha(label, labelState);
 
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(label.getRootPane());
         Color textColor;
         final View v = (View) c.getClientProperty(BasicHTML.propertyKey);
         if (v != null) {
@@ -137,25 +139,37 @@ public class RadianceLabelUI extends BasicLabelUI {
             // This text color may not correspond to the text of the HTML-based rendering, but we
             // still need "something" for filtered icons
 
-            // TODO: TONAL - support disabled alpha
-            textColor = RadianceTextUtilities.getForegroundColor(label, labelState, labelAlpha);
+            if (skin instanceof TonalSkin) {
+                textColor = RadianceTextUtilities.getTonalForegroundColor(label,
+                    labelState, RadianceThemingSlices.ContainerType.NEUTRAL);
+            } else {
+                textColor = RadianceTextUtilities.getForegroundColor(label, labelState, labelAlpha);
+            }
         } else {
             if (label.getClientProperty(RadianceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
-                RadianceSkin skin = RadianceCoreUtilities.getSkin(label.getRootPane());
-                RadianceColorScheme scheme = skin.getEnabledColorScheme(
+                Color echoColor;
+                if (skin instanceof TonalSkin) {
+                    ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens();
+                    textColor = colorTokens.getOnContainer();
+                    // TODO: TONAL - finalize the text echo color logic
+                    echoColor = colorTokens.getInverseOnContainer();
+                } else {
+                    RadianceColorScheme scheme = skin.getEnabledColorScheme(
                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+                    textColor = scheme.getForegroundColor();
+                    echoColor = scheme.getEchoColor();
+                }
                 int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
                         + fm.getAscent();
                 g2d.translate(paintTextR.x + 3, 0);
-                textColor = scheme.getForegroundColor();
                 RadianceTextUtilities.paintTextWithDropShadow(label, g2d,
-                        textColor, scheme.getEchoColor(), clippedText,
+                        textColor, echoColor, clippedText,
                         paintTextR.width + 6, paintTextR.height, 0, yOffset);
                 g2d.translate(-paintTextR.x - 3, 0);
             } else {
                 // fix for issue 406 - use the same FG computation
                 // color as for other controls
-                RadianceSkin skin = RadianceCoreUtilities.getSkin(label);
                 if (skin instanceof TonalSkin) {
                     textColor = RadianceTextUtilities.paintTonalText(g2d, label, paintTextR,
                         clippedText, label.getDisplayedMnemonicIndex(), labelState,

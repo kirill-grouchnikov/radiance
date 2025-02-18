@@ -41,10 +41,14 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.bullseye;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.button;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.check_square_o;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.dot_circle;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.FocusKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -301,6 +305,12 @@ public class ButtonsPanel extends JPanel {
     public ButtonsPanel() {
         this.setLayout(new BorderLayout());
 
+        RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
+        Color textColor = (skin instanceof TonalSkin)
+            ? skin.getContainerTokens(this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer()
+            : skin.getColorScheme(this, ComponentState.ENABLED).getForegroundColor();
+
+
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
                         "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 58).padding(Paddings.DIALOG);
@@ -350,7 +360,8 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "Disabled selected", null,
                 new ChainCommand<>(new DisableCommand(), new SelectCommand()));
         this.addRow(builder, "HTML text", null,
-                new TextCommand("<html>text <b>text</b> <font color='red'>text</font>"));
+                new TextCommand("<html><font color='" + RadianceColorUtilities.encode(textColor) +
+                    "'>text <b>text</b></font> <font color='red'>text</font>"));
         this.addRow(builder, "Long text", null, new TextCommand("Some long long text"));
         this.addRow(builder, "With tooltip", null, new TooltipTextCommand("Sample tooltip"));
         this.addRow(builder, "Disabled with tooltip", null,

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
@@ -114,16 +115,16 @@ public class StreetlightsSkin extends RadianceSkin {
             // 2. Take the same mappings for the outlines with additional alpha to make them softer.
             // 3. Custom alpha for outlines of disabled controls to have higher contrast and make
             //    them more visible.
-            SchemeColorResolver fieldOfWheatSchemeColorResolver = defaultSchemeColorResolver.overlayWith(
+            SchemeColorResolver streetlightsSchemeColorResolver = defaultSchemeColorResolver.overlayWith(
                 SchemeColorResolverOverlay.builder()
                     .neutralContainerResolverOverlay(
                         SchemeContainerColorsResolverOverlay.builder()
-//                            .onContainer(DynamicScheme::getOnMutedContainer)
-//                            .onContainerVariant(DynamicScheme::getOnMutedContainerVariant)
+                            .onContainer(DynamicScheme::getOnMutedContainer)
+                            .onContainerVariant(DynamicScheme::getOnMutedContainerVariant)
                             .build())
                     .build());
 
-            RadianceColorScheme2 fieldOfWheatColorScheme = ColorSchemeUtils.getColorScheme(
+            RadianceColorScheme2 streetlightsColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFF6000), Hct.fromInt(0xFF052914), Hct.fromInt(0xFF252A26)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -136,7 +137,7 @@ public class StreetlightsSkin extends RadianceSkin {
                 /* tonalContrastLevel */ 1.0f,
                 /* mutedContrastLevel */ 1.0f,
                 /* neutralContrastLevel */ 1.0f,
-                /* schemeColorResolver */ fieldOfWheatSchemeColorResolver);
+                /* schemeColorResolver */ streetlightsSchemeColorResolver);
 
             ContainerColorTokens streetlightsHighlightContainerTokens =
                 ColorSchemeUtils.getContainerTokens(
@@ -147,7 +148,7 @@ public class StreetlightsSkin extends RadianceSkin {
                     /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
             RadianceColorSchemeBundle2 streetlightsDefaultBundle =
-                new RadianceColorSchemeBundle2(fieldOfWheatColorScheme);
+                new RadianceColorSchemeBundle2(streetlightsColorScheme);
             streetlightsDefaultBundle.registerActiveContainerTokens(
                 streetlightsHighlightContainerTokens,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -163,8 +164,8 @@ public class StreetlightsSkin extends RadianceSkin {
                     /* contrastLevel */ 1.0,
                     /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                         PaletteContainerColorsResolverOverlay.builder()
-                            .onContainer((p) -> fieldOfWheatColorScheme.getMutedContainerTokens().getOnContainer().getRGB())
-                            .onContainerVariant((p) -> fieldOfWheatColorScheme.getMutedContainerTokens().getOnContainerVariant().getRGB())
+                            .onContainer((p) -> streetlightsColorScheme.getMutedContainerTokens().getOnContainer().getRGB())
+                            .onContainerVariant((p) -> streetlightsColorScheme.getMutedContainerTokens().getOnContainerVariant().getRGB())
                             .build()
                     )),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
