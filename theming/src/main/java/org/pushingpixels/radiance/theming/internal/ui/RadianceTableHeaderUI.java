@@ -33,8 +33,11 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableHeaderCellRenderer;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
@@ -544,15 +547,26 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
             // fix for issue 472 - handle standalone table headers
             isEnabled = isEnabled && header.getTable().isEnabled();
         }
+
         ComponentState currState = isEnabled ? ComponentState.ENABLED
-                : ComponentState.DISABLED_UNSELECTED;
+            : ComponentState.DISABLED_UNSELECTED;
         Color gridColor = RadianceCoreUtilities.getSkin(header).getOverlayColor(
-                RadianceThemingSlices.ColorOverlayType.LINE,
-                DecorationPainterUtils.getDecorationType(header), currState);
-        if (gridColor == null) {
-            gridColor = RadianceColorSchemeUtilities.getColorScheme(
+            RadianceThemingSlices.ColorOverlayType.LINE,
+            DecorationPainterUtils.getDecorationType(header), currState);
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(header);
+        if (skin instanceof TonalSkin) {
+            if (gridColor == null) {
+                gridColor = RadianceColorSchemeUtilities.getContainerTokens(
+                    header, currState, RadianceThemingSlices.ContainerType.NEUTRAL).getContainerOutline();
+            }
+        } else {
+            if (gridColor == null) {
+                gridColor = RadianceColorSchemeUtilities.getColorScheme(
                     header, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState).getLineColor();
+            }
         }
+
         return gridColor;
     }
 
@@ -598,38 +612,58 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
         // + alphaForPrevBackground + "]:" + currTheme.getDisplayName()
         // + "[" + alphaForCurrBackground + "]");
 
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.header);
         if (hasHighlights) {
             if (activeStates == null) {
                 float alpha = RadianceColorSchemeUtilities.getHighlightAlpha(this.header,
                         currState);
                 if (alpha > 0.0f) {
-                    RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
+                    if (skin instanceof TonalSkin) {
+                        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                            this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                            currState, RadianceThemingSlices.ContainerType.MUTED);
+                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, alpha, g));
+                        HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
+                            cellRect, 0.8f, null, colorTokens);
+                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));
+                    } else {
+                        RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
                             this.header, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
-                    RadianceColorScheme borderScheme = RadianceColorSchemeUtilities
-                            .getColorScheme(this.header,
-                                    RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, alpha, g));
-                    HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
+                        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.header, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
+                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, alpha, g));
+                        HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
                             cellRect, 0.8f, null, fillScheme, borderScheme);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));
+                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));
+                    }
                 }
             } else {
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry : activeStates
-                        .entrySet()) {
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry :
+                    activeStates.entrySet()) {
                     ComponentState activeState = stateEntry.getKey();
                     float alpha = RadianceColorSchemeUtilities.getHighlightAlpha(this.header,
                             activeState) * stateEntry.getValue().getContribution();
-                    if (alpha == 0.0f)
+                    if (alpha == 0.0f) {
                         continue;
-                    RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
+                    }
+                    if (skin instanceof TonalSkin) {
+                        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                            this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                            activeState, RadianceThemingSlices.ContainerType.MUTED);
+                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, alpha, g));
+                        HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
+                            cellRect, 0.8f, null, colorTokens);
+                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));
+                    } else {
+                        RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
                             this.header, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, activeState);
-                    RadianceColorScheme borderScheme = RadianceColorSchemeUtilities
-                            .getColorScheme(this.header,
-                                    RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, activeState);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, alpha, g));
-                    HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
+                        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.header, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, activeState);
+                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, alpha, g));
+                        HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
                             cellRect, 0.8f, null, fillScheme, borderScheme);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));
+                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));
+                    }
                 }
             }
         }
@@ -801,14 +835,25 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                     && header.getTable().isEnabled()) ? ComponentState.ENABLED
                             : ComponentState.DISABLED_UNSELECTED;
 
-            RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
+            RadianceSkin skin = RadianceCoreUtilities.getSkin(this.header);
+
+            if (skin instanceof TonalSkin) {
+                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                    backgroundState, RadianceThemingSlices.ContainerType.MUTED);
+
+                HighlightPainterUtils.paintHighlight(g2d, null, this.header,
+                    new Rectangle(0, 0, this.getWidth(), this.getHeight()), 0.0f, null, tokens);
+            } else {
+                RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
                     this.header, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, backgroundState);
-            RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                     this.header, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, backgroundState);
 
-            HighlightPainterUtils.paintHighlight(g2d, null, this.header,
-                    new Rectangle(0, 0, this.getWidth(), this.getHeight()), 0.0f, null, fillScheme,
-                    borderScheme);
+                HighlightPainterUtils.paintHighlight(g2d, null, this.header,
+                    new Rectangle(0, 0, this.getWidth(), this.getHeight()), 0.0f, null,
+                    fillScheme, borderScheme);
+            }
 
             g2d.setColor(getGridColor(this.header));
             float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this.header);

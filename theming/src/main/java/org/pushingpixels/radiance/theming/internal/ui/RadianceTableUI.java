@@ -33,8 +33,11 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableCellRenderer;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableHeaderCellRenderer;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
@@ -57,8 +60,8 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeListener;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * UI for tables in <b>Radiance</b> look and feel.
@@ -660,15 +663,22 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
 
         Color gridColor = this.table.getGridColor();
         if (gridColor instanceof UIResource) {
-            gridColor = RadianceCoreUtilities.getSkin(this.table).getOverlayColor(
-                    RadianceThemingSlices.ColorOverlayType.LINE,
-                    DecorationPainterUtils.getDecorationType(this.table), currState);
+            RadianceSkin skin = RadianceCoreUtilities.getSkin(this.table);
+            gridColor = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.LINE,
+                DecorationPainterUtils.getDecorationType(this.table), currState);
             if (gridColor == null) {
-                RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(this.table,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                        this.table.isEnabled() ? ComponentState.ENABLED
-                                : ComponentState.DISABLED_UNSELECTED);
-                gridColor = scheme.getLineColor();
+                if (skin instanceof TonalSkin) {
+                    ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                        this.table,
+                        this.table.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
+                        RadianceThemingSlices.ContainerType.NEUTRAL);
+                    gridColor = tokens.getContainerOutline();
+                } else {
+                    RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
+                        this.table, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                        this.table.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED);
+                    gridColor = scheme.getLineColor();
+                }
             }
         }
         g2d.setColor(gridColor);
@@ -1024,6 +1034,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
             }
         }
 
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.table);
         boolean isRollover = this.rolledOverIndices.contains(cellId);
         if (this.table.isEditing() && this.table.getEditingRow() == row
                 && this.table.getEditingColumn() == column) {
@@ -1043,15 +1054,21 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                 if (activeStates == null) {
                     float alpha = this.updateInfo.getHighlightAlpha(currState);
                     if (alpha > 0.0f) {
-                        RadianceColorScheme fillScheme = this.updateInfo
-                                .getHighlightColorScheme(currState);
-                        RadianceColorScheme borderScheme = this.updateInfo
-                                .getHighlightBorderColorScheme(currState);
-                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
-                        HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, component,
-                                highlightRect, highlightBorderAlpha, highlightOpenSides, fillScheme,
-                                borderScheme);
-                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                        if (skin instanceof TonalSkin) {
+                            ContainerColorTokens colorTokens =
+                                this.updateInfo.getHighlightColorTokens(currState);
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
+                            HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
+                                component, highlightRect, highlightBorderAlpha, highlightOpenSides, colorTokens);
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                        } else {
+                            RadianceColorScheme fillScheme = this.updateInfo.getHighlightColorScheme(currState);
+                            RadianceColorScheme borderScheme = this.updateInfo.getHighlightBorderColorScheme(currState);
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
+                            HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, component,
+                                highlightRect, highlightBorderAlpha, highlightOpenSides, fillScheme, borderScheme);
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                        }
                     }
                 } else {
                     for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry : activeStates
@@ -1059,17 +1076,24 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                         ComponentState activeState = stateEntry.getKey();
                         float alpha = this.updateInfo.getHighlightAlpha(activeState)
                                 * stateEntry.getValue().getContribution();
-                        if (alpha == 0.0f)
+                        if (alpha == 0.0f) {
                             continue;
-                        RadianceColorScheme fillScheme = this.updateInfo
-                                .getHighlightColorScheme(activeState);
-                        RadianceColorScheme borderScheme = this.updateInfo
-                                .getHighlightBorderColorScheme(activeState);
-                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
-                        HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, component,
-                                highlightRect, highlightBorderAlpha, highlightOpenSides, fillScheme,
-                                borderScheme);
-                        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                        }
+                        if (skin instanceof TonalSkin) {
+                            ContainerColorTokens colorTokens =
+                                this.updateInfo.getHighlightColorTokens(activeState);
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
+                            HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
+                                component, highlightRect, highlightBorderAlpha, highlightOpenSides, colorTokens);
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                        } else {
+                            RadianceColorScheme fillScheme = this.updateInfo.getHighlightColorScheme(activeState);
+                            RadianceColorScheme borderScheme = this.updateInfo.getHighlightBorderColorScheme(activeState);
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
+                            HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, component,
+                                highlightRect, highlightBorderAlpha, highlightOpenSides, fillScheme, borderScheme);
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                        }
                     }
                 }
             }
@@ -1096,18 +1120,30 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                         && !dropLocation.isInsertColumn() && dropLocation.getRow() == row
                         && dropLocation.getColumn() == column) {
                     // mark drop location
-                    RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
-                            table, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
-                    RadianceColorScheme borderScheme = RadianceColorSchemeUtilities
-                            .getColorScheme(table, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-                                    currState);
-                    float extra = RadianceSizeUtils.getBorderStrokeWidth(table);
-                    HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererComponent,
+                    if (skin instanceof TonalSkin) {
+                        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                            table, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                            currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+                        float extra = RadianceSizeUtils.getBorderStrokeWidth(table);
+                        HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererComponent,
                             new Rectangle(highlightCellRect.x - (int) extra,
-                                    highlightCellRect.y - (int) extra,
-                                    highlightCellRect.width + (int) extra,
-                                    highlightCellRect.height + (int) extra),
+                                highlightCellRect.y - (int) extra,
+                                highlightCellRect.width + (int) extra,
+                                highlightCellRect.height + (int) extra),
+                            0.8f, null, colorTokens);
+                    } else {
+                        RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
+                            table, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+                        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            table, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
+                        float extra = RadianceSizeUtils.getBorderStrokeWidth(table);
+                        HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererComponent,
+                            new Rectangle(highlightCellRect.x - (int) extra,
+                                highlightCellRect.y - (int) extra,
+                                highlightCellRect.width + (int) extra,
+                                highlightCellRect.height + (int) extra),
                             0.8f, null, scheme, borderScheme);
+                    }
                 } else {
                     float extra = RadianceSizeUtils.getBorderStrokeWidth(table);
                     float extraWidth = highlightOpenSides.contains(RadianceThemingSlices.Side.LEADING) ? 0.0f
@@ -1119,36 +1155,49 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                             highlightCellRect.width + (int) extraWidth,
                             highlightCellRect.height + (int) extraHeight);
                     if (activeStates == null) {
-                        RadianceColorScheme fillScheme = this.updateInfo
-                                .getHighlightColorScheme(currState);
-                        RadianceColorScheme borderScheme = this.updateInfo
-                                .getHighlightBorderColorScheme(currState);
-                        float alpha = this.updateInfo.getHighlightAlpha(currState);
-                        if (alpha > 0.0f) {
-                            g2d.setComposite(
-                                    WidgetUtilities.getAlphaComposite(this.table, alpha, g));
+                        if (skin instanceof TonalSkin) {
+                            ContainerColorTokens colorTokens = this.updateInfo.getHighlightColorTokens(currState);
                             HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
+                                rendererComponent, highlightRect, highlightBorderAlpha,
+                                highlightOpenSides, colorTokens);
+                        } else {
+                            RadianceColorScheme fillScheme = this.updateInfo.getHighlightColorScheme(currState);
+                            RadianceColorScheme borderScheme = this.updateInfo.getHighlightBorderColorScheme(currState);
+                            float alpha = this.updateInfo.getHighlightAlpha(currState);
+                            if (alpha > 0.0f) {
+                                g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
+                                HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
                                     rendererComponent, highlightRect, highlightBorderAlpha,
                                     highlightOpenSides, fillScheme, borderScheme);
-                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                                g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                            }
                         }
                     } else {
                         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry : activeStates
                                 .entrySet()) {
                             ComponentState activeState = stateEntry.getKey();
-                            RadianceColorScheme fillScheme = this.updateInfo
-                                    .getHighlightColorScheme(activeState);
-                            RadianceColorScheme borderScheme = this.updateInfo
-                                    .getHighlightBorderColorScheme(activeState);
-                            float alpha = this.updateInfo.getHighlightAlpha(activeState)
-                                    * stateEntry.getValue().getContribution();
-                            if (alpha > 0.0f) {
-                                g2d.setComposite(
-                                        WidgetUtilities.getAlphaComposite(this.table, alpha, g));
-                                HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
+                            if (skin instanceof TonalSkin) {
+                                ContainerColorTokens colorTokens = this.updateInfo.getHighlightColorTokens(activeState);
+                                float alpha = stateEntry.getValue().getContribution();
+                                if (alpha > 0.0f) {
+                                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
+                                    HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
+                                        rendererComponent, highlightRect, highlightBorderAlpha,
+                                        highlightOpenSides, colorTokens);
+                                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                                }
+                            } else {
+                                RadianceColorScheme fillScheme = this.updateInfo.getHighlightColorScheme(activeState);
+                                RadianceColorScheme borderScheme = this.updateInfo.getHighlightBorderColorScheme(activeState);
+                                float alpha = this.updateInfo.getHighlightAlpha(activeState) *
+                                    stateEntry.getValue().getContribution();
+                                if (alpha > 0.0f) {
+                                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
+                                    HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
                                         rendererComponent, highlightRect, highlightBorderAlpha,
                                         highlightOpenSides, fillScheme, borderScheme);
-                                g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, g));
+                                }
                             }
                         }
                     }
@@ -1193,6 +1242,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
             return;
         }
 
+        // TODO: TONAL - get the right colors
         Color color = UIManager.getColor("Table.dropLineColor");
         Color shortColor = UIManager.getColor("Table.dropLineShortColor");
         if (color == null && shortColor == null) {
