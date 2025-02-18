@@ -54,8 +54,6 @@ public class ThreadPanel extends JPanel {
     public ThreadPanel() {
         this.setLayout(new VerticalStackLayout());
 
-        RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREAD);
-
         Color iconColor, backgroundColor, innerBackgroundColor;
         RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
         if (currentSkin instanceof TonalSkin) {
@@ -65,10 +63,13 @@ public class ThreadPanel extends JPanel {
             iconColor = new Color(onContainer.getRed(),
                 onContainer.getGreen(), onContainer.getBlue(), 204);
             backgroundColor = colorTokens.getContainerSurface();
-            innerBackgroundColor = colorTokens.getContainerSurfaceHighest();
+            innerBackgroundColor = colorTokens.getContainerSurfaceLowest();
         } else {
-            RadianceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE, ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
-            iconColor = new Color(fillScheme.getForegroundColor().getRed(), fillScheme.getForegroundColor().getGreen(), fillScheme.getForegroundColor().getBlue(), 204);
+            RadianceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE,
+                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
+            iconColor = new Color(fillScheme.getForegroundColor().getRed(),
+                fillScheme.getForegroundColor().getGreen(),
+                fillScheme.getForegroundColor().getBlue(), 204);
             backgroundColor = fillScheme.getLightColor();
             innerBackgroundColor = fillScheme.getUltraLightColor();
         }

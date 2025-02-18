@@ -37,8 +37,9 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
+import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.function.Function;
@@ -1140,6 +1141,211 @@ public class ColorSchemeUtils {
             public Color getComplementaryContainerOutline() {
                 return new Color(Blend.cam16Ucs(original.getComplementaryContainerOutline().getRGB(),
                     Color.BLACK.getRGB(), shadeFactor));
+            }
+        };
+    }
+
+    /**
+     * Cache of blended schemes.
+     */
+    private final static LazyResettableHashMap<ContainerColorTokens> blendedCache =
+        new LazyResettableHashMap<>("ColorSchemeUtils.blendedTokens");
+
+    public static ContainerColorTokens getColorizedTokens(Component component,
+        ContainerColorTokens tokens, boolean isEnabled) {
+        Component forQuerying = component;
+        if ((component != null) && (component.getParent() != null)
+            && ((component.getClass().isAnnotationPresent(RadianceInternalArrowButton.class)
+            || (component instanceof RadianceTitleButton)))) {
+            forQuerying = component.getParent();
+        }
+        return getBlendedTokens(component, tokens,
+            (forQuerying == null) ? null : forQuerying.getForeground(),
+            (forQuerying == null) ? null : forQuerying.getBackground(), isEnabled);
+    }
+
+    private static ContainerColorTokens getBlendedTokens(Component component,
+        ContainerColorTokens tokens, Color fgColor, Color bgColor, boolean isEnabled) {
+        if ((tokens != null) && (component != null)) {
+            // Support for enhancement 256 - colorizing
+            // controls.
+            if (bgColor instanceof UIResource) {
+                bgColor = null;
+            }
+            if (fgColor instanceof UIResource) {
+                fgColor = null;
+            }
+            if ((bgColor != null) || (fgColor != null)) {
+                double colorization = RadianceCoreUtilities.getColorizationFactor(component);
+                if (!isEnabled) {
+                    colorization /= 2.0;
+                }
+                if (colorization > 0.0) {
+                    return getBlendedTokens(tokens, bgColor, colorization, fgColor, colorization);
+                }
+            }
+        }
+        return tokens;
+    }
+
+    public static ContainerColorTokens getBlendedTokens(ContainerColorTokens original,
+        Color backgroundShiftColor, double backgroundShiftFactor, Color foregroundShiftColor,
+        double foregroundShiftFactor) {
+        HashMapKey key = RadianceCoreUtilities.getHashKey(original,
+            backgroundShiftColor == null ? "" : backgroundShiftColor.getRGB(),
+            backgroundShiftFactor,
+            foregroundShiftColor == null ? "" : foregroundShiftColor.getRGB(),
+            foregroundShiftFactor);
+        ContainerColorTokens result = blendedCache.get(key);
+        if (result == null) {
+            result = blendTowards(original, backgroundShiftColor, backgroundShiftFactor,
+                foregroundShiftColor, foregroundShiftFactor);
+            blendedCache.put(key, result);
+        }
+        return result;
+    }
+
+    private static ContainerColorTokens blendTowards(ContainerColorTokens original,
+        Color backgroundShiftColor, double backgroundShiftFactor, Color foregroundShiftColor,
+        double foregroundShiftFactor) {
+
+        Color containerSurfaceLowest = (backgroundShiftColor == null)
+            ? original.getContainerSurfaceLowest()
+            : new Color(Blend.harmonizeAll(original.getContainerSurfaceLowest().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color containerSurfaceLow = (backgroundShiftColor == null)
+            ? original.getContainerSurfaceLow()
+            : new Color(Blend.harmonizeAll(original.getContainerSurfaceLow().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color containerSurface = (backgroundShiftColor == null)
+            ? original.getContainerSurface()
+            : new Color(Blend.harmonizeAll(original.getContainerSurface().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color containerSurfaceHigh = (backgroundShiftColor == null)
+            ? original.getContainerSurfaceHigh()
+            : new Color(Blend.harmonizeAll(original.getContainerSurfaceHigh().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color containerSurfaceHighest = (backgroundShiftColor == null)
+            ? original.getContainerSurfaceHighest()
+            : new Color(Blend.harmonizeAll(original.getContainerSurfaceHighest().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color onContainer = (foregroundShiftColor == null)
+            ? original.getOnContainer()
+            : new Color(Blend.harmonizeAll(original.getOnContainer().getRGB(),
+                foregroundShiftColor.getRGB(), foregroundShiftFactor));
+        Color onContainerVariant = (foregroundShiftColor == null)
+            ? original.getOnContainerVariant()
+            : new Color(Blend.harmonizeAll(original.getOnContainerVariant().getRGB(),
+                foregroundShiftColor.getRGB(), foregroundShiftFactor));
+        Color containerOutline = (backgroundShiftColor == null)
+            ? original.getContainerOutline()
+            : new Color(Blend.harmonizeAll(original.getContainerOutline().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color containerOutlineVariant = (backgroundShiftColor == null)
+            ? original.getContainerOutlineVariant()
+            : new Color(Blend.harmonizeAll(original.getContainerOutlineVariant().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color inverseContainerSurface = (backgroundShiftColor == null)
+            ? original.getInverseContainerSurface()
+            : new Color(Blend.harmonizeAll(original.getInverseContainerSurface().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color inverseOnContainer = (foregroundShiftColor == null)
+            ? original.getInverseOnContainer()
+            : new Color(Blend.harmonizeAll(original.getInverseOnContainer().getRGB(),
+                foregroundShiftColor.getRGB(), foregroundShiftFactor));
+        Color inverseContainerOutline = (backgroundShiftColor == null)
+            ? original.getInverseContainerOutline()
+            : new Color(Blend.harmonizeAll(original.getInverseContainerOutline().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color complementaryContainerOutline = (backgroundShiftColor == null)
+            ? original.getComplementaryContainerOutline()
+            : new Color(Blend.harmonizeAll(original.getComplementaryContainerOutline().getRGB(),
+                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+
+        return new ContainerColorTokens() {
+            @Override
+            public boolean isDark() {
+                return original.isDark();
+            }
+
+            @Override
+            public Color getContainerSurfaceLowest() {
+                return containerSurfaceLowest;
+            }
+
+            @Override
+            public Color getContainerSurfaceLow() {
+                return containerSurfaceLow;
+            }
+
+            @Override
+            public Color getContainerSurface() {
+                return containerSurface;
+            }
+
+            @Override
+            public Color getContainerSurfaceHigh() {
+                return containerSurfaceHigh;
+            }
+
+            @Override
+            public Color getContainerSurfaceHighest() {
+                return containerSurfaceHighest;
+            }
+
+            @Override
+            public Color getOnContainer() {
+                return onContainer;
+            }
+
+            @Override
+            public Color getOnContainerVariant() {
+                return onContainerVariant;
+            }
+
+            @Override
+            public Color getContainerOutline() {
+                return containerOutline;
+            }
+
+            @Override
+            public Color getContainerOutlineVariant() {
+                return containerOutlineVariant;
+            }
+
+            @Override
+            public float getContainerSurfaceDisabledAlpha() {
+                return original.getContainerSurfaceDisabledAlpha();
+            }
+
+            @Override
+            public float getOnContainerDisabledAlpha() {
+                return original.getOnContainerDisabledAlpha();
+            }
+
+            @Override
+            public float getContainerOutlineDisabledAlpha() {
+                return original.getContainerOutlineDisabledAlpha();
+            }
+
+            @Override
+            public Color getInverseContainerSurface() {
+                return inverseContainerSurface;
+            }
+
+            @Override
+            public Color getInverseOnContainer() {
+                return inverseOnContainer;
+            }
+
+            @Override
+            public Color getInverseContainerOutline() {
+                return inverseContainerOutline;
+            }
+
+            @Override
+            public Color getComplementaryContainerOutline() {
+                return complementaryContainerOutline;
             }
         };
     }

@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
@@ -232,9 +233,8 @@ public class RadianceColorSchemeUtilities {
         }
         ContainerColorTokens nonColorized = skin.getContainerTokens(component,
             componentState, inactiveContainerType);
-        // TODO: TONAL - colorization
-        return nonColorized;
-        //        return getColorizedScheme(orig, nonColorized, !componentState.isDisabled());
+
+        return ColorSchemeUtils.getColorizedTokens(orig, nonColorized, !componentState.isDisabled());
     }
 
     /**

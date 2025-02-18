@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.demo.themingapps.mail;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
@@ -68,7 +67,8 @@ public class VisorSkin extends RadianceSkin {
 
         defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
         defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
+        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
+            RadianceThemingSlices.DecorationAreaType.NONE);
 
         RadianceColorScheme activeDestinationsScheme =
                 visorSchemes.get("Visor Active Destinations");
@@ -150,22 +150,13 @@ public class VisorSkin extends RadianceSkin {
         public VisorTonalSkin() {
             RadianceColorScheme2 visorDefaultColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFF99B6CB), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFC4CFD7)),
+                    Hct.fromInt(0xFF99B6CB), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFEFF8FF)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false);
             RadianceColorSchemeBundle2 visorDefaultBundle =
                 new RadianceColorSchemeBundle2(visorDefaultColorScheme);
             this.registerDecorationAreaSchemeBundle(visorDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
-
-            RadianceColorScheme2 visorThreadColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFF99B6CB), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFEFF8FF)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false);
-            RadianceColorSchemeBundle2 visorThreadBundle =
-                new RadianceColorSchemeBundle2(visorThreadColorScheme);
-            this.registerDecorationAreaSchemeBundle(visorThreadBundle, VisorMail.THREAD);
 
             // Custom palette resolver for the highlights in the threads decoration area
             // to set outline colors to be identical to surface colors (effectively removing the
@@ -204,7 +195,6 @@ public class VisorSkin extends RadianceSkin {
                 ComponentState.ROLLOVER_UNSELECTED);
             this.registerDecorationAreaSchemeBundle(visorThreadsBundle, VisorMail.THREADS);
 
-
             // Custom palette resolver for the highlights in the threads decoration area
             // to set outline colors to be identical to surface colors (effectively removing the
             // visuals of the outlines)
@@ -241,6 +231,13 @@ public class VisorSkin extends RadianceSkin {
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.ROLLOVER_UNSELECTED);
             this.registerDecorationAreaSchemeBundle(visorDestinationsBundle, VisorMail.DESTINATIONS);
+
+            // For the overall frame decoration border
+            this.registerAsDecorationArea(ColorSchemeUtils.getExtendedContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFC9D6DF),
+                    /* isFidelity */ true,
+                    /* isDark */ false),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new MatteTonalFillPainter();
