@@ -63,6 +63,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
         Color mainSelectorIconColor;
         Color labelBackgroundColor;
+        Color labelSeparatorColor;
         if (currentSkin instanceof TonalSkin) {
             ContainerColorTokens colorTokens = currentSkin.getContainerTokens(this,
                 ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
@@ -71,6 +72,7 @@ public class ThreadListPanel extends PanelWithRightLine {
             // Get the color schemes for colorizing the icons.
             mainSelectorIconColor = colorTokens.getOnContainer();
             labelBackgroundColor = colorTokens.getContainerSurfaceHigh();
+            labelSeparatorColor = colorTokens.getContainerOutline();
         } else {
             RadianceColorScheme fillScheme = currentSkin.getColorScheme(
                 VisorMail.THREADS, ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
@@ -79,6 +81,7 @@ public class ThreadListPanel extends PanelWithRightLine {
             // Get the color schemes for colorizing the icons.
             mainSelectorIconColor = fillScheme.getForegroundColor();
             labelBackgroundColor = fillScheme.getLightColor();
+            labelSeparatorColor = fillScheme.getUltraDarkColor();
         }
 
         RadianceIcon editIcon = edit_black_24dp.of(14, 14);
@@ -91,7 +94,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
         RadianceIcon mailIcon = refresh_black_24dp.of(12, 12);
         mailIcon.setColorFilter(color -> mainSelectorIconColor);
-        this.add(getInboxLabel("Inbox", mailIcon, labelBackgroundColor));
+        this.add(getInboxLabel("Inbox", mailIcon, labelBackgroundColor, labelSeparatorColor));
 
         JList<ThreadInfo> threadList = new JList<>(new ThreadListModel(
                 new ThreadInfo("Bob Macpearson", "5:50pm", "Welcome Natalie",
@@ -243,8 +246,14 @@ public class ThreadListPanel extends PanelWithRightLine {
     }
 
     private static class HeaderPanel extends JPanel {
-        public HeaderPanel(LayoutManager lm) {
+        private Color backgroundColor;
+        private Color separatorColor;
+
+        public HeaderPanel(LayoutManager lm, Color backgroundColor,
+            Color separatorColor) {
             super(lm);
+            this.backgroundColor = backgroundColor;
+            this.separatorColor = separatorColor;
         }
 
         @Override
@@ -254,9 +263,9 @@ public class ThreadListPanel extends PanelWithRightLine {
             int width = getWidth();
             int height = getHeight();
 
-            g2d.setColor(getBackground());
+            g2d.setColor(this.backgroundColor);
             g2d.fillRect(0, 0, width, height);
-            g2d.setColor(getBackground().darker());
+            g2d.setColor(this.separatorColor);
             g2d.drawLine(0, 0, width, 0);
             g2d.drawLine(0, height, width, height);
 
@@ -264,7 +273,8 @@ public class ThreadListPanel extends PanelWithRightLine {
         }
     }
 
-    private JPanel getInboxLabel(String title, RadianceIcon icon, Color background) {
+    private JPanel getInboxLabel(String title, RadianceIcon icon, Color backgroundColor,
+        Color separatorColor) {
         FormBuilder builder = FormBuilder.create().
                 columns("center:pref, 4dlu, fill:pref:grow").
                 rows("p").
@@ -277,9 +287,8 @@ public class ThreadListPanel extends PanelWithRightLine {
         builder.add(titleLabel).xy(3, 1);
         JPanel inside = builder.build();
 
-        HeaderPanel result = new HeaderPanel(new BorderLayout());
+        HeaderPanel result = new HeaderPanel(new BorderLayout(), backgroundColor, separatorColor);
         result.add(inside, BorderLayout.CENTER);
-        result.setBackground(background);
         return result;
     }
 
