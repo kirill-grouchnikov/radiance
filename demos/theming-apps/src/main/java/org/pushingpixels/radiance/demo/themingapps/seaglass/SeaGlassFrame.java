@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.themingapps.seaglass;
 
-import org.pushingpixels.radiance.demo.themingapps.seaglass.skin.SeaGlassSkin;
 import org.pushingpixels.radiance.demo.theming.main.check.SampleFrame;
+import org.pushingpixels.radiance.demo.themingapps.seaglass.skin.SeaGlassSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
@@ -42,7 +42,7 @@ public class SeaGlassFrame extends SampleFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            RadianceThemingCortex.GlobalScope.setSkin(new SeaGlassSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new SeaGlassSkin.SeaGlassTonalSkin());
             JFrame.setDefaultLookAndFeelDecorated(true);
             SeaGlassFrame sf = new SeaGlassFrame("Radiance");
             sf.setSize(340, 254);

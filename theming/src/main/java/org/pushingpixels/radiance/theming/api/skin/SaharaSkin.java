@@ -31,7 +31,10 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.DesertSandColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.MetallicColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
@@ -100,6 +103,11 @@ public class SaharaSkin extends RadianceSkin {
 		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
 			ColorSchemeSingleColorQuery.MID);
 		this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+	}
+
+	@Override
+	public String getDisplayName() {
+		return NAME;
 	}
 
 	public static class SaharaTonalSkin extends SaharaSkin implements TonalSkin {
@@ -174,10 +182,5 @@ public class SaharaSkin extends RadianceSkin {
 		public String getDisplayName() {
 			return SaharaTonalSkin.NAME;
 		}
-	}
-
-	@Override
-	public String getDisplayName() {
-		return NAME;
 	}
 }
