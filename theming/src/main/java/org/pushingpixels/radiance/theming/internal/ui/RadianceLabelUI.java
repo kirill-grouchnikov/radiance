@@ -152,8 +152,7 @@ public class RadianceLabelUI extends BasicLabelUI {
                     ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens();
                     textColor = colorTokens.getOnContainer();
-                    // TODO: TONAL - finalize the text echo color logic
-                    echoColor = colorTokens.getInverseOnContainer();
+                    echoColor = colorTokens.getComplementaryOnContainer();
                 } else {
                     RadianceColorScheme scheme = skin.getEnabledColorScheme(
                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);

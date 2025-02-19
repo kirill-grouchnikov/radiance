@@ -892,10 +892,9 @@ public class RadianceTitlePane extends JComponent {
             if (skin instanceof TonalSkin) {
                 ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens();
-                // TODO: TONAL - finalize the text echo color logic
                 RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
                         colorTokens.getOnContainer(),
-                        colorTokens.getInverseOnContainer(),
+                        colorTokens.getComplementaryOnContainer(),
                         displayTitle, width, height, xOffset, yOffset);
             } else {
                 RadianceColorScheme scheme = skin.getEnabledColorScheme(

@@ -59,6 +59,7 @@ public interface BimodalPaletteContainerColorsResolver {
     Color getInverseOnContainer(DynamicBimodalPalette dynamicBimodalPalette);
     Color getInverseContainerOutline(DynamicBimodalPalette dynamicBimodalPalette);
 
+    Color getComplementaryOnContainer(DynamicBimodalPalette dynamicBimodalPalette);
     Color getComplementaryContainerOutline(DynamicBimodalPalette dynamicBimodalPalette);
 
     default BimodalPaletteContainerColorsResolver overlayWith(BimodalPaletteContainerColorsResolverOverlay overlay) {

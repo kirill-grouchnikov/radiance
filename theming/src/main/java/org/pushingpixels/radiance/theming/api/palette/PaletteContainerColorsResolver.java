@@ -59,6 +59,7 @@ public interface PaletteContainerColorsResolver {
     Color getInverseOnContainer(DynamicPalette dynamicPalette);
     Color getInverseContainerOutline(DynamicPalette dynamicPalette);
 
+    Color getComplementaryOnContainer(DynamicPalette dynamicPalette);
     Color getComplementaryContainerOutline(DynamicPalette dynamicPalette);
 
     default PaletteContainerColorsResolver overlayWith(PaletteContainerColorsResolverOverlay overlay) {

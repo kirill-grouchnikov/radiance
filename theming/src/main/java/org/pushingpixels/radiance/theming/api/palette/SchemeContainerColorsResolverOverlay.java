@@ -49,6 +49,7 @@ public class SchemeContainerColorsResolverOverlay {
     private Function<DynamicScheme, Integer> inverseContainerSurface;
     private Function<DynamicScheme, Integer> inverseOnContainer;
     private Function<DynamicScheme, Integer> inverseContainerOutline;
+    private Function<DynamicScheme, Integer> complementaryOnContainer;
     private Function<DynamicScheme, Integer> complementaryContainerOutline;
 
     public static Builder builder() {
@@ -117,6 +118,10 @@ public class SchemeContainerColorsResolverOverlay {
         return this.inverseContainerOutline;
     }
 
+    public Function<DynamicScheme, Integer> getComplementaryOnContainer() {
+        return this.complementaryOnContainer;
+    }
+
     public Function<DynamicScheme, Integer> getComplementaryContainerOutline() {
         return this.complementaryContainerOutline;
     }
@@ -137,6 +142,7 @@ public class SchemeContainerColorsResolverOverlay {
         private Function<DynamicScheme, Integer> inverseContainerSurface;
         private Function<DynamicScheme, Integer> inverseOnContainer;
         private Function<DynamicScheme, Integer> inverseContainerOutline;
+        private Function<DynamicScheme, Integer> complementaryOnContainer;
         private Function<DynamicScheme, Integer> complementaryContainerOutline;
 
         private Builder() {}
@@ -219,6 +225,11 @@ public class SchemeContainerColorsResolverOverlay {
             return this;
         }
 
+        public Builder complementaryOnContainer(Function<DynamicScheme, Integer> complementaryOnContainer) {
+            this.complementaryOnContainer = complementaryOnContainer;
+            return this;
+        }
+
         public Builder complementaryContainerOutline(Function<DynamicScheme, Integer> complementaryContainerOutline) {
             this.complementaryContainerOutline = complementaryContainerOutline;
             return this;
@@ -241,6 +252,7 @@ public class SchemeContainerColorsResolverOverlay {
             result.inverseContainerSurface = this.inverseContainerSurface;
             result.inverseOnContainer = this.inverseOnContainer;
             result.inverseContainerOutline = this.inverseContainerOutline;
+            result.complementaryOnContainer = this.complementaryOnContainer;
             result.complementaryContainerOutline = this.complementaryContainerOutline;
             return result;
         }

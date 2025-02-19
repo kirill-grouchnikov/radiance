@@ -302,10 +302,9 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                     colorTokens = ColorSchemeUtils.getBlendedTokens(colorTokens, background,
                         colorization, null, 0.0);
                 }
-                // TODO: TONAL - finalize the text echo color logic
                 RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
                     colorTokens.getOnContainer(),
-                    colorTokens.getInverseOnContainer(),
+                    colorTokens.getComplementaryOnContainer(),
                     displayTitle, width, height, xOffset, yOffset);
             } else {
                 RadianceColorScheme scheme = RadianceCoreUtilities.getSkin(this.frame)

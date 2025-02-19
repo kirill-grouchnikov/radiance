@@ -53,6 +53,7 @@ public class BimodalPaletteContainerColorsResolverOverlay {
     private Function<DynamicBimodalPalette, Integer> inverseContainerSurface;
     private Function<DynamicBimodalPalette, Integer> inverseOnContainer;
     private Function<DynamicBimodalPalette, Integer> inverseContainerOutline;
+    private Function<DynamicBimodalPalette, Integer> complementaryOnContainer;
     private Function<DynamicBimodalPalette, Integer> complementaryContainerOutline;
 
     public static Builder builder() {
@@ -137,6 +138,10 @@ public class BimodalPaletteContainerColorsResolverOverlay {
         return this.inverseContainerOutline;
     }
 
+    public Function<DynamicBimodalPalette, Integer> getComplementaryOnContainer() {
+        return this.complementaryOnContainer;
+    }
+
     public Function<DynamicBimodalPalette, Integer> getComplementaryContainerOutline() {
         return this.complementaryContainerOutline;
     }
@@ -161,6 +166,7 @@ public class BimodalPaletteContainerColorsResolverOverlay {
         private Function<DynamicBimodalPalette, Integer> inverseContainerSurface;
         private Function<DynamicBimodalPalette, Integer> inverseOnContainer;
         private Function<DynamicBimodalPalette, Integer> inverseContainerOutline;
+        private Function<DynamicBimodalPalette, Integer> complementaryOnContainer;
         private Function<DynamicBimodalPalette, Integer> complementaryContainerOutline;
 
         private Builder() {}
@@ -265,6 +271,12 @@ public class BimodalPaletteContainerColorsResolverOverlay {
             return this;
         }
 
+        public Builder complementaryOnContainer(
+            Function<DynamicBimodalPalette, Integer> complementaryOnContainer) {
+            this.complementaryOnContainer = complementaryOnContainer;
+            return this;
+        }
+
         public Builder complementaryContainerOutline(
             Function<DynamicBimodalPalette, Integer> complementaryContainerOutline) {
             this.complementaryContainerOutline = complementaryContainerOutline;
@@ -292,6 +304,7 @@ public class BimodalPaletteContainerColorsResolverOverlay {
             result.inverseContainerSurface = this.inverseContainerSurface;
             result.inverseOnContainer = this.inverseOnContainer;
             result.inverseContainerOutline = this.inverseContainerOutline;
+            result.complementaryOnContainer = this.complementaryOnContainer;
             result.complementaryContainerOutline = this.complementaryContainerOutline;
             return result;
         }

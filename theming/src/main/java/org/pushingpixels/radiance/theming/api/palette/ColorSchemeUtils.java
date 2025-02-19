@@ -133,6 +133,11 @@ public class ColorSchemeUtils {
             }
 
             @Override
+            public Color getComplementaryOnContainer() {
+                return tonalContainerColorResolver.getComplementaryContainerOutline(dynamicScheme);
+            }
+
+            @Override
             public Color getComplementaryContainerOutline() {
                 return tonalContainerColorResolver.getComplementaryContainerOutline(dynamicScheme);
             }
@@ -212,6 +217,7 @@ public class ColorSchemeUtils {
 
         Color inverseOnContainer = original.getInverseOnContainer();
         Color inverseContainerOutline = original.getInverseContainerOutline();
+        Color complementaryOnContainer = original.getComplementaryOnContainer();
         Color complementaryContainerOutline = original.getComplementaryContainerOutline();
 
         return new ContainerColorTokens() {
@@ -293,6 +299,11 @@ public class ColorSchemeUtils {
             @Override
             public Color getInverseContainerOutline() {
                 return inverseContainerOutline;
+            }
+
+            @Override
+            public Color getComplementaryOnContainer() {
+                return complementaryOnContainer;
             }
 
             @Override
@@ -717,6 +728,11 @@ public class ColorSchemeUtils {
             }
 
             @Override
+            public Color getComplementaryOnContainer() {
+                return colorResolver.getComplementaryOnContainer(dynamicPalette);
+            }
+
+            @Override
             public Color getComplementaryContainerOutline() {
                 return colorResolver.getComplementaryContainerOutline(dynamicPalette);
             }
@@ -932,6 +948,11 @@ public class ColorSchemeUtils {
             }
 
             @Override
+            public Color getComplementaryOnContainer() {
+                return colorResolver.getComplementaryOnContainer(dynamicPalette);
+            }
+
+            @Override
             public Color getComplementaryContainerOutline() {
                 return colorResolver.getComplementaryContainerOutline(dynamicPalette);
             }
@@ -1050,10 +1071,14 @@ public class ColorSchemeUtils {
             ? original.getInverseContainerOutline()
             : new Color(Blend.harmonizeAll(original.getInverseContainerOutline().getRGB(),
                 backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color complementaryOnContainer = (foregroundShiftColor == null)
+            ? original.getComplementaryOnContainer()
+            : new Color(Blend.harmonizeAll(original.getComplementaryOnContainer().getRGB(),
+            foregroundShiftColor.getRGB(), foregroundShiftFactor));
         Color complementaryContainerOutline = (backgroundShiftColor == null)
             ? original.getComplementaryContainerOutline()
             : new Color(Blend.harmonizeAll(original.getComplementaryContainerOutline().getRGB(),
-                backgroundShiftColor.getRGB(), backgroundShiftFactor));
+            backgroundShiftColor.getRGB(), backgroundShiftFactor));
 
         return new ContainerColorTokens() {
             @Override
@@ -1134,6 +1159,11 @@ public class ColorSchemeUtils {
             @Override
             public Color getInverseContainerOutline() {
                 return inverseContainerOutline;
+            }
+
+            @Override
+            public Color getComplementaryOnContainer() {
+                return complementaryOnContainer;
             }
 
             @Override

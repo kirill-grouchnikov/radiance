@@ -114,6 +114,11 @@ public class SchemeResolverUtils {
                 }
 
                 @Override
+                public Color getComplementaryOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getComplementaryOnNeutralContainer());
+                }
+
+                @Override
                 public Color getComplementaryContainerOutline(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getComplementaryNeutralContainerOutline());
                 }
@@ -194,6 +199,11 @@ public class SchemeResolverUtils {
                 @Override
                 public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getInverseMutedContainerOutline());
+                }
+
+                @Override
+                public Color getComplementaryOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getComplementaryOnMutedContainer());
                 }
 
                 @Override
@@ -280,6 +290,11 @@ public class SchemeResolverUtils {
                 }
 
                 @Override
+                public Color getComplementaryOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getComplementaryOnTonalContainer());
+                }
+
+                @Override
                 public Color getComplementaryContainerOutline(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getComplementaryTonalContainerOutline());
                 }
@@ -360,6 +375,11 @@ public class SchemeResolverUtils {
                 @Override
                 public Color getInverseContainerOutline(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getInversePrimaryContainerOutline());
+                }
+
+                @Override
+                public Color getComplementaryOnContainer(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getComplementaryOnPrimaryContainer());
                 }
 
                 @Override
@@ -559,6 +579,16 @@ public class SchemeResolverUtils {
                Function<DynamicScheme, Integer> spec = overlay.getInverseContainerOutline();
                if (spec == null) {
                    return original.getInverseContainerOutline(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme), true);
+               }
+           }
+
+           @Override
+           public Color getComplementaryOnContainer(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Integer> spec = overlay.getComplementaryOnContainer();
+               if (spec == null) {
+                   return original.getComplementaryOnContainer(dynamicScheme);
                } else {
                    return new Color(spec.apply(dynamicScheme), true);
                }

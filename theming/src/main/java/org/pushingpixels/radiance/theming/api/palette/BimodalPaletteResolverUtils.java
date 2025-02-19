@@ -134,6 +134,11 @@ public class BimodalPaletteResolverUtils {
                 }
 
                 @Override
+                public Color getComplementaryOnContainer(DynamicBimodalPalette dynamicBimodalPalette) {
+                    return new Color(dynamicBimodalPalette.getComplementaryOnTonalContainer());
+                }
+
+                @Override
                 public Color getComplementaryContainerOutline(DynamicBimodalPalette dynamicBimodalPalette) {
                     return new Color(dynamicBimodalPalette.getComplementaryTonalContainerOutline());
                 }
@@ -330,6 +335,16 @@ public class BimodalPaletteResolverUtils {
                 Function<DynamicBimodalPalette,Integer> spec = overlay.getInverseContainerOutline();
                 if (spec == null) {
                     return original.getInverseContainerOutline(dynamicBimodalPalette);
+                } else {
+                    return new Color(spec.apply(dynamicBimodalPalette), true);
+                }
+            }
+
+            @Override
+            public Color getComplementaryOnContainer(DynamicBimodalPalette dynamicBimodalPalette) {
+                Function<DynamicBimodalPalette,Integer> spec = overlay.getComplementaryOnContainer();
+                if (spec == null) {
+                    return original.getComplementaryOnContainer(dynamicBimodalPalette);
                 } else {
                     return new Color(spec.apply(dynamicBimodalPalette), true);
                 }

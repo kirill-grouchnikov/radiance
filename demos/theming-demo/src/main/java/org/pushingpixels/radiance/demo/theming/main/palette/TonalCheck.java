@@ -32,8 +32,8 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 import org.pushingpixels.radiance.demo.theming.main.Check;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 import org.pushingpixels.radiance.theming.extras.api.RadianceThemingExtrasSkinPlugin;
-import org.pushingpixels.radiance.theming.extras.api.skinpack.StreetlightsSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +42,7 @@ import java.awt.event.ComponentEvent;
 
 public class TonalCheck {
     public static void main(String[] args) {
-        RadianceSkin tonalSkin = new StreetlightsSkin.StreetlightsTonalSkin();
+        RadianceSkin tonalSkin = new BusinessSkin.BusinessTonalSkin();
 
         RadianceThemingCortex.GlobalScope.registerSkinPlugin(new RadianceThemingExtrasSkinPlugin());
         RadianceThemingCortex.GlobalScope.registerWidget("org.pushingpixels.radiance.theming" +
