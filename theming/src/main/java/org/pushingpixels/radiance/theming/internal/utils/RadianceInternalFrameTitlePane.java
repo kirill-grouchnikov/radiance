@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
@@ -295,7 +296,12 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
                     RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
                     .getBaseContainerTokens();
-                // TODO: TONAL - support colorization of text
+                Color background = hostFrame.getBackground();
+                if (!(background instanceof UIResource)) {
+                    double colorization = RadianceCoreUtilities.getColorizationFactor(hostForColorization);
+                    colorTokens = ColorSchemeUtils.getBlendedTokens(colorTokens, background,
+                        colorization, null, 0.0);
+                }
                 // TODO: TONAL - finalize the text echo color logic
                 RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
                     colorTokens.getOnContainer(),
