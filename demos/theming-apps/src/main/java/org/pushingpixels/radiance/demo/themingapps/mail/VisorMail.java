@@ -41,8 +41,6 @@ public class VisorMail extends JFrame {
             new RadianceThemingSlices.DecorationAreaType("Visor Destinations");
     public static final RadianceThemingSlices.DecorationAreaType THREADS =
         new RadianceThemingSlices.DecorationAreaType("Visor Threads");
-    public static final RadianceThemingSlices.DecorationAreaType THREAD =
-        new RadianceThemingSlices.DecorationAreaType("Visor Thread");
 
     public VisorMail() {
         BorderLayout mainLayout = new BorderLayout();

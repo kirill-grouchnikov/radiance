@@ -245,7 +245,6 @@ public class RadianceColorSchemeBundle2 {
         }
 
         if (componentState.isDisabled()) {
-            // TODO: TONAL - finalize this
             // Use the enabled match, and alpha will be applied during rendering
             return getContainerTokens(associationKind, componentState.getEnabledMatch(),
                 allowFallback, inactiveContainerType);

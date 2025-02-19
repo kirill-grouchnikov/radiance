@@ -113,10 +113,6 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
 
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
                 if (skin instanceof TonalSkin) {
-                    // TODO: TONAL - test Magellan skin and its custom configuration of mark box
-                    // colors. Also check other skins and their custom configurations of mark
-                    // colors
-
                     // Populate color schemes based on the current transition state of the check box.
                     BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,

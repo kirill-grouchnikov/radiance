@@ -163,16 +163,14 @@ public class RadianceColorSchemeUtilities {
         }
         ContainerColorTokens nonColorized = skin.getContainerTokens(jtp, associationKind,
             componentState, RadianceThemingSlices.ContainerType.MUTED);
-        return nonColorized;
-        // TODO: TONAL - colorization
-//        if (tabIndex >= 0) {
-//            Component component = jtp.getComponentAt(tabIndex);
-//            return getColorizedScheme(component, nonColorized,
-//                jtp.getForegroundAt(tabIndex), jtp.getBackgroundAt(tabIndex),
-//                !componentState.isDisabled());
-//        } else {
-//            return getColorizedScheme(jtp, nonColorized, !componentState.isDisabled());
-//        }
+        if (tabIndex >= 0) {
+            Component component = jtp.getComponentAt(tabIndex);
+            return ColorSchemeUtils.getColorizedTokens(component, nonColorized,
+                jtp.getForegroundAt(tabIndex), jtp.getBackgroundAt(tabIndex),
+                !componentState.isDisabled());
+        } else {
+            return ColorSchemeUtils.getColorizedTokens(jtp, nonColorized, !componentState.isDisabled());
+        }
     }
 
     /**
@@ -314,8 +312,7 @@ public class RadianceColorSchemeUtilities {
         }
         ContainerColorTokens nonColorized = skin.getContainerTokens(component,
             associationKind, componentState, inactiveContainerType);
-        // TODO: TONAL - add colorization
-        return nonColorized;
+        return ColorSchemeUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
     }
 
     /**

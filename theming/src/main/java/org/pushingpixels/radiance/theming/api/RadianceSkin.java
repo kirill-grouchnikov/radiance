@@ -498,8 +498,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     public final ContainerColorTokens getContainerTokens(Component comp,
         ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (componentState.isDisabled()) {
-            // TODO: TONAL - finalize this
-            // Use the enabled match, and alpha will be applied during rendering
             return getContainerTokens(comp, componentState.getEnabledMatch(), inactiveContainerType);
         }
 
@@ -527,7 +525,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         if (registered == null) {
             throw new IllegalStateException("Color tokens scheme shouldn't be null here. Please report " + "this issue");
         }
-
 
         return registered;
     }
@@ -995,8 +992,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
 
         if (componentState.isDisabled()) {
-            // TODO: TONAL - finalize this
-            // Use the enabled match, and alpha will be applied during rendering
             return getContainerTokens(comp, associationKind, componentState.getEnabledMatch(),
                 inactiveContainerType);
         }

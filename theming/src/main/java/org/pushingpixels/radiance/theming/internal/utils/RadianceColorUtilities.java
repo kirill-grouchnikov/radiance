@@ -529,7 +529,7 @@ public class RadianceColorUtilities {
         }
 
         ContainerColorTokens colorTokens =
-            skin.getContainerTokens(component, currState, inactiveContainerType);
+            RadianceColorSchemeUtilities.getContainerTokens(component, currState, inactiveContainerType);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return colorTokens.getOnContainer();
         }

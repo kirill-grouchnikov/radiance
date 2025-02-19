@@ -504,7 +504,6 @@ public class ColorSchemeUtils {
             @Override
             public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
                 if (componentState.isDisabled()) {
-                    // TODO: TONAL - finalize this
                     return getContainerTokensForState(componentState.getEnabledMatch());
                 }
 
@@ -939,212 +938,6 @@ public class ColorSchemeUtils {
         };
     }
 
-    // TODO: TONAL - remove?
-    public static ContainerColorTokens tint(ContainerColorTokens original, float tintFactor) {
-        return new ContainerColorTokens() {
-            @Override
-            public boolean isDark() {
-                return original.isDark();
-            }
-
-            @Override
-            public Color getContainerSurfaceLowest() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurfaceLowest().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getContainerSurfaceLow() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurfaceLow().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getContainerSurface() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurface().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getContainerSurfaceHigh() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurfaceHigh().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getContainerSurfaceHighest() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurfaceHighest().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getOnContainer() {
-                return new Color(Blend.cam16Ucs(original.getOnContainer().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getOnContainerVariant() {
-                return new Color(Blend.cam16Ucs(original.getOnContainerVariant().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getContainerOutline() {
-                return new Color(Blend.cam16Ucs(original.getContainerOutline().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getContainerOutlineVariant() {
-                return new Color(Blend.cam16Ucs(original.getContainerOutlineVariant().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public float getContainerSurfaceDisabledAlpha() {
-                return original.getContainerSurfaceDisabledAlpha();
-            }
-
-            @Override
-            public float getOnContainerDisabledAlpha() {
-                return original.getOnContainerDisabledAlpha();
-            }
-
-            @Override
-            public float getContainerOutlineDisabledAlpha() {
-                return original.getContainerOutlineDisabledAlpha();
-            }
-
-            @Override
-            public Color getInverseContainerSurface() {
-                return new Color(Blend.cam16Ucs(original.getInverseContainerSurface().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getInverseOnContainer() {
-                return new Color(Blend.cam16Ucs(original.getInverseOnContainer().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getInverseContainerOutline() {
-                return new Color(Blend.cam16Ucs(original.getInverseContainerOutline().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-
-            @Override
-            public Color getComplementaryContainerOutline() {
-                return new Color(Blend.cam16Ucs(original.getComplementaryContainerOutline().getRGB(),
-                    Color.WHITE.getRGB(), tintFactor));
-            }
-        };
-    }
-
-    // TODO: TONAL - remove?
-    public static ContainerColorTokens shade(ContainerColorTokens original, float shadeFactor) {
-        return new ContainerColorTokens() {
-            @Override
-            public boolean isDark() {
-                return original.isDark();
-            }
-
-            @Override
-            public Color getContainerSurfaceLowest() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurfaceLowest().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getContainerSurfaceLow() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurfaceLow().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getContainerSurface() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurface().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getContainerSurfaceHigh() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurfaceHigh().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getContainerSurfaceHighest() {
-                return new Color(Blend.cam16Ucs(original.getContainerSurfaceHighest().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getOnContainer() {
-                return new Color(Blend.cam16Ucs(original.getOnContainer().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getOnContainerVariant() {
-                return new Color(Blend.cam16Ucs(original.getOnContainerVariant().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getContainerOutline() {
-                return new Color(Blend.cam16Ucs(original.getContainerOutline().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getContainerOutlineVariant() {
-                return new Color(Blend.cam16Ucs(original.getContainerOutlineVariant().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public float getContainerSurfaceDisabledAlpha() {
-                return original.getContainerSurfaceDisabledAlpha();
-            }
-
-            @Override
-            public float getOnContainerDisabledAlpha() {
-                return original.getOnContainerDisabledAlpha();
-            }
-
-            @Override
-            public float getContainerOutlineDisabledAlpha() {
-                return original.getContainerOutlineDisabledAlpha();
-            }
-
-            @Override
-            public Color getInverseContainerSurface() {
-                return new Color(Blend.cam16Ucs(original.getInverseContainerSurface().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getInverseOnContainer() {
-                return new Color(Blend.cam16Ucs(original.getInverseOnContainer().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getInverseContainerOutline() {
-                return new Color(Blend.cam16Ucs(original.getInverseContainerOutline().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-
-            @Override
-            public Color getComplementaryContainerOutline() {
-                return new Color(Blend.cam16Ucs(original.getComplementaryContainerOutline().getRGB(),
-                    Color.BLACK.getRGB(), shadeFactor));
-            }
-        };
-    }
-
     /**
      * Cache of blended schemes.
      */
@@ -1159,12 +952,12 @@ public class ColorSchemeUtils {
             || (component instanceof RadianceTitleButton)))) {
             forQuerying = component.getParent();
         }
-        return getBlendedTokens(component, tokens,
+        return getColorizedTokens(component, tokens,
             (forQuerying == null) ? null : forQuerying.getForeground(),
             (forQuerying == null) ? null : forQuerying.getBackground(), isEnabled);
     }
 
-    private static ContainerColorTokens getBlendedTokens(Component component,
+    public static ContainerColorTokens getColorizedTokens(Component component,
         ContainerColorTokens tokens, Color fgColor, Color bgColor, boolean isEnabled) {
         if ((tokens != null) && (component != null)) {
             // Support for enhancement 256 - colorizing
