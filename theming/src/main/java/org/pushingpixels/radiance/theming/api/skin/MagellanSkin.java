@@ -301,7 +301,7 @@ public class MagellanSkin extends RadianceSkin {
                     .mutedContainerResolverOverlay(
                         SchemeContainerColorsResolverOverlay.builder()
                             .onContainer((s) -> s.getOnMutedContainer() & 0xE0FFFFFF)
-                            .onContainerVariant((s) -> s.getOnNeutralContainerVariant() & 0xE0FFFFFF)
+                            .onContainerVariant((s) -> s.getOnMutedContainerVariant() & 0xE0FFFFFF)
                             .build())
                     // For tonal containers (active controls), use softer text / icon colors.
                     .tonalContainerResolverOverlay(
