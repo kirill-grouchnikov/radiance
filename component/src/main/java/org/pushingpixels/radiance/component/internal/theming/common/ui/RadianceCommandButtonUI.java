@@ -402,15 +402,24 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         Graphics2D g2d = (Graphics2D) graphics.create();
         g2d.translate(0, separatorArea.y);
 
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.commandButton, ColorSchemeAssociationKind.SEPARATOR,
-                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton));
-
         float fadeAlpha = this.getSeparatorAlpha();
         g2d.setComposite(AlphaComposite.SrcOver.derive(fadeAlpha));
 
-        SeparatorPainterUtils.paintSeparator(this.commandButton, g2d, colorScheme,
-                this.commandButton.getWidth(), 1, JSlider.HORIZONTAL, true, 4, 4, true);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.commandButton);
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                this.commandButton,
+                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
+                RadianceThemingSlices.ContainerType.MUTED);
+            SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens,
+                this.commandButton.getWidth(), 1, SwingConstants.HORIZONTAL, true, 4, 4, true);
+        } else {
+            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                this.commandButton, ColorSchemeAssociationKind.SEPARATOR,
+                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton));
+            SeparatorPainterUtils.paintSeparator(this.commandButton, g2d, colorScheme,
+                this.commandButton.getWidth(), 1, SwingConstants.HORIZONTAL, true, 4, 4, true);
+        }
 
         g2d.dispose();
     }
@@ -419,15 +428,24 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         Graphics2D g2d = (Graphics2D) graphics.create();
         g2d.translate(separatorArea.x, 0);
 
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.commandButton, ColorSchemeAssociationKind.SEPARATOR,
-                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton));
-
         float fadeAlpha = this.getSeparatorAlpha();
         g2d.setComposite(AlphaComposite.SrcOver.derive(fadeAlpha));
 
-        SeparatorPainterUtils.paintSeparator(this.commandButton, g2d, colorScheme, 1,
-                this.commandButton.getHeight(), JSlider.VERTICAL, true, 4, 4, true);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.commandButton);
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                this.commandButton,
+                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
+                RadianceThemingSlices.ContainerType.MUTED);
+            SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens, 1,
+                this.commandButton.getHeight(), SwingConstants.VERTICAL, true, 4, 4, true);
+        } else {
+            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                this.commandButton, ColorSchemeAssociationKind.SEPARATOR,
+                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton));
+            SeparatorPainterUtils.paintSeparator(this.commandButton, g2d, colorScheme, 1,
+                this.commandButton.getHeight(), SwingConstants.VERTICAL, true, 4, 4, true);
+        }
 
         g2d.dispose();
     }
