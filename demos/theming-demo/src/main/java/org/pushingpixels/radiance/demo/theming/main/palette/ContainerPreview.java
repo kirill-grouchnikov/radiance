@@ -38,11 +38,18 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class ContainerPreview extends JPanel {
-    private ContainerColorTokens colorTokens;
+    public enum Variant {
+        COMPACT, WIDE
+    }
+
+    private Variant variant;
 
     public ContainerPreview(ContainerColorTokens colorTokens, String text) {
-        this.colorTokens = colorTokens;
+        this(colorTokens, text, Variant.WIDE);
+    }
 
+    public ContainerPreview(ContainerColorTokens colorTokens, String text, Variant variant) {
+        this.variant = variant;
         this.setLayout(new BorderLayout());
         this.setBorder(new EmptyBorder(4, 4, 4, 4));
 
@@ -72,11 +79,19 @@ public class ContainerPreview extends JPanel {
                 g2d.setFont(font);
                 RadianceCommonCortex.installDesktopHints(g2d, font);
                 FontMetrics fm = g2d.getFontMetrics();
-                int textWidth = fm.stringWidth(text);
 
+                int lineHeight = fm.getHeight();
+                int fullHeight = 2 * lineHeight;
+                String textVariant = text + " variant";
+                int textVariantWidth = fm.stringWidth(textVariant);
+
+                int textY = (height - fullHeight) / 2 + fm.getAscent();
                 g2d.setColor(colorTokens.getOnContainer());
-                g2d.drawString(text, (width - textWidth) / 2,
-                    (height - fm.getHeight()) / 2 + fm.getAscent());
+                g2d.drawString(text, (width - textVariantWidth) / 2, textY);
+                textY += lineHeight;
+
+                g2d.setColor(colorTokens.getOnContainerVariant());
+                g2d.drawString(textVariant, (width - textVariantWidth) / 2, textY);
 
                 g2d.dispose();
             }
@@ -85,6 +100,6 @@ public class ContainerPreview extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(220, 50);
+        return new Dimension((this.variant == Variant.WIDE) ? 220 : 150, 54);
     }
 }

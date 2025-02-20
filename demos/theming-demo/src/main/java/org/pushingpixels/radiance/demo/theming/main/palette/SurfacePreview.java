@@ -55,7 +55,7 @@ public class SurfacePreview extends JComponent {
         int height = getHeight();
         int smallGap = 3;
         int bigGap = 8;
-        int xOffset = 0;
+        int xOffset = 10;
 
         // Surface colors
         paintSquare(g2d, xOffset, height, colorScheme.getSurfaceDim());
