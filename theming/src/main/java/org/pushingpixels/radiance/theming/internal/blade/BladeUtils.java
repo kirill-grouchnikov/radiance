@@ -450,6 +450,7 @@ public class BladeUtils {
         }
     }
 
+    // TODO: TONAL - revisit this
     public static ColorSchemeDelegate getDefaultColorSchemeDelegate(Component component,
             BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
         return new ColorSchemeDelegate() {

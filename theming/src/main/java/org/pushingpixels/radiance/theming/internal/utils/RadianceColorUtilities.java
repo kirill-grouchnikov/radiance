@@ -512,7 +512,6 @@ public class RadianceColorUtilities {
         }
 
         // special case for modification aware buttons
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (component instanceof AbstractButton) {
             AbstractButton button = (AbstractButton) component;
             if (button.getUI() instanceof ModificationAwareUI) {
@@ -553,6 +552,72 @@ public class RadianceColorUtilities {
         return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 
+    public static Color getTonalForegroundVariantColor(Component component,
+        StateTransitionTracker.ModelStateInfo modelStateInfo,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        ComponentState currState = modelStateInfo.getCurrModelState();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+            modelStateInfo.getStateContributionMap();
+
+        // special case for enabled buttons with no background -
+        // always use the color scheme for the default state.
+        if (component instanceof AbstractButton) {
+            AbstractButton button = (AbstractButton) component;
+            if (RadianceCoreUtilities.isComponentNeverPainted(button)
+                || !button.isContentAreaFilled()
+                || (button instanceof JRadioButton)
+                || (button instanceof JCheckBox)) {
+                if (!currState.isDisabled()) {
+                    currState = ComponentState.ENABLED;
+                    activeStates = null;
+                } else {
+                    currState = ComponentState.DISABLED_UNSELECTED;
+                    activeStates = null;
+                }
+            }
+        }
+
+        // special case for modification aware buttons
+        if (component instanceof AbstractButton) {
+            AbstractButton button = (AbstractButton) component;
+            if (button.getUI() instanceof ModificationAwareUI) {
+                ModificationAwareUI modificationAwareUI = (ModificationAwareUI) button.getUI();
+                Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
+                if (modificationTimeline != null) {
+                    if (modificationTimeline.getState() != Timeline.TimelineState.IDLE) {
+                        BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
+                            button, modificationTimeline.getTimelinePosition());
+                        return mutableContainerTokens.getOnContainerVariant();
+                    }
+                }
+            }
+        }
+
+        ContainerColorTokens colorTokens =
+            RadianceColorSchemeUtilities.getContainerTokens(component, currState, inactiveContainerType);
+        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+            return colorTokens.getOnContainerVariant();
+        }
+
+        float aggrRed = 0;
+        float aggrGreen = 0;
+        float aggrBlue = 0;
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+            activeStates.entrySet()) {
+            ComponentState activeState = activeEntry.getKey();
+            float alpha = activeEntry.getValue().getContribution();
+
+            ContainerColorTokens activeColorTokens =
+                RadianceColorSchemeUtilities.getContainerTokens(component, activeState,
+                    inactiveContainerType);
+            Color activeForeground = activeColorTokens.getOnContainerVariant();
+            aggrRed += alpha * activeForeground.getRed();
+            aggrGreen += alpha * activeForeground.getGreen();
+            aggrBlue += alpha * activeForeground.getBlue();
+        }
+        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
+    }
+
     public static float getTonalForegroundAlpha(Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
@@ -574,6 +639,10 @@ public class RadianceColorUtilities {
             }
         }
 
+        if (!currState.isDisabled()) {
+            return 1.0f;
+        }
+
         // special case for modification aware buttons
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (component instanceof AbstractButton) {
@@ -585,8 +654,7 @@ public class RadianceColorUtilities {
                     if (modificationTimeline.getState() != Timeline.TimelineState.IDLE) {
                         BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                             button, modificationTimeline.getTimelinePosition());
-                        return currState.isDisabled()
-                            ? mutableContainerTokens.getOnContainerDisabledAlpha() : 1.0f;
+                        return mutableContainerTokens.getOnContainerDisabledAlpha();
                     }
                 }
             }
@@ -594,7 +662,7 @@ public class RadianceColorUtilities {
 
         ContainerColorTokens colorTokens =
             skin.getContainerTokens(component, currState, inactiveContainerType);
-        return currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha() : 1.0f;
+        return colorTokens.getOnContainerDisabledAlpha();
     }
 
     /**
