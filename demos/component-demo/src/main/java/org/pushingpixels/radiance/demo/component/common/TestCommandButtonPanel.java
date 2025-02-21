@@ -37,10 +37,11 @@ import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillS
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -97,6 +98,8 @@ public class TestCommandButtonPanel extends JFrame {
                         : new PanelLayoutSpec.ColumnFill(new PanelColumnFillSpec.Adaptive(64))));
         controlPanel.add(isRowFillLayout);
 
+        controlPanel.add(new RadianceSkinSelector());
+
         controlPanel.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
@@ -113,7 +116,7 @@ public class TestCommandButtonPanel extends JFrame {
         }));
 
         add(controlPanel, BorderLayout.SOUTH);
-        setSize(500, 300);
+        setSize(600, 400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
@@ -121,7 +124,7 @@ public class TestCommandButtonPanel extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
             new TestCommandButtonPanel().setVisible(true);
         });
     }

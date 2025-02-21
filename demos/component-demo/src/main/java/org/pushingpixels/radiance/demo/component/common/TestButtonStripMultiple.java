@@ -38,10 +38,11 @@ import org.pushingpixels.radiance.component.api.common.model.CommandStripPresent
 import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,13 +52,15 @@ public class TestButtonStripMultiple extends JFrame {
      * Creates the test application.
      */
     public TestButtonStripMultiple() {
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BorderLayout());
 
         this.setIconImage(RadianceLogo.getLogoImage(this,
                 RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                         RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
+
+        JPanel mainPanel = new JPanel(new FlowLayout());
 
         JComponent buttonStrip = new CommandStripProjection(
                 new CommandGroup(
@@ -66,7 +69,7 @@ public class TestButtonStripMultiple extends JFrame {
                         Command.builder().setIconFactory(Format_justify_right.factory()).build()),
                 CommandStripPresentationModel.withDefaults())
                 .buildComponent();
-        this.add(buttonStrip);
+        mainPanel.add(buttonStrip);
 
         JComponent buttonStrip2 = new CommandStripProjection(
                 new CommandGroup(
@@ -79,7 +82,7 @@ public class TestButtonStripMultiple extends JFrame {
                                 .build()),
                 CommandStripPresentationModel.withDefaults())
                 .buildComponent();
-        this.add(buttonStrip2);
+        mainPanel.add(buttonStrip2);
 
         JCommandButton standalone = Command.builder()
                 .setIconFactory(Format_justify_left.factory())
@@ -88,11 +91,22 @@ public class TestButtonStripMultiple extends JFrame {
                         .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent();
-        this.add(standalone);
+        mainPanel.add(standalone);
+
+        this.add(mainPanel, BorderLayout.CENTER);
+
+        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        this.configureControlPanel(controlPanel);
+
+        this.add(controlPanel, BorderLayout.SOUTH);
 
         this.setSize(300, 100);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    protected void configureControlPanel(JPanel controlPanel) {
+        controlPanel.add(new RadianceSkinSelector());
     }
 
     /**
@@ -103,7 +117,7 @@ public class TestButtonStripMultiple extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
             TestButtonStripMultiple bst = new TestButtonStripMultiple();
             bst.setVisible(true);
         });
