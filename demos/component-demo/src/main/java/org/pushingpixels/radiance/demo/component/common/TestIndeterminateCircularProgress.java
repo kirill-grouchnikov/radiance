@@ -30,15 +30,15 @@
 package org.pushingpixels.radiance.demo.component.common;
 
 import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
-import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgressContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgressContentModel;
 import org.pushingpixels.radiance.component.api.common.projection.IndeterminateCircularProgressProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -91,7 +91,7 @@ public class TestIndeterminateCircularProgress extends JFrame {
 
         this.add(flow, BorderLayout.CENTER);
 
-        this.setPreferredSize(new Dimension(400, 300));
+        this.setPreferredSize(new Dimension(500, 300));
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,7 +100,7 @@ public class TestIndeterminateCircularProgress extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
 
             TestIndeterminateCircularProgress test = new TestIndeterminateCircularProgress();
             test.setTitle("Circular progress");

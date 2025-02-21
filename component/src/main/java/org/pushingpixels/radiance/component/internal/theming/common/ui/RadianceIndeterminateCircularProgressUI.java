@@ -32,7 +32,10 @@ package org.pushingpixels.radiance.component.internal.theming.common.ui;
 import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicIndeterminateCircularProgressUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -59,15 +62,31 @@ public class RadianceIndeterminateCircularProgressUI extends BasicIndeterminateC
     protected Color getArcColor() {
         boolean isEnabled = this.indeterminateCircularProgress.getProjection().getContentModel().isEnabled();
         ComponentState state = isEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
-        float alpha = RadianceColorSchemeUtilities.getAlpha(this.indeterminateCircularProgress, state);
 
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.indeterminateCircularProgress);
+        if (skin instanceof TonalSkin) {
+            Color result = RadianceColorSchemeUtilities.getContainerTokens(
+                this.indeterminateCircularProgress, state,
+                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
+            if (!isEnabled) {
+                float fgAlpha = RadianceColorSchemeUtilities.getContainerTokens(
+                    this.indeterminateCircularProgress, state,
+                    RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
+                result = RadianceColorUtilities.getAlphaColor(result,
+                    (int) (result.getAlpha() * fgAlpha));
+            }
+            return result;
+        } else {
+            float alpha = RadianceColorSchemeUtilities.getAlpha(this.indeterminateCircularProgress, state);
+
+            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
                 this.indeterminateCircularProgress, state);
-        Color foreground = colorScheme.getForegroundColor();
-        if (alpha == 1.0f) {
-            return foreground;
+            Color foreground = colorScheme.getForegroundColor();
+            if (alpha == 1.0f) {
+                return foreground;
+            }
+            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(this.indeterminateCircularProgress);
+            return RadianceColorUtilities.getInterpolatedColor(foreground, bgFillColor, alpha);
         }
-        Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(this.indeterminateCircularProgress);
-        return RadianceColorUtilities.getInterpolatedColor(foreground, bgFillColor, alpha);
     }
 }

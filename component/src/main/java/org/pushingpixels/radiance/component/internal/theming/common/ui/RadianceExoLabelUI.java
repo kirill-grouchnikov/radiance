@@ -320,12 +320,12 @@ public class RadianceExoLabelUI extends ComponentUI {
             if (skin instanceof TonalSkin) {
                 textColor = RadianceColorSchemeUtilities.getContainerTokens(label, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
-                float fgAlpha = contentModel.isEnabled() ? 1.0f
-                    : RadianceColorSchemeUtilities.getContainerTokens(label, state,
+                if (!contentModel.isEnabled()) {
+                    float fgAlpha = RadianceColorSchemeUtilities.getContainerTokens(label, state,
                         RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
-
-                textColor = RadianceColorUtilities.getAlphaColor(textColor,
-                    (int) (textColor.getAlpha() * fgAlpha));
+                    textColor = RadianceColorUtilities.getAlphaColor(textColor,
+                        (int) (textColor.getAlpha() * fgAlpha));
+                }
             } else {
                 float alpha = RadianceColorSchemeUtilities.getAlpha(label, state);
                 textColor = RadianceColorSchemeUtilities.getColorScheme(label, state).getForegroundColor();
