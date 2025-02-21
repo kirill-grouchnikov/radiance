@@ -34,11 +34,14 @@ import org.pushingpixels.radiance.component.api.common.JSwitch;
 import org.pushingpixels.radiance.component.api.common.model.SwitchPresentationModel;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicSwitchUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -62,6 +65,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
+    private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     private RadianceSwitchUI(JSwitch switchComp) {
         super(switchComp);
@@ -88,25 +92,33 @@ public class RadianceSwitchUI extends BasicSwitchUI {
         StateTransitionTracker.ModelStateInfo modelStateInfo =
                 stateTransitionTracker.getModelStateInfo();
 
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(switchComp);
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(switchComp);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(switchComp);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        final float alpha = RadianceColorSchemeUtilities.getAlpha(switchComp, currState);
+        if (skin instanceof TonalSkin) {
+            // Populate color tokens based on the current transition state of the radio button.
+            BladeUtils.populateColorTokens(mutableContainerTokens, switchComp, modelStateInfo,
+                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                false, true, RadianceThemingSlices.ContainerType.MUTED);
+        } else {
+            // Populate color schemes based on the current transition state of the switch.
+            BladeUtils.populateColorScheme(mutableFillColorScheme, switchComp, modelStateInfo,
+                currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX, false);
+            BladeUtils.populateColorScheme(mutableBorderColorScheme, switchComp, modelStateInfo,
+                currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
+            BladeUtils.populateColorScheme(mutableMarkColorScheme, switchComp, modelStateInfo,
+                currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
+        }
 
-        // Populate color schemes based on the current transition state of the switch.
-        BladeUtils.populateColorScheme(mutableFillColorScheme, switchComp,
-                modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX,
-                false);
-        BladeUtils.populateColorScheme(mutableBorderColorScheme, switchComp,
-                modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                false);
-        BladeUtils.populateColorScheme(mutableMarkColorScheme, switchComp,
-                modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
-                false);
+        final float alpha;
+        if (skin instanceof TonalSkin) {
+            alpha = currState.isDisabled()
+                ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
+        } else {
+            alpha = RadianceColorSchemeUtilities.getAlpha(switchComp, currState);
+        }
 
         SwitchPresentationModel presentationModel = switchComp.getProjection().getPresentationModel();
 
@@ -132,8 +144,13 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                             null, 0.0f
                     );
 
-                    fillPainter.paintContourBackground(graphics1X, switchComp,
-                            trackWidth, trackHeight, contourFill, mutableFillColorScheme);
+                    if (skin instanceof TonalSkin) {
+                        fillPainter.paintContourBackground(graphics1X, switchComp, trackWidth,
+                            trackHeight, contourFill, mutableContainerTokens);
+                    } else {
+                        fillPainter.paintContourBackground(graphics1X, switchComp, trackWidth,
+                            trackHeight, contourFill, mutableFillColorScheme);
+                    }
 
                     Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
                             switchComp.getComponentOrientation(),
@@ -145,8 +162,13 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                             trackWidth, trackHeight,
                             trackHeight * 0.5f - 1.0f, null, 1.0f
                     ) : null;
-                    borderPainter.paintBorder(graphics1X, switchComp, trackWidth, trackHeight,
+                    if (skin instanceof TonalSkin) {
+                        borderPainter.paintBorder(graphics1X, switchComp, trackWidth, trackHeight,
+                            contourOuter, contourInner, mutableContainerTokens);
+                    } else {
+                        borderPainter.paintBorder(graphics1X, switchComp, trackWidth, trackHeight,
                             contourOuter, contourInner, mutableBorderColorScheme);
+                    }
 
                     float thumbSelectionFactor = stateTransitionTracker.getFacetStrength(
                             RadianceThemingSlices.ComponentStateFacet.SELECTION);
@@ -171,7 +193,11 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     Shape thumbOutline = new Ellipse2D.Double(thumbXStart, thumbVerticalCenterPx - thumbRadiusPx,
                             2 * thumbRadiusPx, 2 * thumbRadiusPx);
 
-                    graphics1X.setColor(mutableMarkColorScheme.getMarkColor());
+                    if (skin instanceof TonalSkin) {
+                        graphics1X.setColor(mutableContainerTokens.getOnContainer());
+                    } else {
+                        graphics1X.setColor(mutableMarkColorScheme.getMarkColor());
+                    }
                     graphics1X.fill(thumbOutline);
 
                     graphics1X.translate(-scaleFactor * i.left, -scaleFactor * i.top);
