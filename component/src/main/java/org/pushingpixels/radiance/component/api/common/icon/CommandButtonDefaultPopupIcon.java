@@ -110,7 +110,6 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
                 modelStateInfo.getCurrModelState());
 
         if (skin instanceof TonalSkin) {
-            // TODO: TONAL - check the visuals of flat buttons
             BladeUtils.populateColorTokens(mutableColorTokens, c, modelStateInfo, currState,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                 false, false, RadianceThemingSlices.ContainerType.MUTED);

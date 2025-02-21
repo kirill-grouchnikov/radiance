@@ -653,7 +653,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) {
                 fgColor = getMenuButtonTonalForegroundColor(this.commandButton, modelStateInfo);
             } else {
-                // TODO: TONAL - check that this works for flat buttons as well
                 fgColor = RadianceColorUtilities.getTonalForegroundColor(
                     this.commandButton, modelStateInfo, RadianceThemingSlices.ContainerType.MUTED);
             }
@@ -674,7 +673,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) {
                 fgColor = getMenuButtonTonalForegroundVariantColor(this.commandButton, modelStateInfo);
             } else {
-                // TODO: TONAL - check that this works for flat buttons as well
                 fgColor = RadianceColorUtilities.getTonalForegroundVariantColor(
                     this.commandButton, modelStateInfo, RadianceThemingSlices.ContainerType.MUTED);
             }
