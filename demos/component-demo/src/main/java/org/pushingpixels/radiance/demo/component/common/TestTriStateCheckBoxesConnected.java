@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.component.api.common.model.TriStateCheckboxPre
 import org.pushingpixels.radiance.component.api.common.projection.TriStateCheckBoxProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -144,6 +145,7 @@ public class TestTriStateCheckBoxesConnected extends JFrame {
         this.add(builder.build(), BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        controlPanel.add(new RadianceSkinSelector());
         controlPanel.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
 
@@ -171,7 +173,7 @@ public class TestTriStateCheckBoxesConnected extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
 
             new TestTriStateCheckBoxesConnected().setVisible(true);
         });

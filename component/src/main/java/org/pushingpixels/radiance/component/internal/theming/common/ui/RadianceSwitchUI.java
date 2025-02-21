@@ -98,7 +98,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         if (skin instanceof TonalSkin) {
-            // Populate color tokens based on the current transition state of the radio button.
+            // Populate color tokens based on the current transition state of the switch.
             BladeUtils.populateColorTokens(mutableContainerTokens, switchComp, modelStateInfo,
                 currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                 false, true, RadianceThemingSlices.ContainerType.MUTED);
