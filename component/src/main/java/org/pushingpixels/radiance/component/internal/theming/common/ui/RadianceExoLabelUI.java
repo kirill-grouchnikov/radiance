@@ -35,8 +35,10 @@ import org.pushingpixels.radiance.component.api.common.JExoLabel;
 import org.pushingpixels.radiance.component.api.common.model.LabelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -311,13 +313,26 @@ public class RadianceExoLabelUI extends ComponentUI {
             g2d.translate(shiftX + iconX, iconY);
 
             ComponentState state = contentModel.isEnabled() ?
-                    ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
-            float alpha = RadianceColorSchemeUtilities.getAlpha(label, state);
-            Color textColor = RadianceColorSchemeUtilities.getColorScheme(label, state)
-                    .getForegroundColor();
-            if (alpha < 1.0f) {
-                Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(label);
-                textColor = RadianceColorUtilities.getInterpolatedColor(textColor, backgroundFill, alpha);
+                ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
+
+            RadianceSkin skin = RadianceCoreUtilities.getSkin(label);
+            Color textColor;
+            if (skin instanceof TonalSkin) {
+                textColor = RadianceColorSchemeUtilities.getContainerTokens(label, state,
+                    RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
+                float fgAlpha = contentModel.isEnabled() ? 1.0f
+                    : RadianceColorSchemeUtilities.getContainerTokens(label, state,
+                        RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
+
+                textColor = RadianceColorUtilities.getAlphaColor(textColor,
+                    (int) (textColor.getAlpha() * fgAlpha));
+            } else {
+                float alpha = RadianceColorSchemeUtilities.getAlpha(label, state);
+                textColor = RadianceColorSchemeUtilities.getColorScheme(label, state).getForegroundColor();
+                if (alpha < 1.0f) {
+                    Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(label);
+                    textColor = RadianceColorUtilities.getInterpolatedColor(textColor, backgroundFill, alpha);
+                }
             }
 
             Icon filteredIcon = RadianceCoreUtilities.getFilteredIcon(label,

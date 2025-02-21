@@ -37,10 +37,11 @@ import org.pushingpixels.radiance.component.api.common.model.LabelPresentationMo
 import org.pushingpixels.radiance.component.api.common.projection.LabelProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.material.transcoded.info_black_24dp;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,16 +88,23 @@ public class TestExoLabels extends JFrame {
 
         builder.add("With icon").xy(1, 5);
         builder.add(new LabelProjection(
-                LabelContentModel.builder().setText("Sample label")
-                        .setIconFactory(info_black_24dp.factory()).build(),
-                LabelPresentationModel.builder().build()
+            LabelContentModel.builder().setText("Sample label")
+                    .setIconFactory(info_black_24dp.factory()).build(),
+            LabelPresentationModel.builder()
+                .setIconFilterStrategies(
+                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT).build()
         ).buildComponent()).xy(3, 5);
 
         builder.add("Bold with icon").xy(1, 7);
         builder.add(new LabelProjection(
                 LabelContentModel.builder().setText("Sample label")
                         .setIconFactory(info_black_24dp.factory()).build(),
-                LabelPresentationModel.builder().setFont(defaultFont.deriveFont(Font.BOLD)).build()
+                LabelPresentationModel.builder()
+                    .setIconFilterStrategies(
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT)
+                    .setFont(defaultFont.deriveFont(Font.BOLD)).build()
         ).buildComponent()).xy(3, 7);
 
         builder.add("Center aligned").xy(1, 9);
@@ -115,17 +123,29 @@ public class TestExoLabels extends JFrame {
         builder.add(new LabelProjection(
                 LabelContentModel.builder().setText("Sample label")
                         .setIconFactory(info_black_24dp.factory()).build(),
-                LabelPresentationModel.builder().setHorizontalAlignment(HorizontalAlignment.CENTER).build()
+                LabelPresentationModel.builder()
+                    .setIconFilterStrategies(
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT)
+                    .setHorizontalAlignment(HorizontalAlignment.CENTER).build()
         ).buildComponent()).xy(3, 13);
 
         builder.add("End aligned with icon").xy(1, 15);
         builder.add(new LabelProjection(
                 LabelContentModel.builder().setText("Sample label")
                         .setIconFactory(info_black_24dp.factory()).build(),
-                LabelPresentationModel.builder().setHorizontalAlignment(HorizontalAlignment.TRAILING).build()
+                LabelPresentationModel.builder()
+                    .setIconFilterStrategies(
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT)
+                    .setHorizontalAlignment(HorizontalAlignment.TRAILING).build()
         ).buildComponent()).xy(3, 15);
 
         this.add(builder.build(), BorderLayout.CENTER);
+
+        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        controlPanel.add(new RadianceSkinSelector());
+        this.add(controlPanel, BorderLayout.SOUTH);
     }
 
     /**
@@ -136,7 +156,7 @@ public class TestExoLabels extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
             TestExoLabels frame = new TestExoLabels();
             frame.pack();
             frame.setLocationRelativeTo(null);
