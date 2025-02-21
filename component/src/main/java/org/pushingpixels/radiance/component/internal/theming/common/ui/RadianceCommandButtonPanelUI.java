@@ -114,8 +114,8 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
         if (skin instanceof TonalSkin) {
             ContainerColorTokens tokens = skin.getContainerTokens(
                 this.buttonPanel, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-            backgroundFill = tokens.isDark() ? tokens.getContainerSurfaceLowest()
-                : tokens.getContainerSurfaceHighest();
+            backgroundFill = tokens.isDark() ? tokens.getContainerSurfaceLow()
+                : tokens.getContainerSurfaceHigh();
         } else {
             RadianceColorScheme scheme = skin.getBackgroundColorScheme(
                 DecorationPainterUtils.getDecorationType(this.buttonPanel));
