@@ -828,4 +828,9 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             this.commandButton.repaint();
         }
     }
+
+    @Override
+    public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
+        return this.backgroundAppearanceStrategy;
+    }
 }

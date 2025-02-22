@@ -276,13 +276,22 @@ public class MarinerSkin extends RadianceSkin {
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFF5D47A), Hct.fromInt(0xFF281D1E), Hct.fromInt(0xFF2C2021)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ true);
+                /* isPrimaryDark */ true,
+                /* isTonalDark */ true,
+                /* isMutedDark */ false,
+                /* isNeutralDark */ false,
+                /* isSystemDark */ false,
+                /* primaryContrastLevel */ 0.6f,
+                /* tonalContrastLevel */ 0.6f,
+                /* mutedContrastLevel */ 0.0f,
+                /* neutralContrastLevel */ 0.0f,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
             RadianceColorSchemeBundle2 marinerHeaderBundle =
                 new RadianceColorSchemeBundle2(marinerHeaderColorScheme);
             // More saturated seed for controls in selected state
             marinerHeaderBundle.registerActiveContainerTokens(marinerSelectedContainerTokens,
-                ComponentState.SELECTED);
+                ComponentState.getActiveStates());
             // More saturated highlights
             marinerHeaderBundle.registerActiveContainerTokens(
                 marinerSelectedContainerTokens,

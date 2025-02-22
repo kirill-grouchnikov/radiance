@@ -556,8 +556,10 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         if (layoutInfo.iconRect != null) {
             // Important - have the icon follow the foreground color of the action area
             // if it is configured with RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
-            this.paintButtonIcon(g2d, layoutInfo.iconRect,
-                    getForegroundColor(this.getActionTransitionTracker().getModelStateInfo()));
+            Color textColor = (skin instanceof TonalSkin)
+                ? getTonalForegroundColor(this.getActionTransitionTracker().getModelStateInfo())
+                : getForegroundColor(this.getActionTransitionTracker().getModelStateInfo());
+            this.paintButtonIcon(g2d, layoutInfo.iconRect, textColor);
         }
         if (layoutInfo.popupActionRect.getWidth() > 0) {
             paintPopupActionIcon(g2d, layoutInfo.popupActionRect);

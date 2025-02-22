@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
-import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
 import javax.swing.*;
@@ -126,7 +126,7 @@ public class BreadCrumbTest extends JFrame {
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin.BusinessBlackSteelTonalSkin());
 
             BreadCrumbTest test = new BreadCrumbTest();
             test.setIconImage(RadianceLogo.getLogoImage(test,

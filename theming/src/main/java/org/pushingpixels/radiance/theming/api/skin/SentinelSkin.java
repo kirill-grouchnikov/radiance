@@ -252,10 +252,10 @@ public class SentinelSkin extends RadianceSkin {
             RadianceColorSchemeBundle2 sentinelHeaderBundle =
                 new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                        Hct.fromInt(0xFF2A0C05), Hct.fromInt(0xFF4A2C25), Hct.fromInt(0xFF7A5C55)),
+                        Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFF4A2C25), Hct.fromInt(0xFF7A5C55)),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isPrimaryDark */ true,
-                    /* isTonalDark */ true,
+                    /* isPrimaryDark */ false,
+                    /* isTonalDark */ false,
                     /* isMutedDark */ true,
                     /* isNeutralDark */ true,
                     /* isSystemDark */ true,

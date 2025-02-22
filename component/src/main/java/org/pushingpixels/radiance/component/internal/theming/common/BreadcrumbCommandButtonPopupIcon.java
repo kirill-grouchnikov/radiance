@@ -34,12 +34,16 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
@@ -56,6 +60,7 @@ public class BreadcrumbCommandButtonPopupIcon implements RadianceIcon {
     private int dimension;
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
+    private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
 
     public BreadcrumbCommandButtonPopupIcon() {
         int fontSize = RadianceSizeUtils.getComponentFontSize(null);
@@ -94,6 +99,7 @@ public class BreadcrumbCommandButtonPopupIcon implements RadianceIcon {
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         JCommandButton commandButton = (JCommandButton) c;
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(commandButton);
 
         StateTransitionTracker stateTransitionTracker =
                 ((ActionPopupTransitionAwareUI) commandButton.getUI()).getPopupTransitionTracker();
@@ -101,11 +107,25 @@ public class BreadcrumbCommandButtonPopupIcon implements RadianceIcon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
-        float iconAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton,
+        float iconAlpha;
+        if (skin instanceof TonalSkin) {
+            iconAlpha = modelStateInfo.getCurrModelState().isDisabled()
+                ? RadianceColorSchemeUtilities.getContainerTokens(commandButton, currState,
+                    RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha()
+                : 1.0f;
+        } else {
+            iconAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton,
                 modelStateInfo.getCurrModelState());
+        }
 
-        BladeUtils.populateColorScheme(mutableColorScheme, c, modelStateInfo, currState,
+        if (skin instanceof TonalSkin) {
+            BladeUtils.populateColorTokens(mutableColorTokens, c, modelStateInfo, currState,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                false, false, RadianceThemingSlices.ContainerType.MUTED);
+        } else {
+            BladeUtils.populateColorScheme(mutableColorScheme, c, modelStateInfo, currState,
                 RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
+        }
 
         PopupButtonModel model = commandButton.getPopupModel();
         boolean displayDownwards = model.isRollover() || model.isPopupShowing();
@@ -122,9 +142,15 @@ public class BreadcrumbCommandButtonPopupIcon implements RadianceIcon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x + dx, y + dy);
-        BladeArrowIconUtils.drawArrow(graphics, this.baseWidth, this.baseHeight,
-                RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f,
-                direction, this.mutableColorScheme, iconAlpha);
+        if (skin instanceof TonalSkin) {
+            BladeArrowIconUtils.drawArrow(graphics, this.baseWidth, this.baseHeight,
+                RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f, direction,
+                this.mutableColorTokens, iconAlpha);
+        } else {
+            BladeArrowIconUtils.drawArrow(graphics, this.baseWidth, this.baseHeight,
+                RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f, direction,
+                this.mutableColorScheme, iconAlpha);
+        }
         graphics.dispose();
     }
 }

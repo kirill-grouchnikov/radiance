@@ -106,8 +106,16 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
-        float iconAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton,
+        float iconAlpha;
+        if (skin instanceof TonalSkin) {
+            iconAlpha = modelStateInfo.getCurrModelState().isDisabled()
+                ? RadianceColorSchemeUtilities.getContainerTokens(commandButton, currState,
+                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha()
+                : 1.0f;
+        } else {
+            iconAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton,
                 modelStateInfo.getCurrModelState());
+        }
 
         if (skin instanceof TonalSkin) {
             BladeUtils.populateColorTokens(mutableColorTokens, c, modelStateInfo, currState,

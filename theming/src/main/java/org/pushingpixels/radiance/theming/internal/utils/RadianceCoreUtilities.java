@@ -61,6 +61,7 @@ import org.pushingpixels.radiance.theming.internal.utils.menu.RadianceMenu;
 
 import javax.swing.*;
 import javax.swing.plaf.ButtonUI;
+import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
@@ -88,6 +89,10 @@ public class RadianceCoreUtilities {
 
     public interface TextComponentAware<T extends JComponent> {
         JTextComponent getTextComponent(T t);
+    }
+
+    public interface BackgroundAppearanceStrategyAware {
+        RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy();
     }
 
     /**
@@ -219,6 +224,17 @@ public class RadianceCoreUtilities {
         }
         if (component instanceof JRadioButton) {
             return false;
+        }
+
+        if (component instanceof JComponent) {
+            ComponentUI ui = ((JComponent)component).getUI();
+            if (ui instanceof BackgroundAppearanceStrategyAware) {
+                RadianceThemingSlices.BackgroundAppearanceStrategy uiStrategy =
+                    ((BackgroundAppearanceStrategyAware) ui).getBackgroundAppearanceStrategy();
+                if (uiStrategy == RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER) {
+                    return true;
+                }
+            }
         }
 
         if (component instanceof JComponent) {
@@ -534,6 +550,17 @@ public class RadianceCoreUtilities {
         }
         if (comp instanceof JRadioButton) {
             return defaultValue;
+        }
+
+        if (comp instanceof JComponent) {
+            ComponentUI ui = ((JComponent)comp).getUI();
+            if (ui instanceof BackgroundAppearanceStrategyAware) {
+                RadianceThemingSlices.BackgroundAppearanceStrategy uiStrategy =
+                    ((BackgroundAppearanceStrategyAware) ui).getBackgroundAppearanceStrategy();
+                if (uiStrategy == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
+                    return true;
+                }
+            }
         }
 
         Component c = comp;

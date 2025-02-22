@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.plaf.ButtonUI;
 import java.awt.*;
@@ -40,7 +41,7 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public abstract class CommandButtonUI extends ButtonUI {
+public abstract class CommandButtonUI extends ButtonUI implements RadianceCoreUtilities.BackgroundAppearanceStrategyAware {
 	/**
 	 * Returns the layout information for the associated button.
 	 * 
