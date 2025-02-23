@@ -43,10 +43,11 @@ import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelector
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -206,7 +207,9 @@ public class TestColorSelector extends JFrame {
             SwingUtilities.updateComponentTreeUI(TestColorSelector.this);
         }));
 
-        setSize(500, 400);
+        top.add(new RadianceSkinSelector());
+
+        setSize(700, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -267,7 +270,7 @@ public class TestColorSelector extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
             new TestColorSelector().setVisible(true);
         });
     }

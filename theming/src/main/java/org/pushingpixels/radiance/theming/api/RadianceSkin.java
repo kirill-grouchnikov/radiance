@@ -338,6 +338,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private Set<ComponentState> statesWithAlpha;
 
+    // TODO: TONAL - remove
     private Map<RadianceThemingSlices.ColorOverlayType, Map<RadianceThemingSlices.DecorationAreaType, Map<ComponentState, Color>>> colorOverlayMap;
 
     private Map<Integer, RadianceColorScheme> optionPaneIconColorSchemeMap;
@@ -1154,6 +1155,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         return this.tonalBackgroundTokensMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
     }
 
+    // TODO: TONAL - remove
     public void setOverlayColor(Color color, RadianceThemingSlices.ColorOverlayType colorOverlayType,
             RadianceThemingSlices.DecorationAreaType decorationAreaType, ComponentState... componentStates) {
         if (!this.colorOverlayMap.containsKey(colorOverlayType)) {
@@ -1169,6 +1171,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
     }
 
+    // TODO: TONAL - remove
     public Color getOverlayColor(RadianceThemingSlices.ColorOverlayType colorOverlayType,
             RadianceThemingSlices.DecorationAreaType decorationAreaType, ComponentState componentState) {
         if (!this.colorOverlayMap.containsKey(colorOverlayType)) {

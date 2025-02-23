@@ -33,7 +33,10 @@ import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPa
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorSelectorPopupMenuPanelUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -94,10 +97,23 @@ public class RadianceColorSelectorPopupMenuPanelUI extends BasicColorSelectorPop
             Graphics2D g2d = (Graphics2D) g.create();
             float fillAlpha = RadianceCoreUtilities.getMenuGutterFillAlpha();
             if (fillAlpha > 0.0f) {
-                RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(this,
-                        ComponentState.ENABLED);
                 g2d.setComposite(WidgetUtilities.getAlphaComposite(this, fillAlpha, g));
-                g2d.setColor(scheme.getAccentedBackgroundFillColor());
+
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
+                if (skin instanceof TonalSkin) {
+                    ContainerColorTokens backgroundTokens =
+                        skin.getBackgroundExtendedContainerTokens(
+                                DecorationPainterUtils.getDecorationType(this))
+                            .getBaseContainerTokens();
+                    Color gutterColor = backgroundTokens.isDark()
+                        ? backgroundTokens.getContainerSurfaceHighest()
+                        : backgroundTokens.getContainerSurfaceLowest();
+                    g2d.setColor(gutterColor);
+                } else {
+                    RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
+                        this, ComponentState.ENABLED);
+                    g2d.setColor(scheme.getAccentedBackgroundFillColor());
+                }
 
                 int sepX = this.getSeparatorX();
                 if (this.getComponentOrientation().isLeftToRight()) {

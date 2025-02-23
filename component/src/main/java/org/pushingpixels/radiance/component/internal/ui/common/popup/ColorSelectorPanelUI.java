@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common.popup;
 
-import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.PanelUI;
 
 /**
  * UI for command button ({@link JColorSelectorPanel}).
  * 
  * @author Kirill Grouchnikov
  */
-public abstract class ColorSelectorPanelUI extends ComponentUI {
+public abstract class ColorSelectorPanelUI extends PanelUI {
 }
