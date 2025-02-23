@@ -35,12 +35,15 @@ import org.pushingpixels.radiance.component.internal.ui.common.JRichTooltipPanel
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Help_browser;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class TestRichTooltipPanels extends JFrame {
     private TestRichTooltipPanels() {
@@ -50,6 +53,10 @@ public class TestRichTooltipPanels extends JFrame {
                         RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
+        this.setLayout(new BorderLayout());
+
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setBorder(new EmptyBorder(10, 10, 6, 10));
         JRichTooltipPanel panel = new JRichTooltipPanel(RichTooltip.builder()
                 .setTitle(
                         "Main title that can go over multiple lines of text even exceeding the " +
@@ -66,7 +73,13 @@ public class TestRichTooltipPanels extends JFrame {
                                 " this subject")
                 .build(),
                 RichTooltipPresentationModel.builder().build());
-        this.add(panel);
+        centerPanel.add(panel, BorderLayout.CENTER);
+        this.add(centerPanel, BorderLayout.CENTER);
+
+        JPanel controlPanel = new JPanel(new FlowLayout());
+        controlPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        controlPanel.add(new RadianceSkinSelector());
+        this.add(controlPanel, BorderLayout.SOUTH);
 
         this.pack();
         this.setLocationRelativeTo(null);
@@ -76,7 +89,7 @@ public class TestRichTooltipPanels extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
 
             new TestRichTooltipPanels().setVisible(true);
         });
