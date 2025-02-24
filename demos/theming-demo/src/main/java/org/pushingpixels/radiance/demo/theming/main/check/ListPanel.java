@@ -32,9 +32,11 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.se;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 
 import javax.swing.*;
@@ -425,13 +427,19 @@ public class ListPanel extends ControllablePanel {
 
             ModelEntry entry = (ModelEntry) value;
 
+            RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(list);
+
             // mark every fifth row as disabled
             if ((index % 5) == 0) {
                 result.setEnabled(false);
                 ComponentState state = isSelected ? ComponentState.DISABLED_SELECTED
                         : ComponentState.DISABLED_UNSELECTED;
-                result.setForeground(RadianceThemingCortex.ComponentScope.getCurrentSkin(list)
-                        .getColorScheme(list, state).getForegroundColor());
+                if (skin instanceof TonalSkin) {
+                    result.setForeground(skin.getContainerTokens(list, state,
+                        RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer());
+                } else {
+                    result.setForeground(skin.getColorScheme(list, state).getForegroundColor());
+                }
                 result.setBackground(new Color(255, 196, 196));
                 result.setText(entry.text + " [disabled by renderer]");
             } else {
