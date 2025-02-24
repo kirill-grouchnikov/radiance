@@ -36,10 +36,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColor
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
@@ -278,13 +275,13 @@ public class MarinerSkin extends RadianceSkin {
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ true,
                 /* isTonalDark */ true,
-                /* isMutedDark */ false,
-                /* isNeutralDark */ false,
-                /* isSystemDark */ false,
-                /* primaryContrastLevel */ 0.6f,
-                /* tonalContrastLevel */ 0.6f,
-                /* mutedContrastLevel */ 0.0f,
-                /* neutralContrastLevel */ 0.0f,
+                /* isMutedDark */ true,
+                /* isNeutralDark */ true,
+                /* isSystemDark */ true,
+                /* primaryContrastLevel */ 0.8f,
+                /* tonalContrastLevel */ 0.8f,
+                /* mutedContrastLevel */ 0.8f,
+                /* neutralContrastLevel */ 0.6f,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
             RadianceColorSchemeBundle2 marinerHeaderBundle =
@@ -340,20 +337,34 @@ public class MarinerSkin extends RadianceSkin {
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new FractionBasedTonalFillPainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokens::getContainerSurfaceLowest,
+                    (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                        : colorTokens.getContainerSurfaceLowest(),
                     ContainerColorTokens::getContainerSurface,
-                    ContainerColorTokens::getContainerSurfaceHigh});
+                    (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
+                        : colorTokens.getContainerSurfaceHigh(),
+            });
 
             this.decorationPainter = new MatteDecorationPainter();
             this.highlightFillPainter = new FractionBasedTonalFillPainter("Mariner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokens::getContainerSurfaceHigh,
+                    (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
+                        : colorTokens.getContainerSurfaceHigh(),
                     ContainerColorTokens::getContainerSurface,
-                    ContainerColorTokens::getContainerSurfaceLow
+                    (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                        : colorTokens.getContainerSurfaceLow(),
                 });
 
-            this.borderPainter = new FlatTonalBorderPainter();
+            this.borderPainter = new CompositeBorderPainter("Mariner",
+                new FlatTonalBorderPainter(),
+                new FractionBasedTonalBorderPainter("Mariner Inner",
+                    new float[] {0.0f, 1.0f},
+                    new int[] {64, 64},
+                    new ContainerColorTokensSingleColorQuery[] {
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline
+                    }));
+
             this.highlightBorderPainter = new ClassicTonalBorderPainter();
         }
 
