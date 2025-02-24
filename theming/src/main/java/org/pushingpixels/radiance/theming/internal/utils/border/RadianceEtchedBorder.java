@@ -31,9 +31,14 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.border.Border;
 import java.awt.*;
@@ -52,9 +57,16 @@ public class RadianceEtchedBorder implements Border {
      * @return Matching highlight color.
      */
     private Color getHighlightColor(Component c) {
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+            return SeparatorPainterUtils.getPrimarySeparatorColor(tokens);
+        } else {
+            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
                 c, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-        return colorScheme.getSeparatorPrimaryColor();
+            return colorScheme.getSeparatorPrimaryColor();
+        }
     }
 
     /**
@@ -64,17 +76,23 @@ public class RadianceEtchedBorder implements Border {
      * @return Matching shadow color.
      */
     private Color getShadowColor(Component c) {
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+            return SeparatorPainterUtils.getSecondarySeparatorColor(tokens);
+        } else {
+            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
                 c, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-        return colorScheme.getSeparatorSecondaryColor();
+            return colorScheme.getSeparatorSecondaryColor();
+        }
     }
 
     public boolean isBorderOpaque() {
         return false;
     }
 
-    public void paintBorder(Component c, Graphics g, int x, int y, int width,
-            int height) {
+    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
 
@@ -82,26 +100,26 @@ public class RadianceEtchedBorder implements Border {
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_OFF);
+            RenderingHints.VALUE_ANTIALIAS_OFF);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
-                            BasicStroke.JOIN_ROUND));
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
+                        BasicStroke.JOIN_ROUND));
 
-                    graphics1X.setColor(getShadowColor(c));
-                    graphics1X.draw(new Rectangle2D.Float(0.0f, 0.0f,
-                            scaledWidth - 2.0f, scaledHeight - 2.0f));
+                graphics1X.setColor(getShadowColor(c));
+                graphics1X.draw(new Rectangle2D.Float(0.0f, 0.0f,
+                        scaledWidth - 2.0f, scaledHeight - 2.0f));
 
-                    graphics1X.setColor(getHighlightColor(c));
-                    // left
-                    graphics1X.drawLine(1, 1, 1, scaledHeight - 3);
-                    // top
-                    graphics1X.drawLine(1, 1, scaledWidth - 3, 1);
-                    // right
-                    graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight - 1);
-                    // bottom
-                    graphics1X.drawLine(0, scaledHeight - 1, scaledWidth - 2, scaledHeight - 1);
-                });
+                graphics1X.setColor(getHighlightColor(c));
+                // left
+                graphics1X.drawLine(1, 1, 1, scaledHeight - 3);
+                // top
+                graphics1X.drawLine(1, 1, scaledWidth - 3, 1);
+                // right
+                graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight - 1);
+                // bottom
+                graphics1X.drawLine(0, scaledHeight - 1, scaledWidth - 2, scaledHeight - 1);
+            });
 
         graphics.dispose();
 

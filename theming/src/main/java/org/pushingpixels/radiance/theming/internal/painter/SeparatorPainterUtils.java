@@ -693,6 +693,54 @@ public class SeparatorPainterUtils {
                 });
     }
 
+    public static void paintVerticalLines(Graphics g, Component c, ContainerColorTokens tokens,
+        int y, Collection<Integer> x, int height, float fadeStartFraction) {
+        if (x.isEmpty()) {
+            return;
+        }
+
+        int minX = Collections.min(x);
+        int maxX = Collections.max(x);
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(minX, y);
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, maxX - minX + 1, height,
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(c);
+                Color primary = getPrimarySeparatorColor(tokens);
+                Color secondary = getSecondarySeparatorColor(tokens);
+                Color primaryZero = RadianceColorUtilities.getInterpolatedColor(
+                    primary, backgroundFill, 0.0f);
+                Color secondaryZero = RadianceColorUtilities.getInterpolatedColor(
+                    secondary, backgroundFill, 0.0f);
+
+                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
+                    BasicStroke.JOIN_ROUND));
+
+                for (int lineX : x) {
+                    int xOffset = (int) (scaleFactor * (lineX - minX));
+                    LinearGradientPaint forePaint = new LinearGradientPaint(
+                        0, 0, 0, scaledHeight,
+                        new float[]{0.0f, fadeStartFraction, 1.0f},
+                        new Color[]{primary, primary, primaryZero});
+                    graphics1X.setPaint(forePaint);
+                    graphics1X.drawLine(xOffset, 0, xOffset, scaledHeight);
+
+                    LinearGradientPaint backPaint = new LinearGradientPaint(
+                        0, 0, 0, scaledHeight,
+                        new float[]{0.0f, fadeStartFraction, 1.0f},
+                        new Color[]{secondary, secondary, secondaryZero});
+                    graphics1X.setPaint(backPaint);
+                    graphics1X.drawLine(xOffset + 1, 0, xOffset + 1, scaledHeight);
+                }
+            });
+    }
+
     /**
      * Paints horizontal separator lines.
      *
@@ -762,5 +810,55 @@ public class SeparatorPainterUtils {
                         graphics1X.drawLine(0, yOffset + 1, scaledWidth, yOffset + 1);
                     }
                 });
+    }
+
+    public static void paintHorizontalLines(Graphics g, Component c, ContainerColorTokens tokens,
+        int x, Collection<Integer> y, int width, float fadeStartFraction, boolean isLtr) {
+        if (y.isEmpty()) {
+            return;
+        }
+
+        int minY = Collections.min(y);
+        int maxY = Collections.max(y);
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(x, minY);
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, maxY - minY + 1,
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(c);
+                Color primary = getPrimarySeparatorColor(tokens);
+                Color secondary = getSecondarySeparatorColor(tokens);
+                Color primaryZero = RadianceColorUtilities.getInterpolatedColor(
+                    primary, backgroundFill, 0.0f);
+                Color secondaryZero = RadianceColorUtilities.getInterpolatedColor(
+                    secondary, backgroundFill, 0.0f);
+
+                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
+                    BasicStroke.JOIN_ROUND));
+
+                for (int lineY : y) {
+                    int yOffset = (int) (scaleFactor * (lineY - minY));
+                    LinearGradientPaint forePaint = new LinearGradientPaint(
+                        0, 0, scaledWidth, 0,
+                        new float[]{0.0f, fadeStartFraction, 1.0f},
+                        new Color[]{isLtr ? primary : primaryZero, primary,
+                            isLtr ? primaryZero : primary});
+                    graphics1X.setPaint(forePaint);
+                    graphics1X.drawLine(0, yOffset, scaledWidth, yOffset);
+
+                    LinearGradientPaint backPaint = new LinearGradientPaint(
+                        0, 0, scaledWidth, 0,
+                        new float[]{0.0f, fadeStartFraction, 1.0f},
+                        new Color[]{isLtr ? secondary : secondaryZero, secondary,
+                            isLtr ? secondaryZero : secondary});
+                    graphics1X.setPaint(backPaint);
+                    graphics1X.drawLine(0, yOffset + 1, scaledWidth, yOffset + 1);
+                }
+            });
     }
 }

@@ -717,10 +717,20 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
     @Override
     public void paintTicks(Graphics g) {
         Rectangle tickBounds = this.tickRect;
-        RadianceColorScheme tickScheme = RadianceColorSchemeUtilities.getColorScheme(this.slider,
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.slider);
+        RadianceColorScheme tickScheme = null;
+        ContainerColorTokens tickTokens = null;
+        if (skin instanceof TonalSkin) {
+            tickTokens = RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+                this.slider.isEnabled() ? ComponentState.ENABLED
+                    : ComponentState.DISABLED_UNSELECTED,
+                RadianceThemingSlices.ContainerType.NEUTRAL);
+        } else {
+            tickScheme = RadianceColorSchemeUtilities.getColorScheme(this.slider,
                 RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR,
                 this.slider.isEnabled() ? ComponentState.ENABLED
-                        : ComponentState.DISABLED_UNSELECTED);
+                    : ComponentState.DISABLED_UNSELECTED);
+        }
         if (this.slider.getOrientation() == JSlider.HORIZONTAL) {
             long value = this.slider.getMinimum() + this.slider.getMinorTickSpacing();
 
@@ -737,8 +747,13 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     value += this.slider.getMinorTickSpacing();
                 }
                 // and paint them in one call
-                SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickScheme, tickBounds.y,
+                if (skin instanceof TonalSkin) {
+                    SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickTokens, tickBounds.y,
                         minorXs, tickBounds.height / 2, 0.75f);
+                } else {
+                    SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickScheme, tickBounds.y,
+                        minorXs, tickBounds.height / 2, 0.75f);
+                }
             }
 
             if (this.slider.getMajorTickSpacing() > 0) {
@@ -751,8 +766,13 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     value += this.slider.getMajorTickSpacing();
                 }
                 // and paint them in one call
-                SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickScheme, tickBounds.y,
+                if (skin instanceof TonalSkin) {
+                    SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickTokens, tickBounds.y,
                         majorXs, tickBounds.height, 0.75f);
+                } else {
+                    SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickScheme, tickBounds.y,
+                        majorXs, tickBounds.height, 0.75f);
+                }
             }
         } else {
             g.translate(tickBounds.x, 0);
@@ -775,8 +795,13 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 }
 
                 // and paint them in one call
-                SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickScheme, offset,
+                if (skin instanceof TonalSkin) {
+                    SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickTokens, offset,
                         minorYs, tickBounds.width / 2, ltr ? 0.75f : 0.25f, ltr);
+                } else {
+                    SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickScheme, offset,
+                        minorYs, tickBounds.width / 2, ltr ? 0.75f : 0.25f, ltr);
+                }
             }
 
             if (this.slider.getMajorTickSpacing() > 0) {
@@ -791,8 +816,13 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 }
 
                 // and paint them in one call
-                SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickScheme, 0, majorYs,
+                if (skin instanceof TonalSkin) {
+                    SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickTokens, 0, majorYs,
                         tickBounds.width, ltr ? 0.75f : 0.25f, ltr);
+                } else {
+                    SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickScheme, 0, majorYs,
+                        tickBounds.width, ltr ? 0.75f : 0.25f, ltr);
+                }
             }
             g.translate(-tickBounds.x, 0);
         }
