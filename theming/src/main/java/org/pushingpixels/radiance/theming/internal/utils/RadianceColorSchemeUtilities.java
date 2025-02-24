@@ -411,6 +411,9 @@ public class RadianceColorSchemeUtilities {
     public static float getHighlightAlpha(Component component, ComponentState componentState) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (skin instanceof TonalSkin) {
+            if (componentState.isDisabled() || (componentState == ComponentState.ENABLED)) {
+                return 0.0f;
+            }
             return 1.0f;
         }
         return skin.getHighlightAlpha(component, componentState);

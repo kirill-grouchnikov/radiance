@@ -30,10 +30,13 @@
 package org.pushingpixels.radiance.theming.internal.widget.tree.dnd;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -64,18 +67,35 @@ class DnDBorderFactory {
 
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             int yh = y + height - 1;
+            RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
             RadianceIconPack iconPack = RadianceThemingCortex.GlobalScope.getIconPack();
-            RadianceColorScheme colorScheme = RadianceCoreUtilities.getSkin(c)
-                    .getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c));
-            RadianceIcon icon = iconPack.getAllowedIcon(12, colorScheme);
+            if (skin instanceof TonalSkin) {
+                ContainerColorTokens tokens = skin.getNeutralContainerTokens(
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c));
+                RadianceIcon icon = iconPack.getAllowedIcon(12, tokens);
 
-            Graphics2D g2d = (Graphics2D) g.create();
-            g2d.translate(x, yh - icon.getIconHeight());
-            icon.paintIcon(c, g2d, 0, 0);
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.translate(x, yh - icon.getIconHeight());
+                icon.paintIcon(c, g2d, 0, 0);
 
-            yh -= 4;
-            g.setColor(colorScheme.getForegroundColor());
-            g.drawLine(x + 16, yh, x + 40, yh);
+                yh -= 4;
+                g2d.setColor(tokens.getOnContainer());
+                g2d.drawLine(x + 16, yh, x + 40, yh);
+                g2d.dispose();
+            } else {
+                RadianceColorScheme colorScheme = skin.getEnabledColorScheme(
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c));
+                RadianceIcon icon = iconPack.getAllowedIcon(12, colorScheme);
+
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.translate(x, yh - icon.getIconHeight());
+                icon.paintIcon(c, g2d, 0, 0);
+
+                yh -= 4;
+                g2d.setColor(colorScheme.getForegroundColor());
+                g2d.drawLine(x + 16, yh, x + 40, yh);
+                g2d.dispose();
+            }
         }
 
         public Insets getBorderInsets(Component c) {
@@ -117,21 +137,28 @@ class DnDBorderFactory {
      */
     static class DropNotAllowedBorder implements Border {
         private Insets insets = new Insets(0, 0, 0, 0);
-        private Icon icon;
 
         /**
          * Creates a new instance of DropOnNodeBorder
          */
         public DropNotAllowedBorder() {
-            this.icon = RadianceThemingCortex.GlobalScope.getIconPack().getNotAllowedIcon(12,
-                    new SunsetColorScheme());
         }
 
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-            if (this.icon != null) {
+            RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+            RadianceIconPack iconPack = RadianceThemingCortex.GlobalScope.getIconPack();
+            if (skin instanceof TonalSkin) {
+                RadianceIcon icon = iconPack.getNotAllowedIcon(12,
+                    skin.getOptionPaneIconColorTokens(JOptionPane.ERROR_MESSAGE));
                 Graphics2D g2d = (Graphics2D) g.create();
-                g2d.translate(x, y + (height - this.icon.getIconHeight()) / 2);
-                this.icon.paintIcon(c, g2d, 0, 0);
+                g2d.translate(x, y + (height - icon.getIconHeight()) / 2);
+                icon.paintIcon(c, g2d, 0, 0);
+                g2d.dispose();
+            } else {
+                RadianceIcon icon = iconPack.getNotAllowedIcon(12, new SunsetColorScheme());
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.translate(x, y + (height - icon.getIconHeight()) / 2);
+                icon.paintIcon(c, g2d, 0, 0);
                 g2d.dispose();
             }
         }

@@ -258,8 +258,8 @@ public class RadianceTreeUI extends BasicTreeUI {
 		boolean hasHighlights = false;
 		if (renderer.isEnabled()) {
 			if (activeStates != null) {
-				for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry : activeStates
-						.entrySet()) {
+				for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
+					: activeStates.entrySet()) {
 					hasHighlights = (RadianceColorSchemeUtilities.getHighlightAlpha(this.tree,
 							stateEntry.getKey()) * stateEntry.getValue().getContribution() > 0.0f);
 					if (hasHighlights)
@@ -937,11 +937,13 @@ public class RadianceTreeUI extends BasicTreeUI {
 		}
 
 		// compute the default color scheme - to optimize the performance
-		this.currDefaultColorScheme = RadianceColorSchemeUtilities.getColorScheme(tree,
-			ComponentState.ENABLED);
-		if (RadianceCoreUtilities.getSkin(this.tree) instanceof TonalSkin) {
+		RadianceSkin skin = RadianceCoreUtilities.getSkin(this.tree);
+		if (skin instanceof TonalSkin) {
 			this.currDefaultColorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
 				ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+		} else {
+			this.currDefaultColorScheme = RadianceColorSchemeUtilities.getColorScheme(tree,
+				ComponentState.ENABLED);
 		}
 
 		Rectangle paintBounds = g.getClipBounds();
