@@ -34,6 +34,7 @@ package org.pushingpixels.radiance.theming.api.colorscheme;
  * 
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL remove
 public abstract class BaseLightColorScheme extends BaseColorScheme {
 	/**
 	 * Creates a new light color scheme.

@@ -39,6 +39,7 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL remove
 public abstract class BaseColorScheme implements RadianceColorScheme {
 	/**
 	 * Indicates whether this color scheme is dark.

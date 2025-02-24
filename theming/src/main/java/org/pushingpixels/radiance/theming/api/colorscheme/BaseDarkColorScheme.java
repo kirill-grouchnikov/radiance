@@ -34,6 +34,7 @@ package org.pushingpixels.radiance.theming.api.colorscheme;
  * 
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL remove
 public abstract class BaseDarkColorScheme extends BaseColorScheme {
 	/**
 	 * Creates a new dark color scheme.

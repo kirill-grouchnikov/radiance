@@ -41,6 +41,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL remove
 public interface RadianceColorScheme extends RadianceTrait, SchemeBaseColors, SchemeDerivedColors {
     /**
      * Returns indication whether this color scheme uses dark colors. Note that

@@ -42,6 +42,7 @@ import java.util.*;
  * @see RadianceThemingSlices.ColorSchemeAssociationKind
  * @see RadianceSkin
  */
+// TODO: TONAL remove
 public class RadianceColorSchemeBundle {
     /**
      * The active color scheme of this bundle.

@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api.colorscheme;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import java.awt.*;
 
@@ -40,6 +40,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL remove
 public interface SchemeDerivedColors {
     /**
      * Returns the line color for <code>this</code> scheme.

@@ -40,6 +40,7 @@ import java.awt.image.BufferedImage;
  * 
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL remove
 public interface SchemeBaseColors extends RadianceTrait {
 	/**
 	 * Retrieves the foreground color.

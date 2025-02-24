@@ -36,6 +36,7 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL remove
 @FunctionalInterface
 public interface ColorSchemeSingleColorQuery {
 	/**

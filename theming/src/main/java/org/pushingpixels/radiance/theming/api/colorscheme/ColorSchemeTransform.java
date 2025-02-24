@@ -34,6 +34,7 @@ package org.pushingpixels.radiance.theming.api.colorscheme;
  * 
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL remove
 @FunctionalInterface
 public interface ColorSchemeTransform {
 	/**
