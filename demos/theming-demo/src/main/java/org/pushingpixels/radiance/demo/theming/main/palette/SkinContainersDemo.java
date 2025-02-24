@@ -70,25 +70,25 @@ public class SkinContainersDemo extends JFrame {
         row += 2;
 
         RadianceSkin[] lightSkins = new RadianceSkin[] {
-            new AutumnSkin.AutumnTonalSkin(),
+            new AutumnSkin(),
             new BusinessSkin.BusinessTonalSkin(),
             new BusinessBlackSteelSkin.BusinessBlackSteelTonalSkin(),
             new BusinessBlueSteelSkin.BusinessBlueSteelTonalSkin(),
-            new CeruleanSkin.CeruleanTonalSkin(),
+            new CeruleanSkin(),
             new CremeSkin.CremeTonalSkin(),
             new CremeCoffeeSkin.CremeCoffeeTonalSkin(),
             new DustSkin.DustTonalSkin(),
             new DustCoffeeSkin.DustCoffeeTonalSkin(),
-            new GeminiSkin.GeminiTonalSkin(),
+            new GeminiSkin(),
             new MarinerSkin(),
             new MistAquaSkin.MistAquaTonalSkin(),
             new MistSilverSkin.MistSilverTonalSkin(),
-            new ModerateSkin.ModerateTonalSkin(),
+            new ModerateSkin(),
             new NebulaSkin.NebulaTonalSkin(),
             new NebulaAmethystSkin.NebulaAmethystTonalSkin(),
             new NebulaBrickWallSkin.NebulaBrickWallTonalSkin(),
-            new SaharaSkin.SaharaTonalSkin(),
-            new SentinelSkin.SentinelTonalSkin()
+            new SaharaSkin(),
+            new SentinelSkin()
         };
 
         RadianceSkin[] darkSkins = new RadianceSkin[] {
@@ -101,10 +101,10 @@ public class SkinContainersDemo extends JFrame {
             new GraphiteGoldSkin.GraphiteGoldTonalSkin(),
             new GraphiteSiennaSkin.GraphiteSiennaTonalSkin(),
             new GraphiteSunsetSkin.GraphiteSunsetTonalSkin(),
-            new MagellanSkin.MagellanTonalSkin(),
-            new NightShadeSkin.NightShadeTonalSkin(),
-            new RavenSkin.RavenTonalSkin(),
-            new TwilightSkin.TwilightTonalSkin()
+            new MagellanSkin(),
+            new NightShadeSkin(),
+            new RavenSkin(),
+            new TwilightSkin()
         };
 
         addSkins(lightSkins, builder);

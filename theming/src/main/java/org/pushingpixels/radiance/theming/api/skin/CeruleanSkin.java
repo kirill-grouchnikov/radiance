@@ -30,12 +30,15 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.*;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -48,238 +51,118 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  * 
  * @author Danno Ferrin
  */
-public class CeruleanSkin extends RadianceSkin {
+public class CeruleanSkin extends RadianceSkin implements TonalSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
 	public static final String NAME = "Cerulean";
-
-	/**
-	 * Creates a new <code>Cerulean</code> skin.
-	 */
-	public CeruleanSkin() {
-		super();
-
-		ColorSchemes ceruleanSchemes = RadianceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/cerulean.colorschemes"));
-
-		RadianceColorScheme activeScheme = ceruleanSchemes.get("Cerulean Active");
-		RadianceColorScheme enabledScheme = ceruleanSchemes.get("Cerulean Enabled");
-		RadianceColorScheme rolloverSelectedScheme = ceruleanSchemes
-				.get("Cerulean Rollover Selected");
-		RadianceColorScheme disabledScheme = ceruleanSchemes.get("Cerulean Disabled");
-
-		RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-				activeScheme, enabledScheme, disabledScheme);
-
-		defaultSchemeBundle.registerColorScheme(ceruleanSchemes.get("Cerulean Pressed"),
-				ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(ceruleanSchemes.get("Cerulean Disabled Selected"),
-				ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(ceruleanSchemes.get("Cerulean Selected"),
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerColorScheme(ceruleanSchemes.get("Cerulean Rollover Selected"),
-				ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerColorScheme(ceruleanSchemes.get("Cerulean Rollover Unselected"),
-				ComponentState.ROLLOVER_UNSELECTED);
-
-		defaultSchemeBundle.registerColorScheme(ceruleanSchemes.get("Cerulean Mark"),
-				RadianceThemingSlices.ColorSchemeAssociationKind.MARK, ComponentState.getActiveStates());
-		defaultSchemeBundle.registerColorScheme(ceruleanSchemes.get("Cerulean Border"),
-				RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
-
-		// for progress bars
-		ComponentState determinateState = new ComponentState("determinate enabled",
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.ENABLE,
-						RadianceThemingSlices.ComponentStateFacet.DETERMINATE, RadianceThemingSlices.ComponentStateFacet.SELECTION },
-				null);
-		ComponentState determinateDisabledState = new ComponentState("determinate disabled",
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.DETERMINATE,
-						RadianceThemingSlices.ComponentStateFacet.SELECTION },
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.ENABLE });
-		ComponentState indeterminateState = new ComponentState("indeterminate enabled",
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.ENABLE,
-						RadianceThemingSlices.ComponentStateFacet.SELECTION },
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.DETERMINATE });
-		ComponentState indeterminateDisabledState = new ComponentState("indeterminate disabled",
-				null, new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.DETERMINATE,
-						RadianceThemingSlices.ComponentStateFacet.ENABLE, RadianceThemingSlices.ComponentStateFacet.SELECTION });
-		defaultSchemeBundle.registerColorScheme(rolloverSelectedScheme, determinateState,
-				indeterminateState);
-		defaultSchemeBundle.registerColorScheme(rolloverSelectedScheme,
-				RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, determinateState, indeterminateState);
-		defaultSchemeBundle.registerColorScheme(disabledScheme, determinateDisabledState,
-				indeterminateDisabledState);
-		defaultSchemeBundle.registerColorScheme(disabledScheme, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-				determinateDisabledState, indeterminateDisabledState);
-
-		// for text highlight
-		ColorSchemes kitchenSinkSchemes = RadianceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/kitchen-sink.colorschemes"));
-		RadianceColorScheme highlightColorScheme = kitchenSinkSchemes.get("Moderate Highlight");
-		defaultSchemeBundle.registerHighlightColorScheme(highlightColorScheme);
-
-		registerDecorationAreaSchemeBundle(defaultSchemeBundle, RadianceThemingSlices.DecorationAreaType.NONE);
-
-		RadianceColorScheme activeHeaderScheme = ceruleanSchemes.get("Cerulean Active Header");
-		RadianceColorScheme headerScheme = ceruleanSchemes.get("Cerulean Header");
-		RadianceColorScheme disabledHeaderScheme = ceruleanSchemes.get("Cerulean Header Disabled");
-		RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
-				activeHeaderScheme, headerScheme, disabledHeaderScheme);
-		headerSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED,
-				ComponentState.DISABLED_SELECTED);
-		headerSchemeBundle.registerColorScheme(activeHeaderScheme,
-				ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-		headerSchemeBundle.registerColorScheme(activeHeaderScheme,
-				RadianceThemingSlices.ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED,
-				ComponentState.DISABLED_UNSELECTED);
-		registerDecorationAreaSchemeBundle(headerSchemeBundle, headerScheme,
-				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.HEADER);
-
-		registerAsDecorationArea(ceruleanSchemes.get("Cerulean Footer"),
-				bundle -> bundle.registerColorScheme(ceruleanSchemes.get("Cerulean Footer Separator"),
-						RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR),
-				RadianceThemingSlices.DecorationAreaType.FOOTER, RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
-
-		this.configureOverlayPainters();
-
-		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new ClassicFillPainter(), 1.0f);
-
-		this.decorationPainter = new ArcDecorationPainter();
-
-		this.highlightFillPainter = new GlassFillPainter();
-		this.borderPainter = new GlassBorderPainter();
-	}
-
-	void configureOverlayPainters() {
-		// add an overlay painter to paint a drop shadow along the top
-		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
-			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-	}
 
 	@Override
 	public String getDisplayName() {
 		return NAME;
 	}
 
-	public static class CeruleanTonalSkin extends CeruleanSkin implements TonalSkin {
-		public static final String NAME = "Cerulean Tonal";
+	public CeruleanSkin() {
+		RadianceColorScheme2 ceruleanColorScheme = ColorSchemeUtils.getColorScheme(
+			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+				Hct.fromInt(0xFFD2E0ED), Hct.fromInt(0xFFECECED), Hct.fromInt(0xFFFBFCFC)),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isDark */ false);
 
-		public CeruleanTonalSkin() {
-			RadianceColorScheme2 ceruleanColorScheme = ColorSchemeUtils.getColorScheme(
+		ContainerColorTokens ceruleanSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFFC0DBEE),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isFidelity */ true,
+			/* isDark */ false);
+		ContainerColorTokens ceruleanSelectedHighlightContainerTokens =
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFFBDCA1),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isFidelity */ true,
+				/* isDark */ false);
+		ContainerColorTokens ceruleanRolloverHighlightContainerTokens =
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFF7E5C4),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isFidelity */ true,
+				/* isDark */ false);
+		ContainerColorTokens ceruleanTextHighlightContainerTokens =
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFFEDB7C),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isFidelity */ true,
+				/* isDark */ false);
+		ContainerColorTokens ceruleanDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFFCFEAFE),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isFidelity */ true,
+			/* isDark */ false);
+
+		RadianceColorSchemeBundle2 ceruleanDefaultBundle =
+			new RadianceColorSchemeBundle2(ceruleanColorScheme);
+		// More saturated blue seed for controls in selected state
+		ceruleanDefaultBundle.registerActiveContainerTokens(ceruleanSelectedContainerTokens,
+			ComponentState.SELECTED);
+		// Yellow saturated seed for selected highlights
+		ceruleanDefaultBundle.registerActiveContainerTokens(
+			ceruleanSelectedHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.SELECTED, ComponentState.ARMED);
+		// Lighter yellow seed for rollover highlights
+		ceruleanDefaultBundle.registerActiveContainerTokens(
+			ceruleanRolloverHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED,
+			ComponentState.ROLLOVER_MIXED);
+		// Text highlights
+		ceruleanDefaultBundle.registerActiveContainerTokens(
+			ceruleanTextHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
+			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
+		// Progress bars
+		ceruleanDefaultBundle.registerActiveContainerTokens(ceruleanDeterminateContainerTokens,
+			ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
+		this.registerDecorationAreaSchemeBundle(ceruleanDefaultBundle,
+			RadianceThemingSlices.DecorationAreaType.NONE);
+
+		RadianceColorSchemeBundle2 ceruleanDefaultHeaderBundle =
+			new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFFD2E0ED), Hct.fromInt(0xFFECECED), Hct.fromInt(0xFFFBFCFC)),
+					Hct.fromInt(0xFF3B7BA8), Hct.fromInt(0xFF5B9BC8), Hct.fromInt(0xFF8BCBF8)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isDark */ false);
-
-			ContainerColorTokens ceruleanSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFC0DBEE),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isFidelity */ true,
-				/* isDark */ false);
-			ContainerColorTokens ceruleanSelectedHighlightContainerTokens =
-				ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFFBDCA1),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isFidelity */ true,
-					/* isDark */ false);
-			ContainerColorTokens ceruleanRolloverHighlightContainerTokens =
-				ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFF7E5C4),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isFidelity */ true,
-					/* isDark */ false);
-			ContainerColorTokens ceruleanTextHighlightContainerTokens =
-				ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFFEDB7C),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isFidelity */ true,
-					/* isDark */ false);
-			ContainerColorTokens ceruleanDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFCFEAFE),
+				/* isDark */ true));
+		ceruleanDefaultHeaderBundle.registerActiveContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF638EA8),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
-				/* isDark */ false);
-
-			RadianceColorSchemeBundle2 ceruleanDefaultBundle =
-				new RadianceColorSchemeBundle2(ceruleanColorScheme);
-			// More saturated blue seed for controls in selected state
-			ceruleanDefaultBundle.registerActiveContainerTokens(ceruleanSelectedContainerTokens,
-				ComponentState.SELECTED);
-			// Yellow saturated seed for selected highlights
-			ceruleanDefaultBundle.registerActiveContainerTokens(
-				ceruleanSelectedHighlightContainerTokens,
+				/* isDark */ true),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-				ComponentState.SELECTED, ComponentState.ARMED);
-			// Lighter yellow seed for rollover highlights
-			ceruleanDefaultBundle.registerActiveContainerTokens(
-				ceruleanRolloverHighlightContainerTokens,
-				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-				ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ROLLOVER_MIXED);
-			// Text highlights
-			ceruleanDefaultBundle.registerActiveContainerTokens(
-				ceruleanTextHighlightContainerTokens,
-				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-			// Progress bars
-			ceruleanDefaultBundle.registerActiveContainerTokens(ceruleanDeterminateContainerTokens,
-				ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
-			this.registerDecorationAreaSchemeBundle(ceruleanDefaultBundle,
-				RadianceThemingSlices.DecorationAreaType.NONE);
+				ComponentState.getActiveStates());
+		this.registerDecorationAreaSchemeBundle(ceruleanDefaultHeaderBundle,
+			ceruleanDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-			RadianceColorSchemeBundle2 ceruleanDefaultHeaderBundle =
-				new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
-					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-						Hct.fromInt(0xFF3B7BA8), Hct.fromInt(0xFF5B9BC8), Hct.fromInt(0xFF8BCBF8)),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isDark */ true));
-			ceruleanDefaultHeaderBundle.registerActiveContainerTokens(
-				ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFF638EA8),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isFidelity */ true,
-					/* isDark */ true),
-					RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-					ComponentState.getActiveStates());
-			this.registerDecorationAreaSchemeBundle(ceruleanDefaultHeaderBundle,
-				ceruleanDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
-				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.HEADER);
+		// add an overlay painter to paint a drop shadow along the top
+		// edge of toolbars
+		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-			this.registerAsDecorationArea(
-				ColorSchemeUtils.getExtendedContainerTokens(
-					/* seed */ Hct.fromInt(0xFFCBD1D7),
-					/* isFidelity */ true,
-					/* isDark */ false),
-				RadianceThemingSlices.DecorationAreaType.FOOTER,
-				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+		this.registerAsDecorationArea(
+			ColorSchemeUtils.getExtendedContainerTokens(
+				/* seed */ Hct.fromInt(0xFFCBD1D7),
+				/* isFidelity */ true,
+				/* isDark */ false),
+			RadianceThemingSlices.DecorationAreaType.FOOTER,
+			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-			this.buttonShaper = new ClassicButtonShaper();
-			this.fillPainter = new SpecularRectangularFillPainter(new ClassicTonalFillPainter(), 1.0f);
-			this.decorationPainter = new ArcDecorationPainter();
-			this.highlightFillPainter = new GlassTonalFillPainter();
-			this.borderPainter = new FlatTonalBorderPainter();
-			this.highlightBorderPainter = new FlatTonalBorderPainter();
-		}
-
-		@Override
-		void configureOverlayPainters() {
-			// add an overlay painter to paint a drop shadow along the top
-			// edge of toolbars
-			this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
-				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-		}
-
-		@Override
-		public String getDisplayName() {
-			return CeruleanTonalSkin.NAME;
-		}
+		this.buttonShaper = new ClassicButtonShaper();
+		this.fillPainter = new SpecularRectangularFillPainter(new ClassicTonalFillPainter(), 1.0f);
+		this.decorationPainter = new ArcDecorationPainter();
+		this.highlightFillPainter = new GlassTonalFillPainter();
+		this.borderPainter = new FlatTonalBorderPainter();
+		this.highlightBorderPainter = new FlatTonalBorderPainter();
 	}
 }

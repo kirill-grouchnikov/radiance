@@ -30,16 +30,15 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.MetallicColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SteelBlueColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.*;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
@@ -50,48 +49,80 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  * 
  * @author Kirill Grouchnikov
  */
-public class ModerateSkin extends RadianceSkin {
+public class ModerateSkin extends RadianceSkin implements TonalSkin {
     /**
      * Display name for <code>this</code> skin.
      */
     public static final String NAME = "Moderate";
 
-    /**
-     * Creates a new <code>Moderate</code> skin.
-     */
-    public ModerateSkin() {
-        RadianceColorScheme activeScheme = new SteelBlueColorScheme();
-        RadianceColorScheme enabledScheme = new MetallicColorScheme();
-
-        ColorSchemes kitchenSinkSchemes = RadianceSkin.getColorSchemes(
-                this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/kitchen-sink.colorschemes"));
-        RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-                activeScheme, enabledScheme, kitchenSinkSchemes.get("Gray Disabled"));
-        RadianceColorScheme highlightColorScheme = kitchenSinkSchemes.get("Moderate Highlight");
-        defaultSchemeBundle.registerHighlightColorScheme(highlightColorScheme);
-
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, RadianceThemingSlices.DecorationAreaType.NONE);
-
-        RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
-                activeScheme.saturate(0.2), activeScheme, kitchenSinkSchemes.get("Gray Disabled"));
-        this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.HEADER);
-
-        this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray Control Pane Background"),
-                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
-
-        this.configureOverlayPainters();
-
-        this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
-        this.decorationPainter = new MatteDecorationPainter();
-        this.borderPainter = new ClassicBorderPainter();
-        this.highlightFillPainter = new ClassicFillPainter();
+    @Override
+    public String getDisplayName() {
+        return NAME;
     }
 
-    void configureOverlayPainters() {
+    public ModerateSkin() {
+        RadianceColorScheme2 steelBlueColorScheme = ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                Hct.fromInt(0xFF6CA9CE), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+            /* isDark */ false);
+        ContainerColorTokens steelBlueHighlightContainerTokens =
+            ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFF1D59A),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isFidelity */ true,
+                /* isDark */ false);
+
+        RadianceColorScheme2 steelBlueHeaderColorScheme = ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                Hct.fromInt(0xFF6D9BBA), Hct.fromInt(0xFF82ABC7), Hct.fromInt(0xFF8BBAD5)),
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+            /* isPrimaryDark */ false,
+            /* isTonalDark */ false,
+            /* isMutedDark */ false,
+            /* isNeutralDark */ false,
+            /* isSystemDark */ false,
+            /* primaryContrastLevel */ 0.6f,
+            /* tonalContrastLevel */ 0.6f,
+            /* mutedContrastLevel */ 0.6f,
+            /* neutralContrastLevel */ 0.6f,
+            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+        ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
+            ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF6EA7CA),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isFidelity */ true,
+                /* isDark */ false);
+
+        RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                Hct.fromInt(0xFFD1D3D7), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+            /* isDark */ false);
+
+        RadianceColorSchemeBundle2 steelBlueDefaultBundle =
+            new RadianceColorSchemeBundle2(steelBlueColorScheme);
+        steelBlueDefaultBundle.registerActiveContainerTokens(steelBlueHighlightContainerTokens,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+            ComponentState.getActiveStates());
+        this.registerDecorationAreaSchemeBundle(steelBlueDefaultBundle,
+            RadianceThemingSlices.DecorationAreaType.NONE);
+
+        RadianceColorSchemeBundle2 steelBlueHeaderBundle =
+            new RadianceColorSchemeBundle2(steelBlueHeaderColorScheme);
+        steelBlueHeaderBundle.registerActiveContainerTokens(steelBlueHeaderHighlightContainerTokens,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+            ComponentState.getActiveStates());
+        this.registerDecorationAreaSchemeBundle(steelBlueHeaderBundle,
+            steelBlueHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.HEADER);
+
+        this.registerAsDecorationArea(
+            controlPaneColorScheme.getExtendedTonalContainerTokens(),
+            RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+
         // add an overlay painter to paint a drop shadow along the top
         // edge of toolbars
         this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
@@ -99,106 +130,14 @@ public class ModerateSkin extends RadianceSkin {
 
         // add an overlay painter to paint separator lines along the bottom
         // edges of title panes and menu bars
-        BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
-            ColorSchemeSingleColorQuery.MID);
+        BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+            ContainerColorTokens::getContainerOutline);
         this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
-    }
 
-    @Override
-    public String getDisplayName() {
-        return NAME;
-    }
-
-    public static class ModerateTonalSkin extends ModerateSkin implements TonalSkin {
-        public static final String NAME = "Moderate Tonal";
-
-        public ModerateTonalSkin() {
-            RadianceColorScheme2 steelBlueColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFF6CA9CE), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false);
-            ContainerColorTokens steelBlueHighlightContainerTokens =
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFF1D59A),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isFidelity */ true,
-                    /* isDark */ false);
-
-            RadianceColorScheme2 steelBlueHeaderColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFF6D9BBA), Hct.fromInt(0xFF82ABC7), Hct.fromInt(0xFF8BBAD5)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isPrimaryDark */ false,
-                /* isTonalDark */ false,
-                /* isMutedDark */ false,
-                /* isNeutralDark */ false,
-                /* isSystemDark */ false,
-                /* primaryContrastLevel */ 0.6f,
-                /* tonalContrastLevel */ 0.6f,
-                /* mutedContrastLevel */ 0.6f,
-                /* neutralContrastLevel */ 0.6f,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-            ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF6EA7CA),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isFidelity */ true,
-                    /* isDark */ false);
-
-            RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFD1D3D7), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false);
-
-            RadianceColorSchemeBundle2 steelBlueDefaultBundle =
-                new RadianceColorSchemeBundle2(steelBlueColorScheme);
-            steelBlueDefaultBundle.registerActiveContainerTokens(steelBlueHighlightContainerTokens,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                ComponentState.getActiveStates());
-            this.registerDecorationAreaSchemeBundle(steelBlueDefaultBundle,
-                RadianceThemingSlices.DecorationAreaType.NONE);
-
-            RadianceColorSchemeBundle2 steelBlueHeaderBundle =
-                new RadianceColorSchemeBundle2(steelBlueHeaderColorScheme);
-            steelBlueHeaderBundle.registerActiveContainerTokens(steelBlueHeaderHighlightContainerTokens,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                ComponentState.getActiveStates());
-            this.registerDecorationAreaSchemeBundle(steelBlueHeaderBundle,
-                steelBlueHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.HEADER);
-
-            this.registerAsDecorationArea(
-                controlPaneColorScheme.getExtendedTonalContainerTokens(),
-                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
-
-            this.buttonShaper = new ClassicButtonShaper();
-            this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 1.0f);
-            this.borderPainter = new ClassicTonalBorderPainter();
-            this.decorationPainter = new MatteDecorationPainter();
-            this.highlightFillPainter = new ClassicTonalFillPainter();
-        }
-
-        @Override
-        void configureOverlayPainters() {
-            // add an overlay painter to paint a drop shadow along the top
-            // edge of toolbars
-            this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
-                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-            // add an overlay painter to paint separator lines along the bottom
-            // edges of title panes and menu bars
-            BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokens::getContainerOutline);
-            this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
-        }
-
-        @Override
-        public String getDisplayName() {
-            return ModerateTonalSkin.NAME;
-        }
+        this.buttonShaper = new ClassicButtonShaper();
+        this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 1.0f);
+        this.borderPainter = new ClassicTonalBorderPainter();
+        this.decorationPainter = new MatteDecorationPainter();
+        this.highlightFillPainter = new ClassicTonalFillPainter();
     }
 }

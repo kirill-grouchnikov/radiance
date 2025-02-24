@@ -51,10 +51,4 @@ public class RadianceSentinelLookAndFeel extends RadianceLookAndFeel {
     public RadianceSentinelLookAndFeel() {
         super(new SentinelSkin());
     }
-
-    public static class RadianceSentinelTonalLookAndFeel extends RadianceLookAndFeel {
-        public RadianceSentinelTonalLookAndFeel() {
-            super(new SentinelSkin.SentinelTonalSkin());
-        }
-    }
 }

@@ -50,10 +50,4 @@ public class RadianceCeruleanLookAndFeel extends RadianceLookAndFeel {
 	public RadianceCeruleanLookAndFeel() {
 		super(new CeruleanSkin());
 	}
-
-	public static class RadianceCeruleanTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceCeruleanTonalLookAndFeel() {
-			super(new CeruleanSkin.CeruleanTonalSkin());
-		}
-	}
 }

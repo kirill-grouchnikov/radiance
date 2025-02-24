@@ -30,18 +30,14 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.DesertSandColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.MetallicColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
@@ -55,44 +51,61 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  * 
  * @author Kirill Grouchnikov
  */
-public class SaharaSkin extends RadianceSkin {
+public class SaharaSkin extends RadianceSkin implements TonalSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
 	public static final String NAME = "Sahara";
 
-	/**
-	 * Creates a new <code>Sahara</code> skin.
-	 */
-	public SaharaSkin() {
-		RadianceColorScheme activeScheme = new DesertSandColorScheme();
-		RadianceColorScheme enabledScheme = new MetallicColorScheme();
-
-		ColorSchemes kitchenSinkSchemes = RadianceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/kitchen-sink.colorschemes"));
-		RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-				activeScheme, enabledScheme, kitchenSinkSchemes.get("Gray Disabled"));
-		defaultSchemeBundle.registerHighlightColorScheme(
-				kitchenSinkSchemes.get("Sahara Highlight"));
-		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-				RadianceThemingSlices.DecorationAreaType.NONE);
-
-		this.registerAsDecorationArea(activeScheme,
-				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.HEADER);
-
-		this.configureOverlayPainters();
-
-		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new ClassicFillPainter(), 1.0f);
-		this.borderPainter = new ClassicBorderPainter();
-		this.decorationPainter = new MatteDecorationPainter();
-		this.highlightFillPainter = new ClassicFillPainter();
+	@Override
+	public String getDisplayName() {
+		return NAME;
 	}
 
-	void configureOverlayPainters() {
+	public SaharaSkin() {
+		RadianceColorScheme2 desertSandColorScheme = ColorSchemeUtils.getColorScheme(
+			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+				Hct.fromInt(0xFFA5BB59), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isDark */ false);
+		ContainerColorTokens desertHighlightContainerTokens =
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFCAD0BE),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isFidelity */ true,
+				/* isDark */ false);
+
+		RadianceColorScheme2 desertHeaderColorScheme = ColorSchemeUtils.getColorScheme(
+			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+				Hct.fromInt(0xFF99A764), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isDark */ false);
+		ContainerColorTokens desertHeaderHighlightContainerTokens =
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFB2BC91),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isFidelity */ true,
+				/* isDark */ false);
+
+		RadianceColorSchemeBundle2 desertSandDefaultBundle =
+			new RadianceColorSchemeBundle2(desertSandColorScheme);
+		desertSandDefaultBundle.registerActiveContainerTokens(desertHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.getActiveStates());
+		this.registerDecorationAreaSchemeBundle(desertSandDefaultBundle,
+			RadianceThemingSlices.DecorationAreaType.NONE);
+
+		RadianceColorSchemeBundle2 desertHeaderDefaultBundle =
+			new RadianceColorSchemeBundle2(desertHeaderColorScheme);
+		desertHeaderDefaultBundle.registerActiveContainerTokens(desertHeaderHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.getActiveStates());
+		this.registerDecorationAreaSchemeBundle(desertHeaderDefaultBundle,
+			desertHeaderDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.HEADER);
+
 		// add an overlay painter to paint a drop shadow along the top
 		// edge of toolbars
 		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
@@ -100,87 +113,14 @@ public class SaharaSkin extends RadianceSkin {
 
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
-		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
-			ColorSchemeSingleColorQuery.MID);
+		BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+			ContainerColorTokens::getContainerOutline);
 		this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
-	}
 
-	@Override
-	public String getDisplayName() {
-		return NAME;
-	}
-
-	public static class SaharaTonalSkin extends SaharaSkin implements TonalSkin {
-		public static final String NAME = "Sahara Tonal";
-
-		public SaharaTonalSkin() {
-			RadianceColorScheme2 desertSandColorScheme = ColorSchemeUtils.getColorScheme(
-				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFFA5BB59), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isDark */ false);
-			ContainerColorTokens desertHighlightContainerTokens =
-				ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFCAD0BE),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isFidelity */ true,
-					/* isDark */ false);
-
-			RadianceColorScheme2 desertHeaderColorScheme = ColorSchemeUtils.getColorScheme(
-				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFF99A764), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isDark */ false);
-			ContainerColorTokens desertHeaderHighlightContainerTokens =
-				ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFB2BC91),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isFidelity */ true,
-					/* isDark */ false);
-
-			RadianceColorSchemeBundle2 desertSandDefaultBundle =
-				new RadianceColorSchemeBundle2(desertSandColorScheme);
-			desertSandDefaultBundle.registerActiveContainerTokens(desertHighlightContainerTokens,
-				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-				ComponentState.getActiveStates());
-			this.registerDecorationAreaSchemeBundle(desertSandDefaultBundle,
-				RadianceThemingSlices.DecorationAreaType.NONE);
-
-			RadianceColorSchemeBundle2 desertHeaderDefaultBundle =
-				new RadianceColorSchemeBundle2(desertHeaderColorScheme);
-			desertHeaderDefaultBundle.registerActiveContainerTokens(desertHeaderHighlightContainerTokens,
-				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-				ComponentState.getActiveStates());
-			this.registerDecorationAreaSchemeBundle(desertHeaderDefaultBundle,
-				desertHeaderDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
-				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.HEADER);
-
-			this.buttonShaper = new ClassicButtonShaper();
-			this.fillPainter = new SpecularRectangularFillPainter(new ClassicTonalFillPainter(), 1.0f);
-			this.borderPainter = new ClassicTonalBorderPainter();
-			this.decorationPainter = new MatteDecorationPainter();
-			this.highlightFillPainter = new ClassicTonalFillPainter();
-		}
-
-		@Override
-		void configureOverlayPainters() {
-			// add an overlay painter to paint a drop shadow along the top
-			// edge of toolbars
-			this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
-				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-			// add an overlay painter to paint separator lines along the bottom
-			// edges of title panes and menu bars
-			BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-				ContainerColorTokens::getContainerOutline);
-			this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
-		}
-
-		@Override
-		public String getDisplayName() {
-			return SaharaTonalSkin.NAME;
-		}
+		this.buttonShaper = new ClassicButtonShaper();
+		this.fillPainter = new SpecularRectangularFillPainter(new ClassicTonalFillPainter(), 1.0f);
+		this.borderPainter = new ClassicTonalBorderPainter();
+		this.decorationPainter = new MatteDecorationPainter();
+		this.highlightFillPainter = new ClassicTonalFillPainter();
 	}
 }

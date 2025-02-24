@@ -30,19 +30,22 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.*;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.*;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -51,271 +54,118 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public class NightShadeSkin extends RadianceSkin {
+public class NightShadeSkin extends RadianceSkin implements TonalSkin {
     /**
      * Display name for <code>this</code> skin.
      */
     public static final String NAME = "Night Shade";
 
-    /**
-     * Creates a new <code>Night Shade</code> skin.
-     */
-    public NightShadeSkin() {
-        ColorSchemes schemes = RadianceSkin.getColorSchemes(
-                this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/nightshade.colorschemes"));
-        RadianceColorScheme activeScheme = schemes.get("Night Shade Active");
-        RadianceColorScheme enabledScheme = schemes.get("Night Shade Enabled");
-        RadianceColorScheme disabledScheme = schemes.get("Night Shade Disabled");
-        RadianceColorScheme disabledSelectedScheme = schemes.get("Night Shade Disabled Selected");
-
-        RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-                activeScheme, enabledScheme, disabledScheme);
-        defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-        defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
-        defaultSchemeBundle.registerColorScheme(disabledSelectedScheme, ComponentState.DISABLED_SELECTED);
-
-        // borders
-        RadianceColorScheme borderScheme = schemes.get("Night Shade Border");
-        defaultSchemeBundle.registerColorScheme(borderScheme, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER);
-
-        // marks
-        RadianceColorScheme markActiveScheme = schemes.get("Night Shade Mark Active");
-        defaultSchemeBundle.registerColorScheme(markActiveScheme, RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
-                ComponentState.getActiveStates());
-        defaultSchemeBundle.registerColorScheme(markActiveScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED,
-                ComponentState.DISABLED_UNSELECTED);
-
-        // separators
-        RadianceColorScheme separatorScheme = schemes.get("Night Shade Separator");
-        defaultSchemeBundle.registerColorScheme(separatorScheme, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR);
-
-        // tab borders
-        defaultSchemeBundle.registerColorScheme(schemes.get("Night Shade Tab Border"),
-                RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER, ComponentState.getActiveStates());
-
-        RadianceColorScheme backgroundScheme = schemes.get("Night Shade Background");
-
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, backgroundScheme, RadianceThemingSlices.DecorationAreaType.NONE);
-
-        RadianceColorSchemeBundle decorationsSchemeBundle = new RadianceColorSchemeBundle(
-                activeScheme, enabledScheme, disabledScheme);
-        decorationsSchemeBundle.registerAlpha(0.4f, ComponentState.DISABLED_UNSELECTED);
-        decorationsSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
-
-        // borders
-        decorationsSchemeBundle.registerColorScheme(borderScheme, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER);
-
-        // marks
-        decorationsSchemeBundle.registerColorScheme(markActiveScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK, ComponentState.getActiveStates());
-
-        // separators
-        RadianceColorScheme separatorDecorationsScheme =
-                schemes.get("Night Shade Decorations Separator");
-        decorationsSchemeBundle.registerColorScheme(separatorDecorationsScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR);
-
-        RadianceColorScheme decorationsBackgroundScheme =
-                schemes.get("Night Shade Decorations Background");
-        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, decorationsBackgroundScheme,
-                RadianceThemingSlices.DecorationAreaType.TOOLBAR, RadianceThemingSlices.DecorationAreaType.FOOTER);
-
-        RadianceColorScheme controlPaneBackgroundScheme =
-                schemes.get("Night Shade Control Pane Background");
-        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, controlPaneBackgroundScheme,
-                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
-
-        RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(activeScheme,
-                enabledScheme, disabledScheme);
-        headerSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED,
-                ComponentState.DISABLED_SELECTED);
-        headerSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
-        headerSchemeBundle.registerColorScheme(disabledSelectedScheme, ComponentState.DISABLED_SELECTED);
-
-        // borders
-        RadianceColorScheme headerBorderScheme = schemes.get("Night Shade Header Border");
-        headerSchemeBundle.registerColorScheme(headerBorderScheme, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER);
-        // marks
-        headerSchemeBundle.registerColorScheme(markActiveScheme, RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
-                ComponentState.getActiveStates());
-        headerSchemeBundle.registerColorScheme(markActiveScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED,
-                ComponentState.DISABLED_UNSELECTED);
-        headerSchemeBundle.registerColorScheme(separatorDecorationsScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR);
-
-        headerSchemeBundle.registerHighlightAlpha(0.7f, ComponentState.ROLLOVER_UNSELECTED,
-                ComponentState.ROLLOVER_ARMED, ComponentState.ARMED);
-        headerSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
-        headerSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED);
-        headerSchemeBundle.registerHighlightColorScheme(activeScheme,
-                ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_ARMED,
-                ComponentState.ARMED, ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-
-        RadianceColorScheme headerBackgroundScheme = schemes.get("Night Shade Header Background");
-
-        this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerBackgroundScheme,
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.HEADER);
-
-        this.configureOverlayPainters();
-
-        this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedFillPainter("Night Shade",
-                new float[]{0.0f, 0.5f, 1.0f},
-                new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.ULTRALIGHT,
-                        ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.LIGHT});
-        this.decorationPainter = new MatteDecorationPainter();
-        this.highlightFillPainter = new ClassicFillPainter();
-        this.borderPainter = new CompositeBorderPainter("Night Shade", new ClassicBorderPainter(),
-                new DelegateFractionBasedBorderPainter("Night Shade Inner", new ClassicBorderPainter(),
-                        new int[]{0x40FFFFFF, 0x20FFFFFF, 0x00FFFFFF},
-                        scheme -> scheme.tint(0.2f)));
-    }
-
-    void configureOverlayPainters() {
-        // Add overlay painters to paint drop shadows along the bottom
-        // edges of toolbars and footers
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
-            RadianceThemingSlices.DecorationAreaType.TOOLBAR, RadianceThemingSlices.DecorationAreaType.FOOTER);
-
-        // add an overlay painter to paint a dark line along the bottom
-        // edge of toolbars
-        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-            ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                ColorTransform.brightness(-0.5f)));
-        this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add an overlay painter to paint a bezel line along the top
-        // edge of footer
-        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-            ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                ColorTransform.brightness(-0.5f)),
-            ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
-                ColorTransform.alpha(32)));
-        this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
-    }
-
     public String getDisplayName() {
         return NAME;
     }
 
-    public static class NightShadeTonalSkin extends NightShadeSkin implements TonalSkin {
-        public static final String NAME = "Night Shade Tonal";
+    public NightShadeSkin() {
+        RadianceColorScheme2 nightShadeColorScheme = ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                Hct.fromInt(0xFF4E5562), Hct.fromInt(0xFF373B45), Hct.fromInt(0xFF292A32)),
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+            /* isPrimaryDark */ true,
+            /* isTonalDark */ true,
+            /* isMutedDark */ true,
+            /* isNeutralDark */ true,
+            /* isSystemDark */ true,
+            /* primaryContrastLevel */ 0.5f,
+            /* tonalContrastLevel */ 0.5f,
+            /* mutedContrastLevel */ 0.5f,
+            /* neutralContrastLevel */ 0.5f,
+            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
-        public NightShadeTonalSkin() {
-            RadianceColorScheme2 nightShadeColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFF4E5562), Hct.fromInt(0xFF373B45), Hct.fromInt(0xFF292A32)),
+        ContainerColorTokens nightShadeSelectedContainerTokens =
+            ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF3D4B63),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isPrimaryDark */ true,
-                /* isTonalDark */ true,
-                /* isMutedDark */ true,
-                /* isNeutralDark */ true,
-                /* isSystemDark */ true,
-                /* primaryContrastLevel */ 0.5f,
-                /* tonalContrastLevel */ 0.5f,
-                /* mutedContrastLevel */ 0.5f,
-                /* neutralContrastLevel */ 0.5f,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+                /* isFidelity */ true,
+                /* isDark */ true);
+        ContainerColorTokens nightShadeSelectedHighlightContainerTokens =
+            ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF414752),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isFidelity */ true,
+                /* isDark */ true);
 
-            ContainerColorTokens nightShadeSelectedContainerTokens =
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF3D4B63),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isFidelity */ true,
-                    /* isDark */ true);
-            ContainerColorTokens nightShadeSelectedHighlightContainerTokens =
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF414752),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isFidelity */ true,
-                    /* isDark */ true);
+        RadianceColorSchemeBundle2 nightShadeDefaultBundle =
+            new RadianceColorSchemeBundle2(nightShadeColorScheme);
+        // More saturated seed for controls in selected state
+        nightShadeDefaultBundle.registerActiveContainerTokens(nightShadeSelectedContainerTokens,
+            ComponentState.SELECTED);
+        // And less saturated seed for selected highlights
+        nightShadeDefaultBundle.registerActiveContainerTokens(
+            nightShadeSelectedHighlightContainerTokens,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+            ComponentState.SELECTED);
+        this.registerDecorationAreaSchemeBundle(nightShadeDefaultBundle,
+            RadianceThemingSlices.DecorationAreaType.NONE);
 
-            RadianceColorSchemeBundle2 nightShadeDefaultBundle =
-                new RadianceColorSchemeBundle2(nightShadeColorScheme);
-            // More saturated seed for controls in selected state
-            nightShadeDefaultBundle.registerActiveContainerTokens(nightShadeSelectedContainerTokens,
-                ComponentState.SELECTED);
-            // And less saturated seed for selected highlights
-            nightShadeDefaultBundle.registerActiveContainerTokens(
-                nightShadeSelectedHighlightContainerTokens,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                ComponentState.SELECTED);
-            this.registerDecorationAreaSchemeBundle(nightShadeDefaultBundle,
-                RadianceThemingSlices.DecorationAreaType.NONE);
+        // Toolbars, footers, control panes
+        this.registerAsDecorationArea(
+            ColorSchemeUtils.getExtendedContainerTokens(
+                /* seed */ Hct.fromInt(0xFF22252A),
+                /* isFidelity */ true,
+                /* isDark */ true),
+            RadianceThemingSlices.DecorationAreaType.FOOTER,
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+            RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-            // Toolbars, footers, control panes
-            this.registerAsDecorationArea(
-                ColorSchemeUtils.getExtendedContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF22252A),
-                    /* isFidelity */ true,
-                    /* isDark */ true),
-                RadianceThemingSlices.DecorationAreaType.FOOTER,
-                RadianceThemingSlices.DecorationAreaType.TOOLBAR,
-                RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+        // Headers
+        this.registerAsDecorationArea(
+            ColorSchemeUtils.getExtendedContainerTokens(
+                /* seed */ Hct.fromInt(0xFF22252A),
+                /* isFidelity */ true,
+                /* isDark */ true,
+                /* contrastLevel */ 0.6f,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.HEADER);
 
-            // Headers
-            this.registerAsDecorationArea(
-                ColorSchemeUtils.getExtendedContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF22252A),
-                    /* isFidelity */ true,
-                    /* isDark */ true,
-                    /* contrastLevel */ 0.6f,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.HEADER);
+        // Add overlay painters to paint drop shadows along the bottom edges of toolbars
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-            this.buttonShaper = new ClassicButtonShaper();
-            this.fillPainter = new FractionBasedTonalFillPainter("Night Shade",
-                new float[] {0.0f, 0.5f, 1.0f},
-                new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokens::getContainerSurfaceLow,
-                    ContainerColorTokens::getContainerSurface,
-                    ContainerColorTokens::getContainerSurface});
+        // add an overlay painter to paint a dark line along the bottom
+        // edge of toolbars
+        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+            ContainerColorTokens::getContainerOutlineVariant);
+        this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-            this.decorationPainter = new FlatDecorationPainter();
-            this.highlightFillPainter = new ClassicTonalFillPainter();
+        // add an overlay painter to paint a bezel line along the top
+        // edge of footer
+        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
+            ContainerColorTokens::getContainerOutlineVariant,
+            ContainerColorTokensSingleColorQuery.composite(
+                ContainerColorTokens::getInverseContainerOutline,
+                ColorTransform.alpha(72)));
+        this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-            this.borderPainter = new CompositeBorderPainter("Night Shade",
-                new ClassicTonalBorderPainter(),
-                new FractionBasedTonalBorderPainter("Night Shade Inner",
-                    new float[]{0.0f, 1.0f},
-                    new int[] {32, 12},
-                    new ContainerColorTokensSingleColorQuery[]{
-                        ContainerColorTokens::getComplementaryContainerOutline,
-                        ContainerColorTokens::getComplementaryContainerOutline,
-                    }));
-        }
+        this.buttonShaper = new ClassicButtonShaper();
+        this.fillPainter = new FractionBasedTonalFillPainter("Night Shade",
+            new float[] {0.0f, 0.5f, 1.0f},
+            new ContainerColorTokensSingleColorQuery[] {
+                ContainerColorTokens::getContainerSurfaceLow,
+                ContainerColorTokens::getContainerSurface,
+                ContainerColorTokens::getContainerSurface});
 
-        @Override
-        void configureOverlayPainters() {
-            // Add overlay painters to paint drop shadows along the bottom edges of toolbars
-            this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
-                RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+        this.decorationPainter = new FlatDecorationPainter();
+        this.highlightFillPainter = new ClassicTonalFillPainter();
 
-            // add an overlay painter to paint a dark line along the bottom
-            // edge of toolbars
-            RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
-                ContainerColorTokens::getContainerOutlineVariant);
-            this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-            // add an overlay painter to paint a bezel line along the top
-            // edge of footer
-            RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
-                ContainerColorTokens::getContainerOutlineVariant,
-                ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokens::getInverseContainerOutline,
-                    ColorTransform.alpha(72)));
-            this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
-        }
-
-        @Override
-        public String getDisplayName() {
-            return NightShadeTonalSkin.NAME;
-        }
+        this.borderPainter = new CompositeBorderPainter("Night Shade",
+            new ClassicTonalBorderPainter(),
+            new FractionBasedTonalBorderPainter("Night Shade Inner",
+                new float[]{0.0f, 1.0f},
+                new int[] {32, 12},
+                new ContainerColorTokensSingleColorQuery[]{
+                    ContainerColorTokens::getComplementaryContainerOutline,
+                    ContainerColorTokens::getComplementaryContainerOutline,
+                }));
     }
 }

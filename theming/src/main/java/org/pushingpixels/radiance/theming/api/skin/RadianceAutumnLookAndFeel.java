@@ -51,10 +51,4 @@ public class RadianceAutumnLookAndFeel extends RadianceLookAndFeel {
 	public RadianceAutumnLookAndFeel() {
 		super(new AutumnSkin());
 	}
-
-	public static class RadianceAutumnTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceAutumnTonalLookAndFeel() {
-			super(new AutumnSkin.AutumnTonalSkin());
-		}
-	}
 }

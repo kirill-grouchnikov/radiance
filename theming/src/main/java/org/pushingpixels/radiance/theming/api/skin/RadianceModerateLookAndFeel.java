@@ -51,10 +51,4 @@ public class RadianceModerateLookAndFeel extends RadianceLookAndFeel {
 	public RadianceModerateLookAndFeel() {
 		super(new ModerateSkin());
 	}
-
-	public static class RadianceModerateTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceModerateTonalLookAndFeel() {
-			super(new ModerateSkin.ModerateTonalSkin());
-		}
-	}
 }

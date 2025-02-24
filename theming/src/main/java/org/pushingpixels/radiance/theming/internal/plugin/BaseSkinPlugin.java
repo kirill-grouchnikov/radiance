@@ -111,10 +111,6 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(SentinelSkin.NAME, SentinelSkin.class::getName,
                 RadianceSentinelLookAndFeel.class::getName));
 
-        result.add(new SkinInfo(SaharaSkin.SaharaTonalSkin.NAME, SaharaSkin.SaharaTonalSkin.class::getName,
-            RadianceSaharaLookAndFeel.RadianceSaharaTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(ModerateSkin.ModerateTonalSkin.NAME, ModerateSkin.ModerateTonalSkin.class::getName,
-            RadianceModerateLookAndFeel.RadianceModerateTonalLookAndFeel.class::getName));
         result.add(new SkinInfo(BusinessSkin.BusinessTonalSkin.NAME, BusinessSkin.BusinessTonalSkin.class::getName,
             RadianceBusinessLookAndFeel.RadianceBusinessTonalLookAndFeel.class::getName));
         result.add(new SkinInfo(BusinessBlackSteelSkin.BusinessBlackSteelTonalSkin.NAME,
@@ -123,21 +119,6 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(BusinessBlueSteelSkin.BusinessBlueSteelTonalSkin.NAME,
             BusinessBlueSteelSkin.BusinessBlueSteelTonalSkin.class::getName,
             RadianceBusinessBlueSteelLookAndFeel.RadianceBusinessBlueSteelTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(AutumnSkin.AutumnTonalSkin.NAME,
-            AutumnSkin.AutumnTonalSkin.class::getName,
-            RadianceAutumnLookAndFeel.RadianceAutumnTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(NightShadeSkin.NightShadeTonalSkin.NAME,
-            NightShadeSkin.NightShadeTonalSkin.class::getName,
-            RadianceNightShadeLookAndFeel.RadianceNightShadeTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(TwilightSkin.TwilightTonalSkin.NAME,
-            TwilightSkin.TwilightTonalSkin.class::getName,
-            RadianceTwilightLookAndFeel.RadianceTwilightTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(MagellanSkin.MagellanTonalSkin.NAME,
-            MagellanSkin.MagellanTonalSkin.class::getName,
-            RadianceMagellanLookAndFeel.RadianceMagellanTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GeminiSkin.GeminiTonalSkin.NAME,
-            GeminiSkin.GeminiTonalSkin.class::getName,
-            RadianceGeminiLookAndFeel.RadianceGeminiTonalLookAndFeel.class::getName));
         result.add(new SkinInfo(NebulaSkin.NebulaTonalSkin.NAME,
             NebulaSkin.NebulaTonalSkin.class::getName,
             RadianceNebulaLookAndFeel.RadianceNebulaTonalLookAndFeel.class::getName));
@@ -165,15 +146,6 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(MistSilverSkin.MistSilverTonalSkin.NAME,
             MistSilverSkin.MistSilverTonalSkin.class::getName,
             RadianceMistSilverLookAndFeel.RadianceMistSilverTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(RavenSkin.RavenTonalSkin.NAME,
-            RavenSkin.RavenTonalSkin.class::getName,
-            RadianceRavenLookAndFeel.RadianceRavenTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(CeruleanSkin.CeruleanTonalSkin.NAME,
-            CeruleanSkin.CeruleanTonalSkin.class::getName,
-            RadianceCeruleanLookAndFeel.RadianceCeruleanTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(SentinelSkin.SentinelTonalSkin.NAME,
-            SentinelSkin.SentinelTonalSkin.class::getName,
-            RadianceSentinelLookAndFeel.RadianceSentinelTonalLookAndFeel.class::getName));
         result.add(new SkinInfo(GraphiteAquaSkin.GraphiteAquaTonalSkin.NAME,
             GraphiteAquaSkin.GraphiteAquaTonalSkin.class::getName,
             RadianceGraphiteAquaLookAndFeel.RadianceGraphiteAquaTonalLookAndFeel.class::getName));
