@@ -822,12 +822,21 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     public final ContainerColorTokens getActiveContainerTokens(
-            RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
             return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getActiveContainerTokens();
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
             .getMainColorScheme().getActiveContainerTokens();
+    }
+
+    public final ContainerColorTokens getNeutralContainerTokens(
+        RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getNeutralContainerTokens();
+        }
+        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getMainColorScheme().getNeutralContainerTokens();
     }
 
     /**
