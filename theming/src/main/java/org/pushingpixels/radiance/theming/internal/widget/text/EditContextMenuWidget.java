@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeHighlightableTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
@@ -127,6 +128,13 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                     }
 
                     @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                            .getTextCutActionIcon(ICON_SIZE, colorTokens)
+                            .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
                     public Dimension getIconDimension() {
                         return new Dimension(ICON_SIZE, ICON_SIZE);
                     }
@@ -151,6 +159,13 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                         RadianceThemingCortex.GlobalScope.getIconPack()
                                 .getTextCopyActionIcon(ICON_SIZE, scheme)
                                 .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                            .getTextCopyActionIcon(ICON_SIZE, colorTokens)
+                            .paintIcon(null, g, 0, 0);
                     }
 
                     @Override
@@ -187,6 +202,13 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                     }
 
                     @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                            .getTextPasteActionIcon(ICON_SIZE, colorTokens)
+                            .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
                     public Dimension getIconDimension() {
                         return new Dimension(ICON_SIZE, ICON_SIZE);
                     }
@@ -215,6 +237,13 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                     }
 
                     @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                            .getTextDeleteActionIcon(ICON_SIZE, colorTokens)
+                            .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
                     public Dimension getIconDimension() {
                         return new Dimension(ICON_SIZE, ICON_SIZE);
                     }
@@ -239,6 +268,13 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                         RadianceThemingCortex.GlobalScope.getIconPack()
                                 .getTextSelectAllActionIcon(ICON_SIZE, scheme)
                                 .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                            .getTextSelectAllActionIcon(ICON_SIZE, colorTokens)
+                            .paintIcon(null, g, 0, 0);
                     }
 
                     @Override
