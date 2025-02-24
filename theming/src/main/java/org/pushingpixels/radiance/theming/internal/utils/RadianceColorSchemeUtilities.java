@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
@@ -406,8 +407,13 @@ public class RadianceColorSchemeUtilities {
      * @param componentState Component state.
      * @return Highlight color scheme alpha channel.
      */
+    // TODO: TONAL - remove
     public static float getHighlightAlpha(Component component, ComponentState componentState) {
-        return RadianceCoreUtilities.getSkin(component).getHighlightAlpha(component, componentState);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        if (skin instanceof TonalSkin) {
+            return 1.0f;
+        }
+        return skin.getHighlightAlpha(component, componentState);
     }
 
     /**
@@ -417,8 +423,8 @@ public class RadianceColorSchemeUtilities {
      * @param componentState Component state.
      * @return Color scheme alpha channel.
      */
+    // TODO: TONAL - remove this
     public static float getAlpha(Component component, ComponentState componentState) {
-        // TODO: TONAL - remove this
         return RadianceCoreUtilities.getSkin(component).getAlpha(component, componentState);
     }
 

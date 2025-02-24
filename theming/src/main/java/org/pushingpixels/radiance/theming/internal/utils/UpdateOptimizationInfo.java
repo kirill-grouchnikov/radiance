@@ -64,15 +64,18 @@ public class UpdateOptimizationInfo {
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         this.component = component;
 
-        this.defaultScheme = RadianceColorSchemeUtilities.getColorScheme(
-            this.component, ComponentState.ENABLED);
-        this.defaultColorTokens = (RadianceCoreUtilities.getSkin(component) instanceof TonalSkin)
-            ? RadianceColorSchemeUtilities.getContainerTokens(this.component,
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        if (skin instanceof TonalSkin) {
+            this.defaultColorTokens = (RadianceCoreUtilities.getSkin(component) instanceof TonalSkin)
+                ? RadianceColorSchemeUtilities.getContainerTokens(this.component,
                 ComponentState.ENABLED, inactiveContainerType)
-            : null;
+                : null;
+        } else {
+            this.defaultScheme = RadianceColorSchemeUtilities.getColorScheme(
+                this.component, ComponentState.ENABLED);
+        }
         this.decorationAreaType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.component);
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.component);
         this.isInDecorationArea = (this.decorationAreaType != null)
                 && skin.isRegisteredAsDecorationArea(this.decorationAreaType)
                 && RadianceCoreUtilities.isOpaque(this.component);
@@ -121,6 +124,9 @@ public class UpdateOptimizationInfo {
     }
 
     public float getHighlightAlpha(ComponentState state) {
+        if (state.isDisabled() || (state == ComponentState.ENABLED)) {
+            return 0.0f;
+        }
         if (this.highlightAlphaMap == null) {
             this.highlightAlphaMap = new HashMap<>();
         }
