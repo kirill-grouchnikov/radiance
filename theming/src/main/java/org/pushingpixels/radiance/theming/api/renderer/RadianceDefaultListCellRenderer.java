@@ -171,7 +171,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
 
         if (RadianceCoreUtilities.isCurrentLookAndFeel()
                 && (list.getLayoutOrientation() == JList.VERTICAL)) {
-            RadianceStripingUtils.applyStripedBackground(list, index, this);
+            RadianceStripingUtils.applyStripedBackground(list, index, this, false);
         }
 
         if (value instanceof Icon) {

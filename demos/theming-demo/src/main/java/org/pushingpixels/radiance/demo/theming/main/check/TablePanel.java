@@ -32,10 +32,9 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableCellRenderer;
 
 import javax.swing.*;
@@ -290,15 +289,23 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
         // create a looping animation to change the label foreground to draw some attention.
         if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
-            SwingComponentTimeline.componentBuilder(instructional)
+            RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(table);
+            if (skin instanceof TonalSkin) {
+                SwingComponentTimeline.componentBuilder(instructional)
                     .addPropertyToInterpolate("foreground",
-                            () -> RadianceThemingCortex.ComponentScope.getCurrentSkin(table)
-                                    .getColorScheme(table, ComponentState.ENABLED).getForegroundColor(),
-                            () -> RadianceThemingCortex.GlobalScope.getCurrentSkin()
-                                    .getOptionPaneIconColorScheme(JOptionPane.WARNING_MESSAGE)
-                                    .getMidColor())
+                        () -> skin.getContainerTokens(table, ComponentState.ENABLED,
+                            RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer(),
+                        () -> skin.getOptionPaneIconColorTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
                     .setDuration(1000)
                     .playLoop(RepeatBehavior.REVERSE);
+            } else {
+                SwingComponentTimeline.componentBuilder(instructional)
+                    .addPropertyToInterpolate("foreground",
+                        () -> skin.getColorScheme(table, ComponentState.ENABLED).getForegroundColor(),
+                        () -> skin.getOptionPaneIconColorScheme(JOptionPane.WARNING_MESSAGE).getMidColor())
+                    .setDuration(1000)
+                    .playLoop(RepeatBehavior.REVERSE);
+            }
         }
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(

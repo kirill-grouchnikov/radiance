@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.internal.utils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 
 /**
@@ -98,11 +99,15 @@ public class RadianceStripingUtils {
      * @param renderer  Renderer component.
      */
     public static void applyStripedBackground(JComponent component,
-            int rowIndex, JComponent renderer) {
+            int rowIndex, JComponent renderer, boolean wrapAsUiResource) {
         Color background = (Color) component.getClientProperty((rowIndex % 2) == 0 ? EVEN_COLOR : ODD_COLOR);
         if (background == null) {
             return;
         }
-        renderer.setBackground(background);
+        if (wrapAsUiResource) {
+            renderer.setBackground(new ColorUIResource(background));
+        } else {
+            renderer.setBackground(background);
+        }
     }
 }

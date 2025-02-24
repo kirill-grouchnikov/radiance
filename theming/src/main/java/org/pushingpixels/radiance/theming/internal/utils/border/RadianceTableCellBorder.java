@@ -30,9 +30,12 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
@@ -63,6 +66,7 @@ public class RadianceTableCellBorder implements Border, UIResource {
 	 */
 	protected float alpha;
 	private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
+	private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
 
 	/**
 	 * Creates a new border with the specified insets.
@@ -115,12 +119,22 @@ public class RadianceTableCellBorder implements Border, UIResource {
 			currState = ComponentState.DISABLED_SELECTED;
 		}
 
-		BladeUtils.populateColorScheme(mutableBorderColorScheme, c,
+		RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+		if (skin instanceof TonalSkin) {
+			BladeUtils.populateColorTokens(mutableColorTokens, c,
+				modelStateInfo, currState,
+				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+				false, true, RadianceThemingSlices.ContainerType.NEUTRAL);
+			BladeDrawingUtils.paintBladeTonalBorder(c, graphics, x, y, width, height, radius,
+				mutableColorTokens);
+		} else {
+			BladeUtils.populateColorScheme(mutableBorderColorScheme, c,
 				modelStateInfo, currState,
 				RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
 				false);
-		BladeDrawingUtils.paintBladeBorder(c, graphics, x, y, width, height, radius,
+			BladeDrawingUtils.paintBladeBorder(c, graphics, x, y, width, height, radius,
 				mutableBorderColorScheme);
+		}
 		graphics.dispose();
 	}
 

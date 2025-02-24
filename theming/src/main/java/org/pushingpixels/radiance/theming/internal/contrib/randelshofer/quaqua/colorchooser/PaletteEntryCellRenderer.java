@@ -92,7 +92,7 @@ public class PaletteEntryCellRenderer extends RadianceDefaultListCellRenderer {
 
 		setEnabled(list.isEnabled());
 		setFont(list.getFont());
-		RadianceStripingUtils.applyStripedBackground(list, index, this);
+		RadianceStripingUtils.applyStripedBackground(list, index, this, false);
 
 		PaletteEntry entry = (PaletteEntry) value;
 		icon.setColor(entry.getColor());

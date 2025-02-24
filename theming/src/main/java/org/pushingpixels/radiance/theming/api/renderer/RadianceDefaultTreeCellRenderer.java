@@ -260,7 +260,7 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
         }
 
         if (RadianceCoreUtilities.isCurrentLookAndFeel()) {
-            RadianceStripingUtils.applyStripedBackground(tree, row, this);
+            RadianceStripingUtils.applyStripedBackground(tree, row, this, false);
         }
 
         this.setEnabled(tree.isEnabled());

@@ -185,7 +185,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                 }
             }
 
-            RadianceStripingUtils.applyStripedBackground(list, index, this);
+            RadianceStripingUtils.applyStripedBackground(list, index, this, false);
         }
         result.setEnabled(combo.isEnabled());
         return result;

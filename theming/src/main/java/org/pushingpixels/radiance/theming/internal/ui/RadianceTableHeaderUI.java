@@ -709,15 +709,24 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
         if (clip == null)
             clip = c.getBounds();
 
-        // do not use the highlight scheme for painting the
-        // table header background
-        RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(c,
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+        if (skin instanceof TonalSkin) {
+            // do not use the highlight scheme for painting the
+            // table header background
+            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(c,
+                backgroundState, RadianceThemingSlices.ContainerType.MUTED);
+            HighlightPainterUtils.paintHighlight(g, null, c, clip, 0.0f, null, tokens);
+        } else {
+            // do not use the highlight scheme for painting the
+            // table header background
+            RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(c,
                 backgroundState);
-        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(c,
+            RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(c,
                 RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, backgroundState);
 
-        HighlightPainterUtils.paintHighlight(g, null, c, clip, 0.0f, null, fillScheme,
+            HighlightPainterUtils.paintHighlight(g, null, c, clip, 0.0f, null, fillScheme,
                 borderScheme);
+        }
         Graphics2D g2d = (Graphics2D) g.create();
         RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
         paint(g2d, c);
