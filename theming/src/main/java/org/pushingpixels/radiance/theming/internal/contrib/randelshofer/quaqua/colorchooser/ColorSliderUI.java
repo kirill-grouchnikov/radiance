@@ -17,15 +17,14 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RolloverControlListener;
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.VisualMargin;
+import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceSliderUI;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RolloverControlListener;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -209,16 +208,13 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
             ch = trackBounds.height + pad * 2 - 5;
         }
 
-        Color backgroundFill = RadianceColorSchemeUtilities.getColorScheme(this.slider,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
-                .getTextBackgroundFillColor();
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
+        Color backgroundFill = tokens.getContainerSurfaceLow();
         g.setColor(backgroundFill);
         g.fillRect(cx, cy, cw, ch);
 
-        Color border = RadianceCoreUtilities.getBorderPainter(this.slider).getRepresentativeColor(
-                RadianceColorSchemeUtilities.getColorScheme(this.slider,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                        ComponentState.ENABLED));
+        Color border = tokens.getContainerOutline();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
@@ -239,9 +235,8 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
 
     @Override
     public void paintTicks(Graphics g) {
-        RadianceColorScheme tickScheme = RadianceColorSchemeUtilities.getColorScheme(this.slider,
-                RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR,
-                ComponentState.ENABLED);
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
 
         Rectangle tickBounds = tickRect;
 
@@ -259,7 +254,7 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
                 }
 
                 // and paint them in one call
-                SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickScheme, tickBounds.y,
+                SeparatorPainterUtils.paintVerticalLines(g, this.slider, tokens, tickBounds.y,
                         minorXs, tickBounds.height / 2, 0.75f);
             }
 
@@ -275,7 +270,7 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
                 }
 
                 // and paint them in one call
-                SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickScheme, tickBounds.y,
+                SeparatorPainterUtils.paintVerticalLines(g, this.slider, tokens, tickBounds.y,
                         majorXs, tickBounds.height, 0.75f);
             }
         } else {
@@ -299,7 +294,7 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
                     value += slider.getMinorTickSpacing();
                 }
                 // and paint them in one call
-                SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickScheme, offset,
+                SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tokens, offset,
                         minorYs, tickBounds.width / 2, ltr ? 0.75f : 0.25f, ltr);
             }
 
@@ -315,7 +310,7 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
                 }
 
                 // and paint them in one call
-                SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickScheme, 0, majorYs,
+                SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tokens, 0, majorYs,
                         tickBounds.width, ltr ? 0.75f : 0.25f, ltr);
             }
             g.translate(-tickBounds.x, 0);

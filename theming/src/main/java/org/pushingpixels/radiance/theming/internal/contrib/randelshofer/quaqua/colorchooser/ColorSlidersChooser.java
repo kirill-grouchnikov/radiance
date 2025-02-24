@@ -16,7 +16,7 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
@@ -123,9 +123,9 @@ public class ColorSlidersChooser extends RadianceColorChooserPanel implements UI
     }
     
     @Override
-    public RadianceIcon getHiDpiAwareIcon(int size, RadianceColorScheme colorScheme) {
+    public RadianceIcon getHiDpiAwareIcon(int size, ContainerColorTokens tokens) {
         return RadianceThemingCortex.GlobalScope.getIconPack().getColorChooserColorSlidersIcon(size,
-                colorScheme);
+                tokens);
     }
     
     public void updateChooser() {

@@ -31,19 +31,19 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 public abstract class RadianceColorChooserPanel extends AbstractColorChooserPanel {
-    public abstract RadianceIcon getHiDpiAwareIcon(int size, RadianceColorScheme colorScheme);
+    public abstract RadianceIcon getHiDpiAwareIcon(int size, ContainerColorTokens tokens);
 
     @Override
     public Icon getLargeDisplayIcon() {
         return getHiDpiAwareIcon(18, RadianceCoreUtilities.getSkin(this)
-                .getEnabledColorScheme(RadianceThemingSlices.DecorationAreaType.NONE));
+                .getMutedContainerTokens(RadianceThemingSlices.DecorationAreaType.NONE));
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser.RadianceColorChooserPanel;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -916,9 +917,9 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 	}
 
 	@Override
-	public RadianceIcon getHiDpiAwareIcon(int size, RadianceColorScheme colorScheme) {
+	public RadianceIcon getHiDpiAwareIcon(int size, ContainerColorTokens tokens) {
         return RadianceThemingCortex.GlobalScope.getIconPack().getColorChooserImagePalettesIcon(size,
-                colorScheme);
+                tokens);
 	}
 
 	@Override
@@ -1162,8 +1163,8 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 				double sin = Math.sin(angle2);
 				double cos = Math.cos(angle2);
 
-				boolean isDark = RadianceCoreUtilities.getSkin(this).
-						getColorScheme(this, ComponentState.ENABLED).isDark();
+				boolean isDark = RadianceCoreUtilities.getSkin(this).getContainerTokens(
+					this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).isDark();
 
 				AttributedString as = new AttributedString(getLabel(
 						"Xoetrope.warm", "WARM"));

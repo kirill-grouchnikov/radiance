@@ -17,6 +17,7 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 
 import javax.swing.*;
@@ -66,7 +67,12 @@ public class ColorChooserMainPanel extends javax.swing.JPanel {
             tb.setIcon(new BladeTransitionAwareIcon(tb, new BladeTransitionAwareIcon.Delegate() {
                 @Override
                 public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                    ccp.getHiDpiAwareIcon(18, scheme).paintIcon(null, g, 0, 0);
+                    //ccp.getHiDpiAwareIcon(18, scheme).paintIcon(null, g, 0, 0);
+                }
+
+                @Override
+                public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    ccp.getHiDpiAwareIcon(18, colorTokens).paintIcon(null, g, 0, 0);
                 }
 
                 @Override
