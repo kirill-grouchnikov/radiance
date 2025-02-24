@@ -417,6 +417,18 @@ public class SeparatorPainterUtils {
         graphics.dispose();
     }
 
+    public static Color getPrimarySeparatorColor(ContainerColorTokens tokens) {
+        return tokens.isDark()
+            ? RadianceColorUtilities.getAlphaColor(tokens.getComplementaryContainerOutline(), 72)
+            : RadianceColorUtilities.getAlphaColor(tokens.getContainerOutline(), 96);
+    }
+
+    public static Color getSecondarySeparatorColor(ContainerColorTokens tokens) {
+        return tokens.isDark()
+            ? RadianceColorUtilities.getAlphaColor(tokens.getContainerOutlineVariant(), 192)
+            : RadianceColorUtilities.getAlphaColor(tokens.getComplementaryContainerOutline(), 240);
+    }
+
     public static void paintTonalSeparator(Component c, Graphics g,
         ContainerColorTokens colorTokens, int width, int height, int orientation,
         boolean hasShadow, int maxGradLengthStart, int maxGradLengthEnd, boolean toEnforceAlphaColors) {
@@ -456,19 +468,8 @@ public class SeparatorPainterUtils {
                 Color backgroundFill = RadianceColorUtilities.getTonalBackgroundFillColor(
                     c, RadianceThemingSlices.ContainerType.NEUTRAL);
 
-                Color primary;
-                Color secondary;
-                if (colorTokens.isDark()) {
-                    primary = RadianceColorUtilities.getAlphaColor(
-                        colorTokens.getComplementaryContainerOutline(), 72);
-                    secondary = RadianceColorUtilities.getAlphaColor(
-                        colorTokens.getContainerOutlineVariant(), 192);
-                } else {
-                    primary = RadianceColorUtilities.getAlphaColor(
-                        colorTokens.getContainerOutline(), 96);
-                    secondary = RadianceColorUtilities.getAlphaColor(
-                        colorTokens.getComplementaryContainerOutline(), 240);
-                }
+                Color primary = getPrimarySeparatorColor(colorTokens);
+                Color secondary = getSecondarySeparatorColor(colorTokens);
 
                 Color primaryZero = toUseAlphaColors
                     ? RadianceColorUtilities.getAlphaColor(primary, 0)
