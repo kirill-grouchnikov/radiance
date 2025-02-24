@@ -67,7 +67,7 @@ import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocal
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -82,8 +82,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.text.MessageFormat;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 public class BasicCheckRibbon extends JRibbonFrame {
     private Locale currLocale;
@@ -2544,7 +2544,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new GeminiSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
 
             final BasicCheckRibbon c = new BasicCheckRibbon();
             c.configureRibbon();
