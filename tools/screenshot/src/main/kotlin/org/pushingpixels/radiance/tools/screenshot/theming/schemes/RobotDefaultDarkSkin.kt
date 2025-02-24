@@ -76,10 +76,10 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
         this.buttonShaper = ClassicButtonShaper()
         this.fillPainter = SpecularRectangularFillPainter(ClassicTonalFillPainter(), 1.0f)
         this.borderPainter = CompositeBorderPainter(
-            "Mariner",
+            "Robot",
             FlatTonalBorderPainter(),
             FractionBasedTonalBorderPainter(
-                "Mariner Inner",
+                "Robot Inner",
                 floatArrayOf(0.0f, 1.0f),
                 intArrayOf(96, 96),
                 arrayOf<ContainerColorTokensSingleColorQuery>(

@@ -39,6 +39,7 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL remove
 public class MixColorScheme extends BaseColorScheme {
     /**
      * The main ultra-light color.

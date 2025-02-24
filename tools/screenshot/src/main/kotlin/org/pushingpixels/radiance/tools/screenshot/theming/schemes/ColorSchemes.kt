@@ -65,4 +65,5 @@ private val radianceDarkColors = mapOf(
 class AllLight : LightColorSchemeRobot(radianceLightColors, "theming/colorschemes", "Radiance")
 class AllDark : DarkColorSchemeRobot(radianceDarkColors, "theming/colorschemes", "Radiance")
 
-//class EphemeralAll : ColorSchemeRobot(radianceColorSchemes, "theming/colorschemes", "Ephemeral")
+class EphemeralAllLight : LightColorSchemeRobot(radianceLightColors, "theming/colorschemes", "Ephemeral")
+class EphemeralAllDark : DarkColorSchemeRobot(radianceDarkColors, "theming/colorschemes", "Ephemeral")

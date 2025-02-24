@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct
-import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
@@ -43,7 +42,6 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOve
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities
 import java.awt.Color
 
 /**
@@ -91,17 +89,6 @@ class RobotDefaultSkin(accentColor: Color, val name: String) :
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
-
-        println(
-            "$name -> ${
-                RadianceColorUtilities.encode(
-                    this.getContainerTokens(
-                        null,
-                        ComponentState.ENABLED, RadianceThemingSlices.ContainerType.TONAL
-                    ).containerSurface
-                )
-            }"
-        )
     }
 
     override fun getDisplayName(): String {

@@ -29,34 +29,34 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
-/**
- * Screenshot robots for Radiance extras color schemes.
- *
- * @author Kirill Grouchnikov
- */
-//class AllExtras :
-//    ColorSchemeRobot(
-//        listOf(
-//            BelizeColorScheme(),
-//            BloodyMoonColorScheme(),
-//            BlueYonderColorScheme(),
-//            BrickWallColorScheme(),
-//            BrownVelvetColorScheme(),
-//            CobaltSteelColorScheme(),
-//            DesertMarsColorScheme(),
-//            EarthFrescoColorScheme(),
-//            EmeraldGrassColorScheme(),
-//            FauveMauveColorScheme(),
-//            GooseberryJungleColorScheme(),
-//            GreenPearlColorScheme(),
-//            MahoganyColorScheme(),
-//            OrchidAlloyColorScheme(),
-//            PeachColorScheme(),
-//            PlacidPinkColorScheme(),
-//            SkyHighColorScheme(),
-//            SpringLeafColorScheme(),
-//            TurquoiseLakeColorScheme(),
-//            WildPineColorScheme(),
-//            YellowMarineColorScheme()
-//        ), "theming-extras/colorschemes", "Radiance"
-//    )
+import org.pushingpixels.radiance.theming.extras.api.colorschemepack.TonalPaletteExtrasSeeds
+
+private val radianceLightColors = mapOf(
+    "Belize" to TonalPaletteExtrasSeeds.BELIZE,
+    "Bloody Moon" to TonalPaletteExtrasSeeds.BLOODY_MOON,
+    "Blue Yonder" to TonalPaletteExtrasSeeds.BLUE_YONDER,
+    "Brick Wall" to TonalPaletteExtrasSeeds.BRICK_WALL,
+    "Cobalt Steel" to TonalPaletteExtrasSeeds.COBALT_STEEL,
+    "Desert Mars" to TonalPaletteExtrasSeeds.DESERT_MARS,
+    "Gooseberry Jungle" to TonalPaletteExtrasSeeds.GOOSEBERRY_JUNGLE,
+    "Green Pearl" to TonalPaletteExtrasSeeds.GREEN_PEARL,
+    "Orchid Alloy" to TonalPaletteExtrasSeeds.ORCHID_ALLOY,
+    "Placid Pink" to TonalPaletteExtrasSeeds.PLACID_PINK,
+    "Sky High" to TonalPaletteExtrasSeeds.SKY_HIGH,
+    "Spring Leaf" to TonalPaletteExtrasSeeds.SPRING_LEAF,
+    "Wild Pine" to TonalPaletteExtrasSeeds.WILD_PINE,
+    "Yellow Marine" to TonalPaletteExtrasSeeds.YELLOW_MARINE,
+)
+
+private val radianceDarkColors = mapOf(
+    "Brown Velvet" to TonalPaletteExtrasSeeds.BROWN_VELVET,
+    "Earth Fresco" to TonalPaletteExtrasSeeds.EARTH_FRESCO,
+    "Emerald Glass" to TonalPaletteExtrasSeeds.EMERALD_GRASS,
+    "Fauve Mauve" to TonalPaletteExtrasSeeds.FAUVE_MAUVE,
+    "Mahogany" to TonalPaletteExtrasSeeds.MAHOGANY,
+    "Peach" to TonalPaletteExtrasSeeds.PEACH,
+    "Turquoise Lake" to TonalPaletteExtrasSeeds.TURQUOISE_LAKE,
+)
+
+class AllExtrasLight : LightColorSchemeRobot(radianceLightColors, "theming-extras/colorschemes", "Radiance")
+class AllExtrasDark : DarkColorSchemeRobot(radianceDarkColors, "theming-extras/colorschemes", "Radiance")
