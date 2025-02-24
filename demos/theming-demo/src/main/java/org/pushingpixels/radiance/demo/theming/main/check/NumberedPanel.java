@@ -30,8 +30,10 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,27 +75,26 @@ public class NumberedPanel extends JPanel {
             int h = this.getHeight();
             Graphics2D graphics = (Graphics2D) g.create();
 
-            if ((UIManager.getLookAndFeel() instanceof RadianceLookAndFeel)
-                    && RadianceThemingCortex.ComponentScope.getCurrentSkin(this)
-                            .getActiveColorScheme(
-                                    ComponentOrParentChainScope.getDecorationType(this))
-                            .isDark())
-                graphics.setColor(Color.black);
-            else
-                graphics.setColor(Color.white);
+            boolean isDark;
+            if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
+                if (skin instanceof TonalSkin) {
+                    isDark = skin.getActiveContainerTokens(ComponentOrParentChainScope.getDecorationType(this)).isDark();
+                } else {
+                    isDark = skin.getActiveColorScheme(ComponentOrParentChainScope.getDecorationType(this)).isDark();
+                }
+            } else {
+                isDark = false;
+            }
+
+            graphics.setColor(isDark ? Color.black : Color.white);
             graphics.fillRect(0, 0, w, h);
+
             graphics.setComposite(AlphaComposite.SrcOver.derive(0.6f));
             graphics.setColor(this.getBackground());
             graphics.fillRect(0, 0, w, h);
             graphics.setComposite(AlphaComposite.SrcOver);
-            if ((UIManager.getLookAndFeel() instanceof RadianceLookAndFeel)
-                    && RadianceThemingCortex.ComponentScope.getCurrentSkin(this)
-                            .getActiveColorScheme(
-                                    ComponentOrParentChainScope.getDecorationType(this))
-                            .isDark())
-                graphics.setColor(Color.white);
-            else
-                graphics.setColor(Color.black);
+            graphics.setColor(isDark ? Color.white : Color.black);
             int size = Math.min(60, Math.min(w, h) / 2);
             graphics.setFont(new Font("Arial", Font.BOLD, size));
             graphics.drawString("" + number, (w - size) / 2, (h / 2 + size) / 2);

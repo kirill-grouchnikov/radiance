@@ -130,7 +130,7 @@ public class TestDeterminateCircularProgress extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
 
             TestDeterminateCircularProgress test = new TestDeterminateCircularProgress();
             test.setTitle("Circular progress");

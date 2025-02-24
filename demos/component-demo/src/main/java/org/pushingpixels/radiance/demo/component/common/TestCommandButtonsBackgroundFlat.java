@@ -55,7 +55,7 @@ public class TestCommandButtonsBackgroundFlat extends TestCommandButtons {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
 
             TestCommandButtonsBackgroundFlat frame = new TestCommandButtonsBackgroundFlat();
             frame.setSize(800, 400);

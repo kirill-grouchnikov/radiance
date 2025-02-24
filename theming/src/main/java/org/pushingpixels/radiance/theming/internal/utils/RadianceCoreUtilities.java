@@ -976,8 +976,6 @@ public class RadianceCoreUtilities {
         double scale = RadianceCommonCortex.getScaleFactor(tab);
 
         RadianceThemingSlices.IconFilterStrategy iconFilterStrategy = getIconFilterStrategy(tab, componentState);
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                tab, componentState);
         RadianceSkin skin = RadianceCoreUtilities.getSkin(tab);
         if (skin instanceof TonalSkin) {
             ContainerColorTokens colorTokens =
@@ -996,6 +994,8 @@ public class RadianceCoreUtilities {
                         tab, orig, colorTokens, 0.4f), scale);
             }
         } else {
+            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                tab, componentState);
             switch (iconFilterStrategy) {
                 case ORIGINAL:
                     return orig;

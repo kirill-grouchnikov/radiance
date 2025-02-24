@@ -89,7 +89,7 @@ public class TestRichTooltipPanels extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
 
             new TestRichTooltipPanels().setVisible(true);
         });

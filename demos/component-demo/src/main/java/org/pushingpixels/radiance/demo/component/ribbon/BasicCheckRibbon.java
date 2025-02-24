@@ -2544,7 +2544,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
 
             final BasicCheckRibbon c = new BasicCheckRibbon();
             c.configureRibbon();

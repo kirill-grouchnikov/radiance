@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.filters.TonalContainerFilter;
+
 import java.awt.*;
 
 public interface ContainerColorTokens {
@@ -56,4 +60,42 @@ public interface ContainerColorTokens {
 
     Color getComplementaryOnContainer();
     Color getComplementaryContainerOutline();
+
+    default RadianceIcon.ColorFilter getColorFilter(float brightnessFactor, float alpha) {
+        ContainerColorTokens origin = this;
+        return color -> {
+            int[] interpolated = TonalContainerFilter.getInterpolatedColors(origin);
+            int steps = interpolated.length;
+
+            int brightness = RadianceColorUtilities.getColorBrightness(color.getRGB());
+
+            int a = color.getAlpha();
+            int r = color.getRed();
+            int g = color.getGreen();
+            int b = color.getBlue();
+
+            float[] hsb = Color.RGBtoHSB(r, g, b, null);
+            int pixelColor = interpolated[brightness * steps / 256];
+
+            int ri = (pixelColor >>> 16) & 0xFF;
+            int gi = (pixelColor >>> 8) & 0xFF;
+            int bi = (pixelColor >>> 0) & 0xFF;
+            float[] hsbi = Color.RGBtoHSB(ri, gi, bi, null);
+
+            hsb[0] = hsbi[0];
+            hsb[1] = hsbi[1];
+            if (brightnessFactor >= 0.0f) {
+                hsb[2] = brightnessFactor * hsb[2]
+                    + (1.0f - brightnessFactor) * hsbi[2];
+            } else {
+                hsb[2] = hsb[2] * hsbi[2] * (1.0f + brightnessFactor);
+            }
+
+            Color converted = new Color(Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]));
+            int finalAlpha = (int) (a * alpha);
+
+            return new Color(converted.getRed(), converted.getGreen(), converted.getBlue(),
+                finalAlpha);
+        };
+    }
 }

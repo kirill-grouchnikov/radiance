@@ -306,6 +306,20 @@ public final class RadianceImageCreator {
     }
 
     /**
+     * Returns a lock icon that matches the specified scheme.
+     *
+     * @param tokens Tokens.
+     * @return Lock icon that matches the specified scheme.
+     */
+    public static Icon getSmallLockIcon(ContainerColorTokens tokens, Component c) {
+        int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
+        int extraPadding = RadianceSizeUtils.getExtraPadding(componentFontSize);
+        int size = 9 + 2 * extraPadding;
+
+        return RadianceThemingCortex.GlobalScope.getIconPack().getLockIcon(size, tokens);
+    }
+
+    /**
      * Returns a caps lock icon that matches the specified scheme.
      *
      * @param scheme Scheme instance.
@@ -313,6 +327,16 @@ public final class RadianceImageCreator {
      */
     public static Icon getCapsLockIcon(RadianceColorScheme scheme, Component c) {
         return RadianceThemingCortex.GlobalScope.getIconPack().getCapsLockIcon(32, scheme);
+    }
+
+    /**
+     * Returns a caps lock icon that matches the specified scheme.
+     *
+     * @param tokens Tokens.
+     * @return Caps lock icon that matches the specified scheme.
+     */
+    public static Icon getCapsLockIcon(ContainerColorTokens tokens, Component c) {
+        return RadianceThemingCortex.GlobalScope.getIconPack().getCapsLockIcon(32, tokens);
     }
 
     /**

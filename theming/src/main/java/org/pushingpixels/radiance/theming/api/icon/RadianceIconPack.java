@@ -139,10 +139,16 @@ public interface RadianceIconPack {
         ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getLockIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getLockIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getCapsLockIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getCapsLockIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getInspectIcon(int preferredSize,
         RadianceColorScheme preferredIconColorScheme);
@@ -151,53 +157,104 @@ public interface RadianceIconPack {
         ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getRefreshIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getRefreshIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getAllowedIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getAllowedIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getNotAllowedIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getNotAllowedIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getTextCopyActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getTextCopyActionIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getTextCutActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getTextCutActionIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getTextPasteActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getTextPasteActionIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getTextDeleteActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getTextDeleteActionIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getTextSelectAllActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getTextSelectAllActionIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getColorChooserColorPalettesIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getColorChooserColorPalettesIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getColorChooserColorSlidersIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getColorChooserColorSlidersIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getColorChooserColorWheelIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getColorChooserColorWheelIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getColorChooserCrayonsIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getColorChooserCrayonsIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getColorChooserImagePalettesIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getColorChooserImagePalettesIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getScrollVerticalIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getScrollVerticalIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getScrollHorizontalIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getScrollHorizontalIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getScrollAllIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getScrollAllIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 }

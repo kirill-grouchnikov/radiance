@@ -52,10 +52,4 @@ public class RadianceMarinerLookAndFeel extends RadianceLookAndFeel {
 	public RadianceMarinerLookAndFeel() {
 		super(new MarinerSkin());
 	}
-
-	public static class RadianceMarinerTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceMarinerTonalLookAndFeel() {
-			super(new MarinerSkin.MarinerTonalSkin());
-		}
-	}
 }

@@ -64,7 +64,7 @@ abstract class BaseColorSchemeRobot(
     private suspend fun runInner(screenshotDirectory: String) {
         withContext(Dispatchers.Swing) {
             // Initial skin
-            RadianceThemingCortex.GlobalScope.setSkin(MarinerSkin.MarinerTonalSkin())
+            RadianceThemingCortex.GlobalScope.setSkin(MarinerSkin())
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 

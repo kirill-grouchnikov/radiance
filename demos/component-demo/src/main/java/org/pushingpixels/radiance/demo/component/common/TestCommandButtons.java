@@ -517,7 +517,7 @@ public class TestCommandButtons extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
             TestCommandButtons frame = new TestCommandButtons();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

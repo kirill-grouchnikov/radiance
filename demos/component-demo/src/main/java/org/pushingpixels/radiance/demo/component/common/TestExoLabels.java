@@ -156,7 +156,7 @@ public class TestExoLabels extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin.MarinerTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
             TestExoLabels frame = new TestExoLabels();
             frame.pack();
             frame.setLocationRelativeTo(null);

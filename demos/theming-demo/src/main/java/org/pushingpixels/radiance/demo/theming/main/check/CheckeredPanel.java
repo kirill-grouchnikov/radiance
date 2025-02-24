@@ -30,8 +30,10 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,24 +48,26 @@ final class CheckeredPanel extends ScrollablePanel {
 
         int cols = 1 + w / 10;
         int rows = 1 + h / 10;
-        if ((UIManager.getLookAndFeel() instanceof RadianceLookAndFeel)
-                && RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getActiveColorScheme(
-                        ComponentOrParentChainScope.getDecorationType(this)).isDark())
-            graphics.setColor(Color.black);
-        else
-            graphics.setColor(Color.white);
+        boolean isDark;
+        if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
+            RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
+            if (skin instanceof TonalSkin) {
+                isDark = skin.getActiveContainerTokens(ComponentOrParentChainScope.getDecorationType(this)).isDark();
+            } else {
+                isDark = skin.getActiveColorScheme(ComponentOrParentChainScope.getDecorationType(this)).isDark();
+            }
+        } else {
+            isDark = false;
+        }
+
+        graphics.setColor(isDark ? Color.black : Color.white);
         graphics.fillRect(0, 0, w, h);
+
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
                 if (((i + j) % 2) == 0) {
                     float val = (i + j) / 100.f;
                     val -= Math.floor(val);
-                    boolean isDark = (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel)
-                            ? RadianceThemingCortex.ComponentScope.getCurrentSkin(this)
-                                    .getActiveColorScheme(
-                                            ComponentOrParentChainScope.getDecorationType(this))
-                                    .isDark()
-                            : false;
                     float brightness = isDark ? 0.1f : 0.9f;
                     float saturation = 0.2f;
                     graphics.setColor(new Color(Color.HSBtoRGB(val, saturation, brightness)));

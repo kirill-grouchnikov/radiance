@@ -80,7 +80,7 @@ public class SkinContainersDemo extends JFrame {
             new DustSkin.DustTonalSkin(),
             new DustCoffeeSkin.DustCoffeeTonalSkin(),
             new GeminiSkin.GeminiTonalSkin(),
-            new MarinerSkin.MarinerTonalSkin(),
+            new MarinerSkin(),
             new MistAquaSkin.MistAquaTonalSkin(),
             new MistSilverSkin.MistSilverTonalSkin(),
             new ModerateSkin.ModerateTonalSkin(),

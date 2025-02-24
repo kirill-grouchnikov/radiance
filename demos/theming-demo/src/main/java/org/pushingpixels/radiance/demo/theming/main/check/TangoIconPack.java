@@ -218,8 +218,18 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getLockIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return locked.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getCapsLockIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return go_top.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getCapsLockIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return go_top.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -242,14 +252,29 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getRefreshIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return view_refresh.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getAllowedIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         return list_add.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
+    public RadianceIcon getAllowedIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return list_add.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getNotAllowedIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return dialog_error.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getNotAllowedIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return dialog_error.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -263,11 +288,27 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getTextCopyActionIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = edit_copy.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorTokens.getColorFilter(
+            preferredIconColorTokens.isDark() ? 0.6f : 0.8f, 1.0f));
+        return result;
+    }
+
+    @Override
     public RadianceIcon getTextCutActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = edit_cut.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getTextCutActionIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = edit_cut.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorTokens.getColorFilter(
+            preferredIconColorTokens.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
@@ -281,11 +322,27 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getTextPasteActionIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = edit_paste.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorTokens.getColorFilter(
+            preferredIconColorTokens.isDark() ? 0.6f : 0.8f, 1.0f));
+        return result;
+    }
+
+    @Override
     public RadianceIcon getTextDeleteActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = edit_delete.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getTextDeleteActionIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = edit_delete.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorTokens.getColorFilter(
+            preferredIconColorTokens.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
@@ -299,8 +356,21 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getTextSelectAllActionIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = edit_select_all.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorTokens.getColorFilter(
+            preferredIconColorTokens.isDark() ? 0.6f : 0.8f, 1.0f));
+        return result;
+    }
+
+    @Override
     public RadianceIcon getColorChooserColorPalettesIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return face_angel.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getColorChooserColorPalettesIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return face_angel.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -311,8 +381,18 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getColorChooserColorSlidersIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return face_glasses.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return face_grin.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return face_grin.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -323,8 +403,18 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getColorChooserColorWheelIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return face_plain.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getColorChooserCrayonsIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return face_sad.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getColorChooserCrayonsIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return face_sad.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -335,8 +425,18 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getColorChooserImagePalettesIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return face_smile.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getScrollHorizontalIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return go_next.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getScrollHorizontalIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return go_next.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -347,8 +447,18 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getScrollVerticalIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return go_down.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getScrollAllIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return view_fullscreen.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getScrollAllIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return view_fullscreen.uiResourceOf(preferredSize, preferredSize);
     }
 }
