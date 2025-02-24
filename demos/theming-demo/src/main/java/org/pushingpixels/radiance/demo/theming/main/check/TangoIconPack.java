@@ -97,8 +97,18 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserNewFolderIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return folder_new.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getFileChooserUpFolderIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return go_up.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getFileChooserUpFolderIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return go_up.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -109,8 +119,18 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserHomeFolderIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return user_home.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getFileChooserListViewIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return format_justify_fill.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getFileChooserListViewIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return format_justify_fill.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -121,8 +141,18 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserDetailsViewIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return accessories_text_editor.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getFileChooserViewMenuIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return emblem_system.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getFileChooserViewMenuIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return emblem_system.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -133,8 +163,18 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserComputerIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return computer.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getFileChooserDirectoryIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return folder.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getFileChooserDirectoryIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return folder.uiResourceOf(preferredSize, preferredSize);
     }
 
@@ -145,14 +185,29 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserFileIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return text_x_generic.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getFileChooserFloppyDriveIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         return media_floppy.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
+    public RadianceIcon getFileChooserFloppyDriveIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        return media_floppy.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public RadianceIcon getFileChooserHardDriveIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
+        return drive_harddisk.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
+    public RadianceIcon getFileChooserHardDriveIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return drive_harddisk.uiResourceOf(preferredSize, preferredSize);
     }
 

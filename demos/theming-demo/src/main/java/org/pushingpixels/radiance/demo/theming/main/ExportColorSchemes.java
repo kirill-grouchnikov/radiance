@@ -5,6 +5,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: TONAL remove
 public class ExportColorSchemes {
     public static void main(String[] args) {
         List<RadianceColorScheme> toExport = new ArrayList<>();

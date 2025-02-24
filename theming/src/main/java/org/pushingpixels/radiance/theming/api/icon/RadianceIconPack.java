@@ -46,6 +46,7 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
  * @author Kirill Grouchnikov
  * @see RadianceThemingCortex.GlobalScope#setIconPack(RadianceIconPack)
  */
+// TODO: TONAL remove pre-tonal APIs
 public interface RadianceIconPack {
     RadianceIcon getOptionPaneInformationIcon(int preferredSize,
         RadianceColorScheme preferredIconColorScheme);
@@ -72,37 +73,70 @@ public interface RadianceIconPack {
         ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserNewFolderIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserNewFolderIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserUpFolderIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserUpFolderIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserHomeFolderIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserHomeFolderIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserListViewIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserListViewIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserDetailsViewIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserDetailsViewIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserViewMenuIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserViewMenuIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserComputerIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserComputerIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserDirectoryIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserDirectoryIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserFileIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserFileIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserFloppyDriveIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserFloppyDriveIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getFileChooserHardDriveIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme);
+        RadianceColorScheme preferredIconColorScheme);
+
+    RadianceIcon getFileChooserHardDriveIcon(int preferredSize,
+        ContainerColorTokens preferredIconColorTokens);
 
     RadianceIcon getLockIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme);

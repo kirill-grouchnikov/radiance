@@ -115,10 +115,24 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserNewFolderIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = create_new_folder_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
+        return result;
+    }
+
+    @Override
     public RadianceIcon getFileChooserUpFolderIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = arrow_upward_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getFileChooserUpFolderIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = arrow_upward_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
@@ -131,10 +145,24 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserHomeFolderIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = home_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
+        return result;
+    }
+
+    @Override
     public RadianceIcon getFileChooserListViewIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = view_list_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getFileChooserListViewIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = view_list_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
@@ -147,10 +175,24 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserDetailsViewIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = insert_drive_file_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
+        return result;
+    }
+
+    @Override
     public RadianceIcon getFileChooserViewMenuIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = menu_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getFileChooserViewMenuIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = menu_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
@@ -163,10 +205,24 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserComputerIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = computer_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
+        return result;
+    }
+
+    @Override
     public RadianceIcon getFileChooserDirectoryIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = folder_open_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getFileChooserDirectoryIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = folder_open_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
@@ -179,6 +235,13 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserFileIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = insert_drive_file_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
+        return result;
+    }
+
+    @Override
     public RadianceIcon getFileChooserFloppyDriveIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = save_black_24dp.uiResourceOf(preferredSize, preferredSize);
@@ -187,10 +250,24 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     }
 
     @Override
+    public RadianceIcon getFileChooserFloppyDriveIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = save_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
+        return result;
+    }
+
+    @Override
     public RadianceIcon getFileChooserHardDriveIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = storage_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
+        return result;
+    }
+
+    @Override
+    public RadianceIcon getFileChooserHardDriveIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
+        RadianceIcon result = storage_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 

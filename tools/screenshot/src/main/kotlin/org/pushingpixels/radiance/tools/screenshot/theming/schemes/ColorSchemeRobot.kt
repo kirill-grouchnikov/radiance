@@ -36,15 +36,13 @@ import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.demo.theming.main.check.SampleFrame
-import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin
 import org.pushingpixels.radiance.tools.common.RadianceLogo
 import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
+import java.awt.Color
 import java.awt.Robot
 import java.awt.event.InputEvent
 import java.io.File
@@ -52,6 +50,11 @@ import java.io.IOException
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 
+/**
+ * The base class for taking screenshots of color schemes for Radiance documentation.
+ *
+ * @author Kirill Grouchnikov
+ */
 abstract class BaseColorSchemeRobot(
     private val skins: List<RadianceSkin>,
     private val screenshotSubfolder: String,
@@ -61,7 +64,7 @@ abstract class BaseColorSchemeRobot(
     private suspend fun runInner(screenshotDirectory: String) {
         withContext(Dispatchers.Swing) {
             // Initial skin
-            RadianceThemingCortex.GlobalScope.setSkin(MarinerSkin())
+            RadianceThemingCortex.GlobalScope.setSkin(MarinerSkin.MarinerTonalSkin())
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 
@@ -71,11 +74,8 @@ abstract class BaseColorSchemeRobot(
             frame = SampleFrame(frameTitle)
             frame.iconImage = RadianceLogo.getLogoImage(
                 frame,
-                RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
-                    DecorationAreaType.PRIMARY_TITLE_PANE,
-                    RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                    ComponentState.ENABLED
-                )
+                RadianceThemingCortex.GlobalScope.getCurrentSkin().
+                    getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)
             )
             frame.setSize(340, 258)
             frame.setLocationRelativeTo(null)
@@ -108,11 +108,7 @@ abstract class BaseColorSchemeRobot(
                 RadianceThemingCortex.GlobalScope.setSkin(skin)
                 frame.iconImage = RadianceLogo.getLogoImage(
                     frame,
-                    skin.getColorScheme(
-                        DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED
-                    )
+                    skin.getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)
                 )
             }
 
@@ -176,19 +172,20 @@ abstract class BaseColorSchemeRobot(
     }
 }
 
-/**
- * The base class for taking screenshots of color schemes for Radiance documentation.
- *
- * @author Kirill Grouchnikov
- */
-abstract class ColorSchemeRobot(
-    colorSchemes: List<RadianceColorScheme>,
+abstract class LightColorSchemeRobot(
+    accents: Map<String, Color>,
     screenshotSubfolder: String,
-    frameTitle: String
-) :
+    frameTitle: String) :
     BaseColorSchemeRobot(
-        colorSchemes.map {
-            if (it.isDark) RobotDefaultDarkSkin(it) else
-                RobotDefaultSkin(it)
-        }, screenshotSubfolder, frameTitle
-    )
+        skins = accents.map { RobotDefaultSkin(it.value, it.key) },
+        screenshotSubfolder = screenshotSubfolder,
+        frameTitle = frameTitle)
+
+abstract class DarkColorSchemeRobot(
+    accents: Map<String, Color>,
+    screenshotSubfolder: String,
+    frameTitle: String) :
+    BaseColorSchemeRobot(
+        skins = accents.map { RobotDefaultDarkSkin(it.value, it.key) },
+        screenshotSubfolder = screenshotSubfolder,
+        frameTitle = frameTitle)

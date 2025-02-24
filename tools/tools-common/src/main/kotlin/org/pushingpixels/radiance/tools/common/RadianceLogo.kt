@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens
 import java.awt.Component
 import java.awt.image.BufferedImage
 
@@ -47,12 +48,25 @@ object RadianceLogo {
         return base
     }
 
+    fun getLogoIcon(colorTokens: ExtendedContainerColorTokens): RadianceIcon {
+        // Step 1 - create a 16x16 version of the transcoded Radiance logo
+        val base = radiance_menu.of(16, 16)
+        // Step 2 - apply color filter
+        base.setColorFilter { colorTokens.baseContainerTokens.onContainer }
+        // Step 3 - good to go
+        return base
+    }
+
     fun getLogoImage(comp: Component, scheme: RadianceColorScheme): BufferedImage {
         return getLogoIcon(scheme).toImage(RadianceCommonCortex.getScaleFactor(comp))
     }
 
+    fun getLogoImage(comp: Component, colorTokens: ExtendedContainerColorTokens): BufferedImage {
+        return getLogoIcon(colorTokens).toImage(RadianceCommonCortex.getScaleFactor(comp))
+    }
+
     fun getTitlePaneLogoImage(comp: Component): BufferedImage {
         return getLogoImage(comp, RadianceThemingCortex.GlobalScope.getCurrentSkin()!!
-                .getEnabledColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE))
+            .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE))
     }
 }

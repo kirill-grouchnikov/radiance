@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.SkinTonalUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.SkinUtilities;
 
 import javax.swing.*;
@@ -458,7 +459,11 @@ public abstract class RadianceSkin implements RadianceTrait {
             return;
         }
 
-        SkinUtilities.addCustomEntriesToTable(table, this);
+        if (this instanceof TonalSkin) {
+            SkinTonalUtilities.addCustomEntriesToTable(table, this);
+        } else {
+            SkinUtilities.addCustomEntriesToTable(table, this);
+        }
     }
 
     /**
@@ -828,6 +833,15 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
             .getMainColorScheme().getActiveContainerTokens();
+    }
+
+    public final ContainerColorTokens getMutedContainerTokens(
+        RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getMutedContainerTokens();
+        }
+        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getMainColorScheme().getMutedContainerTokens();
     }
 
     public final ContainerColorTokens getNeutralContainerTokens(
@@ -1277,8 +1291,14 @@ public abstract class RadianceSkin implements RadianceTrait {
      * otherwise.
      */
     public boolean isValid() {
-        if (!this.colorSchemeBundleMap.containsKey(RadianceThemingSlices.DecorationAreaType.NONE)) {
-            return false;
+        if (this instanceof TonalSkin) {
+            if (!this.tonalColorSchemeMap.containsKey(RadianceThemingSlices.DecorationAreaType.NONE)) {
+                return false;
+            }
+        } else {
+            if (!this.colorSchemeBundleMap.containsKey(RadianceThemingSlices.DecorationAreaType.NONE)) {
+                return false;
+            }
         }
         if (this.getButtonShaper() == null) {
             return false;

@@ -45,12 +45,11 @@ import org.pushingpixels.radiance.theming.api.skin.SkinChangeListener;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.tabbed.BaseTabCloseListener;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
-import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
-import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.RadiancePluginRepository;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
+import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -151,8 +150,10 @@ public class RadianceThemingCortex {
                 throw new IllegalStateException("This method must be called on the Event Dispatch Thread");
             }
 
-            if (!newSkin.isValid())
+            if (!newSkin.isValid()) {
+                System.out.println("Skin is invalid");
                 return false;
+            }
 
             boolean isRadiance = (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel);
             if (!isRadiance) {

@@ -36,6 +36,7 @@ dependencies {
     implementation libs.kotlin.coroutines.swing
     implementation libs.jgoodies.common
     implementation libs.jgoodies.forms
+    implementation libs.ephemeral.chroma
     implementation project(':common')
     implementation project(':theming')
     implementation project(':theming-extras')

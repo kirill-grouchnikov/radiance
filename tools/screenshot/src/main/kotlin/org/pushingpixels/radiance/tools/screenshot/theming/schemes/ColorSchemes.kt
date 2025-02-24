@@ -29,44 +29,32 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
-import org.pushingpixels.radiance.theming.api.colorscheme.*
-import java.awt.Color
+import org.pushingpixels.radiance.theming.api.colorscheme.TonalPaletteSeeds
 
-private val radianceColorSchemes = listOf(
-    AquaColorScheme(),
-    BarbyPinkColorScheme(),
-    BottleGreenColorScheme(),
-    BrownColorScheme(),
-    CharcoalColorScheme(),
-    CremeColorScheme(),
-    DarkVioletColorScheme(),
-    DesertSandColorScheme(),
-    EbonyColorScheme(),
-    JadeForestColorScheme(),
-    LightAquaColorScheme(),
-    LimeGreenColorScheme(),
-    OliveColorScheme(),
-    OrangeColorScheme(),
-    PurpleColorScheme(),
-    RaspberryColorScheme(),
-    SepiaColorScheme(),
-    SteelBlueColorScheme(),
-    SunGlareColorScheme(),
-    SunsetColorScheme(),
-    TerracottaColorScheme(),
-    UltramarineColorScheme(),
-    PurpleColorScheme().saturate(-0.4).named("Derived Desaturate"),
-    PurpleColorScheme().saturate(0.4).named("Derived Saturate"),
-    PurpleColorScheme().hueShift(0.4).named("Derived HueShift"),
-    PurpleColorScheme().shade(0.4).named("Derived Shaded"),
-    PurpleColorScheme().tint(0.4).named("Derived Tinted"),
-    PurpleColorScheme().tone(0.4).named("Derived Toned"),
-    PurpleColorScheme().invert().named("Derived Invert"),
-    PurpleColorScheme().negate().named("Derived Negate"),
-    PurpleColorScheme()
-        .shiftBackground(Color(255, 128, 128), 0.8).named("Derived ShiftedBackground"),
-    PurpleColorScheme()
-        .shift(Color(128, 255, 128), 0.8, Color(128, 0, 0), 0.7).named("Derived Shifted")
+private val radianceLightColors = mapOf(
+    "Aqua" to TonalPaletteSeeds.AQUA,
+    "Barby Pink" to TonalPaletteSeeds.BARBY_PINK,
+    "Brown" to TonalPaletteSeeds.BROWN,
+    "Desert Sand" to TonalPaletteSeeds.DESERT_SAND,
+    "Lime Green" to TonalPaletteSeeds.LIME_GREEN,
+    "Olive" to TonalPaletteSeeds.OLIVE,
+    "Orange" to TonalPaletteSeeds.ORANGE,
+    "Purple" to TonalPaletteSeeds.PURPLE,
+    "Sepia" to TonalPaletteSeeds.SEPIA,
+    "Steel Blue" to TonalPaletteSeeds.STEEL_BLUE,
+    "Sun Glare" to TonalPaletteSeeds.SUN_GLARE,
+    "Sunset" to TonalPaletteSeeds.SUNSET,
+)
+
+private val radianceDarkColors = mapOf(
+    "Bottle Green" to TonalPaletteSeeds.BOTTLE_GREEN,
+    "Charcoal" to TonalPaletteSeeds.CHARCOAL,
+    "Jade Forest" to TonalPaletteSeeds.JADE_FOREST,
+    "Raspberry" to TonalPaletteSeeds.RASPBERRY,
+    "Sunset" to TonalPaletteSeeds.SUNSET,
+    "Terracotta" to TonalPaletteSeeds.TERRACOTTA,
+    "Ultramarine" to TonalPaletteSeeds.ULTRAMARINE,
+    "Violet" to TonalPaletteSeeds.VIOLET,
 )
 
 /**
@@ -74,6 +62,7 @@ private val radianceColorSchemes = listOf(
  *
  * @author Kirill Grouchnikov
  */
-class All : ColorSchemeRobot(radianceColorSchemes, "theming/colorschemes", "Radiance")
+class AllLight : LightColorSchemeRobot(radianceLightColors, "theming/colorschemes", "Radiance")
+class AllDark : DarkColorSchemeRobot(radianceDarkColors, "theming/colorschemes", "Radiance")
 
-class EphemeralAll : ColorSchemeRobot(radianceColorSchemes, "theming/colorschemes", "Ephemeral")
+//class EphemeralAll : ColorSchemeRobot(radianceColorSchemes, "theming/colorschemes", "Ephemeral")

@@ -29,72 +29,82 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
-import org.pushingpixels.radiance.theming.api.ComponentState
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
+import org.pushingpixels.ephemeral.chroma.hct.Hct
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery
-import org.pushingpixels.radiance.theming.api.colorscheme.DarkMetallicColorScheme
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery
+import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter
+import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
+import java.awt.Color
 
 /**
  * The default dark skin for the skin screenshot scripts.
  *
  * @author Kirill Grouchnikov
  */
-class RobotDefaultDarkSkin(accentColorScheme: RadianceColorScheme) :
-        RadianceSkin.Accented(AccentBuilder()
-                .withActiveControlsAccent(accentColorScheme)
-                .withWindowChromeAccent(accentColorScheme)) {
+class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
+    RadianceSkin.TonalAccented(AccentBuilder()
+        .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
+                Hct.fromInt(accentColor.rgb), 30.0, 20.0),
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+            /* isDark */ true))
+        .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
+                Hct.fromInt(accentColor.rgb), 30.0, 20.0),
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+            /* isDark */ true))) {
 
     init {
         val bottomLineOverlayPainter =
-            BottomLineOverlayPainter(
-                ColorSchemeSingleColorQuery.MID
-            )
+            BottomLineTonalOverlayPainter(ContainerColorTokens::getContainerOutline)
         this.addOverlayPainter(bottomLineOverlayPainter,
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
 
         this.buttonShaper = ClassicButtonShaper()
-        this.fillPainter = SpecularRectangularFillPainter(ClassicFillPainter(), 1.0f)
-        this.borderPainter = ClassicBorderPainter()
+        this.fillPainter = SpecularRectangularFillPainter(ClassicTonalFillPainter(), 1.0f)
+        this.borderPainter = CompositeBorderPainter(
+            "Mariner",
+            FlatTonalBorderPainter(),
+            FractionBasedTonalBorderPainter(
+                "Mariner Inner",
+                floatArrayOf(0.0f, 1.0f),
+                intArrayOf(96, 96),
+                arrayOf<ContainerColorTokensSingleColorQuery>(
+                    ContainerColorTokensSingleColorQuery { it.getComplementaryContainerOutline() },
+                    ContainerColorTokensSingleColorQuery { it.getComplementaryContainerOutline() }
+                )))
 
         val decorationPainter = MarbleNoiseDecorationPainter()
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())
         decorationPainter.setTextureAlpha(0.3f)
         this.decorationPainter = decorationPainter
 
-        this.highlightFillPainter = ClassicFillPainter()
-        this.borderPainter = ClassicBorderPainter()
+        this.highlightFillPainter = ClassicTonalFillPainter()
 
-        val inactiveScheme = this.activeControlsAccent.blendWith(DarkMetallicColorScheme(), 0.6)
-        val defaultSchemeBundle =
-            RadianceColorSchemeBundle(
-                this.activeControlsAccent, inactiveScheme, inactiveScheme
-            )
-        defaultSchemeBundle.registerAlpha(0.5f,
-                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
-        defaultSchemeBundle.registerColorScheme(inactiveScheme,
-                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
+        val defaultSchemeBundle = RadianceColorSchemeBundle2(this.defaultAreaColorScheme)
+        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
+            RadianceThemingSlices.DecorationAreaType.NONE)
 
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, RadianceThemingSlices.DecorationAreaType.NONE)
-
-        this.registerAsDecorationArea(this.windowChromeAccent,
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.HEADER)
+        this.registerAsDecorationArea(this.headerAreaColorScheme.extendedTonalContainerTokens,
+            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.HEADER)
     }
 
     override fun getDisplayName(): String {
-        return this.activeControlsAccent.displayName
+        return name
     }
 }
