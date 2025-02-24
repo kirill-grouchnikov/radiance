@@ -29,10 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.internal.widget.scroll;
 
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -215,16 +218,28 @@ public class AutoScrollActivator {
 
     private Icon getAutoScrollIcon() {
         RadianceIconPack iconPack = RadianceThemingCortex.GlobalScope.getIconPack();
-        RadianceColorScheme colorScheme = RadianceCoreUtilities.getSkin(scrollPane)
-                .getEnabledColorScheme(DecorationAreaType.NONE);
-        if (scrollPane.getHorizontalScrollBar().isVisible()) {
-            if (scrollPane.getVerticalScrollBar().isVisible()) {
-                return iconPack.getScrollAllIcon(SCROLL_ICON_SIZE, colorScheme);
-            } else {
-                return iconPack.getScrollHorizontalIcon(SCROLL_ICON_SIZE, colorScheme);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(scrollPane);
+        if (skin instanceof TonalSkin) {
+            ContainerColorTokens tokens = skin.getMutedContainerTokens(DecorationAreaType.NONE);
+            if (scrollPane.getHorizontalScrollBar().isVisible()) {
+                if (scrollPane.getVerticalScrollBar().isVisible()) {
+                    return iconPack.getScrollAllIcon(SCROLL_ICON_SIZE, tokens);
+                } else {
+                    return iconPack.getScrollHorizontalIcon(SCROLL_ICON_SIZE, tokens);
+                }
             }
+            return iconPack.getScrollVerticalIcon(SCROLL_ICON_SIZE, tokens);
+        } else {
+            RadianceColorScheme colorScheme = skin.getEnabledColorScheme(DecorationAreaType.NONE);
+            if (scrollPane.getHorizontalScrollBar().isVisible()) {
+                if (scrollPane.getVerticalScrollBar().isVisible()) {
+                    return iconPack.getScrollAllIcon(SCROLL_ICON_SIZE, colorScheme);
+                } else {
+                    return iconPack.getScrollHorizontalIcon(SCROLL_ICON_SIZE, colorScheme);
+                }
+            }
+            return iconPack.getScrollVerticalIcon(SCROLL_ICON_SIZE, colorScheme);
         }
-        return iconPack.getScrollVerticalIcon(SCROLL_ICON_SIZE, colorScheme);
     }
 
     static void setAutoScrollEnabled(final JScrollPane scrollPane, boolean isEnabled) {
