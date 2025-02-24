@@ -33,9 +33,14 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.BasicRibbonApplicationMenuPopupPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
@@ -89,15 +94,23 @@ public class RadianceRibbonApplicationMenuPopupPanelUI
                 graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, c.getWidth(), c.getHeight(),
-                        (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                        RadianceSkin skin = RadianceCoreUtilities.getSkin(applicationMenuPopupPanel);
+                        if (skin instanceof TonalSkin) {
+                            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                                applicationMenuPopupPanel, ComponentState.ENABLED,
+                                RadianceThemingSlices.ContainerType.NEUTRAL);
+                            graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
+                        } else {
                             RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
-                                    applicationMenuPopupPanel, ColorSchemeAssociationKind.BORDER,
-                                    ComponentState.ENABLED);
+                                applicationMenuPopupPanel, ColorSchemeAssociationKind.BORDER,
+                                ComponentState.ENABLED);
                             graphics1X.setColor(scheme.getMidColor());
-                            boolean ltr = applicationMenuPopupPanel.getComponentOrientation().isLeftToRight();
-                            int lineX = ltr ? 1 : scaledWidth - 2;
-                            graphics1X.drawLine(lineX, 1, lineX, scaledHeight - 2);
-                        });
+                        }
+                        boolean ltr = applicationMenuPopupPanel.getComponentOrientation().isLeftToRight();
+                        int lineX = ltr ? 1 : scaledWidth - 2;
+                        graphics1X.drawLine(lineX, 1, lineX, scaledHeight - 2);
+                    });
                 graphics.dispose();
             }
         }));
