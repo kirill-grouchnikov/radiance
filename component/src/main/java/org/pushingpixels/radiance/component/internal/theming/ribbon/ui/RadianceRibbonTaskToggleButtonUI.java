@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.radiance.component.internal.theming.utils.RibbonTaskToggleButtonBackgroundDelegate;
+import org.pushingpixels.radiance.component.internal.theming.utils.RibbonTaskToggleButtonTonalBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonTaskToggleButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -44,6 +45,9 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -85,12 +89,14 @@ public class RadianceRibbonTaskToggleButtonUI extends
      * Painting delegate.
      */
     private RibbonTaskToggleButtonBackgroundDelegate delegate;
+    private RibbonTaskToggleButtonTonalBackgroundDelegate tonalDelegate;
 
     /**
      * Simple constructor.
      */
     private RadianceRibbonTaskToggleButtonUI() {
         this.delegate = new RibbonTaskToggleButtonBackgroundDelegate();
+        this.tonalDelegate = new RibbonTaskToggleButtonTonalBackgroundDelegate();
     }
 
     @Override
@@ -161,7 +167,13 @@ public class RadianceRibbonTaskToggleButtonUI extends
         this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        this.delegate.updateTaskToggleButtonBackground(g2d, (JRibbonTaskToggleButton) this.commandButton);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.commandButton);
+        if (skin instanceof TonalSkin) {
+            this.tonalDelegate.updateTaskToggleButtonBackground(g2d,
+                (JRibbonTaskToggleButton) this.commandButton);
+        } else {
+            this.delegate.updateTaskToggleButtonBackground(g2d, (JRibbonTaskToggleButton) this.commandButton);
+        }
         this.paintTextAndFocus(g2d);
         g2d.dispose();
     }
@@ -210,16 +222,29 @@ public class RadianceRibbonTaskToggleButtonUI extends
         StateTransitionTracker.ModelStateInfo modelStateInfo = this.radianceVisualStateTracker
                 .getActionStateTransitionTracker().getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
-        float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.commandButton);
+        Color fgColor;
+        if (skin instanceof TonalSkin) {
+            fgColor = getTonalForegroundColor(this.commandButton, modelStateInfo);
+            if (currState.isDisabled()) {
+                float alpha = RadianceColorSchemeUtilities.getContainerTokens(
+                        this.commandButton, currState, RadianceThemingSlices.ContainerType.NEUTRAL)
+                    .getOnContainerDisabledAlpha();
+                fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
+                    (int) (fgColor.getAlpha() * alpha));
+            }
+        } else {
+            fgColor = getForegroundColor(this.commandButton, modelStateInfo);
+            float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(
                 this.commandButton, currState);
 
-        Color fgColor = getForegroundColor(this.commandButton, modelStateInfo);
-
-        if (buttonAlpha < 1.0f) {
-            Color bgFillColor = RadianceColorUtilities
+            if (buttonAlpha < 1.0f) {
+                Color bgFillColor = RadianceColorUtilities
                     .getBackgroundFillColor(this.commandButton);
-            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor,
+                fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor,
                     bgFillColor, buttonAlpha);
+            }
         }
 
         RadianceTextUtilities.paintText(g, textRect, toPaint, -1, this.commandButton.getFont(), fgColor, null);
@@ -299,6 +324,63 @@ public class RadianceRibbonTaskToggleButtonUI extends
             Color activeForeground = correspondsToParentFill
                     ? parentFillScheme.getForegroundColor()
                     : activeColorScheme.getForegroundColor();
+
+//            System.out.println("\t" + activeState + " at alpha " + alpha + " from " +
+//                    (correspondsToParentFill ? parentFillScheme :
+//                            activeColorScheme).getDisplayName()
+//                    + "[" + correspondsToParentFill + "] contributes color " +
+//                    activeForeground);
+            aggrRed += alpha * activeForeground.getRed();
+            aggrGreen += alpha * activeForeground.getGreen();
+            aggrBlue += alpha * activeForeground.getBlue();
+        }
+        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
+    }
+
+    private static Color getTonalForegroundColor(JCommandButton button,
+        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        ComponentState currStateIgnoreSelection =
+            ComponentState.getState(button.getActionModel(), button, true);
+        ComponentState currState = ComponentState.getState(button.getActionModel(), button, false);
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+            modelStateInfo.getStateNoSelectionContributionMap();
+
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            button, currStateIgnoreSelection, RadianceThemingSlices.ContainerType.MUTED);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+        RadianceThemingSlices.DecorationAreaType parentDecorationAreaType =
+            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button.getParent());
+        ExtendedContainerColorTokens parentTokens =
+            skin.getBackgroundExtendedContainerTokens(parentDecorationAreaType);
+
+        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+            ContainerColorTokens tokensForCurrState = (currState == ComponentState.ENABLED)
+                ? parentTokens.getBaseContainerTokens() : tokens;
+//            System.out.println("For " + button.getText() + " state is " + currState +
+//                    " and scheme is " + schemeForCurrState.getDisplayName() +
+//                    " -> " + schemeForCurrState.getForegroundColor());
+            return tokensForCurrState.getOnContainer();
+        }
+
+        float aggrRed = 0;
+        float aggrGreen = 0;
+        float aggrBlue = 0;
+//        System.out.println(
+//                "For " + button.getText() + " in " + currState + ":" + currStateIgnoreSelection);
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+            activeStates.entrySet()) {
+            ComponentState activeState = activeEntry.getKey();
+            float alpha = activeEntry.getValue().getContribution();
+
+            boolean correspondsToParentFill = (activeState == ComponentState.ENABLED) &&
+                !button.getActionModel().isSelected();
+            ContainerColorTokens activeTokens =
+                RadianceColorSchemeUtilities.getContainerTokens(button,
+                    activeState, RadianceThemingSlices.ContainerType.MUTED);
+            //System.out.println("\t" + activeState + " : " + currState);
+            Color activeForeground = correspondsToParentFill
+                ? parentTokens.getBaseContainerTokens().getOnContainer()
+                : activeTokens.getOnContainer();
 
 //            System.out.println("\t" + activeState + " at alpha " + alpha + " from " +
 //                    (correspondsToParentFill ? parentFillScheme :

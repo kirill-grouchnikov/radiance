@@ -964,6 +964,8 @@ public class ColorSchemeUtils {
      */
     private final static LazyResettableHashMap<ContainerColorTokens> blendedCache =
         new LazyResettableHashMap<>("ColorSchemeUtils.blendedTokens");
+    private final static LazyResettableHashMap<ExtendedContainerColorTokens> blendedExtendedCache =
+        new LazyResettableHashMap<>("ColorSchemeUtils.blendedExtendedTokens");
 
     public static ContainerColorTokens getColorizedTokens(Component component,
         ContainerColorTokens tokens, boolean isEnabled) {
@@ -1169,6 +1171,75 @@ public class ColorSchemeUtils {
             @Override
             public Color getComplementaryContainerOutline() {
                 return complementaryContainerOutline;
+            }
+        };
+    }
+
+    public static ExtendedContainerColorTokens getBlendedTokens(ExtendedContainerColorTokens original,
+        Color backgroundShiftColor, double backgroundShiftFactor, Color foregroundShiftColor,
+        double foregroundShiftFactor) {
+        HashMapKey key = RadianceCoreUtilities.getHashKey(original,
+            backgroundShiftColor == null ? "" : backgroundShiftColor.getRGB(),
+            backgroundShiftFactor,
+            foregroundShiftColor == null ? "" : foregroundShiftColor.getRGB(),
+            foregroundShiftFactor);
+        ExtendedContainerColorTokens result = blendedExtendedCache.get(key);
+        if (result == null) {
+            result = blendTowards(original, backgroundShiftColor, backgroundShiftFactor,
+                foregroundShiftColor, foregroundShiftFactor);
+            blendedExtendedCache.put(key, result);
+        }
+        return result;
+    }
+
+    private static ExtendedContainerColorTokens blendTowards(ExtendedContainerColorTokens original,
+        Color backgroundShiftColor, double backgroundShiftFactor, Color foregroundShiftColor,
+        double foregroundShiftFactor) {
+
+        Color surface = (backgroundShiftColor == null)
+            ? original.getSurface()
+            : new Color(Blend.harmonizeAll(original.getSurface().getRGB(),
+            backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color surfaceDim = (backgroundShiftColor == null)
+            ? original.getSurfaceDim()
+            : new Color(Blend.harmonizeAll(original.getSurfaceDim().getRGB(),
+            backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color surfaceBright = (backgroundShiftColor == null)
+            ? original.getSurfaceBright()
+            : new Color(Blend.harmonizeAll(original.getSurfaceBright().getRGB(),
+            backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color inverseSurface = (backgroundShiftColor == null)
+            ? original.getInverseSurface()
+            : new Color(Blend.harmonizeAll(original.getInverseSurface().getRGB(),
+            backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        ContainerColorTokens rest = blendTowards(original.getBaseContainerTokens(),
+            backgroundShiftColor, backgroundShiftFactor,
+            foregroundShiftColor, foregroundShiftFactor);
+
+        return new ExtendedContainerColorTokens() {
+            @Override
+            public Color getSurface() {
+                return surface;
+            }
+
+            @Override
+            public Color getSurfaceDim() {
+                return surfaceDim;
+            }
+
+            @Override
+            public Color getSurfaceBright() {
+                return surfaceBright;
+            }
+
+            @Override
+            public Color getInverseSurface() {
+                return inverseSurface;
+            }
+
+            @Override
+            public ContainerColorTokens getBaseContainerTokens() {
+                return rest;
             }
         };
     }
