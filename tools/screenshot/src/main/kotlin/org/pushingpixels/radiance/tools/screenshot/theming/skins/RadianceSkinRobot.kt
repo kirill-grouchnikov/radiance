@@ -36,10 +36,8 @@ import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.demo.theming.main.check.SampleFrame
-import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin
 import org.pushingpixels.radiance.tools.common.RadianceLogo
@@ -75,12 +73,8 @@ abstract class RadianceSkinRobot(
             frame = SampleFrame(frameTitle, useMutedToolbarIcons)
             frame.iconImage = RadianceLogo.getLogoImage(
                 frame,
-                RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
-                    DecorationAreaType.PRIMARY_TITLE_PANE,
-                    RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                    ComponentState.ENABLED
-                )
-            )
+                RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.rootPane)
+                    .getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE))
             frame.setSize(340, 258)
             frame.setLocationRelativeTo(null)
             frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
@@ -112,11 +106,7 @@ abstract class RadianceSkinRobot(
                 RadianceThemingCortex.GlobalScope.setSkin(skin)
                 frame.iconImage = RadianceLogo.getLogoImage(
                     frame,
-                    skin.getColorScheme(
-                        DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED
-                    )
+                    skin.getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)
                 )
             }
 
