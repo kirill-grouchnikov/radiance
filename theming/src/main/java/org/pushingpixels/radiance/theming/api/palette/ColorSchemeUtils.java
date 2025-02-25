@@ -34,6 +34,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -381,6 +382,40 @@ public class ColorSchemeUtils {
                 .setPrimarySourceTone(this.primarySeed.getTone())
                 .setMutedSourceTone(this.mutedSeed.getTone())
                 .setNeutralSourceTone(this.neutralSeed.getTone())
+                .build();
+        }
+    }
+
+    public static class FidelityDirectPaletteSource implements PalettesSource {
+        private BaseTonalPalette primaryPalette;
+        private BaseTonalPalette mutedPalette;
+        private BaseTonalPalette neutralPalette;
+        private double primarySourceTone;
+        private double mutedSourceTone;
+        private double neutralSourceTone;
+
+        public FidelityDirectPaletteSource(BaseTonalPalette primaryPalette,
+            BaseTonalPalette mutedPalette, BaseTonalPalette neutralPalette,
+            double primarySourceTone, double mutedSourceTone, double neutralSourceTone) {
+
+            this.primaryPalette = primaryPalette;
+            this.mutedPalette = mutedPalette;
+            this.neutralPalette = neutralPalette;
+            this.primarySourceTone = primarySourceTone;
+            this.mutedSourceTone = mutedSourceTone;
+            this.neutralSourceTone = neutralSourceTone;
+        }
+
+        @Override
+        public Palettes getPalettes() {
+            return Palettes.builder()
+                .setFidelity(true)
+                .setPrimaryPalette(this.primaryPalette)
+                .setMutedPalette(this.mutedPalette)
+                .setNeutralPalette(this.neutralPalette)
+                .setPrimarySourceTone(this.primarySourceTone)
+                .setMutedSourceTone(this.mutedSourceTone)
+                .setNeutralSourceTone(this.neutralSourceTone)
                 .build();
         }
     }

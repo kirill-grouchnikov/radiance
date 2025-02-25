@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.palette;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
-import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 
 public class Palettes {
     private boolean isFidelity;
@@ -121,9 +120,9 @@ public class Palettes {
 
     public static class Builder {
         private boolean isFidelity;
-        private TonalPalette primaryPalette;
-        private TonalPalette mutedPalette;
-        private TonalPalette neutralPalette;
+        private BaseTonalPalette primaryPalette;
+        private BaseTonalPalette mutedPalette;
+        private BaseTonalPalette neutralPalette;
         private double primarySourceTone;
         private double mutedSourceTone;
         private double neutralSourceTone;
@@ -140,17 +139,17 @@ public class Palettes {
             return this;
         }
 
-        public Builder setPrimaryPalette(TonalPalette primaryPalette) {
+        public Builder setPrimaryPalette(BaseTonalPalette primaryPalette) {
             this.primaryPalette = primaryPalette;
             return this;
         }
 
-        public Builder setMutedPalette(TonalPalette mutedPalette) {
+        public Builder setMutedPalette(BaseTonalPalette mutedPalette) {
             this.mutedPalette = mutedPalette;
             return this;
         }
 
-        public Builder setNeutralPalette(TonalPalette neutralPalette) {
+        public Builder setNeutralPalette(BaseTonalPalette neutralPalette) {
             this.neutralPalette = neutralPalette;
             return this;
         }
