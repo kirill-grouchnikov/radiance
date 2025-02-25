@@ -48,7 +48,7 @@ import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class MistAccentedSkin extends RadianceSkin.TonalAccented {
+public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Creates a new accented <code>Mist</code> skin.
 	 */

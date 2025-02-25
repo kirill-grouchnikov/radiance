@@ -53,7 +53,7 @@ import java.awt.Color
  * @author Kirill Grouchnikov
  */
 class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
-    RadianceSkin.TonalAccented(AccentBuilder()
+    RadianceSkin.Accented(AccentBuilder()
         .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
             /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
                 Hct.fromInt(accentColor.rgb), 30.0, 20.0),

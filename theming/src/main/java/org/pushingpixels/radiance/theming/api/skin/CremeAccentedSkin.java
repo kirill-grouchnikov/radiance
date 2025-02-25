@@ -54,7 +54,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class CremeAccentedSkin extends RadianceSkin.TonalAccented {
+public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Creates a new accented <code>Creme</code> skin.
 	 */

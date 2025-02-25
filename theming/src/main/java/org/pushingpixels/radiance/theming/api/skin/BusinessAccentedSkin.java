@@ -51,7 +51,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class BusinessAccentedSkin extends RadianceSkin.TonalAccented {
+public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Creates a new accented <code>Business</code> skin.
 	 */
