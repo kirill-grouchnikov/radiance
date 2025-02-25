@@ -40,13 +40,11 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPai
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.SkinTonalUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.SkinUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
@@ -1197,36 +1195,5 @@ public abstract class RadianceSkin implements RadianceTrait {
             return false;
         }
         return true;
-    }
-
-    public interface ColorSchemes {
-        /**
-         * Returns all the color schemes handled by this object.
-         *
-         * @return All the color schemes handled by this object.
-         */
-        Collection<RadianceColorScheme> getAll();
-
-        /**
-         * Returns the color scheme based on its display name.
-         *
-         * @param displayName Display name of a color scheme.
-         * @return The color scheme with the matching display name.
-         */
-        RadianceColorScheme get(String displayName);
-    }
-
-    /**
-     * Returns the collection of color schemes in the specified input stream.
-     *
-     * @param inputStream Input stream for the resource containing the description of
-     *                    Radiance color schemes.
-     * @return The collection of color schemes in the specified input stream.
-     */
-    public static ColorSchemes getColorSchemes(InputStream inputStream) {
-        if (inputStream == null) {
-            throw new IllegalArgumentException("Can't read color schemes from a null stream");
-        }
-        return RadianceColorSchemeUtilities.getColorSchemes(inputStream);
     }
 }
