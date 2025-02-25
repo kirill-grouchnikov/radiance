@@ -30,6 +30,10 @@
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct
+import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette
+import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette.TransitionRangeFidelityLight
+import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette
+import org.pushingpixels.ephemeral.chroma.utils.MathUtils
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
@@ -40,27 +44,21 @@ import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPaint
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils.FidelityDirectPaletteSource
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
 /**
- * The default light skin for the skin screenshot scripts.
+ * The bimodal light skin for the skin screenshot scripts.
  *
  * @author Kirill Grouchnikov
  */
-class RobotDefaultSkin(accentColor: Color, val name: String) :
+class RobotBimodalLightSkin(accentColor: Color, val name: String) :
         RadianceSkin.Accented(AccentBuilder()
-            .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
-                    Hct.fromInt(accentColor.rgb), 3.0, 1.0),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false))
-            .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
-                    Hct.fromInt(accentColor.rgb), 3.0, 1.0),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false))) {
+            .withDefaultAreaColorScheme(getColorScheme(accentColor))
+            .withHeaderAreaColorScheme(getColorScheme(accentColor))) {
 
     init {
         val bottomLineOverlayPainter =
@@ -94,4 +92,30 @@ class RobotDefaultSkin(accentColor: Color, val name: String) :
     override fun getDisplayName(): String {
         return name
     }
+}
+
+private fun getColorScheme(accentColor: Color): RadianceColorScheme2 {
+    val primarySeed = Hct.fromInt(accentColor.rgb)
+    val primaryHue = primarySeed.hue
+    val hue1 = MathUtils.sanitizeDegreesDouble(primaryHue + 30.0)
+    val hue2 = MathUtils.sanitizeDegreesDouble(primaryHue - 30.0)
+    val primaryTone = primarySeed.tone
+
+    val mutedSeed = Hct.fromInt(Color(204, 210, 215).rgb);
+    val neutralSeed = Hct.fromInt(Color(240, 245, 249).rgb);
+
+    val primaryPalette = BimodalTonalPalette.from(
+        /* hct1 */ Hct.from(hue1, primarySeed.chroma, primaryTone),
+        /* hct2 */ Hct.from(hue2, primarySeed.chroma, primaryTone),
+        /* transitionRange */ TransitionRangeFidelityLight(primaryTone)
+    )
+    val mutedPalette = TonalPalette.fromHct(mutedSeed)
+    val neutralPalette = TonalPalette.fromHct(neutralSeed)
+
+    return ColorSchemeUtils.getColorScheme(
+        /* palettesSource */ FidelityDirectPaletteSource(
+            primaryPalette, mutedPalette, neutralPalette,
+            primaryTone, mutedSeed.tone, neutralSeed.tone),
+        /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+        /* isDark */ false)
 }

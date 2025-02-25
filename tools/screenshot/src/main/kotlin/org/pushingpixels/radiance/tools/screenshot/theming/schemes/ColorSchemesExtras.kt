@@ -58,5 +58,5 @@ private val radianceDarkColors = mapOf(
     "Turquoise Lake" to TonalPaletteExtrasSeeds.TURQUOISE_LAKE,
 )
 
-class AllExtrasLight : LightColorSchemeRobot(radianceLightColors, "theming-extras/colorschemes", "Radiance")
+class AllExtrasLight : LightBimodalColorSchemeRobot(radianceLightColors, "theming-extras/colorschemes", "Radiance")
 class AllExtrasDark : DarkColorSchemeRobot(radianceDarkColors, "theming-extras/colorschemes", "Radiance")

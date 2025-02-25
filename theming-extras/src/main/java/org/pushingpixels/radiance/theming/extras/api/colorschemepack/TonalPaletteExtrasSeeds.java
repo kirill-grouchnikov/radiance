@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.extras.api.colorschemepack;
 import java.awt.*;
 
 public class TonalPaletteExtrasSeeds {
-    public static final Color BELIZE = new Color(123, 204, 196);
+    public static final Color BELIZE = new Color(168, 221, 181);
     public static final Color BLOODY_MOON = new Color(251, 106, 74);
     public static final Color BLUE_YONDER = new Color(116, 169, 207);
     public static final Color BRICK_WALL = new Color(252, 141, 89);

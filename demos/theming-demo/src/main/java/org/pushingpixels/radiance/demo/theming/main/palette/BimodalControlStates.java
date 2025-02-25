@@ -98,8 +98,8 @@ public class BimodalControlStates extends JFrame {
                 /* hct1 */ Hct.from(hue1, primarySeed.getChroma(), primaryTone),
                 /* hct2 */ Hct.from(hue2, primarySeed.getChroma(), primaryTone),
                 /* transitionRange */ new BimodalTonalPalette.TransitionRangeFidelityLight(primaryTone));
-            TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(secondaryHue, 20.0);
-            TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(secondaryHue, 12.0);
+            TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(secondaryHue, 6.0);
+            TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(secondaryHue, 4.0);
 
             RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityDirectPaletteSource(

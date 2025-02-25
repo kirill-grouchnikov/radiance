@@ -177,7 +177,16 @@ abstract class LightColorSchemeRobot(
     screenshotSubfolder: String,
     frameTitle: String) :
     BaseColorSchemeRobot(
-        skins = accents.map { RobotDefaultSkin(it.value, it.key) },
+        skins = accents.map { RobotDefaultLightSkin(it.value, it.key) },
+        screenshotSubfolder = screenshotSubfolder,
+        frameTitle = frameTitle)
+
+abstract class LightBimodalColorSchemeRobot(
+    accents: Map<String, Color>,
+    screenshotSubfolder: String,
+    frameTitle: String) :
+    BaseColorSchemeRobot(
+        skins = accents.map { RobotBimodalLightSkin(it.value, it.key) },
         screenshotSubfolder = screenshotSubfolder,
         frameTitle = frameTitle)
 
