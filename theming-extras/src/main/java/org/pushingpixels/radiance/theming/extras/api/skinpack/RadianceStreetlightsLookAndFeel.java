@@ -53,10 +53,4 @@ public class RadianceStreetlightsLookAndFeel extends RadianceLookAndFeel {
     public RadianceStreetlightsLookAndFeel() {
         super(new StreetlightsSkin());
     }
-
-    public static class RadianceStreetlightsTonalLookAndFeel extends RadianceLookAndFeel {
-        public RadianceStreetlightsTonalLookAndFeel() {
-            super(new StreetlightsSkin.StreetlightsTonalSkin());
-        }
-    }
 }

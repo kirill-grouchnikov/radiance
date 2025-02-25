@@ -52,10 +52,4 @@ public class RadianceOfficeBlack2007LookAndFeel extends RadianceLookAndFeel {
 	public RadianceOfficeBlack2007LookAndFeel() {
 		super(new OfficeBlack2007Skin());
 	}
-
-	public static class RadianceOfficeBlack2007TonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceOfficeBlack2007TonalLookAndFeel() {
-			super(new OfficeBlack2007Skin.OfficeBlack2007TonalSkin());
-		}
-	}
 }

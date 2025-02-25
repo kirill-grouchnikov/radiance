@@ -60,28 +60,6 @@ public class RadianceThemingExtrasSkinPlugin implements RadianceThemingSkinPlugi
         result.add(new SkinInfo(OfficeSilver2007Skin.NAME, OfficeSilver2007Skin.class::getName,
                 RadianceOfficeSilver2007LookAndFeel.class::getName));
 
-        result.add(new SkinInfo(OfficeSilver2007Skin.OfficeSilver2007TonalSkin.NAME,
-            OfficeSilver2007Skin.OfficeSilver2007TonalSkin.class::getName,
-            RadianceOfficeSilver2007LookAndFeel.RadianceOfficeSilver2007TonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(OfficeBlue2007Skin.OfficeBlue2007TonalSkin.NAME,
-            OfficeBlue2007Skin.OfficeBlue2007TonalSkin.class::getName,
-            RadianceOfficeBlue2007LookAndFeel.RadianceOfficeBlue2007TonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(OfficeBlack2007Skin.OfficeBlack2007TonalSkin.NAME,
-            OfficeBlack2007Skin.OfficeBlack2007TonalSkin.class::getName,
-            RadianceOfficeBlack2007LookAndFeel.RadianceOfficeBlack2007TonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(HarvestSkin.HarvestTonalSkin.NAME,
-            HarvestSkin.HarvestTonalSkin.class::getName,
-            RadianceHarvestLookAndFeel.RadianceHarvestTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(MagmaSkin.MagmaTonalSkin.NAME,
-            MagmaSkin.MagmaTonalSkin.class::getName,
-            RadianceMagmaLookAndFeel.RadianceMagmaTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(StreetlightsSkin.StreetlightsTonalSkin.NAME,
-            StreetlightsSkin.StreetlightsTonalSkin.class::getName,
-            RadianceStreetlightsLookAndFeel.RadianceStreetlightsTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(FieldOfWheatSkin.FieldOfWheatTonalSkin.NAME,
-            FieldOfWheatSkin.FieldOfWheatTonalSkin.class::getName,
-            RadianceFieldOfWheatLookAndFeel.RadianceFieldOfWheatTonalLookAndFeel.class::getName));
-
         return result;
     }
 }

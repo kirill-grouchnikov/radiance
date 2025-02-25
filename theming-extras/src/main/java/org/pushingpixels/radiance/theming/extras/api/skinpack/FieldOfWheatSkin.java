@@ -30,13 +30,17 @@
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.*;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
@@ -48,129 +52,75 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public class FieldOfWheatSkin extends RadianceSkin {
+public class FieldOfWheatSkin extends RadianceSkin implements TonalSkin {
     /**
      * Display name for <code>this</code> skin.
      */
     public static final String NAME = "Field of Wheat";
-
-    /**
-     * Creates a new <code>Field of Wheat</code> skin.
-     */
-    public FieldOfWheatSkin() {
-        ColorSchemes schemes = RadianceSkin.getColorSchemes(
-                this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/extras/api/skinpack/fieldofwheat.colorschemes"));
-        RadianceColorScheme activeScheme = schemes.get("Field Of Wheat Active");
-        RadianceColorScheme enabledScheme = new BrownColorScheme();
-        RadianceColorScheme disabledScheme = schemes.get("Field Of Wheat Disabled");
-
-        RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-            activeScheme, enabledScheme, disabledScheme);
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-            RadianceThemingSlices.DecorationAreaType.NONE);
-
-        // mark title panes and headers as decoration areas
-        this.registerAsDecorationArea(enabledScheme,
-            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-            RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-            RadianceThemingSlices.DecorationAreaType.HEADER);
-
-        this.configureOverlayPainters();
-
-        this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
-        this.decorationPainter = new ArcDecorationPainter();
-        this.borderPainter = new ClassicBorderPainter();
-        this.highlightFillPainter = new ClassicFillPainter();
-    }
-
-    void configureOverlayPainters() {
-        // Add overlay painters to paint drop shadow and a dark line along the bottom
-        // edges of headers
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
-            RadianceThemingSlices.DecorationAreaType.HEADER);
-        this.addOverlayPainter(new BottomLineOverlayPainter(
-                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
-                    ColorTransform.alpha(128))),
-            RadianceThemingSlices.DecorationAreaType.HEADER);
-    }
 
     @Override
     public String getDisplayName() {
         return NAME;
     }
 
-    public static class FieldOfWheatTonalSkin extends FieldOfWheatSkin implements TonalSkin {
-        public static final String NAME = "Field of Wheat Tonal";
+    public FieldOfWheatSkin() {
+        RadianceColorScheme2 fieldOfWheatColorScheme = ColorSchemeUtils.getColorScheme(
+            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                Hct.fromInt(0xFF00BDEA), Hct.fromInt(0xFFDDAB3C), Hct.fromInt(0xFFE8DB83)),
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+            /* isPrimaryDark */ false,
+            /* isTonalDark */ false,
+            /* isMutedDark */ false,
+            /* isNeutralDark */ false,
+            /* isSystemDark */ false,
+            /* primaryContrastLevel */ 1.0f,
+            /* tonalContrastLevel */ 1.0f,
+            /* mutedContrastLevel */ 1.0f,
+            /* neutralContrastLevel */ 1.0f,
+            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
-        public FieldOfWheatTonalSkin() {
-            RadianceColorScheme2 fieldOfWheatColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFF00BDEA), Hct.fromInt(0xFFDDAB3C), Hct.fromInt(0xFFE8DB83)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isPrimaryDark */ false,
-                /* isTonalDark */ false,
-                /* isMutedDark */ false,
-                /* isNeutralDark */ false,
-                /* isSystemDark */ false,
-                /* primaryContrastLevel */ 1.0f,
-                /* tonalContrastLevel */ 1.0f,
-                /* mutedContrastLevel */ 1.0f,
-                /* neutralContrastLevel */ 1.0f,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+        ContainerColorTokens fieldOfWheatHighlightContainerTokens =
+            ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF40DDFF),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrastLevel */ 1.0f,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
-            ContainerColorTokens fieldOfWheatHighlightContainerTokens =
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF40DDFF),
-                    /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* contrastLevel */ 1.0f,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+        RadianceColorSchemeBundle2 fieldOfWheatDefaultBundle =
+            new RadianceColorSchemeBundle2(fieldOfWheatColorScheme);
+        fieldOfWheatDefaultBundle.registerActiveContainerTokens(
+            fieldOfWheatHighlightContainerTokens,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+            ComponentState.getActiveStates());
+        this.registerDecorationAreaSchemeBundle(fieldOfWheatDefaultBundle,
+            RadianceThemingSlices.DecorationAreaType.NONE);
 
-            RadianceColorSchemeBundle2 fieldOfWheatDefaultBundle =
-                new RadianceColorSchemeBundle2(fieldOfWheatColorScheme);
-            fieldOfWheatDefaultBundle.registerActiveContainerTokens(
-                fieldOfWheatHighlightContainerTokens,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                ComponentState.getActiveStates());
-            this.registerDecorationAreaSchemeBundle(fieldOfWheatDefaultBundle,
-                RadianceThemingSlices.DecorationAreaType.NONE);
+        this.registerAsDecorationArea(
+            ColorSchemeUtils.getExtendedContainerTokens(
+                /* seed */ Hct.fromInt(0xFFD59C18),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrastLevel */ 1.0,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.HEADER);
 
-            this.registerAsDecorationArea(
-                ColorSchemeUtils.getExtendedContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFD59C18),
-                    /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* contrastLevel */ 1.0,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.HEADER);
+        // Add overlay painters to paint drop shadow and a dark line along the bottom
+        // edges of headers
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
+            RadianceThemingSlices.DecorationAreaType.HEADER);
+        this.addOverlayPainter(new BottomLineTonalOverlayPainter(
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokens::getContainerOutline, ColorTransform.alpha(128))),
+            RadianceThemingSlices.DecorationAreaType.HEADER);
 
-            this.buttonShaper = new ClassicButtonShaper();
-            this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 0.5f);
-            this.decorationPainter = new ArcDecorationPainter();
-            this.borderPainter = new FlatTonalBorderPainter();
-            this.highlightFillPainter = new MatteTonalFillPainter();
-            this.highlightBorderPainter = new FlatTonalBorderPainter();
-        }
-
-        @Override
-        void configureOverlayPainters() {
-            // Add overlay painters to paint drop shadow and a dark line along the bottom
-            // edges of headers
-            this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
-                RadianceThemingSlices.DecorationAreaType.HEADER);
-            this.addOverlayPainter(new BottomLineTonalOverlayPainter(
-                    ContainerColorTokensSingleColorQuery.composite(
-                        ContainerColorTokens::getContainerOutline, ColorTransform.alpha(128))),
-                RadianceThemingSlices.DecorationAreaType.HEADER);
-        }
-
-        @Override
-        public String getDisplayName() {
-            return FieldOfWheatTonalSkin.NAME;
-        }
+        this.buttonShaper = new ClassicButtonShaper();
+        this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 0.5f);
+        this.decorationPainter = new ArcDecorationPainter();
+        this.borderPainter = new FlatTonalBorderPainter();
+        this.highlightFillPainter = new MatteTonalFillPainter();
+        this.highlightBorderPainter = new FlatTonalBorderPainter();
     }
 }
