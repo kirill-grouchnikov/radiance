@@ -50,7 +50,7 @@ import java.awt.Color
  * @author Kirill Grouchnikov
  */
 class RobotDefaultSkin(accentColor: Color, val name: String) :
-        RadianceSkin.TonalAccented(AccentBuilder()
+        RadianceSkin.Accented(AccentBuilder()
             .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
                     Hct.fromInt(accentColor.rgb), 3.0, 1.0),

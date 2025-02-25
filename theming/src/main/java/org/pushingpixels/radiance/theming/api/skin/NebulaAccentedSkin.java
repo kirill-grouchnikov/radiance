@@ -53,7 +53,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class NebulaAccentedSkin extends RadianceSkin.TonalAccented {
+public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Overlay painter to paint separator lines on some decoration areas.
 	 */

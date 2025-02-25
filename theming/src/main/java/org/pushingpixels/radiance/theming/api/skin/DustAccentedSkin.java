@@ -56,7 +56,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class DustAccentedSkin extends RadianceSkin.TonalAccented {
+public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Creates a new accented <code>Dust</code> skin.
 	 */

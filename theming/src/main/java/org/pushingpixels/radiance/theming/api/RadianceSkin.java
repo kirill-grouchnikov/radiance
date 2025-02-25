@@ -64,131 +64,12 @@ public abstract class RadianceSkin implements RadianceTrait {
      * parts of the UI are painted with specific accent color schemes, and that decision may vary
      * between different base accented skins.
      * <p>
-     * Use {@link #getWindowChromeAccent()}, {@link #getActiveControlsAccent()},
-     * {@link #getEnabledControlsAccent()}, {@link #getHighlightsAccent()} and
-     * {@link #getBackgroundAccent()} to get the accent color schemes for consistent accent usage
+     * Use {@link #getDefaultAreaColorScheme()}, {@link #getDefaultAreaHighlightTokens()},
+     * {@link #getDefaultAreaSelectedTokens()}, {@link #getHeaderAreaColorScheme()} and
+     * {@link #getHeaderAreaHighlightTokens()} to get the accent tokens for consistent accent usage
      * in custom-painted parts of your UI.
      */
-    public static abstract class Accented extends RadianceSkin {
-        public final static class AccentBuilder {
-            private RadianceColorScheme windowChromeAccent;
-            private RadianceColorScheme enabledControlsAccent;
-            private RadianceColorScheme activeControlsAccent;
-            private RadianceColorScheme highlightsAccent;
-            private RadianceColorScheme backgroundAccent;
-            private ColorSchemes accentColorSchemes;
-
-            public AccentBuilder() {
-            }
-
-            public AccentBuilder withAccentResource(String colorSchemeResourceName) {
-                this.accentColorSchemes = RadianceSkin.getColorSchemes(
-                    AccentBuilder.class.getClassLoader().getResourceAsStream(colorSchemeResourceName));
-                return this;
-            }
-
-            public AccentBuilder withWindowChromeAccent(String windowChromeAccentName) {
-                if (this.accentColorSchemes == null) {
-                    throw new IllegalStateException("Builder not configured with accent resource file");
-                }
-                this.windowChromeAccent = this.accentColorSchemes.get(windowChromeAccentName);
-                return this;
-            }
-
-            public AccentBuilder withWindowChromeAccent(RadianceColorScheme windowChromeAccent) {
-                this.windowChromeAccent = windowChromeAccent;
-                return this;
-            }
-
-            public AccentBuilder withActiveControlsAccent(String activeControlsAccentName) {
-                if (this.accentColorSchemes == null) {
-                    throw new IllegalStateException("Builder not configured with accent resource file");
-                }
-                this.activeControlsAccent = this.accentColorSchemes.get(activeControlsAccentName);
-                return this;
-            }
-
-            public AccentBuilder withActiveControlsAccent(RadianceColorScheme activeControlsAccent) {
-                this.activeControlsAccent = activeControlsAccent;
-                return this;
-            }
-
-            public AccentBuilder withEnabledControlsAccent(String enabledControlsAccentName) {
-                if (this.accentColorSchemes == null) {
-                    throw new IllegalStateException("Builder not configured with accent resource file");
-                }
-                this.enabledControlsAccent = this.accentColorSchemes.get(enabledControlsAccentName);
-                return this;
-            }
-
-            public AccentBuilder withEnabledControlsAccent(RadianceColorScheme enabledControlsAccent) {
-                this.enabledControlsAccent = enabledControlsAccent;
-                return this;
-            }
-
-            public AccentBuilder withHighlightsAccent(String highlightsAccentName) {
-                if (this.accentColorSchemes == null) {
-                    throw new IllegalStateException("Builder not configured with accent resource file");
-                }
-                this.highlightsAccent = this.accentColorSchemes.get(highlightsAccentName);
-                return this;
-            }
-
-            public AccentBuilder withHighlightsAccent(RadianceColorScheme highlightsAccent) {
-                this.highlightsAccent = highlightsAccent;
-                return this;
-            }
-
-            public AccentBuilder withBackgroundAccent(String backgroundAccentName) {
-                if (this.accentColorSchemes == null) {
-                    throw new IllegalStateException("Builder not configured with accent resource file");
-                }
-                this.backgroundAccent = this.accentColorSchemes.get(backgroundAccentName);
-                return this;
-            }
-
-            public AccentBuilder withBackgroundAccent(RadianceColorScheme backgroundAccent) {
-                this.backgroundAccent = backgroundAccent;
-                return this;
-            }
-        }
-
-        private final RadianceColorScheme windowChromeAccent;
-        private final RadianceColorScheme activeControlsAccent;
-        private final RadianceColorScheme enabledControlsAccent;
-        private final RadianceColorScheme highlightsAccent;
-        private final RadianceColorScheme backgroundAccent;
-
-        protected Accented(AccentBuilder accentBuilder) {
-            this.windowChromeAccent = accentBuilder.windowChromeAccent;
-            this.activeControlsAccent = accentBuilder.activeControlsAccent;
-            this.enabledControlsAccent = accentBuilder.enabledControlsAccent;
-            this.highlightsAccent = accentBuilder.highlightsAccent;
-            this.backgroundAccent = accentBuilder.backgroundAccent;
-        }
-
-        public RadianceColorScheme getBackgroundAccent() {
-            return this.backgroundAccent;
-        }
-
-        public RadianceColorScheme getActiveControlsAccent() {
-            return this.activeControlsAccent;
-        }
-
-        public RadianceColorScheme getEnabledControlsAccent() {
-            return this.enabledControlsAccent;
-        }
-
-        public RadianceColorScheme getHighlightsAccent() {
-            return this.highlightsAccent;
-        }
-
-        public RadianceColorScheme getWindowChromeAccent() {
-            return this.windowChromeAccent;
-        }
-    }
-
-    public static abstract class TonalAccented extends RadianceSkin implements TonalSkin {
+    public static abstract class Accented extends RadianceSkin implements TonalSkin {
         public final static class AccentBuilder {
             private SchemeColorResolver defaultAreaSchemeColorResolver;
             private RadianceColorScheme2 defaultAreaColorScheme;
@@ -239,7 +120,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         private final RadianceColorScheme2 headerAreaColorScheme;
         private final ContainerColorTokens headerAreaHighlightTokens;
 
-        protected TonalAccented(AccentBuilder accentBuilder) {
+        protected Accented(AccentBuilder accentBuilder) {
             this.defaultAreaSchemeColorResolver = accentBuilder.defaultAreaSchemeColorResolver;
             this.defaultAreaColorScheme = accentBuilder.defaultAreaColorScheme;
             this.defaultAreaHighlightTokens = accentBuilder.defaultAreaHighlightTokens;

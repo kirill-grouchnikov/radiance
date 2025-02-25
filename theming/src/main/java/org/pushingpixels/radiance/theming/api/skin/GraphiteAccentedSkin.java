@@ -51,7 +51,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class GraphiteAccentedSkin extends RadianceSkin.TonalAccented {
+public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 	protected RadianceColorSchemeBundle2 graphiteDefaultBundle;
 
 	/**
