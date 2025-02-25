@@ -30,8 +30,13 @@
 package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette;
+import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
@@ -48,8 +53,8 @@ import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import javax.swing.*;
 import java.awt.*;
 
-public class ControlStates extends JFrame {
-    public ControlStates() {
+public class BimodalControlStates extends JFrame {
+    public BimodalControlStates() {
         super("Control states");
 
         this.setLayout(new FlowLayout());
@@ -79,30 +84,31 @@ public class ControlStates extends JFrame {
 
     private static class SampleSkin extends RadianceSkin implements TonalSkin {
         public SampleSkin() {
+            Hct primarySeed = Hct.fromInt(0xFFA8DEB5);
+            double primaryHue = primarySeed.getHue();
+            double hue1 = primaryHue + 30.0;
+            double hue2 = primaryHue - 30.0;
+            double primaryTone = primarySeed.getTone();
+
+            Hct secondarySeed = Hct.fromInt(0xFFC2FADC);
+            double secondaryHue = secondarySeed.getHue();
+            double secondaryTone = secondarySeed.getTone();
+
+            BimodalTonalPalette primaryPalette = BimodalTonalPalette.from(
+                /* hct1 */ Hct.from(hue1, primarySeed.getChroma(), primaryTone),
+                /* hct2 */ Hct.from(hue2, primarySeed.getChroma(), primaryTone),
+                /* transitionRange */ new BimodalTonalPalette.TransitionRangeFidelityLight(primaryTone));
+            TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(secondaryHue, 20.0);
+            TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(secondaryHue, 12.0);
+
             RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF9020F4), 8.0, 6.0),
+                /* palettesSource */ new ColorSchemeUtils.FidelityDirectPaletteSource(
+                    primaryPalette, mutedPalette, neutralPalette,
+                    primaryTone, secondaryTone, secondaryTone),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false);
 
             RadianceColorSchemeBundle2 bundle2 = new RadianceColorSchemeBundle2(lightColorScheme);
-
-            bundle2.registerActiveContainerTokens(
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF20F490),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isFidelity */ true,
-                    /* isDark */ false),
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                ComponentState.getActiveStates());
-
-            bundle2.registerActiveContainerTokens(
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF20F490),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isFidelity */ true,
-                    /* isDark */ false),
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                ComponentState.getActiveStates());
 
             this.registerDecorationAreaSchemeBundle(bundle2,
                     RadianceThemingSlices.DecorationAreaType.NONE);
@@ -138,7 +144,7 @@ public class ControlStates extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(tonalSkin);
-            new ControlStates().setVisible(true);
+            new BimodalControlStates().setVisible(true);
         });
     }
 
