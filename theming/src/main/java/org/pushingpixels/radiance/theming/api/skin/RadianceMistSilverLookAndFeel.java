@@ -52,10 +52,4 @@ public class RadianceMistSilverLookAndFeel extends RadianceLookAndFeel {
 	public RadianceMistSilverLookAndFeel() {
 		super(new MistSilverSkin());
 	}
-
-	public static class RadianceMistSilverTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceMistSilverTonalLookAndFeel() {
-			super(new MistSilverSkin.MistSilverTonalSkin());
-		}
-	}
 }

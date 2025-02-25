@@ -30,9 +30,8 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.PurpleColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
@@ -49,79 +48,43 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 	 */
 	public static final String NAME = "Nebula Amethyst";
 
-	/**
-	 * Creates a new <code>Nebula Amethyst</code> skin.
-	 */
-	public NebulaAmethystSkin() {
-		super(new AccentBuilder().withWindowChromeAccent(new PurpleColorScheme()));
-
-		ColorSchemes schemes = RadianceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/nebula.colorschemes"));
-
-		// Also apply the window chrome accent color on the TOOLBAR area
-		RadianceColorScheme windowChromeAccent = this.getWindowChromeAccent();
-		this.registerAsDecorationArea(windowChromeAccent, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-		this.clearOverlayPainters(RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-		this.addOverlayPainter(this.bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-		RadianceColorSchemeBundle toolbarBundle = new RadianceColorSchemeBundle(
-				windowChromeAccent.saturate(0.1f), windowChromeAccent,
-				schemes.get("Nebula Amethyst Title Disabled"));
-		toolbarBundle.registerAlpha(0.8f, ComponentState.DISABLED_SELECTED,
-				ComponentState.DISABLED_UNSELECTED);
-		toolbarBundle.registerColorScheme(windowChromeAccent.saturate(0.08f),
-				RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR);
-		this.registerDecorationAreaSchemeBundle(toolbarBundle, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-	}
-
 	@Override
 	public String getDisplayName() {
 		return NAME;
 	}
 
-	public static class NebulaAmethystTonalSkin extends NebulaAccentedTonalSkin {
-		public static final String NAME = "Nebula Amethyst Tonal";
-
-		public NebulaAmethystTonalSkin() {
-			super(new AccentBuilder()
-				.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-						Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isDark */ false)));
-
-			// Also extend the window chrome accent color to the TOOLBAR area
-			RadianceColorScheme2 nebulaToolbarColorScheme = ColorSchemeUtils.getColorScheme(
+	public NebulaAmethystSkin() {
+		super(new AccentBuilder()
+			.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFFD264EB), Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD1A9F1)),
+					Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isDark */ false);
-			RadianceColorSchemeBundle2 nebulaToolbarBundle =
-				new RadianceColorSchemeBundle2(nebulaToolbarColorScheme);
-			nebulaToolbarBundle.registerEnabledContainerTokens(
-				ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFD1A9F1),
-					/* isFidelity */ true,
-					/* isDark */ false,
-					/* contrastLevel */ -1.0,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
-				RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
-			this.registerDecorationAreaSchemeBundle(nebulaToolbarBundle,
-				nebulaToolbarBundle.getMainColorScheme().getExtendedMutedContainerTokens(),
-				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+				/* isDark */ false)));
 
-			// And configure toolbar overlay painters
-			this.clearOverlayPainters(RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-			this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
-				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-			this.addOverlayPainter(this.bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-		}
+		// Also extend the window chrome accent color to the TOOLBAR area
+		RadianceColorScheme2 nebulaToolbarColorScheme = ColorSchemeUtils.getColorScheme(
+			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+				Hct.fromInt(0xFFD264EB), Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD1A9F1)),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isDark */ false);
+		RadianceColorSchemeBundle2 nebulaToolbarBundle =
+			new RadianceColorSchemeBundle2(nebulaToolbarColorScheme);
+		nebulaToolbarBundle.registerEnabledContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD1A9F1),
+				/* isFidelity */ true,
+				/* isDark */ false,
+				/* contrastLevel */ -1.0,
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
+		this.registerDecorationAreaSchemeBundle(nebulaToolbarBundle,
+			nebulaToolbarBundle.getMainColorScheme().getExtendedMutedContainerTokens(),
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		@Override
-		public String getDisplayName() {
-			return NAME;
-		}
+		// And configure toolbar overlay painters
+		this.clearOverlayPainters(RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+		this.addOverlayPainter(this.bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 	}
 }

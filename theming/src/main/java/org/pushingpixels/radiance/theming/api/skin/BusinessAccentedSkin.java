@@ -29,19 +29,21 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -49,63 +51,66 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
+public abstract class BusinessAccentedSkin extends RadianceSkin.TonalAccented {
 	/**
 	 * Creates a new accented <code>Business</code> skin.
 	 */
 	protected BusinessAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		ColorSchemes businessSchemes = RadianceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/business.colorschemes"));
+		RadianceColorSchemeBundle2 businessDefaultBundle =
+			new RadianceColorSchemeBundle2(this.getDefaultAreaColorScheme());
+		businessDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.getActiveStates());
+		businessDefaultBundle.registerActiveContainerTokens(
+			this.getDefaultAreaColorScheme().getActiveContainerTokens(),
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
+			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
+		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,
+			businessDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorScheme enabledScheme = businessSchemes.get("Business Enabled");
+		RadianceColorSchemeBundle2 businessDefaultHeaderBundle =
+			new RadianceColorSchemeBundle2(this.getHeaderAreaColorScheme());
+		if (this.getHeaderAreaHighlightTokens() != null) {
+			businessDefaultHeaderBundle.registerActiveContainerTokens(
+				this.getHeaderAreaHighlightTokens(),
+				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+				ComponentState.getActiveStates());
+		}
+		this.registerDecorationAreaSchemeBundle(businessDefaultHeaderBundle,
+			businessDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-				this.getActiveControlsAccent(), enabledScheme, enabledScheme);
-
-		defaultSchemeBundle.registerHighlightColorScheme(this.getHighlightsAccent());
-
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
-				ComponentState.DISABLED_SELECTED, ComponentState.SELECTED);
-
-		defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
-				RadianceThemingSlices.ColorSchemeAssociationKind.TAB, ComponentState.SELECTED,
-				ComponentState.ROLLOVER_SELECTED);
-
-		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, RadianceThemingSlices.DecorationAreaType.NONE);
-
-		this.registerAsDecorationArea(this.getWindowChromeAccent(),
-				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.HEADER, RadianceThemingSlices.DecorationAreaType.FOOTER);
-
-		ColorSchemes kitchenSinkSchemes = RadianceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/kitchen-sink.colorschemes"));
-		this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray Control Pane Background"),
+		RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+			/* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFFDBDFE4), 3.0, 1.0),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isDark */ false);
+		this.registerAsDecorationArea(controlPaneColorScheme.getExtendedTonalContainerTokens(),
 				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 		// add an overlay painter to paint a drop shadow along the top edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(80), RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(80),
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
-		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
-				ColorSchemeSingleColorQuery.MID);
+		BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+			ContainerColorTokens::getContainerOutline);
 		this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new ClassicFillPainter(), 1.0f);
-		this.borderPainter = new ClassicBorderPainter();
+		this.fillPainter = new SpecularRectangularFillPainter(new ClassicTonalFillPainter(), 1.0f);
+		this.borderPainter = new ClassicTonalBorderPainter();
 
 		BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
 		decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());
 		decorationPainter.setTextureAlpha(0.2f);
 		this.decorationPainter = decorationPainter;
 
-		this.highlightFillPainter = new ClassicFillPainter();
+		this.highlightFillPainter = new ClassicTonalFillPainter();
 	}
 }

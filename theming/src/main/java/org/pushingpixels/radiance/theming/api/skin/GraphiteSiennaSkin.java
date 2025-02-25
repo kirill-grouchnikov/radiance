@@ -45,48 +45,29 @@ public class GraphiteSiennaSkin extends GraphiteAccentedSkin {
 	 */
 	public static final String NAME = "Graphite Sienna";
 
-	/**
-	 * Creates a new <code>Graphite Sienna</code> skin.
-	 */
-	public GraphiteSiennaSkin() {
-		super(new AccentBuilder()
-				.withAccentResource("org/pushingpixels/radiance/theming/api/skin/graphite.colorschemes")
-				.withActiveControlsAccent("Graphite Sienna")
-				.withHighlightsAccent("Graphite Sienna"));
-	}
-
 	@Override
 	public String getDisplayName() {
 		return NAME;
 	}
 
-	public static class GraphiteSiennaTonalSkin extends GraphiteAccentedTonalSkin {
-		public static final String NAME = "Graphite Sienna Tonal";
-
-		public GraphiteSiennaTonalSkin() {
-			super(new AccentBuilder()
-				.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFB27565),
-					/* isFidelity */ true,
-					/* isDark */ false,
-					/* contrast */ 0.0f,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-						PaletteContainerColorsResolverOverlay.builder()
-							.containerSurfaceDisabledAlpha((s) -> 0.45f)
-							.onContainerDisabledAlpha((s) -> 0.5f)
-							.containerOutlineDisabledAlpha((s) -> 0.45f)
-							.build())))
-				.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFB27565),
-					/* isFidelity */ true,
-					/* isDark */ false,
-					/* contrast */ 0.0f,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
-		}
-
-		@Override
-		public String getDisplayName() {
-			return NAME;
-		}
+	public GraphiteSiennaSkin() {
+		super(new AccentBuilder()
+			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFB27565),
+				/* isFidelity */ true,
+				/* isDark */ false,
+				/* contrast */ 0.0f,
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+					PaletteContainerColorsResolverOverlay.builder()
+						.containerSurfaceDisabledAlpha((s) -> 0.45f)
+						.onContainerDisabledAlpha((s) -> 0.5f)
+						.containerOutlineDisabledAlpha((s) -> 0.45f)
+						.build())))
+			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFB27565),
+				/* isFidelity */ true,
+				/* isDark */ false,
+				/* contrast */ 0.0f,
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
 	}
 }

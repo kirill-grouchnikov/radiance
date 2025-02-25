@@ -30,8 +30,9 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
@@ -46,101 +47,49 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 	 */
 	public static final String NAME = "Business Blue Steel";
 
-	/**
-	 * Creates a new <code>Business Blue Steel</code> skin.
-	 */
-	public BusinessBlueSteelSkin() {
-		super(new AccentBuilder()
-				.withAccentResource("org/pushingpixels/radiance/theming/api/skin/business.colorschemes")
-				.withWindowChromeAccent("Business Blue Steel Active Header")
-				.withActiveControlsAccent("Business Blue Steel Active")
-				.withHighlightsAccent("Business Blue Steel Highlight"));
-
-		ColorSchemes businessSchemes = RadianceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/business.colorschemes"));
-
-		RadianceColorScheme disabledScheme = businessSchemes.get("Business Blue Steel Disabled");
-
-		RadianceColorScheme activeHeaderScheme = businessSchemes
-				.get("Business Blue Steel Active Header");
-		RadianceColorScheme enabledHeaderScheme = businessSchemes
-				.get("Business Blue Steel Enabled Header");
-		RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
-				activeHeaderScheme, enabledHeaderScheme, enabledHeaderScheme);
-		headerSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-		headerSchemeBundle.registerColorScheme(enabledHeaderScheme,
-				ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-		this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
-				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.HEADER);
-
-		RadianceColorScheme activeControlPaneScheme = businessSchemes
-				.get("Business Blue Steel Active Control Pane");
-		RadianceColorScheme enabledControlPaneScheme = businessSchemes
-				.get("Business Blue Steel Enabled Control Pane");
-		RadianceColorSchemeBundle controlPaneSchemeBundle = new RadianceColorSchemeBundle(
-				activeControlPaneScheme, enabledControlPaneScheme, disabledScheme);
-		controlPaneSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED);
-		controlPaneSchemeBundle.registerColorScheme(enabledControlPaneScheme,
-				ComponentState.DISABLED_UNSELECTED);
-		this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle, RadianceThemingSlices.DecorationAreaType.FOOTER,
-				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
-	}
-
 	@Override
 	public String getDisplayName() {
 		return NAME;
 	}
 
-	public static class BusinessBlueSteelTonalSkin extends BusinessAccentedTonalSkin {
-		public static final String NAME = "Business Blue Steel Tonal";
-
-		public BusinessBlueSteelTonalSkin() {
-			super(new AccentBuilder()
-				.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-							Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isDark */ false))
-				.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFF83AFCE),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isFidelity */ true,
-					/* isDark */ false))
-				.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-						Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isDark */ false))
-				.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFEBD296),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isFidelity */ true,
-					/* isDark */ false)));
-
-			RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+	public BusinessBlueSteelSkin() {
+		super(new AccentBuilder()
+			.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFF94B9D3), Hct.fromInt(0xFFBFCFDB), Hct.fromInt(0xFFBFCFDB)),
+						Hct.fromInt(0xFFA1BCD0), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-				/* isDark */ false);
+				/* isDark */ false))
+			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF83AFCE),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isFidelity */ true,
+				/* isDark */ false))
+			.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isDark */ false))
+			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFEBD296),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isFidelity */ true,
+				/* isDark */ false)));
 
-			RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
-				new RadianceColorSchemeBundle2(controlPaneColorScheme);
-			businessBlueSteelControlBundle.registerActiveContainerTokens(
-				getDefaultAreaColorScheme().getActiveContainerTokens(),
-				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-				ComponentState.getActiveStates());
-			this.registerDecorationAreaSchemeBundle(businessBlueSteelControlBundle,
-				controlPaneColorScheme.getExtendedMutedContainerTokens(),
-				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
-				RadianceThemingSlices.DecorationAreaType.FOOTER);
-		}
+		RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+				Hct.fromInt(0xFF94B9D3), Hct.fromInt(0xFFBFCFDB), Hct.fromInt(0xFFBFCFDB)),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isDark */ false);
 
-		@Override
-		public String getDisplayName() {
-			return NAME;
-		}
+		RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
+			new RadianceColorSchemeBundle2(controlPaneColorScheme);
+		businessBlueSteelControlBundle.registerActiveContainerTokens(
+			getDefaultAreaColorScheme().getActiveContainerTokens(),
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.getActiveStates());
+		this.registerDecorationAreaSchemeBundle(businessBlueSteelControlBundle,
+			controlPaneColorScheme.getExtendedMutedContainerTokens(),
+			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
+			RadianceThemingSlices.DecorationAreaType.FOOTER);
 	}
-
 }

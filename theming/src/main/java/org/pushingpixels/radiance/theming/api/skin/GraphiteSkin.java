@@ -31,9 +31,6 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.*;
 
 /**
@@ -47,106 +44,49 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
      */
     public static final String NAME = "Graphite";
 
-    /**
-     * Creates a new <code>Graphite</code> skin.
-     */
-    public GraphiteSkin() {
-        super(new AccentBuilder()
-                .withAccentResource("org/pushingpixels/radiance/theming/api/skin/graphite.colorschemes")
-				.withActiveControlsAccent("Graphite Highlight")
-				.withHighlightsAccent("Graphite Highlight"));
-
-        // Unlike other accented Graphite skins that use the same highlight appearance on
-        // checkboxes and radio buttons as on active renderers, this skin uses a more muted
-        // appearance for checkboxes and radio buttons.
-        // The following sections remove the accent from those controls and use darker, less
-        // vibrant appearance.
-        defaultSchemeBundle.registerAlpha(0.65f, ComponentState.DISABLED_SELECTED);
-        ColorSchemes schemes = RadianceSkin.getColorSchemes(
-                this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/graphite.colorschemes"));
-        RadianceColorScheme highlightMarkScheme = schemes.get("Graphite Highlight Mark");
-        defaultSchemeBundle.registerColorScheme(highlightMarkScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_MARK, ComponentState.getActiveStates());
-        defaultSchemeBundle.registerColorScheme(highlightMarkScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK, ComponentState.ROLLOVER_SELECTED,
-                ComponentState.ROLLOVER_UNSELECTED);
-
-        RadianceColorScheme selectedScheme = schemes.get("Graphite Selected");
-        RadianceColorScheme borderScheme = schemes.get("Graphite Border");
-        defaultSchemeBundle.registerColorScheme(selectedScheme, ComponentState.SELECTED);
-        defaultSchemeBundle.registerColorScheme(borderScheme, RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
-                ComponentState.SELECTED);
-
-        RadianceColorScheme selectedDisabledScheme = schemes.get("Graphite Selected Disabled");
-        RadianceColorScheme disabledScheme = schemes.get("Graphite Disabled");
-        defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
-        defaultSchemeBundle.registerColorScheme(selectedDisabledScheme, ComponentState.DISABLED_SELECTED);
-        defaultSchemeBundle.registerColorScheme(disabledScheme, RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
-                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-
-        RadianceColorScheme pressedSelectedScheme = schemes.get("Graphite Pressed Selected");
-        RadianceColorScheme pressedUnselectedScheme = schemes.get("Graphite Pressed Unselected");
-        defaultSchemeBundle.registerColorScheme(pressedSelectedScheme, ComponentState.PRESSED_SELECTED);
-        defaultSchemeBundle.registerColorScheme(pressedUnselectedScheme, ComponentState.PRESSED_UNSELECTED);
-        defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_SELECTED);
-        defaultSchemeBundle.registerColorScheme(pressedUnselectedScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_UNSELECTED);
-    }
-
     @Override
     public String getDisplayName() {
         return NAME;
     }
 
-    public static class GraphiteTonalSkin extends GraphiteAccentedTonalSkin {
-        public static final String NAME = "Graphite Tonal";
+    public GraphiteSkin() {
+        this(SchemeResolverUtils.getSchemeColorResolver(),
+            PaletteResolverUtils.getPaletteTonalColorResolver());
+    }
 
-        public GraphiteTonalSkin() {
-            this(SchemeResolverUtils.getSchemeColorResolver(),
-                PaletteResolverUtils.getPaletteTonalColorResolver());
-        }
+    protected GraphiteSkin(SchemeColorResolver schemeColorResolver,
+        PaletteContainerColorsResolver paletteContainerColorsResolver) {
+        super(new AccentBuilder()
+            .withDefaultAreaSchemeColorResolver(schemeColorResolver)
+            .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF606060),
+                /* isFidelity */ true,
+                /* isDark */ true,
+                /* contrast */ 0.0f,
+                /* colorResolver */ paletteContainerColorsResolver))
+            .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFEBECF0),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrast */ 0.0f,
+                /* colorResolver */ paletteContainerColorsResolver)));
 
-        protected GraphiteTonalSkin(SchemeColorResolver schemeColorResolver,
-            PaletteContainerColorsResolver paletteContainerColorsResolver) {
-            super(new AccentBuilder()
-                .withDefaultAreaSchemeColorResolver(schemeColorResolver)
-                .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF606060),
-                    /* isFidelity */ true,
-                    /* isDark */ true,
-                    /* contrast */ 0.0f,
-                    /* colorResolver */ paletteContainerColorsResolver))
-                .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFEBECF0),
-                    /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* contrast */ 0.0f,
-                    /* colorResolver */ paletteContainerColorsResolver)));
-
-            this.graphiteDefaultBundle.registerActiveContainerTokens(
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFEBECF0),
-                    /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* contrast */ 0.6f,
-                    /* colorResolver */ paletteContainerColorsResolver),
-                ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED,
-                ComponentState.ROLLOVER_ARMED);
-            this.graphiteDefaultBundle.registerActiveContainerTokens(
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFACB2B9),
-                    /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* contrast */ 0.6f,
-                    /* colorResolver */ paletteContainerColorsResolver),
-                ComponentState.PRESSED_UNSELECTED, ComponentState.PRESSED_SELECTED);
-        }
-
-        @Override
-        public String getDisplayName() {
-            return NAME;
-        }
+        this.graphiteDefaultBundle.registerActiveContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFEBECF0),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrast */ 0.6f,
+                /* colorResolver */ paletteContainerColorsResolver),
+            ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED,
+            ComponentState.ROLLOVER_ARMED);
+        this.graphiteDefaultBundle.registerActiveContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFACB2B9),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrast */ 0.6f,
+                /* colorResolver */ paletteContainerColorsResolver),
+            ComponentState.PRESSED_UNSELECTED, ComponentState.PRESSED_SELECTED);
     }
 }

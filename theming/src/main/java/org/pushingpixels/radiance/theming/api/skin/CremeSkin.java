@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.PaletteContainerColorsResolverOverlay;
@@ -49,65 +48,46 @@ public class CremeSkin extends CremeAccentedSkin {
      */
     public static final String NAME = "Creme";
 
-    /**
-     * Creates a new <code>Creme</code> skin.
-     */
-    public CremeSkin() {
-        super(new RadianceSkin.Accented.AccentBuilder()
-                .withAccentResource("org/pushingpixels/radiance/theming/api/skin/kitchen-sink.colorschemes")
-                .withActiveControlsAccent("Creme Active")
-                .withHighlightsAccent("Creme Highlights"));
-    }
-
     @Override
     public String getDisplayName() {
         return NAME;
     }
 
-    public static class CremeTonalSkin extends CremeAccentedTonalSkin {
-        public static final String NAME = "Creme Tonal";
-
-        public CremeTonalSkin() {
-            super(new AccentBuilder()
-                .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                        Hct.fromInt(0xFFC8E8F9), Hct.fromInt(0xFFF0F1EB), Hct.fromInt(0xFFEEF3E5)),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isPrimaryDark */ false,
-                    /* isTonalDark */ false,
-                    /* isMutedDark */ false,
-                    /* isNeutralDark */ false,
-                    /* isSystemDark */ false,
-                    /* primaryContrastLevel */ 0.6f,
-                    /* tonalContrastLevel */ 0.6f,
-                    /* mutedContrastLevel */ 0.6f,
-                    /* neutralContrastLevel */ 0.6f,
-                    /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
-                .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF9DD9F9),
-                    /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* contrastLevel */ 0.0f,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-                        PaletteContainerColorsResolverOverlay.builder()
-                            .containerOutline(DynamicPalette::getTonalContainerSurfaceHighest)
-                            .containerOutlineVariant(DynamicPalette::getTonalContainerSurfaceHigh)
-                            .build())))
-                .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFACDDF4),
-                    /* isFidelity */ true,
-                    /* isDark */ false,
-                    /* contrast */ 0.3f,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-                        PaletteContainerColorsResolverOverlay.builder()
-                            .containerOutline(DynamicPalette::getTonalContainerSurfaceHighest)
-                            .containerOutlineVariant(DynamicPalette::getTonalContainerSurfaceHigh)
-                            .build()))));
-        }
-
-        @Override
-        public String getDisplayName() {
-            return NAME;
-        }
+    public CremeSkin() {
+        super(new AccentBuilder()
+            .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFC8E8F9), Hct.fromInt(0xFFF0F1EB), Hct.fromInt(0xFFEEF3E5)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isPrimaryDark */ false,
+                /* isTonalDark */ false,
+                /* isMutedDark */ false,
+                /* isNeutralDark */ false,
+                /* isSystemDark */ false,
+                /* primaryContrastLevel */ 0.6f,
+                /* tonalContrastLevel */ 0.6f,
+                /* mutedContrastLevel */ 0.6f,
+                /* neutralContrastLevel */ 0.6f,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+            .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF9DD9F9),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrastLevel */ 0.0f,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .containerOutline(DynamicPalette::getTonalContainerSurfaceHighest)
+                        .containerOutlineVariant(DynamicPalette::getTonalContainerSurfaceHigh)
+                        .build())))
+            .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFACDDF4),
+                /* isFidelity */ true,
+                /* isDark */ false,
+                /* contrast */ 0.3f,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .containerOutline(DynamicPalette::getTonalContainerSurfaceHighest)
+                        .containerOutlineVariant(DynamicPalette::getTonalContainerSurfaceHigh)
+                        .build()))));
     }
 }

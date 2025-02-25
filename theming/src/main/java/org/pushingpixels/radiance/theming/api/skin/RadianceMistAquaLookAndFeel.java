@@ -51,10 +51,4 @@ public class RadianceMistAquaLookAndFeel extends RadianceLookAndFeel {
 	public RadianceMistAquaLookAndFeel() {
 		super(new MistAquaSkin());
 	}
-
-	public static class RadianceMistAquaTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceMistAquaTonalLookAndFeel() {
-			super(new MistAquaSkin.MistAquaTonalSkin());
-		}
-	}
 }

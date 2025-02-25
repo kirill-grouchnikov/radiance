@@ -51,10 +51,4 @@ public class RadianceNebulaBrickWallLookAndFeel extends RadianceLookAndFeel {
 	public RadianceNebulaBrickWallLookAndFeel() {
 		super(new NebulaBrickWallSkin());
 	}
-
-	public static class RadianceNebulaBrickWallTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceNebulaBrickWallTonalLookAndFeel() {
-			super(new NebulaBrickWallSkin.NebulaBrickWallTonalSkin());
-		}
-	}
 }

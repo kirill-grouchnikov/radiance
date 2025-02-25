@@ -52,10 +52,4 @@ public class RadianceGreenMagicLookAndFeel extends RadianceLookAndFeel {
 	public RadianceGreenMagicLookAndFeel() {
 		super(new GreenMagicSkin());
 	}
-
-	public static class RadianceGreenMagicTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceGreenMagicTonalLookAndFeel() {
-			super(new GreenMagicSkin.GreenMagicTonalSkin());
-		}
-	}
 }

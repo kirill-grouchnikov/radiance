@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.OrangeColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 
 /**
@@ -45,33 +44,17 @@ public class NebulaBrickWallSkin extends NebulaAccentedSkin {
 	 */
 	public static final String NAME = "Nebula Brick Wall";
 
-	/**
-	 * Creates a new <code>Nebula Brick Wall</code> skin.
-	 */
-	public NebulaBrickWallSkin() {
-		super(new AccentBuilder().withWindowChromeAccent(new OrangeColorScheme()));
-	}
-
 	@Override
 	public String getDisplayName() {
 		return NAME;
 	}
 
-	public static class NebulaBrickWallTonalSkin extends NebulaAccentedTonalSkin {
-		public static final String NAME = "Nebula Brick Wall Tonal";
-
-		public NebulaBrickWallTonalSkin() {
-			super(new AccentBuilder()
-				.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-						Hct.fromInt(0xFFF6C272), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isDark */ false)));
-		}
-
-		@Override
-		public String getDisplayName() {
-			return NAME;
-		}
+	public NebulaBrickWallSkin() {
+		super(new AccentBuilder()
+			.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFFF6C272), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isDark */ false)));
 	}
 }

@@ -147,7 +147,7 @@ public class SchemeFidelityDemo extends JFrame {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin.BusinessTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
             new SchemeFidelityDemo().setVisible(true);
         });
     }

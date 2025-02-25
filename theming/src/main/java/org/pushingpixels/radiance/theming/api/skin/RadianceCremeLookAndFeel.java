@@ -51,10 +51,4 @@ public class RadianceCremeLookAndFeel extends RadianceLookAndFeel {
 	public RadianceCremeLookAndFeel() {
 		super(new CremeSkin());
 	}
-
-	public static class RadianceCremeTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceCremeTonalLookAndFeel() {
-			super(new CremeSkin.CremeTonalSkin());
-		}
-	}
 }

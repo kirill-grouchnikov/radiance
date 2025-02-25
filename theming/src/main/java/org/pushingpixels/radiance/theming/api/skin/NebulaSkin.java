@@ -44,35 +44,17 @@ public class NebulaSkin extends NebulaAccentedSkin {
      */
     public static final String NAME = "Nebula";
 
-    /**
-     * Creates a new <code>Nebula</code> skin.
-     */
-    public NebulaSkin() {
-        super(new AccentBuilder()
-                .withAccentResource("org/pushingpixels/radiance/theming/api/skin/nebula.colorschemes")
-                .withWindowChromeAccent("Nebula Decorations"));
-    }
-
     @Override
     public String getDisplayName() {
         return NAME;
     }
 
-    public static class NebulaTonalSkin extends NebulaAccentedTonalSkin {
-        public static final String NAME = "Nebula Tonal";
-
-        public NebulaTonalSkin() {
-            super(new AccentBuilder()
-                .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                        Hct.fromInt(0xFFD6E3EE), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isDark */ false)));
-        }
-
-        @Override
-        public String getDisplayName() {
-            return NAME;
-        }
+    public NebulaSkin() {
+        super(new AccentBuilder()
+            .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFD6E3EE), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isDark */ false)));
     }
 }

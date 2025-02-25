@@ -29,21 +29,23 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SubduedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -51,107 +53,109 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
+public abstract class NebulaAccentedSkin extends RadianceSkin.TonalAccented {
 	/**
 	 * Overlay painter to paint separator lines on some decoration areas.
 	 */
-	protected BottomLineOverlayPainter bottomLineOverlayPainter;
+	protected RadianceOverlayPainter bottomLineOverlayPainter;
 
 	/**
-	 * Creates a new base accented <code>Nebula</code> skin.
+	 * Creates a new accented <code>Nebula</code> skin.
 	 */
 	protected NebulaAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		ColorSchemes schemes = RadianceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/nebula.colorschemes"));
+		RadianceColorScheme2 nebulaColorScheme = ColorSchemeUtils.getColorScheme(
+			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+				Hct.fromInt(0xFFBAD2E3), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isDark */ false);
 
-		RadianceColorScheme activeScheme = schemes.get("Nebula Active");
-		RadianceColorScheme enabledScheme = schemes.get("Nebula Enabled");
-		RadianceColorScheme rolloverUnselectedScheme = schemes.get("Nebula Rollover Unselected");
-		RadianceColorScheme pressedScheme = schemes.get("Nebula Pressed");
-		RadianceColorScheme rolloverSelectedScheme = schemes.get("Nebula Rollover Selected");
-		RadianceColorScheme disabledScheme = schemes.get("Nebula Disabled");
+		ContainerColorTokens nebulaRolloverHighlightContainerTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFF6B92AF),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isFidelity */ true,
+			/* isDark */ true);
+		ContainerColorTokens nebulaPressedContainerTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFF276792),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isFidelity */ true,
+			/* isDark */ true);
+		ContainerColorTokens nebulaSelectedHighlightContainerTokens =
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF5B85A6),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isFidelity */ true,
+				/* isDark */ true);
+		ContainerColorTokens nebulaDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFFD2852F),
+			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+			/* isFidelity */ true,
+			/* isDark */ true);
 
-		RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-				activeScheme, enabledScheme, disabledScheme);
-		defaultSchemeBundle.registerColorScheme(rolloverUnselectedScheme,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(rolloverSelectedScheme,
-				ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerColorScheme(pressedScheme,
-				ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		RadianceColorSchemeBundle2 nebulaDefaultBundle =
+			new RadianceColorSchemeBundle2(nebulaColorScheme);
+		nebulaDefaultBundle.registerActiveContainerTokens(nebulaPressedContainerTokens,
+			ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED,
+			ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
-		defaultSchemeBundle.registerColorScheme(rolloverUnselectedScheme,
-				RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
+		// Highlights
+		nebulaDefaultBundle.registerActiveContainerTokens(nebulaRolloverHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_UNSELECTED);
+		nebulaDefaultBundle.registerActiveContainerTokens(nebulaSelectedHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.SELECTED);
 
-		defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED, ComponentState.ARMED,
-				ComponentState.ROLLOVER_ARMED);
-		defaultSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(pressedScheme, ComponentState.ROLLOVER_UNSELECTED,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		// Progress bars
+		nebulaDefaultBundle.registerActiveContainerTokens(nebulaDeterminateContainerTokens,
+			ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
 
-		// for progress bars
-		RadianceColorScheme determinateScheme = schemes.get("Nebula Determinate");
-		RadianceColorScheme determinateBorderScheme = schemes.get("Nebula Determinate Border");
-		defaultSchemeBundle.registerColorScheme(determinateScheme,
-				ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
-		defaultSchemeBundle.registerColorScheme(determinateBorderScheme,
-				RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-				ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
+		this.registerDecorationAreaSchemeBundle(nebulaDefaultBundle,
+			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorScheme determinateDisabledScheme = schemes
-				.get("Nebula Determinate Disabled");
-		RadianceColorScheme determinateDisabledBorderScheme = schemes
-				.get("Nebula Determinate Disabled Border");
-		defaultSchemeBundle.registerColorScheme(determinateDisabledScheme,
-				ComponentState.DISABLED_DETERMINATE, ComponentState.DISABLED_INDETERMINATE);
-		defaultSchemeBundle.registerColorScheme(
-				determinateDisabledBorderScheme,
-				RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-				ComponentState.DISABLED_DETERMINATE, ComponentState.DISABLED_INDETERMINATE);
+		ExtendedContainerColorTokens nebulaDecorationsColorTokens = ColorSchemeUtils.getExtendedContainerTokens(
+			/* seed */ Hct.fromInt(0xFFC2D1DA),
+			/* isFidelity */ true,
+			/* isDark */ false);
+		this.registerAsDecorationArea(nebulaDecorationsColorTokens,
+			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
+			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-		registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-				RadianceThemingSlices.DecorationAreaType.NONE);
-
-		registerAsDecorationArea(schemes.get("Nebula Decorations"),
-				bundle -> bundle.registerColorScheme(schemes.get("Nebula Decorations Separator"),
-						RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR),
-				RadianceThemingSlices.DecorationAreaType.FOOTER, RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+		RadianceColorSchemeBundle2 nebulaDefaultHeaderBundle =
+			new RadianceColorSchemeBundle2(this.getHeaderAreaColorScheme());
+		nebulaDefaultHeaderBundle.registerActiveContainerTokens(
+			nebulaRolloverHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.getActiveStates());
+		this.registerDecorationAreaSchemeBundle(nebulaDefaultHeaderBundle,
+			nebulaDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		// add an overlay painter to paint a drop shadow along the top edge of toolbars
 		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(60),
-				RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
-		this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-				ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
-						ColorTransform.alpha(160)));
-		this.addOverlayPainter(this.bottomLineOverlayPainter,
-				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.HEADER);
-
-		this.registerAsDecorationArea(this.getWindowChromeAccent(),
-				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-				RadianceThemingSlices.DecorationAreaType.HEADER);
+		this.bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+			ContainerColorTokens::getContainerOutline);
+		this.addOverlayPainter(bottomLineOverlayPainter,
+			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new SubduedFillPainter(), 1.0f);
+		this.fillPainter = new SpecularRectangularFillPainter(new ClassicTonalFillPainter(), 1.0f);
+		this.borderPainter = new FlatTonalBorderPainter();
 
 		MarbleNoiseDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
 		decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());
-		decorationPainter.setTextureAlpha(0.3f);
+		decorationPainter.setTextureAlpha(0.5f);
 		this.decorationPainter = decorationPainter;
 
-		this.highlightFillPainter = new ClassicFillPainter();
-		this.borderPainter = new FlatBorderPainter();
-
+		this.highlightFillPainter = new ClassicTonalFillPainter();
 	}
 }

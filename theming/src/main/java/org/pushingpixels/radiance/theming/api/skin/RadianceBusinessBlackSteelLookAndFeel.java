@@ -52,10 +52,4 @@ public class RadianceBusinessBlackSteelLookAndFeel extends
 	public RadianceBusinessBlackSteelLookAndFeel() {
 		super(new BusinessBlackSteelSkin());
 	}
-
-	public static class RadianceBusinessBlackSteelTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceBusinessBlackSteelTonalLookAndFeel() {
-			super(new BusinessBlackSteelSkin.BusinessBlackSteelTonalSkin());
-		}
-	}
 }

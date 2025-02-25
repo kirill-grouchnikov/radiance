@@ -45,48 +45,29 @@ public class GraphiteGoldSkin extends GraphiteAccentedSkin {
 	 */
 	public static final String NAME = "Graphite Gold";
 
-	/**
-	 * Creates a new <code>Graphite Gold</code> skin.
-	 */
-	public GraphiteGoldSkin() {
-		super(new AccentBuilder()
-				.withAccentResource("org/pushingpixels/radiance/theming/api/skin/graphite.colorschemes")
-				.withActiveControlsAccent("Graphite Gold")
-				.withHighlightsAccent("Graphite Gold"));
-	}
-
 	@Override
 	public String getDisplayName() {
 		return NAME;
 	}
 
-	public static class GraphiteGoldTonalSkin extends GraphiteAccentedTonalSkin {
-		public static final String NAME = "Graphite Gold Tonal";
-
-		public GraphiteGoldTonalSkin() {
-			super(new AccentBuilder()
-				.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFFFC900),
-					/* isFidelity */ true,
-					/* isDark */ false,
-					/* contrast */ 0.0f,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-						PaletteContainerColorsResolverOverlay.builder()
-							.containerSurfaceDisabledAlpha((s) -> 0.4f)
-							.onContainerDisabledAlpha((s) -> 0.8f)
-							.containerOutlineDisabledAlpha((s) -> 0.4f)
-							.build())))
-				.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFFFC900),
-					/* isFidelity */ true,
-					/* isDark */ false,
-					/* contrast */ 0.0f,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
-		}
-
-		@Override
-		public String getDisplayName() {
-			return NAME;
-		}
+	public GraphiteGoldSkin() {
+		super(new AccentBuilder()
+			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFFFC900),
+				/* isFidelity */ true,
+				/* isDark */ false,
+				/* contrast */ 0.0f,
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+					PaletteContainerColorsResolverOverlay.builder()
+						.containerSurfaceDisabledAlpha((s) -> 0.4f)
+						.onContainerDisabledAlpha((s) -> 0.8f)
+						.containerOutlineDisabledAlpha((s) -> 0.4f)
+						.build())))
+			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFFFC900),
+				/* isFidelity */ true,
+				/* isDark */ false,
+				/* contrast */ 0.0f,
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
 	}
 }

@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
@@ -47,51 +46,32 @@ public class MistSilverSkin extends MistAccentedSkin {
 	 */
 	public static final String NAME = "Mist Silver";
 
-	/**
-	 * Creates a new <code>Silver</code> skin.
-	 */
-	public MistSilverSkin() {
-		super(new RadianceSkin.Accented.AccentBuilder()
-				.withAccentResource("org/pushingpixels/radiance/theming/api/skin/mist.colorschemes")
-				.withActiveControlsAccent("Mist Silver Light Blue")
-				.withHighlightsAccent("Mist Silver Light Blue"));
-	}
-
 	@Override
 	public String getDisplayName() {
 		return NAME;
 	}
 
-	public static class MistSilverTonalSkin extends MistAccentedTonalSkin {
-		public static final String NAME = "Mist Silver Tonal";
-
-		public MistSilverTonalSkin() {
-			super(new AccentBuilder()
-				.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-					/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-						Hct.fromInt(0xFFD4DeE5), Hct.fromInt(0xFFD6D9DD), Hct.fromInt(0xFFEBF0F4)),
-					/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-					/* isPrimaryDark */ false,
-					/* isTonalDark */ false,
-					/* isMutedDark */ false,
-					/* isNeutralDark */ false,
-					/* isSystemDark */ false,
-					/* primaryContrastLevel */ 0.6f,
-					/* tonalContrastLevel */ 0.6f,
-					/* mutedContrastLevel */ 0.6f,
-					/* neutralContrastLevel */ 0.6f,
-					/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
-				.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-					/* seed */ Hct.fromInt(0xFFCDD8DF),
-					/* isFidelity */ true,
-					/* isDark */ false,
-					/* contrast */ 0.0f,
-					/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
-		}
-
-		@Override
-		public String getDisplayName() {
-			return NAME;
-		}
+	public MistSilverSkin() {
+		super(new AccentBuilder()
+			.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
+				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+					Hct.fromInt(0xFFD4DeE5), Hct.fromInt(0xFFD6D9DD), Hct.fromInt(0xFFEBF0F4)),
+				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+				/* isPrimaryDark */ false,
+				/* isTonalDark */ false,
+				/* isMutedDark */ false,
+				/* isNeutralDark */ false,
+				/* isSystemDark */ false,
+				/* primaryContrastLevel */ 0.6f,
+				/* tonalContrastLevel */ 0.6f,
+				/* mutedContrastLevel */ 0.6f,
+				/* neutralContrastLevel */ 0.6f,
+				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFCDD8DF),
+				/* isFidelity */ true,
+				/* isDark */ false,
+				/* contrast */ 0.0f,
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
 	}
 }

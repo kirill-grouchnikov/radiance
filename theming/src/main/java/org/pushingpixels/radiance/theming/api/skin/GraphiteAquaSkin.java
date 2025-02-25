@@ -30,10 +30,7 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
 
@@ -48,51 +45,23 @@ public class GraphiteAquaSkin extends GraphiteAccentedSkin {
      */
     public static final String NAME = "Graphite Aqua";
 
-    /**
-     * Creates a new <code>Graphite Aqua</code> skin.
-     */
-    public GraphiteAquaSkin() {
-        super(new AccentBuilder()
-                .withAccentResource("org/pushingpixels/radiance/theming/api/skin/graphite.colorschemes")
-                .withActiveControlsAccent("Graphite Aqua")
-                .withHighlightsAccent("Graphite Aqua"));
-
-        // Use disabled color scheme for marks of disabled selected checkboxes and radio buttons
-        // for better contrast
-        ColorSchemes schemes = RadianceSkin.getColorSchemes(
-                this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/radiance/theming/api/skin/graphite.colorschemes"));
-        RadianceColorScheme disabledScheme = schemes.get("Graphite Disabled");
-        defaultSchemeBundle.registerColorScheme(disabledScheme,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED);
-    }
-
     @Override
     public String getDisplayName() {
         return NAME;
     }
 
-    public static class GraphiteAquaTonalSkin extends GraphiteAccentedTonalSkin {
-        public static final String NAME = "Graphite Aqua Tonal";
-
-        public GraphiteAquaTonalSkin() {
-            super(new AccentBuilder()
-                .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF3E70FF),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isFidelity */ true,
-                    /* isDark */ true))
-                .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF3E70FF),
-                    /* isFidelity */ true,
-                    /* isDark */ true,
-                    /* contrast */ 0.0f,
-                    /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
-        }
-
-        @Override
-        public String getDisplayName() {
-            return NAME;
-        }
+    public GraphiteAquaSkin() {
+        super(new AccentBuilder()
+            .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF3E70FF),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isFidelity */ true,
+                /* isDark */ true))
+            .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF3E70FF),
+                /* isFidelity */ true,
+                /* isDark */ true,
+                /* contrast */ 0.0f,
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
     }
 }

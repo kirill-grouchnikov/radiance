@@ -52,10 +52,4 @@ public class RadianceGraphiteAquaLookAndFeel extends RadianceLookAndFeel {
 	public RadianceGraphiteAquaLookAndFeel() {
 		super(new GraphiteAquaSkin());
 	}
-
-	public static class RadianceGraphiteAquaTonalLookAndFeel extends RadianceLookAndFeel {
-		public RadianceGraphiteAquaTonalLookAndFeel() {
-			super(new GraphiteAquaSkin.GraphiteAquaTonalSkin());
-		}
-	}
 }

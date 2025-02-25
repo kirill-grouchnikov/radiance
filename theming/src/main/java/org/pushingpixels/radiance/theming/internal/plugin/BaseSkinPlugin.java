@@ -111,69 +111,6 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
         result.add(new SkinInfo(SentinelSkin.NAME, SentinelSkin.class::getName,
                 RadianceSentinelLookAndFeel.class::getName));
 
-        result.add(new SkinInfo(BusinessSkin.BusinessTonalSkin.NAME, BusinessSkin.BusinessTonalSkin.class::getName,
-            RadianceBusinessLookAndFeel.RadianceBusinessTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(BusinessBlackSteelSkin.BusinessBlackSteelTonalSkin.NAME,
-            BusinessBlackSteelSkin.BusinessBlackSteelTonalSkin.class::getName,
-            RadianceBusinessBlackSteelLookAndFeel.RadianceBusinessBlackSteelTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(BusinessBlueSteelSkin.BusinessBlueSteelTonalSkin.NAME,
-            BusinessBlueSteelSkin.BusinessBlueSteelTonalSkin.class::getName,
-            RadianceBusinessBlueSteelLookAndFeel.RadianceBusinessBlueSteelTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(NebulaSkin.NebulaTonalSkin.NAME,
-            NebulaSkin.NebulaTonalSkin.class::getName,
-            RadianceNebulaLookAndFeel.RadianceNebulaTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(NebulaBrickWallSkin.NebulaBrickWallTonalSkin.NAME,
-            NebulaBrickWallSkin.NebulaBrickWallTonalSkin.class::getName,
-            RadianceNebulaBrickWallLookAndFeel.RadianceNebulaBrickWallTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(NebulaAmethystSkin.NebulaAmethystTonalSkin.NAME,
-            NebulaAmethystSkin.NebulaAmethystTonalSkin.class::getName,
-            RadianceNebulaAmethystLookAndFeel.RadianceNebulaAmethystTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(DustSkin.DustTonalSkin.NAME,
-            DustSkin.DustTonalSkin.class::getName,
-            RadianceDustLookAndFeel.RadianceDustTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(DustCoffeeSkin.DustCoffeeTonalSkin.NAME,
-            DustCoffeeSkin.DustCoffeeTonalSkin.class::getName,
-            RadianceDustCoffeeLookAndFeel.RadianceDustCoffeeTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(CremeSkin.CremeTonalSkin.NAME,
-            CremeSkin.CremeTonalSkin.class::getName,
-            RadianceCremeLookAndFeel.RadianceCremeTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(CremeCoffeeSkin.CremeCoffeeTonalSkin.NAME,
-            CremeCoffeeSkin.CremeCoffeeTonalSkin.class::getName,
-            RadianceCremeCoffeeLookAndFeel.RadianceCremeCoffeeTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(MistAquaSkin.MistAquaTonalSkin.NAME,
-            MistAquaSkin.MistAquaTonalSkin.class::getName,
-            RadianceMistAquaLookAndFeel.RadianceMistAquaTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(MistSilverSkin.MistSilverTonalSkin.NAME,
-            MistSilverSkin.MistSilverTonalSkin.class::getName,
-            RadianceMistSilverLookAndFeel.RadianceMistSilverTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GraphiteAquaSkin.GraphiteAquaTonalSkin.NAME,
-            GraphiteAquaSkin.GraphiteAquaTonalSkin.class::getName,
-            RadianceGraphiteAquaLookAndFeel.RadianceGraphiteAquaTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GraphiteElectricSkin.GraphiteElectricTonalSkin.NAME,
-            GraphiteElectricSkin.GraphiteElectricTonalSkin.class::getName,
-            RadianceGraphiteElectricLookAndFeel.RadianceGraphiteElectricTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GraphiteGoldSkin.GraphiteGoldTonalSkin.NAME,
-            GraphiteGoldSkin.GraphiteGoldTonalSkin.class::getName,
-            RadianceGraphiteGoldLookAndFeel.RadianceGraphiteGoldTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GraphiteSiennaSkin.GraphiteSiennaTonalSkin.NAME,
-            GraphiteSiennaSkin.GraphiteSiennaTonalSkin.class::getName,
-            RadianceGraphiteSiennaLookAndFeel.RadianceGraphiteSiennaTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GraphiteSunsetSkin.GraphiteSunsetTonalSkin.NAME,
-            GraphiteSunsetSkin.GraphiteSunsetTonalSkin.class::getName,
-            RadianceGraphiteSunsetLookAndFeel.RadianceGraphiteSunsetTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GraphiteSkin.GraphiteTonalSkin.NAME,
-            GraphiteSkin.GraphiteTonalSkin.class::getName,
-            RadianceGraphiteLookAndFeel.RadianceGraphiteTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GraphiteGlassSkin.GraphiteGlassTonalSkin.NAME,
-            GraphiteGlassSkin.GraphiteGlassTonalSkin.class::getName,
-            RadianceGraphiteGlassLookAndFeel.RadianceGraphiteGlassTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GraphiteChalkSkin.GraphiteChalkTonalSkin.NAME,
-            GraphiteChalkSkin.GraphiteChalkTonalSkin.class::getName,
-            RadianceGraphiteChalkLookAndFeel.RadianceGraphiteChalkTonalLookAndFeel.class::getName));
-        result.add(new SkinInfo(GreenMagicSkin.GreenMagicTonalSkin.NAME,
-            GreenMagicSkin.GreenMagicTonalSkin.class::getName,
-            RadianceGreenMagicLookAndFeel.RadianceGreenMagicTonalLookAndFeel.class::getName));
-
         return result;
     }
 }

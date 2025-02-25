@@ -151,7 +151,7 @@ public class BimodalPaletteDemo extends JFrame {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin.BusinessTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
             new BimodalPaletteDemo().setVisible(true);
         });
     }

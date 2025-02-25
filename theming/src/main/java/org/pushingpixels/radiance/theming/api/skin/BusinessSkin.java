@@ -44,52 +44,32 @@ public class BusinessSkin extends BusinessAccentedSkin {
      */
     public static final String NAME = "Business";
 
-    /**
-     * Creates a new <code>Business</code> skin.
-     */
-    public BusinessSkin() {
-        super(new AccentBuilder()
-            .withAccentResource("org/pushingpixels/radiance/theming/api/skin/business.colorschemes")
-            .withWindowChromeAccent("Business Enabled")
-            .withActiveControlsAccent("Business Active")
-            .withHighlightsAccent("Business Highlight"));
-    }
-
     @Override
     public String getDisplayName() {
         return NAME;
     }
 
-    public static class BusinessTonalSkin extends BusinessAccentedTonalSkin {
-        public static final String NAME = "Business Tonal";
-
-        public BusinessTonalSkin() {
-            super(new AccentBuilder()
-                .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                        Hct.fromInt(0xFFBDC8D3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFE4EAF0)),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isDark */ false))
-                .withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFEBD296),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isFidelity */ true,
-                    /* isDark */ false))
-                .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                            Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isDark */ false))
-                .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFEBD296),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                    /* isFidelity */ true,
-                    /* isDark */ false)));
-        }
-
-        @Override
-        public String getDisplayName() {
-            return NAME;
-        }
+    public BusinessSkin() {
+        super(new AccentBuilder()
+            .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFBDC8D3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFE4EAF0)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isDark */ false))
+            .withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFEBD296),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isFidelity */ true,
+                /* isDark */ false))
+            .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isDark */ false))
+            .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFEBD296),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isFidelity */ true,
+                /* isDark */ false)));
     }
 }

@@ -126,7 +126,7 @@ public class BreadCrumbTest extends JFrame {
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin.BusinessBlackSteelTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 
             BreadCrumbTest test = new BreadCrumbTest();
             test.setIconImage(RadianceLogo.getLogoImage(test,

@@ -71,36 +71,37 @@ public class SkinContainersDemo extends JFrame {
 
         RadianceSkin[] lightSkins = new RadianceSkin[] {
             new AutumnSkin(),
-            new BusinessSkin.BusinessTonalSkin(),
-            new BusinessBlackSteelSkin.BusinessBlackSteelTonalSkin(),
-            new BusinessBlueSteelSkin.BusinessBlueSteelTonalSkin(),
+            new BusinessSkin(),
+            new BusinessBlackSteelSkin(),
+            new BusinessBlueSteelSkin(),
             new CeruleanSkin(),
-            new CremeSkin.CremeTonalSkin(),
-            new CremeCoffeeSkin.CremeCoffeeTonalSkin(),
-            new DustSkin.DustTonalSkin(),
-            new DustCoffeeSkin.DustCoffeeTonalSkin(),
+            new CremeSkin(),
+            new CremeCoffeeSkin(),
+            new DustSkin(),
+            new DustCoffeeSkin(),
             new GeminiSkin(),
+            new GreenMagicSkin(),
             new MarinerSkin(),
-            new MistAquaSkin.MistAquaTonalSkin(),
-            new MistSilverSkin.MistSilverTonalSkin(),
+            new MistAquaSkin(),
+            new MistSilverSkin(),
             new ModerateSkin(),
-            new NebulaSkin.NebulaTonalSkin(),
-            new NebulaAmethystSkin.NebulaAmethystTonalSkin(),
-            new NebulaBrickWallSkin.NebulaBrickWallTonalSkin(),
+            new NebulaSkin(),
+            new NebulaAmethystSkin(),
+            new NebulaBrickWallSkin(),
             new SaharaSkin(),
             new SentinelSkin()
         };
 
         RadianceSkin[] darkSkins = new RadianceSkin[] {
             // all dark
-            new GraphiteSkin.GraphiteTonalSkin(),
-            new GraphiteAquaSkin.GraphiteAquaTonalSkin(),
-            new GraphiteChalkSkin.GraphiteChalkTonalSkin(),
-            new GraphiteElectricSkin.GraphiteElectricTonalSkin(),
-            new GraphiteGlassSkin.GraphiteGlassTonalSkin(),
-            new GraphiteGoldSkin.GraphiteGoldTonalSkin(),
-            new GraphiteSiennaSkin.GraphiteSiennaTonalSkin(),
-            new GraphiteSunsetSkin.GraphiteSunsetTonalSkin(),
+            new GraphiteSkin(),
+            new GraphiteAquaSkin(),
+            new GraphiteChalkSkin(),
+            new GraphiteElectricSkin(),
+            new GraphiteGlassSkin(),
+            new GraphiteGoldSkin(),
+            new GraphiteSiennaSkin(),
+            new GraphiteSunsetSkin(),
             new MagellanSkin(),
             new NightShadeSkin(),
             new RavenSkin(),
@@ -153,7 +154,7 @@ public class SkinContainersDemo extends JFrame {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin.BusinessTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
             new SkinContainersDemo().setVisible(true);
         });
     }

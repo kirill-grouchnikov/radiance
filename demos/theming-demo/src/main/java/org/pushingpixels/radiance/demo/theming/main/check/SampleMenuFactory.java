@@ -39,7 +39,6 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPa
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.skin.GraphiteSkin;
-import org.pushingpixels.radiance.theming.api.skin.NebulaAccentedSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
 import javax.swing.*;
@@ -271,29 +270,14 @@ public class SampleMenuFactory {
         final CustomSkin customSkin = new CustomSkin();
         JMenuItem jmiSkin = new JMenuItem(customSkin.getDisplayName());
         jmiSkin.addActionListener(actionEvent -> RadianceThemingCortex.GlobalScope.setSkin(customSkin));
-        final CustomAccentedSkin customAccentedSkin = new CustomAccentedSkin();
-        JMenuItem jmiAccentedSkin = new JMenuItem(customAccentedSkin.getDisplayName());
-        jmiAccentedSkin.addActionListener(actionEvent -> RadianceThemingCortex.GlobalScope.setSkin(customAccentedSkin));
         final CustomFocusSkin customFocusSkin = new CustomFocusSkin();
         JMenuItem jmiFocusSkin = new JMenuItem(customFocusSkin.getDisplayName());
         jmiFocusSkin.addActionListener(actionEvent -> RadianceThemingCortex.GlobalScope.setSkin(customFocusSkin));
 
         jmSkin.add(jmiSkin);
-        jmSkin.add(jmiAccentedSkin);
         jmSkin.add(jmiFocusSkin);
 
         return jmSkin;
-    }
-
-    protected static class CustomAccentedSkin extends NebulaAccentedSkin {
-        public CustomAccentedSkin() {
-            super(new AccentBuilder().withWindowChromeAccent(new OliveColorScheme()));
-        }
-
-        @Override
-        public String getDisplayName() {
-            return "Nebula Olive";
-        }
     }
 
     protected static class CustomFocusSkin extends GraphiteSkin {
