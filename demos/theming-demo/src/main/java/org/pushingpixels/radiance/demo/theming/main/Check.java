@@ -34,14 +34,15 @@ import org.pushingpixels.radiance.demo.theming.main.check.*;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.*;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.TabCloseKind;
 import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.skin.RadianceGeminiLookAndFeel;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
@@ -85,27 +86,15 @@ public class Check extends JFrame {
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         if (lookAndFeel instanceof RadianceLookAndFeel) {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this.getRootPane());
-            if (skin instanceof TonalSkin) {
-                setIconImage(RadianceLogo.getLogoImage(this,
-                    skin.getBackgroundExtendedContainerTokens(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
-            } else {
-                setIconImage(RadianceLogo.getLogoImage(this,
-                    skin.getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-            }
+            setIconImage(RadianceLogo.getLogoImage(this,
+                skin.getBackgroundExtendedContainerTokens(
+                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(() -> {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(getRootPane());
-            if (skin instanceof TonalSkin) {
-                setIconImage(RadianceLogo.getLogoImage(Check.this,
-                    skin.getBackgroundExtendedContainerTokens(
-                        DecorationAreaType.PRIMARY_TITLE_PANE)));
-            } else {
-                setIconImage(RadianceLogo.getLogoImage(Check.this,
-                    skin.getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-            }
+            setIconImage(RadianceLogo.getLogoImage(Check.this,
+                skin.getBackgroundExtendedContainerTokens(
+                    DecorationAreaType.PRIMARY_TITLE_PANE)));
         }));
 
         setLayout(new BorderLayout());
