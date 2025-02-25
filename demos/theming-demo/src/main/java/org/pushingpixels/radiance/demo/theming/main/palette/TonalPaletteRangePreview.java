@@ -39,11 +39,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class TonalPalettePreview extends JComponent {
+public class TonalPaletteRangePreview extends JComponent {
     private BaseTonalPalette tonalPalette;
+    private int startTone;
+    private int endTone;
+    private int toneJump;
 
-    public TonalPalettePreview(BaseTonalPalette tonalPalette) {
+    public TonalPaletteRangePreview(BaseTonalPalette tonalPalette,
+        int startTone, int endTone, int toneJump) {
         this.tonalPalette = tonalPalette;
+        this.startTone = startTone;
+        this.endTone = endTone;
+        this.toneJump = toneJump;
     }
 
     @Override
@@ -58,7 +65,7 @@ public class TonalPalettePreview extends JComponent {
 
         int xOffset = 10;
 
-        for (int tone = 0; tone <= 100; tone += 5) {
+        for (int tone = this.startTone; tone <= this.endTone; tone += this.toneJump) {
             int toneRgb = this.tonalPalette.tone(tone);
             Color toneColor = new Color(toneRgb);
             paintSquare(g2d, xOffset, 20, 20, toneColor);
