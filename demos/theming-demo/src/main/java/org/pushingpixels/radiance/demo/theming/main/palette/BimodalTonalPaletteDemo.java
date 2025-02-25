@@ -56,6 +56,7 @@ public class BimodalTonalPaletteDemo extends JFrame {
 
         Hct seedOne = Hct.fromInt(0xFFFFD007);
         Hct seedTwo = Hct.fromInt(0xFFFFA300);
+        int fidelityTone = (int) seedTwo.getTone();
 
         TonalPalette tonalPalette1 = TonalPalette.fromHct(seedOne);
         TonalPalette tonalPalette2 = TonalPalette.fromHct(seedTwo);
@@ -63,13 +64,11 @@ public class BimodalTonalPaletteDemo extends JFrame {
         BimodalTonalPalette bimodalTonalPalette1 = BimodalTonalPalette.from(
             /* hct1 */ seedOne,
             /* hct2 */ seedTwo,
-            /* transitionToneStart */ 64,
-            /* transitionToneEnd */ 84);
+            /* transitionRange */ new BimodalTonalPalette.TransitionRangeFidelityLight(fidelityTone));
         BimodalTonalPalette bimodalTonalPalette2 = BimodalTonalPalette.from(
             /* hct1 */ seedTwo,
             /* hct2 */ seedOne,
-            /* transitionToneStart */ 64,
-            /* transitionToneEnd */ 84);
+            /* transitionRange */ new BimodalTonalPalette.TransitionRangeFidelityLight(fidelityTone));
 
         builder.addROLabel("Palette one").xy(1, row)
             .add(new TonalPalettePreview(tonalPalette1))
