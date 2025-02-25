@@ -42,7 +42,7 @@ public class SeaGlassFrame extends SampleFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            RadianceThemingCortex.GlobalScope.setSkin(new SeaGlassSkin.SeaGlassTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new SeaGlassSkin());
             JFrame.setDefaultLookAndFeelDecorated(true);
             SeaGlassFrame sf = new SeaGlassFrame("Radiance");
             sf.setSize(340, 254);

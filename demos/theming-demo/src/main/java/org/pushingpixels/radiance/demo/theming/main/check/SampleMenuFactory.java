@@ -29,14 +29,20 @@
  */
 package org.pushingpixels.radiance.demo.theming.main.check;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.info_black_24dp;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.skin.GraphiteSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
@@ -294,40 +300,51 @@ public class SampleMenuFactory {
         }
     }
 
-    protected static class CustomSkin extends RadianceSkin {
+    protected static class CustomSkin extends RadianceSkin implements TonalSkin {
         @Override
         public String getDisplayName() {
             return "Custom";
         }
 
         public CustomSkin() {
-            RadianceColorScheme activeScheme = new OrangeColorScheme().shade(0.2).invert();
-            RadianceColorScheme enabledScheme = new MetallicColorScheme();
-            RadianceColorScheme disabledScheme = new LightGrayColorScheme();
+            RadianceColorScheme2 customColorScheme = ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFF2C64B4), Hct.fromInt(0xFFBABEC2), Hct.fromInt(0xFFF0F5FA)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isPrimaryDark */ true,
+                /* isTonalDark */ true,
+                /* isMutedDark */ false,
+                /* isNeutralDark */ false,
+                /* isSystemDark */ false,
+                /* primaryContrastLevel */ 0.0f,
+                /* tonalContrastLevel */ 0.0f,
+                /* mutedContrastLevel */ 0.0f,
+                /* neutralContrastLevel */ 0.0f,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
-            RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-                    activeScheme, enabledScheme, disabledScheme);
-            defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
-            defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
-            defaultSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
-            defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-            defaultSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.ROLLOVER_SELECTED,
-                    ComponentState.ROLLOVER_UNSELECTED, ComponentState.SELECTED,
-                    ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-            this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
+            RadianceColorSchemeBundle2 customDefaultBundle =
+                new RadianceColorSchemeBundle2(customColorScheme);
 
-            RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
-                    activeScheme.saturate(0.3), activeScheme, disabledScheme);
-            this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
-                    activeScheme.saturate(0.3),
-                    DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
-                    DecorationAreaType.HEADER);
+            this.registerDecorationAreaSchemeBundle(customDefaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
 
-            this.borderPainter = new ClassicBorderPainter();
-            this.fillPainter = new GlassFillPainter();
+            RadianceColorSchemeBundle2 customDefaultHeaderBundle =
+                new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                        Hct.fromInt(0xFF1A55BA), Hct.fromInt(0xFF1A50AC), Hct.fromInt(0xFF1A5ED2)),
+                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                    /* isDark */ true));
+            this.registerDecorationAreaSchemeBundle(customDefaultHeaderBundle,
+                customDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.HEADER);
+
+            this.borderPainter = new FlatTonalBorderPainter();
+            this.fillPainter = new GlassTonalFillPainter();
             this.buttonShaper = new ClassicButtonShaper();
             this.decorationPainter = new ArcDecorationPainter();
-            this.highlightFillPainter = new GlassFillPainter();
+            this.highlightFillPainter = new GlassTonalFillPainter();
         }
     }
 

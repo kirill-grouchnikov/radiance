@@ -58,7 +58,7 @@ public class VisorMail extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Configure the main skin
-            RadianceThemingCortex.GlobalScope.setSkin(new VisorSkin.VisorTonalSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new VisorSkin());
             RadianceThemingCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             JFrame.setDefaultLookAndFeelDecorated(true);
 

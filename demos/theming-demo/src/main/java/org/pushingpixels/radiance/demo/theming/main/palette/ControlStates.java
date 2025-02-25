@@ -32,10 +32,6 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.AquaColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.LightGrayColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.MetallicColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
@@ -81,23 +77,8 @@ public class ControlStates extends JFrame {
         RadianceLogo.tonalConfigureOn(this);
     }
 
-    static class SampleSkin extends RadianceSkin.Accented implements TonalSkin {
-        public SampleSkin(RadianceColorScheme accentScheme) {
-            super(new RadianceSkin.Accented.AccentBuilder()
-                    .withActiveControlsAccent(accentScheme)
-                    .withWindowChromeAccent(accentScheme));
-
-            RadianceColorSchemeBundle bundle = new RadianceColorSchemeBundle(
-                    accentScheme,
-                    new MetallicColorScheme(),
-                    new LightGrayColorScheme());
-            this.registerDecorationAreaSchemeBundle(bundle,
-                    RadianceThemingSlices.DecorationAreaType.NONE);
-            this.registerAsDecorationArea(accentScheme,
-                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                    RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                    RadianceThemingSlices.DecorationAreaType.HEADER);
-
+    static class SampleSkin extends RadianceSkin implements TonalSkin {
+        public SampleSkin() {
             RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF9020F4), 8.0, 6.0),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -151,7 +132,7 @@ public class ControlStates extends JFrame {
     }
 
     public static void main(String[] args) {
-        RadianceSkin tonalSkin = new SampleSkin(new AquaColorScheme());
+        RadianceSkin tonalSkin = new SampleSkin();
 
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);

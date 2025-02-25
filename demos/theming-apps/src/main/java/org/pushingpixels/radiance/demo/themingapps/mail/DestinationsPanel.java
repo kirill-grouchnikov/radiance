@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 
 import javax.swing.*;
@@ -87,15 +87,13 @@ public class DestinationsPanel extends PanelWithRightLine {
         RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
 
         ComponentOrParentChainScope.setDecorationType(this, VisorMail.DESTINATIONS);
-        this.setRightLineColor(currentSkin.getColorScheme(VisorMail.DESTINATIONS,
-                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED).getDarkColor());
+        this.setRightLineColor(currentSkin.getContainerTokens(this,
+            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).getContainerOutline());
         this.setLayout(new VerticalStackLayout());
 
-        // Get the color schemes for colorizing the icons.
-        Color mainSelectorIconTitleColor = currentSkin
-                .getColorScheme(VisorMail.DESTINATIONS,
-                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
-                .getForegroundColor();
+        // Get the color for colorizing the icons.
+        Color mainSelectorIconTitleColor = currentSkin.getContainerTokens(this,
+                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
 
         RadianceIcon refreshIcon = refresh_black_24dp.factory().createNewIcon();
         refreshIcon.setColorFilter(color -> mainSelectorIconTitleColor);
