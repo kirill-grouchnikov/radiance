@@ -32,8 +32,8 @@ package org.pushingpixels.radiance.demo.themingapps.cookbook;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import javax.swing.border.Border;
 import java.awt.*;
@@ -69,8 +69,8 @@ public class CookbookBorderRight implements Border {
 
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        RadianceColorScheme scheme = RadianceThemingCortex.ComponentScope.getCurrentSkin(c)
-                .getColorScheme(c, ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
+        ContainerColorTokens tokens = RadianceThemingCortex.ComponentScope.getCurrentSkin(c)
+            .getContainerTokens(c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
 
         Graphics2D g2d = (Graphics2D) g.create();
         // dark line on the right-hand side
@@ -79,8 +79,8 @@ public class CookbookBorderRight implements Border {
         Line2D.Float line = new Line2D.Float(x + width - borderStrokeWidth, y,
                 x + width - borderStrokeWidth, y + height);
 
-        Color baseDarkColor = scheme.getDarkColor();
-        Color baseUltraDarkColor = scheme.getUltraDarkColor();
+        Color baseDarkColor = tokens.getContainerOutlineVariant();
+        Color baseUltraDarkColor = tokens.getContainerOutline();
         int baseRed = (int) (0.2f * baseDarkColor.getRed() + 0.8f * baseUltraDarkColor.getRed());
         int baseGreen = (int) (0.2f * baseDarkColor.getGreen()
                 + 0.8f * baseUltraDarkColor.getGreen());

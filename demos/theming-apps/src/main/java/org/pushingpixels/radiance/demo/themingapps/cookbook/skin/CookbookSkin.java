@@ -30,9 +30,11 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
@@ -42,8 +44,6 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPai
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
-
-import java.awt.*;
 
 public class CookbookSkin extends RadianceSkin implements TonalSkin {
 
@@ -126,52 +126,52 @@ public class CookbookSkin extends RadianceSkin implements TonalSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        RadianceColorScheme activeScheme = new ActiveScheme();
-        RadianceColorScheme enabledScheme = new CremeColorScheme();
-        RadianceColorScheme disabledScheme = new LightGrayColorScheme().tint(0.35)
-                .named("Cookbook Disabled");
-        RadianceColorScheme darkBrownColorScheme = new DarkBrownColorScheme();
-        RadianceColorScheme goldenBrownScheme = new GoldenBrownColorScheme();
-
-        RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-                activeScheme, enabledScheme, disabledScheme);
-        // use darker borders on enabled components
-        defaultSchemeBundle.registerColorScheme(goldenBrownScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-        defaultSchemeBundle.registerColorScheme(goldenBrownScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-            RadianceThemingSlices.DecorationAreaType.NONE);
-
-        RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
-                darkBrownColorScheme, goldenBrownScheme, goldenBrownScheme);
-        headerSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-        headerSchemeBundle.registerColorScheme(goldenBrownScheme,
-                ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-        this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
-            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-            RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-            RadianceThemingSlices.DecorationAreaType.HEADER,
-            RadianceThemingSlices.DecorationAreaType.TOOLBAR,
-            RadianceThemingSlices.DecorationAreaType.FOOTER);
-
-        // scheme bundle for the CONTROL_PANE area type
-        RadianceColorSchemeBundle controlPaneSchemeBundle = new RadianceColorSchemeBundle(
-                goldenBrownScheme.shiftBackground(new Color(127, 58, 11), 0.7f),
-                darkBrownColorScheme, darkBrownColorScheme);
-        // use translucency on disabled controls
-        controlPaneSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED,
-                ComponentState.DISABLED_UNSELECTED);
-        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
-                ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-        // use dark color scheme for borders of active controls
-        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
-        // and default controls
-        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-        this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle,
-            RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+//        RadianceColorScheme activeScheme = new ActiveScheme();
+//        RadianceColorScheme enabledScheme = new CremeColorScheme();
+//        RadianceColorScheme disabledScheme = new LightGrayColorScheme().tint(0.35)
+//                .named("Cookbook Disabled");
+//        RadianceColorScheme darkBrownColorScheme = new DarkBrownColorScheme();
+//        RadianceColorScheme goldenBrownScheme = new GoldenBrownColorScheme();
+//
+//        RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
+//                activeScheme, enabledScheme, disabledScheme);
+//        // use darker borders on enabled components
+//        defaultSchemeBundle.registerColorScheme(goldenBrownScheme,
+//                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
+//        defaultSchemeBundle.registerColorScheme(goldenBrownScheme,
+//                ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
+//        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
+//            RadianceThemingSlices.DecorationAreaType.NONE);
+//
+//        RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
+//                darkBrownColorScheme, goldenBrownScheme, goldenBrownScheme);
+//        headerSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
+//        headerSchemeBundle.registerColorScheme(goldenBrownScheme,
+//                ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
+//        this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
+//            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+//            RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+//            RadianceThemingSlices.DecorationAreaType.HEADER,
+//            RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+//            RadianceThemingSlices.DecorationAreaType.FOOTER);
+//
+//        // scheme bundle for the CONTROL_PANE area type
+//        RadianceColorSchemeBundle controlPaneSchemeBundle = new RadianceColorSchemeBundle(
+//                goldenBrownScheme.shiftBackground(new Color(127, 58, 11), 0.7f),
+//                darkBrownColorScheme, darkBrownColorScheme);
+//        // use translucency on disabled controls
+//        controlPaneSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED,
+//                ComponentState.DISABLED_UNSELECTED);
+//        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
+//                ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
+//        // use dark color scheme for borders of active controls
+//        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
+//                ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
+//        // and default controls
+//        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
+//                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
+//        this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle,
+//            RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new CookbookFillPainter();

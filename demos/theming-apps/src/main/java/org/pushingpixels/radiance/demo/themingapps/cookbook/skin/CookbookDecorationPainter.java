@@ -30,16 +30,13 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import com.jhlabs.image.*;
-import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 
@@ -57,17 +54,6 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
     private BufferedImage lightImage;
 
     public CookbookDecorationPainter() {
-        ContainerColorTokens goldenBrownTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFA4521B),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-            /* isFidelity */ true,
-            /* isDark */ true);
-        ContainerColorTokens darkBrownTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFF561703),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-            /* isFidelity */ true,
-            /* isDark */ true);
-
         Rectangle virtualBounds = new Rectangle();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gds = ge.getScreenDevices();
@@ -85,9 +71,9 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
         LookupFilter brushedMetalLookupFilter = new LookupFilter(new Gradient(
             new int[] { 0, 96, 255 },
             new int[] {
-                goldenBrownTokens.getContainerSurfaceHighest().getRGB(),
-                goldenBrownTokens.getContainerSurfaceLow().getRGB(),
-                goldenBrownTokens.getContainerSurfaceLowest().getRGB() }));
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceHighest().getRGB(),
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceLow().getRGB(),
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceLowest().getRGB() }));
 
         this.brushedMetalImage = new CompoundFilter(brushedMetalFilter, brushedMetalLookupFilter)
                 .filter(new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB),
@@ -106,11 +92,11 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
         LookupFilter woodLookupFilter = new LookupFilter(new Gradient(
             new int[] { 0, 64, 128, 192, 255 },
             new int[] {
-                darkBrownTokens.getContainerSurfaceHighest().getRGB(),
-                darkBrownTokens.getContainerSurfaceHighest().getRGB(),
-                darkBrownTokens.getContainerSurfaceHigh().getRGB(),
-                darkBrownTokens.getContainerSurfaceLow().getRGB(),
-                darkBrownTokens.getContainerSurfaceLowest().getRGB() }));
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceHighest().getRGB(),
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceHighest().getRGB(),
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceHigh().getRGB(),
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceLow().getRGB(),
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceLowest().getRGB() }));
 
         this.woodImage = new CompoundFilter(woodFilter, woodLookupFilter).filter(
                 new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB), null);

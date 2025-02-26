@@ -33,9 +33,8 @@ import com.jhlabs.image.BlurFilter;
 import com.jhlabs.image.CompoundFilter;
 import com.jhlabs.image.Gradient;
 import com.jhlabs.image.PointFilter;
-import org.pushingpixels.radiance.demo.themingapps.cookbook.skin.GoldenBrownColorScheme;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.demo.themingapps.cookbook.skin.CookbookTokens;
 
 import java.awt.*;
 import java.awt.image.BufferedImageOp;
@@ -58,12 +57,12 @@ public class EchoRadianceIcon implements RadianceIcon {
         }
         blurFilter.setKernel(new Kernel(kernelSide, kernelSide, kernelData));
 
-        RadianceColorScheme colorScheme = new GoldenBrownColorScheme();
         Gradient inverseGradient = new Gradient(
-                new int[] { 0, 128, 255 },
-                new int[] { colorScheme.getUltraLightColor().getRGB(),
-                        colorScheme.getMidColor().getRGB(),
-                        colorScheme.getUltraDarkColor().getRGB() });
+            new int[] { 0, 128, 255 },
+            new int[] {
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceHighest().getRGB(),
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurface().getRGB(),
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceLowest().getRGB() });
         // Can't use LookupFilter since it disregards the original alpha
         PointFilter inverseFilter = new PointFilter() {
             @Override
@@ -84,8 +83,7 @@ public class EchoRadianceIcon implements RadianceIcon {
 
     public EchoRadianceIcon(Factory originalFactory) {
         this.original = originalFactory.createNewIcon();
-        this.echo = FilteredRadianceIcon.factory(originalFactory, iconShadowFilter)
-                .createNewIcon();
+        this.echo = FilteredRadianceIcon.factory(originalFactory, iconShadowFilter).createNewIcon();
     }
 
     @Override

@@ -32,8 +32,8 @@ package org.pushingpixels.radiance.demo.themingapps.cookbook;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import javax.swing.border.Border;
 import java.awt.*;
@@ -74,14 +74,14 @@ public class CookbookBorderLeft implements Border {
 
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        RadianceColorScheme scheme = RadianceThemingCortex.ComponentScope.getCurrentSkin(c)
-                .getColorScheme(c, ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
+        ContainerColorTokens tokens = RadianceThemingCortex.ComponentScope.getCurrentSkin(c)
+            .getContainerTokens(c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
 
         Graphics2D g2d = (Graphics2D) g.create();
 
         // light line on the left-hand side
         g2d.setComposite(AlphaComposite.SrcOver);
-        Color baseColor = scheme.getLightColor();
+        Color baseColor = tokens.getContainerOutlineVariant();
         g2d.setPaint(new GradientPaint(x, y,
                 new Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(),
                         (int) (baseColor.getAlpha() * this.alphaTop)),
