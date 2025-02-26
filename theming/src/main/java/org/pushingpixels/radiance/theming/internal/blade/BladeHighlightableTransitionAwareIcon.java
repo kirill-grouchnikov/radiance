@@ -67,8 +67,6 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
 
     private BladeTransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate;
 
-    private BladeColorScheme mutableColorScheme = new BladeColorScheme();
-
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     private BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;

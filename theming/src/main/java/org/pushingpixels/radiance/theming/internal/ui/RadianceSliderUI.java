@@ -35,12 +35,11 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -99,8 +98,6 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
      */
     private Icon verticalIcon;
 
-    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
 
     public static ComponentUI createUI(JComponent comp) {
@@ -246,7 +243,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
 
         Graphics2D graphics1Xextra = (Graphics2D) graphics1X.create();
 
-        RadianceFillPainter fillPainter = ClassicFillPainter.INSTANCE;
+        RadianceFillPainter fillPainter = new MatteTonalFillPainter();
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
 
         int componentFontSize = RadianceSizeUtils.getComponentFontSize(this.slider);

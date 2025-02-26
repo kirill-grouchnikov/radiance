@@ -32,8 +32,6 @@ package org.pushingpixels.radiance.theming.internal.utils;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -207,26 +205,6 @@ public class RadianceTextUtilities {
      * @param text          Text to paint
      * @param mnemonicIndex Mnemonic index.
      */
-    public static Color paintText(Graphics g, AbstractButton button, Rectangle textRect, String text,
-        int mnemonicIndex) {
-        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
-        StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
-
-        if (button instanceof JMenuItem) {
-            // A slightly different path for menu items as we ignore the selection
-            // state for visual consistency in menu content
-            float menuItemAlpha = RadianceColorSchemeUtilities.getAlpha(button,
-                ComponentState.getState(button.getModel(), button, true));
-            return paintMenuItemText(g, (JMenuItem) button, textRect, text, mnemonicIndex,
-                stateTransitionTracker.getModelStateInfo(), menuItemAlpha);
-        } else {
-            float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(button,
-                ComponentState.getState(button));
-            return paintText(g, button, textRect, text, mnemonicIndex,
-                stateTransitionTracker.getModelStateInfo(), buttonAlpha);
-        }
-    }
-
     public static Color paintTonalText(Graphics g, AbstractButton button, Rectangle textRect, String text,
         int mnemonicIndex, RadianceThemingSlices.ContainerType inactiveContainerType) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
@@ -252,29 +230,10 @@ public class RadianceTextUtilities {
      * @param text          Text to paint.
      * @param mnemonicIndex Mnemonic index.
      * @param state         Component state.
-     * @param textAlpha     Alpha channel for painting the text.
      */
-    public static Color paintText(Graphics g, JComponent component, Rectangle textRect, String text,
-        int mnemonicIndex, ComponentState state, float textAlpha) {
-        Color fgColor = getForegroundColor(component, state, textAlpha);
-
-        RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
-
-        return fgColor;
-    }
-
     public static Color paintTonalText(Graphics g, JComponent component, Rectangle textRect, String text,
         int mnemonicIndex, ComponentState state, RadianceThemingSlices.ContainerType inactiveContainerType) {
         Color fgColor = getTonalForegroundColor(component, state, inactiveContainerType);
-
-        RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
-
-        return fgColor;
-    }
-
-    public static Color paintText(Graphics g, JComponent component, Rectangle textRect, String text,
-        int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
-        Color fgColor = getForegroundColor(component, text, modelStateInfo, textAlpha);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
 
@@ -287,16 +246,6 @@ public class RadianceTextUtilities {
         Color fgColor = getTonalForegroundColor(component, text, modelStateInfo, inactiveContainerType);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
-
-        return fgColor;
-    }
-
-    public static Color paintMenuItemText(Graphics g, JMenuItem menuItem, Rectangle textRect,
-        String text, int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo,
-        float textAlpha) {
-        Color fgColor = getMenuComponentForegroundColor(menuItem, text, modelStateInfo, textAlpha);
-
-        RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, menuItem.getFont(), fgColor, null);
 
         return fgColor;
     }
@@ -315,25 +264,8 @@ public class RadianceTextUtilities {
      *
      * @param component Component.
      * @param state     Component state.
-     * @param textAlpha Alpha channel for painting the text. If value is less than 1.0, the result is an
-     *                  opaque color which is an interpolation between the "real" foreground color and the
-     *                  background color of the component. This is done to ensure that native text
-     *                  rasterization will be performed on Windows.
      * @return The foreground color for the specified component.
      */
-    public static Color getForegroundColor(JComponent component, ComponentState state, float textAlpha) {
-        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
-
-        Color fgColor = toEnforceFgColor ? component.getForeground()
-                : RadianceColorSchemeUtilities.getColorScheme(component, state).getForegroundColor();
-
-        if (textAlpha < 1.0f) {
-            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(component);
-            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, textAlpha);
-        }
-        return fgColor;
-    }
-
     public static Color getTonalForegroundColor(JComponent component, ComponentState state,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
@@ -396,27 +328,8 @@ public class RadianceTextUtilities {
      * @param menuComponent  Menu component.
      * @param text           Text. If empty or <code>null</code>, the result is <code>null</code>.
      * @param modelStateInfo Model state info for the specified component.
-     * @param textAlpha      Alpha channel for painting the text. If value is less than 1.0, the result is an
-     *                       opaque color which is an interpolation between the "real" foreground color and the
-     *                       background color of the component. This is done to ensure that native text
-     *                       rasterization will be performed on Windows.
      * @return The foreground color for the specified menu component.
      */
-    public static Color getMenuComponentForegroundColor(JMenuItem menuComponent, String text,
-        StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
-        if ((text == null) || (text.length() == 0)) {
-            return null;
-        }
-
-        Color fgColor = RadianceColorUtilities.getMenuComponentForegroundColor(menuComponent, modelStateInfo);
-
-        if (textAlpha < 1.0f) {
-            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(menuComponent);
-            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, textAlpha);
-        }
-        return fgColor;
-    }
-
     public static Color getTonalMenuComponentForegroundColor(JMenuItem menuComponent, String text,
         StateTransitionTracker.ModelStateInfo modelStateInfo) {
         if ((text == null) || (text.length() == 0)) {
@@ -428,36 +341,6 @@ public class RadianceTextUtilities {
         float fgAlpha = RadianceColorUtilities.getTonalMenuComponentForegroundAlpha(
             menuComponent, modelStateInfo, RadianceThemingSlices.ContainerType.NEUTRAL);
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (255.0f * fgAlpha));
-    }
-
-    public static Color getTextBackgroundFillColor(JComponent comp) {
-        Color backgroundFillColor = RadianceColorUtilities.getBackgroundFillColor(comp);
-
-        JTextComponent componentForTransitions = RadianceCoreUtilities.getTextComponentForTransitions(comp);
-
-        if (componentForTransitions != null) {
-            ComponentUI ui = componentForTransitions.getUI();
-            if (ui instanceof TransitionAwareUI) {
-                TransitionAwareUI trackable = (TransitionAwareUI) ui;
-                StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
-
-                float lightnessFactor = RadianceColorSchemeUtilities.getColorScheme(componentForTransitions,
-                    componentForTransitions.isEnabled() ? ComponentState.ENABLED
-                        : ComponentState.DISABLED_UNSELECTED).isDark() ? 0.1f : 0.4f;
-                Color lighterFill = RadianceColorUtilities.getLighterColor(backgroundFillColor,
-                    lightnessFactor);
-                lighterFill = RadianceColorUtilities.getInterpolatedColor(lighterFill,
-                    backgroundFillColor, 0.6);
-
-                float selectionStrength = stateTransitionTracker.getFacetStrength(
-                    RadianceThemingSlices.ComponentStateFacet.SELECTION);
-                float rolloverStrength = stateTransitionTracker.getFacetStrength(
-                    RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
-                backgroundFillColor = RadianceColorUtilities.getInterpolatedColor(lighterFill,
-                    backgroundFillColor, Math.max(selectionStrength, rolloverStrength) / 4.0f);
-            }
-        }
-        return backgroundFillColor;
     }
 
     public static Color getTextBackgroundTonalFillColor(JComponent comp) {
@@ -582,95 +465,6 @@ public class RadianceTextUtilities {
         return result;
     }
 
-    /**
-     * Paints background of the specified text component.
-     *
-     * @param g    Graphics context.
-     * @param comp Component.
-     */
-    public static void paintTextCompBackground(Graphics g, JComponent comp) {
-        Graphics2D g2d = (Graphics2D) g.create();
-
-        BackgroundPaintingUtils.update(g2d, comp, false);
-
-        Color backgroundFillColor = getTextBackgroundFillColor(comp);
-        g2d.setColor(backgroundFillColor);
-
-        // Match the logic / shape in RadianceImageCreator.paintSimpleBorder that draws the
-        // border
-        float borderStrokeWidth = RadianceSizeUtils.getBorderStrokeWidth(comp);
-        g2d.fill(new Rectangle2D.Float(borderStrokeWidth / 2.0f, borderStrokeWidth / 2.0f,
-            comp.getWidth() - borderStrokeWidth, comp.getHeight() - borderStrokeWidth));
-
-        ComponentState state = comp.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = null;
-        JTextComponent componentForTransitions = RadianceCoreUtilities
-            .getTextComponentForTransitions(comp);
-        if (componentForTransitions != null) {
-            ComponentUI ui = componentForTransitions.getUI();
-            if (ui instanceof TransitionAwareUI) {
-                TransitionAwareUI trackable = (TransitionAwareUI) ui;
-                StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
-                StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                    .getModelStateInfo();
-                state = modelStateInfo.getCurrModelState();
-                activeStates = modelStateInfo.getStateContributionMap();
-            }
-        }
-
-        if ((componentForTransitions != null) && !componentForTransitions.isEditable()) {
-            // don't paint top shadow on non-editable text fields
-            return;
-        }
-
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(comp);
-        // Get the base border color
-        RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(comp,
-            RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
-        Color borderColor = borderPainter.getRepresentativeColor(baseBorderScheme);
-
-        if (!state.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
-            // If we have more than one active state, compute the composite color from all
-            // the contributions
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
-                ComponentState activeState = activeEntry.getKey();
-                if (activeState == state) {
-                    continue;
-                }
-
-                float contribution = activeEntry.getValue().getContribution();
-                if (contribution == 0.0f) {
-                    continue;
-                }
-
-                float alpha = RadianceColorSchemeUtilities.getAlpha(componentForTransitions, activeState);
-                if (alpha == 0.0f) {
-                    continue;
-                }
-
-                RadianceColorScheme activeBorderScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(componentForTransitions, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                        activeState);
-                Color activeBorderColor = borderPainter.getRepresentativeColor(activeBorderScheme);
-                borderColor = RadianceColorUtilities.getInterpolatedColor(borderColor,
-                    activeBorderColor, 1.0f - contribution * alpha);
-            }
-        }
-        // At this point we should have the color that matches the border color. Use that to
-        // paint emulated drop shadow along the top edge of the component.
-        if (hasRadianceTextBorder(comp)) {
-            int shadowHeight = 6;
-            int topAlpha = state.isDisabled() ? 16 : 32;
-            g2d.setPaint(new GradientPaint(0, 0,
-                RadianceColorUtilities.getAlphaColor(borderColor, topAlpha), 0, shadowHeight,
-                RadianceColorUtilities.getAlphaColor(borderColor, 0)));
-            float yTop = RadianceSizeUtils.getBorderStrokeWidth(comp);
-            g2d.fill(new Rectangle2D.Float(borderStrokeWidth, yTop,
-                comp.getWidth() - 2 * borderStrokeWidth, shadowHeight));
-        }
-        g2d.dispose();
-    }
     /**
      * Paints background of the specified text component.
      *

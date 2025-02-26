@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
@@ -63,9 +62,6 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
         return new RadianceTriStateCheckBoxUI((JTriStateCheckBox) comp);
     }
 
-    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     private RadianceTriStateCheckBoxUI(JTriStateCheckBox triStateCheckBox) {

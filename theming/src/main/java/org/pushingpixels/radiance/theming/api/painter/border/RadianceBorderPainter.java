@@ -68,9 +68,8 @@ public interface RadianceBorderPainter extends RadianceTrait {
 	void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
 			Shape innerContour, RadianceColorScheme borderScheme);
 
-	default void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
-			Shape innerContour, ContainerColorTokens colorTokens) {
-	}
+	void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
+			Shape innerContour, ContainerColorTokens colorTokens);
 
 	/**
 	 * Returns boolean indication whether this border painter is painting the

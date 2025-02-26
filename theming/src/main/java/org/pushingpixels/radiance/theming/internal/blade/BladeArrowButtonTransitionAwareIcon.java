@@ -72,8 +72,6 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
     private BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;
 
-    private BladeColorScheme mutableColorScheme = new BladeColorScheme();
-
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     public BladeArrowButtonTransitionAwareIcon(final AbstractButton button,

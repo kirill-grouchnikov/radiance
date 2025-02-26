@@ -31,13 +31,10 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -51,29 +48,6 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 
 public class BladeIconUtils {
-    /**
-     * Custom fill painter for the checkmarks of checkboxes and radio buttons.
-     *
-     * @author Kirill Grouchnikov
-     */
-    private static class SimplisticSoftBorderReverseFillPainter extends FractionBasedFillPainter {
-        /**
-         * Singleton instance.
-         */
-        public static final RadianceFillPainter INSTANCE = new SimplisticSoftBorderReverseFillPainter();
-
-        private SimplisticSoftBorderReverseFillPainter() {
-            super("Simplistic Soft Border Reverse",
-                new float[] {0.0f, 0.5f, 1.0f},
-                new ColorSchemeSingleColorQuery[] {
-                    ColorSchemeSingleColorQuery.ULTRALIGHT,
-                    scheme -> RadianceColorUtilities.getInterpolatedColor(
-                        scheme.getMidColor(), scheme.getUltraLightColor(), 0.5f),
-                    ColorSchemeSingleColorQuery.MID
-                }
-            );
-        }
-    }
 
     private static class SimplisticSoftBorderReverseTonalFillPainter extends FractionBasedTonalFillPainter {
         /**
@@ -91,66 +65,6 @@ public class BladeIconUtils {
                 }
             );
         }
-    }
-
-    public static void drawCheckBox(Graphics2D g, JComponent component, RadianceFillPainter fillPainter,
-        RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
-        RadianceColorScheme fillColorScheme, RadianceColorScheme markColorScheme,
-        RadianceColorScheme borderColorScheme, float checkMarkVisibility,
-        float checkMarkFlatness, boolean isCheckMarkFadingOut, float alpha) {
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                float cornerRadius = (float) scaleFactor *
-                    RadianceSizeUtils.getClassicButtonCornerRadius(
-                        RadianceSizeUtils.getComponentFontSize(component));
-
-                int contourDim = scaledWidth - 1;
-                Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
-                    component.getComponentOrientation(),
-                    contourDim, contourDim,
-                    cornerRadius, null, 0.0f);
-
-                RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
-                    : SimplisticSoftBorderReverseFillPainter.INSTANCE;
-                graphics1X.setComposite(getAlphaComposite(alpha));
-                Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
-                    component.getComponentOrientation(),
-                    contourDim + 1, contourDim + 1,
-                    cornerRadius, null, 0.5f);
-                finalFillPainter.paintContourBackground(graphics1X, component,
-                    contourDim, contourDim,
-                    contourFill, fillColorScheme);
-
-                Shape contourInner = borderPainter.isPaintingInnerContour() ?
-                    RadianceOutlineUtilities.getBaseOutline(
-                        component.getComponentOrientation(),
-                        contourDim, contourDim, cornerRadius, null, 1.0f)
-                    : null;
-                borderPainter.paintBorder(graphics1X, component, contourDim, contourDim,
-                    contourOuter, contourInner, borderColorScheme);
-
-                float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
-                    1.0f : checkMarkVisibility;
-                if (finalCheckMarkVisibility > 0.0) {
-                    Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
-                    if (isCheckMarkFadingOut) {
-                        graphicsForCheckMark.setComposite(getAlphaComposite(alpha * checkMarkVisibility));
-                    }
-
-                    drawCheckMarkAtScale1X(graphicsForCheckMark, scaledWidth, markColorScheme,
-                        checkMarkFlatness);
-
-                    graphicsForCheckMark.dispose();
-                }
-            });
-        graphics.dispose();
     }
 
     public static void drawTonalCheckBox(Graphics2D g, JComponent component, RadianceFillPainter fillPainter,
@@ -221,21 +135,6 @@ public class BladeIconUtils {
     }
 
     private static void drawCheckMarkAtScale1X(Graphics2D graphics1X, int dimension,
-        RadianceColorScheme scheme, float checkMarkFlatness) {
-        // create straight checkbox path
-        GeneralPath path = new GeneralPath();
-        path.moveTo(0.25f * dimension, 0.47f * dimension + 0.03f * dimension * checkMarkFlatness);
-        path.lineTo(0.48f * dimension, 0.72f * dimension - 0.22f * dimension * checkMarkFlatness);
-        path.lineTo(0.76f * dimension, 0.27f * dimension + 0.23f * dimension * checkMarkFlatness);
-
-        graphics1X.setColor(scheme.getMarkColor());
-        Stroke stroke = new BasicStroke((float) 0.15 * dimension, BasicStroke.CAP_ROUND,
-            BasicStroke.JOIN_ROUND);
-        graphics1X.setStroke(stroke);
-        graphics1X.draw(path);
-    }
-
-    private static void drawCheckMarkAtScale1X(Graphics2D graphics1X, int dimension,
         ContainerColorTokens colorTokens, float checkMarkFlatness) {
         // create straight checkbox path
         GeneralPath path = new GeneralPath();
@@ -248,59 +147,6 @@ public class BladeIconUtils {
             BasicStroke.JOIN_ROUND);
         graphics1X.setStroke(stroke);
         graphics1X.draw(path);
-    }
-
-    public static void drawRadioButton(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,
-            RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
-            RadianceColorScheme fillColorScheme, RadianceColorScheme markColorScheme,
-            RadianceColorScheme borderColorScheme, float checkMarkVisibility,
-            float alpha) {
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    int contourDim = scaledWidth;
-                    Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
-
-                    RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
-                            : SimplisticSoftBorderReverseFillPainter.INSTANCE;
-                    graphics1X.setComposite(getAlphaComposite(alpha));
-                    finalFillPainter.paintContourBackground(graphics1X, button,
-                            contourDim, contourDim,
-                            new Ellipse2D.Float(0.5f, 0.5f, contourDim, contourDim),
-                            fillColorScheme);
-
-                    Shape contourInner = borderPainter.isPaintingInnerContour() ?
-                            new Ellipse2D.Float(1.0f, 1.0f, contourDim - 2.0f, contourDim - 2.0f)
-                            : null;
-                    borderPainter.paintBorder(graphics1X, button, contourDim, contourDim,
-                            contourOuter, contourInner, borderColorScheme);
-
-                    float rc = contourDim / 2.0f + 0.5f;
-                    float radius = contourDim / 4.5f;
-                    Shape markOval = new Ellipse2D.Double(rc - radius, rc - radius, 2 * radius, 2 * radius);
-                    Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
-
-                    if (checkMarkVisibility > 0.0) {
-                        // mark
-                        graphicsForCheckMark.setComposite(getAlphaComposite(alpha * checkMarkVisibility));
-                        graphicsForCheckMark.setColor(markColorScheme.getMarkColor());
-                    } else {
-                        // draw ghost mark holder
-                        graphicsForCheckMark.setComposite(getAlphaComposite(alpha * 0.3f));
-                        graphicsForCheckMark.setPaint(
-                                new GradientPaint(rc + radius, rc - radius, fillColorScheme.getDarkColor(),
-                                        rc - radius, rc + radius, fillColorScheme.getLightColor()));
-                    }
-                    graphicsForCheckMark.fill(markOval);
-                    graphicsForCheckMark.dispose();
-                });
-        graphics.dispose();
     }
 
     public static void drawTonalRadioButton(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,
@@ -365,38 +211,6 @@ public class BladeIconUtils {
 
     public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
         RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
-        int width, int height,
-        RadianceColorScheme fillColorScheme,
-        RadianceColorScheme borderColorScheme, float alpha) {
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                graphics1X.setComposite(getAlphaComposite(alpha));
-                fillPainter.paintContourBackground(graphics1X, slider,
-                    scaledWidth, scaledHeight,
-                    RadianceOutlineUtilities.getTriangleButtonOutline(
-                        scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
-                    fillColorScheme);
-
-                Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
-                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
-                Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
-                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
-                borderPainter.paintBorder(graphics1X, slider,
-                    scaledWidth, scaledHeight,
-                    contourOuter, contourInner, borderColorScheme);
-            });
-        graphics.dispose();
-    }
-
-    public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
-        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -427,48 +241,6 @@ public class BladeIconUtils {
                     containerOutlineAlpha, g));
                 borderPainter.paintBorder(graphics1X, slider,
                     scaledWidth, scaledHeight, contourOuter, contourInner, colorTokens);
-            });
-        graphics.dispose();
-    }
-
-    public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
-        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
-        int width, int height,
-        RadianceColorScheme fillColorScheme,
-        RadianceColorScheme borderColorScheme, float alpha) {
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                AffineTransform at = AffineTransform.getTranslateInstance(0, scaledHeight);
-                at.rotate(-Math.PI / 2);
-                graphics1X.transform(at);
-
-                if (!slider.getComponentOrientation().isLeftToRight()) {
-                    AffineTransform mirror = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
-                    mirror.rotate(Math.PI);
-                    graphics1X.transform(mirror);
-                }
-
-                graphics1X.setComposite(getAlphaComposite(alpha));
-                fillPainter.paintContourBackground(graphics1X, slider,
-                    scaledWidth, scaledHeight,
-                    RadianceOutlineUtilities.getTriangleButtonOutline(
-                        scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
-                    fillColorScheme);
-
-                Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
-                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
-                Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
-                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
-                borderPainter.paintBorder(graphics1X, slider,
-                    scaledWidth, scaledHeight,
-                    contourOuter, contourInner, borderColorScheme);
             });
         graphics.dispose();
     }
@@ -522,39 +294,6 @@ public class BladeIconUtils {
 
     public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
         RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
-        int dimension,
-        RadianceColorScheme fillColorScheme,
-        RadianceColorScheme borderColorScheme, float alpha) {
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-
-                graphics1X.setComposite(getAlphaComposite(alpha));
-                fillPainter.paintContourBackground(graphics1X, slider,
-                    scaledWidth, scaledHeight,
-                    new Ellipse2D.Float(0.5f, 0.5f,
-                        scaledWidth - 2.0f, scaledHeight - 2.0f),
-                    fillColorScheme);
-
-                Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f,
-                    scaledWidth - 1.0f, scaledHeight - 1.0f);
-                Shape contourInner = new Ellipse2D.Float(1.0f, 1.0f,
-                    scaledWidth - 3.0f, scaledHeight - 3.0f);
-                borderPainter.paintBorder(graphics1X, slider,
-                    scaledWidth, scaledHeight,
-                    contourOuter, contourInner, borderColorScheme);
-            });
-        graphics.dispose();
-    }
-
-    public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
-        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
         int dimension, ContainerColorTokens colorTokens, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -586,48 +325,6 @@ public class BladeIconUtils {
                 borderPainter.paintBorder(graphics1X, slider,
                     scaledWidth, scaledHeight, contourOuter, contourInner, colorTokens);
             });
-        graphics.dispose();
-    }
-
-    public static void drawTreeIcon(Graphics2D g, JTree tree, int size, RadianceColorScheme fillScheme,
-            RadianceColorScheme borderScheme, RadianceColorScheme markScheme,
-            boolean isCollapsed) {
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, size, size,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceFillPainter fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
-                    RadianceBorderPainter borderPainter = new FlatBorderPainter();
-
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                            tree.getComponentOrientation(),
-                            scaledWidth, scaledHeight,
-                            (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                                    RadianceSizeUtils.getComponentFontSize(tree)) / 1.5f, null,
-                            1.0f);
-
-                    fillPainter.paintContourBackground(graphics1X, tree, scaledWidth, scaledHeight,
-                            contour, fillScheme);
-                    borderPainter.paintBorder(graphics1X, tree, scaledWidth, scaledHeight, contour,
-                            null, borderScheme);
-
-                    Color signColor = markScheme.getForegroundColor();
-                    graphics1X.setColor(signColor);
-                    float mid = scaledWidth / 2;
-                    float length = 7 * scaledWidth / 12;
-                    // Horizontal stroke
-                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
-                    graphics1X.draw(new Line2D.Float(mid - length / 2, mid, mid + length / 2, mid));
-                    if (isCollapsed) {
-                        // Vertical stroke
-                        graphics1X.draw(new Line2D.Float(mid, mid - length / 2, mid, mid + length / 2));
-                    }
-                });
         graphics.dispose();
     }
 
@@ -961,53 +658,6 @@ public class BladeIconUtils {
             finalAlpha = 1.0f;
         return AlphaComposite.getInstance(AlphaComposite.SRC_OVER, finalAlpha);
     }
-
-    public static void drawSplitDividerBumpImage(Graphics g, RadianceSplitPaneDivider divider,
-        int x, int y, int width, int height, boolean isHorizontal,
-        RadianceColorScheme colorScheme) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.translate(x, y);
-
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-            (graphics1X, offsetX, offsetY, scaledWidth, scaledHeight, scaleFactor) -> {
-                int componentFontSize = RadianceSizeUtils.getComponentFontSize(divider);
-                int bumpDotDiameter = (int) (scaleFactor *
-                    RadianceSizeUtils.getBigDragBumpDiameter(componentFontSize));
-                int bumpCellSize = (int) (1.5 * bumpDotDiameter + 1);
-                int bumpRows = isHorizontal ? 1 : Math.max(1, scaledHeight / bumpCellSize - 1);
-                int bumpColumns = isHorizontal ? Math.max(1, (scaledWidth - 2) / bumpCellSize) : 1;
-
-                int bumpRowOffset = (scaledHeight - bumpCellSize * bumpRows) / 2;
-                int bumpColOffset = 1 + (scaledWidth - bumpCellSize * bumpColumns) / 2;
-
-                for (int col = 0; col < bumpColumns; col++) {
-                    int cx = bumpColOffset + col * bumpCellSize;
-                    for (int row = 0; row < bumpRows; row++) {
-                        int cy = bumpRowOffset + row * bumpCellSize + (bumpCellSize - bumpDotDiameter) / 2;
-
-                        graphics1X.translate(cx, cy);
-
-                        graphics1X.setComposite(getAlphaComposite(0.8f));
-                        graphics1X.setColor(colorScheme.getMarkColor());
-                        graphics1X.fillOval(0, 0, bumpDotDiameter, bumpDotDiameter);
-
-                        graphics1X.setComposite(getAlphaComposite(0.32f));
-                        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(divider);
-                        borderPainter.paintBorder(graphics1X, divider, bumpDotDiameter, bumpDotDiameter,
-                            new Ellipse2D.Float(0, 0, bumpDotDiameter, bumpDotDiameter), null, colorScheme);
-
-                        graphics1X.translate(-cx, -cy);
-                    }
-                }
-            });
-        graphics.dispose();
-    }
-
 
     public static void drawSplitDividerBumpImage(Graphics g, RadianceSplitPaneDivider divider,
         int x, int y, int width, int height, boolean isHorizontal,

@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
@@ -58,7 +57,6 @@ public class RadianceTextComponentBorder implements Border, UIResource {
      * Insets of <code>this</code> border.
      */
     protected Insets myInsets;
-    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableContainerTokens =
         new BladeContainerColorTokens();
 

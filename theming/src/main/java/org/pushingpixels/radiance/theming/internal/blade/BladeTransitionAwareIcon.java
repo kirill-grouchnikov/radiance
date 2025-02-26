@@ -93,8 +93,6 @@ public class BladeTransitionAwareIcon implements Icon {
 
     private int iconHeight;
 
-    private BladeColorScheme mutableColorScheme = new BladeColorScheme();
-
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     public BladeTransitionAwareIcon(final AbstractButton button, Delegate delegate) {

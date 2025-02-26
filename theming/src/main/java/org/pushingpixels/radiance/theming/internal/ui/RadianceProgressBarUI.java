@@ -38,9 +38,7 @@ import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -66,14 +64,6 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class RadianceProgressBarUI extends BasicProgressBarUI {
-    private static final RadianceFillPainter progressFillPainter = new FractionBasedFillPainter(
-        "Progress fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
-        new ColorSchemeSingleColorQuery[]{
-            ColorSchemeSingleColorQuery.EXTRALIGHT,
-            ColorSchemeSingleColorQuery.LIGHT,
-            ColorSchemeSingleColorQuery.MID}
-    );
-
     private static final RadianceFillPainter progressTonalFillPainter = new FractionBasedTonalFillPainter(
         "Progress tonal fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
         new ContainerColorTokensSingleColorQuery[]{
