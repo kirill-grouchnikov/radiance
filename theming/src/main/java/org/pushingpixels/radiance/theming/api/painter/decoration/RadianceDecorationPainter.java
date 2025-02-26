@@ -71,7 +71,7 @@ public interface RadianceDecorationPainter extends RadianceTrait {
         RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
         RadianceColorScheme colorScheme);
 
-    default void paintDecorationArea(Graphics2D graphics, Component comp,
+    void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-        ExtendedContainerColorTokens colorTokens) {}
+        ExtendedContainerColorTokens colorTokens);
 }

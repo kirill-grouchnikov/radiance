@@ -29,10 +29,12 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.painterpack.decoration;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 
 import java.awt.*;
 
@@ -42,6 +44,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
+// TODO: TONAL convert to tonal world
 public class Glass3DDecorationPainter implements RadianceDecorationPainter {
     /**
      * The display name for the decoration painters of this class.
@@ -75,6 +78,27 @@ public class Glass3DDecorationPainter implements RadianceDecorationPainter {
                 new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
                         colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
                 MultipleGradientPaint.CycleMethod.REPEAT);
+        graphics.setPaint(paint);
+        graphics.fill(contour);
+    }
+
+    @Override
+    public void paintDecorationArea(Graphics2D graphics, Component comp,
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+        ExtendedContainerColorTokens colorTokens) {
+
+        ContainerColorTokens baseTokens = colorTokens.getBaseContainerTokens();
+        LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, comp.getHeight(),
+            new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
+            new Color[] {
+                baseTokens.isDark() ? baseTokens.getContainerSurfaceHighest()
+                    : baseTokens.getContainerSurfaceLowest(),
+                baseTokens.isDark() ? baseTokens.getContainerSurfaceHigh()
+                    : baseTokens.getContainerSurfaceLow(),
+                baseTokens.getContainerSurface(),
+                baseTokens.isDark() ? baseTokens.getContainerSurfaceHighest()
+                    : baseTokens.getContainerSurfaceLowest() },
+            MultipleGradientPaint.CycleMethod.REPEAT);
         graphics.setPaint(paint);
         graphics.fill(contour);
     }

@@ -30,13 +30,18 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import com.jhlabs.image.*;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,8 +57,16 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
     private BufferedImage lightImage;
 
     public CookbookDecorationPainter() {
-        GoldenBrownColorScheme goldenBrownScheme = new GoldenBrownColorScheme();
-        DarkBrownColorScheme darkBrownScheme = new DarkBrownColorScheme();
+        ContainerColorTokens goldenBrownTokens = ColorSchemeUtils.getContainerTokens(
+            /* seed */ Hct.fromInt(0xFFA4521B),
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+            /* isFidelity */ true,
+            /* isDark */ true);
+        ContainerColorTokens darkBrownTokens = ColorSchemeUtils.getContainerTokens(
+            /* seed */ Hct.fromInt(0xFF561703),
+            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+            /* isFidelity */ true,
+            /* isDark */ true);
 
         Rectangle virtualBounds = new Rectangle();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -69,11 +82,12 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
         // brushed metal filter
         BrushedMetalFilter brushedMetalFilter = new BrushedMetalFilter();
         brushedMetalFilter.setAmount(10);
-        LookupFilter brushedMetalLookupFilter = new LookupFilter(
-                new Gradient(new int[] { 0, 96, 255 },
-                        new int[] { goldenBrownScheme.getUltraDarkColor().getRGB(),
-                                goldenBrownScheme.getLightColor().getRGB(),
-                                goldenBrownScheme.getUltraLightColor().getRGB() }));
+        LookupFilter brushedMetalLookupFilter = new LookupFilter(new Gradient(
+            new int[] { 0, 96, 255 },
+            new int[] {
+                goldenBrownTokens.getContainerSurfaceHighest().getRGB(),
+                goldenBrownTokens.getContainerSurfaceLow().getRGB(),
+                goldenBrownTokens.getContainerSurfaceLowest().getRGB() }));
 
         this.brushedMetalImage = new CompoundFilter(brushedMetalFilter, brushedMetalLookupFilter)
                 .filter(new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB),
@@ -90,12 +104,13 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
         woodFilter.setgain(0.7f);
 
         LookupFilter woodLookupFilter = new LookupFilter(new Gradient(
-                new int[] { 0, 64, 128, 192, 255 },
-                new int[] { darkBrownScheme.getUltraDarkColor().getRGB(),
-                        darkBrownScheme.getUltraDarkColor().getRGB(),
-                        darkBrownScheme.getDarkColor().getRGB(),
-                        darkBrownScheme.getLightColor().getRGB(),
-                        darkBrownScheme.getUltraLightColor().getRGB() }));
+            new int[] { 0, 64, 128, 192, 255 },
+            new int[] {
+                darkBrownTokens.getContainerSurfaceHighest().getRGB(),
+                darkBrownTokens.getContainerSurfaceHighest().getRGB(),
+                darkBrownTokens.getContainerSurfaceHigh().getRGB(),
+                darkBrownTokens.getContainerSurfaceLow().getRGB(),
+                darkBrownTokens.getContainerSurfaceLowest().getRGB() }));
 
         this.woodImage = new CompoundFilter(woodFilter, woodLookupFilter).filter(
                 new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB), null);
@@ -111,7 +126,9 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
             DecorationAreaType decorationAreaType, int width, int height, RadianceSkin skin) {
-        RadianceColorScheme fillScheme = skin.getBackgroundColorScheme(decorationAreaType);
+        ExtendedContainerColorTokens fillTokens =
+            skin.getBackgroundExtendedContainerTokens(decorationAreaType);
+        ContainerColorTokens baseFillTokens = fillTokens.getBaseContainerTokens();
         BufferedImage toOverlay = this.getWatermarkImage(decorationAreaType);
         Component farthestOfTheSameAreaType = this.getFarthest(comp, decorationAreaType);
         if ((decorationAreaType == DecorationAreaType.PRIMARY_TITLE_PANE)
@@ -122,10 +139,13 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
                     - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().y;
             // main background gradient
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, 70 - dy,
-                    new float[] { 0.0f, 0.05f, 0.6f, 0.8f, 1.0f },
-                    new Color[] { fillScheme.getUltraLightColor(), fillScheme.getExtraLightColor(),
-                            fillScheme.getMidColor(), fillScheme.getDarkColor(),
-                            fillScheme.getUltraDarkColor() }));
+                new float[] { 0.0f, 0.05f, 0.6f, 0.8f, 1.0f },
+                new Color[] {
+                    baseFillTokens.getContainerSurfaceHighest(),
+                    baseFillTokens.getContainerSurfaceHigh(),
+                    baseFillTokens.getContainerSurface(),
+                    baseFillTokens.getContainerSurfaceLow(),
+                    baseFillTokens.getContainerSurfaceLowest() }));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.FOOTER) {
             // main background gradient
@@ -133,19 +153,22 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
                     - farthestOfTheSameAreaType.getLocationOnScreen().y;
             int footerHeight = farthestOfTheSameAreaType.getHeight();
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + footerHeight,
-                    new float[] { 0.0f, 0.5f, 0.75f, 1.0f },
-                    new Color[] { fillScheme.getLightColor(), fillScheme.getMidColor(),
-                            fillScheme.getDarkColor(), fillScheme.getUltraDarkColor() }));
+                new float[] { 0.0f, 0.5f, 0.75f, 1.0f },
+                new Color[] {
+                    baseFillTokens.getContainerSurfaceHigh(),
+                    baseFillTokens.getContainerSurface(),
+                    baseFillTokens.getContainerSurfaceLow(),
+                    baseFillTokens.getContainerSurfaceLowest() }));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.CONTROL_PANE) {
             // general background gradient
-            graphics.setPaint(new GradientPaint(0, 0, fillScheme.getLightColor(), 0, height,
-                    fillScheme.getMidColor()));
+            graphics.setPaint(new GradientPaint(0, 0, baseFillTokens.getContainerSurfaceHigh(),
+                0, height, baseFillTokens.getContainerSurface()));
             graphics.fillRect(0, 0, width, height);
         } else {
             // main background gradient
-            graphics.setPaint(new GradientPaint(0, 0, fillScheme.getExtraLightColor(), 0, height,
-                    fillScheme.getMidColor()));
+            graphics.setPaint(new GradientPaint(0, 0, baseFillTokens.getContainerSurfaceHighest(),
+                0, height, baseFillTokens.getContainerSurface()));
             graphics.fillRect(0, 0, width, height);
         }
 
@@ -182,6 +205,11 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
             decorationAreaType, Shape contour, RadianceColorScheme colorScheme) {
+    }
+
+    @Override
+    public void paintDecorationArea(Graphics2D graphics, Component comp,
+        DecorationAreaType decorationAreaType, Shape contour, ExtendedContainerColorTokens colorTokens) {
     }
 
     private Component getFarthest(Component comp, DecorationAreaType type) {

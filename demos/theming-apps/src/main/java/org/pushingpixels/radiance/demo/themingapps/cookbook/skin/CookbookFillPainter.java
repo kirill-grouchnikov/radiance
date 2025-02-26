@@ -33,11 +33,12 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,41 +50,44 @@ public class CookbookFillPainter implements RadianceFillPainter {
     private RadianceFillPainter flatDelegate;
 
     public CookbookFillPainter() {
-        this.delegate = new FractionBasedFillPainter("Cookbook Regular",
-                new float[] { 0.0f, 0.5f, 1.0f },
-                new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.EXTRALIGHT,
-                                ColorSchemeSingleColorQuery.MID,
-                                ColorSchemeSingleColorQuery.ULTRADARK });
-        this.flatDelegate = new FractionBasedFillPainter("Cookbook Flat",
-                new float[] { 0.0f, 0.5f, 1.0f },
-                new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.LIGHT,
-                                ColorSchemeSingleColorQuery.MID,
-                                ColorSchemeSingleColorQuery.DARK });
+        this.delegate = new FractionBasedTonalFillPainter("Cookbook Regular",
+            new float[] {0.0f, 0.5f, 1.0f},
+            new ContainerColorTokensSingleColorQuery[] {
+                ContainerColorTokens::getContainerSurfaceLowest,
+                ContainerColorTokens::getContainerSurface,
+                ContainerColorTokens::getContainerSurfaceHighest});
+
+        this.flatDelegate = new FractionBasedTonalFillPainter("Cookbook Flat",
+            new float[] {0.0f, 0.5f, 1.0f},
+            new ContainerColorTokensSingleColorQuery[] {
+                ContainerColorTokens::getContainerSurfaceLow,
+                ContainerColorTokens::getContainerSurface,
+                ContainerColorTokens::getContainerSurfaceHigh});
     }
 
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
-            Shape contour, RadianceColorScheme fillScheme) {
+        Shape contour, ContainerColorTokens colorTokens) {
         if (comp instanceof JScrollBar) {
-            this.flatDelegate.paintContourBackground(g, comp, width, height, contour, fillScheme);
+            this.flatDelegate.paintContourBackground(g, comp, width, height, contour, colorTokens);
             return;
         }
 
-        this.delegate.paintContourBackground(g, comp, width, height, contour, fillScheme);
+        this.delegate.paintContourBackground(g, comp, width, height, contour, colorTokens);
 
         if (comp instanceof JCommandButton) {
             // special case - overlay the buttons with the watermark image
             // that corresponds to the decoration area of that button
             JCommandButton commandButton = (JCommandButton) comp;
             if (!commandButton.getActionModel().isSelected()
-                    && !commandButton.getActionModel().isPressed()) {
+                && !commandButton.getActionModel().isPressed()) {
                 DecorationAreaType decorationAreaType = ComponentOrParentChainScope
-                        .getDecorationType(comp);
+                    .getDecorationType(comp);
                 RadianceDecorationPainter decoPainter = RadianceThemingCortex.ComponentScope
-                        .getCurrentSkin(comp).getDecorationPainter();
+                    .getCurrentSkin(comp).getDecorationPainter();
                 if (decoPainter instanceof CookbookDecorationPainter) {
                     BufferedImage watermark = ((CookbookDecorationPainter) decoPainter)
-                            .getWatermarkImage(decorationAreaType);
+                        .getWatermarkImage(decorationAreaType);
                     Graphics2D g2d = (Graphics2D) g.create();
                     g2d.clip(contour);
                     g2d.setComposite(AlphaComposite.SrcOver.derive(0.3f));
@@ -93,6 +97,40 @@ public class CookbookFillPainter implements RadianceFillPainter {
                 }
             }
         }
+    }
+
+    @Override
+    public void paintContourBackground(Graphics g, Component comp, float width, float height,
+            Shape contour, RadianceColorScheme fillScheme) {
+//        if (comp instanceof JScrollBar) {
+//            this.flatDelegate.paintContourBackground(g, comp, width, height, contour, fillScheme);
+//            return;
+//        }
+//
+//        this.delegate.paintContourBackground(g, comp, width, height, contour, fillScheme);
+//
+//        if (comp instanceof JCommandButton) {
+//            // special case - overlay the buttons with the watermark image
+//            // that corresponds to the decoration area of that button
+//            JCommandButton commandButton = (JCommandButton) comp;
+//            if (!commandButton.getActionModel().isSelected()
+//                    && !commandButton.getActionModel().isPressed()) {
+//                DecorationAreaType decorationAreaType = ComponentOrParentChainScope
+//                        .getDecorationType(comp);
+//                RadianceDecorationPainter decoPainter = RadianceThemingCortex.ComponentScope
+//                        .getCurrentSkin(comp).getDecorationPainter();
+//                if (decoPainter instanceof CookbookDecorationPainter) {
+//                    BufferedImage watermark = ((CookbookDecorationPainter) decoPainter)
+//                            .getWatermarkImage(decorationAreaType);
+//                    Graphics2D g2d = (Graphics2D) g.create();
+//                    g2d.clip(contour);
+//                    g2d.setComposite(AlphaComposite.SrcOver.derive(0.3f));
+//                    int dx = comp.getLocationOnScreen().x;
+//                    int dy = comp.getLocationOnScreen().y;
+//                    g2d.drawImage(watermark, -dx, -dy, null);
+//                }
+//            }
+//        }
     }
 
     @Override
