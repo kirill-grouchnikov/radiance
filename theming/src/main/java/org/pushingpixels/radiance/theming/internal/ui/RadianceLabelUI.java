@@ -33,9 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -139,26 +137,14 @@ public class RadianceLabelUI extends BasicLabelUI {
             // This text color may not correspond to the text of the HTML-based rendering, but we
             // still need "something" for filtered icons
 
-            if (skin instanceof TonalSkin) {
-                textColor = RadianceTextUtilities.getTonalForegroundColor(label,
-                    labelState, RadianceThemingSlices.ContainerType.NEUTRAL);
-            } else {
-                textColor = RadianceTextUtilities.getForegroundColor(label, labelState, labelAlpha);
-            }
+            textColor = RadianceTextUtilities.getTonalForegroundColor(label,
+                labelState, RadianceThemingSlices.ContainerType.NEUTRAL);
         } else {
             if (label.getClientProperty(RadianceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
-                Color echoColor;
-                if (skin instanceof TonalSkin) {
-                    ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens();
-                    textColor = colorTokens.getOnContainer();
-                    echoColor = colorTokens.getComplementaryOnContainer();
-                } else {
-                    RadianceColorScheme scheme = skin.getEnabledColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
-                    textColor = scheme.getForegroundColor();
-                    echoColor = scheme.getEchoColor();
-                }
+                ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
+                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens();
+                textColor = colorTokens.getOnContainer();
+                Color echoColor = colorTokens.getComplementaryOnContainer();
                 int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
                         + fm.getAscent();
                 g2d.translate(paintTextR.x + 3, 0);
@@ -169,14 +155,9 @@ public class RadianceLabelUI extends BasicLabelUI {
             } else {
                 // fix for issue 406 - use the same FG computation
                 // color as for other controls
-                if (skin instanceof TonalSkin) {
-                    textColor = RadianceTextUtilities.paintTonalText(g2d, label, paintTextR,
-                        clippedText, label.getDisplayedMnemonicIndex(), labelState,
-                        RadianceThemingSlices.ContainerType.NEUTRAL);
-                } else {
-                    textColor = RadianceTextUtilities.paintText(g2d, label, paintTextR,
-                        clippedText, label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
-                }
+                textColor = RadianceTextUtilities.paintTonalText(g2d, label, paintTextR,
+                    clippedText, label.getDisplayedMnemonicIndex(), labelState,
+                    RadianceThemingSlices.ContainerType.NEUTRAL);
             }
         }
 

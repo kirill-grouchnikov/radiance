@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -383,14 +382,8 @@ public class RadianceColorUtilities {
             if (overlay != null) {
                 return overlay;
             }
-            if (skin instanceof TonalSkin) {
-                return skin.getContainerTokens(comp, currState, RadianceThemingSlices.ContainerType.MUTED)
-                    .getOnContainer();
-            } else {
-                RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    comp, RadianceThemingSlices.ColorSchemeAssociationKind.FOCUS, currState);
-                return colorScheme.getFocusRingColor();
-            }
+            return skin.getContainerTokens(comp, currState, RadianceThemingSlices.ContainerType.MUTED)
+                .getOnContainer();
         }
 
         float aggrRed = 0;
@@ -402,16 +395,9 @@ public class RadianceColorUtilities {
             float alpha = activeEntry.getValue().getContribution();
             Color overlay = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.FOCUS_INDICATION,
                     decorationAreaType, currState);
-            Color active;
-            if (skin instanceof TonalSkin) {
-                active = (overlay != null) ? overlay :
-                    skin.getContainerTokens(comp, activeState, RadianceThemingSlices.ContainerType.MUTED)
-                        .getOnContainer();
-            } else {
-                active = (overlay != null) ? overlay :
-                    RadianceColorSchemeUtilities.getColorScheme(comp,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FOCUS, activeState).getFocusRingColor();
-            }
+            Color active = (overlay != null) ? overlay
+                : skin.getContainerTokens(comp, activeState, RadianceThemingSlices.ContainerType.MUTED)
+                    .getOnContainer();
             aggrRed += alpha * active.getRed();
             aggrGreen += alpha * active.getGreen();
             aggrBlue += alpha * active.getBlue();
@@ -981,22 +967,15 @@ public class RadianceColorUtilities {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        if (skin instanceof TonalSkin) {
-            if (rowIndex % 2 == 0) {
-                // Surface for even rows
-                RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component);
-                return skin.getBackgroundExtendedContainerTokens(decorationAreaType).getSurface();
-            } else {
-                // Container surface low for odd rows
-                return skin.getContainerTokens(component, ComponentState.ENABLED,
-                    RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLow();
-            }
+        if (rowIndex % 2 == 0) {
+            // Surface for even rows
+            RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component);
+            return skin.getBackgroundExtendedContainerTokens(decorationAreaType).getSurface();
         } else {
-            RadianceColorScheme scheme = skin.getBackgroundColorScheme(
-                DecorationPainterUtils.getDecorationType(component));
-            return (rowIndex % 2 == 0) ? scheme.getBackgroundFillColor()
-                : scheme.getAccentedBackgroundFillColor();
+            // Container surface low for odd rows
+            return skin.getContainerTokens(component, ComponentState.ENABLED,
+                RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLow();
         }
     }
 

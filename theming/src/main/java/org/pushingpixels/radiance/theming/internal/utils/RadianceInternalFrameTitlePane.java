@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -100,14 +99,9 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         super.installDefaults();
         if (RadianceCoreUtilities.isCurrentLookAndFeel()) {
             RadianceSkin skin = RadianceCoreUtilities.getSkin(this.frame);
-            if (skin instanceof TonalSkin) {
-                this.setForeground(skin.getActiveContainerTokens(
-                        RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)
-                    .getOnContainer());
-            } else {
-                this.setForeground(RadianceColorUtilities.getForegroundColor(
-                    skin.getActiveColorScheme(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)));
-            }
+            this.setForeground(skin.getActiveContainerTokens(
+                    RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)
+                .getOnContainer());
         }
     }
 
@@ -292,33 +286,19 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
             int yOffset = titleTextRect.y + (int) ((titleTextRect.getHeight() - fm.getHeight()) / 2)
                     + fm.getAscent();
 
-            if (skin instanceof TonalSkin) {
-                ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
-                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getBaseContainerTokens();
-                Color background = hostFrame.getBackground();
-                if (!(background instanceof UIResource)) {
-                    double colorization = RadianceCoreUtilities.getColorizationFactor(hostForColorization);
-                    colorTokens = ColorSchemeUtils.getBlendedTokens(colorTokens, background,
-                        colorization, null, 0.0);
-                }
-                RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                    colorTokens.getOnContainer(),
-                    colorTokens.getComplementaryOnContainer(),
-                    displayTitle, width, height, xOffset, yOffset);
-            } else {
-                RadianceColorScheme scheme = RadianceCoreUtilities.getSkin(this.frame)
-                    .getEnabledColorScheme(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
-                Color backgr = hostFrame.getBackground();
-                if (!(backgr instanceof UIResource)) {
-                    double colorization = RadianceCoreUtilities.getColorizationFactor(hostForColorization);
-                    scheme = RadianceColorSchemeUtilities.getShiftedScheme(scheme, backgr,
-                        colorization, null, 0.0);
-                }
-                RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                    scheme.getForegroundColor(), scheme.getEchoColor(), displayTitle, width, height,
-                    xOffset, yOffset);
+            ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                .getBaseContainerTokens();
+            Color background = hostFrame.getBackground();
+            if (!(background instanceof UIResource)) {
+                double colorization = RadianceCoreUtilities.getColorizationFactor(hostForColorization);
+                colorTokens = ColorSchemeUtils.getBlendedTokens(colorTokens, background,
+                    colorization, null, 0.0);
             }
+            RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
+                colorTokens.getOnContainer(),
+                colorTokens.getComplementaryOnContainer(),
+                displayTitle, width, height, xOffset, yOffset);
         }
 
         graphics.dispose();

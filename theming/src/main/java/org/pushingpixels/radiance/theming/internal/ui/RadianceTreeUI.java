@@ -33,12 +33,10 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTreeCellRenderer;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelTreeCellRenderer;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
@@ -276,7 +274,6 @@ public class RadianceTreeUI extends BasicTreeUI {
 		// + "[" + alphaForCurrBackground + "]");
 
 		// At this point the renderer comes from Radiance
-		RadianceSkin skin = RadianceCoreUtilities.getSkin(this.tree);
 		JTree.DropLocation dropLocation = tree.getDropLocation();
 		Rectangle rowRectangle = new Rectangle(this.tree.getInsets().left, bounds.y,
 				this.tree.getWidth() - this.tree.getInsets().right - this.tree.getInsets().left,
@@ -284,48 +281,26 @@ public class RadianceTreeUI extends BasicTreeUI {
 		if (dropLocation != null && dropLocation.getChildIndex() == -1
 				&& tree.getRowForPath(dropLocation.getPath()) == row) {
 			// mark drop location
-			if (skin instanceof TonalSkin) {
-				ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
-					tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-					currState, RadianceThemingSlices.ContainerType.NEUTRAL);
-				HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer, rowRectangle,
-					0.8f, null, colorTokens);
-			} else {
-				RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
-					tree, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
-				RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-					tree, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
-				HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer, rowRectangle,
-					0.8f, null, scheme, borderScheme);
-			}
+			ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+				tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+				currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+			HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer, rowRectangle,
+				0.8f, null, colorTokens);
 		} else {
 			if (hasHighlights) {
 				if (activeStates == null) {
 					float alpha = RadianceColorSchemeUtilities.getHighlightAlpha(this.tree,
 							currState);
 					if (alpha > 0.0f) {
-						if (skin instanceof TonalSkin) {
-							ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
-								this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-								currState, RadianceThemingSlices.ContainerType.NEUTRAL);
-							g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
-							// Fix for defect 180 - painting the
-							// highlight beneath the entire row
-							HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
-								rowRectangle, 0.8f, null, colorTokens);
-							g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, g));
-						} else {
-							RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
-								this.tree, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
-							RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-								this.tree, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
-							g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
-							// Fix for defect 180 - painting the
-							// highlight beneath the entire row
-							HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
-								rowRectangle, 0.8f, null, fillScheme, borderScheme);
-							g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, g));
-						}
+						ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+							this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+							currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
+						// Fix for defect 180 - painting the
+						// highlight beneath the entire row
+						HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
+							rowRectangle, 0.8f, null, colorTokens);
+						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, g));
 					}
 				} else {
 					for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
@@ -335,28 +310,15 @@ public class RadianceTreeUI extends BasicTreeUI {
 								activeState) * stateEntry.getValue().getContribution();
 						if (alpha == 0.0f)
 							continue;
-						if (skin instanceof TonalSkin) {
-							ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
-								this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-								activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
-							g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
-							// Fix for defect 180 - painting the
-							// highlight beneath the entire row
-							HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
-								rowRectangle, 0.8f, null, colorTokens);
-							g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, g));
-						} else {
-							RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
-								this.tree, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, activeState);
-							RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-								this.tree, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, activeState);
-							g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
-							// Fix for defect 180 - painting the
-							// highlight beneath the entire row
-							HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
-								rowRectangle, 0.8f, null, fillScheme, borderScheme);
-							g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, g));
-						}
+						ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+							this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+							activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
+						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
+						// Fix for defect 180 - painting the
+						// highlight beneath the entire row
+						HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
+							rowRectangle, 0.8f, null, colorTokens);
+						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, g));
 					}
 				}
 			}
@@ -937,14 +899,8 @@ public class RadianceTreeUI extends BasicTreeUI {
 		}
 
 		// compute the default color scheme - to optimize the performance
-		RadianceSkin skin = RadianceCoreUtilities.getSkin(this.tree);
-		if (skin instanceof TonalSkin) {
-			this.currDefaultColorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
-				ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-		} else {
-			this.currDefaultColorScheme = RadianceColorSchemeUtilities.getColorScheme(tree,
-				ComponentState.ENABLED);
-		}
+		this.currDefaultColorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
+			ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
 
 		Rectangle paintBounds = g.getClipBounds();
 		Insets insets = tree.getInsets();

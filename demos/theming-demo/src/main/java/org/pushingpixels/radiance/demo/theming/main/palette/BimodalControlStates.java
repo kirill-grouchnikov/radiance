@@ -46,7 +46,6 @@ import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 
@@ -82,7 +81,7 @@ public class BimodalControlStates extends JFrame {
         RadianceLogo.tonalConfigureOn(this);
     }
 
-    private static class SampleSkin extends RadianceSkin implements TonalSkin {
+    private static class SampleSkin extends RadianceSkin {
         public SampleSkin() {
             Hct primarySeed = Hct.fromInt(0xFFA8DEB5);
             double primaryHue = primarySeed.getHue();

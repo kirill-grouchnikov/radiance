@@ -33,18 +33,15 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JTriStateCheckBox;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicTriStateCheckBoxUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
@@ -85,8 +82,6 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                 StateTransitionTracker.ModelStateInfo modelStateInfo =
                         stateTransitionTracker.getModelStateInfo();
 
-                RadianceSkin skin = RadianceCoreUtilities.getSkin(triStateCheckBox);
-
                 RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(triStateCheckBox);
                 RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(triStateCheckBox);
                 ComponentState currState = modelStateInfo.getCurrModelState();
@@ -115,41 +110,20 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                 }
 
                 boolean isCheckMarkFadingOut = !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.SELECTION);
-                float alpha;
                 // TODO: TONAL - remove alpha
-                if (skin instanceof TonalSkin) {
-                    alpha = currState.isDisabled()
+                float alpha = currState.isDisabled()
                         ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-                } else {
-                    alpha = RadianceColorSchemeUtilities.getAlpha(triStateCheckBox, currState);
-                }
 
-                if (skin instanceof TonalSkin) {
-                    // Populate color tokens based on the current transition state of the checkbox.
-                    BladeUtils.populateColorTokens(mutableContainerTokens, triStateCheckBox, modelStateInfo,
-                        currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                        false, true, RadianceThemingSlices.ContainerType.MUTED);
-                } else {
-                    // Populate color schemes based on the current transition state of the check box.
-                    BladeUtils.populateColorScheme(mutableFillColorScheme, triStateCheckBox,
-                        modelStateInfo, currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX, false);
-                    BladeUtils.populateColorScheme(mutableBorderColorScheme, triStateCheckBox,
-                        modelStateInfo, currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-                    BladeUtils.populateColorScheme(mutableMarkColorScheme, triStateCheckBox,
-                        modelStateInfo, currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
-                }
+                // Populate color tokens based on the current transition state of the checkbox.
+                BladeUtils.populateColorTokens(mutableContainerTokens, triStateCheckBox, modelStateInfo,
+                    currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                    false, true, RadianceThemingSlices.ContainerType.MUTED);
 
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
-                if (skin instanceof TonalSkin) {
-                    BladeIconUtils.drawTonalCheckBox(graphics, triStateCheckBox, fillPainter,
-                        borderPainter, checkMarkSize, currState, mutableContainerTokens, visibility,
-                        checkmarkFlatness, isCheckMarkFadingOut);
-                } else {
-                    BladeIconUtils.drawCheckBox(graphics, triStateCheckBox, fillPainter, borderPainter,
-                        checkMarkSize, currState, mutableFillColorScheme, mutableMarkColorScheme,
-                        mutableBorderColorScheme, visibility, checkmarkFlatness, isCheckMarkFadingOut, alpha);
-                }
+                BladeIconUtils.drawTonalCheckBox(graphics, triStateCheckBox, fillPainter,
+                    borderPainter, checkMarkSize, currState, mutableContainerTokens, visibility,
+                    checkmarkFlatness, isCheckMarkFadingOut);
                 graphics.dispose();
             }
 
@@ -201,18 +175,10 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
             if (v != null) {
                 v.paint(g2d, textRect);
             } else {
-                RadianceSkin skin = RadianceCoreUtilities.getSkin(b);
-                if (skin instanceof TonalSkin) {
-                    ComponentState stateForText = b.isEnabled() ? ComponentState.ENABLED
-                        : ComponentState.DISABLED_UNSELECTED;
-                    RadianceTextUtilities.paintTonalText(g, b, textRect,
-                        text, -1, stateForText, RadianceThemingSlices.ContainerType.NEUTRAL);
-                } else {
-                    float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(b,
-                        ComponentState.getState(b.getTriStateButtonModel(), false));
-                    RadianceTextUtilities.paintText(g, b, textRect, text, -1,
-                        this.stateTransitionTracker.getModelStateInfo(), buttonAlpha);
-                }
+                ComponentState stateForText = b.isEnabled() ? ComponentState.ENABLED
+                    : ComponentState.DISABLED_UNSELECTED;
+                RadianceTextUtilities.paintTonalText(g, b, textRect,
+                    text, -1, stateForText, RadianceThemingSlices.ContainerType.NEUTRAL);
             }
         }
 

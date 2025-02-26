@@ -34,10 +34,8 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
@@ -154,25 +152,13 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        if (skin instanceof TonalSkin) {
-            BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
-                    BladeUtils.getDefaultColorSchemeDelegate(c,
-                            this.colorSchemeAssociationKindDelegate),
-                    false);
-            float iconAlpha = currState.isDisabled()
-                ? mutableContainerTokens.onContainerDisabledAlpha : 1.0f;
-            this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
-        } else {
-            BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
-                    currState,
-                    BladeUtils.getDefaultColorSchemeDelegate(this.component,
-                            this.colorSchemeAssociationKindDelegate),
-                    false);
-
-            float iconAlpha = RadianceColorSchemeUtilities.getAlpha(c,
-                modelStateInfo.getCurrModelState());
-            this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
-        }
+        BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
+                BladeUtils.getDefaultColorSchemeDelegate(c,
+                        this.colorSchemeAssociationKindDelegate),
+                false);
+        float iconAlpha = currState.isDisabled()
+            ? mutableContainerTokens.onContainerDisabledAlpha : 1.0f;
+        this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
         graphics.dispose();
     }
 

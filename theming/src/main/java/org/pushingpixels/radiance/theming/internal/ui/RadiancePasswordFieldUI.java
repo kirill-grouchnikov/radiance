@@ -30,10 +30,11 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.text.RadiancePasswordField;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
@@ -137,19 +138,11 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
             } else {
                 ComponentState state = field.isEnabled() ? ComponentState.ENABLED
                     : ComponentState.DISABLED_UNSELECTED;
-                RadianceSkin skin = RadianceCoreUtilities.getSkin(this.field);
-                if (skin instanceof TonalSkin) {
-                    ContainerColorTokens colorTokens =
-                        RadianceColorSchemeUtilities.getContainerTokens(field, state,
-                            RadianceThemingSlices.ContainerType.NEUTRAL);
-                    Color color = RadianceColorUtilities.getForegroundColor(colorTokens);
-                    graphics.setColor(color);
-                } else {
-                    RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(field, state);
-                    Color color = isSelected ? scheme.getSelectionForegroundColor()
-                        : RadianceColorUtilities.getForegroundColor(scheme);
-                    graphics.setColor(color);
-                }
+                ContainerColorTokens colorTokens =
+                    RadianceColorSchemeUtilities.getContainerTokens(field, state,
+                        RadianceThemingSlices.ContainerType.NEUTRAL);
+                Color color = RadianceColorUtilities.getForegroundColor(colorTokens);
+                graphics.setColor(color);
             }
             int echoPerChar = RadianceCoreUtilities.getEchoPerChar(field);
             for (int i = 0; i < echoPerChar; i++) {
@@ -409,14 +402,9 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
             Color foregr = passwordField.getForeground();
             if ((foregr == null) || (foregr instanceof UIResource)) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(passwordField);
-                if (skin instanceof TonalSkin) {
-                    passwordField.setForeground(RadianceColorUtilities.getForegroundColor(
-                        skin.getContainerTokens(passwordField, ComponentState.ENABLED,
-                            RadianceThemingSlices.ContainerType.MUTED)));
-                } else {
-                    passwordField.setForeground(RadianceColorUtilities.getForegroundColor(
-                        skin.getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(passwordField))));
-                }
+                passwordField.setForeground(RadianceColorUtilities.getForegroundColor(
+                    skin.getContainerTokens(passwordField, ComponentState.ENABLED,
+                        RadianceThemingSlices.ContainerType.MUTED)));
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {
@@ -435,11 +423,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
 
     @Override
     protected void paintBackground(Graphics g) {
-        if (RadianceCoreUtilities.getSkin(this.passwordField) instanceof TonalSkin) {
-            RadianceTextUtilities.paintTextCompTonalBackground(g, this.passwordField);
-        } else {
-            RadianceTextUtilities.paintTextCompBackground(g, this.passwordField);
-        }
+        RadianceTextUtilities.paintTextCompTonalBackground(g, this.passwordField);
     }
 
     @Override

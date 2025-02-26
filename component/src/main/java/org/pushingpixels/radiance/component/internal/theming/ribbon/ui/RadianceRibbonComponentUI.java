@@ -32,13 +32,10 @@ package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonComponentUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -62,21 +59,14 @@ public class RadianceRibbonComponentUI extends BasicRibbonComponentUI {
         ComponentState state = ribbonComp.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(ribbonComp);
-        Color textColor;
-        if (skin instanceof TonalSkin) {
-            textColor = RadianceColorSchemeUtilities.getContainerTokens(ribbonComp, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
-            if (state.isDisabled()) {
-                float alpha = RadianceColorSchemeUtilities.getContainerTokens(
-                    ribbonComp, state, RadianceThemingSlices.ContainerType.NEUTRAL)
-                    .getOnContainerDisabledAlpha();
-                textColor = RadianceColorUtilities.getAlphaColor(textColor,
-                    (int) (textColor.getAlpha() * alpha));
-            }
-        } else {
-            float labelAlpha = RadianceColorSchemeUtilities.getAlpha(ribbonComp, state);
-            textColor = RadianceTextUtilities.getForegroundColor(ribbonComp, state, labelAlpha);
+        Color textColor = RadianceColorSchemeUtilities.getContainerTokens(ribbonComp, state,
+                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
+        if (state.isDisabled()) {
+            float alpha = RadianceColorSchemeUtilities.getContainerTokens(
+                ribbonComp, state, RadianceThemingSlices.ContainerType.NEUTRAL)
+                .getOnContainerDisabledAlpha();
+            textColor = RadianceColorUtilities.getAlphaColor(textColor,
+                (int) (textColor.getAlpha() * alpha));
         }
         icon = RadianceCoreUtilities.getFilteredIcon(ribbonComp, icon, state, textColor,
             RadianceThemingSlices.ContainerType.NEUTRAL);

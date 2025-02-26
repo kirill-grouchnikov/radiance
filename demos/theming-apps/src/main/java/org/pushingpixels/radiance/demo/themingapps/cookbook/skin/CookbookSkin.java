@@ -45,7 +45,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelTonalOverl
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
-public class CookbookSkin extends RadianceSkin implements TonalSkin {
+public class CookbookSkin extends RadianceSkin {
 
     @Override
     public String getDisplayName() {

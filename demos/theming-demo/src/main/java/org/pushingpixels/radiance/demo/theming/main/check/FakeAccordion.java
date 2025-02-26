@@ -31,10 +31,8 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -85,16 +83,8 @@ public class FakeAccordion extends JPanel {
                     if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                         // Get the accented background fill to delineate the content
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-                        Color accentedFill;
-                        if (skin instanceof TonalSkin) {
-                            accentedFill = skin.getContainerTokens(this, ComponentState.ENABLED,
+                        Color accentedFill = skin.getContainerTokens(this, ComponentState.ENABLED,
                                 RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLow();
-                        } else {
-                            RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-                            RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
-                            accentedFill = scheme.getAccentedBackgroundFillColor();
-                        }
 
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(accentedFill);
@@ -162,21 +152,13 @@ public class FakeAccordion extends JPanel {
                                 GeneralPath outer = getOutline(0, 0, scaledWidth, scaledHeight,
                                         1.0f, 0, radiusOuter);
 
-                                if (skin instanceof TonalSkin) {
-                                    ContainerColorTokens containerTokens = skin.getContainerTokens(
-                                        contentWrapper,
-                                        RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                                        ComponentState.ENABLED,
-                                        RadianceThemingSlices.ContainerType.MUTED);
-                                    borderPainter.paintBorder(graphics1X, contentWrapper,
-                                        scaledWidth, scaledHeight, outer, inner, containerTokens);
-                                } else {
-                                    RadianceColorScheme borderScheme = skin.getColorScheme(contentWrapper,
-                                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                                        ComponentState.ENABLED);
-                                    borderPainter.paintBorder(graphics1X, contentWrapper,
-                                        scaledWidth, scaledHeight, outer, inner, borderScheme);
-                                }
+                                ContainerColorTokens containerTokens = skin.getContainerTokens(
+                                    contentWrapper,
+                                    RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                                    ComponentState.ENABLED,
+                                    RadianceThemingSlices.ContainerType.MUTED);
+                                borderPainter.paintBorder(graphics1X, contentWrapper,
+                                    scaledWidth, scaledHeight, outer, inner, containerTokens);
                             });
                     graphics.dispose();
                 }

@@ -30,18 +30,14 @@
 package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -64,9 +60,6 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
      */
     private JMenuItem menuItem;
 
-    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableContainerTokens =
         new BladeContainerColorTokens();
 
@@ -94,36 +87,16 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 
         float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+        // Populate color tokens based on the current transition state of the menu item.
+        BladeUtils.populateColorTokens(mutableContainerTokens, this.menuItem, modelStateInfo,
+            currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, false,
+            true, RadianceThemingSlices.ContainerType.MUTED);
 
-        if (skin instanceof TonalSkin) {
-            // Populate color tokens based on the current transition state of the menu item.
-            BladeUtils.populateColorTokens(mutableContainerTokens, this.menuItem, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, false,
-                true, RadianceThemingSlices.ContainerType.MUTED);
-
-            Graphics2D graphics = (Graphics2D) g.create();
-            graphics.translate(x, y);
-            BladeIconUtils.drawTonalRadioButton(graphics, this.menuItem, fillPainter, borderPainter,
-                this.size, currState, mutableContainerTokens, visibility);
-            graphics.dispose();
-        } else {
-            // Populate color schemes based on the current transition state of the menu item.
-            BladeUtils.populateColorScheme(mutableFillColorScheme, this.menuItem, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
-            BladeUtils.populateColorScheme(mutableBorderColorScheme, this.menuItem, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-            BladeUtils.populateColorScheme(mutableMarkColorScheme, this.menuItem, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
-            float alpha = RadianceColorSchemeUtilities.getAlpha(this.menuItem, currState);
-
-            Graphics2D graphics = (Graphics2D) g.create();
-            graphics.translate(x, y);
-            BladeIconUtils.drawRadioButton(graphics, this.menuItem, fillPainter, borderPainter,
-                this.size, currState, mutableFillColorScheme, mutableMarkColorScheme,
-                mutableBorderColorScheme, visibility, alpha);
-            graphics.dispose();
-        }
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(x, y);
+        BladeIconUtils.drawTonalRadioButton(graphics, this.menuItem, fillPainter, borderPainter,
+            this.size, currState, mutableContainerTokens, visibility);
+        graphics.dispose();
     }
 
     @Override

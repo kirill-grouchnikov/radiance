@@ -30,11 +30,9 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -67,53 +65,28 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 			int dragBumpsWidth = (int) (0.75 * RadianceSizeUtils.getToolBarDragInset(
 				RadianceSizeUtils.getComponentFontSize(toolbar)));
 
-			RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-			if (skin instanceof TonalSkin) {
-				ContainerColorTokens colorTokens =
-					RadianceColorSchemeUtilities.getContainerTokens(toolbar,
-						RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-						ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+			ContainerColorTokens colorTokens =
+				RadianceColorSchemeUtilities.getContainerTokens(toolbar,
+					RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
+					ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
 
-				if (orientation == SwingConstants.HORIZONTAL) {
-					// fix for defect 3 on NB module
-					int height = c.getHeight() - 4;
-					if (height > 0) {
-						if (c.getComponentOrientation().isLeftToRight()) {
-							drawDragImage(graphics, c, colorTokens, 2, 1, dragBumpsWidth, height, 2);
-						} else {
-							drawDragImage(graphics, c, colorTokens, c.getBounds().width - dragBumpsWidth - 2,
-								1, dragBumpsWidth, height, 2);
-						}
-					}
-				} else {
-					// vertical
-					// fix for defect 3 on NB module
-					int width = c.getWidth() - 4;
-					if (width > 0) {
-						drawDragImage(graphics, c, colorTokens, 2, 2, width, dragBumpsWidth, 2);
+			if (orientation == SwingConstants.HORIZONTAL) {
+				// fix for defect 3 on NB module
+				int height = c.getHeight() - 4;
+				if (height > 0) {
+					if (c.getComponentOrientation().isLeftToRight()) {
+						drawDragImage(graphics, c, colorTokens, 2, 1, dragBumpsWidth, height, 2);
+					} else {
+						drawDragImage(graphics, c, colorTokens, c.getBounds().width - dragBumpsWidth - 2,
+							1, dragBumpsWidth, height, 2);
 					}
 				}
 			} else {
-				RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
-					c, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-				if (orientation == SwingConstants.HORIZONTAL) {
-					// fix for defect 3 on NB module
-					int height = c.getHeight() - 4;
-					if (height > 0) {
-						if (c.getComponentOrientation().isLeftToRight()) {
-							drawDragImage(graphics, c, scheme, 2, 1, dragBumpsWidth, height, 2);
-						} else {
-							drawDragImage(graphics, c, scheme, c.getBounds().width - dragBumpsWidth - 2,
-								1, dragBumpsWidth, height, 2);
-						}
-					}
-				} else {
-					// vertical
-					// fix for defect 3 on NB module
-					int width = c.getWidth() - 4;
-					if (width > 0) {
-						drawDragImage(graphics, c, scheme, 2, 2, width, dragBumpsWidth, 2);
-					}
+				// vertical
+				// fix for defect 3 on NB module
+				int width = c.getWidth() - 4;
+				if (width > 0) {
+					drawDragImage(graphics, c, colorTokens, 2, 2, width, dragBumpsWidth, 2);
 				}
 			}
 		}

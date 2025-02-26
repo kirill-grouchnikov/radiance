@@ -51,13 +51,11 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
@@ -405,21 +403,12 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         float fadeAlpha = this.getSeparatorAlpha();
         g2d.setComposite(AlphaComposite.SrcOver.derive(fadeAlpha));
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.commandButton);
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
-                this.commandButton,
-                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
-                RadianceThemingSlices.ContainerType.MUTED);
-            SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens,
-                this.commandButton.getWidth(), 1, SwingConstants.HORIZONTAL, true, 4, 4, true);
-        } else {
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.commandButton, ColorSchemeAssociationKind.SEPARATOR,
-                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton));
-            SeparatorPainterUtils.paintSeparator(this.commandButton, g2d, colorScheme,
-                this.commandButton.getWidth(), 1, SwingConstants.HORIZONTAL, true, 4, 4, true);
-        }
+        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+            this.commandButton,
+            ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
+            RadianceThemingSlices.ContainerType.MUTED);
+        SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens,
+            this.commandButton.getWidth(), 1, SwingConstants.HORIZONTAL, true, 4, 4, true);
 
         g2d.dispose();
     }
@@ -431,21 +420,12 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         float fadeAlpha = this.getSeparatorAlpha();
         g2d.setComposite(AlphaComposite.SrcOver.derive(fadeAlpha));
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.commandButton);
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
-                this.commandButton,
-                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
-                RadianceThemingSlices.ContainerType.MUTED);
-            SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens, 1,
-                this.commandButton.getHeight(), SwingConstants.VERTICAL, true, 4, 4, true);
-        } else {
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.commandButton, ColorSchemeAssociationKind.SEPARATOR,
-                ComponentState.getState(this.commandButton.getActionModel(), this.commandButton));
-            SeparatorPainterUtils.paintSeparator(this.commandButton, g2d, colorScheme, 1,
-                this.commandButton.getHeight(), SwingConstants.VERTICAL, true, 4, 4, true);
-        }
+        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+            this.commandButton,
+            ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
+            RadianceThemingSlices.ContainerType.MUTED);
+        SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens, 1,
+            this.commandButton.getHeight(), SwingConstants.VERTICAL, true, 4, 4, true);
 
         g2d.dispose();
     }
@@ -505,10 +485,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 ? this.getActionTransitionTracker()
                 : this.getPopupTransitionTracker();
         ModelStateInfo modelStateInfoForFg = transitionTrackerForFg.getModelStateInfo();
-        ComponentState currStateForFg = modelStateInfoForFg.getCurrModelState();
-        Color fgColor = (skin instanceof TonalSkin)
-            ? getTonalForegroundColor(modelStateInfoForFg)
-            : getForegroundColor(modelStateInfoForFg);
+        Color fgColor = getTonalForegroundColor(modelStateInfoForFg);
 
         if (layoutInfo.textLayoutInfoList != null) {
             for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo :
@@ -522,27 +499,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         }
 
         if (layoutInfo.extraTextLayoutInfoList != null) {
-            Color secondaryFgColor;
-            if (skin instanceof TonalSkin) {
-                secondaryFgColor = getTonalForegroundVariantColor(modelStateInfoForFg);
-            } else {
-                RadianceColorScheme disabledColorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this.commandButton, ComponentState.DISABLED_UNSELECTED);
-                secondaryFgColor = disabledColorScheme.getForegroundColor();
-                float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(this.commandButton,
-                    ComponentState.DISABLED_UNSELECTED);
-                if (buttonAlpha < 1.0f) {
-                    Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(this.commandButton);
-                    secondaryFgColor = RadianceColorUtilities.getInterpolatedColor(
-                        secondaryFgColor, bgFillColor, buttonAlpha);
-                }
-                if (currStateForFg.isDisabled()) {
-                    secondaryFgColor = RadianceColorUtilities.getInterpolatedColor(
-                        secondaryFgColor, RadianceColorUtilities.getBackgroundFillColor(c), 0.5f);
-                }
-                secondaryFgColor = RadianceColorUtilities.getInterpolatedColor(
-                    secondaryFgColor, fgColor, 0.5);
-            }
+            Color secondaryFgColor = getTonalForegroundVariantColor(modelStateInfoForFg);
             for (CommandButtonLayoutManager.TextLayoutInfo extraTextLayoutInfo :
                     layoutInfo.extraTextLayoutInfoList) {
                 if (extraTextLayoutInfo.text != null) {
@@ -556,9 +513,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         if (layoutInfo.iconRect != null) {
             // Important - have the icon follow the foreground color of the action area
             // if it is configured with RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
-            Color textColor = (skin instanceof TonalSkin)
-                ? getTonalForegroundColor(this.getActionTransitionTracker().getModelStateInfo())
-                : getForegroundColor(this.getActionTransitionTracker().getModelStateInfo());
+            Color textColor = getTonalForegroundColor(this.getActionTransitionTracker().getModelStateInfo());
             this.paintButtonIcon(g2d, layoutInfo.iconRect, textColor);
         }
         if (layoutInfo.popupActionRect.getWidth() > 0) {
@@ -622,30 +577,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 //        g2d.draw(layoutInfo.popupActionRect);
 
         g2d.dispose();
-    }
-
-    private Color getForegroundColor(ModelStateInfo modelStateInfo) {
-        Color fgColor = this.commandButton.getForeground();
-        if (fgColor instanceof UIResource) {
-            float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(this.commandButton,
-                modelStateInfo.getCurrModelState());
-
-            if (this.commandButton.getPresentationModel().getSelectedStateHighlight() ==
-                CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) {
-                fgColor = getMenuButtonForegroundColor(this.commandButton, modelStateInfo);
-
-                if (buttonAlpha < 1.0f) {
-                    Color bgFillColor = RadianceColorUtilities
-                        .getBackgroundFillColor(this.commandButton);
-                    fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor,
-                        buttonAlpha);
-                }
-            } else {
-                fgColor = RadianceTextUtilities.getForegroundColor(this.commandButton,
-                    this.text, modelStateInfo, buttonAlpha);
-            }
-        }
-        return fgColor;
     }
 
     private Color getTonalForegroundColor(ModelStateInfo modelStateInfo) {

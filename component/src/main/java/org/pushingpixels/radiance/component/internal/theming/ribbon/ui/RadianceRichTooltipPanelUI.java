@@ -32,15 +32,11 @@ package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicRichTooltipPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.JRichTooltipPanel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -70,21 +66,13 @@ public class RadianceRichTooltipPanelUI extends BasicRichTooltipPanelUI {
 	protected void paintBackground(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
 
-		RadianceSkin skin = RadianceCoreUtilities.getSkin(this.richTooltipPanel);
-		if (skin instanceof TonalSkin) {
-			ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
-				this.richTooltipPanel, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-			Color topColor = tokens.isDark() ? tokens.getContainerSurface()
-				: tokens.getContainerSurfaceLowest();
-			Color bottomColor = tokens.getContainerSurfaceLow();
-			g2d.setPaint(new GradientPaint(0, 0, topColor, 0,
-				this.richTooltipPanel.getHeight(), bottomColor));
-		} else {
-			RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-				this.richTooltipPanel, ComponentState.ENABLED);
-			g2d.setPaint(new GradientPaint(0, 0, colorScheme.getExtraLightColor(), 0,
-				this.richTooltipPanel.getHeight(), colorScheme.getLightColor()));
-		}
+		ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+			this.richTooltipPanel, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+		Color topColor = tokens.isDark() ? tokens.getContainerSurface()
+			: tokens.getContainerSurfaceLowest();
+		Color bottomColor = tokens.getContainerSurfaceLow();
+		g2d.setPaint(new GradientPaint(0, 0, topColor, 0,
+			this.richTooltipPanel.getHeight(), bottomColor));
 		g2d.fillRect(0, 0, this.richTooltipPanel.getWidth(), this.richTooltipPanel.getHeight());
 
 		g2d.dispose();

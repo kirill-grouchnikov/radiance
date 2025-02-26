@@ -30,10 +30,8 @@
 package org.pushingpixels.radiance.theming.internal.widget.text;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -217,12 +215,9 @@ public class LockBorderWidget extends RadianceThemingWidget<JTextComponent> {
 
         @Override
         public Insets getBorderInsets(Component c) {
-            RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-            Icon lockIcon = (skin instanceof TonalSkin)
-                ? RadianceImageCreator.getSmallLockIcon(RadianceColorSchemeUtilities.getContainerTokens(
-                    c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c)
-                : RadianceImageCreator.getSmallLockIcon(RadianceColorSchemeUtilities.getColorScheme(
-                    c, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED), c);
+            Icon lockIcon = RadianceImageCreator.getSmallLockIcon(
+                RadianceColorSchemeUtilities.getContainerTokens(
+                    c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c);
 
             Insets origInsets = this.originalBorder.getBorderInsets(c);
 
@@ -245,12 +240,9 @@ public class LockBorderWidget extends RadianceThemingWidget<JTextComponent> {
         @Override
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             this.originalBorder.paintBorder(c, g, x, y, width, height);
-            RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-            Icon lockIcon = (skin instanceof TonalSkin)
-                ? RadianceImageCreator.getSmallLockIcon(RadianceColorSchemeUtilities.getContainerTokens(
-                    c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c)
-                : RadianceImageCreator.getSmallLockIcon(RadianceColorSchemeUtilities.getColorScheme(
-                    c, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED), c);
+            Icon lockIcon = RadianceImageCreator.getSmallLockIcon(
+                RadianceColorSchemeUtilities.getContainerTokens(
+                    c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c);
 
             int offsetY = 1;
             if (c.getParent() instanceof JViewport) {

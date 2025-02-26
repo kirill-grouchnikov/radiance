@@ -30,14 +30,10 @@
 package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -68,28 +64,13 @@ public class TreeIcon implements Icon, UIResource {
         ComponentState state = ((tree == null) || tree.isEnabled()) ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
-                this.tree, state, RadianceThemingSlices.ContainerType.MUTED);
+        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+            this.tree, state, RadianceThemingSlices.ContainerType.MUTED);
 
-            Graphics2D graphics = (Graphics2D) g.create();
-            graphics.translate(x, y);
-            BladeIconUtils.drawTreeIcon(graphics, this.tree, this.size, colorTokens, this.isCollapsed);
-            graphics.dispose();
-        } else {
-            RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(tree, state);
-            RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(tree,
-                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
-            RadianceColorScheme markScheme = RadianceColorSchemeUtilities.getColorScheme(tree,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK, state);
-
-            Graphics2D graphics = (Graphics2D) g.create();
-            graphics.translate(x, y);
-            BladeIconUtils.drawTreeIcon(graphics, this.tree, this.size, fillScheme, borderScheme,
-                markScheme, this.isCollapsed);
-            graphics.dispose();
-        }
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(x, y);
+        BladeIconUtils.drawTreeIcon(graphics, this.tree, this.size, colorTokens, this.isCollapsed);
+        graphics.dispose();
     }
 
     @Override

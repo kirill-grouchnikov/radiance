@@ -30,11 +30,8 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -133,31 +130,17 @@ public class RadianceBorder implements Border, UIResource {
 
 		ComponentState state = isEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
 
-		RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-		if (skin instanceof TonalSkin) {
-			ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
-				c, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
-				RadianceThemingSlices.ContainerType.MUTED);
+		ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+			c, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
+			RadianceThemingSlices.ContainerType.MUTED);
 
-			float finalAlpha = alpha * RadianceColorSchemeUtilities.getAlpha(c, state);
-			graphics.setComposite(WidgetUtilities.getAlphaComposite(c, finalAlpha, g));
+		float finalAlpha = alpha * RadianceColorSchemeUtilities.getAlpha(c, state);
+		graphics.setComposite(WidgetUtilities.getAlphaComposite(c, finalAlpha, g));
 
-			float baseRadius = this.radiusScaleFactor *
-				RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
-			BladeDrawingUtils.paintBladeTonalBorder(c, graphics, x, y, width, height, baseRadius,
-				colorTokens);
-		} else {
-			RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities.getColorScheme(
-				c, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
-
-			float finalAlpha = alpha * RadianceColorSchemeUtilities.getAlpha(c, state);
-			graphics.setComposite(WidgetUtilities.getAlphaComposite(c, finalAlpha, g));
-
-			float baseRadius = this.radiusScaleFactor *
-				RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
-			BladeDrawingUtils.paintBladeBorder(c, graphics, x, y, width, height, baseRadius,
-				borderColorScheme);
-		}
+		float baseRadius = this.radiusScaleFactor *
+			RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
+		BladeDrawingUtils.paintBladeTonalBorder(c, graphics, x, y, width, height, baseRadius,
+			colorTokens);
 
 		graphics.dispose();
 	}

@@ -55,7 +55,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public class MarinerSkin extends RadianceSkin implements TonalSkin {
+public class MarinerSkin extends RadianceSkin {
     public static final String NAME = "Mariner";
 
     public MarinerSkin() {

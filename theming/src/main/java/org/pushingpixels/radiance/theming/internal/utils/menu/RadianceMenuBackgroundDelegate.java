@@ -32,10 +32,7 @@ package org.pushingpixels.radiance.theming.internal.utils.menu;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -99,20 +96,14 @@ public class RadianceMenuBackgroundDelegate {
 				graphics.setComposite(WidgetUtilities.getAlphaComposite(
 						menuItem, fillAlpha, g));
 				RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
-				if (skin instanceof TonalSkin) {
-					ContainerColorTokens backgroundTokens =
-						skin.getBackgroundExtendedContainerTokens(
-							DecorationPainterUtils.getDecorationType(menuItem))
-							.getBaseContainerTokens();
-					Color gutterColor = backgroundTokens.isDark()
-						? backgroundTokens.getContainerSurfaceHighest()
-						: backgroundTokens.getContainerSurfaceLowest();
-					graphics.setColor(gutterColor);
-				} else {
-					RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
-						menuItem, ComponentState.ENABLED);
-					graphics.setColor(scheme.getAccentedBackgroundFillColor());
-				}
+				ContainerColorTokens backgroundTokens =
+					skin.getBackgroundExtendedContainerTokens(
+						DecorationPainterUtils.getDecorationType(menuItem))
+						.getBaseContainerTokens();
+				Color gutterColor = backgroundTokens.isDark()
+					? backgroundTokens.getContainerSurfaceHighest()
+					: backgroundTokens.getContainerSurfaceLowest();
+				graphics.setColor(gutterColor);
 				if (menuItem.getComponentOrientation().isLeftToRight()) {
 					graphics.fillRect(0, 0, textOffset - 2, menuHeight);
 				} else {
@@ -178,23 +169,13 @@ public class RadianceMenuBackgroundDelegate {
 			}
 
 			graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, alpha, g));
-			if (skin instanceof TonalSkin) {
-				ContainerColorTokens colorTokens =
-					RadianceColorSchemeUtilities.getContainerTokens(
-						menuItem, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-						activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
-				HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
-					new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
-					null, colorTokens);
-			} else {
-				RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
-					menuItem, ColorSchemeAssociationKind.HIGHLIGHT, activeState);
-				RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-					menuItem, ColorSchemeAssociationKind.HIGHLIGHT_BORDER, activeState);
-				HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
-					new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
-					null, fillScheme, borderScheme);
-			}
+			ContainerColorTokens colorTokens =
+				RadianceColorSchemeUtilities.getContainerTokens(
+					menuItem, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+					activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
+			HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
+				new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
+				null, colorTokens);
 			graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, g));
 		}
 

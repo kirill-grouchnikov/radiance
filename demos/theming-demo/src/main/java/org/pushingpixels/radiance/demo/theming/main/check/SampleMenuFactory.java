@@ -42,7 +42,6 @@ import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.skin.GraphiteSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
@@ -300,7 +299,7 @@ public class SampleMenuFactory {
         }
     }
 
-    protected static class CustomSkin extends RadianceSkin implements TonalSkin {
+    protected static class CustomSkin extends RadianceSkin {
         @Override
         public String getDisplayName() {
             return "Custom";

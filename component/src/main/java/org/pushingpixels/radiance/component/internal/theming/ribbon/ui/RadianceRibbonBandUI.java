@@ -42,9 +42,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -126,19 +124,11 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.ribbonBand);
         Color fgColor;
 
-        if (skin instanceof TonalSkin) {
-            // make the title color blend a little with the background
-            ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
-                DecorationAreaType.CONTROL_PANE);
-            fgColor = tokens.getBaseContainerTokens().getOnContainer();
-            fgColor = RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * 0.95));
-        } else {
-            // make the title color blend a little with the background
-            Color bgFillColor = RadianceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.CONTROL_PANE);
-            RadianceColorScheme bgColorScheme = skin.getBackgroundColorScheme(DecorationAreaType.CONTROL_PANE);
-            fgColor = bgColorScheme.getForegroundColor();
-            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, 0.95f);
-        }
+        // make the title color blend a little with the background
+        ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
+            DecorationAreaType.CONTROL_PANE);
+        fgColor = tokens.getBaseContainerTokens().getOnContainer();
+        fgColor = RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * 0.95));
 
         g2d.setColor(fgColor);
 

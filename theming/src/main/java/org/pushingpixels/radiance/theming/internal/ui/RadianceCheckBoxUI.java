@@ -33,15 +33,16 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RolloverButtonListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -112,35 +113,17 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                 boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
 
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-                if (skin instanceof TonalSkin) {
-                    // Populate color schemes based on the current transition state of the check box.
-                    BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
-                        currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                        false, true, RadianceThemingSlices.ContainerType.MUTED);
+                // Populate color schemes based on the current transition state of the check box.
+                BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
+                    currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                    false, true, RadianceThemingSlices.ContainerType.MUTED);
 
-                    Graphics2D graphics = (Graphics2D) g.create();
-                    graphics.translate(x, y);
-                    BladeIconUtils.drawTonalCheckBox(graphics, button, fillPainter, borderPainter,
-                        checkMarkSize, currState, mutableContainerTokens, visibility, 0.0f,
-                        isCheckMarkFadingOut);
-                    graphics.dispose();
-                } else {
-                    // Populate color schemes based on the current transition state of the check box.
-                    BladeUtils.populateColorScheme(mutableFillColorScheme, button, modelStateInfo,
-                        currState, ColorSchemeAssociationKind.MARK_BOX, false);
-                    BladeUtils.populateColorScheme(mutableBorderColorScheme, button, modelStateInfo,
-                        currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-                    BladeUtils.populateColorScheme(mutableMarkColorScheme, button, modelStateInfo,
-                        currState, ColorSchemeAssociationKind.MARK, false);
-                    float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
-
-                    Graphics2D graphics = (Graphics2D) g.create();
-                    graphics.translate(x, y);
-                    BladeIconUtils.drawCheckBox(graphics, button, fillPainter, borderPainter,
-                        checkMarkSize, currState, mutableFillColorScheme, mutableMarkColorScheme,
-                        mutableBorderColorScheme, visibility, 0.0f, isCheckMarkFadingOut, alpha);
-                    graphics.dispose();
-                }
+                Graphics2D graphics = (Graphics2D) g.create();
+                graphics.translate(x, y);
+                BladeIconUtils.drawTonalCheckBox(graphics, button, fillPainter, borderPainter,
+                    checkMarkSize, currState, mutableContainerTokens, visibility, 0.0f,
+                    isCheckMarkFadingOut);
+                graphics.dispose();
             }
 
             @Override

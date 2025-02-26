@@ -34,8 +34,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import java.awt.*;
@@ -63,62 +61,20 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
     public void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height, RadianceSkin skin) {
 
-        if (skin instanceof TonalSkin) {
-            ExtendedContainerColorTokens colorTokens =
-                skin.getBackgroundExtendedContainerTokens(decorationAreaType);
-            if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
-                (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
-                this.paintTitleBackground(graphics, width, height, colorTokens);
-            } else {
-                this.paintExtraBackground(graphics, comp, width, height, colorTokens);
-            }
+        ExtendedContainerColorTokens colorTokens =
+            skin.getBackgroundExtendedContainerTokens(decorationAreaType);
+        if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
+            (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
+            this.paintTitleBackground(graphics, width, height, colorTokens);
         } else {
-            RadianceColorScheme colorScheme = skin.getBackgroundColorScheme(decorationAreaType);
-            if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
-                (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
-                this.paintTitleBackground(graphics, width, height, colorScheme);
-            } else {
-                this.paintExtraBackground(graphics, comp, width, height, colorScheme);
-            }
+            this.paintExtraBackground(graphics, comp, width, height, colorTokens);
         }
-    }
-
-    /**
-     * Paints the title background.
-     *
-     * @param graphics Graphics context.
-     * @param width    Width.
-     * @param height   Height.
-     * @param scheme   Color scheme for painting the title background.
-     */
-    private void paintTitleBackground(Graphics2D graphics, int width, int height,
-        RadianceColorScheme scheme) {
-        Graphics2D g2d = (Graphics2D) graphics.create();
-        this.fill(g2d, scheme, 0, 0, 0, width, height);
-        g2d.dispose();
     }
 
     private void paintTitleBackground(Graphics2D graphics, int width, int height,
         ExtendedContainerColorTokens colorTokens) {
         Graphics2D g2d = (Graphics2D) graphics.create();
         this.fill(g2d, colorTokens, 0, 0, 0, width, height);
-        g2d.dispose();
-    }
-
-    /**
-     * Paints the background of non-title decoration areas.
-     *
-     * @param graphics Graphics context.
-     * @param comp     Component.
-     * @param width    Width.
-     * @param height   Height.
-     * @param scheme   Color scheme for painting the title background.
-     */
-    private void paintExtraBackground(Graphics2D graphics, Component comp, int width, int height,
-        RadianceColorScheme scheme) {
-        Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
-        Graphics2D g2d = (Graphics2D) graphics.create();
-        this.fill(g2d, scheme, offset.y, 0, 0, width, height);
         g2d.dispose();
     }
 
@@ -130,41 +86,7 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
         g2d.dispose();
     }
 
-    /**
-     * Fills the relevant part with the gradient fill.
-     *
-     * @param graphics Graphics.
-     * @param scheme   Color scheme to use.
-     * @param offsetY  Vertical offset.
-     * @param x        X coordinate of the fill area.
-     * @param y        Y coordinate of the fill area.
-     * @param width    Fill area width.
-     * @param height   Fill area height.
-     */
-    protected void fill(Graphics2D graphics, RadianceColorScheme scheme,
-        int offsetY, int x, int y, int width, int height) {
-        // 0 - flex : light -> medium
-        // flex - : medium fill
-
-        Color startColor = scheme.getLightColor();
-        Color endColor = RadianceColorUtilities.getInterpolatedColor(startColor,
-            scheme.getMidColor(), 0.4f);
-
-        int gradientHeight = Math.max(FLEX_POINT, height + offsetY);
-        Paint paint = (gradientHeight == FLEX_POINT) ?
-            new GradientPaint(0, y - offsetY, startColor, 0, y + gradientHeight - offsetY,
-                endColor) :
-            new LinearGradientPaint(
-                0, y - offsetY, 0, y + height - offsetY,
-                new float[] { 0.0f, (float) FLEX_POINT / (float) gradientHeight, 1.0f },
-                new Color[] { startColor, endColor, endColor },
-                MultipleGradientPaint.CycleMethod.NO_CYCLE);
-
-        graphics.setPaint(paint);
-        graphics.fillRect(x, y, width, height);
-    }
-
-    protected void fill(Graphics2D graphics, ExtendedContainerColorTokens extendedColorTokens,
+    private void fill(Graphics2D graphics, ExtendedContainerColorTokens extendedColorTokens,
         int offsetY, int x, int y, int width, int height) {
         // 0 - flex : gradient
         // flex - : fill
@@ -191,24 +113,6 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp, RadianceThemingSlices.DecorationAreaType
             decorationAreaType, Shape contour, RadianceColorScheme colorScheme) {
-        Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
-
-        Color startColor = colorScheme.getLightColor();
-        Color endColor = RadianceColorUtilities.getInterpolatedColor(startColor,
-                colorScheme.getMidColor(), 0.4f);
-
-        int gradientHeight = Math.max(FLEX_POINT, comp.getHeight() + offset.y);
-        Paint paint = (gradientHeight == FLEX_POINT) ?
-                new GradientPaint(0, -offset.y, startColor, 0, gradientHeight - offset.y,
-                        endColor) :
-                new LinearGradientPaint(
-                        0, -offset.y, 0, comp.getHeight() - offset.y,
-                        new float[] { 0.0f, (float) FLEX_POINT / (float) gradientHeight, 1.0f },
-                        new Color[] { startColor, endColor, endColor },
-                        MultipleGradientPaint.CycleMethod.NO_CYCLE);
-
-        graphics.setPaint(paint);
-        graphics.fill(contour);
     }
 
     @Override

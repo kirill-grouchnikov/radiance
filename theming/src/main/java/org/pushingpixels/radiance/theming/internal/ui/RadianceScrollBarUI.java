@@ -31,12 +31,10 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -164,70 +162,22 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             this.compositeStateTransitionTracker.getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.scrollbar);
+        // Populate color schemes based on the current transition state of the scrollbar.
+        // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
+        // parameter to "populateColorScheme").
+        BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
+            currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+            true, false, RadianceThemingSlices.ContainerType.MUTED);
 
-        if (skin instanceof TonalSkin) {
-            // Populate color schemes based on the current transition state of the scrollbar.
-            // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
-            // parameter to "populateColorScheme").
-            BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                true, false, RadianceThemingSlices.ContainerType.MUTED);
-
-            Graphics2D graphics = (Graphics2D) g.create();
-            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-            // to not normalize coordinates to paint at full pixels, and will result in blurry
-            // outlines.
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            // Note that we're switching width and height here since vertical thumb will be drawn
-            // with a 90 degree rotation transformation
-            RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, height,
-                width, (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
-                    RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
-
-                    float radius = scaledHeight / 2;
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                        this.scrollbar.getComponentOrientation(), scaledWidth, scaledHeight, radius, null, 1.0f);
-
-                    // Rotate the graphics context for correct "orientation" of the visuals
-                    AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
-                    at.translate(-y - scaledWidth, x + hoffset * scaleFactor);
-                    graphics1X.transform(at);
-
-                    float containerAlpha = currState.isDisabled()
-                        ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-                    graphics1X.setComposite(AlphaComposite.getInstance(
-                        AlphaComposite.SRC_OVER, containerAlpha));
-                    painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                        contour, mutableContainerTokens);
-
-                    float containerOutlineAlpha = currState.isDisabled()
-                        ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
-                    graphics1X.setComposite(AlphaComposite.getInstance(
-                        AlphaComposite.SRC_OVER, containerOutlineAlpha));
-                    borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                        contour, null, mutableContainerTokens);
-                });
-            graphics.dispose();
-        } else {
-            // Populate color schemes based on the current transition state of the scrollbar.
-            // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
-            // parameter to "populateColorScheme").
-            BladeUtils.populateColorScheme(mutableFillColorScheme, this.scrollbar, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, true);
-            BladeUtils.populateColorScheme(mutableBorderColorScheme, this.scrollbar, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-
-            Graphics2D graphics = (Graphics2D) g.create();
-            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-            // to not normalize coordinates to paint at full pixels, and will result in blurry
-            // outlines.
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            // Note that we're switching width and height here since vertical thumb will be drawn
-            // with a 90 degree rotation transformation
-            RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, height,
-                width, (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        // Note that we're switching width and height here since vertical thumb will be drawn
+        // with a 90 degree rotation transformation
+        RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, height,
+            width, (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
                 RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
 
@@ -240,13 +190,21 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 at.translate(-y - scaledWidth, x + hoffset * scaleFactor);
                 graphics1X.transform(at);
 
+                float containerAlpha = currState.isDisabled()
+                    ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
+                graphics1X.setComposite(AlphaComposite.getInstance(
+                    AlphaComposite.SRC_OVER, containerAlpha));
                 painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    contour, mutableFillColorScheme);
+                    contour, mutableContainerTokens);
+
+                float containerOutlineAlpha = currState.isDisabled()
+                    ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
+                graphics1X.setComposite(AlphaComposite.getInstance(
+                    AlphaComposite.SRC_OVER, containerOutlineAlpha));
                 borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    contour, null, mutableBorderColorScheme);
+                    contour, null, mutableContainerTokens);
             });
-            graphics.dispose();
-        }
+        graphics.dispose();
     }
 
     private void drawThumbHorizontal(Graphics2D g, Rectangle thumbBounds) {
@@ -264,62 +222,20 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 .getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.scrollbar);
+        // Populate color schemes based on the current transition state of the scrollbar.
+        // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
+        // parameter to "populateColorScheme").
+        BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
+            currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+            true, false, RadianceThemingSlices.ContainerType.MUTED);
 
-        if (skin instanceof TonalSkin) {
-            // Populate color schemes based on the current transition state of the scrollbar.
-            // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
-            // parameter to "populateColorScheme").
-            BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                true, false, RadianceThemingSlices.ContainerType.MUTED);
-
-            Graphics2D graphics = (Graphics2D) g.create();
-            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-            // to not normalize coordinates to paint at full pixels, and will result in blurry
-            // outlines.
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, width, height,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
-                    RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
-
-                    float radius = scaledHeight / 2;
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                        this.scrollbar.getComponentOrientation(), scaledWidth, scaledHeight, radius, null, 1.0f);
-                    graphics1X.translate(x, y + voffset * scaleFactor);
-
-                    float containerAlpha = currState.isDisabled()
-                        ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-                    graphics1X.setComposite(AlphaComposite.getInstance(
-                        AlphaComposite.SRC_OVER, containerAlpha));
-                    painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                        contour, mutableContainerTokens);
-
-                    float containerOutlineAlpha = currState.isDisabled()
-                        ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
-                    graphics1X.setComposite(AlphaComposite.getInstance(
-                        AlphaComposite.SRC_OVER, containerOutlineAlpha));
-                    borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                        contour, null, mutableContainerTokens);
-                });
-            graphics.dispose();
-        } else {
-            // Populate color schemes based on the current transition state of the scrollbar.
-            // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
-            // parameter to "populateColorScheme").
-            BladeUtils.populateColorScheme(mutableFillColorScheme, this.scrollbar, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, true);
-            BladeUtils.populateColorScheme(mutableBorderColorScheme, this.scrollbar, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-
-            Graphics2D graphics = (Graphics2D) g.create();
-            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-            // to not normalize coordinates to paint at full pixels, and will result in blurry
-            // outlines.
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, width, height,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, width, height,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
                 RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
 
@@ -327,13 +243,22 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 Shape contour = RadianceOutlineUtilities.getBaseOutline(
                     this.scrollbar.getComponentOrientation(), scaledWidth, scaledHeight, radius, null, 1.0f);
                 graphics1X.translate(x, y + voffset * scaleFactor);
+
+                float containerAlpha = currState.isDisabled()
+                    ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
+                graphics1X.setComposite(AlphaComposite.getInstance(
+                    AlphaComposite.SRC_OVER, containerAlpha));
                 painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    contour, mutableFillColorScheme);
+                    contour, mutableContainerTokens);
+
+                float containerOutlineAlpha = currState.isDisabled()
+                    ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
+                graphics1X.setComposite(AlphaComposite.getInstance(
+                    AlphaComposite.SRC_OVER, containerOutlineAlpha));
                 borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    contour, null, mutableBorderColorScheme);
+                    contour, null, mutableContainerTokens);
             });
-            graphics.dispose();
-        }
+        graphics.dispose();
     }
 
     @Override
@@ -345,12 +270,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         } else {
             graphics.translate(trackBounds.x - THUMB_DELTA, trackBounds.y);
         }
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.scrollbar);
-        if (skin instanceof TonalSkin) {
-            graphics.setColor(RadianceColorUtilities.getBackgroundTonalFillColorScrollBar(this.scrollbar));
-        } else {
-            graphics.setColor(RadianceColorUtilities.getBackgroundFillColorScrollBar(this.scrollbar));
-        }
+        graphics.setColor(RadianceColorUtilities.getBackgroundTonalFillColorScrollBar(this.scrollbar));
         graphics.fillRect(0, 0, this.scrollbar.getWidth(), this.scrollbar.getHeight());
 
         GhostPaintingUtils.paintGhostImages(this.scrollbar, graphics);
@@ -380,12 +300,6 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
     public void paint(Graphics g, JComponent c) {
         Graphics2D graphics = (Graphics2D) g.create();
         BackgroundPaintingUtils.update(graphics, c, false);
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-        if (!(skin instanceof TonalSkin)) {
-            float alpha = RadianceColorSchemeUtilities.getAlpha(this.scrollbar,
-                ComponentState.getState(this.thumbModel, this.scrollbar));
-            graphics.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
-        }
         super.paint(graphics, c);
         graphics.dispose();
     }

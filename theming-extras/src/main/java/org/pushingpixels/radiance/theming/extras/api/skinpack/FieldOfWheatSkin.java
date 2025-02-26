@@ -52,7 +52,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public class FieldOfWheatSkin extends RadianceSkin implements TonalSkin {
+public class FieldOfWheatSkin extends RadianceSkin {
     /**
      * Display name for <code>this</code> skin.
      */

@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -61,90 +60,17 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-            RadianceSkin skin) {
-        if (skin instanceof TonalSkin) {
-            ExtendedContainerColorTokens colorTokens =
-                skin.getBackgroundExtendedContainerTokens(decorationAreaType);
-            if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
-                    (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
-                this.paintTitleBackground(graphics, comp, width, height, colorTokens);
-            } else {
-                this.paintExtraBackground(graphics, RadianceCoreUtilities.getHeaderParent(comp),
-                        comp, width, height, colorTokens);
-            }
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+        RadianceSkin skin) {
+        ExtendedContainerColorTokens colorTokens =
+            skin.getBackgroundExtendedContainerTokens(decorationAreaType);
+        if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
+                (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
+            this.paintTitleBackground(graphics, comp, width, height, colorTokens);
         } else {
-            if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
-                    (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
-                this.paintTitleBackground(graphics, comp, width, height,
-                        skin.getBackgroundColorScheme(decorationAreaType));
-            } else {
-                this.paintExtraBackground(graphics, RadianceCoreUtilities.getHeaderParent(comp),
-                        comp, width, height, skin.getBackgroundColorScheme(decorationAreaType));
-            }
+            this.paintExtraBackground(graphics, RadianceCoreUtilities.getHeaderParent(comp),
+                    comp, width, height, colorTokens);
         }
-    }
-
-    /**
-     * Paints the title background.
-     * 
-     * @param original
-     *            Graphics context.
-     * @param comp
-     *            Component.
-     * @param width
-     *            Width.
-     * @param height
-     *            Height.
-     * @param scheme
-     *            Color scheme for painting the title background.
-     */
-    private void paintTitleBackground(Graphics2D original, Component comp, int width, int height,
-            RadianceColorScheme scheme) {
-        // Create a new Graphics2D object so that we can apply clipping to it without having
-        // to reset the state after we're done
-        Graphics2D g2d = (Graphics2D) original.create();
-
-        // Fill background
-        GeneralPath clipTop = new GeneralPath();
-        clipTop.moveTo(0, 0);
-        clipTop.lineTo(width, 0);
-        clipTop.lineTo(width, height / 2);
-        clipTop.quadTo(width / 2, height / 4, 0, height / 2);
-        clipTop.lineTo(0, 0);
-
-        g2d.setClip(clipTop);
-        LinearGradientPaint gradientTop = new LinearGradientPaint(0, 0, width, 0,
-                new float[] { 0.0f, 0.5f, 1.0f }, new Color[] { scheme.getLightColor(),
-                scheme.getUltraLightColor(), scheme.getLightColor() },
-                CycleMethod.REPEAT);
-        g2d.setPaint(gradientTop);
-        g2d.fillRect(0, 0, width, height);
-
-        GeneralPath clipBottom = new GeneralPath();
-        clipBottom.moveTo(0, height);
-        clipBottom.lineTo(width, height);
-        clipBottom.lineTo(width, height / 2);
-        clipBottom.quadTo(width / 2, height / 4, 0, height / 2);
-        clipBottom.lineTo(0, height);
-
-        g2d.setClip(clipBottom);
-        LinearGradientPaint gradientBottom = new LinearGradientPaint(0, 0, width, 0,
-                new float[] { 0.0f, 0.5f, 1.0f },
-                new Color[] { scheme.getMidColor(), scheme.getLightColor(), scheme.getMidColor() },
-                CycleMethod.REPEAT);
-        g2d.setPaint(gradientBottom);
-        g2d.fillRect(0, 0, width, height);
-
-        GeneralPath mid = new GeneralPath();
-        mid.moveTo(width, height / 2);
-        mid.quadTo(width / 2, height / 4, 0, height / 2);
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setClip(new Rectangle(0, 0, width, height));
-        g2d.draw(mid);
-
-        g2d.dispose();
     }
 
     private void paintTitleBackground(Graphics2D original, Component comp, int width, int height,
@@ -205,46 +131,6 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
         g2d.draw(mid);
 
         g2d.dispose();
-    }
-
-    /**
-     * Paints the background of non-title decoration areas.
-     * 
-     * @param graphics
-     *            Graphics context.
-     * @param parent
-     *            Component ancestor for computing the correct offset of the background painting.
-     * @param comp
-     *            Component.
-     * @param width
-     *            Width.
-     * @param height
-     *            Height.
-     * @param scheme
-     *            Color scheme for painting the title background.
-     */
-    private void paintExtraBackground(Graphics2D graphics, Container parent, Component comp,
-            int width, int height, RadianceColorScheme scheme) {
-        Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
-        JRootPane rootPane = SwingUtilities.getRootPane(parent);
-        // fix for bug 234 - Window doesn't have a root pane.
-        JLayeredPane layeredPane = rootPane.getLayeredPane();
-        Insets layeredPaneInsets = (layeredPane != null) ? layeredPane.getInsets() : null;
-
-        int pWidth = (layeredPane == null) ? parent.getWidth()
-                : layeredPane.getWidth() - layeredPaneInsets.left - layeredPaneInsets.right;
-
-        if (pWidth != 0) {
-            LinearGradientPaint gradientBottom = new LinearGradientPaint(-offset.x, 0,
-                    -offset.x + pWidth, 0, new float[] { 0.0f, 0.5f, 1.0f },
-                    new Color[] { scheme.getMidColor(), scheme.getLightColor(),
-                            scheme.getMidColor() },
-                    CycleMethod.REPEAT);
-            Graphics2D g2d = (Graphics2D) graphics.create();
-            g2d.setPaint(gradientBottom);
-            g2d.fillRect(-offset.x, 0, pWidth, height);
-            g2d.dispose();
-        }
     }
 
     private void paintExtraBackground(Graphics2D graphics, Container parent, Component comp,

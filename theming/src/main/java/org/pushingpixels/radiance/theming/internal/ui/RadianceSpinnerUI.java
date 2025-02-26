@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -284,11 +283,7 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
     @Override
     public void paint(Graphics g, JComponent c) {
         super.paint(g, c);
-        if (RadianceCoreUtilities.getSkin(c) instanceof TonalSkin) {
-            RadianceTextUtilities.paintTextCompTonalBackground(g, c);
-        } else {
-            RadianceTextUtilities.paintTextCompBackground(g, c);
-        }
+        RadianceTextUtilities.paintTextCompTonalBackground(g, c);
     }
 
     @Override

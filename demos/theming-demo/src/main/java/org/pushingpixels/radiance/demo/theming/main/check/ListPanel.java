@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 
 import javax.swing.*;
@@ -434,12 +433,8 @@ public class ListPanel extends ControllablePanel {
                 result.setEnabled(false);
                 ComponentState state = isSelected ? ComponentState.DISABLED_SELECTED
                         : ComponentState.DISABLED_UNSELECTED;
-                if (skin instanceof TonalSkin) {
-                    result.setForeground(skin.getContainerTokens(list, state,
-                        RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer());
-                } else {
-                    result.setForeground(skin.getColorScheme(list, state).getForegroundColor());
-                }
+                result.setForeground(skin.getContainerTokens(list, state,
+                    RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer());
                 result.setBackground(new Color(255, 196, 196));
                 result.setText(entry.text + " [disabled by renderer]");
             } else {

@@ -36,11 +36,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -54,25 +50,14 @@ public class ThreadPanel extends JPanel {
     public ThreadPanel() {
         this.setLayout(new VerticalStackLayout());
 
-        Color iconColor, backgroundColor, innerBackgroundColor;
         RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
-        if (currentSkin instanceof TonalSkin) {
-            ContainerColorTokens colorTokens = currentSkin.getContainerTokens(this,
-                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-            Color onContainer = colorTokens.getOnContainer();
-            iconColor = new Color(onContainer.getRed(),
-                onContainer.getGreen(), onContainer.getBlue(), 204);
-            backgroundColor = colorTokens.getContainerSurface();
-            innerBackgroundColor = colorTokens.getContainerSurfaceLowest();
-        } else {
-            RadianceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE,
-                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
-            iconColor = new Color(fillScheme.getForegroundColor().getRed(),
-                fillScheme.getForegroundColor().getGreen(),
-                fillScheme.getForegroundColor().getBlue(), 204);
-            backgroundColor = fillScheme.getLightColor();
-            innerBackgroundColor = fillScheme.getUltraLightColor();
-        }
+        ContainerColorTokens colorTokens = currentSkin.getContainerTokens(this,
+            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        Color onContainer = colorTokens.getOnContainer();
+        Color iconColor = new Color(onContainer.getRed(),
+            onContainer.getGreen(), onContainer.getBlue(), 204);
+        Color backgroundColor = colorTokens.getContainerSurface();
+        Color innerBackgroundColor = colorTokens.getContainerSurfaceLowest();
 
         this.add(getHeaderActionsPanel(iconColor, backgroundColor));
         this.add(getMessageTitlePanel("Keys found", backgroundColor));

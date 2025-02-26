@@ -35,17 +35,14 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 
@@ -61,91 +58,7 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class ButtonBackgroundDelegate {
-    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
-
-    private void drawBackground(
-        Graphics2D graphics, AbstractButton button,
-        RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
-        RadianceBorderPainter borderPainter, int width, int height) {
-        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
-        StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
-            .getTransitionTracker().getModelStateInfo();
-
-        ComponentState currState = modelStateInfo.getCurrModelState();
-
-        Set<RadianceThemingSlices.Side> openSides = RadianceCoreUtilities.getSides(button,
-            RadianceSynapse.BUTTON_OPEN_SIDE);
-        boolean isContentAreaFilled = button.isContentAreaFilled();
-        boolean isBorderPainted = button.isBorderPainted();
-
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-            modelStateInfo.getStateContributionMap();
-
-        // Two special cases here:
-        // 1. Button has flat appearance.
-        // 2. Button is disabled.
-        // For both cases, we need to set custom translucency.
-        boolean isFlat = RadianceCoreUtilities.hasFlatAppearance(button);
-        float extraAlpha = 1.0f;
-        if (isFlat) {
-            // Special handling of flat buttons
-            extraAlpha = 0.0f;
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
-                ComponentState activeState = activeEntry.getKey();
-                if (activeState.isDisabled())
-                    continue;
-                if (activeState == ComponentState.ENABLED)
-                    continue;
-                extraAlpha += activeEntry.getValue().getContribution();
-            }
-        } else if (!button.isEnabled()) {
-            extraAlpha = RadianceColorSchemeUtilities.getAlpha(button,
-                modelStateInfo.getCurrModelState());
-        }
-
-        if (extraAlpha == 0.0f) {
-            return;
-        }
-        Graphics2D g2d = (Graphics2D) graphics.create();
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, graphics));
-
-        // Do we need to use attention-drawing animation?
-        if (button.getUI() instanceof ModificationAwareUI) {
-            ModificationAwareUI modificationAwareUI = (ModificationAwareUI) button.getUI();
-            Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
-            if (modificationTimeline != null) {
-                if (modificationTimeline.getState() != TimelineState.IDLE) {
-                    BladeUtils.populateModificationAwareColorScheme(mutableFillColorScheme,
-                        modificationTimeline.getTimelinePosition());
-                    RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                        button, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
-
-                    drawBackground(g2d, button, shaper, fillPainter, borderPainter, width,
-                        height, mutableFillColorScheme, baseBorderScheme, openSides,
-                        isContentAreaFilled, isBorderPainted);
-                    return;
-                }
-            }
-        }
-
-        // Populate fill and border color schemes based on the current transition state of
-        // the button.
-        // Important - don't do it on pulsating buttons (such as close button of modified
-        // frames).
-        BladeUtils.populateColorScheme(mutableFillColorScheme, button, modelStateInfo,
-            currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
-        BladeUtils.populateColorScheme(mutableBorderColorScheme, button, modelStateInfo,
-            currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-
-        drawBackground(g2d, button, shaper, fillPainter, borderPainter, width, height,
-            mutableFillColorScheme, mutableBorderColorScheme, openSides,
-            isContentAreaFilled, isBorderPainted);
-
-        g2d.dispose();
-    }
 
     private void drawTonalBackground(
         Graphics2D graphics, AbstractButton button,
@@ -210,73 +123,6 @@ public class ButtonBackgroundDelegate {
             mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted, currState,
             overallAlpha);
     }
-
-    private void drawBackground(Graphics2D g, AbstractButton button,
-            RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
-            RadianceBorderPainter borderPainter, int width, int height,
-            RadianceColorScheme colorScheme, RadianceColorScheme borderScheme,
-            Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled, boolean isBorderPainted) {
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    ComponentOrientation orientation = button.getComponentOrientation();
-                    RadianceThemingSlices.Side leftSide =
-                            orientation.isLeftToRight()
-                                    ? RadianceThemingSlices.Side.LEADING
-                                    : RadianceThemingSlices.Side.TRAILING;
-                    RadianceThemingSlices.Side rightSide =
-                            orientation.isLeftToRight()
-                                    ? RadianceThemingSlices.Side.TRAILING
-                                    : RadianceThemingSlices.Side.LEADING;
-
-                    int openDelta = (int) (3 * scaleFactor);
-                    int deltaLeft = ((openSides != null) && openSides.contains(leftSide)) ? openDelta : 0;
-                    int deltaRight = ((openSides != null) && openSides.contains(rightSide)) ? openDelta : 0;
-                    int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
-                    int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
-
-                    Shape contourOuter = shaper.getButtonOutline(button, 0.0f,
-                            scaledWidth + deltaLeft + deltaRight,
-                            scaledHeight + deltaTop + deltaBottom,
-                            scaleFactor, false);
-
-                    graphics1X.translate(-deltaLeft, -deltaTop);
-                    if (isContentAreaFilled) {
-                        // If the border is painted, compute a separate contour for the fill.
-                        // Otherwise pixels on the edge can "spill" outside
-                        // the contour. Those pixels will be drawn by the border painter.
-                        Shape contourFill = isBorderPainted ? shaper.getButtonOutline(button, 0.5f,
-                                scaledWidth + deltaLeft + deltaRight + 1.0f,
-                                scaledHeight + deltaTop + deltaBottom + 1.0f,
-                                scaleFactor, false) : contourOuter;
-                        fillPainter.paintContourBackground(graphics1X, button,
-                                scaledWidth + deltaLeft + deltaRight,
-                                scaledHeight + deltaTop + deltaBottom,
-                                contourFill, colorScheme);
-                    }
-
-                    if (isBorderPainted) {
-                        Shape contourInner = borderPainter.isPaintingInnerContour() ?
-                                shaper.getButtonOutline(button, 1.0f,
-                                        scaledWidth + deltaLeft + deltaRight,
-                                        scaledHeight + deltaTop + deltaBottom,
-                                        scaleFactor, true)
-                                : null;
-                        borderPainter.paintBorder(graphics1X, button, scaledWidth + deltaLeft + deltaRight,
-                                scaledHeight + deltaTop + deltaBottom, contourOuter, contourInner, borderScheme);
-                    }
-                    graphics1X.translate(deltaLeft, deltaTop);
-                });
-
-        graphics.dispose();
-    }
-
 
     private void drawTonalBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
         RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
@@ -377,11 +223,7 @@ public class ButtonBackgroundDelegate {
         RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
 
-        if (skin instanceof TonalSkin) {
-            drawTonalBackground(graphics, button, shaper, fillPainter, borderPainter, width, height);
-        } else {
-            drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height);
-        }
+        drawTonalBackground(graphics, button, shaper, fillPainter, borderPainter, width, height);
 
         graphics.dispose();
     }

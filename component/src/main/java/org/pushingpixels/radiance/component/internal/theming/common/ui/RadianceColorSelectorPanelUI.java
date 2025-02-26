@@ -35,11 +35,8 @@ import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelec
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
@@ -79,38 +76,22 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(this.colorSelectorPanel);
-                    if (skin instanceof TonalSkin) {
-                        ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
-                            DecorationPainterUtils.getDecorationType(this.colorSelectorPanel));
-                        Color backgroundFill = tokens.getBaseContainerTokens().isDark()
-                                ? tokens.getBaseContainerTokens().getContainerSurfaceLow()
-                                : tokens.getBaseContainerTokens().getContainerSurfaceHigh();
+                    ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
+                        DecorationPainterUtils.getDecorationType(this.colorSelectorPanel));
+                    Color backgroundFill = tokens.getBaseContainerTokens().isDark()
+                            ? tokens.getBaseContainerTokens().getContainerSurfaceLow()
+                            : tokens.getBaseContainerTokens().getContainerSurfaceHigh();
 
-                        Set<RadianceThemingSlices.Side> openSides = EnumSet.of(
-                            RadianceThemingSlices.Side.LEADING, RadianceThemingSlices.Side.TRAILING);
-                        graphics1X.setColor(backgroundFill);
-                        graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+                    Set<RadianceThemingSlices.Side> openSides = EnumSet.of(
+                        RadianceThemingSlices.Side.LEADING, RadianceThemingSlices.Side.TRAILING);
+                    graphics1X.setColor(backgroundFill);
+                    graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
 
-                        HighlightPainterUtils.paintHighlightBorder1X(graphics1X,
-                            this.colorSelectorPanel, scaledWidth, scaledHeight, 1.0f, openSides,
-                            RadianceCoreUtilities.getBorderPainter(this.colorSelectorPanel),
-                            RadianceColorSchemeUtilities.getContainerTokens(this.colorSelectorPanel,
-                                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL));
-                    } else {
-                        RadianceColorScheme scheme = skin.getBackgroundColorScheme(
-                            DecorationPainterUtils.getDecorationType(this.colorSelectorPanel));
-                        Color backgroundFill = scheme.getAccentedBackgroundFillColor();
-
-                        Set<RadianceThemingSlices.Side> openSides = EnumSet.of(
-                            RadianceThemingSlices.Side.LEADING, RadianceThemingSlices.Side.TRAILING);
-                        graphics1X.setColor(backgroundFill);
-                        graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
-                        HighlightPainterUtils.paintHighlightBorder1X(graphics1X,
-                            this.colorSelectorPanel, scaledWidth, scaledHeight, 1.0f, openSides,
-                            RadianceCoreUtilities.getBorderPainter(this.colorSelectorPanel),
-                            RadianceColorSchemeUtilities.getColorScheme(this.colorSelectorPanel,
-                                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED));
-                    }
+                    HighlightPainterUtils.paintHighlightBorder1X(graphics1X,
+                        this.colorSelectorPanel, scaledWidth, scaledHeight, 1.0f, openSides,
+                        RadianceCoreUtilities.getBorderPainter(this.colorSelectorPanel),
+                        RadianceColorSchemeUtilities.getContainerTokens(this.colorSelectorPanel,
+                            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL));
                 });
         graphics.dispose();
     }
@@ -125,25 +106,10 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceSkin skin = RadianceCoreUtilities.getSkin(this.colorSelectorPanel);
-                Color borderColor;
-                if (skin instanceof TonalSkin) {
-                    ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
-                        this.colorSelectorPanel, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                        ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-                    borderColor = tokens.getContainerOutline();
-                } else {
-                    borderColor = RadianceCoreUtilities.getSkin(this.colorSelectorPanel).
-                        getOverlayColor(RadianceThemingSlices.ColorOverlayType.LINE,
-                        DecorationPainterUtils.getDecorationType(this.colorSelectorPanel),
-                        ComponentState.ENABLED);
-                    if (borderColor == null) {
-                        RadianceColorScheme bgBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                            this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-                            ComponentState.ENABLED);
-                        borderColor = bgBorderScheme.getLineColor();
-                    }
-                }
+                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    this.colorSelectorPanel, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                    ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+                Color borderColor = tokens.getContainerOutline();
 
                 graphics1X.setColor(borderColor);
                 int lineY = scaledY + scaledHeight - 1;

@@ -44,7 +44,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
-public class VisorSkin extends RadianceSkin implements TonalSkin {
+public class VisorSkin extends RadianceSkin {
     /**
      * Display name for <code>this</code> skin.
      */

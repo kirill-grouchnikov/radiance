@@ -32,10 +32,8 @@ package org.pushingpixels.radiance.theming.internal.ui;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.IconGlowTracker;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -129,30 +127,16 @@ public class RadianceOptionPaneUI extends BasicOptionPaneUI {
                 RadianceSizeUtils.getControlFontSize(), ICON_SIZE, 3, 2);
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.optionPane);
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens colorTokens = skin.getOptionPaneIconColorTokens(messageType);
-            switch (messageType) {
-                case JOptionPane.ERROR_MESSAGE:
-                    return iconPack.getOptionPaneErrorIcon(size, colorTokens);
-                case JOptionPane.INFORMATION_MESSAGE:
-                    return iconPack.getOptionPaneInformationIcon(size, colorTokens);
-                case JOptionPane.WARNING_MESSAGE:
-                    return iconPack.getOptionPaneWarningIcon(size, colorTokens);
-                case JOptionPane.QUESTION_MESSAGE:
-                    return iconPack.getOptionPaneQuestionIcon(size, colorTokens);
-            }
-        } else {
-            RadianceColorScheme colorScheme = skin.getOptionPaneIconColorScheme(messageType);
-            switch (messageType) {
-                case JOptionPane.ERROR_MESSAGE:
-                    return iconPack.getOptionPaneErrorIcon(size, colorScheme);
-                case JOptionPane.INFORMATION_MESSAGE:
-                    return iconPack.getOptionPaneInformationIcon(size, colorScheme);
-                case JOptionPane.WARNING_MESSAGE:
-                    return iconPack.getOptionPaneWarningIcon(size, colorScheme);
-                case JOptionPane.QUESTION_MESSAGE:
-                    return iconPack.getOptionPaneQuestionIcon(size, colorScheme);
-            }
+        ContainerColorTokens colorTokens = skin.getOptionPaneIconColorTokens(messageType);
+        switch (messageType) {
+            case JOptionPane.ERROR_MESSAGE:
+                return iconPack.getOptionPaneErrorIcon(size, colorTokens);
+            case JOptionPane.INFORMATION_MESSAGE:
+                return iconPack.getOptionPaneInformationIcon(size, colorTokens);
+            case JOptionPane.WARNING_MESSAGE:
+                return iconPack.getOptionPaneWarningIcon(size, colorTokens);
+            case JOptionPane.QUESTION_MESSAGE:
+                return iconPack.getOptionPaneQuestionIcon(size, colorTokens);
         }
         return null;
     }

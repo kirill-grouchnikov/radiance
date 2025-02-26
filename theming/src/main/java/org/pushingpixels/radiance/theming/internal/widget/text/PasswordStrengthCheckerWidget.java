@@ -34,11 +34,9 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -121,41 +119,26 @@ public class PasswordStrengthCheckerWidget extends RadianceThemingWidget<JPasswo
             Graphics2D g2 = (Graphics2D) g.create();
 
             RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-            if (skin instanceof TonalSkin) {
-                ContainerColorTokens colorTokens = null;
-                if (pStrength == RadianceThemingSlices.PasswordStrength.WEAK) {
-                    colorTokens = skin.getSystemContainerTokens(c,
-                        RadianceThemingSlices.SystemContainerType.EMERGENCY,
-                        RadianceThemingSlices.ActiveContainerType.TONAL);
-                }
-                if (pStrength == RadianceThemingSlices.PasswordStrength.MEDIUM) {
-                    colorTokens = skin.getSystemContainerTokens(c,
-                        RadianceThemingSlices.SystemContainerType.WARNING,
-                        RadianceThemingSlices.ActiveContainerType.TONAL);
-                }
-                if (pStrength == RadianceThemingSlices.PasswordStrength.STRONG) {
-                    colorTokens = skin.getSystemContainerTokens(c,
-                        RadianceThemingSlices.SystemContainerType.SUCCESS,
-                        RadianceThemingSlices.ActiveContainerType.TONAL);
-                }
+            ContainerColorTokens colorTokens = null;
+            if (pStrength == RadianceThemingSlices.PasswordStrength.WEAK) {
+                colorTokens = skin.getSystemContainerTokens(c,
+                    RadianceThemingSlices.SystemContainerType.EMERGENCY,
+                    RadianceThemingSlices.ActiveContainerType.TONAL);
+            }
+            if (pStrength == RadianceThemingSlices.PasswordStrength.MEDIUM) {
+                colorTokens = skin.getSystemContainerTokens(c,
+                    RadianceThemingSlices.SystemContainerType.WARNING,
+                    RadianceThemingSlices.ActiveContainerType.TONAL);
+            }
+            if (pStrength == RadianceThemingSlices.PasswordStrength.STRONG) {
+                colorTokens = skin.getSystemContainerTokens(c,
+                    RadianceThemingSlices.SystemContainerType.SUCCESS,
+                    RadianceThemingSlices.ActiveContainerType.TONAL);
+            }
 
-                if (colorTokens != null) {
-                    paintRectangularBackground(c, g2, x, y, width, height, colorTokens, 0.8f,
-                        false);
-                }
-
-            } else {
-                RadianceColorScheme colorScheme = null;
-                if (pStrength == RadianceThemingSlices.PasswordStrength.WEAK)
-                    colorScheme = RadianceColorSchemeUtilities.ORANGE;
-                if (pStrength == RadianceThemingSlices.PasswordStrength.MEDIUM)
-                    colorScheme = RadianceColorSchemeUtilities.YELLOW;
-                if (pStrength == RadianceThemingSlices.PasswordStrength.STRONG)
-                    colorScheme = RadianceColorSchemeUtilities.GREEN;
-
-                if (colorScheme != null) {
-                    paintRectangularBackground(c, g2, x, y, width, height, colorScheme, 0.5f, false);
-                }
+            if (colorTokens != null) {
+                paintRectangularBackground(c, g2, x, y, width, height, colorTokens, 0.8f,
+                    false);
             }
 
             g2.dispose();

@@ -32,12 +32,8 @@ package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonGalleryUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonGallery;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -68,28 +64,15 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
     @Override
     protected void paintRibbonGalleryBorder(Graphics graphics) {
         Graphics2D g2d = (Graphics2D) graphics;
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.ribbonGallery);
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
-                this.ribbonGallery, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-            BladeDrawingUtils.paintBladeTonalBorder(this.ribbonGallery, g2d, this.margin.left,
-                this.margin.top,
-                this.ribbonGallery.getWidth() - this.margin.left - this.margin.right,
-                this.ribbonGallery.getHeight() - this.margin.top - this.margin.bottom,
-                RadianceSizeUtils.getClassicButtonCornerRadius(
-                    RadianceSizeUtils.getComponentFontSize(this.ribbonGallery)),
-                tokens);
-        } else {
-            RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.ribbonGallery, ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-            BladeDrawingUtils.paintBladeBorder(this.ribbonGallery, g2d, this.margin.left,
-                this.margin.top,
-                this.ribbonGallery.getWidth() - this.margin.left - this.margin.right,
-                this.ribbonGallery.getHeight() - this.margin.top - this.margin.bottom,
-                RadianceSizeUtils.getClassicButtonCornerRadius(
-                    RadianceSizeUtils.getComponentFontSize(this.ribbonGallery)),
-                borderColorScheme);
-        }
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            this.ribbonGallery, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        BladeDrawingUtils.paintBladeTonalBorder(this.ribbonGallery, g2d, this.margin.left,
+            this.margin.top,
+            this.ribbonGallery.getWidth() - this.margin.left - this.margin.right,
+            this.ribbonGallery.getHeight() - this.margin.top - this.margin.bottom,
+            RadianceSizeUtils.getClassicButtonCornerRadius(
+                RadianceSizeUtils.getComponentFontSize(this.ribbonGallery)),
+            tokens);
         g2d.dispose();
     }
 

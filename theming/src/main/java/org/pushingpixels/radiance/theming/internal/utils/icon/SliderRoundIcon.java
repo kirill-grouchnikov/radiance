@@ -30,18 +30,14 @@
 package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -60,8 +56,6 @@ public class SliderRoundIcon implements Icon, UIResource {
     /** The associated slider. */
     private JSlider slider;
 
-    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
 
     public SliderRoundIcon(JSlider slider, int size) {
@@ -80,39 +74,19 @@ public class SliderRoundIcon implements Icon, UIResource {
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-        if (skin instanceof TonalSkin) {
-            // Populate color schemes based on the current transition state of the slider.
-            BladeUtils.populateColorTokens(mutableColorTokens, this.slider, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                false, false, RadianceThemingSlices.ContainerType.MUTED);
+        // Populate color schemes based on the current transition state of the slider.
+        BladeUtils.populateColorTokens(mutableColorTokens, this.slider, modelStateInfo,
+            currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+            false, false, RadianceThemingSlices.ContainerType.MUTED);
 
-            float activeStrength = stateTransitionTracker.getActiveStrength();
-            int diameter = (int) (this.size * (2.0f + activeStrength) / 3.0f);
+        float activeStrength = stateTransitionTracker.getActiveStrength();
+        int diameter = (int) (this.size * (2.0f + activeStrength) / 3.0f);
 
-            Graphics2D graphics = (Graphics2D) g.create();
-            graphics.translate(x + (this.size - diameter) / 2.0, y + (this.size - diameter) / 2.0);
-            BladeIconUtils.drawSliderThumbRound(graphics, this.slider, fillPainter, borderPainter,
-                diameter, mutableColorTokens, currState);
-            graphics.dispose();
-        } else {
-            float alpha = RadianceColorSchemeUtilities.getAlpha(this.slider, currState);
-
-            // Populate color schemes based on the current transition state of the slider.
-            BladeUtils.populateColorScheme(mutableFillColorScheme, this.slider, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
-            BladeUtils.populateColorScheme(mutableBorderColorScheme, this.slider, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-
-            float activeStrength = stateTransitionTracker.getActiveStrength();
-            int diameter = (int) (this.size * (2.0f + activeStrength) / 3.0f);
-
-            Graphics2D graphics = (Graphics2D) g.create();
-            graphics.translate(x + (this.size - diameter) / 2.0, y + (this.size - diameter) / 2.0);
-            BladeIconUtils.drawSliderThumbRound(graphics, this.slider, fillPainter, borderPainter,
-                diameter, mutableFillColorScheme, mutableBorderColorScheme, alpha);
-            graphics.dispose();
-        }
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(x + (this.size - diameter) / 2.0, y + (this.size - diameter) / 2.0);
+        BladeIconUtils.drawSliderThumbRound(graphics, this.slider, fillPainter, borderPainter,
+            diameter, mutableColorTokens, currState);
+        graphics.dispose();
     }
 
     @Override

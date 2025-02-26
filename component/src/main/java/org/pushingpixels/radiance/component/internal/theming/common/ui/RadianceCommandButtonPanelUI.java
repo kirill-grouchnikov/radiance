@@ -34,12 +34,9 @@ import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButto
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
@@ -80,21 +77,14 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
             int y, int width, int height) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.buttonPanel);
         Color background;
-        if (skin instanceof TonalSkin) {
-            ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
-                DecorationPainterUtils.getDecorationType(this.buttonPanel));
-            if (groupIndex % 2 == 0) {
-                background = tokens.getSurface();
-            } else {
-                background = tokens.getBaseContainerTokens().isDark()
-                    ? tokens.getBaseContainerTokens().getContainerSurfaceLow()
-                    : tokens.getBaseContainerTokens().getContainerSurfaceHigh();
-            }
+        ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
+            DecorationPainterUtils.getDecorationType(this.buttonPanel));
+        if (groupIndex % 2 == 0) {
+            background = tokens.getSurface();
         } else {
-            RadianceColorScheme scheme = skin.getBackgroundColorScheme(
-                DecorationPainterUtils.getDecorationType(this.buttonPanel));
-            background = (groupIndex % 2 == 0) ? scheme.getBackgroundFillColor()
-                : scheme.getAccentedBackgroundFillColor();
+            background = tokens.getBaseContainerTokens().isDark()
+                ? tokens.getBaseContainerTokens().getContainerSurfaceLow()
+                : tokens.getBaseContainerTokens().getContainerSurfaceHigh();
         }
 
         BackgroundPaintingUtils.fillBackground(g, this.buttonPanel,
@@ -110,32 +100,18 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.buttonPanel);
-        Color backgroundFill;
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens tokens = skin.getContainerTokens(
-                this.buttonPanel, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-            backgroundFill = tokens.isDark() ? tokens.getContainerSurfaceLow()
-                : tokens.getContainerSurfaceHigh();
-        } else {
-            RadianceColorScheme scheme = skin.getBackgroundColorScheme(
-                DecorationPainterUtils.getDecorationType(this.buttonPanel));
-            backgroundFill = scheme.getAccentedBackgroundFillColor();
-        }
+        ContainerColorTokens tokens = skin.getContainerTokens(
+            this.buttonPanel, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        Color backgroundFill = tokens.isDark() ? tokens.getContainerSurfaceLow()
+            : tokens.getContainerSurfaceHigh();
 
         Graphics2D g2d = (Graphics2D) g.create(x, y, width, height);
         g2d.setColor(backgroundFill);
         g2d.fillRect(0, 0, width, height);
-        if (skin instanceof TonalSkin) {
-            HighlightPainterUtils.paintHighlightBorder1X(g2d, this.buttonPanel, width, height, 1.0f,
-                openSides, RadianceCoreUtilities.getBorderPainter(this.buttonPanel),
-                RadianceColorSchemeUtilities.getContainerTokens(this.buttonPanel,
-                    ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL));
-        } else {
-            HighlightPainterUtils.paintHighlightBorder1X(g2d, this.buttonPanel, width, height, 1.0f,
-                openSides, RadianceCoreUtilities.getBorderPainter(this.buttonPanel),
-                RadianceColorSchemeUtilities.getColorScheme(this.buttonPanel,
-                    ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED));
-        }
+        HighlightPainterUtils.paintHighlightBorder1X(g2d, this.buttonPanel, width, height, 1.0f,
+            openSides, RadianceCoreUtilities.getBorderPainter(this.buttonPanel),
+            RadianceColorSchemeUtilities.getContainerTokens(this.buttonPanel,
+                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL));
         g2d.dispose();
     }
 

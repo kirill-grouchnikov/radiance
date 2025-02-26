@@ -34,14 +34,12 @@ import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup
 import org.pushingpixels.radiance.component.api.ribbon.RibbonTask;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
@@ -106,31 +104,16 @@ public class RadianceRibbonUI extends BasicRibbonUI {
                 }
             }
 
-            RadianceSkin skin = RadianceCoreUtilities.getSkin(ribbon);
-            if (skin instanceof TonalSkin) {
-                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(ribbon,
-                    ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-                for (RibbonTask taskWithTrailingSeparator : tasksWithTrailingSeparators) {
-                    JComponent taskToggleButton = taskToggleButtons.get(taskWithTrailingSeparator);
-                    Rectangle bounds = taskToggleButton.getBounds();
-                    int x = bounds.x + bounds.width + getTabButtonGap() / 2 - 1;
-                    g2d.translate(x, 0);
-                    SeparatorPainterUtils.paintTonalSeparator(ribbon, g2d, tokens, 2, getHeight(),
-                        SwingConstants.VERTICAL, false, getHeight() / 3, 0, true);
-                    g2d.translate(-x, 0);
-                }
-            } else {
-                RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(ribbon,
-                    ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-                for (RibbonTask taskWithTrailingSeparator : tasksWithTrailingSeparators) {
-                    JComponent taskToggleButton = taskToggleButtons.get(taskWithTrailingSeparator);
-                    Rectangle bounds = taskToggleButton.getBounds();
-                    int x = bounds.x + bounds.width + getTabButtonGap() / 2 - 1;
-                    g2d.translate(x, 0);
-                    SeparatorPainterUtils.paintSeparator(ribbon, g2d, scheme, 2, getHeight(),
-                        SwingConstants.VERTICAL, false, getHeight() / 3, 0, true);
-                    g2d.translate(-x, 0);
-                }
+            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(ribbon,
+                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+            for (RibbonTask taskWithTrailingSeparator : tasksWithTrailingSeparators) {
+                JComponent taskToggleButton = taskToggleButtons.get(taskWithTrailingSeparator);
+                Rectangle bounds = taskToggleButton.getBounds();
+                int x = bounds.x + bounds.width + getTabButtonGap() / 2 - 1;
+                g2d.translate(x, 0);
+                SeparatorPainterUtils.paintTonalSeparator(ribbon, g2d, tokens, 2, getHeight(),
+                    SwingConstants.VERTICAL, false, getHeight() / 3, 0, true);
+                g2d.translate(-x, 0);
             }
 
             g2d.dispose();
@@ -147,20 +130,11 @@ public class RadianceRibbonUI extends BasicRibbonUI {
                     RenderingHints.VALUE_ANTIALIAS_ON);
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, this.getWidth(), this.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
-                    if (skin instanceof TonalSkin) {
-                        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
-                            this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-                        graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
-                        int separatorY = scaledHeight - 1;
-                        graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
-                    } else {
-                        RadianceColorScheme compScheme = RadianceColorSchemeUtilities.getColorScheme(
-                            this, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-                        graphics1X.setColor(compScheme.getSeparatorPrimaryColor());
-                        int separatorY = scaledHeight - 1;
-                        graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
-                    }
+                    ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                        this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+                    graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
+                    int separatorY = scaledHeight - 1;
+                    graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
                 });
             graphics.dispose();
         }

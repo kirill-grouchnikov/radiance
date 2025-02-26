@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeA
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -168,21 +167,12 @@ public class BladeTransitionAwareIcon implements Icon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        if (skin instanceof TonalSkin) {
-            BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
-                    BladeUtils.getDefaultColorSchemeDelegate(c,
-                            this.colorSchemeAssociationKindDelegate),
-                    false);
+        BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
+                BladeUtils.getDefaultColorSchemeDelegate(c,
+                        this.colorSchemeAssociationKindDelegate),
+                false);
 
-            this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
-        } else {
-            BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo, currState,
-                    BladeUtils.getDefaultColorSchemeDelegate(c,
-                            this.colorSchemeAssociationKindDelegate),
-                    false);
-
-            this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
-        }
+        this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
         graphics.dispose();
     }
 

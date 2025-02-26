@@ -30,15 +30,10 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.border.Border;
 import javax.swing.plaf.UIResource;
@@ -50,18 +45,11 @@ public class RadiancePopupMenuBorder implements Border, UIResource {
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.translate(x, y);
 
-		RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-		if (skin instanceof TonalSkin) {
-			ContainerColorTokens containerTokens =
-				RadianceColorSchemeUtilities.getContainerTokens(c, ComponentState.ENABLED,
-					RadianceThemingSlices.ContainerType.NEUTRAL);
-			BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
-				containerTokens);
-		} else {
-			RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(c,
-				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-			BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f, borderScheme);
-		}
+		ContainerColorTokens containerTokens =
+			RadianceColorSchemeUtilities.getContainerTokens(c, ComponentState.ENABLED,
+				RadianceThemingSlices.ContainerType.NEUTRAL);
+		BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
+			containerTokens);
 		graphics.dispose();
 	}
 

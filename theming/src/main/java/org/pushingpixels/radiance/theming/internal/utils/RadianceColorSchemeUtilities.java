@@ -39,7 +39,6 @@ import org.pushingpixels.radiance.theming.api.colorscheme.SunGlareColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.SunfireRedColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
@@ -406,14 +405,10 @@ public class RadianceColorSchemeUtilities {
      */
     // TODO: TONAL - remove
     public static float getHighlightAlpha(Component component, ComponentState componentState) {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        if (skin instanceof TonalSkin) {
-            if (componentState.isDisabled() || (componentState == ComponentState.ENABLED)) {
-                return 0.0f;
-            }
-            return 1.0f;
+        if (componentState.isDisabled() || (componentState == ComponentState.ENABLED)) {
+            return 0.0f;
         }
-        return skin.getHighlightAlpha(component, componentState);
+        return 1.0f;
     }
 
     /**

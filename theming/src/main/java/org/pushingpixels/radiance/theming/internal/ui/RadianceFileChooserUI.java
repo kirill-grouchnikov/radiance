@@ -36,11 +36,8 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
@@ -129,45 +126,23 @@ public class RadianceFileChooserUI extends MetalFileChooserUI {
         public Icon getDefaultIcon(File f) {
             JFileChooser fileChooser = getFileChooser();
             RadianceSkin skin = RadianceCoreUtilities.getSkin(fileChooser);
-            if (skin instanceof TonalSkin) {
-                Icon icon = fileChooser.getFileSystemView().getSystemIcon(f);
-                if (icon instanceof RadianceIconUIResource) {
-                    RadianceIconPack iconPack = RadianceThemingCortex.GlobalScope.getIconPack();
-                    ContainerColorTokens tokens = skin.getNeutralContainerTokens(DecorationAreaType.NONE);
-                    icon = f.isDirectory()
-                        ? iconPack.getFileChooserDirectoryIcon(ICON_SIZE, tokens)
-                        : iconPack.getFileChooserFileIcon(ICON_SIZE, tokens);
-                }
-
-                // Filter the icon
-                Color textColor = RadianceTextUtilities.getTonalForegroundColor(
-                    fileChooser, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-                icon = RadianceCoreUtilities.getFilteredIcon(fileChooser,
-                    icon, ComponentState.ENABLED, textColor,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
-
-                return icon;
-            } else {
-                Icon icon = fileChooser.getFileSystemView().getSystemIcon(f);
-                if (icon instanceof RadianceIconUIResource) {
-                    RadianceIconPack iconPack = RadianceThemingCortex.GlobalScope.getIconPack();
-                    RadianceColorScheme colorScheme = skin.getEnabledColorScheme(DecorationAreaType.NONE);
-                    icon = f.isDirectory()
-                        ? iconPack.getFileChooserDirectoryIcon(ICON_SIZE, colorScheme)
-                        : iconPack.getFileChooserFileIcon(ICON_SIZE, colorScheme);
-                }
-
-                // Filter the icon
-                float labelAlpha = RadianceColorSchemeUtilities.getAlpha(fileChooser,
-                    ComponentState.ENABLED);
-                Color textColor = RadianceTextUtilities.getForegroundColor(
-                    fileChooser, ComponentState.ENABLED, labelAlpha);
-                icon = RadianceCoreUtilities.getFilteredIcon(fileChooser,
-                    icon, ComponentState.ENABLED, textColor,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
-
-                return icon;
+            Icon icon = fileChooser.getFileSystemView().getSystemIcon(f);
+            if (icon instanceof RadianceIconUIResource) {
+                RadianceIconPack iconPack = RadianceThemingCortex.GlobalScope.getIconPack();
+                ContainerColorTokens tokens = skin.getNeutralContainerTokens(DecorationAreaType.NONE);
+                icon = f.isDirectory()
+                    ? iconPack.getFileChooserDirectoryIcon(ICON_SIZE, tokens)
+                    : iconPack.getFileChooserFileIcon(ICON_SIZE, tokens);
             }
+
+            // Filter the icon
+            Color textColor = RadianceTextUtilities.getTonalForegroundColor(
+                fileChooser, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+            icon = RadianceCoreUtilities.getFilteredIcon(fileChooser,
+                icon, ComponentState.ENABLED, textColor,
+                RadianceThemingSlices.ContainerType.NEUTRAL);
+
+            return icon;
         }
     }
 
@@ -197,37 +172,20 @@ public class RadianceFileChooserUI extends MetalFileChooserUI {
 
         RadianceIconPack iconPack = RadianceThemingCortex.GlobalScope.getIconPack();
         RadianceSkin skin = RadianceCoreUtilities.getSkin(fc);
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens tokens = skin.getNeutralContainerTokens(DecorationAreaType.NONE);
+        ContainerColorTokens tokens = skin.getNeutralContainerTokens(DecorationAreaType.NONE);
 
-            directoryIcon = iconPack.getFileChooserDirectoryIcon(ICON_SIZE, tokens);
-            fileIcon = iconPack.getFileChooserFileIcon(ICON_SIZE, tokens);
-            computerIcon = iconPack.getFileChooserComputerIcon(ICON_SIZE, tokens);
-            hardDriveIcon = iconPack.getFileChooserHardDriveIcon(ICON_SIZE, tokens);
-            floppyDriveIcon = iconPack.getFileChooserFloppyDriveIcon(ICON_SIZE, tokens);
+        directoryIcon = iconPack.getFileChooserDirectoryIcon(ICON_SIZE, tokens);
+        fileIcon = iconPack.getFileChooserFileIcon(ICON_SIZE, tokens);
+        computerIcon = iconPack.getFileChooserComputerIcon(ICON_SIZE, tokens);
+        hardDriveIcon = iconPack.getFileChooserHardDriveIcon(ICON_SIZE, tokens);
+        floppyDriveIcon = iconPack.getFileChooserFloppyDriveIcon(ICON_SIZE, tokens);
 
-            newFolderIcon = iconPack.getFileChooserNewFolderIcon(ICON_SIZE, tokens);
-            upFolderIcon = iconPack.getFileChooserUpFolderIcon(ICON_SIZE, tokens);
-            homeFolderIcon = iconPack.getFileChooserHomeFolderIcon(ICON_SIZE, tokens);
-            detailsViewIcon = iconPack.getFileChooserDetailsViewIcon(ICON_SIZE, tokens);
-            listViewIcon = iconPack.getFileChooserListViewIcon(ICON_SIZE, tokens);
-            viewMenuIcon = iconPack.getFileChooserViewMenuIcon(ICON_SIZE, tokens);
-        } else {
-            RadianceColorScheme colorScheme = skin.getEnabledColorScheme(DecorationAreaType.NONE);
-
-            directoryIcon = iconPack.getFileChooserDirectoryIcon(ICON_SIZE, colorScheme);
-            fileIcon = iconPack.getFileChooserFileIcon(ICON_SIZE, colorScheme);
-            computerIcon = iconPack.getFileChooserComputerIcon(ICON_SIZE, colorScheme);
-            hardDriveIcon = iconPack.getFileChooserHardDriveIcon(ICON_SIZE, colorScheme);
-            floppyDriveIcon = iconPack.getFileChooserFloppyDriveIcon(ICON_SIZE, colorScheme);
-
-            newFolderIcon = iconPack.getFileChooserNewFolderIcon(ICON_SIZE, colorScheme);
-            upFolderIcon = iconPack.getFileChooserUpFolderIcon(ICON_SIZE, colorScheme);
-            homeFolderIcon = iconPack.getFileChooserHomeFolderIcon(ICON_SIZE, colorScheme);
-            detailsViewIcon = iconPack.getFileChooserDetailsViewIcon(ICON_SIZE, colorScheme);
-            listViewIcon = iconPack.getFileChooserListViewIcon(ICON_SIZE, colorScheme);
-            viewMenuIcon = iconPack.getFileChooserViewMenuIcon(ICON_SIZE, colorScheme);
-        }
+        newFolderIcon = iconPack.getFileChooserNewFolderIcon(ICON_SIZE, tokens);
+        upFolderIcon = iconPack.getFileChooserUpFolderIcon(ICON_SIZE, tokens);
+        homeFolderIcon = iconPack.getFileChooserHomeFolderIcon(ICON_SIZE, tokens);
+        detailsViewIcon = iconPack.getFileChooserDetailsViewIcon(ICON_SIZE, tokens);
+        listViewIcon = iconPack.getFileChooserListViewIcon(ICON_SIZE, tokens);
+        viewMenuIcon = iconPack.getFileChooserViewMenuIcon(ICON_SIZE, tokens);
     }
 
     @Override

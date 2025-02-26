@@ -47,7 +47,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  * 
  * @author Kirill Grouchnikov
  */
-public class RavenSkin extends RadianceSkin implements TonalSkin {
+public class RavenSkin extends RadianceSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */

@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
@@ -174,14 +173,9 @@ public class RadianceTitlePane extends JComponent {
         RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
         RadianceSkin skin = RadianceCoreUtilities.getSkin(root);
-        if (skin instanceof TonalSkin) {
-            this.setForeground(skin.getBackgroundExtendedContainerTokens(
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getBaseContainerTokens().getOnContainer());
-        } else {
-            this.setForeground(RadianceColorUtilities.getForegroundColor(
-                skin.getBackgroundColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
-        }
+        this.setForeground(skin.getBackgroundExtendedContainerTokens(
+            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                .getBaseContainerTokens().getOnContainer());
     }
 
     /**
@@ -889,20 +883,12 @@ public class RadianceTitlePane extends JComponent {
             int yOffset = titleTextRect.y + (int) ((titleTextRect.getHeight() - fm.getHeight()) / 2)
                     + fm.getAscent();
 
-            if (skin instanceof TonalSkin) {
-                ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens();
-                RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                        colorTokens.getOnContainer(),
-                        colorTokens.getComplementaryOnContainer(),
-                        displayTitle, width, height, xOffset, yOffset);
-            } else {
-                RadianceColorScheme scheme = skin.getEnabledColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
-                RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                        scheme.getForegroundColor(), scheme.getEchoColor(), displayTitle,
-                        width, height, xOffset, yOffset);
-            }
+            ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
+                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens();
+            RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
+                    colorTokens.getOnContainer(),
+                    colorTokens.getComplementaryOnContainer(),
+                    displayTitle, width, height, xOffset, yOffset);
         }
 
         GhostPaintingUtils.paintGhostImages(this, graphics);

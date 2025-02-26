@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -628,34 +627,18 @@ public class MenuUtilities {
             v.paint(graphics, mli.textRect);
             // This text color may not correspond to the text of the HTML-based rendering, but we
             // still need "something" for filtered icons
-            if (skin instanceof TonalSkin) {
-                textColor = RadianceTextUtilities.getTonalMenuComponentForegroundColor(
-                    menuItem, mli.text, stateInfo);
-            } else {
-                textColor = RadianceTextUtilities.getForegroundColor(menuItem, currentState, textAlpha);
-            }
+            textColor = RadianceTextUtilities.getTonalMenuComponentForegroundColor(
+                menuItem, mli.text, stateInfo);
         } else {
-            if (skin instanceof TonalSkin) {
-                textColor = RadianceTextUtilities.paintTonalMenuItemText(graphics, menuItem,
-                    mli.textRect, mli.text, menuItem.getDisplayedMnemonicIndex(), stateInfo);
-            } else {
-                textColor = RadianceTextUtilities.paintText(graphics, menuItem, mli.textRect,
-                    mli.text, menuItem.getDisplayedMnemonicIndex());
-            }
+            textColor = RadianceTextUtilities.paintTonalMenuItemText(graphics, menuItem,
+                mli.textRect, mli.text, menuItem.getDisplayedMnemonicIndex(), stateInfo);
         }
         // draw the accelerator text
         if (acceleratorText != null && !acceleratorText.equals("")) {
-            if (skin instanceof TonalSkin) {
-                RadianceTextUtilities.paintTonalMenuItemText(
-                    graphics, menuItem, mli.acceleratorRect, acceleratorText, -1, stateInfo);
-            } else {
-                RadianceTextUtilities.paintText(graphics, menuItem, mli.acceleratorRect, acceleratorText, -1);
-            }
+            RadianceTextUtilities.paintTonalMenuItemText(
+                graphics, menuItem, mli.acceleratorRect, acceleratorText, -1, stateInfo);
         }
 
-        if (!(skin instanceof TonalSkin)) {
-            graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, textAlpha, g2d));
-        }
         // draw the check icon
         if (checkIcon != null) {
             if (useCheckAndArrow(menuItem)) {

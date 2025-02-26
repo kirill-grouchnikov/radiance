@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -130,66 +129,36 @@ public class SeparatorPainterUtils {
     public static void paintSeparator(Component c, Graphics g, int width, int height,
             int orientation, boolean hasShadow, int maxGradLengthStart, int maxGradLengthEnd,
             boolean toEnforceAlphaColors) {
-        if (RadianceCoreUtilities.getSkin(c) instanceof TonalSkin) {
-            ContainerColorTokens colorTokens = null;
-            Component parent = c.getParent();
-            boolean isParentAPopup = (parent instanceof JPopupMenu) ||
-                ((parent instanceof JComponent) && ((JComponent) parent).getClientProperty(
-                    DecorationPainterUtils.POPUP_ORIGINATOR_LINK) != null);
-            if (isParentAPopup) {
-                // For separators in popups, first see if we have a color
-                // scheme explicitly registered for the SEPARATOR association kind.
-                colorTokens = RadianceColorSchemeUtilities.getDirectContainerTokens(c,
-                    RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-                    ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-                if (colorTokens == null) {
-                    // Then get a background color scheme associated with the
-                    // decoration type of that separator
-                    colorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundExtendedContainerTokens(
-                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c))
-                        .getBaseContainerTokens();
-                }
-            }
+        ContainerColorTokens colorTokens = null;
+        Component parent = c.getParent();
+        boolean isParentAPopup = (parent instanceof JPopupMenu) ||
+            ((parent instanceof JComponent) && ((JComponent) parent).getClientProperty(
+                DecorationPainterUtils.POPUP_ORIGINATOR_LINK) != null);
+        if (isParentAPopup) {
+            // For separators in popups, first see if we have a color
+            // scheme explicitly registered for the SEPARATOR association kind.
+            colorTokens = RadianceColorSchemeUtilities.getDirectContainerTokens(c,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
+                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
             if (colorTokens == null) {
-                // And finally, get the separator's color scheme via the regular
-                // route that includes fall back in case there is no explicitly registered
-                // color scheme for the SEPARATOR association kind.
-                colorTokens = RadianceColorSchemeUtilities.getContainerTokens(c,
-                    RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-                    ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+                // Then get a background color scheme associated with the
+                // decoration type of that separator
+                colorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundExtendedContainerTokens(
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c))
+                    .getBaseContainerTokens();
             }
-
-            paintTonalSeparator(c, g, colorTokens, width, height, orientation, hasShadow,
-                maxGradLengthStart, maxGradLengthEnd, toEnforceAlphaColors);
-        } else {
-            RadianceColorScheme compScheme = null;
-            Component parent = c.getParent();
-            boolean isParentAPopup = (parent instanceof JPopupMenu) ||
-                ((parent instanceof JComponent) && ((JComponent) parent).getClientProperty(
-                    DecorationPainterUtils.POPUP_ORIGINATOR_LINK) != null);
-            if (isParentAPopup) {
-                // For separators in popups, first see if we have a color
-                // scheme explicitly registered for the SEPARATOR association kind.
-                compScheme = RadianceColorSchemeUtilities.getDirectColorScheme(c,
-                    RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-                if (compScheme == null) {
-                    // Then get a background color scheme associated with the
-                    // decoration type of that separator
-                    compScheme = RadianceCoreUtilities.getSkin(c).getBackgroundColorScheme(
-                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c));
-                }
-            }
-            if (compScheme == null) {
-                // And finally, get the separator's color scheme via the regular
-                // route that includes fall back in case there is no explicitly registered
-                // color scheme for the SEPARATOR association kind.
-                compScheme = RadianceColorSchemeUtilities.getColorScheme(c,
-                    RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-            }
-
-            paintSeparator(c, g, compScheme, width, height, orientation, hasShadow,
-                maxGradLengthStart, maxGradLengthEnd, toEnforceAlphaColors);
         }
+        if (colorTokens == null) {
+            // And finally, get the separator's color scheme via the regular
+            // route that includes fall back in case there is no explicitly registered
+            // color scheme for the SEPARATOR association kind.
+            colorTokens = RadianceColorSchemeUtilities.getContainerTokens(c,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
+                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        }
+
+        paintTonalSeparator(c, g, colorTokens, width, height, orientation, hasShadow,
+            maxGradLengthStart, maxGradLengthEnd, toEnforceAlphaColors);
     }
 
     /**

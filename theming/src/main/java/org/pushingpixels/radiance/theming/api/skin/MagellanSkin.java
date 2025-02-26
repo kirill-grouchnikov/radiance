@@ -52,7 +52,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  *
  * @author Kirill Grouchnikov
  */
-public class MagellanSkin extends RadianceSkin implements TonalSkin {
+public class MagellanSkin extends RadianceSkin {
     /**
      * Display name for <code>this</code> skin.
      */

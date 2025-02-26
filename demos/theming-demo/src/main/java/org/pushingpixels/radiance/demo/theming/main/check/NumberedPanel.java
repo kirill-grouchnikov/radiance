@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -78,11 +77,7 @@ public class NumberedPanel extends JPanel {
             boolean isDark;
             if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
-                if (skin instanceof TonalSkin) {
-                    isDark = skin.getActiveContainerTokens(ComponentOrParentChainScope.getDecorationType(this)).isDark();
-                } else {
-                    isDark = skin.getActiveColorScheme(ComponentOrParentChainScope.getDecorationType(this)).isDark();
-                }
+                isDark = skin.getActiveContainerTokens(ComponentOrParentChainScope.getDecorationType(this)).isDark();
             } else {
                 isDark = false;
             }

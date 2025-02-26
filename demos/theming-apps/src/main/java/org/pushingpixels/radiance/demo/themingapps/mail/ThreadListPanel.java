@@ -36,10 +36,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 import org.pushingpixels.radiance.theming.internal.svg.edit_black_24dp;
 import org.pushingpixels.radiance.theming.internal.svg.refresh_black_24dp;
@@ -61,28 +58,14 @@ public class ThreadListPanel extends PanelWithRightLine {
 
         RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREADS);
 
-        Color mainSelectorIconColor;
-        Color labelBackgroundColor;
-        Color labelSeparatorColor;
-        if (currentSkin instanceof TonalSkin) {
-            ContainerColorTokens colorTokens = currentSkin.getContainerTokens(this,
-                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        ContainerColorTokens colorTokens = currentSkin.getContainerTokens(this,
+            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
 
-            this.setRightLineColor(colorTokens.getContainerOutline());
-            // Get the color schemes for colorizing the icons.
-            mainSelectorIconColor = colorTokens.getOnContainer();
-            labelBackgroundColor = colorTokens.getContainerSurfaceHigh();
-            labelSeparatorColor = colorTokens.getContainerOutline();
-        } else {
-            RadianceColorScheme fillScheme = currentSkin.getColorScheme(
-                VisorMail.THREADS, ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
-
-            this.setRightLineColor(fillScheme.getDarkColor());
-            // Get the color schemes for colorizing the icons.
-            mainSelectorIconColor = fillScheme.getForegroundColor();
-            labelBackgroundColor = fillScheme.getLightColor();
-            labelSeparatorColor = fillScheme.getUltraDarkColor();
-        }
+        this.setRightLineColor(colorTokens.getContainerOutline());
+        // Get the color schemes for colorizing the icons.
+        Color mainSelectorIconColor = colorTokens.getOnContainer();
+        Color labelBackgroundColor = colorTokens.getContainerSurfaceHigh();
+        Color labelSeparatorColor = colorTokens.getContainerOutline();
 
         RadianceIcon editIcon = edit_black_24dp.of(14, 14);
         Color filterColor = new Color(mainSelectorIconColor.getRed(),

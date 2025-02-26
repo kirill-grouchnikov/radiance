@@ -30,11 +30,8 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
@@ -102,8 +99,6 @@ public class RadianceTextComponentBorder implements Border, UIResource {
         if ((width <= 0) || (height <= 0))
             return;
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-
         Graphics2D graphics = (Graphics2D) g.create();
         JTextComponent componentForTransitions = RadianceCoreUtilities
                 .getTextComponentForTransitions(c);
@@ -121,20 +116,12 @@ public class RadianceTextComponentBorder implements Border, UIResource {
 
                 graphics.translate(x, y);
 
-                if (skin instanceof TonalSkin) {
-                    BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
-                        currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                        false, false, RadianceThemingSlices.ContainerType.MUTED);
+                BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
+                    currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                    false, false, RadianceThemingSlices.ContainerType.MUTED);
 
-                    BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
-                        mutableContainerTokens);
-                } else {
-                    BladeUtils.populateColorScheme(mutableBorderColorScheme, c, modelStateInfo,
-                        currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-
-                    BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f,
-                        mutableBorderColorScheme);
-                }
+                BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
+                    mutableContainerTokens);
                 graphics.dispose();
 
                 return;
@@ -144,24 +131,14 @@ public class RadianceTextComponentBorder implements Border, UIResource {
         ComponentState currState = isEnabled ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
 
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens colorTokens =
-                RadianceColorSchemeUtilities.getContainerTokens(c,
-                    RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                    currState, RadianceThemingSlices.ContainerType.MUTED);
+        ContainerColorTokens colorTokens =
+            RadianceColorSchemeUtilities.getContainerTokens(c,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                currState, RadianceThemingSlices.ContainerType.MUTED);
 
-            graphics.translate(x, y);
-            BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f, colorTokens);
-            graphics.dispose();
-
-        } else {
-            RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                c, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
-
-            graphics.translate(x, y);
-            BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f, borderColorScheme);
-            graphics.dispose();
-        }
+        graphics.translate(x, y);
+        BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f, colorTokens);
+        graphics.dispose();
     }
 
     @Override

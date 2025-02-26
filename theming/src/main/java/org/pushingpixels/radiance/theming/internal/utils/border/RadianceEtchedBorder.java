@@ -31,14 +31,10 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.border.Border;
 import java.awt.*;
@@ -57,16 +53,9 @@ public class RadianceEtchedBorder implements Border {
      * @return Matching highlight color.
      */
     private Color getHighlightColor(Component c) {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
-                c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-            return SeparatorPainterUtils.getPrimarySeparatorColor(tokens);
-        } else {
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                c, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-            return colorScheme.getSeparatorPrimaryColor();
-        }
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        return SeparatorPainterUtils.getPrimarySeparatorColor(tokens);
     }
 
     /**
@@ -76,16 +65,9 @@ public class RadianceEtchedBorder implements Border {
      * @return Matching shadow color.
      */
     private Color getShadowColor(Component c) {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-        if (skin instanceof TonalSkin) {
-            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
-                c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
-            return SeparatorPainterUtils.getSecondarySeparatorColor(tokens);
-        } else {
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                c, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-            return colorScheme.getSeparatorSecondaryColor();
-        }
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        return SeparatorPainterUtils.getSecondarySeparatorColor(tokens);
     }
 
     public boolean isBorderOpaque() {

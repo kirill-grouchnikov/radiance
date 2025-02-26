@@ -47,7 +47,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.FocusKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import javax.swing.*;
@@ -306,9 +305,8 @@ public class ButtonsPanel extends JPanel {
         this.setLayout(new BorderLayout());
 
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-        Color textColor = (skin instanceof TonalSkin)
-            ? skin.getContainerTokens(this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer()
-            : skin.getColorScheme(this, ComponentState.ENABLED).getForegroundColor();
+        Color textColor = skin.getContainerTokens(this, ComponentState.ENABLED,
+            RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
 
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(

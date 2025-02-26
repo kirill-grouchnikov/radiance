@@ -30,8 +30,10 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -185,14 +187,9 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
             Color foregr = textPane.getForeground();
             if ((foregr == null) || (foregr instanceof UIResource)) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(textPane);
-                if (skin instanceof TonalSkin) {
-                    textPane.setForeground(RadianceColorUtilities.getForegroundColor(
-                        skin.getContainerTokens(textPane, ComponentState.ENABLED,
-                            RadianceThemingSlices.ContainerType.MUTED)));
-                } else {
-                    textPane.setForeground(RadianceColorUtilities.getForegroundColor(
-                        skin.getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(textPane))));
-                }
+                textPane.setForeground(RadianceColorUtilities.getForegroundColor(
+                    skin.getContainerTokens(textPane, ComponentState.ENABLED,
+                        RadianceThemingSlices.ContainerType.MUTED)));
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {
@@ -211,11 +208,7 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
 
     @Override
     protected void paintBackground(Graphics g) {
-        if (RadianceCoreUtilities.getSkin(this.textPane) instanceof TonalSkin) {
-            RadianceTextUtilities.paintTextCompTonalBackground(g, this.textPane);
-        } else {
-            RadianceTextUtilities.paintTextCompBackground(g, this.textPane);
-        }
+        RadianceTextUtilities.paintTextCompTonalBackground(g, this.textPane);
     }
 
     @Override

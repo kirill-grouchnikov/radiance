@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -52,8 +51,6 @@ public class UpdateOptimizationInfo {
 
     private Map<ComponentState, Float> highlightAlphaMap;
 
-    private RadianceColorScheme defaultScheme;
-
     private ContainerColorTokens defaultColorTokens;
 
     public RadianceThemingSlices.DecorationAreaType decorationAreaType;
@@ -65,16 +62,10 @@ public class UpdateOptimizationInfo {
         this.component = component;
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        if (skin instanceof TonalSkin) {
-            this.defaultColorTokens = (RadianceCoreUtilities.getSkin(component) instanceof TonalSkin)
-                ? RadianceColorSchemeUtilities.getContainerTokens(this.component,
-                ComponentState.ENABLED, inactiveContainerType)
-                : null;
-        } else {
-            this.defaultScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.component, ComponentState.ENABLED);
-        }
-        this.decorationAreaType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.component);
+        this.defaultColorTokens = RadianceColorSchemeUtilities.getContainerTokens(this.component,
+            ComponentState.ENABLED, inactiveContainerType);
+        this.decorationAreaType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(
+            this.component);
 
         this.isInDecorationArea = (this.decorationAreaType != null)
                 && skin.isRegisteredAsDecorationArea(this.decorationAreaType)
@@ -135,10 +126,6 @@ public class UpdateOptimizationInfo {
                     .getHighlightAlpha(this.component, state));
         }
         return this.highlightAlphaMap.get(state);
-    }
-
-    public RadianceColorScheme getDefaultScheme() {
-        return this.defaultScheme;
     }
 
     public ContainerColorTokens getDefaultColorTokens() {

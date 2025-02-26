@@ -41,7 +41,6 @@ import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.SkinTonalUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.SkinUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +66,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * {@link #getHeaderAreaHighlightTokens()} to get the accent tokens for consistent accent usage
      * in custom-painted parts of your UI.
      */
-    public static abstract class Accented extends RadianceSkin implements TonalSkin {
+    public static abstract class Accented extends RadianceSkin {
         public final static class AccentBuilder {
             private SchemeColorResolver defaultAreaSchemeColorResolver;
             private RadianceColorScheme2 defaultAreaColorScheme;
@@ -338,11 +337,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             return;
         }
 
-        if (this instanceof TonalSkin) {
-            SkinTonalUtilities.addCustomEntriesToTable(table, this);
-        } else {
-            SkinUtilities.addCustomEntriesToTable(table, this);
-        }
+        SkinTonalUtilities.addCustomEntriesToTable(table, this);
     }
 
     /**
@@ -464,26 +459,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         boolean isSelected = componentState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.SELECTION);
         boolean isArmed = componentState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ARM);
 
-        if (this instanceof TonalSkin) {
-            return ((isRollover || isSelected || isArmed)) ? 1.0f : 0.0f;
-        }
-
-        if (isRollover && isSelected) {
-            return 0.9f;
-        }
-        if (isRollover && isArmed) {
-            return 0.8f;
-        }
-        if (isSelected) {
-            return 0.7f;
-        }
-        if (isArmed) {
-            return 0.6f;
-        }
-        if (isRollover) {
-            return 0.4f;
-        }
-        return 0.0f;
+        return ((isRollover || isSelected || isArmed)) ? 1.0f : 0.0f;
     }
 
     /**
@@ -495,44 +471,12 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     public final float getAlpha(Component comp, ComponentState componentState) {
         // TODO: TONAL - remove this
-        if (this instanceof TonalSkin) {
-            // TODO: TONAL - finalize this
-            if (componentState.isDisabled()) {
-                return 0.4f;
-            } else {
-                return 1.0f;
-            }
-        }
-        // optimization - if the state does not have hard fallback, and it is not registered in any
-        // scheme bundle with custom alpha, return 1.0
-        ComponentState fallback = componentState.getHardFallback();
-        if ((fallback == null) && !this.statesWithAlpha.contains(componentState)) {
+        // TODO: TONAL - finalize this
+        if (componentState.isDisabled()) {
+            return 0.4f;
+        } else {
             return 1.0f;
         }
-
-        // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
-        if (this.colorSchemeBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ? RadianceThemingSlices.DecorationAreaType.NONE :
-                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
-            if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-                if (this.colorSchemeBundleMap.get(decorationAreaType).hasAlphaFor(componentState)) {
-                    return this.colorSchemeBundleMap.get(decorationAreaType).getAlpha(componentState);
-                }
-            }
-        }
-
-        if (this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).
-                hasAlphaFor(componentState)) {
-            return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).
-                    getAlpha(componentState);
-        }
-
-        if (fallback == null) {
-            return 1.0f;
-        }
-
-        return getAlpha(comp, fallback);
     }
 
     /**
@@ -1170,14 +1114,8 @@ public abstract class RadianceSkin implements RadianceTrait {
      * otherwise.
      */
     public boolean isValid() {
-        if (this instanceof TonalSkin) {
-            if (!this.tonalColorSchemeMap.containsKey(RadianceThemingSlices.DecorationAreaType.NONE)) {
-                return false;
-            }
-        } else {
-            if (!this.colorSchemeBundleMap.containsKey(RadianceThemingSlices.DecorationAreaType.NONE)) {
-                return false;
-            }
+        if (!this.tonalColorSchemeMap.containsKey(RadianceThemingSlices.DecorationAreaType.NONE)) {
+            return false;
         }
         if (this.getButtonShaper() == null) {
             return false;

@@ -32,10 +32,8 @@ package org.pushingpixels.radiance.theming.internal.ui;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -280,14 +278,8 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
 
             if (RadianceCoreUtilities.isOpaque(c)) {
                 Graphics2D g2d = (Graphics2D) g.create();
-                RadianceSkin skin = RadianceCoreUtilities.getSkin(this.scrollpane);
-                if (skin instanceof TonalSkin) {
-                    g2d.setColor(RadianceColorUtilities.getBackgroundTonalFillColorScrollBar(
-                        this.scrollpane.getVerticalScrollBar()));
-                } else {
-                    g2d.setColor(RadianceColorUtilities.getBackgroundFillColorScrollBar(
-                        this.scrollpane.getVerticalScrollBar()));
-                }
+                g2d.setColor(RadianceColorUtilities.getBackgroundTonalFillColorScrollBar(
+                    this.scrollpane.getVerticalScrollBar()));
                 for (Component corner : corners) {
                     g2d.fill(corner.getBounds());
                 }

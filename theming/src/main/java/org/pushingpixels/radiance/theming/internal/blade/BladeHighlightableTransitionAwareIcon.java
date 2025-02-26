@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -104,23 +103,12 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        if (skin instanceof TonalSkin) {
-            BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
-                    BladeUtils.getDefaultColorSchemeDelegate(c,
-                            this.colorSchemeAssociationKindDelegate),
-                    false);
+        BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
+                BladeUtils.getDefaultColorSchemeDelegate(c,
+                        this.colorSchemeAssociationKindDelegate),
+                false);
 
-            this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
-        } else {
-            // Use HIGHLIGHT when necessary and MARK for the rest
-            BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
-                    currState,
-                    BladeUtils.getDefaultColorSchemeDelegate(this.component,
-                            this.colorSchemeAssociationKindDelegate),
-                    false);
-
-            this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
-        }
+        this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
         graphics.dispose();
     }
 

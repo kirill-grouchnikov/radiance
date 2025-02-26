@@ -49,9 +49,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
@@ -126,16 +124,9 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             int offset = RadianceSizeUtils
                     .getAdjustedSize(RadianceSizeUtils.getComponentFontSize(this), 5, 2, 1, false);
             RadianceSkin skin = RadianceCoreUtilities.getSkin(rootPane);
-            Color taskGroupTitleTextColor;
-            if (skin instanceof TonalSkin) {
-                ContainerColorTokens tokens = skin.getNeutralContainerTokens(
-                    DecorationAreaType.PRIMARY_TITLE_PANE);
-                taskGroupTitleTextColor = tokens.getOnContainer();
-            } else {
-                RadianceColorScheme scheme = skin.getEnabledColorScheme(
-                    DecorationAreaType.PRIMARY_TITLE_PANE);
-                taskGroupTitleTextColor = scheme.getForegroundColor();
-            }
+            ContainerColorTokens tokens = skin.getNeutralContainerTokens(
+                DecorationAreaType.PRIMARY_TITLE_PANE);
+            Color taskGroupTitleTextColor = tokens.getOnContainer();
             if (getComponentOrientation().isLeftToRight()) {
                 RadianceTextUtilities.paintText(g2d,
                     new Rectangle(offset, yOffset, width, height - yOffset),

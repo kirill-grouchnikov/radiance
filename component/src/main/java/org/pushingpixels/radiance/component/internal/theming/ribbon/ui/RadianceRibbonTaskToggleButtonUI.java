@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
-import org.pushingpixels.radiance.component.internal.theming.utils.RibbonTaskToggleButtonBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.theming.utils.RibbonTaskToggleButtonTonalBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonTaskToggleButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
@@ -47,7 +46,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAr
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -88,14 +86,12 @@ public class RadianceRibbonTaskToggleButtonUI extends
     /**
      * Painting delegate.
      */
-    private RibbonTaskToggleButtonBackgroundDelegate delegate;
     private RibbonTaskToggleButtonTonalBackgroundDelegate tonalDelegate;
 
     /**
      * Simple constructor.
      */
     private RadianceRibbonTaskToggleButtonUI() {
-        this.delegate = new RibbonTaskToggleButtonBackgroundDelegate();
         this.tonalDelegate = new RibbonTaskToggleButtonTonalBackgroundDelegate();
     }
 
@@ -167,13 +163,8 @@ public class RadianceRibbonTaskToggleButtonUI extends
         this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.commandButton);
-        if (skin instanceof TonalSkin) {
-            this.tonalDelegate.updateTaskToggleButtonBackground(g2d,
-                (JRibbonTaskToggleButton) this.commandButton);
-        } else {
-            this.delegate.updateTaskToggleButtonBackground(g2d, (JRibbonTaskToggleButton) this.commandButton);
-        }
+        this.tonalDelegate.updateTaskToggleButtonBackground(g2d,
+            (JRibbonTaskToggleButton) this.commandButton);
         this.paintTextAndFocus(g2d);
         g2d.dispose();
     }
@@ -223,28 +214,13 @@ public class RadianceRibbonTaskToggleButtonUI extends
                 .getActionStateTransitionTracker().getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.commandButton);
-        Color fgColor;
-        if (skin instanceof TonalSkin) {
-            fgColor = getTonalForegroundColor(this.commandButton, modelStateInfo);
-            if (currState.isDisabled()) {
-                float alpha = RadianceColorSchemeUtilities.getContainerTokens(
-                        this.commandButton, currState, RadianceThemingSlices.ContainerType.NEUTRAL)
-                    .getOnContainerDisabledAlpha();
-                fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
-                    (int) (fgColor.getAlpha() * alpha));
-            }
-        } else {
-            fgColor = getForegroundColor(this.commandButton, modelStateInfo);
-            float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(
-                this.commandButton, currState);
-
-            if (buttonAlpha < 1.0f) {
-                Color bgFillColor = RadianceColorUtilities
-                    .getBackgroundFillColor(this.commandButton);
-                fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor,
-                    bgFillColor, buttonAlpha);
-            }
+        Color fgColor = getTonalForegroundColor(this.commandButton, modelStateInfo);
+        if (currState.isDisabled()) {
+            float alpha = RadianceColorSchemeUtilities.getContainerTokens(
+                    this.commandButton, currState, RadianceThemingSlices.ContainerType.NEUTRAL)
+                .getOnContainerDisabledAlpha();
+            fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
+                (int) (fgColor.getAlpha() * alpha));
         }
 
         RadianceTextUtilities.paintText(g, textRect, toPaint, -1, this.commandButton.getFont(), fgColor, null);
@@ -262,7 +238,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     // Use foreground color for consistency - since non-active task toggle buttons use parent's
                     // decoration background fill.
-                    float radius = (float) scaleFactor * RibbonTaskToggleButtonBackgroundDelegate.getTaskToggleButtonCornerRadius(
+                    float radius = (float) scaleFactor * RibbonTaskToggleButtonTonalBackgroundDelegate.getTaskToggleButtonCornerRadius(
                             (JRibbonTaskToggleButton) this.commandButton);
                     float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(this.commandButton,
                             RadianceSizeUtils.getComponentFontSize(this.commandButton));

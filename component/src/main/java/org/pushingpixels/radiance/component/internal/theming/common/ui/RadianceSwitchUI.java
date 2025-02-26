@@ -38,13 +38,14 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -62,9 +63,6 @@ public class RadianceSwitchUI extends BasicSwitchUI {
         return new RadianceSwitchUI((JSwitch) comp);
     }
 
-    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     private RadianceSwitchUI(JSwitch switchComp) {
@@ -97,28 +95,13 @@ public class RadianceSwitchUI extends BasicSwitchUI {
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(switchComp);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        if (skin instanceof TonalSkin) {
-            // Populate color tokens based on the current transition state of the switch.
-            BladeUtils.populateColorTokens(mutableContainerTokens, switchComp, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                false, true, RadianceThemingSlices.ContainerType.MUTED);
-        } else {
-            // Populate color schemes based on the current transition state of the switch.
-            BladeUtils.populateColorScheme(mutableFillColorScheme, switchComp, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX, false);
-            BladeUtils.populateColorScheme(mutableBorderColorScheme, switchComp, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-            BladeUtils.populateColorScheme(mutableMarkColorScheme, switchComp, modelStateInfo,
-                currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
-        }
+        // Populate color tokens based on the current transition state of the switch.
+        BladeUtils.populateColorTokens(mutableContainerTokens, switchComp, modelStateInfo,
+            currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+            false, true, RadianceThemingSlices.ContainerType.MUTED);
 
-        final float alpha;
-        if (skin instanceof TonalSkin) {
-            alpha = currState.isDisabled()
-                ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-        } else {
-            alpha = RadianceColorSchemeUtilities.getAlpha(switchComp, currState);
-        }
+        float alpha = currState.isDisabled()
+            ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
 
         SwitchPresentationModel presentationModel = switchComp.getProjection().getPresentationModel();
 
@@ -144,13 +127,8 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                             null, 0.0f
                     );
 
-                    if (skin instanceof TonalSkin) {
-                        fillPainter.paintContourBackground(graphics1X, switchComp, trackWidth,
-                            trackHeight, contourFill, mutableContainerTokens);
-                    } else {
-                        fillPainter.paintContourBackground(graphics1X, switchComp, trackWidth,
-                            trackHeight, contourFill, mutableFillColorScheme);
-                    }
+                    fillPainter.paintContourBackground(graphics1X, switchComp, trackWidth,
+                        trackHeight, contourFill, mutableContainerTokens);
 
                     Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
                             switchComp.getComponentOrientation(),
@@ -162,13 +140,8 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                             trackWidth, trackHeight,
                             trackHeight * 0.5f - 1.0f, null, 1.0f
                     ) : null;
-                    if (skin instanceof TonalSkin) {
-                        borderPainter.paintBorder(graphics1X, switchComp, trackWidth, trackHeight,
-                            contourOuter, contourInner, mutableContainerTokens);
-                    } else {
-                        borderPainter.paintBorder(graphics1X, switchComp, trackWidth, trackHeight,
-                            contourOuter, contourInner, mutableBorderColorScheme);
-                    }
+                    borderPainter.paintBorder(graphics1X, switchComp, trackWidth, trackHeight,
+                        contourOuter, contourInner, mutableContainerTokens);
 
                     float thumbSelectionFactor = stateTransitionTracker.getFacetStrength(
                             RadianceThemingSlices.ComponentStateFacet.SELECTION);
@@ -193,11 +166,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     Shape thumbOutline = new Ellipse2D.Double(thumbXStart, thumbVerticalCenterPx - thumbRadiusPx,
                             2 * thumbRadiusPx, 2 * thumbRadiusPx);
 
-                    if (skin instanceof TonalSkin) {
-                        graphics1X.setColor(mutableContainerTokens.getOnContainer());
-                    } else {
-                        graphics1X.setColor(mutableMarkColorScheme.getMarkColor());
-                    }
+                    graphics1X.setColor(mutableContainerTokens.getOnContainer());
                     graphics1X.fill(thumbOutline);
 
                     graphics1X.translate(-scaleFactor * i.left, -scaleFactor * i.top);

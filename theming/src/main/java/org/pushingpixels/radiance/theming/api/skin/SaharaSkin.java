@@ -43,7 +43,6 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPa
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -51,7 +50,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  * 
  * @author Kirill Grouchnikov
  */
-public class SaharaSkin extends RadianceSkin implements TonalSkin {
+public class SaharaSkin extends RadianceSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */

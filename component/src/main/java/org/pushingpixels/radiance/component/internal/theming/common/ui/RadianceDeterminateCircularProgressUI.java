@@ -32,10 +32,7 @@ package org.pushingpixels.radiance.component.internal.theming.common.ui;
 import org.pushingpixels.radiance.component.api.common.JDeterminateCircularProgress;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicDeterminateCircularProgressUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -63,29 +60,16 @@ public class RadianceDeterminateCircularProgressUI extends BasicDeterminateCircu
         boolean isEnabled = this.determinateCircularProgress.getProjection().getContentModel().isEnabled();
         ComponentState state = isEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.determinateCircularProgress);
-        if (skin instanceof TonalSkin) {
-            Color result = RadianceColorSchemeUtilities.getContainerTokens(
+        Color result = RadianceColorSchemeUtilities.getContainerTokens(
+            this.determinateCircularProgress, state,
+            RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
+        if (!isEnabled) {
+            float fgAlpha = RadianceColorSchemeUtilities.getContainerTokens(
                 this.determinateCircularProgress, state,
-                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
-            if (!isEnabled) {
-                float fgAlpha = RadianceColorSchemeUtilities.getContainerTokens(
-                    this.determinateCircularProgress, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
-                result = RadianceColorUtilities.getAlphaColor(result,
-                    (int) (result.getAlpha() * fgAlpha));
-            }
-            return result;
-        } else {
-            float alpha = RadianceColorSchemeUtilities.getAlpha(this.determinateCircularProgress, state);
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.determinateCircularProgress, state);
-            Color foreground = colorScheme.getForegroundColor();
-            if (alpha == 1.0f) {
-                return foreground;
-            }
-            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(this.determinateCircularProgress);
-            return RadianceColorUtilities.getInterpolatedColor(foreground, bgFillColor, alpha);
+                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
+            result = RadianceColorUtilities.getAlphaColor(result,
+                (int) (result.getAlpha() * fgAlpha));
         }
+        return result;
     }
 }

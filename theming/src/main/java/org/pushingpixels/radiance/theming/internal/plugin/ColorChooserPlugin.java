@@ -34,9 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingComponentPlugin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceColorChooserUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -71,16 +69,9 @@ public class ColorChooserPlugin implements RadianceThemingComponentPlugin {
                 labelsList.add(key);
                 labelsList.add(bundle.getObject(key));
             }
-            Color foregroundColor;
-            if (skin instanceof TonalSkin) {
-                ContainerColorTokens colorTokens = skin.getMutedContainerTokens(
-                    RadianceThemingSlices.DecorationAreaType.NONE);
-                foregroundColor = new ColorUIResource(colorTokens.getOnContainer());
-            } else {
-                RadianceColorScheme colorScheme = skin.getEnabledColorScheme(
-                    RadianceThemingSlices.DecorationAreaType.NONE);
-                foregroundColor = new ColorUIResource(colorScheme.getForegroundColor());
-            }
+            ContainerColorTokens colorTokens = skin.getMutedContainerTokens(
+                RadianceThemingSlices.DecorationAreaType.NONE);
+            Color foregroundColor = new ColorUIResource(colorTokens.getOnContainer());
             InsetsUIResource visualMargin = new InsetsUIResource(0, 0, 0, 0);
             Object[] mainDefaults = new Object[]{
                     // quaqua

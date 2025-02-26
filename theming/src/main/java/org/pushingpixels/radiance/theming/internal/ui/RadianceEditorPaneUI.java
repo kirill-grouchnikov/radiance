@@ -30,8 +30,10 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -190,14 +192,9 @@ public class RadianceEditorPaneUI extends BasicEditorPaneUI implements Transitio
             Color foregr = editorPane.getForeground();
             if ((foregr == null) || (foregr instanceof UIResource)) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(editorPane);
-                if (skin instanceof TonalSkin) {
-                    editorPane.setForeground(RadianceColorUtilities.getForegroundColor(
-                        skin.getContainerTokens(editorPane, ComponentState.ENABLED,
-                            RadianceThemingSlices.ContainerType.MUTED)));
-                } else {
-                    editorPane.setForeground(RadianceColorUtilities.getForegroundColor(
-                        skin.getEnabledColorScheme(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(editorPane))));
-                }
+                editorPane.setForeground(RadianceColorUtilities.getForegroundColor(
+                    skin.getContainerTokens(editorPane, ComponentState.ENABLED,
+                        RadianceThemingSlices.ContainerType.MUTED)));
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {
@@ -216,11 +213,7 @@ public class RadianceEditorPaneUI extends BasicEditorPaneUI implements Transitio
 
     @Override
     protected void paintBackground(Graphics g) {
-        if (RadianceCoreUtilities.getSkin(this.editorPane) instanceof TonalSkin) {
-            RadianceTextUtilities.paintTextCompTonalBackground(g, this.editorPane);
-        } else {
-            RadianceTextUtilities.paintTextCompBackground(g, this.editorPane);
-        }
+        RadianceTextUtilities.paintTextCompTonalBackground(g, this.editorPane);
     }
 
     @Override

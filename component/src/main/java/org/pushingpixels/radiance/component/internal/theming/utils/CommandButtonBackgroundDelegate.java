@@ -40,10 +40,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFac
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -61,8 +59,6 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class CommandButtonBackgroundDelegate {
-    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
-    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     public void paintCommandButtonIcon(Graphics2D g, Rectangle iconRect,
@@ -138,21 +134,10 @@ public class CommandButtonBackgroundDelegate {
                 : actionTransitionTracker.getModelStateInfo().getCurrModelState();
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(commandButton);
-        if (skin instanceof TonalSkin) {
-            BladeUtils.populateColorTokens(mutableContainerTokens,
-                actionTransitionTracker.getModelStateInfo(), currActionState,
-                BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.FILL),
-                ignoreSelectedState);
-        } else {
-            BladeUtils.populateColorScheme(mutableFillColorScheme,
-                actionTransitionTracker.getModelStateInfo(), currActionState,
-                BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.FILL),
-                ignoreSelectedState);
-            BladeUtils.populateColorScheme(mutableBorderColorScheme,
-                actionTransitionTracker.getModelStateInfo(), currActionState,
-                BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.BORDER),
-                ignoreSelectedState);
-        }
+        BladeUtils.populateColorTokens(mutableContainerTokens,
+            actionTransitionTracker.getModelStateInfo(), currActionState,
+            BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.FILL),
+            ignoreSelectedState);
 
         float actionAlpha;
         if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
@@ -192,30 +177,15 @@ public class CommandButtonBackgroundDelegate {
             }
         }
 
-        if (skin instanceof TonalSkin) {
-            drawTonalArea(g, commandButton, actionAlpha, actionArea);
-        } else {
-            drawArea(g, commandButton, actionAlpha, actionArea);
-        }
+        drawTonalArea(g, commandButton, actionAlpha, actionArea);
 
         // Draw popup area second
         ComponentState currPopupState = popupTransitionTracker.getModelStateInfo().getCurrModelState();
 
-        if (skin instanceof TonalSkin) {
-            BladeUtils.populateColorTokens(mutableContainerTokens,
-                popupTransitionTracker.getModelStateInfo(), currPopupState,
-                BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.FILL),
-                false);
-        } else {
-            BladeUtils.populateColorScheme(mutableFillColorScheme,
-                popupTransitionTracker.getModelStateInfo(), currPopupState,
-                BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.FILL),
-                false);
-            BladeUtils.populateColorScheme(mutableBorderColorScheme,
-                popupTransitionTracker.getModelStateInfo(), currPopupState,
-                BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.BORDER),
-                false);
-        }
+        BladeUtils.populateColorTokens(mutableContainerTokens,
+            popupTransitionTracker.getModelStateInfo(), currPopupState,
+            BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.FILL),
+            false);
 
         float popupAlpha;
         if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
@@ -254,96 +224,7 @@ public class CommandButtonBackgroundDelegate {
             }
         }
 
-        if (skin instanceof TonalSkin) {
-            drawTonalArea(g, commandButton, popupAlpha, popupArea);
-        } else {
-            drawArea(g, commandButton, popupAlpha, popupArea);
-        }
-    }
-
-    private void drawArea(Graphics2D g, JCommandButton commandButton, float alpha,
-            Rectangle clipArea) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setComposite(
-                WidgetUtilities.getAlphaComposite(commandButton, alpha, g));
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        // Clip to the specified area
-        graphics.clip(clipArea);
-
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0,
-                commandButton.getWidth(), commandButton.getHeight(),
-                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(commandButton);
-                    RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(commandButton);
-
-                    RadianceThemingSlices.Sides sides = commandButton.getPresentationModel().getSides();
-                    Set<RadianceThemingSlices.Side> openSides = (sides != null) ? sides.getOpenSides() : null;
-                    Set<RadianceThemingSlices.Side> straightSides = (sides != null) ? sides.getStraightSides() : null;
-
-                    ComponentOrientation orientation = commandButton.getComponentOrientation();
-                    RadianceThemingSlices.Side leftSide =
-                            orientation.isLeftToRight()
-                                    ? RadianceThemingSlices.Side.LEADING
-                                    : RadianceThemingSlices.Side.TRAILING;
-                    RadianceThemingSlices.Side rightSide =
-                            orientation.isLeftToRight()
-                                    ? RadianceThemingSlices.Side.TRAILING
-                                    : RadianceThemingSlices.Side.LEADING;
-
-                    int openDelta = (int) (3 * scaleFactor);
-                    int deltaLeft = ((openSides != null) && openSides.contains(leftSide)) ? openDelta : 0;
-                    int deltaRight = ((openSides != null) && openSides.contains(rightSide)) ? openDelta : 0;
-                    int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
-                    int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
-
-                    int dx = -deltaLeft;
-                    int dw = deltaLeft + deltaRight;
-                    int dy = -deltaTop;
-                    int dh = deltaTop + deltaBottom;
-
-                    float radius = (commandButton.getPresentationModel().getSelectedStateHighlight()
-                            == CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) ? 0 :
-                            (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                                    RadianceSizeUtils.getComponentFontSize(commandButton));
-
-                    graphics1X.translate(dx, dy);
-                    // Compute a separate contour for the fill.
-                    // Otherwise pixels on the edge can "spill" outside
-                    // the contour. Those pixels will be drawn by the border painter.
-                    Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
-                            commandButton.getComponentOrientation(),
-                            scaledWidth + dw, scaledHeight + dh,
-                            radius, straightSides, 0.5f);
-                    fillPainter.paintContourBackground(graphics1X, commandButton,
-                            scaledWidth + dw,
-                            scaledHeight + dh,
-                            contourFill,
-                            mutableFillColorScheme);
-
-                    // Border
-                    Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
-                            commandButton.getComponentOrientation(),
-                            scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
-                            straightSides, 0.0f);
-                    Shape contourInner = borderPainter.isPaintingInnerContour() ?
-                            RadianceOutlineUtilities.getBaseOutline(
-                                    commandButton.getComponentOrientation(),
-                                    scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
-                                    straightSides, 1.0f)
-                            : null;
-                    borderPainter.paintBorder(graphics1X, commandButton,
-                            scaledWidth + dw,
-                            scaledHeight + dh,
-                            contourOuter, contourInner, mutableBorderColorScheme);
-
-                    graphics1X.translate(-dx, -dy);
-                });
-
-        graphics.dispose();
+        drawTonalArea(g, commandButton, popupAlpha, popupArea);
     }
 
     private void drawTonalArea(Graphics2D g, JCommandButton commandButton, float alpha,

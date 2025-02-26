@@ -30,12 +30,10 @@
 package org.pushingpixels.radiance.theming.api.renderer;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableHeaderUI;
@@ -90,7 +88,6 @@ public class RadianceDefaultTableHeaderCellRenderer extends
         TableHeaderUI tableHeaderUI = tableHeader.getUI();
         if (RadianceCoreUtilities.isCurrentLookAndFeel()
                 && (tableHeaderUI instanceof RadianceTableHeaderUI)) {
-            RadianceSkin skin = RadianceCoreUtilities.getSkin(tableHeader);
             RadianceTableHeaderUI ui = (RadianceTableHeaderUI) tableHeaderUI;
 
             StateTransitionTracker.ModelStateInfo modelStateInfo = ui.getModelStateInfo(column);
@@ -99,62 +96,31 @@ public class RadianceDefaultTableHeaderCellRenderer extends
             if (modelStateInfo != null) {
                 Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                     modelStateInfo.getStateContributionMap();
-                if (skin instanceof TonalSkin) {
-                    ContainerColorTokens tokens = getTokensForState(tableHeader, currState);
-                    if (currState.isDisabled() || (activeStates == null)
-                        || (activeStates.size() == 1)) {
-                        super.setForeground(new ColorUIResource(tokens.getOnContainer()));
-                    } else {
-                        float aggrRed = 0;
-                        float aggrGreen = 0;
-                        float aggrBlue = 0;
-
-                        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                            modelStateInfo.getStateContributionMap().entrySet()) {
-                            ComponentState activeState = activeEntry.getKey();
-                            ContainerColorTokens activeTokens = getTokensForState(tableHeader, activeState);
-                            Color schemeFg = activeTokens.getOnContainer();
-                            float contribution = activeEntry.getValue().getContribution();
-                            aggrRed += schemeFg.getRed() * contribution;
-                            aggrGreen += schemeFg.getGreen() * contribution;
-                            aggrBlue += schemeFg.getBlue() * contribution;
-                        }
-                        super.setForeground(new ColorUIResource(new Color(
-                            (int) aggrRed, (int) aggrGreen, (int) aggrBlue)));
-                    }
-                } else {
-                    RadianceColorScheme colorScheme = getColorSchemeForState(tableHeader, currState);
-                    if (currState.isDisabled() || (activeStates == null)
-                        || (activeStates.size() == 1)) {
-                        super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
-                    } else {
-                        float aggrRed = 0;
-                        float aggrGreen = 0;
-                        float aggrBlue = 0;
-
-                        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                            modelStateInfo.getStateContributionMap().entrySet()) {
-                            ComponentState activeState = activeEntry.getKey();
-                            RadianceColorScheme scheme = getColorSchemeForState(
-                                tableHeader, activeState);
-                            Color schemeFg = scheme.getForegroundColor();
-                            float contribution = activeEntry.getValue().getContribution();
-                            aggrRed += schemeFg.getRed() * contribution;
-                            aggrGreen += schemeFg.getGreen() * contribution;
-                            aggrBlue += schemeFg.getBlue() * contribution;
-                        }
-                        super.setForeground(new ColorUIResource(new Color(
-                            (int) aggrRed, (int) aggrGreen, (int) aggrBlue)));
-                    }
-                }
-            } else {
-                if (skin instanceof TonalSkin) {
-                    ContainerColorTokens tokens = getTokensForState(tableHeader, currState);
+                ContainerColorTokens tokens = getTokensForState(tableHeader, currState);
+                if (currState.isDisabled() || (activeStates == null)
+                    || (activeStates.size() == 1)) {
                     super.setForeground(new ColorUIResource(tokens.getOnContainer()));
                 } else {
-                    RadianceColorScheme scheme = getColorSchemeForState(tableHeader, currState);
-                    super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
+                    float aggrRed = 0;
+                    float aggrGreen = 0;
+                    float aggrBlue = 0;
+
+                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                        modelStateInfo.getStateContributionMap().entrySet()) {
+                        ComponentState activeState = activeEntry.getKey();
+                        ContainerColorTokens activeTokens = getTokensForState(tableHeader, activeState);
+                        Color schemeFg = activeTokens.getOnContainer();
+                        float contribution = activeEntry.getValue().getContribution();
+                        aggrRed += schemeFg.getRed() * contribution;
+                        aggrGreen += schemeFg.getGreen() * contribution;
+                        aggrBlue += schemeFg.getBlue() * contribution;
+                    }
+                    super.setForeground(new ColorUIResource(new Color(
+                        (int) aggrRed, (int) aggrGreen, (int) aggrBlue)));
                 }
+            } else {
+                ContainerColorTokens tokens = getTokensForState(tableHeader, currState);
+                super.setForeground(new ColorUIResource(tokens.getOnContainer()));
             }
         } else {
             super.setForeground(table.getForeground());

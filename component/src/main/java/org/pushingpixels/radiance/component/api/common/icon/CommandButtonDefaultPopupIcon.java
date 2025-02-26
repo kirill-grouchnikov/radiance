@@ -35,10 +35,8 @@ import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPop
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -58,7 +56,6 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
     // Icon dimension
     private int dimension;
 
-    private BladeColorScheme mutableColorScheme = new BladeColorScheme();
     private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
 
     public CommandButtonDefaultPopupIcon() {
@@ -106,25 +103,14 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
-        float iconAlpha;
-        if (skin instanceof TonalSkin) {
-            iconAlpha = modelStateInfo.getCurrModelState().isDisabled()
-                ? RadianceColorSchemeUtilities.getContainerTokens(commandButton, currState,
+        float iconAlpha = modelStateInfo.getCurrModelState().isDisabled()
+            ? RadianceColorSchemeUtilities.getContainerTokens(commandButton, currState,
                 RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha()
-                : 1.0f;
-        } else {
-            iconAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton,
-                modelStateInfo.getCurrModelState());
-        }
+            : 1.0f;
 
-        if (skin instanceof TonalSkin) {
-            BladeUtils.populateColorTokens(mutableColorTokens, c, modelStateInfo, currState,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                false, false, RadianceThemingSlices.ContainerType.MUTED);
-        } else {
-            BladeUtils.populateColorScheme(mutableColorScheme, c, modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
-        }
+        BladeUtils.populateColorTokens(mutableColorTokens, c, modelStateInfo, currState,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+            false, false, RadianceThemingSlices.ContainerType.MUTED);
         RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 commandButton.getPresentationModel().getPopupPlacementStrategy();
         int direction =
@@ -141,15 +127,9 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x + dx, y + dy);
-        if (skin instanceof TonalSkin) {
-            BladeArrowIconUtils.drawArrow(graphics, this.baseWidth, this.baseHeight,
-                RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f, direction,
-                this.mutableColorTokens, iconAlpha);
-        } else {
-            BladeArrowIconUtils.drawArrow(graphics, this.baseWidth, this.baseHeight,
-                RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f, direction,
-                this.mutableColorScheme, iconAlpha);
-        }
+        BladeArrowIconUtils.drawArrow(graphics, this.baseWidth, this.baseHeight,
+            RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f, direction,
+            this.mutableColorTokens, iconAlpha);
         graphics.dispose();
     }
 }

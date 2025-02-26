@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
@@ -39,7 +38,6 @@ import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPaint
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
@@ -222,71 +220,24 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                             .getModelStateInfo();
                     ComponentState currState = modelStateInfo.getCurrModelState();
 
-                    RadianceSkin skin = RadianceCoreUtilities.getSkin(this.slider);
-                    if (skin instanceof TonalSkin) {
-                        ContainerColorTokens trackColorTokensUnselected =
-                            RadianceColorSchemeUtilities.getContainerTokens(this.slider,
-                                this.slider.isEnabled() ? ComponentState.ENABLED
-                                    : ComponentState.DISABLED_UNSELECTED,
-                                RadianceThemingSlices.ContainerType.MUTED);
-                        this.paintSliderTrack1X(graphics1X, trackColorTokensUnselected,
-                            scaledWidth, scaledHeight, scaleFactor, currState);
-
-                        // Populate color schemes based on the current transition state of the slider.
-                        BladeUtils.populateColorTokens(mutableColorTokens, this.slider,
-                            modelStateInfo, currState,
-                            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                            false, false,
+                    ContainerColorTokens trackColorTokensUnselected =
+                        RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+                            this.slider.isEnabled() ? ComponentState.ENABLED
+                                : ComponentState.DISABLED_UNSELECTED,
                             RadianceThemingSlices.ContainerType.MUTED);
-                        this.paintSliderTrackSelected1X(graphics1X, drawInverted, paintRect,
-                            mutableColorTokens, scaledWidth, scaledHeight, scaleFactor, currState);
-                    } else {
-                        RadianceColorScheme trackSchemeUnselected =
-                            RadianceColorSchemeUtilities.getColorScheme(this.slider,
-                                this.slider.isEnabled() ? ComponentState.ENABLED
-                                    : ComponentState.DISABLED_UNSELECTED);
-                        RadianceColorScheme trackBorderSchemeUnselected =
-                            RadianceColorSchemeUtilities.getColorScheme(this.slider,
-                                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                                this.slider.isEnabled() ? ComponentState.ENABLED
-                                    : ComponentState.DISABLED_UNSELECTED);
-                        this.paintSliderTrack1X(graphics1X, trackSchemeUnselected,
-                            trackBorderSchemeUnselected, scaledWidth, scaledHeight, scaleFactor);
+                    this.paintSliderTrack1X(graphics1X, trackColorTokensUnselected,
+                        scaledWidth, scaledHeight, scaleFactor, currState);
 
-                        // Populate color schemes based on the current transition state of the slider.
-                        BladeUtils.populateColorScheme(mutableFillColorScheme, this.slider,
-                            modelStateInfo, currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
-                        BladeUtils.populateColorScheme(mutableBorderColorScheme, this.slider,
-                            modelStateInfo, currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
-                        this.paintSliderTrackSelected1X(graphics1X, drawInverted, paintRect,
-                            mutableFillColorScheme, mutableBorderColorScheme, scaledWidth, scaledHeight, scaleFactor);
-                    }
+                    // Populate color schemes based on the current transition state of the slider.
+                    BladeUtils.populateColorTokens(mutableColorTokens, this.slider,
+                        modelStateInfo, currState,
+                        RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                        false, false,
+                        RadianceThemingSlices.ContainerType.MUTED);
+                    this.paintSliderTrackSelected1X(graphics1X, drawInverted, paintRect,
+                        mutableColorTokens, scaledWidth, scaledHeight, scaleFactor, currState);
                 });
         g2d.dispose();
-    }
-
-    private void paintSliderTrack1X(Graphics2D graphics1X,
-        RadianceColorScheme fillColorScheme, RadianceColorScheme borderScheme,
-        int width, int height, double scaleFactor) {
-        RadianceFillPainter fillPainter = ClassicFillPainter.INSTANCE;
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
-
-        int componentFontSize = RadianceSizeUtils.getComponentFontSize(this.slider);
-        float radius = (float) scaleFactor *
-            RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
-
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(
-            this.slider.getComponentOrientation(),
-            width, height, radius, null, 1.0f);
-
-        fillPainter.paintContourBackground(graphics1X, slider, width, height,
-            contour, fillColorScheme);
-
-        Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
-            this.slider.getComponentOrientation(),
-            width, height, radius - 1.0f, null, 2.0f);
-        borderPainter.paintBorder(graphics1X, slider, width, height,
-            contour, contourInner, borderScheme);
     }
 
     private void paintSliderTrack1X(Graphics2D graphics1X,
@@ -575,10 +526,6 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
     public void paint(Graphics g, final JComponent c) {
         Graphics2D graphics = (Graphics2D) g.create();
 
-        ComponentState currState = ComponentState.getState(this.thumbModel, this.slider);
-        float alpha = (RadianceCoreUtilities.getSkin(this.slider) instanceof TonalSkin) ? 1.0f
-            : RadianceColorSchemeUtilities.getAlpha(this.slider, currState);
-
         BackgroundPaintingUtils.updateIfOpaque(graphics, c);
 
         recalculateIfInsetsChanged();
@@ -588,7 +535,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         if (!clip.intersects(trackRect) && slider.getPaintTrack())
             calculateGeometry();
 
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(this.slider, alpha, g));
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(this.slider, 1.0f, g));
         if (slider.getPaintTrack() && clip.intersects(trackRect)) {
             paintTrack(graphics);
         }
@@ -717,20 +664,10 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
     @Override
     public void paintTicks(Graphics g) {
         Rectangle tickBounds = this.tickRect;
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.slider);
-        RadianceColorScheme tickScheme = null;
-        ContainerColorTokens tickTokens = null;
-        if (skin instanceof TonalSkin) {
-            tickTokens = RadianceColorSchemeUtilities.getContainerTokens(this.slider,
-                this.slider.isEnabled() ? ComponentState.ENABLED
-                    : ComponentState.DISABLED_UNSELECTED,
-                RadianceThemingSlices.ContainerType.NEUTRAL);
-        } else {
-            tickScheme = RadianceColorSchemeUtilities.getColorScheme(this.slider,
-                RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR,
-                this.slider.isEnabled() ? ComponentState.ENABLED
-                    : ComponentState.DISABLED_UNSELECTED);
-        }
+        ContainerColorTokens tickTokens = RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+            this.slider.isEnabled() ? ComponentState.ENABLED
+                : ComponentState.DISABLED_UNSELECTED,
+            RadianceThemingSlices.ContainerType.NEUTRAL);
         if (this.slider.getOrientation() == JSlider.HORIZONTAL) {
             long value = this.slider.getMinimum() + this.slider.getMinorTickSpacing();
 
@@ -747,13 +684,8 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     value += this.slider.getMinorTickSpacing();
                 }
                 // and paint them in one call
-                if (skin instanceof TonalSkin) {
-                    SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickTokens, tickBounds.y,
-                        minorXs, tickBounds.height / 2, 0.75f);
-                } else {
-                    SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickScheme, tickBounds.y,
-                        minorXs, tickBounds.height / 2, 0.75f);
-                }
+                SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickTokens, tickBounds.y,
+                    minorXs, tickBounds.height / 2, 0.75f);
             }
 
             if (this.slider.getMajorTickSpacing() > 0) {
@@ -766,13 +698,8 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     value += this.slider.getMajorTickSpacing();
                 }
                 // and paint them in one call
-                if (skin instanceof TonalSkin) {
-                    SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickTokens, tickBounds.y,
-                        majorXs, tickBounds.height, 0.75f);
-                } else {
-                    SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickScheme, tickBounds.y,
-                        majorXs, tickBounds.height, 0.75f);
-                }
+                SeparatorPainterUtils.paintVerticalLines(g, this.slider, tickTokens, tickBounds.y,
+                    majorXs, tickBounds.height, 0.75f);
             }
         } else {
             g.translate(tickBounds.x, 0);
@@ -795,13 +722,8 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 }
 
                 // and paint them in one call
-                if (skin instanceof TonalSkin) {
-                    SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickTokens, offset,
-                        minorYs, tickBounds.width / 2, ltr ? 0.75f : 0.25f, ltr);
-                } else {
-                    SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickScheme, offset,
-                        minorYs, tickBounds.width / 2, ltr ? 0.75f : 0.25f, ltr);
-                }
+                SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickTokens, offset,
+                    minorYs, tickBounds.width / 2, ltr ? 0.75f : 0.25f, ltr);
             }
 
             if (this.slider.getMajorTickSpacing() > 0) {
@@ -816,13 +738,8 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 }
 
                 // and paint them in one call
-                if (skin instanceof TonalSkin) {
-                    SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickTokens, 0, majorYs,
-                        tickBounds.width, ltr ? 0.75f : 0.25f, ltr);
-                } else {
-                    SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickScheme, 0, majorYs,
-                        tickBounds.width, ltr ? 0.75f : 0.25f, ltr);
-                }
+                SeparatorPainterUtils.paintHorizontalLines(g, this.slider, tickTokens, 0, majorYs,
+                    tickBounds.width, ltr ? 0.75f : 0.25f, ltr);
             }
             g.translate(-tickBounds.x, 0);
         }

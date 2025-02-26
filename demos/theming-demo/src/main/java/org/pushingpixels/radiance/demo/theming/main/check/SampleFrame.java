@@ -32,13 +32,10 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.radiance.demo.theming.main.Check;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.skin.CremeCoffeeSkin;
 
 import javax.swing.*;
@@ -328,14 +325,8 @@ public class SampleFrame extends JFrame {
             if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                 RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(
                     SampleFrame.this.getRootPane());
-                if (skin instanceof TonalSkin) {
-                    SampleFrame.this.setIconImage(RadianceLogo.getLogoImage(SampleFrame.this,
-                        skin.getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)));
-                } else {
-                    SampleFrame.this.setIconImage(RadianceLogo.getLogoImage(SampleFrame.this,
-                        skin.getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                            ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-                }
+                SampleFrame.this.setIconImage(RadianceLogo.getLogoImage(SampleFrame.this,
+                    skin.getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)));
             }
         });
     }

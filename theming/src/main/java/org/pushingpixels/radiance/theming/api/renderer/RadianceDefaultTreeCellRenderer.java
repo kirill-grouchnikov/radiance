@@ -30,12 +30,10 @@
 package org.pushingpixels.radiance.theming.api.renderer;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.StateContributionInfo;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTreeUI;
@@ -169,7 +167,6 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
         TreeUI treeUI = tree.getUI();
         if (treeUI instanceof RadianceTreeUI) {
             RadianceTreeUI ui = (RadianceTreeUI) treeUI;
-            RadianceSkin skin = RadianceCoreUtilities.getSkin(tree);
 
             TreePathId pathId = new TreePathId(tree.getPathForRow(row));
 
@@ -186,13 +183,8 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
                 Map<ComponentState, StateContributionInfo> activeStates = modelStateInfo
                         .getStateContributionMap();
                 if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-                    if (skin instanceof TonalSkin) {
-                        ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
-                        super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
-                    } else {
-                        RadianceColorScheme colorScheme = getColorSchemeForState(tree, ui, currState);
-                        super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
-                    }
+                    ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
+                    super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
                 } else {
                     float aggrRed = 0;
                     float aggrGreen = 0;
@@ -208,43 +200,24 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
                                         RadianceThemingSlices.ComponentStateFacet.ARM)) {
                             this.activeContributions.put(activeState, contribution);
                         }
-                        if (skin instanceof TonalSkin) {
-                            ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, activeState);
-                            Color schemeFg = colorTokens.getOnContainer();
-                            aggrRed += schemeFg.getRed() * contribution;
-                            aggrGreen += schemeFg.getGreen() * contribution;
-                            aggrBlue += schemeFg.getBlue() * contribution;
-                        } else {
-                            RadianceColorScheme scheme = getColorSchemeForState(tree, ui, activeState);
-                            Color schemeFg = scheme.getForegroundColor();
-                            aggrRed += schemeFg.getRed() * contribution;
-                            aggrGreen += schemeFg.getGreen() * contribution;
-                            aggrBlue += schemeFg.getBlue() * contribution;
-                        }
+                        ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, activeState);
+                        Color schemeFg = colorTokens.getOnContainer();
+                        aggrRed += schemeFg.getRed() * contribution;
+                        aggrGreen += schemeFg.getGreen() * contribution;
+                        aggrBlue += schemeFg.getBlue() * contribution;
                     }
                     super.setForeground(new ColorUIResource(
                             new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue)));
                 }
             } else {
-                if (skin instanceof TonalSkin) {
-                    ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
-                    if (isDropLocation) {
-                        colorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
-                            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                            currState, RadianceThemingSlices.ContainerType.NEUTRAL);
-                    }
-                    if (colorTokens != null) {
-                        super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
-                    }
-                } else {
-                    RadianceColorScheme scheme = getColorSchemeForState(tree, ui, currState);
-                    if (isDropLocation) {
-                        scheme = RadianceColorSchemeUtilities.getColorScheme(tree,
-                            RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
-                    }
-                    if (scheme != null) {
-                        super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
-                    }
+                ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
+                if (isDropLocation) {
+                    colorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
+                        RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                        currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+                }
+                if (colorTokens != null) {
+                    super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
                 }
                 boolean isActive = currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
                         || currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.SELECTION)

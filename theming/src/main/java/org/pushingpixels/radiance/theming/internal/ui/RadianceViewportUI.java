@@ -29,9 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -63,14 +61,8 @@ public class RadianceViewportUI extends BasicViewportUI {
 		// support for per-window skins
 		Color backgr = c.getBackground();
 		if ((backgr == null) || (backgr instanceof UIResource)) {
-			RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-            Color backgroundFillColor;
-            if (skin instanceof TonalSkin) {
-                backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(c,
+            Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(c,
 					RadianceThemingSlices.ContainerType.NEUTRAL);
-            } else {
-                backgroundFillColor = RadianceColorUtilities.getBackgroundFillColor(c);
-            }
             if (backgroundFillColor != null) {
                 c.setBackground(new ColorUIResource(backgroundFillColor));
             }

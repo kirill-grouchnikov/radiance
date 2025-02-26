@@ -30,12 +30,8 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -70,73 +66,35 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             return;
         }
 
-        if (skin instanceof TonalSkin) {
-            Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
-                SwingUtilities.windowForComponent(c));
-            ContainerColorTokens titleContainerTokens =
-                skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(titlePaneComp))
-                    .getBaseContainerTokens();
-            boolean isDark = titleContainerTokens.isDark();
+        Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
+            SwingUtilities.windowForComponent(c));
+        ContainerColorTokens titleContainerTokens =
+            skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(titlePaneComp))
+                .getBaseContainerTokens();
+        Graphics2D graphics = (Graphics2D) g.create();
 
-            Graphics2D graphics = (Graphics2D) g.create();
+        double scaleFactor = RadianceCommonCortex.getScaleFactor(c);
+        float strokeWidth = (scaleFactor <= 2.0f) ? 0.5f + (float) scaleFactor / 2.0f : (float) scaleFactor;
+        graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 
-            double scaleFactor = RadianceCommonCortex.getScaleFactor(c);
-            float strokeWidth = (scaleFactor <= 2.0f) ? 0.5f + (float) scaleFactor / 2.0f : (float) scaleFactor;
-            graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+        // bottom and right border as outline
+        graphics.setColor(titleContainerTokens.getContainerOutline());
+        graphics.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
+        graphics.drawLine(x + w - 1, y, x + w - 1, y + h - 1);
 
-            // bottom and right border as outline
-            graphics.setColor(titleContainerTokens.getContainerOutline());
-            graphics.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
-            graphics.drawLine(x + w - 1, y, x + w - 1, y + h - 1);
+        // top and left border as outline variant
+        graphics.setColor(titleContainerTokens.getContainerOutlineVariant());
+        graphics.drawLine(x, y, x + w - 2, y);
+        graphics.drawLine(x, y, x, y + h - 2);
 
-            // top and left border as outline variant
-            graphics.setColor(titleContainerTokens.getContainerOutlineVariant());
-            graphics.drawLine(x, y, x + w - 2, y);
-            graphics.drawLine(x, y, x, y + h - 2);
+        // inner thicker outline as surface
+        graphics.setColor(titleContainerTokens.getContainerSurface());
+        graphics.drawRect(x + 1, y + 1, w - 3, h - 3);
+        graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
+        graphics.drawRect(x + 3, y + 3, w - 7, h - 7);
+        graphics.drawRect(x + 4, y + 4, w - 9, h - 9);
 
-            // inner thicker outline as surface
-            graphics.setColor(titleContainerTokens.getContainerSurface());
-            graphics.drawRect(x + 1, y + 1, w - 3, h - 3);
-            graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
-            graphics.drawRect(x + 3, y + 3, w - 7, h - 7);
-            graphics.drawRect(x + 4, y + 4, w - 9, h - 9);
-
-            graphics.dispose();
-        } else {
-            RadianceColorScheme scheme = skin.getBackgroundColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
-            Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(SwingUtilities.windowForComponent(c));
-            RadianceColorScheme borderScheme = skin.getColorScheme(titlePaneComp, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-
-            Graphics2D graphics = (Graphics2D) g.create();
-
-            double scaleFactor = RadianceCommonCortex.getScaleFactor(c);
-            float strokeWidth = (scaleFactor <= 2.0f) ? 0.5f + (float) scaleFactor / 2.0f : (float) scaleFactor;
-            graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
-
-            // bottom and right in ultra dark
-            graphics.setColor(borderScheme.getUltraDarkColor());
-            graphics.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
-            graphics.drawLine(x + w - 1, y, x + w - 1, y + h - 1);
-            // top and left
-            graphics.setColor(borderScheme.getDarkColor());
-            graphics.drawLine(x, y, x + w - 2, y);
-            graphics.drawLine(x, y, x, y + h - 2);
-            // inner bottom and right
-            graphics.setColor(scheme.getMidColor());
-            graphics.drawLine(x + 1, y + h - 2, x + w - 2, y + h - 2);
-            graphics.drawLine(x + w - 2, y + 1, x + w - 2, y + h - 2);
-            // inner top and left
-            graphics.setColor(scheme.getMidColor());
-            graphics.drawLine(x + 1, y + 1, x + w - 3, y + 1);
-            graphics.drawLine(x + 1, y + 1, x + 1, y + h - 3);
-            // inner 2 and 3
-            graphics.setColor(scheme.getLightColor());
-            graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
-            graphics.drawRect(x + 3, y + 3, w - 7, h - 7);
-            graphics.drawRect(x + 4, y + 4, w - 9, h - 9);
-
-            graphics.dispose();
-        }
+        graphics.dispose();
     }
 
     @Override
