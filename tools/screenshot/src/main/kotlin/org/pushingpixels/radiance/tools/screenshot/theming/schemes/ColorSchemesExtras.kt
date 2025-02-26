@@ -30,33 +30,37 @@
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
 import org.pushingpixels.radiance.theming.extras.api.colorschemepack.TonalPaletteExtrasSeeds
+import java.awt.Color
 
-private val radianceLightColors = mapOf(
-    "Belize" to TonalPaletteExtrasSeeds.BELIZE,
-    "Bloody Moon" to TonalPaletteExtrasSeeds.BLOODY_MOON,
-    "Blue Yonder" to TonalPaletteExtrasSeeds.BLUE_YONDER,
-    "Brick Wall" to TonalPaletteExtrasSeeds.BRICK_WALL,
-    "Cobalt Steel" to TonalPaletteExtrasSeeds.COBALT_STEEL,
-    "Desert Mars" to TonalPaletteExtrasSeeds.DESERT_MARS,
-    "Gooseberry Jungle" to TonalPaletteExtrasSeeds.GOOSEBERRY_JUNGLE,
-    "Green Pearl" to TonalPaletteExtrasSeeds.GREEN_PEARL,
-    "Orchid Alloy" to TonalPaletteExtrasSeeds.ORCHID_ALLOY,
-    "Placid Pink" to TonalPaletteExtrasSeeds.PLACID_PINK,
-    "Sky High" to TonalPaletteExtrasSeeds.SKY_HIGH,
-    "Spring Leaf" to TonalPaletteExtrasSeeds.SPRING_LEAF,
-    "Wild Pine" to TonalPaletteExtrasSeeds.WILD_PINE,
-    "Yellow Marine" to TonalPaletteExtrasSeeds.YELLOW_MARINE,
+data class RobotConfig(
+    val name: String,
+    val seed: Color,
+    val hueDeltaLow: Double,
+    val hueDeltaHigh: Double,
+    val headerTextureAlpha: Float)
+
+private val radianceColors = listOf(
+    RobotConfig("Belize", TonalPaletteExtrasSeeds.BELIZE, -30.0, 30.0, 0.7f),
+    RobotConfig("Bloody Moon", TonalPaletteExtrasSeeds.BLOODY_MOON, -5.0, 5.0, 0.5f),
+    RobotConfig("Blue Yonder", TonalPaletteExtrasSeeds.BLUE_YONDER, -25.0, 15.0, 0.5f),
+    RobotConfig("Brick Wall", TonalPaletteExtrasSeeds.BRICK_WALL, -15.0, 5.0, 0.5f),
+    RobotConfig("Brown Velvet", TonalPaletteExtrasSeeds.BROWN_VELVET, -5.0, 5.0, 0.1f),
+    RobotConfig("Cobalt Steel", TonalPaletteExtrasSeeds.COBALT_STEEL, -25.0, 15.0, 0.5f),
+    RobotConfig("Desert Mars", TonalPaletteExtrasSeeds.DESERT_MARS, -15.0, 5.0, 0.5f),
+    RobotConfig("Earth Fresco", TonalPaletteExtrasSeeds.EARTH_FRESCO, -25.0, 0.0, 0.5f),
+    RobotConfig("Emerald Grass", TonalPaletteExtrasSeeds.EMERALD_GRASS, -5.0, 5.0, 0.2f),
+    RobotConfig("Fauve Mauve", TonalPaletteExtrasSeeds.FAUVE_MAUVE, 15.0, -20.0, 0.7f),
+    RobotConfig("Gooseberry Jungle", TonalPaletteExtrasSeeds.GOOSEBERRY_JUNGLE, -20.0, 40.0, 0.5f),
+    RobotConfig("Green Pearl", TonalPaletteExtrasSeeds.GREEN_PEARL, -5.0, 5.0, 0.5f),
+    RobotConfig("Mahogany", TonalPaletteExtrasSeeds.MAHOGANY, 0.0, 0.0, 0.2f),
+    RobotConfig("Orchid Alloy", TonalPaletteExtrasSeeds.ORCHID_ALLOY, -5.0, 5.0, 0.5f),
+    RobotConfig("Peach", TonalPaletteExtrasSeeds.PEACH, -5.0, 5.0, 0.3f),
+    RobotConfig("Placid Pink", TonalPaletteExtrasSeeds.PLACID_PINK, 20.0, 0.0, 0.7f),
+    RobotConfig("Sky High", TonalPaletteExtrasSeeds.SKY_HIGH, -5.0, 5.0, 0.5f),
+    RobotConfig("Spring Leaf", TonalPaletteExtrasSeeds.SPRING_LEAF, -10.0, 15.0, 0.5f),
+    RobotConfig("Turquoise Lake", TonalPaletteExtrasSeeds.TURQUOISE_LAKE, 0.0, 0.0, 0.1f),
+    RobotConfig("Wild Pine", TonalPaletteExtrasSeeds.WILD_PINE, -20.0, 20.0, 0.5f),
+    RobotConfig("Yellow Marine", TonalPaletteExtrasSeeds.YELLOW_MARINE, -40.0, 40.0, 0.5f),
 )
 
-private val radianceDarkColors = mapOf(
-    "Brown Velvet" to TonalPaletteExtrasSeeds.BROWN_VELVET,
-    "Earth Fresco" to TonalPaletteExtrasSeeds.EARTH_FRESCO,
-    "Emerald Glass" to TonalPaletteExtrasSeeds.EMERALD_GRASS,
-    "Fauve Mauve" to TonalPaletteExtrasSeeds.FAUVE_MAUVE,
-    "Mahogany" to TonalPaletteExtrasSeeds.MAHOGANY,
-    "Peach" to TonalPaletteExtrasSeeds.PEACH,
-    "Turquoise Lake" to TonalPaletteExtrasSeeds.TURQUOISE_LAKE,
-)
-
-class AllExtrasLight : LightBimodalColorSchemeRobot(radianceLightColors, "theming-extras/colorschemes", "Radiance")
-class AllExtrasDark : DarkColorSchemeRobot(radianceDarkColors, "theming-extras/colorschemes", "Radiance")
+class AllExtras : LightBimodalColorSchemeRobot(radianceColors, "theming-extras/colorschemes", "Radiance")

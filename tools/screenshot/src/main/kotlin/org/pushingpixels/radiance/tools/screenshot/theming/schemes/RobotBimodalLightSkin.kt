@@ -29,11 +29,13 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette
 import org.pushingpixels.ephemeral.chroma.hct.Hct
 import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette
 import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette.TransitionRangeFidelityLight
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette
 import org.pushingpixels.ephemeral.chroma.utils.MathUtils
+import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
@@ -43,6 +45,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDeco
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter
+import org.pushingpixels.radiance.theming.api.palette.BimodalPaletteResolverUtils
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils.FidelityDirectPaletteSource
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens
@@ -55,10 +58,10 @@ import java.awt.Color
  *
  * @author Kirill Grouchnikov
  */
-class RobotBimodalLightSkin(accentColor: Color, val name: String) :
+class RobotBimodalLightSkin(val config: RobotConfig) :
         RadianceSkin.Accented(AccentBuilder()
-            .withDefaultAreaColorScheme(getColorScheme(accentColor))
-            .withHeaderAreaColorScheme(getColorScheme(accentColor))) {
+            .withDefaultAreaColorScheme(getColorScheme(config))
+            .withHeaderAreaColorScheme(getColorScheme(config))) {
 
     init {
         val bottomLineOverlayPainter =
@@ -74,12 +77,14 @@ class RobotBimodalLightSkin(accentColor: Color, val name: String) :
 
         val decorationPainter = MarbleNoiseDecorationPainter()
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())
-        decorationPainter.setTextureAlpha(0.3f)
+        decorationPainter.setTextureAlpha(config.headerTextureAlpha)
         this.decorationPainter = decorationPainter
 
         this.highlightFillPainter = ClassicTonalFillPainter()
 
         val defaultSchemeBundle = RadianceColorSchemeBundle2(this.defaultAreaColorScheme)
+        defaultSchemeBundle.registerActiveContainerTokens(getSelectedTokens(config),
+            ComponentState.SELECTED)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 
@@ -90,15 +95,15 @@ class RobotBimodalLightSkin(accentColor: Color, val name: String) :
     }
 
     override fun getDisplayName(): String {
-        return name
+        return config.name
     }
 }
 
-private fun getColorScheme(accentColor: Color): RadianceColorScheme2 {
-    val primarySeed = Hct.fromInt(accentColor.rgb)
+private fun getColorScheme(config: RobotConfig): RadianceColorScheme2 {
+    val primarySeed = Hct.fromInt(config.seed.rgb)
     val primaryHue = primarySeed.hue
-    val hue1 = MathUtils.sanitizeDegreesDouble(primaryHue + 30.0)
-    val hue2 = MathUtils.sanitizeDegreesDouble(primaryHue - 30.0)
+    val hue1 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaHigh)
+    val hue2 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaLow)
     val primaryTone = primarySeed.tone
 
     val mutedSeed = Hct.fromInt(Color(204, 210, 215).rgb);
@@ -118,4 +123,21 @@ private fun getColorScheme(accentColor: Color): RadianceColorScheme2 {
             primaryTone, mutedSeed.tone, neutralSeed.tone),
         /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
         /* isDark */ false)
+}
+
+private fun getSelectedTokens(config: RobotConfig): ContainerColorTokens {
+    val primarySeed = Hct.fromInt(config.seed.rgb)
+    val primaryHue = primarySeed.hue
+    val hue1 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaHigh)
+    val hue2 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaLow)
+    val primaryTone = primarySeed.tone
+
+    return ColorSchemeUtils.getContainerTokens(
+        /* seedOne */ Hct.from(hue1, 1.5 * primarySeed.chroma, primaryTone),
+        /* seedTwo */ Hct.from(hue2, 1.5 * primarySeed.chroma, primaryTone),
+        /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+        /* isDark */ false,
+        /* fidelityTone */ primaryTone + 5.0,  // lighter tone for selected and rollover states
+        /* contrastLevel */ 0.0,
+        /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver())
 }
