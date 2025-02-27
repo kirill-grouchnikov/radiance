@@ -632,30 +632,6 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     /**
      * Returns the color scheme to be used for painting the specified visual
-     * area of components in the specified decoration area.
-     *
-     * @param decorationAreaType Decoration area type.
-     * @param associationKind    Color scheme association kind.
-     * @param componentState     Component state.
-     * @return Color scheme to be used for painting the specified visual area of
-     * components in the specified decoration area.
-     */
-    public final RadianceColorScheme getColorScheme(
-            RadianceThemingSlices.DecorationAreaType decorationAreaType,
-            RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
-            ComponentState componentState) {
-        if (this.colorSchemeBundleMap.size() > 1) {
-            if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-                return this.colorSchemeBundleMap.get(decorationAreaType)
-                        .getColorScheme(associationKind, componentState, true);
-            }
-        }
-        return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-                .getColorScheme(associationKind, componentState, true);
-    }
-
-    /**
-     * Returns the color scheme to be used for painting the specified visual
      * area of the component under the specified component state.
      *
      * @param comp            Component.

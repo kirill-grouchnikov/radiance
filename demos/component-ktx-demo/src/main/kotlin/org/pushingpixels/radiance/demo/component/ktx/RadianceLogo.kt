@@ -29,24 +29,102 @@
  */
 package org.pushingpixels.radiance.demo.component.ktx
 
-import org.pushingpixels.radiance.demo.component.ktx.svg.radiance_menu
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
+import org.pushingpixels.radiance.demo.component.ktx.svg.radiance_menu
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens
 import java.awt.Component
+import java.awt.Dimension
 import java.awt.image.BufferedImage
+import javax.swing.JDialog
+import javax.swing.JFrame
+import javax.swing.JInternalFrame
+import javax.swing.SwingUtilities
 
 object RadianceLogo {
-    fun getLogoIcon(scheme: RadianceColorScheme): RadianceIcon {
-        // Step 1 - create a 16x16 version of the transcoded Radiance logo
-        val base = radiance_menu.of(16, 16)
-        // Step 2 - apply color filter
-        base.setColorFilter { scheme.foregroundColor }
+    fun getLogoIcon(colorTokens: ContainerColorTokens): RadianceIcon {
+        // Step 1 - create a colorized version of the transcoded Radiance logo
+        val base: RadianceIcon = radiance_menu.factory().createNewIcon()
+        base.setColorFilter { color -> colorTokens.getOnContainer() }
+        // Step 2 - configure the colorized version to be 16x16
+        base.setDimension(Dimension(16, 16))
         // Step 3 - good to go
         return base
     }
 
-    fun getLogoImage(comp: Component, scheme: RadianceColorScheme): BufferedImage {
-        return getLogoIcon(scheme).toImage(RadianceCommonCortex.getScaleFactor(comp))
+    fun getLogoImage(comp: Component, colorTokens: ContainerColorTokens): BufferedImage {
+        return RadianceLogo.getLogoIcon(colorTokens).toImage(RadianceCommonCortex.getScaleFactor(comp))
+    }
+
+    fun tonalConfigureOn(frame: JFrame) {
+        frame.iconImage = RadianceLogo.getLogoImage(
+            frame,
+            RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
+                .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                .getBaseContainerTokens()
+        )
+        RadianceThemingCortex.GlobalScope.registerSkinChangeListener {
+            SwingUtilities.invokeLater {
+                frame.iconImage = RadianceLogo.getLogoImage(
+                    frame,
+                    RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
+                        .getBackgroundExtendedContainerTokens(
+                            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE
+                        )
+                        .getBaseContainerTokens()
+                )
+            }
+        }
+    }
+
+    fun tonalConfigureOn(dialog: JDialog) {
+        dialog.setIconImage(
+            RadianceLogo.getLogoImage(
+                dialog,
+                RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
+                    .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                    .getBaseContainerTokens()
+            )
+        )
+        RadianceThemingCortex.GlobalScope.registerSkinChangeListener {
+            SwingUtilities.invokeLater {
+                dialog.setIconImage(
+                    RadianceLogo.getLogoImage(
+                        dialog,
+                        RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
+                            .getBackgroundExtendedContainerTokens(
+                                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE
+                            )
+                            .getBaseContainerTokens()
+                    )
+                )
+            }
+        }
+    }
+
+    fun tonalConfigureOn(frame: JInternalFrame) {
+        frame.setFrameIcon(
+            RadianceLogo.getLogoIcon(
+                RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
+                    .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                    .getBaseContainerTokens()
+            )
+        )
+        RadianceThemingCortex.GlobalScope.registerSkinChangeListener {
+            SwingUtilities.invokeLater {
+                frame.setFrameIcon(
+                    RadianceLogo.getLogoIcon(
+                        RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
+                            .getBackgroundExtendedContainerTokens(
+                                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE
+                            )
+                            .getBaseContainerTokens()
+                    )
+                )
+            }
+        }
     }
 }

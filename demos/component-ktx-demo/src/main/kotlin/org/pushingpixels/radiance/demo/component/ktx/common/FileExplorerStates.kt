@@ -31,16 +31,15 @@ package org.pushingpixels.radiance.demo.component.ktx.common
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.demo.component.ktx.RadianceLogo
-import org.pushingpixels.radiance.theming.ktx.setDecorationType
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
 import org.pushingpixels.radiance.component.ktx.bcb.addDelayedPathListener
-import org.pushingpixels.radiance.theming.api.ComponentState
+import org.pushingpixels.radiance.demo.component.ktx.RadianceLogo
+import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
+import org.pushingpixels.radiance.theming.ktx.setDecorationType
 import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.swing.*
@@ -106,14 +105,7 @@ fun main() {
 
         frame.add(controls, BorderLayout.SOUTH)
 
-        frame.iconImage = RadianceLogo.getLogoImage(
-            frame,
-            RadianceThemingCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                ComponentState.ENABLED
-            )
-        )
+        RadianceLogo.tonalConfigureOn(frame)
         frame.setSize(600, 400)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE

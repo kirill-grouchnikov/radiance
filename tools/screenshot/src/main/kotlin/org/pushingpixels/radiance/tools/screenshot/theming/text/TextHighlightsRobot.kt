@@ -35,10 +35,8 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin
 import org.pushingpixels.radiance.theming.api.text.RadianceTextField
@@ -86,11 +84,8 @@ abstract class TextHighlightsRobot(
 
         frame.iconImage = RadianceLogo.getLogoImage(
             frame,
-            RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
-                DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                ComponentState.ENABLED
-            )
+            RadianceThemingCortex.GlobalScope.getCurrentSkin().
+            getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)
         )
 
         frame.contentPane.layout = BoxLayout(frame.contentPane, BoxLayout.Y_AXIS)
@@ -171,11 +166,8 @@ abstract class TextHighlightsRobot(
                 RadianceThemingCortex.GlobalScope.setSkin(skin)
                 frame.iconImage = RadianceLogo.getLogoImage(
                     frame,
-                    skin.getColorScheme(
-                        DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED
-                    )
+                    RadianceThemingCortex.GlobalScope.getCurrentSkin().
+                    getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)
                 )
             }
 

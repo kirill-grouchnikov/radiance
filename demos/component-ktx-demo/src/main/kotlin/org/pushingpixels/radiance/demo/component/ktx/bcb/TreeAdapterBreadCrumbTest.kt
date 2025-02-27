@@ -36,9 +36,7 @@ import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarPresentationMod
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbTreeAdapterSelector
 import org.pushingpixels.radiance.component.ktx.bcb.addDelayedPathListener
 import org.pushingpixels.radiance.demo.component.ktx.RadianceLogo
-import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.BorderLayout
@@ -242,14 +240,7 @@ fun main() {
 
         frame.add(fileListScrollPane, BorderLayout.CENTER)
 
-        frame.iconImage = RadianceLogo.getLogoImage(
-            frame,
-            RadianceThemingCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                ComponentState.ENABLED
-            )
-        )
+        RadianceLogo.tonalConfigureOn(frame)
         frame.setSize(700, 400)
         frame.setLocation(300, 100)
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
