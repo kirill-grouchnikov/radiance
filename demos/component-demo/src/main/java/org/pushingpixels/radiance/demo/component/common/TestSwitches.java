@@ -35,9 +35,7 @@ import org.pushingpixels.radiance.component.api.common.projection.SwitchProjecti
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
@@ -55,11 +53,7 @@ public class TestSwitches extends JFrame {
     private TestSwitches() {
         super("Tests for switches");
 
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         currLocale = Locale.getDefault();
 

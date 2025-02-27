@@ -33,10 +33,8 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonPresentation
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 import org.pushingpixels.radiance.theming.api.skin.CremeSkin;
 
 import javax.swing.*;
@@ -49,11 +47,7 @@ public class TestCommandButtonStates extends JFrame {
 
     TestCommandButtonStates() {
         super("Command button test");
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         this.setLayout(new FlowLayout());
 

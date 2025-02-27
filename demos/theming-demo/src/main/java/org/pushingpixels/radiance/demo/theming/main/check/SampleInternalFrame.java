@@ -30,12 +30,9 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -151,9 +148,7 @@ public class SampleInternalFrame extends JInternalFrame {
             if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                 RadianceSkin currentSkin = RadianceThemingCortex.ComponentScope
                         .getCurrentSkin(getRootPane());
-                setFrameIcon(RadianceLogo.getLogoIcon(
-                        currentSkin.getColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE,
-                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+                RadianceLogo.tonalConfigureOn(this);
                 setTitle(currentSkin.getDisplayName());
             }
         });

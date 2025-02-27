@@ -38,9 +38,7 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandPanelPr
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
@@ -60,11 +58,7 @@ public class TestCommandButtonPanel extends JFrame {
 
     private TestCommandButtonPanel() {
         super("Command button panel test");
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         currLocale = Locale.getDefault();
         resourceBundle = ResourceBundle.getBundle(

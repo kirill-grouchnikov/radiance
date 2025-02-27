@@ -40,7 +40,6 @@ import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_copy;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_cut;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
@@ -54,11 +53,7 @@ public class TileMenu extends JFrame {
 
     public TileMenu() {
         super("Multi level menu");
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         List<Command> menuCommands = new ArrayList<>();
 

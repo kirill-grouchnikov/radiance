@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.demo.theming.main;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin;
@@ -56,11 +55,7 @@ public class ControlStates extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.ComponentScope.getCurrentSkin(this.getRootPane())
-                        .getColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                                ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
     }
 
     public static void main(String[] args) {

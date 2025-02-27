@@ -42,9 +42,7 @@ import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_jus
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_fill;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_left;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_right;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
@@ -55,11 +53,7 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
     private TestCommandToggleButtonsSameGroupModel() {
         super("Selection state sync");
 
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         CommandToggleGroupModel justifyToggleGroup = new CommandToggleGroupModel();
 

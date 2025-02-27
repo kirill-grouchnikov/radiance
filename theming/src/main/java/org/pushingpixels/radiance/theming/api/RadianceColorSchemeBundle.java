@@ -360,15 +360,6 @@ public class RadianceColorSchemeBundle {
     }
 
     /**
-     * Returns the active color scheme of this bundle.
-     *
-     * @return The active color scheme of this bundle.
-     */
-    public RadianceColorScheme getActiveColorScheme() {
-        return this.activeColorScheme;
-    }
-
-    /**
      * Returns the enabled color scheme of this bundle.
      *
      * @return The enabled color scheme of this bundle.

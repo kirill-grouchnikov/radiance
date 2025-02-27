@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgre
 import org.pushingpixels.radiance.component.api.common.projection.IndeterminateCircularProgressProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
@@ -104,16 +103,7 @@ public class TestIndeterminateCircularProgress extends JFrame {
 
             TestIndeterminateCircularProgress test = new TestIndeterminateCircularProgress();
             test.setTitle("Circular progress");
-            test.setIconImage(RadianceLogo.getLogoImage(test,
-                    RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                            ComponentState.ENABLED)));
-            RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
-                    () -> test.setIconImage(RadianceLogo.getLogoImage(test,
-                            RadianceThemingCortex.ComponentScope.getCurrentSkin(test.getRootPane())
-                                    .getColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
+            RadianceLogo.tonalConfigureOn(test);
             test.setVisible(true);
         });
     }

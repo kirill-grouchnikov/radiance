@@ -29,9 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.painter;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 /**
@@ -70,7 +69,7 @@ public abstract class FractionBasedTonalPainter implements RadianceTrait {
 	 * <code>null</code> entries in this array. Note that the application code
 	 * can still cause an exception at runtime by throwing it in the
 	 * implementation of the
-	 * {@link ColorSchemeSingleColorQuery#query(RadianceColorScheme)} method.
+	 * {@link ContainerColorTokensSingleColorQuery#query(ContainerColorTokens)} method.
 	 */
 	protected ContainerColorTokensSingleColorQuery[] colorQueries;
 

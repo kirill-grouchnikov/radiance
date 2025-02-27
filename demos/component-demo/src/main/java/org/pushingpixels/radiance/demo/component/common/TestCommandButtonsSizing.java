@@ -3,15 +3,14 @@ package org.pushingpixels.radiance.demo.component.common;
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
+import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonKind;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonKind;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
@@ -172,11 +171,7 @@ public class TestCommandButtonsSizing extends JPanel {
 
             JFrame frame = new JFrame("Testing command button fonts");
             frame.setSize(800, 600);
-            frame.setIconImage(RadianceLogo.getLogoImage(frame,
-                    RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                            ComponentState.ENABLED)));
+            RadianceLogo.tonalConfigureOn(frame);
 
             frame.add(new TestCommandButtonsSizing());
             frame.setLocationRelativeTo(null);

@@ -34,9 +34,7 @@ import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarPresentationMod
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbTreeAdapterSelector;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
@@ -285,11 +283,7 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
 
             TreeModelAdapterBreadCrumbTest test = new TreeModelAdapterBreadCrumbTest();
-            test.setIconImage(RadianceLogo.getLogoImage(test,
-                    RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                            ComponentState.ENABLED)));
+            RadianceLogo.tonalConfigureOn(test);
             test.setSize(700, 400);
             test.setLocation(300, 100);
             test.setVisible(true);

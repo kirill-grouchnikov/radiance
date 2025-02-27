@@ -40,7 +40,6 @@ import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
@@ -59,11 +58,7 @@ public class TestButtonStripHorizontal extends JFrame {
     private TestButtonStripHorizontal() {
         super("Tests for horizontal buttons strips");
 
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         buttonPanel = getButtonPanel();
         this.add(buttonPanel, BorderLayout.CENTER);

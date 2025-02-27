@@ -32,65 +32,65 @@ package org.pushingpixels.radiance.demo.component.svg.logo;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.radiance_menu;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class RadianceLogo {
-    public static RadianceIcon getLogoIcon(RadianceColorScheme scheme) {
-        // Step 1 - create a colorized version of the transcoded Radiance logo
-        RadianceIcon base = org.pushingpixels.radiance.demo.theming.main.check.svg.radiance_menu.factory().createNewIcon();
-        base.setColorFilter(color -> scheme.getForegroundColor());
-        // Step 2 - configure the colorized version to be 16x16
-        base.setDimension(new Dimension(16, 16));
-        // Step 3 - good to go
-        return base;
-    }
-
-    public static RadianceIcon getLogoIcon(ExtendedContainerColorTokens colorTokens) {
+    public static RadianceIcon getLogoIcon(ContainerColorTokens colorTokens) {
         // Step 1 - create a colorized version of the transcoded Radiance logo
         RadianceIcon base = radiance_menu.factory().createNewIcon();
-        base.setColorFilter(color -> colorTokens.getBaseContainerTokens()
-            .getOnContainer());
+        base.setColorFilter(color -> colorTokens.getOnContainer());
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(new Dimension(16, 16));
         // Step 3 - good to go
         return base;
     }
 
-    public static BufferedImage getLogoImage(Component comp, RadianceColorScheme scheme) {
-        return getLogoIcon(scheme).toImage(RadianceCommonCortex.getScaleFactor(comp));
-    }
-
-    public static BufferedImage getLogoImage(Component comp, ExtendedContainerColorTokens colorTokens) {
+    public static BufferedImage getLogoImage(Component comp, ContainerColorTokens colorTokens) {
         return getLogoIcon(colorTokens).toImage(RadianceCommonCortex.getScaleFactor(comp));
     }
 
-    public static void configureOn(JFrame frame) {
-        frame.setIconImage(org.pushingpixels.radiance.demo.theming.main.RadianceLogo.getLogoImage(frame, RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-            .getColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-        RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
-            () -> frame.setIconImage(org.pushingpixels.radiance.demo.theming.main.RadianceLogo.getLogoImage(frame,
-                RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                    .getColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
-    }
-
     public static void tonalConfigureOn(JFrame frame) {
-        frame.setIconImage(org.pushingpixels.radiance.demo.theming.main.RadianceLogo.getLogoImage(frame,
+        frame.setIconImage(RadianceLogo.getLogoImage(frame,
             RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
+                .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                .getBaseContainerTokens()));
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
-            () -> frame.setIconImage(org.pushingpixels.radiance.demo.theming.main.RadianceLogo.getLogoImage(frame,
+            () -> frame.setIconImage(RadianceLogo.getLogoImage(frame,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
                     .getBackgroundExtendedContainerTokens(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)))));
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                    .getBaseContainerTokens()))));
+    }
+
+    public static void tonalConfigureOn(JDialog dialog) {
+        dialog.setIconImage(RadianceLogo.getLogoImage(dialog,
+            RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
+                .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                .getBaseContainerTokens()));
+        RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
+            () -> dialog.setIconImage(RadianceLogo.getLogoImage(dialog,
+                RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
+                    .getBackgroundExtendedContainerTokens(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                    .getBaseContainerTokens()))));
+    }
+
+    public static void tonalConfigureOn(JInternalFrame frame) {
+        frame.setFrameIcon(RadianceLogo.getLogoIcon(
+            RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
+                .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                .getBaseContainerTokens()));
+        RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
+            () -> frame.setFrameIcon(RadianceLogo.getLogoIcon(
+                RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
+                    .getBackgroundExtendedContainerTokens(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                    .getBaseContainerTokens()))));
     }
 }

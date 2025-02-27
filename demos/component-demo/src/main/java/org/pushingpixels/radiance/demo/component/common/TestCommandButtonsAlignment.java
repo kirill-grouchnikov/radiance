@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
@@ -56,11 +55,7 @@ public class TestCommandButtonsAlignment extends JFrame {
 
     private TestCommandButtonsAlignment() {
         super("Alignment");
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         this.setLayout(new BorderLayout());
 

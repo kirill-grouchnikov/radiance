@@ -38,7 +38,6 @@ import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupM
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
@@ -53,11 +52,7 @@ public class MultiLevelMenu extends JFrame {
 
     public MultiLevelMenu() {
         super("Multi level menu");
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         List<Command> menuCommands1 = new ArrayList<>();
         List<Command> menuCommands2 = new ArrayList<>();

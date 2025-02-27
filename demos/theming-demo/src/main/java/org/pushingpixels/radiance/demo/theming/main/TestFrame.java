@@ -106,7 +106,7 @@ public class TestFrame extends JFrame {
             JDialog.setDefaultLookAndFeelDecorated(true);
 
             TestFrame c = new TestFrame();
-            RadianceLogo.configureOn(c);
+            RadianceLogo.tonalConfigureOn(c);
 
             c.addComponentListener(new ComponentAdapter() {
                 @Override

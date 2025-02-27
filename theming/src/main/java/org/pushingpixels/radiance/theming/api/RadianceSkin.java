@@ -515,14 +515,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @return The main active color scheme for this skin.
      * @see #getColorScheme(Component, ComponentState)
      */
-    public final RadianceColorScheme getActiveColorScheme(
-            RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-            return this.colorSchemeBundleMap.get(decorationAreaType).getActiveColorScheme();
-        }
-        return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).getActiveColorScheme();
-    }
-
     public final ContainerColorTokens getActiveContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {

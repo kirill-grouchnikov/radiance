@@ -31,12 +31,15 @@ package org.pushingpixels.radiance.demo.component.common;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
-import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
-import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Address_book_new;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Text_x_generic;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
@@ -53,11 +56,7 @@ public class SecondaryTileMenu extends JFrame {
 
     public SecondaryTileMenu() {
         super("Multi level menu");
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         currLocale = Locale.getDefault();
         resourceBundle = ResourceBundle

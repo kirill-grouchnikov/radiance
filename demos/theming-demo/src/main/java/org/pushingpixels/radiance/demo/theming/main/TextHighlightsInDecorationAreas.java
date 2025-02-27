@@ -60,7 +60,7 @@ public class TextHighlightsInDecorationAreas {
             RadianceThemingCortex.GlobalScope.setSkin(new MagellanSkin());
 
             JFrame frame = new JFrame("Text highlights");
-            RadianceLogo.configureOn(frame);
+            RadianceLogo.tonalConfigureOn(frame);
 
             frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 

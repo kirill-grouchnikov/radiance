@@ -42,7 +42,6 @@ import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Address_bo
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Text_x_generic;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.X_office_document;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
@@ -50,8 +49,8 @@ import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 import javax.swing.*;
 import java.awt.*;
 import java.text.MessageFormat;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 public class TestPopupCommandButtons extends JFrame {
     private enum PopupKind {
@@ -73,11 +72,7 @@ public class TestPopupCommandButtons extends JFrame {
 
     private TestPopupCommandButtons() {
         super("Command button test");
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         this.setLayout(new BorderLayout());
 

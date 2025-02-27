@@ -39,7 +39,6 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandStripPr
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
@@ -54,11 +53,7 @@ public class TestButtonStripMultiple extends JFrame {
     public TestButtonStripMultiple() {
         this.setLayout(new BorderLayout());
 
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         JPanel mainPanel = new JPanel(new FlowLayout());
 

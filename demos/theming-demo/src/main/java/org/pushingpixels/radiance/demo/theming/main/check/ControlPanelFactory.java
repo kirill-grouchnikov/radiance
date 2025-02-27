@@ -499,10 +499,7 @@ public class ControlPanelFactory {
         launchFrameDialogWithIcon.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             SimpleDialog sd = new SimpleDialog();
             if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
-                sd.setIconImage(RadianceLogo.getLogoImage(sd,
-                        RadianceThemingCortex.ComponentScope.getCurrentSkin(sd.getRootPane())
-                                .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+                RadianceLogo.tonalConfigureOn(sd);
             }
             sd.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
             sd.setModal(false);

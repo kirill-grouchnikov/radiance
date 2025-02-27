@@ -30,11 +30,8 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -86,10 +83,7 @@ public class SimpleDialog extends JDialog {
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
             SimpleDialog sd = new SimpleDialog();
             if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
-                sd.setIconImage(RadianceLogo.getLogoImage(sd,
-                        RadianceThemingCortex.ComponentScope.getCurrentSkin(sd.getRootPane())
-                                .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+                RadianceLogo.tonalConfigureOn(sd);
             }
             sd.setModal(false);
             sd.pack();

@@ -7,9 +7,7 @@ import org.pushingpixels.radiance.component.api.common.AbstractFileViewPanel;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.demo.component.icon.ImageWrapperRadianceIcon;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -28,11 +26,7 @@ public class Viewer extends JFrame {
 
     private Viewer() {
         super("Image Viewer");
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
 
         this.bar = new BreadcrumbFileSelector();
 

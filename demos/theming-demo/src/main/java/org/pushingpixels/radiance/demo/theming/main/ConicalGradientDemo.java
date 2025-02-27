@@ -29,9 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.theming.main;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 import org.pushingpixels.radiance.theming.internal.utils.ConicalGradientPaint;
 
@@ -287,11 +285,7 @@ public class ConicalGradientDemo extends javax.swing.JComponent
                 frame.setVisible(true);
                 frame.setLocationRelativeTo(null);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.setIconImage(RadianceLogo.getLogoImage(frame,
-                        RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                                .getColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                                        ComponentState.ENABLED)));
+                RadianceLogo.tonalConfigureOn(frame);
             }
         });
     }
