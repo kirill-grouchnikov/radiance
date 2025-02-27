@@ -139,6 +139,15 @@ public class AutumnSkin extends RadianceSkin {
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
 					.build())),
 			ComponentState.SELECTED);
+		autumnDefaultBundle.registerActiveContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFFCEF9F),
+				/* isFidelity */ true,
+				/* isDark */ false,
+				/* contrastLevel */ 0.2,
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
+			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
@@ -174,6 +183,15 @@ public class AutumnSkin extends RadianceSkin {
 			/* schemeColorResolver */ autumnColorResolver);
 		RadianceColorSchemeBundle autumnControlPaneBundle =
 			new RadianceColorSchemeBundle(autumnControlPaneColorScheme);
+		autumnControlPaneBundle.registerActiveContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFFCEF9F),
+				/* isFidelity */ true,
+				/* isDark */ false,
+				/* contrastLevel */ 0.2,
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
+			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
 			ColorSchemeUtils.getExtendedContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFED8B2),
