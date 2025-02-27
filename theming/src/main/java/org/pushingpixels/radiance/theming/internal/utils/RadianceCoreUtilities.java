@@ -1866,12 +1866,12 @@ public class RadianceCoreUtilities {
     public static Color getTextSelectionBackground(Component component, ComponentState componentState) {
         return RadianceColorSchemeUtilities.getContainerTokens(component,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT, componentState,
-            RadianceThemingSlices.ContainerType.TONAL).getContainerSurfaceLow();
+            RadianceThemingSlices.ContainerType.MUTED).getContainerSurface();
     }
 
     public static Color getTextSelectionForeground(Component component, ComponentState componentState) {
         return RadianceColorSchemeUtilities.getContainerTokens(component,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT, componentState,
-            RadianceThemingSlices.ContainerType.TONAL).getOnContainer();
+            RadianceThemingSlices.ContainerType.MUTED).getOnContainer();
     }
 }
