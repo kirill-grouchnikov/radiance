@@ -50,16 +50,6 @@ import java.awt.image.BufferedImage;
  * @author Kirill Grouchnikov
  */
 public final class RadianceImageCreator {
-    private static AlphaComposite getAlphaComposite(float alpha) {
-        // Fix for "alpha value out of range"
-        float finalAlpha = alpha;
-        if (finalAlpha < 0.0f)
-            finalAlpha = 0.0f;
-        else if (finalAlpha > 1.0f)
-            finalAlpha = 1.0f;
-        return AlphaComposite.getInstance(AlphaComposite.SRC_OVER, finalAlpha);
-    }
-
     /**
      * Retrieves a single crayon of the specified color and dimensions for the crayon panel in color
      * chooser.

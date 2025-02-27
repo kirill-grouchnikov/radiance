@@ -297,7 +297,6 @@ public class RadianceTreeUI extends BasicTreeUI {
 						// highlight beneath the entire row
 						HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
 							rowRectangle, 0.8f, null, colorTokens);
-						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, g));
 					}
 				} else {
 					for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
@@ -394,9 +393,10 @@ public class RadianceTreeUI extends BasicTreeUI {
 			Rectangle bounds, TreePath path, int row, boolean isExpanded, boolean hasBeenExpanded,
 			boolean isLeaf) {
 
-		float alpha = RadianceColorSchemeUtilities.getContainerTokens(this.tree,
-			this.tree.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
-			RadianceThemingSlices.ContainerType.MUTED).getContainerOutlineDisabledAlpha();
+		float alpha = this.tree.isEnabled() ? 1.0f
+			: RadianceColorSchemeUtilities.getContainerTokens(this.tree,
+				ComponentState.DISABLED_UNSELECTED,
+				RadianceThemingSlices.ContainerType.MUTED).getContainerOutlineDisabledAlpha();
 
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
