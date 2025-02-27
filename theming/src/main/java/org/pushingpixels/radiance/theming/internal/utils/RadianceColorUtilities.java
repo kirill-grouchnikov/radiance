@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -308,13 +307,9 @@ public class RadianceColorUtilities {
     /**
      * Returns the foreground color of the specified color scheme.
      *
-     * @param scheme Color scheme.
-     * @return Color scheme foreground color.
+     * @param colorTokens Color tokens.
+     * @return Color tokens foreground color.
      */
-    public static ColorUIResource getForegroundColor(RadianceColorScheme scheme) {
-        return new ColorUIResource(scheme.getForegroundColor());
-    }
-
     public static ColorUIResource getForegroundColor(ContainerColorTokens colorTokens) {
         return new ColorUIResource(colorTokens.getOnContainer());
     }
@@ -426,52 +421,6 @@ public class RadianceColorUtilities {
      * @param modelStateInfo Component model state info.
      * @return The foreground text color of the specified component.
      */
-    public static Color getForegroundColor(Component component,
-        StateTransitionTracker.ModelStateInfo modelStateInfo) {
-        ComponentState currState = modelStateInfo.getCurrModelState();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-            modelStateInfo.getStateContributionMap();
-
-        // special case for enabled buttons with no background -
-        // always use the color scheme for the default state.
-        if (component instanceof AbstractButton) {
-            AbstractButton button = (AbstractButton) component;
-            if (RadianceCoreUtilities.isComponentNeverPainted(button)
-                || !button.isContentAreaFilled()
-                || (button instanceof JRadioButton)
-                || (button instanceof JCheckBox)) {
-                if (!currState.isDisabled()) {
-                    currState = ComponentState.ENABLED;
-                    activeStates = null;
-                } else {
-                    currState = ComponentState.DISABLED_UNSELECTED;
-                    activeStates = null;
-                }
-            }
-        }
-
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(component, currState);
-        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            return colorScheme.getForegroundColor();
-        }
-
-        float aggrRed = 0;
-        float aggrGreen = 0;
-        float aggrBlue = 0;
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-            activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            float alpha = activeEntry.getValue().getContribution();
-            RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                component, activeState);
-            Color activeForeground = activeColorScheme.getForegroundColor();
-            aggrRed += alpha * activeForeground.getRed();
-            aggrGreen += alpha * activeForeground.getGreen();
-            aggrBlue += alpha * activeForeground.getBlue();
-        }
-        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
-    }
-
     public static Color getTonalForegroundColor(Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
@@ -658,48 +607,6 @@ public class RadianceColorUtilities {
      * @param modelStateInfo Model state info for the component.
      * @return The foreground text color of the specified menu component.
      */
-    public static Color getMenuComponentForegroundColor(JMenuItem menuComponent,
-        StateTransitionTracker.ModelStateInfo modelStateInfo) {
-        ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-            modelStateInfo.getStateNoSelectionContributionMap();
-
-        RadianceThemingSlices.ColorSchemeAssociationKind currAssocKind =
-            RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
-        // use HIGHLIGHT on active menu items
-        if (currState.isActive()) {
-            currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
-        }
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-            menuComponent, currAssocKind, currState);
-        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            return colorScheme.getForegroundColor();
-        }
-
-        float aggrRed = 0;
-        float aggrGreen = 0;
-        float aggrBlue = 0;
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-            activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            float alpha = activeEntry.getValue().getContribution();
-
-            RadianceThemingSlices.ColorSchemeAssociationKind assocKind =
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
-            // use HIGHLIGHT on active menu items
-            if (activeState.isActive()) {
-                assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
-            }
-            RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                menuComponent, assocKind, activeState);
-            Color activeForeground = activeColorScheme.getForegroundColor();
-            aggrRed += alpha * activeForeground.getRed();
-            aggrGreen += alpha * activeForeground.getGreen();
-            aggrBlue += alpha * activeForeground.getBlue();
-        }
-        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
-    }
-
     public static Color getTonalMenuComponentForegroundColor(JMenuItem menuComponent,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
@@ -762,76 +669,6 @@ public class RadianceColorUtilities {
      * @param component Component.
      * @return The background fill color of the specified component.
      */
-    public static Color getBackgroundFillColor(Component component) {
-        Color backgr = component.getBackground();
-        boolean isBackgroundUiResource = backgr instanceof UIResource;
-
-        // special case - sliders, check boxes and radio buttons. For this,
-        // switch to component parent
-        if ((component instanceof JCheckBox)
-            || (component instanceof JRadioButton)
-            || (component instanceof JSlider)) {
-            component = component.getParent();
-        } else {
-            // Fix for 325 - respect the opacity setting of the text
-            // component
-            if (component instanceof JTextComponent && isBackgroundUiResource &&
-                (!component.isOpaque() || !((JTextComponent) component).isEditable())) {
-                component = component.getParent();
-            }
-        }
-
-        // do not change the background color on cell renderers
-        if (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null) {
-            return backgr;
-        }
-
-        if (!isBackgroundUiResource) {
-            // special case for issue 386 - if the colorization
-            // is 1.0, return the component background
-            if ((RadianceCoreUtilities.getColorizationFactor(component) == 1.0f)
-                && component.isEnabled()) {
-                return backgr;
-            }
-
-            RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(component,
-                component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED);
-            backgr = scheme.getBackgroundFillColor();
-        } else {
-            ComponentState state = component.isEnabled() ? ComponentState.ENABLED
-                : ComponentState.DISABLED_UNSELECTED;
-            JTextComponent matchingTextComp = RadianceCoreUtilities
-                .getTextComponentForTransitions(component);
-            if (matchingTextComp != null) {
-                Component original = component;
-                component = matchingTextComp;
-                boolean isEditable = matchingTextComp.isEditable();
-                if (!isEditable) {
-                    Component parent = component.getParent();
-                    if (original == parent) {
-                        return getBackgroundFillColor(original.getParent());
-                    }
-                    return getBackgroundFillColor(parent);
-                }
-            }
-            // menu items always use the same background color so that the
-            // menu looks continuous
-            if (component instanceof JMenuItem) {
-                state = ComponentState.ENABLED;
-            }
-            backgr = RadianceColorUtilities.getDefaultBackgroundColor(component, state);
-
-            float alpha = RadianceColorSchemeUtilities.getAlpha(component, state);
-            if (alpha < 1.0f) {
-                Color defaultColor = RadianceColorUtilities
-                    .getDefaultBackgroundColor(component, ComponentState.ENABLED);
-                backgr = RadianceColorUtilities.getInterpolatedColor(
-                    backgr, defaultColor, 1.0f - (1.0f - alpha) / 2.0f);
-            }
-        }
-        return backgr;
-    }
-
     public static Color getTonalBackgroundFillColor(Component component,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         Color backgr = component.getBackground();
@@ -904,17 +741,9 @@ public class RadianceColorUtilities {
         return backgr;
     }
 
-    public static Color getBackgroundFillColorScrollBar(JScrollBar scrollbar) {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(scrollbar);
-        RadianceColorScheme scheme =
-            skin.getBackgroundColorScheme(DecorationPainterUtils.getDecorationType(scrollbar));
-        return scheme.getAccentedBackgroundFillColor();
-    }
-
     public static Color getBackgroundTonalFillColorScrollBar(JScrollBar scrollbar) {
         ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
-            scrollbar,
-            scrollbar.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
+            scrollbar, scrollbar.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
             RadianceThemingSlices.ContainerType.NEUTRAL);
         return colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
             : colorTokens.getContainerSurface();

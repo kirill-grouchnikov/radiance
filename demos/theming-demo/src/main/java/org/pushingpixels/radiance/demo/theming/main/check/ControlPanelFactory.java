@@ -38,10 +38,7 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.help_black_24dp;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.info_black_24dp;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.folder_open;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.warning_black_24dp;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.*;
 import org.pushingpixels.radiance.theming.api.icon.RadianceDefaultIconPack;
 import org.pushingpixels.radiance.theming.api.painter.preview.DefaultPreviewPainter;
@@ -583,15 +580,14 @@ public class ControlPanelFactory {
                     dialog.add(instructional, BorderLayout.NORTH);
 
                     // create a looping animation to change the label foreground to draw some attention.
+                    RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(myContentPane);
                     SwingComponentTimeline.componentBuilder(instructional)
-                            .addPropertyToInterpolate("foreground",
-                                    () -> RadianceThemingCortex.ComponentScope.getCurrentSkin(myContentPane)
-                                            .getColorScheme(myContentPane, ComponentState.ENABLED).getForegroundColor(),
-                                    () -> RadianceThemingCortex.GlobalScope.getCurrentSkin()
-                                            .getOptionPaneIconColorScheme(JOptionPane.WARNING_MESSAGE)
-                                            .getMidColor())
-                            .setDuration(1000)
-                            .playLoop(RepeatBehavior.REVERSE);
+                        .addPropertyToInterpolate("foreground",
+                            () -> skin.getContainerTokens(myContentPane, ComponentState.ENABLED,
+                                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer(),
+                            () -> skin.getOptionPaneIconColorTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
+                        .setDuration(1000)
+                        .playLoop(RepeatBehavior.REVERSE);
 
                     // connect "Esc" key with disposing the dialog
                     String actionName = "VK_ESCAPE";
@@ -628,15 +624,14 @@ public class ControlPanelFactory {
                     dialog.add(instructional, BorderLayout.NORTH);
 
                     // create a looping animation to change the label foreground to draw some attention.
+                    RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(myContentPane);
                     SwingComponentTimeline.componentBuilder(instructional)
-                            .addPropertyToInterpolate("foreground",
-                                    () -> RadianceThemingCortex.ComponentScope.getCurrentSkin(myContentPane)
-                                            .getColorScheme(myContentPane, ComponentState.ENABLED).getForegroundColor(),
-                                    () -> RadianceThemingCortex.GlobalScope.getCurrentSkin()
-                                            .getOptionPaneIconColorScheme(JOptionPane.WARNING_MESSAGE)
-                                            .getMidColor())
-                            .setDuration(1000)
-                            .playLoop(RepeatBehavior.REVERSE);
+                        .addPropertyToInterpolate("foreground",
+                            () -> skin.getContainerTokens(myContentPane, ComponentState.ENABLED,
+                                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer(),
+                            () -> skin.getOptionPaneIconColorTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
+                        .setDuration(1000)
+                        .playLoop(RepeatBehavior.REVERSE);
 
                     // connect "Esc" key with "System.exit(0)"
                     String actionName = "VK_ESCAPE";

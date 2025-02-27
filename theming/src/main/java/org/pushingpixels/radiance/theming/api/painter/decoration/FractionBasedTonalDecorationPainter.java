@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -117,13 +116,7 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 		}
 	}
 
-	@Override
-	public void paintDecorationArea(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-		RadianceColorScheme colorScheme) {
-	}
-
-	@Override
+    @Override
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
 		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
 		ExtendedContainerColorTokens colorTokens) {

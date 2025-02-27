@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
@@ -163,11 +162,6 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
         Graphics2D temp = (Graphics2D) graphics.create();
         this.tileArea(temp, comp, tileContainerTokens, offset.x, offset.y, width, height);
         temp.dispose();
-    }
-
-    @Override
-    public void paintDecorationArea(Graphics2D graphics, Component comp, RadianceThemingSlices.DecorationAreaType
-            decorationAreaType, Shape contour, RadianceColorScheme colorScheme) {
     }
 
     @Override

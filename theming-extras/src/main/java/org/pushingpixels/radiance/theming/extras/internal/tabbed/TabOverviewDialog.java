@@ -34,7 +34,8 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.extras.api.RadianceExtrasSlices.TabOverviewKind;
 import org.pushingpixels.radiance.theming.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.radiance.theming.extras.internal.contrib.blogofbug.swing.components.JCarosel;
@@ -501,13 +502,13 @@ public class TabOverviewDialog extends JDialog {
             this.caroselMenu.setMenuScrollColor(UIManager.getColor("Panel.background"));
             this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
 
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
+            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                this.caroselMenu, ComponentState.DEFAULT, RadianceThemingSlices.ContainerType.MUTED);
             this.caroselMenu.setUpDownIcons(
-                    BladeArrowIconUtils.getArrowIcon(caroselMenu,
-                            SwingConstants.NORTH, colorScheme, 1.0f),
-                    BladeArrowIconUtils.getArrowIcon(caroselMenu,
-                            SwingConstants.SOUTH, colorScheme, 1.0f));
+                BladeArrowIconUtils.getArrowIcon(caroselMenu,
+                        SwingConstants.NORTH, tokens, 1.0f),
+                BladeArrowIconUtils.getArrowIcon(caroselMenu,
+                        SwingConstants.SOUTH, tokens, 1.0f));
 
             this.setLayout(new BorderLayout());
             this.add(caroselMenu, BorderLayout.CENTER);
@@ -534,13 +535,13 @@ public class TabOverviewDialog extends JDialog {
                 this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
                 this.caroselMenu.setBackground(UIManager.getColor("Panel.background"));
 
-                RadianceColorScheme colorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
+                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    this.caroselMenu, ComponentState.DEFAULT, RadianceThemingSlices.ContainerType.MUTED);
                 this.caroselMenu.setUpDownIcons(
-                        BladeArrowIconUtils.getArrowIcon(this.caroselMenu,
-                                SwingConstants.NORTH, colorScheme, 1.0f),
-                        BladeArrowIconUtils.getArrowIcon(this.caroselMenu,
-                                SwingConstants.SOUTH, colorScheme, 1.0f));
+                    BladeArrowIconUtils.getArrowIcon(this.caroselMenu,
+                        SwingConstants.NORTH, tokens, 1.0f),
+                    BladeArrowIconUtils.getArrowIcon(this.caroselMenu,
+                        SwingConstants.SOUTH, tokens, 1.0f));
             }
         }
     }

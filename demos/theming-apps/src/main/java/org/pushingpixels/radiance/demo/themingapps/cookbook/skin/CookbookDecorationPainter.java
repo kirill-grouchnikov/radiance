@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
@@ -186,11 +185,6 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
                 graphics.translate(lightImageScaledWidth, 0);
             }
         }
-    }
-
-    @Override
-    public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
-            decorationAreaType, Shape contour, RadianceColorScheme colorScheme) {
     }
 
     @Override

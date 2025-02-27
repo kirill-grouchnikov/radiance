@@ -39,25 +39,6 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 
 public class BladeArrowIconUtils {
-    public static void drawArrow(Graphics2D g, int fontSize, Dimension boundingBox,
-        int direction, RadianceColorScheme colorScheme, float alpha) {
-        float origWidth = RadianceSizeUtils.getArrowIconWidth(fontSize);
-        float origHeight = RadianceSizeUtils.getArrowIconHeight(fontSize);
-        float width = origWidth;
-        float height = origHeight;
-        if (direction == SwingConstants.CENTER)
-            height *= 2;
-        float strokeWidth = RadianceSizeUtils.getArrowStrokeWidth(fontSize);
-
-        int dx = (int) (boundingBox.width - width) / 2;
-        int dy = (int) (boundingBox.height - height) / 2;
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.translate(dx, dy);
-        drawArrow(graphics, width, height, strokeWidth, direction, colorScheme, alpha);
-        graphics.dispose();
-    }
-
     public static void drawArrow(Graphics2D g, float width, float height,
         float strokeWidth, int direction, RadianceColorScheme scheme, float alpha) {
         if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
@@ -210,7 +191,7 @@ public class BladeArrowIconUtils {
     }
 
     public static Icon getArrowIcon(JComponent component, int direction,
-            RadianceColorScheme scheme, float alpha) {
+        ContainerColorTokens tokens, float alpha) {
         int fontSize = RadianceSizeUtils.getComponentFontSize(component);
         Dimension iconSize = BladeArrowIconUtils.getArrowIconDimension(fontSize, direction);
         return new Icon() {
@@ -228,7 +209,7 @@ public class BladeArrowIconUtils {
             public void paintIcon(Component c, Graphics g, int x, int y) {
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
-                BladeArrowIconUtils.drawArrow(graphics, fontSize, iconSize, direction, scheme, alpha);
+                BladeArrowIconUtils.drawArrow(graphics, fontSize, iconSize, direction, tokens, alpha);
                 graphics.dispose();
             }
         };

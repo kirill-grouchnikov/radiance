@@ -750,7 +750,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 Color tabColor = compForBackground.getBackground();
                 if (tabColor instanceof UIResource) {
                     // special handling of tabs placed in decoration areas
-                    tabColor = RadianceColorUtilities.getBackgroundFillColor(compForBackground);
+                    tabColor = RadianceColorUtilities.getTonalBackgroundFillColor(
+                        compForBackground, RadianceThemingSlices.ContainerType.NEUTRAL);
                 }
 
                 if (tabPlacement == BOTTOM) {

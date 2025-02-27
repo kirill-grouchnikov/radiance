@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.painter;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -213,36 +212,6 @@ public class DecorationPainterUtils {
 
         Graphics2D g2d = (Graphics2D) g.create();
         painter.paintDecorationArea(g2d, c, decorationType, c.getWidth(), c.getHeight(), skin);
-        g2d.dispose();
-    }
-
-    // TODO: TONAL remove
-    public static void paintDecorationArea(Graphics g, Component c,
-        Shape contour, RadianceThemingSlices.DecorationAreaType decorationType,
-        RadianceColorScheme colorScheme, boolean force) {
-        // System.out.println("Painting " + c.getClass().getSimpleName());
-        boolean isInCellRenderer = (SwingUtilities.getAncestorOfClass(CellRendererPane.class,
-            c) != null);
-        boolean isPreviewMode = false;
-        if (c instanceof JComponent) {
-            isPreviewMode = (Boolean.TRUE
-                .equals(((JComponent) c).getClientProperty(WidgetUtilities.PREVIEW_MODE)));
-        }
-
-        if (!force && !isPreviewMode && !c.isShowing() && !isInCellRenderer) {
-            return;
-        }
-
-        if ((c.getHeight() == 0) || (c.getWidth() == 0)) {
-            return;
-        }
-
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-        RadianceDecorationPainter painter = skin.getDecorationPainter();
-
-        Graphics2D g2d = (Graphics2D) g.create();
-        painter.paintDecorationArea(g2d, c, decorationType, contour, colorScheme);
-
         g2d.dispose();
     }
 

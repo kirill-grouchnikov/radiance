@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
@@ -65,12 +64,8 @@ public interface RadianceDecorationPainter extends RadianceTrait {
      * @param comp               Component.
      * @param decorationAreaType Decoration area type. Must not be <code>null</code>.
      * @param contour            Contour to fill.
-     * @param colorScheme        Color scheme for painting the decoration area.
+     * @param colorTokens        Color tokens for painting the decoration area.
      */
-    void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-        RadianceColorScheme colorScheme);
-
     void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
         ExtendedContainerColorTokens colorTokens);

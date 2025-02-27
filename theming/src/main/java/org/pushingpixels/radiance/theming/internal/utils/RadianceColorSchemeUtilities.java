@@ -33,10 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.BottleGreenColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SunGlareColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SunfireRedColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -422,23 +419,6 @@ public class RadianceColorSchemeUtilities {
     public static float getAlpha(Component component, ComponentState componentState) {
         return RadianceCoreUtilities.getSkin(component).getAlpha(component, componentState);
     }
-
-    /**
-     * Used as reference in attention-drawing animations. This field is <b>for internal use
-     * only</b>.
-     */
-    public final static RadianceColorScheme YELLOW = new SunGlareColorScheme();
-
-    /**
-     * Used as reference in attention-drawing animations. This field is <b>for internal use
-     * only</b>.
-     */
-    public final static RadianceColorScheme ORANGE = new SunfireRedColorScheme();
-
-    /**
-     * Used as reference to the green color scheme. This field is <b>for internal use only</b>.
-     */
-    public final static RadianceColorScheme GREEN = new BottleGreenColorScheme();
 
     /**
      * Returns a shifted color scheme. This method is for internal use only.

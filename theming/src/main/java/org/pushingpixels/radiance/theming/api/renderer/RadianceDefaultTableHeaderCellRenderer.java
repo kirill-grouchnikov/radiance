@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.renderer;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
@@ -154,18 +153,20 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                 setHorizontalTextPosition(JLabel.LEADING);
                 java.util.List<? extends RowSorter.SortKey> sortKeys = rowSorter.getSortKeys();
                 Icon sortIcon = null;
-                final RadianceColorScheme scheme;
+                final ContainerColorTokens tokens;
                 if (tableHeaderUI instanceof RadianceTableHeaderUI) {
                     RadianceTableHeaderUI ui = (RadianceTableHeaderUI) tableHeaderUI;
                     ComponentState state = ui.getColumnState(column);
-                    RadianceThemingSlices.ColorSchemeAssociationKind colorSchemeAssociationKind =
-                            (state == ComponentState.ENABLED) ? RadianceThemingSlices.ColorSchemeAssociationKind.MARK
-                                    : RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_MARK;
-                    scheme = RadianceColorSchemeUtilities.getColorScheme(
-                            tableHeader, colorSchemeAssociationKind, state);
+                    RadianceThemingSlices.ContainerColorTokensAssociationKind colorSchemeAssociationKind =
+                        (state == ComponentState.ENABLED)
+                            ? RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT
+                            : RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
+                    tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                        tableHeader, colorSchemeAssociationKind, state,
+                        RadianceThemingSlices.ContainerType.MUTED);
                 } else {
-                    scheme = RadianceColorSchemeUtilities.getColorScheme(
-                            tableHeader, ComponentState.ENABLED);
+                    tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                        tableHeader, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
                 }
 
                 if (!sortKeys.isEmpty() &&
@@ -173,11 +174,11 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                     switch (sortKeys.get(0).getSortOrder()) {
                         case ASCENDING:
                             sortIcon = BladeArrowIconUtils.getArrowIcon(
-                                    this, SwingConstants.NORTH, scheme, 1.0f);
+                                    this, SwingConstants.NORTH, tokens, 1.0f);
                             break;
                         case DESCENDING:
                             sortIcon = BladeArrowIconUtils.getArrowIcon(
-                                    this, SwingConstants.SOUTH, scheme, 1.0f);
+                                    this, SwingConstants.SOUTH, tokens, 1.0f);
                             break;
                         case UNSORTED:
                             // No sort, the icon remains null
@@ -188,15 +189,6 @@ public class RadianceDefaultTableHeaderCellRenderer extends
         }
 
         return this;
-    }
-
-    private RadianceColorScheme getColorSchemeForState(
-        JTableHeader tableHeader, ComponentState activeState) {
-        RadianceColorScheme scheme = (activeState == ComponentState.ENABLED)
-            ? RadianceColorSchemeUtilities.getColorScheme(tableHeader, activeState)
-            : RadianceColorSchemeUtilities.getColorScheme(tableHeader,
-            RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, activeState);
-        return scheme;
     }
 
     private ContainerColorTokens getTokensForState(

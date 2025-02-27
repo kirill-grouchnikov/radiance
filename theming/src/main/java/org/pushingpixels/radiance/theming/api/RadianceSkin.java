@@ -31,8 +31,6 @@ package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SteelBlueColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -220,8 +218,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     // TODO: TONAL - remove
     private Map<RadianceThemingSlices.ColorOverlayType, Map<RadianceThemingSlices.DecorationAreaType, Map<ComponentState, Color>>> colorOverlayMap;
 
-    private Map<Integer, RadianceColorScheme> optionPaneIconColorSchemeMap;
-
     private Map<Integer, ContainerColorTokens> optionPaneIconColorTokenMap;
 
     /**
@@ -238,14 +234,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         this.decoratedAreaSet = new HashSet<>();
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
-
-        this.optionPaneIconColorSchemeMap = new HashMap<>();
-        RadianceColorScheme sunset = new SunsetColorScheme();
-        RadianceColorScheme steelBlue = new SteelBlueColorScheme();
-        this.optionPaneIconColorSchemeMap.put(JOptionPane.ERROR_MESSAGE, sunset);
-        this.optionPaneIconColorSchemeMap.put(JOptionPane.WARNING_MESSAGE, sunset);
-        this.optionPaneIconColorSchemeMap.put(JOptionPane.INFORMATION_MESSAGE, steelBlue);
-        this.optionPaneIconColorSchemeMap.put(JOptionPane.QUESTION_MESSAGE, steelBlue);
 
         this.optionPaneIconColorTokenMap = new HashMap<>();
 
@@ -485,31 +473,10 @@ public abstract class RadianceSkin implements RadianceTrait {
      *
      * @param bundle                The color scheme bundle to use on controls in decoration
      *                              areas.
-     * @param backgroundColorScheme The color scheme to use for background of controls in
+     * @param backgroundTokens The color tokens to use for background of controls in
      *                              decoration areas.
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      */
-    public void registerDecorationAreaSchemeBundle(
-            RadianceColorSchemeBundle bundle,
-            RadianceColorScheme backgroundColorScheme,
-            RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        if (bundle == null) {
-            return;
-        }
-
-        if (backgroundColorScheme == null) {
-            throw new IllegalArgumentException(
-                    "Cannot pass null background color scheme");
-        }
-
-        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
-            this.decoratedAreaSet.add(areaType);
-            this.colorSchemeBundleMap.put(areaType, bundle);
-            this.backgroundColorSchemeMap.put(areaType, backgroundColorScheme);
-        }
-        this.statesWithAlpha.addAll(bundle.getStatesWithAlpha());
-    }
-
     public void registerDecorationAreaSchemeBundle(
         RadianceColorSchemeBundle2 bundle,
         ExtendedContainerColorTokens backgroundTokens,
@@ -538,12 +505,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param areaTypes Enumerates the area types that are affected by the parameters.
      */
     public void registerDecorationAreaSchemeBundle(
-            RadianceColorSchemeBundle bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        this.registerDecorationAreaSchemeBundle(bundle, bundle.getEnabledColorScheme(),
-                areaTypes);
-    }
-
-    public void registerDecorationAreaSchemeBundle(
         RadianceColorSchemeBundle2 bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
         this.registerDecorationAreaSchemeBundle(bundle,
             bundle.getMainColorScheme().getExtendedNeutralContainerTokens(),
@@ -554,24 +515,12 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Registers the specified background color scheme to be used on controls in
      * decoration areas.
      *
-     * @param backgroundColorScheme The color scheme to use for background of controls in
+     * @param backgroundContainerTokens The color tokens to use for background of controls in
      *                              decoration areas.
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      *                              Each decoration area type will be painted by
      *                              {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
      */
-    public void registerAsDecorationArea(RadianceColorScheme backgroundColorScheme,
-            RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        if (backgroundColorScheme == null) {
-            throw new IllegalArgumentException(
-                    "Cannot pass null background color scheme");
-        }
-        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
-            this.decoratedAreaSet.add(areaType);
-            this.backgroundColorSchemeMap.put(areaType, backgroundColorScheme);
-        }
-    }
-
     public void registerAsDecorationArea(ExtendedContainerColorTokens backgroundContainerTokens,
             RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (backgroundContainerTokens == null) {
@@ -582,36 +531,6 @@ public abstract class RadianceSkin implements RadianceTrait {
             this.decoratedAreaSet.add(areaType);
             this.tonalBackgroundTokensMap.put(areaType, backgroundContainerTokens);
         }
-    }
-
-    /**
-     * Registers the specified background color scheme and a color scheme bundle overlay to be used
-     * on controls in decoration areas.
-     *
-     * @param backgroundColorScheme     The color scheme to use for background of controls in
-     *                                  decoration areas.
-     * @param noneTransformationOverlay Overlay to be applied to the {@link RadianceColorSchemeBundle}
-     *                                  registered on the {@link RadianceThemingSlices.DecorationAreaType#NONE}, with the
-     *                                  resulting color scheme bundle to be used on #areaTypes.
-     * @param areaTypes                 Enumerates the area types that are affected by the
-     *                                  parameters. Each decoration area type will be painted by
-     *                                  {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
-     */
-    public void registerAsDecorationArea(RadianceColorScheme backgroundColorScheme,
-            RadianceColorSchemeBundle.Overlay noneTransformationOverlay,
-            RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        RadianceColorSchemeBundle defaultBundle =
-                this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
-        if (defaultBundle == null) {
-            throw new IllegalStateException("Cannot apply overlay without a registered NONE bundle");
-        }
-
-        // Apply a dummy "transformation" - effectively makes a deep copy of the default bundle
-        RadianceColorSchemeBundle noneCopy = defaultBundle.transform(scheme -> scheme);
-        // Apply the overlay
-        noneTransformationOverlay.overlay(noneCopy);
-        // And register the overlay transform on the requested decoration areas
-        this.registerDecorationAreaSchemeBundle(noneCopy, backgroundColorScheme, areaTypes);
     }
 
     /**
@@ -1028,48 +947,6 @@ public abstract class RadianceSkin implements RadianceTrait {
             return null;
         }
         return forOverlay.get(decorationAreaType).get(componentState);
-    }
-
-    public void setOptionPaneIconColorScheme(RadianceColorScheme colorScheme,
-        int... optionPaneMessageTypes) {
-        if (colorScheme == null) {
-            throw new IllegalArgumentException("Cannot pass null color scheme");
-        }
-        for (int optionPaneMessageType : optionPaneMessageTypes) {
-            if ((optionPaneMessageType != JOptionPane.ERROR_MESSAGE) &&
-                (optionPaneMessageType != JOptionPane.WARNING_MESSAGE) &&
-                (optionPaneMessageType != JOptionPane.INFORMATION_MESSAGE) &&
-                (optionPaneMessageType != JOptionPane.QUESTION_MESSAGE)) {
-                throw new IllegalArgumentException("Unsupported message type " +
-                    optionPaneMessageType);
-            }
-        }
-        for (int optionPaneMessageType : optionPaneMessageTypes) {
-            this.optionPaneIconColorSchemeMap.put(optionPaneMessageType, colorScheme);
-        }
-    }
-
-    public void setOptionPaneIconColorScheme(ContainerColorTokens colorTokens,
-        int... optionPaneMessageTypes) {
-        if (colorTokens == null) {
-            throw new IllegalArgumentException("Cannot pass null color tokens");
-        }
-        for (int optionPaneMessageType : optionPaneMessageTypes) {
-            if ((optionPaneMessageType != JOptionPane.ERROR_MESSAGE) &&
-                (optionPaneMessageType != JOptionPane.WARNING_MESSAGE) &&
-                (optionPaneMessageType != JOptionPane.INFORMATION_MESSAGE) &&
-                (optionPaneMessageType != JOptionPane.QUESTION_MESSAGE)) {
-                throw new IllegalArgumentException("Unsupported message type " +
-                    optionPaneMessageType);
-            }
-        }
-        for (int optionPaneMessageType : optionPaneMessageTypes) {
-            this.optionPaneIconColorTokenMap.put(optionPaneMessageType, colorTokens);
-        }
-    }
-
-    public RadianceColorScheme getOptionPaneIconColorScheme(int optionPaneMessageType) {
-        return this.optionPaneIconColorSchemeMap.get(optionPaneMessageType);
     }
 
     public ContainerColorTokens getOptionPaneIconColorTokens(int optionPaneMessageType) {

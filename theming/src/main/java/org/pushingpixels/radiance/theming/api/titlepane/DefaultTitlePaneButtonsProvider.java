@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.titlepane;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -55,12 +54,6 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         }
 
         @Override
-        public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
-            BladeIconUtils.drawCloseIcon(g, iconSize,
-                    RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), scheme);
-        }
-
-        @Override
         public void drawIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha, int iconSize) {
             BladeIconUtils.drawCloseIcon(g, iconSize,
                     RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), colorTokens);
@@ -76,11 +69,6 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         @Override
         public String getText(JRootPane rootPane) {
             return RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.restore");
-        }
-
-        @Override
-        public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
-            BladeIconUtils.drawRestoreIcon(g, iconSize, scheme);
         }
 
         @Override
@@ -101,11 +89,6 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         }
 
         @Override
-        public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
-            BladeIconUtils.drawIconifyIcon(g, iconSize, scheme);
-        }
-
-        @Override
         public void drawIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha, int iconSize) {
             BladeIconUtils.drawIconifyIcon(g, iconSize, colorTokens);
         }
@@ -120,11 +103,6 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         @Override
         public String getText(JRootPane rootPane) {
             return RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.maximize");
-        }
-
-        @Override
-        public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
-            BladeIconUtils.drawMaximizeIcon(g, iconSize, scheme);
         }
 
         @Override

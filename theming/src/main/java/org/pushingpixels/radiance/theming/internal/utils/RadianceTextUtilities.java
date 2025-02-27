@@ -293,19 +293,6 @@ public class RadianceTextUtilities {
      *                  rasterization will be performed on Windows.
      * @return The foreground color for the specified component.
      */
-    public static Color getForegroundColor(JComponent component, String text,
-        StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
-        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
-
-        Color fgColor = toEnforceFgColor ? component.getForeground()
-            : RadianceColorUtilities.getForegroundColor(component, modelStateInfo);
-        if (textAlpha < 1.0f) {
-            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(component);
-            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, textAlpha);
-        }
-        return fgColor;
-    }
-
     public static Color getTonalForegroundColor(JComponent component, String text,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
@@ -315,10 +302,6 @@ public class RadianceTextUtilities {
             : RadianceColorUtilities.getTonalForegroundColor(component, modelStateInfo, inactiveContainerType);
         float fgAlpha = toEnforceFgColor ? component.getForeground().getAlpha() / 255.0f
             : RadianceColorUtilities.getTonalForegroundAlpha(component, modelStateInfo, inactiveContainerType);
-//        if (fgAlpha < 1.0f) {
-//            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(component);
-//            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, fgAlpha);
-//        }
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * fgAlpha));
     }
 

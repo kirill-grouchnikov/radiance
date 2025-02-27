@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -108,11 +107,6 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
 
         graphics.setPaint(paint);
         graphics.fillRect(x, y, width, height);
-    }
-
-    @Override
-    public void paintDecorationArea(Graphics2D graphics, Component comp, RadianceThemingSlices.DecorationAreaType
-            decorationAreaType, Shape contour, RadianceColorScheme colorScheme) {
     }
 
     @Override
