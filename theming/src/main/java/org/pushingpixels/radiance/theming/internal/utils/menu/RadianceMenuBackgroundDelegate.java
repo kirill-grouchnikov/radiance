@@ -158,7 +158,6 @@ public class RadianceMenuBackgroundDelegate {
 			return;
 		}
 
-		RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
 		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry :
 				activeStates.entrySet()) {
 			ComponentState activeState = stateEntry.getKey();

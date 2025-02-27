@@ -543,25 +543,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the main enabled color scheme for the specific decoration area
-     * type. Custom painting code that needs to consult the colors of the
-     * specific component should use
-     * {@link #getColorScheme(Component, ComponentState)} method and various
-     * {@link RadianceColorScheme} methods.
-     *
-     * @param decorationAreaType Decoration area type.
-     * @return The main enabled color scheme for this skin.
-     * @see #getColorScheme(Component, ComponentState)
-     */
-    public final RadianceColorScheme getEnabledColorScheme(
-            RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-            return this.colorSchemeBundleMap.get(decorationAreaType).getEnabledColorScheme();
-        }
-        return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).getEnabledColorScheme();
-    }
-
-    /**
      * Adds the specified overlay painter to the end of the list of overlay
      * painters associated with the specified decoration area types.
      *
@@ -640,23 +621,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @return Color scheme to be used for painting the specified visual area of
      * the component under the specified component state.
      */
-    public final RadianceColorScheme getColorScheme(Component comp,
-        RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
-        ComponentState componentState) {
-        // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
-        if (this.colorSchemeBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ? RadianceThemingSlices.DecorationAreaType.NONE
-                : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
-            if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-                return this.colorSchemeBundleMap.get(decorationAreaType)
-                    .getColorScheme(associationKind, componentState, true);
-            }
-        }
-        return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getColorScheme(associationKind, componentState, true);
-    }
-
     public final ContainerColorTokens getContainerTokens(Component comp,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
@@ -772,23 +736,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param decorationAreaType Decoration area type.
      * @return The background color scheme for the specified decoration area type.
      */
-    public final RadianceColorScheme getBackgroundColorScheme(RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        // 1 - check the registered background scheme for this specific area type.
-        if (this.backgroundColorSchemeMap.containsKey(decorationAreaType)) {
-            return this.backgroundColorSchemeMap.get(decorationAreaType);
-        }
-        // 2 - check the registered scheme bundle for this specific area type.
-        if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-            RadianceColorScheme registered = this.colorSchemeBundleMap.get(
-                    decorationAreaType).getEnabledColorScheme();
-            if (registered != null) {
-                return registered;
-            }
-        }
-        // 3 - return the background scheme for the default area type
-        return this.backgroundColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
-    }
-
     public final ExtendedContainerColorTokens getBackgroundExtendedContainerTokens(
             RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         // 1 - check the registered background scheme for this specific area type.

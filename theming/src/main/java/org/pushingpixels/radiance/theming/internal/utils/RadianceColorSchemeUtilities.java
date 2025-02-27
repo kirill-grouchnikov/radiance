@@ -33,13 +33,11 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
-import javax.swing.plaf.UIResource;
 import java.awt.*;
 
 /**
@@ -48,70 +46,6 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class RadianceColorSchemeUtilities {
-    /**
-     * Cache of shifted schemes.
-     */
-    private final static LazyResettableHashMap<RadianceColorScheme> shiftedCache =
-            new LazyResettableHashMap<>("ShiftColorScheme.shiftedSchemes");
-
-    private enum ColorSchemeKind {
-        LIGHT, DARK
-    }
-
-    /**
-     * Returns a colorized version of the specified color scheme.
-     *
-     * @param component Component.
-     * @param scheme    Color scheme.
-     * @param isEnabled Indicates whether the component is enabled.
-     * @return Colorized version of the specified color scheme.
-     */
-    private static RadianceColorScheme getColorizedScheme(Component component,
-            RadianceColorScheme scheme, boolean isEnabled) {
-        Component forQuerying = component;
-        if ((component != null) && (component.getParent() != null)
-                && ((component.getClass().isAnnotationPresent(RadianceInternalArrowButton.class)
-                || (component instanceof RadianceTitleButton)))) {
-            forQuerying = component.getParent();
-        }
-        return getColorizedScheme(component, scheme,
-                (forQuerying == null) ? null : forQuerying.getForeground(),
-                (forQuerying == null) ? null : forQuerying.getBackground(), isEnabled);
-    }
-
-    /**
-     * Returns a colorized version of the specified color scheme.
-     *
-     * @param component Component.
-     * @param scheme    Color scheme.
-     * @param isEnabled Indicates whether the component is enabled.
-     * @return Colorized version of the specified color scheme.
-     */
-    private static RadianceColorScheme getColorizedScheme(Component component,
-            RadianceColorScheme scheme, Color fgColor, Color bgColor, boolean isEnabled) {
-        if ((scheme != null) && (component != null)) {
-            // Support for enhancement 256 - colorizing
-            // controls.
-            if (bgColor instanceof UIResource) {
-                bgColor = null;
-            }
-            if (fgColor instanceof UIResource) {
-                fgColor = null;
-            }
-            if ((bgColor != null) || (fgColor != null)) {
-                double colorization = RadianceCoreUtilities.getColorizationFactor(component);
-                if (!isEnabled) {
-                    colorization /= 2.0;
-                }
-                if (colorization > 0.0) {
-                    return RadianceColorSchemeUtilities.getShiftedScheme(scheme, bgColor,
-                            colorization, fgColor, colorization);
-                }
-            }
-        }
-        return scheme;
-    }
-
     /**
      * Returns the color scheme of the specified tabbed pane tab.
      *
@@ -138,38 +72,6 @@ public class RadianceColorSchemeUtilities {
         } else {
             return ColorSchemeUtils.getColorizedTokens(jtp, nonColorized, !componentState.isDisabled());
         }
-    }
-
-    /**
-     * Returns the color scheme of the specified component.
-     *
-     * @param component      Component.
-     * @param componentState Component state.
-     * @return Component color scheme.
-     */
-    public static RadianceColorScheme getColorScheme(Component component,
-            ComponentState componentState) {
-        Component orig = component;
-        // special case - if the component is marked as flat and
-        // it is in the default state, or it is a button
-        // that is never painting its background - get the color scheme of the
-        // parent
-        boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
-                && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
-        if (isButtonThatIsNeverPainted
-                || (RadianceCoreUtilities.hasFlatAppearance(component, false)
-                && (componentState == ComponentState.ENABLED))) {
-            component = component.getParent();
-        }
-
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        if (skin == null) {
-            RadianceCoreUtilities.traceRadianceApiUsage(component,
-                    "Radiance delegate used when Radiance is not the current LAF");
-        }
-        RadianceColorScheme nonColorized = skin.getColorScheme(component, componentState);
-
-        return getColorizedScheme(orig, nonColorized, !componentState.isDisabled());
     }
 
     public static ContainerColorTokens getContainerTokens(Component component,
@@ -199,37 +101,6 @@ public class RadianceColorSchemeUtilities {
             componentState, inactiveContainerType);
 
         return ColorSchemeUtils.getColorizedTokens(orig, nonColorized, !componentState.isDisabled());
-    }
-
-    /**
-     * Returns the color scheme of the component.
-     *
-     * @param component       Component.
-     * @param associationKind Association kind.
-     * @param componentState  Component state.
-     * @return Component color scheme.
-     */
-    public static RadianceColorScheme getColorScheme(Component component,
-            RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
-            ComponentState componentState) {
-        // special case - if the component is marked as flat and
-        // it is in the enabled state, get the color scheme of the parent.
-        // However, flat toolbars should be ignored, since they are
-        // the "top" level decoration area.
-        if (!(component instanceof JToolBar)
-                && RadianceCoreUtilities.hasFlatAppearance(component, false)
-                && (componentState == ComponentState.ENABLED)) {
-            component = component.getParent();
-        }
-
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        if (skin == null) {
-            RadianceCoreUtilities.traceRadianceApiUsage(component,
-                    "Radiance delegate used when Radiance is not the current LAF");
-        }
-        RadianceColorScheme nonColorized = skin.getColorScheme(component, associationKind,
-                componentState);
-        return getColorizedScheme(component, nonColorized, !componentState.isDisabled());
     }
 
     /**
@@ -357,36 +228,5 @@ public class RadianceColorSchemeUtilities {
     // TODO: TONAL - remove this
     public static float getAlpha(Component component, ComponentState componentState) {
         return RadianceCoreUtilities.getSkin(component).getAlpha(component, componentState);
-    }
-
-    /**
-     * Returns a shifted color scheme. This method is for internal use only.
-     *
-     * @param orig                  The original color scheme.
-     * @param backgroundShiftColor  Shift color for the background color scheme colors. May be <code>null</code> - in
-     *                              this case, the background color scheme colors will not be shifted.
-     * @param backgroundShiftFactor Shift factor for the background color scheme colors. If the shift color for the
-     *                              background color scheme colors is <code>null</code>, this value is ignored.
-     * @param foregroundShiftColor  Shift color for the foreground color scheme colors. May be <code>null</code> - in
-     *                              this case, the foreground color scheme colors will not be shifted.
-     * @param foregroundShiftFactor Shift factor for the foreground color scheme colors. If the shift color for the
-     *                              foreground color scheme colors is <code>null</code>, this value is ignored.
-     * @return Shifted scheme.
-     */
-    public static RadianceColorScheme getShiftedScheme(RadianceColorScheme orig,
-            Color backgroundShiftColor, double backgroundShiftFactor, Color foregroundShiftColor,
-            double foregroundShiftFactor) {
-        HashMapKey key = RadianceCoreUtilities.getHashKey(orig.getDisplayName(),
-                backgroundShiftColor == null ? "" : backgroundShiftColor.getRGB(),
-                backgroundShiftFactor,
-                foregroundShiftColor == null ? "" : foregroundShiftColor.getRGB(),
-                foregroundShiftFactor);
-        RadianceColorScheme result = shiftedCache.get(key);
-        if (result == null) {
-            result = orig.shift(backgroundShiftColor, backgroundShiftFactor, foregroundShiftColor,
-                    foregroundShiftFactor);
-            shiftedCache.put(key, result);
-        }
-        return result;
     }
 }

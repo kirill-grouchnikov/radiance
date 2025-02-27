@@ -136,9 +136,9 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
                 @Override
                 public void paintBorder(Component c, Graphics g, int x, int y, int width,
                                         int height) {
-                    g.setColor(RadianceColorSchemeUtilities.getColorScheme(c,
-                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                            ComponentState.ENABLED).getDarkColor());
+                    g.setColor(RadianceColorSchemeUtilities.getContainerTokens(c,
+                            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL)
+                        .getContainerOutline());
                     g.drawLine(x, y + height - 1, x + width, y + height - 1);
                 }
             });

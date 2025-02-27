@@ -35,9 +35,9 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import java.awt.*;
@@ -62,9 +62,8 @@ public class KeyTipRenderingUtilities {
         ComponentState state =
                 toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
         float alpha = RadianceColorSchemeUtilities.getAlpha(c, state);
-        RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(c, state);
-        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                c, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            c, state, RadianceThemingSlices.ContainerType.MUTED);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -86,17 +85,18 @@ public class KeyTipRenderingUtilities {
                             scaledWidth, scaledHeight, radius,
                             null, 1.0f);
                     fillPainter.paintContourBackground(graphics1X, c, scaledWidth, scaledHeight,
-                            contour, fillScheme);
+                            contour, tokens);
 
                     Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
                             c.getComponentOrientation(),
                             scaledWidth, scaledHeight,
                             radius, null, 2.0f);
                     borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight, contour,
-                            contourInner, borderScheme);
+                            contourInner, tokens);
                 });
 
-        graphics.setColor(RadianceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
+        graphics.setColor(RadianceColorSchemeUtilities.getContainerTokens(
+            c, state, RadianceThemingSlices.ContainerType.MUTED).getOnContainer());
         Font font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                 getControlFont();
         font = font.deriveFont(font.getSize() + 1.0f);

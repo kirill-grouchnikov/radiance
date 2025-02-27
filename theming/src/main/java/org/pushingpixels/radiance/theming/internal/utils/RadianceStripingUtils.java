@@ -51,7 +51,7 @@ import java.awt.*;
  * {@link RadianceTableUI#paint(java.awt.Graphics, JComponent)} that should
  * call this method prior to the call to its <code>paintCells</code>.</li>
  * <li>The specific renderer should call
- * {@link #applyStripedBackground(JComponent, int, JComponent)}.</li>
+ * {@link #applyStripedBackground(JComponent, int, JComponent, boolean)} .</li>
  * <li>After all cells have been rendered, call {@link #tearDown(JComponent)}.
  * </ul>
  *

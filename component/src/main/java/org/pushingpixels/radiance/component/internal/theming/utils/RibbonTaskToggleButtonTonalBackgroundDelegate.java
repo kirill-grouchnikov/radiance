@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -83,23 +82,6 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
         BladeUtils.populateColorTokens(mutableTokens.baseContainerColorTokens,
                 modelStateInfo, currState,
                 new BladeUtils.ColorSchemeDelegate() {
-                    @Override
-                    public RadianceColorScheme getColorSchemeForCurrentState(ComponentState state) {
-                        if (state == ComponentState.ENABLED) {
-                            RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-                            RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
-                                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
-                            return skin.getBackgroundColorScheme(buttonDecorationAreaType);
-                        }
-                        return RadianceColorSchemeUtilities.getColorScheme(button,
-                                RadianceThemingSlices.ColorSchemeAssociationKind.FILL, state);
-                    }
-
-                    @Override
-                    public RadianceColorScheme getColorSchemeForActiveState(ComponentState state) {
-                        return RadianceColorSchemeUtilities.getColorScheme(button,
-                                RadianceThemingSlices.ColorSchemeAssociationKind.FILL, state);
-                    }
 
                     @Override
                     public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {

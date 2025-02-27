@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.UiThreadingViolationException;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -261,33 +260,16 @@ public class BladeUtils {
     }
 
     public interface ColorSchemeDelegate {
-        RadianceColorScheme getColorSchemeForCurrentState(ComponentState state);
-        RadianceColorScheme getColorSchemeForActiveState(ComponentState state);
 
-        default ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
-            return null;
-        }
+        ContainerColorTokens getContainerTokensForCurrentState(ComponentState state);
 
-        default ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
-            return null;
-        }
+        ContainerColorTokens getContainerTokensForActiveState(ComponentState state);
     }
 
     // TODO: TONAL - revisit this
     public static ColorSchemeDelegate getDefaultColorSchemeDelegate(Component component,
             BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
         return new ColorSchemeDelegate() {
-            @Override
-            public RadianceColorScheme getColorSchemeForCurrentState(ComponentState state) {
-                return RadianceColorSchemeUtilities.getColorScheme(component,
-                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
-            }
-
-            @Override
-            public RadianceColorScheme getColorSchemeForActiveState(ComponentState state) {
-                return RadianceColorSchemeUtilities.getColorScheme(component,
-                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
-            }
 
             @Override
             public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {

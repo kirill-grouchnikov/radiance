@@ -33,11 +33,12 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorSelectorComponentUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelectorComponent;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
@@ -134,14 +135,17 @@ public class RadianceColorSelectorComponentUI extends BasicColorSelectorComponen
         graphics.setComposite(AlphaComposite.SrcOver.derive(this.rollover));
 
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    RadianceColorScheme highlightBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                            this.colorSelectorComponent, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-                            ComponentState.ROLLOVER_UNSELECTED);
-                    graphics1X.setColor(highlightBorderScheme.getMidColor());
+                ContainerColorTokens tokens =
+                    RadianceColorSchemeUtilities.getContainerTokens(this.colorSelectorComponent,
+                        RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                        ComponentState.ROLLOVER_UNSELECTED,
+                        RadianceThemingSlices.ContainerType.MUTED);
+                    graphics1X.setColor(tokens.getContainerOutline());
                     graphics1X.drawRect(0, 0, scaledWidth - 1, scaledHeight - 1);
-                    graphics1X.setColor(highlightBorderScheme.getUltraDarkColor());
+                    graphics1X.setColor(RadianceColorUtilities.getAlphaColor(
+                        tokens.getComplementaryContainerOutline(), 64));
                     graphics1X.drawRect(1, 1, scaledWidth - 3, scaledHeight - 3);
                 });
 

@@ -41,9 +41,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -255,62 +253,6 @@ public class RadianceRibbonTaskToggleButtonUI extends
         );
 
         g2d.dispose();
-    }
-
-    private static Color getForegroundColor(JCommandButton button,
-            StateTransitionTracker.ModelStateInfo modelStateInfo) {
-        ComponentState currStateIgnoreSelection =
-                ComponentState.getState(button.getActionModel(), button, true);
-        ComponentState currState = ComponentState.getState(button.getActionModel(), button, false);
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                modelStateInfo.getStateNoSelectionContributionMap();
-
-        RadianceColorScheme buttonFillScheme = RadianceColorSchemeUtilities.getColorScheme(
-                button, ColorSchemeAssociationKind.FILL, currStateIgnoreSelection);
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-        RadianceThemingSlices.DecorationAreaType parentDecorationAreaType =
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button.getParent());
-        RadianceColorScheme parentFillScheme = skin.getBackgroundColorScheme(parentDecorationAreaType);
-
-        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            RadianceColorScheme schemeForCurrState = (currState == ComponentState.ENABLED)
-                    ? parentFillScheme : buttonFillScheme;
-//            System.out.println("For " + button.getText() + " state is " + currState +
-//                    " and scheme is " + schemeForCurrState.getDisplayName() +
-//                    " -> " + schemeForCurrState.getForegroundColor());
-            return schemeForCurrState.getForegroundColor();
-        }
-
-        float aggrRed = 0;
-        float aggrGreen = 0;
-        float aggrBlue = 0;
-//        System.out.println(
-//                "For " + button.getText() + " in " + currState + ":" + currStateIgnoreSelection);
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            float alpha = activeEntry.getValue().getContribution();
-
-            boolean correspondsToParentFill = (activeState == ComponentState.ENABLED) &&
-                    !button.getActionModel().isSelected();
-            RadianceColorScheme activeColorScheme =
-                    RadianceColorSchemeUtilities.getColorScheme(button,
-                            ColorSchemeAssociationKind.FILL, activeState);
-            //System.out.println("\t" + activeState + " : " + currState);
-            Color activeForeground = correspondsToParentFill
-                    ? parentFillScheme.getForegroundColor()
-                    : activeColorScheme.getForegroundColor();
-
-//            System.out.println("\t" + activeState + " at alpha " + alpha + " from " +
-//                    (correspondsToParentFill ? parentFillScheme :
-//                            activeColorScheme).getDisplayName()
-//                    + "[" + correspondsToParentFill + "] contributes color " +
-//                    activeForeground);
-            aggrRed += alpha * activeForeground.getRed();
-            aggrGreen += alpha * activeForeground.getGreen();
-            aggrBlue += alpha * activeForeground.getBlue();
-        }
-        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 
     private static Color getTonalForegroundColor(JCommandButton button,

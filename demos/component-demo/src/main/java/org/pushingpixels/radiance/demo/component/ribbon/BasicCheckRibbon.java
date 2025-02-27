@@ -1970,8 +1970,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.rulerPanel.add(this.rulerTextPane, BorderLayout.CENTER);
         this.rulerPanel.content = this.rulerTextPane;
         this.rulerPanel.selectBackgroundFill(RadianceThemingCortex.GlobalScope.getCurrentSkin()
-                .getEnabledColorScheme(RadianceThemingSlices.DecorationAreaType.NONE)
-                .getBackgroundFillColor());
+            .getMutedContainerTokens(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getContainerSurface());
 
         this.add(this.rulerPanel, BorderLayout.CENTER);
 
@@ -2316,9 +2316,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         builder.addLabel("Skin").xy(1, 5).add(new RadianceSkinSelector()).xy(3, 5);
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> {
-            rulerPanel.selectBackgroundFill(
-                    RadianceThemingCortex.GlobalScope.getCurrentSkin().getEnabledColorScheme(
-                            RadianceThemingSlices.DecorationAreaType.NONE).getBackgroundFillColor());
+            rulerPanel.selectBackgroundFill(RadianceThemingCortex.GlobalScope.getCurrentSkin()
+                .getMutedContainerTokens(RadianceThemingSlices.DecorationAreaType.NONE)
+                .getContainerSurface());
         });
 
         final JCheckBox appMenuVisible = new JCheckBox("visible");

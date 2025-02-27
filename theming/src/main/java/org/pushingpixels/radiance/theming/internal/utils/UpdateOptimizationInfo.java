@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import javax.swing.*;
@@ -42,10 +41,6 @@ import java.util.Map;
 
 public class UpdateOptimizationInfo {
     private JComponent component;
-
-    private Map<ComponentState, RadianceColorScheme> highlightSchemeMap;
-
-    private Map<ComponentState, RadianceColorScheme> highlightBorderSchemeMap;
 
     private Map<ComponentState, ContainerColorTokens> highlightContainerTokens;
 
@@ -72,19 +67,6 @@ public class UpdateOptimizationInfo {
                 && RadianceCoreUtilities.isOpaque(this.component);
     }
 
-    public RadianceColorScheme getHighlightColorScheme(ComponentState state) {
-        if (this.highlightSchemeMap == null) {
-            this.highlightSchemeMap = new HashMap<>();
-        }
-        RadianceColorScheme result = this.highlightSchemeMap.get(state);
-        if (result == null) {
-            result = RadianceColorSchemeUtilities.getColorScheme(this.component,
-                RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, state);
-            this.highlightSchemeMap.put(state, result);
-        }
-        return result;
-    }
-
     public ContainerColorTokens getHighlightColorTokens(ComponentState state) {
         if (this.highlightContainerTokens == null) {
             this.highlightContainerTokens = new HashMap<>();
@@ -95,21 +77,6 @@ public class UpdateOptimizationInfo {
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
                 RadianceThemingSlices.ContainerType.NEUTRAL);
             this.highlightContainerTokens.put(state, result);
-        }
-        return result;
-    }
-
-    public RadianceColorScheme getHighlightBorderColorScheme(
-            ComponentState state) {
-        if (this.highlightBorderSchemeMap == null) {
-            this.highlightBorderSchemeMap = new HashMap<>();
-        }
-        RadianceColorScheme result = this.highlightBorderSchemeMap.get(state);
-        if (result == null) {
-            result = RadianceColorSchemeUtilities.getColorScheme(
-                    this.component,
-                    RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, state);
-            this.highlightBorderSchemeMap.put(state, result);
         }
         return result;
     }

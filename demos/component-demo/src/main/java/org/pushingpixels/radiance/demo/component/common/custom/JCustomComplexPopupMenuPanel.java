@@ -43,7 +43,7 @@ import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.text.RadianceTextUtils;
 
 import javax.swing.*;
@@ -484,10 +484,11 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
             RadianceThemingSlices.DecorationAreaType decorationAreaType =
                     RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-            RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
+            ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
+                decorationAreaType);
 
             RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(signInPanel, 1.0);
-            signInPanel.setBackground(scheme.getAccentedBackgroundFillColor());
+            signInPanel.setBackground(tokens.getBaseContainerTokens().getContainerSurfaceLow());
 
             this.signInButton = header.getCommandSignIn().project(presentationModel.headerSignInPresentationModel).
                     buildComponent();
@@ -536,10 +537,11 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
             RadianceThemingSlices.DecorationAreaType decorationAreaType =
                     RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-            RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
+            ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
+                decorationAreaType);
 
             RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this, 1.0);
-            this.setBackground(scheme.getAccentedBackgroundFillColor());
+            this.setBackground(tokens.getBaseContainerTokens().getContainerSurfaceLow());
 
             this.footerButton = footer.getCommandFooter().project(presentationModel.footerPresentationModel)
                     .buildComponent();

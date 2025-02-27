@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTreeUI;
@@ -215,19 +214,6 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
     protected abstract void bindData(JTree tree, Object value, int row);
 
     protected void onPreRender(JTree tree, Object value, int row) {
-    }
-
-    private RadianceColorScheme getColorSchemeForState(JTree tree, RadianceTreeUI ui,
-            ComponentState activeState) {
-        RadianceColorScheme scheme = (activeState == ComponentState.ENABLED)
-                ? ui.getDefaultColorScheme()
-                : RadianceColorSchemeUtilities.getColorScheme(tree,
-                RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, activeState);
-        if (scheme == null) {
-            scheme = RadianceColorSchemeUtilities.getColorScheme(tree,
-                    RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, activeState);
-        }
-        return scheme;
     }
 
     private ContainerColorTokens getContainerTokensForState(JTree tree, RadianceTreeUI ui,

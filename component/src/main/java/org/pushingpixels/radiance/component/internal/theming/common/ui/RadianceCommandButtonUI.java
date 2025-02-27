@@ -52,7 +52,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -343,23 +342,21 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                                 ? ComponentState.SELECTED
                                 : ComponentState.DISABLED_SELECTED;
 
-                        RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
-                                this.commandButton, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+                        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                                this.commandButton,
+                            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                            currState, RadianceThemingSlices.ContainerType.MUTED);
                         RadianceFillPainter fillPainter = RadianceCoreUtilities
                                 .getFillPainter(this.commandButton);
                         fillPainter.paintContourBackground(graphics1X, this.commandButton,
                                 extended.x + extended.width, extended.y + extended.height,
-                                extended, fillScheme);
+                                extended, tokens);
 
-                        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                                this.commandButton,
-                                RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-                                currState);
                         RadianceBorderPainter borderPainter = RadianceCoreUtilities
                                 .getBorderPainter(this.commandButton);
                         borderPainter.paintBorder(graphics1X, this.commandButton,
                                 extended.x + extended.width, extended.y + extended.height,
-                                extended, null, borderScheme);
+                                extended, null, tokens);
                     });
             graphics.dispose();
         }
@@ -375,9 +372,10 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             ComponentState currState = this.commandButton.getActionModel().isEnabled()
                     ? ComponentState.SELECTED
                     : ComponentState.DISABLED_SELECTED;
-            RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this.commandButton, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
-            g2d.setColor(fillScheme.getForegroundColor());
+            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                this.commandButton, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                currState, RadianceThemingSlices.ContainerType.MUTED);
+            g2d.setColor(tokens.getOnContainer());
 
             int iw = iconRect.width;
             int ih = iconRect.height;
@@ -716,45 +714,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
     @Override
     public StateTransitionTracker getPopupTransitionTracker() {
         return this.radianceVisualStateTracker.getPopupStateTransitionTracker();
-    }
-
-    private static Color getMenuButtonForegroundColor(JCommandButton menuButton,
-            StateTransitionTracker.ModelStateInfo modelStateInfo) {
-        ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateNoSelectionContributionMap();
-
-        RadianceThemingSlices.ColorSchemeAssociationKind currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
-        // use HIGHLIGHT on active and non-rollover menu items
-        if (currState.isActive()
-                && !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
-            currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(menuButton,
-                currAssocKind, currState);
-        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            return colorScheme.getForegroundColor();
-        }
-
-        float aggrRed = 0;
-        float aggrGreen = 0;
-        float aggrBlue = 0;
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            float alpha = activeEntry.getValue().getContribution();
-            RadianceThemingSlices.ColorSchemeAssociationKind assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
-            // use HIGHLIGHT on active and non-rollover menu items
-            if (activeState.isActive()
-                    && !activeState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
-                assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
-            RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(menuButton, assocKind, activeState);
-            Color activeForeground = activeColorScheme.getForegroundColor();
-            aggrRed += alpha * activeForeground.getRed();
-            aggrGreen += alpha * activeForeground.getGreen();
-            aggrBlue += alpha * activeForeground.getBlue();
-        }
-        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 
     private static Color getMenuButtonTonalForegroundColor(JCommandButton menuButton,
