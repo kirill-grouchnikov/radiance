@@ -216,26 +216,26 @@ public class BladeArrowIconUtils {
     }
 
     public static void drawDoubleArrow(Graphics2D g, float fullWidth,
-            float fullHeight, float arrowGap, float strokeWidth, int direction,
-            RadianceColorScheme colorScheme, float alpha) {
+        float fullHeight, float arrowGap, float strokeWidth, int direction,
+        ContainerColorTokens tokens, float alpha) {
         boolean toggle = (direction == SwingConstants.WEST) || (direction == SwingConstants.EAST);
         int singleArrowWidth = toggle ? (int) fullHeight : (int) fullWidth;
         int singleArrowHeight = toggle ? (int) (fullWidth - arrowGap) : (int) (fullHeight - arrowGap);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
         if (!toggle) {
-            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme, alpha);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, tokens, alpha);
             graphics.translate(0, (int) arrowGap);
-            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme, alpha);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, tokens, alpha);
         } else {
-            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme, alpha);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, tokens, alpha);
             graphics.translate((int) arrowGap, 0);
-            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme, alpha);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, tokens, alpha);
         }
 
         graphics.dispose();

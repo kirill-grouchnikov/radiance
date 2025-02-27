@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.internal.theming.common.GlowingRadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
@@ -133,7 +132,6 @@ public class CommandButtonBackgroundDelegate {
                 ? actionTransitionTracker.getModelStateInfo().getCurrModelStateNoSelection()
                 : actionTransitionTracker.getModelStateInfo().getCurrModelState();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(commandButton);
         BladeUtils.populateColorTokens(mutableContainerTokens,
             actionTransitionTracker.getModelStateInfo(), currActionState,
             BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.FILL),

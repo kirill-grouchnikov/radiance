@@ -295,13 +295,13 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
                     .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
                             showOverflowTaskbarContent(commandActionEvent.getButtonSource())))
                     .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
-                            (g, scheme, alpha, width, height) -> {
+                            (g, tokens, alpha, width, height) -> {
                                 BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                         RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                         RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                         getComponentOrientation().isLeftToRight()
                                                 ? SwingConstants.EAST : SwingConstants.WEST,
-                                        scheme, alpha);
+                                        tokens, alpha);
                             }, new Dimension(arrowIconHeight, arrowIconWidth)))
                     .setTag(TASKBAR_OVERFLOW_BUTTON)
                     .build().project(CommandButtonPresentationModel.builder()

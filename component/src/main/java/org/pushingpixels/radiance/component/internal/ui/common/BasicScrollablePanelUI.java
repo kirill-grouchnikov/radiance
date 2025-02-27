@@ -175,14 +175,14 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                     syncScrolling();
                 })
                 .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
-                        (g, scheme, alpha, width, height) -> {
+                        (g, tokens, alpha, width, height) -> {
                             BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                     RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                     RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                     (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
                                             ? SwingUtilities.WEST
                                             : SwingUtilities.NORTH,
-                                    scheme, alpha);
+                                    tokens, alpha);
                         }, new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
 
@@ -192,14 +192,14 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                     syncScrolling();
                 })
                 .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
-                        (g, scheme, alpha, width, height) -> {
+                        (g, tokens, alpha, width, height) -> {
                             BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                     RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                     RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                     (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
                                             ? SwingUtilities.EAST
                                             : SwingUtilities.SOUTH,
-                                    scheme, alpha);
+                                    tokens, alpha);
                         }, new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
         this.syncScrollers();
