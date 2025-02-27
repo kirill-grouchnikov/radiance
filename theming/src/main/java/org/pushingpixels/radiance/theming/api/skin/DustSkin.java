@@ -63,6 +63,12 @@ public class DustSkin extends DustAccentedSkin {
 				/* isFidelity */ true,
 				/* isDark */ false))
 			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFB7A78E),
+				/* isFidelity */ true,
+				/* isDark */ false,
+				/* contrast */ 0.3f,
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()))
+			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF5E4436),
 				/* isFidelity */ true,
 				/* isDark */ true,

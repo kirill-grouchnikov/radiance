@@ -94,7 +94,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 				/* neutralContrastLevel */ 0.4f,
 				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
 		dustHeaderBundle.registerActiveContainerTokens(
-			this.getDefaultAreaHighlightTokens(),
+			this.getHeaderAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.SELECTED,
 			ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
