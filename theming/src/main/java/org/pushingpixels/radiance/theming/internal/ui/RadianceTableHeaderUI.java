@@ -578,16 +578,18 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
 
         boolean hasHighlights = false;
         if (activeStates != null) {
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry : activeStates
-                    .entrySet()) {
-                hasHighlights = (RadianceColorSchemeUtilities.getHighlightAlpha(this.header,
-                        stateEntry.getKey()) * stateEntry.getValue().getContribution() > 0.0f);
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
+                : activeStates.entrySet()) {
+                ComponentState activeState = stateEntry.getKey();
+                hasHighlights = ((activeState != ComponentState.ENABLED) &&
+                    (activeState != ComponentState.DISABLED_UNSELECTED) &&
+                    (stateEntry.getValue().getContribution() > 0.0f));
                 if (hasHighlights)
                     break;
             }
         } else {
-            hasHighlights = (RadianceColorSchemeUtilities.getHighlightAlpha(this.header,
-                    currState) > 0.0f);
+            hasHighlights = (currState != ComponentState.ENABLED) &&
+                (currState != ComponentState.DISABLED_UNSELECTED);
         }
 
         // System.out.println(row + ":" + prevTheme.getDisplayName() + "["
@@ -596,13 +598,10 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
 
         if (hasHighlights) {
             if (activeStates == null) {
-                float alpha = RadianceColorSchemeUtilities.getHighlightAlpha(this.header,
-                        currState);
-                if (alpha > 0.0f) {
+                if ((currState != ComponentState.ENABLED) && (currState != ComponentState.DISABLED_UNSELECTED)) {
                     ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
                         this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.MUTED);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, alpha, g));
                     HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
                         cellRect, 0.8f, null, colorTokens);
                     g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));
@@ -611,15 +610,16 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                 for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry :
                     activeStates.entrySet()) {
                     ComponentState activeState = stateEntry.getKey();
-                    float alpha = RadianceColorSchemeUtilities.getHighlightAlpha(this.header,
-                            activeState) * stateEntry.getValue().getContribution();
-                    if (alpha == 0.0f) {
+                    if ((activeState == ComponentState.ENABLED) ||
+                        (activeState == ComponentState.DISABLED_UNSELECTED) ||
+                        (stateEntry.getValue().getContribution() == 0.0f)) {
                         continue;
                     }
                     ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
                         this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         activeState, RadianceThemingSlices.ContainerType.MUTED);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, alpha, g));
+                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header,
+                        stateEntry.getValue().getContribution(), g));
                     HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
                         cellRect, 0.8f, null, colorTokens);
                     g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));

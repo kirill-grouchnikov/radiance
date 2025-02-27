@@ -202,19 +202,4 @@ public class RadianceColorSchemeUtilities {
                 .getActiveContainerTokens(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component));
         return ColorSchemeUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
     }
-
-    /**
-     * Returns the alpha channel of the highlight color scheme of the component.
-     *
-     * @param component      Component.
-     * @param componentState Component state.
-     * @return Highlight color scheme alpha channel.
-     */
-    // TODO: TONAL - remove
-    public static float getHighlightAlpha(Component component, ComponentState componentState) {
-        if (componentState.isDisabled() || (componentState == ComponentState.ENABLED)) {
-            return 0.0f;
-        }
-        return 1.0f;
-    }
 }

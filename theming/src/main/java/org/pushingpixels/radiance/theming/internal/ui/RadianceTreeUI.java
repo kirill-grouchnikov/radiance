@@ -256,14 +256,16 @@ public class RadianceTreeUI extends BasicTreeUI {
 			if (activeStates != null) {
 				for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
 					: activeStates.entrySet()) {
-					hasHighlights = (RadianceColorSchemeUtilities.getHighlightAlpha(this.tree,
-							stateEntry.getKey()) * stateEntry.getValue().getContribution() > 0.0f);
+					ComponentState activeState = stateEntry.getKey();
+					hasHighlights = ((activeState != ComponentState.ENABLED) &&
+						(activeState != ComponentState.DISABLED_UNSELECTED) &&
+						(stateEntry.getValue().getContribution() > 0.0f));
 					if (hasHighlights)
 						break;
 				}
 			} else {
-				hasHighlights = (RadianceColorSchemeUtilities.getHighlightAlpha(this.tree,
-						currState) > 0.0f);
+				hasHighlights = (currState != ComponentState.ENABLED) &&
+					(currState != ComponentState.DISABLED_UNSELECTED);
 			}
 		}
 
@@ -287,13 +289,10 @@ public class RadianceTreeUI extends BasicTreeUI {
 		} else {
 			if (hasHighlights) {
 				if (activeStates == null) {
-					float alpha = RadianceColorSchemeUtilities.getHighlightAlpha(this.tree,
-							currState);
-					if (alpha > 0.0f) {
+					if ((currState != ComponentState.ENABLED) && (currState != ComponentState.DISABLED_UNSELECTED)) {
 						ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
 							this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 							currState, RadianceThemingSlices.ContainerType.NEUTRAL);
-						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
 						// Fix for defect 180 - painting the
 						// highlight beneath the entire row
 						HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
@@ -304,14 +303,16 @@ public class RadianceTreeUI extends BasicTreeUI {
 					for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
 						: activeStates.entrySet()) {
 						ComponentState activeState = stateEntry.getKey();
-						float alpha = RadianceColorSchemeUtilities.getHighlightAlpha(this.tree,
-								activeState) * stateEntry.getValue().getContribution();
-						if (alpha == 0.0f)
+						if ((activeState == ComponentState.ENABLED) ||
+							(activeState == ComponentState.DISABLED_UNSELECTED) ||
+							(stateEntry.getValue().getContribution() == 0.0f)) {
 							continue;
+						}
 						ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
 							this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 							activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
-						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
+						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree,
+							stateEntry.getValue().getContribution(), g));
 						// Fix for defect 180 - painting the
 						// highlight beneath the entire row
 						HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,

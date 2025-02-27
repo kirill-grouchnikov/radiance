@@ -161,8 +161,10 @@ public class RadianceMenuBackgroundDelegate {
 		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry :
 				activeStates.entrySet()) {
 			ComponentState activeState = stateEntry.getKey();
-			float alpha = RadianceColorSchemeUtilities.getHighlightAlpha(menuItem, activeState)
-					* stateEntry.getValue().getContribution();
+			if ((activeState == ComponentState.ENABLED) || (activeState == ComponentState.DISABLED_UNSELECTED)) {
+				continue;
+			}
+			float alpha = stateEntry.getValue().getContribution();
 			if (alpha == 0.0f) {
 				continue;
 			}

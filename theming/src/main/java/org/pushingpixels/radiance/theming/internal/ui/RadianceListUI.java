@@ -536,8 +536,8 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
         boolean hasHighlights = false;
         if (rendererComponent.isEnabled()) {
             if (activeStates != null) {
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry : activeStates
-                        .entrySet()) {
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
+                    : activeStates.entrySet()) {
                     hasHighlights = (this.updateInfo.getHighlightAlpha(stateEntry.getKey())
                             * stateEntry.getValue().getContribution() > 0.0f);
                     if (hasHighlights) {

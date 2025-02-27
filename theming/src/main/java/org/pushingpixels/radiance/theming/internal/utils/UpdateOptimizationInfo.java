@@ -44,8 +44,6 @@ public class UpdateOptimizationInfo {
 
     private Map<ComponentState, ContainerColorTokens> highlightContainerTokens;
 
-    private Map<ComponentState, Float> highlightAlphaMap;
-
     private ContainerColorTokens defaultColorTokens;
 
     public RadianceThemingSlices.DecorationAreaType decorationAreaType;
@@ -82,17 +80,10 @@ public class UpdateOptimizationInfo {
     }
 
     public float getHighlightAlpha(ComponentState state) {
-        if (state.isDisabled() || (state == ComponentState.ENABLED)) {
+        if ((state == ComponentState.ENABLED) || (state == ComponentState.DISABLED_UNSELECTED)) {
             return 0.0f;
         }
-        if (this.highlightAlphaMap == null) {
-            this.highlightAlphaMap = new HashMap<>();
-        }
-        if (!this.highlightAlphaMap.containsKey(state)) {
-            this.highlightAlphaMap.put(state, RadianceColorSchemeUtilities
-                    .getHighlightAlpha(this.component, state));
-        }
-        return this.highlightAlphaMap.get(state);
+        return 1.0f;
     }
 
     public ContainerColorTokens getDefaultColorTokens() {
