@@ -816,20 +816,6 @@ public final class RadianceThemingSlices {
         }
     }
 
-    /**
-     * Enumeration of available color overlay types. This class is part of officially supported API.
-     *
-     * @author Kirill Grouchnikov
-     */
-    public enum ColorOverlayType {
-        LINE,
-        FOCUS_INDICATION,
-        BACKGROUND_FILL,
-        TEXT_BACKGROUND_FILL,
-        SELECTION_BACKGROUND_FILL,
-        SELECTION_FOREGROUND
-    }
-
     public enum ContainerType {
         NEUTRAL,
         MUTED,

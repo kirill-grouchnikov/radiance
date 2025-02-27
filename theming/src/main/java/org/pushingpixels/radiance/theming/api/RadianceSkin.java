@@ -210,14 +210,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private Set<RadianceThemingSlices.DecorationAreaType> decoratedAreaSet;
 
-    /**
-     * All component states that have associated non-trivial alpha values.
-     */
-    private Set<ComponentState> statesWithAlpha;
-
-    // TODO: TONAL - remove
-    private Map<RadianceThemingSlices.ColorOverlayType, Map<RadianceThemingSlices.DecorationAreaType, Map<ComponentState, Color>>> colorOverlayMap;
-
     private Map<Integer, ContainerColorTokens> optionPaneIconColorTokenMap;
 
     /**
@@ -229,15 +221,12 @@ public abstract class RadianceSkin implements RadianceTrait {
         this.backgroundColorSchemeMap = new HashMap<>();
         this.tonalBackgroundTokensMap = new HashMap<>();
         this.overlayPaintersMap = new HashMap<>();
-        this.colorOverlayMap = new HashMap<>();
 
         this.decoratedAreaSet = new HashSet<>();
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
 
         this.optionPaneIconColorTokenMap = new HashMap<>();
-
-        this.statesWithAlpha = new HashSet<>();
     }
 
     /**
@@ -417,40 +406,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the alpha channel of the highlight color scheme of the component.
-     *
-     * @param comp           Component.
-     * @param componentState Component state.
-     * @return Highlight color scheme alpha channel.
-     */
-    public final float getHighlightAlpha(Component comp, ComponentState componentState) {
-        // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
-        if (this.colorSchemeBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
-            if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-                if (this.colorSchemeBundleMap.get(decorationAreaType).hasHighlightAlphaFor(componentState)) {
-                    return this.colorSchemeBundleMap.get(decorationAreaType)
-                            .getHighlightAlpha(componentState);
-                }
-            }
-        }
-
-        if (this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).
-                hasHighlightAlphaFor(componentState)) {
-            return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-                    .getHighlightAlpha(componentState);
-        }
-
-        boolean isRollover = componentState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
-        boolean isSelected = componentState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.SELECTION);
-        boolean isArmed = componentState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ARM);
-
-        return ((isRollover || isSelected || isArmed)) ? 1.0f : 0.0f;
-    }
-
-    /**
      * Returns the alpha channel of the color scheme of the component.
      *
      * @param comp           Component.
@@ -615,25 +570,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the main disabled color scheme for the specific decoration area
-     * type. Custom painting code that needs to consult the colors of the
-     * specific component should use
-     * {@link #getColorScheme(Component, ComponentState)} method and various
-     * {@link RadianceColorScheme} methods.
-     *
-     * @param decorationAreaType Decoration area type.
-     * @return The main disabled color scheme for this skin.
-     * @see #getColorScheme(Component, ComponentState)
-     */
-    public final RadianceColorScheme getDisabledColorScheme(
-            RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-            return this.colorSchemeBundleMap.get(decorationAreaType).getDisabledColorScheme();
-        }
-        return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).getDisabledColorScheme();
-    }
-
-    /**
      * Adds the specified overlay painter to the end of the list of overlay
      * painters associated with the specified decoration area types.
      *
@@ -786,23 +722,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @return Color scheme to be used for painting the specified visual area of
      * the component under the specified component state.
      */
-    public final RadianceColorScheme getDirectColorScheme(Component comp,
-        RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
-        ComponentState componentState) {
-        // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
-        if (this.colorSchemeBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
-            if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-                return this.colorSchemeBundleMap.get(decorationAreaType)
-                    .getColorScheme(associationKind, componentState, false);
-            }
-        }
-        return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getColorScheme(associationKind, componentState, false);
-    }
-
     public final ContainerColorTokens getDirectContainerTokens(Component comp,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
@@ -918,35 +837,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
         // 3 - return the background scheme for the default area type
         return this.tonalBackgroundTokensMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
-    }
-
-    // TODO: TONAL - remove
-    public void setOverlayColor(Color color, RadianceThemingSlices.ColorOverlayType colorOverlayType,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, ComponentState... componentStates) {
-        if (!this.colorOverlayMap.containsKey(colorOverlayType)) {
-            this.colorOverlayMap.put(colorOverlayType, new HashMap<>());
-        }
-        Map<RadianceThemingSlices.DecorationAreaType, Map<ComponentState, Color>> forOverlay = this.colorOverlayMap.get(colorOverlayType);
-        if (!forOverlay.containsKey(decorationAreaType)) {
-            forOverlay.put(decorationAreaType, new HashMap<>());
-        }
-        Map<ComponentState, Color> forDecorationArea = forOverlay.get(decorationAreaType);
-        for (ComponentState componentState : componentStates) {
-            forDecorationArea.put(componentState, color);
-        }
-    }
-
-    // TODO: TONAL - remove
-    public Color getOverlayColor(RadianceThemingSlices.ColorOverlayType colorOverlayType,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, ComponentState componentState) {
-        if (!this.colorOverlayMap.containsKey(colorOverlayType)) {
-            return null;
-        }
-        Map<RadianceThemingSlices.DecorationAreaType, Map<ComponentState, Color>> forOverlay = this.colorOverlayMap.get(colorOverlayType);
-        if (!forOverlay.containsKey(decorationAreaType)) {
-            return null;
-        }
-        return forOverlay.get(decorationAreaType).get(componentState);
     }
 
     public ContainerColorTokens getOptionPaneIconColorTokens(int optionPaneMessageType) {

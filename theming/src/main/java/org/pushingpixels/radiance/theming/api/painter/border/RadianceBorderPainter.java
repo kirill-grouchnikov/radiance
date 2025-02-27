@@ -79,6 +79,4 @@ public interface RadianceBorderPainter extends RadianceTrait {
 	 *         contours, <code>false</code> otherwise.
 	 */
     boolean isPaintingInnerContour();
-	
-	Color getRepresentativeColor(RadianceColorScheme borderScheme);
 }

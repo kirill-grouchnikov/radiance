@@ -70,18 +70,6 @@ public interface RadianceColorScheme extends RadianceTrait, SchemeBaseColors, Sc
             double foregroundShiftFactor);
 
     /**
-     * Creates a shift version of <code>this</code> scheme.
-     *
-     * @param backgroundShiftColor  Shift color for background colors. Should have full opacity.
-     * @param backgroundShiftFactor Value in 0.0...1.0 range. Larger values shift more towards the
-     *                              specified color.
-     * @return Shift version of <code>this</code> scheme that does not change
-     * the foreground color.
-     */
-    RadianceColorScheme shiftBackground(Color backgroundShiftColor,
-            double backgroundShiftFactor);
-
-    /**
      * Creates a tinted (shifted towards white) version of <code>this</code>
      * color scheme.
      *
@@ -90,16 +78,6 @@ public interface RadianceColorScheme extends RadianceTrait, SchemeBaseColors, Sc
      * @return Tinted version of <code>this</code> scheme.
      */
     RadianceColorScheme tint(double tintFactor);
-
-    /**
-     * Creates a toned (shifted towards gray) version of <code>this</code> color
-     * scheme.
-     *
-     * @param toneFactor Value in 0.0...1.0 range. Larger values shift more towards
-     *                   gray color.
-     * @return Toned version of <code>this</code> scheme.
-     */
-    RadianceColorScheme tone(double toneFactor);
 
     /**
      * Creates a shaded (shifted towards black) version of <code>this</code>
@@ -121,29 +99,6 @@ public interface RadianceColorScheme extends RadianceTrait, SchemeBaseColors, Sc
      * @return Saturated version of <code>this</code> scheme.
      */
     RadianceColorScheme saturate(double saturateFactor);
-
-    /**
-     * Creates an inverted version of <code>this</code> scheme.
-     *
-     * @return Inverted version of <code>this</code> scheme.
-     */
-    RadianceColorScheme invert();
-
-    /**
-     * Creates a negated version of <code>this</code> scheme.
-     *
-     * @return Negated version of <code>this</code> scheme.
-     */
-    RadianceColorScheme negate();
-
-    /**
-     * Creates a hue-shifted (in HSB space) version of <code>this</code> color
-     * scheme.
-     *
-     * @param hueShiftFactor Value in -1.0...1.0 range.
-     * @return Hue-shifted version of <code>this</code> scheme.
-     */
-    RadianceColorScheme hueShift(double hueShiftFactor);
 
     /**
      * Creates a blended version of <code>this</code> color scheme based on another

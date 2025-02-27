@@ -129,8 +129,4 @@ public class FractionBasedTonalBorderPainter extends FractionBasedTonalPainter
 		return false;
 	}
 
-	@Override
-	public Color getRepresentativeColor(RadianceColorScheme borderScheme) {
-		return Color.BLACK;
-	}
 }

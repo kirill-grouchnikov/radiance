@@ -104,9 +104,5 @@ public class CompositeBorderPainter implements RadianceBorderPainter {
 	public String getDisplayName() {
 		return this.displayName;
 	}
-	
-	@Override
-	public Color getRepresentativeColor(RadianceColorScheme borderScheme) {
-		return this.outer.getRepresentativeColor(borderScheme);
-	}
+
 }

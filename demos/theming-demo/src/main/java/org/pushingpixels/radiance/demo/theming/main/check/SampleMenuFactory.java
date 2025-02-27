@@ -32,10 +32,11 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.info_black_24dp;
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeTransform;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
@@ -43,11 +44,9 @@ import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.radiance.theming.api.skin.GraphiteSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -275,28 +274,10 @@ public class SampleMenuFactory {
         final CustomSkin customSkin = new CustomSkin();
         JMenuItem jmiSkin = new JMenuItem(customSkin.getDisplayName());
         jmiSkin.addActionListener(actionEvent -> RadianceThemingCortex.GlobalScope.setSkin(customSkin));
-        final CustomFocusSkin customFocusSkin = new CustomFocusSkin();
-        JMenuItem jmiFocusSkin = new JMenuItem(customFocusSkin.getDisplayName());
-        jmiFocusSkin.addActionListener(actionEvent -> RadianceThemingCortex.GlobalScope.setSkin(customFocusSkin));
 
         jmSkin.add(jmiSkin);
-        jmSkin.add(jmiFocusSkin);
 
         return jmSkin;
-    }
-
-    protected static class CustomFocusSkin extends GraphiteSkin {
-        public CustomFocusSkin() {
-            super();
-
-            this.setOverlayColor(Color.red, RadianceThemingSlices.ColorOverlayType.FOCUS_INDICATION,
-                    DecorationAreaType.NONE, ComponentState.getAllStates());
-        }
-
-        @Override
-        public String getDisplayName() {
-            return "Graphite Red Focus";
-        }
     }
 
     protected static class CustomSkin extends RadianceSkin {
@@ -345,52 +326,6 @@ public class SampleMenuFactory {
             this.decorationPainter = new ArcDecorationPainter();
             this.highlightFillPainter = new GlassTonalFillPainter();
         }
-    }
-
-    public static JMenu getTransformMenu() {
-        JMenu jmTransform = new JMenu("Transforms");
-
-        JMenuItem itemShade = new JMenuItem("Shade 10%");
-        itemShade.addActionListener(new SkinChanger(
-                scheme -> scheme.shade(0.1), "Shaded current"));
-        jmTransform.add(itemShade);
-
-        JMenuItem itemTone = new JMenuItem("Tone 10%");
-        itemTone.addActionListener(new SkinChanger(
-                scheme -> scheme.tone(0.1), "Toned current"));
-        jmTransform.add(itemTone);
-
-        JMenuItem itemTint = new JMenuItem("Tint 10%");
-        itemTint.addActionListener(new SkinChanger(
-                scheme -> scheme.tint(0.1), "Tinted current"));
-        jmTransform.add(itemTint);
-
-        JMenuItem itemHueShift = new JMenuItem("Hue shift 10%");
-        itemHueShift.addActionListener(new SkinChanger(
-                scheme -> scheme.hueShift(0.1), "Hue shifted current"));
-        jmTransform.add(itemHueShift);
-
-        JMenuItem itemSaturate = new JMenuItem("Saturate 10%");
-        itemSaturate.addActionListener(new SkinChanger(
-                scheme -> scheme.saturate(0.1), "Saturated current"));
-        jmTransform.add(itemSaturate);
-
-        JMenuItem itemDesaturate = new JMenuItem("Desaturate 10%");
-        itemDesaturate.addActionListener(new SkinChanger(
-                scheme -> scheme.saturate(-0.1), "Desaturated current"));
-        jmTransform.add(itemDesaturate);
-
-        JMenuItem itemNegate = new JMenuItem("Negate");
-        itemNegate.addActionListener(new SkinChanger(
-                RadianceColorScheme::negate, "Negated current"));
-        jmTransform.add(itemNegate);
-
-        JMenuItem itemInvert = new JMenuItem("Invert");
-        itemInvert.addActionListener(new SkinChanger(
-                RadianceColorScheme::invert, "Inverted current"));
-        jmTransform.add(itemInvert);
-
-        return jmTransform;
     }
 
     public static JMenu getLookAndFeelMenu(JFrame frame) {

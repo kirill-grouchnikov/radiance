@@ -1855,47 +1855,21 @@ public class RadianceCoreUtilities {
     }
 
     public static Color getBackgroundFill(RadianceSkin skin, RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        Color overlay = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.BACKGROUND_FILL,
-                decorationAreaType, ComponentState.ENABLED);
-        if (overlay != null) {
-            return overlay;
-        }
         return skin.getBackgroundExtendedContainerTokens(decorationAreaType).getSurface();
     }
 
     public static Color getTextBackgroundFill(Component component, ComponentState componentState) {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        RadianceThemingSlices.DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
-        Color overlay = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.TEXT_BACKGROUND_FILL,
-                decorationAreaType, componentState);
-        if (overlay != null) {
-            return overlay;
-        }
         return RadianceColorSchemeUtilities.getContainerTokens(component, componentState,
             RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLowest();
     }
 
     public static Color getTextSelectionBackground(Component component, ComponentState componentState) {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        RadianceThemingSlices.DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
-        Color overlay = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.SELECTION_BACKGROUND_FILL,
-                decorationAreaType, componentState);
-        if (overlay != null) {
-            return overlay;
-        }
         return RadianceColorSchemeUtilities.getContainerTokens(component,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT, componentState,
             RadianceThemingSlices.ContainerType.TONAL).getContainerSurfaceLow();
     }
 
     public static Color getTextSelectionForeground(Component component, ComponentState componentState) {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        RadianceThemingSlices.DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
-        Color overlay = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.SELECTION_FOREGROUND,
-                decorationAreaType, componentState);
-        if (overlay != null) {
-            return overlay;
-        }
         return RadianceColorSchemeUtilities.getContainerTokens(component,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT, componentState,
             RadianceThemingSlices.ContainerType.TONAL).getOnContainer();

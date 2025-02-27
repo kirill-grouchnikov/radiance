@@ -91,19 +91,8 @@ public abstract class BaseColorScheme implements RadianceColorScheme {
 	}
 
 	@Override
-	public final RadianceColorScheme shiftBackground(
-			Color backgroundShiftColor, double backgroundShiftFactor) {
-		return this.shift(backgroundShiftColor, backgroundShiftFactor, null, 0.0);
-	}
-
-	@Override
 	public RadianceColorScheme tint(double tintFactor) {
 		return new TintColorScheme(this, tintFactor);
-	}
-
-	@Override
-	public RadianceColorScheme tone(double toneFactor) {
-		return new ToneColorScheme(this, toneFactor);
 	}
 
 	@Override
@@ -114,21 +103,6 @@ public abstract class BaseColorScheme implements RadianceColorScheme {
 	@Override
 	public RadianceColorScheme saturate(double saturateFactor) {
 		return new SaturatedColorScheme(this, saturateFactor);
-	}
-
-	@Override
-	public RadianceColorScheme invert() {
-		return new InvertedColorScheme(this);
-	}
-
-	@Override
-	public RadianceColorScheme negate() {
-		return new NegatedColorScheme(this);
-	}
-
-	@Override
-	public RadianceColorScheme hueShift(double hueShiftFactor) {
-		return new HueShiftColorScheme(this, hueShiftFactor);
 	}
 
 	@Override

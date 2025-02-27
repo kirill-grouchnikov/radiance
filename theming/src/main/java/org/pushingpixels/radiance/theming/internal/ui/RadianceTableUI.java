@@ -42,7 +42,6 @@ import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -661,16 +660,11 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
 
         Color gridColor = this.table.getGridColor();
         if (gridColor instanceof UIResource) {
-            RadianceSkin skin = RadianceCoreUtilities.getSkin(this.table);
-            gridColor = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.LINE,
-                DecorationPainterUtils.getDecorationType(this.table), currState);
-            if (gridColor == null) {
-                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
-                    this.table,
-                    this.table.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
-                gridColor = tokens.getContainerOutline();
-            }
+            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                this.table,
+                this.table.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
+                RadianceThemingSlices.ContainerType.NEUTRAL);
+            gridColor = tokens.getContainerOutline();
         }
         g2d.setColor(gridColor);
 

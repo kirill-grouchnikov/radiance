@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -88,47 +87,6 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 				if (width > 0) {
 					drawDragImage(graphics, c, colorTokens, 2, 2, width, dragBumpsWidth, 2);
 				}
-			}
-		}
-		graphics.dispose();
-	}
-
-	private void drawDragImage(Graphics2D g, Component c, RadianceColorScheme colorScheme,
-		int x, int y, int width, int height, int maxNumberOfStripes) {
-		Graphics2D graphics = (Graphics2D) g.create();
-
-		graphics.translate(x, y);
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-			RenderingHints.VALUE_ANTIALIAS_ON);
-
-		Color primary = colorScheme.getSeparatorPrimaryColor();
-		Color secondary = colorScheme.getSeparatorSecondaryColor();
-
-		int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
-		int bumpDotDiameter = RadianceSizeUtils.getDragBumpDiameter(componentFontSize);
-		int bumpCellSize = (int) (1.5 * bumpDotDiameter + 1);
-		int bumpRows = Math.max(1, height / bumpCellSize - 1);
-		int bumpColumns = Math.max(1, (width - 2) / bumpCellSize);
-		if (maxNumberOfStripes > 0) {
-			if (height > width)
-				bumpColumns = Math.min(bumpColumns, maxNumberOfStripes);
-			else
-				bumpRows = Math.min(bumpRows, maxNumberOfStripes);
-		}
-
-		int bumpRowOffset = (height - bumpCellSize * bumpRows) / 2;
-		int bumpColOffset = 1 + (width - bumpCellSize * bumpColumns) / 2;
-
-		for (int col = 0; col < bumpColumns; col++) {
-			int cx = bumpColOffset + col * bumpCellSize;
-			boolean isEvenCol = (col % 2 == 0);
-			int offsetY = isEvenCol ? 0 : bumpDotDiameter;
-			for (int row = 0; row < bumpRows; row++) {
-				int cy = offsetY + bumpRowOffset + row * bumpCellSize;
-				graphics.setColor(secondary);
-				graphics.fillOval(cx + 1, cy + 1, bumpDotDiameter, bumpDotDiameter);
-				graphics.setColor(primary);
-				graphics.fillOval(cx, cy, bumpDotDiameter, bumpDotDiameter);
 			}
 		}
 		graphics.dispose();

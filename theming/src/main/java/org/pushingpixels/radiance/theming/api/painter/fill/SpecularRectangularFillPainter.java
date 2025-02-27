@@ -81,11 +81,6 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
         return "Specular Rectangular " + this.baseFillPainter.getDisplayName();
     }
 
-    @Override
-    public Color getRepresentativeColor(RadianceColorScheme fillScheme) {
-        return this.baseFillPainter.getRepresentativeColor(fillScheme);
-    }
-
     private double spline(double startY, double control1Y, double control2Y, double endY, double t) {
         // https://en.wikipedia.org/wiki/B%C3%A9zier_curve
         double invT = 1.0 - t;

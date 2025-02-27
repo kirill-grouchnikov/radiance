@@ -289,7 +289,6 @@ public class Check extends JFrame {
         JMenuBar jmb = new JMenuBar();
         if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
             jmb.add(SampleMenuFactory.getSkinMenu());
-            jmb.add(SampleMenuFactory.getTransformMenu());
         }
         JMenu coloredMenu = new JMenu("Colors");
         coloredMenu.setMnemonic('0');

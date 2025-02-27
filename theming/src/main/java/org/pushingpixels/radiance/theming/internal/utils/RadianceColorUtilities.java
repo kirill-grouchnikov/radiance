@@ -249,27 +249,6 @@ public class RadianceColorUtilities {
     }
 
     /**
-     * Returns hue-shifted (in HSV space) version of the specified color.
-     *
-     * @param color    Color.
-     * @param hueShift hue shift factor.
-     * @return Hue-shifted (in HSV space) color.
-     */
-    public static Color getHueShiftedColor(Color color, double hueShift) {
-        float[] hsbvals = new float[3];
-        Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), hsbvals);
-        float hue = hsbvals[0];
-        hue += hueShift;
-        if (hue < 0.0) {
-            hue += 1.0;
-        }
-        if (hue > 1.0) {
-            hue -= 1.0;
-        }
-        return new Color(Color.HSBtoRGB(hue, hsbvals[1], hsbvals[2]));
-    }
-
-    /**
      * Derives a color based on the original color and a brightness source. The
      * resulting color has the same hue and saturation as the original color,
      * but its brightness is shifted towards the brightness of the brightness
@@ -369,14 +348,7 @@ public class RadianceColorUtilities {
                 modelStateInfo.getStateContributionMap();
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);
-        RadianceThemingSlices.DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(comp);
-
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            Color overlay = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.FOCUS_INDICATION,
-                    decorationAreaType, currState);
-            if (overlay != null) {
-                return overlay;
-            }
             return skin.getContainerTokens(comp, currState, RadianceThemingSlices.ContainerType.MUTED)
                 .getOnContainer();
         }
@@ -388,10 +360,7 @@ public class RadianceColorUtilities {
                 activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             float alpha = activeEntry.getValue().getContribution();
-            Color overlay = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.FOCUS_INDICATION,
-                    decorationAreaType, currState);
-            Color active = (overlay != null) ? overlay
-                : skin.getContainerTokens(comp, activeState, RadianceThemingSlices.ContainerType.MUTED)
+            Color active = skin.getContainerTokens(comp, activeState, RadianceThemingSlices.ContainerType.MUTED)
                     .getOnContainer();
             aggrRed += alpha * active.getRed();
             aggrGreen += alpha * active.getGreen();

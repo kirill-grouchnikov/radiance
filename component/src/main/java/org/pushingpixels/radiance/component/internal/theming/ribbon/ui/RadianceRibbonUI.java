@@ -36,9 +36,7 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -184,15 +182,15 @@ public class RadianceRibbonUI extends BasicRibbonUI {
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0,
-                this.ribbon.getWidth(), this.ribbon.getHeight(),
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceColorScheme compScheme = RadianceColorSchemeUtilities.getColorScheme(
-                            this.ribbon, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-                    graphics1X.setColor(compScheme.getSeparatorPrimaryColor());
-                    int separatorY = (int) (scaleFactor * (this.taskToggleButtonsScrollablePanel.getY() +
-                            this.taskToggleButtonsScrollablePanel.getHeight())) - 1;
-                    graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
-                });
+            this.ribbon.getWidth(), this.ribbon.getHeight(),
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    this.ribbon, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+                graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
+                int separatorY = (int) (scaleFactor * (this.taskToggleButtonsScrollablePanel.getY() +
+                    this.taskToggleButtonsScrollablePanel.getHeight())) - 1;
+                graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
+            });
         graphics.dispose();
     }
 

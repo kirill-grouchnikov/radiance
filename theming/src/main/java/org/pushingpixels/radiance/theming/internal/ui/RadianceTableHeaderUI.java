@@ -39,7 +39,6 @@ import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableHeade
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -547,14 +546,8 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
 
         ComponentState currState = isEnabled ? ComponentState.ENABLED
             : ComponentState.DISABLED_UNSELECTED;
-        Color gridColor = RadianceCoreUtilities.getSkin(header).getOverlayColor(
-            RadianceThemingSlices.ColorOverlayType.LINE,
-            DecorationPainterUtils.getDecorationType(header), currState);
-
-        if (gridColor == null) {
-            gridColor = RadianceColorSchemeUtilities.getContainerTokens(
-                header, currState, RadianceThemingSlices.ContainerType.NEUTRAL).getContainerOutline();
-        }
+        Color gridColor = RadianceColorSchemeUtilities.getContainerTokens(
+            header, currState, RadianceThemingSlices.ContainerType.NEUTRAL).getContainerOutline();
 
         return gridColor;
     }

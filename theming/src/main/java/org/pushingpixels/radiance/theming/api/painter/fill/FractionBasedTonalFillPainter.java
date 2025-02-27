@@ -88,8 +88,4 @@ public class FractionBasedTonalFillPainter extends FractionBasedTonalPainter imp
             Shape contour, RadianceColorScheme fillScheme) {
     }
 
-    @Override
-    public Color getRepresentativeColor(RadianceColorScheme fillScheme) {
-        return Color.BLACK;
-    }
 }
