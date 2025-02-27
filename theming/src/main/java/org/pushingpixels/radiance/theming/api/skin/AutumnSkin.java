@@ -84,7 +84,7 @@ public class AutumnSkin extends RadianceSkin {
 				.mutedContainerResolverOverlay(
 					SchemeContainerColorsResolverOverlay.builder()
 						.containerOutline(DynamicScheme::getTonalContainerOutline)
-						.containerOutlineVariant((s) -> s.getTonalContainerOutline() & 0xC0FFFFFF)
+						.containerOutlineVariant(DynamicScheme::getTonalContainerOutlineVariant)
 						.onContainer(DynamicScheme::getTonalContainerOutline)
 						.onContainerVariant((s) -> s.getTonalContainerOutline() & 0xC0FFFFFF)
 						.containerSurfaceDisabledAlpha((s) -> 0.5f)
@@ -96,7 +96,7 @@ public class AutumnSkin extends RadianceSkin {
 				.tonalContainerResolverOverlay(
 					SchemeContainerColorsResolverOverlay.builder()
 						.onContainer(DynamicScheme::getTonalContainerOutline)
-						.onContainerVariant((s) -> s.getTonalContainerOutline() & 0xC0FFFFFF)
+						.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
 						.containerSurfaceDisabledAlpha((s) -> 0.4f)
 						.onContainerDisabledAlpha((s) -> 0.6f)
 						.containerOutlineDisabledAlpha((s) -> 0.55f)
