@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableHeaderUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -98,7 +99,15 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                 ContainerColorTokens tokens = getTokensForState(tableHeader, currState);
                 if (currState.isDisabled() || (activeStates == null)
                     || (activeStates.size() == 1)) {
-                    super.setForeground(new ColorUIResource(tokens.getOnContainer()));
+                    Color foreground = tokens.getOnContainer();
+                    if (currState.isDisabled()) {
+                        float alpha = tokens.getOnContainerDisabledAlpha();
+                        if (alpha < 1.0f) {
+                            foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                                (int) (foreground.getAlpha() * alpha));
+                        }
+                    }
+                    super.setForeground(new ColorUIResource(foreground));
                 } else {
                     float aggrRed = 0;
                     float aggrGreen = 0;
@@ -119,7 +128,15 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                 }
             } else {
                 ContainerColorTokens tokens = getTokensForState(tableHeader, currState);
-                super.setForeground(new ColorUIResource(tokens.getOnContainer()));
+                Color foreground = tokens.getOnContainer();
+                if (currState.isDisabled()) {
+                    float alpha = tokens.getOnContainerDisabledAlpha();
+                    if (alpha < 1.0f) {
+                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                            (int) (foreground.getAlpha() * alpha));
+                    }
+                }
+                super.setForeground(new ColorUIResource(foreground));
             }
         } else {
             super.setForeground(table.getForeground());

@@ -37,10 +37,7 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.StateContributionInfo;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTreeUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTreeUI.TreePathId;
-import org.pushingpixels.radiance.theming.internal.utils.FilteredIconAwareRenderer;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceStripingUtils;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.*;
@@ -183,7 +180,15 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
                         .getStateContributionMap();
                 if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
                     ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
-                    super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
+                    Color foreground = colorTokens.getOnContainer();
+                    if (currState.isDisabled()) {
+                        float alpha = colorTokens.getOnContainerDisabledAlpha();
+                        if (alpha < 1.0f) {
+                            foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                                (int) (foreground.getAlpha() * alpha));
+                        }
+                    }
+                    super.setForeground(new ColorUIResource(foreground));
                 } else {
                     float aggrRed = 0;
                     float aggrGreen = 0;
@@ -215,9 +220,15 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                 }
-                if (colorTokens != null) {
-                    super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
+                Color foreground = colorTokens.getOnContainer();
+                if (currState.isDisabled()) {
+                    float alpha = colorTokens.getOnContainerDisabledAlpha();
+                    if (alpha < 1.0f) {
+                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                            (int) (foreground.getAlpha() * alpha));
+                    }
                 }
+                super.setForeground(new ColorUIResource(foreground));
                 boolean isActive = currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
                         || currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.SELECTION)
                         || currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ARM);

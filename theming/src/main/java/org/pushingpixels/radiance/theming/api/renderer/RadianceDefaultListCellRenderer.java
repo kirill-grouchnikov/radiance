@@ -91,7 +91,15 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                         modelStateInfo.getStateContributionMap();
                 if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
                     ContainerColorTokens colorTokens = getContainerTokensForState(list, ui, currState);
-                    super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
+                    Color foreground = colorTokens.getOnContainer();
+                    if (currState.isDisabled()) {
+                        float alpha = colorTokens.getOnContainerDisabledAlpha();
+                        if (alpha < 1.0f) {
+                            foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                                (int) (foreground.getAlpha() * alpha));
+                        }
+                    }
+                    super.setForeground(new ColorUIResource(foreground));
                     this.rolloverArmAmount = 0.0f;
                 } else {
                     float aggrRed = 0;
@@ -132,7 +140,15 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                 }
-                super.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
+                Color foreground = colorTokens.getOnContainer();
+                if (currState.isDisabled()) {
+                    float alpha = colorTokens.getOnContainerDisabledAlpha();
+                    if (alpha < 1.0f) {
+                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                            (int) (foreground.getAlpha() * alpha));
+                    }
+                }
+                super.setForeground(new ColorUIResource(foreground));
             }
         } else {
             if (isSelected) {

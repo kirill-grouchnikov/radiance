@@ -301,7 +301,15 @@ public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
                 ContainerColorTokens tokens = getColorTokensForState(table, ui, currState);
                 if (currState.isDisabled() || (activeStates == null)
                     || (activeStates.size() == 1)) {
-                    super.setForeground(new ColorUIResource(tokens.getOnContainer()));
+                    Color foreground = tokens.getOnContainer();
+                    if (currState.isDisabled()) {
+                        float alpha = tokens.getOnContainerDisabledAlpha();
+                        if (alpha < 1.0f) {
+                            foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                                (int) (foreground.getAlpha() * alpha));
+                        }
+                    }
+                    super.setForeground(new ColorUIResource(foreground));
                 } else {
                     float aggrRed = 0;
                     float aggrGreen = 0;
@@ -341,7 +349,16 @@ public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
                 currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.SELECTION) ||
                 currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ARM);
             this.activeContributions.put(currState, isActive ? 1.0f : 0.0f);
-            super.setForeground(new ColorUIResource(tokens.getOnContainer()));
+
+            Color foreground = tokens.getOnContainer();
+            if (currState.isDisabled()) {
+                float alpha = tokens.getOnContainerDisabledAlpha();
+                if (alpha < 1.0f) {
+                    foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                        (int) (foreground.getAlpha() * alpha));
+                }
+            }
+            super.setForeground(new ColorUIResource(foreground));
         }
 
         RadianceStripingUtils.applyStripedBackground(table, row, this, false);

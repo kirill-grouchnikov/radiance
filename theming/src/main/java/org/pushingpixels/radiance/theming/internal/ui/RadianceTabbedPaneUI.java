@@ -1878,7 +1878,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             if (currState.isDisabled()) {
                 float fgAlpha = colorTokens.getOnContainerDisabledAlpha();
                 if (fgAlpha < 1.0f) {
-                    fg = RadianceColorUtilities.getAlphaColor(fg, (int) (255 * fgAlpha));
+                    fg = RadianceColorUtilities.getAlphaColor(fg, (int) (fg.getAlpha() * fgAlpha));
                 }
             }
 
