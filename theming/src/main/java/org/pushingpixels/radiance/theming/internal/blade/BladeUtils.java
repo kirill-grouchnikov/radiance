@@ -260,7 +260,6 @@ public class BladeUtils {
     }
 
     public interface ColorSchemeDelegate {
-
         ContainerColorTokens getContainerTokensForCurrentState(ComponentState state);
 
         ContainerColorTokens getContainerTokensForActiveState(ComponentState state);
@@ -270,7 +269,6 @@ public class BladeUtils {
     public static ColorSchemeDelegate getDefaultColorSchemeDelegate(Component component,
             BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
         return new ColorSchemeDelegate() {
-
             @Override
             public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
                 return RadianceColorSchemeUtilities.getContainerTokens(component,

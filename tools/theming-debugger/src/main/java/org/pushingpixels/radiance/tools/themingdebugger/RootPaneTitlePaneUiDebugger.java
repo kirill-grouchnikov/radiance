@@ -29,8 +29,11 @@
  */
 package org.pushingpixels.radiance.tools.themingdebugger;
 
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.FocusKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeTransform;
 import org.pushingpixels.radiance.theming.api.text.RadianceTextArea;
 import org.pushingpixels.radiance.theming.internal.utils.LazyResettableHashMap;
@@ -118,20 +121,20 @@ public class RootPaneTitlePaneUiDebugger extends RadianceThemingWidget<JRootPane
 
                         cbMenu.addSeparator();
 
-                        JMenuItem restoreOriginal = new JMenuItem("Restore original");
-                        if (RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
-                                ComponentState.ENABLED) instanceof ColorBlindColorScheme) {
-                            restoreOriginal.addActionListener(
-                                    new SkinChanger(scheme -> {
-                                        if (scheme instanceof ColorBlindColorScheme) {
-                                            return ((ColorBlindColorScheme) scheme).getOrigScheme();
-                                        }
-                                        return scheme;
-                                    }, "Current"));
-                        } else {
-                            restoreOriginal.setEnabled(false);
-                        }
-                        cbMenu.add(restoreOriginal);
+//                        JMenuItem restoreOriginal = new JMenuItem("Restore original");
+//                        if (RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
+//                                ComponentState.ENABLED) instanceof ColorBlindColorScheme) {
+//                            restoreOriginal.addActionListener(
+//                                    new SkinChanger(scheme -> {
+//                                        if (scheme instanceof ColorBlindColorScheme) {
+//                                            return ((ColorBlindColorScheme) scheme).getOrigScheme();
+//                                        }
+//                                        return scheme;
+//                                    }, "Current"));
+//                        } else {
+//                            restoreOriginal.setEnabled(false);
+//                        }
+//                        cbMenu.add(restoreOriginal);
 
                         popup.add(cbMenu);
 
@@ -304,9 +307,10 @@ public class RootPaneTitlePaneUiDebugger extends RadianceThemingWidget<JRootPane
 
         public void actionPerformed(ActionEvent e) {
             SwingUtilities.invokeLater(() -> {
-                RadianceSkin newSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin().
-                        transform(transform, name);
-                RadianceThemingCortex.GlobalScope.setSkin(newSkin);
+                // TODO: TONAL restore color blind functionality
+//                RadianceSkin newSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin().
+//                        transform(transform, name);
+//                RadianceThemingCortex.GlobalScope.setSkin(newSkin);
             });
         }
     }

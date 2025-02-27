@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.component.internal.theming.common.GlowingRadia
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
@@ -134,7 +133,7 @@ public class CommandButtonBackgroundDelegate {
 
         BladeUtils.populateColorTokens(mutableContainerTokens,
             actionTransitionTracker.getModelStateInfo(), currActionState,
-            BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.FILL),
+            BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT),
             ignoreSelectedState);
 
         float actionAlpha;
@@ -182,7 +181,8 @@ public class CommandButtonBackgroundDelegate {
 
         BladeUtils.populateColorTokens(mutableContainerTokens,
             popupTransitionTracker.getModelStateInfo(), currPopupState,
-            BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> ColorSchemeAssociationKind.FILL),
+            BladeUtils.getDefaultColorSchemeDelegate(commandButton,
+                state -> RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT),
             false);
 
         float popupAlpha;

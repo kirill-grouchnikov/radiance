@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.internal.widget.menu;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.WidgetType;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
@@ -185,8 +185,8 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
                                 }
                             },
                             state -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
-                                    ? ColorSchemeAssociationKind.HIGHLIGHT
-                                    : ColorSchemeAssociationKind.MARK));
+                                ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                                : RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK));
 
                     // set action listener (to show the menu).
                     resultButton.addActionListener(new SearchResultListener(searchResult));
@@ -547,8 +547,8 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
                         }
                     },
                     state -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
-                            ? ColorSchemeAssociationKind.HIGHLIGHT
-                            : ColorSchemeAssociationKind.MARK));
+                        ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                        : RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK));
         }
         searchPanel.updateSearchIcon();
         ResourceBundle bundle = RadianceThemingCortex.GlobalScope.getLabelBundle();

@@ -109,24 +109,11 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
         this.iconWidth = iconDimension.width;
         this.iconHeight = iconDimension.height;
 
-        this.colorSchemeAssociationKindDelegate = new BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate() {
-            @Override
-            public RadianceThemingSlices.ColorSchemeAssociationKind getColorSchemeAssociationKind(
-                ComponentState state) {
-                // Use HIGHLIGHT for rollover menus (arrow icons) and MARK for the rest
-                return (component instanceof JMenu) && state.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
-                    ? RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT
-                    : RadianceThemingSlices.ColorSchemeAssociationKind.MARK;
-            }
-
-            @Override
-            public RadianceThemingSlices.ContainerColorTokensAssociationKind getContainterColorTokensAssociationKind(
-                ComponentState state) {
-                // Use HIGHLIGHT for rollover menus (arrow icons) and MARK for the rest
-                return (component instanceof JMenu) && state.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
-                    ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
-                    : RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK;
-            }
+        this.colorSchemeAssociationKindDelegate = state -> {
+            // Use HIGHLIGHT for rollover menus (arrow icons) and MARK for the rest
+            return (component instanceof JMenu) && state.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
+                ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                : RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK;
         };
     }
 

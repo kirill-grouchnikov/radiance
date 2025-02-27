@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.internal.blade;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
@@ -39,66 +38,6 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 
 public class BladeArrowIconUtils {
-    public static void drawArrow(Graphics2D g, float width, float height,
-        float strokeWidth, int direction, RadianceColorScheme scheme, float alpha) {
-        if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
-            float tmp = width;
-            width = height;
-            height = tmp;
-        }
-
-        // get graphics and set hints
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-            RenderingHints.VALUE_STROKE_PURE);
-        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-            RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-        Color arrowColor = scheme.getMarkColor();
-
-        graphics.setColor(RadianceColorUtilities.getAlphaColor(arrowColor, (int) (255 * alpha)));
-        Stroke stroke = new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-        graphics.setStroke(stroke);
-
-        if (direction == SwingConstants.CENTER) {
-            float smallHeight = (height - strokeWidth) / 2;
-            drawArrow(graphics, width, smallHeight, strokeWidth,
-                SwingConstants.NORTH, scheme, alpha);
-            graphics.translate(0, (int) (height / 2.0));
-            drawArrow(graphics, width, smallHeight, strokeWidth,
-                SwingConstants.SOUTH, scheme, alpha);
-        } else {
-            float cushion = strokeWidth / 2.0f;
-            GeneralPath gp = new GeneralPath();
-            switch (direction) {
-                case SwingConstants.SOUTH:
-                    gp.moveTo(cushion, cushion);
-                    gp.lineTo(0.5f * (width), height - cushion - 1);
-                    gp.lineTo(width - cushion, cushion);
-                    break;
-                case SwingConstants.NORTH:
-                    gp.moveTo(cushion, height - cushion - 1);
-                    gp.lineTo(0.5f * (width), cushion);
-                    gp.lineTo(width - cushion, height - cushion - 1);
-                    break;
-                case SwingConstants.EAST:
-                    gp.moveTo(cushion, cushion);
-                    gp.lineTo(width - 1 - cushion, 0.5f * (height));
-                    gp.lineTo(cushion, height - cushion);
-                    break;
-                case SwingConstants.WEST:
-                    gp.moveTo(width - 1 - cushion, cushion);
-                    gp.lineTo(cushion, 0.5f * (height));
-                    gp.lineTo(width - 1 - cushion, height - cushion);
-                    break;
-            }
-            graphics.draw(gp);
-        }
-        graphics.dispose();
-    }
-
     public static void drawArrow(Graphics2D g, int fontSize, Dimension boundingBox,
         int direction, ContainerColorTokens colorTokens, float alpha) {
         float origWidth = RadianceSizeUtils.getArrowIconWidth(fontSize);

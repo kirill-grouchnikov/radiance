@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeTransform;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
@@ -47,8 +46,6 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
@@ -532,25 +529,5 @@ public class SampleMenuFactory {
                 "com.Trendy.swing.plaf.TrendyLookAndFeel"));
 
         return lafMenu;
-    }
-
-    protected static class SkinChanger implements ActionListener {
-        protected ColorSchemeTransform transform;
-
-        protected String name;
-
-        public SkinChanger(ColorSchemeTransform transform, String name) {
-            super();
-            this.transform = transform;
-            this.name = name;
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            SwingUtilities.invokeLater(() -> {
-                RadianceSkin newSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin()
-                        .transform(transform, name);
-                RadianceThemingCortex.GlobalScope.setSkin(newSkin);
-            });
-        }
     }
 }

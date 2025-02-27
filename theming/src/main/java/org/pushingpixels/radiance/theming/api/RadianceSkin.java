@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeTransform;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -153,15 +151,11 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Maps decoration area type to the color scheme bundles. Must contain an
      * entry for {@link RadianceThemingSlices.DecorationAreaType#NONE}.
      */
-    private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle> colorSchemeBundleMap;
-
     private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle2> tonalColorSchemeMap;
 
     /**
      * Maps decoration area type to the background color schemes.
      */
-    private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorScheme> backgroundColorSchemeMap;
-
     private Map<RadianceThemingSlices.DecorationAreaType, ExtendedContainerColorTokens> tonalBackgroundTokensMap;
 
     /**
@@ -202,7 +196,7 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     /**
      * Set of all decoration area types that are not explicitly registered in
-     * {@link #colorSchemeBundleMap} but still are considered as decoration
+     * {@link #tonalColorSchemeMap} but still are considered as decoration
      * areas in this skin. Controls in such areas will have their background painted by
      * <p>
      * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
@@ -216,9 +210,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Constructs the basic data structures for a skin.
      */
     protected RadianceSkin() {
-        this.colorSchemeBundleMap = new HashMap<>();
         this.tonalColorSchemeMap = new HashMap<>();
-        this.backgroundColorSchemeMap = new HashMap<>();
         this.tonalBackgroundTokensMap = new HashMap<>();
         this.overlayPaintersMap = new HashMap<>();
 
@@ -325,33 +317,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param componentState Component state.
      * @return The color scheme of the component in the specified component state.
      */
-    public final RadianceColorScheme getColorScheme(Component comp,
-            ComponentState componentState) {
-        // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
-        if (this.colorSchemeBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ? RadianceThemingSlices.DecorationAreaType.NONE
-                    : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
-            if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-                RadianceColorScheme registered = this.colorSchemeBundleMap
-                        .get(decorationAreaType).getColorScheme(componentState);
-                if (registered == null) {
-                    throw new IllegalStateException(
-                            "Color scheme shouldn't be null here. Please report this issue");
-                }
-                return registered;
-            }
-        }
-
-        RadianceColorScheme registered = this.colorSchemeBundleMap.get(
-                RadianceThemingSlices.DecorationAreaType.NONE).getColorScheme(componentState);
-        if (registered == null) {
-            throw new IllegalStateException(
-                    "Color scheme shouldn't be null here. Please report this issue");
-        }
-        return registered;
-    }
-
     public final ContainerColorTokens getContainerTokens(Component comp,
         ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (componentState.isDisabled()) {
@@ -508,12 +473,12 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Returns the main active color scheme for the specific decoration area
      * type. Custom painting code that needs to consult the colors of the
      * specific component should use
-     * {@link #getColorScheme(Component, ComponentState)} method and various
-     * {@link RadianceColorScheme} methods.
+     * {@link #getContainerTokens(Component, ComponentState, RadianceThemingSlices.ContainerType)}
+     * method and various {@link ContainerColorTokens} methods.
      *
      * @param decorationAreaType Decoration area type.
      * @return The main active color scheme for this skin.
-     * @see #getColorScheme(Component, ComponentState)
+     * @see #getContainerTokens(Component, ComponentState, RadianceThemingSlices.ContainerType)
      */
     public final ContainerColorTokens getActiveContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
@@ -683,48 +648,48 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param name      The name of the new skin.
      * @return The new skin.
      */
-    public RadianceSkin transform(ColorSchemeTransform transform, final String name) {
-        RadianceSkin result = new RadianceSkin() {
-            @Override
-            public String getDisplayName() {
-                return name;
-            }
-        };
-        // same painters
-        result.borderPainter = this.borderPainter;
-        result.buttonShaper = this.buttonShaper;
-        result.decorationPainter = this.decorationPainter;
-        result.fillPainter = this.fillPainter;
-        result.highlightFillPainter = this.highlightFillPainter;
-        result.highlightBorderPainter = this.highlightBorderPainter;
-
-        // transform the scheme bundles
-        if (this.colorSchemeBundleMap != null) {
-            result.colorSchemeBundleMap = new HashMap<>();
-            for (Map.Entry<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle> bundleEntry :
-                    this.colorSchemeBundleMap.entrySet()) {
-                result.colorSchemeBundleMap.put(bundleEntry.getKey(),
-                        bundleEntry.getValue().transform(transform));
-            }
-        }
-
-        // same set of decoration areas
-        if (this.decoratedAreaSet != null) {
-            result.decoratedAreaSet = new HashSet<>(this.decoratedAreaSet);
-        }
-        // transform the background schemes
-        if (this.backgroundColorSchemeMap != null) {
-            result.backgroundColorSchemeMap = new HashMap<>();
-            for (Map.Entry<RadianceThemingSlices.DecorationAreaType, RadianceColorScheme> entry :
-                    this.backgroundColorSchemeMap.entrySet()) {
-                result.backgroundColorSchemeMap.put(entry.getKey(),
-                        transform.transform(entry.getValue()));
-            }
-        }
-        // same map of overlay painters
-        result.overlayPaintersMap = new HashMap<>(this.overlayPaintersMap);
-        return result;
-    }
+//    public RadianceSkin transform(ColorSchemeTransform transform, final String name) {
+//        RadianceSkin result = new RadianceSkin() {
+//            @Override
+//            public String getDisplayName() {
+//                return name;
+//            }
+//        };
+//        // same painters
+//        result.borderPainter = this.borderPainter;
+//        result.buttonShaper = this.buttonShaper;
+//        result.decorationPainter = this.decorationPainter;
+//        result.fillPainter = this.fillPainter;
+//        result.highlightFillPainter = this.highlightFillPainter;
+//        result.highlightBorderPainter = this.highlightBorderPainter;
+//
+//        // transform the scheme bundles
+//        if (this.colorSchemeBundleMap != null) {
+//            result.colorSchemeBundleMap = new HashMap<>();
+//            for (Map.Entry<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle> bundleEntry :
+//                    this.colorSchemeBundleMap.entrySet()) {
+//                result.colorSchemeBundleMap.put(bundleEntry.getKey(),
+//                        bundleEntry.getValue().transform(transform));
+//            }
+//        }
+//
+//        // same set of decoration areas
+//        if (this.decoratedAreaSet != null) {
+//            result.decoratedAreaSet = new HashSet<>(this.decoratedAreaSet);
+//        }
+//        // transform the background schemes
+//        if (this.backgroundColorSchemeMap != null) {
+//            result.backgroundColorSchemeMap = new HashMap<>();
+//            for (Map.Entry<RadianceThemingSlices.DecorationAreaType, RadianceColorScheme> entry :
+//                    this.backgroundColorSchemeMap.entrySet()) {
+//                result.backgroundColorSchemeMap.put(entry.getKey(),
+//                        transform.transform(entry.getValue()));
+//            }
+//        }
+//        // same map of overlay painters
+//        result.overlayPaintersMap = new HashMap<>(this.overlayPaintersMap);
+//        return result;
+//    }
 
     /**
      * Returns the background color scheme for the specified decoration area

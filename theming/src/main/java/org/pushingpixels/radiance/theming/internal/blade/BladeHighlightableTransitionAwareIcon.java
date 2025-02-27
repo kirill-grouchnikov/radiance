@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -78,8 +78,8 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
         this.transitionAwareUIDelegate = transitionAwareUIDelegate;
         this.delegate = delegate;
         this.colorSchemeAssociationKindDelegate = state -> state.isFacetActive(facetForHighlights)
-                ? ColorSchemeAssociationKind.HIGHLIGHT
-                : ColorSchemeAssociationKind.MARK;
+                ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                : RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK;
 
         Dimension dimension = this.delegate.getIconDimension();
         this.iconWidth = dimension.width;

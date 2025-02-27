@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.blade;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
@@ -370,30 +369,6 @@ public class BladeIconUtils {
     }
 
     public static void drawCloseIcon(Graphics2D g, int iconSize,
-            float primaryStrokeWidth, RadianceColorScheme scheme) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-        int start = iconSize / 4;
-        int end = iconSize - start;
-
-        Color primaryColor = scheme.getMarkColor();
-
-        Stroke primaryStroke = new BasicStroke(primaryStrokeWidth,
-                BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-
-        graphics.setStroke(primaryStroke);
-        graphics.setColor(primaryColor);
-        graphics.drawLine(start, start, end, end);
-        graphics.drawLine(start, end, end, start);
-
-        graphics.dispose();
-    }
-
-    public static void drawCloseIcon(Graphics2D g, int iconSize,
             float primaryStrokeWidth, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -418,25 +393,6 @@ public class BladeIconUtils {
     }
 
     public static void drawIconifyIcon(Graphics2D g, int iconSize,
-            RadianceColorScheme scheme) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-        int start = iconSize / 4 - 2;
-        int end = 3 * iconSize / 4;
-        int size = end - start - 2;
-
-        Color primaryColor = scheme.getMarkColor();
-
-        graphics.setColor(primaryColor);
-        graphics.fillRect(start + 2, end - 1, size, 3);
-        graphics.dispose();
-    }
-
-    public static void drawIconifyIcon(Graphics2D g, int iconSize,
             ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -452,31 +408,6 @@ public class BladeIconUtils {
 
         graphics.setColor(primaryColor);
         graphics.fillRect(start + 2, end - 1, size, 3);
-        graphics.dispose();
-    }
-
-    public static void drawMaximizeIcon(Graphics2D g, int iconSize,
-            RadianceColorScheme scheme) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-        int start = iconSize / 4 - 1;
-        int end = iconSize - start;
-
-        Color primaryColor = scheme.getMarkColor();
-
-        graphics.setColor(primaryColor);
-        // top (thicker)
-        graphics.fillRect(start, start, end - start, 2);
-        // left
-        graphics.fillRect(start, start, 1, end - start);
-        // right
-        graphics.fillRect(end - 1, start, 1, end - start);
-        // bottom
-        graphics.fillRect(start, end - 1, end - start, 1);
         graphics.dispose();
     }
 
@@ -502,48 +433,6 @@ public class BladeIconUtils {
         graphics.fillRect(end - 1, start, 1, end - start);
         // bottom
         graphics.fillRect(start, end - 1, end - start, 1);
-        graphics.dispose();
-    }
-
-    public static void drawRestoreIcon(Graphics2D g, int iconSize,
-            RadianceColorScheme scheme) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-        int start = iconSize / 4 - 1;
-        int end = iconSize - start;
-        int smallSquareSize = end - start - 3;
-        Color primaryColor = scheme.getMarkColor();
-
-        graphics.setColor(primaryColor);
-
-        // "Main" rectangle
-        int mainStartX = start;
-        int mainStartY = end - smallSquareSize;
-        // top (thicker)
-        graphics.fillRect(mainStartX, mainStartY, smallSquareSize, 2);
-        // left
-        graphics.fillRect(mainStartX, mainStartY, 1, smallSquareSize);
-        // right
-        graphics.fillRect(mainStartX + smallSquareSize - 1, mainStartY, 1, smallSquareSize);
-        // bottom
-        graphics.fillRect(mainStartX, mainStartY + smallSquareSize - 1, smallSquareSize, 1);
-
-        // "Secondary rectangle"
-        int secondaryStartX = mainStartX + 3;
-        int secondaryStartY = mainStartY - 3;
-        // top (thicker)
-        graphics.fillRect(secondaryStartX, secondaryStartY, smallSquareSize, 2);
-        // right
-        graphics.fillRect(secondaryStartX + smallSquareSize - 1, secondaryStartY, 1,
-                smallSquareSize);
-        // bottom (partial)
-        graphics.fillRect(mainStartX + smallSquareSize + 1, secondaryStartY + smallSquareSize - 1,
-                2, 1);
-
         graphics.dispose();
     }
 
@@ -585,39 +474,6 @@ public class BladeIconUtils {
         // bottom (partial)
         graphics.fillRect(mainStartX + smallSquareSize + 1, secondaryStartY + smallSquareSize - 1,
                 2, 1);
-
-        graphics.dispose();
-    }
-
-    public static void drawHexaMarker(Graphics2D g, int value, RadianceColorScheme colorScheme) {
-        value %= 16;
-        boolean isDark = colorScheme.isDark();
-        Color offColor = isDark
-            ? RadianceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
-            Color.white, 0.7)
-            : RadianceColorUtilities.deriveByBrightness(colorScheme.getMidColor(), -0.6f);
-        Color onColor = isDark
-            ? RadianceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
-            Color.white, 0.2)
-            : colorScheme.getForegroundColor();
-
-        boolean bit1 = ((value & 0x1) != 0);
-        boolean bit2 = ((value & 0x2) != 0);
-        boolean bit3 = ((value & 0x4) != 0);
-        boolean bit4 = ((value & 0x8) != 0);
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-
-        graphics.setColor(bit1 ? onColor : offColor);
-        graphics.fillOval(5, 5, 4, 4);
-        graphics.setColor(bit2 ? onColor : offColor);
-        graphics.fillOval(5, 0, 4, 4);
-        graphics.setColor(bit3 ? onColor : offColor);
-        graphics.fillOval(0, 5, 4, 4);
-        graphics.setColor(bit4 ? onColor : offColor);
-        graphics.fillOval(0, 0, 4, 4);
 
         graphics.dispose();
     }
