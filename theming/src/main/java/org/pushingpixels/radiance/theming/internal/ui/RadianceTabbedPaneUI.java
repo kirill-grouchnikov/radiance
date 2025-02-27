@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelin
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -677,52 +676,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         super.uninstallComponents();
     }
 
-    private static void paintTabBackgroundAt1X(Graphics2D graphics1X,
-        JTabbedPane tabPane, int tabIndex, double scaleFactor, int width, int height,
-        RadianceColorScheme fillScheme, RadianceColorScheme borderScheme, Color tabColor) {
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(tabPane);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(tabPane);
-
-        int dy = 3;
-        Set<RadianceThemingSlices.Side> straightSides = EnumSet.of(RadianceThemingSlices.Side.BOTTOM);
-
-        // Always use slightly rounded corners on tabs
-        float cornerRadius = (float) scaleFactor * RadianceSizeUtils
-            .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(tabPane));
-        width -= 1;
-
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(
-            tabPane.getComponentOrientation(),
-            width, height + dy, cornerRadius, straightSides, 1.0f);
-
-        graphics1X.setColor(tabColor);
-        graphics1X.fill(contour);
-        Graphics2D clipped = (Graphics2D) graphics1X.create();
-        clipped.clipRect(0, 0, width, (int) (0.2f * height));
-        clipped.setColor(fillPainter.getRepresentativeColor(fillScheme));
-        clipped.fill(contour);
-        clipped.dispose();
-
-        Shape contourInner = borderPainter.isPaintingInnerContour() ?
-            RadianceOutlineUtilities.getBaseOutline(
-                tabPane.getComponentOrientation(),
-                width, height + dy, cornerRadius - 1.0f, straightSides, 2.0f)
-            : null;
-
-        borderPainter.paintBorder(graphics1X, tabPane, width, height + dy, contour, contourInner,
-            borderScheme);
-
-        RadianceColorScheme blendedBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-            tabPane, tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
-            ComponentState.SELECTED);
-        Color lineColor = borderPainter.getRepresentativeColor(blendedBorderScheme);
-        Color lineColorFullTransparency = RadianceColorUtilities.getAlphaColor(lineColor, 0);
-        graphics1X.setPaint(new LinearGradientPaint(0.0f, 0.0f, 0.0f, height,
-            new float[]{0.0f, 0.5f, 1.0f},
-            new Color[]{lineColorFullTransparency, lineColorFullTransparency, lineColor}));
-        graphics1X.draw(contour);
-    }
-
     private static RadianceBorderPainter getBorderPainter(JTabbedPane tabPane,
         ContainerColorTokens colorTokens) {
         // TODO: TONAL - revisit this logic
@@ -981,12 +934,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 ssb, EnumSet.allOf(RadianceThemingSlices.Side.class));
 
         Icon icon = new BladeTransitionAwareIcon(ssb, new BladeTransitionAwareIcon.Delegate() {
-            @Override
-            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                int fontSize = RadianceSizeUtils.getComponentFontSize(tabPane);
-                BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(),
-                        direction, scheme, alpha);
-            }
 
             @Override
             public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {

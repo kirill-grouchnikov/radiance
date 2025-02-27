@@ -16,7 +16,6 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 
@@ -65,11 +64,6 @@ public class ColorChooserMainPanel extends javax.swing.JPanel {
             // Create a transition-aware wrapper around our icon so that it is colorized
             // based on the color scheme that matches the current state of our toggle button
             tb.setIcon(new BladeTransitionAwareIcon(tb, new BladeTransitionAwareIcon.Delegate() {
-                @Override
-                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                    //ccp.getHiDpiAwareIcon(18, scheme).paintIcon(null, g, 0, 0);
-                }
-
                 @Override
                 public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                     ccp.getHiDpiAwareIcon(18, colorTokens).paintIcon(null, g, 0, 0);

@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.widget.text;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -182,41 +181,6 @@ public class PasswordStrengthCheckerWidget extends RadianceThemingWidget<JPasswo
             this.jcomp.setBorder(new BorderUIResource.CompoundBorderUIResource(
                     this.jcomp.getBorder(), new StrengthCheckedBorder()));
         }
-    }
-
-    private static void paintRectangularBackground(Component c, Graphics g, int startX, int startY,
-        int width, int height, RadianceColorScheme colorScheme, float borderAlpha,
-        boolean isVertical) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.translate(startX, startY);
-
-        if (!isVertical) {
-            LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
-                new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
-                new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
-                    colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
-                MultipleGradientPaint.CycleMethod.REPEAT);
-            graphics.setPaint(paint);
-            graphics.fillRect(0, 0, width, height);
-        } else {
-            LinearGradientPaint paint = new LinearGradientPaint(0, 0, width, 0,
-                new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
-                new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
-                    colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
-                MultipleGradientPaint.CycleMethod.REPEAT);
-            graphics.setPaint(paint);
-            graphics.fillRect(0, 0, width, height);
-        }
-
-        if (borderAlpha > 0.0f) {
-            Graphics2D g2d = (Graphics2D) graphics.create();
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
-
-            BladeDrawingUtils.paintBladeSimpleBorder(c, g2d, width, height, 0.0f, colorScheme);
-
-            g2d.dispose();
-        }
-        graphics.dispose();
     }
 
     private static void paintRectangularBackground(Component c, Graphics g, int startX, int startY,

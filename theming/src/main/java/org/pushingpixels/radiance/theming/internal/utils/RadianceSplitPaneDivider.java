@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.utils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -278,12 +277,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
         Icon verticalSplit = new BladeTransitionAwareIcon(oneTouchButton,
                 new BladeTransitionAwareIcon.Delegate() {
-                    @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                                RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                SwingConstants.NORTH, scheme, alpha);
-                    }
 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -301,12 +294,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
         Icon horizontalSplit = new BladeTransitionAwareIcon(oneTouchButton,
                 new BladeTransitionAwareIcon.Delegate() {
-                    @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                                RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                SwingConstants.WEST, scheme, alpha);
-                    }
 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -344,12 +331,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
         Icon verticalSplit = new BladeTransitionAwareIcon(oneTouchButton,
                 new BladeTransitionAwareIcon.Delegate() {
-                    @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                                RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                SwingConstants.SOUTH, scheme, alpha);
-                    }
 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -366,12 +347,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
         );
         Icon horizontalSplit = new BladeTransitionAwareIcon(oneTouchButton,
                 new BladeTransitionAwareIcon.Delegate() {
-                    @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                                RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                SwingConstants.EAST, scheme, alpha);
-                    }
 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -414,12 +389,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
                 this.leftButton.setIcon(new BladeTransitionAwareIcon(this.leftButton,
                         new BladeTransitionAwareIcon.Delegate() {
-                            @Override
-                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                                        RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                        SwingConstants.NORTH, scheme, alpha);
-                            }
 
                             @Override
                             public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -442,12 +411,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
                 this.rightButton.setIcon(new BladeTransitionAwareIcon(this.rightButton,
                         new BladeTransitionAwareIcon.Delegate() {
-                            @Override
-                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                                        RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                        SwingConstants.SOUTH, scheme, alpha);
-                            }
 
                             @Override
                             public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -471,12 +434,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
                 this.leftButton.setIcon(new BladeTransitionAwareIcon(this.leftButton,
                         new BladeTransitionAwareIcon.Delegate() {
-                            @Override
-                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                                        RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                        SwingConstants.WEST, scheme, alpha);
-                            }
 
                             @Override
                             public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -499,12 +456,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
                 this.rightButton.setIcon(new BladeTransitionAwareIcon(this.rightButton,
                         new BladeTransitionAwareIcon.Delegate() {
-                            @Override
-                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                                        RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                        SwingConstants.EAST, scheme, alpha);
-                            }
 
                             @Override
                             public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {

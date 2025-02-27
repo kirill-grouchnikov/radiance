@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.extras.internal.tabbed;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
@@ -62,10 +62,10 @@ public class TabOverviewButton extends JButton implements UIResource {
         this.setIcon(new BladeTransitionAwareIcon(this,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         RadianceThemingCortex.GlobalScope.getIconPack()
-                                .getInspectIcon(dimension, scheme)
-                                .paintIcon(null, g, 0, 0);
+                            .getInspectIcon(dimension, colorTokens)
+                            .paintIcon(null, g, 0, 0);
                     }
 
                     @Override

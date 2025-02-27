@@ -31,9 +31,7 @@ package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.internal.utils.filters.ColorSchemeFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ImageColorFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.TonalContainerFilter;
 
@@ -294,20 +292,6 @@ public final class RadianceImageCreator {
     /**
      * Returns a lock icon that matches the specified scheme.
      *
-     * @param scheme Scheme instance.
-     * @return Lock icon that matches the specified scheme.
-     */
-    public static Icon getSmallLockIcon(RadianceColorScheme scheme, Component c) {
-        int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
-        int extraPadding = RadianceSizeUtils.getExtraPadding(componentFontSize);
-        int size = 9 + 2 * extraPadding;
-
-        return RadianceThemingCortex.GlobalScope.getIconPack().getLockIcon(size, scheme);
-    }
-
-    /**
-     * Returns a lock icon that matches the specified scheme.
-     *
      * @param tokens Tokens.
      * @return Lock icon that matches the specified scheme.
      */
@@ -317,16 +301,6 @@ public final class RadianceImageCreator {
         int size = 9 + 2 * extraPadding;
 
         return RadianceThemingCortex.GlobalScope.getIconPack().getLockIcon(size, tokens);
-    }
-
-    /**
-     * Returns a caps lock icon that matches the specified scheme.
-     *
-     * @param scheme Scheme instance.
-     * @return Caps lock icon that matches the specified scheme.
-     */
-    public static Icon getCapsLockIcon(RadianceColorScheme scheme, Component c) {
-        return RadianceThemingCortex.GlobalScope.getIconPack().getCapsLockIcon(32, scheme);
     }
 
     /**
@@ -345,29 +319,9 @@ public final class RadianceImageCreator {
      *
      * @param comp        Component.
      * @param original    The original icon.
-     * @param colorScheme Color scheme.
+     * @param colorTokens Color tokens.
      * @return Scheme-based version of the original icon.
      */
-    public static BufferedImage getColorSchemeImage(Component comp, Icon original,
-        RadianceColorScheme colorScheme, float originalBrightnessFactor) {
-        int w = original.getIconWidth();
-        int h = original.getIconHeight();
-        if ((w == 0) || (h == 0)) {
-            return null;
-        }
-        double scale = RadianceCommonCortex.getScaleFactor(comp);
-        BufferedImage origImage = RadianceCoreUtilities.getBlankImage(scale, w, h);
-        Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-            RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        original.paintIcon(comp, origImage.getGraphics(), 0, 0);
-        g2d.dispose();
-
-        BufferedImage result = getColorSchemeImage(origImage, colorScheme,
-            originalBrightnessFactor, 1.0f);
-        return result;
-    }
-
     public static BufferedImage getContainerTokensImage(Component comp, Icon original,
         ContainerColorTokens colorTokens, float originalBrightnessFactor) {
         int w = original.getIconWidth();
@@ -393,17 +347,10 @@ public final class RadianceImageCreator {
      * color scheme.
      *
      * @param original                 The original image.
-     * @param colorScheme              Color scheme.
+     * @param colorTokens              Color tokens.
      * @param originalBrightnessFactor The original brightness factor.
      * @return Scheme-based version of the original icon.
      */
-    public static BufferedImage getColorSchemeImage(BufferedImage original,
-            RadianceColorScheme colorScheme, float originalBrightnessFactor,
-            float alpha) {
-        return ColorSchemeFilter.getColorSchemeFilter(colorScheme, originalBrightnessFactor, alpha)
-                .filter(original, null);
-    }
-
     public static BufferedImage getContainerTokensImage(BufferedImage original,
             ContainerColorTokens colorTokens, float originalBrightnessFactor,
             float alpha) {

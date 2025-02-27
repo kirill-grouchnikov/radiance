@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -272,93 +271,6 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             contour, contourInner, colorTokens);
 
         graphics1Xextra.dispose();
-    }
-
-    /**
-     * Paints the selected part of the slider track.
-     *
-     * @param graphics1X   Graphics.
-     * @param drawInverted Indicates whether the value-range shown for the slider is
-     *                     reversed.
-     * @param paintRect    Selected portion.
-     * @param fillScheme   Fill color scheme.
-     * @param borderScheme Border color scheme.
-     * @param width        Track width.
-     * @param height       Track height.
-     */
-    private void paintSliderTrackSelected1X(Graphics2D graphics1X, boolean drawInverted,
-        Rectangle paintRect, RadianceColorScheme fillScheme, RadianceColorScheme borderScheme,
-        int width, int height, double scaleFactor) {
-
-        Graphics2D g2d = (Graphics2D) graphics1X.create();
-        Insets insets = this.slider.getInsets();
-        insets.top /= 2;
-        insets.left /= 2;
-        insets.bottom /= 2;
-        insets.right /= 2;
-
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(this.slider);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
-        float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-            RadianceSizeUtils.getComponentFontSize(slider)) / 2.0f;
-
-        // fill selected portion
-        if (this.slider.isEnabled()) {
-            if (this.slider.getOrientation() == SwingConstants.HORIZONTAL) {
-                int middleOfThumb = (int) (scaleFactor * (this.thumbRect.x + (this.thumbRect.width / 2) - paintRect.x));
-                int fillMinX;
-                int fillMaxX;
-
-                if (drawInverted) {
-                    fillMinX = middleOfThumb;
-                    fillMaxX = width;
-                } else {
-                    fillMinX = 0;
-                    fillMaxX = middleOfThumb;
-                }
-
-                int fillWidth = fillMaxX - fillMinX;
-                int fillHeight = height;
-                if ((fillWidth > 0) && (fillHeight > 0)) {
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                        this.slider.getComponentOrientation(),
-                        fillWidth, fillHeight, radius, null, 1.0f);
-                    g2d.translate(fillMinX, 0);
-                    fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
-                        contour, fillScheme);
-                    borderPainter.paintBorder(g2d, this.slider, fillWidth, fillHeight, contour,
-                        null, borderScheme);
-                }
-            } else {
-                int middleOfThumb = (int) (scaleFactor * (this.thumbRect.y + (this.thumbRect.height / 2) - paintRect.y));
-                int fillMin;
-                int fillMax;
-
-                if (this.drawInverted()) {
-                    fillMin = 0;
-                    fillMax = middleOfThumb;
-                    // fix for issue 368 - inverted vertical sliders
-                    g2d.translate(width + 2 - middleOfThumb, 0);
-                } else {
-                    fillMin = middleOfThumb;
-                    fillMax = width;
-                }
-
-                int fillWidth = fillMax - fillMin;
-                int fillHeight = height;
-                if ((fillWidth > 0) && (fillHeight > 0)) {
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                        this.slider.getComponentOrientation(),
-                        fillWidth, fillHeight, radius, null, 1.0f);
-
-                    fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
-                        contour, fillScheme);
-                    borderPainter.paintBorder(g2d, this.slider, fillWidth, fillHeight, contour,
-                        null, borderScheme);
-                }
-            }
-        }
-        g2d.dispose();
     }
 
     /**

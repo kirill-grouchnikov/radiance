@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -43,36 +42,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 public class BladeDrawingUtils {
-    public static void paintBladeBorder(Component c, Graphics2D g, int x, int y, int width,
-        int height, float baseRadius, RadianceColorScheme borderScheme) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.translate(x, y);
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
-                float scaledRadius = (float) scaleFactor * baseRadius;
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                    c.getComponentOrientation(),
-                    scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, null, 0.0f);
-                boolean skipInnerBorder = (c instanceof JTextComponent)
-                    || ((SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null)
-                    && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
-                Shape contourInner = skipInnerBorder ? null :
-                    RadianceOutlineUtilities.getBaseOutline(
-                        c.getComponentOrientation(),
-                        scaledWidth - 1.0f, scaledHeight - 1.0f,
-                        Math.max(scaledRadius - 1.0f, 0.0f), null, 1.0f);
-                borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight, contour,
-                    contourInner, borderScheme);
-            });
-        graphics.dispose();
-    }
-
     public static void paintBladeTonalBorder(Component c, Graphics2D g, int x, int y, int width,
         int height, float baseRadius, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
@@ -99,32 +68,6 @@ public class BladeDrawingUtils {
                         Math.max(scaledRadius - 1.0f, 0.0f), null, 1.0f);
                 borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight, contour,
                     contourInner, colorTokens);
-            });
-        graphics.dispose();
-    }
-
-    public static void paintBladeSimpleBorder(Component c, Graphics2D g, int width, int height,
-        float baseRadius, RadianceColorScheme colorScheme) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
-                Color borderColor = borderPainter.getRepresentativeColor(colorScheme);
-                graphics1X.setColor(borderColor);
-                if (baseRadius == 0.0f) {
-                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
-                    graphics1X.draw(new Rectangle2D.Float(0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f));
-                } else {
-                    float scaledRadius = (float) scaleFactor * baseRadius;
-                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-                    graphics1X.draw(new RoundRectangle2D.Float(
-                        0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, scaledRadius));
-                }
             });
         graphics.dispose();
     }

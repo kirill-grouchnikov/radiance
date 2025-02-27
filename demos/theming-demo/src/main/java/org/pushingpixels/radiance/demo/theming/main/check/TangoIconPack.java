@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
@@ -44,20 +43,8 @@ public class TangoIconPack implements RadianceIconPack {
 
     @Override
     public RadianceIcon getOptionPaneInformationIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return dialog_information.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getOptionPaneInformationIcon(int preferredSize,
         ContainerColorTokens preferredIconColorTokens) {
         return dialog_information.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getOptionPaneWarningIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return dialog_warning.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -68,20 +55,8 @@ public class TangoIconPack implements RadianceIconPack {
 
     @Override
     public RadianceIcon getOptionPaneErrorIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return dialog_error.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getOptionPaneErrorIcon(int preferredSize,
         ContainerColorTokens preferredIconColorTokens) {
         return dialog_error.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return help_browser.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -91,20 +66,8 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getFileChooserNewFolderIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return folder_new.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getFileChooserNewFolderIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return folder_new.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getFileChooserUpFolderIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return go_up.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -113,20 +76,8 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getFileChooserHomeFolderIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return user_home.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getFileChooserHomeFolderIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return user_home.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getFileChooserListViewIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return format_justify_fill.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -135,20 +86,8 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getFileChooserDetailsViewIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return accessories_text_editor.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getFileChooserDetailsViewIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return accessories_text_editor.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getFileChooserViewMenuIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return emblem_system.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -157,20 +96,8 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getFileChooserComputerIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return computer.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getFileChooserComputerIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return computer.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getFileChooserDirectoryIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return folder.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -179,20 +106,8 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getFileChooserFileIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return text_x_generic.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getFileChooserFileIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return text_x_generic.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getFileChooserFloppyDriveIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return media_floppy.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -201,31 +116,13 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getFileChooserHardDriveIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return drive_harddisk.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getFileChooserHardDriveIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return drive_harddisk.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public RadianceIcon getLockIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return locked.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getLockIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return locked.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getCapsLockIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return go_top.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -235,20 +132,8 @@ public class TangoIconPack implements RadianceIconPack {
 
     @Override
     public RadianceIcon getInspectIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return system_search.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getInspectIcon(int preferredSize,
         ContainerColorTokens preferredIconColorTokens) {
         return system_search.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getRefreshIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return view_refresh.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -257,20 +142,8 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getAllowedIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return list_add.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getAllowedIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return list_add.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getNotAllowedIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return dialog_error.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -279,28 +152,10 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getTextCopyActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_copy.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
-        return result;
-    }
-
-    @Override
     public RadianceIcon getTextCopyActionIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         RadianceIcon result = edit_copy.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorTokens.getColorFilter(
             preferredIconColorTokens.isDark() ? 0.6f : 0.8f, 1.0f));
-        return result;
-    }
-
-    @Override
-    public RadianceIcon getTextCutActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_cut.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
@@ -313,28 +168,10 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getTextPasteActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_paste.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
-        return result;
-    }
-
-    @Override
     public RadianceIcon getTextPasteActionIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         RadianceIcon result = edit_paste.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorTokens.getColorFilter(
             preferredIconColorTokens.isDark() ? 0.6f : 0.8f, 1.0f));
-        return result;
-    }
-
-    @Override
-    public RadianceIcon getTextDeleteActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_delete.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
@@ -347,15 +184,6 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getTextSelectAllActionIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_select_all.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
-        return result;
-    }
-
-    @Override
     public RadianceIcon getTextSelectAllActionIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         RadianceIcon result = edit_select_all.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorTokens.getColorFilter(
@@ -364,20 +192,8 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getColorChooserColorPalettesIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return face_angel.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getColorChooserColorPalettesIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return face_angel.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getColorChooserColorSlidersIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return face_glasses.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -386,20 +202,8 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return face_grin.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return face_grin.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getColorChooserColorWheelIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return face_plain.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -408,20 +212,8 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getColorChooserCrayonsIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return face_sad.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getColorChooserCrayonsIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return face_sad.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getColorChooserImagePalettesIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return face_smile.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
@@ -430,31 +222,13 @@ public class TangoIconPack implements RadianceIconPack {
     }
 
     @Override
-    public RadianceIcon getScrollHorizontalIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return go_next.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getScrollHorizontalIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return go_next.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public RadianceIcon getScrollVerticalIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return go_down.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
     public RadianceIcon getScrollVerticalIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         return go_down.uiResourceOf(preferredSize, preferredSize);
-    }
-
-    @Override
-    public RadianceIcon getScrollAllIcon(int preferredSize,
-            RadianceColorScheme preferredIconColorScheme) {
-        return view_fullscreen.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override

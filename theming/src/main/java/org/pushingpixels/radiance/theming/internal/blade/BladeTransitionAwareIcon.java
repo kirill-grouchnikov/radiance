@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -62,10 +61,7 @@ public class BladeTransitionAwareIcon implements Icon {
      * @author Kirill Grouchnikov
      */
     public interface Delegate {
-        void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha);
-
-        default void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens,
-                float alpha) {}
+        void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha);
 
         Dimension getIconDimension();
     }

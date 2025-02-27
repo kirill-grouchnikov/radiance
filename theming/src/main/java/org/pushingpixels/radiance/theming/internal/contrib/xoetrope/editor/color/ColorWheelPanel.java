@@ -4,7 +4,6 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser.RadianceColorChooserPanel;
@@ -197,9 +196,9 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
         // based on the color scheme that matches the current state of our toggle button
         resetBtn.setIcon(new BladeTransitionAwareIcon(resetBtn, new BladeTransitionAwareIcon.Delegate() {
 			@Override
-			public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-				RadianceThemingCortex.GlobalScope.getIconPack().getRefreshIcon(10, scheme)
-						.paintIcon(null, g, 0, 0);
+			public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+				RadianceThemingCortex.GlobalScope.getIconPack().getRefreshIcon(10, colorTokens)
+					.paintIcon(null, g, 0, 0);
 			}
 
 			@Override

@@ -241,29 +241,10 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
     /**
      * Returns a colorized image tile.
      * 
-     * @param scheme
-     *            Color scheme for the colorization.
+     * @param colorTokens
+     *            Color tokens for the colorization.
      * @return Colorized tile.
      */
-    protected BufferedImage getColorizedTile(double scale, RadianceColorScheme scheme) {
-        String key = scale + ":" + scheme.getDisplayName();
-        BufferedImage result = this.colorizedTileMap.get(key);
-        if (result == null) {
-            int tileWidth = this.originalTile.getWidth(null);
-            int tileHeight = this.originalTile.getHeight(null);
-            BufferedImage tileBi = RadianceCoreUtilities.getBlankImage(scale,
-                    (int) (tileWidth / scale),
-                    (int) (tileHeight / scale));
-            Graphics2D tile2D = tileBi.createGraphics();
-            tile2D.drawImage(this.originalTile, 0, 0, (int) (tileWidth / scale),
-                    (int) ( tileHeight / scale), null);
-            tile2D.dispose();
-            result = RadianceImageCreator.getColorSchemeImage(tileBi, scheme, 0.0f, 1.0f);
-            this.colorizedTileMap.put(key, result);
-        }
-        return result;
-    }
-
     protected BufferedImage getColorizedTile(double scale, ExtendedContainerColorTokens colorTokens) {
         String key = scale + ":" + colorTokens.hashCode();
         BufferedImage result = this.colorizedTileMap.get(key);

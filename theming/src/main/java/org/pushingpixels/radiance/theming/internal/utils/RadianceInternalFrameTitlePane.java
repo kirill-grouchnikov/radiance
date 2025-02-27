@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
@@ -318,10 +317,6 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         Icon restoreIcon = new BladeTransitionAwareIcon(
                 this.frame.isIcon() ? this.iconButton : this.maxButton,
                 new BladeTransitionAwareIcon.Delegate() {
-                    @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                        restoreButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
-                    }
 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -337,10 +332,6 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         TitlePaneButtonProvider maximizeButtonProvider = this.titlePaneButtonsProvider.getMaximizeButtonProvider();
         Icon maximizeIcon = new BladeTransitionAwareIcon(this.maxButton,
                 new BladeTransitionAwareIcon.Delegate() {
-                    @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                        maximizeButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
-                    }
 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -356,10 +347,6 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         TitlePaneButtonProvider iconifyButtonProvider = this.titlePaneButtonsProvider.getIconifyButtonProvider();
         Icon iconifyIcon = new BladeTransitionAwareIcon(this.iconButton,
                 new BladeTransitionAwareIcon.Delegate() {
-                    @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                        iconifyButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
-                    }
 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -375,10 +362,6 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         TitlePaneButtonProvider closeButtonProvider = this.titlePaneButtonsProvider.getCloseButtonProvider();
         Icon closeIcon = new BladeTransitionAwareIcon(this.closeButton,
                 new BladeTransitionAwareIcon.Delegate() {
-                    @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                        closeButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
-                    }
 
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {

@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
@@ -105,12 +104,6 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
         float iconWidth = RadianceSizeUtils.getSpinnerArrowIconWidth(fontSize);
         float iconHeight = RadianceSizeUtils.getSpinnerArrowIconHeight(fontSize);
         Icon icon = new BladeTransitionAwareIcon(this.nextButton, new BladeTransitionAwareIcon.Delegate() {
-            @Override
-            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                        RadianceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.NORTH,
-                        scheme, alpha);
-            }
 
             @Override
             public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
@@ -151,12 +144,6 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
         float iconWidth = RadianceSizeUtils.getSpinnerArrowIconWidth(fontSize);
         float iconHeight = RadianceSizeUtils.getSpinnerArrowIconHeight(fontSize);
         Icon icon = new BladeTransitionAwareIcon(this.prevButton, new BladeTransitionAwareIcon.Delegate() {
-            @Override
-            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
-                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
-                        RadianceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.SOUTH,
-                        scheme, alpha);
-            }
 
             @Override
             public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
