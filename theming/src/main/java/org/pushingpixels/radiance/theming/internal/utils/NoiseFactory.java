@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -47,7 +47,7 @@ public class NoiseFactory {
 	/**
 	 * Returns a noise image.
 	 * 
-	 * @param scheme
+	 * @param tokens
 	 *            The color scheme to use for rendering the image.
 	 * @param width
 	 *            Image width.
@@ -63,11 +63,11 @@ public class NoiseFactory {
 	 *            Indication whether the resulting image should be blurred.
 	 * @return Noise image.
 	 */
-	public static BufferedImage getNoiseImage(RadianceColorScheme scheme, int width,
+	public static BufferedImage getNoiseImage(ExtendedContainerColorTokens tokens, int width,
 			int height, double xFactor, double yFactor, boolean hasConstantZ,
 			boolean toBlur) {
-		Color c1 = RadianceColorUtilities.getAlphaColor(scheme.getDarkColor(), 15);
-		Color c3 = scheme.getLightColor();
+		Color c1 = RadianceColorUtilities.getAlphaColor(tokens.getSurfaceBright(), 255);
+		Color c3 = RadianceColorUtilities.getAlphaColor(tokens.getSurfaceDim(), 255);
 
 		// Note that we are starting with non-hi DPI aware image for creating the
 		// source for the noise
@@ -98,7 +98,7 @@ public class NoiseFactory {
 		if (toBlur) {
 			// and staying here with non-hi DPI aware image for blurred noise
 			ConvolveOp convolve = new ConvolveOp(new Kernel(3, 3, new float[] {
-					.08f, .08f, .08f, .08f, .38f, .08f, .08f, .08f, .08f }),
+					.06f, .06f, .06f, .06f, .54f, .06f, .06f, .06f, .06f }),
 					ConvolveOp.EDGE_NO_OP, null);
 			dst = convolve.filter(dst, null);
 		}

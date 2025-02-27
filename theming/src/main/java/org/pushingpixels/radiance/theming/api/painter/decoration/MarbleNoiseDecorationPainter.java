@@ -29,7 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.decoration;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.MetallicColorScheme;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.NoiseFactory;
 
 /**
@@ -49,8 +51,15 @@ public class MarbleNoiseDecorationPainter extends ImageWrapperDecorationPainter 
 	 */
 	public MarbleNoiseDecorationPainter() {
 		super();
-		this.originalTile = NoiseFactory.getNoiseImage(
-				new MetallicColorScheme(), 400, 400, 0.8, 0.8, false, true);
+
+		ExtendedContainerColorTokens metallicTokens =
+			ColorSchemeUtils.getExtendedContainerTokens(
+				/* seed */ Hct.fromInt(0xFFC4C9CF),
+				/* isFidelity */ true,
+				/* isDark */ false);
+
+		this.originalTile = NoiseFactory.getNoiseImage(metallicTokens,
+			400, 400, 0.8, 0.8, false, true);
 	}
 
     @Override
