@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.painter.border;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -117,11 +116,6 @@ public class FractionBasedTonalBorderPainter extends FractionBasedTonalPainter
 		graphics.setPaint(gradient);
 		graphics.draw(contour);
 		graphics.dispose();
-	}
-
-	@Override
-	public void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
-		Shape innerContour, RadianceColorScheme borderScheme) {
 	}
 
 	@Override

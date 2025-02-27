@@ -102,8 +102,7 @@ public class ColorBlindColorScheme extends BaseColorScheme {
      */
     public ColorBlindColorScheme(RadianceColorScheme origScheme,
             BlindnessKind kind) {
-        super(kind.name() + " " + origScheme.getDisplayName(), origScheme
-                .isDark());
+        super(kind.name() + " " + origScheme.getDisplayName(), origScheme.isDark());
         this.origScheme = origScheme;
         this.foregroundColor = getColorBlindColor(origScheme
                 .getForegroundColor(), _rgbToLms, kind, _lmsToRgb);

@@ -34,10 +34,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
 import org.pushingpixels.radiance.swing.ktx.addDelayedMouseMotionListener
 import org.pushingpixels.radiance.swing.ktx.awt.render
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin
 import org.pushingpixels.radiance.theming.extras.api.shaperpack.CanonicalPath
@@ -48,7 +48,6 @@ import java.awt.geom.Point2D
 import java.awt.image.BufferedImage
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.util.*
 import javax.imageio.ImageIO
 import javax.swing.*
 import javax.swing.border.TitledBorder
@@ -459,7 +458,7 @@ class ShapeEditor : JFrame() {
         this.minorPoints = ArrayList()
         this.minorPoints!!.add(Point2D.Double(0.55, 0.55))
 
-        this.iconImage = RadianceLogo.getTitlePaneLogoImage(this)
+        RadianceLogo.tonalConfigureOn(this)
     }
 }
 

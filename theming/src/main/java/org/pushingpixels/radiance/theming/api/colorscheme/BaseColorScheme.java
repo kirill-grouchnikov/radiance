@@ -29,11 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.api.colorscheme;
 
-import org.pushingpixels.radiance.theming.internal.colorscheme.*;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-
-import java.awt.*;
-
 /**
  * Base class for <b>Radiance</b> color schemes.
  * 
@@ -52,11 +47,6 @@ public abstract class BaseColorScheme implements RadianceColorScheme {
 	protected String displayName;
 
 	/**
-	 * Resolver for the derived colors.
-	 */
-	private SchemeDerivedColors derivedColorsResolver;
-
-	/**
 	 * Constructs the basic functionality of a color scheme.
 	 * 
 	 * @param displayName
@@ -67,8 +57,6 @@ public abstract class BaseColorScheme implements RadianceColorScheme {
 	protected BaseColorScheme(String displayName, boolean isDark) {
 		this.displayName = displayName;
 		this.isDark = isDark;
-		this.derivedColorsResolver = this.isDark ? new DerivedColorsResolverDark(this)
-				: new DerivedColorsResolverLight(this);
 	}
 
 	@Override
@@ -79,116 +67,5 @@ public abstract class BaseColorScheme implements RadianceColorScheme {
 	@Override
 	public final boolean isDark() {
 		return this.isDark;
-	}
-
-	@Override
-	public final RadianceColorScheme shift(Color backgroundShiftColor,
-			double backgroundShiftFactor, Color foregroundShiftColor,
-			double foregroundShiftFactor) {
-		return new ShiftColorScheme(this, backgroundShiftColor,
-				backgroundShiftFactor, foregroundShiftColor,
-				foregroundShiftFactor, true);
-	}
-
-	@Override
-	public RadianceColorScheme tint(double tintFactor) {
-		return new TintColorScheme(this, tintFactor);
-	}
-
-	@Override
-	public RadianceColorScheme shade(double shadeFactor) {
-		return new ShadeColorScheme(this, shadeFactor);
-	}
-
-	@Override
-	public RadianceColorScheme saturate(double saturateFactor) {
-		return new SaturatedColorScheme(this, saturateFactor);
-	}
-
-	@Override
-	public RadianceColorScheme blendWith(RadianceColorScheme otherScheme,
-			double likenessToThisScheme) {
-		return new BlendBiColorScheme(this, otherScheme, likenessToThisScheme);
-	}
-
-	@Override
-	public Color getBackgroundFillColor() {
-		return derivedColorsResolver.getBackgroundFillColor();
-	}
-
-	@Override
-	public Color getAccentedBackgroundFillColor() {
-		return derivedColorsResolver.getAccentedBackgroundFillColor();
-	}
-
-	@Override
-	public Color getFocusRingColor() {
-		return derivedColorsResolver.getFocusRingColor();
-	}
-
-	@Override
-	public Color getLineColor() {
-		return derivedColorsResolver.getLineColor();
-	}
-
-	@Override
-	public Color getSelectionForegroundColor() {
-		return derivedColorsResolver.getSelectionForegroundColor();
-	}
-
-	@Override
-	public Color getSelectionBackgroundColor() {
-		return derivedColorsResolver.getSelectionBackgroundColor();
-	}
-
-	@Override
-	public Color getTextBackgroundFillColor() {
-		return derivedColorsResolver.getTextBackgroundFillColor();
-	}
-
-	@Override
-	public Color getSeparatorPrimaryColor() {
-		return derivedColorsResolver.getSeparatorPrimaryColor();
-	}
-
-	@Override
-	public Color getSeparatorSecondaryColor() {
-		return derivedColorsResolver.getSeparatorSecondaryColor();
-	}
-
-	@Override
-	public Color getMarkColor() {
-		return derivedColorsResolver.getMarkColor();
-	}
-
-	@Override
-	public Color getEchoColor() {
-		return derivedColorsResolver.getEchoColor();
-	}
-
-	@Override
-	public final RadianceColorScheme named(String colorSchemeDisplayName) {
-		this.displayName = colorSchemeDisplayName;
-		return this;
-	}
-
-	@Override
-	public String toString() {
-		return this.getDisplayName() + " {\n    kind="
-				+ (this.isDark() ? "Dark" : "Light") + "\n    colorUltraLight="
-				+ RadianceColorUtilities.encode(this.getUltraLightColor())
-				+ "\n    colorExtraLight="
-				+ RadianceColorUtilities.encode(this.getExtraLightColor())
-				+ "\n    colorLight="
-				+ RadianceColorUtilities.encode(this.getLightColor())
-				+ "\n    colorMid="
-				+ RadianceColorUtilities.encode(this.getMidColor())
-				+ "\n    colorDark="
-				+ RadianceColorUtilities.encode(this.getDarkColor())
-				+ "\n    colorUltraDark="
-				+ RadianceColorUtilities.encode(this.getUltraDarkColor())
-				+ "\n    colorForeground="
-				+ RadianceColorUtilities.encode(this.getForegroundColor())
-				+ "\n}";
 	}
 }

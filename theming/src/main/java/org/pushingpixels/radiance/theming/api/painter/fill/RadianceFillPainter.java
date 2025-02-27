@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
@@ -44,7 +43,7 @@ import java.awt.*;
 public interface RadianceFillPainter extends RadianceTrait {
 	/**
 	 * Fills the contour that matches the specified parameters.
-	 * 
+	 *
 	 * @param g
 	 *            Graphics context.
 	 * @param comp
@@ -55,12 +54,9 @@ public interface RadianceFillPainter extends RadianceTrait {
 	 *            Height of a UI component.
 	 * @param contour
 	 *            Contour of a UI component.
-	 * @param fillScheme
-	 *            The fill color scheme.
+	 * @param colorTokens
+	 *            Color tokens.
 	 */
-	void paintContourBackground(Graphics g, Component comp, float width,
-			float height, Shape contour, RadianceColorScheme fillScheme);
-
 	void paintContourBackground(Graphics g, Component comp, float width, float height,
 			Shape contour, ContainerColorTokens colorTokens);
 }

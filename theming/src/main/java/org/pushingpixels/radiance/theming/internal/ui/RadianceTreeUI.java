@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTreeCellRenderer;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelTreeCellRenderer;
@@ -107,7 +106,6 @@ public class RadianceTreeUI extends BasicTreeUI {
 	 * {@link RadianceDefaultTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
 	 * for performance optimizations.
 	 */
-	private RadianceColorScheme currDefaultColorScheme;
 	private ContainerColorTokens currDefaultColorTokens;
 
 	/**
@@ -966,10 +964,6 @@ public class RadianceTreeUI extends BasicTreeUI {
 	 * 
 	 * @return The default color scheme of this tree.
 	 */
-	public RadianceColorScheme getDefaultColorScheme() {
-		return this.currDefaultColorScheme;
-	}
-
 	public ContainerColorTokens getDefaultColorTokens() {
 		return this.currDefaultColorTokens;
 	}

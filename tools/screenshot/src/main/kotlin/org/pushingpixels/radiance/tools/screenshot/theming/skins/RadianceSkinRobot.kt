@@ -38,7 +38,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.demo.theming.main.check.SampleFrame
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin
 import org.pushingpixels.radiance.tools.common.RadianceLogo
 import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
@@ -71,10 +70,7 @@ abstract class RadianceSkinRobot(
         val frame: SampleFrame
         withContext(Dispatchers.Swing) {
             frame = SampleFrame(frameTitle, useMutedToolbarIcons)
-            frame.iconImage = RadianceLogo.getLogoImage(
-                frame,
-                RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.rootPane)
-                    .getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE))
+            RadianceLogo.tonalConfigureOn(frame)
             frame.setSize(340, 258)
             frame.setLocationRelativeTo(null)
             frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
@@ -104,10 +100,7 @@ abstract class RadianceSkinRobot(
             // set skin and update the frame logo
             withContext(Dispatchers.Swing) {
                 RadianceThemingCortex.GlobalScope.setSkin(skin)
-                frame.iconImage = RadianceLogo.getLogoImage(
-                    frame,
-                    skin.getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)
-                )
+                RadianceLogo.tonalConfigureOn(frame)
             }
 
             // switch to the middle tab

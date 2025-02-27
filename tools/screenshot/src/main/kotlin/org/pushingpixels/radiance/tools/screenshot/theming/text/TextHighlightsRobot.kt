@@ -82,11 +82,7 @@ abstract class TextHighlightsRobot(
     private fun makeFrame(): TextHighlightsFrame {
         val frame = TextHighlightsFrame("Text highlights")
 
-        frame.iconImage = RadianceLogo.getLogoImage(
-            frame,
-            RadianceThemingCortex.GlobalScope.getCurrentSkin().
-            getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)
-        )
+        RadianceLogo.tonalConfigureOn(frame)
 
         frame.contentPane.layout = BoxLayout(frame.contentPane, BoxLayout.Y_AXIS)
 
@@ -164,11 +160,7 @@ abstract class TextHighlightsRobot(
             // set skin and update the frame logo
             withContext(Dispatchers.Swing) {
                 RadianceThemingCortex.GlobalScope.setSkin(skin)
-                frame.iconImage = RadianceLogo.getLogoImage(
-                    frame,
-                    RadianceThemingCortex.GlobalScope.getCurrentSkin().
-                    getBackgroundExtendedContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)
-                )
+                RadianceLogo.tonalConfigureOn(frame)
             }
 
             // Go over all the text fields and emulate text selection by pressing the mouse
