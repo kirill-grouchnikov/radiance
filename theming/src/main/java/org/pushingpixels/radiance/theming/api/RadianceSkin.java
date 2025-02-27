@@ -375,23 +375,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the alpha channel of the color scheme of the component.
-     *
-     * @param comp           Component.
-     * @param componentState Component state.
-     * @return Color scheme alpha channel.
-     */
-    public final float getAlpha(Component comp, ComponentState componentState) {
-        // TODO: TONAL - remove this
-        // TODO: TONAL - finalize this
-        if (componentState.isDisabled()) {
-            return 0.4f;
-        } else {
-            return 1.0f;
-        }
-    }
-
-    /**
      * Registers the specified color scheme bundle and background color scheme
      * to be used on controls in decoration areas.
      *

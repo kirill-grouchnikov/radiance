@@ -140,7 +140,8 @@ public class CommandButtonBackgroundDelegate {
         if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
             if (currActionState == ComponentState.DISABLED_SELECTED) {
                 // Respect the alpha in disabled+selected state
-                actionAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton, currActionState);
+                actionAlpha = RadianceColorSchemeUtilities.getActiveContainerTokens(
+                    commandButton, currActionState).getContainerSurfaceDisabledAlpha();
             } else {
                 // For flat buttons, compute the combined contribution of all
                 // non-disabled states - ignoring ComponentState.ENABLED
@@ -167,8 +168,9 @@ public class CommandButtonBackgroundDelegate {
             }
         } else {
             if (currActionState.isDisabled()) {
-                actionAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton,
-                        currActionState);
+                actionAlpha = RadianceColorSchemeUtilities.getContainerTokens(
+                    commandButton, currActionState, RadianceThemingSlices.ContainerType.MUTED)
+                    .getContainerSurfaceDisabledAlpha();
             } else {
                 actionAlpha = 1.0f;
             }
@@ -189,7 +191,8 @@ public class CommandButtonBackgroundDelegate {
         if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
             if (currPopupState == ComponentState.DISABLED_SELECTED) {
                 // Respect the alpha in disabled+selected state
-                popupAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton, currPopupState);
+                popupAlpha = RadianceColorSchemeUtilities.getActiveContainerTokens(
+                    commandButton, currPopupState).getContainerSurfaceDisabledAlpha();
             } else {
                 // For flat buttons, compute the combined contribution of all
                 // non-disabled states - ignoring ComponentState.ENABLED
@@ -215,8 +218,9 @@ public class CommandButtonBackgroundDelegate {
             }
         } else {
             if (currPopupState.isDisabled()) {
-                popupAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton,
-                        currPopupState);
+                popupAlpha = RadianceColorSchemeUtilities.getContainerTokens(
+                    commandButton, currPopupState, RadianceThemingSlices.ContainerType.MUTED)
+                    .getContainerSurfaceDisabledAlpha();
             } else {
                 popupAlpha = 1.0f;
             }

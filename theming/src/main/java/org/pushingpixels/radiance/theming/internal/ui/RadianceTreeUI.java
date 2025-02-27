@@ -393,9 +393,9 @@ public class RadianceTreeUI extends BasicTreeUI {
 			Rectangle bounds, TreePath path, int row, boolean isExpanded, boolean hasBeenExpanded,
 			boolean isLeaf) {
 
-		float alpha = RadianceColorSchemeUtilities.getAlpha(this.tree,
-				this.tree.isEnabled() ? ComponentState.ENABLED
-						: ComponentState.DISABLED_UNSELECTED);
+		float alpha = RadianceColorSchemeUtilities.getContainerTokens(this.tree,
+			this.tree.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
+			RadianceThemingSlices.ContainerType.MUTED).getContainerOutlineDisabledAlpha();
 
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));

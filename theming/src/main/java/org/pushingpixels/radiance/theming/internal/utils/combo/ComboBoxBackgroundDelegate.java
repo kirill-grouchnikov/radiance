@@ -143,8 +143,9 @@ public class ComboBoxBackgroundDelegate {
                 extraAlpha += activeEntry.getValue().getContribution();
             }
         } else if (!combo.isEnabled()) {
-            extraAlpha = RadianceColorSchemeUtilities.getAlpha(combo,
-                    modelStateInfo.getCurrModelState());
+            extraAlpha = RadianceColorSchemeUtilities.getContainerTokens(combo,
+                    modelStateInfo.getCurrModelState(), RadianceThemingSlices.ContainerType.MUTED)
+                .getContainerSurfaceDisabledAlpha();
         }
 
         if (extraAlpha > 0.0f) {

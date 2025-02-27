@@ -217,16 +217,4 @@ public class RadianceColorSchemeUtilities {
         }
         return 1.0f;
     }
-
-    /**
-     * Returns the alpha channel of the color scheme of the component.
-     *
-     * @param component      Component.
-     * @param componentState Component state.
-     * @return Color scheme alpha channel.
-     */
-    // TODO: TONAL - remove this
-    public static float getAlpha(Component component, ComponentState componentState) {
-        return RadianceCoreUtilities.getSkin(component).getAlpha(component, componentState);
-    }
 }

@@ -127,7 +127,6 @@ public class RadianceLabelUI extends BasicLabelUI {
         // Paint the text
         ComponentState labelState = label.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
-        float labelAlpha = RadianceColorSchemeUtilities.getAlpha(label, labelState);
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(label.getRootPane());
         Color textColor;

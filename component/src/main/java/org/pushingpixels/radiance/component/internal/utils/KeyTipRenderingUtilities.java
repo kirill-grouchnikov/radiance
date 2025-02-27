@@ -61,7 +61,6 @@ public class KeyTipRenderingUtilities {
 
         ComponentState state =
                 toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
-        float alpha = RadianceColorSchemeUtilities.getAlpha(c, state);
         ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
             c, state, RadianceThemingSlices.ContainerType.MUTED);
 
@@ -72,7 +71,6 @@ public class KeyTipRenderingUtilities {
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
         graphics.translate(rect.x, rect.y);
 
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, rect.width, rect.height,
@@ -84,6 +82,8 @@ public class KeyTipRenderingUtilities {
                             c.getComponentOrientation(),
                             scaledWidth, scaledHeight, radius,
                             null, 1.0f);
+                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
+                        c, tokens.getContainerSurfaceDisabledAlpha(), graphics));
                     fillPainter.paintContourBackground(graphics1X, c, scaledWidth, scaledHeight,
                             contour, tokens);
 
@@ -91,6 +91,8 @@ public class KeyTipRenderingUtilities {
                             c.getComponentOrientation(),
                             scaledWidth, scaledHeight,
                             radius, null, 2.0f);
+                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
+                        c, tokens.getContainerOutlineDisabledAlpha(), graphics));
                     borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight, contour,
                             contourInner, tokens);
                 });
@@ -106,6 +108,8 @@ public class KeyTipRenderingUtilities {
         LineMetrics lineMetrics = graphics.getFontMetrics().getLineMetrics(keyTip, graphics);
         int strHeight = (int) lineMetrics.getHeight();
         RadianceCommonCortex.installDesktopHints(graphics, font);
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(
+            c, tokens.getOnContainerDisabledAlpha(), g));
         graphics.drawString(keyTip, (rect.width - strWidth) / 2,
                 (rect.height + strHeight) / 2 - graphics.getFontMetrics().getDescent());
 

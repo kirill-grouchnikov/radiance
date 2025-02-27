@@ -31,11 +31,13 @@ package org.pushingpixels.radiance.theming.internal.utils.menu;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ButtonUI;
@@ -618,11 +620,8 @@ public class MenuUtilities {
         if (menuItem.getParent() instanceof JMenuBar) {
             graphics.translate(popupMetrics.maxIconTextGap / 2, 0);
         }
-        float textAlpha = RadianceColorSchemeUtilities.getAlpha(menuItem,
-            ComponentState.getState(menuItem.getModel(), menuItem, true));
         Color textColor;
         View v = (View) menuItem.getClientProperty(BasicHTML.propertyKey);
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
         if (v != null) {
             v.paint(graphics, mli.textRect);
             // This text color may not correspond to the text of the HTML-based rendering, but we

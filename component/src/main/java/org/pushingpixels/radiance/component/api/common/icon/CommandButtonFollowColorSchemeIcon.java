@@ -127,7 +127,8 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
                     : ComponentState.ENABLED,
                 this.colorSchemeAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
             if ((c == null) || !c.isEnabled()) {
-                alpha = RadianceColorSchemeUtilities.getAlpha(c, ComponentState.DISABLED_UNSELECTED);
+                alpha = RadianceColorSchemeUtilities.getActiveContainerTokens(
+                    c, ComponentState.DISABLED_UNSELECTED).getOnContainerDisabledAlpha();
             }
         } else {
             JCommandButton commandButton = (JCommandButton) c;
@@ -141,7 +142,8 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
 
             BladeUtils.populateColorTokens(mutableTokens, commandButton, modelStateInfo, currState,
                     this.colorSchemeAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
-            alpha = RadianceColorSchemeUtilities.getAlpha(c, currState);
+            alpha = RadianceColorSchemeUtilities.getContainerTokens(
+                c, currState, RadianceThemingSlices.ContainerType.MUTED).getOnContainerDisabledAlpha();
         }
 
         Graphics2D graphics = (Graphics2D) g.create();

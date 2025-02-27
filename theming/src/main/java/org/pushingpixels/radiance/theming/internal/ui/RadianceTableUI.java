@@ -655,15 +655,13 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         Graphics2D g2d = (Graphics2D) g.create();
         ComponentState currState = this.table.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
-        float alpha = RadianceColorSchemeUtilities.getAlpha(this.table, currState);
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            this.table, currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+        float alpha = tokens.getContainerOutlineDisabledAlpha();
         g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
 
         Color gridColor = this.table.getGridColor();
         if (gridColor instanceof UIResource) {
-            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
-                this.table,
-                this.table.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
-                RadianceThemingSlices.ContainerType.NEUTRAL);
             gridColor = tokens.getContainerOutline();
         }
         g2d.setColor(gridColor);

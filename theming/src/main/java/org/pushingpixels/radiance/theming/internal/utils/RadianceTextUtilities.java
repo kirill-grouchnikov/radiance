@@ -392,7 +392,8 @@ public class RadianceTextUtilities {
                     continue;
                 }
 
-                float alpha = RadianceColorSchemeUtilities.getAlpha(comp, activeState);
+                float alpha = RadianceColorSchemeUtilities.getActiveContainerTokens(comp, activeState)
+                    .getContainerSurfaceDisabledAlpha();
                 if (alpha == 0.0f) {
                     continue;
                 }
@@ -436,7 +437,8 @@ public class RadianceTextUtilities {
                     continue;
                 }
 
-                float alpha = RadianceColorSchemeUtilities.getAlpha(comp, activeState);
+                float alpha = RadianceColorSchemeUtilities.getActiveContainerTokens(comp, activeState)
+                    .getOnContainerDisabledAlpha();
                 if (alpha == 0.0f) {
                     continue;
                 }
