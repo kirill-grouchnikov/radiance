@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
@@ -88,7 +89,8 @@ public class RadianceTextComponentBorder implements Border, UIResource {
      * @param isEnabled
      *            Component enabled status.
      */
-    private void paintBorderImpl(JComponent c, Graphics g, int x, int y, int width, int height, boolean isEnabled) {
+    private void paintBorderImpl(JComponent c, Graphics g, int xOffset, int yOffset,
+        int width, int height, boolean isEnabled) {
         // failsafe for LAF change
         if (!RadianceCoreUtilities.isCurrentLookAndFeel()) {
             return;
@@ -100,45 +102,91 @@ public class RadianceTextComponentBorder implements Border, UIResource {
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
 
         Graphics2D graphics = (Graphics2D) g.create();
-        JTextComponent componentForTransitions = RadianceCoreUtilities
-            .getTextComponentForTransitions(c);
-        if (componentForTransitions != null) {
-            ComponentUI ui = componentForTransitions.getUI();
-            if (ui instanceof TransitionAwareUI) {
-                TransitionAwareUI trackable = (TransitionAwareUI) ui;
-                StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
-                StateTransitionTracker.ModelStateInfo modelStateInfo =
+        graphics.translate(xOffset, yOffset);
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height, (graphics1X, x, y,
+            scaledWidth, scaledHeight, scaleFactor) -> {
+            JTextComponent componentForTransitions = RadianceCoreUtilities
+                .getTextComponentForTransitions(c);
+            if (componentForTransitions != null) {
+                ComponentUI ui = componentForTransitions.getUI();
+                if (ui instanceof TransitionAwareUI) {
+                    TransitionAwareUI trackable = (TransitionAwareUI) ui;
+                    StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
+                    StateTransitionTracker.ModelStateInfo modelStateInfo =
                         stateTransitionTracker.getModelStateInfo();
-                ComponentState currState = modelStateInfo.getCurrModelState();
-                if (currState.isDisabled()) {
-                    currState = ComponentState.DISABLED_SELECTED;
+                    ComponentState currState = modelStateInfo.getCurrModelState();
+                    if (currState.isDisabled()) {
+                        currState = ComponentState.DISABLED_SELECTED;
+                    }
+
+                    BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
+                        currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                        false, false, RadianceThemingSlices.ContainerType.MUTED);
+                    borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight,
+                        new Rectangle(0, 0, scaledWidth - 1, scaledHeight - 1),
+                        null, mutableContainerTokens);
+
+                    return;
                 }
-
-                graphics.translate(x, y);
-
-                BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
-                    currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                    false, false, RadianceThemingSlices.ContainerType.MUTED);
-                borderPainter.paintBorder(g, c, width, height, new Rectangle(0, 0, width, height),
-                    null, mutableContainerTokens);
-
-                graphics.dispose();
-
-                return;
             }
-        }
 
-        ComponentState currState = isEnabled ? ComponentState.ENABLED
+            ComponentState currState = isEnabled ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
 
-        ContainerColorTokens colorTokens =
-            RadianceColorSchemeUtilities.getContainerTokens(c,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                currState, RadianceThemingSlices.ContainerType.MUTED);
+            ContainerColorTokens colorTokens =
+                RadianceColorSchemeUtilities.getContainerTokens(c,
+                    RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                    currState, RadianceThemingSlices.ContainerType.MUTED);
 
-        graphics.translate(x, y);
-        borderPainter.paintBorder(g, c, width, height, new Rectangle(0, 0, width, height),
-            null, colorTokens);
+            borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight,
+                new Rectangle(0, 0, scaledWidth - 1, scaledHeight - 1),
+                null, colorTokens);
+        });
+
+//        JTextComponent componentForTransitions = RadianceCoreUtilities
+//            .getTextComponentForTransitions(c);
+//        if (componentForTransitions != null) {
+//            ComponentUI ui = componentForTransitions.getUI();
+//            if (ui instanceof TransitionAwareUI) {
+//                TransitionAwareUI trackable = (TransitionAwareUI) ui;
+//                StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
+//                StateTransitionTracker.ModelStateInfo modelStateInfo =
+//                        stateTransitionTracker.getModelStateInfo();
+//                ComponentState currState = modelStateInfo.getCurrModelState();
+//                if (currState.isDisabled()) {
+//                    currState = ComponentState.DISABLED_SELECTED;
+//                }
+//
+//                graphics.translate(x, y);
+//
+//                BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
+//                    currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+//                    false, false, RadianceThemingSlices.ContainerType.MUTED);
+//                borderPainter.paintBorder(g, c, width, height, new Rectangle(0, 0, width, height),
+//                    null, mutableContainerTokens);
+//
+//                graphics.dispose();
+//
+//                return;
+//            }
+//        }
+//
+//        ComponentState currState = isEnabled ? ComponentState.ENABLED
+//                : ComponentState.DISABLED_UNSELECTED;
+//
+//        ContainerColorTokens colorTokens =
+//            RadianceColorSchemeUtilities.getContainerTokens(c,
+//                RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+//                currState, RadianceThemingSlices.ContainerType.MUTED);
+//
+//        graphics.translate(x, y);
+//        borderPainter.paintBorder(g, c, width, height, new Rectangle(0, 0, width-1, height-1),
+//            null, colorTokens);
         graphics.dispose();
     }
 
