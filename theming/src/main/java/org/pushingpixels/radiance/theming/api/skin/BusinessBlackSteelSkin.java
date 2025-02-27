@@ -33,8 +33,8 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
 /**
  * <code>Business Black Steel</code> skin. This class is part of officially supported API.
@@ -75,7 +75,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				/* isFidelity */ true,
 				/* isDark */ false)));
 
-		RadianceColorScheme2 controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+		RadianceColorScheme controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFAFBEC7), Hct.fromInt(0xFFD5DBDF), Hct.fromInt(0xFFD0D7DC)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

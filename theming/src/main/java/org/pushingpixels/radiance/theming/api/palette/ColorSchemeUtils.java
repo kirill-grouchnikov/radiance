@@ -38,6 +38,7 @@ import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.plaf.UIResource;
@@ -146,7 +147,7 @@ public class ColorSchemeUtils {
     }
 
     private static ContainerColorTokens getRolloverUnselectedTokens(
-        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
+        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 20% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -155,7 +156,7 @@ public class ColorSchemeUtils {
     }
 
     private static ContainerColorTokens getRolloverSelectedTokens(
-        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
+        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -164,7 +165,7 @@ public class ColorSchemeUtils {
     }
 
     private static ContainerColorTokens getRolloverArmedTokens(
-        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
+        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -173,7 +174,7 @@ public class ColorSchemeUtils {
     }
 
     private static ContainerColorTokens getPressedUnselectedTokens(
-        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
+        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -182,7 +183,7 @@ public class ColorSchemeUtils {
     }
 
     private static ContainerColorTokens getPressedSelectedTokens(
-        RadianceColorScheme2 colorScheme, ContainerColorTokens baseTokens) {
+        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
         // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -420,7 +421,7 @@ public class ColorSchemeUtils {
         }
     }
 
-    public static RadianceColorScheme2 getColorScheme(
+    public static RadianceColorScheme getColorScheme(
         PalettesSource palettesSource,
         RadianceThemingSlices.ActiveContainerType activeContainerType,
         boolean isDark) {
@@ -429,7 +430,7 @@ public class ColorSchemeUtils {
             SchemeResolverUtils.getSchemeColorResolver());
     }
 
-    public static RadianceColorScheme2 getColorScheme(
+    public static RadianceColorScheme getColorScheme(
         PalettesSource palettesSource,
         RadianceThemingSlices.ActiveContainerType activeContainerType,
         boolean isPrimaryDark, boolean isTonalDark, boolean isMutedDark, boolean isNeutralDark,
@@ -497,7 +498,7 @@ public class ColorSchemeUtils {
             palettes.getSystemEmergencySourceHct(), RadianceThemingSlices.ActiveContainerType.PRIMARY,
             false, isSystemDark);
 
-        return new RadianceColorScheme2() {
+        return new RadianceColorScheme() {
             private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
             @Override

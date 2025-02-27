@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
 import javax.swing.*;
 import java.util.*;
@@ -147,7 +147,7 @@ import java.util.*;
  * When the matching algorithm cannot find a sufficiently close match, the
  * skinning layer will fall back on one of the three base color schemes passed
  * to the
- * {@link RadianceColorSchemeBundle#RadianceColorSchemeBundle(RadianceColorScheme2)}
+ * {@link RadianceColorSchemeBundle#RadianceColorSchemeBundle(RadianceColorScheme)}
  * constructor. States with {@link RadianceThemingSlices.ComponentStateFacet#ENABLE} in their off list
  * will fall back to the disabled color scheme. The
  * {@link ComponentState#ENABLED} will fall back to the enabled color scheme.

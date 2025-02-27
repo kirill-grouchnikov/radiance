@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
@@ -59,7 +60,7 @@ public class MarinerSkin extends RadianceSkin {
     public static final String NAME = "Mariner";
 
     public MarinerSkin() {
-        RadianceColorScheme2 marinerColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme marinerColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFF6DD9D), Hct.fromInt(0xFFD9D8D5), Hct.fromInt(0xFFECF0F3)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -90,7 +91,7 @@ public class MarinerSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(marinerDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
-        RadianceColorScheme2 marinerHeaderColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme marinerHeaderColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFF5D47A), Hct.fromInt(0xFF281D1E), Hct.fromInt(0xFF2C2021)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -138,7 +139,7 @@ public class MarinerSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        RadianceColorScheme2 marinerFooterColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme marinerFooterColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFF6DD9D), Hct.fromInt(0xFFC5C4C2), Hct.fromInt(0xFFB9B7B9)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

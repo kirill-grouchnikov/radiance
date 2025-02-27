@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
@@ -42,7 +43,6 @@ import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFi
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -62,7 +62,7 @@ public class CeruleanSkin extends RadianceSkin {
 	}
 
 	public CeruleanSkin() {
-		RadianceColorScheme2 ceruleanColorScheme = ColorSchemeUtils.getColorScheme(
+		RadianceColorScheme ceruleanColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFD2E0ED), Hct.fromInt(0xFFECECED), Hct.fromInt(0xFFFBFCFC)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

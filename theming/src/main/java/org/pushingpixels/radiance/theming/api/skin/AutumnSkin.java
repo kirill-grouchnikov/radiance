@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.SubduedTonalBorderPainter;
@@ -103,7 +104,7 @@ public class AutumnSkin extends RadianceSkin {
 						.build())
 				.build());
 
-		RadianceColorScheme2 autumnColorScheme = ColorSchemeUtils.getColorScheme(
+		RadianceColorScheme autumnColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFFFCB90), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE2C1)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -157,7 +158,7 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		RadianceColorScheme2 autumnControlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+		RadianceColorScheme autumnControlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFDDB9)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

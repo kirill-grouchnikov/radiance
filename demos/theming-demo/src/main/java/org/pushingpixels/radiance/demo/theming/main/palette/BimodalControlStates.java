@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
@@ -45,7 +46,6 @@ import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPaint
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 
@@ -100,7 +100,7 @@ public class BimodalControlStates extends JFrame {
             TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(secondaryHue, 6.0);
             TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(secondaryHue, 4.0);
 
-            RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
+            RadianceColorScheme lightColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityDirectPaletteSource(
                     primaryPalette, mutedPalette, neutralPalette,
                     primaryTone, secondaryTone, secondaryTone),

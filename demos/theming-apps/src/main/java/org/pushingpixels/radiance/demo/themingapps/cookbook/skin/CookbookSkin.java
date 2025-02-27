@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
@@ -44,7 +45,6 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPai
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -56,7 +56,7 @@ public class CookbookSkin extends RadianceSkin {
     }
 
     public CookbookSkin() {
-        RadianceColorScheme2 cookbookDefaultColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme cookbookDefaultColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFC8A26E), Hct.fromInt(0xFFE3E4DC), Hct.fromInt(0xFFEDF3E4)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -79,7 +79,7 @@ public class CookbookSkin extends RadianceSkin {
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.NONE);
 
-        RadianceColorScheme2 cookbookControlPaneColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme cookbookControlPaneColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFA23F00), Hct.fromInt(0xFFB25406), Hct.fromInt(0xFF5F1000)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -102,7 +102,7 @@ public class CookbookSkin extends RadianceSkin {
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        RadianceColorScheme2 cookbookHeaderColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme cookbookHeaderColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFA23F00), Hct.fromInt(0xFFB25406), Hct.fromInt(0xFFC6741D)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

@@ -27,14 +27,16 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.palette;
+package org.pushingpixels.radiance.theming.api.colorscheme;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 
 import java.awt.*;
 
-public interface RadianceColorScheme2 {
+public interface RadianceColorScheme {
     Color getSurface();
 
     Color getSurfaceDim();
@@ -103,7 +105,7 @@ public interface RadianceColorScheme2 {
 
     private ExtendedContainerColorTokens getExtendedContainerTokens(
         ContainerColorTokens containerColorTokens) {
-        RadianceColorScheme2 me = this;
+        RadianceColorScheme me = this;
         return new ExtendedContainerColorTokens() {
             @Override
             public Color getSurface() {

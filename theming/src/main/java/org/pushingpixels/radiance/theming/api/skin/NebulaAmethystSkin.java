@@ -32,10 +32,10 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
 /**
  * <code>Nebula Amethyst</code> skin. This class is part of officially supported API.
@@ -62,7 +62,7 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 				/* isDark */ false)));
 
 		// Also extend the window chrome accent color to the TOOLBAR area
-		RadianceColorScheme2 nebulaToolbarColorScheme = ColorSchemeUtils.getColorScheme(
+		RadianceColorScheme nebulaToolbarColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFD264EB), Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD1A9F1)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

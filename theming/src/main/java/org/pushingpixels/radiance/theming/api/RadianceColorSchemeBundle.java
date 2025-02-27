@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +45,7 @@ import java.util.Map;
  */
 public class RadianceColorSchemeBundle {
     // The main color scheme of this bundle
-    private RadianceColorScheme2 mainColorScheme;
+    private RadianceColorScheme mainColorScheme;
 
     /**
      * Maps from color scheme association kinds to the map of color tokens. Controls in the specific
@@ -75,7 +75,7 @@ public class RadianceColorSchemeBundle {
      *
      * @param mainColorScheme   The main color scheme of this bundle.
      */
-    public RadianceColorSchemeBundle(RadianceColorScheme2 mainColorScheme) {
+    public RadianceColorSchemeBundle(RadianceColorScheme mainColorScheme) {
         if (mainColorScheme == null) {
             throw new IllegalArgumentException("Cannot pass a null scheme");
         }
@@ -218,7 +218,7 @@ public class RadianceColorSchemeBundle {
      *
      * @return The main color scheme of this bundle.
      */
-    public RadianceColorScheme2 getMainColorScheme() {
+    public RadianceColorScheme getMainColorScheme() {
         return this.mainColorScheme;
     }
 

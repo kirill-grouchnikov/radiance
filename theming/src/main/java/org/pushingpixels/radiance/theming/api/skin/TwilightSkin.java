@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
@@ -105,7 +106,7 @@ public class TwilightSkin extends RadianceSkin {
                     .containerOutlineVariant(DynamicPalette::getOnTonalContainerVariant)
                     .build());
 
-        RadianceColorScheme2 twilightColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme twilightColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF8F8B7A), Hct.fromInt(0xFF3B3A32), Hct.fromInt(0xFF48443B)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

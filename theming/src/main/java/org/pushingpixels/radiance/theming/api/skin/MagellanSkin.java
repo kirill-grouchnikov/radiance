@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
@@ -89,7 +90,7 @@ public class MagellanSkin extends RadianceSkin {
                         .build())
                 .build());
 
-        RadianceColorScheme2 magellanColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme magellanColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF0070DF), Hct.fromInt(0xFF004C92), Hct.fromInt(0xFF005CB7)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -201,7 +202,7 @@ public class MagellanSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        RadianceColorScheme2 magellanFooterColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme magellanFooterColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF006FDB), Hct.fromInt(0xFFA0D8F7), Hct.fromInt(0xFF9DD2FF)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

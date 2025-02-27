@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
@@ -60,7 +61,7 @@ public class SentinelSkin extends RadianceSkin {
     }
 
     public SentinelSkin() {
-        RadianceColorScheme2 sentinelColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme sentinelColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFFE8C3A6), Hct.fromInt(0xFFFFD8B6)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

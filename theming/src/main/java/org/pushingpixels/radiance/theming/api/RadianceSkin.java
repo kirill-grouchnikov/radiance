@@ -29,11 +29,15 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.palette.*;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.SchemeColorResolver;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.SkinTonalUtilities;
@@ -65,10 +69,10 @@ public abstract class RadianceSkin implements RadianceTrait {
     public static abstract class Accented extends RadianceSkin {
         public final static class AccentBuilder {
             private SchemeColorResolver defaultAreaSchemeColorResolver;
-            private RadianceColorScheme2 defaultAreaColorScheme;
+            private RadianceColorScheme defaultAreaColorScheme;
             private ContainerColorTokens defaultAreaHighlightTokens;
             private ContainerColorTokens defaultAreaSelectedTokens;
-            private RadianceColorScheme2 headerAreaColorScheme;
+            private RadianceColorScheme headerAreaColorScheme;
             private ContainerColorTokens headerAreaHighlightTokens;
 
             public AccentBuilder() {
@@ -80,7 +84,7 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
-            public AccentBuilder withDefaultAreaColorScheme(RadianceColorScheme2 defaultAreaColorScheme) {
+            public AccentBuilder withDefaultAreaColorScheme(RadianceColorScheme defaultAreaColorScheme) {
                 this.defaultAreaColorScheme = defaultAreaColorScheme;
                 return this;
             }
@@ -95,7 +99,7 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
-            public AccentBuilder withHeaderAreaColorScheme(RadianceColorScheme2 headerAreaColorScheme) {
+            public AccentBuilder withHeaderAreaColorScheme(RadianceColorScheme headerAreaColorScheme) {
                 this.headerAreaColorScheme = headerAreaColorScheme;
                 return this;
             }
@@ -107,10 +111,10 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
 
         private final SchemeColorResolver defaultAreaSchemeColorResolver;
-        private final RadianceColorScheme2 defaultAreaColorScheme;
+        private final RadianceColorScheme defaultAreaColorScheme;
         private final ContainerColorTokens defaultAreaHighlightTokens;
         private final ContainerColorTokens defaultAreaSelectedTokens;
-        private final RadianceColorScheme2 headerAreaColorScheme;
+        private final RadianceColorScheme headerAreaColorScheme;
         private final ContainerColorTokens headerAreaHighlightTokens;
 
         protected Accented(AccentBuilder accentBuilder) {
@@ -126,7 +130,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             return this.defaultAreaSchemeColorResolver;
         }
 
-        public RadianceColorScheme2 getDefaultAreaColorScheme() {
+        public RadianceColorScheme getDefaultAreaColorScheme() {
             return this.defaultAreaColorScheme;
         }
 
@@ -138,7 +142,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             return this.defaultAreaSelectedTokens;
         }
 
-        public RadianceColorScheme2 getHeaderAreaColorScheme() {
+        public RadianceColorScheme getHeaderAreaColorScheme() {
             return this.headerAreaColorScheme;
         }
 

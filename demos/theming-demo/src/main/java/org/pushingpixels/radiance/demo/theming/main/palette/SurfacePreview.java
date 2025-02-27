@@ -30,16 +30,16 @@
 package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class SurfacePreview extends JComponent {
-    private RadianceColorScheme2 colorScheme;
+    private RadianceColorScheme colorScheme;
 
-    public SurfacePreview(RadianceColorScheme2 colorScheme) {
+    public SurfacePreview(RadianceColorScheme colorScheme) {
         this.colorScheme = colorScheme;
     }
 

@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
@@ -63,7 +64,7 @@ public class GeminiSkin extends RadianceSkin {
 
     public GeminiSkin() {
         // Same seed for primary and muted
-        RadianceColorScheme2 geminiColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme geminiColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFB0BBB8), Hct.fromInt(0xFFB0BBB8), Hct.fromInt(0xFFD1E1E0)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
@@ -43,7 +44,6 @@ import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFil
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -60,7 +60,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 	protected GraphiteAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorScheme2 defaultAreaColorScheme = ColorSchemeUtils.getColorScheme(
+		RadianceColorScheme defaultAreaColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFF636363), Hct.fromInt(0xFF424242), Hct.fromInt(0xFF424242)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

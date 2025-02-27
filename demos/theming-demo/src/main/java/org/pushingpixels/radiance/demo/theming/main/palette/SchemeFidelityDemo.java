@@ -36,8 +36,8 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -61,11 +61,11 @@ public class SchemeFidelityDemo extends JFrame {
         ColorSchemeUtils.PalettesSource darkSource = new ColorSchemeUtils.FidelityPaletteSource(
             Hct.fromInt(0xFF663E00), Hct.fromInt(0xFF402200), Hct.fromInt(0xFF201200));
 
-        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme lightColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ lightSource,
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
-        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme darkColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ darkSource,
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ true);

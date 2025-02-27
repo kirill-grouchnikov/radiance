@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
@@ -56,7 +57,7 @@ public class VisorSkin extends RadianceSkin {
     }
 
     public VisorSkin() {
-        RadianceColorScheme2 visorDefaultColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme visorDefaultColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF99B6CB), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFEFF8FF)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -76,7 +77,7 @@ public class VisorSkin extends RadianceSkin {
                     .containerOutlineVariant(DynamicPalette::getTonalContainerSurfaceHigh)
                     .build()
             );
-        RadianceColorScheme2 visorThreadsColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme visorThreadsColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD8E2EA)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -113,7 +114,7 @@ public class VisorSkin extends RadianceSkin {
                     .containerOutlineVariant(DynamicPalette::getTonalContainerOutlineVariant)
                     .build()
             );
-        RadianceColorScheme2 visorDestinationsColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme visorDestinationsColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD3E2EF)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

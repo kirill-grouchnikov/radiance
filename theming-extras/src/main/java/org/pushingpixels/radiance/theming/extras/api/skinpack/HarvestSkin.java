@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
@@ -64,7 +65,7 @@ public class HarvestSkin extends RadianceSkin {
     public HarvestSkin() {
         SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
 
-        RadianceColorScheme2 harvestColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme harvestColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFFAEEAD), Hct.fromInt(0xFFFFFCE9), Hct.fromInt(0xFFFCFAD6)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

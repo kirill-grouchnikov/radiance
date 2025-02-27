@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
@@ -42,7 +43,6 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOve
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -62,7 +62,7 @@ public class SaharaSkin extends RadianceSkin {
 	}
 
 	public SaharaSkin() {
-		RadianceColorScheme2 desertSandColorScheme = ColorSchemeUtils.getColorScheme(
+		RadianceColorScheme desertSandColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFA5BB59), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -74,7 +74,7 @@ public class SaharaSkin extends RadianceSkin {
 				/* isFidelity */ true,
 				/* isDark */ false);
 
-		RadianceColorScheme2 desertHeaderColorScheme = ColorSchemeUtils.getColorScheme(
+		RadianceColorScheme desertHeaderColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFF99A764), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

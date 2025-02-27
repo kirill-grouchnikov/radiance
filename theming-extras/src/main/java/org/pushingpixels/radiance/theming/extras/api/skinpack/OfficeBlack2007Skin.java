@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedTonalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
@@ -96,7 +97,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                         .build())
                 .build());
 
-        RadianceColorScheme2 officeBlackColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme officeBlackColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFB8C0C9), Hct.fromInt(0xFFCFD5DA)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -236,7 +237,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             DecorationAreaType.PRIMARY_TITLE_PANE,
             DecorationAreaType.SECONDARY_TITLE_PANE);
 
-        RadianceColorScheme2 officeBlackSecondaryColorScheme = ColorSchemeUtils.getColorScheme(
+        RadianceColorScheme officeBlackSecondaryColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFB9BCC1), Hct.fromInt(0xFF454545), Hct.fromInt(0xFF2D2D2D)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

@@ -39,6 +39,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
@@ -49,7 +50,6 @@ import org.pushingpixels.radiance.theming.api.palette.BimodalPaletteResolverUtil
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils.FidelityDirectPaletteSource
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
@@ -99,7 +99,7 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
     }
 }
 
-private fun getColorScheme(config: RobotConfig): RadianceColorScheme2 {
+private fun getColorScheme(config: RobotConfig): RadianceColorScheme {
     val primarySeed = Hct.fromInt(config.seed.rgb)
     val primaryHue = primarySeed.hue
     val hue1 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaHigh)

@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
@@ -43,7 +44,6 @@ import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class SeaGlassSkin extends RadianceSkin {
@@ -58,7 +58,7 @@ public class SeaGlassSkin extends RadianceSkin {
 	}
 
 	public SeaGlassSkin() {
-		RadianceColorScheme2 seaGlassDefaultColorScheme = ColorSchemeUtils.getColorScheme(
+		RadianceColorScheme seaGlassDefaultColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFF6FA5E0), Hct.fromInt(0xFFC8E7FA), Hct.fromInt(0xFFFFFFFF)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
