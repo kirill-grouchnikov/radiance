@@ -31,11 +31,11 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
-import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -97,9 +97,11 @@ public class RadianceTextComponentBorder implements Border, UIResource {
         if ((width <= 0) || (height <= 0))
             return;
 
+        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
+
         Graphics2D graphics = (Graphics2D) g.create();
         JTextComponent componentForTransitions = RadianceCoreUtilities
-                .getTextComponentForTransitions(c);
+            .getTextComponentForTransitions(c);
         if (componentForTransitions != null) {
             ComponentUI ui = componentForTransitions.getUI();
             if (ui instanceof TransitionAwareUI) {
@@ -117,9 +119,9 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                 BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
                     currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                     false, false, RadianceThemingSlices.ContainerType.MUTED);
+                borderPainter.paintBorder(g, c, width, height, new Rectangle(0, 0, width, height),
+                    null, mutableContainerTokens);
 
-                BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
-                    mutableContainerTokens);
                 graphics.dispose();
 
                 return;
@@ -135,7 +137,8 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                 currState, RadianceThemingSlices.ContainerType.MUTED);
 
         graphics.translate(x, y);
-        BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f, colorTokens);
+        borderPainter.paintBorder(g, c, width, height, new Rectangle(0, 0, width, height),
+            null, colorTokens);
         graphics.dispose();
     }
 

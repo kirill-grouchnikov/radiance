@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
@@ -112,7 +111,6 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                 float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
                 boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
 
-                RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
                 // Populate color schemes based on the current transition state of the check box.
                 BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
                     currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,

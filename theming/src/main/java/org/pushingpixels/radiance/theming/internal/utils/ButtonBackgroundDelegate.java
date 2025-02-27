@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -218,7 +217,6 @@ public class ButtonBackgroundDelegate {
         graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(button);
         RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
