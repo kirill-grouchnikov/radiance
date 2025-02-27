@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.FocusKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeTransform;
 import org.pushingpixels.radiance.theming.api.text.RadianceTextArea;
 import org.pushingpixels.radiance.theming.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -102,24 +101,24 @@ public class RootPaneTitlePaneUiDebugger extends RadianceThemingWidget<JRootPane
                         RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(popup,
                                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
-                        JMenu cbMenu = new JMenu("Color blindness");
-                        JMenuItem protanopiaCurrent = new JMenuItem("Protanopia current");
-                        protanopiaCurrent.addActionListener(new SkinChanger(
-                                ProtanopiaColorScheme::new,
-                                "Protanopia current"));
-                        cbMenu.add(protanopiaCurrent);
-                        JMenuItem deuteranopiaCurrent = new JMenuItem("Deuteranopia current");
-                        deuteranopiaCurrent.addActionListener(new SkinChanger(
-                                DeuteranopiaColorScheme::new,
-                                "Deuteranopia current"));
-                        cbMenu.add(deuteranopiaCurrent);
-                        JMenuItem tritanopiaCurrent = new JMenuItem("Tritanopia current");
-                        tritanopiaCurrent.addActionListener(new SkinChanger(
-                                TritanopiaColorScheme::new,
-                                "Tritanopia current"));
-                        cbMenu.add(tritanopiaCurrent);
-
-                        cbMenu.addSeparator();
+//                        JMenu cbMenu = new JMenu("Color blindness");
+//                        JMenuItem protanopiaCurrent = new JMenuItem("Protanopia current");
+//                        protanopiaCurrent.addActionListener(new SkinChanger(
+//                                ProtanopiaColorScheme::new,
+//                                "Protanopia current"));
+//                        cbMenu.add(protanopiaCurrent);
+//                        JMenuItem deuteranopiaCurrent = new JMenuItem("Deuteranopia current");
+//                        deuteranopiaCurrent.addActionListener(new SkinChanger(
+//                                DeuteranopiaColorScheme::new,
+//                                "Deuteranopia current"));
+//                        cbMenu.add(deuteranopiaCurrent);
+//                        JMenuItem tritanopiaCurrent = new JMenuItem("Tritanopia current");
+//                        tritanopiaCurrent.addActionListener(new SkinChanger(
+//                                TritanopiaColorScheme::new,
+//                                "Tritanopia current"));
+//                        cbMenu.add(tritanopiaCurrent);
+//
+//                        cbMenu.addSeparator();
 
 //                        JMenuItem restoreOriginal = new JMenuItem("Restore original");
 //                        if (RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
@@ -136,7 +135,7 @@ public class RootPaneTitlePaneUiDebugger extends RadianceThemingWidget<JRootPane
 //                        }
 //                        cbMenu.add(restoreOriginal);
 
-                        popup.add(cbMenu);
+//                        popup.add(cbMenu);
 
                         JMenu animMenu = new JMenu("Animation rate");
                         JMenuItem debugNone = new JMenuItem("None");
@@ -291,27 +290,6 @@ public class RootPaneTitlePaneUiDebugger extends RadianceThemingWidget<JRootPane
         if (this.radianceDebugUiListener != null) {
             titlePane.removeMouseListener(this.radianceDebugUiListener);
             this.radianceDebugUiListener = null;
-        }
-    }
-
-    private static class SkinChanger implements ActionListener {
-        private ColorSchemeTransform transform;
-
-        private String name;
-
-        private SkinChanger(ColorSchemeTransform transform, String name) {
-            super();
-            this.transform = transform;
-            this.name = name;
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            SwingUtilities.invokeLater(() -> {
-                // TODO: TONAL restore color blind functionality
-//                RadianceSkin newSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin().
-//                        transform(transform, name);
-//                RadianceThemingCortex.GlobalScope.setSkin(newSkin);
-            });
         }
     }
 
