@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.info_black_24dp;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -299,14 +299,14 @@ public class SampleMenuFactory {
                 /* neutralContrastLevel */ 0.0f,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
-            RadianceColorSchemeBundle2 customDefaultBundle =
-                new RadianceColorSchemeBundle2(customColorScheme);
+            RadianceColorSchemeBundle customDefaultBundle =
+                new RadianceColorSchemeBundle(customColorScheme);
 
             this.registerDecorationAreaSchemeBundle(customDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
-            RadianceColorSchemeBundle2 customDefaultHeaderBundle =
-                new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+            RadianceColorSchemeBundle customDefaultHeaderBundle =
+                new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                         Hct.fromInt(0xFF1A55BA), Hct.fromInt(0xFF1A50AC), Hct.fromInt(0xFF1A5ED2)),
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

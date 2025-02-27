@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -61,8 +61,8 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 	protected CremeAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle2 cremeDefaultBundle =
-			new RadianceColorSchemeBundle2(this.getDefaultAreaColorScheme());
+		RadianceColorSchemeBundle cremeDefaultBundle =
+			new RadianceColorSchemeBundle(this.getDefaultAreaColorScheme());
 		cremeDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
 			ComponentState.SELECTED);
 		cremeDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),

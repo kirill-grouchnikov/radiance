@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
@@ -63,8 +63,8 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 	protected DustAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle2 dustDefaultBundle =
-			new RadianceColorSchemeBundle2(this.getDefaultAreaColorScheme());
+		RadianceColorSchemeBundle dustDefaultBundle =
+			new RadianceColorSchemeBundle(this.getDefaultAreaColorScheme());
 		dustDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
 			ComponentState.SELECTED);
 		dustDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
@@ -78,8 +78,8 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			dustDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorSchemeBundle2 dustHeaderBundle =
-			new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+		RadianceColorSchemeBundle dustHeaderBundle =
+			new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFF5E3D2B), Hct.fromInt(0xFF3C3B37), Hct.fromInt(0xFF2B2A28)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

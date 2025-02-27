@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
@@ -77,8 +77,8 @@ public class MarinerSkin extends RadianceSkin {
                 /* isFidelity */ true,
                 /* isDark */ false);
 
-        RadianceColorSchemeBundle2 marinerDefaultBundle =
-            new RadianceColorSchemeBundle2(marinerColorScheme);
+        RadianceColorSchemeBundle marinerDefaultBundle =
+            new RadianceColorSchemeBundle(marinerColorScheme);
         // More saturated seed for controls in selected state
         marinerDefaultBundle.registerActiveContainerTokens(marinerSelectedContainerTokens,
             ComponentState.SELECTED);
@@ -105,8 +105,8 @@ public class MarinerSkin extends RadianceSkin {
             /* neutralContrastLevel */ 0.6f,
             /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
 
-        RadianceColorSchemeBundle2 marinerHeaderBundle =
-            new RadianceColorSchemeBundle2(marinerHeaderColorScheme);
+        RadianceColorSchemeBundle marinerHeaderBundle =
+            new RadianceColorSchemeBundle(marinerHeaderColorScheme);
         // More saturated seed for controls in selected state
         marinerHeaderBundle.registerActiveContainerTokens(marinerSelectedContainerTokens,
             ComponentState.getActiveStates());
@@ -144,8 +144,8 @@ public class MarinerSkin extends RadianceSkin {
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
 
-        RadianceColorSchemeBundle2 marinerFooterBundle =
-            new RadianceColorSchemeBundle2(marinerFooterColorScheme);
+        RadianceColorSchemeBundle marinerFooterBundle =
+            new RadianceColorSchemeBundle(marinerFooterColorScheme);
         this.registerDecorationAreaSchemeBundle(marinerFooterBundle,
             ColorSchemeUtils.getExtendedContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB9B7B9),

@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
@@ -81,8 +81,8 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 
-		RadianceColorSchemeBundle2 businessBlueSteelControlBundle =
-			new RadianceColorSchemeBundle2(controlPaneColorScheme);
+		RadianceColorSchemeBundle businessBlueSteelControlBundle =
+			new RadianceColorSchemeBundle(controlPaneColorScheme);
 		businessBlueSteelControlBundle.registerActiveContainerTokens(
 			getDefaultAreaColorScheme().getActiveContainerTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,

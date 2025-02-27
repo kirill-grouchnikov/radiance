@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
@@ -87,8 +87,8 @@ public class FieldOfWheatSkin extends RadianceSkin {
                 /* contrastLevel */ 1.0f,
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
-        RadianceColorSchemeBundle2 fieldOfWheatDefaultBundle =
-            new RadianceColorSchemeBundle2(fieldOfWheatColorScheme);
+        RadianceColorSchemeBundle fieldOfWheatDefaultBundle =
+            new RadianceColorSchemeBundle(fieldOfWheatColorScheme);
         fieldOfWheatDefaultBundle.registerActiveContainerTokens(
             fieldOfWheatHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,

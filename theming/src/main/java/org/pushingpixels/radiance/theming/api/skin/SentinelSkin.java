@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
@@ -78,8 +78,8 @@ public class SentinelSkin extends RadianceSkin {
                 /* isFidelity */ true,
                 /* isDark */ false);
 
-        RadianceColorSchemeBundle2 sentinelDefaultBundle =
-            new RadianceColorSchemeBundle2(sentinelColorScheme);
+        RadianceColorSchemeBundle sentinelDefaultBundle =
+            new RadianceColorSchemeBundle(sentinelColorScheme);
         // More saturated seed for controls in selected state
         sentinelDefaultBundle.registerActiveContainerTokens(sentinelSelectedContainerTokens,
             ComponentState.SELECTED);
@@ -92,8 +92,8 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Headers
-        RadianceColorSchemeBundle2 sentinelHeaderBundle =
-            new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+        RadianceColorSchemeBundle sentinelHeaderBundle =
+            new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFF4A2C25), Hct.fromInt(0xFF7A5C55)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -155,8 +155,8 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         // Control panes
-        RadianceColorSchemeBundle2 sentinelControlPaneBundle =
-            new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+        RadianceColorSchemeBundle sentinelControlPaneBundle =
+            new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFF8F543B), Hct.fromInt(0xFF754133)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
@@ -180,8 +180,8 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         // Toolbars and footers
-        RadianceColorSchemeBundle2 sentinelBarsBundle =
-            new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+        RadianceColorSchemeBundle sentinelBarsBundle =
+            new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFF703723), Hct.fromInt(0xFF53281A)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
@@ -42,7 +42,10 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOve
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelTonalOverlayPainter;
-import org.pushingpixels.radiance.theming.api.palette.*;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class CookbookSkin extends RadianceSkin {
@@ -67,8 +70,8 @@ public class CookbookSkin extends RadianceSkin {
             /* mutedContrastLevel */ 0.6f,
             /* neutralContrastLevel */ 0.6f,
             /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-        RadianceColorSchemeBundle2 cookbookDefaultDefaultBundle =
-            new RadianceColorSchemeBundle2(cookbookDefaultColorScheme);
+        RadianceColorSchemeBundle cookbookDefaultDefaultBundle =
+            new RadianceColorSchemeBundle(cookbookDefaultColorScheme);
         this.registerDecorationAreaSchemeBundle(cookbookDefaultDefaultBundle,
             ColorSchemeUtils.getExtendedContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC8A26E),
@@ -90,8 +93,8 @@ public class CookbookSkin extends RadianceSkin {
             /* mutedContrastLevel */ 0.6f,
             /* neutralContrastLevel */ 0.6f,
             /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-        RadianceColorSchemeBundle2 cookbookControlPaneDefaultBundle =
-            new RadianceColorSchemeBundle2(cookbookControlPaneColorScheme);
+        RadianceColorSchemeBundle cookbookControlPaneDefaultBundle =
+            new RadianceColorSchemeBundle(cookbookControlPaneColorScheme);
         this.registerDecorationAreaSchemeBundle(cookbookControlPaneDefaultBundle,
             ColorSchemeUtils.getExtendedContainerTokens(
                 /* seed */ Hct.fromInt(0xFF5F1000),
@@ -113,8 +116,8 @@ public class CookbookSkin extends RadianceSkin {
             /* mutedContrastLevel */ 0.6f,
             /* neutralContrastLevel */ 0.6f,
             /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-        RadianceColorSchemeBundle2 cookbookHeaderDefaultBundle =
-            new RadianceColorSchemeBundle2(cookbookHeaderColorScheme);
+        RadianceColorSchemeBundle cookbookHeaderDefaultBundle =
+            new RadianceColorSchemeBundle(cookbookHeaderColorScheme);
         this.registerDecorationAreaSchemeBundle(cookbookHeaderDefaultBundle,
             ColorSchemeUtils.getExtendedContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC6741D),

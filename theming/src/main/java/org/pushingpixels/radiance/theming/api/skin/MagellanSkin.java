@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
@@ -148,8 +148,8 @@ public class MagellanSkin extends RadianceSkin {
                 /* isFidelity */ true,
                 /* isDark */ false);
 
-        RadianceColorSchemeBundle2 magellanDefaultBundle =
-            new RadianceColorSchemeBundle2(magellanColorScheme);
+        RadianceColorSchemeBundle magellanDefaultBundle =
+            new RadianceColorSchemeBundle(magellanColorScheme);
         // More saturated seed for controls in selected state
         magellanDefaultBundle.registerActiveContainerTokens(magellanSelectedContainerTokens,
             ComponentState.SELECTED);
@@ -222,8 +222,8 @@ public class MagellanSkin extends RadianceSkin {
                             .build())
                     .build()
             ));
-        RadianceColorSchemeBundle2 magellanFooterBundle =
-            new RadianceColorSchemeBundle2(magellanFooterColorScheme);
+        RadianceColorSchemeBundle magellanFooterBundle =
+            new RadianceColorSchemeBundle(magellanFooterColorScheme);
         this.registerDecorationAreaSchemeBundle(magellanFooterBundle,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 

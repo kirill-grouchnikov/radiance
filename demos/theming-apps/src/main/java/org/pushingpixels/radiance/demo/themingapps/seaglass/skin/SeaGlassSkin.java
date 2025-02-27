@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.demo.themingapps.seaglass.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -70,8 +70,8 @@ public class SeaGlassSkin extends RadianceSkin {
 				/* isFidelity */ true,
 				/* isDark */ false);
 
-		RadianceColorSchemeBundle2 seaGlassDefaultBundle =
-			new RadianceColorSchemeBundle2(seaGlassDefaultColorScheme);
+		RadianceColorSchemeBundle seaGlassDefaultBundle =
+			new RadianceColorSchemeBundle(seaGlassDefaultColorScheme);
 		seaGlassDefaultBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF28A8EF),

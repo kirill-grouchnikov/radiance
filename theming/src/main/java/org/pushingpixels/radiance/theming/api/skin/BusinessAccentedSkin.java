@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
@@ -58,8 +58,8 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 	protected BusinessAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle2 businessDefaultBundle =
-			new RadianceColorSchemeBundle2(this.getDefaultAreaColorScheme());
+		RadianceColorSchemeBundle businessDefaultBundle =
+			new RadianceColorSchemeBundle(this.getDefaultAreaColorScheme());
 		businessDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
@@ -71,8 +71,8 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			businessDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorSchemeBundle2 businessDefaultHeaderBundle =
-			new RadianceColorSchemeBundle2(this.getHeaderAreaColorScheme());
+		RadianceColorSchemeBundle businessDefaultHeaderBundle =
+			new RadianceColorSchemeBundle(this.getHeaderAreaColorScheme());
 		if (this.getHeaderAreaHighlightTokens() != null) {
 			businessDefaultHeaderBundle.registerActiveContainerTokens(
 				this.getHeaderAreaHighlightTokens(),

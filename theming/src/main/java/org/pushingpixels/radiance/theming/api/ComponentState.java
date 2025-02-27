@@ -83,7 +83,7 @@ import java.util.*;
  * <li>When the skin is queried for the color scheme that matches the specific
  * component state - let's say {@link ComponentState#PRESSED_SELECTED} - the
  * skinning layer first looks for the exact state (as passed to
- * {@link RadianceColorSchemeBundle2#registerActiveContainerTokens(ContainerColorTokens, ComponentState...)}
+ * {@link RadianceColorSchemeBundle#registerActiveContainerTokens(ContainerColorTokens, ComponentState...)}
  * or similar APIs). If the exact match is found, it is used. If there is no
  * exact match, the skinning layer will look at all color schemes registered for
  * the specific color scheme association kind in the matching color scheme
@@ -130,7 +130,7 @@ import java.util.*;
  * component states that account for all the relevant on and off facets -
  * including the core facets defined in the {@link RadianceThemingSlices.ComponentStateFacet} class.
  * When this (perhaps elaborate) state is passed to
- * {@link RadianceColorSchemeBundle2#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)} 
+ * {@link RadianceColorSchemeBundle#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
  * API, the procedure described above will match the this state to one of
  * the "base" states defined in your skin, and use the matching color scheme.</li>
  * </ul>
@@ -147,7 +147,7 @@ import java.util.*;
  * When the matching algorithm cannot find a sufficiently close match, the
  * skinning layer will fall back on one of the three base color schemes passed
  * to the
- * {@link RadianceColorSchemeBundle2#RadianceColorSchemeBundle2(RadianceColorScheme2)} 
+ * {@link RadianceColorSchemeBundle#RadianceColorSchemeBundle(RadianceColorScheme2)}
  * constructor. States with {@link RadianceThemingSlices.ComponentStateFacet#ENABLE} in their off list
  * will fall back to the disabled color scheme. The
  * {@link ComponentState#ENABLED} will fall back to the enabled color scheme.
@@ -404,7 +404,7 @@ public final class ComponentState {
      * @param name         Component state name. Does not have to be unique. The name is
      *                     only used in the {@link #toString()}.
      * @param hardFallback The fallback state that will be used in
-     *                     {@link RadianceColorSchemeBundle2#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
+     *                     {@link RadianceColorSchemeBundle#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
      *                     in case {@link #bestFit(Collection)} returns <code>null</code>
      * @param facetsOn     Indicates that are turned on for this state. For example,
      *                     {@link #ROLLOVER_SELECTED} should pass both

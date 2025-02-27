@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
@@ -108,8 +108,8 @@ public class GeminiSkin extends RadianceSkin {
                         .build()
                 ));
 
-        RadianceColorSchemeBundle2 geminiDefaultBundle =
-            new RadianceColorSchemeBundle2(geminiColorScheme);
+        RadianceColorSchemeBundle geminiDefaultBundle =
+            new RadianceColorSchemeBundle(geminiColorScheme);
         // Highlight tokens for controls in selected states
         geminiDefaultBundle.registerActiveContainerTokens(geminiHighlightContainerTokens,
             ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
@@ -136,8 +136,8 @@ public class GeminiSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         // Toolbars
-        RadianceColorSchemeBundle2 geminiToolbarBundle =
-            new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+        RadianceColorSchemeBundle geminiToolbarBundle =
+            new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFFDC02), Hct.fromInt(0xFF142429), Hct.fromInt(0xFF203042)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

@@ -36,7 +36,7 @@ import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette.Transitio
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette
 import org.pushingpixels.ephemeral.chroma.utils.MathUtils
 import org.pushingpixels.radiance.theming.api.ComponentState
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter
@@ -82,7 +82,7 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
 
         this.highlightFillPainter = ClassicTonalFillPainter()
 
-        val defaultSchemeBundle = RadianceColorSchemeBundle2(this.defaultAreaColorScheme)
+        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaColorScheme)
         defaultSchemeBundle.registerActiveContainerTokens(getSelectedTokens(config),
             ComponentState.SELECTED)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,

@@ -33,7 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -118,8 +118,8 @@ public class AutumnSkin extends RadianceSkin {
 			/* neutralContrastLevel */ 0.0f,
 			/* schemeColorResolver */ autumnColorResolver);
 
-		RadianceColorSchemeBundle2 autumnDefaultBundle =
-			new RadianceColorSchemeBundle2(autumnColorScheme);
+		RadianceColorSchemeBundle autumnDefaultBundle =
+			new RadianceColorSchemeBundle(autumnColorScheme);
 		// Custom visuals for controls in selected state:
 		// 1. Deeper container surfaces (more saturated seed in fidelity mode)
 		// 2. Softer on container, mapped to container outline (used for texts and icons)
@@ -171,8 +171,8 @@ public class AutumnSkin extends RadianceSkin {
 			/* mutedContrastLevel */ 0.0f,
 			/* neutralContrastLevel */ 0.0f,
 			/* schemeColorResolver */ autumnColorResolver);
-		RadianceColorSchemeBundle2 autumnControlPaneBundle =
-			new RadianceColorSchemeBundle2(autumnControlPaneColorScheme);
+		RadianceColorSchemeBundle autumnControlPaneBundle =
+			new RadianceColorSchemeBundle(autumnControlPaneColorScheme);
 		this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
 			ColorSchemeUtils.getExtendedContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFED8B2),

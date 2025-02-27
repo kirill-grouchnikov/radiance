@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.demo.themingapps.mail;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -61,8 +61,8 @@ public class VisorSkin extends RadianceSkin {
                 Hct.fromInt(0xFF99B6CB), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFEFF8FF)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
-        RadianceColorSchemeBundle2 visorDefaultBundle =
-            new RadianceColorSchemeBundle2(visorDefaultColorScheme);
+        RadianceColorSchemeBundle visorDefaultBundle =
+            new RadianceColorSchemeBundle(visorDefaultColorScheme);
         this.registerDecorationAreaSchemeBundle(visorDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
@@ -81,8 +81,8 @@ public class VisorSkin extends RadianceSkin {
                 Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD8E2EA)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
-        RadianceColorSchemeBundle2 visorThreadsBundle =
-            new RadianceColorSchemeBundle2(visorThreadsColorScheme);
+        RadianceColorSchemeBundle visorThreadsBundle =
+            new RadianceColorSchemeBundle(visorThreadsColorScheme);
         visorThreadsBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF5B91F8),
@@ -118,8 +118,8 @@ public class VisorSkin extends RadianceSkin {
                 Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD3E2EF)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
-        RadianceColorSchemeBundle2 visorDestinationsBundle =
-            new RadianceColorSchemeBundle2(visorDestinationsColorScheme);
+        RadianceColorSchemeBundle visorDestinationsBundle =
+            new RadianceColorSchemeBundle(visorDestinationsColorScheme);
         visorDestinationsBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFE8EDAF),

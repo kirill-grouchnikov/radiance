@@ -151,7 +151,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Maps decoration area type to the color scheme bundles. Must contain an
      * entry for {@link RadianceThemingSlices.DecorationAreaType#NONE}.
      */
-    private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle2> tonalColorSchemeMap;
+    private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle> tonalColorSchemeMap;
 
     /**
      * Maps decoration area type to the background color schemes.
@@ -398,7 +398,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      */
     public void registerDecorationAreaSchemeBundle(
-        RadianceColorSchemeBundle2 bundle,
+        RadianceColorSchemeBundle bundle,
         ExtendedContainerColorTokens backgroundTokens,
         RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (bundle == null) {
@@ -425,7 +425,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param areaTypes Enumerates the area types that are affected by the parameters.
      */
     public void registerDecorationAreaSchemeBundle(
-        RadianceColorSchemeBundle2 bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        RadianceColorSchemeBundle bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
         this.registerDecorationAreaSchemeBundle(bundle,
             bundle.getMainColorScheme().getExtendedNeutralContainerTokens(),
             areaTypes);

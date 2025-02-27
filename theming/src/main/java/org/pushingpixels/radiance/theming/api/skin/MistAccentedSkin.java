@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
@@ -55,8 +55,8 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 	protected MistAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle2 mistDefaultBundle =
-			new RadianceColorSchemeBundle2(this.getDefaultAreaColorScheme());
+		RadianceColorSchemeBundle mistDefaultBundle =
+			new RadianceColorSchemeBundle(this.getDefaultAreaColorScheme());
 		mistDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.SELECTED,

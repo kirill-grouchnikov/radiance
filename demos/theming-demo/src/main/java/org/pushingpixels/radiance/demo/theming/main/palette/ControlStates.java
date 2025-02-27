@@ -83,7 +83,7 @@ public class ControlStates extends JFrame {
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false);
 
-            RadianceColorSchemeBundle2 bundle2 = new RadianceColorSchemeBundle2(lightColorScheme);
+            RadianceColorSchemeBundle bundle2 = new RadianceColorSchemeBundle(lightColorScheme);
 
             bundle2.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(

@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
@@ -86,16 +86,16 @@ public class SaharaSkin extends RadianceSkin {
 				/* isFidelity */ true,
 				/* isDark */ false);
 
-		RadianceColorSchemeBundle2 desertSandDefaultBundle =
-			new RadianceColorSchemeBundle2(desertSandColorScheme);
+		RadianceColorSchemeBundle desertSandDefaultBundle =
+			new RadianceColorSchemeBundle(desertSandColorScheme);
 		desertSandDefaultBundle.registerActiveContainerTokens(desertHighlightContainerTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(desertSandDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorSchemeBundle2 desertHeaderDefaultBundle =
-			new RadianceColorSchemeBundle2(desertHeaderColorScheme);
+		RadianceColorSchemeBundle desertHeaderDefaultBundle =
+			new RadianceColorSchemeBundle(desertHeaderColorScheme);
 		desertHeaderDefaultBundle.registerActiveContainerTokens(desertHeaderHighlightContainerTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());

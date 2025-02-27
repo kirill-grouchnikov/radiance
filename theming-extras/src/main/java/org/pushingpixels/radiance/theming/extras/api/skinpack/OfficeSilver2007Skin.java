@@ -33,7 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
@@ -72,8 +72,8 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
-        RadianceColorSchemeBundle2 officeSilverDefaultBundle =
-            new RadianceColorSchemeBundle2(officeSilverColorScheme);
+        RadianceColorSchemeBundle officeSilverDefaultBundle =
+            new RadianceColorSchemeBundle(officeSilverColorScheme);
 
         ContainerColorTokens rolloverContainerTokens =
             ColorSchemeUtils.getContainerTokens(

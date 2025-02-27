@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter
@@ -81,7 +81,7 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
 
         this.highlightFillPainter = ClassicTonalFillPainter()
 
-        val defaultSchemeBundle = RadianceColorSchemeBundle2(this.defaultAreaColorScheme)
+        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaColorScheme)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 

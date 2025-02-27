@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -52,7 +52,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  * @author Kirill Grouchnikov
  */
 public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
-	protected RadianceColorSchemeBundle2 graphiteDefaultBundle;
+	protected RadianceColorSchemeBundle graphiteDefaultBundle;
 
 	/**
 	 * Creates a new accented <code>Graphite</code> skin.
@@ -75,7 +75,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 			/* neutralContrastLevel */ 0.0f,
 			/* schemeColorResolver */ this.getDefaultAreaSchemeColorResolver());
 		this.graphiteDefaultBundle =
-			new RadianceColorSchemeBundle2(defaultAreaColorScheme);
+			new RadianceColorSchemeBundle(defaultAreaColorScheme);
 
 		this.graphiteDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
 			ComponentState.ROLLOVER_UNSELECTED,

@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -84,8 +84,8 @@ public class MagmaSkin extends RadianceSkin {
                 /* contrastLevel */ 1.0f,
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
-        RadianceColorSchemeBundle2 magmaDefaultBundle =
-            new RadianceColorSchemeBundle2(magmaColorScheme);
+        RadianceColorSchemeBundle magmaDefaultBundle =
+            new RadianceColorSchemeBundle(magmaColorScheme);
         magmaDefaultBundle.registerActiveContainerTokens(
             magmaHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,

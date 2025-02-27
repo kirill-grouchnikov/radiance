@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
@@ -117,8 +117,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             /* mutedContrastLevel */ 0.0f,
             /* neutralContrastLevel */ 0.0f,
             /* schemeColorResolver */ officeBlueSchemeColorResolver);
-        RadianceColorSchemeBundle2 officeBlueDefaultBundle =
-            new RadianceColorSchemeBundle2(officeBlueColorScheme);
+        RadianceColorSchemeBundle officeBlueDefaultBundle =
+            new RadianceColorSchemeBundle(officeBlueColorScheme);
 
         ContainerColorTokens rolloverContainerTokens =
             ColorSchemeUtils.getContainerTokens(

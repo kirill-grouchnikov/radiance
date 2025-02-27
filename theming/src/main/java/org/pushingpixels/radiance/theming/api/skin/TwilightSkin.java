@@ -33,7 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
@@ -135,8 +135,8 @@ public class TwilightSkin extends RadianceSkin {
                 /* contrastLevel */ 0.0f,
                 /* colorResolver */ twilightPaletteContainerColorResolver);
 
-        RadianceColorSchemeBundle2 twilightDefaultBundle =
-            new RadianceColorSchemeBundle2(twilightColorScheme);
+        RadianceColorSchemeBundle twilightDefaultBundle =
+            new RadianceColorSchemeBundle(twilightColorScheme);
         // More saturated seed for controls in selected state
         twilightDefaultBundle.registerActiveContainerTokens(twilightSelectedContainerTokens,
             ComponentState.SELECTED);

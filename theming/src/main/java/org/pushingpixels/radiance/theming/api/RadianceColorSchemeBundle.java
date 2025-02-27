@@ -43,7 +43,7 @@ import java.util.Map;
  * @see RadianceThemingSlices.ContainerColorTokensAssociationKind
  * @see RadianceSkin
  */
-public class RadianceColorSchemeBundle2 {
+public class RadianceColorSchemeBundle {
     // The main color scheme of this bundle
     private RadianceColorScheme2 mainColorScheme;
 
@@ -67,7 +67,7 @@ public class RadianceColorSchemeBundle2 {
     private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> colorTokensForEnabledState;
 
     public interface Overlay {
-        void overlay(RadianceColorSchemeBundle2 bundle);
+        void overlay(RadianceColorSchemeBundle bundle);
     }
 
     /**
@@ -75,7 +75,7 @@ public class RadianceColorSchemeBundle2 {
      *
      * @param mainColorScheme   The main color scheme of this bundle.
      */
-    public RadianceColorSchemeBundle2(RadianceColorScheme2 mainColorScheme) {
+    public RadianceColorSchemeBundle(RadianceColorScheme2 mainColorScheme) {
         if (mainColorScheme == null) {
             throw new IllegalArgumentException("Cannot pass a null scheme");
         }

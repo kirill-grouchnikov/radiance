@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
@@ -101,8 +101,8 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFB8C0C9), Hct.fromInt(0xFFCFD5DA)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
-        RadianceColorSchemeBundle2 officeBlackDefaultBundle =
-            new RadianceColorSchemeBundle2(officeBlackColorScheme);
+        RadianceColorSchemeBundle officeBlackDefaultBundle =
+            new RadianceColorSchemeBundle(officeBlackColorScheme);
 
         ContainerColorTokens rolloverContainerTokens =
             ColorSchemeUtils.getContainerTokens(
@@ -250,8 +250,8 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             /* mutedContrastLevel */ 1.0f,
             /* neutralContrastLevel */ 1.0f,
             /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-        RadianceColorSchemeBundle2 officeSecondaryBundle =
-            new RadianceColorSchemeBundle2(officeBlackSecondaryColorScheme);
+        RadianceColorSchemeBundle officeSecondaryBundle =
+            new RadianceColorSchemeBundle(officeBlackSecondaryColorScheme);
         officeSecondaryBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFD5DA),

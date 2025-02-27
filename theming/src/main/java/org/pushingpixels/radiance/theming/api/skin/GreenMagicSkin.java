@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -96,8 +96,8 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* contrastLevel */ 0.6f,
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
-        RadianceColorSchemeBundle2 greenMagicDefaultDefaultBundle =
-            new RadianceColorSchemeBundle2(greenMagicDefaultColorScheme);
+        RadianceColorSchemeBundle greenMagicDefaultDefaultBundle =
+            new RadianceColorSchemeBundle(greenMagicDefaultColorScheme);
         greenMagicDefaultDefaultBundle.registerActiveContainerTokens(greenMagicSelectedContainerTokens,
             ComponentState.SELECTED, ComponentState.ROLLOVER_UNSELECTED,
             ComponentState.ROLLOVER_SELECTED,

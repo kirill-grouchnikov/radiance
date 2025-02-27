@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
@@ -93,8 +93,8 @@ public class NightShadeSkin extends RadianceSkin {
                 /* isFidelity */ true,
                 /* isDark */ true);
 
-        RadianceColorSchemeBundle2 nightShadeDefaultBundle =
-            new RadianceColorSchemeBundle2(nightShadeColorScheme);
+        RadianceColorSchemeBundle nightShadeDefaultBundle =
+            new RadianceColorSchemeBundle(nightShadeColorScheme);
         // More saturated seed for controls in selected state
         nightShadeDefaultBundle.registerActiveContainerTokens(nightShadeSelectedContainerTokens,
             ComponentState.SELECTED);

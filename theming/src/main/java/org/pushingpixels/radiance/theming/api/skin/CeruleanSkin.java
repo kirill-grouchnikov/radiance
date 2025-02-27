@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
@@ -97,8 +97,8 @@ public class CeruleanSkin extends RadianceSkin {
 			/* isFidelity */ true,
 			/* isDark */ false);
 
-		RadianceColorSchemeBundle2 ceruleanDefaultBundle =
-			new RadianceColorSchemeBundle2(ceruleanColorScheme);
+		RadianceColorSchemeBundle ceruleanDefaultBundle =
+			new RadianceColorSchemeBundle(ceruleanColorScheme);
 		// More saturated blue seed for controls in selected state
 		ceruleanDefaultBundle.registerActiveContainerTokens(ceruleanSelectedContainerTokens,
 			ComponentState.SELECTED);
@@ -124,8 +124,8 @@ public class CeruleanSkin extends RadianceSkin {
 		this.registerDecorationAreaSchemeBundle(ceruleanDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorSchemeBundle2 ceruleanDefaultHeaderBundle =
-			new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+		RadianceColorSchemeBundle ceruleanDefaultHeaderBundle =
+			new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFF3B7BA8), Hct.fromInt(0xFF5B9BC8), Hct.fromInt(0xFF8BCBF8)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

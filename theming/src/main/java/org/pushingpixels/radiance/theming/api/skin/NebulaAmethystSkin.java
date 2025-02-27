@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
@@ -67,8 +67,8 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 				Hct.fromInt(0xFFD264EB), Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD1A9F1)),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
-		RadianceColorSchemeBundle2 nebulaToolbarBundle =
-			new RadianceColorSchemeBundle2(nebulaToolbarColorScheme);
+		RadianceColorSchemeBundle nebulaToolbarBundle =
+			new RadianceColorSchemeBundle(nebulaToolbarColorScheme);
 		nebulaToolbarBundle.registerEnabledContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD1A9F1),

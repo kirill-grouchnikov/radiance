@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -93,8 +93,8 @@ public class HarvestSkin extends RadianceSkin {
                 /* contrastLevel */ 0.8f,
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
 
-        RadianceColorSchemeBundle2 harvestDefaultBundle =
-            new RadianceColorSchemeBundle2(harvestColorScheme);
+        RadianceColorSchemeBundle harvestDefaultBundle =
+            new RadianceColorSchemeBundle(harvestColorScheme);
         harvestDefaultBundle.registerActiveContainerTokens(harvestActiveContainerTokens,
             ComponentState.getActiveStates());
         harvestDefaultBundle.registerActiveContainerTokens(
@@ -120,8 +120,8 @@ public class HarvestSkin extends RadianceSkin {
                         .build())
                 .build());
 
-        RadianceColorSchemeBundle2 harvestHeaderBundle =
-            new RadianceColorSchemeBundle2(ColorSchemeUtils.getColorScheme(
+        RadianceColorSchemeBundle harvestHeaderBundle =
+            new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFF12B37), Hct.fromInt(0xFF5B5B54), Hct.fromInt(0xFF3A3A39)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,

@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle2;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
@@ -117,8 +117,8 @@ public class RavenSkin extends RadianceSkin {
 						.build()
 				));
 
-		RadianceColorSchemeBundle2 ravenDefaultBundle =
-			new RadianceColorSchemeBundle2(ravenColorScheme);
+		RadianceColorSchemeBundle ravenDefaultBundle =
+			new RadianceColorSchemeBundle(ravenColorScheme);
 		// Highlight tokens for controls in selected states
 		ravenDefaultBundle.registerActiveContainerTokens(ravenSelectedContainerTokens,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
