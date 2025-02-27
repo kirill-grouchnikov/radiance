@@ -355,14 +355,14 @@ public class BladeIconUtils {
 
                 Color signColor = colorTokens.getOnContainer();
                 graphics1X.setColor(signColor);
-                float mid = scaledWidth / 2;
-                float length = 7 * scaledWidth / 12;
+                float gap = 5.0f * scaledWidth / 24.0f;
+                float mid = scaledWidth / 2.0f;
                 // Horizontal stroke
                 graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
-                graphics1X.draw(new Line2D.Float(mid - length / 2, mid, mid + length / 2, mid));
+                graphics1X.draw(new Line2D.Float(gap, mid, scaledWidth - gap + 1, mid));
                 if (isCollapsed) {
                     // Vertical stroke
-                    graphics1X.draw(new Line2D.Float(mid, mid - length / 2, mid, mid + length / 2));
+                    graphics1X.draw(new Line2D.Float(mid, gap, mid, scaledHeight - gap + 1));
                 }
             });
         graphics.dispose();
