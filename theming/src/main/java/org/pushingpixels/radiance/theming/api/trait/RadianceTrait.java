@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.trait;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-
 /**
- * Base interface for Radiance traits, like {@link RadianceColorScheme}, etc.
+ * Base interface for Radiance traits.
  * 
  * @author Kirill Grouchnikov
  */
