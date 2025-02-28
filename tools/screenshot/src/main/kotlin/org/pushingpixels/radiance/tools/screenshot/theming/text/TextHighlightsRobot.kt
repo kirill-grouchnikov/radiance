@@ -156,44 +156,46 @@ abstract class TextHighlightsRobot(
             frame.requestFocus()
         }
 
-        for (skin in skins) {
-            // set skin and update the frame logo
-            withContext(Dispatchers.Swing) {
-                RadianceThemingCortex.GlobalScope.setSkin(skin)
-                RadianceLogo.tonalConfigureOn(frame)
-            }
-
-            // Go over all the text fields and emulate text selection by pressing the mouse
-            // at the left edge of the field, moving it to the right edge and then releasing it
-            for (textField in frame.textFields) {
+        for (run in 0..1) {
+            for (skin in skins) {
+                // set skin and update the frame logo
                 withContext(Dispatchers.Swing) {
-                    val locOnScreen = textField.locationOnScreen
-                    robot.mouseMove(
-                        locOnScreen.x,
-                        locOnScreen.y + textField.height / 2
-                    )
-                    robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)
-                    robot.mouseMove(
-                        locOnScreen.x + textField.width,
-                        locOnScreen.y + textField.height / 2
-                    )
-                    robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+                    RadianceThemingCortex.GlobalScope.setSkin(skin)
+                    RadianceLogo.tonalConfigureOn(frame)
                 }
 
+                // Go over all the text fields and emulate text selection by pressing the mouse
+                // at the left edge of the field, moving it to the right edge and then releasing it
+                for (textField in frame.textFields) {
+                    withContext(Dispatchers.Swing) {
+                        val locOnScreen = textField.locationOnScreen
+                        robot.mouseMove(
+                            locOnScreen.x,
+                            locOnScreen.y + textField.height / 2
+                        )
+                        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)
+                        robot.mouseMove(
+                            locOnScreen.x + textField.width,
+                            locOnScreen.y + textField.height / 2
+                        )
+                        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+                    }
+
+                    withContext(Dispatchers.Main) { delay(100) }
+                }
+
+                // wait for a bit
                 withContext(Dispatchers.Main) { delay(100) }
-            }
 
-            // wait for a bit
-            withContext(Dispatchers.Main) { delay(100) }
-
-            // make the screenshot
-            withContext(Dispatchers.Swing) {
-                makeScreenshot(
-                    frame,
-                    screenshotDirectory,
-                    "$screenshotSubfolder/" +
-                            skin.displayName.lowercase().replace(" ", "") + ".png"
-                )
+                // make the screenshot
+                withContext(Dispatchers.Swing) {
+                    makeScreenshot(
+                        frame,
+                        screenshotDirectory,
+                        "$screenshotSubfolder/" +
+                                skin.displayName.lowercase().replace(" ", "") + ".png"
+                    )
+                }
             }
         }
 
