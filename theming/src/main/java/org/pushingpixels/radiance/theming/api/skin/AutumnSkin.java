@@ -147,7 +147,7 @@ public class AutumnSkin extends RadianceSkin {
 				/* contrastLevel */ 0.2,
 				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
-			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
+			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
@@ -191,7 +191,7 @@ public class AutumnSkin extends RadianceSkin {
 				/* contrastLevel */ 0.2,
 				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
-			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
+			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
 			ColorSchemeUtils.getExtendedContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFED8B2),
