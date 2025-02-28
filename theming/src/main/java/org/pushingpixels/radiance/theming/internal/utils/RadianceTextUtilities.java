@@ -348,12 +348,14 @@ public class RadianceTextUtilities {
             float activeStrength = Math.max(selectionStrength, rolloverStrength);
             if (activeStrength > 0.0f) {
                 // Account for the selection  / rollover state
-                backgroundFillColor =
-                    RadianceColorUtilities.getInterpolatedColor(backgroundFillColor,
-                        RadianceColorSchemeUtilities.getContainerTokens(componentForTransitions,
-                            ComponentState.ENABLED,
-                            RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLowest(),
-                        1.0f - activeStrength);
+                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    componentForTransitions, ComponentState.ENABLED,
+                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                Color interpolateTowards = tokens.isDark() ? tokens.getContainerSurfaceHighest()
+                    : tokens.getContainerSurfaceLowest();
+
+                backgroundFillColor = RadianceColorUtilities.getInterpolatedColor(
+                    backgroundFillColor, interpolateTowards, 1.0f - activeStrength);
             }
         }
 

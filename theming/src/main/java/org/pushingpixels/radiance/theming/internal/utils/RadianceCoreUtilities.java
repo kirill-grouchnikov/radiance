@@ -1859,8 +1859,10 @@ public class RadianceCoreUtilities {
     }
 
     public static Color getTextBackgroundFill(Component component, ComponentState componentState) {
-        return RadianceColorSchemeUtilities.getContainerTokens(component, componentState,
-            RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLowest();
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            component, componentState, RadianceThemingSlices.ContainerType.NEUTRAL);
+        return tokens.isDark() ? tokens.getContainerSurfaceHigh()
+            : tokens.getContainerSurfaceLow();
     }
 
     public static Color getTextSelectionBackground(Component component, ComponentState componentState) {
