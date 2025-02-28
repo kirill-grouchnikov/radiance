@@ -76,12 +76,6 @@ public class MagellanSkin extends RadianceSkin {
                         .onContainer((s) -> s.getOnNeutralContainer() & 0xD0FFFFFF)
                         .onContainerVariant((s) -> s.getOnNeutralContainerVariant() & 0xD0FFFFFF)
                         .build())
-                // For muted containers (enabled controls), use softer text / icon colors.
-                .mutedContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .onContainer((s) -> s.getOnMutedContainer() & 0xE0FFFFFF)
-                        .onContainerVariant((s) -> s.getOnMutedContainerVariant() & 0xE0FFFFFF)
-                        .build())
                 // For tonal containers (active controls), use softer text / icon colors.
                 .tonalContainerResolverOverlay(
                     SchemeContainerColorsResolverOverlay.builder()
@@ -101,7 +95,7 @@ public class MagellanSkin extends RadianceSkin {
             /* isSystemDark */ true,
             /* primaryContrastLevel */ 0.0f,
             /* tonalContrastLevel */ -0.1f,
-            /* mutedContrastLevel */ -0.1f,
+            /* mutedContrastLevel */ 0.1f,
             /* neutralContrastLevel */ -0.2f,
             /* schemeColorResolver */ magellanColorResolver);
 
