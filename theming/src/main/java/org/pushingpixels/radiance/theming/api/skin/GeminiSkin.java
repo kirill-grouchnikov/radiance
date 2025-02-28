@@ -156,7 +156,22 @@ public class GeminiSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // Headers
-        this.registerAsDecorationArea(
+        RadianceColorSchemeBundle geminiHeaderBundle =
+            new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
+                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
+                    Hct.fromInt(0xFFFFDC02), Hct.fromInt(0xFF1C282D), Hct.fromInt(0xFF142429)),
+                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
+                /* isPrimaryDark */ false,
+                /* isTonalDark */ false,
+                /* isMutedDark */ true,
+                /* isNeutralDark */ true,
+                /* isSystemDark */ true,
+                /* primaryContrastLevel */ 0.0f,
+                /* tonalContrastLevel */ 0.8f,
+                /* mutedContrastLevel */ 1.0f,
+                /* neutralContrastLevel */ 0.9f,
+                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
+        this.registerDecorationAreaSchemeBundle(geminiHeaderBundle,
             ColorSchemeUtils.getExtendedContainerTokens(
                 /* seed */ Hct.fromInt(0xFF142429),
                 /* isFidelity */ true,
@@ -202,15 +217,18 @@ public class GeminiSkin extends RadianceSkin {
         this.fillPainter = new FractionBasedTonalFillPainter("Gemini",
             new float[] {0.0f, 0.6f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokens::getContainerSurfaceLow,
+                (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                    : colorTokens.getContainerSurfaceLow(),
                 ContainerColorTokens::getContainerSurface,
-                ContainerColorTokens::getContainerSurfaceHigh});
+                (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
+                    : colorTokens.getContainerSurfaceHigh()});
 
         this.decorationPainter = new MatteDecorationPainter();
         this.highlightFillPainter = new FractionBasedTonalFillPainter("Gemini Highlight",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokens::getContainerSurfaceLow,
+                (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                    : colorTokens.getContainerSurfaceLow(),
                 ContainerColorTokens::getContainerSurface});
 
         this.borderPainter = new CompositeBorderPainter("Gemini",
