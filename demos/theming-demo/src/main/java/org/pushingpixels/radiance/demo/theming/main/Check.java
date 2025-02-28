@@ -43,7 +43,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAr
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.TabCloseKind;
 import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
-import org.pushingpixels.radiance.theming.api.skin.RadianceGeminiLookAndFeel;
+import org.pushingpixels.radiance.theming.api.skin.RadianceNightShadeLookAndFeel;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseListener;
@@ -284,6 +284,8 @@ public class Check extends JFrame {
         jtp.addTab("H-Align", align_left.of(12, 12), new HAlignmentPanel());
 
         jtp.addTab("V-Align", bar_chart.of(12, 12), new VAlignmentPanel());
+
+        jtp.addTab("System tokens", bar_chart.of(12, 12), new SystemTokensPanel());
 
         // sample menu bar
         JMenuBar jmb = new JMenuBar();
@@ -554,7 +556,7 @@ public class Check extends JFrame {
             try {
                 System.out.println(" CREATING LAF ");
                 long time0 = System.currentTimeMillis();
-                LookAndFeel laf = new RadianceGeminiLookAndFeel();
+                LookAndFeel laf = new RadianceNightShadeLookAndFeel();
                 long time1 = System.currentTimeMillis();
                 System.out.println(" LAF CREATED " + (time1 - time0));
                 System.out.println(" SETTING LAF ");
