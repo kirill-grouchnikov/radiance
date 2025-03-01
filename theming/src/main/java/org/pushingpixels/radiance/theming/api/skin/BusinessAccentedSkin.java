@@ -68,7 +68,6 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,
-			businessDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		RadianceColorSchemeBundle businessDefaultHeaderBundle =
@@ -80,7 +79,6 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 				ComponentState.getActiveStates());
 		}
 		this.registerDecorationAreaSchemeBundle(businessDefaultHeaderBundle,
-			businessDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
@@ -90,7 +88,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 		this.registerAsDecorationArea(controlPaneColorScheme.getExtendedTonalContainerTokens(),
-				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 		// add an overlay painter to paint a drop shadow along the top edge of toolbars
 		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(80),

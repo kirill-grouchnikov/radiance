@@ -56,7 +56,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 		super(new AccentBuilder()
 			.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFF555555), Hct.fromInt(0xFF606060), Hct.fromInt(0xFF707070)),
+					Hct.fromInt(0xFF404040), Hct.fromInt(0xFF606060), Hct.fromInt(0xFF555555)),
 				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ true))
 			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(

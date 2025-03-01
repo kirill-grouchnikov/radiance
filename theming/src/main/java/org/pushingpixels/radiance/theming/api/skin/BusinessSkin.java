@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 
@@ -53,7 +54,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
         super(new AccentBuilder()
             .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFBDC8D3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFE4EAF0)),
+                    Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFBDC8D3)),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false))
             .withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
@@ -71,5 +72,10 @@ public class BusinessSkin extends BusinessAccentedSkin {
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false)));
+
+        RadianceColorSchemeBundle businessFooterBundle =
+            new RadianceColorSchemeBundle(this.getHeaderAreaColorScheme());
+        this.registerDecorationAreaSchemeBundle(businessFooterBundle,
+            RadianceThemingSlices.DecorationAreaType.FOOTER);
     }
 }

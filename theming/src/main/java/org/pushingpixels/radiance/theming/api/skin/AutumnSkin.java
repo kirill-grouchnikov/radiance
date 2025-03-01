@@ -155,7 +155,7 @@ public class AutumnSkin extends RadianceSkin {
 		// softer texts / icons (on container overlaid to be on container variant).
 		this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
 			ColorSchemeUtils.getExtendedContainerTokens(
-				/* seed */ Hct.fromInt(0xFFFFC880),
+				/* seed */ Hct.fromInt(0xFFFEC983),
 				/* isFidelity */ true,
 				/* isDark */ false,
 				/* contrastLevel */ 0.0,

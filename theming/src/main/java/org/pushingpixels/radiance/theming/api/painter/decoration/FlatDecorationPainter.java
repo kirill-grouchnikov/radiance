@@ -67,7 +67,7 @@ public class FlatDecorationPainter implements RadianceDecorationPainter {
 		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
 		ExtendedContainerColorTokens colorTokens) {
 
-		graphics.setColor(colorTokens.getSurface());
+		graphics.setColor(colorTokens.getBaseContainerTokens().getContainerSurface());
 		graphics.fill(contour);
 	}
 }

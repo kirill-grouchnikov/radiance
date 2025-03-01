@@ -765,15 +765,15 @@ public class RadianceColorUtilities {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        ContainerColorTokens tokens = skin.getContainerTokens(component, ComponentState.ENABLED,
+            RadianceThemingSlices.ContainerType.NEUTRAL);
         if (rowIndex % 2 == 0) {
             // Surface for even rows
-            RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component);
-            return skin.getBackgroundExtendedContainerTokens(decorationAreaType).getSurface();
+            return tokens.getContainerSurface();
         } else {
             // Container surface low for odd rows
-            return skin.getContainerTokens(component, ComponentState.ENABLED,
-                RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLow();
+            return tokens.isDark() ? tokens.getContainerSurfaceLow()
+                : tokens.getContainerSurfaceHigh();
         }
     }
 
