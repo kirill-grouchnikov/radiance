@@ -161,7 +161,7 @@ public class ColorSchemeUtils {
         // Mixing in 20% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
-            colorScheme.getSurfaceBright(),
+            baseTokens.getContainerSurfaceBright(),
             0.2f);
     }
 
@@ -170,7 +170,7 @@ public class ColorSchemeUtils {
         // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
-            colorScheme.getSurfaceBright(),
+            baseTokens.getContainerSurfaceBright(),
             0.3f);
     }
 
@@ -179,7 +179,7 @@ public class ColorSchemeUtils {
         // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
-            colorScheme.getSurfaceBright(),
+            baseTokens.getContainerSurfaceBright(),
             0.3f);
     }
 
@@ -188,7 +188,7 @@ public class ColorSchemeUtils {
         // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
             baseTokens,
-            colorScheme.getSurfaceDim(),
+            baseTokens.getContainerSurfaceDim(),
             0.5f);
     }
 
@@ -197,7 +197,7 @@ public class ColorSchemeUtils {
         // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
             baseTokens,
-            colorScheme.getSurfaceDim(),
+            baseTokens.getContainerSurfaceDim(),
             0.4f);
     }
 
@@ -526,26 +526,6 @@ public class ColorSchemeUtils {
             private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
             @Override
-            public Color getSurface() {
-                return schemeColorResolver.getSurface(scheme);
-            }
-
-            @Override
-            public Color getSurfaceDim() {
-                return schemeColorResolver.getSurfaceDim(scheme);
-            }
-
-            @Override
-            public Color getSurfaceBright() {
-                return schemeColorResolver.getSurfaceBright(scheme);
-            }
-
-            @Override
-            public Color getInverseSurface() {
-                return schemeColorResolver.getInverseSurface(scheme);
-            }
-
-            @Override
             public ContainerColorTokens getNeutralContainerTokens() {
                 return neutralContainerTokens;
             }
@@ -805,40 +785,6 @@ public class ColorSchemeUtils {
             @Override
             public Color getComplementaryContainerOutline() {
                 return colorResolver.getComplementaryContainerOutline(dynamicPalette);
-            }
-        };
-    }
-
-    public static ExtendedContainerColorTokens getExtendedContainerTokens(
-        Hct seed,
-        boolean isFidelity,
-        boolean isDark) {
-        return getExtendedContainerTokens(seed, isFidelity, isDark, 0.0,
-            PaletteResolverUtils.getPaletteTonalColorResolver());
-    }
-
-    public static ExtendedContainerColorTokens getExtendedContainerTokens(
-        Hct seed,
-        boolean isFidelity,
-        boolean isDark,
-        double contrastLevel,
-        PaletteContainerColorsResolver colorResolver) {
-
-        DynamicPalette dynamicPalette = new DynamicPalette(
-            /* sourceColorHct */ seed,
-            /* isFidelity */ isFidelity,
-            /* isDark */ isDark,
-            /* contrastLevel */ contrastLevel);
-
-        return new ExtendedContainerColorTokens() {
-            @Override
-            public Color getSurfaceDim() {
-                return colorResolver.getSurfaceDim(dynamicPalette);
-            }
-
-            @Override
-            public Color getSurfaceBright() {
-                return colorResolver.getSurfaceBright(dynamicPalette);
             }
         };
     }

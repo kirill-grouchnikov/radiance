@@ -38,20 +38,6 @@ public class PaletteResolverUtils {
     public static PaletteContainerColorsResolver getPaletteTonalColorResolver() {
         PaletteContainerColorsResolver result =
             new PaletteContainerColorsResolver() {
-                @Override
-                public Color getSurface(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getSurface());
-                }
-
-                @Override
-                public Color getSurfaceBright(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getSurfaceBright());
-                }
-
-                @Override
-                public Color getSurfaceDim(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getSurfaceDim());
-                }
 
                 @Override
                 public Color getContainerSurfaceLowest(DynamicPalette dynamicPalette) {
@@ -159,20 +145,6 @@ public class PaletteResolverUtils {
     public static PaletteContainerColorsResolver getPalettePrimaryColorResolver() {
         PaletteContainerColorsResolver result =
             new PaletteContainerColorsResolver() {
-                @Override
-                public Color getSurface(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getSurface());
-                }
-
-                @Override
-                public Color getSurfaceBright(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getSurfaceBright());
-                }
-
-                @Override
-                public Color getSurfaceDim(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getSurfaceDim());
-                }
 
                 @Override
                 public Color getContainerSurfaceLowest(DynamicPalette dynamicPalette) {
@@ -280,35 +252,6 @@ public class PaletteResolverUtils {
     public static PaletteContainerColorsResolver overlayWith(PaletteContainerColorsResolver original,
         PaletteContainerColorsResolverOverlay overlay) {
         return new PaletteContainerColorsResolver() {
-            @Override
-            public Color getSurface(DynamicPalette dynamicPalette) {
-                Function<DynamicPalette, Integer> spec = overlay.getSurface();
-                if (spec == null) {
-                    return original.getSurface(dynamicPalette);
-                } else {
-                    return new Color(spec.apply(dynamicPalette), true);
-                }
-            }
-
-            @Override
-            public Color getSurfaceDim(DynamicPalette dynamicPalette) {
-                Function<DynamicPalette, Integer> spec = overlay.getSurfaceDim();
-                if (spec == null) {
-                    return original.getSurfaceDim(dynamicPalette);
-                } else {
-                    return new Color(spec.apply(dynamicPalette), true);
-                }
-            }
-
-            @Override
-            public Color getSurfaceBright(DynamicPalette dynamicPalette) {
-                Function<DynamicPalette, Integer> spec = overlay.getSurfaceBright();
-                if (spec == null) {
-                    return original.getSurfaceBright(dynamicPalette);
-                } else {
-                    return new Color(spec.apply(dynamicPalette), true);
-                }
-            }
 
             @Override
             public Color getContainerSurfaceLowest(DynamicPalette dynamicPalette) {

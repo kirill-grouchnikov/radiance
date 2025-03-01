@@ -50,7 +50,7 @@ public class SchemeBalancedDemo extends JFrame {
 
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, 12dlu, p, 8dlu, p, $lg, p, $lg, p, $lg, p, $lg, p, " +
+                rows("p, $lg, p, $lg, p, 12dlu, p, 8dlu, p, $lg, p, $lg, p, $lg, p, " +
                 "12dlu, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
@@ -84,10 +84,6 @@ public class SchemeBalancedDemo extends JFrame {
         builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
         builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);
 
-        row += 2;
-        builder.addROLabel("Surfaces").xy(1, row)
-            .add(new SurfacePreview(lightColorScheme)).xy(3, row)
-            .add(new SurfacePreview(darkColorScheme)).xy(5, row);
         row += 2;
         builder.addROLabel("Neutral container").xy(1, row)
             .add(new ContainerPalettePreview(lightColorScheme.getNeutralContainerTokens())).xy(3, row)

@@ -33,17 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
-import java.awt.*;
-
 public interface RadianceColorScheme {
-    Color getSurface();
-
-    Color getSurfaceDim();
-
-    Color getSurfaceBright();
-
-    Color getInverseSurface();
-
     ContainerColorTokens getNeutralContainerTokens();
 
     ContainerColorTokens getMutedContainerTokens();
