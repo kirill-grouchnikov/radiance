@@ -29,16 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
-
-import java.awt.*;
-
 public interface SchemeColorResolver {
-    Color getSurface(DynamicScheme dynamicScheme);
-    Color getSurfaceDim(DynamicScheme dynamicScheme);
-    Color getSurfaceBright(DynamicScheme dynamicScheme);
-    Color getInverseSurface(DynamicScheme dynamicScheme);
-
     SchemeContainerColorsResolver getNeutralContainerResolver();
     SchemeContainerColorsResolver getMutedContainerResolver();
     SchemeContainerColorsResolver getTonalContainerResolver();

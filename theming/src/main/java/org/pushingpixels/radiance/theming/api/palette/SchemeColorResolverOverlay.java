@@ -29,15 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.palette;
 
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
-
-import java.util.function.Function;
-
 public class SchemeColorResolverOverlay {
-    private Function<DynamicScheme, Integer> surface;
-    private Function<DynamicScheme, Integer> surfaceDim;
-    private Function<DynamicScheme, Integer> surfaceBright;
-    private Function<DynamicScheme, Integer> inverseSurface;
     private SchemeContainerColorsResolverOverlay neutralContainerResolverOverlay;
     private SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay;
     private SchemeContainerColorsResolverOverlay tonalContainerResolverOverlay;
@@ -48,22 +40,6 @@ public class SchemeColorResolverOverlay {
     }
 
     private SchemeColorResolverOverlay() {}
-
-    public Function<DynamicScheme, Integer> getSurface() {
-        return this.surface;
-    }
-
-    public Function<DynamicScheme, Integer> getSurfaceDim() {
-        return this.surfaceDim;
-    }
-
-    public Function<DynamicScheme, Integer> getSurfaceBright() {
-        return this.surfaceBright;
-    }
-
-    public Function<DynamicScheme, Integer> getInverseSurface() {
-        return this.inverseSurface;
-    }
 
     public SchemeContainerColorsResolverOverlay getNeutralContainerResolverOverlay() {
         return this.neutralContainerResolverOverlay;
@@ -82,36 +58,12 @@ public class SchemeColorResolverOverlay {
     }
 
     public final static class Builder {
-        private Function<DynamicScheme, Integer> surface;
-        private Function<DynamicScheme, Integer> surfaceDim;
-        private Function<DynamicScheme, Integer> surfaceBright;
-        private Function<DynamicScheme, Integer> inverseSurface;
         private SchemeContainerColorsResolverOverlay neutralContainerResolverOverlay;
         private SchemeContainerColorsResolverOverlay mutedContainerResolverOverlay;
         private SchemeContainerColorsResolverOverlay tonalContainerResolverOverlay;
         private SchemeContainerColorsResolverOverlay primaryContainerResolverOverlay;
 
         private Builder() {}
-
-        public Builder surface(Function<DynamicScheme, Integer> surface) {
-            this.surface = surface;
-            return this;
-        }
-
-        public Builder surfaceDim(Function<DynamicScheme, Integer> surfaceDim) {
-            this.surfaceDim = surfaceDim;
-            return this;
-        }
-
-        public Builder surfaceBright(Function<DynamicScheme, Integer> surfaceBright) {
-            this.surfaceBright = surfaceBright;
-            return this;
-        }
-
-        public Builder inverseSurface(Function<DynamicScheme, Integer> inverseSurface) {
-            this.inverseSurface = inverseSurface;
-            return this;
-        }
 
         public Builder neutralContainerResolverOverlay(
             SchemeContainerColorsResolverOverlay neutralContainerResolverOverlay) {
@@ -139,10 +91,6 @@ public class SchemeColorResolverOverlay {
 
         public SchemeColorResolverOverlay build() {
             SchemeColorResolverOverlay result = new SchemeColorResolverOverlay();
-            result.surface = this.surface;
-            result.surfaceDim = this.surfaceDim;
-            result.surfaceBright = this.surfaceBright;
-            result.inverseSurface = this.inverseSurface;
             result.neutralContainerResolverOverlay = this.neutralContainerResolverOverlay;
             result.mutedContainerResolverOverlay = this.mutedContainerResolverOverlay;
             result.tonalContainerResolverOverlay = this.tonalContainerResolverOverlay;

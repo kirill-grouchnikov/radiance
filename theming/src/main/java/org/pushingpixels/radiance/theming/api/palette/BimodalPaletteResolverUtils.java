@@ -38,20 +38,6 @@ public class BimodalPaletteResolverUtils {
     public static BimodalPaletteContainerColorsResolver getBimodalPaletteTonalColorResolver() {
         BimodalPaletteContainerColorsResolver result =
             new BimodalPaletteContainerColorsResolver() {
-                @Override
-                public Color getSurface(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getSurface());
-                }
-
-                @Override
-                public Color getSurfaceBright(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getSurfaceBright());
-                }
-
-                @Override
-                public Color getSurfaceDim(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getSurfaceDim());
-                }
 
                 @Override
                 public Color getContainerSurfaceLowest(DynamicBimodalPalette dynamicBimodalPalette) {
@@ -124,11 +110,6 @@ public class BimodalPaletteResolverUtils {
                 }
 
                 @Override
-                public Color getInverseSurface(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getInverseSurface());
-                }
-
-                @Override
                 public Color getInverseContainerSurface(DynamicBimodalPalette dynamicBimodalPalette) {
                     return new Color(dynamicBimodalPalette.getInverseTonalContainerSurface());
                 }
@@ -160,35 +141,6 @@ public class BimodalPaletteResolverUtils {
         BimodalPaletteContainerColorsResolver original,
         BimodalPaletteContainerColorsResolverOverlay overlay) {
         return new BimodalPaletteContainerColorsResolver() {
-            @Override
-            public Color getSurface(DynamicBimodalPalette dynamicBimodalPalette) {
-                Function<DynamicBimodalPalette,Integer> spec = overlay.getSurface();
-                if (spec == null) {
-                    return original.getSurface(dynamicBimodalPalette);
-                } else {
-                    return new Color(spec.apply(dynamicBimodalPalette), true);
-                }
-            }
-
-            @Override
-            public Color getSurfaceDim(DynamicBimodalPalette dynamicBimodalPalette) {
-                Function<DynamicBimodalPalette,Integer> spec = overlay.getSurfaceDim();
-                if (spec == null) {
-                    return original.getSurfaceDim(dynamicBimodalPalette);
-                } else {
-                    return new Color(spec.apply(dynamicBimodalPalette), true);
-                }
-            }
-
-            @Override
-            public Color getSurfaceBright(DynamicBimodalPalette dynamicBimodalPalette) {
-                Function<DynamicBimodalPalette,Integer> spec = overlay.getSurfaceBright();
-                if (spec == null) {
-                    return original.getSurfaceBright(dynamicBimodalPalette);
-                } else {
-                    return new Color(spec.apply(dynamicBimodalPalette), true);
-                }
-            }
 
             @Override
             public Color getContainerSurfaceLowest(DynamicBimodalPalette dynamicBimodalPalette) {
@@ -327,16 +279,6 @@ public class BimodalPaletteResolverUtils {
                     return original.getContainerOutlineDisabledAlpha(dynamicBimodalPalette);
                 } else {
                     return spec.apply(dynamicBimodalPalette);
-                }
-            }
-
-            @Override
-            public Color getInverseSurface(DynamicBimodalPalette dynamicBimodalPalette) {
-                Function<DynamicBimodalPalette,Integer> spec = overlay.getInverseSurface();
-                if (spec == null) {
-                    return original.getInverseSurface(dynamicBimodalPalette);
-                } else {
-                    return new Color(spec.apply(dynamicBimodalPalette), true);
                 }
             }
 

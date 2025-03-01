@@ -430,26 +430,6 @@ public class SchemeResolverUtils {
 
         return new SchemeColorResolver() {
             @Override
-            public Color getSurface(DynamicScheme dynamicScheme) {
-                return new Color(dynamicScheme.getSurface());
-            }
-
-            @Override
-            public Color getSurfaceDim(DynamicScheme dynamicScheme) {
-                return new Color(dynamicScheme.getSurfaceDim());
-            }
-
-            @Override
-            public Color getSurfaceBright(DynamicScheme dynamicScheme) {
-                return new Color(dynamicScheme.getSurfaceBright());
-            }
-
-            @Override
-            public Color getInverseSurface(DynamicScheme dynamicScheme) {
-                return new Color(dynamicScheme.getInverseSurface());
-            }
-
-            @Override
             public SchemeContainerColorsResolver getNeutralContainerResolver() {
                 return neutralContainerResolver;
             }
@@ -669,46 +649,6 @@ public class SchemeResolverUtils {
     public static SchemeColorResolver overlayWith(SchemeColorResolver original,
         SchemeColorResolverOverlay overlay) {
        return new SchemeColorResolver() {
-           @Override
-           public Color getSurface(DynamicScheme dynamicScheme) {
-               Function<DynamicScheme, Integer> spec = overlay.getSurface();
-               if (spec == null) {
-                   return original.getSurface(dynamicScheme);
-               } else {
-                   return new Color(spec.apply(dynamicScheme), true);
-               }
-           }
-
-           @Override
-           public Color getSurfaceDim(DynamicScheme dynamicScheme) {
-               Function<DynamicScheme, Integer> spec = overlay.getSurfaceDim();
-               if (spec == null) {
-                   return original.getSurfaceDim(dynamicScheme);
-               } else {
-                   return new Color(spec.apply(dynamicScheme), true);
-               }
-           }
-
-           @Override
-           public Color getSurfaceBright(DynamicScheme dynamicScheme) {
-               Function<DynamicScheme, Integer> spec = overlay.getSurfaceBright();
-               if (spec == null) {
-                   return original.getSurfaceBright(dynamicScheme);
-               } else {
-                   return new Color(spec.apply(dynamicScheme), true);
-               }
-           }
-
-           @Override
-           public Color getInverseSurface(DynamicScheme dynamicScheme) {
-               Function<DynamicScheme, Integer> spec = overlay.getInverseSurface();
-               if (spec == null) {
-                   return original.getInverseSurface(dynamicScheme);
-               } else {
-                   return new Color(spec.apply(dynamicScheme), true);
-               }
-           }
-
            @Override
            public SchemeContainerColorsResolver getNeutralContainerResolver() {
                SchemeContainerColorsResolverOverlay spec =

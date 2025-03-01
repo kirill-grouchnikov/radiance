@@ -34,9 +34,6 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import java.util.function.Function;
 
 public class PaletteContainerColorsResolverOverlay {
-    private Function<DynamicPalette, Integer> surface;
-    private Function<DynamicPalette, Integer> surfaceDim;
-    private Function<DynamicPalette, Integer> surfaceBright;
     private Function<DynamicPalette, Integer> containerSurfaceLowest;
     private Function<DynamicPalette, Integer> containerSurfaceLow;
     private Function<DynamicPalette, Integer> containerSurface;
@@ -51,7 +48,6 @@ public class PaletteContainerColorsResolverOverlay {
     private Function<DynamicPalette, Float> containerSurfaceDisabledAlpha;
     private Function<DynamicPalette, Float> onContainerDisabledAlpha;
     private Function<DynamicPalette, Float> containerOutlineDisabledAlpha;
-    private Function<DynamicPalette, Integer> inverseSurface;
     private Function<DynamicPalette, Integer> inverseContainerSurface;
     private Function<DynamicPalette, Integer> inverseOnContainer;
     private Function<DynamicPalette, Integer> inverseContainerOutline;
@@ -63,18 +59,6 @@ public class PaletteContainerColorsResolverOverlay {
     }
 
     private PaletteContainerColorsResolverOverlay() {}
-
-    public Function<DynamicPalette, Integer> getSurface() {
-        return this.surface;
-    }
-
-    public Function<DynamicPalette, Integer> getSurfaceDim() {
-        return this.surfaceDim;
-    }
-
-    public Function<DynamicPalette, Integer> getSurfaceBright() {
-        return this.surfaceBright;
-    }
 
     public Function<DynamicPalette, Integer> getContainerSurfaceLowest() {
         return this.containerSurfaceLowest;
@@ -132,10 +116,6 @@ public class PaletteContainerColorsResolverOverlay {
         return this.containerOutlineDisabledAlpha;
     }
 
-    public Function<DynamicPalette, Integer> getInverseSurface() {
-        return this.inverseSurface;
-    }
-
     public Function<DynamicPalette, Integer> getInverseContainerSurface() {
         return this.inverseContainerSurface;
     }
@@ -157,9 +137,6 @@ public class PaletteContainerColorsResolverOverlay {
     }
 
     public final static class Builder {
-        private Function<DynamicPalette, Integer> surface;
-        private Function<DynamicPalette, Integer> surfaceDim;
-        private Function<DynamicPalette, Integer> surfaceBright;
         private Function<DynamicPalette, Integer> containerSurfaceLowest;
         private Function<DynamicPalette, Integer> containerSurfaceLow;
         private Function<DynamicPalette, Integer> containerSurface;
@@ -174,7 +151,6 @@ public class PaletteContainerColorsResolverOverlay {
         private Function<DynamicPalette, Float> containerSurfaceDisabledAlpha;
         private Function<DynamicPalette, Float> onContainerDisabledAlpha;
         private Function<DynamicPalette, Float> containerOutlineDisabledAlpha;
-        private Function<DynamicPalette, Integer> inverseSurface;
         private Function<DynamicPalette, Integer> inverseContainerSurface;
         private Function<DynamicPalette, Integer> inverseOnContainer;
         private Function<DynamicPalette, Integer> inverseContainerOutline;
@@ -182,21 +158,6 @@ public class PaletteContainerColorsResolverOverlay {
         private Function<DynamicPalette, Integer> complementaryContainerOutline;
 
         private Builder() {}
-
-        public Builder surface(Function<DynamicPalette, Integer> surface) {
-            this.surface = surface;
-            return this;
-        }
-
-        public Builder surfaceDim(Function<DynamicPalette, Integer> surfaceDim) {
-            this.surfaceDim = surfaceDim;
-            return this;
-        }
-
-        public Builder surfaceBright(Function<DynamicPalette, Integer> surfaceBright) {
-            this.surfaceBright = surfaceBright;
-            return this;
-        }
 
         public Builder containerSurfaceLowest(Function<DynamicPalette, Integer> containerSurfaceLowest) {
             this.containerSurfaceLowest = containerSurfaceLowest;
@@ -271,11 +232,6 @@ public class PaletteContainerColorsResolverOverlay {
             return this;
         }
 
-        public Builder inverseSurface(Function<DynamicPalette, Integer> inverseSurface) {
-            this.inverseSurface = inverseSurface;
-            return this;
-        }
-
         public Builder inverseContainerSurface(
             Function<DynamicPalette, Integer> inverseContainerSurface) {
             this.inverseContainerSurface = inverseContainerSurface;
@@ -307,9 +263,6 @@ public class PaletteContainerColorsResolverOverlay {
 
         public PaletteContainerColorsResolverOverlay build() {
             PaletteContainerColorsResolverOverlay result = new PaletteContainerColorsResolverOverlay();
-            result.surface = this.surface;
-            result.surfaceDim = this.surfaceDim;
-            result.surfaceBright = this.surfaceBright;
             result.containerSurfaceLowest = this.containerSurfaceLowest;
             result.containerSurfaceLow = this.containerSurfaceLow;
             result.containerSurface = this.containerSurface;
@@ -324,7 +277,6 @@ public class PaletteContainerColorsResolverOverlay {
             result.containerSurfaceDisabledAlpha = this.containerSurfaceDisabledAlpha;
             result.onContainerDisabledAlpha = this.onContainerDisabledAlpha;
             result.containerOutlineDisabledAlpha = this.containerOutlineDisabledAlpha;
-            result.inverseSurface = this.inverseSurface;
             result.inverseContainerSurface = this.inverseContainerSurface;
             result.inverseOnContainer = this.inverseOnContainer;
             result.inverseContainerOutline = this.inverseContainerOutline;

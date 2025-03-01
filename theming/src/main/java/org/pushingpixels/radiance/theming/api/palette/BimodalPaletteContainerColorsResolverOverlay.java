@@ -34,9 +34,6 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import java.util.function.Function;
 
 public class BimodalPaletteContainerColorsResolverOverlay {
-    private Function<DynamicBimodalPalette, Integer> surface;
-    private Function<DynamicBimodalPalette, Integer> surfaceDim;
-    private Function<DynamicBimodalPalette, Integer> surfaceBright;
     private Function<DynamicBimodalPalette, Integer> containerSurfaceLowest;
     private Function<DynamicBimodalPalette, Integer> containerSurfaceLow;
     private Function<DynamicBimodalPalette, Integer> containerSurface;
@@ -51,7 +48,6 @@ public class BimodalPaletteContainerColorsResolverOverlay {
     private Function<DynamicBimodalPalette, Float> containerSurfaceDisabledAlpha;
     private Function<DynamicBimodalPalette, Float> onContainerDisabledAlpha;
     private Function<DynamicBimodalPalette, Float> containerOutlineDisabledAlpha;
-    private Function<DynamicBimodalPalette, Integer> inverseSurface;
     private Function<DynamicBimodalPalette, Integer> inverseContainerSurface;
     private Function<DynamicBimodalPalette, Integer> inverseOnContainer;
     private Function<DynamicBimodalPalette, Integer> inverseContainerOutline;
@@ -63,18 +59,6 @@ public class BimodalPaletteContainerColorsResolverOverlay {
     }
 
     private BimodalPaletteContainerColorsResolverOverlay() {}
-
-    public Function<DynamicBimodalPalette, Integer> getSurface() {
-        return this.surface;
-    }
-
-    public Function<DynamicBimodalPalette, Integer> getSurfaceDim() {
-        return this.surfaceDim;
-    }
-
-    public Function<DynamicBimodalPalette, Integer> getSurfaceBright() {
-        return this.surfaceBright;
-    }
 
     public Function<DynamicBimodalPalette, Integer> getContainerSurfaceLowest() {
         return this.containerSurfaceLowest;
@@ -132,10 +116,6 @@ public class BimodalPaletteContainerColorsResolverOverlay {
         return this.containerOutlineDisabledAlpha;
     }
 
-    public Function<DynamicBimodalPalette, Integer> getInverseSurface() {
-        return this.inverseSurface;
-    }
-
     public Function<DynamicBimodalPalette, Integer> getInverseContainerSurface() {
         return this.inverseContainerSurface;
     }
@@ -157,9 +137,6 @@ public class BimodalPaletteContainerColorsResolverOverlay {
     }
 
     public final static class Builder {
-        private Function<DynamicBimodalPalette, Integer> surface;
-        private Function<DynamicBimodalPalette, Integer> surfaceDim;
-        private Function<DynamicBimodalPalette, Integer> surfaceBright;
         private Function<DynamicBimodalPalette, Integer> containerSurfaceLowest;
         private Function<DynamicBimodalPalette, Integer> containerSurfaceLow;
         private Function<DynamicBimodalPalette, Integer> containerSurface;
@@ -174,7 +151,6 @@ public class BimodalPaletteContainerColorsResolverOverlay {
         private Function<DynamicBimodalPalette, Float> containerSurfaceDisabledAlpha;
         private Function<DynamicBimodalPalette, Float> onContainerDisabledAlpha;
         private Function<DynamicBimodalPalette, Float> containerOutlineDisabledAlpha;
-        private Function<DynamicBimodalPalette, Integer> inverseSurface;
         private Function<DynamicBimodalPalette, Integer> inverseContainerSurface;
         private Function<DynamicBimodalPalette, Integer> inverseOnContainer;
         private Function<DynamicBimodalPalette, Integer> inverseContainerOutline;
@@ -182,21 +158,6 @@ public class BimodalPaletteContainerColorsResolverOverlay {
         private Function<DynamicBimodalPalette, Integer> complementaryContainerOutline;
 
         private Builder() {}
-
-        public Builder surface(Function<DynamicBimodalPalette, Integer> surface) {
-            this.surface = surface;
-            return this;
-        }
-
-        public Builder surfaceDim(Function<DynamicBimodalPalette, Integer> surfaceDim) {
-            this.surfaceDim = surfaceDim;
-            return this;
-        }
-
-        public Builder surfaceBright(Function<DynamicBimodalPalette, Integer> surfaceBright) {
-            this.surfaceBright = surfaceBright;
-            return this;
-        }
 
         public Builder containerSurfaceLowest(Function<DynamicBimodalPalette, Integer> containerSurfaceLowest) {
             this.containerSurfaceLowest = containerSurfaceLowest;
@@ -271,11 +232,6 @@ public class BimodalPaletteContainerColorsResolverOverlay {
             return this;
         }
 
-        public Builder inverseSurface(Function<DynamicBimodalPalette, Integer> inverseSurface) {
-            this.inverseSurface = inverseSurface;
-            return this;
-        }
-
         public Builder inverseContainerSurface(
             Function<DynamicBimodalPalette, Integer> inverseContainerSurface) {
             this.inverseContainerSurface = inverseContainerSurface;
@@ -307,9 +263,6 @@ public class BimodalPaletteContainerColorsResolverOverlay {
 
         public BimodalPaletteContainerColorsResolverOverlay build() {
             BimodalPaletteContainerColorsResolverOverlay result = new BimodalPaletteContainerColorsResolverOverlay();
-            result.surface = this.surface;
-            result.surfaceDim = this.surfaceDim;
-            result.surfaceBright = this.surfaceBright;
             result.containerSurfaceLowest = this.containerSurfaceLowest;
             result.containerSurfaceLow = this.containerSurfaceLow;
             result.containerSurface = this.containerSurface;
@@ -324,7 +277,6 @@ public class BimodalPaletteContainerColorsResolverOverlay {
             result.containerSurfaceDisabledAlpha = this.containerSurfaceDisabledAlpha;
             result.onContainerDisabledAlpha = this.onContainerDisabledAlpha;
             result.containerOutlineDisabledAlpha = this.containerOutlineDisabledAlpha;
-            result.inverseSurface = this.inverseSurface;
             result.inverseContainerSurface = this.inverseContainerSurface;
             result.inverseOnContainer = this.inverseOnContainer;
             result.inverseContainerOutline = this.inverseContainerOutline;

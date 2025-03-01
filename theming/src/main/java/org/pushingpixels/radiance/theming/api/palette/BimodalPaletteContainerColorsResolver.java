@@ -34,10 +34,6 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import java.awt.*;
 
 public interface BimodalPaletteContainerColorsResolver {
-    Color getSurface(DynamicBimodalPalette dynamicBimodalPalette);
-    Color getSurfaceDim(DynamicBimodalPalette dynamicBimodalPalette);
-    Color getSurfaceBright(DynamicBimodalPalette dynamicBimodalPalette);
-
     Color getContainerSurfaceLowest(DynamicBimodalPalette dynamicBimodalPalette);
     Color getContainerSurfaceLow(DynamicBimodalPalette dynamicBimodalPalette);
     Color getContainerSurface(DynamicBimodalPalette dynamicBimodalPalette);
@@ -57,7 +53,6 @@ public interface BimodalPaletteContainerColorsResolver {
     float getOnContainerDisabledAlpha(DynamicBimodalPalette dynamicBimodalPalette);
     float getContainerOutlineDisabledAlpha(DynamicBimodalPalette dynamicBimodalPalette);
 
-    Color getInverseSurface(DynamicBimodalPalette dynamicBimodalPalette);
     Color getInverseContainerSurface(DynamicBimodalPalette dynamicBimodalPalette);
     Color getInverseOnContainer(DynamicBimodalPalette dynamicBimodalPalette);
     Color getInverseContainerOutline(DynamicBimodalPalette dynamicBimodalPalette);
