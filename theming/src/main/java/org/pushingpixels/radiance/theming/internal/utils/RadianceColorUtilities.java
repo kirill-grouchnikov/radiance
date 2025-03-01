@@ -714,8 +714,8 @@ public class RadianceColorUtilities {
         ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
             scrollbar, scrollbar.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
             RadianceThemingSlices.ContainerType.NEUTRAL);
-        return colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
-            : colorTokens.getContainerSurface();
+        return colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
+            : colorTokens.getContainerSurfaceHigh();
     }
 
     /**
