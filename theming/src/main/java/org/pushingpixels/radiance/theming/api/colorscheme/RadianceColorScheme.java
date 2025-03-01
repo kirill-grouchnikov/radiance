@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.colorscheme;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 
 import java.awt.*;
 
@@ -85,52 +84,5 @@ public interface RadianceColorScheme {
             case NEUTRAL:
             default: return this.getNeutralContainerTokens();
         }
-    }
-
-    default ExtendedContainerColorTokens getExtendedNeutralContainerTokens() {
-        return getExtendedContainerTokens(getNeutralContainerTokens());
-    }
-
-    default ExtendedContainerColorTokens getExtendedMutedContainerTokens() {
-        return getExtendedContainerTokens(getMutedContainerTokens());
-    }
-
-    default ExtendedContainerColorTokens getExtendedTonalContainerTokens() {
-        return getExtendedContainerTokens(getTonalContainerTokens());
-    }
-
-    default ExtendedContainerColorTokens getExtendedPrimaryContainerTokens() {
-        return getExtendedContainerTokens(getPrimaryContainerTokens());
-    }
-
-    private ExtendedContainerColorTokens getExtendedContainerTokens(
-        ContainerColorTokens containerColorTokens) {
-        RadianceColorScheme me = this;
-        return new ExtendedContainerColorTokens() {
-            @Override
-            public Color getSurface() {
-                return me.getSurface();
-            }
-
-            @Override
-            public Color getSurfaceDim() {
-                return me.getSurfaceDim();
-            }
-
-            @Override
-            public Color getSurfaceBright() {
-                return me.getSurfaceBright();
-            }
-
-            @Override
-            public Color getInverseSurface() {
-                return me.getInverseSurface();
-            }
-
-            @Override
-            public ContainerColorTokens getBaseContainerTokens() {
-                return containerColorTokens;
-            }
-        };
     }
 }
