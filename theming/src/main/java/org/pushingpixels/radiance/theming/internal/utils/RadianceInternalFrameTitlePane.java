@@ -285,7 +285,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
             int yOffset = titleTextRect.y + (int) ((titleTextRect.getHeight() - fm.getHeight()) / 2)
                     + fm.getAscent();
 
-            ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
+            ContainerColorTokens colorTokens = skin.getBackgroundContainerTokens(
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
             Color background = hostFrame.getBackground();
             if (!(background instanceof UIResource)) {

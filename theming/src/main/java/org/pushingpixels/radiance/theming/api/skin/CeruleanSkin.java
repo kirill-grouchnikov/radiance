@@ -139,7 +139,7 @@ public class CeruleanSkin extends RadianceSkin {
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(ceruleanDefaultHeaderBundle,
-			ceruleanDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+			ceruleanDefaultHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
@@ -150,8 +150,9 @@ public class CeruleanSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getExtendedContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCBD1D7),
+				/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false),
 			RadianceThemingSlices.DecorationAreaType.FOOTER,

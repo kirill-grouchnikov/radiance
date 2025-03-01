@@ -85,8 +85,9 @@ public class SeaGlassSkin extends RadianceSkin {
 		this.registerDecorationAreaSchemeBundle(seaGlassDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		this.registerAsDecorationArea(ColorSchemeUtils.getExtendedContainerTokens(
+		this.registerAsDecorationArea(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF75B4D8),
+				/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,

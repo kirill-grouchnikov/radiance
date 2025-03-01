@@ -142,8 +142,9 @@ public class VisorSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(visorDestinationsBundle, VisorMail.DESTINATIONS);
 
         // For the overall frame decoration border
-        this.registerAsDecorationArea(ColorSchemeUtils.getExtendedContainerTokens(
+        this.registerAsDecorationArea(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC9D6DF),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);

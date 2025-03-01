@@ -141,7 +141,7 @@ public class HarvestSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         this.registerDecorationAreaSchemeBundle(harvestHeaderBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3A3A39),
                 /* isFidelity */ true,
                 /* isDark */ true,
@@ -159,8 +159,9 @@ public class HarvestSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFCF7C0),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

@@ -113,7 +113,7 @@ public class StreetlightsSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2E332F),
                 /* isFidelity */ true,
                 /* isDark */ true,

@@ -97,9 +97,8 @@ public class RadianceColorSelectorPopupMenuPanelUI extends BasicColorSelectorPop
 
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
                 ContainerColorTokens backgroundTokens =
-                    skin.getBackgroundExtendedContainerTokens(
-                            DecorationPainterUtils.getDecorationType(this))
-                        .getBaseContainerTokens();
+                    skin.getBackgroundContainerTokens(
+                            DecorationPainterUtils.getDecorationType(this));
                 Color gutterColor = backgroundTokens.isDark()
                     ? backgroundTokens.getContainerSurfaceHighest()
                     : backgroundTokens.getContainerSurfaceLowest();

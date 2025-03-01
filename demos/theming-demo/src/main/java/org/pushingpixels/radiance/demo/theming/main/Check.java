@@ -87,14 +87,14 @@ public class Check extends JFrame {
         if (lookAndFeel instanceof RadianceLookAndFeel) {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this.getRootPane());
             setIconImage(RadianceLogo.getLogoImage(this,
-                skin.getBackgroundExtendedContainerTokens(
-                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens()));
+                skin.getBackgroundContainerTokens(
+                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(() -> {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(getRootPane());
             setIconImage(RadianceLogo.getLogoImage(Check.this,
-                skin.getBackgroundExtendedContainerTokens(
-                    DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens()));
+                skin.getBackgroundContainerTokens(
+                    DecorationAreaType.PRIMARY_TITLE_PANE)));
         }));
 
         setLayout(new BorderLayout());

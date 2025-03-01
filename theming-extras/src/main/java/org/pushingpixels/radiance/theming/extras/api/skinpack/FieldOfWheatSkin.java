@@ -101,7 +101,7 @@ public class FieldOfWheatSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD59C18),
                 /* isFidelity */ true,
                 /* isDark */ false,

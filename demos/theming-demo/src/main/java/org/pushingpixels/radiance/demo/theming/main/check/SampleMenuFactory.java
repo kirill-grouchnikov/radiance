@@ -312,7 +312,7 @@ public class SampleMenuFactory {
                     /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isDark */ true));
             this.registerDecorationAreaSchemeBundle(customDefaultHeaderBundle,
-                customDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+                customDefaultHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);

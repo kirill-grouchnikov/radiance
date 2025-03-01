@@ -107,7 +107,7 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 			RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
 			RadianceSkin skin) {
 		ContainerColorTokens colorTokens =
-			skin.getBackgroundExtendedContainerTokens(decorationAreaType);
+			skin.getBackgroundContainerTokens(decorationAreaType);
 		if (this.decoratedAreas.contains(decorationAreaType)) {
 			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
 					width, height, colorTokens);

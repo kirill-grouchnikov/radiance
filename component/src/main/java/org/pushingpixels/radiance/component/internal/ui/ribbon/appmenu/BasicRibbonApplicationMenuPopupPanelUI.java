@@ -43,7 +43,7 @@ import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicPopupP
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -252,9 +252,9 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             @Override
             protected void paintComponent(Graphics g) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
-                ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
+                ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
                         DecorationPainterUtils.getDecorationType(this));
-                Color backgroundFill = tokens.getBaseContainerTokens().getContainerSurfaceLow();
+                Color backgroundFill = tokens.getContainerSurfaceLow();
 
                 Graphics2D g2d = (Graphics2D) g.create();
                 g2d.setColor(backgroundFill);

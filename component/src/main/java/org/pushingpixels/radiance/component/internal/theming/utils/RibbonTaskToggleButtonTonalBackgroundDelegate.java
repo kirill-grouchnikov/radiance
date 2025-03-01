@@ -40,10 +40,9 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -59,7 +58,7 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class RibbonTaskToggleButtonTonalBackgroundDelegate {
-    private BladeExtendedContainerColorTokens mutableTokens = new BladeExtendedContainerColorTokens();
+    private BladeContainerColorTokens mutableTokens = new BladeContainerColorTokens();
 
     public void updateTaskToggleButtonBackground(Graphics2D g, JRibbonTaskToggleButton button) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
@@ -79,7 +78,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
         // Otherwise, we use the background color scheme as the base fill for the visual
         // continuity, and let the other active states (if any) paint the additional
         // transition visuals.
-        BladeUtils.populateColorTokens(mutableTokens.baseContainerColorTokens,
+        BladeUtils.populateColorTokens(mutableTokens,
                 modelStateInfo, currState,
                 new BladeUtils.ColorSchemeDelegate() {
 
@@ -95,27 +94,17 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                             RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
                             RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
                                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
-                            return skin.getBackgroundExtendedContainerTokens(buttonDecorationAreaType)
-                                .getBaseContainerTokens();
+                            return skin.getBackgroundContainerTokens(buttonDecorationAreaType);
                         }
                         return RadianceColorSchemeUtilities.getContainerTokens(button,
                             state, RadianceThemingSlices.ContainerType.TONAL);
                     }
                 },
                 true);
-        RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
-            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-        ExtendedContainerColorTokens extendedContainerColorTokens =
-            skin.getBackgroundExtendedContainerTokens(buttonDecorationAreaType);
-        mutableTokens.surface = extendedContainerColorTokens.getSurface();
-        mutableTokens.surfaceDim = extendedContainerColorTokens.getSurfaceDim();
-        mutableTokens.surfaceBright = extendedContainerColorTokens.getSurfaceBright();
-        mutableTokens.inverseSurface = extendedContainerColorTokens.getInverseSurface();
 
         // Account for contextual hue color associated with the button's group
         Color contextualGroupHueColor = button.getContextualGroupHueColor();
-        ExtendedContainerColorTokens finalTokens = (contextualGroupHueColor != null)
+        ContainerColorTokens finalTokens = (contextualGroupHueColor != null)
             ? ColorSchemeUtils.getBlendedTokens(mutableTokens,
                 contextualGroupHueColor, RibbonContextualTaskGroup.HUE_ALPHA, null, 0.0f)
             : mutableTokens;
@@ -154,7 +143,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
 
     private static void drawFullAlphaBackgroundImage(Graphics2D g,
         JRibbonTaskToggleButton button,
-        ExtendedContainerColorTokens tokens,
+        ContainerColorTokens tokens,
         RadianceBorderPainter borderPainter) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -180,7 +169,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                         DecorationPainterUtils.paintDecorationArea(graphics1X, button, contour,
                                 buttonDecorationAreaType, tokens, false);
                     } else {
-                        graphics1X.setColor(tokens.getSurface());
+                        graphics1X.setColor(tokens.getContainerSurface());
                         graphics1X.fill(contour);
                     }
 
@@ -189,7 +178,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                             scaledWidth, scaledHeight + 4.0f, radius, bottom, 2.0f);
 
                     borderPainter.paintBorder(graphics1X, button, scaledWidth, scaledHeight + 2.0f,
-                            contour, contourInner, tokens.getBaseContainerTokens());
+                            contour, contourInner, tokens);
                 });
         graphics.dispose();
     }

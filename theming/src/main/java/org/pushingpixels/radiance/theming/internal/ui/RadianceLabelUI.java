@@ -140,7 +140,7 @@ public class RadianceLabelUI extends BasicLabelUI {
                 labelState, RadianceThemingSlices.ContainerType.NEUTRAL);
         } else {
             if (label.getClientProperty(RadianceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
-                ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
+                ContainerColorTokens colorTokens = skin.getBackgroundContainerTokens(
                     RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
                 textColor = colorTokens.getOnContainer();
                 Color echoColor = colorTokens.getComplementaryOnContainer();

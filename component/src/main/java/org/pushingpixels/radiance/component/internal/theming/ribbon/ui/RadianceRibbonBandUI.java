@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -125,9 +125,9 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
         Color fgColor;
 
         // make the title color blend a little with the background
-        ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
+        ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
             DecorationAreaType.CONTROL_PANE);
-        fgColor = tokens.getBaseContainerTokens().getOnContainer();
+        fgColor = tokens.getOnContainer();
         fgColor = RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * 0.95));
 
         g2d.setColor(fgColor);

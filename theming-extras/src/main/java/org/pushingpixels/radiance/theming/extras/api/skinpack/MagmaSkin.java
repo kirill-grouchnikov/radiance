@@ -98,7 +98,7 @@ public class MagmaSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3E101A),
                 /* isFidelity */ true,
                 /* isDark */ true,

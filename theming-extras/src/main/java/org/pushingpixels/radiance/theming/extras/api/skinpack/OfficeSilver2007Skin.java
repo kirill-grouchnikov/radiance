@@ -199,15 +199,17 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFD4DE),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFCFD0),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             DecorationAreaType.PRIMARY_TITLE_PANE,

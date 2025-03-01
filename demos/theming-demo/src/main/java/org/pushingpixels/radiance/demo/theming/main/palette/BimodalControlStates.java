@@ -113,7 +113,7 @@ public class BimodalControlStates extends JFrame {
                     RadianceThemingSlices.DecorationAreaType.NONE);
 
             this.registerAsDecorationArea(
-                lightColorScheme.getExtendedTonalContainerTokens(),
+                lightColorScheme.getTonalContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);

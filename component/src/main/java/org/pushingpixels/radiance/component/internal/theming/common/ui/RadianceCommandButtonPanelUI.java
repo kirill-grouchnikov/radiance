@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
@@ -77,14 +76,14 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
             int y, int width, int height) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.buttonPanel);
         Color background;
-        ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
+        ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
             DecorationPainterUtils.getDecorationType(this.buttonPanel));
         if (groupIndex % 2 == 0) {
-            background = tokens.getSurface();
+            background = tokens.getContainerSurface();
         } else {
-            background = tokens.getBaseContainerTokens().isDark()
-                ? tokens.getBaseContainerTokens().getContainerSurfaceLow()
-                : tokens.getBaseContainerTokens().getContainerSurfaceHigh();
+            background = tokens.isDark()
+                ? tokens.getContainerSurfaceLow()
+                : tokens.getContainerSurfaceHigh();
         }
 
         BackgroundPaintingUtils.fillBackground(g, this.buttonPanel,

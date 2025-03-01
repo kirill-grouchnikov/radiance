@@ -78,7 +78,7 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
 		this.registerDecorationAreaSchemeBundle(nebulaToolbarBundle,
-			nebulaToolbarBundle.getMainColorScheme().getExtendedMutedContainerTokens(),
+			nebulaToolbarBundle.getMainColorScheme().getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// And configure toolbar overlay painters

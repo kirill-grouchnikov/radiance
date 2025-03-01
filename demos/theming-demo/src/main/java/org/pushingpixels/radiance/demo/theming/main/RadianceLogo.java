@@ -58,39 +58,33 @@ public class RadianceLogo {
     public static void tonalConfigureOn(JFrame frame) {
         frame.setIconImage(RadianceLogo.getLogoImage(frame,
             RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                .getBaseContainerTokens()));
+                .getBackgroundContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
             () -> frame.setIconImage(RadianceLogo.getLogoImage(frame,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                    .getBackgroundExtendedContainerTokens(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getBaseContainerTokens()))));
+                    .getBackgroundContainerTokens(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)))));
     }
 
     public static void tonalConfigureOn(JDialog dialog) {
         dialog.setIconImage(RadianceLogo.getLogoImage(dialog,
             RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
-                .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                .getBaseContainerTokens()));
+                .getBackgroundContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
             () -> dialog.setIconImage(RadianceLogo.getLogoImage(dialog,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
-                    .getBackgroundExtendedContainerTokens(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getBaseContainerTokens()))));
+                    .getBackgroundContainerTokens(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)))));
     }
 
     public static void tonalConfigureOn(JInternalFrame frame) {
         frame.setFrameIcon(RadianceLogo.getLogoIcon(
             RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                .getBaseContainerTokens()));
+                .getBackgroundContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
             () -> frame.setFrameIcon(RadianceLogo.getLogoIcon(
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                    .getBackgroundExtendedContainerTokens(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getBaseContainerTokens()))));
+                    .getBackgroundContainerTokens(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)))));
     }
 }

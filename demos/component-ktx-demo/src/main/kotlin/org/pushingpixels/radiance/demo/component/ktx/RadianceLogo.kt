@@ -63,18 +63,16 @@ object RadianceLogo {
         frame.iconImage = RadianceLogo.getLogoImage(
             frame,
             RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                .getBaseContainerTokens()
+                .getBackgroundContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
         )
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener {
             SwingUtilities.invokeLater {
                 frame.iconImage = RadianceLogo.getLogoImage(
                     frame,
                     RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                        .getBackgroundExtendedContainerTokens(
+                        .getBackgroundContainerTokens(
                             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE
                         )
-                        .getBaseContainerTokens()
                 )
             }
         }
@@ -85,8 +83,7 @@ object RadianceLogo {
             RadianceLogo.getLogoImage(
                 dialog,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
-                    .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getBaseContainerTokens()
+                    .getBackgroundContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
             )
         )
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener {
@@ -95,10 +92,9 @@ object RadianceLogo {
                     RadianceLogo.getLogoImage(
                         dialog,
                         RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
-                            .getBackgroundExtendedContainerTokens(
+                            .getBackgroundContainerTokens(
                                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE
                             )
-                            .getBaseContainerTokens()
                     )
                 )
             }
@@ -109,8 +105,7 @@ object RadianceLogo {
         frame.setFrameIcon(
             RadianceLogo.getLogoIcon(
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                    .getBackgroundExtendedContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                    .getBaseContainerTokens()
+                    .getBackgroundContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
             )
         )
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener {
@@ -118,10 +113,9 @@ object RadianceLogo {
                 frame.setFrameIcon(
                     RadianceLogo.getLogoIcon(
                         RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                            .getBackgroundExtendedContainerTokens(
+                            .getBackgroundContainerTokens(
                                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE
                             )
-                            .getBaseContainerTokens()
                     )
                 )
             }

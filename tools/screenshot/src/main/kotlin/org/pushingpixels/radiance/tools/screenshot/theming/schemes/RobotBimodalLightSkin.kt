@@ -88,7 +88,7 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.headerAreaColorScheme.extendedTonalContainerTokens,
+        this.registerAsDecorationArea(this.headerAreaColorScheme.tonalContainerTokens,
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)

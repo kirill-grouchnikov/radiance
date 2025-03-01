@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
@@ -76,11 +75,10 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(this.colorSelectorPanel);
-                    ExtendedContainerColorTokens tokens = skin.getBackgroundExtendedContainerTokens(
+                    ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
                         DecorationPainterUtils.getDecorationType(this.colorSelectorPanel));
-                    Color backgroundFill = tokens.getBaseContainerTokens().isDark()
-                            ? tokens.getBaseContainerTokens().getContainerSurfaceLow()
-                            : tokens.getBaseContainerTokens().getContainerSurfaceHigh();
+                    Color backgroundFill = tokens.isDark() ? tokens.getContainerSurfaceLow()
+                        : tokens.getContainerSurfaceHigh();
 
                     Set<RadianceThemingSlices.Side> openSides = EnumSet.of(
                         RadianceThemingSlices.Side.LEADING, RadianceThemingSlices.Side.TRAILING);

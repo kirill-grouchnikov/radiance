@@ -73,8 +73,9 @@ public class CookbookSkin extends RadianceSkin {
         RadianceColorSchemeBundle cookbookDefaultDefaultBundle =
             new RadianceColorSchemeBundle(cookbookDefaultColorScheme);
         this.registerDecorationAreaSchemeBundle(cookbookDefaultDefaultBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC8A26E),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.NONE);
@@ -96,8 +97,9 @@ public class CookbookSkin extends RadianceSkin {
         RadianceColorSchemeBundle cookbookControlPaneDefaultBundle =
             new RadianceColorSchemeBundle(cookbookControlPaneColorScheme);
         this.registerDecorationAreaSchemeBundle(cookbookControlPaneDefaultBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF5F1000),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
@@ -119,8 +121,9 @@ public class CookbookSkin extends RadianceSkin {
         RadianceColorSchemeBundle cookbookHeaderDefaultBundle =
             new RadianceColorSchemeBundle(cookbookHeaderColorScheme);
         this.registerDecorationAreaSchemeBundle(cookbookHeaderDefaultBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC6741D),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,

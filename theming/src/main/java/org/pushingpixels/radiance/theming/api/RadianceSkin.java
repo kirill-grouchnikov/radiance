@@ -678,16 +678,16 @@ public abstract class RadianceSkin implements RadianceTrait {
 //    }
 
     /**
-     * Returns the background color scheme for the specified decoration area
+     * Returns the background color tokens for the specified decoration area
      * type. This method is mainly for the internal use of
      * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
      * but can be used in applications that wish to provide custom overlay
      * background painting.
      *
      * @param decorationAreaType Decoration area type.
-     * @return The background color scheme for the specified decoration area type.
+     * @return The background color tokens for the specified decoration area type.
      */
-    public final ContainerColorTokens getBackgroundExtendedContainerTokens(
+    public final ContainerColorTokens getBackgroundContainerTokens(
             RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         // 1 - check the registered background scheme for this specific area type.
         if (this.tonalBackgroundTokensMap.containsKey(decorationAreaType)) {

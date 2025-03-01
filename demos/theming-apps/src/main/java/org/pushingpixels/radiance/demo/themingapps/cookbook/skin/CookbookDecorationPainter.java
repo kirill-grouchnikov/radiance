@@ -111,7 +111,7 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
     public void paintDecorationArea(Graphics2D graphics, Component comp,
             DecorationAreaType decorationAreaType, int width, int height, RadianceSkin skin) {
         ContainerColorTokens tokens =
-            skin.getBackgroundExtendedContainerTokens(decorationAreaType);
+            skin.getBackgroundContainerTokens(decorationAreaType);
         BufferedImage toOverlay = this.getWatermarkImage(decorationAreaType);
         Component farthestOfTheSameAreaType = this.getFarthest(comp, decorationAreaType);
         if ((decorationAreaType == DecorationAreaType.PRIMARY_TITLE_PANE)

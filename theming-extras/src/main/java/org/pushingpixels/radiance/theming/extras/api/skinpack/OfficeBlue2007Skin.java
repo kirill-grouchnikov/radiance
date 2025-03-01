@@ -258,7 +258,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     .build());
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB6D9FF),
                 /* isFidelity */ true,
                 /* isDark */ false,
@@ -267,7 +267,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD3E7FC),
                 /* isFidelity */ true,
                 /* isDark */ false,
@@ -277,7 +277,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             DecorationAreaType.SECONDARY_TITLE_PANE);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFE5FB),
                 /* isFidelity */ true,
                 /* isDark */ false,

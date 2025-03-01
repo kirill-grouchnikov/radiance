@@ -43,7 +43,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrP
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -268,12 +267,12 @@ public class RadianceRibbonTaskToggleButtonUI extends
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
         RadianceThemingSlices.DecorationAreaType parentDecorationAreaType =
             RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button.getParent());
-        ExtendedContainerColorTokens parentTokens =
-            skin.getBackgroundExtendedContainerTokens(parentDecorationAreaType);
+        ContainerColorTokens parentTokens =
+            skin.getBackgroundContainerTokens(parentDecorationAreaType);
 
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             ContainerColorTokens tokensForCurrState = (currState == ComponentState.ENABLED)
-                ? parentTokens.getBaseContainerTokens() : tokens;
+                ? parentTokens : tokens;
 //            System.out.println("For " + button.getText() + " state is " + currState +
 //                    " and scheme is " + schemeForCurrState.getDisplayName() +
 //                    " -> " + schemeForCurrState.getForegroundColor());
@@ -297,7 +296,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
                     activeState, RadianceThemingSlices.ContainerType.MUTED);
             //System.out.println("\t" + activeState + " : " + currState);
             Color activeForeground = correspondsToParentFill
-                ? parentTokens.getBaseContainerTokens().getOnContainer()
+                ? parentTokens.getOnContainer()
                 : activeTokens.getOnContainer();
 
 //            System.out.println("\t" + activeState + " at alpha " + alpha + " from " +

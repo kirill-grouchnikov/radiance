@@ -60,7 +60,7 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height, RadianceSkin skin) {
 
         ContainerColorTokens colorTokens =
-            skin.getBackgroundExtendedContainerTokens(decorationAreaType);
+            skin.getBackgroundContainerTokens(decorationAreaType);
         if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
             (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
             this.paintTitleBackground(graphics, width, height, colorTokens);

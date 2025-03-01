@@ -228,7 +228,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3D3D3D),
                 /* isFidelity */ true,
                 /* isDark */ true,
@@ -273,7 +273,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
 
         this.registerDecorationAreaSchemeBundle(
             officeSecondaryBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2D2D2D),
                 /* isFidelity */ true,
                 /* isDark */ true,
@@ -282,7 +282,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB3BEC8),
                 /* isFidelity */ true,
                 /* isDark */ false,
