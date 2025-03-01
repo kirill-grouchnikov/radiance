@@ -44,6 +44,9 @@ public interface BimodalPaletteContainerColorsResolver {
     Color getContainerSurfaceHigh(DynamicBimodalPalette dynamicBimodalPalette);
     Color getContainerSurfaceHighest(DynamicBimodalPalette dynamicBimodalPalette);
 
+    Color getContainerSurfaceDim(DynamicBimodalPalette dynamicBimodalPalette);
+    Color getContainerSurfaceBright(DynamicBimodalPalette dynamicBimodalPalette);
+
     Color getOnContainer(DynamicBimodalPalette dynamicBimodalPalette);
     Color getOnContainerVariant(DynamicBimodalPalette dynamicBimodalPalette);
 

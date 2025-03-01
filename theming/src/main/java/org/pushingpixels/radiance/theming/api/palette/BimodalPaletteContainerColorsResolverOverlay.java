@@ -42,6 +42,8 @@ public class BimodalPaletteContainerColorsResolverOverlay {
     private Function<DynamicBimodalPalette, Integer> containerSurface;
     private Function<DynamicBimodalPalette, Integer> containerSurfaceHigh;
     private Function<DynamicBimodalPalette, Integer> containerSurfaceHighest;
+    private Function<DynamicBimodalPalette, Integer> containerSurfaceDim;
+    private Function<DynamicBimodalPalette, Integer> containerSurfaceBright;
     private Function<DynamicBimodalPalette, Integer> onContainer;
     private Function<DynamicBimodalPalette, Integer> onContainerVariant;
     private Function<DynamicBimodalPalette, Integer> containerOutline;
@@ -92,6 +94,14 @@ public class BimodalPaletteContainerColorsResolverOverlay {
 
     public Function<DynamicBimodalPalette, Integer> getContainerSurfaceHighest() {
         return this.containerSurfaceHighest;
+    }
+
+    public Function<DynamicBimodalPalette, Integer> getContainerSurfaceDim() {
+        return this.containerSurfaceDim;
+    }
+
+    public Function<DynamicBimodalPalette, Integer> getContainerSurfaceBright() {
+        return this.containerSurfaceBright;
     }
 
     public Function<DynamicBimodalPalette, Integer> getOnContainer() {
@@ -155,6 +165,8 @@ public class BimodalPaletteContainerColorsResolverOverlay {
         private Function<DynamicBimodalPalette, Integer> containerSurface;
         private Function<DynamicBimodalPalette, Integer> containerSurfaceHigh;
         private Function<DynamicBimodalPalette, Integer> containerSurfaceHighest;
+        private Function<DynamicBimodalPalette, Integer> containerSurfaceDim;
+        private Function<DynamicBimodalPalette, Integer> containerSurfaceBright;
         private Function<DynamicBimodalPalette, Integer> onContainer;
         private Function<DynamicBimodalPalette, Integer> onContainerVariant;
         private Function<DynamicBimodalPalette, Integer> containerOutline;
@@ -208,6 +220,16 @@ public class BimodalPaletteContainerColorsResolverOverlay {
 
         public Builder containerSurfaceHighest(Function<DynamicBimodalPalette, Integer> containerSurfaceHighest) {
             this.containerSurfaceHighest = containerSurfaceHighest;
+            return this;
+        }
+
+        public Builder containerSurfaceDim(Function<DynamicBimodalPalette, Integer> containerSurfaceDim) {
+            this.containerSurfaceDim = containerSurfaceDim;
+            return this;
+        }
+
+        public Builder containerSurfaceBright(Function<DynamicBimodalPalette, Integer> containerSurfaceBright) {
+            this.containerSurfaceBright = containerSurfaceBright;
             return this;
         }
 
@@ -293,6 +315,8 @@ public class BimodalPaletteContainerColorsResolverOverlay {
             result.containerSurface = this.containerSurface;
             result.containerSurfaceHigh = this.containerSurfaceHigh;
             result.containerSurfaceHighest = this.containerSurfaceHighest;
+            result.containerSurfaceDim = this.containerSurfaceDim;
+            result.containerSurfaceBright = this.containerSurfaceBright;
             result.onContainer = this.onContainer;
             result.onContainerVariant = this.onContainerVariant;
             result.containerOutline = this.containerOutline;

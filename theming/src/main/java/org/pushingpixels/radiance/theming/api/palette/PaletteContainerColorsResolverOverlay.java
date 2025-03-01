@@ -42,6 +42,8 @@ public class PaletteContainerColorsResolverOverlay {
     private Function<DynamicPalette, Integer> containerSurface;
     private Function<DynamicPalette, Integer> containerSurfaceHigh;
     private Function<DynamicPalette, Integer> containerSurfaceHighest;
+    private Function<DynamicPalette, Integer> containerSurfaceDim;
+    private Function<DynamicPalette, Integer> containerSurfaceBright;
     private Function<DynamicPalette, Integer> onContainer;
     private Function<DynamicPalette, Integer> onContainerVariant;
     private Function<DynamicPalette, Integer> containerOutline;
@@ -92,6 +94,14 @@ public class PaletteContainerColorsResolverOverlay {
 
     public Function<DynamicPalette, Integer> getContainerSurfaceHighest() {
         return this.containerSurfaceHighest;
+    }
+
+    public Function<DynamicPalette, Integer> getContainerSurfaceDim() {
+        return this.containerSurfaceDim;
+    }
+
+    public Function<DynamicPalette, Integer> getContainerSurfaceBright() {
+        return this.containerSurfaceBright;
     }
 
     public Function<DynamicPalette, Integer> getOnContainer() {
@@ -155,6 +165,8 @@ public class PaletteContainerColorsResolverOverlay {
         private Function<DynamicPalette, Integer> containerSurface;
         private Function<DynamicPalette, Integer> containerSurfaceHigh;
         private Function<DynamicPalette, Integer> containerSurfaceHighest;
+        private Function<DynamicPalette, Integer> containerSurfaceDim;
+        private Function<DynamicPalette, Integer> containerSurfaceBright;
         private Function<DynamicPalette, Integer> onContainer;
         private Function<DynamicPalette, Integer> onContainerVariant;
         private Function<DynamicPalette, Integer> containerOutline;
@@ -208,6 +220,16 @@ public class PaletteContainerColorsResolverOverlay {
 
         public Builder containerSurfaceHighest(Function<DynamicPalette, Integer> containerSurfaceHighest) {
             this.containerSurfaceHighest = containerSurfaceHighest;
+            return this;
+        }
+
+        public Builder containerSurfaceDim(Function<DynamicPalette, Integer> containerSurfaceDim) {
+            this.containerSurfaceDim = containerSurfaceDim;
+            return this;
+        }
+
+        public Builder containerSurfaceBright(Function<DynamicPalette, Integer> containerSurfaceBright) {
+            this.containerSurfaceBright = containerSurfaceBright;
             return this;
         }
 
@@ -293,6 +315,8 @@ public class PaletteContainerColorsResolverOverlay {
             result.containerSurface = this.containerSurface;
             result.containerSurfaceHigh = this.containerSurfaceHigh;
             result.containerSurfaceHighest = this.containerSurfaceHighest;
+            result.containerSurfaceDim = this.containerSurfaceDim;
+            result.containerSurfaceBright = this.containerSurfaceBright;
             result.onContainer = this.onContainer;
             result.onContainerVariant = this.onContainerVariant;
             result.containerOutline = this.containerOutline;

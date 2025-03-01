@@ -39,6 +39,8 @@ public class SchemeContainerColorsResolverOverlay {
     private Function<DynamicScheme, Integer> containerSurface;
     private Function<DynamicScheme, Integer> containerSurfaceHigh;
     private Function<DynamicScheme, Integer> containerSurfaceHighest;
+    private Function<DynamicScheme, Integer> containerSurfaceDim;
+    private Function<DynamicScheme, Integer> containerSurfaceBright;
     private Function<DynamicScheme, Integer> onContainer;
     private Function<DynamicScheme, Integer> onContainerVariant;
     private Function<DynamicScheme, Integer> containerOutline;
@@ -76,6 +78,14 @@ public class SchemeContainerColorsResolverOverlay {
 
     public Function<DynamicScheme, Integer> getContainerSurfaceHighest() {
         return this.containerSurfaceHighest;
+    }
+
+    public Function<DynamicScheme, Integer> getContainerSurfaceDim() {
+        return this.containerSurfaceDim;
+    }
+
+    public Function<DynamicScheme, Integer> getContainerSurfaceBright() {
+        return this.containerSurfaceBright;
     }
 
     public Function<DynamicScheme, Integer> getOnContainer() {
@@ -132,6 +142,8 @@ public class SchemeContainerColorsResolverOverlay {
         private Function<DynamicScheme, Integer> containerSurface;
         private Function<DynamicScheme, Integer> containerSurfaceHigh;
         private Function<DynamicScheme, Integer> containerSurfaceHighest;
+        private Function<DynamicScheme, Integer> containerSurfaceDim;
+        private Function<DynamicScheme, Integer> containerSurfaceBright;
         private Function<DynamicScheme, Integer> onContainer;
         private Function<DynamicScheme, Integer> onContainerVariant;
         private Function<DynamicScheme, Integer> containerOutline;
@@ -169,6 +181,16 @@ public class SchemeContainerColorsResolverOverlay {
 
         public Builder containerSurfaceHighest(Function<DynamicScheme, Integer> containerSurfaceHighest) {
             this.containerSurfaceHighest = containerSurfaceHighest;
+            return this;
+        }
+
+        public Builder containerSurfaceDim(Function<DynamicScheme, Integer> containerSurfaceDim) {
+            this.containerSurfaceDim = containerSurfaceDim;
+            return this;
+        }
+
+        public Builder containerSurfaceBright(Function<DynamicScheme, Integer> containerSurfaceBright) {
+            this.containerSurfaceBright = containerSurfaceBright;
             return this;
         }
 
@@ -242,6 +264,8 @@ public class SchemeContainerColorsResolverOverlay {
             result.containerSurface = this.containerSurface;
             result.containerSurfaceHigh = this.containerSurfaceHigh;
             result.containerSurfaceHighest = this.containerSurfaceHighest;
+            result.containerSurfaceDim = this.containerSurfaceDim;
+            result.containerSurfaceBright = this.containerSurfaceBright;
             result.onContainer = this.onContainer;
             result.onContainerVariant = this.onContainerVariant;
             result.containerOutline = this.containerOutline;

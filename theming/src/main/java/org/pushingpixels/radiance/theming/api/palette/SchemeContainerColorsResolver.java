@@ -40,6 +40,9 @@ public interface SchemeContainerColorsResolver {
     Color getContainerSurfaceHigh(DynamicScheme dynamicScheme);
     Color getContainerSurfaceHighest(DynamicScheme dynamicScheme);
 
+    Color getContainerSurfaceDim(DynamicScheme dynamicScheme);
+    Color getContainerSurfaceBright(DynamicScheme dynamicScheme);
+
     Color getOnContainer(DynamicScheme dynamicScheme);
     Color getOnContainerVariant(DynamicScheme dynamicScheme);
 

@@ -32,10 +32,6 @@ package org.pushingpixels.radiance.theming.api.palette;
 import java.awt.*;
 
 public interface ExtendedContainerColorTokens {
-    Color getSurface();
     Color getSurfaceDim();
     Color getSurfaceBright();
-    Color getInverseSurface();
-
-    ContainerColorTokens getBaseContainerTokens();
 }

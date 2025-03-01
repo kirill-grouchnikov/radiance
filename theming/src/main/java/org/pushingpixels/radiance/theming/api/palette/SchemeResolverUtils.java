@@ -64,6 +64,16 @@ public class SchemeResolverUtils {
                 }
 
                 @Override
+                public Color getContainerSurfaceDim(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getNeutralContainerSurfaceDim());
+                }
+
+                @Override
+                public Color getContainerSurfaceBright(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getNeutralContainerSurfaceBright());
+                }
+
+                @Override
                 public Color getOnContainer(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getOnNeutralContainer());
                 }
@@ -149,6 +159,16 @@ public class SchemeResolverUtils {
                 @Override
                 public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getMutedContainerSurfaceHighest());
+                }
+
+                @Override
+                public Color getContainerSurfaceDim(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getMutedContainerSurfaceDim());
+                }
+
+                @Override
+                public Color getContainerSurfaceBright(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getMutedContainerSurfaceBright());
                 }
 
                 @Override
@@ -240,6 +260,16 @@ public class SchemeResolverUtils {
                 }
 
                 @Override
+                public Color getContainerSurfaceDim(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getTonalContainerSurfaceDim());
+                }
+
+                @Override
+                public Color getContainerSurfaceBright(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getTonalContainerSurfaceBright());
+                }
+
+                @Override
                 public Color getOnContainer(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getOnTonalContainer());
                 }
@@ -325,6 +355,16 @@ public class SchemeResolverUtils {
                 @Override
                 public Color getContainerSurfaceHighest(DynamicScheme dynamicScheme) {
                     return new Color(dynamicScheme.getPrimaryContainerSurfaceHighest());
+                }
+
+                @Override
+                public Color getContainerSurfaceDim(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getPrimaryContainerSurfaceDim());
+                }
+
+                @Override
+                public Color getContainerSurfaceBright(DynamicScheme dynamicScheme) {
+                    return new Color(dynamicScheme.getPrimaryContainerSurfaceBright());
                 }
 
                 @Override
@@ -479,6 +519,26 @@ public class SchemeResolverUtils {
                Function<DynamicScheme, Integer> spec = overlay.getContainerSurfaceHighest();
                if (spec == null) {
                    return original.getContainerSurfaceHighest(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme), true);
+               }
+           }
+
+           @Override
+           public Color getContainerSurfaceDim(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Integer> spec = overlay.getContainerSurfaceDim();
+               if (spec == null) {
+                   return original.getContainerSurfaceDim(dynamicScheme);
+               } else {
+                   return new Color(spec.apply(dynamicScheme), true);
+               }
+           }
+
+           @Override
+           public Color getContainerSurfaceBright(DynamicScheme dynamicScheme) {
+               Function<DynamicScheme, Integer> spec = overlay.getContainerSurfaceBright();
+               if (spec == null) {
+                   return original.getContainerSurfaceBright(dynamicScheme);
                } else {
                    return new Color(spec.apply(dynamicScheme), true);
                }

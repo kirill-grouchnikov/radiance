@@ -85,6 +85,16 @@ public class ColorSchemeUtils {
             }
 
             @Override
+            public Color getContainerSurfaceDim() {
+                return tonalContainerColorResolver.getContainerSurfaceDim(dynamicScheme);
+            }
+
+            @Override
+            public Color getContainerSurfaceBright() {
+                return tonalContainerColorResolver.getContainerSurfaceBright(dynamicScheme);
+            }
+
+            @Override
             public Color getOnContainer() {
                 return tonalContainerColorResolver.getOnContainer(dynamicScheme);
             }
@@ -210,6 +220,10 @@ public class ColorSchemeUtils {
             original.getContainerSurfaceHighest(), overlayWithAlpha);
         Color inverseContainerSurface = RadianceColorUtilities.overlayColor(
             original.getInverseContainerSurface(), overlayWithAlpha);
+        Color containerSurfaceDim = RadianceColorUtilities.overlayColor(
+            original.getContainerSurfaceDim(), overlayWithAlpha);
+        Color containerSurfaceBright = RadianceColorUtilities.overlayColor(
+            original.getContainerSurfaceBright(), overlayWithAlpha);
 
         // Leave on container and container outline tokens as they are
         Color onContainer = original.getOnContainer();
@@ -251,6 +265,16 @@ public class ColorSchemeUtils {
             @Override
             public Color getContainerSurfaceHighest() {
                 return containerSurfaceHighest;
+            }
+
+            @Override
+            public Color getContainerSurfaceDim() {
+                return containerSurfaceDim;
+            }
+
+            @Override
+            public Color getContainerSurfaceBright() {
+                return containerSurfaceBright;
             }
 
             @Override
@@ -714,6 +738,16 @@ public class ColorSchemeUtils {
             }
 
             @Override
+            public Color getContainerSurfaceDim() {
+                return colorResolver.getContainerSurfaceDim(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceBright() {
+                return colorResolver.getContainerSurfaceBright(dynamicPalette);
+            }
+
+            @Override
             public Color getOnContainer() {
                 return colorResolver.getOnContainer(dynamicPalette);
             }
@@ -796,15 +830,7 @@ public class ColorSchemeUtils {
             /* isDark */ isDark,
             /* contrastLevel */ contrastLevel);
 
-        ContainerColorTokens baseTokens = getContainerTokens(seed, isFidelity, isDark,
-            contrastLevel, colorResolver);
-
         return new ExtendedContainerColorTokens() {
-            @Override
-            public Color getSurface() {
-                return colorResolver.getSurface(dynamicPalette);
-            }
-
             @Override
             public Color getSurfaceDim() {
                 return colorResolver.getSurfaceDim(dynamicPalette);
@@ -813,16 +839,6 @@ public class ColorSchemeUtils {
             @Override
             public Color getSurfaceBright() {
                 return colorResolver.getSurfaceBright(dynamicPalette);
-            }
-
-            @Override
-            public Color getInverseSurface() {
-                return colorResolver.getInverseSurface(dynamicPalette);
-            }
-
-            @Override
-            public ContainerColorTokens getBaseContainerTokens() {
-                return baseTokens;
             }
         };
     }
@@ -873,6 +889,16 @@ public class ColorSchemeUtils {
             @Override
             public Color getContainerSurfaceHighest() {
                 return colorResolver.getContainerSurfaceHighest(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceDim() {
+                return colorResolver.getContainerSurfaceDim(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceBright() {
+                return colorResolver.getContainerSurfaceBright(dynamicPalette);
             }
 
             @Override
@@ -1021,6 +1047,14 @@ public class ColorSchemeUtils {
             ? original.getContainerSurfaceHighest()
             : new Color(Blend.harmonizeAll(original.getContainerSurfaceHighest().getRGB(),
                 backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color containerSurfaceDim = (backgroundShiftColor == null)
+            ? original.getContainerSurfaceDim()
+            : new Color(Blend.harmonizeAll(original.getContainerSurfaceDim().getRGB(),
+            backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color containerSurfaceBright = (backgroundShiftColor == null)
+            ? original.getContainerSurfaceBright()
+            : new Color(Blend.harmonizeAll(original.getContainerSurfaceBright().getRGB(),
+            backgroundShiftColor.getRGB(), backgroundShiftFactor));
         Color onContainer = (foregroundShiftColor == null)
             ? original.getOnContainer()
             : new Color(Blend.harmonizeAll(original.getOnContainer().getRGB(),
@@ -1087,6 +1121,16 @@ public class ColorSchemeUtils {
             @Override
             public Color getContainerSurfaceHighest() {
                 return containerSurfaceHighest;
+            }
+
+            @Override
+            public Color getContainerSurfaceDim() {
+                return containerSurfaceDim;
+            }
+
+            @Override
+            public Color getContainerSurfaceBright() {
+                return containerSurfaceBright;
             }
 
             @Override

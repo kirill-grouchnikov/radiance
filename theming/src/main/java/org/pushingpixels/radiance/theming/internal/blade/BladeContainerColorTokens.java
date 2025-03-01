@@ -40,6 +40,8 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     public Color containerSurface = Color.white;
     public Color containerSurfaceHigh = Color.white;
     public Color containerSurfaceHighest = Color.white;
+    public Color containerSurfaceDim = Color.white;
+    public Color containerSurfaceBright = Color.white;
     public Color onContainer = Color.white;
     public Color onContainerVariant = Color.white;
     public Color containerOutline = Color.white;
@@ -85,6 +87,16 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     @Override
     public Color getContainerSurfaceHighest() {
         return containerSurfaceHighest;
+    }
+
+    @Override
+    public Color getContainerSurfaceDim() {
+        return containerSurfaceDim;
+    }
+
+    @Override
+    public Color getContainerSurfaceBright() {
+        return containerSurfaceBright;
     }
 
     @Override

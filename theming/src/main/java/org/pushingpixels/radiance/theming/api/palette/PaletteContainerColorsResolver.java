@@ -44,6 +44,9 @@ public interface PaletteContainerColorsResolver {
     Color getContainerSurfaceHigh(DynamicPalette dynamicPalette);
     Color getContainerSurfaceHighest(DynamicPalette dynamicPalette);
 
+    Color getContainerSurfaceDim(DynamicPalette dynamicPalette);
+    Color getContainerSurfaceBright(DynamicPalette dynamicPalette);
+
     Color getOnContainer(DynamicPalette dynamicPalette);
     Color getOnContainerVariant(DynamicPalette dynamicPalette);
 

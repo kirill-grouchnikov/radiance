@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -63,11 +63,11 @@ public class NoiseFactory {
 	 *            Indication whether the resulting image should be blurred.
 	 * @return Noise image.
 	 */
-	public static BufferedImage getNoiseImage(ExtendedContainerColorTokens tokens, int width,
+	public static BufferedImage getNoiseImage(ContainerColorTokens tokens, int width,
 			int height, double xFactor, double yFactor, boolean hasConstantZ,
 			boolean toBlur) {
-		Color c1 = RadianceColorUtilities.getAlphaColor(tokens.getSurfaceBright(), 255);
-		Color c3 = RadianceColorUtilities.getAlphaColor(tokens.getSurfaceDim(), 255);
+		Color c1 = RadianceColorUtilities.getAlphaColor(tokens.getContainerSurfaceBright(), 255);
+		Color c3 = RadianceColorUtilities.getAlphaColor(tokens.getContainerSurfaceDim(), 255);
 
 		// Note that we are starting with non-hi DPI aware image for creating the
 		// source for the noise

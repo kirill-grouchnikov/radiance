@@ -79,6 +79,16 @@ public class PaletteResolverUtils {
                 }
 
                 @Override
+                public Color getContainerSurfaceDim(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getTonalContainerSurfaceDim());
+                }
+
+                @Override
+                public Color getContainerSurfaceBright(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getTonalContainerSurfaceBright());
+                }
+
+                @Override
                 public Color getOnContainer(DynamicPalette dynamicPalette) {
                     return new Color(dynamicPalette.getOnTonalContainer());
                 }
@@ -187,6 +197,16 @@ public class PaletteResolverUtils {
                 @Override
                 public Color getContainerSurfaceHighest(DynamicPalette dynamicPalette) {
                     return new Color(dynamicPalette.getPrimaryContainerSurfaceHighest());
+                }
+
+                @Override
+                public Color getContainerSurfaceDim(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getPrimaryContainerSurfaceDim());
+                }
+
+                @Override
+                public Color getContainerSurfaceBright(DynamicPalette dynamicPalette) {
+                    return new Color(dynamicPalette.getPrimaryContainerSurfaceBright());
                 }
 
                 @Override
@@ -335,6 +355,26 @@ public class PaletteResolverUtils {
                 Function<DynamicPalette, Integer> spec = overlay.getContainerSurfaceHighest();
                 if (spec == null) {
                     return original.getContainerSurfaceHighest(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerSurfaceDim(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getContainerSurfaceDim();
+                if (spec == null) {
+                    return original.getContainerSurfaceDim(dynamicPalette);
+                } else {
+                    return new Color(spec.apply(dynamicPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerSurfaceBright(DynamicPalette dynamicPalette) {
+                Function<DynamicPalette, Integer> spec = overlay.getContainerSurfaceBright();
+                if (spec == null) {
+                    return original.getContainerSurfaceBright(dynamicPalette);
                 } else {
                     return new Color(spec.apply(dynamicPalette), true);
                 }

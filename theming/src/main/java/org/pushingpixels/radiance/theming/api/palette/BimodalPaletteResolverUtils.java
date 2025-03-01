@@ -79,6 +79,16 @@ public class BimodalPaletteResolverUtils {
                 }
 
                 @Override
+                public Color getContainerSurfaceDim(DynamicBimodalPalette dynamicBimodalPalette) {
+                    return new Color(dynamicBimodalPalette.getTonalContainerSurfaceDim());
+                }
+
+                @Override
+                public Color getContainerSurfaceBright(DynamicBimodalPalette dynamicBimodalPalette) {
+                    return new Color(dynamicBimodalPalette.getTonalContainerSurfaceBright());
+                }
+
+                @Override
                 public Color getOnContainer(DynamicBimodalPalette dynamicBimodalPalette) {
                     return new Color(dynamicBimodalPalette.getOnTonalContainer());
                 }
@@ -225,6 +235,26 @@ public class BimodalPaletteResolverUtils {
                 Function<DynamicBimodalPalette,Integer> spec = overlay.getContainerSurfaceHighest();
                 if (spec == null) {
                     return original.getContainerSurfaceHighest(dynamicBimodalPalette);
+                } else {
+                    return new Color(spec.apply(dynamicBimodalPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerSurfaceDim(DynamicBimodalPalette dynamicBimodalPalette) {
+                Function<DynamicBimodalPalette,Integer> spec = overlay.getContainerSurfaceDim();
+                if (spec == null) {
+                    return original.getContainerSurfaceDim(dynamicBimodalPalette);
+                } else {
+                    return new Color(spec.apply(dynamicBimodalPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerSurfaceBright(DynamicBimodalPalette dynamicBimodalPalette) {
+                Function<DynamicBimodalPalette,Integer> spec = overlay.getContainerSurfaceBright();
+                if (spec == null) {
+                    return original.getContainerSurfaceBright(dynamicBimodalPalette);
                 } else {
                     return new Color(spec.apply(dynamicBimodalPalette), true);
                 }
