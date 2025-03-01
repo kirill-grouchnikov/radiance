@@ -129,8 +129,9 @@ public class GeminiSkin extends RadianceSkin {
 
         // Control panes, footers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFA9B4B1),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
@@ -172,7 +173,7 @@ public class GeminiSkin extends RadianceSkin {
                 /* neutralContrastLevel */ 0.9f,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
         this.registerDecorationAreaSchemeBundle(geminiHeaderBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF142429),
                 /* isFidelity */ true,
                 /* isDark */ true,

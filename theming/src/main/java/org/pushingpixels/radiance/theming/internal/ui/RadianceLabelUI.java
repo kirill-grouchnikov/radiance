@@ -141,7 +141,7 @@ public class RadianceLabelUI extends BasicLabelUI {
         } else {
             if (label.getClientProperty(RadianceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
                 ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
-                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens();
+                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
                 textColor = colorTokens.getOnContainer();
                 Color echoColor = colorTokens.getComplementaryOnContainer();
                 int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)

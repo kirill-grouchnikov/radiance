@@ -126,7 +126,7 @@ public class MarinerSkin extends RadianceSkin {
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
         this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF261D1E),
                 /* isFidelity */ true,
                 /* isDark */ true,
@@ -148,8 +148,9 @@ public class MarinerSkin extends RadianceSkin {
         RadianceColorSchemeBundle marinerFooterBundle =
             new RadianceColorSchemeBundle(marinerFooterColorScheme);
         this.registerDecorationAreaSchemeBundle(marinerFooterBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB9B7B9),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.FOOTER,

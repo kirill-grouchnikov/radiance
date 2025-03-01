@@ -154,7 +154,7 @@ public class AutumnSkin extends RadianceSkin {
 		// Deeper container surfaces in title / header decoration areas, along with slightly
 		// softer texts / icons (on container overlaid to be on container variant).
 		this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
-			ColorSchemeUtils.getExtendedContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFEC983),
 				/* isFidelity */ true,
 				/* isDark */ false,
@@ -193,8 +193,9 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
-			ColorSchemeUtils.getExtendedContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFED8B2),
+				/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

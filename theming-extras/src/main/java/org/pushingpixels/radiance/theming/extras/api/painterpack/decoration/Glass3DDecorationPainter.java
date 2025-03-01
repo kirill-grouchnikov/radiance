@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 
 import java.awt.*;
 
@@ -60,8 +59,7 @@ public class Glass3DDecorationPainter implements RadianceDecorationPainter {
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
         RadianceSkin skin) {
 
-        ContainerColorTokens baseTokens = skin.getBackgroundExtendedContainerTokens(decorationAreaType)
-            .getBaseContainerTokens();
+        ContainerColorTokens baseTokens = skin.getBackgroundExtendedContainerTokens(decorationAreaType);
         LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, comp.getHeight(),
             new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
             new Color[] {
@@ -80,9 +78,9 @@ public class Glass3DDecorationPainter implements RadianceDecorationPainter {
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-        ExtendedContainerColorTokens colorTokens) {
+        ContainerColorTokens colorTokens) {
 
-        ContainerColorTokens baseTokens = colorTokens.getBaseContainerTokens();
+        ContainerColorTokens baseTokens = colorTokens;
         LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, comp.getHeight(),
             new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
             new Color[] {

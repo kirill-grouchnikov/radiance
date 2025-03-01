@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -61,7 +60,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     public void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
         RadianceSkin skin) {
-        ExtendedContainerColorTokens colorTokens =
+        ContainerColorTokens colorTokens =
             skin.getBackgroundExtendedContainerTokens(decorationAreaType);
         if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
                 (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
@@ -73,10 +72,8 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     }
 
     private void paintTitleBackground(Graphics2D original, Component comp, int width, int height,
-            ExtendedContainerColorTokens colorTokens) {
-        boolean isDark = colorTokens.getBaseContainerTokens().isDark();
-        ContainerColorTokens containerColorTokens =
-            colorTokens.getBaseContainerTokens();
+        ContainerColorTokens colorTokens) {
+        boolean isDark = colorTokens.isDark();
 
         // Create a new Graphics2D object so that we can apply clipping to it without having
         // to reset the state after we're done
@@ -90,10 +87,10 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
         clipTop.quadTo(width / 2, height / 4, 0, height / 2);
         clipTop.lineTo(0, 0);
         g2d.setClip(clipTop);
-        Color edgeColor = containerColorTokens.getContainerSurface();
+        Color edgeColor = colorTokens.getContainerSurface();
         Color centerColor = isDark
-            ? containerColorTokens.getContainerSurfaceHigh()
-            : containerColorTokens.getContainerSurfaceLowest();
+            ? colorTokens.getContainerSurfaceHigh()
+            : colorTokens.getContainerSurfaceLowest();
         LinearGradientPaint gradientTop = new LinearGradientPaint(0, 0, width, 0,
             new float[] { 0.0f, 0.5f, 1.0f },
             new Color[] { edgeColor, centerColor, edgeColor },
@@ -110,9 +107,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
 
         g2d.setClip(clipBottom);
         Color edgeBottomColor = isDark
-            ? containerColorTokens.getContainerSurfaceLowest()
-            : containerColorTokens.getContainerSurfaceHighest();
-        Color centerBottomColor = containerColorTokens.getContainerSurface();
+            ? colorTokens.getContainerSurfaceLowest()
+            : colorTokens.getContainerSurfaceHighest();
+        Color centerBottomColor = colorTokens.getContainerSurface();
 
         LinearGradientPaint gradientBottom = new LinearGradientPaint(0, 0, width, 0,
             new float[] { 0.0f, 0.5f, 1.0f },
@@ -133,10 +130,8 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     }
 
     private void paintExtraBackground(Graphics2D graphics, Container parent, Component comp,
-            int width, int height, ExtendedContainerColorTokens colorTokens) {
-        boolean isDark = colorTokens.getBaseContainerTokens().isDark();
-        ContainerColorTokens containerColorTokens =
-            colorTokens.getBaseContainerTokens();
+            int width, int height, ContainerColorTokens colorTokens) {
+        boolean isDark = colorTokens.isDark();
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
         JRootPane rootPane = SwingUtilities.getRootPane(parent);
@@ -149,9 +144,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
 
         if (pWidth != 0) {
             Color edgeBottomColor = isDark
-                ? containerColorTokens.getContainerSurfaceLowest()
-                : containerColorTokens.getContainerSurfaceHighest();
-            Color centerBottomColor = containerColorTokens.getContainerSurface();
+                ? colorTokens.getContainerSurfaceLowest()
+                : colorTokens.getContainerSurfaceHighest();
+            Color centerBottomColor = colorTokens.getContainerSurface();
             LinearGradientPaint gradientBottom = new LinearGradientPaint(
                 -offset.x, 0, -offset.x + pWidth, 0,
                 new float[] { 0.0f, 0.5f, 1.0f },
@@ -167,11 +162,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-        ExtendedContainerColorTokens colorTokens) {
+        ContainerColorTokens colorTokens) {
 
-        boolean isDark = colorTokens.getBaseContainerTokens().isDark();
-        ContainerColorTokens containerColorTokens =
-            colorTokens.getBaseContainerTokens();
+        boolean isDark = colorTokens.isDark();
 
         Component parent = RadianceCoreUtilities.getHeaderParent(comp);
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
@@ -188,9 +181,9 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
                 -offset.x, 0, -offset.x + pWidth, 0,
                 new float[] { 0.0f, 0.5f, 1.0f },
                 new Color[] {
-                    isDark ? containerColorTokens.getContainerSurfaceLowest() : containerColorTokens.getContainerSurfaceHighest(),
-                    containerColorTokens.getContainerSurface(),
-                    isDark ? containerColorTokens.getContainerSurfaceLowest() : containerColorTokens.getContainerSurfaceHighest()
+                    isDark ? colorTokens.getContainerSurfaceLowest() : colorTokens.getContainerSurfaceHighest(),
+                    colorTokens.getContainerSurface(),
+                    isDark ? colorTokens.getContainerSurfaceLowest() : colorTokens.getContainerSurfaceHighest()
                 },
                 CycleMethod.REPEAT);
             Graphics2D g2d = (Graphics2D) graphics.create();

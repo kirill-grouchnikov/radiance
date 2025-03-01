@@ -89,7 +89,7 @@ public class RadianceColorSchemeUtilities {
                 && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             ContainerColorTokens nonColorized = skin.getBackgroundExtendedContainerTokens(
-                DecorationPainterUtils.getDecorationType(component)).getBaseContainerTokens();
+                DecorationPainterUtils.getDecorationType(component));
             return ColorSchemeUtils.getColorizedTokens(orig, nonColorized, !componentState.isDisabled());
         }
 
@@ -140,7 +140,7 @@ public class RadianceColorSchemeUtilities {
             && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
             // TODO: TONAL - verify that we don't need to use the old logic.
             ContainerColorTokens nonColorized = skin.getBackgroundExtendedContainerTokens(
-                DecorationPainterUtils.getDecorationType(component)).getBaseContainerTokens();
+                DecorationPainterUtils.getDecorationType(component));
             return ColorSchemeUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
         }
 

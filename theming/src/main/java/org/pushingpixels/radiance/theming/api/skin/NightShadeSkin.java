@@ -112,8 +112,9 @@ public class NightShadeSkin extends RadianceSkin {
 
         // Toolbars, footers, control panes
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF22252A),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true),
             RadianceThemingSlices.DecorationAreaType.FOOTER,
@@ -122,7 +123,7 @@ public class NightShadeSkin extends RadianceSkin {
 
         // Headers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF22252A),
                 /* isFidelity */ true,
                 /* isDark */ true,

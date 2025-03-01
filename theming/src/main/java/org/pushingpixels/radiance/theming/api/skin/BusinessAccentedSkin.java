@@ -87,7 +87,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			/* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFFDBDFE4), 3.0, 1.0),
 			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
-		this.registerAsDecorationArea(controlPaneColorScheme.getExtendedTonalContainerTokens(),
+		this.registerAsDecorationArea(controlPaneColorScheme.getTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 		// add an overlay painter to paint a drop shadow along the top edge of toolbars

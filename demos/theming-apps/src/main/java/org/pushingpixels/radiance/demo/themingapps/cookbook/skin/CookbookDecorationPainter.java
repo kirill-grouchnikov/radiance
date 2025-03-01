@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrP
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,9 +110,8 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
             DecorationAreaType decorationAreaType, int width, int height, RadianceSkin skin) {
-        ExtendedContainerColorTokens fillTokens =
+        ContainerColorTokens tokens =
             skin.getBackgroundExtendedContainerTokens(decorationAreaType);
-        ContainerColorTokens baseFillTokens = fillTokens.getBaseContainerTokens();
         BufferedImage toOverlay = this.getWatermarkImage(decorationAreaType);
         Component farthestOfTheSameAreaType = this.getFarthest(comp, decorationAreaType);
         if ((decorationAreaType == DecorationAreaType.PRIMARY_TITLE_PANE)
@@ -126,11 +124,11 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, 70 - dy,
                 new float[] { 0.0f, 0.05f, 0.6f, 0.8f, 1.0f },
                 new Color[] {
-                    baseFillTokens.getContainerSurfaceHighest(),
-                    baseFillTokens.getContainerSurfaceHigh(),
-                    baseFillTokens.getContainerSurface(),
-                    baseFillTokens.getContainerSurfaceLow(),
-                    baseFillTokens.getContainerSurfaceLowest() }));
+                    tokens.getContainerSurfaceHighest(),
+                    tokens.getContainerSurfaceHigh(),
+                    tokens.getContainerSurface(),
+                    tokens.getContainerSurfaceLow(),
+                    tokens.getContainerSurfaceLowest() }));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.FOOTER) {
             // main background gradient
@@ -140,20 +138,20 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + footerHeight,
                 new float[] { 0.0f, 0.5f, 0.75f, 1.0f },
                 new Color[] {
-                    baseFillTokens.getContainerSurfaceHigh(),
-                    baseFillTokens.getContainerSurface(),
-                    baseFillTokens.getContainerSurfaceLow(),
-                    baseFillTokens.getContainerSurfaceLowest() }));
+                    tokens.getContainerSurfaceHigh(),
+                    tokens.getContainerSurface(),
+                    tokens.getContainerSurfaceLow(),
+                    tokens.getContainerSurfaceLowest() }));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.CONTROL_PANE) {
             // general background gradient
-            graphics.setPaint(new GradientPaint(0, 0, baseFillTokens.getContainerSurfaceHigh(),
-                0, height, baseFillTokens.getContainerSurface()));
+            graphics.setPaint(new GradientPaint(0, 0, tokens.getContainerSurfaceHigh(),
+                0, height, tokens.getContainerSurface()));
             graphics.fillRect(0, 0, width, height);
         } else {
             // main background gradient
-            graphics.setPaint(new GradientPaint(0, 0, baseFillTokens.getContainerSurfaceHighest(),
-                0, height, baseFillTokens.getContainerSurface()));
+            graphics.setPaint(new GradientPaint(0, 0, tokens.getContainerSurfaceHighest(),
+                0, height, tokens.getContainerSurface()));
             graphics.fillRect(0, 0, width, height);
         }
 
@@ -189,7 +187,7 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-        DecorationAreaType decorationAreaType, Shape contour, ExtendedContainerColorTokens colorTokens) {
+        DecorationAreaType decorationAreaType, Shape contour, ContainerColorTokens colorTokens) {
     }
 
     private Component getFarthest(Component comp, DecorationAreaType type) {

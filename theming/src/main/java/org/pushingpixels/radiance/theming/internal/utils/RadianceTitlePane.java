@@ -174,7 +174,7 @@ public class RadianceTitlePane extends JComponent {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(root);
         this.setForeground(skin.getBackgroundExtendedContainerTokens(
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                .getBaseContainerTokens().getOnContainer());
+                .getOnContainer());
     }
 
     /**
@@ -850,7 +850,7 @@ public class RadianceTitlePane extends JComponent {
                     + fm.getAscent();
 
             ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
-                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getBaseContainerTokens();
+                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
             RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
                     colorTokens.getOnContainer(),
                     colorTokens.getComplementaryOnContainer(),

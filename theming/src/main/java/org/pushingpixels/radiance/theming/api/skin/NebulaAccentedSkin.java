@@ -45,7 +45,6 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPai
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -114,8 +113,9 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		this.registerDecorationAreaSchemeBundle(nebulaDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		ExtendedContainerColorTokens nebulaDecorationsColorTokens = ColorSchemeUtils.getExtendedContainerTokens(
+		ContainerColorTokens nebulaDecorationsColorTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFC2D1DA),
+			/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isFidelity */ true,
 			/* isDark */ false);
 		this.registerAsDecorationArea(nebulaDecorationsColorTokens,
@@ -129,7 +129,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(nebulaDefaultHeaderBundle,
-			nebulaDefaultHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+			nebulaDefaultHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

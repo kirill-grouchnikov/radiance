@@ -138,7 +138,7 @@ public class RavenSkin extends RadianceSkin {
 
 		// Decoration areas
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getExtendedContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF4E463E),
 				/* isFidelity */ true,
 				/* isDark */ true,

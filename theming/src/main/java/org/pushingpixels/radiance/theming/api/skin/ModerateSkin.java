@@ -117,13 +117,13 @@ public class ModerateSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         this.registerDecorationAreaSchemeBundle(steelBlueHeaderBundle,
-            steelBlueHeaderBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+            steelBlueHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.registerAsDecorationArea(
-            controlPaneColorScheme.getExtendedTonalContainerTokens(),
+            controlPaneColorScheme.getTonalContainerTokens(),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         // add an overlay painter to paint a drop shadow along the top

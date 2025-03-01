@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -96,17 +96,15 @@ public final class TopBezelTonalOverlayPainter implements RadianceOverlayPainter
 
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    ExtendedContainerColorTokens surfaceTokens =
+                    ContainerColorTokens surfaceTokens =
                         skin.getBackgroundExtendedContainerTokens(decorationAreaType);
 
-                    graphics1X.setColor(this.colorSchemeQueryTop.query(
-                        surfaceTokens.getBaseContainerTokens()));
+                    graphics1X.setColor(this.colorSchemeQueryTop.query(surfaceTokens));
 
                     int topY = -(int) (scaleFactor * dy);
                     graphics1X.drawLine(0, topY, scaledWidth, topY);
 
-                    graphics1X.setColor(this.colorSchemeQueryBottom.query(
-                        surfaceTokens.getBaseContainerTokens()));
+                    graphics1X.setColor(this.colorSchemeQueryBottom.query(surfaceTokens));
 
                     int bezelY = 1 - (int) (scaleFactor * dy);
                     graphics1X.drawLine(0, bezelY, scaledWidth, bezelY);

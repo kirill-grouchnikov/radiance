@@ -98,7 +98,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.SELECTED,
 			ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
 		this.registerDecorationAreaSchemeBundle(dustHeaderBundle,
-			ColorSchemeUtils.getExtendedContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF2B2A28),
 				/* isFidelity */ true,
 				/* isDark */ true,
@@ -110,7 +110,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 		this.registerDecorationAreaSchemeBundle(dustHeaderBundle,
-			ColorSchemeUtils.getExtendedContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF3A3935),
 				/* isFidelity */ true,
 				/* isDark */ true,

@@ -170,8 +170,9 @@ public class TwilightSkin extends RadianceSkin {
 
         // Toolbars, footers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF45433A),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true),
             RadianceThemingSlices.DecorationAreaType.FOOTER,
@@ -179,15 +180,16 @@ public class TwilightSkin extends RadianceSkin {
 
         // Control panes
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF504E45),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         // Headers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF0E0E0E),
                 /* isFidelity */ true,
                 /* isDark */ true,

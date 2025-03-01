@@ -68,7 +68,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getExtendedContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB9C0C8),
 				/* isFidelity */ true,
 				/* isDark */ false,
@@ -81,7 +81,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getExtendedContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCDD8E0),
 				/* isFidelity */ true,
 				/* isDark */ false,

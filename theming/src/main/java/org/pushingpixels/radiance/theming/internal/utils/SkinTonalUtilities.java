@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.inputmap.InputMapSet;
 import org.pushingpixels.radiance.theming.api.inputmap.RadianceInputMapUtilities;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
@@ -146,7 +145,7 @@ public class SkinTonalUtilities {
                                                 .getControlFontSize())),
                         new MarginBorder());
 
-        ExtendedContainerColorTokens titlePaneTokens = skin.getBackgroundExtendedContainerTokens(
+        ContainerColorTokens titlePaneTokens = skin.getBackgroundExtendedContainerTokens(
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
         UIDefaults.LazyValue menuItemInsets = (UIDefaults table) -> {
@@ -410,8 +409,7 @@ public class SkinTonalUtilities {
 
                                 int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
                                 BladeIconUtils.drawCloseIcon(graphics, iconSize,
-                                        RadianceSizeUtils.getCloseIconStrokeWidth(iconSize),
-                                    titlePaneTokens.getBaseContainerTokens());
+                                    RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), titlePaneTokens);
 
                                 graphics.dispose();
                             }
@@ -436,8 +434,7 @@ public class SkinTonalUtilities {
                                 graphics.translate(x, y);
 
                                 int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                                BladeIconUtils.drawIconifyIcon(graphics, iconSize,
-                                    titlePaneTokens.getBaseContainerTokens());
+                                BladeIconUtils.drawIconifyIcon(graphics, iconSize, titlePaneTokens);
 
                                 graphics.dispose();
                             }
@@ -462,8 +459,7 @@ public class SkinTonalUtilities {
                                 graphics.translate(x, y);
 
                                 int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                                BladeIconUtils.drawMaximizeIcon(graphics, iconSize,
-                                    titlePaneTokens.getBaseContainerTokens());
+                                BladeIconUtils.drawMaximizeIcon(graphics, iconSize, titlePaneTokens);
 
                                 graphics.dispose();
                             }
@@ -488,8 +484,7 @@ public class SkinTonalUtilities {
                                 graphics.translate(x, y);
 
                                 int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                                BladeIconUtils.drawRestoreIcon(graphics, iconSize,
-                                    titlePaneTokens.getBaseContainerTokens());
+                                BladeIconUtils.drawRestoreIcon(graphics, iconSize, titlePaneTokens);
 
                                 graphics.dispose();
                             }
@@ -516,7 +511,7 @@ public class SkinTonalUtilities {
                                 int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
                                 BladeIconUtils.drawCloseIcon(graphics, iconSize,
                                     RadianceSizeUtils.getCloseIconStrokeWidth(iconSize),
-                                    titlePaneTokens.getBaseContainerTokens());
+                                    titlePaneTokens);
 
                                 graphics.dispose();
                             }

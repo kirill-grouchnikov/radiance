@@ -189,8 +189,9 @@ public class MagellanSkin extends RadianceSkin {
 
         // Toolbars, control panes
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF004D99),
+                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
@@ -224,7 +225,7 @@ public class MagellanSkin extends RadianceSkin {
 
         // Headers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF003367),
                 /* isFidelity */ true,
                 /* isDark */ true,

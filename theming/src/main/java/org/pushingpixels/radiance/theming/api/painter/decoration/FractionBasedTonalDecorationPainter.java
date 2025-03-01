@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -106,7 +106,7 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
 			RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
 			RadianceSkin skin) {
-		ExtendedContainerColorTokens colorTokens =
+		ContainerColorTokens colorTokens =
 			skin.getBackgroundExtendedContainerTokens(decorationAreaType);
 		if (this.decoratedAreas.contains(decorationAreaType)) {
 			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
@@ -119,7 +119,7 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
     @Override
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
 		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-		ExtendedContainerColorTokens colorTokens) {
+		ContainerColorTokens colorTokens) {
 
 		if (this.decoratedAreas.contains(decorationAreaType)) {
 			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
@@ -131,13 +131,13 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 
 	private void paintDecoratedBackground(Graphics2D graphics, Component comp,
 		RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-		ExtendedContainerColorTokens colorTokens) {
+		ContainerColorTokens colorTokens) {
 
 		Graphics2D g2d = (Graphics2D) graphics.create();
 		Color[] drawColors = new Color[this.fractions.length];
 		for (int i = 0; i < this.fractions.length; i++) {
 			ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
-			Color fromQuery = colorQuery.query(colorTokens.getBaseContainerTokens());
+			Color fromQuery = colorQuery.query(colorTokens);
 			int alpha = this.alphas[i];
 			int finalAlpha = fromQuery.getAlpha() * alpha / 255;
 			Color finalColor = RadianceColorUtilities.getAlphaColor(fromQuery, finalAlpha);
@@ -163,13 +163,13 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 
 	private void paintDecoratedBackground(Graphics2D graphics, Component comp,
 		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-		ExtendedContainerColorTokens colorTokens) {
+		ContainerColorTokens colorTokens) {
 
 		Graphics2D g2d = (Graphics2D) graphics.create();
 		Color[] drawColors = new Color[this.fractions.length];
 		for (int i = 0; i < this.fractions.length; i++) {
 			ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
-			Color fromQuery = colorQuery.query(colorTokens.getBaseContainerTokens());
+			Color fromQuery = colorQuery.query(colorTokens);
 			int alpha = this.alphas[i];
 			int finalAlpha = fromQuery.getAlpha() * alpha / 255;
 			Color finalColor = RadianceColorUtilities.getAlphaColor(fromQuery, finalAlpha);
@@ -194,16 +194,16 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPaint
 	}
 
 	private void paintSolidBackground(Graphics2D graphics, int width, int height,
-		ExtendedContainerColorTokens colorTokens) {
+		ContainerColorTokens colorTokens) {
 
-		graphics.setColor(colorTokens.getBaseContainerTokens().getContainerSurface());
+		graphics.setColor(colorTokens.getContainerSurface());
 		graphics.fillRect(0, 0, width, height);
 	}
 
 	private void paintSolidBackground(Graphics2D graphics, Shape contour,
-		ExtendedContainerColorTokens colorTokens) {
+		ContainerColorTokens colorTokens) {
 
-		graphics.setColor(colorTokens.getBaseContainerTokens().getContainerSurface());
+		graphics.setColor(colorTokens.getContainerSurface());
 		graphics.fill(contour);
 	}
 }

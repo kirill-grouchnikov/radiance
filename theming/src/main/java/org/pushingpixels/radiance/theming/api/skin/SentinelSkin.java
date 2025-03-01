@@ -145,7 +145,7 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             ComponentState.getActiveStates());
         this.registerDecorationAreaSchemeBundle(sentinelHeaderBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2A0C05),
                 /* isFidelity */ true,
                 /* isDark */ true,
@@ -172,7 +172,7 @@ public class SentinelSkin extends RadianceSkin {
                 /* neutralContrastLevel */ -0.7f,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
         this.registerDecorationAreaSchemeBundle(sentinelControlPaneBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF754133),
                 /* isFidelity */ true,
                 /* isDark */ true,
@@ -197,7 +197,7 @@ public class SentinelSkin extends RadianceSkin {
                 /* neutralContrastLevel */ 0.1f,
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
         this.registerDecorationAreaSchemeBundle(sentinelBarsBundle,
-            ColorSchemeUtils.getExtendedContainerTokens(
+            ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF53281A),
                 /* isFidelity */ true,
                 /* isDark */ true,

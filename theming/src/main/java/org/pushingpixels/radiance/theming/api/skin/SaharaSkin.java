@@ -100,7 +100,7 @@ public class SaharaSkin extends RadianceSkin {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(desertHeaderDefaultBundle,
-			desertHeaderDefaultBundle.getMainColorScheme().getExtendedTonalContainerTokens(),
+			desertHeaderDefaultBundle.getMainColorScheme().getTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

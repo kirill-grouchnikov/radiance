@@ -286,8 +286,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                     + fm.getAscent();
 
             ContainerColorTokens colorTokens = skin.getBackgroundExtendedContainerTokens(
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                .getBaseContainerTokens();
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
             Color background = hostFrame.getBackground();
             if (!(background instanceof UIResource)) {
                 double colorization = RadianceCoreUtilities.getColorizationFactor(hostForColorization);

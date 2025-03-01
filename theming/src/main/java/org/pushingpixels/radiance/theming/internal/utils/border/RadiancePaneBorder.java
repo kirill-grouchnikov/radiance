@@ -69,8 +69,7 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
         Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
             SwingUtilities.windowForComponent(c));
         ContainerColorTokens titleContainerTokens =
-            skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(titlePaneComp))
-                .getBaseContainerTokens();
+            skin.getBackgroundExtendedContainerTokens(DecorationPainterUtils.getDecorationType(titlePaneComp));
         Graphics2D graphics = (Graphics2D) g.create();
 
         double scaleFactor = RadianceCommonCortex.getScaleFactor(c);

@@ -143,8 +143,7 @@ public class SeparatorPainterUtils {
                 // Then get a background color scheme associated with the
                 // decoration type of that separator
                 colorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundExtendedContainerTokens(
-                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c))
-                    .getBaseContainerTokens();
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c));
             }
         }
         if (colorTokens == null) {

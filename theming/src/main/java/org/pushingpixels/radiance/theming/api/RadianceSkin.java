@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorat
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.SchemeColorResolver;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
@@ -160,7 +159,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     /**
      * Maps decoration area type to the background color schemes.
      */
-    private Map<RadianceThemingSlices.DecorationAreaType, ExtendedContainerColorTokens> tonalBackgroundTokensMap;
+    private Map<RadianceThemingSlices.DecorationAreaType, ContainerColorTokens> tonalBackgroundTokensMap;
 
     /**
      * Maps decoration area type to the registered overlay painters. Each
@@ -386,7 +385,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     public void registerDecorationAreaSchemeBundle(
         RadianceColorSchemeBundle bundle,
-        ExtendedContainerColorTokens backgroundTokens,
+        ContainerColorTokens backgroundTokens,
         RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (bundle == null) {
             return;
@@ -414,7 +413,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     public void registerDecorationAreaSchemeBundle(
         RadianceColorSchemeBundle bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
         this.registerDecorationAreaSchemeBundle(bundle,
-            bundle.getMainColorScheme().getExtendedNeutralContainerTokens(),
+            bundle.getMainColorScheme().getNeutralContainerTokens(),
             areaTypes);
     }
 
@@ -428,7 +427,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      *                              Each decoration area type will be painted by
      *                              {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
      */
-    public void registerAsDecorationArea(ExtendedContainerColorTokens backgroundContainerTokens,
+    public void registerAsDecorationArea(ContainerColorTokens backgroundContainerTokens,
             RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (backgroundContainerTokens == null) {
             throw new IllegalArgumentException(
@@ -688,7 +687,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param decorationAreaType Decoration area type.
      * @return The background color scheme for the specified decoration area type.
      */
-    public final ExtendedContainerColorTokens getBackgroundExtendedContainerTokens(
+    public final ContainerColorTokens getBackgroundExtendedContainerTokens(
             RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         // 1 - check the registered background scheme for this specific area type.
         if (this.tonalBackgroundTokensMap.containsKey(decorationAreaType)) {
@@ -696,7 +695,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
         // 2 - check the registered scheme bundle for this specific area type.
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-            ExtendedContainerColorTokens registered = this.tonalBackgroundTokensMap.
+            ContainerColorTokens registered = this.tonalBackgroundTokensMap.
                 get(decorationAreaType);
             if (registered != null) {
                 return registered;

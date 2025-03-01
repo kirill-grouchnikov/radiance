@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
@@ -115,10 +115,10 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
     private void paintTitleBackground(Graphics2D graphics, Component comp,
             RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
             RadianceSkin skin) {
-        ExtendedContainerColorTokens tileContainerTokens =
+        ContainerColorTokens tileContainerTokens =
                 skin.getBackgroundExtendedContainerTokens(decorationAreaType);
         if (this.baseDecorationPainter == null) {
-            graphics.setColor(tileContainerTokens.getBaseContainerTokens().getContainerSurface());
+            graphics.setColor(tileContainerTokens.getContainerSurface());
             graphics.fillRect(0, 0, width, height);
         } else {
             this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
@@ -151,12 +151,12 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             RadianceSkin skin) {
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
 
-        ExtendedContainerColorTokens tileContainerTokens =
+        ContainerColorTokens tileContainerTokens =
             skin.getBackgroundExtendedContainerTokens(decorationAreaType);
         if (this.baseDecorationPainter != null) {
             this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, width, height, skin);
         } else {
-            graphics.setColor(tileContainerTokens.getBaseContainerTokens().getContainerSurface());
+            graphics.setColor(tileContainerTokens.getContainerSurface());
             graphics.fillRect(0, 0, width, height);
         }
         Graphics2D temp = (Graphics2D) graphics.create();
@@ -167,13 +167,13 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
             RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-            ExtendedContainerColorTokens colorTokens) {
+        ContainerColorTokens colorTokens) {
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
         if (this.baseDecorationPainter != null) {
             this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
                     contour, colorTokens);
         } else {
-            graphics.setColor(colorTokens.getBaseContainerTokens().getContainerSurface());
+            graphics.setColor(colorTokens.getContainerSurface());
             graphics.fill(contour);
         }
         Graphics2D temp = (Graphics2D) graphics.create();
@@ -186,7 +186,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
         temp.dispose();
     }
 
-    private void tileArea(Graphics2D g, Component comp, ExtendedContainerColorTokens tileContainerTokens,
+    private void tileArea(Graphics2D g, Component comp, ContainerColorTokens tileContainerTokens,
             int offsetTextureX, int offsetTextureY, int width, int height) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(comp, this.textureAlpha, g));
@@ -239,7 +239,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
      *            Color tokens for the colorization.
      * @return Colorized tile.
      */
-    protected BufferedImage getColorizedTile(double scale, ExtendedContainerColorTokens colorTokens) {
+    protected BufferedImage getColorizedTile(double scale, ContainerColorTokens colorTokens) {
         String key = scale + ":" + colorTokens.hashCode();
         BufferedImage result = this.colorizedTileMap.get(key);
         if (result == null) {
@@ -253,7 +253,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
                     (int) ( tileHeight / scale), null);
             tile2D.dispose();
             result = RadianceImageCreator.getContainerTokensImage(tileBi,
-                colorTokens.getBaseContainerTokens(), 0.0f, 1.0f);
+                colorTokens, 0.0f, 1.0f);
             this.colorizedTileMap.put(key, result);
         }
         return result;

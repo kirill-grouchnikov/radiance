@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.palette.ExtendedContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -217,7 +217,7 @@ public class DecorationPainterUtils {
 
     public static void paintDecorationArea(Graphics g, Component c,
         Shape contour, RadianceThemingSlices.DecorationAreaType decorationType,
-        ExtendedContainerColorTokens tokens, boolean force) {
+        ContainerColorTokens tokens, boolean force) {
         // System.out.println("Painting " + c.getClass().getSimpleName());
         boolean isInCellRenderer = (SwingUtilities.getAncestorOfClass(CellRendererPane.class,
             c) != null);

@@ -76,7 +76,7 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getExtendedContainerTokens(
+			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEBECE5),
 				/* isFidelity */ true,
 				/* isDark */ false,
