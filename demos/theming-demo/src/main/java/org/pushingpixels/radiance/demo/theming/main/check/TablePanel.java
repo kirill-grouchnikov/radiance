@@ -293,7 +293,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
                 .addPropertyToInterpolate("foreground",
                     () -> skin.getContainerTokens(table, ComponentState.ENABLED,
                         RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer(),
-                    () -> skin.getOptionPaneIconColorTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
+                    () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
                 .setDuration(1000)
                 .playLoop(RepeatBehavior.REVERSE);
         }

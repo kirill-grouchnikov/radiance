@@ -582,7 +582,7 @@ public class ControlPanelFactory {
                         .addPropertyToInterpolate("foreground",
                             () -> skin.getContainerTokens(myContentPane, ComponentState.ENABLED,
                                 RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer(),
-                            () -> skin.getOptionPaneIconColorTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
+                            () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
                         .setDuration(1000)
                         .playLoop(RepeatBehavior.REVERSE);
 
@@ -626,7 +626,7 @@ public class ControlPanelFactory {
                         .addPropertyToInterpolate("foreground",
                             () -> skin.getContainerTokens(myContentPane, ComponentState.ENABLED,
                                 RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer(),
-                            () -> skin.getOptionPaneIconColorTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
+                            () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
                         .setDuration(1000)
                         .playLoop(RepeatBehavior.REVERSE);
 

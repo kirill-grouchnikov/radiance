@@ -32,8 +32,8 @@ package org.pushingpixels.radiance.theming.internal.ui;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.IconGlowTracker;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -127,7 +127,7 @@ public class RadianceOptionPaneUI extends BasicOptionPaneUI {
                 RadianceSizeUtils.getControlFontSize(), ICON_SIZE, 3, 2);
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.optionPane);
-        ContainerColorTokens colorTokens = skin.getOptionPaneIconColorTokens(messageType);
+        ContainerColorTokens colorTokens = skin.getOptionPaneIconContainerTokens(messageType);
         switch (messageType) {
             case JOptionPane.ERROR_MESSAGE:
                 return iconPack.getOptionPaneErrorIcon(size, colorTokens);

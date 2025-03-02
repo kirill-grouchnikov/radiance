@@ -723,7 +723,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         return this.tonalBackgroundTokensMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
     }
 
-    public ContainerColorTokens getOptionPaneIconColorTokens(int optionPaneMessageType) {
+    public ContainerColorTokens getOptionPaneIconContainerTokens(int optionPaneMessageType) {
         // late initialization of tokens. This isn't done at construction time, since
         // in the constructor of this base skin we don't yet have access to the color tokens
         // associated with the full skin
