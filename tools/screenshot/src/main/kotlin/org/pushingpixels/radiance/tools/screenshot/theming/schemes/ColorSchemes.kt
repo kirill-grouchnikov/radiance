@@ -34,25 +34,24 @@ import org.pushingpixels.radiance.theming.api.colorscheme.TonalPaletteSeeds
 private val radianceLightColors = mapOf(
     "Aqua" to TonalPaletteSeeds.AQUA,
     "Barby Pink" to TonalPaletteSeeds.BARBY_PINK,
+    "Bottle Green" to TonalPaletteSeeds.BOTTLE_GREEN,
     "Brown" to TonalPaletteSeeds.BROWN,
     "Desert Sand" to TonalPaletteSeeds.DESERT_SAND,
     "Lime Green" to TonalPaletteSeeds.LIME_GREEN,
     "Olive" to TonalPaletteSeeds.OLIVE,
     "Orange" to TonalPaletteSeeds.ORANGE,
     "Purple" to TonalPaletteSeeds.PURPLE,
+    "Raspberry" to TonalPaletteSeeds.RASPBERRY,
     "Sepia" to TonalPaletteSeeds.SEPIA,
     "Steel Blue" to TonalPaletteSeeds.STEEL_BLUE,
     "Sun Glare" to TonalPaletteSeeds.SUN_GLARE,
     "Sunset" to TonalPaletteSeeds.SUNSET,
+    "Terracotta" to TonalPaletteSeeds.TERRACOTTA,
 )
 
 private val radianceDarkColors = mapOf(
-    "Bottle Green" to TonalPaletteSeeds.BOTTLE_GREEN,
     "Charcoal" to TonalPaletteSeeds.CHARCOAL,
     "Jade Forest" to TonalPaletteSeeds.JADE_FOREST,
-    "Raspberry" to TonalPaletteSeeds.RASPBERRY,
-    "Sunset" to TonalPaletteSeeds.SUNSET,
-    "Terracotta" to TonalPaletteSeeds.TERRACOTTA,
     "Ultramarine" to TonalPaletteSeeds.ULTRAMARINE,
     "Violet" to TonalPaletteSeeds.VIOLET,
 )

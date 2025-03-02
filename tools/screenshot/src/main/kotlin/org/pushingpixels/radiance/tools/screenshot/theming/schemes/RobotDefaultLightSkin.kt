@@ -52,13 +52,10 @@ import java.awt.Color
 class RobotDefaultLightSkin(accentColor: Color, val name: String) :
         RadianceSkin.Accented(AccentBuilder()
             .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
-                    Hct.fromInt(accentColor.rgb), 3.0, 1.0),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isDark */ false))
-            .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
-                    Hct.fromInt(accentColor.rgb), 3.0, 1.0),
+                /* palettesSource */ ColorSchemeUtils.FidelityPaletteSource(
+                    /* primarySeed */ Hct.fromInt(accentColor.rgb),
+                    /* mutedSeed */ MutedSeed,
+                    /* neutralSeed */ NeutralSeed),
                 /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false))) {
 
@@ -85,7 +82,7 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.headerAreaColorScheme.tonalContainerTokens,
+        this.registerAsDecorationArea(this.defaultAreaColorScheme.tonalContainerTokens,
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
@@ -93,5 +90,10 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
 
     override fun getDisplayName(): String {
         return name
+    }
+
+    companion object {
+        val MutedSeed: Hct = Hct.fromInt(Color(208, 212, 216).rgb)
+        val NeutralSeed: Hct = Hct.fromInt(Color(252, 249, 248).rgb)
     }
 }

@@ -42,8 +42,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDeco
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens
+import org.pushingpixels.radiance.theming.api.palette.*
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
@@ -55,15 +54,34 @@ import java.awt.Color
 class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
     RadianceSkin.Accented(AccentBuilder()
         .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
-                Hct.fromInt(accentColor.rgb), 30.0, 20.0),
+            /* palettesSource */ ColorSchemeUtils.FidelityPaletteSource(
+                /* primarySeed */ Hct.fromInt(accentColor.rgb),
+                /* mutedSeed */ Hct.fromInt(accentColor.rgb).also { it.tone = it.tone * 1.2},
+                /* neutralSeed */ Hct.fromInt(accentColor.rgb).also { it.tone = it.tone / 3.5}),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-            /* isDark */ true))
-        .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ ColorSchemeUtils.BalancedPaletteSource(
-                Hct.fromInt(accentColor.rgb), 30.0, 20.0),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-            /* isDark */ true))) {
+            /* isPrimaryDark */ true,
+            /* isTonalDark */ true,
+            /* isMutedDark */ true,
+            /* isNeutralDark */ true,
+            /* isSystemDark */ true,
+            /* primaryContrastLevel */ 0.0,
+            /* tonalContrastLevel */ 0.0,
+            /* mutedContrastLevel */ 0.0,
+            /* neutralContrastLevel */ 0.8,
+            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver().overlayWith(
+                SchemeColorResolverOverlay.builder()
+                    .mutedContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .onContainer({ it.onNeutralContainer })
+                            .onContainerVariant({ it.onNeutralContainerVariant} )
+                            .build())
+                    .tonalContainerResolverOverlay(
+                        SchemeContainerColorsResolverOverlay.builder()
+                            .onContainer({ it.onNeutralContainer })
+                            .onContainerVariant({ it.onNeutralContainerVariant} )
+                            .build())
+                    .build()
+            )))) {
 
     init {
         val bottomLineOverlayPainter =
@@ -98,7 +116,7 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
             RadianceThemingSlices.DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.headerAreaColorScheme.tonalContainerTokens,
+        this.registerAsDecorationArea(this.defaultAreaColorScheme.tonalContainerTokens,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER)
