@@ -300,6 +300,8 @@ public class Check extends JFrame {
 
         jtp.addTab("System tokens", bar_chart.of(12, 12), new SystemTokensPanel());
 
+        jtp.addTab("Surface tokens", bar_chart.of(12, 12), new SurfaceTokensPanel());
+
         // sample menu bar
         JMenuBar jmb = new JMenuBar();
         if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {

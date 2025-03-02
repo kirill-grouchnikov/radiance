@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.SchemeColorResolver;
+import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeColorResolver;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.SkinTonalUtilities;
@@ -475,6 +475,15 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getMainColorScheme().getActiveContainerTokens();
     }
 
+    public final ContainerColorTokens getNeutralContainerTokens(
+        RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getNeutralContainerTokens();
+        }
+        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getMainColorScheme().getNeutralContainerTokens();
+    }
+
     public final ContainerColorTokens getMutedContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
@@ -484,13 +493,22 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getMainColorScheme().getMutedContainerTokens();
     }
 
-    public final ContainerColorTokens getNeutralContainerTokens(
+    public final ContainerColorTokens getTonalContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getNeutralContainerTokens();
+            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getTonalContainerTokens();
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getMainColorScheme().getNeutralContainerTokens();
+            .getMainColorScheme().getTonalContainerTokens();
+    }
+
+    public final ContainerColorTokens getPrimaryContainerTokens(
+        RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getPrimaryContainerTokens();
+        }
+        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getMainColorScheme().getPrimaryContainerTokens();
     }
 
     /**
