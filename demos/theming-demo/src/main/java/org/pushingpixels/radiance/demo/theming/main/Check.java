@@ -298,9 +298,9 @@ public class Check extends JFrame {
 
         jtp.addTab("V-Align", bar_chart.of(12, 12), new VAlignmentPanel());
 
-        jtp.addTab("System tokens", bar_chart.of(12, 12), new SystemTokensPanel());
+        jtp.addTab("System tokens", exclamation_circle_o.of(12, 12), new SystemTokensPanel());
 
-        jtp.addTab("Surface tokens", bar_chart.of(12, 12), new SurfaceTokensPanel());
+        jtp.addTab("Surface tokens", compile.of(12, 12), new SurfaceTokensPanel());
 
         // sample menu bar
         JMenuBar jmb = new JMenuBar();
