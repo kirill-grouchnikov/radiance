@@ -47,7 +47,7 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class SystemTokensPanel extends JPanel implements Deferrable {
+public class SystemTokensPanel extends JPanel implements Deferrable, SkinDependent {
     private boolean isInitialized;
 
     @Override
@@ -348,11 +348,12 @@ public class SystemTokensPanel extends JPanel implements Deferrable {
      * Creates the system tokens panel.
      */
     public SystemTokensPanel() {
-        this.setLayout(new BorderLayout());
     }
 
     @Override
-    public synchronized void initialize() {
+    public void reload() {
+        this.removeAll();
+        this.setLayout(new BorderLayout());
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
             "right:pref, 4dlu, fill:pref:grow", 2, 30)
             .padding(Paddings.DIALOG);
@@ -371,8 +372,12 @@ public class SystemTokensPanel extends JPanel implements Deferrable {
         scrollablePanel.setLayout(new BorderLayout());
         scrollablePanel.add(everything);
         this.add(new JScrollPane(scrollablePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
+    }
 
+    @Override
+    public synchronized void initialize() {
+        this.reload();
         this.isInitialized = true;
     }
 }

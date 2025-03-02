@@ -95,6 +95,19 @@ public class Check extends JFrame {
             setIconImage(RadianceLogo.getLogoImage(Check.this,
                 skin.getBackgroundContainerTokens(
                     DecorationAreaType.PRIMARY_TITLE_PANE)));
+
+            for (int tabIndex = 0; tabIndex < jtp.getTabCount(); tabIndex++) {
+                Component tab = jtp.getComponentAt(tabIndex);
+                if (tab instanceof SkinDependent) {
+                    if (tab instanceof Deferrable) {
+                        if (!((Deferrable)tab).isInitialized()) {
+                            // This deferrable tab hasn't been initialized yet, nothing to reload
+                            continue;
+                        }
+                    }
+                    ((SkinDependent) tab).reload();
+                }
+            }
         }));
 
         setLayout(new BorderLayout());

@@ -59,7 +59,7 @@ import java.util.EnumSet;
  *
  * @author Kirill Grouchnikov
  */
-public class ButtonsPanel extends JPanel {
+public class ButtonsPanel extends JPanel implements SkinDependent {
     /**
      * The default button.
      */
@@ -297,51 +297,50 @@ public class ButtonsPanel extends JPanel {
         }
     }
 
-    /**
-     * Creates a new button panel.
-     */
+    @Override
     @SuppressWarnings("unchecked")
-    public ButtonsPanel() {
+    public void reload() {
+        this.removeAll();
+
         this.setLayout(new BorderLayout());
 
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
         Color textColor = skin.getContainerTokens(this, ComponentState.ENABLED,
             RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
 
-
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 58).padding(Paddings.DIALOG);
+            "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
+                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 58).padding(Paddings.DIALOG);
 
         builder.append("");
 
         JLabel bLabel = new JLabel("Buttons");
         bLabel.setIcon(button.of(12, 12));
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(bLabel,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         JLabel tbLabel = new JLabel("Toggle buttons");
         tbLabel.setIcon(bullseye.of(12, 12));
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(tbLabel,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         JLabel cbLabel = new JLabel("Check boxes");
         cbLabel.setIcon(check_square_o.of(12, 12));
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(cbLabel,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         JLabel rbLabel = new JLabel("Radio buttons");
         rbLabel.setIcon(dot_circle.of(12, 12));
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(rbLabel,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         // bLabel.setFont(bLabel.getFont().deriveFont(Font.BOLD));
         // tbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
@@ -356,162 +355,162 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "Disabled", null, new DisableCommand());
         this.addRow(builder, "Selected", null, new SelectCommand());
         this.addRow(builder, "Disabled selected", null,
-                new ChainCommand<>(new DisableCommand(), new SelectCommand()));
+            new ChainCommand<>(new DisableCommand(), new SelectCommand()));
         this.addRow(builder, "HTML text", null,
-                new TextCommand("<html><font color='" + RadianceColorUtilities.encode(textColor) +
-                    "'>text <b>text</b></font> <font color='red'>text</font>"));
+            new TextCommand("<html><font color='" + RadianceColorUtilities.encode(textColor) +
+                "'>text <b>text</b></font> <font color='red'>text</font>"));
         this.addRow(builder, "Long text", null, new TextCommand("Some long long text"));
         this.addRow(builder, "With tooltip", null, new TooltipTextCommand("Sample tooltip"));
         this.addRow(builder, "Disabled with tooltip", null,
-                new ChainCommand(new TooltipTextCommand("Sample tooltip"), new DisableCommand()));
+            new ChainCommand(new TooltipTextCommand("Sample tooltip"), new DisableCommand()));
         this.addRow(builder, "Popup menu", null, new PopupMenuCommand());
         this.addRow(builder, "With icon", se.of(16, 16), new IconCommand(se.of(16, 16)));
         this.addRow(builder, "With icon (disabled)", se.of(16, 16),
-                new ChainCommand<>(
-                        (AbstractButton ab) -> ab.setEnabled(false),
-                        new IconCommand(se.of(16, 16))));
+            new ChainCommand<>(
+                (AbstractButton ab) -> ab.setEnabled(false),
+                new IconCommand(se.of(16, 16))));
         this.addRow(builder, "Themed follow color scheme", edit_cut.of(16, 16),
-                new ChainCommand<>(new IconCommand(edit_cut.of(16, 16)),
-                        (AbstractButton ab) ->
-                                RadianceThemingCortex.ComponentScope.setIconFilterStrategies(ab,
-                                        RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
-                                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
-                                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME)),
-                (JLabel label) -> RadianceThemingCortex.ComponentScope.setIconFilterStrategies(label,
+            new ChainCommand<>(new IconCommand(edit_cut.of(16, 16)),
+                (AbstractButton ab) ->
+                    RadianceThemingCortex.ComponentScope.setIconFilterStrategies(ab,
                         RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
-                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME));
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME)),
+            (JLabel label) -> RadianceThemingCortex.ComponentScope.setIconFilterStrategies(label,
+                RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME));
         this.addRow(builder, "Themed follow text", help_black_24dp.of(16, 16),
-                new ChainCommand<>(new IconCommand(help_black_24dp.of(16, 16)),
-                        (AbstractButton ab) ->
-                                RadianceThemingCortex.ComponentScope.setIconFilterStrategies(ab,
-                                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT)),
-                (JLabel label) -> RadianceThemingCortex.ComponentScope.setIconFilterStrategies(label,
+            new ChainCommand<>(new IconCommand(help_black_24dp.of(16, 16)),
+                (AbstractButton ab) ->
+                    RadianceThemingCortex.ComponentScope.setIconFilterStrategies(ab,
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT));
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT)),
+            (JLabel label) -> RadianceThemingCortex.ComponentScope.setIconFilterStrategies(label,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT));
         this.addRow(builder, "Themed follow text (disabled)", help_black_24dp.of(16, 16),
-                new ChainCommand<>(
-                        new IconCommand(help_black_24dp.of(16, 16)),
-                        (AbstractButton ab) -> ab.setEnabled(false),
-                        (AbstractButton ab) ->
-                                RadianceThemingCortex.ComponentScope.setIconFilterStrategies(ab,
-                                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT)),
-                (JLabel label) -> RadianceThemingCortex.ComponentScope.setIconFilterStrategies(label,
+            new ChainCommand<>(
+                new IconCommand(help_black_24dp.of(16, 16)),
+                (AbstractButton ab) -> ab.setEnabled(false),
+                (AbstractButton ab) ->
+                    RadianceThemingCortex.ComponentScope.setIconFilterStrategies(ab,
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT));
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT)),
+            (JLabel label) -> RadianceThemingCortex.ComponentScope.setIconFilterStrategies(label,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT));
 
         builder.appendSeparator("Focus indications");
         this.addRow(builder, "No focus painted", null, new NoFocusCommand());
         this.addRow(builder, "None", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
-                        FocusKind.NONE));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                FocusKind.NONE));
         this.addRow(builder, "Text", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
-                        FocusKind.TEXT));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                FocusKind.TEXT));
         this.addRow(builder, "All", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
-                        FocusKind.ALL));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                FocusKind.ALL));
         this.addRow(builder, "All inner", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
-                        FocusKind.ALL_INNER));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                FocusKind.ALL_INNER));
         this.addRow(builder, "All strong inner", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
-                        FocusKind.ALL_STRONG_INNER));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                FocusKind.ALL_STRONG_INNER));
         this.addRow(builder, "Underline", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
-                        FocusKind.UNDERLINE));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                FocusKind.UNDERLINE));
         this.addRow(builder, "Strong underline", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
-                        FocusKind.STRONG_UNDERLINE));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                FocusKind.STRONG_UNDERLINE));
 
         builder.appendSeparator("Size settings");
         this.addRow(builder, "No min size", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentScope
-                        .setButtonIgnoreMinimumSize(ab, true));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentOrParentScope
+                .setButtonIgnoreMinimumSize(ab, true));
         this.addRow(builder, "Custom margin", null, new MarginCommand());
 
         builder.appendSeparator("Side settings");
         this.addRow(builder, "Straight top", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSide(ab,
-                        Side.TOP));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSide(ab,
+                Side.TOP));
         this.addRow(builder, "Straight bottom", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSide(ab,
-                        Side.BOTTOM));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSide(ab,
+                Side.BOTTOM));
         this.addRow(builder, "Straight leading", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSides(ab,
-                        EnumSet.of(Side.LEADING)));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSides(ab,
+                EnumSet.of(Side.LEADING)));
         this.addRow(builder, "Straight trailing", null,
-                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSides(ab,
-                        EnumSet.of(Side.TRAILING)));
+            (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSides(ab,
+                EnumSet.of(Side.TRAILING)));
 
         this.addRow(builder, "Open top", null,
-                new ChainCommand<>(
-                        (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
-                                .setButtonStraightSide(ab, Side.TOP),
-                        (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSide(ab,
-                                Side.TOP)));
+            new ChainCommand<>(
+                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
+                    .setButtonStraightSide(ab, Side.TOP),
+                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSide(ab,
+                    Side.TOP)));
         this.addRow(builder, "Open bottom", null,
-                new ChainCommand<>(
-                        (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
-                                .setButtonStraightSide(ab, Side.BOTTOM),
-                        (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSide(ab,
-                                Side.BOTTOM)));
+            new ChainCommand<>(
+                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
+                    .setButtonStraightSide(ab, Side.BOTTOM),
+                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSide(ab,
+                    Side.BOTTOM)));
         this.addRow(builder, "Open leading", null,
-                new ChainCommand<>(
-                        (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
-                                .setButtonStraightSides(ab, EnumSet.of(Side.LEADING)),
-                        (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSides(ab,
-                                EnumSet.of(Side.LEADING))));
+            new ChainCommand<>(
+                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
+                    .setButtonStraightSides(ab, EnumSet.of(Side.LEADING)),
+                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSides(ab,
+                    EnumSet.of(Side.LEADING))));
         this.addRow(builder, "Open right", null,
-                new ChainCommand<>(
-                        (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
-                                .setButtonStraightSides(ab, EnumSet.of(Side.TRAILING)),
-                        (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSides(ab,
-                                EnumSet.of(Side.TRAILING))));
+            new ChainCommand<>(
+                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
+                    .setButtonStraightSides(ab, EnumSet.of(Side.TRAILING)),
+                (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSides(ab,
+                    EnumSet.of(Side.TRAILING))));
 
         builder.appendSeparator("Unicode texts");
         this.addRow(builder, "Hebrew", null, new ChainCommand<>(
-                new TextCommand("\u05D0\u05D1\u05D2"), new IconCommand(il.of(16, 16))));
+            new TextCommand("\u05D0\u05D1\u05D2"), new IconCommand(il.of(16, 16))));
         this.addRow(builder, "Chinese", null,
-                new ChainCommand<>(
-                        new TextCommand("\u4E01\u4E02\u4E03"), new IconCommand(cn.of(16, 16))));
+            new ChainCommand<>(
+                new TextCommand("\u4E01\u4E02\u4E03"), new IconCommand(cn.of(16, 16))));
         this.addRow(builder, "Japanese", null,
-                new ChainCommand<>(
-                        new TextCommand("\u30A2\u30B2\u30C2"), new IconCommand(jp.of(16, 16))));
+            new ChainCommand<>(
+                new TextCommand("\u30A2\u30B2\u30C2"), new IconCommand(jp.of(16, 16))));
         this.addRow(builder, "Cyrillic", null, new ChainCommand<>(
-                new TextCommand("\u0430\u0431\u0432"), new IconCommand(ru.of(16, 16))));
+            new TextCommand("\u0430\u0431\u0432"), new IconCommand(ru.of(16, 16))));
         this.addRow(builder, "Greek", null, new ChainCommand<>(
-                new TextCommand("\u03B1\u03B2\u03B3"), new IconCommand(gr.of(16, 16))));
+            new TextCommand("\u03B1\u03B2\u03B3"), new IconCommand(gr.of(16, 16))));
         this.addRow(builder, "Latin", null, new ChainCommand<>(
-                new TextCommand("\u00E6\u00F0\u0127\u2248"), new IconCommand(it.of(16, 16))));
+            new TextCommand("\u00E6\u00F0\u0127\u2248"), new IconCommand(it.of(16, 16))));
 
         builder.appendSeparator("Misc settings");
         this.addRow(builder, "No content area", null, new NoContentAreaFilledCommand());
         this.addRow(builder, "No border", null, new NoBorderPaintedCommand());
         this.addRow(builder, "No background", null, new ChainCommand<>(
-                new NoContentAreaFilledCommand(), new NoBorderPaintedCommand()));
+            new NoContentAreaFilledCommand(), new NoBorderPaintedCommand()));
         this.addRow(builder, "Flat", null, (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
-                .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT));
+            .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT));
         this.addRow(builder, "Flat + disabled", null, new ChainCommand<>(
-                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
-                        .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT),
-                new DisableCommand()));
+            (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT),
+            new DisableCommand()));
         this.addRow(builder, "Never", null,
-                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
-                        .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER));
+            (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER));
         this.addRow(builder, "Never + disabled", null, new ChainCommand<>(
-                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
-                        .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER),
-                new DisableCommand()));
+            (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER),
+            new DisableCommand()));
 
         this.addRow(builder, "Fixed font", null,
-                new FontCommand(new Font("Arial", Font.PLAIN, 12)));
+            new FontCommand(new Font("Arial", Font.PLAIN, 12)));
         this.addRow(builder, "Null text", null, new TextCommand(null));
         this.addRow(builder, "Empty text", null, new TextCommand(""));
 
@@ -519,5 +518,12 @@ public class ButtonsPanel extends JPanel {
         JScrollPane jsp = new JScrollPane(panel);
         RadianceThemingCortex.ComponentScope.setAutomaticScrollPresence(jsp, true);
         this.add(jsp, BorderLayout.CENTER);
+    }
+
+    /**
+     * Creates a new button panel.
+     */
+    public ButtonsPanel() {
+        this.reload();
     }
 }
