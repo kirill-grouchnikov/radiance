@@ -38,10 +38,10 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -185,7 +185,7 @@ public class GeminiSkin extends RadianceSkin {
 
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
-        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
+        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
             ContainerColorTokens::getContainerOutlineVariant,
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getInverseContainerOutline,
@@ -194,9 +194,9 @@ public class GeminiSkin extends RadianceSkin {
 
         // add two overlay painters to create a bezel line between
         // menu bar and toolbars
-        RadianceOverlayPainter menuOverlayPainter = new BottomLineTonalOverlayPainter(
+        RadianceOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutline);
-        RadianceOverlayPainter toolbarOverlayPainter = new TopLineTonalOverlayPainter(
+        RadianceOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getComplementaryContainerOutline,
                 ColorTransform.alpha(48)));
@@ -210,12 +210,12 @@ public class GeminiSkin extends RadianceSkin {
 
         // add overlay painter to paint a dark line along the bottom
         // edge of toolbars
-        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutline);
         this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedTonalFillPainter("Gemini",
+        this.fillPainter = new FractionBasedFillPainter("Gemini",
             new float[] {0.0f, 0.6f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
@@ -225,7 +225,7 @@ public class GeminiSkin extends RadianceSkin {
                     : colorTokens.getContainerSurfaceHigh()});
 
         this.decorationPainter = new MatteDecorationPainter();
-        this.highlightFillPainter = new FractionBasedTonalFillPainter("Gemini Highlight",
+        this.highlightFillPainter = new FractionBasedFillPainter("Gemini Highlight",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
@@ -233,7 +233,7 @@ public class GeminiSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface});
 
         this.borderPainter = new CompositeBorderPainter("Gemini",
-            new FlatTonalBorderPainter(),
+            new FlatBorderPainter(),
             new FractionBasedTonalBorderPainter("Gemini Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {96, 64, 32},
@@ -242,6 +242,6 @@ public class GeminiSkin extends RadianceSkin {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline
                 }));
-        this.highlightBorderPainter = new FlatTonalBorderPainter();
+        this.highlightBorderPainter = new FlatBorderPainter();
     }
 }

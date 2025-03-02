@@ -37,11 +37,11 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.BimodalPaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
@@ -149,19 +149,19 @@ public class GreenMagicSkin extends RadianceSkin {
         // edges of headers
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
             RadianceThemingSlices.DecorationAreaType.HEADER);
-        this.addOverlayPainter(new BottomLineTonalOverlayPainter(
+        this.addOverlayPainter(new BottomLineOverlayPainter(
                 ContainerColorTokens::getContainerOutlineVariant),
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedTonalFillPainter("Green Magic",
+        this.fillPainter = new FractionBasedFillPainter("Green Magic",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceLowest,
                 ContainerColorTokens::getContainerSurface,
                 ContainerColorTokens::getContainerSurface});
-        this.borderPainter = new ClassicTonalBorderPainter();
+        this.borderPainter = new ClassicBorderPainter();
         this.decorationPainter = new ArcDecorationPainter();
-        this.highlightFillPainter = new ClassicTonalFillPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
     }
 }

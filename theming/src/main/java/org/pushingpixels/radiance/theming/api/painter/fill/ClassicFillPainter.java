@@ -38,11 +38,11 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
  * 
  * @author Kirill Grouchnikov
  */
-public class ClassicTonalFillPainter extends FractionBasedTonalFillPainter {
+public class ClassicFillPainter extends FractionBasedFillPainter {
 	/**
 	 * Creates a new classic gradient painter.
 	 */
-	public ClassicTonalFillPainter() {
+	public ClassicFillPainter() {
 		super("Classic",
 			new float[] {0.0f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {

@@ -40,26 +40,39 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Overlay painter that paints a single line at the top edge of the relevant
+ * Overlay painter that paints a bezel line at the top edge of the relevant
  * decoration area. This class is part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */
-public final class TopLineTonalOverlayPainter implements RadianceOverlayPainter {
+public final class TopBezelOverlayPainter implements RadianceOverlayPainter {
     /**
-     * Used to compute the color of the line painted by this overlay painter.
+     * Used to compute the color of the top line painted by this overlay
+     * painter.
      */
-    ContainerColorTokensSingleColorQuery containerTokensQuery;
+    ContainerColorTokensSingleColorQuery colorSchemeQueryTop;
 
     /**
-     * Creates a new overlay painter that paints a single line at the top edge
-     * of the relevant decoration area
-     *
-     * @param containerTokensQuery Used to compute the color of the line painted by this overlay
-     *                         painter.
+     * Used to compute the color of the bottom line painted by this overlay
+     * painter.
      */
-    public TopLineTonalOverlayPainter(ContainerColorTokensSingleColorQuery containerTokensQuery) {
-        this.containerTokensQuery = containerTokensQuery;
+    ContainerColorTokensSingleColorQuery colorSchemeQueryBottom;
+
+    /**
+     * Creates a new overlay painter that paints a bezel line at the top edge of
+     * the relevant decoration area
+     *
+     * @param colorSchemeQueryTop    Used to compute the color of the top line painted by this
+     *                               overlay painter.
+     * @param colorSchemeQueryBottom Used to compute the color of the bottom line painted by this
+     *                               overlay painter.
+     */
+    public TopBezelOverlayPainter(
+        ContainerColorTokensSingleColorQuery colorSchemeQueryTop,
+        ContainerColorTokensSingleColorQuery colorSchemeQueryBottom) {
+
+        this.colorSchemeQueryTop = colorSchemeQueryTop;
+        this.colorSchemeQueryBottom = colorSchemeQueryBottom;
     }
 
     @Override
@@ -67,7 +80,9 @@ public final class TopLineTonalOverlayPainter implements RadianceOverlayPainter 
             RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
             RadianceSkin skin) {
         Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
-                .getTopMostParentWithDecorationAreaType(comp, decorationAreaType);
+                .getTopMostParentWithDecorationAreaType(comp,
+                        decorationAreaType);
+
         Point inTopMost = SwingUtilities.convertPoint(comp, new Point(0, 0),
                 topMostWithSameDecorationAreaType);
         int dy = inTopMost.y;
@@ -80,21 +95,26 @@ public final class TopLineTonalOverlayPainter implements RadianceOverlayPainter 
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                ContainerColorTokens surfaceTokens =
-                    skin.getBackgroundContainerTokens(decorationAreaType);
-                Color lineColor = this.containerTokensQuery.query(surfaceTokens);
-                graphics1X.setColor(lineColor);
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    ContainerColorTokens surfaceTokens =
+                        skin.getBackgroundContainerTokens(decorationAreaType);
 
-                int topY = 1 - (int) (scaleFactor * dy);
-                graphics1X.drawLine(0, topY, scaledWidth, topY);
-            });
+                    graphics1X.setColor(this.colorSchemeQueryTop.query(surfaceTokens));
+
+                    int topY = -(int) (scaleFactor * dy);
+                    graphics1X.drawLine(0, topY, scaledWidth, topY);
+
+                    graphics1X.setColor(this.colorSchemeQueryBottom.query(surfaceTokens));
+
+                    int bezelY = 1 - (int) (scaleFactor * dy);
+                    graphics1X.drawLine(0, bezelY, scaledWidth, bezelY);
+                });
 
         graphics.dispose();
     }
 
     @Override
     public String getDisplayName() {
-        return "Top Line";
+        return "Top Bezel";
     }
 }

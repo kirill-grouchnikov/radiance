@@ -33,19 +33,19 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
- * Border painter that draws visuals with classic appearance. This class is
+ * Border painter that draws visuals with subdued appearance. This class is
  * part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */
-public class ClassicTonalBorderPainter extends FractionBasedTonalBorderPainter {
-    public ClassicTonalBorderPainter() {
+public class SubduedBorderPainter extends FractionBasedTonalBorderPainter {
+    public SubduedBorderPainter() {
         super(
-            "Classic",
+            "Subdued",
             new float[]{0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[]{
-                    ContainerColorTokens::getContainerOutline,
-                    ContainerColorTokens::getContainerOutline
+                ContainerColorTokens::getContainerOutlineVariant,
+                ContainerColorTokens::getContainerOutlineVariant
             }
         );
     }

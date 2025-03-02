@@ -35,12 +35,12 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -96,19 +96,19 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
-		BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokens::getContainerOutline);
 		this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new ClassicTonalFillPainter(), 1.0f);
-		this.borderPainter = new ClassicTonalBorderPainter();
+		this.fillPainter = new SpecularRectangularFillPainter(new ClassicFillPainter(), 1.0f);
+		this.borderPainter = new ClassicBorderPainter();
 
 		BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
 		decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());
 		decorationPainter.setTextureAlpha(0.2f);
 		this.decorationPainter = decorationPainter;
 
-		this.highlightFillPainter = new ClassicTonalFillPainter();
+		this.highlightFillPainter = new ClassicFillPainter();
 	}
 }

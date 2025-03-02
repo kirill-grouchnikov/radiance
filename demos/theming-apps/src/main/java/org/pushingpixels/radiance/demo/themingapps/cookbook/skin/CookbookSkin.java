@@ -38,11 +38,11 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
@@ -203,10 +203,10 @@ public class CookbookSkin extends RadianceSkin {
                 }));
 
         this.decorationPainter = new CookbookDecorationPainter();
-        this.highlightFillPainter = new MatteTonalFillPainter();
+        this.highlightFillPainter = new MatteFillPainter();
 
         // Add an overlay painter to paint a bezel line along the top edge of the footer area
-        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
+        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
             ContainerColorTokens::getContainerOutlineVariant,
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getInverseContainerOutline,
@@ -221,7 +221,7 @@ public class CookbookSkin extends RadianceSkin {
 
         // Add an overlay painter to paint a dark line along the bottom
         // edge of the title pane
-        RadianceOverlayPainter titlePaneBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+        RadianceOverlayPainter titlePaneBottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutline);
         this.addOverlayPainter(titlePaneBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);

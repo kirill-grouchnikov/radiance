@@ -36,15 +36,15 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
@@ -119,9 +119,9 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// add two overlay painters to create a bezel line between menu bar and toolbars
-		BottomLineTonalOverlayPainter menuOverlayPainter = new BottomLineTonalOverlayPainter(
+		BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokens::getContainerOutline);
-		RadianceOverlayPainter toolbarOverlayPainter = new TopLineTonalOverlayPainter(
+		RadianceOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
 				ContainerColorTokens::getInverseContainerOutline,
 				ColorTransform.alpha(96)));
@@ -129,11 +129,11 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new MatteTonalFillPainter(), 0.3f);
+		this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 0.3f);
 		this.decorationPainter = new FlatDecorationPainter();
-		this.highlightFillPainter = new MatteTonalFillPainter();
+		this.highlightFillPainter = new MatteFillPainter();
 		this.borderPainter = new CompositeBorderPainter("Dust",
-			new ClassicTonalBorderPainter(),
+			new ClassicBorderPainter(),
 			new FractionBasedTonalBorderPainter("Dust Inner",
 				new float[] {0.0f, 1.0f},
 				new int[] {64, 64},

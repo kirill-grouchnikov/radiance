@@ -39,11 +39,11 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -241,13 +241,13 @@ public class MagellanSkin extends RadianceSkin {
 
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
-        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutlineVariant);
         this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a light line along the top
         // edge of toolbars
-        RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineTonalOverlayPainter(
+        RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getInverseContainerOutline,
                 ColorTransform.alpha(96)));
@@ -259,7 +259,7 @@ public class MagellanSkin extends RadianceSkin {
         this.addOverlayPainter(footerTopShadowOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedTonalFillPainter("Magellan",
+        this.fillPainter = new FractionBasedFillPainter("Magellan",
             new float[] {0.0f, 0.3f, 0.6f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokensSingleColorQuery.blend(
@@ -271,10 +271,10 @@ public class MagellanSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurfaceLowest});
 
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightFillPainter = new ClassicTonalFillPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
 
         this.borderPainter = new CompositeBorderPainter("Magellan",
-            new FlatTonalBorderPainter(),
+            new FlatBorderPainter(),
             new FractionBasedTonalBorderPainter("Magellan Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {112, 80, 64},

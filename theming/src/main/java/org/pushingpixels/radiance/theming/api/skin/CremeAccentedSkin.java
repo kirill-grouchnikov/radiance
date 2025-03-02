@@ -35,13 +35,13 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
@@ -94,17 +94,17 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint a dark line along the bottom edge of toolbars
-		RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+		RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokens::getContainerOutline);
 		this.addOverlayPainter(toolbarBottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new MatteTonalFillPainter(), 0.5f);
+		this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 0.5f);
 		this.decorationPainter = new ArcDecorationPainter();
-		this.highlightFillPainter = new MatteTonalFillPainter();
+		this.highlightFillPainter = new MatteFillPainter();
 		this.borderPainter = new CompositeBorderPainter("Creme",
-			new ClassicTonalBorderPainter(),
+			new ClassicBorderPainter(),
 			new FractionBasedTonalBorderPainter("Creme Inner",
 				new float[] {0.0f, 1.0f},
 				new ContainerColorTokensSingleColorQuery[] {

@@ -41,11 +41,11 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAr
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedTonalDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -290,7 +290,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
             DecorationAreaType.CONTROL_PANE);
 
-        this.addOverlayPainter(new BottomLineTonalOverlayPainter(
+        this.addOverlayPainter(new BottomLineOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
                     ContainerColorTokens::getContainerOutline, ColorTransform.alpha(72))),
             DecorationAreaType.PRIMARY_TITLE_PANE,
@@ -298,7 +298,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
 
         this.buttonShaper = new ClassicButtonShaper();
 
-        this.fillPainter = new FractionBasedTonalFillPainter("Office Black 2007",
+        this.fillPainter = new FractionBasedFillPainter("Office Black 2007",
             new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
@@ -309,7 +309,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
                     : colorTokens.getContainerSurfaceLow()});
 
-        this.borderPainter = new FlatTonalBorderPainter();
+        this.borderPainter = new FlatBorderPainter();
 
         this.decorationPainter = new FractionBasedTonalDecorationPainter(
             "Office Black 2007",
@@ -320,6 +320,6 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurfaceLowest,
                 ContainerColorTokens::getContainerSurfaceLowest});
 
-        this.highlightFillPainter = new MatteTonalFillPainter();
+        this.highlightFillPainter = new MatteFillPainter();
     }
 }

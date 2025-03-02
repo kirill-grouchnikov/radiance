@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
  * 
  * @author Kirill Grouchnikov
  */
-public abstract class FractionBasedTonalPainter implements RadianceTrait {
+public abstract class FractionBasedPainter implements RadianceTrait {
 	/**
 	 * The display name of this painter.
 	 */
@@ -93,7 +93,7 @@ public abstract class FractionBasedTonalPainter implements RadianceTrait {
 	 *     The color queries of this painter. Must have the same size as
 	 *     the fractions array, and all entries must be non-<code>null</code>.
 	 */
-	protected FractionBasedTonalPainter(String displayName, float[] fractions,
+	protected FractionBasedPainter(String displayName, float[] fractions,
 		ContainerColorTokensSingleColorQuery[] colorQueries) {
 		this(displayName, fractions, makeDefaultAlphas(fractions.length), colorQueries);
 	}
@@ -112,7 +112,7 @@ public abstract class FractionBasedTonalPainter implements RadianceTrait {
 	 *     The color queries of this painter. Must have the same size as
 	 *     the fractions array, and all entries must be non-<code>null</code>.
 	 */
-	protected FractionBasedTonalPainter(String displayName, float[] fractions,
+	protected FractionBasedPainter(String displayName, float[] fractions,
 		int[] alphas, ContainerColorTokensSingleColorQuery[] colorQueries) {
 
 		this.displayName = displayName;

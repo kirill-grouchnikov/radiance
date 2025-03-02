@@ -38,16 +38,16 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -159,7 +159,7 @@ public class MarinerSkin extends RadianceSkin {
 
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
-        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
+        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getContainerOutline,
                 ColorTransform.alpha(80)),
@@ -170,7 +170,7 @@ public class MarinerSkin extends RadianceSkin {
 
         // add an overlay painter to create a line between
         // menu bar and toolbars
-        RadianceOverlayPainter menuOverlayPainter = new BottomLineTonalOverlayPainter(
+        RadianceOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerSurfaceHighest);
         this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
@@ -181,7 +181,7 @@ public class MarinerSkin extends RadianceSkin {
 
         // add overlay painter to paint a dark line along the bottom
         // edge of toolbars
-        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getContainerOutline,
                 ColorTransform.alpha(128)));
@@ -189,7 +189,7 @@ public class MarinerSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedTonalFillPainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
+        this.fillPainter = new FractionBasedFillPainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
                     : colorTokens.getContainerSurfaceLowest(),
@@ -199,7 +199,7 @@ public class MarinerSkin extends RadianceSkin {
         });
 
         this.decorationPainter = new MatteDecorationPainter();
-        this.highlightFillPainter = new FractionBasedTonalFillPainter("Mariner",
+        this.highlightFillPainter = new FractionBasedFillPainter("Mariner",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
@@ -210,7 +210,7 @@ public class MarinerSkin extends RadianceSkin {
             });
 
         this.borderPainter = new CompositeBorderPainter("Mariner",
-            new FlatTonalBorderPainter(),
+            new FlatBorderPainter(),
             new FractionBasedTonalBorderPainter("Mariner Inner",
                 new float[] {0.0f, 1.0f},
                 new int[] {64, 64},
@@ -219,7 +219,7 @@ public class MarinerSkin extends RadianceSkin {
                     ContainerColorTokens::getComplementaryContainerOutline
                 }));
 
-        this.highlightBorderPainter = new ClassicTonalBorderPainter();
+        this.highlightBorderPainter = new ClassicBorderPainter();
     }
 
     @Override

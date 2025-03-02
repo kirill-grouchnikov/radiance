@@ -35,12 +35,12 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -133,14 +133,14 @@ public class ModerateSkin extends RadianceSkin {
 
         // add an overlay painter to paint separator lines along the bottom
         // edges of title panes and menu bars
-        BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+        BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutline);
         this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 1.0f);
-        this.borderPainter = new ClassicTonalBorderPainter();
+        this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
+        this.borderPainter = new ClassicBorderPainter();
         this.decorationPainter = new MatteDecorationPainter();
-        this.highlightFillPainter = new ClassicTonalFillPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
     }
 }

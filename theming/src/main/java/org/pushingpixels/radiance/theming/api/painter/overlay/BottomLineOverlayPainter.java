@@ -34,58 +34,41 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
- * Overlay painter that paints a bezel line at the top edge of the relevant
+ * Overlay painter that paints a single line at the bottom edge of the relevant
  * decoration area. This class is part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */
-public final class TopBezelTonalOverlayPainter implements RadianceOverlayPainter {
+public final class BottomLineOverlayPainter implements RadianceOverlayPainter {
     /**
-     * Used to compute the color of the top line painted by this overlay
-     * painter.
+     * Used to compute the color of the line painted by this overlay painter.
      */
-    ContainerColorTokensSingleColorQuery colorSchemeQueryTop;
+    ContainerColorTokensSingleColorQuery containerTokensQuery;
 
     /**
-     * Used to compute the color of the bottom line painted by this overlay
-     * painter.
-     */
-    ContainerColorTokensSingleColorQuery colorSchemeQueryBottom;
-
-    /**
-     * Creates a new overlay painter that paints a bezel line at the top edge of
-     * the relevant decoration area
+     * Creates a new overlay painter that paints a single line at the bottom
+     * edge of the relevant decoration area
      *
-     * @param colorSchemeQueryTop    Used to compute the color of the top line painted by this
-     *                               overlay painter.
-     * @param colorSchemeQueryBottom Used to compute the color of the bottom line painted by this
-     *                               overlay painter.
+     * @param containerTokensQuery Used to compute the color of the line painted by this overlay
+     *                         painter.
      */
-    public TopBezelTonalOverlayPainter(
-        ContainerColorTokensSingleColorQuery colorSchemeQueryTop,
-        ContainerColorTokensSingleColorQuery colorSchemeQueryBottom) {
-
-        this.colorSchemeQueryTop = colorSchemeQueryTop;
-        this.colorSchemeQueryBottom = colorSchemeQueryBottom;
+    public BottomLineOverlayPainter(ContainerColorTokensSingleColorQuery containerTokensQuery) {
+        this.containerTokensQuery = containerTokensQuery;
     }
 
     @Override
     public void paintOverlay(Graphics2D g, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-            RadianceSkin skin) {
-        Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
-                .getTopMostParentWithDecorationAreaType(comp,
-                        decorationAreaType);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+        RadianceSkin skin) {
 
-        Point inTopMost = SwingUtilities.convertPoint(comp, new Point(0, 0),
-                topMostWithSameDecorationAreaType);
-        int dy = inTopMost.y;
+        Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
+                .getTopMostParentWithDecorationAreaType(comp, decorationAreaType);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -94,27 +77,22 @@ public final class TopBezelTonalOverlayPainter implements RadianceOverlayPainter
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    ContainerColorTokens surfaceTokens =
-                        skin.getBackgroundContainerTokens(decorationAreaType);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height, (graphics1X, x, y,
+            scaledWidth, scaledHeight, scaleFactor) -> {
+            ContainerColorTokens surfaceTokens =
+                skin.getBackgroundContainerTokens(decorationAreaType);
+            Color lineColor = this.containerTokensQuery.query(surfaceTokens);
+            graphics1X.setColor(RadianceColorUtilities.getAlphaColor(lineColor, 128));
 
-                    graphics1X.setColor(this.colorSchemeQueryTop.query(surfaceTokens));
-
-                    int topY = -(int) (scaleFactor * dy);
-                    graphics1X.drawLine(0, topY, scaledWidth, topY);
-
-                    graphics1X.setColor(this.colorSchemeQueryBottom.query(surfaceTokens));
-
-                    int bezelY = 1 - (int) (scaleFactor * dy);
-                    graphics1X.drawLine(0, bezelY, scaledWidth, bezelY);
-                });
+            int bottomY = (int) (scaleFactor * topMostWithSameDecorationAreaType.getHeight() - 1);
+            graphics1X.drawLine(0, bottomY, scaledWidth, bottomY);
+        });
 
         graphics.dispose();
     }
 
     @Override
     public String getDisplayName() {
-        return "Top Bezel";
+        return "Bottom Line";
     }
 }

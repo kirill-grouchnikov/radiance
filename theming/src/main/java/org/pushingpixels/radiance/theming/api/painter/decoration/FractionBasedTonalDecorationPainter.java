@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
+import org.pushingpixels.radiance.theming.api.painter.FractionBasedPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -51,7 +51,7 @@ import java.util.Set;
  * 
  * @author Kirill Grouchnikov
  */
-public class FractionBasedTonalDecorationPainter extends FractionBasedTonalPainter
+public class FractionBasedTonalDecorationPainter extends FractionBasedPainter
 		implements RadianceDecorationPainter {
 	private Set<RadianceThemingSlices.DecorationAreaType> decoratedAreas;
 

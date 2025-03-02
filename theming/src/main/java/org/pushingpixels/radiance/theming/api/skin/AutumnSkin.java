@@ -40,12 +40,12 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.SubduedTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.SubduedBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -207,7 +207,7 @@ public class AutumnSkin extends RadianceSkin {
 
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
-		BottomLineTonalOverlayPainter bottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokens::getContainerOutlineVariant);
 				this.addOverlayPainter(bottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
@@ -216,12 +216,12 @@ public class AutumnSkin extends RadianceSkin {
 
 		this.buttonShaper = new ClassicButtonShaper();
 		this.fillPainter = new SpecularRectangularFillPainter(
-			new MatteTonalFillPainter(),
+			new MatteFillPainter(),
 			ContainerColorTokens::getContainerSurfaceLow,
 			ContainerColorTokens::getContainerSurfaceLow,
 			1.0f);
 		this.borderPainter = new CompositeBorderPainter("Autumn",
-			new SubduedTonalBorderPainter(),
+			new SubduedBorderPainter(),
 			new FractionBasedTonalBorderPainter("Autumn Inner",
 				new float[] {0.0f, 1.0f},
 				new int[] {240, 240},
@@ -230,7 +230,7 @@ public class AutumnSkin extends RadianceSkin {
 					ContainerColorTokens::getComplementaryContainerOutline
 				}));
 
-		this.highlightFillPainter = new FractionBasedTonalFillPainter("Autumn",
+		this.highlightFillPainter = new FractionBasedFillPainter("Autumn",
 			new float[] {0.0f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
 				ContainerColorTokens::getContainerSurfaceHigh,

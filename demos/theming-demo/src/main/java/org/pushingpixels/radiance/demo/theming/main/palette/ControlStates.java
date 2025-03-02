@@ -33,12 +33,12 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -113,15 +113,15 @@ public class ControlStates extends JFrame {
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
             this.buttonShaper = new ClassicButtonShaper();
-            this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 1.0f);
-            this.borderPainter = new ClassicTonalBorderPainter();
+            this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
+            this.borderPainter = new ClassicBorderPainter();
 
             ImageWrapperDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
             decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());
             decorationPainter.setTextureAlpha(0.3f);
             this.decorationPainter = decorationPainter;
 
-            this.highlightFillPainter = new ClassicTonalFillPainter();
+            this.highlightFillPainter = new ClassicFillPainter();
         }
 
         @Override

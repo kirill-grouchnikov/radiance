@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
+import org.pushingpixels.radiance.theming.api.painter.FractionBasedPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
@@ -44,7 +44,7 @@ import java.awt.MultipleGradientPaint.CycleMethod;
  *
  * @author Kirill Grouchnikov
  */
-public class FractionBasedTonalFillPainter extends FractionBasedTonalPainter implements RadianceFillPainter {
+public class FractionBasedFillPainter extends FractionBasedPainter implements RadianceFillPainter {
     /**
      * Creates a new fraction-based fill painter.
      *
@@ -55,7 +55,7 @@ public class FractionBasedTonalFillPainter extends FractionBasedTonalPainter imp
      *                     the fractions array, and all entries must be non-
      *                     <code>null</code>.
      */
-    public FractionBasedTonalFillPainter(String displayName, float[] fractions,
+    public FractionBasedFillPainter(String displayName, float[] fractions,
             ContainerColorTokensSingleColorQuery[] colorQueries) {
         super(displayName, fractions, colorQueries);
     }

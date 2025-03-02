@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrP
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
@@ -49,14 +49,14 @@ public class CookbookFillPainter implements RadianceFillPainter {
     private RadianceFillPainter flatDelegate;
 
     public CookbookFillPainter() {
-        this.delegate = new FractionBasedTonalFillPainter("Cookbook Regular",
+        this.delegate = new FractionBasedFillPainter("Cookbook Regular",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceLowest,
                 ContainerColorTokens::getContainerSurface,
                 ContainerColorTokens::getContainerSurfaceHighest});
 
-        this.flatDelegate = new FractionBasedTonalFillPainter("Cookbook Flat",
+        this.flatDelegate = new FractionBasedFillPainter("Cookbook Flat",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceLow,

@@ -36,11 +36,11 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -112,7 +112,7 @@ public class MagmaSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 1.0f);
+        this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
         this.decorationPainter = new ArcDecorationPainter();
 
         this.borderPainter = new FractionBasedTonalBorderPainter("Magma",
@@ -123,7 +123,7 @@ public class MagmaSkin extends RadianceSkin {
                 ContainerColorTokens::getComplementaryContainerOutline,
             });
 
-        this.highlightFillPainter = new ClassicTonalFillPainter();
-        this.highlightBorderPainter = new FlatTonalBorderPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
+        this.highlightBorderPainter = new FlatBorderPainter();
     }
 }

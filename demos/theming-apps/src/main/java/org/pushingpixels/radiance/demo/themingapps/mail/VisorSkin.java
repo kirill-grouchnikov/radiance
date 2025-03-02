@@ -37,11 +37,11 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -150,15 +150,15 @@ public class VisorSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new MatteTonalFillPainter();
-        this.borderPainter = new FlatTonalBorderPainter();
+        this.fillPainter = new MatteFillPainter();
+        this.borderPainter = new FlatBorderPainter();
 
         BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
         decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());
         decorationPainter.setTextureAlpha(0.3f);
         this.decorationPainter = decorationPainter;
 
-        this.highlightFillPainter = new FractionBasedTonalFillPainter("Visor Highlight",
+        this.highlightFillPainter = new FractionBasedFillPainter("Visor Highlight",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurface,

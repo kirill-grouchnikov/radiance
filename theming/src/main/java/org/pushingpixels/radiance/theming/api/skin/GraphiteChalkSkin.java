@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 
 /**
@@ -84,6 +84,6 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 					.build()
 			));
 
-		this.borderPainter = new FlatTonalBorderPainter();
+		this.borderPainter = new FlatBorderPainter();
 	}
 }

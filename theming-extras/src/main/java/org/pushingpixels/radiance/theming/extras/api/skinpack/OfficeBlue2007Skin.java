@@ -45,9 +45,9 @@ import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPain
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedTonalDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -285,7 +285,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                 /* colorResolver */ officeBluePaletteColorResolver),
             DecorationAreaType.CONTROL_PANE);
 
-        this.addOverlayPainter(new BottomLineTonalOverlayPainter(
+        this.addOverlayPainter(new BottomLineOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
                     ContainerColorTokens::getContainerOutline, ColorTransform.alpha(72))),
             DecorationAreaType.PRIMARY_TITLE_PANE,
@@ -293,7 +293,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
 
         this.buttonShaper = new ClassicButtonShaper();
 
-        this.fillPainter = new FractionBasedTonalFillPainter("Office Blue 2007",
+        this.fillPainter = new FractionBasedFillPainter("Office Blue 2007",
             new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceLow,
@@ -335,6 +335,6 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     ContainerColorTokens::getContainerSurfaceLowest,
                     0.8f)});
 
-        this.highlightFillPainter = new ClassicTonalFillPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
     }
 }

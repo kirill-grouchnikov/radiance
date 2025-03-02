@@ -32,9 +32,9 @@ package org.pushingpixels.radiance.theming.internal.blade;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -48,7 +48,7 @@ import java.awt.geom.Line2D;
 
 public class BladeIconUtils {
 
-    private static class SimplisticSoftBorderReverseTonalFillPainter extends FractionBasedTonalFillPainter {
+    private static class SimplisticSoftBorderReverseTonalFillPainter extends FractionBasedFillPainter {
         /**
          * Singleton instance.
          */
@@ -339,7 +339,7 @@ public class BladeIconUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, size, size,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 RadianceFillPainter fillPainter = SimplisticSoftBorderReverseTonalFillPainter.INSTANCE;
-                RadianceBorderPainter borderPainter = new FlatTonalBorderPainter();
+                RadianceBorderPainter borderPainter = new FlatBorderPainter();
 
                 Shape contour = RadianceOutlineUtilities.getBaseOutline(
                     tree.getComponentOrientation(),

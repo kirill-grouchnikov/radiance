@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
@@ -64,7 +64,7 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class RadianceProgressBarUI extends BasicProgressBarUI {
-    private static final RadianceFillPainter progressTonalFillPainter = new FractionBasedTonalFillPainter(
+    private static final RadianceFillPainter progressTonalFillPainter = new FractionBasedFillPainter(
         "Progress tonal fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
         new ContainerColorTokensSingleColorQuery[]{
             ContainerColorTokens::getContainerSurface,

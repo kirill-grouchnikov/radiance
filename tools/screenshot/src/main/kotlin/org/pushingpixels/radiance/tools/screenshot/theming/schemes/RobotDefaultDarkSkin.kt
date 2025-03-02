@@ -35,13 +35,13 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.palette.*
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
@@ -85,17 +85,17 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
 
     init {
         val bottomLineOverlayPainter =
-            BottomLineTonalOverlayPainter(ContainerColorTokens::getContainerOutline)
+            BottomLineOverlayPainter(ContainerColorTokens::getContainerOutline)
         this.addOverlayPainter(bottomLineOverlayPainter,
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
 
         this.buttonShaper = ClassicButtonShaper()
-        this.fillPainter = SpecularRectangularFillPainter(ClassicTonalFillPainter(), 1.0f)
+        this.fillPainter = SpecularRectangularFillPainter(ClassicFillPainter(), 1.0f)
         this.borderPainter = CompositeBorderPainter(
             "Robot",
-            FlatTonalBorderPainter(),
+            FlatBorderPainter(),
             FractionBasedTonalBorderPainter(
                 "Robot Inner",
                 floatArrayOf(0.0f, 1.0f),
@@ -110,7 +110,7 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
         decorationPainter.setTextureAlpha(0.3f)
         this.decorationPainter = decorationPainter
 
-        this.highlightFillPainter = ClassicTonalFillPainter()
+        this.highlightFillPainter = ClassicFillPainter()
 
         val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaColorScheme)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,

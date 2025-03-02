@@ -37,12 +37,12 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
@@ -115,16 +115,16 @@ public class FieldOfWheatSkin extends RadianceSkin {
         // edges of headers
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
             RadianceThemingSlices.DecorationAreaType.HEADER);
-        this.addOverlayPainter(new BottomLineTonalOverlayPainter(
+        this.addOverlayPainter(new BottomLineOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
                     ContainerColorTokens::getContainerOutline, ColorTransform.alpha(128))),
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new SpecularRectangularFillPainter(new GlassTonalFillPainter(), 0.5f);
+        this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 0.5f);
         this.decorationPainter = new ArcDecorationPainter();
-        this.borderPainter = new FlatTonalBorderPainter();
-        this.highlightFillPainter = new MatteTonalFillPainter();
-        this.highlightBorderPainter = new FlatTonalBorderPainter();
+        this.borderPainter = new FlatBorderPainter();
+        this.highlightFillPainter = new MatteFillPainter();
+        this.highlightBorderPainter = new FlatBorderPainter();
     }
 }

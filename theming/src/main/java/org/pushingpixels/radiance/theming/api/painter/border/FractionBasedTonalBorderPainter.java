@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.border;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.FractionBasedTonalPainter;
+import org.pushingpixels.radiance.theming.api.painter.FractionBasedPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowButton;
@@ -45,7 +45,7 @@ import java.awt.MultipleGradientPaint.CycleMethod;
  *
  * @author Kirill Grouchnikov
  */
-public class FractionBasedTonalBorderPainter extends FractionBasedTonalPainter
+public class FractionBasedTonalBorderPainter extends FractionBasedPainter
 		implements RadianceBorderPainter {
 	/**
 	 * Creates a new fraction-based border painter.

@@ -38,8 +38,8 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
  *
  * @author Kirill Grouchnikov
  */
-public class FlatTonalBorderPainter extends FractionBasedTonalBorderPainter {
-	public FlatTonalBorderPainter() {
+public class FlatBorderPainter extends FractionBasedTonalBorderPainter {
+	public FlatBorderPainter() {
 		super(
             "Flat",
             new float[]{0.0f, 1.0f},

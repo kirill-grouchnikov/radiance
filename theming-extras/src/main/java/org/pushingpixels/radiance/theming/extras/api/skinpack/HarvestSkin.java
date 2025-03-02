@@ -36,13 +36,13 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -170,7 +170,7 @@ public class HarvestSkin extends RadianceSkin {
         // edges of toolbars
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-        this.addOverlayPainter(new BottomLineTonalOverlayPainter(
+        this.addOverlayPainter(new BottomLineOverlayPainter(
                 ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
@@ -178,20 +178,20 @@ public class HarvestSkin extends RadianceSkin {
         // edges of footers
         this.addOverlayPainter(TopShadowOverlayPainter.getInstance(15),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
-        this.addOverlayPainter(new TopLineTonalOverlayPainter(
+        this.addOverlayPainter(new TopLineOverlayPainter(
                 ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new MatteTonalFillPainter();
+        this.fillPainter = new MatteFillPainter();
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightFillPainter = new MatteTonalFillPainter();
+        this.highlightFillPainter = new MatteFillPainter();
         this.borderPainter = new FractionBasedTonalBorderPainter("Harvest",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerOutlineVariant,
                 ContainerColorTokens::getContainerOutlineVariant});
 
-        this.highlightBorderPainter = new FlatTonalBorderPainter();
+        this.highlightBorderPainter = new FlatBorderPainter();
     }
 }

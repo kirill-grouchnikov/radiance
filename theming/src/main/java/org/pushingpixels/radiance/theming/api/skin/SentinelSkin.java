@@ -35,12 +35,12 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -211,7 +211,7 @@ public class SentinelSkin extends RadianceSkin {
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
         this.addOverlayPainter(
-            new BottomLineTonalOverlayPainter(ContainerColorTokens::getContainerOutline),
+            new BottomLineOverlayPainter(ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // Add overlay painters to paint drop shadow and a dark line along the top
@@ -219,14 +219,14 @@ public class SentinelSkin extends RadianceSkin {
         this.addOverlayPainter(TopShadowOverlayPainter.getInstance(15),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
         this.addOverlayPainter(
-            new TopLineTonalOverlayPainter(ContainerColorTokens::getContainerOutline),
+            new TopLineOverlayPainter(ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new MatteTonalFillPainter();
+        this.fillPainter = new MatteFillPainter();
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightFillPainter = new MatteTonalFillPainter();
-        this.borderPainter = new FlatTonalBorderPainter();
-        this.highlightBorderPainter = new FlatTonalBorderPainter();
+        this.highlightFillPainter = new MatteFillPainter();
+        this.borderPainter = new FlatBorderPainter();
+        this.highlightBorderPainter = new FlatBorderPainter();
     }
 }

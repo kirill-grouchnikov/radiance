@@ -40,12 +40,12 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.palette.BimodalPaletteResolverUtils
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils.FidelityDirectPaletteSource
@@ -65,22 +65,22 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
 
     init {
         val bottomLineOverlayPainter =
-            BottomLineTonalOverlayPainter(ContainerColorTokens::getContainerOutline)
+            BottomLineOverlayPainter(ContainerColorTokens::getContainerOutline)
         this.addOverlayPainter(bottomLineOverlayPainter,
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
 
         this.buttonShaper = ClassicButtonShaper()
-        this.fillPainter = SpecularRectangularFillPainter(ClassicTonalFillPainter(), 1.0f)
-        this.borderPainter = FlatTonalBorderPainter()
+        this.fillPainter = SpecularRectangularFillPainter(ClassicFillPainter(), 1.0f)
+        this.borderPainter = FlatBorderPainter()
 
         val decorationPainter = MarbleNoiseDecorationPainter()
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())
         decorationPainter.setTextureAlpha(config.headerTextureAlpha)
         this.decorationPainter = decorationPainter
 
-        this.highlightFillPainter = ClassicTonalFillPainter()
+        this.highlightFillPainter = ClassicFillPainter()
 
         val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaColorScheme)
         defaultSchemeBundle.registerActiveContainerTokens(getSelectedTokens(config),

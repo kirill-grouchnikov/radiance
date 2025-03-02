@@ -37,9 +37,9 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -317,11 +317,11 @@ public class SampleMenuFactory {
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
-            this.borderPainter = new FlatTonalBorderPainter();
-            this.fillPainter = new GlassTonalFillPainter();
+            this.borderPainter = new FlatBorderPainter();
+            this.fillPainter = new GlassFillPainter();
             this.buttonShaper = new ClassicButtonShaper();
             this.decorationPainter = new ArcDecorationPainter();
-            this.highlightFillPainter = new GlassTonalFillPainter();
+            this.highlightFillPainter = new GlassFillPainter();
         }
     }
 

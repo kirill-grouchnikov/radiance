@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteTonalFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -242,7 +242,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
 
         Graphics2D graphics1Xextra = (Graphics2D) graphics1X.create();
 
-        RadianceFillPainter fillPainter = new MatteTonalFillPainter();
+        RadianceFillPainter fillPainter = new MatteFillPainter();
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
 
         int componentFontSize = RadianceSizeUtils.getComponentFontSize(this.slider);

@@ -33,23 +33,26 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
- * Fill painter that draws visuals with matte appearance. This class is part
+ * Fill painter that draws visuals with glass appearance. This class is part
  * of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class MatteTonalFillPainter extends FractionBasedTonalFillPainter {
+public class GlassFillPainter extends FractionBasedFillPainter {
 	/**
-	 * Creates a new matte fill painter.
+	 * Creates a new classic gradient painter.
 	 */
-	public MatteTonalFillPainter() {
-		super("Matte",
-			new float[] {0.0f, 0.25f, 1.0f},
+	public GlassFillPainter() {
+		super("Glass",
+			new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
+				ContainerColorTokens::getContainerSurface,
 				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
 					: colorTokens.getContainerSurfaceLow(),
-				ContainerColorTokens::getContainerSurface,
-				ContainerColorTokens::getContainerSurface
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
+					: colorTokens.getContainerSurfaceHigh(),
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
+					: colorTokens.getContainerSurfaceHigh()
 			}
 		);
 	}

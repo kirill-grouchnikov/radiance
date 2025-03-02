@@ -37,16 +37,16 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedTonalFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelTonalOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.PaletteResolverUtils;
@@ -139,13 +139,13 @@ public class NightShadeSkin extends RadianceSkin {
 
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
-        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineTonalOverlayPainter(
+        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutlineVariant);
         this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
-        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelTonalOverlayPainter(
+        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
             ContainerColorTokens::getContainerOutlineVariant,
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getInverseContainerOutline,
@@ -153,7 +153,7 @@ public class NightShadeSkin extends RadianceSkin {
         this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedTonalFillPainter("Night Shade",
+        this.fillPainter = new FractionBasedFillPainter("Night Shade",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceLow,
@@ -161,10 +161,10 @@ public class NightShadeSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface});
 
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightFillPainter = new ClassicTonalFillPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
 
         this.borderPainter = new CompositeBorderPainter("Night Shade",
-            new ClassicTonalBorderPainter(),
+            new ClassicBorderPainter(),
             new FractionBasedTonalBorderPainter("Night Shade Inner",
                 new float[]{0.0f, 1.0f},
                 new int[] {32, 12},
