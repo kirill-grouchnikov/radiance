@@ -51,7 +51,7 @@ import java.util.Set;
  * 
  * @author Kirill Grouchnikov
  */
-public class FractionBasedTonalDecorationPainter extends FractionBasedPainter
+public class FractionBasedDecorationPainter extends FractionBasedPainter
 		implements RadianceDecorationPainter {
 	private Set<RadianceThemingSlices.DecorationAreaType> decoratedAreas;
 
@@ -68,7 +68,7 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedPainter
 	 *            the fractions array, and all entries must be non-
 	 *            <code>null</code>.
 	 */
-	public FractionBasedTonalDecorationPainter(String displayName,
+	public FractionBasedDecorationPainter(String displayName,
 			float[] fractions, ContainerColorTokensSingleColorQuery[] colorQueries) {
 		this(displayName, fractions, colorQueries,
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
@@ -92,7 +92,7 @@ public class FractionBasedTonalDecorationPainter extends FractionBasedPainter
 	 *            queries. All the rest will be filled with a solid color from
 	 *            the background color scheme of the matching decoration area.
 	 */
-	public FractionBasedTonalDecorationPainter(String displayName,
+	public FractionBasedDecorationPainter(String displayName,
 			float[] fractions, ContainerColorTokensSingleColorQuery[] colorQueries,
 			RadianceThemingSlices.DecorationAreaType... decorationAreas) {
 		super(displayName, fractions, colorQueries);

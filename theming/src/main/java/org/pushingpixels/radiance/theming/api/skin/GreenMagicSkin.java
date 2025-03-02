@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
@@ -160,7 +160,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurfaceLowest,
                 ContainerColorTokens::getContainerSurface,
                 ContainerColorTokens::getContainerSurface});
-        this.borderPainter = new ClassicBorderPainter();
+        this.borderPainter = new FlatBorderPainter();
         this.decorationPainter = new ArcDecorationPainter();
         this.highlightFillPainter = new ClassicFillPainter();
     }

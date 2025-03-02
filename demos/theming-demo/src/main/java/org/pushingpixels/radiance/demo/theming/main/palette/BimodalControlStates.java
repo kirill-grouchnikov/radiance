@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
@@ -120,7 +120,7 @@ public class BimodalControlStates extends JFrame {
 
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
-            this.borderPainter = new ClassicBorderPainter();
+            this.borderPainter = new FlatBorderPainter();
 
             ImageWrapperDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
             decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());

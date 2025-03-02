@@ -35,8 +35,8 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
@@ -104,7 +104,7 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		this.decorationPainter = new ArcDecorationPainter();
 		this.highlightFillPainter = new MatteFillPainter();
 		this.borderPainter = new CompositeBorderPainter("Creme",
-			new ClassicBorderPainter(),
+			new FlatBorderPainter(),
 			new FractionBasedTonalBorderPainter("Creme Inner",
 				new float[] {0.0f, 1.0f},
 				new ContainerColorTokensSingleColorQuery[] {

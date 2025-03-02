@@ -44,7 +44,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedTonalDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
@@ -321,7 +321,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
         this.borderPainter = new CompositeBorderPainter("Office Blue 2007",
             outerBorderPainter, innerBorderPainter);
 
-        this.decorationPainter = new FractionBasedTonalDecorationPainter(
+        this.decorationPainter = new FractionBasedDecorationPainter(
             "Office Blue 2007",
             new float[] {0.0f, 0.1199999f, 0.12f, 0.5f, 0.9f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {

@@ -39,8 +39,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatVariantBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.SubduedBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
@@ -221,7 +221,7 @@ public class AutumnSkin extends RadianceSkin {
 			ContainerColorTokens::getContainerSurfaceLow,
 			1.0f);
 		this.borderPainter = new CompositeBorderPainter("Autumn",
-			new SubduedBorderPainter(),
+			new FlatVariantBorderPainter(),
 			new FractionBasedTonalBorderPainter("Autumn Inner",
 				new float[] {0.0f, 1.0f},
 				new int[] {240, 240},

@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
@@ -139,7 +139,7 @@ public class ModerateSkin extends RadianceSkin {
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
-        this.borderPainter = new ClassicBorderPainter();
+        this.borderPainter = new FlatBorderPainter();
         this.decorationPainter = new MatteDecorationPainter();
         this.highlightFillPainter = new ClassicFillPainter();
     }

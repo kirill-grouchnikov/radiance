@@ -33,19 +33,19 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 /**
- * Border painter that draws visuals with classic appearance. This class is
- * part of officially supported API.
+ * Border painter that draws visuals with flat appearance using the container outline
+ * variant token. This class is part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */
-public class ClassicBorderPainter extends FractionBasedTonalBorderPainter {
-    public ClassicBorderPainter() {
+public class FlatVariantBorderPainter extends FractionBasedTonalBorderPainter {
+    public FlatVariantBorderPainter() {
         super(
-            "Classic",
+            "Flat Variant",
             new float[]{0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[]{
-                    ContainerColorTokens::getContainerOutline,
-                    ContainerColorTokens::getContainerOutline
+                ContainerColorTokens::getContainerOutlineVariant,
+                ContainerColorTokens::getContainerOutlineVariant
             }
         );
     }

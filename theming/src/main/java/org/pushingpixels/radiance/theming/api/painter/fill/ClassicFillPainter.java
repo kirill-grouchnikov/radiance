@@ -40,15 +40,17 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
  */
 public class ClassicFillPainter extends FractionBasedFillPainter {
 	/**
-	 * Creates a new classic gradient painter.
+	 * Creates a new classic fill painter.
 	 */
 	public ClassicFillPainter() {
 		super("Classic",
 			new float[] {0.0f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
-				ContainerColorTokens::getContainerSurfaceHigh,
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
+					: colorTokens.getContainerSurfaceHigh(),
 				ContainerColorTokens::getContainerSurface,
-				ContainerColorTokens::getContainerSurfaceLowest
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+					: colorTokens.getContainerSurfaceLowest()
 			}
 		);
 	}

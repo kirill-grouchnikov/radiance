@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
  */
 public class GlassFillPainter extends FractionBasedFillPainter {
 	/**
-	 * Creates a new classic gradient painter.
+	 * Creates a new glass gradient painter.
 	 */
 	public GlassFillPainter() {
 		super("Glass",
