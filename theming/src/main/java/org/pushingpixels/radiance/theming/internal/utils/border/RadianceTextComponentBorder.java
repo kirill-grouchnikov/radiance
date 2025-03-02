@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorToke
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -121,12 +122,16 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                         stateTransitionTracker.getModelStateInfo();
                     ComponentState currState = modelStateInfo.getCurrModelState();
                     if (currState.isDisabled()) {
-                        currState = ComponentState.DISABLED_SELECTED;
+                        currState = ComponentState.DISABLED_UNSELECTED;
                     }
 
                     BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                         false, false, RadianceThemingSlices.ContainerType.MUTED);
+                    if (currState.isDisabled()) {
+                        graphics1X.setComposite(WidgetUtilities.getAlphaComposite(c,
+                            mutableContainerTokens.containerOutlineDisabledAlpha, g));
+                    }
                     borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight,
                         new Rectangle(0, 0, scaledWidth - 1, scaledHeight - 1),
                         null, mutableContainerTokens);
@@ -143,50 +148,16 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                     currState, RadianceThemingSlices.ContainerType.MUTED);
 
+            if (currState.isDisabled()) {
+                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(c,
+                    mutableContainerTokens.containerOutlineDisabledAlpha, g));
+            }
+
             borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight,
                 new Rectangle(0, 0, scaledWidth - 1, scaledHeight - 1),
                 null, colorTokens);
         });
 
-//        JTextComponent componentForTransitions = RadianceCoreUtilities
-//            .getTextComponentForTransitions(c);
-//        if (componentForTransitions != null) {
-//            ComponentUI ui = componentForTransitions.getUI();
-//            if (ui instanceof TransitionAwareUI) {
-//                TransitionAwareUI trackable = (TransitionAwareUI) ui;
-//                StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
-//                StateTransitionTracker.ModelStateInfo modelStateInfo =
-//                        stateTransitionTracker.getModelStateInfo();
-//                ComponentState currState = modelStateInfo.getCurrModelState();
-//                if (currState.isDisabled()) {
-//                    currState = ComponentState.DISABLED_SELECTED;
-//                }
-//
-//                graphics.translate(x, y);
-//
-//                BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
-//                    currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-//                    false, false, RadianceThemingSlices.ContainerType.MUTED);
-//                borderPainter.paintBorder(g, c, width, height, new Rectangle(0, 0, width, height),
-//                    null, mutableContainerTokens);
-//
-//                graphics.dispose();
-//
-//                return;
-//            }
-//        }
-//
-//        ComponentState currState = isEnabled ? ComponentState.ENABLED
-//                : ComponentState.DISABLED_UNSELECTED;
-//
-//        ContainerColorTokens colorTokens =
-//            RadianceColorSchemeUtilities.getContainerTokens(c,
-//                RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-//                currState, RadianceThemingSlices.ContainerType.MUTED);
-//
-//        graphics.translate(x, y);
-//        borderPainter.paintBorder(g, c, width, height, new Rectangle(0, 0, width-1, height-1),
-//            null, colorTokens);
         graphics.dispose();
     }
 

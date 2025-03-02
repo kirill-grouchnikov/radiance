@@ -355,7 +355,7 @@ public class RadianceTextUtilities {
                     : tokens.getContainerSurfaceLowest();
 
                 backgroundFillColor = RadianceColorUtilities.getInterpolatedColor(
-                    backgroundFillColor, interpolateTowards, 1.0f - activeStrength);
+                    backgroundFillColor, interpolateTowards, 1.0f - activeStrength / 3.0f);
             }
         }
 
