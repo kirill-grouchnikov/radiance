@@ -27,40 +27,40 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.palette;
+package org.pushingpixels.radiance.theming.api.colorscheme;
 
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 
 import java.awt.*;
 
-public interface SchemeContainerColorsResolver {
-    Color getContainerSurfaceLowest(DynamicScheme dynamicScheme);
-    Color getContainerSurfaceLow(DynamicScheme dynamicScheme);
-    Color getContainerSurface(DynamicScheme dynamicScheme);
-    Color getContainerSurfaceHigh(DynamicScheme dynamicScheme);
-    Color getContainerSurfaceHighest(DynamicScheme dynamicScheme);
+public interface PaletteContainerColorsResolver {
+    Color getContainerSurfaceLowest(DynamicPalette dynamicPalette);
+    Color getContainerSurfaceLow(DynamicPalette dynamicPalette);
+    Color getContainerSurface(DynamicPalette dynamicPalette);
+    Color getContainerSurfaceHigh(DynamicPalette dynamicPalette);
+    Color getContainerSurfaceHighest(DynamicPalette dynamicPalette);
 
-    Color getContainerSurfaceDim(DynamicScheme dynamicScheme);
-    Color getContainerSurfaceBright(DynamicScheme dynamicScheme);
+    Color getContainerSurfaceDim(DynamicPalette dynamicPalette);
+    Color getContainerSurfaceBright(DynamicPalette dynamicPalette);
 
-    Color getOnContainer(DynamicScheme dynamicScheme);
-    Color getOnContainerVariant(DynamicScheme dynamicScheme);
+    Color getOnContainer(DynamicPalette dynamicPalette);
+    Color getOnContainerVariant(DynamicPalette dynamicPalette);
 
-    Color getContainerOutline(DynamicScheme dynamicScheme);
-    Color getContainerOutlineVariant(DynamicScheme dynamicScheme);
+    Color getContainerOutline(DynamicPalette dynamicPalette);
+    Color getContainerOutlineVariant(DynamicPalette dynamicPalette);
 
-    float getContainerSurfaceDisabledAlpha(DynamicScheme dynamicScheme);
-    float getOnContainerDisabledAlpha(DynamicScheme dynamicScheme);
-    float getContainerOutlineDisabledAlpha(DynamicScheme dynamicScheme);
+    float getContainerSurfaceDisabledAlpha(DynamicPalette dynamicPalette);
+    float getOnContainerDisabledAlpha(DynamicPalette dynamicPalette);
+    float getContainerOutlineDisabledAlpha(DynamicPalette dynamicPalette);
 
-    Color getInverseContainerSurface(DynamicScheme dynamicScheme);
-    Color getInverseOnContainer(DynamicScheme dynamicScheme);
-    Color getInverseContainerOutline(DynamicScheme dynamicScheme);
+    Color getInverseContainerSurface(DynamicPalette dynamicPalette);
+    Color getInverseOnContainer(DynamicPalette dynamicPalette);
+    Color getInverseContainerOutline(DynamicPalette dynamicPalette);
 
-    Color getComplementaryOnContainer(DynamicScheme dynamicScheme);
-    Color getComplementaryContainerOutline(DynamicScheme dynamicScheme);
+    Color getComplementaryOnContainer(DynamicPalette dynamicPalette);
+    Color getComplementaryContainerOutline(DynamicPalette dynamicPalette);
 
-    default SchemeContainerColorsResolver overlayWith(SchemeContainerColorsResolverOverlay overlay) {
-        return SchemeResolverUtils.overlayWith(this, overlay);
+    default PaletteContainerColorsResolver overlayWith(PaletteContainerColorsResolverOverlay overlay) {
+        return PaletteResolverUtils.overlayWith(this, overlay);
     }
 }

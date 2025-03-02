@@ -35,7 +35,7 @@
 package org.pushingpixels.radiance.theming.internal.utils.filters;
 
 import org.pushingpixels.radiance.common.api.filter.RadianceAbstractFilter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.HashMapKey;
 import org.pushingpixels.radiance.theming.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;

@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorS
 import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelectorComponent;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;

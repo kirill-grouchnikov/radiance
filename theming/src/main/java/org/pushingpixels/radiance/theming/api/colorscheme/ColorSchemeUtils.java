@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.palette;
+package org.pushingpixels.radiance.theming.api.colorscheme;
 
 import org.pushingpixels.ephemeral.chroma.blend.Blend;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
@@ -38,7 +38,6 @@ import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.plaf.UIResource;

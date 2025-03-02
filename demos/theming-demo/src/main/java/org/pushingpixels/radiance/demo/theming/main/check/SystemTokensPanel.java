@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.*;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

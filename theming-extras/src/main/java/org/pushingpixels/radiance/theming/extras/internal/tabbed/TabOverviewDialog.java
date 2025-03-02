@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelin
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.extras.api.RadianceExtrasSlices.TabOverviewKind;
 import org.pushingpixels.radiance.theming.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.radiance.theming.extras.internal.contrib.blogofbug.swing.components.JCarosel;

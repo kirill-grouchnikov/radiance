@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 
 import java.util.HashMap;
 import java.util.Map;

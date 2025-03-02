@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.colorscheme;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
 
 public interface RadianceColorScheme {
     ContainerColorTokens getNeutralContainerTokens();
