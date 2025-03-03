@@ -251,22 +251,20 @@ public class RadianceTreeUI extends BasicTreeUI {
 				: modelStateInfo.getCurrModelState());
 
 		// Compute the alpha values for the animation.
-		boolean hasHighlights = false;
-		if (renderer.isEnabled()) {
-			if (activeStates != null) {
-				for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
-					: activeStates.entrySet()) {
-					ComponentState activeState = stateEntry.getKey();
-					hasHighlights = ((activeState != ComponentState.ENABLED) &&
-						(activeState != ComponentState.DISABLED_UNSELECTED) &&
-						(stateEntry.getValue().getContribution() > 0.0f));
-					if (hasHighlights)
-						break;
-				}
-			} else {
-				hasHighlights = (currState != ComponentState.ENABLED) &&
-					(currState != ComponentState.DISABLED_UNSELECTED);
+		boolean hasHighlights = (currState != ComponentState.ENABLED) || (activeStates != null);
+		if (activeStates != null) {
+			for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry :
+				activeStates.entrySet()) {
+				ComponentState activeState = stateEntry.getKey();
+				hasHighlights = ((activeState != ComponentState.ENABLED) &&
+					(activeState != ComponentState.DISABLED_UNSELECTED) &&
+					(stateEntry.getValue().getContribution() > 0.0f));
+				if (hasHighlights)
+					break;
 			}
+		} else {
+			hasHighlights = (currState != ComponentState.ENABLED) &&
+				(currState != ComponentState.DISABLED_UNSELECTED);
 		}
 
 		// System.out.println(row + ":" + prevTheme.getDisplayName() + "["
@@ -285,7 +283,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 				tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				currState, RadianceThemingSlices.ContainerType.NEUTRAL);
 			HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer, rowRectangle,
-				0.8f, null, colorTokens);
+				currState, 1.0f, true, null, colorTokens);
 		} else {
 			if (hasHighlights) {
 				if (activeStates == null) {
@@ -296,7 +294,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 						// Fix for defect 180 - painting the
 						// highlight beneath the entire row
 						HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
-							rowRectangle, 0.8f, null, colorTokens);
+							rowRectangle, currState, 1.0f, true, null, colorTokens);
 					}
 				} else {
 					for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
@@ -310,13 +308,11 @@ public class RadianceTreeUI extends BasicTreeUI {
 						ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
 							this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 							activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
-						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree,
-							stateEntry.getValue().getContribution(), g));
 						// Fix for defect 180 - painting the
 						// highlight beneath the entire row
 						HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
-							rowRectangle, 0.8f, null, colorTokens);
-						g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tree, g));
+							rowRectangle, activeState, stateEntry.getValue().getContribution(), true,
+							null, colorTokens);
 					}
 				}
 			}

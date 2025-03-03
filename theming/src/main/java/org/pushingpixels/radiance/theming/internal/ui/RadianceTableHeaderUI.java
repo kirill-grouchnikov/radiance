@@ -603,7 +603,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                         this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.MUTED);
                     HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
-                        cellRect, 0.8f, null, colorTokens);
+                        cellRect, currState, 1.0f, true, null, colorTokens);
                     g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));
                 }
             } else {
@@ -618,11 +618,9 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                     ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
                         this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         activeState, RadianceThemingSlices.ContainerType.MUTED);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header,
-                        stateEntry.getValue().getContribution(), g));
                     HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
-                        cellRect, 0.8f, null, colorTokens);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, g));
+                        cellRect, activeState, stateEntry.getValue().getContribution(), true,
+                        null, colorTokens);
                 }
             }
         }
@@ -672,7 +670,8 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
         // table header background
         ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(c,
             backgroundState, RadianceThemingSlices.ContainerType.MUTED);
-        HighlightPainterUtils.paintHighlight(g, null, c, clip, 0.0f, null, tokens);
+        HighlightPainterUtils.paintHighlight(g, null, c, clip, backgroundState, 1.0f, false,
+            null, tokens);
         Graphics2D g2d = (Graphics2D) g.create();
         RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
         paint(g2d, c);
@@ -795,7 +794,8 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                 backgroundState, RadianceThemingSlices.ContainerType.MUTED);
 
             HighlightPainterUtils.paintHighlight(g2d, null, this.header,
-                new Rectangle(0, 0, this.getWidth(), this.getHeight()), 0.0f, null, tokens);
+                new Rectangle(0, 0, this.getWidth(), this.getHeight()), backgroundState,
+                1.0f, false, null, tokens);
 
             g2d.setColor(getGridColor(this.header));
             float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this.header);

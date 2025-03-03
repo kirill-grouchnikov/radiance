@@ -608,7 +608,7 @@ public class MenuUtilities {
         // paint menu background
         paintBackground(g2d, menuItem);
         // paint menu highlight
-        RadianceMenuBackgroundDelegate.paintHighlights(g2d, menuItem, 0.5f);
+        RadianceMenuBackgroundDelegate.paintHighlights(g2d, menuItem);
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) menuItem.getUI();
         StateTransitionTracker stateTracker = transitionAwareUI.getTransitionTracker();

@@ -30,11 +30,12 @@
 package org.pushingpixels.radiance.theming.internal.painter;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -57,13 +58,15 @@ public class HighlightPainterUtils {
      * @param rendererPane Renderer pane. Can be <code>null</code>.
      * @param c            Component.
      * @param rect         Rectangle to highlight.
-     * @param borderAlpha  Border alpha.
+     * @param state        Component state.
+     * @param alpha        Alpha.
      * @param openSides    The sides specified in this set will not be painted. Can be <code>null</code> or
      *                     empty.
      * @param colorTokens  The fill tokens to use.
      */
     public static void paintHighlight(Graphics g, CellRendererPane rendererPane, Component c,
-        Rectangle rect, float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
+        Rectangle rect, ComponentState state, float alpha, boolean paintHighlightBorders,
+        Set<RadianceThemingSlices.Side> openSides,
         ContainerColorTokens colorTokens) {
         // fix for bug 65
         if ((rect.width <= 0) || (rect.height <= 0)) {
@@ -80,20 +83,39 @@ public class HighlightPainterUtils {
         if (openSides == null) {
             openSides = EnumSet.noneOf(RadianceThemingSlices.Side.class);
         }
-        paintHighlight(g2d, c, rect, borderAlpha, openSides, colorTokens,
+        paintHighlight(g2d, c, rect, state, alpha, paintHighlightBorders, openSides, colorTokens,
             highlightPainter, highlightBorderPainter);
         g2d.dispose();
     }
 
     private static void paintHighlight(Graphics g, Component c, Rectangle rect,
-        float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
+        ComponentState state, float alpha, boolean paintHighlightBorders,
+        Set<RadianceThemingSlices.Side> openSides,
         ContainerColorTokens colorTokens, RadianceFillPainter highlightPainter,
         RadianceBorderPainter highlightBorderPainter) {
+
         Graphics2D g2d = (Graphics2D) g.create();
+
+        // Fill
+        float fillAlpha = alpha;
+        if (state.isDisabled()) {
+            fillAlpha *= colorTokens.getContainerSurfaceDisabledAlpha();
+        }
+        g2d.setComposite(WidgetUtilities.getAlphaComposite(c, fillAlpha, g));
         highlightPainter.paintContourBackground(g2d, c, rect.width, rect.height, rect, colorTokens);
-        g2d.translate(rect.x, rect.y);
-        paintHighlightBorder1X(g2d, c, rect.width, rect.height, borderAlpha, openSides,
-            highlightBorderPainter, colorTokens);
+
+        // Border
+        if (paintHighlightBorders) {
+            g2d.translate(rect.x, rect.y);
+            float borderAlpha = alpha;
+            if (state.isDisabled()) {
+                borderAlpha *= colorTokens.getContainerOutlineDisabledAlpha();
+            }
+            g2d.setComposite(WidgetUtilities.getAlphaComposite(c, borderAlpha, g));
+            paintHighlightBorder1X(g2d, c, rect.width, rect.height, 1.0f, openSides,
+                highlightBorderPainter, colorTokens);
+        }
+
         g2d.dispose();
     }
 

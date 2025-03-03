@@ -79,11 +79,8 @@ public class UpdateOptimizationInfo {
         return result;
     }
 
-    public float getHighlightAlpha(ComponentState state) {
-        if ((state == ComponentState.ENABLED) || (state == ComponentState.DISABLED_UNSELECTED)) {
-            return 0.0f;
-        }
-        return 1.0f;
+    public boolean showHighlightAlpha(ComponentState state) {
+        return (state != ComponentState.ENABLED) && (state != ComponentState.DISABLED_UNSELECTED);
     }
 
     public ContainerColorTokens getDefaultColorTokens() {

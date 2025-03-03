@@ -122,10 +122,8 @@ public class RadianceMenuBackgroundDelegate {
 	 *            Graphics context.
 	 * @param menuItem
 	 *            Menu item.
-	 * @param borderAlpha
-	 *            Alpha channel for painting the border.
 	 */
-	public static void paintHighlights(Graphics g, JMenuItem menuItem, float borderAlpha) {
+	public static void paintHighlights(Graphics g, JMenuItem menuItem) {
 		Graphics2D graphics = (Graphics2D) g.create();
 
 		TransitionAwareUI transitionAwareUI = (TransitionAwareUI) menuItem.getUI();
@@ -168,15 +166,13 @@ public class RadianceMenuBackgroundDelegate {
 				continue;
 			}
 
-			graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, alpha, g));
 			ContainerColorTokens colorTokens =
 				RadianceColorSchemeUtilities.getContainerTokens(
 					menuItem, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 					activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
 			HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
-				new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
-				null, colorTokens);
-			graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, g));
+				new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()),
+				activeState, alpha, true, null, colorTokens);
 		}
 
 		graphics.dispose();

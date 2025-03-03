@@ -532,21 +532,18 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
         ComponentState currState = ((modelStateInfo == null) ? getCellState(row, rendererComponent)
                 : modelStateInfo.getCurrModelState());
 
-        // if the renderer is disabled, do not show any highlights
-        boolean hasHighlights = false;
-        if (rendererComponent.isEnabled()) {
-            if (activeStates != null) {
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
-                    : activeStates.entrySet()) {
-                    hasHighlights = (this.updateInfo.getHighlightAlpha(stateEntry.getKey())
-                            * stateEntry.getValue().getContribution() > 0.0f);
-                    if (hasHighlights) {
-                        break;
-                    }
-                }
-            } else {
-                hasHighlights = (this.updateInfo.getHighlightAlpha(currState) > 0.0f);
+        boolean hasHighlights = (currState != ComponentState.ENABLED) || (activeStates != null);
+        if (activeStates != null) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
+                : activeStates.entrySet()) {
+                ComponentState activeState = stateEntry.getKey();
+                hasHighlights = this.updateInfo.showHighlightAlpha(activeState) &&
+                    (stateEntry.getValue().getContribution() > 0.0f);
+                if (hasHighlights)
+                    break;
             }
+        } else {
+            hasHighlights = this.updateInfo.showHighlightAlpha(currState);
         }
 
         JList.DropLocation dropLocation = list.getDropLocation();
@@ -558,34 +555,31 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
                     currState, RadianceThemingSlices.ContainerType.NEUTRAL);
             Rectangle cellRect = new Rectangle(cx, cy, cw, ch);
             HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererComponent,
-                cellRect, 0.8f, null, colorTokens);
+                cellRect, currState, 1.0f, true, null, colorTokens);
         } else {
             if (hasHighlights) {
                 Rectangle cellRect = new Rectangle(cx, cy, cw, ch);
                 if (activeStates == null) {
-                    float alpha = this.updateInfo.getHighlightAlpha(currState);
-                    if (alpha > 0.0f) {
+                    if (this.updateInfo.showHighlightAlpha(currState)) {
                         ContainerColorTokens colorTokens =
                             this.updateInfo.getHighlightColorTokens(currState);
-                        g2d.setComposite(WidgetUtilities.getAlphaComposite(list, alpha, g));
                         HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
-                            rendererComponent, cellRect, 0.8f, null, colorTokens);
-                        g2d.setComposite(WidgetUtilities.getAlphaComposite(list, g));
+                            rendererComponent, cellRect, currState, 1.0f, true, null, colorTokens);
                     }
                 } else {
-                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry :
-                        activeStates.entrySet()) {
+                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry
+                        : activeStates.entrySet()) {
                         ComponentState activeState = stateEntry.getKey();
-                        float alpha = this.updateInfo.getHighlightAlpha(activeState)
-                                * stateEntry.getValue().getContribution();
-                        if (alpha == 0.0f)
+                        float activeContribution = stateEntry.getValue().getContribution();
+                        if (!this.updateInfo.showHighlightAlpha(activeState) ||
+                            (activeContribution == 0.0f)) {
                             continue;
+                        }
                         ContainerColorTokens colorTokens =
                             this.updateInfo.getHighlightColorTokens(activeState);
-                        g2d.setComposite(WidgetUtilities.getAlphaComposite(list, alpha, g));
                         HighlightPainterUtils.paintHighlight(g2d, this.rendererPane,
-                            rendererComponent, cellRect, 0.8f, null, colorTokens);
-                        g2d.setComposite(WidgetUtilities.getAlphaComposite(list, g));
+                            rendererComponent, cellRect, activeState, activeContribution,
+                            true, null, colorTokens);
                     }
                 }
             }
