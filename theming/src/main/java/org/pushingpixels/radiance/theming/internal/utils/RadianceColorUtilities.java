@@ -184,17 +184,6 @@ public class RadianceColorUtilities {
     }
 
     /**
-     * Inverts the specified color.
-     *
-     * @param color The original color.
-     * @return The inverted color.
-     */
-    public static Color invertColor(Color color) {
-        return new Color(255 - color.getRed(), 255 - color.getGreen(),
-                255 - color.getBlue(), color.getAlpha());
-    }
-
-    /**
      * Returns a negative of the specified color.
      *
      * @param rgb Color RGB.
@@ -246,29 +235,6 @@ public class RadianceColorUtilities {
             sat = sat + (float) factor * sat;
         }
         return new Color(Color.HSBtoRGB(hsbvals[0], sat, hsbvals[2]));
-    }
-
-    /**
-     * Derives a color based on the original color and a brightness source. The
-     * resulting color has the same hue and saturation as the original color,
-     * but its brightness is shifted towards the brightness of the brightness
-     * source. Thus, a light red color shifted towards dark green will become
-     * dark red.
-     *
-     * @param original         Original color.
-     * @param brightnessSource Brightness source.
-     * @return Derived color that has the same hue and saturation as the
-     * original color, but its brightness is shifted towards the
-     * brightness of the brightness source.
-     */
-    public static Color deriveByBrightness(Color original, Color brightnessSource) {
-        float[] hsbvalsOrig = new float[3];
-        Color.RGBtoHSB(original.getRed(), original.getGreen(), original.getBlue(), hsbvalsOrig);
-        float[] hsbvalsBrightnessSrc = new float[3];
-        Color.RGBtoHSB(brightnessSource.getRed(), brightnessSource.getGreen(),
-                brightnessSource.getBlue(), hsbvalsBrightnessSrc);
-        return new Color(Color.HSBtoRGB(hsbvalsOrig[0], hsbvalsOrig[1],
-                (hsbvalsBrightnessSrc[2] + hsbvalsOrig[2]) / 2.0f));
     }
 
     public static Color deriveByBrightness(Color original, float brightnessFactor) {
