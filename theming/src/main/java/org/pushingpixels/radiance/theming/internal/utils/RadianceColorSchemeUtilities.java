@@ -154,32 +154,6 @@ public class RadianceColorSchemeUtilities {
     }
 
     /**
-     * Returns the color scheme of the component.
-     *
-     * @param component       Component.
-     * @param associationKind Association kind.
-     * @param componentState  Component state.
-     * @return Component color scheme.
-     */
-    public static ContainerColorTokens getDirectContainerTokens(Component component,
-        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
-        // special case - if the component is marked as flat and
-        // it is in the enabled state, get the color scheme of the parent.
-        // However, flat toolbars should be ignored, since they are
-        // the "top" level decoration area.
-        if (!(component instanceof JToolBar)
-            && RadianceCoreUtilities.hasFlatAppearance(component, false)
-            && (componentState == ComponentState.ENABLED)) {
-            component = component.getParent();
-        }
-
-        ContainerColorTokens nonColorized = RadianceCoreUtilities.getSkin(component)
-            .getDirectContainerTokens(component, associationKind, componentState, inactiveContainerType);
-        return ColorSchemeUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
-    }
-
-    /**
      * Returns the active color scheme of the component.
      *
      * @param component      Component.

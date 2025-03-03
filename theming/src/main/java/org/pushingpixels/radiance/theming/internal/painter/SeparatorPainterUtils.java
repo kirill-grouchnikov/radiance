@@ -136,7 +136,7 @@ public class SeparatorPainterUtils {
         if (isParentAPopup) {
             // For separators in popups, first see if we have a color
             // scheme explicitly registered for the SEPARATOR association kind.
-            colorTokens = RadianceColorSchemeUtilities.getDirectContainerTokens(c,
+            colorTokens = RadianceColorSchemeUtilities.getContainerTokens(c,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                 ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
             if (colorTokens == null) {

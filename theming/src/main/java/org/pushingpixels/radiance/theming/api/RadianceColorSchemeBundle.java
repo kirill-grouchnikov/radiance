@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -168,20 +168,18 @@ public class RadianceColorSchemeBundle {
                 // If we're here, the component state is guaranteed to be active due to restrictions
                 // in registerActiveContainerTokens
                 return registered;
+            } else {
+                return this.mainColorScheme.getContainerTokensForState(componentState);
             }
         }
 
-        if (componentState == ComponentState.ENABLED) {
-            ContainerColorTokens registered = this.colorTokensForEnabledState.get(
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT);
-            if (registered != null) {
-                return registered;
-            }
+        ContainerColorTokens registered = this.colorTokensForEnabledState.get(
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT);
+        if (registered != null) {
+            return registered;
+        } else {
+            return this.mainColorScheme.getContainerTokens(inactiveContainerType);
         }
-
-        return componentState.isActive()
-            ? this.mainColorScheme.getContainerTokensForState(componentState)
-            : this.mainColorScheme.getContainerTokens(inactiveContainerType);
     }
 
     public ContainerColorTokens getSystemContainerTokens(
@@ -237,7 +235,7 @@ public class RadianceColorSchemeBundle {
      */
     public ContainerColorTokens getContainerTokens(
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        ComponentState componentState, boolean allowFallback,
+        ComponentState componentState,
         RadianceThemingSlices.ContainerType inactiveContainerType) {
 
         if (associationKind == RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT) {
@@ -247,7 +245,7 @@ public class RadianceColorSchemeBundle {
         if (componentState.isDisabled()) {
             // Use the enabled match, and alpha will be applied during rendering
             return getContainerTokens(associationKind, componentState.getEnabledMatch(),
-                allowFallback, inactiveContainerType);
+                inactiveContainerType);
         }
 
         if (componentState.isActive()) {
@@ -267,13 +265,9 @@ public class RadianceColorSchemeBundle {
             }
         }
 
-        if (!allowFallback) {
-            return null;
-        }
-
         RadianceThemingSlices.ContainerColorTokensAssociationKind fallback = associationKind.getFallback();
         if (fallback != null) {
-            return getContainerTokens(fallback, componentState, allowFallback, inactiveContainerType);
+            return getContainerTokens(fallback, componentState, inactiveContainerType);
         }
 
         return getContainerTokens(componentState, inactiveContainerType);

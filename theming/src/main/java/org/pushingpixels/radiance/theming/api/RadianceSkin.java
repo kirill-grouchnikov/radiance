@@ -606,41 +606,11 @@ public abstract class RadianceSkin implements RadianceTrait {
                 : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
                 return this.tonalColorSchemeMap.get(decorationAreaType).getContainerTokens(
-                    associationKind, componentState, true, inactiveContainerType);
+                    associationKind, componentState, inactiveContainerType);
             }
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getContainerTokens(associationKind, componentState, true, inactiveContainerType);
-    }
-
-    /**
-     * Returns the color scheme to be used for painting the specified visual
-     * area of the component under the specified component state.
-     *
-     * @param comp            Component.
-     * @param associationKind Color scheme association kind.
-     * @param componentState  Component state.
-     * @return Color scheme to be used for painting the specified visual area of
-     * the component under the specified component state.
-     */
-    public final ContainerColorTokens getDirectContainerTokens(Component comp,
-        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
-        // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
-        if (this.tonalColorSchemeMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                RadianceThemingCortex.ComponentOrParentChainScope
-                .getDecorationType(comp);
-            if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-                return this.tonalColorSchemeMap.get(decorationAreaType)
-                    .getContainerTokens(associationKind, componentState, false, inactiveContainerType);
-            } else {
-                return null;
-            }
-        }
-        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getContainerTokens(associationKind, componentState, false, inactiveContainerType);
+            .getContainerTokens(associationKind, componentState, inactiveContainerType);
     }
 
     /**
