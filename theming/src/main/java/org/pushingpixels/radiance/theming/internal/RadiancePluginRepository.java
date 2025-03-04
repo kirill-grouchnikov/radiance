@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.internal;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingComponentPlugin;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingComponentPlugin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSkinPlugin;
 import org.pushingpixels.radiance.theming.internal.plugin.BaseSkinPlugin;
 import org.pushingpixels.radiance.theming.internal.plugin.ColorChooserPlugin;

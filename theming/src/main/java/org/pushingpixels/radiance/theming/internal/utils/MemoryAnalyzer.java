@@ -38,8 +38,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * Tracer for memory usage patterns of <b>Radiance</b> look-and-feel. The

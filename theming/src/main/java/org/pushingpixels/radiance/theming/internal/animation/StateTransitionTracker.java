@@ -29,13 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.internal.animation;
 
-import org.pushingpixels.radiance.common.api.UiThreadingViolationException;
-import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.renderer.RadianceRenderer;
-import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
@@ -43,6 +36,13 @@ import org.pushingpixels.radiance.animation.api.callback.TimelineCallback;
 import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.common.api.UiThreadingViolationException;
+import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.renderer.RadianceRenderer;
+import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;

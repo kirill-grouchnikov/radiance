@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.internal.painter;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 
 import java.awt.*;

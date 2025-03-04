@@ -43,8 +43,8 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * @author Romain Guy <romain.guy@mac.com>

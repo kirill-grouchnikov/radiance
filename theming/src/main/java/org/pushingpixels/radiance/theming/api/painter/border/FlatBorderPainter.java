@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.border;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 
 /**
  * Border painter that draws visuals with flat appearance using the container outline

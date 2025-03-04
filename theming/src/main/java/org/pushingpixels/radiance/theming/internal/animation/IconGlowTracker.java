@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.internal.animation;
 
-import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 
 import java.awt.*;
 

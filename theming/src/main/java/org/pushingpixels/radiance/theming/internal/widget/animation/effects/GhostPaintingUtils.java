@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.internal.widget.animation.effects;
 
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
-import org.pushingpixels.radiance.animation.api.Timeline;
-import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 
 import javax.swing.*;
 import java.awt.*;

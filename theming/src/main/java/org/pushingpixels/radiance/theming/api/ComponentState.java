@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 
 import javax.swing.*;
 import java.util.*;
