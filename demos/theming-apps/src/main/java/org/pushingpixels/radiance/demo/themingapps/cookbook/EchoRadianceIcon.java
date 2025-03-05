@@ -60,9 +60,9 @@ public class EchoRadianceIcon implements RadianceIcon {
         Gradient inverseGradient = new Gradient(
             new int[] { 0, 128, 255 },
             new int[] {
-                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceHighest().getRGB(),
-                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurface().getRGB(),
-                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceLowest().getRGB() });
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceHighest().getRGB(),
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurface().getRGB(),
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceLowest().getRGB() });
         // Can't use LookupFilter since it disregards the original alpha
         PointFilter inverseFilter = new PointFilter() {
             @Override

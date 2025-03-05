@@ -52,9 +52,9 @@ public class CookbookFillPainter implements RadianceFillPainter {
         this.delegate = new FractionBasedFillPainter("Cookbook Regular",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokens::getContainerSurfaceHighest,
+                ContainerColorTokens::getContainerSurfaceBright,
                 ContainerColorTokens::getContainerSurface,
-                ContainerColorTokens::getContainerSurfaceLowest});
+                ContainerColorTokens::getContainerSurfaceDim});
 
         this.flatDelegate = new FractionBasedFillPainter("Cookbook Flat",
             new float[] {0.0f, 0.5f, 1.0f},
@@ -92,7 +92,7 @@ public class CookbookFillPainter implements RadianceFillPainter {
                     g2d.setComposite(AlphaComposite.SrcOver.derive(0.3f));
                     int dx = comp.getLocationOnScreen().x;
                     int dy = comp.getLocationOnScreen().y;
-                    g2d.drawImage(watermark, -dx, -dy, null);
+                    //g2d.drawImage(watermark, -dx, -dy, null);
                 }
             }
         }

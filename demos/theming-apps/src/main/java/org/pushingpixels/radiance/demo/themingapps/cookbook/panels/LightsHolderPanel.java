@@ -45,26 +45,34 @@ public class LightsHolderPanel extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
-        float borderStrokeWidth = 1.0f / (float) RadianceCommonCortex.getScaleFactor(this);
-        g2d.setStroke(new BasicStroke(borderStrokeWidth));
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, getWidth(), getHeight(),
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                // dark line on the right-hand side
+                graphics1X.setStroke(new BasicStroke(1.0f));
 
-        LinearGradientPaint lgp = new LinearGradientPaint(0, 0, getWidth(), 0,
-                new float[] { 0.0f, 0.5f, 1.0f }, new Color[] { new Color(228, 228, 228),
-                                new Color(144, 144, 144), new Color(228, 228, 228) });
-        g2d.setPaint(lgp);
-        g2d.fillRect(0, 0, getWidth(), getHeight());
-        g2d.setColor(Color.black);
-        g2d.draw(new Rectangle2D.Float(0, -2, getWidth() - borderStrokeWidth,
-                getHeight() - borderStrokeWidth + 2));
+                LinearGradientPaint lgp = new LinearGradientPaint(0, 0, scaledWidth, 0,
+                    new float[] { 0.0f, 0.5f, 1.0f }, new Color[] { new Color(228, 228, 228),
+                    new Color(144, 144, 144), new Color(228, 228, 228) });
+                graphics1X.setPaint(lgp);
+                graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+                graphics1X.setColor(Color.black);
+                graphics1X.draw(new Rectangle2D.Float(0, -2, scaledWidth - 1,
+                    scaledHeight + 1));
 
-        LinearGradientPaint lgp2 = new LinearGradientPaint(0, 0, getWidth(), 0,
-                new float[] { 0.0f, 0.2f, 0.7f, 1.0f },
-                new Color[] { new Color(196, 196, 196), new Color(16, 16, 16),
-                                new Color(32, 32, 32), new Color(228, 228, 228) });
-        g2d.setPaint(lgp2);
-        g2d.draw(new Line2D.Float(borderStrokeWidth, getHeight() - borderStrokeWidth,
-                getWidth() - 2 * borderStrokeWidth, getHeight() - borderStrokeWidth));
-
+                LinearGradientPaint lgp2 = new LinearGradientPaint(0, 0, scaledWidth, 0,
+                    new float[] { 0.0f, 0.2f, 0.7f, 1.0f },
+                    new Color[] { new Color(196, 196, 196), new Color(16, 16, 16),
+                        new Color(32, 32, 32), new Color(228, 228, 228) });
+                graphics1X.setPaint(lgp2);
+                graphics1X.draw(new Line2D.Float(1, scaledHeight - 1,
+                    scaledWidth - 2, scaledHeight - 1));
+            }
+        );
         g2d.dispose();
     }
 

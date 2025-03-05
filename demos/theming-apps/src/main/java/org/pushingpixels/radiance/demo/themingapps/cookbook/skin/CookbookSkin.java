@@ -30,6 +30,8 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette;
+import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -89,9 +91,34 @@ public class CookbookSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(cookbookControlPaneDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
+        Hct cookbookHeaderPrimarySeed = Hct.fromInt(0xFF581000);
+
+        Hct cookbookHeaderMutedSeed1 = Hct.fromInt(0xFF813106);
+        Hct cookbookHeaderMutedSeed2 = Hct.fromInt(0xFFD08A2F);
+        double cookbookHeaderMutedSeedTone = (cookbookHeaderMutedSeed1.getTone() +
+            cookbookHeaderMutedSeed2.getTone()) / 2.0;
+        BimodalTonalPalette cookbookHeaderMutedPalette = BimodalTonalPalette.from(
+            /* hct1 */ cookbookHeaderMutedSeed1,
+            /* hct2 */ cookbookHeaderMutedSeed2,
+            /* transitionRange */ new BimodalTonalPalette.TransitionRangeFidelityDark(
+                cookbookHeaderMutedSeedTone));
+
+        Hct cookbookHeaderNeutralSeed1 = Hct.fromInt(0xFFA44D01);
+        Hct cookbookHeaderNeutralSeed2 = Hct.fromInt(0xFFC28A2B);
+        BimodalTonalPalette cookbookHeaderNeutralPalette = BimodalTonalPalette.from(
+            /* hct1 */ cookbookHeaderNeutralSeed1,
+            /* hct2 */ cookbookHeaderNeutralSeed2,
+            /* transitionRange */ new BimodalTonalPalette.TransitionRangeFidelityDark(
+                cookbookHeaderNeutralSeed2.getTone()));
+
         RadianceColorScheme cookbookHeaderColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFFA23F00), Hct.fromInt(0xFFB25406), Hct.fromInt(0xFFC6741D)),
+            /* palettesSource */ new ColorSchemeUtils.FidelityDirectPaletteSource(
+                /* primaryPalette */ TonalPalette.fromHct(cookbookHeaderPrimarySeed),
+                /* mutedPalette */ cookbookHeaderMutedPalette,
+                /* neutralPalette */ cookbookHeaderNeutralPalette,
+                /* primarySourceTone */ cookbookHeaderPrimarySeed.getTone(),
+                /* mutedSourceTone */ cookbookHeaderMutedSeedTone,
+                /* neutralSourceTone */ cookbookHeaderNeutralSeed2.getTone()),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ true,
             /* isTonalDark */ true,
@@ -99,70 +126,18 @@ public class CookbookSkin extends RadianceSkin {
             /* isNeutralDark */ true,
             /* isSystemDark */ true,
             /* primaryContrastLevel */ 0.0f,
-            /* tonalContrastLevel */ 0.6f,
-            /* mutedContrastLevel */ 0.6f,
-            /* neutralContrastLevel */ 0.6f,
+            /* tonalContrastLevel */ 1.0f,
+            /* mutedContrastLevel */ 1.0f,
+            /* neutralContrastLevel */ 1.0f,
             /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
         RadianceColorSchemeBundle cookbookHeaderDefaultBundle =
             new RadianceColorSchemeBundle(cookbookHeaderColorScheme);
         this.registerDecorationAreaSchemeBundle(cookbookHeaderDefaultBundle,
-            ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFC6741D),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isFidelity */ true,
-                /* isDark */ true),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
-
-//        RadianceColorScheme activeScheme = new ActiveScheme();
-//        RadianceColorScheme enabledScheme = new CremeColorScheme();
-//        RadianceColorScheme disabledScheme = new LightGrayColorScheme().tint(0.35)
-//                .named("Cookbook Disabled");
-//        RadianceColorScheme darkBrownColorScheme = new DarkBrownColorScheme();
-//        RadianceColorScheme goldenBrownScheme = new GoldenBrownColorScheme();
-//
-//        RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-//                activeScheme, enabledScheme, disabledScheme);
-//        // use darker borders on enabled components
-//        defaultSchemeBundle.registerColorScheme(goldenBrownScheme,
-//                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-//        defaultSchemeBundle.registerColorScheme(goldenBrownScheme,
-//                ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
-//        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-//            RadianceThemingSlices.DecorationAreaType.NONE);
-//
-//        RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
-//                darkBrownColorScheme, goldenBrownScheme, goldenBrownScheme);
-//        headerSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-//        headerSchemeBundle.registerColorScheme(goldenBrownScheme,
-//                ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-//        this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
-//            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-//            RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-//            RadianceThemingSlices.DecorationAreaType.HEADER,
-//            RadianceThemingSlices.DecorationAreaType.TOOLBAR,
-//            RadianceThemingSlices.DecorationAreaType.FOOTER);
-//
-//        // scheme bundle for the CONTROL_PANE area type
-//        RadianceColorSchemeBundle controlPaneSchemeBundle = new RadianceColorSchemeBundle(
-//                goldenBrownScheme.shiftBackground(new Color(127, 58, 11), 0.7f),
-//                darkBrownColorScheme, darkBrownColorScheme);
-//        // use translucency on disabled controls
-//        controlPaneSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED,
-//                ComponentState.DISABLED_UNSELECTED);
-//        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
-//                ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-//        // use dark color scheme for borders of active controls
-//        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
-//                ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
-//        // and default controls
-//        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
-//                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-//        this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle,
-//            RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new CookbookFillPainter();
@@ -174,13 +149,13 @@ public class CookbookSkin extends RadianceSkin {
                     ContainerColorTokensSingleColorQuery.blend(
                         ContainerColorTokens::getContainerOutlineVariant,
                         ContainerColorTokens::getContainerOutline,
-                        0.6f),
+                        0.8f),
                     ContainerColorTokens::getContainerOutline,
                     ContainerColorTokens::getContainerOutline,
                 }),
             new FractionBasedTonalBorderPainter("Cookbook Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
-                new int[] {140, 128, 96},
+                new int[] {112, 80, 64},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline,
@@ -201,7 +176,7 @@ public class CookbookSkin extends RadianceSkin {
 
         // Add overlay painter to paint drop shadows along the bottom
         // edges of the title pane
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(),
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(64),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
         // Add an overlay painter to paint a dark line along the bottom

@@ -83,7 +83,7 @@ public class CookbookBorderRight implements Border {
         RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 // dark line on the right-hand side
-                g2d.setStroke(new BasicStroke(1.0f));
+                graphics1X.setStroke(new BasicStroke(1.0f));
                 Line2D.Float line = new Line2D.Float(scaledWidth - 1.0f, 0,
                     scaledWidth - 1.0f, scaledHeight);
 
@@ -93,12 +93,12 @@ public class CookbookBorderRight implements Border {
                 int baseBlue = baseColor.getBlue();
                 int baseAlpha = baseColor.getAlpha();
 
-                g2d.setPaint(new GradientPaint(0, 0,
+                graphics1X.setPaint(new GradientPaint(0, 0,
                     new Color(baseRed, baseGreen, baseBlue, (int) (baseAlpha * this.alphaTop)),
                     0, scaledHeight,
                     new Color(baseRed, baseGreen, baseBlue, (int) (baseAlpha * this.alphaBottom))));
 
-                g2d.draw(line);
+                graphics1X.draw(line);
             }
         );
         g2d.dispose();
