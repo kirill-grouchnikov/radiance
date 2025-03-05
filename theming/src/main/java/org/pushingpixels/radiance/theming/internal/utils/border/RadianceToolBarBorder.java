@@ -32,8 +32,8 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
@@ -100,19 +100,8 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			RenderingHints.VALUE_ANTIALIAS_ON);
 
-		Color primary;
-		Color secondary;
-		if (colorTokens.isDark()) {
-			primary = RadianceColorUtilities.getAlphaColor(
-				colorTokens.getComplementaryContainerOutline(), 72);
-			secondary = RadianceColorUtilities.getAlphaColor(
-				colorTokens.getContainerOutlineVariant(), 192);
-		} else {
-			primary = RadianceColorUtilities.getAlphaColor(
-				colorTokens.getContainerOutline(), 96);
-			secondary = RadianceColorUtilities.getAlphaColor(
-				colorTokens.getComplementaryContainerOutline(), 240);
-		}
+		Color primary = SeparatorPainterUtils.getPrimarySeparatorColor(colorTokens);
+		Color secondary = SeparatorPainterUtils.getSecondarySeparatorColor(colorTokens);
 
 		int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
 		int bumpDotDiameter = RadianceSizeUtils.getDragBumpDiameter(componentFontSize);
