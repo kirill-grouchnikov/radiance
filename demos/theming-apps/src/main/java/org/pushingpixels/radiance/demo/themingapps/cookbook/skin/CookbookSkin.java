@@ -33,9 +33,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
@@ -43,9 +41,6 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class CookbookSkin extends RadianceSkin {
@@ -73,11 +68,6 @@ public class CookbookSkin extends RadianceSkin {
         RadianceColorSchemeBundle cookbookDefaultDefaultBundle =
             new RadianceColorSchemeBundle(cookbookDefaultColorScheme);
         this.registerDecorationAreaSchemeBundle(cookbookDefaultDefaultBundle,
-            ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFC8A26E),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isFidelity */ true,
-                /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         RadianceColorScheme cookbookControlPaneColorScheme = ColorSchemeUtils.getColorScheme(
@@ -97,11 +87,6 @@ public class CookbookSkin extends RadianceSkin {
         RadianceColorSchemeBundle cookbookControlPaneDefaultBundle =
             new RadianceColorSchemeBundle(cookbookControlPaneColorScheme);
         this.registerDecorationAreaSchemeBundle(cookbookControlPaneDefaultBundle,
-            ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF5F1000),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-                /* isFidelity */ true,
-                /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         RadianceColorScheme cookbookHeaderColorScheme = ColorSchemeUtils.getColorScheme(
@@ -125,7 +110,7 @@ public class CookbookSkin extends RadianceSkin {
                 /* seed */ Hct.fromInt(0xFFC6741D),
                 /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
-                /* isDark */ false),
+                /* isDark */ true),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER,
@@ -189,13 +174,13 @@ public class CookbookSkin extends RadianceSkin {
                     ContainerColorTokensSingleColorQuery.blend(
                         ContainerColorTokens::getContainerOutlineVariant,
                         ContainerColorTokens::getContainerOutline,
-                        0.3f),
+                        0.6f),
                     ContainerColorTokens::getContainerOutline,
                     ContainerColorTokens::getContainerOutline,
                 }),
             new FractionBasedTonalBorderPainter("Cookbook Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
-                new int[] {140, 96, 64},
+                new int[] {140, 128, 96},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline,

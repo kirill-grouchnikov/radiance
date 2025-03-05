@@ -70,31 +70,37 @@ public class CookbookBorderRight implements Border {
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         ContainerColorTokens tokens = RadianceThemingCortex.ComponentScope.getCurrentSkin(c)
-            .getContainerTokens(c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
+            .getContainerTokens(c, ComponentState.ENABLED,
+                RadianceThemingSlices.ContainerType.NEUTRAL);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        // dark line on the right-hand side
-        float borderStrokeWidth = 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
-        g2d.setStroke(new BasicStroke(borderStrokeWidth));
-        Line2D.Float line = new Line2D.Float(x + width - borderStrokeWidth, y,
-                x + width - borderStrokeWidth, y + height);
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.translate(x, y);
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, width, height,
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                // dark line on the right-hand side
+                g2d.setStroke(new BasicStroke(1.0f));
+                Line2D.Float line = new Line2D.Float(scaledWidth - 1.0f, 0,
+                    scaledWidth - 1.0f, scaledHeight);
 
-        Color baseDarkColor = tokens.getContainerOutlineVariant();
-        Color baseUltraDarkColor = tokens.getContainerOutline();
-        int baseRed = (int) (0.2f * baseDarkColor.getRed() + 0.8f * baseUltraDarkColor.getRed());
-        int baseGreen = (int) (0.2f * baseDarkColor.getGreen()
-                + 0.8f * baseUltraDarkColor.getGreen());
-        int baseBlue = (int) (0.2f * baseDarkColor.getBlue() + 0.8f * baseUltraDarkColor.getBlue());
-        int baseAlpha = (int) (0.2f * baseDarkColor.getAlpha()
-                + 0.8f * baseUltraDarkColor.getAlpha());
+                Color baseColor = tokens.getContainerOutline();
+                int baseRed = baseColor.getRed();
+                int baseGreen = baseColor.getGreen();
+                int baseBlue = baseColor.getBlue();
+                int baseAlpha = baseColor.getAlpha();
 
-        g2d.setPaint(new GradientPaint(x, y,
-                new Color(baseRed, baseGreen, baseBlue, (int) (baseAlpha * this.alphaTop)), x,
-                y + height,
-                new Color(baseRed, baseGreen, baseBlue, (int) (baseAlpha * this.alphaBottom))));
+                g2d.setPaint(new GradientPaint(0, 0,
+                    new Color(baseRed, baseGreen, baseBlue, (int) (baseAlpha * this.alphaTop)),
+                    0, scaledHeight,
+                    new Color(baseRed, baseGreen, baseBlue, (int) (baseAlpha * this.alphaBottom))));
 
-        g2d.draw(line);
-
+                g2d.draw(line);
+            }
+        );
         g2d.dispose();
     }
 }

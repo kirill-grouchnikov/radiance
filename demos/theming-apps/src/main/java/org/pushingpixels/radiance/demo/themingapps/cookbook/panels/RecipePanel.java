@@ -30,14 +30,14 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.panels;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.radiance.demo.themingapps.cookbook.EchoRadianceIcon;
-import org.pushingpixels.radiance.demo.themingapps.cookbook.ScaledRadianceIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.demo.themingapps.cookbook.EchoRadianceIcon;
+import org.pushingpixels.radiance.demo.themingapps.cookbook.ScaledRadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.cookbook.svg.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
@@ -85,6 +85,11 @@ public class RecipePanel extends SingleContentPanel {
 
         this.titlePanel.setLayout(new BorderLayout());
         this.titlePanel.add(titlePaneBuilder.build(), BorderLayout.CENTER);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
     }
 
     private JCommandButton getCommandButton(RadianceIcon.Factory iconFactory,

@@ -33,11 +33,11 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,16 +52,16 @@ public class CookbookFillPainter implements RadianceFillPainter {
         this.delegate = new FractionBasedFillPainter("Cookbook Regular",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokens::getContainerSurfaceLowest,
+                ContainerColorTokens::getContainerSurfaceHighest,
                 ContainerColorTokens::getContainerSurface,
-                ContainerColorTokens::getContainerSurfaceHighest});
+                ContainerColorTokens::getContainerSurfaceLowest});
 
         this.flatDelegate = new FractionBasedFillPainter("Cookbook Flat",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokens::getContainerSurfaceLow,
+                ContainerColorTokens::getContainerSurfaceHigh,
                 ContainerColorTokens::getContainerSurface,
-                ContainerColorTokens::getContainerSurfaceHigh});
+                ContainerColorTokens::getContainerSurfaceLow});
     }
 
     @Override
