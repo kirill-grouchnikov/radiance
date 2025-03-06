@@ -45,7 +45,7 @@ public class ContainerPalettePreview extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(220, 20);
+        return new Dimension(270, 20);
     }
 
     @Override
@@ -67,6 +67,13 @@ public class ContainerPalettePreview extends JComponent {
         paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceHigh());
         xOffset += (height + smallGap);
         paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceHighest());
+
+        xOffset += (height + bigGap);
+
+        // Container colors extra
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceDim());
+        xOffset += (height + smallGap);
+        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceBright());
 
         xOffset += (height + bigGap);
 

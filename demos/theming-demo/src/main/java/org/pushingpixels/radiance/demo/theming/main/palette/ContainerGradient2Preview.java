@@ -56,12 +56,11 @@ public class ContainerGradient2Preview extends JPanel {
                 int strokeThickness = 2;
 
                 MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height,
-                    new float[] { 0.0f, 0.2f, 0.4f, 0.6f, 0.8f, 1.0f },
+                    new float[] { 0.0f, 0.2f, 0.5f, 0.8f, 1.0f },
                     new Color[] {
                         colorTokens.getContainerSurfaceHighest(),
                         colorTokens.getContainerSurfaceHigh(),
                         colorTokens.getContainerSurface(),
-                        colorTokens.getContainerSurfaceLow(),
                         colorTokens.getContainerSurfaceLowest(),
                         colorTokens.getContainerSurfaceDim() },
                     MultipleGradientPaint.CycleMethod.REPEAT);

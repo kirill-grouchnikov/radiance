@@ -81,6 +81,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* seedOne */ Hct.fromInt(0xFF00C6A8),
                 /* seedTwo */ Hct.fromInt(0xFF00E68A),
                 /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
                 /* isDark */ false,
                 /* fidelityTone */ 75.0,  // lighter tone for selected and rollover states
                 /* contrastLevel */ 0.6f,
@@ -90,6 +91,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* seedOne */ Hct.fromInt(0xFF00BF7F),
                 /* seedTwo */ Hct.fromInt(0xFF00B39A),
                 /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
                 /* isDark */ false,
                 /* fidelityTone */ 65.0,  // darker tone for pressed states
                 /* contrastLevel */ 0.6f,
@@ -123,6 +125,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* seedOne */ Hct.fromInt(0xFF4ECDAA),
                 /* seedTwo */ Hct.fromInt(0xFFA3ECB9),
                 /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
                 /* isDark */ false,
                 /* fidelityTone */ 85.0,
                 /* contrastLevel */ 0.6f,

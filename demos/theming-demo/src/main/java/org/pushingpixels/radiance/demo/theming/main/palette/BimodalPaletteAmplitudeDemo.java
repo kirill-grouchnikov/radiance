@@ -44,16 +44,17 @@ import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
-public class BimodalPaletteDarkDemo extends JFrame {
-    public BimodalPaletteDarkDemo() {
+public class BimodalPaletteAmplitudeDemo extends JFrame {
+    public BimodalPaletteAmplitudeDemo() {
         super("Chroma Palette");
 
         RadianceLogo.tonalConfigureOn(this);
 
         FormBuilder builder = FormBuilder.create().
-                columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
-                rows("p, $lg, p, 12dlu, p, $lg, p, 12dlu, p, $lg, p, 12dlu, " +
-                        "p, $lg, p, $lg, p, 8dlu, p, $lg, p").
+            columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
+            rows("p, $lg, p, 12dlu, p, 8dlu, p, $lg, p, 12dlu, p, 6dlu, p, " +
+                "12dlu, p, 8dlu, p, $lg, p, 12dlu, p, 6dlu, p," +
+                "12dlu, p, 8dlu, p, $lg, p, 12dlu, p, 6dlu, p").
                 padding(Paddings.DIALOG);
 
         int row = 1;
@@ -64,81 +65,125 @@ public class BimodalPaletteDarkDemo extends JFrame {
         int startTone = fidelityTone - 10;
         int endTone = fidelityTone + 10;
 
-        ContainerColorTokens tokensOneTwoLight = ColorSchemeUtils.getContainerTokens(
-            /* seedOne */ seedOne,
-            /* seedTwo */ seedTwo,
-            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-            /* isDark */ true,
-            /* fidelityTone */ fidelityTone,
-            /* contrastLevel */ 0.0f,
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
-
-        ContainerColorTokens tokensTwoOneLight = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens tokens1 = ColorSchemeUtils.getContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
             /* isDark */ true,
             /* fidelityTone */ fidelityTone,
             /* contrastLevel */ 0.0f,
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
-        DynamicBimodalPalette bimodalPalette1Custom = new DynamicBimodalPalette(
-            /* seedOne */ seedOne,
-            /* seedTwo */ seedTwo,
+        DynamicBimodalPalette bimodalPalette1 = new DynamicBimodalPalette(
+            /* seedOne */ seedTwo,
+            /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
             /* fidelityTone */ fidelityTone,
             /* isDark */ true,
             /* contrastLevel */ 0.0);
 
-        DynamicBimodalPalette bimodalPalette2Custom = new DynamicBimodalPalette(
+        ContainerColorTokens tokens2 = ColorSchemeUtils.getContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 1.5,
+            /* isDark */ true,
+            /* fidelityTone */ fidelityTone,
+            /* contrastLevel */ 0.0f,
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+
+        DynamicBimodalPalette bimodalPalette2 = new DynamicBimodalPalette(
+            /* seedOne */ seedTwo,
+            /* seedTwo */ seedOne,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 1.5,
+            /* fidelityTone */ fidelityTone,
+            /* isDark */ true,
+            /* contrastLevel */ 0.0);
+
+        ContainerColorTokens tokens3 = ColorSchemeUtils.getContainerTokens(
+            /* seedOne */ seedTwo,
+            /* seedTwo */ seedOne,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 2.0,
+            /* isDark */ true,
+            /* fidelityTone */ fidelityTone,
+            /* contrastLevel */ 0.0f,
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+
+        DynamicBimodalPalette bimodalPalette3 = new DynamicBimodalPalette(
+            /* seedOne */ seedTwo,
+            /* seedTwo */ seedOne,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
             /* fidelityTone */ fidelityTone,
             /* isDark */ true,
             /* contrastLevel */ 0.0);
 
         builder.addROLabel("Palette one").xy(1, row)
-            .add(new TonalPalettePreview(bimodalPalette1Custom.paletteOne))
+            .add(new TonalPalettePreview(bimodalPalette1.paletteOne))
             .xyw(3, row, 3);
         row += 2;
         builder.addROLabel("Palette two").xy(1, row)
-            .add(new TonalPalettePreview(bimodalPalette1Custom.paletteTwo))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Bimodal one-two " + startTone + ":" + endTone).xy(1, row)
-            .add(new BimodalPalettePreview(bimodalPalette1Custom))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Zoom").xy(1, row)
-            .add(new BimodalPaletteRangePreview(bimodalPalette1Custom, startTone, endTone, 1))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Bimodal two-one " + startTone + ":" + endTone).xy(1, row)
-            .add(new BimodalPalettePreview(bimodalPalette2Custom))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Zoom").xy(1, row)
-            .add(new BimodalPaletteRangePreview(bimodalPalette2Custom, startTone, endTone, 1))
+            .add(new TonalPalettePreview(bimodalPalette1.paletteTwo))
             .xyw(3, row, 3);
         row += 2;
 
-        builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
-        builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);
+        builder.addSeparator("Amplitude factor = 1.0").xy(3, row, CellConstraints.CENTER,
+            CellConstraints.FILL);
+        row += 2;
+        builder.addROLabel("Palette " + startTone + ":" + endTone).xy(1, row)
+            .add(new BimodalPalettePreview(bimodalPalette1))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Transition range").xy(1, row)
+            .add(new BimodalPaletteRangePreview(bimodalPalette1, startTone, endTone, 1))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Container tokens").xy(1, row)
+            .add(new ContainerPalettePreview(tokens1)).xy(3, row);
+        row += 2;
+        builder.addROLabel("Container visuals").xy(1, row)
+            .add(new ContainerGradient2Preview(tokens1, "Tonal")).xy(3, row);
+        row += 2;
 
+        builder.addSeparator("Amplitude factor = 1.5").xy(3, row, CellConstraints.CENTER,
+            CellConstraints.FILL);
         row += 2;
-        builder.addROLabel("Tonal container 1-2").xy(1, row)
-            .add(new ContainerPalettePreview(tokensOneTwoLight)).xy(3, row);
+        builder.addROLabel("Palette " + startTone + ":" + endTone).xy(1, row)
+            .add(new BimodalPalettePreview(bimodalPalette2))
+            .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Tonal container 2-1").xy(1, row)
-            .add(new ContainerPalettePreview(tokensTwoOneLight)).xy(3, row);
+        builder.addROLabel("Transition range").xy(1, row)
+            .add(new BimodalPaletteRangePreview(bimodalPalette2, startTone, endTone, 1))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Container tokens").xy(1, row)
+            .add(new ContainerPalettePreview(tokens2)).xy(3, row);
+        row += 2;
+        builder.addROLabel("Container visuals").xy(1, row)
+            .add(new ContainerGradient2Preview(tokens2, "Tonal")).xy(3, row);
+        row += 2;
 
+        builder.addSeparator("Amplitude factor = 2.0").xy(3, row, CellConstraints.CENTER,
+            CellConstraints.FILL);
         row += 2;
-        builder.addROLabel("Tonal container 1-2").xy(1, row)
-            .add(new ContainerGradient2Preview(tokensOneTwoLight, "Tonal")).xy(3, row);
+        builder.addROLabel("Palette " + startTone + ":" + endTone).xy(1, row)
+            .add(new BimodalPalettePreview(bimodalPalette3))
+            .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Tonal container 2-1").xy(1, row)
-            .add(new ContainerGradient2Preview(tokensTwoOneLight, "Tonal")).xy(3, row);
+        builder.addROLabel("Transition range").xy(1, row)
+            .add(new BimodalPaletteRangePreview(bimodalPalette3, startTone, endTone, 1))
+            .xyw(3, row, 3);
+        row += 2;
+        builder.addROLabel("Container tokens").xy(1, row)
+            .add(new ContainerPalettePreview(tokens3)).xy(3, row);
+        row += 2;
+        builder.addROLabel("Container visuals").xy(1, row)
+            .add(new ContainerGradient2Preview(tokens3, "Tonal")).xy(3, row);
+        row += 2;
 
         this.add(builder.build());
 
@@ -152,7 +197,7 @@ public class BimodalPaletteDarkDemo extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
-            new BimodalPaletteDarkDemo().setVisible(true);
+            new BimodalPaletteAmplitudeDemo().setVisible(true);
         });
     }
 }

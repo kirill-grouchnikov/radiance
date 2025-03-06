@@ -792,6 +792,7 @@ public class ColorSchemeUtils {
         Hct seedOne,
         Hct seedTwo,
         DynamicBimodalPalette.TransitionRange transitionRange,
+        double tonalSurfaceRangeAmplitudeFactor,
         boolean isDark,
         double fidelityTone,
         double contrastLevel,
@@ -801,6 +802,7 @@ public class ColorSchemeUtils {
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
             /* transitionRange */ transitionRange,
+            /* tonalSurfaceRangeAmplitudeFactor */ tonalSurfaceRangeAmplitudeFactor,
             /* fidelityTone */ fidelityTone,
             /* isDark */ isDark,
             /* isContrastLevel */ contrastLevel);

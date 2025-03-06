@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolverUtils
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils.FidelityDirectPaletteSource
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter
@@ -49,7 +50,6 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDeco
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils.FidelityDirectPaletteSource
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
@@ -136,6 +136,7 @@ private fun getSelectedTokens(config: RobotConfig): ContainerColorTokens {
         /* seedOne */ Hct.from(hue1, 1.5 * primarySeed.chroma, primaryTone),
         /* seedTwo */ Hct.from(hue2, 1.5 * primarySeed.chroma, primaryTone),
         /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+        /* transitionRangeAmplitudeFactor */ 1.0,
         /* isDark */ false,
         /* fidelityTone */ primaryTone + 5.0,  // lighter tone for selected and rollover states
         /* contrastLevel */ 0.0,

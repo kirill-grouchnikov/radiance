@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import com.jgoodies.forms.layout.CellConstraints;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
@@ -53,7 +52,7 @@ public class BimodalPaletteDemo extends JFrame {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
                 rows("p, $lg, p, 12dlu, p, $lg, p, 12dlu, p, $lg, p, 12dlu, " +
-                        "p, $lg, p, $lg, p, 8dlu, p, $lg, p").
+                        "p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
         int row = 1;
@@ -68,6 +67,7 @@ public class BimodalPaletteDemo extends JFrame {
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
             /* isDark */ false,
             /* fidelityTone */ fidelityTone,
             /* contrastLevel */ 0.0f,
@@ -77,6 +77,7 @@ public class BimodalPaletteDemo extends JFrame {
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
             /* isDark */ false,
             /* fidelityTone */ fidelityTone,
             /* contrastLevel */ 0.0f,
@@ -86,6 +87,7 @@ public class BimodalPaletteDemo extends JFrame {
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
             /* fidelityTone */ fidelityTone,
             /* isDark */ false,
             /* contrastLevel */ 0.0);
@@ -94,6 +96,7 @@ public class BimodalPaletteDemo extends JFrame {
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
             /* fidelityTone */ fidelityTone,
             /* isDark */ false,
             /* contrastLevel */ 0.0);
@@ -123,10 +126,6 @@ public class BimodalPaletteDemo extends JFrame {
             .xyw(3, row, 3);
         row += 2;
 
-        builder.addSeparator("LIGHT").xy(3, row, CellConstraints.CENTER, CellConstraints.FILL);
-        builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);
-
-        row += 2;
         builder.addROLabel("Tonal container 1-2").xy(1, row)
             .add(new ContainerPalettePreview(tokensOneTwoLight)).xy(3, row);
         row += 2;
