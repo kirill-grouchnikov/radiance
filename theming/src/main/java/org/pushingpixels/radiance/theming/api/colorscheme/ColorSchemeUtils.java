@@ -797,12 +797,12 @@ public class ColorSchemeUtils {
         double contrastLevel,
         BimodalPaletteContainerColorsResolver colorResolver) {
 
-        DynamicBimodalPalette dynamicPalette =  DynamicBimodalPalette.fidelity(
+        DynamicBimodalPalette dynamicPalette = new DynamicBimodalPalette(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
             /* transitionRange */ transitionRange,
-            /* isDark */ isDark,
             /* fidelityTone */ fidelityTone,
+            /* isDark */ isDark,
             /* isContrastLevel */ contrastLevel);
 
         return new ContainerColorTokens() {

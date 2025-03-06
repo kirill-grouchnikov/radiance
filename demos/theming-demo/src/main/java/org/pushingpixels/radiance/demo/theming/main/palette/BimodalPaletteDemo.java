@@ -82,20 +82,20 @@ public class BimodalPaletteDemo extends JFrame {
             /* contrastLevel */ 0.0f,
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
-        DynamicBimodalPalette bimodalPalette1Custom = DynamicBimodalPalette.fidelity(
+        DynamicBimodalPalette bimodalPalette1Custom = new DynamicBimodalPalette(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-            /* isDark */ false,
             /* fidelityTone */ fidelityTone,
+            /* isDark */ false,
             /* contrastLevel */ 0.0);
 
-        DynamicBimodalPalette bimodalPalette2Custom = DynamicBimodalPalette.fidelity(
+        DynamicBimodalPalette bimodalPalette2Custom = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-            /* isDark */ false,
             /* fidelityTone */ fidelityTone,
+            /* isDark */ false,
             /* contrastLevel */ 0.0);
 
         builder.addROLabel("Palette one").xy(1, row)
