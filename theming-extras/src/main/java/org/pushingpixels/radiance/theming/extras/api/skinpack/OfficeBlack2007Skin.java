@@ -76,20 +76,20 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                     SchemeContainerColorsResolverOverlay.builder()
                         .onContainer(DynamicScheme::getPrimaryContainerSurfaceLowest)
                         .onContainerVariant(DynamicScheme::getPrimaryContainerSurfaceLow)
-                        .containerOutline((s) -> s.getNeutralContainerOutline() & 0x60FFFFFF)
-                        .containerOutlineVariant((s) -> s.getNeutralContainerOutlineVariant() & 0x60FFFFFF)
+                        .containerOutline((s) -> s.getNeutralContainerOutline() & 0xA0FFFFFF)
+                        .containerOutlineVariant((s) -> s.getNeutralContainerOutlineVariant() & 0xA0FFFFFF)
                         .containerOutlineDisabledAlpha((s) -> 0.75f)
                         .build())
                 .mutedContainerResolverOverlay(
                     SchemeContainerColorsResolverOverlay.builder()
-                        .containerOutline((s) -> s.getMutedContainerOutline() & 0x60FFFFFF)
-                        .containerOutlineVariant((s) -> s.getMutedContainerOutlineVariant() & 0x60FFFFFF)
+                        .containerOutline((s) -> s.getMutedContainerOutline() & 0xA0FFFFFF)
+                        .containerOutlineVariant((s) -> s.getMutedContainerOutlineVariant() & 0xA0FFFFFF)
                         .containerOutlineDisabledAlpha((s) -> 0.75f)
                         .build())
                 .tonalContainerResolverOverlay(
                     SchemeContainerColorsResolverOverlay.builder()
-                        .containerOutline((s) -> s.getTonalContainerOutline() & 0x60FFFFFF)
-                        .containerOutlineVariant((s) -> s.getTonalContainerOutlineVariant() & 0x60FFFFFF)
+                        .containerOutline((s) -> s.getTonalContainerOutline() & 0xA0FFFFFF)
+                        .containerOutlineVariant((s) -> s.getTonalContainerOutlineVariant() & 0xA0FFFFFF)
                         .containerOutlineDisabledAlpha((s) -> 0.75f)
                         .build())
                 .build());
@@ -98,7 +98,16 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFB8C0C9), Hct.fromInt(0xFFCFD5DA)),
             /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
-            /* isDark */ false);
+            /* isPrimaryDark */ false,
+            /* isTonalDark */ false,
+            /* isMutedDark */ false,
+            /* isNeutralDark */ false,
+            /* isSystemDark */ false,
+            /* primaryContrastLevel */ 0.0f,
+            /* tonalContrastLevel */ 0.0f,
+            /* mutedContrastLevel */ 0.0f,
+            /* neutralContrastLevel */ 0.0f,
+            /* schemeColorResolver */ officeBlackSchemeColorResolver);
         RadianceColorSchemeBundle officeBlackDefaultBundle =
             new RadianceColorSchemeBundle(officeBlackColorScheme);
 
