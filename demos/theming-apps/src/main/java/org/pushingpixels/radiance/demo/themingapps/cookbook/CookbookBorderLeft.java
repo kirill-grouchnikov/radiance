@@ -88,26 +88,26 @@ public class CookbookBorderLeft implements Border {
         RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 // dark line on the right-hand side
-                g2d.setStroke(new BasicStroke(1.0f));
+                graphics1X.setStroke(new BasicStroke(1.0f));
 
                 Color baseColor = tokens.getComplementaryContainerOutline();
-                Color baseSurfaceColor = tokens.getContainerSurface();
+                Color baseSurfaceColor = tokens.getContainerSurfaceHigh();
                 int baseRed = (int) (0.2f * baseColor.getRed() + 0.8f * baseSurfaceColor.getRed());
                 int baseGreen = (int) (0.2f * baseColor.getGreen()
                     + 0.8f * baseSurfaceColor.getGreen());
                 int baseBlue = (int) (0.2f * baseColor.getBlue() + 0.8f * baseSurfaceColor.getBlue());
                 int baseAlpha = (int) (0.2f * baseColor.getAlpha()
-                    + 0.8f * baseSurfaceColor.getAlpha());
+                    + 0.8f * baseSurfaceColor.getAlpha()) / 2;
 
                 float topY = skipTopPixel ? 1.0f : 0.0f;
                 float bottomY = scaledHeight - 1.0f - (skipBottomPixel ? 1.0f : 0.0f);
                 Line2D.Float line = new Line2D.Float(0, topY, 0, bottomY);
 
-                g2d.setPaint(new GradientPaint(0, 0,
+                graphics1X.setPaint(new GradientPaint(0, 0,
                     new Color(baseRed, baseGreen, baseBlue, (int) (baseAlpha * this.alphaTop)),
                     0, scaledHeight,
                     new Color(baseRed, baseGreen, baseBlue, (int) (baseAlpha * this.alphaBottom))));
-                g2d.draw(line);
+                graphics1X.draw(line);
             }
         );
         g2d.dispose();
