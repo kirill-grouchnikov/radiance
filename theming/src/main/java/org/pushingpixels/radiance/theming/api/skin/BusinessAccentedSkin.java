@@ -64,7 +64,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		businessDefaultBundle.registerActiveContainerTokens(
-			this.getDefaultAreaColorScheme().getActiveContainerTokens(),
+			this.getDefaultAreaColorScheme().getTonalContainerTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,

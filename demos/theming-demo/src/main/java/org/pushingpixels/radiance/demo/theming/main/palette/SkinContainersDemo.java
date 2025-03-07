@@ -124,7 +124,7 @@ public class SkinContainersDemo extends JFrame {
         for (int skinRow = 0; skinRow < rows; skinRow++) {
             ContainerColorTokens muted = skins[skinIndex].getContainerTokens(null,
                 ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
-            ContainerColorTokens tonal = skins[skinIndex].getActiveContainerTokens(
+            ContainerColorTokens tonal = skins[skinIndex].getTonalContainerTokens(
                 RadianceThemingSlices.DecorationAreaType.NONE);
             ContainerColorTokens selected = skins[skinIndex].getContainerTokens(
                 null, ComponentState.SELECTED, RadianceThemingSlices.ContainerType.TONAL);
@@ -136,7 +136,7 @@ public class SkinContainersDemo extends JFrame {
             if (skinIndex < skins.length) {
                 muted = skins[skinIndex].getContainerTokens(null,
                     ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
-                tonal = skins[skinIndex].getActiveContainerTokens(
+                tonal = skins[skinIndex].getTonalContainerTokens(
                     RadianceThemingSlices.DecorationAreaType.NONE);
                 selected = skins[skinIndex].getContainerTokens(
                     null, ComponentState.SELECTED, RadianceThemingSlices.ContainerType.TONAL);

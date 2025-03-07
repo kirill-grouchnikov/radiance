@@ -67,21 +67,21 @@ public class SkinTonalUtilities {
         UIDefaults.ActiveValue listCellRendererActiveValue =
                 (UIDefaults table) -> new RadianceDefaultListCellRenderer.RadianceUIResource();
 
-        ContainerColorTokens mainActiveTokens = skin.getActiveContainerTokens(
+        ContainerColorTokens mainTonalTokens = skin.getTonalContainerTokens(
             RadianceThemingSlices.DecorationAreaType.NONE);
-        ContainerColorTokens mainEnabledTokens = skin.getMutedContainerTokens(
+        ContainerColorTokens mainMutedTokens = skin.getMutedContainerTokens(
             RadianceThemingSlices.DecorationAreaType.NONE);
-        Color controlText = new ColorUIResource(mainActiveTokens.getContainerSurface());
-        Color foregroundColor = RadianceColorUtilities.getForegroundColor(mainEnabledTokens);
-        Color backgroundActiveColor = new ColorUIResource(mainActiveTokens.getContainerSurface());
-        Color backgroundDefaultColor = new ColorUIResource(mainEnabledTokens.getContainerSurface());
+        Color controlText = new ColorUIResource(mainTonalTokens.getContainerSurface());
+        Color foregroundColor = RadianceColorUtilities.getForegroundColor(mainMutedTokens);
+        Color backgroundActiveColor = new ColorUIResource(mainTonalTokens.getContainerSurface());
+        Color backgroundDefaultColor = new ColorUIResource(mainMutedTokens.getContainerSurface());
 
         ColorUIResource defaultBackgroundColor = new ColorUIResource(
                 RadianceCoreUtilities.getBackgroundFill(skin, RadianceThemingSlices.DecorationAreaType.NONE));
         ColorUIResource defaultTextBackgroundColor =
-                new ColorUIResource(mainEnabledTokens.getContainerSurfaceLow());
+                new ColorUIResource(mainMutedTokens.getContainerSurfaceLow());
 
-        Color disabledForegroundColor = RadianceColorUtilities.getForegroundColor(mainEnabledTokens);
+        Color disabledForegroundColor = RadianceColorUtilities.getForegroundColor(mainMutedTokens);
         float alpha = skin.getContainerTokens(null,
             ComponentState.DISABLED_UNSELECTED,
             RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
@@ -89,8 +89,8 @@ public class SkinTonalUtilities {
                 RadianceColorUtilities.getInterpolatedColor(
                     disabledForegroundColor, defaultTextBackgroundColor, alpha));
 
-        Color lineColor = new ColorUIResource(mainActiveTokens.getContainerOutline());
-        Color lineColorDefault = new ColorUIResource(mainEnabledTokens.getContainerOutline());
+        Color lineColor = new ColorUIResource(mainTonalTokens.getContainerOutline());
+        Color lineColorDefault = new ColorUIResource(mainMutedTokens.getContainerOutline());
 
         int lcb = RadianceColorUtilities.getColorBrightness(lineColor.getRGB());
         Color lineBwColor = new ColorUIResource(new Color(lcb, lcb, lcb));
@@ -308,32 +308,32 @@ public class SkinTonalUtilities {
                 "FileChooser.upFolderIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserUpFolderIcon(16, mainEnabledTokens)),
+                                getFileChooserUpFolderIcon(16, mainMutedTokens)),
 
                 "FileChooser.newFolderIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserNewFolderIcon(16, mainEnabledTokens)),
+                                getFileChooserNewFolderIcon(16, mainMutedTokens)),
 
                 "FileChooser.homeFolderIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserHomeFolderIcon(16, mainEnabledTokens)),
+                                getFileChooserHomeFolderIcon(16, mainMutedTokens)),
 
                 "FileChooser.listViewIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserListViewIcon(16, mainEnabledTokens)),
+                                getFileChooserListViewIcon(16, mainMutedTokens)),
 
                 "FileChooser.detailsViewIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserDetailsViewIcon(16, mainEnabledTokens)),
+                                getFileChooserDetailsViewIcon(16, mainMutedTokens)),
 
                 "FileChooser.viewMenuIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserViewMenuIcon(16, mainEnabledTokens)),
+                                getFileChooserViewMenuIcon(16, mainMutedTokens)),
 
                 "FileChooser.usesSingleFilePane",
                 Boolean.TRUE,
@@ -341,27 +341,27 @@ public class SkinTonalUtilities {
                 "FileView.computerIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserComputerIcon(16, mainEnabledTokens)),
+                                getFileChooserComputerIcon(16, mainMutedTokens)),
 
                 "FileView.directoryIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserDirectoryIcon(16, mainEnabledTokens)),
+                                getFileChooserDirectoryIcon(16, mainMutedTokens)),
 
                 "FileView.fileIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserFileIcon(16, mainEnabledTokens)),
+                                getFileChooserFileIcon(16, mainMutedTokens)),
 
                 "FileView.floppyDriveIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserFloppyDriveIcon(16, mainEnabledTokens)),
+                                getFileChooserFloppyDriveIcon(16, mainMutedTokens)),
 
                 "FileView.hardDriveIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserHardDriveIcon(16, mainEnabledTokens)),
+                                getFileChooserHardDriveIcon(16, mainMutedTokens)),
 
                 "FormattedTextField.background",
                 defaultTextBackgroundColor,
@@ -587,10 +587,10 @@ public class SkinTonalUtilities {
                 // This is a very rough "approximation" since the menu bar can be painted with the decoration
                 // painter which may or may not use any particular color from the color schemes
                 "MenuBar.background",
-                new ColorUIResource(skin.getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getContainerSurface()),
+                new ColorUIResource(skin.getTonalContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getContainerSurface()),
 
                 "MenuBar.foreground",
-                new ColorUIResource(skin.getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getOnContainer()),
+                new ColorUIResource(skin.getTonalContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getOnContainer()),
 
                 "MenuBar.border",
                 null,
@@ -628,7 +628,7 @@ public class SkinTonalUtilities {
                 "OptionPane.errorIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                     RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneErrorIcon(
-                        20, mainEnabledTokens)),
+                        20, mainMutedTokens)),
 
                 "OptionPane.foreground",
                 foregroundColor,
@@ -636,7 +636,7 @@ public class SkinTonalUtilities {
                 "OptionPane.informationIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                     RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneInformationIcon(
-                        20, mainEnabledTokens)),
+                        20, mainMutedTokens)),
 
                 "OptionPane.messageForeground",
                 foregroundColor,
@@ -644,12 +644,12 @@ public class SkinTonalUtilities {
                 "OptionPane.questionIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                     RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneQuestionIcon(
-                        20, mainEnabledTokens)),
+                        20, mainMutedTokens)),
 
                 "OptionPane.warningIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                     RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneWarningIcon(
-                        20, mainEnabledTokens)),
+                        20, mainMutedTokens)),
 
                 "OptionPane.buttonPadding",
                 8,
@@ -887,7 +887,7 @@ public class SkinTonalUtilities {
                 defaultBackgroundColor,
 
                 "TabbedPane.borderHighlightColor",
-                new ColorUIResource(mainActiveTokens.getContainerSurface()),
+                new ColorUIResource(mainTonalTokens.getContainerSurface()),
 
                 "TabbedPane.contentAreaColor",
                 null,
@@ -908,25 +908,25 @@ public class SkinTonalUtilities {
                 foregroundColor,
 
                 "TabbedPane.highlight",
-                new ColorUIResource(mainActiveTokens.getContainerSurfaceLow()),
+                new ColorUIResource(mainTonalTokens.getContainerSurfaceLow()),
 
                 "TabbedPane.light",
-                new ColorUIResource(SeparatorPainterUtils.getSecondarySeparatorColor(mainEnabledTokens)),
+                new ColorUIResource(SeparatorPainterUtils.getSecondarySeparatorColor(mainMutedTokens)),
 
                 "TabbedPane.selected",
-                new ColorUIResource(mainActiveTokens.getContainerSurfaceLowest()),
+                new ColorUIResource(mainTonalTokens.getContainerSurfaceLowest()),
 
                 "TabbedPane.selectedForeground",
                 foregroundColor,
 
                 "TabbedPane.selectHighlight",
-                new ColorUIResource(mainActiveTokens.getContainerSurface()),
+                new ColorUIResource(mainTonalTokens.getContainerSurface()),
 
                 "TabbedPane.shadow",
                 new ColorUIResource(
                         RadianceColorUtilities.getInterpolatedColor(
-                                mainEnabledTokens.getContainerSurfaceLowest(),
-                                mainEnabledTokens.getContainerSurfaceLow(), 0.5)),
+                                mainMutedTokens.getContainerSurfaceLowest(),
+                                mainMutedTokens.getContainerSurfaceLow(), 0.5)),
 
                 "TabbedPane.tabRunOverlay",
                 Integer.valueOf(0),

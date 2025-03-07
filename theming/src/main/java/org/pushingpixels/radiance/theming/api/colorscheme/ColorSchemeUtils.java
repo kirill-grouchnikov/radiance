@@ -530,17 +530,12 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerColorTokens getActiveContainerTokens() {
-                return this.getTonalContainerTokens();
-            }
-
-            @Override
             public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
                 if (componentState.isDisabled()) {
                     return getContainerTokensForState(componentState.getEnabledMatch());
                 }
 
-                ContainerColorTokens defaultActive = getActiveContainerTokens();
+                ContainerColorTokens defaultActive = getTonalContainerTokens();
                 if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
                     (componentState == ComponentState.ARMED)) {
                     if (!stateTokens.containsKey(componentState)) {

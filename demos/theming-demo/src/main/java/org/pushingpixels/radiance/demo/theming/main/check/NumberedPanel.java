@@ -77,7 +77,7 @@ public class NumberedPanel extends JPanel {
             boolean isDark;
             if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
-                isDark = skin.getActiveContainerTokens(ComponentOrParentChainScope.getDecorationType(this)).isDark();
+                isDark = skin.getTonalContainerTokens(ComponentOrParentChainScope.getDecorationType(this)).isDark();
             } else {
                 isDark = false;
             }

@@ -79,7 +79,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 		RadianceColorSchemeBundle businessBlackSteelControlBundle =
 			new RadianceColorSchemeBundle(controlPaneColorScheme);
 		businessBlackSteelControlBundle.registerActiveContainerTokens(
-			getDefaultAreaColorScheme().getActiveContainerTokens(),
+			getDefaultAreaColorScheme().getTonalContainerTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(businessBlackSteelControlBundle,

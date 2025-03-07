@@ -39,8 +39,6 @@ public interface RadianceColorScheme {
 
     ContainerColorTokens getTonalContainerTokens();
 
-    ContainerColorTokens getActiveContainerTokens();
-
     ContainerColorTokens getSystemInfoContainerTokens();
 
     ContainerColorTokens getInverseSystemInfoContainerTokens();

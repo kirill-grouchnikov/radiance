@@ -472,26 +472,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         return this.decoratedAreaSet.contains(decorationType);
     }
 
-    /**
-     * Returns the main active color scheme for the specific decoration area
-     * type. Custom painting code that needs to consult the colors of the
-     * specific component should use
-     * {@link #getContainerTokens(Component, ComponentState, RadianceThemingSlices.ContainerType)}
-     * method and various {@link ContainerColorTokens} methods.
-     *
-     * @param decorationAreaType Decoration area type.
-     * @return The main active color scheme for this skin.
-     * @see #getContainerTokens(Component, ComponentState, RadianceThemingSlices.ContainerType)
-     */
-    public final ContainerColorTokens getActiveContainerTokens(
-        RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getActiveContainerTokens();
-        }
-        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getMainColorScheme().getActiveContainerTokens();
-    }
-
     public final ContainerColorTokens getNeutralContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
