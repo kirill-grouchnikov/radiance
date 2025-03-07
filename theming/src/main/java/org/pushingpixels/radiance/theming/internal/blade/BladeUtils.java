@@ -57,11 +57,9 @@ public class BladeUtils {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         ContainerColorTokens warningColorTokens = skin.getSystemContainerTokens(
-            component, RadianceThemingSlices.SystemContainerType.WARNING,
-            RadianceThemingSlices.ActiveContainerType.TONAL);
+            component, RadianceThemingSlices.SystemContainerType.WARNING);
         ContainerColorTokens emergencyColorTokens = skin.getSystemContainerTokens(
-            component, RadianceThemingSlices.SystemContainerType.EMERGENCY,
-            RadianceThemingSlices.ActiveContainerType.TONAL);
+            component, RadianceThemingSlices.SystemContainerType.EMERGENCY);
 
         bladeContainerTokens.containerSurfaceLowest = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerSurfaceLowest(),

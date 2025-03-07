@@ -211,41 +211,36 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel);
 
         makeNeutral(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.INFO,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.INFO),
             info_24dp_fill.of(24, 24),
             "Update available",
             "Click to install version 8.0");
 
         makeNeutral(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.SUCCESS,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.SUCCESS),
             check_24dp_fill.of(24, 24),
             "Connection established",
             "Streaming content");
 
         makeNeutral(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.WARNING,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.WARNING),
             warning_24dp_fill.of(24, 24),
             "Connection lost",
             "Connect to WiFi to continue");
 
         makeNeutral(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.EMERGENCY,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.EMERGENCY),
             report_24dp_fill.of(24, 24),
             "Data breach",
             "Shutting down systems");
 
         makeNeutral(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.ERROR,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.ERROR),
             error_24dp_fill.of(24, 24),
             "Access denied",
             "Check your permissions");
@@ -258,40 +253,35 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
 
         makeTonal(tokensPanel, builder,
             skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.INFO,
-                RadianceThemingSlices.ActiveContainerType.TONAL),
+                RadianceThemingSlices.SystemContainerType.INFO),
             info_24dp_outline.of(24, 24),
             "Update available",
             "Click to install version 8.0");
 
         makeTonal(tokensPanel, builder,
             skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.SUCCESS,
-                RadianceThemingSlices.ActiveContainerType.TONAL),
+                RadianceThemingSlices.SystemContainerType.SUCCESS),
             check_24dp_outline.of(24, 24),
             "Connection established",
             "Streaming content");
 
         makeTonal(tokensPanel, builder,
             skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.WARNING,
-                RadianceThemingSlices.ActiveContainerType.TONAL),
+                RadianceThemingSlices.SystemContainerType.WARNING),
             warning_24dp_outline.of(24, 24),
             "Connection lost",
             "Connect to WiFi to continue");
 
         makeTonal(tokensPanel, builder,
             skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.EMERGENCY,
-                RadianceThemingSlices.ActiveContainerType.TONAL),
+                RadianceThemingSlices.SystemContainerType.EMERGENCY),
             report_24dp_outline.of(24, 24),
             "Data breach",
             "Shutting down systems");
 
         makeTonal(tokensPanel, builder,
             skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.ERROR,
-                RadianceThemingSlices.ActiveContainerType.TONAL),
+                RadianceThemingSlices.SystemContainerType.ERROR),
             error_24dp_outline.of(24, 24),
             "Access denied",
             "Check your permissions");
@@ -303,41 +293,36 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel);
 
         makePrimary(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.INFO,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.INFO),
             info_24dp_outline.of(24, 24),
             "Update available",
             "Click to install version 8.0");
 
         makePrimary(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.SUCCESS,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.SUCCESS),
             check_24dp_outline.of(24, 24),
             "Connection established",
             "Streaming content");
 
         makePrimary(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.WARNING,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.WARNING),
             warning_24dp_outline.of(24, 24),
             "Connection lost",
             "Connect to WiFi to continue");
 
         makePrimary(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.EMERGENCY,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.EMERGENCY),
             report_24dp_outline.of(24, 24),
             "Data breach",
             "Shutting down systems");
 
         makePrimary(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.ERROR,
-                RadianceThemingSlices.ActiveContainerType.PRIMARY),
+            skin.getInverseSystemContainerTokens(tokensPanel,
+                RadianceThemingSlices.SystemContainerType.ERROR),
             error_24dp_outline.of(24, 24),
             "Access denied",
             "Check your permissions");

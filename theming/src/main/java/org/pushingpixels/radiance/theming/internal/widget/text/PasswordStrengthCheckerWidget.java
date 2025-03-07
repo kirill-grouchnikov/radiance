@@ -121,18 +121,15 @@ public class PasswordStrengthCheckerWidget extends RadianceThemingWidget<JPasswo
             ContainerColorTokens colorTokens = null;
             if (pStrength == RadianceThemingSlices.PasswordStrength.WEAK) {
                 colorTokens = skin.getSystemContainerTokens(c,
-                    RadianceThemingSlices.SystemContainerType.EMERGENCY,
-                    RadianceThemingSlices.ActiveContainerType.TONAL);
+                    RadianceThemingSlices.SystemContainerType.EMERGENCY);
             }
             if (pStrength == RadianceThemingSlices.PasswordStrength.MEDIUM) {
                 colorTokens = skin.getSystemContainerTokens(c,
-                    RadianceThemingSlices.SystemContainerType.WARNING,
-                    RadianceThemingSlices.ActiveContainerType.TONAL);
+                    RadianceThemingSlices.SystemContainerType.WARNING);
             }
             if (pStrength == RadianceThemingSlices.PasswordStrength.STRONG) {
                 colorTokens = skin.getSystemContainerTokens(c,
-                    RadianceThemingSlices.SystemContainerType.SUCCESS,
-                    RadianceThemingSlices.ActiveContainerType.TONAL);
+                    RadianceThemingSlices.SystemContainerType.SUCCESS);
             }
 
             if (colorTokens != null) {

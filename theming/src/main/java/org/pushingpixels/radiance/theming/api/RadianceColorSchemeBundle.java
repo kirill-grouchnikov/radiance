@@ -183,31 +183,28 @@ public class RadianceColorSchemeBundle {
     }
 
     public ContainerColorTokens getSystemContainerTokens(
-        RadianceThemingSlices.SystemContainerType systemContainerType,
-        RadianceThemingSlices.ActiveContainerType activeContainerType) {
-
-        switch (activeContainerType) {
-            case TONAL:
-                switch (systemContainerType) {
-                    case INFO: return this.mainColorScheme.getSystemInfoTonalContainerTokens();
-                    case WARNING: return this.mainColorScheme.getSystemWarningTonalContainerTokens();
-                    case ERROR: return this.mainColorScheme.getSystemErrorTonalContainerTokens();
-                    case SUCCESS: return this.mainColorScheme.getSystemSuccessTonalContainerTokens();
-                    case EMERGENCY:
-                    default:
-                        return this.mainColorScheme.getSystemEmergencyTonalContainerTokens();
-                }
-            case PRIMARY:
+        RadianceThemingSlices.SystemContainerType systemContainerType) {
+        switch (systemContainerType) {
+            case INFO: return this.mainColorScheme.getSystemInfoContainerTokens();
+            case WARNING: return this.mainColorScheme.getSystemWarningContainerTokens();
+            case ERROR: return this.mainColorScheme.getSystemErrorContainerTokens();
+            case SUCCESS: return this.mainColorScheme.getSystemSuccessContainerTokens();
+            case EMERGENCY:
             default:
-                switch (systemContainerType) {
-                    case INFO: return this.mainColorScheme.getSystemInfoPrimaryContainerTokens();
-                    case WARNING: return this.mainColorScheme.getSystemWarningPrimaryContainerTokens();
-                    case ERROR: return this.mainColorScheme.getSystemErrorPrimaryContainerTokens();
-                    case SUCCESS: return this.mainColorScheme.getSystemSuccessPrimaryContainerTokens();
-                    case EMERGENCY:
-                    default:
-                        return this.mainColorScheme.getSystemEmergencyPrimaryContainerTokens();
-                }
+                return this.mainColorScheme.getSystemEmergencyContainerTokens();
+        }
+    }
+
+    public ContainerColorTokens getInverseSystemContainerTokens(
+        RadianceThemingSlices.SystemContainerType systemContainerType) {
+        switch (systemContainerType) {
+            case INFO: return this.mainColorScheme.getInverseSystemInfoContainerTokens();
+            case WARNING: return this.mainColorScheme.getInverseSystemWarningContainerTokens();
+            case ERROR: return this.mainColorScheme.getInverseSystemErrorContainerTokens();
+            case SUCCESS: return this.mainColorScheme.getInverseSystemSuccessContainerTokens();
+            case EMERGENCY:
+            default:
+                return this.mainColorScheme.getInverseSystemEmergencyContainerTokens();
         }
     }
 

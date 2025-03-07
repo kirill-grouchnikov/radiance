@@ -355,8 +355,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     public final ContainerColorTokens getSystemContainerTokens(Component comp,
-        RadianceThemingSlices.SystemContainerType systemContainerType,
-        RadianceThemingSlices.ActiveContainerType activeContainerType) {
+        RadianceThemingSlices.SystemContainerType systemContainerType) {
         // small optimization - lookup the decoration area only if there
         // are decoration-specific scheme bundles.
         if (this.tonalColorSchemeMap.size() > 1) {
@@ -365,12 +364,30 @@ public abstract class RadianceSkin implements RadianceTrait {
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
                 return this.tonalColorSchemeMap.get(decorationAreaType)
-                    .getSystemContainerTokens(systemContainerType, activeContainerType);
+                    .getSystemContainerTokens(systemContainerType);
             }
         }
 
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getSystemContainerTokens(systemContainerType, activeContainerType);
+            .getSystemContainerTokens(systemContainerType);
+    }
+
+    public final ContainerColorTokens getInverseSystemContainerTokens(Component comp,
+        RadianceThemingSlices.SystemContainerType systemContainerType) {
+        // small optimization - lookup the decoration area only if there
+        // are decoration-specific scheme bundles.
+        if (this.tonalColorSchemeMap.size() > 1) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
+                RadianceThemingSlices.DecorationAreaType.NONE :
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+            if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+                return this.tonalColorSchemeMap.get(decorationAreaType)
+                    .getInverseSystemContainerTokens(systemContainerType);
+            }
+        }
+
+        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getInverseSystemContainerTokens(systemContainerType);
     }
 
     /**
@@ -690,23 +707,19 @@ public abstract class RadianceSkin implements RadianceTrait {
         // associated with the full skin
         if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.INFORMATION_MESSAGE)) {
             this.optionPaneIconColorTokenMap.put(JOptionPane.INFORMATION_MESSAGE,
-                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO,
-                    RadianceThemingSlices.ActiveContainerType.PRIMARY));
+                this.getInverseSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO));
         }
         if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.QUESTION_MESSAGE)) {
             this.optionPaneIconColorTokenMap.put(JOptionPane.QUESTION_MESSAGE,
-                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO,
-                    RadianceThemingSlices.ActiveContainerType.PRIMARY));
+                this.getInverseSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO));
         }
         if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.WARNING_MESSAGE)) {
             this.optionPaneIconColorTokenMap.put(JOptionPane.WARNING_MESSAGE,
-                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.WARNING,
-                    RadianceThemingSlices.ActiveContainerType.PRIMARY));
+                this.getInverseSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.WARNING));
         }
         if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.ERROR_MESSAGE)) {
             this.optionPaneIconColorTokenMap.put(JOptionPane.ERROR_MESSAGE,
-                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.ERROR,
-                    RadianceThemingSlices.ActiveContainerType.PRIMARY));
+                this.getInverseSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.ERROR));
         }
         return this.optionPaneIconColorTokenMap.get(optionPaneMessageType);
     }

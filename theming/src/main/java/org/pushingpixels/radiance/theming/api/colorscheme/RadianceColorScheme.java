@@ -39,29 +39,27 @@ public interface RadianceColorScheme {
 
     ContainerColorTokens getTonalContainerTokens();
 
-    ContainerColorTokens getPrimaryContainerTokens();
-
     ContainerColorTokens getActiveContainerTokens();
 
-    ContainerColorTokens getSystemInfoTonalContainerTokens();
+    ContainerColorTokens getSystemInfoContainerTokens();
 
-    ContainerColorTokens getSystemInfoPrimaryContainerTokens();
+    ContainerColorTokens getInverseSystemInfoContainerTokens();
 
-    ContainerColorTokens getSystemWarningTonalContainerTokens();
+    ContainerColorTokens getSystemWarningContainerTokens();
 
-    ContainerColorTokens getSystemWarningPrimaryContainerTokens();
+    ContainerColorTokens getInverseSystemWarningContainerTokens();
 
-    ContainerColorTokens getSystemErrorTonalContainerTokens();
+    ContainerColorTokens getSystemErrorContainerTokens();
 
-    ContainerColorTokens getSystemErrorPrimaryContainerTokens();
+    ContainerColorTokens getInverseSystemErrorContainerTokens();
 
-    ContainerColorTokens getSystemSuccessTonalContainerTokens();
+    ContainerColorTokens getSystemSuccessContainerTokens();
 
-    ContainerColorTokens getSystemSuccessPrimaryContainerTokens();
+    ContainerColorTokens getInverseSystemSuccessContainerTokens();
 
-    ContainerColorTokens getSystemEmergencyTonalContainerTokens();
+    ContainerColorTokens getSystemEmergencyContainerTokens();
 
-    ContainerColorTokens getSystemEmergencyPrimaryContainerTokens();
+    ContainerColorTokens getInverseSystemEmergencyContainerTokens();
 
     ContainerColorTokens getContainerTokensForState(ComponentState componentState);
 

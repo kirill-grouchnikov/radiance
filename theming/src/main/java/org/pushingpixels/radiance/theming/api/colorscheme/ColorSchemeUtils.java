@@ -485,8 +485,6 @@ public class ColorSchemeUtils {
             scheme, (s) -> s.isMutedDark, schemeColorResolver.getMutedContainerResolver());
         ContainerColorTokens tonalContainerTokens = getContainerTokens(
             scheme, (s) -> s.isTonalDark, schemeColorResolver.getTonalContainerResolver());
-        ContainerColorTokens primaryContainerTokens = getContainerTokens(
-            scheme, (s) -> s.isPrimaryDark, schemeColorResolver.getPrimaryContainerResolver());
 
         PaletteContainerColorsResolver paletteTonalColorResolver =
             PaletteResolverUtils.getPaletteTonalColorResolver();
@@ -529,11 +527,6 @@ public class ColorSchemeUtils {
             @Override
             public ContainerColorTokens getTonalContainerTokens() {
                 return tonalContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getPrimaryContainerTokens() {
-                return primaryContainerTokens;
             }
 
             @Override
@@ -600,52 +593,52 @@ public class ColorSchemeUtils {
             }
 
             @Override
-            public ContainerColorTokens getSystemInfoTonalContainerTokens() {
+            public ContainerColorTokens getSystemInfoContainerTokens() {
                 return systemInfoTonalContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemInfoPrimaryContainerTokens() {
+            public ContainerColorTokens getInverseSystemInfoContainerTokens() {
                 return systemInfoPrimaryContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemWarningTonalContainerTokens() {
+            public ContainerColorTokens getSystemWarningContainerTokens() {
                 return systemWarningTonalContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemWarningPrimaryContainerTokens() {
+            public ContainerColorTokens getInverseSystemWarningContainerTokens() {
                 return systemWarningPrimaryContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemErrorTonalContainerTokens() {
+            public ContainerColorTokens getSystemErrorContainerTokens() {
                 return systemErrorTonalContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemErrorPrimaryContainerTokens() {
+            public ContainerColorTokens getInverseSystemErrorContainerTokens() {
                 return systemErrorPrimaryContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemSuccessTonalContainerTokens() {
+            public ContainerColorTokens getSystemSuccessContainerTokens() {
                 return systemSuccessTonalContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemSuccessPrimaryContainerTokens() {
+            public ContainerColorTokens getInverseSystemSuccessContainerTokens() {
                 return systemSuccessPrimaryContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemEmergencyTonalContainerTokens() {
+            public ContainerColorTokens getSystemEmergencyContainerTokens() {
                 return systemEmergencyTonalContainerTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemEmergencyPrimaryContainerTokens() {
+            public ContainerColorTokens getInverseSystemEmergencyContainerTokens() {
                 return systemEmergencyPrimaryContainerTokens;
             }
         };
