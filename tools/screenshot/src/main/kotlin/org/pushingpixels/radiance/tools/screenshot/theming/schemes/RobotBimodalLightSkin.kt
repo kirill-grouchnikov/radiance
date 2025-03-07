@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette
 import org.pushingpixels.ephemeral.chroma.hct.Hct
 import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette
@@ -135,10 +136,9 @@ private fun getSelectedTokens(config: RobotConfig): ContainerColorTokens {
     return ColorSchemeUtils.getContainerTokens(
         /* seedOne */ Hct.from(hue1, 1.5 * primarySeed.chroma, primaryTone),
         /* seedTwo */ Hct.from(hue2, 1.5 * primarySeed.chroma, primaryTone),
-        /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-        /* transitionRangeAmplitudeFactor */ 1.0,
-        /* isDark */ false,
-        /* fidelityTone */ primaryTone + 5.0,  // lighter tone for selected and rollover states
-        /* contrastLevel */ 0.0,
+        /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+        /* fidelityTone */ primaryTone + 5.0,  // lighter tone for selected and rollover states,
+        /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+        /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
         /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver())
 }

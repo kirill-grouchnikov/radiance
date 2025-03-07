@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -80,21 +81,25 @@ public class GreenMagicSkin extends RadianceSkin {
             ColorSchemeUtils.getContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00C6A8),
                 /* seedTwo */ Hct.fromInt(0xFF00E68A),
-                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
-                /* isDark */ false,
+                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 75.0,  // lighter tone for selected and rollover states
-                /* contrastLevel */ 0.6f,
+                /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6,
+                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
         ContainerColorTokens greenMagicPressedContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00BF7F),
                 /* seedTwo */ Hct.fromInt(0xFF00B39A),
-                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
-                /* isDark */ false,
+                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 65.0,  // darker tone for pressed states
-                /* contrastLevel */ 0.6f,
+                /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6,
+                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
         RadianceColorSchemeBundle greenMagicDefaultDefaultBundle =
@@ -124,11 +129,13 @@ public class GreenMagicSkin extends RadianceSkin {
             ColorSchemeUtils.getContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF4ECDAA),
                 /* seedTwo */ Hct.fromInt(0xFFA3ECB9),
-                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
-                /* isDark */ false,
+                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 85.0,
-                /* contrastLevel */ 0.6f,
+                /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6,
+                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
@@ -66,40 +67,36 @@ public class BimodalPaletteDemo extends JFrame {
         ContainerColorTokens tokensOneTwoLight = ColorSchemeUtils.getContainerTokens(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
-            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
-            /* isDark */ false,
+            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* contrastLevel */ 0.0f,
+            /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+            /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
         ContainerColorTokens tokensTwoOneLight = ColorSchemeUtils.getContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
-            /* isDark */ false,
+            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* contrastLevel */ 0.0f,
+            /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+            /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
         DynamicBimodalPalette bimodalPalette1Custom = new DynamicBimodalPalette(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
-            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
+            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0);
+            /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+            /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight());
 
         DynamicBimodalPalette bimodalPalette2Custom = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-            /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
+            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0);
+            /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+            /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight());
 
         builder.addROLabel("Palette one").xy(1, row)
             .add(new TonalPalettePreview(bimodalPalette1Custom.paletteOne))

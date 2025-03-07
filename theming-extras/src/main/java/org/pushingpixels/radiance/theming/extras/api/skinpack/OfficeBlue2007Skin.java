@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
@@ -134,21 +135,25 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             ColorSchemeUtils.getContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
-                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
-                /* isDark */ false,
-                /* fidelityTone */ 83,
-                /* contrastLevel */ 0.2f,
+                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* fidelityTone */ 83.0,
+                /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.2,
+                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
         ContainerColorTokens rolloverSelectedContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
-                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* tonalSurfaceRangeAmplitudeFactor */ 1.0,
-                /* isDark */ false,
-                /* fidelityTone */ 79,
-                /* contrastLevel */ 0.2f,
+                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* fidelityTone */ 79.0,
+                /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
+                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.2,
+                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),

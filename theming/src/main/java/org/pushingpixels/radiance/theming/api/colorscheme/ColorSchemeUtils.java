@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.colorscheme;
 
 import org.pushingpixels.ephemeral.chroma.blend.Blend;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
@@ -791,26 +792,24 @@ public class ColorSchemeUtils {
     public static ContainerColorTokens getContainerTokens(
         Hct seedOne,
         Hct seedTwo,
-        DynamicBimodalPalette.TransitionRange transitionRange,
-        double tonalSurfaceRangeAmplitudeFactor,
-        boolean isDark,
+        DynamicBimodalPalette.TransitionRange tonalTransitionRange,
         double fidelityTone,
-        double contrastLevel,
+        ContainerConfiguration primaryContainerConfiguration,
+        ContainerConfiguration tonalContainerConfiguration,
         BimodalPaletteContainerColorsResolver colorResolver) {
 
         DynamicBimodalPalette dynamicPalette = new DynamicBimodalPalette(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
-            /* transitionRange */ transitionRange,
-            /* tonalSurfaceRangeAmplitudeFactor */ tonalSurfaceRangeAmplitudeFactor,
+            /* tonalTransitionRange */ tonalTransitionRange,
             /* fidelityTone */ fidelityTone,
-            /* isDark */ isDark,
-            /* isContrastLevel */ contrastLevel);
+            /* primaryContainerConfiguration */ primaryContainerConfiguration,
+            /* tonalContainerConfiguration */ tonalContainerConfiguration);
 
         return new ContainerColorTokens() {
             @Override
             public boolean isDark() {
-                return dynamicPalette.isDark;
+                return dynamicPalette.tonalContainerConfiguration.isDark();
             }
 
             @Override
