@@ -155,8 +155,7 @@ public class ColorSchemeUtils {
         };
     }
 
-    private static ContainerColorTokens getRolloverUnselectedTokens(
-        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
+    public static ContainerColorTokens getRolloverUnselectedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 20% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -164,8 +163,7 @@ public class ColorSchemeUtils {
             0.2f);
     }
 
-    private static ContainerColorTokens getRolloverSelectedTokens(
-        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
+    public static ContainerColorTokens getRolloverSelectedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -173,8 +171,7 @@ public class ColorSchemeUtils {
             0.3f);
     }
 
-    private static ContainerColorTokens getRolloverArmedTokens(
-        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
+    public static ContainerColorTokens getRolloverArmedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -182,8 +179,7 @@ public class ColorSchemeUtils {
             0.3f);
     }
 
-    private static ContainerColorTokens getPressedUnselectedTokens(
-        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
+    public static ContainerColorTokens getPressedUnselectedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -191,8 +187,7 @@ public class ColorSchemeUtils {
             0.5f);
     }
 
-    private static ContainerColorTokens getPressedSelectedTokens(
-        RadianceColorScheme colorScheme, ContainerColorTokens baseTokens) {
+    public static ContainerColorTokens getPressedSelectedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
             baseTokens,
@@ -539,15 +534,13 @@ public class ColorSchemeUtils {
                 if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
                     (componentState == ComponentState.ARMED)) {
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getPressedUnselectedTokens(this,
-                            defaultActive));
+                        stateTokens.put(componentState, getPressedUnselectedTokens(defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.PRESSED_SELECTED) {
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getPressedSelectedTokens(this,
-                            defaultActive));
+                        stateTokens.put(componentState, getPressedSelectedTokens(defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
@@ -556,22 +549,19 @@ public class ColorSchemeUtils {
                 }
                 if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getRolloverUnselectedTokens(this,
-                            defaultActive));
+                        stateTokens.put(componentState, getRolloverUnselectedTokens(defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.ROLLOVER_SELECTED) {
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getRolloverSelectedTokens(this,
-                            defaultActive));
+                        stateTokens.put(componentState, getRolloverSelectedTokens(defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.ROLLOVER_ARMED) {
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState, getRolloverArmedTokens(this,
-                            defaultActive));
+                        stateTokens.put(componentState, getRolloverArmedTokens(defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
