@@ -33,12 +33,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeColorResolverOverlay
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeContainerColorsResolverOverlay
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils
+import org.pushingpixels.radiance.theming.api.colorscheme.*
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter
@@ -62,7 +57,6 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
                 /* primarySeed */ Hct.fromInt(accentColor.rgb),
                 /* mutedSeed */ Hct.fromInt(accentColor.rgb).also { it.tone = it.tone * 1.2},
                 /* neutralSeed */ Hct.fromInt(accentColor.rgb).also { it.tone = it.tone / 3.5}),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ true,
             /* isTonalDark */ true,
             /* isMutedDark */ true,

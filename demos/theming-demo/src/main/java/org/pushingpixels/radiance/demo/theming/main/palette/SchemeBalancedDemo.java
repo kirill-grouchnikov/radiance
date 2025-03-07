@@ -36,8 +36,8 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -61,11 +61,9 @@ public class SchemeBalancedDemo extends JFrame {
 
         RadianceColorScheme lightColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ source,
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
         RadianceColorScheme darkColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ source,
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ true);
 
         builder.addROLabel("Primary palette").xy(1, row)
@@ -96,10 +94,6 @@ public class SchemeBalancedDemo extends JFrame {
         builder.addROLabel("Tonal container").xy(1, row)
             .add(new ContainerPalettePreview(lightColorScheme.getTonalContainerTokens())).xy(3, row)
             .add(new ContainerPalettePreview(darkColorScheme.getTonalContainerTokens())).xy(5, row);
-        row += 2;
-        builder.addROLabel("Primary container").xy(1, row)
-            .add(new ContainerPalettePreview(lightColorScheme.getPrimaryContainerTokens())).xy(3, row)
-            .add(new ContainerPalettePreview(darkColorScheme.getPrimaryContainerTokens())).xy(5, row);
 
         row += 2;
         builder.addROLabel("Neutral container").xy(1, row)
@@ -113,10 +107,6 @@ public class SchemeBalancedDemo extends JFrame {
         builder.addROLabel("Tonal container").xy(1, row)
             .add(new ContainerPreview(lightColorScheme.getTonalContainerTokens(), "Tonal")).xy(3, row)
             .add(new ContainerPreview(darkColorScheme.getTonalContainerTokens(), "Tonal")).xy(5, row);
-        row += 2;
-        builder.addROLabel("Primary container").xy(1, row)
-            .add(new ContainerPreview(lightColorScheme.getPrimaryContainerTokens(), "Primary")).xy(3, row)
-            .add(new ContainerPreview(darkColorScheme.getPrimaryContainerTokens(), "Primary")).xy(5, row);
 
         this.add(builder.build());
 

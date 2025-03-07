@@ -85,7 +85,6 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 
 		RadianceColorScheme controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFFDBDFE4), 3.0, 1.0),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 		this.registerAsDecorationArea(controlPaneColorScheme.getTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

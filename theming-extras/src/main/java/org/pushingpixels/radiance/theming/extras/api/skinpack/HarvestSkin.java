@@ -66,7 +66,6 @@ public class HarvestSkin extends RadianceSkin {
         RadianceColorScheme harvestColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFFAEEAD), Hct.fromInt(0xFFFFFCE9), Hct.fromInt(0xFFFCFAD6)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ false,
@@ -123,7 +122,6 @@ public class HarvestSkin extends RadianceSkin {
             new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFF12B37), Hct.fromInt(0xFF5B5B54), Hct.fromInt(0xFF3A3A39)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ true,
                 /* isTonalDark */ true,
                 /* isMutedDark */ true,
@@ -159,7 +157,6 @@ public class HarvestSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFCF7C0),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

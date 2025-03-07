@@ -76,7 +76,6 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFF5E3D2B), Hct.fromInt(0xFF3C3B37), Hct.fromInt(0xFF2B2A28)),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isPrimaryDark */ false,
 				/* isTonalDark */ true,
 				/* isMutedDark */ true,

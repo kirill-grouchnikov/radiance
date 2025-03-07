@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
@@ -56,7 +55,6 @@ public class MistAquaSkin extends MistAccentedSkin {
             .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFF8ACBE9), Hct.fromInt(0xFFD6D9DD), Hct.fromInt(0xFFEBF0F4)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ false,
                 /* isTonalDark */ false,
                 /* isMutedDark */ false,

@@ -57,28 +57,23 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 			.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFF404040), Hct.fromInt(0xFF606060), Hct.fromInt(0xFF555555)),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ true))
 			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF85A3B5),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false))
 			.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ false))
 			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFA1BCCF),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false)));
 
 		RadianceColorScheme controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFAFBEC7), Hct.fromInt(0xFFD5DBDF), Hct.fromInt(0xFFD0D7DC)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 
 		RadianceColorSchemeBundle businessBlackSteelControlBundle =

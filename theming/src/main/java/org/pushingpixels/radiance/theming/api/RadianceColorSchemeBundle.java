@@ -226,8 +226,6 @@ public class RadianceColorSchemeBundle {
      *
      * @param associationKind Color scheme association kind.
      * @param componentState  Component state.
-     * @param allowFallback   If true, this method will return color tokens for the fallback
-     *                        association kind.
      * @return Color tokens to be used for painting the specified visual area of
      * the component under the specified component state.
      * @see #registerActiveContainerTokens(ContainerColorTokens, ComponentState...)

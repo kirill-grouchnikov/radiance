@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 
@@ -55,11 +54,9 @@ public class DustSkin extends DustAccentedSkin {
 			.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFFADA59A), Hct.fromInt(0xFFE5E2DB), Hct.fromInt(0xFFEAE7E2)),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ false))
 			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFAE9B7A),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false))
 			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(

@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
@@ -56,7 +55,6 @@ public class CremeCoffeeSkin extends CremeAccentedSkin {
             .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFDEC59D), Hct.fromInt(0xFFF0F1EB), Hct.fromInt(0xFFEEF3E5)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ false,
                 /* isTonalDark */ false,
                 /* isMutedDark */ false,
@@ -69,7 +67,6 @@ public class CremeCoffeeSkin extends CremeAccentedSkin {
                 /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDFBF7F),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false))
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(

@@ -40,9 +40,9 @@ import org.pushingpixels.radiance.demo.component.svg.SvgBatikRadianceIcon;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.TonalPaletteSeeds;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.TonalPaletteSeeds;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
@@ -113,7 +113,6 @@ public class IconFrame {
 
             ContainerColorTokens redTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(TonalPaletteSeeds.SUNFIRE_RED.getRGB()),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
             Command redTangoCommand = Command.builder()
@@ -125,7 +124,6 @@ public class IconFrame {
 
             ContainerColorTokens greenTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(TonalPaletteSeeds.LIME_GREEN.getRGB()),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
             Command greenTangoCommand = Command.builder()
@@ -137,7 +135,6 @@ public class IconFrame {
 
             ContainerColorTokens blueTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(TonalPaletteSeeds.STEEL_BLUE.getRGB()),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
             Command blueTangoCommand = Command.builder()

@@ -67,19 +67,16 @@ public class ModerateSkin extends RadianceSkin {
         RadianceColorScheme steelBlueColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF6CA9CE), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
         ContainerColorTokens steelBlueHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF1D59A),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
 
         RadianceColorScheme steelBlueHeaderColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF6D9BBA), Hct.fromInt(0xFF82ABC7), Hct.fromInt(0xFF8BBAD5)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ false,
@@ -93,14 +90,12 @@ public class ModerateSkin extends RadianceSkin {
         ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF6EA7CA),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
 
         RadianceColorScheme controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFD1D3D7), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
 
         RadianceColorSchemeBundle steelBlueDefaultBundle =

@@ -105,7 +105,6 @@ public class OfficeBlue2007Skin extends RadianceSkin {
         RadianceColorScheme officeBlueColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF80BBF8), Hct.fromInt(0xFFB8D2EB), Hct.fromInt(0xFFC3DCF0)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ false,
@@ -157,12 +156,10 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isFidelity */ true,
             /* isDark */ false);
         ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF991C),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isFidelity */ true,
             /* isDark */ false);
 

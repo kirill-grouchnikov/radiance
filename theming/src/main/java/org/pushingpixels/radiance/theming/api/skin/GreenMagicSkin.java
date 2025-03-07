@@ -66,7 +66,6 @@ public class GreenMagicSkin extends RadianceSkin {
         RadianceColorScheme greenMagicDefaultColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF00C5A9), Hct.fromInt(0xFF8CDFB5), Hct.fromInt(0xFFA3ECB9)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ false,
@@ -119,7 +118,6 @@ public class GreenMagicSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(greenMagicDefaultDefaultBundle,
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFA3ECB9),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.NONE);
@@ -145,7 +143,6 @@ public class GreenMagicSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8ADFB5),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.FOOTER);

@@ -69,7 +69,6 @@ public class OfficeSilver2007Skin extends RadianceSkin {
         RadianceColorScheme officeSilverColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
         RadianceColorSchemeBundle officeSilverDefaultBundle =
             new RadianceColorSchemeBundle(officeSilverColorScheme);
@@ -112,12 +111,10 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isFidelity */ true,
             /* isDark */ false);
         ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF991C),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isFidelity */ true,
             /* isDark */ false);
 
@@ -205,7 +202,6 @@ public class OfficeSilver2007Skin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFD4DE),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
@@ -213,7 +209,6 @@ public class OfficeSilver2007Skin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFCFD0),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             DecorationAreaType.PRIMARY_TITLE_PANE,

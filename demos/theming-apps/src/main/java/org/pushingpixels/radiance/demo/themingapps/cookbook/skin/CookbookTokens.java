@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 
@@ -38,14 +37,12 @@ public class CookbookTokens {
     public static final ContainerColorTokens GOLDEN_BROWN_TOKENS =
         ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFA4521B),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isFidelity */ true,
             /* isDark */ true);
 
     public static final ContainerColorTokens DARK_BROWN_TOKENS =
         ColorSchemeUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFF561703),
-        /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
         /* isFidelity */ true,
         /* isDark */ true);
 }

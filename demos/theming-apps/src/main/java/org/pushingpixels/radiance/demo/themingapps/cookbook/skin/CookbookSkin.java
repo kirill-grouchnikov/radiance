@@ -56,7 +56,6 @@ public class CookbookSkin extends RadianceSkin {
         RadianceColorScheme cookbookDefaultColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFC8A26E), Hct.fromInt(0xFFE3E4DC), Hct.fromInt(0xFFEDF3E4)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ false,
@@ -75,7 +74,6 @@ public class CookbookSkin extends RadianceSkin {
         RadianceColorScheme cookbookControlPaneColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFA23F00), Hct.fromInt(0xFFB25406), Hct.fromInt(0xFF5F1000)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ true,
             /* isTonalDark */ true,
             /* isMutedDark */ true,
@@ -119,7 +117,6 @@ public class CookbookSkin extends RadianceSkin {
                 /* primarySourceTone */ cookbookHeaderPrimarySeed.getTone(),
                 /* mutedSourceTone */ cookbookHeaderMutedSeedTone,
                 /* neutralSourceTone */ cookbookHeaderNeutralSeed2.getTone()),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ true,
             /* isTonalDark */ true,
             /* isMutedDark */ true,

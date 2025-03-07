@@ -66,7 +66,6 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		this.registerAsDecorationArea(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF4F4F4F),
-				/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ true),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,

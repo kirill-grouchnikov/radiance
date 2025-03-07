@@ -84,7 +84,6 @@ public class RavenSkin extends RadianceSkin {
 		RadianceColorScheme ravenColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFF424242), Hct.fromInt(0xFF504842), Hct.fromInt(0xFF333333)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isPrimaryDark */ true,
 			/* isTonalDark */ true,
 			/* isMutedDark */ true,
@@ -99,7 +98,6 @@ public class RavenSkin extends RadianceSkin {
 		ContainerColorTokens ravenHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC4C3C5),
-				/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false);
 

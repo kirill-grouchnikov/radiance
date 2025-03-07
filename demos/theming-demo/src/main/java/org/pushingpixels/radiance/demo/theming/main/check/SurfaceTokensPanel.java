@@ -162,15 +162,6 @@ public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDepend
         builder.append(new SamplePanelDimBright(containerTokens));
     }
 
-    private void makePrimary(JPanel tokensPanel, TestFormLayoutBuilder builder) {
-        ContainerColorTokens containerTokens =
-            RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel)
-                .getPrimaryContainerTokens(RadianceThemingSlices.DecorationAreaType.NONE);
-
-        builder.append(new SamplePanelLowHigh(containerTokens));
-        builder.append(new SamplePanelDimBright(containerTokens));
-    }
-
     private void makeActive(JPanel tokensPanel, TestFormLayoutBuilder builder) {
         ContainerColorTokens containerTokens =
             RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel)
@@ -202,9 +193,6 @@ public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDepend
 
         builder.appendSeparator("Tonal surfaces");
         makeTonal(this, builder);
-
-        builder.appendSeparator("Primary surfaces");
-        makePrimary(this, builder);
 
         builder.appendSeparator("Active surfaces");
         makeActive(this, builder);

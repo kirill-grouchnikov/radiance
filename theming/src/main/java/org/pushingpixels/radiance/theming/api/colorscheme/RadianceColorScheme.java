@@ -69,7 +69,6 @@ public interface RadianceColorScheme {
         switch (containerType) {
             case MUTED: return this.getMutedContainerTokens();
             case TONAL: return this.getTonalContainerTokens();
-            case PRIMARY: return this.getPrimaryContainerTokens();
             case NEUTRAL:
             default: return this.getNeutralContainerTokens();
         }

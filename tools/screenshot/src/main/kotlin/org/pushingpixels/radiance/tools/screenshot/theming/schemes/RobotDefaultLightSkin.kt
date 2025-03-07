@@ -34,13 +34,13 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
@@ -57,7 +57,6 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
                     /* primarySeed */ Hct.fromInt(accentColor.rgb),
                     /* mutedSeed */ MutedSeed,
                     /* neutralSeed */ NeutralSeed),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false))) {
 
     init {

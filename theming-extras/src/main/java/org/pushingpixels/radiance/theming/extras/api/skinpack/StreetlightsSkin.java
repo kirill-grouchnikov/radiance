@@ -81,7 +81,6 @@ public class StreetlightsSkin extends RadianceSkin {
         RadianceColorScheme streetlightsColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFFF6000), Hct.fromInt(0xFF052914), Hct.fromInt(0xFF252A26)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ true,

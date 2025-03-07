@@ -63,18 +63,15 @@ public class SentinelSkin extends RadianceSkin {
         RadianceColorScheme sentinelColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFFE8C3A6), Hct.fromInt(0xFFFFD8B6)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
 
         ContainerColorTokens sentinelSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF9E7B),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isFidelity */ true,
             /* isDark */ false);
         ContainerColorTokens sentinelSelectedHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFC0A5),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
 
@@ -96,7 +93,6 @@ public class SentinelSkin extends RadianceSkin {
             new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFF4A2C25), Hct.fromInt(0xFF7A5C55)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ false,
                 /* isTonalDark */ false,
                 /* isMutedDark */ true,
@@ -110,7 +106,6 @@ public class SentinelSkin extends RadianceSkin {
         sentinelHeaderBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDE9D87),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -159,7 +154,6 @@ public class SentinelSkin extends RadianceSkin {
             new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFF8F543B), Hct.fromInt(0xFF754133)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ false,
                 /* isTonalDark */ false,
                 /* isMutedDark */ true,
@@ -184,7 +178,6 @@ public class SentinelSkin extends RadianceSkin {
             new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFEB79E), Hct.fromInt(0xFF703723), Hct.fromInt(0xFF53281A)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ false,
                 /* isTonalDark */ false,
                 /* isMutedDark */ true,

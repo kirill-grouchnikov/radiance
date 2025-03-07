@@ -65,24 +65,20 @@ public class SaharaSkin extends RadianceSkin {
 		RadianceColorScheme desertSandColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFA5BB59), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 		ContainerColorTokens desertHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCAD0BE),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false);
 
 		RadianceColorScheme desertHeaderColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFF99A764), Hct.fromInt(0xFFD5D9DE), Hct.fromInt(0xFFEFF5FB)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 		ContainerColorTokens desertHeaderHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB2BC91),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false);
 

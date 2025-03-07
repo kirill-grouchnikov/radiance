@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 
 /**
@@ -54,7 +53,6 @@ public class NebulaSkin extends NebulaAccentedSkin {
             .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFD6E3EE), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false)));
     }
 }

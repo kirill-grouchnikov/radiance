@@ -55,21 +55,17 @@ public class BusinessSkin extends BusinessAccentedSkin {
             .withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFBDC8D3)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false))
             .withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEBD296),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false))
             .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                         Hct.fromInt(0xFFEAEDF3), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE5EAEF)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false))
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEBD296),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false)));
 

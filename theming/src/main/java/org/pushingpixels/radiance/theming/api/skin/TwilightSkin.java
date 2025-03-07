@@ -106,7 +106,6 @@ public class TwilightSkin extends RadianceSkin {
         RadianceColorScheme twilightColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF8F8B7A), Hct.fromInt(0xFF3B3A32), Hct.fromInt(0xFF48443B)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ true,
@@ -169,7 +168,6 @@ public class TwilightSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF45433A),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true),
             RadianceThemingSlices.DecorationAreaType.FOOTER,
@@ -179,7 +177,6 @@ public class TwilightSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF504E45),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

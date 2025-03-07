@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 
@@ -54,7 +53,6 @@ public class GraphiteAquaSkin extends GraphiteAccentedSkin {
         super(new AccentBuilder()
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3E70FF),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true))
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(

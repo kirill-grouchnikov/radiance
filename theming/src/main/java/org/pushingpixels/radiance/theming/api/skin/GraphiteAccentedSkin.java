@@ -63,7 +63,6 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 		RadianceColorScheme defaultAreaColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFF636363), Hct.fromInt(0xFF424242), Hct.fromInt(0xFF424242)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isPrimaryDark */ true,
 			/* isTonalDark */ true,
 			/* isMutedDark */ true,

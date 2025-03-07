@@ -122,7 +122,6 @@ private fun getColorScheme(config: RobotConfig): RadianceColorScheme {
         /* palettesSource */ FidelityDirectPaletteSource(
             primaryPalette, mutedPalette, neutralPalette,
             primaryTone, mutedSeed.tone, neutralSeed.tone),
-        /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
         /* isDark */ false)
 }
 

@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
@@ -40,7 +41,6 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDeco
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 
@@ -80,7 +80,6 @@ public class ControlStates extends JFrame {
         public SampleSkin() {
             RadianceColorScheme lightColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFF9020F4), 8.0, 6.0),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isDark */ false);
 
             RadianceColorSchemeBundle bundle2 = new RadianceColorSchemeBundle(lightColorScheme);
@@ -88,7 +87,6 @@ public class ControlStates extends JFrame {
             bundle2.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
@@ -97,7 +95,6 @@ public class ControlStates extends JFrame {
             bundle2.registerActiveContainerTokens(
                 ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF20F490),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isFidelity */ true,
                     /* isDark */ false),
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,

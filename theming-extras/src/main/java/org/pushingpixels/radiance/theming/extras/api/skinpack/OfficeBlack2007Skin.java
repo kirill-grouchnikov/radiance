@@ -98,7 +98,6 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         RadianceColorScheme officeBlackColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFB8C0C9), Hct.fromInt(0xFFCFD5DA)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ false,
@@ -150,12 +149,10 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isFidelity */ true,
             /* isDark */ false);
         ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF991C),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isFidelity */ true,
             /* isDark */ false);
 
@@ -253,7 +250,6 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         RadianceColorScheme officeBlackSecondaryColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFB9BCC1), Hct.fromInt(0xFF454545), Hct.fromInt(0xFF2D2D2D)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ true,

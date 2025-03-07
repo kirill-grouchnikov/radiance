@@ -105,7 +105,6 @@ public class AutumnSkin extends RadianceSkin {
 		RadianceColorScheme autumnColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFFFCB90), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE2C1)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isPrimaryDark */ false,
 			/* isTonalDark */ false,
 			/* isMutedDark */ false,
@@ -168,7 +167,6 @@ public class AutumnSkin extends RadianceSkin {
 		RadianceColorScheme autumnControlPaneColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFDDB9)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isPrimaryDark */ false,
 			/* isTonalDark */ false,
 			/* isMutedDark */ false,
@@ -193,7 +191,6 @@ public class AutumnSkin extends RadianceSkin {
 		this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFED8B2),
-				/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

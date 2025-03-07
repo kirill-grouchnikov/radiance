@@ -64,7 +64,6 @@ public class GeminiSkin extends RadianceSkin {
         RadianceColorScheme geminiColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFB0BBB8), Hct.fromInt(0xFFB0BBB8), Hct.fromInt(0xFFD1E1E0)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ false,
             /* isTonalDark */ false,
             /* isMutedDark */ false,
@@ -79,7 +78,6 @@ public class GeminiSkin extends RadianceSkin {
         ContainerColorTokens geminiHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
 
@@ -128,7 +126,6 @@ public class GeminiSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFA9B4B1),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
@@ -139,7 +136,6 @@ public class GeminiSkin extends RadianceSkin {
             new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFFDC02), Hct.fromInt(0xFF142429), Hct.fromInt(0xFF203042)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ false,
                 /* isTonalDark */ false,
                 /* isMutedDark */ true,
@@ -158,7 +154,6 @@ public class GeminiSkin extends RadianceSkin {
             new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFFFFDC02), Hct.fromInt(0xFF1C282D), Hct.fromInt(0xFF142429)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ false,
                 /* isTonalDark */ false,
                 /* isMutedDark */ true,

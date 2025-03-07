@@ -66,7 +66,6 @@ public class NightShadeSkin extends RadianceSkin {
         RadianceColorScheme nightShadeColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF4E5562), Hct.fromInt(0xFF373B45), Hct.fromInt(0xFF292A32)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ true,
             /* isTonalDark */ true,
             /* isMutedDark */ true,
@@ -81,13 +80,11 @@ public class NightShadeSkin extends RadianceSkin {
         ContainerColorTokens nightShadeSelectedContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3D4B63),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true);
         ContainerColorTokens nightShadeSelectedHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF414752),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true);
 
@@ -108,7 +105,6 @@ public class NightShadeSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF22252A),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ true),
             RadianceThemingSlices.DecorationAreaType.FOOTER,

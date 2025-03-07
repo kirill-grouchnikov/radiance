@@ -34,6 +34,8 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
@@ -42,8 +44,6 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationP
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class SeaGlassSkin extends RadianceSkin {
@@ -61,12 +61,10 @@ public class SeaGlassSkin extends RadianceSkin {
 		RadianceColorScheme seaGlassDefaultColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFF6FA5E0), Hct.fromInt(0xFFC8E7FA), Hct.fromInt(0xFFFFFFFF)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 		ContainerColorTokens seaGlassHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF7DBFF1),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false);
 
@@ -75,7 +73,6 @@ public class SeaGlassSkin extends RadianceSkin {
 		seaGlassDefaultBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF28A8EF),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false),
 			ComponentState.DEFAULT);
@@ -87,7 +84,6 @@ public class SeaGlassSkin extends RadianceSkin {
 
 		this.registerAsDecorationArea(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF75B4D8),
-				/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,

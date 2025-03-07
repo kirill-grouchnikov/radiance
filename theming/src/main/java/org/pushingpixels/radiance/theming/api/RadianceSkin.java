@@ -502,15 +502,6 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getMainColorScheme().getTonalContainerTokens();
     }
 
-    public final ContainerColorTokens getPrimaryContainerTokens(
-        RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getPrimaryContainerTokens();
-        }
-        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getMainColorScheme().getPrimaryContainerTokens();
-    }
-
     /**
      * Adds the specified overlay painter to the end of the list of overlay
      * painters associated with the specified decoration area types.

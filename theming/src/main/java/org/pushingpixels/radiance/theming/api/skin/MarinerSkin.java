@@ -59,18 +59,15 @@ public class MarinerSkin extends RadianceSkin {
         RadianceColorScheme marinerColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFF6DD9D), Hct.fromInt(0xFFD9D8D5), Hct.fromInt(0xFFECF0F3)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
 
         ContainerColorTokens marinerSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFF5D47A),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isFidelity */ true,
             /* isDark */ false);
         ContainerColorTokens marinerSelectedHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF7D997),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false);
 
@@ -90,7 +87,6 @@ public class MarinerSkin extends RadianceSkin {
         RadianceColorScheme marinerHeaderColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFF5D47A), Hct.fromInt(0xFF281D1E), Hct.fromInt(0xFF2C2021)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isPrimaryDark */ true,
             /* isTonalDark */ true,
             /* isMutedDark */ true,
@@ -138,7 +134,6 @@ public class MarinerSkin extends RadianceSkin {
         RadianceColorScheme marinerFooterColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFFF6DD9D), Hct.fromInt(0xFFC5C4C2), Hct.fromInt(0xFFB9B7B9)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
 
         RadianceColorSchemeBundle marinerFooterBundle =
@@ -146,7 +141,6 @@ public class MarinerSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(marinerFooterBundle,
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB9B7B9),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.FOOTER,

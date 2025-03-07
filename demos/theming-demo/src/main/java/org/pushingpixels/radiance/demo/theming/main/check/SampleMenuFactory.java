@@ -36,12 +36,12 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
@@ -287,7 +287,6 @@ public class SampleMenuFactory {
             RadianceColorScheme customColorScheme = ColorSchemeUtils.getColorScheme(
                 /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                     Hct.fromInt(0xFF2C64B4), Hct.fromInt(0xFFBABEC2), Hct.fromInt(0xFFF0F5FA)),
-                /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isPrimaryDark */ true,
                 /* isTonalDark */ true,
                 /* isMutedDark */ false,
@@ -309,7 +308,6 @@ public class SampleMenuFactory {
                 new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
                     /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                         Hct.fromInt(0xFF1A55BA), Hct.fromInt(0xFF1A50AC), Hct.fromInt(0xFF1A5ED2)),
-                    /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                     /* isDark */ true));
             this.registerDecorationAreaSchemeBundle(customDefaultHeaderBundle,
                 customDefaultHeaderBundle.getMainColorScheme().getTonalContainerTokens(),

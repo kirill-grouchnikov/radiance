@@ -58,7 +58,6 @@ public class VisorSkin extends RadianceSkin {
         RadianceColorScheme visorDefaultColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF99B6CB), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFEFF8FF)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
         RadianceColorSchemeBundle visorDefaultBundle =
             new RadianceColorSchemeBundle(visorDefaultColorScheme);
@@ -78,7 +77,6 @@ public class VisorSkin extends RadianceSkin {
         RadianceColorScheme visorThreadsColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD8E2EA)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
         RadianceColorSchemeBundle visorThreadsBundle =
             new RadianceColorSchemeBundle(visorThreadsColorScheme);
@@ -115,7 +113,6 @@ public class VisorSkin extends RadianceSkin {
         RadianceColorScheme visorDestinationsColorScheme = ColorSchemeUtils.getColorScheme(
             /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
                 Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD3E2EF)),
-            /* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
             /* isDark */ false);
         RadianceColorSchemeBundle visorDestinationsBundle =
             new RadianceColorSchemeBundle(visorDestinationsColorScheme);
@@ -142,7 +139,6 @@ public class VisorSkin extends RadianceSkin {
         // For the overall frame decoration border
         this.registerAsDecorationArea(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC9D6DF),
-                /* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
                 /* isFidelity */ true,
                 /* isDark */ false),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);

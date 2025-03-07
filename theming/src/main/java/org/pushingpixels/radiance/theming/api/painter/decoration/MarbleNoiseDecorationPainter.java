@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.painter.decoration;
 
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.NoiseFactory;
@@ -56,7 +55,6 @@ public class MarbleNoiseDecorationPainter extends ImageWrapperDecorationPainter 
 		ContainerColorTokens metallicTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC4C9CF),
-				/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false);
 

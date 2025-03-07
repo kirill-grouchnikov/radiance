@@ -68,28 +68,23 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		RadianceColorScheme nebulaColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFBAD2E3), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 
 		ContainerColorTokens nebulaRolloverHighlightContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFF6B92AF),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isFidelity */ true,
 			/* isDark */ true);
 		ContainerColorTokens nebulaPressedContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFF276792),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isFidelity */ true,
 			/* isDark */ true);
 		ContainerColorTokens nebulaSelectedHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF5B85A6),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ true);
 		ContainerColorTokens nebulaDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFD2852F),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isFidelity */ true,
 			/* isDark */ true);
 
@@ -116,7 +111,6 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 
 		ContainerColorTokens nebulaDecorationsColorTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFC2D1DA),
-			/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isFidelity */ true,
 			/* isDark */ false);
 		this.registerAsDecorationArea(nebulaDecorationsColorTokens,

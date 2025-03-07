@@ -65,35 +65,29 @@ public class CeruleanSkin extends RadianceSkin {
 		RadianceColorScheme ceruleanColorScheme = ColorSchemeUtils.getColorScheme(
 			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 				Hct.fromInt(0xFFD2E0ED), Hct.fromInt(0xFFECECED), Hct.fromInt(0xFFFBFCFC)),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isDark */ false);
 
 		ContainerColorTokens ceruleanSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFC0DBEE),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isFidelity */ true,
 			/* isDark */ false);
 		ContainerColorTokens ceruleanSelectedHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFBDCA1),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false);
 		ContainerColorTokens ceruleanRolloverHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFF7E5C4),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false);
 		ContainerColorTokens ceruleanTextHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFEDB7C),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false);
 		ContainerColorTokens ceruleanDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFCFEAFE),
-			/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 			/* isFidelity */ true,
 			/* isDark */ false);
 
@@ -128,12 +122,10 @@ public class CeruleanSkin extends RadianceSkin {
 			new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
 				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
 					Hct.fromInt(0xFF3B7BA8), Hct.fromInt(0xFF5B9BC8), Hct.fromInt(0xFF8BCBF8)),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isDark */ true));
 		ceruleanDefaultHeaderBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF638EA8),
-				/* activeStatesContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ true),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -152,7 +144,6 @@ public class CeruleanSkin extends RadianceSkin {
 		this.registerAsDecorationArea(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCBD1D7),
-				/* activeContainerType */ RadianceThemingSlices.ActiveContainerType.TONAL,
 				/* isFidelity */ true,
 				/* isDark */ false),
 			RadianceThemingSlices.DecorationAreaType.FOOTER,
