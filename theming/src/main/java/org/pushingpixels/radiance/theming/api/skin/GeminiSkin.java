@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -61,19 +62,21 @@ public class GeminiSkin extends RadianceSkin {
 
     public GeminiSkin() {
         // Same seed for primary and muted
-        RadianceColorScheme geminiColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFFB0BBB8), Hct.fromInt(0xFFB0BBB8), Hct.fromInt(0xFFD1E1E0)),
-            /* isPrimaryDark */ false,
-            /* isTonalDark */ false,
-            /* isMutedDark */ false,
-            /* isNeutralDark */ false,
-            /* isSystemDark */ false,
-            /* primaryContrastLevel */ 0.0f,
-            /* tonalContrastLevel */ 0.0f,
-            /* mutedContrastLevel */ 0.2f,
-            /* neutralContrastLevel */ 0.6f,
-            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+        ContainerColorTokens geminiDefaultTonalTokens = ColorSchemeUtils.getContainerTokens(
+            /* seed */ Hct.fromInt(0xFFB0BBB8),
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
+        ContainerColorTokens geminiDefaultMutedTokens = ColorSchemeUtils.getContainerTokens(
+            /* seed */ Hct.fromInt(0xFFB0BBB8),
+            /* containerConfiguration */ new ContainerConfiguration(
+                /* isDark */ false,
+                /* contrastLevel */ 0.2,
+                /* tonalSurfaceRangeAmplitudeFactor */ 1.0));
+        ContainerColorTokens geminiDefaultNeutralTokens = ColorSchemeUtils.getContainerTokens(
+            /* seed */ Hct.fromInt(0xFFD1E1E0),
+            /* containerConfiguration */ new ContainerConfiguration(
+                /* isDark */ false,
+                /* contrastLevel */ 0.6,
+                /* tonalSurfaceRangeAmplitudeFactor */ 1.0));
 
         ContainerColorTokens geminiHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
@@ -105,7 +108,8 @@ public class GeminiSkin extends RadianceSkin {
                 ));
 
         RadianceColorSchemeBundle geminiDefaultBundle =
-            new RadianceColorSchemeBundle(geminiColorScheme);
+            new RadianceColorSchemeBundle(geminiDefaultTonalTokens, geminiDefaultMutedTokens,
+                geminiDefaultNeutralTokens, false);
         // Highlight tokens for controls in selected states
         geminiDefaultBundle.registerActiveContainerTokens(geminiHighlightContainerTokens,
             ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,

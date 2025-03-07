@@ -55,10 +55,6 @@ public interface RadianceColorScheme {
 
     ContainerColorTokens getInverseSystemSuccessContainerTokens();
 
-    ContainerColorTokens getSystemEmergencyContainerTokens();
-
-    ContainerColorTokens getInverseSystemEmergencyContainerTokens();
-
     ContainerColorTokens getContainerTokensForState(ComponentState componentState);
 
     default ContainerColorTokens getContainerTokens(RadianceThemingSlices.ContainerType containerType) {

@@ -121,7 +121,7 @@ public class PasswordStrengthCheckerWidget extends RadianceThemingWidget<JPasswo
             ContainerColorTokens colorTokens = null;
             if (pStrength == RadianceThemingSlices.PasswordStrength.WEAK) {
                 colorTokens = skin.getSystemContainerTokens(c,
-                    RadianceThemingSlices.SystemContainerType.EMERGENCY);
+                    RadianceThemingSlices.SystemContainerType.ERROR);
             }
             if (pStrength == RadianceThemingSlices.PasswordStrength.MEDIUM) {
                 colorTokens = skin.getSystemContainerTokens(c,

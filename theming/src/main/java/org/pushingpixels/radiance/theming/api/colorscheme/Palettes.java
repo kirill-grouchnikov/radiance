@@ -44,13 +44,12 @@ public class Palettes {
     private Hct systemWarningSourceHct;
     private Hct systemErrorSourceHct;
     private Hct systemSuccessSourceHct;
-    private Hct systemEmergencySourceHct;
 
     private Palettes(boolean isFidelity,
         BaseTonalPalette primaryPalette, BaseTonalPalette mutedPalette, BaseTonalPalette neutralPalette,
         double primarySourceTone, double mutedSourceTone, double neutralSourceTone,
         Hct systemInfoSourceHct, Hct systemWarningSourceHct, Hct systemErrorSourceHct,
-        Hct systemSuccessSourceHct, Hct systemEmergencySourceHct) {
+        Hct systemSuccessSourceHct) {
 
         this.isFidelity = isFidelity;
         this.primaryPalette = primaryPalette;
@@ -63,7 +62,6 @@ public class Palettes {
         this.systemWarningSourceHct = systemWarningSourceHct;
         this.systemErrorSourceHct = systemErrorSourceHct;
         this.systemSuccessSourceHct = systemSuccessSourceHct;
-        this.systemEmergencySourceHct = systemEmergencySourceHct;
     }
 
     public boolean isFidelity() {
@@ -110,10 +108,6 @@ public class Palettes {
         return this.systemSuccessSourceHct;
     }
 
-    public Hct getSystemEmergencySourceHct() {
-        return this.systemEmergencySourceHct;
-    }
-
     public static Palettes.Builder builder() {
         return new Palettes.Builder();
     }
@@ -132,7 +126,6 @@ public class Palettes {
         private Hct systemWarningSourceHct = Hct.fromInt(0xFFE237);
         private Hct systemErrorSourceHct = Hct.fromInt(0xFFFF7829);
         private Hct systemSuccessSourceHct = Hct.fromInt(0xFF068B3A);
-        private Hct systemEmergencySourceHct = Hct.fromInt(0xFFD72A17);
 
         public Builder setFidelity(boolean fidelity) {
             this.isFidelity = fidelity;
@@ -175,7 +168,7 @@ public class Palettes {
                 this.primaryPalette, this.mutedPalette, this.neutralPalette,
                 this.primarySourceTone, this.mutedSourceTone, this.neutralSourceTone,
                 this.systemInfoSourceHct, this.systemWarningSourceHct, this.systemErrorSourceHct,
-                this.systemSuccessSourceHct, this.systemEmergencySourceHct);
+                this.systemSuccessSourceHct);
         }
     }
 }

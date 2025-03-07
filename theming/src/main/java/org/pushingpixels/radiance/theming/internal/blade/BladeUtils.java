@@ -58,86 +58,86 @@ public class BladeUtils {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         ContainerColorTokens warningColorTokens = skin.getSystemContainerTokens(
             component, RadianceThemingSlices.SystemContainerType.WARNING);
-        ContainerColorTokens emergencyColorTokens = skin.getSystemContainerTokens(
-            component, RadianceThemingSlices.SystemContainerType.EMERGENCY);
+        ContainerColorTokens errorColorTokens = skin.getSystemContainerTokens(
+            component, RadianceThemingSlices.SystemContainerType.ERROR);
 
         bladeContainerTokens.containerSurfaceLowest = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerSurfaceLowest(),
-            emergencyColorTokens.getContainerSurfaceLowest(),
+            errorColorTokens.getContainerSurfaceLowest(),
             modificationCyclePosition);
         bladeContainerTokens.containerSurfaceLow = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerSurfaceLow(),
-            emergencyColorTokens.getContainerSurfaceLow(),
+            errorColorTokens.getContainerSurfaceLow(),
             modificationCyclePosition);
         bladeContainerTokens.containerSurface = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerSurface(),
-            emergencyColorTokens.getContainerSurface(),
+            errorColorTokens.getContainerSurface(),
             modificationCyclePosition);
         bladeContainerTokens.containerSurfaceHigh = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerSurfaceHigh(),
-            emergencyColorTokens.getContainerSurfaceHigh(),
+            errorColorTokens.getContainerSurfaceHigh(),
             modificationCyclePosition);
         bladeContainerTokens.containerSurfaceHighest = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerSurfaceHighest(),
-            emergencyColorTokens.getContainerSurfaceHighest(),
+            errorColorTokens.getContainerSurfaceHighest(),
             modificationCyclePosition);
         bladeContainerTokens.containerSurfaceDim = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerSurfaceDim(),
-            emergencyColorTokens.getContainerSurfaceDim(),
+            errorColorTokens.getContainerSurfaceDim(),
             modificationCyclePosition);
         bladeContainerTokens.containerSurfaceBright = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerSurfaceBright(),
-            emergencyColorTokens.getContainerSurfaceBright(),
+            errorColorTokens.getContainerSurfaceBright(),
             modificationCyclePosition);
 
         bladeContainerTokens.onContainer = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getOnContainer(),
-            emergencyColorTokens.getOnContainer(),
+            errorColorTokens.getOnContainer(),
             modificationCyclePosition);
         bladeContainerTokens.onContainerVariant = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getOnContainerVariant(),
-            emergencyColorTokens.getOnContainerVariant(),
+            errorColorTokens.getOnContainerVariant(),
             modificationCyclePosition);
 
         bladeContainerTokens.containerOutline = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerOutline(),
-            emergencyColorTokens.getContainerOutlineVariant(),
+            errorColorTokens.getContainerOutlineVariant(),
             modificationCyclePosition);
 
         bladeContainerTokens.containerDisabledAlpha =
             (1.0f - modificationCyclePosition) * warningColorTokens.getContainerSurfaceDisabledAlpha() +
-                modificationCyclePosition * emergencyColorTokens.getContainerSurfaceDisabledAlpha();
+                modificationCyclePosition * errorColorTokens.getContainerSurfaceDisabledAlpha();
         bladeContainerTokens.onContainerDisabledAlpha =
             (1.0f - modificationCyclePosition) * warningColorTokens.getOnContainerDisabledAlpha() +
-                modificationCyclePosition * emergencyColorTokens.getOnContainerDisabledAlpha();
+                modificationCyclePosition * errorColorTokens.getOnContainerDisabledAlpha();
         bladeContainerTokens.containerOutlineDisabledAlpha =
             (1.0f - modificationCyclePosition) * warningColorTokens.getContainerOutlineDisabledAlpha() +
-                modificationCyclePosition * emergencyColorTokens.getContainerOutlineDisabledAlpha();
+                modificationCyclePosition * errorColorTokens.getContainerOutlineDisabledAlpha();
 
         bladeContainerTokens.inverseContainerSurface = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getInverseContainerSurface(),
-            emergencyColorTokens.getInverseContainerSurface(),
+            errorColorTokens.getInverseContainerSurface(),
             modificationCyclePosition);
         bladeContainerTokens.inverseOnContainer = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getInverseOnContainer(),
-            emergencyColorTokens.getInverseOnContainer(),
+            errorColorTokens.getInverseOnContainer(),
             modificationCyclePosition);
         bladeContainerTokens.inverseContainerOutline = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getInverseContainerOutline(),
-            emergencyColorTokens.getInverseContainerOutline(),
+            errorColorTokens.getInverseContainerOutline(),
             modificationCyclePosition);
         bladeContainerTokens.complementaryOnContainer = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getComplementaryOnContainer(),
-            emergencyColorTokens.getComplementaryOnContainer(),
+            errorColorTokens.getComplementaryOnContainer(),
             modificationCyclePosition);
         bladeContainerTokens.complementaryContainerOutline = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getComplementaryContainerOutline(),
-            emergencyColorTokens.getComplementaryContainerOutline(),
+            errorColorTokens.getComplementaryContainerOutline(),
             modificationCyclePosition);
 
         bladeContainerTokens.combinedName = "[" + warningColorTokens.hashCode() + ":" + modificationCyclePosition
-            + "], [" + emergencyColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
-        bladeContainerTokens.isDark = warningColorTokens.isDark() && emergencyColorTokens.isDark();
+            + "], [" + errorColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
+        bladeContainerTokens.isDark = warningColorTokens.isDark() && errorColorTokens.isDark();
     }
 
     public static void populateColorTokens(

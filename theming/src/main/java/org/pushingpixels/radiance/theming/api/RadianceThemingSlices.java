@@ -826,8 +826,7 @@ public final class RadianceThemingSlices {
         INFO,
         WARNING,
         ERROR,
-        SUCCESS,
-        EMERGENCY
+        SUCCESS
     }
 
     /**

@@ -57,14 +57,12 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
 
     private static class SamplePanel extends JPanel {
         private ContainerColorTokens containerTokens;
-        private boolean isPrimary;
 
         private SamplePanel(JLabel textPrimary, JLabel textSecondary,
             RadianceIcon iconPrimary, RadianceIcon iconSecondary,
-            ContainerColorTokens containerTokens, boolean isPrimary) {
+            ContainerColorTokens containerTokens) {
 
             this.containerTokens = containerTokens;
-            this.isPrimary = isPrimary;
 
             this.setLayout(new BorderLayout(12, 0));
             this.setBorder(new EmptyBorder(8, 16, 8, 16));
@@ -94,10 +92,10 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
             int arc = 16;
             int strokeThickness = 2;
 
-            Color gradientTop = containerTokens.isDark() ^ isPrimary
+            Color gradientTop = containerTokens.isDark()
                 ? containerTokens.getContainerSurfaceHigh() :
                 containerTokens.getContainerSurfaceLow();
-            Color gradientBottom = containerTokens.isDark() ^ isPrimary
+            Color gradientBottom = containerTokens.isDark()
                 ? containerTokens.getContainerSurfaceLow() :
                 containerTokens.getContainerSurfaceHigh();
 
@@ -148,7 +146,7 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         iconSecondary.setColorFilter(color -> containerTokens.getOnContainerVariant());
 
         JPanel neutral = new SamplePanel(textPrimaryLabel, textSecondaryLabel, iconPrimary,
-            iconSecondary, containerTokens, false);
+            iconSecondary, containerTokens);
 
         builder.append(neutral);
     }
@@ -174,12 +172,12 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         iconSecondary.setColorFilter(color -> systemTokens.getOnContainer());
 
         JPanel tonal = new SamplePanel(textPrimaryLabel, textSecondaryLabel, iconPrimary,
-            iconSecondary, systemTokens, false);
+            iconSecondary, systemTokens);
 
         builder.append(tonal);
     }
 
-    private void makePrimary(JPanel tokensPanel, TestFormLayoutBuilder builder,
+    private void makeInverse(JPanel tokensPanel, TestFormLayoutBuilder builder,
         ContainerColorTokens systemTokens, RadianceIcon iconPrimary,
         String textPrimary, String textSecondary) {
 
@@ -200,13 +198,13 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         iconSecondary.setColorFilter(color -> systemTokens.getOnContainer());
 
         JPanel primary = new SamplePanel(textPrimaryLabel, textSecondaryLabel, iconPrimary,
-            iconSecondary, systemTokens, true);
+            iconSecondary, systemTokens);
 
         builder.append(primary);
     }
 
     private void populateNeutrals(JPanel tokensPanel, TestFormLayoutBuilder builder) {
-        builder.appendSeparator("Neutrals");
+        builder.appendSeparator("Neutral");
 
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel);
 
@@ -233,13 +231,6 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
 
         makeNeutral(tokensPanel, builder,
             skin.getInverseSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.EMERGENCY),
-            report_24dp_fill.of(24, 24),
-            "Data breach",
-            "Shutting down systems");
-
-        makeNeutral(tokensPanel, builder,
-            skin.getInverseSystemContainerTokens(tokensPanel,
                 RadianceThemingSlices.SystemContainerType.ERROR),
             error_24dp_fill.of(24, 24),
             "Access denied",
@@ -247,7 +238,7 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
     }
 
     private void populateTonals(JPanel tokensPanel, TestFormLayoutBuilder builder) {
-        builder.appendSeparator("Tonals");
+        builder.appendSeparator("Tonal");
 
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel);
 
@@ -271,13 +262,6 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
             warning_24dp_outline.of(24, 24),
             "Connection lost",
             "Connect to WiFi to continue");
-
-        makeTonal(tokensPanel, builder,
-            skin.getSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.EMERGENCY),
-            report_24dp_outline.of(24, 24),
-            "Data breach",
-            "Shutting down systems");
 
         makeTonal(tokensPanel, builder,
             skin.getSystemContainerTokens(tokensPanel,
@@ -287,46 +271,38 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
             "Check your permissions");
     }
 
-    private void populatePrimaries(JPanel tokensPanel, TestFormLayoutBuilder builder) {
-        builder.appendSeparator("Primaries");
+    private void populateInverse(JPanel tokensPanel, TestFormLayoutBuilder builder) {
+        builder.appendSeparator("Inverse");
 
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel);
 
-        makePrimary(tokensPanel, builder,
+        makeInverse(tokensPanel, builder,
             skin.getInverseSystemContainerTokens(tokensPanel,
                 RadianceThemingSlices.SystemContainerType.INFO),
             info_24dp_outline.of(24, 24),
             "Update available",
             "Click to install version 8.0");
 
-        makePrimary(tokensPanel, builder,
+        makeInverse(tokensPanel, builder,
             skin.getInverseSystemContainerTokens(tokensPanel,
                 RadianceThemingSlices.SystemContainerType.SUCCESS),
             check_24dp_outline.of(24, 24),
             "Connection established",
             "Streaming content");
 
-        makePrimary(tokensPanel, builder,
+        makeInverse(tokensPanel, builder,
             skin.getInverseSystemContainerTokens(tokensPanel,
                 RadianceThemingSlices.SystemContainerType.WARNING),
             warning_24dp_outline.of(24, 24),
             "Connection lost",
             "Connect to WiFi to continue");
 
-        makePrimary(tokensPanel, builder,
-            skin.getInverseSystemContainerTokens(tokensPanel,
-                RadianceThemingSlices.SystemContainerType.EMERGENCY),
-            report_24dp_outline.of(24, 24),
-            "Data breach",
-            "Shutting down systems");
-
-        makePrimary(tokensPanel, builder,
+        makeInverse(tokensPanel, builder,
             skin.getInverseSystemContainerTokens(tokensPanel,
                 RadianceThemingSlices.SystemContainerType.ERROR),
             error_24dp_outline.of(24, 24),
             "Access denied",
             "Check your permissions");
-
     }
 
     /**
@@ -347,7 +323,7 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         builder.nextLine();
         populateTonals(this, builder);
         builder.nextLine();
-        populatePrimaries(this, builder);
+        populateInverse(this, builder);
         builder.nextLine();
 
         JPanel everything = builder.build();

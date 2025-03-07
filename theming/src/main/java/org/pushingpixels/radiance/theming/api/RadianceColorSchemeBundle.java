@@ -117,7 +117,7 @@ public class RadianceColorSchemeBundle {
             /* isFidelity */ true,
             /* isDark */ false);
         ContainerColorTokens systemEmergencyLightTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFFFDAD3),
+            /* seed */ Hct.fromInt(0xFFF4DDCF),
             /* isFidelity */ true,
             /* isDark */ false);
 
@@ -130,11 +130,11 @@ public class RadianceColorSchemeBundle {
             /* isFidelity */ true,
             /* isDark */ true);
         ContainerColorTokens systemErrorDarkTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFA44300),
+            /* seed */ Hct.fromInt(0xFFC01707),
             /* isFidelity */ true,
             /* isDark */ true);
         ContainerColorTokens systemSuccessDarkTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFF00702D),
+            /* seed */ Hct.fromInt(0xFF008817),
             /* isFidelity */ true,
             /* isDark */ true);
         ContainerColorTokens systemEmergencyDarkTokens = ColorSchemeUtils.getContainerTokens(
@@ -182,32 +182,22 @@ public class RadianceColorSchemeBundle {
 
             @Override
             public ContainerColorTokens getSystemErrorContainerTokens() {
-                return isSystemDark ? systemErrorLightTokens : systemErrorDarkTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getInverseSystemErrorContainerTokens() {
                 return isSystemDark ? systemErrorDarkTokens : systemErrorLightTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemSuccessContainerTokens() {
-                return isSystemDark ? systemSuccessLightTokens : systemSuccessDarkTokens;
+            public ContainerColorTokens getInverseSystemErrorContainerTokens() {
+                return isSystemDark ? systemErrorLightTokens : systemErrorDarkTokens;
             }
 
             @Override
-            public ContainerColorTokens getInverseSystemSuccessContainerTokens() {
+            public ContainerColorTokens getSystemSuccessContainerTokens() {
                 return isSystemDark ? systemSuccessDarkTokens : systemSuccessLightTokens;
             }
 
             @Override
-            public ContainerColorTokens getSystemEmergencyContainerTokens() {
-                return isSystemDark ? systemEmergencyLightTokens : systemEmergencyDarkTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getInverseSystemEmergencyContainerTokens() {
-                return isSystemDark ? systemEmergencyDarkTokens : systemEmergencyLightTokens;
+            public ContainerColorTokens getInverseSystemSuccessContainerTokens() {
+                return isSystemDark ? systemSuccessLightTokens : systemSuccessDarkTokens;
             }
 
             @Override
@@ -376,10 +366,9 @@ public class RadianceColorSchemeBundle {
             case INFO: return this.mainColorScheme.getSystemInfoContainerTokens();
             case WARNING: return this.mainColorScheme.getSystemWarningContainerTokens();
             case ERROR: return this.mainColorScheme.getSystemErrorContainerTokens();
-            case SUCCESS: return this.mainColorScheme.getSystemSuccessContainerTokens();
-            case EMERGENCY:
+            case SUCCESS:
             default:
-                return this.mainColorScheme.getSystemEmergencyContainerTokens();
+                return this.mainColorScheme.getSystemSuccessContainerTokens();
         }
     }
 
@@ -389,10 +378,9 @@ public class RadianceColorSchemeBundle {
             case INFO: return this.mainColorScheme.getInverseSystemInfoContainerTokens();
             case WARNING: return this.mainColorScheme.getInverseSystemWarningContainerTokens();
             case ERROR: return this.mainColorScheme.getInverseSystemErrorContainerTokens();
-            case SUCCESS: return this.mainColorScheme.getInverseSystemSuccessContainerTokens();
-            case EMERGENCY:
+            case SUCCESS:
             default:
-                return this.mainColorScheme.getInverseSystemEmergencyContainerTokens();
+                return this.mainColorScheme.getInverseSystemSuccessContainerTokens();
         }
     }
 
