@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -62,37 +62,58 @@ public class TwilightSkin extends RadianceSkin {
     }
 
     public TwilightSkin() {
-        SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-        // Set up token resolution overlays
-        SchemeColorResolver twilightColorResolver = defaultSchemeColorResolver.overlayWith(
-            SchemeColorResolverOverlay.builder()
-                // For neutral containers, use the text / icon colors from the muted containers
-                // for better visual consistency
-                .neutralContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .onContainer(DynamicScheme::getOnMutedContainer)
-                        .onContainerVariant(DynamicScheme::getOnMutedContainerVariant)
-                        .build())
-                // For muted containers (enabled controls), use higher alpha values for disabled
-                // controls for better contrast.
-                .mutedContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .containerSurfaceDisabledAlpha((s) -> 0.5f)
-                        .onContainerDisabledAlpha((s) -> 0.6f)
-                        .containerOutlineDisabledAlpha((s) -> 0.55f)
-                        .build())
-                // For tonal containers (active controls), use higher alpha values for disabled
-                // controls for better contrast. Also use muted outlines for border consistency
-                // with enabled controls.
-                .tonalContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .containerOutline(DynamicScheme::getMutedContainerOutline)
-                        .containerOutlineVariant(DynamicScheme::getMutedContainerOutlineVariant)
-                        .containerSurfaceDisabledAlpha((s) -> 0.4f)
-                        .onContainerDisabledAlpha((s) -> 0.6f)
-                        .containerOutlineDisabledAlpha((s) -> 0.55f)
-                        .build())
-                .build());
+        // For muted containers (enabled controls), use higher alpha values for disabled
+        // controls for better contrast.
+        PaletteContainerColorsResolver mutedResolver =
+            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                PaletteContainerColorsResolverOverlay.builder()
+                    .containerSurfaceDisabledAlpha((s) -> 0.5f)
+                    .onContainerDisabledAlpha((s) -> 0.6f)
+                    .containerOutlineDisabledAlpha((s) -> 0.55f)
+                    .build());
+        ContainerColorTokens twilightDefaultMutedTokens = ColorSchemeUtils.getContainerTokens(
+            /* seed */ Hct.fromInt(0xFF3B3A32),
+            /* containerConfiguration */ new ContainerConfiguration(
+                /* isDark */ true,
+                /* contrastLevel */ -0.1,
+                /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
+            /* colorResolver */ mutedResolver);
+
+        // For tonal containers (active controls), use higher alpha values for disabled
+        // controls for better contrast. Also use muted outlines for border consistency
+        // with enabled controls.
+        PaletteContainerColorsResolver tonalResolver =
+            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                PaletteContainerColorsResolverOverlay.builder()
+                    .containerOutline((p) -> twilightDefaultMutedTokens.getContainerOutline().getRGB())
+                    .containerOutlineVariant((p) -> twilightDefaultMutedTokens.getContainerOutlineVariant().getRGB())
+                    .containerSurfaceDisabledAlpha((p) -> 0.4f)
+                    .onContainerDisabledAlpha((p) -> 0.6f)
+                    .containerOutlineDisabledAlpha((p) -> 0.55f)
+                    .build());
+        ContainerColorTokens twilightDefaultTonalTokens = ColorSchemeUtils.getContainerTokens(
+            /* seed */ Hct.fromInt(0xFF8F8B7A),
+            /* containerConfiguration */ new ContainerConfiguration(
+                /* isDark */ false,
+                /* contrastLevel */ 0.2,
+                /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
+            /* colorResolver */ tonalResolver);
+
+        // For neutral containers, use the text / icon colors from the muted containers
+        // for better visual consistency
+        PaletteContainerColorsResolver neutralResolver =
+            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                PaletteContainerColorsResolverOverlay.builder()
+                    .onContainer((p) -> twilightDefaultMutedTokens.getOnContainer().getRGB())
+                    .onContainerVariant((p) -> twilightDefaultMutedTokens.getOnContainerVariant().getRGB())
+                    .build());
+        ContainerColorTokens twilightDefaultNeutralTokens = ColorSchemeUtils.getContainerTokens(
+            /* seed */ Hct.fromInt(0xFF48443B),
+            /* containerConfiguration */ new ContainerConfiguration(
+                /* isDark */ true,
+                /* contrastLevel */ -0.1,
+                /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
+            /* colorResolver */ neutralResolver);
 
         PaletteContainerColorsResolver defaultPaletteContainerColorResolver =
             PaletteResolverUtils.getPaletteTonalColorResolver();
@@ -103,37 +124,23 @@ public class TwilightSkin extends RadianceSkin {
                     .containerOutlineVariant(DynamicPalette::getOnTonalContainerVariant)
                     .build());
 
-        RadianceColorScheme twilightColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF8F8B7A), Hct.fromInt(0xFF3B3A32), Hct.fromInt(0xFF48443B)),
-            /* isPrimaryDark */ false,
-            /* isTonalDark */ false,
-            /* isMutedDark */ true,
-            /* isNeutralDark */ true,
-            /* isSystemDark */ true,
-            /* primaryContrastLevel */ 0.0f,
-            /* tonalContrastLevel */ 0.2f,
-            /* mutedContrastLevel */ -0.1f,
-            /* neutralContrastLevel */ -0.1f,
-            /* schemeColorResolver */ twilightColorResolver);
-
         ContainerColorTokens twilightSelectedContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF91865D),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ -0.1f,
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ -0.1,
+                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
                 /* colorResolver */ twilightPaletteContainerColorResolver);
         ContainerColorTokens twilightSelectedHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8F8B7A),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.0f,
+                /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ twilightPaletteContainerColorResolver);
 
         RadianceColorSchemeBundle twilightDefaultBundle =
-            new RadianceColorSchemeBundle(twilightColorScheme);
+            new RadianceColorSchemeBundle(twilightDefaultTonalTokens, twilightDefaultMutedTokens,
+                twilightDefaultNeutralTokens, true);
         // More saturated seed for controls in selected state
         twilightDefaultBundle.registerActiveContainerTokens(twilightSelectedContainerTokens,
             ComponentState.SELECTED);
@@ -146,19 +153,19 @@ public class TwilightSkin extends RadianceSkin {
         twilightDefaultBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF91865D),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ -0.1f,
-                /* colorResolver */ defaultPaletteContainerColorResolver),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ -0.1,
+                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0)),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
             ComponentState.SELECTED);
         twilightDefaultBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8F8B7A),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ -0.1f,
-                /* colorResolver */ defaultPaletteContainerColorResolver),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ -0.1,
+                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0)),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
             ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_UNSELECTED);
         this.registerDecorationAreaSchemeBundle(twilightDefaultBundle,
@@ -168,8 +175,7 @@ public class TwilightSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF45433A),
-                /* isFidelity */ true,
-                /* isDark */ true),
+                /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             RadianceThemingSlices.DecorationAreaType.FOOTER,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
@@ -177,18 +183,17 @@ public class TwilightSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF504E45),
-                /* isFidelity */ true,
-                /* isDark */ true),
+                /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         // Headers
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF0E0E0E),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 0.4f,
-                /* colorResolver */ defaultPaletteContainerColorResolver),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.4,
+                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0)),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);

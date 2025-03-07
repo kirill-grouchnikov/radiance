@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -65,84 +65,79 @@ public class AutumnSkin extends RadianceSkin {
 	}
 
 	public AutumnSkin() {
-		SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-		// Set up token resolution overlays
-		SchemeColorResolver autumnColorResolver = defaultSchemeColorResolver.overlayWith(
-			SchemeColorResolverOverlay.builder()
-				// For neutral containers, use softer outlines and softer text / icon colors
-				.neutralContainerResolverOverlay(
-					SchemeContainerColorsResolverOverlay.builder()
-						.containerOutline((s) -> s.getTonalContainerOutline() & 0x99FFFFFF)
-						.containerOutlineVariant((s) -> s.getTonalContainerOutline() & 0x80FFFFFF)
-						.onContainer(DynamicScheme::getTonalContainerOutline)
-						.onContainerVariant((s) -> s.getTonalContainerOutline() & 0xC0FFFFFF)
-						.build())
-				// For muted containers (enabled controls), use tonal outlines for border
-				// consistency with active controls, and softer text / icon colors. Also use
-				// higher alpha values for disabled controls for better contrast.
-				.mutedContainerResolverOverlay(
-					SchemeContainerColorsResolverOverlay.builder()
-						.containerOutline(DynamicScheme::getTonalContainerOutline)
-						.containerOutlineVariant(DynamicScheme::getTonalContainerOutlineVariant)
-						.onContainer(DynamicScheme::getTonalContainerOutline)
-						.onContainerVariant((s) -> s.getTonalContainerOutline() & 0xC0FFFFFF)
-						.containerSurfaceDisabledAlpha((s) -> 0.5f)
-						.onContainerDisabledAlpha((s) -> 0.6f)
-						.containerOutlineDisabledAlpha((s) -> 0.55f)
-						.build())
-				// For tonal containers (active controls), use softer text / icon colors.
-				// Also use higher alpha values for disabled controls for better contrast.
-				.tonalContainerResolverOverlay(
-					SchemeContainerColorsResolverOverlay.builder()
-						.onContainer(DynamicScheme::getTonalContainerOutline)
-						.onContainerVariant(DynamicScheme::getTonalContainerOutlineVariant)
-						.containerSurfaceDisabledAlpha((s) -> 0.4f)
-						.onContainerDisabledAlpha((s) -> 0.6f)
-						.containerOutlineDisabledAlpha((s) -> 0.55f)
-						.build())
-				.build());
-
-		RadianceColorScheme autumnColorScheme = ColorSchemeUtils.getColorScheme(
-			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-				Hct.fromInt(0xFFFFCB90), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE2C1)),
-			/* isPrimaryDark */ false,
-			/* isTonalDark */ false,
-			/* isMutedDark */ false,
-			/* isNeutralDark */ false,
-			/* isSystemDark */ false,
-			/* primaryContrastLevel */ 0.0f,
-			/* tonalContrastLevel */ 0.0f,
-			/* mutedContrastLevel */ 0.0f,
-			/* neutralContrastLevel */ 0.0f,
-			/* schemeColorResolver */ autumnColorResolver);
-
-		RadianceColorSchemeBundle autumnDefaultBundle =
-			new RadianceColorSchemeBundle(autumnColorScheme);
-		// Custom visuals for controls in selected state:
-		// 1. Deeper container surfaces (more saturated seed in fidelity mode)
-		// 2. Softer on container, mapped to container outline (used for texts and icons)
-		// 3. Higher alpha values for disabled controls for better contrast
-		autumnDefaultBundle.registerActiveContainerTokens(ColorSchemeUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFFDBD72),
-				/* isFidelity */ true,
-				/* isDark */ false,
-				/* contrastLevel */ 0.0,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+		// For tonal containers (active controls), use softer text / icon colors.
+		// Also use higher alpha values for disabled controls for better contrast.
+		PaletteContainerColorsResolver tonalResolver =
+			PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 				PaletteContainerColorsResolverOverlay.builder()
 					.onContainer(DynamicPalette::getTonalContainerOutline)
 					.onContainerVariant((p) -> p.getTonalContainerOutline() & 0xC0FFFFFF)
 					.containerSurfaceDisabledAlpha((s) -> 0.4f)
 					.onContainerDisabledAlpha((s) -> 0.6f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
-					.build())),
+					.build());
+		ContainerColorTokens autumnDefaultTonalTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFFFFCB90),
+			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
+			/* colorResolver */ tonalResolver);
+
+		// For muted containers (enabled controls), use tonal on container and container outline
+		// values for consistency with active controls. Also use higher alpha values for disabled
+		// controls for better contrast.
+		PaletteContainerColorsResolver mutedResolver =
+			PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+				PaletteContainerColorsResolverOverlay.builder()
+					.containerOutline((p) -> autumnDefaultTonalTokens.getContainerOutline().getRGB())
+					.containerOutlineVariant((p) -> autumnDefaultTonalTokens.getContainerOutlineVariant().getRGB())
+					.complementaryContainerOutline((p) -> autumnDefaultTonalTokens.getComplementaryContainerOutline().getRGB())
+					.onContainer((p) -> autumnDefaultTonalTokens.getOnContainer().getRGB())
+					.onContainerVariant((p) -> autumnDefaultTonalTokens.getOnContainerVariant().getRGB())
+					.containerSurfaceDisabledAlpha((s) -> 0.5f)
+					.onContainerDisabledAlpha((s) -> 0.6f)
+					.containerOutlineDisabledAlpha((s) -> 0.55f)
+					.build());
+		ContainerColorTokens autumnDefaultMutedTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFFFEDCB6),
+			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
+			/* colorResolver */ mutedResolver);
+
+		// For neutral containers, use tonal on container and container outline
+		// values for consistency with active controls.
+		PaletteContainerColorsResolver neutralResolver =
+			PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+				PaletteContainerColorsResolverOverlay.builder()
+					.containerOutline((p) -> autumnDefaultTonalTokens.getContainerOutline().getRGB())
+					.containerOutlineVariant((p) -> autumnDefaultTonalTokens.getContainerOutlineVariant().getRGB())
+					.complementaryContainerOutline((p) -> autumnDefaultTonalTokens.getComplementaryContainerOutline().getRGB())
+					.onContainer((p) -> autumnDefaultTonalTokens.getOnContainer().getRGB())
+					.onContainerVariant((p) -> autumnDefaultTonalTokens.getOnContainerVariant().getRGB())
+					.build());
+		ContainerColorTokens autumnDefaultNeutralTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFFFFE2C1),
+			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
+			/* colorResolver */ neutralResolver);
+
+		RadianceColorSchemeBundle autumnDefaultBundle =
+			new RadianceColorSchemeBundle(autumnDefaultTonalTokens, autumnDefaultMutedTokens,
+				autumnDefaultNeutralTokens, false);
+
+		// Custom visuals for controls in selected state:
+		// 1. Deeper container surfaces (more saturated seed in fidelity mode)
+		// 2. Softer on container, mapped to container outline (used for texts and icons)
+		// 3. Higher alpha values for disabled controls for better contrast
+		autumnDefaultBundle.registerActiveContainerTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFFDBD72),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
+				/* colorResolver */ tonalResolver),
 			ComponentState.SELECTED);
 		autumnDefaultBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
-				/* isFidelity */ true,
-				/* isDark */ false,
-				/* contrastLevel */ 0.2,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.2,
+					/* tonalSurfaceRangeAmplitudeFactor */ 1.0),
+				/* colorResolver */ tonalResolver),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
@@ -153,9 +148,7 @@ public class AutumnSkin extends RadianceSkin {
 		this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFEC983),
-				/* isFidelity */ true,
-				/* isDark */ false,
-				/* contrastLevel */ 0.0,
+				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.onContainer(DynamicPalette::getOnTonalContainerVariant)
@@ -164,35 +157,35 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		RadianceColorScheme autumnControlPaneColorScheme = ColorSchemeUtils.getColorScheme(
-			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-				Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFDDB9)),
-			/* isPrimaryDark */ false,
-			/* isTonalDark */ false,
-			/* isMutedDark */ false,
-			/* isNeutralDark */ false,
-			/* isSystemDark */ false,
-			/* primaryContrastLevel */ 0.0f,
-			/* tonalContrastLevel */ 0.0f,
-			/* mutedContrastLevel */ 0.0f,
-			/* neutralContrastLevel */ 0.0f,
-			/* schemeColorResolver */ autumnColorResolver);
+		ContainerColorTokens autumnControlPaneTonalTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFFFDBD72),
+			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
+			/* colorResolver */ tonalResolver);
+		ContainerColorTokens autumnControlPaneMutedTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFFFEDCB6),
+			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
+			/* colorResolver */ mutedResolver);
+		ContainerColorTokens autumnControlPaneNeutralTokens = ColorSchemeUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFFFFDDB9),
+			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
+			/* colorResolver */ neutralResolver);
+
 		RadianceColorSchemeBundle autumnControlPaneBundle =
-			new RadianceColorSchemeBundle(autumnControlPaneColorScheme);
+			new RadianceColorSchemeBundle(autumnControlPaneTonalTokens, autumnControlPaneMutedTokens,
+				autumnControlPaneNeutralTokens, false);
 		autumnControlPaneBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
-				/* isFidelity */ true,
-				/* isDark */ false,
-				/* contrastLevel */ 0.2,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				/* tonalContainerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.2,
+					/* tonalSurfaceRangeAmplitudeFactor */ 1.0)),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFED8B2),
-				/* isFidelity */ true,
-				/* isDark */ false),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 		// add an overlay painter to paint a drop shadow along the top

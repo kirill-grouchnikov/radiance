@@ -619,9 +619,16 @@ public class ColorSchemeUtils {
     public static ContainerColorTokens getContainerTokens(
         Hct seed,
         ContainerConfiguration containerConfiguration) {
-        return getContainerTokens(seed, true, containerConfiguration.isDark(),
-            containerConfiguration.getContrastLevel(),
+        return getContainerTokens(seed, containerConfiguration,
             PaletteResolverUtils.getPaletteTonalColorResolver());
+    }
+
+    public static ContainerColorTokens getContainerTokens(
+        Hct seed,
+        ContainerConfiguration containerConfiguration,
+        PaletteContainerColorsResolver colorResolver) {
+        return getContainerTokens(seed, true, containerConfiguration.isDark(),
+            containerConfiguration.getContrastLevel(), colorResolver);
     }
 
     public static ContainerColorTokens getContainerTokens(
