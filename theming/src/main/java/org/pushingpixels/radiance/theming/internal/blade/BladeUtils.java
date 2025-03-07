@@ -237,7 +237,7 @@ public class BladeUtils {
                     contributionColorTokens.getInverseOnContainer(), 1.0f - amount);
                 inverseContainerOutline = RadianceColorUtilities.getInterpolatedColor(inverseContainerOutline,
                     contributionColorTokens.getInverseContainerOutline(), 1.0f - amount);
-                complementaryContainerOutline = RadianceColorUtilities.getInterpolatedColor(complementaryOnContainer,
+                complementaryOnContainer = RadianceColorUtilities.getInterpolatedColor(complementaryOnContainer,
                     contributionColorTokens.getComplementaryOnContainer(), 1.0f - amount);
                 complementaryContainerOutline = RadianceColorUtilities.getInterpolatedColor(complementaryContainerOutline,
                     contributionColorTokens.getComplementaryContainerOutline(), 1.0f - amount);
