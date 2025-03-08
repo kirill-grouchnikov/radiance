@@ -29,14 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
@@ -59,19 +56,22 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 		super(accentBuilder);
 
 		RadianceColorSchemeBundle businessDefaultBundle =
-			new RadianceColorSchemeBundle(this.getDefaultAreaColorScheme());
+			new RadianceColorSchemeBundle(this.getDefaultAreaTonalTokens(),
+				this.getDefaultAreaMutedTokens(), this.getDefaultAreaNeutralTokens(), false);
 		businessDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		businessDefaultBundle.registerActiveContainerTokens(
-			this.getDefaultAreaColorScheme().getTonalContainerTokens(),
+			this.getDefaultAreaTonalTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		RadianceColorSchemeBundle businessDefaultHeaderBundle =
-			new RadianceColorSchemeBundle(this.getHeaderAreaColorScheme());
+			new RadianceColorSchemeBundle(this.getHeaderAreaTonalTokens(),
+				this.getHeaderAreaMutedTokens(), this.getHeaderAreaNeutralTokens(),
+				this.isHeaderDark());
 		if (this.getHeaderAreaHighlightTokens() != null) {
 			businessDefaultHeaderBundle.registerActiveContainerTokens(
 				this.getHeaderAreaHighlightTokens(),
@@ -82,12 +82,6 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
-
-		RadianceColorScheme controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
-			/* palettesSource */ new ColorSchemeUtils.BalancedPaletteSource(Hct.fromInt(0xFFDBDFE4), 3.0, 1.0),
-			/* isDark */ false);
-		this.registerAsDecorationArea(controlPaneColorScheme.getTonalContainerTokens(),
-			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 		// add an overlay painter to paint a drop shadow along the top edge of toolbars
 		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(80),
@@ -110,4 +104,6 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 
 		this.highlightFillPainter = new ClassicFillPainter();
 	}
+
+	protected abstract boolean isHeaderDark();
 }

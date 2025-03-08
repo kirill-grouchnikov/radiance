@@ -29,10 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeColorResolver;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -68,14 +65,22 @@ public abstract class RadianceSkin implements RadianceTrait {
     public static abstract class Accented extends RadianceSkin {
         public final static class AccentBuilder {
             private SchemeColorResolver defaultAreaSchemeColorResolver;
+            private PaletteContainerColorsResolver defaultAreaPaletteColorResolver;
             private RadianceColorScheme defaultAreaColorScheme;
+            private ContainerColorTokens defaultAreaTonalTokens;
+            private ContainerColorTokens defaultAreaMutedTokens;
+            private ContainerColorTokens defaultAreaNeutralTokens;
             private ContainerColorTokens defaultAreaHighlightTokens;
             private ContainerColorTokens defaultAreaSelectedTokens;
             private RadianceColorScheme headerAreaColorScheme;
+            private ContainerColorTokens headerAreaTonalTokens;
+            private ContainerColorTokens headerAreaMutedTokens;
+            private ContainerColorTokens headerAreaNeutralTokens;
             private ContainerColorTokens headerAreaHighlightTokens;
 
             public AccentBuilder() {
                 this.defaultAreaSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
+                this.defaultAreaPaletteColorResolver = PaletteResolverUtils.getPaletteTonalColorResolver();
             }
 
             public AccentBuilder withDefaultAreaSchemeColorResolver(SchemeColorResolver defaultAreaSchemeColorResolver) {
@@ -83,8 +88,28 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
+            public AccentBuilder withDefaultAreaPaletteColorResolver(PaletteContainerColorsResolver defaultAreaPaletteColorResolver) {
+                this.defaultAreaPaletteColorResolver = defaultAreaPaletteColorResolver;
+                return this;
+            }
+
             public AccentBuilder withDefaultAreaColorScheme(RadianceColorScheme defaultAreaColorScheme) {
                 this.defaultAreaColorScheme = defaultAreaColorScheme;
+                return this;
+            }
+
+            public AccentBuilder withDefaultAreaTonalTokens(ContainerColorTokens defaultAreaTonalTokens) {
+                this.defaultAreaTonalTokens = defaultAreaTonalTokens;
+                return this;
+            }
+
+            public AccentBuilder withDefaultAreaMutedTokens(ContainerColorTokens defaultAreaMutedTokens) {
+                this.defaultAreaMutedTokens = defaultAreaMutedTokens;
+                return this;
+            }
+
+            public AccentBuilder withDefaultAreaNeutralTokens(ContainerColorTokens defaultAreaNeutralTokens) {
+                this.defaultAreaNeutralTokens = defaultAreaNeutralTokens;
                 return this;
             }
 
@@ -103,6 +128,21 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
+            public AccentBuilder withHeaderAreaTonalTokens(ContainerColorTokens headerAreaTonalTokens) {
+                this.headerAreaTonalTokens = headerAreaTonalTokens;
+                return this;
+            }
+
+            public AccentBuilder withHeaderAreaMutedTokens(ContainerColorTokens headerAreaMutedTokens) {
+                this.headerAreaMutedTokens = headerAreaMutedTokens;
+                return this;
+            }
+
+            public AccentBuilder withHeaderAreaNeutralTokens(ContainerColorTokens headerAreaNeutralTokens) {
+                this.headerAreaNeutralTokens = headerAreaNeutralTokens;
+                return this;
+            }
+
             public AccentBuilder withHeaderAreaHighlightTokens(ContainerColorTokens headerAreaHighlightTokens) {
                 this.headerAreaHighlightTokens = headerAreaHighlightTokens;
                 return this;
@@ -110,18 +150,32 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
 
         private final SchemeColorResolver defaultAreaSchemeColorResolver;
+        private final PaletteContainerColorsResolver defaultAreaPaletteColorResolver;
         private final RadianceColorScheme defaultAreaColorScheme;
+        private final ContainerColorTokens defaultAreaTonalTokens;
+        private final ContainerColorTokens defaultAreaMutedTokens;
+        private final ContainerColorTokens defaultAreaNeutralTokens;
         private final ContainerColorTokens defaultAreaHighlightTokens;
         private final ContainerColorTokens defaultAreaSelectedTokens;
         private final RadianceColorScheme headerAreaColorScheme;
+        private final ContainerColorTokens headerAreaTonalTokens;
+        private final ContainerColorTokens headerAreaMutedTokens;
+        private final ContainerColorTokens headerAreaNeutralTokens;
         private final ContainerColorTokens headerAreaHighlightTokens;
 
         protected Accented(AccentBuilder accentBuilder) {
             this.defaultAreaSchemeColorResolver = accentBuilder.defaultAreaSchemeColorResolver;
+            this.defaultAreaPaletteColorResolver = accentBuilder.defaultAreaPaletteColorResolver;
             this.defaultAreaColorScheme = accentBuilder.defaultAreaColorScheme;
+            this.defaultAreaTonalTokens = accentBuilder.defaultAreaTonalTokens;
+            this.defaultAreaMutedTokens = accentBuilder.defaultAreaMutedTokens;
+            this.defaultAreaNeutralTokens = accentBuilder.defaultAreaNeutralTokens;
             this.defaultAreaHighlightTokens = accentBuilder.defaultAreaHighlightTokens;
             this.defaultAreaSelectedTokens = accentBuilder.defaultAreaSelectedTokens;
             this.headerAreaColorScheme = accentBuilder.headerAreaColorScheme;
+            this.headerAreaTonalTokens = accentBuilder.headerAreaTonalTokens;
+            this.headerAreaMutedTokens = accentBuilder.headerAreaMutedTokens;
+            this.headerAreaNeutralTokens = accentBuilder.headerAreaNeutralTokens;
             this.headerAreaHighlightTokens = accentBuilder.headerAreaHighlightTokens;
         }
 
@@ -129,8 +183,24 @@ public abstract class RadianceSkin implements RadianceTrait {
             return this.defaultAreaSchemeColorResolver;
         }
 
+        public PaletteContainerColorsResolver getDefaultAreaPaletteColorResolver() {
+            return this.defaultAreaPaletteColorResolver;
+        }
+
         public RadianceColorScheme getDefaultAreaColorScheme() {
             return this.defaultAreaColorScheme;
+        }
+
+        public ContainerColorTokens getDefaultAreaTonalTokens() {
+            return this.defaultAreaTonalTokens;
+        }
+
+        public ContainerColorTokens getDefaultAreaMutedTokens() {
+            return this.defaultAreaMutedTokens;
+        }
+
+        public ContainerColorTokens getDefaultAreaNeutralTokens() {
+            return this.defaultAreaNeutralTokens;
         }
 
         public ContainerColorTokens getDefaultAreaHighlightTokens() {
@@ -143,6 +213,18 @@ public abstract class RadianceSkin implements RadianceTrait {
 
         public RadianceColorScheme getHeaderAreaColorScheme() {
             return this.headerAreaColorScheme;
+        }
+
+        public ContainerColorTokens getHeaderAreaTonalTokens() {
+            return this.headerAreaTonalTokens;
+        }
+
+        public ContainerColorTokens getHeaderAreaMutedTokens() {
+            return this.headerAreaMutedTokens;
+        }
+
+        public ContainerColorTokens getHeaderAreaNeutralTokens() {
+            return this.headerAreaNeutralTokens;
         }
 
         public ContainerColorTokens getHeaderAreaHighlightTokens() {

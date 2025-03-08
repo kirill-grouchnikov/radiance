@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 
 /**
  * <code>Business Blue Steel</code> skin. This class is part of officially supported API.
@@ -54,37 +54,56 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 
 	public BusinessBlueSteelSkin() {
 		super(new AccentBuilder()
-			.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFF91B6CB), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFA1BCD0)),
-				/* isDark */ false))
-			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFF83AFCE),
-				/* isFidelity */ true,
-				/* isDark */ false))
-			.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFF98B7CC), Hct.fromInt(0xFFC4C8CC), Hct.fromInt(0xFFE4EAF0)),
-				/* isDark */ false))
+			.withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF98B7CC),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
+			.withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFC4C8CC),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
+			.withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFE4EAF0),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEBD296),
 				/* isFidelity */ true,
+				/* isDark */ false))
+			.withHeaderAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF91B6CB),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
+			.withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFC4C8CC),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
+			.withHeaderAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFA1BCD0),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
+			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF83AFCE),
+				/* isFidelity */ true,
 				/* isDark */ false)));
 
-		RadianceColorScheme controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
-			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-				Hct.fromInt(0xFF94B9D3), Hct.fromInt(0xFFBFCFDB), Hct.fromInt(0xFFBFCFDB)),
-			/* isDark */ false);
-
-		RadianceColorSchemeBundle businessBlueSteelControlBundle =
-			new RadianceColorSchemeBundle(controlPaneColorScheme);
+		RadianceColorSchemeBundle businessBlueSteelControlBundle = new RadianceColorSchemeBundle(
+			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF94B9D3),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFBFCFDB),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFBFCFDB),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* isSystemDark */ false);
 		businessBlueSteelControlBundle.registerActiveContainerTokens(
-			getDefaultAreaColorScheme().getTonalContainerTokens(),
+			getDefaultAreaTonalTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(businessBlueSteelControlBundle,
-			controlPaneColorScheme.getMutedContainerTokens(),
+			businessBlueSteelControlBundle.getMainColorScheme().getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
+	}
+
+	@Override
+	protected boolean isHeaderDark() {
+		return false;
 	}
 }
