@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -36,8 +37,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
@@ -64,50 +63,52 @@ public class ModerateSkin extends RadianceSkin {
     }
 
     public ModerateSkin() {
-        RadianceColorScheme steelBlueColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF6CA9CE), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
-            /* isDark */ false);
+        RadianceColorSchemeBundle steelBlueDefaultBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF6CA9CE),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFDDE2E5),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFEFF5FB),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* isSystemDark */ false);
+
         ContainerColorTokens steelBlueHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF1D59A),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
-        RadianceColorScheme steelBlueHeaderColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF6D9BBA), Hct.fromInt(0xFF82ABC7), Hct.fromInt(0xFF8BBAD5)),
-            /* isPrimaryDark */ false,
-            /* isTonalDark */ false,
-            /* isMutedDark */ false,
-            /* isNeutralDark */ false,
-            /* isSystemDark */ false,
-            /* primaryContrastLevel */ 0.6f,
-            /* tonalContrastLevel */ 0.6f,
-            /* mutedContrastLevel */ 0.6f,
-            /* neutralContrastLevel */ 0.6f,
-            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-        ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF6EA7CA),
-                /* isFidelity */ true,
-                /* isDark */ false);
-
-        RadianceColorScheme controlPaneColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFFD1D3D7), Hct.fromInt(0xFFDDE2E5), Hct.fromInt(0xFFEFF5FB)),
-            /* isDark */ false);
-
-        RadianceColorSchemeBundle steelBlueDefaultBundle =
-            new RadianceColorSchemeBundle(steelBlueColorScheme);
         steelBlueDefaultBundle.registerActiveContainerTokens(steelBlueHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         this.registerDecorationAreaSchemeBundle(steelBlueDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
-        RadianceColorSchemeBundle steelBlueHeaderBundle =
-            new RadianceColorSchemeBundle(steelBlueHeaderColorScheme);
+        RadianceColorSchemeBundle steelBlueHeaderBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF6D9BBA),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF82ABC7),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF8BBAD5),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)),
+            /* isSystemDark */ false);
+
+        ContainerColorTokens steelBlueHeaderHighlightContainerTokens =
+            ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF6EA7CA),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
+
         steelBlueHeaderBundle.registerActiveContainerTokens(steelBlueHeaderHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
@@ -118,7 +119,9 @@ public class ModerateSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.registerAsDecorationArea(
-            controlPaneColorScheme.getTonalContainerTokens(),
+            ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFD1D3D7),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         // add an overlay painter to paint a drop shadow along the top

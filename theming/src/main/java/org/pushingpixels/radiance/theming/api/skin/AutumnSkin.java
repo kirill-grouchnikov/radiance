@@ -135,8 +135,7 @@ public class AutumnSkin extends RadianceSkin {
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
-					/* contrastLevel */ 0.2,
-					/* tonalSurfaceRangeAmplitudeFactor */ 1.0),
+					/* contrastLevel */ 0.2),
 				/* colorResolver */ tonalResolver),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());
@@ -178,8 +177,7 @@ public class AutumnSkin extends RadianceSkin {
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
 				/* tonalContainerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
-					/* contrastLevel */ 0.2,
-					/* tonalSurfaceRangeAmplitudeFactor */ 1.0)),
+					/* contrastLevel */ 0.2)),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,

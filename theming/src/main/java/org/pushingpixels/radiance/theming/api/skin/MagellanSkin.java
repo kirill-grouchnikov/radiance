@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -44,6 +44,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 /**
  * <code>Magellan</code> skin. This class is part of officially supported API.
@@ -62,45 +63,40 @@ public class MagellanSkin extends RadianceSkin {
     }
 
     public MagellanSkin() {
-        SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-        // Set up token resolution overlays to use softer (slightly translucent) text / icon
-        // colors
-        SchemeColorResolver magellanColorResolver = defaultSchemeColorResolver.overlayWith(
-            SchemeColorResolverOverlay.builder()
-                // For neutral containers, use softer text / icon colors
-                .neutralContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .onContainer((s) -> s.getOnNeutralContainer() & 0xD0FFFFFF)
-                        .onContainerVariant((s) -> s.getOnNeutralContainerVariant() & 0xD0FFFFFF)
-                        .build())
-                // For tonal containers (active controls), use softer text / icon colors.
-                .tonalContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .onContainer((s) -> s.getOnTonalContainer() & 0xE0FFFFFF)
-                        .onContainerVariant((s) -> s.getOnTonalContainerVariant() & 0xE0FFFFFF)
-                        .build())
-                .build());
-
-        RadianceColorScheme magellanColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF0070DF), Hct.fromInt(0xFF004C92), Hct.fromInt(0xFF005CB7)),
-            /* isPrimaryDark */ true,
-            /* isTonalDark */ true,
-            /* isMutedDark */ true,
-            /* isNeutralDark */ true,
-            /* isSystemDark */ true,
-            /* primaryContrastLevel */ 0.0f,
-            /* tonalContrastLevel */ -0.1f,
-            /* mutedContrastLevel */ 0.1f,
-            /* neutralContrastLevel */ -0.2f,
-            /* schemeColorResolver */ magellanColorResolver);
+        RadianceColorSchemeBundle magellanDefaultBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF0070DF),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ -0.1),
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    // For tonal containers (active controls), use softer text / icon colors.
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .onContainer((p) -> p.getOnTonalContainer() & 0xE0FFFFFF)
+                        .onContainerVariant((p) -> p.getOnTonalContainerVariant() & 0xE0FFFFFF)
+                        .build())),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF004C92),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.1)),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF005CB7),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ -0.2),
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    // For neutral containers, use softer text / icon colors
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .onContainer((p) -> p.getOnTonalContainer() & 0xD0FFFFFF)
+                        .onContainerVariant((p) -> p.getOnTonalContainerVariant() & 0xD0FFFFFF)
+                        .build())),
+            /* isSystemDark */ true);
 
         ContainerColorTokens magellanSelectedContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF006FDB),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 0.0,
+                /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .onContainer((p) -> p.getOnTonalContainer() & 0xE0FFFFFF)
@@ -110,32 +106,25 @@ public class MagellanSkin extends RadianceSkin {
         ContainerColorTokens magellanPressedContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00AEB8),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         ContainerColorTokens magellanGreenContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF1EBF00),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens magellanGreenRolloverContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00B933),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens magellanGreenHighlightSelectedContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00B000),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens magellanGreenHighlightRolloverContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00A422),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
-        RadianceColorSchemeBundle magellanDefaultBundle =
-            new RadianceColorSchemeBundle(magellanColorScheme);
         // More saturated seed for controls in selected state
         magellanDefaultBundle.registerActiveContainerTokens(magellanSelectedContainerTokens,
             ComponentState.SELECTED);
@@ -182,33 +171,22 @@ public class MagellanSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF004D99),
-                /* isFidelity */ true,
-                /* isDark */ true),
+                /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        RadianceColorScheme magellanFooterColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF006FDB), Hct.fromInt(0xFFA0D8F7), Hct.fromInt(0xFF9DD2FF)),
-            /* isPrimaryDark */ true,
-            /* isTonalDark */ true,
-            /* isMutedDark */ false,
-            /* isNeutralDark */ false,
-            /* isSystemDark */ false,
-            /* primaryContrastLevel */ 0.0f,
-            /* tonalContrastLevel */ 0.0f,
-            /* mutedContrastLevel */ 0.0f,
-            /* neutralContrastLevel */ 0.0f,
-            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver().overlayWith(
-                SchemeColorResolverOverlay.builder()
-                    .mutedContainerResolverOverlay(
-                        SchemeContainerColorsResolverOverlay.builder()
-                            .containerSurfaceLowest(DynamicScheme::getNeutralContainerSurfaceLow)
-                            .build())
-                    .build()
-            ));
-        RadianceColorSchemeBundle magellanFooterBundle =
-            new RadianceColorSchemeBundle(magellanFooterColorScheme);
+        RadianceColorSchemeBundle magellanFooterBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF006FDB),
+                /* containerConfiguration */ ContainerConfiguration.defaultDark()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFA0D8F7),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF9DD2FF),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* isSystemDark */ false);
+
         this.registerDecorationAreaSchemeBundle(magellanFooterBundle,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
@@ -216,10 +194,9 @@ public class MagellanSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF003367),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 0.4f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.4)),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
@@ -251,13 +228,20 @@ public class MagellanSkin extends RadianceSkin {
         this.fillPainter = new FractionBasedFillPainter("Magellan",
             new float[] {0.0f, 0.3f, 0.6f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokensSingleColorQuery.blend(
-                    ContainerColorTokens::getContainerSurfaceHighest,
-                    ContainerColorTokens::getContainerSurfaceHigh,
-                    0.6f),
-                ContainerColorTokens::getContainerSurfaceHigh,
+                (colorTokens) -> colorTokens.isDark()
+                    ? RadianceColorUtilities.getInterpolatedColor(
+                        colorTokens.getContainerSurfaceHighest(),
+                        colorTokens.getContainerSurfaceHigh(),
+                        0.6f)
+                    :  RadianceColorUtilities.getInterpolatedColor(
+                        colorTokens.getContainerSurfaceLowest(),
+                        colorTokens.getContainerSurfaceLow(),
+                        0.6f),
+                (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                    : colorTokens.getContainerSurfaceLow(),
                 ContainerColorTokens::getContainerSurface,
-                ContainerColorTokens::getContainerSurfaceLowest});
+                (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
+                    : colorTokens.getContainerSurfaceHighest()});
 
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightFillPainter = new ClassicFillPainter();

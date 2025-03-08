@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -36,7 +37,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
@@ -62,37 +62,37 @@ public class CeruleanSkin extends RadianceSkin {
 	}
 
 	public CeruleanSkin() {
-		RadianceColorScheme ceruleanColorScheme = ColorSchemeUtils.getColorScheme(
-			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-				Hct.fromInt(0xFFD2E0ED), Hct.fromInt(0xFFECECED), Hct.fromInt(0xFFFBFCFC)),
-			/* isDark */ false);
+		RadianceColorSchemeBundle ceruleanDefaultBundle = new RadianceColorSchemeBundle(
+			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD2E0ED),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFECECED),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFFBFCFC),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* isSystemDark */ false);
 
 		ContainerColorTokens ceruleanSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFC0DBEE),
-			/* isFidelity */ true,
-			/* isDark */ false);
+			/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		ContainerColorTokens ceruleanSelectedHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFBDCA1),
-				/* isFidelity */ true,
-				/* isDark */ false);
+				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		ContainerColorTokens ceruleanRolloverHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFF7E5C4),
-				/* isFidelity */ true,
-				/* isDark */ false);
+				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		ContainerColorTokens ceruleanTextHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFEDB7C),
-				/* isFidelity */ true,
-				/* isDark */ false);
+				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		ContainerColorTokens ceruleanDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFCFEAFE),
-			/* isFidelity */ true,
-			/* isDark */ false);
+			/* containerConfiguration */ ContainerConfiguration.defaultLight());
 
-		RadianceColorSchemeBundle ceruleanDefaultBundle =
-			new RadianceColorSchemeBundle(ceruleanColorScheme);
 		// More saturated blue seed for controls in selected state
 		ceruleanDefaultBundle.registerActiveContainerTokens(ceruleanSelectedContainerTokens,
 			ComponentState.SELECTED);
@@ -118,20 +118,25 @@ public class CeruleanSkin extends RadianceSkin {
 		this.registerDecorationAreaSchemeBundle(ceruleanDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorSchemeBundle ceruleanDefaultHeaderBundle =
-			new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
-				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFF3B7BA8), Hct.fromInt(0xFF5B9BC8), Hct.fromInt(0xFF8BCBF8)),
-				/* isDark */ true));
-		ceruleanDefaultHeaderBundle.registerActiveContainerTokens(
+		RadianceColorSchemeBundle ceruleanHeaderBundle = new RadianceColorSchemeBundle(
+			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF3B7BA8),
+				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
+			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF5B9BC8),
+				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
+			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF8BCBF8),
+				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
+			/* isSystemDark */ true);
+		ceruleanHeaderBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF638EA8),
-				/* isFidelity */ true,
-				/* isDark */ true),
+				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
-		this.registerDecorationAreaSchemeBundle(ceruleanDefaultHeaderBundle,
-			ceruleanDefaultHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
+		this.registerDecorationAreaSchemeBundle(ceruleanHeaderBundle,
+			ceruleanHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
@@ -144,8 +149,7 @@ public class CeruleanSkin extends RadianceSkin {
 		this.registerAsDecorationArea(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCBD1D7),
-				/* isFidelity */ true,
-				/* isDark */ false),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.FOOTER,
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 

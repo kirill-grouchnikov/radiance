@@ -29,12 +29,16 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
+import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
@@ -59,54 +63,51 @@ public class RavenSkin extends RadianceSkin {
 	}
 
 	public RavenSkin() {
-		SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-		// Set up token resolution overlays
-		SchemeColorResolver ravenColorResolver = defaultSchemeColorResolver.overlayWith(
-			SchemeColorResolverOverlay.builder()
-				// For muted containers (enabled controls), use higher alpha values for
-				// disabled controls for better contrast.
-				.mutedContainerResolverOverlay(
-					SchemeContainerColorsResolverOverlay.builder()
-						.containerSurfaceDisabledAlpha((s) -> 0.5f)
-						.onContainerDisabledAlpha((s) -> 0.3f)
-						.containerOutlineDisabledAlpha((s) -> 0.55f)
-						.build())
-				// For tonal containers (active controls), use higher alpha values for
-				// disabled controls for better contrast.
-				.tonalContainerResolverOverlay(
-					SchemeContainerColorsResolverOverlay.builder()
+		RadianceColorSchemeBundle ravenDefaultBundle = new RadianceColorSchemeBundle(
+			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF424242),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.4),
+				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+					// For tonal containers (active controls), use higher alpha values for
+					// disabled controls for better contrast.
+					PaletteContainerColorsResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((s) -> 0.4f)
 						.onContainerDisabledAlpha((s) -> 0.3f)
 						.containerOutlineDisabledAlpha((s) -> 0.55f)
-						.build())
-				.build());
-
-		RadianceColorScheme ravenColorScheme = ColorSchemeUtils.getColorScheme(
-			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-				Hct.fromInt(0xFF424242), Hct.fromInt(0xFF504842), Hct.fromInt(0xFF333333)),
-			/* isPrimaryDark */ true,
-			/* isTonalDark */ true,
-			/* isMutedDark */ true,
-			/* isNeutralDark */ true,
-			/* isSystemDark */ true,
-			/* primaryContrastLevel */ 0.0f,
-			/* tonalContrastLevel */ 0.4f,
-			/* mutedContrastLevel */ 0.4f,
-			/* neutralContrastLevel */ 0.4f,
-			/* schemeColorResolver */ ravenColorResolver);
+						.build())),
+			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF504842),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.4),
+			/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+				// For muted containers (enabled controls), use higher alpha values for
+				// disabled controls for better contrast.
+				PaletteContainerColorsResolverOverlay.builder()
+					.containerSurfaceDisabledAlpha((s) -> 0.5f)
+					.onContainerDisabledAlpha((s) -> 0.3f)
+					.containerOutlineDisabledAlpha((s) -> 0.55f)
+					.build())),
+			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF333333),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.4)),
+			/* isSystemDark */ true);
 
 		ContainerColorTokens ravenHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC4C3C5),
-				/* isFidelity */ true,
-				/* isDark */ false);
+				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 
 		ContainerColorTokens ravenSelectedContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCDD0D5),
-				/* isFidelity */ false,
-				/* isDark */ false,
-				/* contrast */ 0.3f,
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ false,
+					/* contrastLevel */ 0.3),
 				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((s) -> 0.4f)
@@ -115,8 +116,6 @@ public class RavenSkin extends RadianceSkin {
 						.build()
 				));
 
-		RadianceColorSchemeBundle ravenDefaultBundle =
-			new RadianceColorSchemeBundle(ravenColorScheme);
 		// Highlight tokens for controls in selected states
 		ravenDefaultBundle.registerActiveContainerTokens(ravenSelectedContainerTokens,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
@@ -137,10 +136,9 @@ public class RavenSkin extends RadianceSkin {
 		this.registerAsDecorationArea(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF4E463E),
-				/* isFidelity */ true,
-				/* isDark */ true,
-				/* contrastLevel */ 0.6f,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.6)),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER,

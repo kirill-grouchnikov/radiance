@@ -69,14 +69,12 @@ public class GeminiSkin extends RadianceSkin {
             /* seed */ Hct.fromInt(0xFFB0BBB8),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
-                /* contrastLevel */ 0.2,
-                /* tonalSurfaceRangeAmplitudeFactor */ 1.0));
+                /* contrastLevel */ 0.2));
         ContainerColorTokens geminiDefaultNeutralTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFD1E1E0),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
-                /* contrastLevel */ 0.6,
-                /* tonalSurfaceRangeAmplitudeFactor */ 1.0));
+                /* contrastLevel */ 0.6));
 
         ContainerColorTokens geminiHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
