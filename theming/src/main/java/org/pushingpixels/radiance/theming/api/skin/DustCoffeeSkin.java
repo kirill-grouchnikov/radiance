@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 
 /**
  * <code>Dust Coffee</code> skin. This class is part of officially supported API.
@@ -51,25 +51,27 @@ public class DustCoffeeSkin extends DustAccentedSkin {
 
     public DustCoffeeSkin() {
         super(new AccentBuilder()
-            .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFDDC49C), Hct.fromInt(0xFFDBCFAD), Hct.fromInt(0xFFE9D9B8)),
-                /* isDark */ false))
+            .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFDDC49C),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()))
+            .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFDBCFAD),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()))
+            .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFE9D9B8),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()))
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDEBD7D),
-                /* isFidelity */ true,
-                /* isDark */ false))
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()))
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD0B18B),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrast */ 0.3f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()))
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.3)))
             .withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF5E4436),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrast */ 0.3f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.3))));
     }
 }

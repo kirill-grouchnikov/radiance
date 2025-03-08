@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 
 /**
  * <code>Creme Coffee</code> skin. This class is part of officially supported API.
@@ -52,19 +52,21 @@ public class CremeCoffeeSkin extends CremeAccentedSkin {
 
     public CremeCoffeeSkin() {
         super(new AccentBuilder()
-            .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFDEC59D), Hct.fromInt(0xFFF0F1EB), Hct.fromInt(0xFFEEF3E5)),
-                /* isPrimaryDark */ false,
-                /* isTonalDark */ false,
-                /* isMutedDark */ false,
-                /* isNeutralDark */ false,
-                /* isSystemDark */ false,
-                /* primaryContrastLevel */ 0.6f,
-                /* tonalContrastLevel */ 0.6f,
-                /* mutedContrastLevel */ 0.6f,
-                /* neutralContrastLevel */ 0.6f,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+            .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFDEC59D),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)))
+            .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFF0F1EB),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)))
+            .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFEEF3E5),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)))
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDFBF7F),
                 /* isFidelity */ true,

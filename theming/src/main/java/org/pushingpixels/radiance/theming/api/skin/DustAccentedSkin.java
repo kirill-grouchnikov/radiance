@@ -29,12 +29,16 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
@@ -58,8 +62,9 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 	protected DustAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle dustDefaultBundle =
-			new RadianceColorSchemeBundle(this.getDefaultAreaColorScheme());
+		RadianceColorSchemeBundle dustDefaultBundle = new RadianceColorSchemeBundle(
+			this.getDefaultAreaTonalTokens(), this.getDefaultAreaMutedTokens(),
+			this.getDefaultAreaNeutralTokens(), false);
 		dustDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
 			ComponentState.SELECTED);
 		dustDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
@@ -72,20 +77,23 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.registerDecorationAreaSchemeBundle(dustDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorSchemeBundle dustHeaderBundle =
-			new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
-				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFF5E3D2B), Hct.fromInt(0xFF3C3B37), Hct.fromInt(0xFF2B2A28)),
-				/* isPrimaryDark */ false,
-				/* isTonalDark */ true,
-				/* isMutedDark */ true,
-				/* isNeutralDark */ true,
-				/* isSystemDark */ true,
-				/* primaryContrastLevel */ 0.4f,
-				/* tonalContrastLevel */ 0.4f,
-				/* mutedContrastLevel */ 0.4f,
-				/* neutralContrastLevel */ 0.4f,
-				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
+		RadianceColorSchemeBundle dustHeaderBundle = new RadianceColorSchemeBundle(
+			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF5E3D2B),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.4)),
+			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF3C3B37),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.4)),
+			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF2B2A28),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.4)),
+			/* isSystemDark */ true);
 		dustHeaderBundle.registerActiveContainerTokens(
 			this.getHeaderAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -94,10 +102,9 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.registerDecorationAreaSchemeBundle(dustHeaderBundle,
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF2B2A28),
-				/* isFidelity */ true,
-				/* isDark */ true,
-				/* contrast */ 0.2f,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.2)),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER,
@@ -106,10 +113,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.registerDecorationAreaSchemeBundle(dustHeaderBundle,
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF3A3935),
-				/* isFidelity */ true,
-				/* isDark */ true,
-				/* contrast */ 0.0f,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// add two overlay painters to create a bezel line between menu bar and toolbars

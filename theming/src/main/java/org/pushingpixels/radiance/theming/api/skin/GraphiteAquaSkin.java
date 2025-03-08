@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 
 /**
  * <code>Graphite Aqua</code> skin. This class is part of officially supported API.
@@ -53,13 +53,9 @@ public class GraphiteAquaSkin extends GraphiteAccentedSkin {
         super(new AccentBuilder()
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3E70FF),
-                /* isFidelity */ true,
-                /* isDark */ true))
+                /* containerConfiguration */ ContainerConfiguration.defaultDark()))
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3E70FF),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrast */ 0.0f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+                /* containerConfiguration */ ContainerConfiguration.defaultDark())));
     }
 }

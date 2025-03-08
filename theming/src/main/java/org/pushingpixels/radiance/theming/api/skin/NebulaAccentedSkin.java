@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -36,7 +37,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
@@ -65,31 +65,32 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 	protected NebulaAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorScheme nebulaColorScheme = ColorSchemeUtils.getColorScheme(
-			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-				Hct.fromInt(0xFFBAD2E3), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
-			/* isDark */ false);
+		RadianceColorSchemeBundle nebulaDefaultBundle = new RadianceColorSchemeBundle(
+			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFBAD2E3),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD7DBE1),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFF3F7FD),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* isSystemDark */ false);
 
 		ContainerColorTokens nebulaRolloverHighlightContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFF6B92AF),
-			/* isFidelity */ true,
-			/* isDark */ true);
+			/* containerConfiguration */ ContainerConfiguration.defaultDark());
 		ContainerColorTokens nebulaPressedContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFF276792),
-			/* isFidelity */ true,
-			/* isDark */ true);
+			/* containerConfiguration */ ContainerConfiguration.defaultDark());
 		ContainerColorTokens nebulaSelectedHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF5B85A6),
-				/* isFidelity */ true,
-				/* isDark */ true);
+				/* containerConfiguration */ ContainerConfiguration.defaultDark());
 		ContainerColorTokens nebulaDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFD2852F),
-			/* isFidelity */ true,
-			/* isDark */ true);
+			/* containerConfiguration */ ContainerConfiguration.defaultDark());
 
-		RadianceColorSchemeBundle nebulaDefaultBundle =
-			new RadianceColorSchemeBundle(nebulaColorScheme);
 		nebulaDefaultBundle.registerActiveContainerTokens(nebulaPressedContainerTokens,
 			ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED,
 			ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
@@ -111,20 +112,20 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 
 		ContainerColorTokens nebulaDecorationsColorTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFC2D1DA),
-			/* isFidelity */ true,
-			/* isDark */ false);
+			/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		this.registerAsDecorationArea(nebulaDecorationsColorTokens,
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-		RadianceColorSchemeBundle nebulaDefaultHeaderBundle =
-			new RadianceColorSchemeBundle(this.getHeaderAreaColorScheme());
-		nebulaDefaultHeaderBundle.registerActiveContainerTokens(
+		RadianceColorSchemeBundle nebulaHeaderBundle = new RadianceColorSchemeBundle(
+			this.getHeaderAreaTonalTokens(), this.getHeaderAreaMutedTokens(),
+			this.getHeaderAreaNeutralTokens(), false);
+		nebulaHeaderBundle.registerActiveContainerTokens(
 			nebulaRolloverHighlightContainerTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
-		this.registerDecorationAreaSchemeBundle(nebulaDefaultHeaderBundle,
-			nebulaDefaultHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
+		this.registerDecorationAreaSchemeBundle(nebulaHeaderBundle,
+			nebulaHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

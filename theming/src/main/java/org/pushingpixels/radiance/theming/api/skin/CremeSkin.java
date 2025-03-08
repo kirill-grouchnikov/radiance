@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 
 /**
  * <code>Creme</code> skin. This class is part of officially supported API.
@@ -54,24 +54,24 @@ public class CremeSkin extends CremeAccentedSkin {
 
     public CremeSkin() {
         super(new AccentBuilder()
-            .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFC8E8F9), Hct.fromInt(0xFFF0F1EB), Hct.fromInt(0xFFEEF3E5)),
-                /* isPrimaryDark */ false,
-                /* isTonalDark */ false,
-                /* isMutedDark */ false,
-                /* isNeutralDark */ false,
-                /* isSystemDark */ false,
-                /* primaryContrastLevel */ 0.6f,
-                /* tonalContrastLevel */ 0.6f,
-                /* mutedContrastLevel */ 0.6f,
-                /* neutralContrastLevel */ 0.6f,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+            .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFC8E8F9),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)))
+            .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFF0F1EB),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)))
+            .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFEEF3E5),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)))
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9DD9F9),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.0f,
+                /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline(DynamicPalette::getTonalContainerSurfaceHighest)
@@ -79,9 +79,9 @@ public class CremeSkin extends CremeAccentedSkin {
                         .build())))
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFACDDF4),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrast */ 0.3f,
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.3),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline(DynamicPalette::getTonalContainerSurfaceHighest)

@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
@@ -55,8 +55,9 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 	protected MistAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle mistDefaultBundle =
-			new RadianceColorSchemeBundle(this.getDefaultAreaColorScheme());
+		RadianceColorSchemeBundle mistDefaultBundle = new RadianceColorSchemeBundle(
+			this.getDefaultAreaTonalTokens(), this.getDefaultAreaMutedTokens(),
+			this.getDefaultAreaNeutralTokens(), false);
 		mistDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.SELECTED,
@@ -70,10 +71,9 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 		this.registerAsDecorationArea(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB9C0C8),
-				/* isFidelity */ true,
-				/* isDark */ false,
-				/* contrast */ 0.4f,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ false,
+					/* contrastLevel */ 0.4)),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER,
@@ -83,10 +83,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 		this.registerAsDecorationArea(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCDD8E0),
-				/* isFidelity */ true,
-				/* isDark */ false,
-				/* contrast */ 0.0f,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 		this.buttonShaper = new PillButtonShaper();

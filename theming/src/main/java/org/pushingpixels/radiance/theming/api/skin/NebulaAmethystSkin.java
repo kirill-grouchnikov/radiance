@@ -29,12 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 
 /**
@@ -55,28 +54,37 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 
 	public NebulaAmethystSkin() {
 		super(new AccentBuilder()
-			.withHeaderAreaColorScheme(ColorSchemeUtils.getColorScheme(
-				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD7DBE1), Hct.fromInt(0xFFF3F7FD)),
-				/* isDark */ false)));
+			.withHeaderAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD1A9F1),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
+			.withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD7DBE1),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
+			.withHeaderAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFF3F7FD),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
 		// Also extend the window chrome accent color to the TOOLBAR area
-		RadianceColorScheme nebulaToolbarColorScheme = ColorSchemeUtils.getColorScheme(
-			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-				Hct.fromInt(0xFFD264EB), Hct.fromInt(0xFFD1A9F1), Hct.fromInt(0xFFD1A9F1)),
-			/* isDark */ false);
-		RadianceColorSchemeBundle nebulaToolbarBundle =
-			new RadianceColorSchemeBundle(nebulaToolbarColorScheme);
-		nebulaToolbarBundle.registerEnabledContainerTokens(
+		RadianceColorSchemeBundle nebulaAmethystToolbarBundle = new RadianceColorSchemeBundle(
+			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD264EB),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD1A9F1),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD1A9F1),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* isSystemDark */ false);
+		nebulaAmethystToolbarBundle.registerEnabledContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD1A9F1),
-				/* isFidelity */ true,
-				/* isDark */ false,
-				/* contrastLevel */ -1.0,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ false,
+					/* contrastLevel */ -1.0)),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
-		this.registerDecorationAreaSchemeBundle(nebulaToolbarBundle,
-			nebulaToolbarBundle.getMainColorScheme().getMutedContainerTokens(),
+		this.registerDecorationAreaSchemeBundle(nebulaAmethystToolbarBundle,
+			nebulaAmethystToolbarBundle.getMainColorScheme().getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// And configure toolbar overlay painters

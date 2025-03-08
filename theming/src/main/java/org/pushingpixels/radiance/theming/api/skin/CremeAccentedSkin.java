@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -37,7 +38,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
@@ -61,8 +61,9 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 	protected CremeAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle cremeDefaultBundle =
-			new RadianceColorSchemeBundle(this.getDefaultAreaColorScheme());
+		RadianceColorSchemeBundle cremeDefaultBundle = new RadianceColorSchemeBundle(
+			this.getDefaultAreaTonalTokens(), this.getDefaultAreaMutedTokens(),
+			this.getDefaultAreaNeutralTokens(), false);
 		cremeDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
 			ComponentState.SELECTED);
 		cremeDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
@@ -78,10 +79,9 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		this.registerAsDecorationArea(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEBECE5),
-				/* isFidelity */ true,
-				/* isDark */ false,
-				/* contrast */ 0.8f,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ false,
+					/* contrastLevel */ 0.8)),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER,

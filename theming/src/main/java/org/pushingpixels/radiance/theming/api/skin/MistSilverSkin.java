@@ -29,10 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 
 /**
  * <code>Mist Silver</code> skin.
@@ -52,24 +51,23 @@ public class MistSilverSkin extends MistAccentedSkin {
 
 	public MistSilverSkin() {
 		super(new AccentBuilder()
-			.withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-				/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-					Hct.fromInt(0xFFD4DeE5), Hct.fromInt(0xFFD6D9DD), Hct.fromInt(0xFFEBF0F4)),
-				/* isPrimaryDark */ false,
-				/* isTonalDark */ false,
-				/* isMutedDark */ false,
-				/* isNeutralDark */ false,
-				/* isSystemDark */ false,
-				/* primaryContrastLevel */ 0.6f,
-				/* tonalContrastLevel */ 0.6f,
-				/* mutedContrastLevel */ 0.6f,
-				/* neutralContrastLevel */ 0.6f,
-				/* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()))
+			.withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD4DEE5),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ false,
+					/* contrastLevel */ 0.6)))
+			.withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFD6D9DD),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ false,
+					/* contrastLevel */ 0.6)))
+			.withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFEBF0F4),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ false,
+					/* contrastLevel */ 0.6)))
 			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCDD8DF),
-				/* isFidelity */ true,
-				/* isDark */ false,
-				/* contrast */ 0.0f,
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 	}
 }
