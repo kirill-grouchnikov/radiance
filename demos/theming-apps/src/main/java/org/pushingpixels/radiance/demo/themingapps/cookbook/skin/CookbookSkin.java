@@ -111,7 +111,6 @@ public class CookbookSkin extends RadianceSkin {
                 /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ (cookbookHeaderMutedSeed1.getTone() +
                     cookbookHeaderMutedSeed2.getTone()) / 2.0,
-                /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* tonalContainerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0),
@@ -121,7 +120,6 @@ public class CookbookSkin extends RadianceSkin {
                 /* seedTwo */ cookbookHeaderNeutralSeed2,
                 /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ cookbookHeaderNeutralSeed2.getTone(),
-                /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* tonalContainerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0),

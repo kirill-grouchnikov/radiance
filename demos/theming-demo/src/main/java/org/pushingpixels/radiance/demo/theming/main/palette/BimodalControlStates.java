@@ -99,7 +99,6 @@ public class BimodalControlStates extends JFrame {
                     /* seedTwo */ Hct.from(hue2, primarySeed.getChroma(), primaryTone),
                     /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                     /* fidelityTone */ primaryTone,
-                    /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
                     /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
                     /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
                 /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(mutedSeed,

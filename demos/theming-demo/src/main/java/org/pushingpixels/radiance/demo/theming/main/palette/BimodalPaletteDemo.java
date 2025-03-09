@@ -69,7 +69,6 @@ public class BimodalPaletteDemo extends JFrame {
             /* seedTwo */ seedTwo,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
             /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
@@ -78,7 +77,6 @@ public class BimodalPaletteDemo extends JFrame {
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
             /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
@@ -87,7 +85,6 @@ public class BimodalPaletteDemo extends JFrame {
             /* seedTwo */ seedTwo,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
             /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight());
 
         DynamicBimodalPalette bimodalPalette2Custom = new DynamicBimodalPalette(
@@ -95,7 +92,6 @@ public class BimodalPaletteDemo extends JFrame {
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
             /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight());
 
         builder.addROLabel("Palette one").xy(1, row)

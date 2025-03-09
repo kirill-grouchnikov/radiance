@@ -109,7 +109,6 @@ private fun getActiveContainerTokens(config: RobotConfig): ContainerColorTokens 
         /* seedTwo */ Hct.from(hue2, primarySeed.chroma, primaryTone),
         /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
         /* fidelityTone */ primaryTone,
-        /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
         /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
         /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver())
 }
@@ -136,7 +135,6 @@ private fun getSelectedTokens(config: RobotConfig): ContainerColorTokens {
         /* seedTwo */ Hct.from(hue2, 1.5 * primarySeed.chroma, primaryTone),
         /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
         /* fidelityTone */ primaryTone + 5.0,  // lighter tone for selected and rollover states,
-        /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
         /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
         /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver())
 }

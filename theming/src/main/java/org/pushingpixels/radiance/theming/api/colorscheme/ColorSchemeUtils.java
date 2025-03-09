@@ -352,7 +352,6 @@ public class ColorSchemeUtils {
         Hct seedTwo,
         DynamicBimodalPalette.TransitionRange tonalTransitionRange,
         double fidelityTone,
-        ContainerConfiguration primaryContainerConfiguration,
         ContainerConfiguration tonalContainerConfiguration,
         BimodalPaletteContainerColorsResolver colorResolver) {
 
@@ -361,7 +360,6 @@ public class ColorSchemeUtils {
             /* seedTwo */ seedTwo,
             /* tonalTransitionRange */ tonalTransitionRange,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ primaryContainerConfiguration,
             /* tonalContainerConfiguration */ tonalContainerConfiguration);
 
         return new ContainerColorTokens() {

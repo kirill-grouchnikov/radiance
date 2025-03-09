@@ -71,7 +71,6 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
             /* tonalContainerConfiguration */ ContainerConfiguration.defaultDark(),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
@@ -80,7 +79,6 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
             /* tonalContainerConfiguration */ ContainerConfiguration.defaultDark());
 
         ContainerColorTokens tokens2 = ColorSchemeUtils.getBimodalContainerTokens(
@@ -88,7 +86,6 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
             /* tonalContainerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
@@ -100,7 +97,6 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
             /* tonalContainerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
@@ -111,7 +107,6 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
             /* tonalContainerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
@@ -123,7 +118,6 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
             /* tonalContainerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,

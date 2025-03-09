@@ -132,7 +132,6 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
                 /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 83.0,
-                /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* tonalContainerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
@@ -144,7 +143,6 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
                 /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 79.0,
-                /* primaryContainerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* tonalContainerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
