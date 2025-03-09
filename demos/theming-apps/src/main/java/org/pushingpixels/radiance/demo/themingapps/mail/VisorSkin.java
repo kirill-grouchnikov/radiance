@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.themingapps.mail;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -55,12 +56,17 @@ public class VisorSkin extends RadianceSkin {
     }
 
     public VisorSkin() {
-        RadianceColorScheme visorDefaultColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF99B6CB), Hct.fromInt(0xFFDEDDDF), Hct.fromInt(0xFFEFF8FF)),
-            /* isDark */ false);
-        RadianceColorSchemeBundle visorDefaultBundle =
-            new RadianceColorSchemeBundle(visorDefaultColorScheme);
+        RadianceColorSchemeBundle visorDefaultBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF99B6CB),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFDEDDDF),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFEFF8FF),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* isSystemDark */ false);
         this.registerDecorationAreaSchemeBundle(visorDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
@@ -74,27 +80,28 @@ public class VisorSkin extends RadianceSkin {
                     .containerOutlineVariant(DynamicPalette::getTonalContainerSurfaceHigh)
                     .build()
             );
-        RadianceColorScheme visorThreadsColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD8E2EA)),
-            /* isDark */ false);
-        RadianceColorSchemeBundle visorThreadsBundle =
-            new RadianceColorSchemeBundle(visorThreadsColorScheme);
+        RadianceColorSchemeBundle visorThreadsBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF9CBDD3),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFC9D5DE),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFD8E2EA),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* isSystemDark */ false);
         visorThreadsBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF5B91F8),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 0.0f,
+                /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ threadsHighlightsPaletteResolver),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
         visorThreadsBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF80B6CB),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 0.0f,
+                /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ threadsHighlightsPaletteResolver),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.ROLLOVER_UNSELECTED);
@@ -110,27 +117,32 @@ public class VisorSkin extends RadianceSkin {
                     .containerOutlineVariant(DynamicPalette::getTonalContainerOutlineVariant)
                     .build()
             );
-        RadianceColorScheme visorDestinationsColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF9CBDD3), Hct.fromInt(0xFFC9D5DE), Hct.fromInt(0xFFD3E2EF)),
-            /* isDark */ false);
-        RadianceColorSchemeBundle visorDestinationsBundle =
-            new RadianceColorSchemeBundle(visorDestinationsColorScheme);
+        RadianceColorSchemeBundle visorDestinationsBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF9CBDD3),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFC9D5DE),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFD3E2EF),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* isSystemDark */ false);
         visorDestinationsBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFE8EDAF),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.6f,
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6),
                 /* colorResolver */ destinationsHighlightsPaletteResolver),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
         visorDestinationsBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD7E1C2),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.6f,
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6),
                 /* colorResolver */ destinationsHighlightsPaletteResolver),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.ROLLOVER_UNSELECTED);
@@ -138,9 +150,8 @@ public class VisorSkin extends RadianceSkin {
 
         // For the overall frame decoration border
         this.registerAsDecorationArea(ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFC9D6DF),
-                /* isFidelity */ true,
-                /* isDark */ false),
+            /* seed */ Hct.fromInt(0xFFC9D6DF),
+            /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
         this.buttonShaper = new ClassicButtonShaper();

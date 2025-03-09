@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.themingapps.seaglass.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -37,7 +38,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
@@ -58,23 +58,27 @@ public class SeaGlassSkin extends RadianceSkin {
 	}
 
 	public SeaGlassSkin() {
-		RadianceColorScheme seaGlassDefaultColorScheme = ColorSchemeUtils.getColorScheme(
-			/* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-				Hct.fromInt(0xFF6FA5E0), Hct.fromInt(0xFFC8E7FA), Hct.fromInt(0xFFFFFFFF)),
-			/* isDark */ false);
+		RadianceColorSchemeBundle seaGlassDefaultBundle = new RadianceColorSchemeBundle(
+			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF6FA5E0),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFC8E7FA),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFFFFFFFF),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* isSystemDark */ false);
+
 		ContainerColorTokens seaGlassHighlightContainerTokens =
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF7DBFF1),
-				/* isFidelity */ true,
-				/* isDark */ false);
+				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 
-		RadianceColorSchemeBundle seaGlassDefaultBundle =
-			new RadianceColorSchemeBundle(seaGlassDefaultColorScheme);
 		seaGlassDefaultBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF28A8EF),
-				/* isFidelity */ true,
-				/* isDark */ false),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			ComponentState.DEFAULT);
 		seaGlassDefaultBundle.registerActiveContainerTokens(seaGlassHighlightContainerTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -83,9 +87,8 @@ public class SeaGlassSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.registerAsDecorationArea(ColorSchemeUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFF75B4D8),
-				/* isFidelity */ true,
-				/* isDark */ false),
+			/* seed */ Hct.fromInt(0xFF75B4D8),
+			/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
 

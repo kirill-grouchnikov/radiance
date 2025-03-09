@@ -108,7 +108,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
         ContainerColorTokens rolloverSelectedContainerTokens =
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
@@ -120,7 +120,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
