@@ -365,7 +365,7 @@ public class ColorSchemeUtils {
         return new ContainerColorTokens() {
             @Override
             public boolean isDark() {
-                return dynamicPalette.tonalContainerConfiguration.isDark();
+                return dynamicPalette.containerConfiguration.isDark();
             }
 
             @Override

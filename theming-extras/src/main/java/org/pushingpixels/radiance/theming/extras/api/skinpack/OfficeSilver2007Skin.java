@@ -86,8 +86,8 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
-                        .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
-                        .containerOutlineVariant(DynamicPalette::getTonalContainerOutlineVariant)
+                        .containerOutline(DynamicPalette::getContainerOutlineVariant)
+                        .containerOutlineVariant(DynamicPalette::getContainerOutlineVariant)
                         .build()
                 ));
         ContainerColorTokens selectedContainerTokens =
@@ -145,7 +145,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
         PaletteContainerColorsResolver activeMarksColorResolver =
             PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .onContainer(DynamicPalette::getTonalContainerOutline)
+                    .onContainer(DynamicPalette::getContainerOutline)
                     .build());
 
         ContainerColorTokens rolloverMarkContainerTokens = ColorSchemeUtils.getContainerTokens(

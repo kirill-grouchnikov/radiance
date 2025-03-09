@@ -53,9 +53,9 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 	public GraphiteChalkSkin() {
 		super(PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 			PaletteContainerColorsResolverOverlay.builder()
-				.containerOutline((p) -> p.getComplementaryTonalContainerOutline() & 0xA0FFFFFF)
-				.containerOutlineVariant((p) -> p.getComplementaryTonalContainerOutline() & 0x80FFFFFF)
-				.complementaryContainerOutline(DynamicPalette::getTonalContainerOutline)
+				.containerOutline((p) -> p.getComplementaryContainerOutline() & 0xA0FFFFFF)
+				.containerOutlineVariant((p) -> p.getComplementaryContainerOutline() & 0x80FFFFFF)
+				.complementaryContainerOutline(DynamicPalette::getContainerOutline)
 				.build()));
 
 		this.borderPainter = new FlatBorderPainter();

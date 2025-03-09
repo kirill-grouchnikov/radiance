@@ -130,7 +130,7 @@ public class MarinerSkin extends RadianceSkin {
                     /* contrastLevel */ 1.0),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
-                        .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
+                        .containerOutline(DynamicPalette::getContainerOutlineVariant)
                         .build())),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

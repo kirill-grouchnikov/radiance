@@ -70,8 +70,8 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         //    them more visible.
         PaletteContainerColorsResolver officeBlackPaletteResolver = PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
             PaletteContainerColorsResolverOverlay.builder()
-                .containerOutline((p) -> p.getTonalContainerOutline() & 0xA0FFFFFF)
-                .containerOutlineVariant((p) -> p.getTonalContainerOutlineVariant() & 0xA0FFFFFF)
+                .containerOutline((p) -> p.getContainerOutline() & 0xA0FFFFFF)
+                .containerOutlineVariant((p) -> p.getContainerOutlineVariant() & 0xA0FFFFFF)
                 .containerOutlineDisabledAlpha((s) -> 0.75f)
                 .build());
 
@@ -152,7 +152,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         PaletteContainerColorsResolver activeMarksColorResolver =
             PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .onContainer(DynamicPalette::getTonalContainerOutline)
+                    .onContainer(DynamicPalette::getContainerOutline)
                     .build());
 
         ContainerColorTokens rolloverMarkContainerTokens = ColorSchemeUtils.getContainerTokens(

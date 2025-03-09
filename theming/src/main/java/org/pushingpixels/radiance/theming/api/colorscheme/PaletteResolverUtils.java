@@ -41,57 +41,57 @@ public class PaletteResolverUtils {
 
                 @Override
                 public Color getContainerSurfaceLowest(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getTonalContainerSurfaceLowest());
+                    return new Color(dynamicPalette.getContainerSurfaceLowest());
                 }
 
                 @Override
                 public Color getContainerSurfaceLow(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getTonalContainerSurfaceLow());
+                    return new Color(dynamicPalette.getContainerSurfaceLow());
                 }
 
                 @Override
                 public Color getContainerSurface(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getTonalContainerSurface());
+                    return new Color(dynamicPalette.getContainerSurface());
                 }
 
                 @Override
                 public Color getContainerSurfaceHigh(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getTonalContainerSurfaceHigh());
+                    return new Color(dynamicPalette.getContainerSurfaceHigh());
                 }
 
                 @Override
                 public Color getContainerSurfaceHighest(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getTonalContainerSurfaceHighest());
+                    return new Color(dynamicPalette.getContainerSurfaceHighest());
                 }
 
                 @Override
                 public Color getContainerSurfaceDim(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getTonalContainerSurfaceDim());
+                    return new Color(dynamicPalette.getContainerSurfaceDim());
                 }
 
                 @Override
                 public Color getContainerSurfaceBright(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getTonalContainerSurfaceBright());
+                    return new Color(dynamicPalette.getContainerSurfaceBright());
                 }
 
                 @Override
                 public Color getOnContainer(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getOnTonalContainer());
+                    return new Color(dynamicPalette.getOnContainer());
                 }
 
                 @Override
                 public Color getOnContainerVariant(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getOnTonalContainerVariant());
+                    return new Color(dynamicPalette.getOnContainerVariant());
                 }
 
                 @Override
                 public Color getContainerOutline(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getTonalContainerOutline());
+                    return new Color(dynamicPalette.getContainerOutline());
                 }
 
                 @Override
                 public Color getContainerOutlineVariant(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getTonalContainerOutlineVariant());
+                    return new Color(dynamicPalette.getContainerOutlineVariant());
                 }
 
                 @Override
@@ -111,27 +111,27 @@ public class PaletteResolverUtils {
 
                 @Override
                 public Color getInverseContainerSurface(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getInverseTonalContainerSurface());
+                    return new Color(dynamicPalette.getInverseContainerSurface());
                 }
 
                 @Override
                 public Color getInverseOnContainer(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getInverseOnTonalContainer());
+                    return new Color(dynamicPalette.getInverseOnContainer());
                 }
 
                 @Override
                 public Color getInverseContainerOutline(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getInverseTonalContainerOutline());
+                    return new Color(dynamicPalette.getInverseContainerOutline());
                 }
 
                 @Override
                 public Color getComplementaryOnContainer(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getComplementaryOnTonalContainer());
+                    return new Color(dynamicPalette.getComplementaryOnContainer());
                 }
 
                 @Override
                 public Color getComplementaryContainerOutline(DynamicPalette dynamicPalette) {
-                    return new Color(dynamicPalette.getComplementaryTonalContainerOutline());
+                    return new Color(dynamicPalette.getComplementaryContainerOutline());
                 }
             };
         return result;

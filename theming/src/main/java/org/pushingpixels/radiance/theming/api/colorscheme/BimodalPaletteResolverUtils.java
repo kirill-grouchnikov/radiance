@@ -41,57 +41,57 @@ public class BimodalPaletteResolverUtils {
 
                 @Override
                 public Color getContainerSurfaceLowest(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getTonalContainerSurfaceLowest());
+                    return new Color(dynamicBimodalPalette.getContainerSurfaceLowest());
                 }
 
                 @Override
                 public Color getContainerSurfaceLow(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getTonalContainerSurfaceLow());
+                    return new Color(dynamicBimodalPalette.getContainerSurfaceLow());
                 }
 
                 @Override
                 public Color getContainerSurface(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getTonalContainerSurface());
+                    return new Color(dynamicBimodalPalette.getContainerSurface());
                 }
 
                 @Override
                 public Color getContainerSurfaceHigh(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getTonalContainerSurfaceHigh());
+                    return new Color(dynamicBimodalPalette.getContainerSurfaceHigh());
                 }
 
                 @Override
                 public Color getContainerSurfaceHighest(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getTonalContainerSurfaceHighest());
+                    return new Color(dynamicBimodalPalette.getContainerSurfaceHighest());
                 }
 
                 @Override
                 public Color getContainerSurfaceDim(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getTonalContainerSurfaceDim());
+                    return new Color(dynamicBimodalPalette.getContainerSurfaceDim());
                 }
 
                 @Override
                 public Color getContainerSurfaceBright(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getTonalContainerSurfaceBright());
+                    return new Color(dynamicBimodalPalette.getContainerSurfaceBright());
                 }
 
                 @Override
                 public Color getOnContainer(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getOnTonalContainer());
+                    return new Color(dynamicBimodalPalette.getOnContainer());
                 }
 
                 @Override
                 public Color getOnContainerVariant(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getOnTonalContainerVariant());
+                    return new Color(dynamicBimodalPalette.getOnContainerVariant());
                 }
 
                 @Override
                 public Color getContainerOutline(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getTonalContainerOutline());
+                    return new Color(dynamicBimodalPalette.getContainerOutline());
                 }
 
                 @Override
                 public Color getContainerOutlineVariant(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getTonalContainerOutlineVariant());
+                    return new Color(dynamicBimodalPalette.getContainerOutlineVariant());
                 }
 
                 @Override
@@ -111,27 +111,27 @@ public class BimodalPaletteResolverUtils {
 
                 @Override
                 public Color getInverseContainerSurface(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getInverseTonalContainerSurface());
+                    return new Color(dynamicBimodalPalette.getInverseContainerSurface());
                 }
 
                 @Override
                 public Color getInverseOnContainer(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getInverseOnTonalContainer());
+                    return new Color(dynamicBimodalPalette.getInverseOnContainer());
                 }
 
                 @Override
                 public Color getInverseContainerOutline(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getInverseTonalContainerOutline());
+                    return new Color(dynamicBimodalPalette.getInverseContainerOutline());
                 }
 
                 @Override
                 public Color getComplementaryOnContainer(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getComplementaryOnTonalContainer());
+                    return new Color(dynamicBimodalPalette.getComplementaryOnContainer());
                 }
 
                 @Override
                 public Color getComplementaryContainerOutline(DynamicBimodalPalette dynamicBimodalPalette) {
-                    return new Color(dynamicBimodalPalette.getComplementaryTonalContainerOutline());
+                    return new Color(dynamicBimodalPalette.getComplementaryContainerOutline());
                 }
             };
         return result;

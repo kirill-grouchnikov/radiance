@@ -72,8 +72,8 @@ public class MagellanSkin extends RadianceSkin {
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     // For tonal containers (active controls), use softer text / icon colors.
                     PaletteContainerColorsResolverOverlay.builder()
-                        .onContainer((p) -> p.getOnTonalContainer() & 0xE0FFFFFF)
-                        .onContainerVariant((p) -> p.getOnTonalContainerVariant() & 0xE0FFFFFF)
+                        .onContainer((p) -> p.getOnContainer() & 0xE0FFFFFF)
+                        .onContainerVariant((p) -> p.getOnContainerVariant() & 0xE0FFFFFF)
                         .build())),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF004C92),
@@ -88,8 +88,8 @@ public class MagellanSkin extends RadianceSkin {
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     // For neutral containers, use softer text / icon colors
                     PaletteContainerColorsResolverOverlay.builder()
-                        .onContainer((p) -> p.getOnTonalContainer() & 0xD0FFFFFF)
-                        .onContainerVariant((p) -> p.getOnTonalContainerVariant() & 0xD0FFFFFF)
+                        .onContainer((p) -> p.getOnContainer() & 0xD0FFFFFF)
+                        .onContainerVariant((p) -> p.getOnContainerVariant() & 0xD0FFFFFF)
                         .build())),
             /* isSystemDark */ true);
 
@@ -99,8 +99,8 @@ public class MagellanSkin extends RadianceSkin {
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
-                        .onContainer((p) -> p.getOnTonalContainer() & 0xE0FFFFFF)
-                        .onContainerVariant((p) -> p.getOnTonalContainerVariant() & 0xE0FFFFFF)
+                        .onContainer((p) -> p.getOnContainer() & 0xE0FFFFFF)
+                        .onContainerVariant((p) -> p.getOnContainerVariant() & 0xE0FFFFFF)
                         .build()));
 
         ContainerColorTokens magellanPressedContainerTokens =

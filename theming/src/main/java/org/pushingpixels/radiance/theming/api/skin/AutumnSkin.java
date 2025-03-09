@@ -70,8 +70,8 @@ public class AutumnSkin extends RadianceSkin {
 		PaletteContainerColorsResolver tonalResolver =
 			PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 				PaletteContainerColorsResolverOverlay.builder()
-					.onContainer(DynamicPalette::getTonalContainerOutline)
-					.onContainerVariant((p) -> p.getTonalContainerOutline() & 0xC0FFFFFF)
+					.onContainer(DynamicPalette::getContainerOutline)
+					.onContainerVariant((p) -> p.getContainerOutline() & 0xC0FFFFFF)
 					.containerSurfaceDisabledAlpha((s) -> 0.4f)
 					.onContainerDisabledAlpha((s) -> 0.6f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
@@ -150,7 +150,7 @@ public class AutumnSkin extends RadianceSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
-						.onContainer(DynamicPalette::getOnTonalContainerVariant)
+						.onContainer(DynamicPalette::getOnContainerVariant)
 						.build())),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

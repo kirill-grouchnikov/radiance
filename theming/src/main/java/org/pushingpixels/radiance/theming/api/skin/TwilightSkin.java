@@ -117,8 +117,8 @@ public class TwilightSkin extends RadianceSkin {
         PaletteContainerColorsResolver twilightPaletteContainerColorResolver =
             defaultPaletteContainerColorResolver.overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .containerOutline(DynamicPalette::getOnTonalContainer)
-                    .containerOutlineVariant(DynamicPalette::getOnTonalContainerVariant)
+                    .containerOutline(DynamicPalette::getOnContainer)
+                    .containerOutlineVariant(DynamicPalette::getOnContainerVariant)
                     .build());
 
         ContainerColorTokens twilightSelectedContainerTokens =

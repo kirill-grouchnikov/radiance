@@ -75,8 +75,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                 /* contrastLevel */ -1.0),
             /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .containerOutline((p) -> p.getOnTonalContainer() & 0x70FFFFFF)
-                    .containerOutlineVariant((p) -> p.getOnTonalContainerVariant() & 0x70FFFFFF)
+                    .containerOutline((p) -> p.getOnContainer() & 0x70FFFFFF)
+                    .containerOutlineVariant((p) -> p.getOnContainerVariant() & 0x70FFFFFF)
                     .containerOutlineDisabledAlpha((s) -> 0.65f)
                     .build()));
 
@@ -122,8 +122,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
-                        .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
-                        .containerOutlineVariant(DynamicPalette::getTonalContainerOutlineVariant)
+                        .containerOutline(DynamicPalette::getContainerOutlineVariant)
+                        .containerOutlineVariant(DynamicPalette::getContainerOutlineVariant)
                         .build()
                 ));
         ContainerColorTokens selectedContainerTokens =
@@ -181,7 +181,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
         PaletteContainerColorsResolver activeMarksColorResolver =
             PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .onContainer(DynamicPalette::getTonalContainerOutline)
+                    .onContainer(DynamicPalette::getContainerOutline)
                     .build());
 
         ContainerColorTokens rolloverMarkContainerTokens = ColorSchemeUtils.getContainerTokens(

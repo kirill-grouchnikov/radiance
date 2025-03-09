@@ -76,8 +76,8 @@ public class VisorSkin extends RadianceSkin {
         PaletteContainerColorsResolver threadsHighlightsPaletteResolver =
             PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .containerOutline(DynamicPalette::getTonalContainerSurface)
-                    .containerOutlineVariant(DynamicPalette::getTonalContainerSurfaceHigh)
+                    .containerOutline(DynamicPalette::getContainerSurface)
+                    .containerOutlineVariant(DynamicPalette::getContainerSurfaceHigh)
                     .build()
             );
         RadianceColorSchemeBundle visorThreadsBundle = new RadianceColorSchemeBundle(
@@ -113,8 +113,8 @@ public class VisorSkin extends RadianceSkin {
         PaletteContainerColorsResolver destinationsHighlightsPaletteResolver =
             PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
-                    .containerOutlineVariant(DynamicPalette::getTonalContainerOutlineVariant)
+                    .containerOutline(DynamicPalette::getContainerOutlineVariant)
+                    .containerOutlineVariant(DynamicPalette::getContainerOutlineVariant)
                     .build()
             );
         RadianceColorSchemeBundle visorDestinationsBundle = new RadianceColorSchemeBundle(
