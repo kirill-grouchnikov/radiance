@@ -134,45 +134,48 @@ public class GeminiSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         // Toolbars
-        RadianceColorSchemeBundle geminiToolbarBundle =
-            new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFFFDC02), Hct.fromInt(0xFF142429), Hct.fromInt(0xFF203042)),
-                /* isPrimaryDark */ false,
-                /* isTonalDark */ false,
-                /* isMutedDark */ true,
-                /* isNeutralDark */ true,
-                /* isSystemDark */ true,
-                /* primaryContrastLevel */ 0.0f,
-                /* tonalContrastLevel */ 0.0f,
-                /* mutedContrastLevel */ 1.0f,
-                /* neutralContrastLevel */ 0.4f,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
+        RadianceColorSchemeBundle geminiToolbarBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFDC02),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF142429),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0)),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF203042),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.4)),
+            /* isSystemDark */ true);
         this.registerDecorationAreaSchemeBundle(geminiToolbarBundle,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // Headers
-        RadianceColorSchemeBundle geminiHeaderBundle =
-            new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFFFDC02), Hct.fromInt(0xFF1C282D), Hct.fromInt(0xFF142429)),
-                /* isPrimaryDark */ false,
-                /* isTonalDark */ false,
-                /* isMutedDark */ true,
-                /* isNeutralDark */ true,
-                /* isSystemDark */ true,
-                /* primaryContrastLevel */ 0.0f,
-                /* tonalContrastLevel */ 0.8f,
-                /* mutedContrastLevel */ 1.0f,
-                /* neutralContrastLevel */ 0.9f,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver()));
+        RadianceColorSchemeBundle geminiHeaderBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFDC02),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.8)),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF1C282D),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0)),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF142429),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.9)),
+            /* isSystemDark */ true);
         this.registerDecorationAreaSchemeBundle(geminiHeaderBundle,
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF142429),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 0.9f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.9)),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);

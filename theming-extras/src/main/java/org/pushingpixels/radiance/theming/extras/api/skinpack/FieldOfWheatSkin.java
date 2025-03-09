@@ -29,12 +29,16 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
@@ -62,30 +66,31 @@ public class FieldOfWheatSkin extends RadianceSkin {
     }
 
     public FieldOfWheatSkin() {
-        RadianceColorScheme fieldOfWheatColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFF00BDEA), Hct.fromInt(0xFFDDAB3C), Hct.fromInt(0xFFE8DB83)),
-            /* isPrimaryDark */ false,
-            /* isTonalDark */ false,
-            /* isMutedDark */ false,
-            /* isNeutralDark */ false,
-            /* isSystemDark */ false,
-            /* primaryContrastLevel */ 1.0f,
-            /* tonalContrastLevel */ 1.0f,
-            /* mutedContrastLevel */ 1.0f,
-            /* neutralContrastLevel */ 1.0f,
-            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+        RadianceColorSchemeBundle fieldOfWheatDefaultBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF00BDEA),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0)),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFDDAB3C),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0)),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFE8DB83),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0)),
+            /* isSystemDark */ false);
 
         ContainerColorTokens fieldOfWheatHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF40DDFF),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 1.0f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0));
 
-        RadianceColorSchemeBundle fieldOfWheatDefaultBundle =
-            new RadianceColorSchemeBundle(fieldOfWheatColorScheme);
         fieldOfWheatDefaultBundle.registerActiveContainerTokens(
             fieldOfWheatHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -96,10 +101,9 @@ public class FieldOfWheatSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD59C18),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 1.0,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0)),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);

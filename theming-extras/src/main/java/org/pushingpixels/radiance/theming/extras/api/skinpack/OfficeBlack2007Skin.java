@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicScheme;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -65,64 +64,39 @@ public class OfficeBlack2007Skin extends RadianceSkin {
     }
 
     public OfficeBlack2007Skin() {
-        SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-        // Set up token resolution overlays. For tonal, muted and neutral containers:
+        // Set up token resolution overlays for all containers:
         // 1. Outlines with additional alpha to make them softer.
         // 2. Custom alpha for outlines of disabled controls to have higher contrast and make
         //    them more visible.
-        SchemeColorResolver officeBlackSchemeColorResolver =
-            defaultSchemeColorResolver.overlayWith(
-            SchemeColorResolverOverlay.builder()
-                .neutralContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .onContainer(DynamicScheme::getPrimaryContainerSurfaceLowest)
-                        .onContainerVariant(DynamicScheme::getPrimaryContainerSurfaceLow)
-                        .containerOutline((s) -> s.getNeutralContainerOutline() & 0xA0FFFFFF)
-                        .containerOutlineVariant((s) -> s.getNeutralContainerOutlineVariant() & 0xA0FFFFFF)
-                        .containerOutlineDisabledAlpha((s) -> 0.75f)
-                        .build())
-                .mutedContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .containerOutline((s) -> s.getMutedContainerOutline() & 0xA0FFFFFF)
-                        .containerOutlineVariant((s) -> s.getMutedContainerOutlineVariant() & 0xA0FFFFFF)
-                        .containerOutlineDisabledAlpha((s) -> 0.75f)
-                        .build())
-                .tonalContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .containerOutline((s) -> s.getTonalContainerOutline() & 0xA0FFFFFF)
-                        .containerOutlineVariant((s) -> s.getTonalContainerOutlineVariant() & 0xA0FFFFFF)
-                        .containerOutlineDisabledAlpha((s) -> 0.75f)
-                        .build())
+        PaletteContainerColorsResolver officeBlackPaletteResolver = PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            PaletteContainerColorsResolverOverlay.builder()
+                .containerOutline((p) -> p.getTonalContainerOutline() & 0xA0FFFFFF)
+                .containerOutlineVariant((p) -> p.getTonalContainerOutlineVariant() & 0xA0FFFFFF)
+                .containerOutlineDisabledAlpha((s) -> 0.75f)
                 .build());
 
-        RadianceColorScheme officeBlackColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFB8C0C9), Hct.fromInt(0xFFCFD5DA)),
-            /* isPrimaryDark */ false,
-            /* isTonalDark */ false,
-            /* isMutedDark */ false,
-            /* isNeutralDark */ false,
-            /* isSystemDark */ false,
-            /* primaryContrastLevel */ 0.0f,
-            /* tonalContrastLevel */ 0.0f,
-            /* mutedContrastLevel */ 0.0f,
-            /* neutralContrastLevel */ 0.0f,
-            /* schemeColorResolver */ officeBlackSchemeColorResolver);
-        RadianceColorSchemeBundle officeBlackDefaultBundle =
-            new RadianceColorSchemeBundle(officeBlackColorScheme);
+        RadianceColorSchemeBundle officeBlackDefaultBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFC6CACF),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight(),
+                /* colorResolver */ officeBlackPaletteResolver),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFB8C0C9),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight(),
+                /* colorResolver */ officeBlackPaletteResolver),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFCFD5DA),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight(),
+                /* colorResolver */ officeBlackPaletteResolver),
+            /* isSystemDark */ false);
 
         ContainerColorTokens rolloverContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFD111),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.6f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-                    PaletteContainerColorsResolverOverlay.builder()
-                        .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
-                        .containerOutlineVariant(DynamicPalette::getTonalContainerOutlineVariant)
-                        .build()
-                ));
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6),
+                /* colorResolver */ officeBlackPaletteResolver);
         ContainerColorTokens selectedContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
@@ -149,12 +123,10 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
-            /* isFidelity */ true,
-            /* isDark */ false);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF991C),
-            /* isFidelity */ true,
-            /* isDark */ false);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         // register state-specific color schemes on rollovers, presses and selections
         officeBlackDefaultBundle.registerActiveContainerTokens(rolloverContainerTokens,
@@ -187,34 +159,23 @@ public class OfficeBlack2007Skin extends RadianceSkin {
 
         ContainerColorTokens rolloverMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFD111),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
         ContainerColorTokens selectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFBD51),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
-        ContainerColorTokens rolloverSelectedMarkContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFFFA400),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.0,
-                /* colorResolver */ activeMarksColorResolver);
+        ContainerColorTokens rolloverSelectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+            /* seed */ Hct.fromInt(0xFFFFA400),
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
+            /* colorResolver */ activeMarksColorResolver);
         ContainerColorTokens pressedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
         ContainerColorTokens pressedSelectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF991C),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
 
         // register state-specific color schemes on mark rollovers, presses and selections
@@ -240,63 +201,61 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3D3D3D),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 1.0,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0)),
             DecorationAreaType.PRIMARY_TITLE_PANE,
             DecorationAreaType.SECONDARY_TITLE_PANE);
 
-        RadianceColorScheme officeBlackSecondaryColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFFB9BCC1), Hct.fromInt(0xFF454545), Hct.fromInt(0xFF2D2D2D)),
-            /* isPrimaryDark */ false,
-            /* isTonalDark */ false,
-            /* isMutedDark */ true,
-            /* isNeutralDark */ true,
-            /* isSystemDark */ false,
-            /* primaryContrastLevel */ 0.0f,
-            /* tonalContrastLevel */ 0.6f,
-            /* mutedContrastLevel */ 1.0f,
-            /* neutralContrastLevel */ 1.0f,
-            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-        RadianceColorSchemeBundle officeSecondaryBundle =
-            new RadianceColorSchemeBundle(officeBlackSecondaryColorScheme);
-        officeSecondaryBundle.registerActiveContainerTokens(
+        RadianceColorSchemeBundle officeBlackSecondaryBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFB9BCC1),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF454545),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0)),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF2D2D2D),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0)),
+            /* isSystemDark */ true);
+
+        officeBlackSecondaryBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFD5DA),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.6f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)),
             ComponentState.getActiveStates());
-        officeSecondaryBundle.registerActiveContainerTokens(
+        officeBlackSecondaryBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFD5DA),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.6f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
 
         this.registerDecorationAreaSchemeBundle(
-            officeSecondaryBundle,
+            officeBlackSecondaryBundle,
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2D2D2D),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 1.0,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0)),
             DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB3BEC8),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 1.0,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0)),
             DecorationAreaType.CONTROL_PANE);
 
         this.addOverlayPainter(new BottomLineOverlayPainter(

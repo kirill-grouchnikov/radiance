@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
@@ -61,38 +62,36 @@ public class HarvestSkin extends RadianceSkin {
     }
 
     public HarvestSkin() {
-        SchemeColorResolver defaultSchemeColorResolver = SchemeResolverUtils.getSchemeColorResolver();
-
-        RadianceColorScheme harvestColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFFFAEEAD), Hct.fromInt(0xFFFFFCE9), Hct.fromInt(0xFFFCFAD6)),
-            /* isPrimaryDark */ false,
-            /* isTonalDark */ false,
-            /* isMutedDark */ false,
-            /* isNeutralDark */ false,
-            /* isSystemDark */ false,
-            /* primaryContrastLevel */ 0.6f,
-            /* tonalContrastLevel */ 0.6f,
-            /* mutedContrastLevel */ 0.6f,
-            /* neutralContrastLevel */ 0.6f,
-            /* schemeColorResolver */ defaultSchemeColorResolver);
+        RadianceColorSchemeBundle harvestDefaultBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFAEEAD),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFFCE9),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFCFAD6),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6)),
+            /* isSystemDark */ false);
 
         ContainerColorTokens harvestActiveContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFCCC8),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.8f,
-            /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+            /* containerConfiguration */ new ContainerConfiguration(
+                /* isDark */ false,
+                /* contrastLevel */ 0.8));
         ContainerColorTokens harvestHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFD6CA),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.8f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.8));
 
-        RadianceColorSchemeBundle harvestDefaultBundle =
-            new RadianceColorSchemeBundle(harvestColorScheme);
         harvestDefaultBundle.registerActiveContainerTokens(harvestActiveContainerTokens,
             ComponentState.getActiveStates());
         harvestDefaultBundle.registerActiveContainerTokens(
@@ -102,36 +101,30 @@ public class HarvestSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(harvestDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
-        // Set up token resolution overlays. For muted and neutral containers, take the
-        // neutral container surface fill to be the on container roles.
-        SchemeColorResolver harvestHeaderSchemeColorResolver = defaultSchemeColorResolver.overlayWith(
-            SchemeColorResolverOverlay.builder()
-                .neutralContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .onContainer((s) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
-                        .onContainerVariant((s) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
-                        .build())
-                .mutedContainerResolverOverlay(
-                    SchemeContainerColorsResolverOverlay.builder()
-                        .onContainer((s) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
-                        .onContainerVariant((s) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
-                        .build())
-                .build());
+        RadianceColorSchemeBundle harvestHeaderBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFF12B37),
+                /* containerConfiguration */ ContainerConfiguration.defaultDark()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF5B5B54),
+                /* containerConfiguration */ ContainerConfiguration.defaultDark(),
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    // Take the default neutral container surface fill to be the on container roles.
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .onContainer((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
+                        .onContainerVariant((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
+                        .build())),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF3A3A39),
+            /* containerConfiguration */ ContainerConfiguration.defaultDark(),
+                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    // Take the default neutral container surface fill to be the on container roles.
+                    PaletteContainerColorsResolverOverlay.builder()
+                        .onContainer((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
+                        .onContainerVariant((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
+                        .build())),
+            /* isSystemDark */ false);
 
-        RadianceColorSchemeBundle harvestHeaderBundle =
-            new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFFF12B37), Hct.fromInt(0xFF5B5B54), Hct.fromInt(0xFF3A3A39)),
-                /* isPrimaryDark */ true,
-                /* isTonalDark */ true,
-                /* isMutedDark */ true,
-                /* isNeutralDark */ true,
-                /* isSystemDark */ true,
-                /* primaryContrastLevel */ 0.0f,
-                /* tonalContrastLevel */ 0.0f,
-                /* mutedContrastLevel */ 0.0f,
-                /* neutralContrastLevel */ 0.0f,
-                /* schemeColorResolver */ harvestHeaderSchemeColorResolver));
         harvestHeaderBundle.registerActiveContainerTokens(
             harvestHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -139,10 +132,11 @@ public class HarvestSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(harvestHeaderBundle,
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3A3A39),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 0.6f,
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.6),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                    // Take the default neutral container surface fill to be the on container roles.
                     PaletteContainerColorsResolverOverlay.builder()
                         .onContainer((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
                         .onContainerVariant((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
@@ -157,8 +151,7 @@ public class HarvestSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFCF7C0),
-                /* isFidelity */ true,
-                /* isDark */ false),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         // Add overlay painters to paint drop shadow and a dark line along the bottom

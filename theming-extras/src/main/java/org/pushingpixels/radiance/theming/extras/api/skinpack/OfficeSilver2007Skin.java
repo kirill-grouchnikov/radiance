@@ -66,19 +66,24 @@ public class OfficeSilver2007Skin extends RadianceSkin {
     }
 
     public OfficeSilver2007Skin() {
-        RadianceColorScheme officeSilverColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFFC6CACF), Hct.fromInt(0xFFE6EAEE), Hct.fromInt(0xFFF2F5F5)),
-            /* isDark */ false);
-        RadianceColorSchemeBundle officeSilverDefaultBundle =
-            new RadianceColorSchemeBundle(officeSilverColorScheme);
+        RadianceColorSchemeBundle officeSilverDefaultBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFC6CACF),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFE6EAEE),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFF2F5F5),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* isSystemDark */ false);
 
         ContainerColorTokens rolloverContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFD111),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 0.6f,
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.6),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline(DynamicPalette::getTonalContainerOutlineVariant)
@@ -111,12 +116,10 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
-            /* isFidelity */ true,
-            /* isDark */ false);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF991C),
-            /* isFidelity */ true,
-            /* isDark */ false);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         // register state-specific color schemes on rollovers, presses and selections
         officeSilverDefaultBundle.registerActiveContainerTokens(rolloverContainerTokens,
@@ -149,34 +152,23 @@ public class OfficeSilver2007Skin extends RadianceSkin {
 
         ContainerColorTokens rolloverMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFD111),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
         ContainerColorTokens selectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFBD51),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
-        ContainerColorTokens rolloverSelectedMarkContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens rolloverSelectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFA400),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
         ContainerColorTokens pressedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
         ContainerColorTokens pressedSelectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF991C),
-            /* isFidelity */ true,
-            /* isDark */ false,
-            /* contrastLevel */ 0.0,
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
 
         // register state-specific color schemes on mark rollovers, presses and selections
@@ -202,15 +194,13 @@ public class OfficeSilver2007Skin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFD4DE),
-                /* isFidelity */ true,
-                /* isDark */ false),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFCFD0),
-                /* isFidelity */ true,
-                /* isDark */ false),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             DecorationAreaType.PRIMARY_TITLE_PANE,
             DecorationAreaType.SECONDARY_TITLE_PANE,
             DecorationAreaType.CONTROL_PANE);

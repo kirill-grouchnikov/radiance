@@ -29,12 +29,15 @@
  */
 package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
@@ -60,30 +63,31 @@ public class MagmaSkin extends RadianceSkin {
     }
 
     public MagmaSkin() {
-        RadianceColorScheme magmaColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                Hct.fromInt(0xFFFF4900), Hct.fromInt(0xFF5C0C17), Hct.fromInt(0xFF361215)),
-            /* isPrimaryDark */ false,
-            /* isTonalDark */ false,
-            /* isMutedDark */ true,
-            /* isNeutralDark */ true,
-            /* isSystemDark */ true,
-            /* primaryContrastLevel */ 1.0f,
-            /* tonalContrastLevel */ 1.0f,
-            /* mutedContrastLevel */ 1.0f,
-            /* neutralContrastLevel */ 1.0f,
-            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
+        RadianceColorSchemeBundle magmaDefaultBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFF4900),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0)),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF5C0C17),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0)),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF361215),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0)),
+            /* isSystemDark */ true);
 
         ContainerColorTokens magmaHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF8000),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrastLevel */ 1.0f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 1.0));
 
-        RadianceColorSchemeBundle magmaDefaultBundle =
-            new RadianceColorSchemeBundle(magmaColorScheme);
         magmaDefaultBundle.registerActiveContainerTokens(
             magmaHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -94,10 +98,9 @@ public class MagmaSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3E101A),
-                /* isFidelity */ true,
-                /* isDark */ true,
-                /* contrastLevel */ 1.0,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver()),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 1.0)),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER,
