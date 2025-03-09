@@ -64,7 +64,7 @@ public class SchemeFidelityDemo extends JFrame {
         BaseTonalPalette neutralLightPalette = TonalPalette.fromHct(Hct.fromInt(0xFFFFE3C4));
 
         RadianceColorSchemeBundle lightBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFDBD72),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -80,7 +80,7 @@ public class SchemeFidelityDemo extends JFrame {
         BaseTonalPalette neutralDarkPalette = TonalPalette.fromHct(Hct.fromInt(0xFF201200));
 
         RadianceColorSchemeBundle darkBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF663E00),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -129,8 +129,8 @@ public class SchemeFidelityDemo extends JFrame {
             .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getMutedContainerTokens())).xy(5, row);
         row += 2;
         builder.addROLabel("Tonal container").xy(1, row)
-            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getTonalContainerTokens())).xy(3, row)
-            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getTonalContainerTokens())).xy(5, row);
+            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getActiveContainerTokens())).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getActiveContainerTokens())).xy(5, row);
 
         row += 2;
         builder.addROLabel("Neutral container").xy(1, row)
@@ -142,8 +142,8 @@ public class SchemeFidelityDemo extends JFrame {
             .add(new ContainerPreview(darkBundle.getMainColorScheme().getMutedContainerTokens(), "Muted")).xy(5, row);
         row += 2;
         builder.addROLabel("Tonal container").xy(1, row)
-            .add(new ContainerPreview(lightBundle.getMainColorScheme().getTonalContainerTokens(), "Tonal")).xy(3, row)
-            .add(new ContainerPreview(darkBundle.getMainColorScheme().getTonalContainerTokens(), "Tonal")).xy(5, row);
+            .add(new ContainerPreview(lightBundle.getMainColorScheme().getActiveContainerTokens(), "Tonal")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getMainColorScheme().getActiveContainerTokens(), "Tonal")).xy(5, row);
 
         this.add(builder.build());
 

@@ -62,7 +62,7 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		super(accentBuilder);
 
 		RadianceColorSchemeBundle cremeDefaultBundle = new RadianceColorSchemeBundle(
-			this.getDefaultAreaTonalTokens(), this.getDefaultAreaMutedTokens(),
+			this.getDefaultAreaActiveTokens(), this.getDefaultAreaMutedTokens(),
 			this.getDefaultAreaNeutralTokens(), false);
 		cremeDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
 			ComponentState.SELECTED);

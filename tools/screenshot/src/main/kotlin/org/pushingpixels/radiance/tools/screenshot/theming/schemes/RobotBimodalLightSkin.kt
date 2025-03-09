@@ -56,7 +56,7 @@ import java.awt.Color
  */
 class RobotBimodalLightSkin(val config: RobotConfig) :
         RadianceSkin.Accented(AccentBuilder()
-            .withDefaultAreaTonalTokens(getActiveContainerTokens(config))
+            .withDefaultAreaActiveTokens(getActiveContainerTokens(config))
             .withDefaultAreaMutedTokens(getMutedContainerTokens(config))
             .withDefaultAreaNeutralTokens(getNeutralContainerTokens(config))) {
 
@@ -79,14 +79,14 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
 
         this.highlightFillPainter = ClassicFillPainter()
 
-        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaTonalTokens,
+        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaActiveTokens,
             this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, false)
         defaultSchemeBundle.registerActiveContainerTokens(getSelectedTokens(config),
             ComponentState.SELECTED)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.defaultAreaTonalTokens,
+        this.registerAsDecorationArea(this.defaultAreaActiveTokens,
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)

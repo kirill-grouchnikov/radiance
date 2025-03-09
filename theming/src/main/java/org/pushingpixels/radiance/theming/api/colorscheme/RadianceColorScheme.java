@@ -37,7 +37,7 @@ public interface RadianceColorScheme {
 
     ContainerColorTokens getMutedContainerTokens();
 
-    ContainerColorTokens getTonalContainerTokens();
+    ContainerColorTokens getActiveContainerTokens();
 
     ContainerColorTokens getSystemInfoContainerTokens();
 
@@ -60,7 +60,7 @@ public interface RadianceColorScheme {
     default ContainerColorTokens getContainerTokens(RadianceThemingSlices.ContainerType containerType) {
         switch (containerType) {
             case MUTED: return this.getMutedContainerTokens();
-            case TONAL: return this.getTonalContainerTokens();
+            case ACTIVE: return this.getActiveContainerTokens();
             case NEUTRAL:
             default: return this.getNeutralContainerTokens();
         }

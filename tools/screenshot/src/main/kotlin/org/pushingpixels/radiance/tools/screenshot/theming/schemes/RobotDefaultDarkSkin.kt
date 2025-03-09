@@ -55,7 +55,7 @@ import java.awt.Color
  */
 class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
     RadianceSkin.Accented(AccentBuilder()
-        .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+        .withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
             Hct.fromInt(accentColor.rgb), ContainerConfiguration(true, 0.3)))
         .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
             Hct.fromInt(accentColor.rgb).also { it.tone = it.tone * 1.2},
@@ -93,12 +93,12 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
 
         this.highlightFillPainter = ClassicFillPainter()
 
-        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaTonalTokens,
+        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaActiveTokens,
             this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, true)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
             RadianceThemingSlices.DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.defaultAreaTonalTokens,
+        this.registerAsDecorationArea(this.defaultAreaActiveTokens,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER)

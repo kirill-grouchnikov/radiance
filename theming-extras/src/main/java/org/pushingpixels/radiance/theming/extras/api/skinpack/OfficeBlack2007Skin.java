@@ -76,7 +76,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 .build());
 
         RadianceColorSchemeBundle officeBlackDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC6CACF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ officeBlackPaletteResolver),
@@ -206,7 +206,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             DecorationAreaType.SECONDARY_TITLE_PANE);
 
         RadianceColorSchemeBundle officeBlackSecondaryBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB9BCC1),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

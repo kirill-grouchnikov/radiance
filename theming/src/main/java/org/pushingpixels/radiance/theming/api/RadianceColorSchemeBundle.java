@@ -73,10 +73,10 @@ public class RadianceColorSchemeBundle {
         void overlay(RadianceColorSchemeBundle bundle);
     }
 
-    public RadianceColorSchemeBundle(ContainerColorTokens tonalContainerTokens,
+    public RadianceColorSchemeBundle(ContainerColorTokens activeContainerTokens,
         ContainerColorTokens mutedContainerTokens, ContainerColorTokens neutralContainerTokens,
         boolean isSystemDark) {
-        if ((tonalContainerTokens == null) || (mutedContainerTokens == null)
+        if ((activeContainerTokens == null) || (mutedContainerTokens == null)
             || (neutralContainerTokens == null)) {
             throw new IllegalArgumentException("Cannot pass null tokens");
         }
@@ -121,8 +121,8 @@ public class RadianceColorSchemeBundle {
             }
 
             @Override
-            public ContainerColorTokens getTonalContainerTokens() {
-                return tonalContainerTokens;
+            public ContainerColorTokens getActiveContainerTokens() {
+                return activeContainerTokens;
             }
 
             @Override
@@ -171,7 +171,7 @@ public class RadianceColorSchemeBundle {
                     return getContainerTokensForState(componentState.getEnabledMatch());
                 }
 
-                ContainerColorTokens tonals = getTonalContainerTokens();
+                ContainerColorTokens tonals = getActiveContainerTokens();
                 if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
                     (componentState == ComponentState.ARMED)) {
                     if (!stateTokens.containsKey(componentState)) {

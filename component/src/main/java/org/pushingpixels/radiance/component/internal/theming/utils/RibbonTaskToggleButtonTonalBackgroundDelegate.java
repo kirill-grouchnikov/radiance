@@ -37,9 +37,9 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -85,7 +85,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                     @Override
                     public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
                         return RadianceColorSchemeUtilities.getContainerTokens(button,
-                            state, RadianceThemingSlices.ContainerType.TONAL);
+                            state, RadianceThemingSlices.ContainerType.ACTIVE);
                     }
 
                     @Override
@@ -97,7 +97,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                             return skin.getBackgroundContainerTokens(buttonDecorationAreaType);
                         }
                         return RadianceColorSchemeUtilities.getContainerTokens(button,
-                            state, RadianceThemingSlices.ContainerType.TONAL);
+                            state, RadianceThemingSlices.ContainerType.ACTIVE);
                     }
                 },
                 true);

@@ -67,7 +67,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
 
     public OfficeSilver2007Skin() {
         RadianceColorSchemeBundle officeSilverDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC6CACF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(

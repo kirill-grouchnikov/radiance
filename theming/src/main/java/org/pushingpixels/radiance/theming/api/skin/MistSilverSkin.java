@@ -51,7 +51,7 @@ public class MistSilverSkin extends MistAccentedSkin {
 
 	public MistSilverSkin() {
 		super(new AccentBuilder()
-			.withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD4DEE5),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ false,

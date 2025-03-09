@@ -59,7 +59,7 @@ public class SeaGlassSkin extends RadianceSkin {
 
 	public SeaGlassSkin() {
 		RadianceColorSchemeBundle seaGlassDefaultBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF6FA5E0),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(

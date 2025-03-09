@@ -67,7 +67,7 @@ public class FieldOfWheatSkin extends RadianceSkin {
 
     public FieldOfWheatSkin() {
         RadianceColorSchemeBundle fieldOfWheatDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00BDEA),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

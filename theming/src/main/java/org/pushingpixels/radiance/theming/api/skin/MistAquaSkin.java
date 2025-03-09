@@ -51,7 +51,7 @@ public class MistAquaSkin extends MistAccentedSkin {
 
     public MistAquaSkin() {
         super(new AccentBuilder()
-            .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8ACBE9),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

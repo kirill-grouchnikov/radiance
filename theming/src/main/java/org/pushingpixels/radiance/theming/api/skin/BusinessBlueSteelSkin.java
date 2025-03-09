@@ -54,7 +54,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 
 	public BusinessBlueSteelSkin() {
 		super(new AccentBuilder()
-			.withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF98B7CC),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
@@ -66,7 +66,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEBD296),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withHeaderAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF91B6CB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
@@ -80,7 +80,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
 		RadianceColorSchemeBundle businessBlueSteelControlBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF94B9D3),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -91,7 +91,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);
 		businessBlueSteelControlBundle.registerActiveContainerTokens(
-			getDefaultAreaTonalTokens(),
+			getDefaultAreaActiveTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(businessBlueSteelControlBundle,

@@ -68,7 +68,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
     public OfficeBlue2007Skin() {
         // For tonal containers (active controls), use softer outline colors.
         // Also use higher alpha values for outlines of disabled controls.
-        ContainerColorTokens officeBlueDefaultTonalTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens officeBlueDefaultActiveTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF80BBF8),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
@@ -87,10 +87,10 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .onContainer((p) -> officeBlueDefaultTonalTokens.getOnContainer().getRGB())
-                    .onContainerVariant((p) -> officeBlueDefaultTonalTokens.getOnContainerVariant().getRGB())
-                    .containerOutline((p) -> officeBlueDefaultTonalTokens.getOnContainer().getRGB() & 0x70FFFFFF)
-                    .containerOutlineVariant((p) -> officeBlueDefaultTonalTokens.getOnContainerVariant().getRGB() & 0x70FFFFFF)
+                    .onContainer((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB())
+                    .onContainerVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB())
+                    .containerOutline((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB() & 0x70FFFFFF)
+                    .containerOutlineVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB() & 0x70FFFFFF)
                     .containerOutlineDisabledAlpha((p) -> 0.65f)
                     .build()));
 
@@ -101,15 +101,15 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .onContainer((p) -> officeBlueDefaultTonalTokens.getOnContainer().getRGB())
-                    .onContainerVariant((p) -> officeBlueDefaultTonalTokens.getOnContainerVariant().getRGB())
-                    .containerOutline((p) -> officeBlueDefaultTonalTokens.getOnContainer().getRGB() & 0x70FFFFFF)
-                    .containerOutlineVariant((p) -> officeBlueDefaultTonalTokens.getOnContainerVariant().getRGB() & 0x70FFFFFF)
+                    .onContainer((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB())
+                    .onContainerVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB())
+                    .containerOutline((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB() & 0x70FFFFFF)
+                    .containerOutlineVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB() & 0x70FFFFFF)
                     .containerOutlineDisabledAlpha((p) -> 0.65f)
                     .build()));
 
         RadianceColorSchemeBundle officeBlueDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ officeBlueDefaultTonalTokens,
+            /* activeContainerTokens */ officeBlueDefaultActiveTokens,
             /* mutedContainerTokens */ officeBlueDefaultMutedTokens,
             /* neutralContainerTokens */ officeBlueDefaultNeutralTokens,
             /* isSystemDark */ false);

@@ -90,7 +90,7 @@ public class TwilightSkin extends RadianceSkin {
                     .onContainerDisabledAlpha((p) -> 0.6f)
                     .containerOutlineDisabledAlpha((p) -> 0.55f)
                     .build());
-        ContainerColorTokens twilightDefaultTonalTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens twilightDefaultActiveTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF8F8B7A),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
@@ -135,7 +135,7 @@ public class TwilightSkin extends RadianceSkin {
                 /* colorResolver */ twilightPaletteContainerColorResolver);
 
         RadianceColorSchemeBundle twilightDefaultBundle =
-            new RadianceColorSchemeBundle(twilightDefaultTonalTokens, twilightDefaultMutedTokens,
+            new RadianceColorSchemeBundle(twilightDefaultActiveTokens, twilightDefaultMutedTokens,
                 twilightDefaultNeutralTokens, true);
         // More saturated seed for controls in selected state
         twilightDefaultBundle.registerActiveContainerTokens(twilightSelectedContainerTokens,

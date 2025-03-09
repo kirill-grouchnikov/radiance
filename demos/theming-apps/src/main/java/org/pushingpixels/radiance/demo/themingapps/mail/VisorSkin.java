@@ -57,7 +57,7 @@ public class VisorSkin extends RadianceSkin {
 
     public VisorSkin() {
         RadianceColorSchemeBundle visorDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF99B6CB),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -81,7 +81,7 @@ public class VisorSkin extends RadianceSkin {
                     .build()
             );
         RadianceColorSchemeBundle visorThreadsBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9CBDD3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -118,7 +118,7 @@ public class VisorSkin extends RadianceSkin {
                     .build()
             );
         RadianceColorSchemeBundle visorDestinationsBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9CBDD3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(

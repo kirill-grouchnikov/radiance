@@ -51,7 +51,7 @@ public class CremeCoffeeSkin extends CremeAccentedSkin {
 
     public CremeCoffeeSkin() {
         super(new AccentBuilder()
-            .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDEC59D),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

@@ -80,7 +80,7 @@ public class StreetlightsSkin extends RadianceSkin {
                     .build()));
 
         RadianceColorSchemeBundle streetlightsDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF6000),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

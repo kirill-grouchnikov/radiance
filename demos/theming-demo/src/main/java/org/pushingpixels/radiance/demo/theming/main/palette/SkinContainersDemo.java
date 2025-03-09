@@ -127,7 +127,7 @@ public class SkinContainersDemo extends JFrame {
             ContainerColorTokens tonal = skins[skinIndex].getTonalContainerTokens(
                 RadianceThemingSlices.DecorationAreaType.NONE);
             ContainerColorTokens selected = skins[skinIndex].getContainerTokens(
-                null, ComponentState.SELECTED, RadianceThemingSlices.ContainerType.TONAL);
+                null, ComponentState.SELECTED, RadianceThemingSlices.ContainerType.ACTIVE);
             builder.addROLabel(skins[skinIndex].getDisplayName()).xy(1, row)
                 .add(new ContainerPreview(muted, "Muted", ContainerPreview.Variant.COMPACT)).xy(3, row)
                 .add(new ContainerPreview(tonal, "Tonal", ContainerPreview.Variant.COMPACT)).xy(5, row)
@@ -139,7 +139,7 @@ public class SkinContainersDemo extends JFrame {
                 tonal = skins[skinIndex].getTonalContainerTokens(
                     RadianceThemingSlices.DecorationAreaType.NONE);
                 selected = skins[skinIndex].getContainerTokens(
-                    null, ComponentState.SELECTED, RadianceThemingSlices.ContainerType.TONAL);
+                    null, ComponentState.SELECTED, RadianceThemingSlices.ContainerType.ACTIVE);
                 builder.addROLabel(skins[skinIndex].getDisplayName()).xy(9, row)
                     .add(new ContainerPreview(muted, "Muted", ContainerPreview.Variant.COMPACT)).xy(11, row)
                     .add(new ContainerPreview(tonal, "Tonal", ContainerPreview.Variant.COMPACT)).xy(13, row)

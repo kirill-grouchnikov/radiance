@@ -64,7 +64,7 @@ public class RavenSkin extends RadianceSkin {
 
 	public RavenSkin() {
 		RadianceColorSchemeBundle ravenDefaultBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF424242),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,

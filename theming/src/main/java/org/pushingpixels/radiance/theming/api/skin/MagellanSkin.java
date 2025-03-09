@@ -64,7 +64,7 @@ public class MagellanSkin extends RadianceSkin {
 
     public MagellanSkin() {
         RadianceColorSchemeBundle magellanDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF0070DF),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -176,7 +176,7 @@ public class MagellanSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         RadianceColorSchemeBundle magellanFooterBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF006FDB),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(

@@ -63,7 +63,7 @@ public class CeruleanSkin extends RadianceSkin {
 
 	public CeruleanSkin() {
 		RadianceColorSchemeBundle ceruleanDefaultBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD2E0ED),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -119,7 +119,7 @@ public class CeruleanSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		RadianceColorSchemeBundle ceruleanHeaderBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF3B7BA8),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -136,7 +136,7 @@ public class CeruleanSkin extends RadianceSkin {
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(ceruleanHeaderBundle,
-			ceruleanHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
+			ceruleanHeaderBundle.getMainColorScheme().getActiveContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

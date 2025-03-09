@@ -67,7 +67,7 @@ public class GreenMagicSkin extends RadianceSkin {
 
     public GreenMagicSkin() {
         RadianceColorSchemeBundle greenMagicDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00C5A9),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

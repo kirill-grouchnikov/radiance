@@ -56,20 +56,20 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 		super(accentBuilder);
 
 		RadianceColorSchemeBundle businessDefaultBundle =
-			new RadianceColorSchemeBundle(this.getDefaultAreaTonalTokens(),
+			new RadianceColorSchemeBundle(this.getDefaultAreaActiveTokens(),
 				this.getDefaultAreaMutedTokens(), this.getDefaultAreaNeutralTokens(), false);
 		businessDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		businessDefaultBundle.registerActiveContainerTokens(
-			this.getDefaultAreaTonalTokens(),
+			this.getDefaultAreaActiveTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		RadianceColorSchemeBundle businessDefaultHeaderBundle =
-			new RadianceColorSchemeBundle(this.getHeaderAreaTonalTokens(),
+			new RadianceColorSchemeBundle(this.getHeaderAreaActiveTokens(),
 				this.getHeaderAreaMutedTokens(), this.getHeaderAreaNeutralTokens(),
 				this.isHeaderDark());
 		if (this.getHeaderAreaHighlightTokens() != null) {

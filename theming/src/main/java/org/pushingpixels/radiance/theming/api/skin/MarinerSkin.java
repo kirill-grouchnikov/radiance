@@ -58,7 +58,7 @@ public class MarinerSkin extends RadianceSkin {
 
     public MarinerSkin() {
         RadianceColorSchemeBundle marinerDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF6DD9D),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -89,7 +89,7 @@ public class MarinerSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         RadianceColorSchemeBundle marinerHeaderBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF5D47A),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -137,7 +137,7 @@ public class MarinerSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         RadianceColorSchemeBundle marinerFooterBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF6DD9D),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(

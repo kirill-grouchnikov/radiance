@@ -54,7 +54,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 
 	public BusinessBlackSteelSkin() {
 		super(new AccentBuilder()
-			.withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF98B7CC),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
@@ -66,7 +66,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFA1BCCF),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withHeaderAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF404040),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()))
 			.withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
@@ -80,7 +80,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
 		RadianceColorSchemeBundle businessBlackSteelControlBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFAFBEC7),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -91,7 +91,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);
 		businessBlackSteelControlBundle.registerActiveContainerTokens(
-			getDefaultAreaTonalTokens(),
+			getDefaultAreaActiveTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(businessBlackSteelControlBundle,

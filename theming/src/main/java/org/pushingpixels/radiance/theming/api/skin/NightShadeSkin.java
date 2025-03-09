@@ -68,7 +68,7 @@ public class NightShadeSkin extends RadianceSkin {
 
     public NightShadeSkin() {
         RadianceColorSchemeBundle nightShadeDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF4E5562),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,

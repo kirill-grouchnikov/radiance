@@ -51,7 +51,7 @@ public class DustSkin extends DustAccentedSkin {
 
 	public DustSkin() {
 		super(new AccentBuilder()
-			.withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFADA59A),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(

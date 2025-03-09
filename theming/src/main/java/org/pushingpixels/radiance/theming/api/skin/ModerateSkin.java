@@ -64,7 +64,7 @@ public class ModerateSkin extends RadianceSkin {
 
     public ModerateSkin() {
         RadianceColorSchemeBundle steelBlueDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF6CA9CE),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -87,7 +87,7 @@ public class ModerateSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         RadianceColorSchemeBundle steelBlueHeaderBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF6D9BBA),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -113,7 +113,7 @@ public class ModerateSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         this.registerDecorationAreaSchemeBundle(steelBlueHeaderBundle,
-            steelBlueHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
+            steelBlueHeaderBundle.getMainColorScheme().getActiveContainerTokens(),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);

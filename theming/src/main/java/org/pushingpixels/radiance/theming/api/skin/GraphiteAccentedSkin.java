@@ -61,7 +61,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 		super(accentBuilder);
 
 		this.graphiteDefaultBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF636363),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark(),
 				/* colorResolver */ this.getDefaultAreaPaletteColorResolver()),

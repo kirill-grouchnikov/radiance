@@ -63,7 +63,7 @@ public class SaharaSkin extends RadianceSkin {
 
 	public SaharaSkin() {
 		RadianceColorSchemeBundle desertSandDefaultBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFA5BB59),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -86,7 +86,7 @@ public class SaharaSkin extends RadianceSkin {
 
 
 		RadianceColorSchemeBundle desertSandHeaderBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF99A764),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -104,7 +104,7 @@ public class SaharaSkin extends RadianceSkin {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(desertSandHeaderBundle,
-			desertSandHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
+			desertSandHeaderBundle.getMainColorScheme().getActiveContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

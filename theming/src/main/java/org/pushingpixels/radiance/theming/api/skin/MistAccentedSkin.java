@@ -56,7 +56,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 		super(accentBuilder);
 
 		RadianceColorSchemeBundle mistDefaultBundle = new RadianceColorSchemeBundle(
-			this.getDefaultAreaTonalTokens(), this.getDefaultAreaMutedTokens(),
+			this.getDefaultAreaActiveTokens(), this.getDefaultAreaMutedTokens(),
 			this.getDefaultAreaNeutralTokens(), false);
 		mistDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,

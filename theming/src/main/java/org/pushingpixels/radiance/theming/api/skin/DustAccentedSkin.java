@@ -63,7 +63,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		super(accentBuilder);
 
 		RadianceColorSchemeBundle dustDefaultBundle = new RadianceColorSchemeBundle(
-			this.getDefaultAreaTonalTokens(), this.getDefaultAreaMutedTokens(),
+			this.getDefaultAreaActiveTokens(), this.getDefaultAreaMutedTokens(),
 			this.getDefaultAreaNeutralTokens(), false);
 		dustDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaSelectedTokens(),
 			ComponentState.SELECTED);
@@ -78,7 +78,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		RadianceColorSchemeBundle dustHeaderBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF5E3D2B),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,

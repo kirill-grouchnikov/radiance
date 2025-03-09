@@ -67,13 +67,13 @@ public class SkinTonalUtilities {
         UIDefaults.ActiveValue listCellRendererActiveValue =
                 (UIDefaults table) -> new RadianceDefaultListCellRenderer.RadianceUIResource();
 
-        ContainerColorTokens mainTonalTokens = skin.getTonalContainerTokens(
+        ContainerColorTokens mainActiveTokens = skin.getTonalContainerTokens(
             RadianceThemingSlices.DecorationAreaType.NONE);
         ContainerColorTokens mainMutedTokens = skin.getMutedContainerTokens(
             RadianceThemingSlices.DecorationAreaType.NONE);
-        Color controlText = new ColorUIResource(mainTonalTokens.getContainerSurface());
+        Color controlText = new ColorUIResource(mainActiveTokens.getContainerSurface());
         Color foregroundColor = RadianceColorUtilities.getForegroundColor(mainMutedTokens);
-        Color backgroundActiveColor = new ColorUIResource(mainTonalTokens.getContainerSurface());
+        Color backgroundActiveColor = new ColorUIResource(mainActiveTokens.getContainerSurface());
         Color backgroundDefaultColor = new ColorUIResource(mainMutedTokens.getContainerSurface());
 
         ColorUIResource defaultBackgroundColor = new ColorUIResource(
@@ -89,7 +89,7 @@ public class SkinTonalUtilities {
                 RadianceColorUtilities.getInterpolatedColor(
                     disabledForegroundColor, defaultTextBackgroundColor, alpha));
 
-        Color lineColor = new ColorUIResource(mainTonalTokens.getContainerOutline());
+        Color lineColor = new ColorUIResource(mainActiveTokens.getContainerOutline());
         Color lineColorDefault = new ColorUIResource(mainMutedTokens.getContainerOutline());
 
         int lcb = RadianceColorUtilities.getColorBrightness(lineColor.getRGB());
@@ -97,10 +97,10 @@ public class SkinTonalUtilities {
 
         ContainerColorTokens textHighlightColorTokens = skin.getContainerTokens(null,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
-            ComponentState.SELECTED, RadianceThemingSlices.ContainerType.TONAL);
+            ComponentState.SELECTED, RadianceThemingSlices.ContainerType.ACTIVE);
         if (textHighlightColorTokens == null) {
             textHighlightColorTokens = skin.getContainerTokens(null,
-                ComponentState.ROLLOVER_SELECTED, RadianceThemingSlices.ContainerType.TONAL);
+                ComponentState.ROLLOVER_SELECTED, RadianceThemingSlices.ContainerType.ACTIVE);
         }
         Color selectionTextBackgroundColor = new ColorUIResource(
             textHighlightColorTokens.getContainerSurfaceLow());
@@ -887,7 +887,7 @@ public class SkinTonalUtilities {
                 defaultBackgroundColor,
 
                 "TabbedPane.borderHighlightColor",
-                new ColorUIResource(mainTonalTokens.getContainerSurface()),
+                new ColorUIResource(mainActiveTokens.getContainerSurface()),
 
                 "TabbedPane.contentAreaColor",
                 null,
@@ -908,19 +908,19 @@ public class SkinTonalUtilities {
                 foregroundColor,
 
                 "TabbedPane.highlight",
-                new ColorUIResource(mainTonalTokens.getContainerSurfaceLow()),
+                new ColorUIResource(mainActiveTokens.getContainerSurfaceLow()),
 
                 "TabbedPane.light",
                 new ColorUIResource(SeparatorPainterUtils.getSecondarySeparatorColor(mainMutedTokens)),
 
                 "TabbedPane.selected",
-                new ColorUIResource(mainTonalTokens.getContainerSurfaceLowest()),
+                new ColorUIResource(mainActiveTokens.getContainerSurfaceLowest()),
 
                 "TabbedPane.selectedForeground",
                 foregroundColor,
 
                 "TabbedPane.selectHighlight",
-                new ColorUIResource(mainTonalTokens.getContainerSurface()),
+                new ColorUIResource(mainActiveTokens.getContainerSurface()),
 
                 "TabbedPane.shadow",
                 new ColorUIResource(

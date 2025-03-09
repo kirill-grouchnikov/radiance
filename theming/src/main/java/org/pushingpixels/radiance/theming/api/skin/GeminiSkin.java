@@ -62,7 +62,7 @@ public class GeminiSkin extends RadianceSkin {
 
     public GeminiSkin() {
         // Same seed for primary and muted
-        ContainerColorTokens geminiDefaultTonalTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens geminiDefaultActiveTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFB0BBB8),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens geminiDefaultMutedTokens = ColorSchemeUtils.getContainerTokens(
@@ -102,7 +102,7 @@ public class GeminiSkin extends RadianceSkin {
                 ));
 
         RadianceColorSchemeBundle geminiDefaultBundle =
-            new RadianceColorSchemeBundle(geminiDefaultTonalTokens, geminiDefaultMutedTokens,
+            new RadianceColorSchemeBundle(geminiDefaultActiveTokens, geminiDefaultMutedTokens,
                 geminiDefaultNeutralTokens, false);
         // Highlight tokens for controls in selected states
         geminiDefaultBundle.registerActiveContainerTokens(geminiHighlightContainerTokens,
@@ -130,7 +130,7 @@ public class GeminiSkin extends RadianceSkin {
 
         // Toolbars
         RadianceColorSchemeBundle geminiToolbarBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -149,7 +149,7 @@ public class GeminiSkin extends RadianceSkin {
 
         // Headers
         RadianceColorSchemeBundle geminiHeaderBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

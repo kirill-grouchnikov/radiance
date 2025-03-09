@@ -54,7 +54,7 @@ public class CookbookSkin extends RadianceSkin {
 
     public CookbookSkin() {
         RadianceColorSchemeBundle cookbookDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC8A26E),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -74,7 +74,7 @@ public class CookbookSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         RadianceColorSchemeBundle cookbookControlPaneBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFA23F00),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -100,7 +100,7 @@ public class CookbookSkin extends RadianceSkin {
         Hct cookbookHeaderNeutralSeed2 = Hct.fromInt(0xFFC28A2B);
 
         RadianceColorSchemeBundle cookbookHeaderBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ cookbookHeaderPrimarySeed,
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,

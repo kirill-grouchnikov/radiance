@@ -52,7 +52,7 @@ import java.awt.Color
  */
 class RobotDefaultLightSkin(accentColor: Color, val name: String) :
         RadianceSkin.Accented(AccentBuilder()
-            .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
                 Hct.fromInt(accentColor.rgb), ContainerConfiguration.defaultLight()))
             .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
                 MutedSeed, ContainerConfiguration.defaultLight()))
@@ -78,12 +78,12 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
 
         this.highlightFillPainter = ClassicFillPainter()
 
-        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaTonalTokens,
+        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaActiveTokens,
             this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, false)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.defaultAreaTonalTokens,
+        this.registerAsDecorationArea(this.defaultAreaActiveTokens,
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)

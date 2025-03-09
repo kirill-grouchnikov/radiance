@@ -51,7 +51,7 @@ public class NebulaSkin extends NebulaAccentedSkin {
 
     public NebulaSkin() {
         super(new AccentBuilder()
-            .withHeaderAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+            .withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD6E3EE),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()))
             .withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(

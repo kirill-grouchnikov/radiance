@@ -94,7 +94,7 @@ public class BimodalControlStates extends JFrame {
             Hct neutralSeed = Hct.from(secondarySeed.getHue(), 4.0, secondarySeed.getTone());
 
             RadianceColorSchemeBundle defaultBundle = new RadianceColorSchemeBundle(
-                /* tonalContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
+                /* activeContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
                     /* seedOne */ Hct.from(hue1, primarySeed.getChroma(), primaryTone),
                     /* seedTwo */ Hct.from(hue2, primarySeed.getChroma(), primaryTone),
                     /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -111,7 +111,7 @@ public class BimodalControlStates extends JFrame {
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
             this.registerAsDecorationArea(
-                defaultBundle.getMainColorScheme().getTonalContainerTokens(),
+                defaultBundle.getMainColorScheme().getActiveContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);

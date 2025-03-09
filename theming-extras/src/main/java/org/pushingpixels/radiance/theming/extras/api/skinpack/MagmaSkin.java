@@ -64,7 +64,7 @@ public class MagmaSkin extends RadianceSkin {
 
     public MagmaSkin() {
         RadianceColorSchemeBundle magmaDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFF4900),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

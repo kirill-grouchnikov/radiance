@@ -53,7 +53,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
 
     public BusinessSkin() {
         super(new AccentBuilder()
-            .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEAEDF3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()))
             .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
@@ -65,7 +65,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEBD296),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()))
-            .withHeaderAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+            .withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEAEDF3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()))
             .withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
@@ -79,7 +79,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                 /* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
         RadianceColorSchemeBundle businessControlBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEAEDF3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -93,7 +93,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         RadianceColorSchemeBundle businessFooterBundle =
-            new RadianceColorSchemeBundle(this.getHeaderAreaTonalTokens(),
+            new RadianceColorSchemeBundle(this.getHeaderAreaActiveTokens(),
                 this.getHeaderAreaMutedTokens(), this.getHeaderAreaNeutralTokens(),
                 this.isHeaderDark());
         this.registerDecorationAreaSchemeBundle(businessFooterBundle,

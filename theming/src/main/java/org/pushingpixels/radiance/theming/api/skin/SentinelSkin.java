@@ -65,7 +65,7 @@ public class SentinelSkin extends RadianceSkin {
 
     public SentinelSkin() {
         RadianceColorSchemeBundle sentinelDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -97,7 +97,7 @@ public class SentinelSkin extends RadianceSkin {
 
         // Headers
         RadianceColorSchemeBundle sentinelHeaderBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -158,7 +158,7 @@ public class SentinelSkin extends RadianceSkin {
 
         // Control panes
         RadianceColorSchemeBundle sentinelControlPaneBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -185,7 +185,7 @@ public class SentinelSkin extends RadianceSkin {
 
         // Toolbars and footers
         RadianceColorSchemeBundle sentinelBarsBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

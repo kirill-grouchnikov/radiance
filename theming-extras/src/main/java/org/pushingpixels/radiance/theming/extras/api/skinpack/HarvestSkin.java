@@ -63,7 +63,7 @@ public class HarvestSkin extends RadianceSkin {
 
     public HarvestSkin() {
         RadianceColorSchemeBundle harvestDefaultBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFAEEAD),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -102,7 +102,7 @@ public class HarvestSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         RadianceColorSchemeBundle harvestHeaderBundle = new RadianceColorSchemeBundle(
-            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF12B37),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(

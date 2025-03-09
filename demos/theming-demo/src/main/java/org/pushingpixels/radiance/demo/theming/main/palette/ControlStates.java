@@ -79,7 +79,7 @@ public class ControlStates extends JFrame {
     private static class SampleSkin extends RadianceSkin {
         public SampleSkin() {
             RadianceColorSchemeBundle defaultBundle = new RadianceColorSchemeBundle(
-                /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFE7C5FF),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
                 /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -108,7 +108,7 @@ public class ControlStates extends JFrame {
                     RadianceThemingSlices.DecorationAreaType.NONE);
 
             this.registerAsDecorationArea(
-                defaultBundle.getMainColorScheme().getTonalContainerTokens(),
+                defaultBundle.getMainColorScheme().getActiveContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);

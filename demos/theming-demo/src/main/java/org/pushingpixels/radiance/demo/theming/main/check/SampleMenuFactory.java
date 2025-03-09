@@ -284,7 +284,7 @@ public class SampleMenuFactory {
 
         public CustomSkin() {
             RadianceColorSchemeBundle customDefaultBundle = new RadianceColorSchemeBundle(
-                /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF2C64B4),
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
                 /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -299,7 +299,7 @@ public class SampleMenuFactory {
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
             RadianceColorSchemeBundle customHeaderBundle = new RadianceColorSchemeBundle(
-                /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF1A55BA),
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
                 /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -310,7 +310,7 @@ public class SampleMenuFactory {
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
                 /* isSystemDark */ true);
             this.registerDecorationAreaSchemeBundle(customHeaderBundle,
-                customHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
+                customHeaderBundle.getMainColorScheme().getActiveContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);

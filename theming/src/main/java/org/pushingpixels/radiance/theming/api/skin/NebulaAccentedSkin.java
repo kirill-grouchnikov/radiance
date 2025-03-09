@@ -66,7 +66,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		super(accentBuilder);
 
 		RadianceColorSchemeBundle nebulaDefaultBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFBAD2E3),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
@@ -118,14 +118,14 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 		RadianceColorSchemeBundle nebulaHeaderBundle = new RadianceColorSchemeBundle(
-			this.getHeaderAreaTonalTokens(), this.getHeaderAreaMutedTokens(),
+			this.getHeaderAreaActiveTokens(), this.getHeaderAreaMutedTokens(),
 			this.getHeaderAreaNeutralTokens(), false);
 		nebulaHeaderBundle.registerActiveContainerTokens(
 			nebulaRolloverHighlightContainerTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(nebulaHeaderBundle,
-			nebulaHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
+			nebulaHeaderBundle.getMainColorScheme().getActiveContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

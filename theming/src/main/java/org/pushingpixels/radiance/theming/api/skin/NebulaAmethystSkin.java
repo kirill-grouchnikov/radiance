@@ -54,7 +54,7 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 
 	public NebulaAmethystSkin() {
 		super(new AccentBuilder()
-			.withHeaderAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD1A9F1),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
@@ -66,7 +66,7 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 
 		// Also extend the window chrome accent color to the TOOLBAR area
 		RadianceColorSchemeBundle nebulaAmethystToolbarBundle = new RadianceColorSchemeBundle(
-			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD264EB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
