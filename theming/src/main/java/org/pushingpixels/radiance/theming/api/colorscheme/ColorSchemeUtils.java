@@ -241,7 +241,6 @@ public class ColorSchemeUtils {
 
         DynamicPalette dynamicPalette = new DynamicPalette(
             /* sourceColorHct */ seed,
-            /* isFidelity */ true,
             /* isDark */ isDark,
             /* contrastLevel */ contrastLevel);
 
