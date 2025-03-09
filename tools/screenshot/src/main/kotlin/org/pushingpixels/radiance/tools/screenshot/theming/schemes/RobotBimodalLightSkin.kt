@@ -32,9 +32,6 @@ package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette
 import org.pushingpixels.ephemeral.chroma.hct.Hct
-import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette
-import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette.TransitionRangeFidelityLight
-import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette
 import org.pushingpixels.ephemeral.chroma.utils.MathUtils
 import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
@@ -42,9 +39,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolverUtils
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils.FidelityDirectPaletteSource
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
@@ -100,31 +95,6 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
     override fun getDisplayName(): String {
         return config.name
     }
-}
-
-private fun getColorScheme(config: RobotConfig): RadianceColorScheme {
-    val primarySeed = Hct.fromInt(config.seed.rgb)
-    val primaryHue = primarySeed.hue
-    val hue1 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaHigh)
-    val hue2 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaLow)
-    val primaryTone = primarySeed.tone
-
-    val mutedSeed = Hct.fromInt(Color(204, 210, 215).rgb);
-    val neutralSeed = Hct.fromInt(Color(240, 245, 249).rgb);
-
-    val primaryPalette = BimodalTonalPalette.from(
-        /* hct1 */ Hct.from(hue1, primarySeed.chroma, primaryTone),
-        /* hct2 */ Hct.from(hue2, primarySeed.chroma, primaryTone),
-        /* transitionRange */ TransitionRangeFidelityLight(primaryTone)
-    )
-    val mutedPalette = TonalPalette.fromHct(mutedSeed)
-    val neutralPalette = TonalPalette.fromHct(neutralSeed)
-
-    return ColorSchemeUtils.getColorScheme(
-        /* palettesSource */ FidelityDirectPaletteSource(
-            primaryPalette, mutedPalette, neutralPalette,
-            primaryTone, mutedSeed.tone, neutralSeed.tone),
-        /* isDark */ false)
 }
 
 private fun getActiveContainerTokens(config: RobotConfig): ContainerColorTokens {

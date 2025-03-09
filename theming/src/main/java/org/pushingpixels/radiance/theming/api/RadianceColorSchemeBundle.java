@@ -72,26 +72,6 @@ public class RadianceColorSchemeBundle {
         void overlay(RadianceColorSchemeBundle bundle);
     }
 
-    /**
-     * Creates a new color scheme bundle.
-     *
-     * @param mainColorScheme   The main color scheme of this bundle.
-     */
-    public RadianceColorSchemeBundle(RadianceColorScheme mainColorScheme) {
-        if (mainColorScheme == null) {
-            throw new IllegalArgumentException("Cannot pass a null scheme");
-        }
-
-        this.mainColorScheme = mainColorScheme;
-
-        this.colorTokensForEnabledState = new HashMap<>();
-        this.colorTokensForActiveStates = new HashMap<>();
-        for (RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind :
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
-            this.colorTokensForActiveStates.put(associationKind, new HashMap<>());
-        }
-    }
-
     public RadianceColorSchemeBundle(ContainerColorTokens tonalContainerTokens,
         ContainerColorTokens mutedContainerTokens, ContainerColorTokens neutralContainerTokens,
         boolean isSystemDark) {

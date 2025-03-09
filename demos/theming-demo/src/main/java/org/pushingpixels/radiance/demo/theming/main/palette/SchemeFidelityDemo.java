@@ -32,12 +32,15 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.layout.CellConstraints;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
+import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -51,45 +54,65 @@ public class SchemeFidelityDemo extends JFrame {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
                 rows("p, $lg, p, $lg, p, 12dlu, p, $lg, p, $lg, p, 12dlu, p, 8dlu, p, $lg, p, " +
-                "$lg, p, $lg, p, $lg, p, 12dlu, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                "$lg, p, 12dlu, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
         int row = 1;
 
-        ColorSchemeUtils.PalettesSource lightSource = new ColorSchemeUtils.FidelityPaletteSource(
-            Hct.fromInt(0xFFFDBD72), Hct.fromInt(0xFFFEDCB6), Hct.fromInt(0xFFFFE3C4));
-        ColorSchemeUtils.PalettesSource darkSource = new ColorSchemeUtils.FidelityPaletteSource(
-            Hct.fromInt(0xFF663E00), Hct.fromInt(0xFF402200), Hct.fromInt(0xFF201200));
+        BaseTonalPalette activeLightPalette = TonalPalette.fromHct(Hct.fromInt(0xFFFDBD72));
+        BaseTonalPalette mutedLightPalette = TonalPalette.fromHct(Hct.fromInt(0xFFFEDCB6));
+        BaseTonalPalette neutralLightPalette = TonalPalette.fromHct(Hct.fromInt(0xFFFFE3C4));
 
-        RadianceColorScheme lightColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ lightSource,
-            /* isDark */ false);
-        RadianceColorScheme darkColorScheme = ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ darkSource,
-            /* isDark */ true);
+        RadianceColorSchemeBundle lightBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFDBD72),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFEDCB6),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFFFFE3C4),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+            /* isSystemDark */ false);
+
+        BaseTonalPalette activeDarkPalette = TonalPalette.fromHct(Hct.fromInt(0xFF663E00));
+        BaseTonalPalette mutedDarkPalette = TonalPalette.fromHct(Hct.fromInt(0xFF402200));
+        BaseTonalPalette neutralDarkPalette = TonalPalette.fromHct(Hct.fromInt(0xFF201200));
+
+        RadianceColorSchemeBundle darkBundle = new RadianceColorSchemeBundle(
+            /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF663E00),
+                /* containerConfiguration */ ContainerConfiguration.defaultDark()),
+            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF402200),
+                /* containerConfiguration */ ContainerConfiguration.defaultDark()),
+            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* seed */ Hct.fromInt(0xFF201200),
+                /* containerConfiguration */ ContainerConfiguration.defaultDark()),
+            /* isSystemDark */ false);
 
         builder.addROLabel("Primary light palette").xy(1, row)
-            .add(new TonalPalettePreview(lightSource.getPalettes().getPrimaryPalette()))
+            .add(new TonalPalettePreview(activeLightPalette))
             .xyw(3, row, 3);
         row += 2;
         builder.addROLabel("Muted light palette").xy(1, row)
-            .add(new TonalPalettePreview(lightSource.getPalettes().getMutedPalette()))
+            .add(new TonalPalettePreview(mutedLightPalette))
             .xyw(3, row, 3);
         row += 2;
         builder.addROLabel("Neutral light palette").xy(1, row)
-            .add(new TonalPalettePreview(lightSource.getPalettes().getNeutralPalette()))
+            .add(new TonalPalettePreview(neutralLightPalette))
             .xyw(3, row, 3);
         row += 2;
         builder.addROLabel("Primary dark palette").xy(1, row)
-            .add(new TonalPalettePreview(darkSource.getPalettes().getPrimaryPalette()))
+            .add(new TonalPalettePreview(activeDarkPalette))
             .xyw(3, row, 3);
         row += 2;
         builder.addROLabel("Muted dark palette").xy(1, row)
-            .add(new TonalPalettePreview(darkSource.getPalettes().getMutedPalette()))
+            .add(new TonalPalettePreview(mutedDarkPalette))
             .xyw(3, row, 3);
         row += 2;
         builder.addROLabel("Neutral dark palette").xy(1, row)
-            .add(new TonalPalettePreview(darkSource.getPalettes().getNeutralPalette()))
+            .add(new TonalPalettePreview(neutralDarkPalette))
             .xyw(3, row, 3);
         row += 2;
 
@@ -98,29 +121,29 @@ public class SchemeFidelityDemo extends JFrame {
 
         row += 2;
         builder.addROLabel("Neutral container").xy(1, row)
-            .add(new ContainerPalettePreview(lightColorScheme.getNeutralContainerTokens())).xy(3, row)
-            .add(new ContainerPalettePreview(darkColorScheme.getNeutralContainerTokens())).xy(5, row);
+            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getNeutralContainerTokens())).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getNeutralContainerTokens())).xy(5, row);
         row += 2;
         builder.addROLabel("Muted container").xy(1, row)
-            .add(new ContainerPalettePreview(lightColorScheme.getMutedContainerTokens())).xy(3, row)
-            .add(new ContainerPalettePreview(darkColorScheme.getMutedContainerTokens())).xy(5, row);
+            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getMutedContainerTokens())).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getMutedContainerTokens())).xy(5, row);
         row += 2;
         builder.addROLabel("Tonal container").xy(1, row)
-            .add(new ContainerPalettePreview(lightColorScheme.getTonalContainerTokens())).xy(3, row)
-            .add(new ContainerPalettePreview(darkColorScheme.getTonalContainerTokens())).xy(5, row);
+            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getTonalContainerTokens())).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getTonalContainerTokens())).xy(5, row);
 
         row += 2;
         builder.addROLabel("Neutral container").xy(1, row)
-            .add(new ContainerPreview(lightColorScheme.getNeutralContainerTokens(), "Neutral")).xy(3, row)
-            .add(new ContainerPreview(darkColorScheme.getNeutralContainerTokens(), "Neutral")).xy(5, row);
+            .add(new ContainerPreview(lightBundle.getMainColorScheme().getNeutralContainerTokens(), "Neutral")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getMainColorScheme().getNeutralContainerTokens(), "Neutral")).xy(5, row);
         row += 2;
         builder.addROLabel("Muted container").xy(1, row)
-            .add(new ContainerPreview(lightColorScheme.getMutedContainerTokens(), "Muted")).xy(3, row)
-            .add(new ContainerPreview(darkColorScheme.getMutedContainerTokens(), "Muted")).xy(5, row);
+            .add(new ContainerPreview(lightBundle.getMainColorScheme().getMutedContainerTokens(), "Muted")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getMainColorScheme().getMutedContainerTokens(), "Muted")).xy(5, row);
         row += 2;
         builder.addROLabel("Tonal container").xy(1, row)
-            .add(new ContainerPreview(lightColorScheme.getTonalContainerTokens(), "Tonal")).xy(3, row)
-            .add(new ContainerPreview(darkColorScheme.getTonalContainerTokens(), "Tonal")).xy(5, row);
+            .add(new ContainerPreview(lightBundle.getMainColorScheme().getTonalContainerTokens(), "Tonal")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getMainColorScheme().getTonalContainerTokens(), "Tonal")).xy(5, row);
 
         this.add(builder.build());
 

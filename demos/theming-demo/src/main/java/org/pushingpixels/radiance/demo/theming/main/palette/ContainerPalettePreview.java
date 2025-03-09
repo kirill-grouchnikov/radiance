@@ -45,7 +45,7 @@ public class ContainerPalettePreview extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(270, 20);
+        return new Dimension(300, 20);
     }
 
     @Override
