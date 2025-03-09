@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 
 /**
  * <code>Creme Coffee</code> skin. This class is part of officially supported API.
@@ -69,13 +68,11 @@ public class CremeCoffeeSkin extends CremeAccentedSkin {
                     /* contrastLevel */ 0.6)))
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDFBF7F),
-                /* isFidelity */ true,
-                /* isDark */ false))
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()))
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFE1C591),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrast */ 0.1f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver())));
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.1))));
     }
 }

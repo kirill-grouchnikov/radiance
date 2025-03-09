@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
@@ -82,45 +83,29 @@ public class RadianceColorSchemeBundle {
 
         ContainerColorTokens systemInfoLightTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFBFE6FE),
-            /* isFidelity */ true,
-            /* isDark */ false);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens systemWarningLightTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFCE352),
-            /* isFidelity */ true,
-            /* isDark */ false);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens systemErrorLightTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFDACA),
-            /* isFidelity */ true,
-            /* isDark */ false);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens systemSuccessLightTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF8EFA9D),
-            /* isFidelity */ true,
-            /* isDark */ false);
-        ContainerColorTokens systemEmergencyLightTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFF4DDCF),
-            /* isFidelity */ true,
-            /* isDark */ false);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         ContainerColorTokens systemInfoDarkTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF1060D0),
-            /* isFidelity */ true,
-            /* isDark */ true);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens systemWarningDarkTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFBC6213),
-            /* isFidelity */ true,
-            /* isDark */ true);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens systemErrorDarkTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFC01707),
-            /* isFidelity */ true,
-            /* isDark */ true);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens systemSuccessDarkTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF008817),
-            /* isFidelity */ true,
-            /* isDark */ true);
-        ContainerColorTokens systemEmergencyDarkTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFC01707),
-            /* isFidelity */ true,
-            /* isDark */ true);
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         this.mainColorScheme = new RadianceColorScheme() {
             private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();

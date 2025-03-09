@@ -79,25 +79,21 @@ public class GeminiSkin extends RadianceSkin {
         ContainerColorTokens geminiHighlightContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         ContainerColorTokens geminiHighlightOutlineContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
-                /* isFidelity */ false,
-                /* isDark */ false,
-                /* contrast */ 0.3f,
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver());
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ false,
+                    /* contrastLevel */ 0.3));
 
         // Use muted visuals for the container surface roles, and highlight (yellow) tokens
         // for outline roles
         ContainerColorTokens geminiHighlightRolloverContainerTokens =
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB0BBB8),
-                /* isFidelity */ true,
-                /* isDark */ false,
-                /* contrast */ 0.0f,
+                /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline((p) -> geminiHighlightOutlineContainerTokens.getContainerOutlineVariant().getRGB())
@@ -128,8 +124,7 @@ public class GeminiSkin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFA9B4B1),
-                /* isFidelity */ true,
-                /* isDark */ false),
+                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.component;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.ImageBackedFilterableRadianceIcon;
@@ -113,8 +114,7 @@ public class IconFrame {
 
             ContainerColorTokens redTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(TonalPaletteSeeds.SUNFIRE_RED.getRGB()),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
             Command redTangoCommand = Command.builder()
                     .setText("Red")
                     .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(tangoFactory,
@@ -124,8 +124,7 @@ public class IconFrame {
 
             ContainerColorTokens greenTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(TonalPaletteSeeds.LIME_GREEN.getRGB()),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
             Command greenTangoCommand = Command.builder()
                     .setText("Green")
                     .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(tangoFactory,
@@ -135,8 +134,7 @@ public class IconFrame {
 
             ContainerColorTokens blueTokens = ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(TonalPaletteSeeds.STEEL_BLUE.getRGB()),
-                /* isFidelity */ true,
-                /* isDark */ false);
+                /* containerConfiguration */ ContainerConfiguration.defaultLight());
             Command blueTangoCommand = Command.builder()
                     .setText("Blue")
                     .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(tangoFactory,

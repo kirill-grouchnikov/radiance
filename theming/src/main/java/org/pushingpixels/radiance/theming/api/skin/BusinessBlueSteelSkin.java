@@ -65,8 +65,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEBD296),
-				/* isFidelity */ true,
-				/* isDark */ false))
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withHeaderAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF91B6CB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
@@ -78,8 +77,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF83AFCE),
-				/* isFidelity */ true,
-				/* isDark */ false)));
+				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
 		RadianceColorSchemeBundle businessBlueSteelControlBundle = new RadianceColorSchemeBundle(
 			/* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
