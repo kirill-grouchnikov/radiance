@@ -29,16 +29,16 @@
  */
 package org.pushingpixels.radiance.demo.theming.main.palette;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.ephemeral.chroma.palettes.BimodalTonalPalette;
-import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
@@ -90,29 +90,29 @@ public class BimodalControlStates extends JFrame {
             double primaryTone = primarySeed.getTone();
 
             Hct secondarySeed = Hct.fromInt(0xFFC2FADC);
-            double secondaryHue = secondarySeed.getHue();
-            double secondaryTone = secondarySeed.getTone();
+            Hct mutedSeed = Hct.from(secondarySeed.getHue(), 12.0, secondarySeed.getTone());
+            Hct neutralSeed = Hct.from(secondarySeed.getHue(), 4.0, secondarySeed.getTone());
 
-            BimodalTonalPalette primaryPalette = BimodalTonalPalette.from(
-                /* hct1 */ Hct.from(hue1, primarySeed.getChroma(), primaryTone),
-                /* hct2 */ Hct.from(hue2, primarySeed.getChroma(), primaryTone),
-                /* transitionRange */ new BimodalTonalPalette.TransitionRangeFidelityLight(primaryTone));
-            TonalPalette mutedPalette = TonalPalette.fromHueAndChroma(secondaryHue, 6.0);
-            TonalPalette neutralPalette = TonalPalette.fromHueAndChroma(secondaryHue, 4.0);
+            RadianceColorSchemeBundle defaultBundle = new RadianceColorSchemeBundle(
+                /* tonalContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
+                    /* seedOne */ Hct.from(hue1, primarySeed.getChroma(), primaryTone),
+                    /* seedTwo */ Hct.from(hue2, primarySeed.getChroma(), primaryTone),
+                    /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                    /* fidelityTone */ primaryTone,
+                    /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
+                    /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
+                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
+                /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(mutedSeed,
+                    ContainerConfiguration.defaultLight()),
+                /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(neutralSeed,
+                    ContainerConfiguration.defaultLight()),
+                /* isSystemDark */ false);
 
-            RadianceColorScheme lightColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityDirectPaletteSource(
-                    primaryPalette, mutedPalette, neutralPalette,
-                    primaryTone, secondaryTone, secondaryTone),
-                /* isDark */ false);
-
-            RadianceColorSchemeBundle bundle2 = new RadianceColorSchemeBundle(lightColorScheme);
-
-            this.registerDecorationAreaSchemeBundle(bundle2,
-                    RadianceThemingSlices.DecorationAreaType.NONE);
+            this.registerDecorationAreaSchemeBundle(defaultBundle,
+                RadianceThemingSlices.DecorationAreaType.NONE);
 
             this.registerAsDecorationArea(
-                lightColorScheme.getTonalContainerTokens(),
+                defaultBundle.getMainColorScheme().getTonalContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.theming.main.check;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.info_24dp_outline;
@@ -37,8 +38,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SchemeResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
@@ -284,33 +283,34 @@ public class SampleMenuFactory {
         }
 
         public CustomSkin() {
-            RadianceColorScheme customColorScheme = ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                    Hct.fromInt(0xFF2C64B4), Hct.fromInt(0xFFBABEC2), Hct.fromInt(0xFFF0F5FA)),
-                /* isPrimaryDark */ true,
-                /* isTonalDark */ true,
-                /* isMutedDark */ false,
-                /* isNeutralDark */ false,
-                /* isSystemDark */ false,
-                /* primaryContrastLevel */ 0.0f,
-                /* tonalContrastLevel */ 0.0f,
-                /* mutedContrastLevel */ 0.0f,
-                /* neutralContrastLevel */ 0.0f,
-                /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver());
-
-            RadianceColorSchemeBundle customDefaultBundle =
-                new RadianceColorSchemeBundle(customColorScheme);
+            RadianceColorSchemeBundle customDefaultBundle = new RadianceColorSchemeBundle(
+                /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF2C64B4),
+                    /* containerConfiguration */ ContainerConfiguration.defaultDark()),
+                /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFBABEC2),
+                    /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+                /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFFF0F5FA),
+                    /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+                /* isSystemDark */ false);
 
             this.registerDecorationAreaSchemeBundle(customDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
-            RadianceColorSchemeBundle customDefaultHeaderBundle =
-                new RadianceColorSchemeBundle(ColorSchemeUtils.getColorScheme(
-                    /* palettesSource */ new ColorSchemeUtils.FidelityPaletteSource(
-                        Hct.fromInt(0xFF1A55BA), Hct.fromInt(0xFF1A50AC), Hct.fromInt(0xFF1A5ED2)),
-                    /* isDark */ true));
-            this.registerDecorationAreaSchemeBundle(customDefaultHeaderBundle,
-                customDefaultHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
+            RadianceColorSchemeBundle customHeaderBundle = new RadianceColorSchemeBundle(
+                /* tonalContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF1A55BA),
+                    /* containerConfiguration */ ContainerConfiguration.defaultDark()),
+                /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF1A50AC),
+                    /* containerConfiguration */ ContainerConfiguration.defaultDark()),
+                /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                    /* seed */ Hct.fromInt(0xFF1A5ED2),
+                    /* containerConfiguration */ ContainerConfiguration.defaultDark()),
+                /* isSystemDark */ true);
+            this.registerDecorationAreaSchemeBundle(customHeaderBundle,
+                customHeaderBundle.getMainColorScheme().getTonalContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
