@@ -175,7 +175,7 @@ public class AutumnSkin extends RadianceSkin {
 		autumnControlPaneBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
-				/* tonalContainerConfiguration */ new ContainerConfiguration(
+				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
 					/* contrastLevel */ 0.2)),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,

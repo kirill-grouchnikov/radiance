@@ -69,24 +69,24 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
         ContainerColorTokens tokens1 = ColorSchemeUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ ContainerConfiguration.defaultDark(),
+            /* containerConfiguration */ ContainerConfiguration.defaultDark(),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
         DynamicBimodalPalette bimodalPalette1 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ ContainerConfiguration.defaultDark());
+            /* containerConfiguration */ ContainerConfiguration.defaultDark());
 
         ContainerColorTokens tokens2 = ColorSchemeUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ new ContainerConfiguration(
+            /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
                 /* tonalSurfaceRangeAmplitudeFactor */ 1.5),
@@ -95,9 +95,9 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
         DynamicBimodalPalette bimodalPalette2 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ new ContainerConfiguration(
+            /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
                 /* tonalSurfaceRangeAmplitudeFactor */ 1.5));
@@ -105,9 +105,9 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
         ContainerColorTokens tokens3 = ColorSchemeUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ new ContainerConfiguration(
+            /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
                 /* tonalSurfaceRangeAmplitudeFactor */ 2.0),
@@ -116,9 +116,9 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
         DynamicBimodalPalette bimodalPalette3 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ new ContainerConfiguration(
+            /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
                 /* tonalSurfaceRangeAmplitudeFactor */ 2.0));

@@ -67,32 +67,32 @@ public class BimodalPaletteDemo extends JFrame {
         ContainerColorTokens tokensOneTwoLight = ColorSchemeUtils.getBimodalContainerTokens(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
         ContainerColorTokens tokensTwoOneLight = ColorSchemeUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight(),
+            /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
 
         DynamicBimodalPalette bimodalPalette1Custom = new DynamicBimodalPalette(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight());
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         DynamicBimodalPalette bimodalPalette2Custom = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
-            /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ ContainerConfiguration.defaultLight());
+            /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         builder.addROLabel("Palette one").xy(1, row)
             .add(new TonalPalettePreview(bimodalPalette1Custom.paletteOne))

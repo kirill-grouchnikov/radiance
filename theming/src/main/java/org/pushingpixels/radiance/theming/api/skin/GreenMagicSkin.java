@@ -88,9 +88,9 @@ public class GreenMagicSkin extends RadianceSkin {
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00C6A8),
                 /* seedTwo */ Hct.fromInt(0xFF00E68A),
-                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 75.0,  // lighter tone for selected and rollover states
-                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
@@ -98,9 +98,9 @@ public class GreenMagicSkin extends RadianceSkin {
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00BF7F),
                 /* seedTwo */ Hct.fromInt(0xFF00B39A),
-                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 65.0,  // darker tone for pressed states
-                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
@@ -128,9 +128,9 @@ public class GreenMagicSkin extends RadianceSkin {
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF4ECDAA),
                 /* seedTwo */ Hct.fromInt(0xFFA3ECB9),
-                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 85.0,
-                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),

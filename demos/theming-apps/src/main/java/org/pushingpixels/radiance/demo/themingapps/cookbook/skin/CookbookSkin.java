@@ -108,19 +108,19 @@ public class CookbookSkin extends RadianceSkin {
             /* mutedContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ cookbookHeaderMutedSeed1,
                 /* seedTwo */ cookbookHeaderMutedSeed2,
-                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ (cookbookHeaderMutedSeed1.getTone() +
                     cookbookHeaderMutedSeed2.getTone()) / 2.0,
-                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
             /* neutralContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ cookbookHeaderNeutralSeed1,
                 /* seedTwo */ cookbookHeaderNeutralSeed2,
-                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ cookbookHeaderNeutralSeed2.getTone(),
-                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),

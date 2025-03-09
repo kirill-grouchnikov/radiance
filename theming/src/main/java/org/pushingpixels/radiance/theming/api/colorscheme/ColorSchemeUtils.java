@@ -350,17 +350,17 @@ public class ColorSchemeUtils {
     public static ContainerColorTokens getBimodalContainerTokens(
         Hct seedOne,
         Hct seedTwo,
-        DynamicBimodalPalette.TransitionRange tonalTransitionRange,
+        DynamicBimodalPalette.TransitionRange transitionRange,
         double fidelityTone,
-        ContainerConfiguration tonalContainerConfiguration,
+        ContainerConfiguration containerConfiguration,
         BimodalPaletteContainerColorsResolver colorResolver) {
 
         DynamicBimodalPalette dynamicPalette = new DynamicBimodalPalette(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
-            /* tonalTransitionRange */ tonalTransitionRange,
+            /* transitionRange */ transitionRange,
             /* fidelityTone */ fidelityTone,
-            /* tonalContainerConfiguration */ tonalContainerConfiguration);
+            /* containerConfiguration */ containerConfiguration);
 
         return new ContainerColorTokens() {
             @Override

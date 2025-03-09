@@ -101,9 +101,9 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
-                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 83.0,
-                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
@@ -112,9 +112,9 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
-                /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                 /* fidelityTone */ 79.0,
-                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
@@ -199,7 +199,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         this.registerAsDecorationArea(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3D3D3D),
-                /* tonalContainerConfiguration */ new ContainerConfiguration(
+                /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0)),
             DecorationAreaType.PRIMARY_TITLE_PANE,
