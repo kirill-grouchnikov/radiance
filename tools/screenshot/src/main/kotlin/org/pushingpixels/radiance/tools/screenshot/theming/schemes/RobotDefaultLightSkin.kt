@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration
 import org.pushingpixels.ephemeral.chroma.hct.Hct
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
@@ -51,13 +52,12 @@ import java.awt.Color
  */
 class RobotDefaultLightSkin(accentColor: Color, val name: String) :
         RadianceSkin.Accented(AccentBuilder()
-            .withDefaultAreaColorScheme(
-                ColorSchemeUtils.getColorScheme(
-                /* palettesSource */ ColorSchemeUtils.FidelityPaletteSource(
-                    /* primarySeed */ Hct.fromInt(accentColor.rgb),
-                    /* mutedSeed */ MutedSeed,
-                    /* neutralSeed */ NeutralSeed),
-                /* isDark */ false))) {
+            .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+                Hct.fromInt(accentColor.rgb), ContainerConfiguration.defaultLight()))
+            .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+                MutedSeed, ContainerConfiguration.defaultLight()))
+            .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+                NeutralSeed, ContainerConfiguration.defaultLight()))) {
 
     init {
         val bottomLineOverlayPainter =
@@ -78,11 +78,12 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
 
         this.highlightFillPainter = ClassicFillPainter()
 
-        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaColorScheme)
+        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaTonalTokens,
+            this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, false)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.defaultAreaColorScheme.tonalContainerTokens,
+        this.registerAsDecorationArea(this.defaultAreaTonalTokens,
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)

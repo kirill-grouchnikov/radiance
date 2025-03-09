@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolver;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -60,21 +59,17 @@ public abstract class RadianceSkin implements RadianceTrait {
      * parts of the UI are painted with specific accent color schemes, and that decision may vary
      * between different base accented skins.
      * <p>
-     * Use {@link #getDefaultAreaColorScheme()}, {@link #getDefaultAreaHighlightTokens()},
-     * {@link #getDefaultAreaSelectedTokens()}, {@link #getHeaderAreaColorScheme()} and
-     * {@link #getHeaderAreaHighlightTokens()} to get the accent tokens for consistent accent usage
+     * This class exposes APIs to get the accent tokens for consistent accent usage
      * in custom-painted parts of your UI.
      */
     public static abstract class Accented extends RadianceSkin {
         public final static class AccentBuilder {
             private PaletteContainerColorsResolver defaultAreaPaletteColorResolver;
-            private RadianceColorScheme defaultAreaColorScheme;
             private ContainerColorTokens defaultAreaTonalTokens;
             private ContainerColorTokens defaultAreaMutedTokens;
             private ContainerColorTokens defaultAreaNeutralTokens;
             private ContainerColorTokens defaultAreaHighlightTokens;
             private ContainerColorTokens defaultAreaSelectedTokens;
-            private RadianceColorScheme headerAreaColorScheme;
             private ContainerColorTokens headerAreaTonalTokens;
             private ContainerColorTokens headerAreaMutedTokens;
             private ContainerColorTokens headerAreaNeutralTokens;
@@ -86,11 +81,6 @@ public abstract class RadianceSkin implements RadianceTrait {
 
             public AccentBuilder withDefaultAreaPaletteColorResolver(PaletteContainerColorsResolver defaultAreaPaletteColorResolver) {
                 this.defaultAreaPaletteColorResolver = defaultAreaPaletteColorResolver;
-                return this;
-            }
-
-            public AccentBuilder withDefaultAreaColorScheme(RadianceColorScheme defaultAreaColorScheme) {
-                this.defaultAreaColorScheme = defaultAreaColorScheme;
                 return this;
             }
 
@@ -119,11 +109,6 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return this;
             }
 
-            public AccentBuilder withHeaderAreaColorScheme(RadianceColorScheme headerAreaColorScheme) {
-                this.headerAreaColorScheme = headerAreaColorScheme;
-                return this;
-            }
-
             public AccentBuilder withHeaderAreaTonalTokens(ContainerColorTokens headerAreaTonalTokens) {
                 this.headerAreaTonalTokens = headerAreaTonalTokens;
                 return this;
@@ -146,13 +131,11 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
 
         private final PaletteContainerColorsResolver defaultAreaPaletteColorResolver;
-        private final RadianceColorScheme defaultAreaColorScheme;
         private final ContainerColorTokens defaultAreaTonalTokens;
         private final ContainerColorTokens defaultAreaMutedTokens;
         private final ContainerColorTokens defaultAreaNeutralTokens;
         private final ContainerColorTokens defaultAreaHighlightTokens;
         private final ContainerColorTokens defaultAreaSelectedTokens;
-        private final RadianceColorScheme headerAreaColorScheme;
         private final ContainerColorTokens headerAreaTonalTokens;
         private final ContainerColorTokens headerAreaMutedTokens;
         private final ContainerColorTokens headerAreaNeutralTokens;
@@ -160,13 +143,11 @@ public abstract class RadianceSkin implements RadianceTrait {
 
         protected Accented(AccentBuilder accentBuilder) {
             this.defaultAreaPaletteColorResolver = accentBuilder.defaultAreaPaletteColorResolver;
-            this.defaultAreaColorScheme = accentBuilder.defaultAreaColorScheme;
             this.defaultAreaTonalTokens = accentBuilder.defaultAreaTonalTokens;
             this.defaultAreaMutedTokens = accentBuilder.defaultAreaMutedTokens;
             this.defaultAreaNeutralTokens = accentBuilder.defaultAreaNeutralTokens;
             this.defaultAreaHighlightTokens = accentBuilder.defaultAreaHighlightTokens;
             this.defaultAreaSelectedTokens = accentBuilder.defaultAreaSelectedTokens;
-            this.headerAreaColorScheme = accentBuilder.headerAreaColorScheme;
             this.headerAreaTonalTokens = accentBuilder.headerAreaTonalTokens;
             this.headerAreaMutedTokens = accentBuilder.headerAreaMutedTokens;
             this.headerAreaNeutralTokens = accentBuilder.headerAreaNeutralTokens;
@@ -175,10 +156,6 @@ public abstract class RadianceSkin implements RadianceTrait {
 
         public PaletteContainerColorsResolver getDefaultAreaPaletteColorResolver() {
             return this.defaultAreaPaletteColorResolver;
-        }
-
-        public RadianceColorScheme getDefaultAreaColorScheme() {
-            return this.defaultAreaColorScheme;
         }
 
         public ContainerColorTokens getDefaultAreaTonalTokens() {
@@ -199,10 +176,6 @@ public abstract class RadianceSkin implements RadianceTrait {
 
         public ContainerColorTokens getDefaultAreaSelectedTokens() {
             return this.defaultAreaSelectedTokens;
-        }
-
-        public RadianceColorScheme getHeaderAreaColorScheme() {
-            return this.headerAreaColorScheme;
         }
 
         public ContainerColorTokens getHeaderAreaTonalTokens() {

@@ -66,7 +66,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
         int startTone = fidelityTone - 10;
         int endTone = fidelityTone + 10;
 
-        ContainerColorTokens tokens1 = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens tokens1 = ColorSchemeUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -83,7 +83,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* primaryContainerConfiguration */ ContainerConfiguration.defaultDark(),
             /* tonalContainerConfiguration */ ContainerConfiguration.defaultDark());
 
-        ContainerColorTokens tokens2 = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens tokens2 = ColorSchemeUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -106,7 +106,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
                 /* contrastLevel */ 0.0,
                 /* tonalSurfaceRangeAmplitudeFactor */ 1.5));
 
-        ContainerColorTokens tokens3 = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens tokens3 = ColorSchemeUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,

@@ -85,7 +85,7 @@ public class GreenMagicSkin extends RadianceSkin {
             /* isSystemDark */ false);
 
         ContainerColorTokens greenMagicSelectedContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00C6A8),
                 /* seedTwo */ Hct.fromInt(0xFF00E68A),
                 /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -96,7 +96,7 @@ public class GreenMagicSkin extends RadianceSkin {
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
         ContainerColorTokens greenMagicPressedContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00BF7F),
                 /* seedTwo */ Hct.fromInt(0xFF00B39A),
                 /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -127,7 +127,7 @@ public class GreenMagicSkin extends RadianceSkin {
 
         // Headers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF4ECDAA),
                 /* seedTwo */ Hct.fromInt(0xFFA3ECB9),
                 /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,

@@ -29,11 +29,14 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration
 import org.pushingpixels.ephemeral.chroma.hct.Hct
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.colorscheme.*
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter
@@ -52,34 +55,14 @@ import java.awt.Color
  */
 class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
     RadianceSkin.Accented(AccentBuilder()
-        .withDefaultAreaColorScheme(ColorSchemeUtils.getColorScheme(
-            /* palettesSource */ ColorSchemeUtils.FidelityPaletteSource(
-                /* primarySeed */ Hct.fromInt(accentColor.rgb),
-                /* mutedSeed */ Hct.fromInt(accentColor.rgb).also { it.tone = it.tone * 1.2},
-                /* neutralSeed */ Hct.fromInt(accentColor.rgb).also { it.tone = it.tone / 3.5}),
-            /* isPrimaryDark */ true,
-            /* isTonalDark */ true,
-            /* isMutedDark */ true,
-            /* isNeutralDark */ true,
-            /* isSystemDark */ true,
-            /* primaryContrastLevel */ 0.0,
-            /* tonalContrastLevel */ 0.0,
-            /* mutedContrastLevel */ 0.0,
-            /* neutralContrastLevel */ 0.8,
-            /* schemeColorResolver */ SchemeResolverUtils.getSchemeColorResolver().overlayWith(
-                SchemeColorResolverOverlay.builder()
-                    .mutedContainerResolverOverlay(
-                        SchemeContainerColorsResolverOverlay.builder()
-                            .onContainer({ it.onNeutralContainer })
-                            .onContainerVariant({ it.onNeutralContainerVariant} )
-                            .build())
-                    .tonalContainerResolverOverlay(
-                        SchemeContainerColorsResolverOverlay.builder()
-                            .onContainer({ it.onNeutralContainer })
-                            .onContainerVariant({ it.onNeutralContainerVariant} )
-                            .build())
-                    .build()
-            )))) {
+        .withDefaultAreaTonalTokens(ColorSchemeUtils.getContainerTokens(
+            Hct.fromInt(accentColor.rgb), ContainerConfiguration(true, 0.3)))
+        .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+            Hct.fromInt(accentColor.rgb).also { it.tone = it.tone * 1.2},
+            ContainerConfiguration(true, 0.25)))
+        .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+            Hct.fromInt(accentColor.rgb).also { it.tone = it.tone / 3.5},
+            ContainerConfiguration(true, 0.8)))) {
 
     init {
         val bottomLineOverlayPainter =
@@ -110,11 +93,12 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
 
         this.highlightFillPainter = ClassicFillPainter()
 
-        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaColorScheme)
+        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaTonalTokens,
+            this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, true)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
             RadianceThemingSlices.DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.defaultAreaColorScheme.tonalContainerTokens,
+        this.registerAsDecorationArea(this.defaultAreaTonalTokens,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER)

@@ -755,7 +755,7 @@ public class ColorSchemeUtils {
         };
     }
 
-    public static ContainerColorTokens getContainerTokens(
+    public static ContainerColorTokens getBimodalContainerTokens(
         Hct seedOne,
         Hct seedTwo,
         DynamicBimodalPalette.TransitionRange tonalTransitionRange,

@@ -127,7 +127,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                         .build()
                 ));
         ContainerColorTokens selectedContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
                 /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -139,7 +139,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
         ContainerColorTokens rolloverSelectedContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
                 /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
