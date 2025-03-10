@@ -115,7 +115,7 @@ public class CookbookSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 1.0,
                     /* surfaceRangeAmplitudeFactor */ 2.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
             /* neutralContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ cookbookHeaderNeutralSeed1,
                 /* seedTwo */ cookbookHeaderNeutralSeed2,
@@ -125,7 +125,7 @@ public class CookbookSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 1.0,
                     /* surfaceRangeAmplitudeFactor */ 1.8),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
             /* isSystemDark */ true);
 
         this.registerDecorationAreaSchemeBundle(cookbookHeaderBundle,
@@ -153,7 +153,7 @@ public class CookbookSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 1.0,
                     /* surfaceRangeAmplitudeFactor */ 2.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
             /* neutralContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ cookbookFooterNeutralSeed1,
                 /* seedTwo */ cookbookFooterNeutralSeed2,
@@ -163,7 +163,7 @@ public class CookbookSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 1.0,
                     /* surfaceRangeAmplitudeFactor */ 2.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
             /* isSystemDark */ true);
 
         this.registerDecorationAreaSchemeBundle(cookbookFooterBundle,

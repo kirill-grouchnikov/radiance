@@ -108,7 +108,7 @@ public class HarvestSkin extends RadianceSkin {
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF5B5B54),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     // Take the default neutral container surface fill to be the on container roles.
                     PaletteContainerColorsResolverOverlay.builder()
                         .onContainer((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
@@ -117,7 +117,7 @@ public class HarvestSkin extends RadianceSkin {
             /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3A3A39),
             /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     // Take the default neutral container surface fill to be the on container roles.
                     PaletteContainerColorsResolverOverlay.builder()
                         .onContainer((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
@@ -135,7 +135,7 @@ public class HarvestSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     // Take the default neutral container surface fill to be the on container roles.
                     PaletteContainerColorsResolverOverlay.builder()
                         .onContainer((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())

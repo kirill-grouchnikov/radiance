@@ -65,7 +65,7 @@ public class TwilightSkin extends RadianceSkin {
         // For muted containers (enabled controls), use higher alpha values for disabled
         // controls for better contrast.
         PaletteContainerColorsResolver mutedResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .containerSurfaceDisabledAlpha((s) -> 0.5f)
                     .onContainerDisabledAlpha((s) -> 0.6f)
@@ -78,11 +78,11 @@ public class TwilightSkin extends RadianceSkin {
                 /* contrastLevel */ -0.1),
             /* colorResolver */ mutedResolver);
 
-        // For tonal containers (active controls), use higher alpha values for disabled
+        // For active containers, use higher alpha values for disabled
         // controls for better contrast. Also use muted outlines for border consistency
         // with enabled controls.
-        PaletteContainerColorsResolver tonalResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+        PaletteContainerColorsResolver resolver =
+            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .containerOutline((p) -> twilightDefaultMutedTokens.getContainerOutline().getRGB())
                     .containerOutlineVariant((p) -> twilightDefaultMutedTokens.getContainerOutlineVariant().getRGB())
@@ -95,12 +95,12 @@ public class TwilightSkin extends RadianceSkin {
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
                 /* contrastLevel */ 0.2),
-            /* colorResolver */ tonalResolver);
+            /* colorResolver */ resolver);
 
         // For neutral containers, use the text / icon colors from the muted containers
         // for better visual consistency
         PaletteContainerColorsResolver neutralResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .onContainer((p) -> twilightDefaultMutedTokens.getOnContainer().getRGB())
                     .onContainerVariant((p) -> twilightDefaultMutedTokens.getOnContainerVariant().getRGB())
@@ -113,7 +113,7 @@ public class TwilightSkin extends RadianceSkin {
             /* colorResolver */ neutralResolver);
 
         PaletteContainerColorsResolver defaultPaletteContainerColorResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver();
+            PaletteResolverUtils.getPaletteColorResolver();
         PaletteContainerColorsResolver twilightPaletteContainerColorResolver =
             defaultPaletteContainerColorResolver.overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()

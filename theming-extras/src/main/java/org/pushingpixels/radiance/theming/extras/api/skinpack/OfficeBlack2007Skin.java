@@ -68,7 +68,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         // 1. Outlines with additional alpha to make them softer.
         // 2. Custom alpha for outlines of disabled controls to have higher contrast and make
         //    them more visible.
-        PaletteContainerColorsResolver officeBlackPaletteResolver = PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+        PaletteContainerColorsResolver officeBlackPaletteResolver = PaletteResolverUtils.getPaletteColorResolver().overlayWith(
             PaletteContainerColorsResolverOverlay.builder()
                 .containerOutline((p) -> p.getContainerOutline() & 0xA0FFFFFF)
                 .containerOutlineVariant((p) -> p.getContainerOutlineVariant() & 0xA0FFFFFF)
@@ -106,8 +106,8 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
-                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+                    /* surfaceRangeAmplitudeFactor */ 1.0),
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
         ContainerColorTokens rolloverSelectedContainerTokens =
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
@@ -117,8 +117,8 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
-                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+                    /* surfaceRangeAmplitudeFactor */ 1.0),
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
@@ -150,7 +150,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             ComponentState.ROLLOVER_SELECTED);
 
         PaletteContainerColorsResolver activeMarksColorResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .onContainer(DynamicPalette::getContainerOutline)
                     .build());

@@ -173,7 +173,7 @@ public class RadianceColorSchemeUtilities {
         }
 
         ContainerColorTokens nonColorized = RadianceCoreUtilities.getSkin(component)
-                .getTonalContainerTokens(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component));
+                .getActiveContainerTokens(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component));
         return ColorSchemeUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
     }
 }

@@ -56,7 +56,7 @@ public class GraphiteSunsetSkin extends GraphiteAccentedSkin {
 			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFF7B00),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((s) -> 0.4f)
 						.onContainerDisabledAlpha((s) -> 0.8f)

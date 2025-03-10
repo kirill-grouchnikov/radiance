@@ -125,7 +125,7 @@ public class SentinelSkin extends RadianceSkin {
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF4A2C25),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline((p) -> p.getOnContainer() & 0xC0FFFFFF)
                         .containerOutlineVariant((p) -> p.getOnContainerVariant() & 0xC0FFFFFF)
@@ -138,7 +138,7 @@ public class SentinelSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.2),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline((p) -> p.getOnContainer() & 0xC0FFFFFF)
                         .containerOutlineVariant((p) -> p.getOnContainerVariant() & 0xC0FFFFFF)

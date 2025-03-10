@@ -94,7 +94,7 @@ public class GeminiSkin extends RadianceSkin {
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB0BBB8),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline((p) -> geminiHighlightOutlineContainerTokens.getContainerOutlineVariant().getRGB())
                         .containerOutlineVariant((p) -> geminiHighlightOutlineContainerTokens.getContainerOutlineVariant().getRGB())

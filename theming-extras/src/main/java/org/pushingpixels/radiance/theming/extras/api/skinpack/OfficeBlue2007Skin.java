@@ -66,14 +66,14 @@ public class OfficeBlue2007Skin extends RadianceSkin {
     }
 
     public OfficeBlue2007Skin() {
-        // For tonal containers (active controls), use softer outline colors.
+        // For active containers, use softer outline colors.
         // Also use higher alpha values for outlines of disabled controls.
         ContainerColorTokens officeBlueDefaultActiveTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF80BBF8),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
                 /* contrastLevel */ -1.0),
-            /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .containerOutline((p) -> p.getOnContainer() & 0x70FFFFFF)
                     .containerOutlineVariant((p) -> p.getOnContainerVariant() & 0x70FFFFFF)
@@ -81,11 +81,11 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     .build()));
 
         // For muted containers (enabled controls), use the same on container colors, and the same
-        // outline colors as tonal containers with extra alpha.
+        // outline colors as active containers with extra alpha.
         ContainerColorTokens officeBlueDefaultMutedTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFB8D2EB),
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-            /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .onContainer((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB())
                     .onContainerVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB())
@@ -95,11 +95,11 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     .build()));
 
         // For neutral containers, use the same on container colors, and the same
-        // outline colors as tonal containers with extra alpha.
+        // outline colors as active containers with extra alpha.
         ContainerColorTokens officeBlueDefaultNeutralTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFC3DCF0),
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-            /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .onContainer((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB())
                     .onContainerVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB())
@@ -120,7 +120,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline(DynamicPalette::getContainerOutlineVariant)
                         .containerOutlineVariant(DynamicPalette::getContainerOutlineVariant)
@@ -135,8 +135,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
-                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
+                    /* surfaceRangeAmplitudeFactor */ 1.0),
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());;
         ContainerColorTokens rolloverSelectedContainerTokens =
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
@@ -146,8 +146,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
-                    /* tonalSurfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());;
+                    /* surfaceRangeAmplitudeFactor */ 1.0),
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());;
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
@@ -179,7 +179,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             ComponentState.ROLLOVER_SELECTED);
 
         PaletteContainerColorsResolver activeMarksColorResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .onContainer(DynamicPalette::getContainerOutline)
                     .build());
@@ -227,7 +227,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         PaletteContainerColorsResolver defaultPaletteColorResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver();
+            PaletteResolverUtils.getPaletteColorResolver();
         // Set up token resolution overlays for decoration areas to use on container and
         // container outline colors from the matching neutral container tokens of the
         // default area

@@ -69,8 +69,8 @@ public class MagellanSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ -0.1),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-                    // For tonal containers (active controls), use softer text / icon colors.
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+                    // For active containers, use softer text / icon colors.
                     PaletteContainerColorsResolverOverlay.builder()
                         .onContainer((p) -> p.getOnContainer() & 0xE0FFFFFF)
                         .onContainerVariant((p) -> p.getOnContainerVariant() & 0xE0FFFFFF)
@@ -85,7 +85,7 @@ public class MagellanSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ -0.2),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     // For neutral containers, use softer text / icon colors
                     PaletteContainerColorsResolverOverlay.builder()
                         .onContainer((p) -> p.getOnContainer() & 0xD0FFFFFF)
@@ -97,7 +97,7 @@ public class MagellanSkin extends RadianceSkin {
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF006FDB),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .onContainer((p) -> p.getOnContainer() & 0xE0FFFFFF)
                         .onContainerVariant((p) -> p.getOnContainerVariant() & 0xE0FFFFFF)

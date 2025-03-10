@@ -50,7 +50,7 @@ final class CheckeredPanel extends ScrollablePanel {
         boolean isDark;
         if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
             RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
-            isDark = skin.getTonalContainerTokens(ComponentOrParentChainScope.getDecorationType(this)).isDark();
+            isDark = skin.getActiveContainerTokens(ComponentOrParentChainScope.getDecorationType(this)).isDark();
         } else {
             isDark = false;
         }

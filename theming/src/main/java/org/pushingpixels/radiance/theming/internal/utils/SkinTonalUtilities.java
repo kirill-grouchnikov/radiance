@@ -67,7 +67,7 @@ public class SkinTonalUtilities {
         UIDefaults.ActiveValue listCellRendererActiveValue =
                 (UIDefaults table) -> new RadianceDefaultListCellRenderer.RadianceUIResource();
 
-        ContainerColorTokens mainActiveTokens = skin.getTonalContainerTokens(
+        ContainerColorTokens mainActiveTokens = skin.getActiveContainerTokens(
             RadianceThemingSlices.DecorationAreaType.NONE);
         ContainerColorTokens mainMutedTokens = skin.getMutedContainerTokens(
             RadianceThemingSlices.DecorationAreaType.NONE);
@@ -587,10 +587,10 @@ public class SkinTonalUtilities {
                 // This is a very rough "approximation" since the menu bar can be painted with the decoration
                 // painter which may or may not use any particular color from the color schemes
                 "MenuBar.background",
-                new ColorUIResource(skin.getTonalContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getContainerSurface()),
+                new ColorUIResource(skin.getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getContainerSurface()),
 
                 "MenuBar.foreground",
-                new ColorUIResource(skin.getTonalContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getOnContainer()),
+                new ColorUIResource(skin.getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getOnContainer()),
 
                 "MenuBar.border",
                 null,

@@ -82,7 +82,7 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
                 /* isDark */ true,
                 /* contrastLevel */ 1.0,
                 /* surfaceRangeAmplitudeFactor */ 2.0),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
         System.out.println(RadianceColorUtilities.encode(brushedMetalTokens.getContainerSurfaceDim()));
 
         LookupFilter brushedMetalLookupFilter = new LookupFilter(new Gradient(

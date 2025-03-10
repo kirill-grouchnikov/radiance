@@ -56,7 +56,7 @@ public class GraphiteSiennaSkin extends GraphiteAccentedSkin {
 			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB27565),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((s) -> 0.45f)
 						.onContainerDisabledAlpha((s) -> 0.5f)

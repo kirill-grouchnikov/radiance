@@ -74,7 +74,7 @@ public class VisorSkin extends RadianceSkin {
         // to set outline colors to be identical to surface colors (effectively removing the
         // visuals of the outlines)
         PaletteContainerColorsResolver threadsHighlightsPaletteResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .containerOutline(DynamicPalette::getContainerSurface)
                     .containerOutlineVariant(DynamicPalette::getContainerSurfaceHigh)
@@ -111,7 +111,7 @@ public class VisorSkin extends RadianceSkin {
         // to set outline colors to be identical to surface colors (effectively removing the
         // visuals of the outlines)
         PaletteContainerColorsResolver destinationsHighlightsPaletteResolver =
-            PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
                     .containerOutline(DynamicPalette::getContainerOutlineVariant)
                     .containerOutlineVariant(DynamicPalette::getContainerOutlineVariant)

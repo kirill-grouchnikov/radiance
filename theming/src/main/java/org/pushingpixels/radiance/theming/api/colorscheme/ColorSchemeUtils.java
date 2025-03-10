@@ -222,7 +222,7 @@ public class ColorSchemeUtils {
         Hct seed,
         ContainerConfiguration containerConfiguration) {
         return getContainerTokens(seed, containerConfiguration,
-            PaletteResolverUtils.getPaletteTonalColorResolver());
+            PaletteResolverUtils.getPaletteColorResolver());
     }
 
     public static ContainerColorTokens getContainerTokens(

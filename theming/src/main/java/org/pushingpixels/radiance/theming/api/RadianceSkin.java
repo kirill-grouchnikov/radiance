@@ -76,7 +76,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             private ContainerColorTokens headerAreaHighlightTokens;
 
             public AccentBuilder() {
-                this.defaultAreaPaletteColorResolver = PaletteResolverUtils.getPaletteTonalColorResolver();
+                this.defaultAreaPaletteColorResolver = PaletteResolverUtils.getPaletteColorResolver();
             }
 
             public AccentBuilder withDefaultAreaPaletteColorResolver(PaletteContainerColorsResolver defaultAreaPaletteColorResolver) {
@@ -535,7 +535,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getMainColorScheme().getMutedContainerTokens();
     }
 
-    public final ContainerColorTokens getTonalContainerTokens(
+    public final ContainerColorTokens getActiveContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
             return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getActiveContainerTokens();

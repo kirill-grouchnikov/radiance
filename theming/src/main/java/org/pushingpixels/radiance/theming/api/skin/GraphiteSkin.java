@@ -53,7 +53,7 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
     }
 
     public GraphiteSkin() {
-        this(PaletteResolverUtils.getPaletteTonalColorResolver());
+        this(PaletteResolverUtils.getPaletteColorResolver());
     }
 
     protected GraphiteSkin(PaletteContainerColorsResolver paletteContainerColorsResolver) {

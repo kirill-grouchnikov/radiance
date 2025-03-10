@@ -100,7 +100,7 @@ public class BimodalControlStates extends JFrame {
                     /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                     /* fidelityTone */ primaryTone,
                     /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
+                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
                 /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(mutedSeed,
                     ContainerConfiguration.defaultLight()),
                 /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(neutralSeed,

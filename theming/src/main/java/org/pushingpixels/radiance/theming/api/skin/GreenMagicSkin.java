@@ -93,7 +93,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
         ContainerColorTokens greenMagicPressedContainerTokens =
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00BF7F),
@@ -103,7 +103,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
 
         greenMagicDefaultBundle.registerActiveContainerTokens(greenMagicSelectedContainerTokens,
             ComponentState.SELECTED, ComponentState.ROLLOVER_UNSELECTED,
@@ -133,7 +133,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
+                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);

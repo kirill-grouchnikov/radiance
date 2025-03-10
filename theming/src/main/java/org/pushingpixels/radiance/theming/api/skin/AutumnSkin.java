@@ -65,10 +65,10 @@ public class AutumnSkin extends RadianceSkin {
 	}
 
 	public AutumnSkin() {
-		// For tonal containers (active controls), use softer text / icon colors.
+		// For active containers, use softer text / icon colors.
 		// Also use higher alpha values for disabled controls for better contrast.
-		PaletteContainerColorsResolver tonalResolver =
-			PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+		PaletteContainerColorsResolver resolver =
+			PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 				PaletteContainerColorsResolverOverlay.builder()
 					.onContainer(DynamicPalette::getContainerOutline)
 					.onContainerVariant((p) -> p.getContainerOutline() & 0xC0FFFFFF)
@@ -79,13 +79,13 @@ public class AutumnSkin extends RadianceSkin {
 		ContainerColorTokens autumnDefaultActiveTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFFFCB90),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-			/* colorResolver */ tonalResolver);
+			/* colorResolver */ resolver);
 
 		// For muted containers (enabled controls), use tonal on container and container outline
 		// values for consistency with active controls. Also use higher alpha values for disabled
 		// controls for better contrast.
 		PaletteContainerColorsResolver mutedResolver =
-			PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+			PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 				PaletteContainerColorsResolverOverlay.builder()
 					.containerOutline((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
@@ -104,7 +104,7 @@ public class AutumnSkin extends RadianceSkin {
 		// For neutral containers, use tonal on container and container outline
 		// values for consistency with active controls.
 		PaletteContainerColorsResolver neutralResolver =
-			PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+			PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 				PaletteContainerColorsResolverOverlay.builder()
 					.containerOutline((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
@@ -128,7 +128,7 @@ public class AutumnSkin extends RadianceSkin {
 		autumnDefaultBundle.registerActiveContainerTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFDBD72),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-				/* colorResolver */ tonalResolver),
+				/* colorResolver */ resolver),
 			ComponentState.SELECTED);
 		autumnDefaultBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(
@@ -136,7 +136,7 @@ public class AutumnSkin extends RadianceSkin {
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
 					/* contrastLevel */ 0.2),
-				/* colorResolver */ tonalResolver),
+				/* colorResolver */ resolver),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
@@ -148,7 +148,7 @@ public class AutumnSkin extends RadianceSkin {
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFEC983),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.onContainer(DynamicPalette::getOnContainerVariant)
 						.build())),
@@ -159,7 +159,7 @@ public class AutumnSkin extends RadianceSkin {
 		ContainerColorTokens autumnControlPaneActiveTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFFDBD72),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-			/* colorResolver */ tonalResolver);
+			/* colorResolver */ resolver);
 		ContainerColorTokens autumnControlPaneMutedTokens = ColorSchemeUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFFEDCB6),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),

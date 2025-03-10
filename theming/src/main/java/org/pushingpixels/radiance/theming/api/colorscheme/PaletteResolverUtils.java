@@ -35,7 +35,7 @@ import java.awt.*;
 import java.util.function.Function;
 
 public class PaletteResolverUtils {
-    public static PaletteContainerColorsResolver getPaletteTonalColorResolver() {
+    public static PaletteContainerColorsResolver getPaletteColorResolver() {
         PaletteContainerColorsResolver result =
             new PaletteContainerColorsResolver() {
 

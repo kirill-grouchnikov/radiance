@@ -72,7 +72,7 @@ public class CremeSkin extends CremeAccentedSkin {
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9DD9F9),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline(DynamicPalette::getContainerSurfaceHighest)
                         .containerOutlineVariant(DynamicPalette::getContainerSurfaceHigh)
@@ -82,7 +82,7 @@ public class CremeSkin extends CremeAccentedSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.3),
-                /* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
                         .containerOutline(DynamicPalette::getContainerSurfaceHighest)
                         .containerOutlineVariant(DynamicPalette::getContainerSurfaceHigh)

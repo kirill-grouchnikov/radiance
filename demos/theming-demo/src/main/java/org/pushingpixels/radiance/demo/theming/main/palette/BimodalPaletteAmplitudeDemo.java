@@ -72,7 +72,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
             /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
 
         DynamicBimodalPalette bimodalPalette1 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
@@ -89,8 +89,8 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
-                /* tonalSurfaceRangeAmplitudeFactor */ 1.5),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+                /* surfaceRangeAmplitudeFactor */ 1.5),
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
 
         DynamicBimodalPalette bimodalPalette2 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
@@ -100,7 +100,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
-                /* tonalSurfaceRangeAmplitudeFactor */ 1.5));
+                /* surfaceRangeAmplitudeFactor */ 1.5));
 
         ContainerColorTokens tokens3 = ColorSchemeUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
@@ -110,8 +110,8 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
-                /* tonalSurfaceRangeAmplitudeFactor */ 2.0),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+                /* surfaceRangeAmplitudeFactor */ 2.0),
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
 
         DynamicBimodalPalette bimodalPalette3 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
@@ -121,7 +121,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
-                /* tonalSurfaceRangeAmplitudeFactor */ 2.0));
+                /* surfaceRangeAmplitudeFactor */ 2.0));
 
         builder.addROLabel("Palette one").xy(1, row)
             .add(new TonalPalettePreview(bimodalPalette1.paletteOne))

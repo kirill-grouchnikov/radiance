@@ -56,7 +56,7 @@ public class GraphiteGoldSkin extends GraphiteAccentedSkin {
 			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFFC900),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((p) -> 0.4f)
 						.onContainerDisabledAlpha((p) -> 0.8f)

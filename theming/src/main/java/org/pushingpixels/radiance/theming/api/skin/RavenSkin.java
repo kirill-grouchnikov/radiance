@@ -69,8 +69,8 @@ public class RavenSkin extends RadianceSkin {
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
 					/* contrastLevel */ 0.4),
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
-					// For tonal containers (active controls), use higher alpha values for
+				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+					// For active containers, use higher alpha values for
 					// disabled controls for better contrast.
 					PaletteContainerColorsResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((s) -> 0.4f)
@@ -82,7 +82,7 @@ public class RavenSkin extends RadianceSkin {
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
 					/* contrastLevel */ 0.4),
-			/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+			/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 				// For muted containers (enabled controls), use higher alpha values for
 				// disabled controls for better contrast.
 				PaletteContainerColorsResolverOverlay.builder()
@@ -108,7 +108,7 @@ public class RavenSkin extends RadianceSkin {
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ false,
 					/* contrastLevel */ 0.3),
-				/* colorResolver */ PaletteResolverUtils.getPaletteTonalColorResolver().overlayWith(
+				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((s) -> 0.4f)
 						.onContainerDisabledAlpha((s) -> 1.0f)
