@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -50,11 +51,11 @@ public class CookbookFillPainter implements RadianceFillPainter {
 
     public CookbookFillPainter() {
         this.delegate = new FractionBasedFillPainter("Cookbook Regular",
-            new float[] {0.0f, 0.5f, 1.0f},
+            new float[] {0.0f, 0.6f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceBright,
                 ContainerColorTokens::getContainerSurface,
-                ContainerColorTokens::getContainerSurfaceDim});
+                ContainerColorTokens::getContainerSurfaceLowest});
 
         this.flatDelegate = new FractionBasedFillPainter("Cookbook Flat",
             new float[] {0.0f, 0.5f, 1.0f},
@@ -79,7 +80,10 @@ public class CookbookFillPainter implements RadianceFillPainter {
             // that corresponds to the decoration area of that button
             JCommandButton commandButton = (JCommandButton) comp;
             if (!commandButton.getActionModel().isSelected()
-                && !commandButton.getActionModel().isPressed()) {
+                && !commandButton.getActionModel().isPressed()
+                && !commandButton.getActionModel().isRollover()
+                && (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() !=
+                    RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)) {
                 DecorationAreaType decorationAreaType = ComponentOrParentChainScope
                     .getDecorationType(comp);
                 RadianceDecorationPainter decoPainter = RadianceThemingCortex.ComponentScope
@@ -92,7 +96,7 @@ public class CookbookFillPainter implements RadianceFillPainter {
                     g2d.setComposite(AlphaComposite.SrcOver.derive(0.3f));
                     int dx = comp.getLocationOnScreen().x;
                     int dy = comp.getLocationOnScreen().y;
-                    //g2d.drawImage(watermark, -dx, -dy, null);
+                    g2d.drawImage(watermark, -dx, -dy, null);
                 }
             }
         }

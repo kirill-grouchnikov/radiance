@@ -56,12 +56,12 @@ public class ContainerGradient2Preview extends JPanel {
                 int strokeThickness = 2;
 
                 MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height,
-                    new float[] { 0.0f, 0.2f, 0.5f, 0.8f, 1.0f },
+                    new float[] { 0.0f, 0.3f, 0.5f, 0.75f, 1.0f },
                     new Color[] {
+                        colorTokens.getContainerSurfaceBright(),
                         colorTokens.getContainerSurfaceHighest(),
                         colorTokens.getContainerSurfaceHigh(),
-                        colorTokens.getContainerSurface(),
-                        colorTokens.getContainerSurfaceLowest(),
+                        colorTokens.getContainerSurfaceLow(),
                         colorTokens.getContainerSurfaceDim() },
                     MultipleGradientPaint.CycleMethod.REPEAT);
                 g2d.setPaint(gradient);
