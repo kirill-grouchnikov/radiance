@@ -229,25 +229,15 @@ public class ColorSchemeUtils {
         Hct seed,
         ContainerConfiguration containerConfiguration,
         PaletteContainerColorsResolver colorResolver) {
-        return getContainerTokens(seed, containerConfiguration.isDark(),
-            containerConfiguration.getContrastLevel(), colorResolver);
-    }
-
-    private static ContainerColorTokens getContainerTokens(
-        Hct seed,
-        boolean isDark,
-        double contrastLevel,
-        PaletteContainerColorsResolver colorResolver) {
 
         DynamicPalette dynamicPalette = new DynamicPalette(
             /* sourceColorHct */ seed,
-            /* isDark */ isDark,
-            /* contrastLevel */ contrastLevel);
+            /* containerConfiguration */ containerConfiguration);
 
         return new ContainerColorTokens() {
             @Override
             public boolean isDark() {
-                return dynamicPalette.isDark;
+                return dynamicPalette.containerConfiguration.isDark();
             }
 
             @Override
