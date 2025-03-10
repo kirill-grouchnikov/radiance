@@ -120,11 +120,11 @@ public class CookbookSkin extends RadianceSkin {
                 /* seedOne */ cookbookHeaderNeutralSeed1,
                 /* seedTwo */ cookbookHeaderNeutralSeed2,
                 /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* fidelityTone */ 54.0,
+                /* fidelityTone */ 58.0,
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0,
-                    /* surfaceRangeAmplitudeFactor */ 1.5),
+                    /* surfaceRangeAmplitudeFactor */ 1.8),
                 /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver()),
             /* isSystemDark */ true);
 
@@ -197,10 +197,12 @@ public class CookbookSkin extends RadianceSkin {
 
         // Add an overlay painter to paint a bezel line along the top edge of the footer area
         RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-            ContainerColorTokens::getContainerOutlineVariant,
             ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getInverseContainerOutline,
-                ColorTransform.alpha(72)));
+                ContainerColorTokens::getContainerOutlineVariant,
+                ColorTransform.alpha(192)),
+            ContainerColorTokensSingleColorQuery.composite(
+                ContainerColorTokens::getComplementaryContainerOutline,
+                ColorTransform.alpha(96)));
         this.addOverlayPainter(footerTopBezelOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 

@@ -93,7 +93,7 @@ public class CookbookFillPainter implements RadianceFillPainter {
                         .getWatermarkImage(decorationAreaType);
                     Graphics2D g2d = (Graphics2D) g.create();
                     g2d.clip(contour);
-                    g2d.setComposite(AlphaComposite.SrcOver.derive(0.3f));
+                    g2d.setComposite(AlphaComposite.SrcOver.derive(0.4f));
                     int dx = comp.getLocationOnScreen().x;
                     int dy = comp.getLocationOnScreen().y;
                     g2d.drawImage(watermark, -dx, -dy, null);

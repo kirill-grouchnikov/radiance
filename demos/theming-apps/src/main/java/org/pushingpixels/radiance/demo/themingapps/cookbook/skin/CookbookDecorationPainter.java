@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolver
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,20 +77,22 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
             /* seedOne */ Hct.fromInt(0xFF6F2003),
             /* seedTwo */ Hct.fromInt(0xFFB05306),
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-            /* fidelityTone */ 30.0,
+            /* fidelityTone */ 45.0,
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 1.0,
                 /* surfaceRangeAmplitudeFactor */ 2.0),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteTonalColorResolver());
+        System.out.println(RadianceColorUtilities.encode(brushedMetalTokens.getContainerSurfaceDim()));
 
         LookupFilter brushedMetalLookupFilter = new LookupFilter(new Gradient(
-            new int[] { 0, 128, 224, 255 },
+            new int[] { 0, 96, 128, 192, 255 },
             new int[] {
                 brushedMetalTokens.getContainerSurfaceBright().getRGB() & 0x00FFFFFF,
-                brushedMetalTokens.getContainerSurfaceDim().getRGB() & 0x40FFFFFF,
-                brushedMetalTokens.getContainerSurfaceDim().getRGB() & 0x80FFFFFF,
-                brushedMetalTokens.getContainerSurfaceDim().getRGB() & 0xF0FFFFFF }));
+                brushedMetalTokens.getContainerSurfaceBright().getRGB() & 0x00FFFFFF,
+                brushedMetalTokens.getContainerSurfaceDim().getRGB() & 0x28FFFFFF,
+                brushedMetalTokens.getContainerSurfaceDim().getRGB() & 0xC0FFFFFF,
+                brushedMetalTokens.getContainerSurfaceDim().getRGB() }));
 
         this.brushedMetalImage = new CompoundFilter(brushedMetalFilter, brushedMetalLookupFilter)
                 .filter(new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB),
@@ -142,7 +145,7 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, 70 - dy,
                 new float[] { 0.0f, 0.2f, 0.4f, 0.6f, 0.8f, 1.0f },
                 new Color[] {
-                    tokens.getContainerSurfaceHighest(),
+                    tokens.getContainerSurfaceBright(),
                     tokens.getContainerSurfaceHigh(),
                     tokens.getContainerSurface(),
                     tokens.getContainerSurfaceLow(),
