@@ -114,8 +114,9 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
 
-        Color startColor = colorTokens.getContainerSurfaceHigh();
-        Color endColor = colorTokens.getContainerSurfaceHighest();
+        Color startColor = colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+            : colorTokens.getContainerSurfaceLowest();
+        Color endColor = colorTokens.getContainerSurface();
 
         int gradientHeight = Math.max(FLEX_POINT, comp.getHeight() + offset.y);
         Paint paint = (gradientHeight == FLEX_POINT) ?
