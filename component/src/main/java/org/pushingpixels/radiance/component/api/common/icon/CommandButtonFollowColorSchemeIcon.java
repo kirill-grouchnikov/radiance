@@ -117,8 +117,6 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
         float alpha = 1.0f;
 
-        // TODO: TONAL - convert
-
         // If the passed component is null or not a JCommandButton, our best effort is to
         // display either "enabled" or "disabled" version of the delegate icon
         if (!(c instanceof JCommandButton)) {

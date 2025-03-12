@@ -45,7 +45,6 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
  * @author Kirill Grouchnikov
  * @see RadianceThemingCortex.GlobalScope#setIconPack(RadianceIconPack)
  */
-// TODO: TONAL remove pre-tonal APIs
 public interface RadianceIconPack {
 
     RadianceIcon getOptionPaneInformationIcon(int preferredSize,

@@ -106,9 +106,6 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                 }
 
                 boolean isCheckMarkFadingOut = !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.SELECTION);
-                // TODO: TONAL - remove alpha
-                float alpha = currState.isDisabled()
-                        ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
 
                 // Populate color tokens based on the current transition state of the checkbox.
                 BladeUtils.populateColorTokens(mutableContainerTokens, triStateCheckBox, modelStateInfo,

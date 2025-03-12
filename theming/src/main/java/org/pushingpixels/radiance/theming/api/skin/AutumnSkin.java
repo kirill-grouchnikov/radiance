@@ -101,7 +101,7 @@ public class AutumnSkin extends RadianceSkin {
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ mutedResolver);
 
-		// For neutral containers, use tonal on container and container outline
+		// For neutral containers, use active on container and container outline
 		// values for consistency with active controls.
 		PaletteContainerColorsResolver neutralResolver =
 			PaletteResolverUtils.getPaletteColorResolver().overlayWith(

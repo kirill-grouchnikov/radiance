@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.theming.extras.api.painterpack.decoration;
 
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 
 import java.awt.*;
 
@@ -42,7 +42,6 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-// TODO: TONAL convert to tonal world
 public class Glass3DDecorationPainter implements RadianceDecorationPainter {
     /**
      * The display name for the decoration painters of this class.

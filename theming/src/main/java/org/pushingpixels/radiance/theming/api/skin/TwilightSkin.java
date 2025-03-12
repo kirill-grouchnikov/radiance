@@ -145,7 +145,7 @@ public class TwilightSkin extends RadianceSkin {
             twilightSelectedHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.SELECTED);
-        // Selected tabs with tonal (not muted) outlines
+        // Selected tabs with active (not muted) outlines
         twilightDefaultBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF91865D),
