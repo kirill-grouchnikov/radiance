@@ -52,10 +52,10 @@ public class NebulaSkin extends NebulaAccentedSkin {
     public NebulaSkin() {
         super(new AccentBuilder()
             .withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFD6E3EE),
+                /* seed */ Hct.fromInt(0xFFD9E8ED),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()))
             .withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFD7DBE1),
+                /* seed */ Hct.fromInt(0xFFD6E3EE),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()))
             .withHeaderAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF3F7FD),

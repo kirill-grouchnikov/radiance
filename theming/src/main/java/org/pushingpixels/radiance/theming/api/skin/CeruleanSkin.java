@@ -120,10 +120,10 @@ public class CeruleanSkin extends RadianceSkin {
 
 		RadianceColorSchemeBundle ceruleanHeaderBundle = new RadianceColorSchemeBundle(
 			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFF3B7BA8),
-				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
+				/* seed */ Hct.fromInt(0xFFC0DBEE),
+				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFF5B9BC8),
+				/* seed */ Hct.fromInt(0xFF3B7BA8),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
 			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF8BCBF8),
@@ -136,7 +136,7 @@ public class CeruleanSkin extends RadianceSkin {
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(ceruleanHeaderBundle,
-			ceruleanHeaderBundle.getMainColorScheme().getActiveContainerTokens(),
+			ceruleanHeaderBundle.getMainColorScheme().getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

@@ -70,7 +70,7 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 				/* seed */ Hct.fromInt(0xFF91B6CB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFC4C8CC),
+				/* seed */ Hct.fromInt(0xFF9BBACD),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withHeaderAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFA1BCD0),
