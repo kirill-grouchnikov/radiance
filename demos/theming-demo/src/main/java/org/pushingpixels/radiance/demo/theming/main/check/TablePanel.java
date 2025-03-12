@@ -44,8 +44,12 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DragSource;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,6 +61,7 @@ import java.util.Date;
  */
 public class TablePanel extends ControllablePanel implements Deferrable {
     private boolean isInitialized;
+    private static DataFlavor integerFlavor = new DataFlavor(Integer.class, "Row Index");
 
     @Override
     public boolean isInitialized() {
@@ -108,12 +113,40 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         }
     }
 
+    public static class IntegerSelection implements Transferable {
+        private static final DataFlavor[] flavors = { integerFlavor };
+
+        private Integer data;
+
+        public IntegerSelection(Integer data) {
+            this.data = data;
+        }
+
+        @Override
+        public DataFlavor[] getTransferDataFlavors() {
+            return flavors.clone();
+        }
+
+        @Override
+        public boolean isDataFlavorSupported(DataFlavor flavor) {
+            return flavor.equals(flavors[0]);
+        }
+
+        @Override
+        public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+            if (flavor.equals(flavors[0])) {
+                return this.data;
+            }
+            throw new UnsupportedFlavorException(flavor);
+        }
+    }
+
     /**
      * Custom table model.
      *
      * @author Kirill Grouchnikov
      */
-    private static class MyTableModel extends AbstractTableModel {
+    private static class MoveableTableModel extends AbstractTableModel {
         /**
          * The current row count.
          */
@@ -127,7 +160,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         /**
          * The table data.
          */
-        private Object[][] data;
+        private java.util.List<RowData> data;
 
         /**
          * The table column classes.
@@ -137,39 +170,49 @@ public class TablePanel extends ControllablePanel implements Deferrable {
                 Byte.class, Float.class, Double.class, String.class, Date.class,
                 Color.class, ImageIcon.class};
 
+        private static class RowData {
+            public Object[] columns;
+
+            public RowData() {
+                this.columns = new Object[11];
+            }
+        }
+
         /**
          * Creates the custom table model.
          *
          * @param rows Initial number of rows.
          */
-        public MyTableModel(int rows) {
+        public MoveableTableModel(int rows) {
             this.rows = rows;
-            this.data = new Object[rows][this.cols];
+            this.data = new ArrayList<>(rows);
             Icon[] icons = new Icon[] {br.of(16, 16), bg.of(16, 16), ca.of(16, 16), cn.of(16, 16),
                     dk.of(16, 16), fi.of(16, 16), fr.of(16, 16), de.of(16, 16),
                     gr.of(16, 16), hu.of(16, 16), il.of(16, 16), it.of(16, 16),
                     jp.of(16, 16), mx.of(16, 16), nl.of(16, 16), no.of(16, 16)};
             for (int i = 0; i < rows; i++) {
-                this.data[i][0] = "cell " + i + ":" + 0;
-                this.data[i][1] = "predef";
-                this.data[i][2] = "predef";
-                this.data[i][3] = (i % 2 == 0);
-                this.data[i][4] = (byte) i;
-                this.data[i][5] = (float) i;
-                this.data[i][6] = (double) i;
-                this.data[i][7] = "cell " + i + ":" + 6;
+                RowData rowData = new RowData();
+                rowData.columns[0] = "cell " + i + ":" + 0;
+                rowData.columns[1] = "predef";
+                rowData.columns[2] = "predef";
+                rowData.columns[3] = (i % 2 == 0);
+                rowData.columns[4] = (byte) i;
+                rowData.columns[5] = (float) i;
+                rowData.columns[6] = (double) i;
+                rowData.columns[7] = "cell " + i + ":" + 6;
 
                 Calendar cal = Calendar.getInstance();
                 cal.set(2000 + i, 1 + i, 1 + i);
-                this.data[i][8] = cal.getTime();
+                rowData.columns[8] = cal.getTime();
 
                 int comp = i * 20;
                 int red = (comp / 3) % 255;
                 int green = (comp / 2) % 255;
                 int blue = comp % 255;
-                this.data[i][9] = new Color(red, green, blue);
+                rowData.columns[9] = new Color(red, green, blue);
 
-                this.data[i][10] = icons[i % icons.length];
+                rowData.columns[10] = icons[i % icons.length];
+                this.data.add(rowData);
             }
         }
 
@@ -190,7 +233,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
         @Override
         public Object getValueAt(int row, int col) {
-            return this.data[row][col];
+            return this.data.get(row).columns[col];
         }
 
         @Override
@@ -205,8 +248,17 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-            this.data[row][col] = value;
+            this.data.get(row).columns[col] = value;
             this.fireTableCellUpdated(row, col);
+        }
+
+        public void move(int fromIndex, int toIndex) {
+            RowData toMove = this.data.remove(fromIndex);
+            if (fromIndex < toIndex) {
+                toIndex--;
+            }
+            this.data.add(toIndex, toMove);
+            this.fireTableDataChanged();
         }
     }
 
@@ -224,7 +276,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
     @SuppressWarnings("unchecked")
     public synchronized void initialize() {
-        this.table = new JTable(new MyTableModel(20));
+        this.table = new JTable(new MoveableTableModel(20));
 
         this.table.setTransferHandler(new TransferHandler() {
             @Override
@@ -299,14 +351,79 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         }
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 4dlu, fill:pref:grow",
-                2, 19);
+            "right:pref, 4dlu, fill:pref:grow", 2, 20);
 
         builder.appendSeparator("Table settings");
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(table.isEnabled());
         isEnabled.addActionListener(actionEvent -> table.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
+
+        final JCheckBox canDragRows = new JCheckBox("can drag rows");
+        canDragRows.setSelected(table.getDragEnabled());
+        canDragRows.addActionListener(actionEvent -> {
+            boolean becomesDragEnabled = canDragRows.isSelected();
+            if (becomesDragEnabled) {
+                table.setDragEnabled(true);
+                table.setDropMode(DropMode.INSERT_ROWS);
+                table.setTransferHandler(new TransferHandler() {
+                    @Override
+                    protected Transferable createTransferable(JComponent c) {
+                        assert (c == table);
+                        return new IntegerSelection(table.getSelectedRow());
+                    }
+
+                    @Override
+                    public boolean canImport(TransferHandler.TransferSupport info) {
+                        boolean b = (info.getComponent() == table) && info.isDrop()
+                            && info.isDataFlavorSupported(integerFlavor);
+                        table.setCursor(b ? DragSource.DefaultMoveDrop : DragSource.DefaultMoveNoDrop);
+                        return b;
+                    }
+
+                    @Override
+                    public int getSourceActions(JComponent c) {
+                        return TransferHandler.COPY_OR_MOVE;
+                    }
+
+                    @Override
+                    public boolean importData(TransferHandler.TransferSupport info) {
+                        JTable target = (JTable) info.getComponent();
+                        JTable.DropLocation dl = (JTable.DropLocation) info.getDropLocation();
+                        int index = dl.getRow();
+                        int max = table.getModel().getRowCount();
+                        if (index < 0 || index > max)
+                            index = max;
+                        target.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                        try {
+                            Integer rowFrom = (Integer) info.getTransferable().getTransferData(integerFlavor);
+                            if (rowFrom != -1 && rowFrom != index) {
+                                ((MoveableTableModel)table.getModel()).move(rowFrom, index);
+                                if (index > rowFrom)
+                                    index--;
+                                target.getSelectionModel().addSelectionInterval(index, index);
+                                return true;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return false;
+                    }
+
+                    @Override
+                    protected void exportDone(JComponent c, Transferable t, int act) {
+                        if ((act == TransferHandler.MOVE) || (act == TransferHandler.NONE)) {
+                            table.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                        }
+                    }
+                });
+            } else {
+                table.setDragEnabled(false);
+                table.setTransferHandler(null);
+            }
+            table.setEnabled(isEnabled.isSelected());
+        });
+        builder.append("Row reordering", canDragRows);
 
         JButton changeFirstColumn = new JButton("change 1st column");
         changeFirstColumn.addActionListener(actionEvent -> new Thread(() -> {
@@ -326,7 +443,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         rowCountSlider.addChangeListener(changeEvent -> {
             if (rowCountSlider.getValueIsAdjusting())
                 return;
-            TablePanel.this.table.setModel(new MyTableModel(rowCountSlider.getValue()));
+            TablePanel.this.table.setModel(new MoveableTableModel(rowCountSlider.getValue()));
         });
         builder.append("Row count (->10K)", rowCountSlider);
 
@@ -365,7 +482,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
         toHideOddModelRows.setEnabled(false);
         toHideOddModelRows.addActionListener(actionEvent -> {
-            TableRowSorter<MyTableModel> rowSorter = (TableRowSorter<MyTableModel>) table.getRowSorter();
+            TableRowSorter<MoveableTableModel> rowSorter = (TableRowSorter<MoveableTableModel>) table.getRowSorter();
             if (toHideOddModelRows.isSelected()) {
                 rowSorter.setRowFilter(new RowFilter<>() {
                     @Override

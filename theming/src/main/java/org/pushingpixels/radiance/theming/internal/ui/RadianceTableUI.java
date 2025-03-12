@@ -1154,12 +1154,10 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
             return;
         }
 
-        // TODO: TONAL - get the right colors
-        Color color = UIManager.getColor("Table.dropLineColor");
-        Color shortColor = UIManager.getColor("Table.dropLineShortColor");
-        if (color == null && shortColor == null) {
-            return;
-        }
+        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(this.table,
+            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        Color color = tokens.getContainerOutlineVariant();
+        Color shortColor = tokens.getContainerOutline();
 
         Rectangle rect;
 
