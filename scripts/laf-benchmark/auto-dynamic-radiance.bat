@@ -28,7 +28,8 @@
 ::  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 set RADIANCE_VERSION=8.0-SNAPSHOT
+EPHEMERAL_VERSION=1.0-SNAPSHOT
 set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-laf-benchmark-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
-set RADIANCE_CLASSPATH=../../drop/%RADIANCE_VERSION%/core/radiance-theming-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-animation-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-common-%RADIANCE_VERSION%.jar
+set RADIANCE_CLASSPATH=../../drop/%RADIANCE_VERSION%/core/radiance-theming-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-animation-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-common-%RADIANCE_VERSION%.jar;../../build/libs-core/ephemeral-chroma-%EPHEMERAL_VERSION.jar
 
 "%JAVA_HOME%"\bin\java -Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceGeminiLookAndFeel -cp %CLASSPATH%;%RADIANCE_CLASSPATH% org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10
