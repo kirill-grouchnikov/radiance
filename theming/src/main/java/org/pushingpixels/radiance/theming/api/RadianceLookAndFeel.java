@@ -255,7 +255,7 @@ public abstract class RadianceLookAndFeel extends BasicLookAndFeel {
         // Radiance no longer provides its own implementation of this method. It does
         // not scale well for skins that have different color treatments for different
         // decoration areas. It also does not provide enough flexibility for creating
-        // visuals of disabled icons based on a single color vs based on a color scheme
+        // visuals of disabled icons based on a single color vs based on a color tokens
         // that matches the disabled component state.
         //
         // Use RadianceThemingCortex.GlobalScope.setIconFilterStrategies and

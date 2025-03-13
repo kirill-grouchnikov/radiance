@@ -48,7 +48,7 @@ public class NoiseFactory {
 	 * Returns a noise image.
 	 * 
 	 * @param tokens
-	 *            The color scheme to use for rendering the image.
+	 *            The color tokens to use for rendering the image.
 	 * @param width
 	 *            Image width.
 	 * @param height

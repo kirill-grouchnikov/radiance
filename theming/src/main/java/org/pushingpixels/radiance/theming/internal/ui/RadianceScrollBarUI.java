@@ -159,7 +159,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             this.compositeStateTransitionTracker.getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        // Populate color schemes based on the current transition state of the scrollbar.
+        // Populate color tokens based on the current transition state of the scrollbar.
         // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
         // parameter to "populateColorScheme").
         BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
@@ -219,7 +219,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 .getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        // Populate color schemes based on the current transition state of the scrollbar.
+        // Populate color tokens based on the current transition state of the scrollbar.
         // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
         // parameter to "populateColorScheme").
         BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,

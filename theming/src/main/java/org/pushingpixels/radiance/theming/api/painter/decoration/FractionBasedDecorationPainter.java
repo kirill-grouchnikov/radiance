@@ -90,7 +90,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	 * @param decorationAreas
 	 *            Decoration areas that should be painted based on the color
 	 *            queries. All the rest will be filled with a solid color from
-	 *            the background color scheme of the matching decoration area.
+	 *            the background color tokens of the matching decoration area.
 	 */
 	public FractionBasedDecorationPainter(String displayName,
 			float[] fractions, ContainerColorTokensSingleColorQuery[] colorQueries,

@@ -846,7 +846,7 @@ public final class RadianceThemingSlices {
         THEMED_FOLLOW_TEXT,
 
         /**
-         * The icon is themed based on the color scheme that matches the current component state.
+         * The icon is themed based on the color tokens that matches the current component state.
          */
         THEMED_FOLLOW_COLOR_SCHEME
     }
@@ -943,7 +943,7 @@ public final class RadianceThemingSlices {
         private String name;
 
         /**
-         * Fallback for this association kind. This is used when no color scheme is associated with
+         * Fallback for this association kind. This is used when no color tokens is associated with
          * this kind. For example, {@link #HIGHLIGHT_TEXT} specifies that its fallback is
          * {@link #HIGHLIGHT}. When the {@link JTextField} UI delegate is painting its selected
          * part, it will try to use the color tokens associated with {@link #HIGHLIGHT_TEXT}.

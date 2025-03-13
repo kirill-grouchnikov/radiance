@@ -774,7 +774,7 @@ public class RadianceThemingCortex {
          *
          * @param useConstantThemesOnOptionPanes if <code>true</code>, the
          *                                       <code>JOptionPane</code>s created with predefined
-         *                                       message types will use constant color schemes
+         *                                       message types will use constant color tokens
          *                                       for the icons.
          */
         public static void setUseConstantThemesOnOptionPanes(
@@ -1130,8 +1130,8 @@ public class RadianceThemingCortex {
         /**
          * <p>
          * Specifies colorization amount applied to the background and foreground of the current
-         * color scheme and all control. By default, when the application does not use any custom
-         * colors, all the controls are painted with the colors of the current color scheme / skin.
+         * color tokens and all control. By default, when the application does not use any custom
+         * colors, all the controls are painted with the colors of the current color tokens / skin.
          * The colors coming from the look-and-feel implement the marker {@link UIResource}
          * interface which allows the UI delegates to differentiate between application-specific
          * colors which are not changed, and the LAF-provide colors that are changed on LAF switch.
@@ -1139,7 +1139,7 @@ public class RadianceThemingCortex {
          *
          * <p>
          * Calling this method installs the "smart colorization" mode which uses the colors of the
-         * current color scheme and the custom background / foreground colors (when installed by
+         * current color tokens and the custom background / foreground colors (when installed by
          * application) to colorize the relevant portions of the control. For example, on checkbox
          * the custom background color will be used to colorize the check box itself, while the
          * custom foreground color will be applied to the check box text and the check mark.
@@ -1702,7 +1702,7 @@ public class RadianceThemingCortex {
          * </p>
          *
          * <p>
-         * The animation cycles between red, orange and yellow color schemes. In most cases (all but
+         * The animation cycles between red, orange and yellow color tokens. In most cases (all but
          * tabs not marked with
          * {@link #setRunModifiedAnimationOnTabCloseButton(JComponent, Boolean)},
          * {@link #setRunModifiedAnimationOnTabCloseButton(JTabbedPane, Boolean)} and
@@ -2089,8 +2089,8 @@ public class RadianceThemingCortex {
         /**
          * <p>
          * Specifies colorization amount applied to the background and foreground of the current
-         * color scheme and the specific control. By default, when the application does not use any
-         * custom colors, all the controls are painted with the colors of the current color scheme /
+         * color tokens and the specific control. By default, when the application does not use any
+         * custom colors, all the controls are painted with the colors of the current color tokens /
          * skin. The colors coming from the look-and-feel implement the marker {@link UIResource}
          * interface which allows the UI delegates to differentiate between application-specific
          * colors which are not changed, and the LAF-provide colors that are changed on LAF switch.
@@ -2098,7 +2098,7 @@ public class RadianceThemingCortex {
          *
          * <p>
          * Calling this method installs the "smart colorization" mode which uses the colors of the
-         * current color scheme and the custom background / foreground colors (when installed by
+         * current color tokens and the custom background / foreground colors (when installed by
          * application) to colorize the relevant portions of the control. For example, on checkbox
          * the custom background color will be used to colorize the check box itself, while the
          * custom foreground color will be applied to the check box text and the check mark.
@@ -2222,7 +2222,7 @@ public class RadianceThemingCortex {
          * </p>
          *
          * <p>
-         * The animation cycles between red, orange and yellow color schemes. The animation will be
+         * The animation cycles between red, orange and yellow color tokens. The animation will be
          * visible only when the mouse hovers over the close button of the matching container
          * (frame, dialog, internal frame, desktop icon). The tooltip of the close button is changed
          * as well to reflect that the container contents are marked as modified.

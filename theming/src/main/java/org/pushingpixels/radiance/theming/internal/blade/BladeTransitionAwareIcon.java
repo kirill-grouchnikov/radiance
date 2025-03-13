@@ -45,7 +45,7 @@ import java.awt.*;
 
 /**
  * Icon with transition-aware capabilities. Has a delegate that does the actual painting based on
- * the transition color schemes. This class is used heavily on Radiance-provided icons, such as
+ * the transition color tokens. This class is used heavily on Radiance-provided icons, such as
  * title pane button icons, arrow icons on scroll bars and combos etc.
  *
  * @author Kirill Grouchnikov
@@ -54,7 +54,7 @@ import java.awt.*;
 public class BladeTransitionAwareIcon implements Icon {
     /**
      * The delegate needs to implement the method in this interface based on the provided color
-     * scheme. The color scheme is computed based on the transitions that are happening on the
+     * tokens. The color tokens are computed based on the transitions that are happening on the
      * associated component.
      *
      * @author Kirill Grouchnikov

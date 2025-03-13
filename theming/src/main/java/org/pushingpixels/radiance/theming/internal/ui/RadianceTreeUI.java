@@ -101,7 +101,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 	private StateTransitionMultiTracker<TreePathId> stateTransitionMultiTracker;
 
 	/**
-	 * The current default color scheme. Is computed in
+	 * The current default color tokens. Is computed in
 	 * {@link #update(Graphics, JComponent)} and reused in
 	 * {@link RadianceDefaultTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
 	 * for performance optimizations.
@@ -893,7 +893,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 			return;
 		}
 
-		// compute the default color scheme - to optimize the performance
+		// compute the default color tokens - to optimize the performance
 		this.currDefaultColorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
 			ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
 
@@ -957,9 +957,9 @@ public class RadianceTreeUI extends BasicTreeUI {
 	}
 
 	/**
-	 * Returns the default color scheme of this tree. Is for internal use only.
+	 * Returns the default color tokens of this tree. Is for internal use only.
 	 * 
-	 * @return The default color scheme of this tree.
+	 * @return The default color tokens of this tree.
 	 */
 	public ContainerColorTokens getDefaultColorTokens() {
 		return this.currDefaultColorTokens;

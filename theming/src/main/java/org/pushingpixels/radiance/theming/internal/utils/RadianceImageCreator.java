@@ -305,7 +305,7 @@ public final class RadianceImageCreator {
 
     /**
      * Creates a new version of the specified icon that is rendered in the colors of the specified
-     * color scheme.
+     * color tokens.
      *
      * @param comp        Component.
      * @param original    The original icon.
@@ -334,7 +334,7 @@ public final class RadianceImageCreator {
 
     /**
      * Creates a new version of the specified image that is rendered in the colors of the specified
-     * color scheme.
+     * color tokens.
      *
      * @param original                 The original image.
      * @param colorTokens              Color tokens.

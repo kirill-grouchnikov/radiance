@@ -111,7 +111,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                 float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
                 boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
 
-                // Populate color schemes based on the current transition state of the check box.
+                // Populate color tokens based on the current transition state of the check box.
                 BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
                     currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                     false, true, RadianceThemingSlices.ContainerType.MUTED);

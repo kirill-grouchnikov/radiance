@@ -140,16 +140,16 @@ public class SeparatorPainterUtils {
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                 ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
             if (colorTokens == null) {
-                // Then get a background color scheme associated with the
+                // Then get a background color tokens associated with the
                 // decoration type of that separator
                 colorTokens = RadianceCoreUtilities.getSkin(c).getBackgroundContainerTokens(
                     RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c));
             }
         }
         if (colorTokens == null) {
-            // And finally, get the separator's color scheme via the regular
+            // And finally, get the separator's color tokens via the regular
             // route that includes fall back in case there is no explicitly registered
-            // color scheme for the SEPARATOR association kind.
+            // color tokens for the SEPARATOR association kind.
             colorTokens = RadianceColorSchemeUtilities.getContainerTokens(c,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                 ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);

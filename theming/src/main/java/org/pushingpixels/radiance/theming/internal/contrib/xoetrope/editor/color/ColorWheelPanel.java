@@ -193,7 +193,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 		resetBtn.addActionListener(this);
 
         // Create a transition-aware wrapper around our icon so that it is colorized
-        // based on the color scheme that matches the current state of our toggle button
+        // based on the color tokens that matches the current state of our toggle button
         resetBtn.setIcon(new BladeTransitionAwareIcon(resetBtn, new BladeTransitionAwareIcon.Delegate() {
 			@Override
 			public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {

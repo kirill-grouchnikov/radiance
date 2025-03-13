@@ -67,7 +67,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                 .getModelStateInfo();
 
-        // Populate fill and border color schemes based on the current transition state of the button.
+        // Populate color schemes tokens on the current transition state of the button.
         // To create visual continuity between the background of the selected task
         // and its toggle button, we use the decoration painter and not fill painter.
         // We also ignore the selected state of the toggle button to compute the

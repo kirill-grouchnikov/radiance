@@ -45,7 +45,7 @@ import java.awt.*;
 
 /**
  * Implementation of {@link RadianceIcon} for command buttons that wish to have their icon
- * be dynamically rendered at runtime based on the color scheme that matches the current
+ * be dynamically rendered at runtime based on the color tokens that matches the current
  * transition-aware state.
  *
  * @author Kirill Grouchnikov
@@ -64,7 +64,7 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
 
     /**
      * The delegate needs to implement the method in this interface based on the
-     * provided color scheme. The color scheme is computed based on the transitions that are
+     * provided color tokens. The color tokens are computed based on the transitions that are
      * happening on the associated command button.
      *
      * @author Kirill Grouchnikov
@@ -99,7 +99,7 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
      * Creates a new icon.
      *
      * @param colorSchemeAssociationKind Color scheme association kind to use for determining
-     *                                   the color scheme for this icon.
+     *                                   the color tokens for this icon.
      * @param delegate                   Delegate to compute the actual icons.
      * @param initialDim                 Initial icon dimension.
      */

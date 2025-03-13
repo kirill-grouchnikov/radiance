@@ -134,7 +134,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
 
                 float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
 
-                // Populate color schemes based on the current transition state of the radio button.
+                // Populate color tokens based on the current transition state of the radio button.
                 BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
                     currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                     false, true, RadianceThemingSlices.ContainerType.MUTED);

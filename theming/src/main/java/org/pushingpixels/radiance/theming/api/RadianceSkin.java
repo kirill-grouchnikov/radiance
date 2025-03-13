@@ -52,11 +52,11 @@ import java.util.List;
  */
 public abstract class RadianceSkin implements RadianceTrait {
     /**
-     * Base class for skins that can be configured with accent color schemes. Accented skins can
-     * be extended to apply those color schemes in a way that highlights certain parts of
+     * Base class for skins that can be configured with accent color tokens. Accented skins can
+     * be extended to apply those color tokens in a way that highlights certain parts of
      * the UI while still retaining the "core" feel of the specific skin family. Note that
      * it is up to the specific implementation of the base accented skin to decide which
-     * parts of the UI are painted with specific accent color schemes, and that decision may vary
+     * parts of the UI are painted with specific accent color tokens, and that decision may vary
      * between different base accented skins.
      * <p>
      * This class exposes APIs to get the accent tokens for consistent accent usage
@@ -202,7 +202,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle> tonalColorSchemeMap;
 
     /**
-     * Maps decoration area type to the background color schemes.
+     * Maps decoration area type to the background color tokens.
      */
     private Map<RadianceThemingSlices.DecorationAreaType, ContainerColorTokens> tonalBackgroundTokensMap;
 
@@ -358,12 +358,12 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the color scheme of the specified component in the specified
+     * Returns the color tokens of the specified component in the specified
      * component state.
      *
      * @param comp           Component.
      * @param componentState Component state.
-     * @return The color scheme of the component in the specified component state.
+     * @return The color tokens of the component in the specified component state.
      */
     public final ContainerColorTokens getContainerTokens(Component comp,
         ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
@@ -436,7 +436,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Registers the specified color scheme bundle and background color scheme
+     * Registers the specified color scheme bundle and background color tokens
      * to be used on controls in decoration areas.
      *
      * @param bundle                The color scheme bundle to use on controls in decoration
@@ -480,7 +480,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Registers the specified background color scheme to be used on controls in
+     * Registers the specified background color tokens to be used on controls in
      * decoration areas.
      *
      * @param backgroundContainerTokens The color tokens to use for background of controls in
@@ -614,7 +614,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the color scheme to be used for painting the specified visual
+     * Returns the color tokens to be used for painting the specified visual
      * area of the component under the specified component state.
      *
      * @param comp            Component.
@@ -645,58 +645,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
             .getContainerTokens(associationKind, componentState, inactiveContainerType);
     }
-
-    /**
-     * Creates a new skin that has the same settings as this skin with the
-     * addition of applying the specified color scheme transformation on all the
-     * relevant color schemes.
-     *
-     * @param transform Color scheme transformation.
-     * @param name      The name of the new skin.
-     * @return The new skin.
-     */
-//    public RadianceSkin transform(ColorSchemeTransform transform, final String name) {
-//        RadianceSkin result = new RadianceSkin() {
-//            @Override
-//            public String getDisplayName() {
-//                return name;
-//            }
-//        };
-//        // same painters
-//        result.borderPainter = this.borderPainter;
-//        result.buttonShaper = this.buttonShaper;
-//        result.decorationPainter = this.decorationPainter;
-//        result.fillPainter = this.fillPainter;
-//        result.highlightFillPainter = this.highlightFillPainter;
-//        result.highlightBorderPainter = this.highlightBorderPainter;
-//
-//        // transform the scheme bundles
-//        if (this.colorSchemeBundleMap != null) {
-//            result.colorSchemeBundleMap = new HashMap<>();
-//            for (Map.Entry<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle> bundleEntry :
-//                    this.colorSchemeBundleMap.entrySet()) {
-//                result.colorSchemeBundleMap.put(bundleEntry.getKey(),
-//                        bundleEntry.getValue().transform(transform));
-//            }
-//        }
-//
-//        // same set of decoration areas
-//        if (this.decoratedAreaSet != null) {
-//            result.decoratedAreaSet = new HashSet<>(this.decoratedAreaSet);
-//        }
-//        // transform the background schemes
-//        if (this.backgroundColorSchemeMap != null) {
-//            result.backgroundColorSchemeMap = new HashMap<>();
-//            for (Map.Entry<RadianceThemingSlices.DecorationAreaType, RadianceColorScheme> entry :
-//                    this.backgroundColorSchemeMap.entrySet()) {
-//                result.backgroundColorSchemeMap.put(entry.getKey(),
-//                        transform.transform(entry.getValue()));
-//            }
-//        }
-//        // same map of overlay painters
-//        result.overlayPaintersMap = new HashMap<>(this.overlayPaintersMap);
-//        return result;
-//    }
 
     /**
      * Returns the background color tokens for the specified decoration area

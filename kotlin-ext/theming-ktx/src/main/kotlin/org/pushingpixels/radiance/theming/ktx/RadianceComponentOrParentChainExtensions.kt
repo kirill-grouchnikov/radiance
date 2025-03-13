@@ -78,14 +78,14 @@ public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
 
 /**
  * Specifies colorization amount applied to the background and foreground of the current
- * color scheme and the specific control. By default, when the application does not use any
- * custom colors, all the controls are painted with the colors of the current color scheme /
+ * color tokens and the specific control. By default, when the application does not use any
+ * custom colors, all the controls are painted with the colors of the current color tokens /
  * skin. The colors coming from the look-and-feel implement the marker [UIResource]
  * interface which allows the UI delegates to differentiate between application-specific
  * colors which are not changed, and the LAF-provide colors that are changed on LAF switch.
  *
  * Calling this method installs the "smart colorization" mode which uses the colors of the
- * current color scheme and the custom background / foreground colors (when installed by
+ * current color tokens and the custom background / foreground colors (when installed by
  * application) to colorize the relevant portions of the control. For example, on checkbox
  * the custom background color will be used to colorize the check box itself, while the
  * custom foreground color will be applied to the check box text and the check mark.

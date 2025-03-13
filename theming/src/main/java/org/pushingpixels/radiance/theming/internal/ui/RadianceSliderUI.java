@@ -224,7 +224,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     this.paintSliderTrack1X(graphics1X, trackColorTokensUnselected,
                         scaledWidth, scaledHeight, scaleFactor, currState);
 
-                    // Populate color schemes based on the current transition state of the slider.
+                    // Populate color tokens based on the current transition state of the slider.
                     BladeUtils.populateColorTokens(mutableColorTokens, this.slider,
                         modelStateInfo, currState,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,

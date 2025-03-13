@@ -250,7 +250,7 @@ public class RadianceColorUtilities {
     }
 
     /**
-     * Returns the foreground color of the specified color scheme.
+     * Returns the foreground color of the specified color tokens.
      *
      * @param colorTokens Color tokens.
      * @return Color tokens foreground color.
@@ -364,7 +364,7 @@ public class RadianceColorUtilities {
             modelStateInfo.getStateContributionMap();
 
         // special case for enabled buttons with no background -
-        // always use the color scheme for the default state.
+        // always use the color tokens for the default state.
         if (component instanceof AbstractButton) {
             AbstractButton button = (AbstractButton) component;
             if (RadianceCoreUtilities.isComponentNeverPainted(button)
@@ -430,7 +430,7 @@ public class RadianceColorUtilities {
             modelStateInfo.getStateContributionMap();
 
         // special case for enabled buttons with no background -
-        // always use the color scheme for the default state.
+        // always use the color tokens for the default state.
         if (component instanceof AbstractButton) {
             AbstractButton button = (AbstractButton) component;
             if (RadianceCoreUtilities.isComponentNeverPainted(button)
@@ -494,7 +494,7 @@ public class RadianceColorUtilities {
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         // special case for enabled buttons with no background -
-        // always use the color scheme for the default state.
+        // always use the color tokens for the default state.
         if (component instanceof AbstractButton) {
             AbstractButton button = (AbstractButton) component;
             if (RadianceCoreUtilities.isComponentNeverPainted(button)

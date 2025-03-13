@@ -112,7 +112,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                     }
                 }
             } else {
-                // use highlight color scheme for selected and rollover
+                // use highlight color tokens for selected and rollover
                 // elements in the drop down list
                 StateTransitionTracker.ModelStateInfo modelStateInfo = listUI.getModelStateInfo(index);
                 ComponentState currState = listUI.getCellState(index, result);

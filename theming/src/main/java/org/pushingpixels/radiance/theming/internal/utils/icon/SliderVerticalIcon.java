@@ -74,7 +74,7 @@ public class SliderVerticalIcon implements Icon, UIResource {
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        // Populate color schemes based on the current transition state of the slider.
+        // Populate color tokens based on the current transition state of the slider.
         BladeUtils.populateColorTokens(mutableColorTokens, this.slider, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             false, false, RadianceThemingSlices.ContainerType.MUTED);

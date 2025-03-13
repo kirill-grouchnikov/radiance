@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -130,9 +130,8 @@ public class FakeAccordion extends JPanel {
                         return;
                     }
 
-                    // Use the border visuals from the current skin.
-                    // Note the usage of ColorSchemeAssociationKind.BORDER to retrieve
-                    // the matching color scheme, and subsequent usage of
+                    // Use the border visuals from the current skin. We get the color tokens that
+                    // match the DEFAULT association kind, and then use
                     // RadianceBorderPainter.paintBorder with our custom curving paths
 
                     Graphics2D graphics = (Graphics2D) g.create();

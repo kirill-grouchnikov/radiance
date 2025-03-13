@@ -62,7 +62,7 @@ public class ThreadListPanel extends PanelWithRightLine {
             ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
 
         this.setRightLineColor(colorTokens.getContainerOutline());
-        // Get the color schemes for colorizing the icons.
+        // Get the color tokens for colorizing the icons.
         Color mainSelectorIconColor = colorTokens.getOnContainer();
         Color labelBackgroundColor = colorTokens.getContainerSurfaceHigh();
         Color labelSeparatorColor = colorTokens.getContainerOutline();

@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.ktx
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import javax.swing.JComponent
 import javax.swing.JInternalFrame
 import javax.swing.JRootPane
@@ -56,7 +56,7 @@ public fun JRootPane.setSkin(skin: RadianceSkin) {
  * [JInternalFrame.JDesktopIcon]), the close button of the its desktop icon is
  * animated as well.
  *
- * The animation cycles between red, orange and yellow color schemes. The animation will be
+ * The animation cycles between red, orange and yellow color tokens. The animation will be
  * visible only when the mouse hovers over the close button of the matching container
  * (frame, dialog, internal frame, desktop icon). The tooltip of the close button is changed
  * as well to reflect that the container contents are marked as modified.

@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import java.awt.*;
 
 /**
- * Defines a query that returns a single color based on a color scheme.
+ * Defines a query that returns a single color based on a color tokens.
  * 
  * @author Kirill Grouchnikov
  */

@@ -69,10 +69,6 @@ public class RadianceColorSchemeBundle {
 
     private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> colorTokensForEnabledState;
 
-    public interface Overlay {
-        void overlay(RadianceColorSchemeBundle bundle);
-    }
-
     public RadianceColorSchemeBundle(ContainerColorTokens activeContainerTokens,
         ContainerColorTokens mutedContainerTokens, ContainerColorTokens neutralContainerTokens,
         boolean isSystemDark) {
@@ -259,9 +255,9 @@ public class RadianceColorSchemeBundle {
      *
      * @param stateContainerTokens Container color tokens for the specified active component states.
      * @param associationKind Color scheme association kind that specifies the visual areas
-     *                        of controls to be painted with this color scheme.
+     *                        of controls to be painted with this color tokens.
      * @param activeStates          Component states that further restrict the usage of the
-     *                        specified color scheme.
+     *                        specified color tokens.
      */
     public void registerActiveContainerTokens(ContainerColorTokens stateContainerTokens,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
@@ -276,7 +272,7 @@ public class RadianceColorSchemeBundle {
 
         for (ComponentState state : activeStates) {
             if (state.isDisabled() || !state.isActive()) {
-                throw new IllegalArgumentException("Only active states can have custom color schemes");
+                throw new IllegalArgumentException("Only active states can have custom color tokens");
             }
             this.colorTokensForActiveStates.get(associationKind).put(state, stateContainerTokens);
         }

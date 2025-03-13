@@ -41,18 +41,18 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Utilities related to color schemes. This class is for internal use only.
+ * Utilities related to color tokens. This class is for internal use only.
  *
  * @author Kirill Grouchnikov
  */
 public class RadianceColorSchemeUtilities {
     /**
-     * Returns the color scheme of the specified tabbed pane tab.
+     * Returns the color tokens of the specified tabbed pane tab.
      *
      * @param jtp            Tabbed pane.
      * @param tabIndex       Tab index.
      * @param componentState Tab component state.
-     * @return The color scheme of the specified tabbed pane tab.
+     * @return The color tokens of the specified tabbed pane tab.
      */
     public static ContainerColorTokens getContainerTokens(final JTabbedPane jtp, final int tabIndex,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
@@ -80,7 +80,7 @@ public class RadianceColorSchemeUtilities {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         // special case - if the component is marked as flat and
         // it is in the default state, or it is a button
-        // that is never painting its background - get the color scheme of the
+        // that is never painting its background - get the color tokens of the
         // parent
         boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
             && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
@@ -103,12 +103,12 @@ public class RadianceColorSchemeUtilities {
     }
 
     /**
-     * Returns the color scheme of the component.
+     * Returns the color tokens of the component.
      *
      * @param component       Component.
      * @param associationKind Association kind.
      * @param componentState  Component state.
-     * @return Component color scheme.
+     * @return Component color tokens.
      */
     public static ContainerColorTokens getContainerTokens(Component component,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
@@ -118,12 +118,12 @@ public class RadianceColorSchemeUtilities {
     }
 
     /**
-     * Returns the color scheme of the component.
+     * Returns the color tokens of the component.
      *
      * @param component       Component.
      * @param associationKind Association kind.
      * @param componentState  Component state.
-     * @return Component color scheme.
+     * @return Component color tokens.
      */
     public static ContainerColorTokens getContainerTokens(Component component,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
@@ -131,7 +131,7 @@ public class RadianceColorSchemeUtilities {
         boolean skipFlatCheck) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
 
-        // special case - if the component is marked as flat, get the color scheme of the parent.
+        // special case - if the component is marked as flat, get the color tokens of the parent.
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
         if (!skipFlatCheck && !(component instanceof JToolBar)
@@ -152,16 +152,16 @@ public class RadianceColorSchemeUtilities {
     }
 
     /**
-     * Returns the active color scheme of the component.
+     * Returns the active color tokens of the component.
      *
      * @param component      Component.
      * @param componentState Component state.
-     * @return Component color scheme.
+     * @return Component color tokens.
      */
     public static ContainerColorTokens getActiveContainerTokens(Component component,
             ComponentState componentState) {
         // special case - if the component is marked as flat and
-        // it is in the enabled state, get the color scheme of the parent.
+        // it is in the enabled state, get the color tokens of the parent.
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
         if (!(component instanceof JToolBar)

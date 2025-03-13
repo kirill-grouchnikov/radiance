@@ -155,7 +155,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             /* seed */ Hct.fromInt(0xFFFF991C),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
-        // register state-specific color schemes on rollovers, presses and selections
+        // register state-specific color tokens on rollovers, presses and selections
         officeBlueDefaultBundle.registerActiveContainerTokens(rolloverContainerTokens,
             ComponentState.ROLLOVER_UNSELECTED);
         officeBlueDefaultBundle.registerActiveContainerTokens(rolloverSelectedContainerTokens,
@@ -167,7 +167,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
         officeBlueDefaultBundle.registerActiveContainerTokens(pressedSelectedContainerTokens,
             ComponentState.PRESSED_SELECTED);
 
-        // register state-specific highlight color schemes on rollover and selections
+        // register state-specific highlight color tokens on rollover and selections
         officeBlueDefaultBundle.registerActiveContainerTokens(rolloverContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.ROLLOVER_UNSELECTED);
@@ -206,7 +206,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
 
-        // register state-specific color schemes on mark rollovers, presses and selections
+        // register state-specific color tokens on mark rollovers, presses and selections
         officeBlueDefaultBundle.registerActiveContainerTokens(rolloverMarkContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             ComponentState.ROLLOVER_UNSELECTED);

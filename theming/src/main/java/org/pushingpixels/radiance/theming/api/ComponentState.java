@@ -74,17 +74,17 @@ import java.util.*;
  * aim to cover all possible combinations of on and off facets. In addition to
  * making this class too unwieldy, it is not possible to do since application
  * code can define its own facets. Instead, Radiance provides three ways to
- * fine-tune the mapping between the component states and the color schemes used
+ * fine-tune the mapping between the component states and the color tokens used
  * to paint the components.
  * </p>
  *
  * <ol>
- * <li>When the skin is queried for the color scheme that matches the specific
+ * <li>When the skin is queried for the color tokens that matches the specific
  * component state - let's say {@link ComponentState#PRESSED_SELECTED} - the
  * skinning layer first looks for the exact state (as passed to
  * {@link RadianceColorSchemeBundle#registerActiveContainerTokens(ContainerColorTokens, ComponentState...)}
  * or similar APIs). If the exact match is found, it is used. If there is no
- * exact match, the skinning layer will look at all color schemes registered for
+ * exact match, the skinning layer will look at all color tokens registered for
  * the specific color scheme association kind in the matching color scheme
  * bundle. The decision is made based on how "close" the registered component
  * state is to the component state of the currently painted component. For
@@ -97,7 +97,7 @@ import java.util.*;
  * sufficiently close. For example, {@link ComponentState#DISABLED_SELECTED}
  * will never be chosen for {@link ComponentState#SELECTED}, even if there are
  * no other registered component states. This way the application code can
- * register a few color schemes in the specific bundle, and have all other
+ * register a few color tokens in the specific bundle, and have all other
  * states "fall back" to the smaller subset of states.</li>
  * <li>Custom application components may have facets that do not directly map to
  * the core facets defined in the {@link RadianceThemingSlices.ComponentStateFacet} class. In this
@@ -106,7 +106,7 @@ import java.util.*;
  * custom code will be in the UI delegates that compute the current state of the
  * custom component using the new facets. Other part of the custom code will be
  * in the skin definition that maps the component states defined with the new
- * facets to the specific color schemes.</li>
+ * facets to the specific color tokens.</li>
  * </ol>
  *
  * <p>
@@ -131,7 +131,7 @@ import java.util.*;
  * When this (perhaps elaborate) state is passed to
  * {@link RadianceColorSchemeBundle#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
  * API, the procedure described above will match the this state to one of
- * the "base" states defined in your skin, and use the matching color scheme.</li>
+ * the "base" states defined in your skin, and use the matching color tokens.</li>
  * </ul>
  *
  * <p>
@@ -144,13 +144,13 @@ import java.util.*;
  *
  * <p>
  * When the matching algorithm cannot find a sufficiently close match, the
- * skinning layer will fall back on one of the three base color schemes passed
+ * skinning layer will fall back on one of the three base color tokens passed
  * to the {@link RadianceColorSchemeBundle} constructor.
  * States with {@link RadianceThemingSlices.ComponentStateFacet#ENABLE} in their off list
- * will fall back to the matching enabled color scheme. The
- * {@link ComponentState#ENABLED} will fall back to the enabled color scheme.
- * The rest of the states will fall back to the active color scheme. To change
- * the fallback behavior pass a non-null fallback color scheme to the
+ * will fall back to the matching enabled color tokens. The
+ * {@link ComponentState#ENABLED} will fall back to the enabled color tokens.
+ * The rest of the states will fall back to the active color tokens. To change
+ * the fallback behavior pass a non-null fallback color tokens to the
  * {@link ComponentState#ComponentState(String, ComponentState, ComponentState, RadianceThemingSlices.ComponentStateFacet[], RadianceThemingSlices.ComponentStateFacet[])}
  * constructor as the second parameter.
  * </p>

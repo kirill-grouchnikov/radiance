@@ -197,7 +197,7 @@ public class BladeUtils {
                     // Skip a zero-amount contribution
                     continue;
                 }
-                // Get the color scheme that matches the contribution state
+                // Get the color tokens that matches the contribution state
                 ContainerColorTokens contributionColorTokens = (treatEnabledAsActive && (activeState == ComponentState.ENABLED))
                         ? RadianceColorSchemeUtilities.getActiveContainerTokens(component, activeState)
                         : RadianceColorSchemeUtilities.getContainerTokens(component, associationKind, activeState, inactiveContainerType);
@@ -407,7 +407,7 @@ public class BladeUtils {
             }
         }
 
-        // Update the mutable color scheme with the interpolated colors
+        // Update the mutable color tokens with the interpolated colors
         bladeContainerTokens.containerSurfaceLowest = containerSurfaceLowest;
         bladeContainerTokens.containerSurfaceLow = containerSurfaceLow;
         bladeContainerTokens.containerSurface = containerSurface;
@@ -485,7 +485,7 @@ public class BladeUtils {
                     // Skip a zero-amount contribution
                     continue;
                 }
-                // Get the color scheme that matches the contribution state
+                // Get the color tokens that matches the contribution state
                 ContainerColorTokens contributionColorTokens =
                     RadianceColorSchemeUtilities.getContainerTokens(
                         tabbedPane, tabIndex, associationKind, activeState);

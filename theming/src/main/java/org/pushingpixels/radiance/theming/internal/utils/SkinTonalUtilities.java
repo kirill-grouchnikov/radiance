@@ -585,7 +585,7 @@ public class SkinTonalUtilities {
                 selectionCellForegroundColor,
 
                 // This is a very rough "approximation" since the menu bar can be painted with the decoration
-                // painter which may or may not use any particular color from the color schemes
+                // painter which may or may not use any particular color from the color tokens
                 "MenuBar.background",
                 new ColorUIResource(skin.getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getContainerSurface()),
 

@@ -302,7 +302,7 @@ public fun AbstractButton.setToolbarButtonCornerRadius(toolbarButtonCornerRadius
  * [JTabbedPane.setRunModifiedAnimationOnTabCloseButton] APIs control whether
  * the entire tab or its close button area is animated.
  *
- * The animation cycles between red, orange and yellow color schemes. In most cases (all but
+ * The animation cycles between red, orange and yellow color tokens. In most cases (all but
  * tabs not marked with
  * [JTabbedPane.setRunModifiedAnimationOnTabCloseButton] and
  * [JTabbedPane.setRunModifiedAnimationOnTabCloseButton] APIs), the animation

@@ -116,13 +116,13 @@ public class RadianceSynapse {
 
     /**
      * Client property name for specifying the colorization amount applied to the background and
-     * foreground of the current color scheme and the application controls.
+     * foreground of the current color tokens and the application controls.
      */
     public final static String COLORIZATION_FACTOR = "radiance.theming.internal.colorizationFactor";
 
     /**
      * Client property name for specifying that icons on <code>JOptionPane</code>s created with
-     * predefined message types will use constant color schemes for the icons.
+     * predefined message types will use constant color tokens for the icons.
      */
     public final static String USE_THEMED_ICONS_ON_OPTION_PANES = "radiance.theming.internal.useThemedIconsOnOptionPanes";
 

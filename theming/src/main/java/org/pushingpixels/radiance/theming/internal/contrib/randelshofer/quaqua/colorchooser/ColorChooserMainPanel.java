@@ -62,7 +62,7 @@ public class ColorChooserMainPanel extends javax.swing.JPanel {
         } else {
             JToggleButton tb = new JToggleButton();
             // Create a transition-aware wrapper around our icon so that it is colorized
-            // based on the color scheme that matches the current state of our toggle button
+            // based on the color tokens that matches the current state of our toggle button
             tb.setIcon(new BladeTransitionAwareIcon(tb, new BladeTransitionAwareIcon.Delegate() {
                 @Override
                 public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
