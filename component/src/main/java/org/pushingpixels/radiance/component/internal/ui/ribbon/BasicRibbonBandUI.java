@@ -31,7 +31,10 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;

@@ -61,8 +61,8 @@ import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeListener;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * Basic UI for ribbon {@link JRibbon}.

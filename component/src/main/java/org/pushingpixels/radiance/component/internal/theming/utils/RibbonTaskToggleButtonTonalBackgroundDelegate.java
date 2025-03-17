@@ -130,7 +130,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
 
             RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
 
-            drawFullAlphaBackgroundImage(graphics, button, finalTokens, borderPainter);
+            drawFullAlphaBackground(graphics, button, finalTokens, borderPainter);
 
             graphics.dispose();
         }
@@ -141,7 +141,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                 RadianceSizeUtils.getComponentFontSize(button), 3.0f, 6, 1.0f);
     }
 
-    private static void drawFullAlphaBackgroundImage(Graphics2D g,
+    private static void drawFullAlphaBackground(Graphics2D g,
         JRibbonTaskToggleButton button,
         ContainerColorTokens tokens,
         RadianceBorderPainter borderPainter) {

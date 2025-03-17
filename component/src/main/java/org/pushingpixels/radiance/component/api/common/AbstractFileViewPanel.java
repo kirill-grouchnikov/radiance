@@ -42,8 +42,8 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandPanelPr
 import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * Panel that hosts file-related command buttons with progress indication and cancellation

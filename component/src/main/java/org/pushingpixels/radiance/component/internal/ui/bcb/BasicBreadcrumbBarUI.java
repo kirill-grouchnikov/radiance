@@ -34,8 +34,8 @@ package org.pushingpixels.radiance.component.internal.ui.bcb;
 
 import org.pushingpixels.radiance.component.api.bcb.*;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;

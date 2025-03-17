@@ -37,8 +37,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * Manager for showing and hiding {@link JPopupPanel}s.

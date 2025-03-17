@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
-import org.pushingpixels.radiance.component.api.ribbon.synapse.JRibbonComboBox;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;

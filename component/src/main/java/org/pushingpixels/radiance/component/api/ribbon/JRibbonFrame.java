@@ -62,8 +62,8 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
