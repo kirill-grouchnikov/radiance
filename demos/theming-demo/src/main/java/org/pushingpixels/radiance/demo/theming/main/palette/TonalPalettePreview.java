@@ -41,14 +41,20 @@ import java.awt.geom.Rectangle2D;
 
 public class TonalPalettePreview extends JComponent {
     private BaseTonalPalette tonalPalette;
+    private boolean showLegend;
 
     public TonalPalettePreview(BaseTonalPalette tonalPalette) {
+        this(tonalPalette, true);
+    }
+
+    public TonalPalettePreview(BaseTonalPalette tonalPalette, boolean showLegend) {
         this.tonalPalette = tonalPalette;
+        this.showLegend = showLegend;
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(440, 40);
+        return new Dimension(440, showLegend ? 40 : 20);
     }
 
     @Override
@@ -59,15 +65,18 @@ public class TonalPalettePreview extends JComponent {
         int xOffset = 10;
 
         for (int tone = 0; tone <= 100; tone += 5) {
+            if (showLegend) {
+                String toneLabel = "" + tone;
+                int toneLabelWidth = fm.stringWidth(toneLabel);
+                g2d.drawString(toneLabel, xOffset + (20 - toneLabelWidth) / 2, 15);
+            }
+
             int toneRgb = this.tonalPalette.tone(tone);
             Color toneColor = new Color(toneRgb);
-            paintSquare(g2d, xOffset, 20, 20, toneColor);
+            paintSquare(g2d, xOffset, showLegend ? 20 : 0, 20, toneColor);
             g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this)
                 .getContainerTokens(this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL)
                 .getOnContainer());
-            String toneLabel = "" + tone;
-            int toneLabelWidth = fm.stringWidth(toneLabel);
-            g2d.drawString(toneLabel, xOffset + (20 - toneLabelWidth) / 2, 15);
             xOffset += 20;
         }
 
