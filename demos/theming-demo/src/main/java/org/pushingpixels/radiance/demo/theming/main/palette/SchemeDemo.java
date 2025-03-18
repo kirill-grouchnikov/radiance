@@ -59,19 +59,19 @@ public class SchemeDemo extends JFrame {
 
         int row = 1;
 
-        BaseTonalPalette activePalette = TonalPalette.fromHct(Hct.from(340.0, 40.0, 40.0));
-        BaseTonalPalette mutedPalette = TonalPalette.fromHct(Hct.from(340.0, 16.0, 40.0));
-        BaseTonalPalette neutralPalette = TonalPalette.fromHct(Hct.from(340.0, 6.0, 40.0));
+        BaseTonalPalette activePalette = TonalPalette.fromHct(Hct.from(300.0, 40.0, 40.0));
+        BaseTonalPalette mutedPalette = TonalPalette.fromHct(Hct.from(300.0, 18.0, 40.0));
+        BaseTonalPalette neutralPalette = TonalPalette.fromHct(Hct.from(300.0, 8.0, 40.0));
 
         RadianceColorSchemeBundle lightBundle = new RadianceColorSchemeBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ activePalette.getHct(80.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ mutedPalette.getHct(80.0),
+                /* seed */ mutedPalette.getHct(85.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ neutralPalette.getHct(80.0),
+                /* seed */ neutralPalette.getHct(95.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
 
@@ -80,10 +80,10 @@ public class SchemeDemo extends JFrame {
                 /* seed */ activePalette.getHct(20.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ mutedPalette.getHct(20.0),
+                /* seed */ mutedPalette.getHct(16.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ neutralPalette.getHct(20.0),
+                /* seed */ neutralPalette.getHct(8.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* isSystemDark */ false);
 

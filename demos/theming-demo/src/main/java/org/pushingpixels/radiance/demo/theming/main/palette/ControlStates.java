@@ -31,8 +31,13 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
+import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
@@ -78,31 +83,21 @@ public class ControlStates extends JFrame {
 
     private static class SampleSkin extends RadianceSkin {
         public SampleSkin() {
+            BaseTonalPalette activePalette = TonalPalette.fromHct(Hct.from(300.0, 40.0, 40.0));
+            BaseTonalPalette mutedPalette = TonalPalette.fromHct(Hct.from(300.0, 18.0, 40.0));
+            BaseTonalPalette neutralPalette = TonalPalette.fromHct(Hct.from(300.0, 8.0, 40.0));
+
             RadianceColorSchemeBundle defaultBundle = new RadianceColorSchemeBundle(
                 /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFE7C5FF),
+                    /* seed */ activePalette.getHct(80.0),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
                 /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFE7DAFF),
+                    /* seed */ mutedPalette.getHct(85.0),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
                 /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFFF6F0F6),
+                    /* seed */ neutralPalette.getHct(95.0),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
                 /* isSystemDark */ false);
-
-            defaultBundle.registerActiveContainerTokens(
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF20F490),
-                    /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                ComponentState.getActiveStates());
-
-            defaultBundle.registerActiveContainerTokens(
-                ColorSchemeUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF20F490),
-                    /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                ComponentState.getActiveStates());
 
             this.registerDecorationAreaSchemeBundle(defaultBundle,
                     RadianceThemingSlices.DecorationAreaType.NONE);
