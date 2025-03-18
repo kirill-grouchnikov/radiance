@@ -42,8 +42,8 @@ import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
-public class Step1ChromaDemo extends JFrame {
-    public Step1ChromaDemo() {
+public class Step1HueDemo extends JFrame {
+    public Step1HueDemo() {
         super("Chroma Palette");
 
         RadianceLogo.tonalConfigureOn(this);
@@ -51,16 +51,15 @@ public class Step1ChromaDemo extends JFrame {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow").
                 rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg," +
-                    "p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg," +
-                    "p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg").
+                    "p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
         int row = 1;
 
-        for (int i = 0; i < 20; i++) {
-            double chroma = i * 4.0;
-            BaseTonalPalette palette = TonalPalette.fromHct(Hct.from(340.0, chroma, 40.0));
-            builder.addROLabel("Chroma=" + chroma).xy(1, row, "right, bottom")
+        for (int i = 0; i < 18; i++) {
+            double hue = i * 20;
+            BaseTonalPalette palette = TonalPalette.fromHct(Hct.from(hue, 80.0, 40.0));
+            builder.addROLabel("Hue=" + hue).xy(1, row, "right, bottom")
                 .add(new TonalPalettePreview(palette, (i == 0))).xy(3, row);
             row += 2;
         }
@@ -77,7 +76,7 @@ public class Step1ChromaDemo extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
-            new Step1ChromaDemo().setVisible(true);
+            new Step1HueDemo().setVisible(true);
         });
     }
 }

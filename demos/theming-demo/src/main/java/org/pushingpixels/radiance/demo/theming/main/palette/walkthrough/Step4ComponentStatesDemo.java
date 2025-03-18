@@ -51,8 +51,8 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import javax.swing.*;
 import java.awt.*;
 
-public class Step4ComponentStates extends JFrame {
-    public Step4ComponentStates() {
+public class Step4ComponentStatesDemo extends JFrame {
+    public Step4ComponentStatesDemo() {
         super("Chroma Palette");
 
         this.setLayout(new FlowLayout());
@@ -128,7 +128,7 @@ public class Step4ComponentStates extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(tonalSkin);
-            new Step4ComponentStates().setVisible(true);
+            new Step4ComponentStatesDemo().setVisible(true);
         });
     }
 
