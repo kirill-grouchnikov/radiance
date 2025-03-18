@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.demo.theming.main.palette;
+package org.pushingpixels.radiance.demo.theming.main.palette.walkthrough;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
@@ -37,6 +37,9 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
+import org.pushingpixels.radiance.demo.theming.main.palette.ContainerPalettePreview;
+import org.pushingpixels.radiance.demo.theming.main.palette.ContainerPreview;
+import org.pushingpixels.radiance.demo.theming.main.palette.TonalPalettePreview;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;

@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.demo.theming.main.palette;
+package org.pushingpixels.radiance.demo.theming.main.palette.walkthrough;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
@@ -35,14 +35,15 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
+import org.pushingpixels.radiance.demo.theming.main.palette.TonalPalettePreview;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
-public class HueDemo extends JFrame {
-    public HueDemo() {
+public class ChromaDemo extends JFrame {
+    public ChromaDemo() {
         super("Chroma Palette");
 
         RadianceLogo.tonalConfigureOn(this);
@@ -57,9 +58,9 @@ public class HueDemo extends JFrame {
         int row = 1;
 
         for (int i = 0; i < 20; i++) {
-            double hue = i * 18;
-            BaseTonalPalette palette = TonalPalette.fromHct(Hct.from(hue, 80.0, 40.0));
-            builder.addROLabel("Hue=" + hue).xy(1, row, "right, bottom")
+            double chroma = i * 4.0;
+            BaseTonalPalette palette = TonalPalette.fromHct(Hct.from(340.0, chroma, 40.0));
+            builder.addROLabel("Chroma=" + chroma).xy(1, row, "right, bottom")
                 .add(new TonalPalettePreview(palette, (i == 0))).xy(3, row);
             row += 2;
         }
@@ -76,7 +77,7 @@ public class HueDemo extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
-            new HueDemo().setVisible(true);
+            new ChromaDemo().setVisible(true);
         });
     }
 }
