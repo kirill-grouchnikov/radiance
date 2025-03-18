@@ -72,6 +72,7 @@ public class BimodalPaletteRangePreview extends JComponent {
                 /* name= */ "",
                 /* tone= */ (p) -> (double) finalTone,
                 /* isBackground= */ true,
+                /* isInverse= */ false,
                 /* background= */ null,
                 /* secondBackground= */ null,
                 /* contrastCurve= */ null);

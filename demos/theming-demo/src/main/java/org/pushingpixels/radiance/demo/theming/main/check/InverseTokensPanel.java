@@ -39,11 +39,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
- * Test application panel for testing surface tokens.
+ * Test application panel for testing inverse tokens.
  * 
  * @author Kirill Grouchnikov
  */
-public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDependent {
+public class InverseTokensPanel extends JPanel implements Deferrable, SkinDependent {
     private boolean isInitialized;
 
     @Override
@@ -51,22 +51,22 @@ public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDepend
         return this.isInitialized;
     }
 
-    private static class SurfacePanel extends JPanel {
-        private Color background;
+    private static class InverseSurfacePanel extends JPanel {
+        private ContainerColorTokens tokens;
 
-        private SurfacePanel(Color background, Color foreground, String text) {
-            this.background = background;
+        private InverseSurfacePanel(ContainerColorTokens tokens, String text) {
+            this.tokens = tokens;
 
             this.setLayout(new BorderLayout(12, 0));
-            this.setBorder(new EmptyBorder(12, 24, 0, 24));
+            this.setBorder(new EmptyBorder(0, 24, 0, 24));
 
             JLabel textLabel = new JLabel(text);
             textLabel.setOpaque(false);
-            textLabel.setForeground(foreground);
+            textLabel.setForeground(tokens.getInverseOnContainer());
 
             JPanel flowPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             flowPanel.setOpaque(false);
-            flowPanel.setBorder(new EmptyBorder(10, 0, 8, 0));
+            flowPanel.setBorder(new EmptyBorder(8, 0, 8, 0));
             flowPanel.add(textLabel);
             this.add(flowPanel, BorderLayout.SOUTH);
         }
@@ -82,8 +82,13 @@ public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDepend
             int arc = 16;
             int strokeThickness = 2;
 
-            g2d.setColor(this.background);
+            g2d.setColor(this.tokens.getInverseContainerSurface());
             g2d.fillRoundRect(strokeThickness, strokeThickness,
+                width - 2 * strokeThickness + 1, height - 2 * strokeThickness + 1, arc, arc);
+
+            g2d.setColor(this.tokens.getInverseContainerOutline());
+            g2d.setStroke(new BasicStroke(strokeThickness));
+            g2d.drawRoundRect(strokeThickness, strokeThickness,
                 width - 2 * strokeThickness + 1, height - 2 * strokeThickness + 1, arc, arc);
 
             g2d.dispose();
@@ -91,48 +96,49 @@ public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDepend
 
     }
 
-    private static class SamplePanelLowHigh extends JPanel {
-        private SamplePanelLowHigh(ContainerColorTokens containerTokens) {
-            SurfacePanel surfaceLowest = new SurfacePanel(
-                containerTokens.getContainerSurfaceLowest(),
-                containerTokens.getOnContainer(), "surface lowest");
-            SurfacePanel surfaceLow = new SurfacePanel(containerTokens.getContainerSurfaceLow(),
-                containerTokens.getOnContainer(), "surface low");
-            SurfacePanel surface = new SurfacePanel(containerTokens.getContainerSurface(),
-                containerTokens.getOnContainer(), "surface");
-            SurfacePanel surfaceHigh = new SurfacePanel(containerTokens.getContainerSurfaceHigh(),
-                containerTokens.getOnContainer(), "surface high");
-            SurfacePanel surfaceHighest = new SurfacePanel(
-                containerTokens.getContainerSurfaceHighest(),
-                containerTokens.getOnContainer(), "surface highest");
+    private static class SurfacePanel extends JPanel {
+        private ContainerColorTokens tokens;
 
-            surfaceLowest.add(surfaceLow, BorderLayout.CENTER);
-            surfaceLow.add(surface, BorderLayout.CENTER);
-            surface.add(surfaceHigh, BorderLayout.CENTER);
-            surfaceHigh.add(surfaceHighest, BorderLayout.CENTER);
+        private SurfacePanel(ContainerColorTokens tokens, String text) {
+            this.tokens = tokens;
 
-            this.setLayout(new BorderLayout());
-            this.add(surfaceLowest, BorderLayout.CENTER);
+            this.setLayout(new BorderLayout(12, 0));
+            this.setBorder(new EmptyBorder(0, 24, 0, 24));
+
+            JLabel textLabel = new JLabel(text);
+            textLabel.setOpaque(false);
+            textLabel.setForeground(tokens.getOnContainer());
+
+            JPanel flowPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            flowPanel.setOpaque(false);
+            flowPanel.setBorder(new EmptyBorder(8, 0, 8, 0));
+            flowPanel.add(textLabel);
+            this.add(flowPanel, BorderLayout.SOUTH);
         }
-    }
 
-    private static class SamplePanelDimBright extends JPanel {
-        private SamplePanelDimBright(ContainerColorTokens containerTokens) {
-            SurfacePanel surfaceDim = new SurfacePanel(
-                containerTokens.getContainerSurfaceDim(),
-                containerTokens.getOnContainer(), "surface dim");
-            SurfacePanel surface = new SurfacePanel(containerTokens.getContainerSurface(),
-                containerTokens.getOnContainer(), "surface");
-            SurfacePanel surfaceBright = new SurfacePanel(
-                containerTokens.getContainerSurfaceBright(),
-                containerTokens.getOnContainer(), "surface bright");
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
-            surfaceDim.add(surface, BorderLayout.CENTER);
-            surface.add(surfaceBright, BorderLayout.CENTER);
+            int width = getWidth() - 1;
+            int height = getHeight() - 1;
+            int arc = 16;
+            int strokeThickness = 2;
 
-            this.setLayout(new BorderLayout());
-            this.add(surfaceDim, BorderLayout.CENTER);
+            g2d.setColor(this.tokens.getContainerSurface());
+            g2d.fillRoundRect(strokeThickness, strokeThickness,
+                width - 2 * strokeThickness + 1, height - 2 * strokeThickness + 1, arc, arc);
+
+            g2d.setColor(this.tokens.getContainerOutline());
+            g2d.setStroke(new BasicStroke(strokeThickness));
+            g2d.drawRoundRect(strokeThickness, strokeThickness,
+                width - 2 * strokeThickness + 1, height - 2 * strokeThickness + 1, arc, arc);
+
+            g2d.dispose();
         }
+
     }
 
     private void makeNeutral(JPanel tokensPanel, TestFormLayoutBuilder builder) {
@@ -140,8 +146,8 @@ public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDepend
             RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel)
                 .getNeutralContainerTokens(RadianceThemingSlices.DecorationAreaType.NONE);
 
-        builder.append(new SamplePanelLowHigh(containerTokens));
-        builder.append(new SamplePanelDimBright(containerTokens));
+        builder.append(new SurfacePanel(containerTokens, "regular"));
+        builder.append(new InverseSurfacePanel(containerTokens, "inverse"));
     }
 
     private void makeMuted(JPanel tokensPanel, TestFormLayoutBuilder builder) {
@@ -149,8 +155,8 @@ public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDepend
             RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel)
                 .getMutedContainerTokens(RadianceThemingSlices.DecorationAreaType.NONE);
 
-        builder.append(new SamplePanelLowHigh(containerTokens));
-        builder.append(new SamplePanelDimBright(containerTokens));
+        builder.append(new SurfacePanel(containerTokens, "regular"));
+        builder.append(new InverseSurfacePanel(containerTokens, "inverse"));
     }
 
     private void makeActive(JPanel tokensPanel, TestFormLayoutBuilder builder) {
@@ -158,14 +164,14 @@ public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDepend
             RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel)
                 .getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.NONE);
 
-        builder.append(new SamplePanelLowHigh(containerTokens));
-        builder.append(new SamplePanelDimBright(containerTokens));
+        builder.append(new SurfacePanel(containerTokens, "regular"));
+        builder.append(new InverseSurfacePanel(containerTokens, "inverse"));
     }
 
     /**
      * Creates the surface tokens panel.
      */
-    public SurfaceTokensPanel() {
+    public InverseTokensPanel() {
     }
 
     @Override

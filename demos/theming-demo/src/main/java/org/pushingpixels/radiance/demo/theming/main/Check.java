@@ -302,6 +302,8 @@ public class Check extends JFrame {
 
         jtp.addTab("Surface tokens", compile.of(12, 12), new SurfaceTokensPanel());
 
+        jtp.addTab("Inverse tokens", compile.of(12, 12), new InverseTokensPanel());
+
         // sample menu bar
         JMenuBar jmb = new JMenuBar();
         if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {

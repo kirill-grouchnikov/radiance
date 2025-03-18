@@ -30,6 +30,8 @@
 package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 
 import javax.swing.*;
@@ -38,64 +40,110 @@ import java.awt.geom.Rectangle2D;
 
 public class ContainerPalettePreview extends JComponent {
     private ContainerColorTokens colorTokens;
+    private boolean showLegend;
 
     public ContainerPalettePreview(ContainerColorTokens colorTokens) {
+        this(colorTokens, true);
+    }
+
+    public ContainerPalettePreview(ContainerColorTokens colorTokens, boolean showLegend) {
         this.colorTokens = colorTokens;
+        this.showLegend = showLegend;
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(300, 20);
+        return new Dimension(300, showLegend ? 40: 20);
     }
 
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
+        FontMetrics fm = g2d.getFontMetrics();
 
-        int height = getHeight();
         int smallGap = 3;
-        int bigGap = 8;
+        int mediumGap = 8;
+        int bigGap = 13;
         int xOffset = 10;
+        int squareSize = 20;
 
-        // Container colors
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceLowest());
-        xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceLow());
-        xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurface());
-        xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceHigh());
-        xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceHighest());
+        int squareYOffset = showLegend ? 20 : 0;
 
-        xOffset += (height + bigGap);
+        int sectionXStart = xOffset;
 
-        // Container colors extra
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceDim());
-        xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerSurfaceBright());
+        // Container surface colors, lowest-highest
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerSurfaceLowest());
+        xOffset += (squareSize + smallGap);
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerSurfaceLow());
+        xOffset += (squareSize + smallGap);
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerSurface());
+        xOffset += (squareSize + smallGap);
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerSurfaceHigh());
+        xOffset += (squareSize + smallGap);
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerSurfaceHighest());
 
-        xOffset += (height + bigGap);
+        xOffset += (squareSize + mediumGap);
+
+        // Container surface colors, dim + bright
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerSurfaceDim());
+        xOffset += (squareSize + smallGap);
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerSurfaceBright());
+
+        int sectionXEnd = xOffset + squareSize;
+
+        if (showLegend) {
+            String label = "surface";
+            int labelWidth = fm.stringWidth(label);
+            g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getBackgroundContainerTokens(
+                RadianceThemingSlices.DecorationAreaType.NONE).getOnContainer());
+            g2d.drawString(label, sectionXStart + (sectionXEnd - sectionXStart - labelWidth) / 2, 15);
+        }
+
+        xOffset += (squareSize + bigGap);
+
+        sectionXStart = xOffset;
 
         // On container colors
-        paintSquare(g2d, xOffset, height, colorTokens.getOnContainer());
-        xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getOnContainerVariant());
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getOnContainer());
+        xOffset += (squareSize + smallGap);
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getOnContainerVariant());
 
-        xOffset += (height + bigGap);
+        sectionXEnd = xOffset + squareSize;
+
+        if (showLegend) {
+            String label = "on";
+            int labelWidth = fm.stringWidth(label);
+            g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getBackgroundContainerTokens(
+                RadianceThemingSlices.DecorationAreaType.NONE).getOnContainer());
+            g2d.drawString(label, sectionXStart + (sectionXEnd - sectionXStart - labelWidth) / 2, 15);
+        }
+
+        xOffset += (squareSize + bigGap);
+
+        sectionXStart = xOffset;
 
         // Container outline colors
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerOutline());
-        xOffset += (height + smallGap);
-        paintSquare(g2d, xOffset, height, colorTokens.getContainerOutlineVariant());
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerOutline());
+        xOffset += (squareSize + smallGap);
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerOutlineVariant());
+
+        sectionXEnd = xOffset + squareSize;
+
+        if (showLegend) {
+            String label = "outline";
+            int labelWidth = fm.stringWidth(label);
+            g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getBackgroundContainerTokens(
+                RadianceThemingSlices.DecorationAreaType.NONE).getOnContainer());
+            g2d.drawString(label, sectionXStart + (sectionXEnd - sectionXStart - labelWidth) / 2, 15);
+        }
 
         g2d.dispose();
     }
 
-    private void paintSquare(Graphics2D g2d, int xOffset, int size, Color color) {
+    private void paintSquare(Graphics2D g2d, int xOffset, int yOffset, int size, Color color) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.translate(xOffset, 0);
+        g2d.translate(xOffset, yOffset);
         g2d.setColor(color);
         g2d.fillRect(0, 0, size, size);
 
@@ -105,6 +153,6 @@ public class ContainerPalettePreview extends JComponent {
             graphics1X.draw(new Rectangle2D.Float(x, y, scaledWidth - 1, scaledHeight - 1));
         });
 
-        g2d.translate(-xOffset, 0);
+        g2d.translate(-xOffset, -yOffset);
     }
 }

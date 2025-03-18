@@ -59,9 +59,9 @@ public class ContainerPreview extends JPanel {
                 Graphics2D g2d = (Graphics2D) g.create();
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.translate(10, 0);
+                g2d.translate(5, 0);
 
-                int width = getWidth() - 20;
+                int width = getWidth() - 10;
                 int height = getHeight();
                 int arc = 8;
                 int strokeThickness = 2;

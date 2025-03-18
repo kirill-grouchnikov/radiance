@@ -91,28 +91,28 @@ public class SchemeDemo extends JFrame {
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* isSystemDark */ false);
 
-        builder.addROLabel("Primary light palette").xy(1, row)
-            .add(new TonalPalettePreview(activeLightPalette))
+        builder.addROLabel("Active light palette").xy(1, row, "right, bottom")
+            .add(new TonalPalettePreview(activeLightPalette, true))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Muted light palette").xy(1, row)
-            .add(new TonalPalettePreview(mutedLightPalette))
+        builder.addROLabel("Muted light palette").xy(1, row, "right, bottom")
+            .add(new TonalPalettePreview(mutedLightPalette, false))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Neutral light palette").xy(1, row)
-            .add(new TonalPalettePreview(neutralLightPalette))
+        builder.addROLabel("Neutral light palette").xy(1, row, "right, bottom")
+            .add(new TonalPalettePreview(neutralLightPalette, false))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Primary dark palette").xy(1, row)
-            .add(new TonalPalettePreview(activeDarkPalette))
+        builder.addROLabel("Primary dark palette").xy(1, row, "right, bottom")
+            .add(new TonalPalettePreview(activeDarkPalette, true))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Muted dark palette").xy(1, row)
-            .add(new TonalPalettePreview(mutedDarkPalette))
+        builder.addROLabel("Muted dark palette").xy(1, row, "right, bottom")
+            .add(new TonalPalettePreview(mutedDarkPalette, false))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Neutral dark palette").xy(1, row)
-            .add(new TonalPalettePreview(neutralDarkPalette))
+        builder.addROLabel("Neutral dark palette").xy(1, row, "right, bottom")
+            .add(new TonalPalettePreview(neutralDarkPalette, false))
             .xyw(3, row, 3);
         row += 2;
 
@@ -120,30 +120,30 @@ public class SchemeDemo extends JFrame {
         builder.addSeparator("DARK").xy(5, row, CellConstraints.CENTER, CellConstraints.FILL);
 
         row += 2;
-        builder.addROLabel("Neutral container").xy(1, row)
-            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getNeutralContainerTokens())).xy(3, row)
-            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getNeutralContainerTokens())).xy(5, row);
+        builder.addROLabel("Active container").xy(1, row, "right, bottom")
+            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getActiveContainerTokens(), true)).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getActiveContainerTokens(), true)).xy(5, row);
         row += 2;
-        builder.addROLabel("Muted container").xy(1, row)
-            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getMutedContainerTokens())).xy(3, row)
-            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getMutedContainerTokens())).xy(5, row);
+        builder.addROLabel("Muted container").xy(1, row, "right, bottom")
+            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getMutedContainerTokens(), false)).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getMutedContainerTokens(), false)).xy(5, row);
         row += 2;
-        builder.addROLabel("Tonal container").xy(1, row)
-            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getActiveContainerTokens())).xy(3, row)
-            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getActiveContainerTokens())).xy(5, row);
+        builder.addROLabel("Neutral container").xy(1, row, "right, bottom")
+            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getNeutralContainerTokens(), false)).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getNeutralContainerTokens(), false)).xy(5, row);
 
         row += 2;
-        builder.addROLabel("Neutral container").xy(1, row)
-            .add(new ContainerPreview(lightBundle.getMainColorScheme().getNeutralContainerTokens(), "Neutral")).xy(3, row)
-            .add(new ContainerPreview(darkBundle.getMainColorScheme().getNeutralContainerTokens(), "Neutral")).xy(5, row);
+        builder.addROLabel("Active container").xy(1, row)
+            .add(new ContainerPreview(lightBundle.getMainColorScheme().getActiveContainerTokens(), "Tonal")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getMainColorScheme().getActiveContainerTokens(), "Tonal")).xy(5, row);
         row += 2;
         builder.addROLabel("Muted container").xy(1, row)
             .add(new ContainerPreview(lightBundle.getMainColorScheme().getMutedContainerTokens(), "Muted")).xy(3, row)
             .add(new ContainerPreview(darkBundle.getMainColorScheme().getMutedContainerTokens(), "Muted")).xy(5, row);
         row += 2;
-        builder.addROLabel("Tonal container").xy(1, row)
-            .add(new ContainerPreview(lightBundle.getMainColorScheme().getActiveContainerTokens(), "Tonal")).xy(3, row)
-            .add(new ContainerPreview(darkBundle.getMainColorScheme().getActiveContainerTokens(), "Tonal")).xy(5, row);
+        builder.addROLabel("Neutral container").xy(1, row)
+            .add(new ContainerPreview(lightBundle.getMainColorScheme().getNeutralContainerTokens(), "Neutral")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getMainColorScheme().getNeutralContainerTokens(), "Neutral")).xy(5, row);
 
         this.add(builder.build());
 
