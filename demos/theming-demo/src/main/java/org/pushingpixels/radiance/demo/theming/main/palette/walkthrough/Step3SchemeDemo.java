@@ -48,8 +48,8 @@ import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
-public class SchemeDemo extends JFrame {
-    public SchemeDemo() {
+public class Step3SchemeDemo extends JFrame {
+    public Step3SchemeDemo() {
         super("Chroma Palette");
 
         RadianceLogo.tonalConfigureOn(this);
@@ -144,7 +144,7 @@ public class SchemeDemo extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
-            new SchemeDemo().setVisible(true);
+            new Step3SchemeDemo().setVisible(true);
         });
     }
 }

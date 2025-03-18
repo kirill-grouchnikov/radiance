@@ -47,19 +47,15 @@ import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ControlStates extends JFrame {
-    public ControlStates() {
-        super("Control states");
+public class Step4ComponentStates extends JFrame {
+    public Step4ComponentStates() {
+        super("Chroma Palette");
 
         this.setLayout(new FlowLayout());
-
-        JButton attentionButton = new JButton("attention");
-        attentionButton.putClientProperty(RadianceSynapse.CONTENTS_MODIFIED, Boolean.TRUE);
 
         JToggleButton toggleButton = new JToggleButton("selected");
         toggleButton.setSelected(true);
@@ -69,7 +65,6 @@ public class ControlStates extends JFrame {
         JButton disabledButton = new JButton("disabled");
         disabledButton.setEnabled(false);
 
-        this.add(attentionButton);
         this.add(toggleButton);
         this.add(enabledButton);
         this.add(disabledButton);
@@ -133,7 +128,7 @@ public class ControlStates extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(tonalSkin);
-            new ControlStates().setVisible(true);
+            new Step4ComponentStates().setVisible(true);
         });
     }
 

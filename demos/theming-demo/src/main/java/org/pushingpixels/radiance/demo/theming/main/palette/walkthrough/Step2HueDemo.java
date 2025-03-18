@@ -42,8 +42,8 @@ import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
-public class ChromaDemo extends JFrame {
-    public ChromaDemo() {
+public class Step2HueDemo extends JFrame {
+    public Step2HueDemo() {
         super("Chroma Palette");
 
         RadianceLogo.tonalConfigureOn(this);
@@ -58,9 +58,9 @@ public class ChromaDemo extends JFrame {
         int row = 1;
 
         for (int i = 0; i < 20; i++) {
-            double chroma = i * 4.0;
-            BaseTonalPalette palette = TonalPalette.fromHct(Hct.from(340.0, chroma, 40.0));
-            builder.addROLabel("Chroma=" + chroma).xy(1, row, "right, bottom")
+            double hue = i * 18;
+            BaseTonalPalette palette = TonalPalette.fromHct(Hct.from(hue, 80.0, 40.0));
+            builder.addROLabel("Hue=" + hue).xy(1, row, "right, bottom")
                 .add(new TonalPalettePreview(palette, (i == 0))).xy(3, row);
             row += 2;
         }
@@ -77,7 +77,7 @@ public class ChromaDemo extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
-            new ChromaDemo().setVisible(true);
+            new Step2HueDemo().setVisible(true);
         });
     }
 }
