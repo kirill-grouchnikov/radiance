@@ -53,66 +53,50 @@ public class SchemeDemo extends JFrame {
 
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:pref:grow, 4dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, 12dlu, p, $lg, p, $lg, p, 12dlu, p, 8dlu, p, $lg, p, " +
+                rows("p, $lg, p, $lg, p, 12dlu, p, 8dlu, p, $lg, p, " +
                 "$lg, p, 12dlu, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
         int row = 1;
 
-        BaseTonalPalette activeLightPalette = TonalPalette.fromHct(Hct.fromInt(0xFFFDBD72));
-        BaseTonalPalette mutedLightPalette = TonalPalette.fromHct(Hct.fromInt(0xFFFEDCB6));
-        BaseTonalPalette neutralLightPalette = TonalPalette.fromHct(Hct.fromInt(0xFFFFE3C4));
+        BaseTonalPalette activePalette = TonalPalette.fromHct(Hct.from(340.0, 40.0, 40.0));
+        BaseTonalPalette mutedPalette = TonalPalette.fromHct(Hct.from(340.0, 16.0, 40.0));
+        BaseTonalPalette neutralPalette = TonalPalette.fromHct(Hct.from(340.0, 6.0, 40.0));
 
         RadianceColorSchemeBundle lightBundle = new RadianceColorSchemeBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFFDBD72),
+                /* seed */ activePalette.getHct(80.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFFEDCB6),
+                /* seed */ mutedPalette.getHct(80.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFFFE3C4),
+                /* seed */ neutralPalette.getHct(80.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
-
-        BaseTonalPalette activeDarkPalette = TonalPalette.fromHct(Hct.fromInt(0xFF663E00));
-        BaseTonalPalette mutedDarkPalette = TonalPalette.fromHct(Hct.fromInt(0xFF402200));
-        BaseTonalPalette neutralDarkPalette = TonalPalette.fromHct(Hct.fromInt(0xFF201200));
 
         RadianceColorSchemeBundle darkBundle = new RadianceColorSchemeBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF663E00),
+                /* seed */ activePalette.getHct(20.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF402200),
+                /* seed */ mutedPalette.getHct(20.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF201200),
+                /* seed */ neutralPalette.getHct(20.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* isSystemDark */ false);
 
-        builder.addROLabel("Active light palette").xy(1, row, "right, bottom")
-            .add(new TonalPalettePreview(activeLightPalette, true))
+        builder.addROLabel("Active palette").xy(1, row, "right, bottom")
+            .add(new TonalPalettePreview(activePalette, true))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Muted light palette").xy(1, row, "right, bottom")
-            .add(new TonalPalettePreview(mutedLightPalette, false))
+        builder.addROLabel("Muted palette").xy(1, row, "right, bottom")
+            .add(new TonalPalettePreview(mutedPalette, false))
             .xyw(3, row, 3);
         row += 2;
-        builder.addROLabel("Neutral light palette").xy(1, row, "right, bottom")
-            .add(new TonalPalettePreview(neutralLightPalette, false))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Primary dark palette").xy(1, row, "right, bottom")
-            .add(new TonalPalettePreview(activeDarkPalette, true))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Muted dark palette").xy(1, row, "right, bottom")
-            .add(new TonalPalettePreview(mutedDarkPalette, false))
-            .xyw(3, row, 3);
-        row += 2;
-        builder.addROLabel("Neutral dark palette").xy(1, row, "right, bottom")
-            .add(new TonalPalettePreview(neutralDarkPalette, false))
+        builder.addROLabel("Neutral palette").xy(1, row, "right, bottom")
+            .add(new TonalPalettePreview(neutralPalette, false))
             .xyw(3, row, 3);
         row += 2;
 
