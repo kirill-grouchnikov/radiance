@@ -167,7 +167,7 @@ public class SeparatorPainterUtils {
 
     public static Color getSecondarySeparatorColor(ContainerColorTokens tokens) {
         return tokens.isDark()
-            ? RadianceColorUtilities.getAlphaColor(tokens.getContainerOutlineVariant(), 192)
+            ? RadianceColorUtilities.getAlphaColor(tokens.getContainerOutline(), 192)
             : RadianceColorUtilities.getAlphaColor(tokens.getComplementaryContainerOutline(), 240);
     }
 
