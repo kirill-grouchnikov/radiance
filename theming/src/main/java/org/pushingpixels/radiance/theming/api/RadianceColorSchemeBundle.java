@@ -92,16 +92,16 @@ public class RadianceColorSchemeBundle {
 
         ContainerColorTokens systemInfoDarkTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF1060D0),
-            /* containerConfiguration */ ContainerConfiguration.defaultLight());
+            /* containerConfiguration */ ContainerConfiguration.defaultDark());
         ContainerColorTokens systemWarningDarkTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFBC6213),
-            /* containerConfiguration */ ContainerConfiguration.defaultLight());
+            /* containerConfiguration */ ContainerConfiguration.defaultDark());
         ContainerColorTokens systemErrorDarkTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFC01707),
-            /* containerConfiguration */ ContainerConfiguration.defaultLight());
+            /* containerConfiguration */ ContainerConfiguration.defaultDark());
         ContainerColorTokens systemSuccessDarkTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF008817),
-            /* containerConfiguration */ ContainerConfiguration.defaultLight());
+            /* containerConfiguration */ ContainerConfiguration.defaultDark());
 
         this.mainColorScheme = new RadianceColorScheme() {
             private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
