@@ -36,8 +36,8 @@ import org.pushingpixels.radiance.component.internal.theming.common.GlowingRadia
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -246,7 +246,7 @@ public class CommandButtonBackgroundDelegate {
             commandButton.getWidth(), commandButton.getHeight(),
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(commandButton);
-                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(commandButton);
+                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(commandButton);
 
                 RadianceThemingSlices.Sides sides = commandButton.getPresentationModel().getSides();
                 Set<RadianceThemingSlices.Side> openSides = (sides != null) ? sides.getOpenSides() : null;
@@ -281,7 +281,7 @@ public class CommandButtonBackgroundDelegate {
                 graphics1X.translate(dx, dy);
                 // Compute a separate contour for the fill.
                 // Otherwise pixels on the edge can "spill" outside
-                // the contour. Those pixels will be drawn by the border painter.
+                // the contour. Those pixels will be drawn by the outline painter.
                 Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
                     commandButton.getComponentOrientation(),
                     scaledWidth + dw, scaledHeight + dh,
@@ -297,13 +297,13 @@ public class CommandButtonBackgroundDelegate {
                     commandButton.getComponentOrientation(),
                     scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
                     straightSides, 0.0f);
-                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                Shape contourInner = outlinePainter.isPaintingInnerContour() ?
                     RadianceOutlineUtilities.getBaseOutline(
                         commandButton.getComponentOrientation(),
                         scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
                         straightSides, 1.0f)
                     : null;
-                borderPainter.paintBorder(graphics1X, commandButton,
+                outlinePainter.paintOutline(graphics1X, commandButton,
                     scaledWidth + dw,
                     scaledHeight + dh,
                     contourOuter, contourInner, mutableContainerTokens);

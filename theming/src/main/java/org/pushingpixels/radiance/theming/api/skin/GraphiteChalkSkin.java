@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 
 /**
  * <code>Graphite Chalk</code> skin. This class is part of officially supported API.
@@ -58,6 +58,6 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 				.complementaryContainerOutline(DynamicPalette::getContainerOutline)
 				.build()));
 
-		this.borderPainter = new FlatBorderPainter();
+		this.outlinePainter = new FlatOutlinePainter();
 	}
 }

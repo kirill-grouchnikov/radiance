@@ -38,12 +38,12 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -98,9 +98,9 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.borderPainter = new CompositeBorderPainter("Graphite",
-			new FlatBorderPainter(),
-			new FractionBasedTonalBorderPainter("Graphite Inner",
+		this.outlinePainter = new CompositeOutlinePainter("Graphite",
+			new FlatOutlinePainter(),
+			new FractionBasedTonalOutlinePainter("Graphite Inner",
 				new float[] {0.0f, 0.5f, 1.0f},
 				new int[] {92, 64, 92},
 				new ContainerColorTokensSingleColorQuery[] {
@@ -108,7 +108,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 					ContainerColorTokens::getComplementaryContainerOutline,
 					ContainerColorTokens::getComplementaryContainerOutline
 				}));
-		this.highlightBorderPainter = new FlatBorderPainter();
+		this.highlightOutlinePainter = new FlatOutlinePainter();
 		this.fillPainter = new FractionBasedFillPainter("Graphite",
 			new float[] {0.0f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {

@@ -39,11 +39,11 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -151,6 +151,6 @@ public class RavenSkin extends RadianceSkin {
 			new GlassFillPainter(), 0.5f);
 		this.decorationPainter = new ArcDecorationPainter();
 		this.highlightFillPainter = new ClassicFillPainter();
-		this.borderPainter = new FlatBorderPainter();
+		this.outlinePainter = new FlatOutlinePainter();
 	}
 }

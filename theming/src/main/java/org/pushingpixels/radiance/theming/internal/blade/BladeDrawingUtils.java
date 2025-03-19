@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 
@@ -53,7 +53,7 @@ public class BladeDrawingUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
+                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(c);
                 float scaledRadius = (float) scaleFactor * baseRadius;
                 Shape contour = RadianceOutlineUtilities.getBaseOutline(
                     c.getComponentOrientation(),
@@ -66,7 +66,7 @@ public class BladeDrawingUtils {
                         c.getComponentOrientation(),
                         scaledWidth - 1.0f, scaledHeight - 1.0f,
                         Math.max(scaledRadius - 1.0f, 0.0f), null, 1.0f);
-                borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight, contour,
+                outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, contour,
                     contourInner, colorTokens);
             });
         graphics.dispose();

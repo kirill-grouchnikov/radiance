@@ -39,12 +39,12 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
@@ -130,9 +130,9 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 0.3f);
 		this.decorationPainter = new FlatDecorationPainter();
 		this.highlightFillPainter = new MatteFillPainter();
-		this.borderPainter = new CompositeBorderPainter("Dust",
-			new FlatBorderPainter(),
-			new FractionBasedTonalBorderPainter("Dust Inner",
+		this.outlinePainter = new CompositeOutlinePainter("Dust",
+			new FlatOutlinePainter(),
+			new FractionBasedTonalOutlinePainter("Dust Inner",
 				new float[] {0.0f, 1.0f},
 				new int[] {64, 64},
 				new ContainerColorTokensSingleColorQuery[] {

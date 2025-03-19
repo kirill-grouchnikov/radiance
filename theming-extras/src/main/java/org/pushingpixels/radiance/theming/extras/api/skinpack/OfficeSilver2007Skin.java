@@ -39,12 +39,12 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -222,22 +222,22 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface,
                 ContainerColorTokens::getContainerSurfaceLow});
 
-        FractionBasedTonalBorderPainter outerBorderPainter = new FractionBasedTonalBorderPainter(
+        FractionBasedTonalOutlinePainter outerOutlinePainter = new FractionBasedTonalOutlinePainter(
             "Office Silver 2007 Outer", new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerOutline,
                 ContainerColorTokens::getContainerOutline
             });
-        RadianceBorderPainter innerBorderPainter =
-            new FractionBasedTonalBorderPainter("Office Silver 2007 Inner",
+        RadianceOutlinePainter innerOutlinePainter =
+            new FractionBasedTonalOutlinePainter("Office Silver 2007 Inner",
                 new float[] {0.0f, 1.0f},
                 new int[] {240, 240},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline
                 });
-        this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
-            outerBorderPainter, innerBorderPainter);
+        this.outlinePainter = new CompositeOutlinePainter("Office Silver 2007",
+            outerOutlinePainter, innerOutlinePainter);
 
         this.decorationPainter = new FractionBasedDecorationPainter(
             "Office Silver 2007",

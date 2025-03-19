@@ -36,8 +36,8 @@ import org.pushingpixels.radiance.component.internal.ui.common.BasicSwitchUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
@@ -92,7 +92,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(switchComp);
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(switchComp);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(switchComp);
+        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(switchComp);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         // Populate color tokens based on the current transition state of the switch.
@@ -135,12 +135,12 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                             trackWidth, trackHeight,
                             trackHeight * 0.5f, null
                     );
-                    Shape contourInner = borderPainter.isPaintingInnerContour() ? RadianceOutlineUtilities.getBaseOutline(
+                    Shape contourInner = outlinePainter.isPaintingInnerContour() ? RadianceOutlineUtilities.getBaseOutline(
                             switchComp.getComponentOrientation(),
                             trackWidth, trackHeight,
                             trackHeight * 0.5f - 1.0f, null, 1.0f
                     ) : null;
-                    borderPainter.paintBorder(graphics1X, switchComp, trackWidth, trackHeight,
+                    outlinePainter.paintOutline(graphics1X, switchComp, trackWidth, trackHeight,
                         contourOuter, contourInner, mutableContainerTokens);
 
                     float thumbSelectionFactor = stateTransitionTracker.getFacetStrength(

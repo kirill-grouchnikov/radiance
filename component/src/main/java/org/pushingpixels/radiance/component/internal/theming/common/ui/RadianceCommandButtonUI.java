@@ -53,8 +53,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
@@ -352,9 +352,9 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                                 extended.x + extended.width, extended.y + extended.height,
                                 extended, tokens);
 
-                        RadianceBorderPainter borderPainter = RadianceCoreUtilities
-                                .getBorderPainter(this.commandButton);
-                        borderPainter.paintBorder(graphics1X, this.commandButton,
+                        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities
+                                .getOutlinePainter(this.commandButton);
+                        outlinePainter.paintOutline(graphics1X, this.commandButton,
                                 extended.x + extended.width, extended.y + extended.height,
                                 extended, null, tokens);
                     });

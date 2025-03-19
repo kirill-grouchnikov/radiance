@@ -36,8 +36,8 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import java.awt.*;
@@ -56,8 +56,8 @@ public class KeyTipRenderingUtilities {
     public static void renderKeyTip(Graphics g, Container c, Rectangle rect, String keyTip,
             boolean toPaintEnabled) {
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(c);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities
-                .getBorderPainter(c);
+        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities
+                .getOutlinePainter(c);
 
         ComponentState state =
                 toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
@@ -93,7 +93,7 @@ public class KeyTipRenderingUtilities {
                             radius, null, 2.0f);
                     graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
                         c, tokens.getContainerOutlineDisabledAlpha(), graphics));
-                    borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight, contour,
+                    outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, contour,
                             contourInner, tokens);
                 });
 

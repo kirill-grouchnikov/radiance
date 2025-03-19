@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -132,7 +132,7 @@ public class FakeAccordion extends JPanel {
 
                     // Use the border visuals from the current skin. We get the color tokens that
                     // match the DEFAULT association kind, and then use
-                    // RadianceBorderPainter.paintBorder with our custom curving paths
+                    // RadianceOutlinePainter.paintBorder with our custom curving paths
 
                     Graphics2D graphics = (Graphics2D) g.create();
                     // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -143,7 +143,7 @@ public class FakeAccordion extends JPanel {
                     RadianceCommonCortex.paintAtScale1x(graphics, x, y, width, height,
                             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                                 RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(contentWrapper);
-                                RadianceBorderPainter borderPainter = skin.getBorderPainter();
+                                RadianceOutlinePainter outlinePainter = skin.getOutlinePainter();
 
                                 float radiusOuter = (float) scaleFactor * 5.0f;
                                 GeneralPath inner = getOutline(0, 0, scaledWidth, scaledHeight,
@@ -156,7 +156,7 @@ public class FakeAccordion extends JPanel {
                                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                                     ComponentState.ENABLED,
                                     RadianceThemingSlices.ContainerType.MUTED);
-                                borderPainter.paintBorder(graphics1X, contentWrapper,
+                                outlinePainter.paintOutline(graphics1X, contentWrapper,
                                     scaledWidth, scaledHeight, outer, inner, containerTokens);
                             });
                     graphics.dispose();

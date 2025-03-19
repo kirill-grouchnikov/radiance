@@ -36,10 +36,10 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
@@ -174,12 +174,12 @@ public class HarvestSkin extends RadianceSkin {
         this.fillPainter = new MatteFillPainter();
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightFillPainter = new MatteFillPainter();
-        this.borderPainter = new FractionBasedTonalBorderPainter("Harvest",
+        this.outlinePainter = new FractionBasedTonalOutlinePainter("Harvest",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerOutlineVariant,
                 ContainerColorTokens::getContainerOutlineVariant});
 
-        this.highlightBorderPainter = new FlatBorderPainter();
+        this.highlightOutlinePainter = new FlatOutlinePainter();
     }
 }

@@ -27,70 +27,52 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.radiance.theming.api.painter.border;
+package org.pushingpixels.radiance.theming.api.painter.outline;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import java.awt.*;
 
 /**
- * Composite border painter that delegates the painting of outer and inner
- * contours.
+ * Outline painter interface for <b>Radiance</b> look and feel. This class is
+ * part of officially supported API.<br>
+ * <br>
+ * 
+ * An outline painter is responsible for painting outlines (borders) of controls such as
+ * buttons, check boxes, tabs, scroll bars, etc.
  * 
  * @author Kirill Grouchnikov
  */
-public class CompositeBorderPainter implements RadianceBorderPainter {
+public interface RadianceOutlinePainter extends RadianceTrait {
 	/**
-	 * Display name of this border painter.
+	 * Paints the outline.
+	 *
+	 * @param g
+	 *            Graphics.
+	 * @param c
+	 *            Component.
+	 * @param width
+	 *            Width of a UI component.
+	 * @param height
+	 *            Height of a UI component.
+	 * @param contour
+	 *            Primary contour to paint.
+	 * @param innerContour
+	 *            Optional inner contour to paint. May be ignored if the
+	 *            specific implementation paints only the primary contour.
+	 * @param colorTokens
+	 *            The color tokens.
 	 */
-	private String displayName;
+	void paintOutline(Graphics g, Component c, float width, float height, Shape contour,
+			Shape innerContour, ContainerColorTokens colorTokens);
 
 	/**
-	 * Delegate painter for painting the inner contours.
-	 */
-	private RadianceBorderPainter inner;
-
-	/**
-	 * Delegate painter for painting the outer contours.
-	 */
-	private RadianceBorderPainter outer;
-
-	/**
-	 * Creates a new composite border painter.
+	 * Returns boolean indication whether this outline painter is painting the
+	 * inner contours.
 	 * 
-	 * @param displayName
-	 *            Display name.
-	 * @param outer
-	 *            Delegate painter for painting the outer contours.
-	 * @param inner
-	 *            Delegate painter for painting the inner contours.
+	 * @return <code>true</code> if this outline painter is painting the inner
+	 *         contours, <code>false</code> otherwise.
 	 */
-	public CompositeBorderPainter(String displayName,
-			RadianceBorderPainter outer, RadianceBorderPainter inner) {
-		this.displayName = displayName;
-		this.outer = outer;
-		this.inner = inner;
-	}
-
-	@Override
-	public boolean isPaintingInnerContour() {
-		return true;
-	}
-
-	@Override
-	public void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
-		Shape innerContour, ContainerColorTokens colorTokens) {
-		if (innerContour != null) {
-			this.inner.paintBorder(g, c, width, height, innerContour, null, colorTokens);
-		}
-		if (contour != null) {
-			this.outer.paintBorder(g, c, width, height, contour, null, colorTokens);
-		}
-	}
-
-	@Override
-	public String getDisplayName() {
-		return this.displayName;
-	}
-
+    boolean isPaintingInnerContour();
 }

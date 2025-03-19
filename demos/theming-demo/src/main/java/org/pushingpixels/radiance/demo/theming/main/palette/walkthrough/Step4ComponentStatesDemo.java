@@ -39,13 +39,13 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 import javax.swing.*;
@@ -105,7 +105,7 @@ public class Step4ComponentStatesDemo extends JFrame {
 
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
-            this.borderPainter = new FlatBorderPainter();
+            this.outlinePainter = new FlatOutlinePainter();
 
             ImageWrapperDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
             decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());

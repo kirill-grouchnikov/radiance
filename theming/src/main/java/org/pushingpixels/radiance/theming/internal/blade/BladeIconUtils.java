@@ -33,10 +33,10 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -67,7 +67,7 @@ public class BladeIconUtils {
     }
 
     public static void drawTonalCheckBox(Graphics2D g, JComponent component, RadianceFillPainter fillPainter,
-        RadianceBorderPainter borderPainter, int dimension, ComponentState currentState,
+        RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility,
         float checkMarkFlatness, boolean isCheckMarkFadingOut) {
 
@@ -100,7 +100,7 @@ public class BladeIconUtils {
                     contourDim, contourDim,
                     contourFill, colorTokens);
 
-                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                Shape contourInner = outlinePainter.isPaintingInnerContour() ?
                     RadianceOutlineUtilities.getBaseOutline(
                         component.getComponentOrientation(),
                         contourDim, contourDim, cornerRadius, null, 1.0f)
@@ -108,7 +108,7 @@ public class BladeIconUtils {
                 float containerOutlineAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
-                borderPainter.paintBorder(graphics1X, component, contourDim, contourDim,
+                outlinePainter.paintOutline(graphics1X, component, contourDim, contourDim,
                     contourOuter, contourInner, colorTokens);
 
                 float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
@@ -149,7 +149,7 @@ public class BladeIconUtils {
     }
 
     public static void drawTonalRadioButton(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,
-        RadianceBorderPainter borderPainter, int dimension, ComponentState currentState,
+        RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -171,13 +171,13 @@ public class BladeIconUtils {
                     new Ellipse2D.Float(0.5f, 0.5f, contourDim, contourDim),
                     colorTokens);
 
-                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                Shape contourInner = outlinePainter.isPaintingInnerContour() ?
                     new Ellipse2D.Float(1.0f, 1.0f, contourDim - 2.0f, contourDim - 2.0f)
                     : null;
                 float containerOutlineAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
-                borderPainter.paintBorder(graphics1X, button, contourDim, contourDim,
+                outlinePainter.paintOutline(graphics1X, button, contourDim, contourDim,
                     contourOuter, contourInner, colorTokens);
 
                 float rc = contourDim / 2.0f + 0.5f;
@@ -209,7 +209,7 @@ public class BladeIconUtils {
     }
 
     public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
-        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+        RadianceFillPainter fillPainter, RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -238,14 +238,14 @@ public class BladeIconUtils {
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
-                borderPainter.paintBorder(graphics1X, slider,
+                outlinePainter.paintOutline(graphics1X, slider,
                     scaledWidth, scaledHeight, contourOuter, contourInner, colorTokens);
             });
         graphics.dispose();
     }
 
     public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
-        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+        RadianceFillPainter fillPainter, RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -284,7 +284,7 @@ public class BladeIconUtils {
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
-                borderPainter.paintBorder(graphics1X, slider,
+                outlinePainter.paintOutline(graphics1X, slider,
                     scaledWidth, scaledHeight,
                     contourOuter, contourInner, colorTokens);
             });
@@ -292,7 +292,7 @@ public class BladeIconUtils {
     }
 
     public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
-        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+        RadianceFillPainter fillPainter, RadianceOutlinePainter outlinePainter,
         int dimension, ContainerColorTokens colorTokens, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -321,7 +321,7 @@ public class BladeIconUtils {
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
-                borderPainter.paintBorder(graphics1X, slider,
+                outlinePainter.paintOutline(graphics1X, slider,
                     scaledWidth, scaledHeight, contourOuter, contourInner, colorTokens);
             });
         graphics.dispose();
@@ -339,7 +339,7 @@ public class BladeIconUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, size, size,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 RadianceFillPainter fillPainter = SimplisticSoftBorderReverseTonalFillPainter.INSTANCE;
-                RadianceBorderPainter borderPainter = new FlatBorderPainter();
+                RadianceOutlinePainter outlinePainter = new FlatOutlinePainter();
 
                 Shape contour = RadianceOutlineUtilities.getBaseOutline(
                     tree.getComponentOrientation(),
@@ -350,7 +350,7 @@ public class BladeIconUtils {
 
                 fillPainter.paintContourBackground(graphics1X, tree, scaledWidth, scaledHeight,
                     contour, colorTokens);
-                borderPainter.paintBorder(graphics1X, tree, scaledWidth, scaledHeight, contour,
+                outlinePainter.paintOutline(graphics1X, tree, scaledWidth, scaledHeight, contour,
                     null, colorTokens);
 
                 Color signColor = colorTokens.getOnContainer();
@@ -554,8 +554,8 @@ public class BladeIconUtils {
                         float containerOutlineAlpha =
                             (state.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                         graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha * 0.32f));
-                        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(divider);
-                        borderPainter.paintBorder(graphics1X, divider, bumpDotDiameter, bumpDotDiameter,
+                        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(divider);
+                        outlinePainter.paintOutline(graphics1X, divider, bumpDotDiameter, bumpDotDiameter,
                             new Ellipse2D.Float(0, 0, bumpDotDiameter, bumpDotDiameter), null, colorTokens);
 
                         graphics1X.translate(-cx, -cy);

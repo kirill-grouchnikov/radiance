@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -82,7 +82,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
                 stateTransitionTracker.getModelStateInfo();
 
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(this.menuItem);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.menuItem);
+        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.menuItem);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
@@ -94,7 +94,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        BladeIconUtils.drawTonalRadioButton(graphics, this.menuItem, fillPainter, borderPainter,
+        BladeIconUtils.drawTonalRadioButton(graphics, this.menuItem, fillPainter, outlinePainter,
             this.size, currState, mutableContainerTokens, visibility);
         graphics.dispose();
     }

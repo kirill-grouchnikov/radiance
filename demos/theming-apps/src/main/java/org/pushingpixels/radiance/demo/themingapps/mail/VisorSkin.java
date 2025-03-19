@@ -37,11 +37,11 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class VisorSkin extends RadianceSkin {
@@ -156,7 +156,7 @@ public class VisorSkin extends RadianceSkin {
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new MatteFillPainter();
-        this.borderPainter = new FlatBorderPainter();
+        this.outlinePainter = new FlatOutlinePainter();
 
         BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
         decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());

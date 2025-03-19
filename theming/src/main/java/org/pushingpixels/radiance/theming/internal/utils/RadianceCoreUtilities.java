@@ -39,9 +39,9 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
@@ -1200,30 +1200,30 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Returns the border painter for the specified component.
+     * Returns the outline painter for the specified component.
      *
      * @param comp Component.
      * @return Border painter for the specified component.
-     * @see RadianceSkin#getBorderPainter()
+     * @see RadianceSkin#getOutlinePainter()
      */
-    public static RadianceBorderPainter getBorderPainter(Component comp) {
-        return RadianceCoreUtilities.getSkin(comp).getBorderPainter();
+    public static RadianceOutlinePainter getOutlinePainter(Component comp) {
+        return RadianceCoreUtilities.getSkin(comp).getOutlinePainter();
     }
 
     /**
-     * Returns the highlight border painter for the specified component.
+     * Returns the highlight outline painter for the specified component.
      *
      * @param comp Component.
-     * @return Highlight border painter for the specified component.
-     * @see RadianceSkin#getBorderPainter()
-     * @see RadianceSkin#getHighlightBorderPainter()
+     * @return Highlight outline painter for the specified component.
+     * @see RadianceSkin#getOutlinePainter()
+     * @see RadianceSkin#getHighlightOutlinePainter()
      */
-    public static RadianceBorderPainter getHighlightBorderPainter(Component comp) {
-        RadianceBorderPainter result = RadianceCoreUtilities.getSkin(comp)
-                .getHighlightBorderPainter();
+    public static RadianceOutlinePainter getHighlightOutlinePainter(Component comp) {
+        RadianceOutlinePainter result = RadianceCoreUtilities.getSkin(comp)
+                .getHighlightOutlinePainter();
         if (result != null)
             return result;
-        return getBorderPainter(comp);
+        return getOutlinePainter(comp);
     }
 
     /**

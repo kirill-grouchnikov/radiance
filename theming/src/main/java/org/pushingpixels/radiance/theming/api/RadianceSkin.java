@@ -32,9 +32,9 @@ package org.pushingpixels.radiance.theming.api;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolver;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
@@ -228,14 +228,14 @@ public abstract class RadianceSkin implements RadianceTrait {
     protected RadianceFillPainter highlightFillPainter;
 
     /**
-     * The border painter of <code>this</code> skin. Must be non-<code>null</code>.
+     * The outline painter of <code>this</code> skin. Must be non-<code>null</code>.
      */
-    protected RadianceBorderPainter borderPainter;
+    protected RadianceOutlinePainter outlinePainter;
 
     /**
-     * The highlight border painter of <code>this</code> skin. Can be <code>null</code>.
+     * The highlight outline painter of <code>this</code> skin. Can be <code>null</code>.
      */
-    protected RadianceBorderPainter highlightBorderPainter;
+    protected RadianceOutlinePainter highlightOutlinePainter;
 
     /**
      * The decoration painter of <code>this</code> skin. Must be non-<code>null</code>.
@@ -270,26 +270,26 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the border painter of this skin.
+     * Returns the outline painter of this skin.
      *
-     * @return The border painter of this skin. A valid skin cannot have a
+     * @return The outline painter of this skin. A valid skin cannot have a
      * <code>null</code> value returned from this method. Call
      * {@link #isValid()} to verify that the skin is valid.
      * @see #isValid()
      */
-    public final RadianceBorderPainter getBorderPainter() {
-        return this.borderPainter;
+    public final RadianceOutlinePainter getOutlinePainter() {
+        return this.outlinePainter;
     }
 
     /**
-     * Returns the highlight border painter of this skin.
+     * Returns the highlight outline painter of this skin.
      *
-     * @return The highlight border painter of this skin. The return value of
+     * @return The highlight outline painter of this skin. The return value of
      * this method may be <code>null</code>. In this case, call
-     * {@link #getBorderPainter()}.
+     * {@link #getOutlinePainter()}.
      */
-    public final RadianceBorderPainter getHighlightBorderPainter() {
-        return this.highlightBorderPainter;
+    public final RadianceOutlinePainter getHighlightOutlinePainter() {
+        return this.highlightOutlinePainter;
     }
 
     /**
@@ -701,7 +701,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     /**
      * Checks whether this skin is valid. A valid skin must have a color scheme
      * bundle for {@link RadianceThemingSlices.DecorationAreaType#NONE} and non-<code>null</code>
-     * button shaper, gradient painter, border painter, highlight painter and
+     * button shaper, gradient painter, outline painter, highlight painter and
      * decoration painter. If call to
      * {@link RadianceThemingCortex.GlobalScope#setSkin(String)} or
      * {@link RadianceThemingCortex.GlobalScope#setSkin(RadianceSkin)} does not seem to have
@@ -721,7 +721,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         if (this.getFillPainter() == null) {
             return false;
         }
-        if (this.getBorderPainter() == null) {
+        if (this.getOutlinePainter() == null) {
             return false;
         }
         if (this.getHighlightFillPainter() == null) {

@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -128,9 +128,9 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-            RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
+            RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(button);
 
-            drawFullAlphaBackground(graphics, button, finalTokens, borderPainter);
+            drawFullAlphaBackground(graphics, button, finalTokens, outlinePainter);
 
             graphics.dispose();
         }
@@ -144,7 +144,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
     private static void drawFullAlphaBackground(Graphics2D g,
         JRibbonTaskToggleButton button,
         ContainerColorTokens tokens,
-        RadianceBorderPainter borderPainter) {
+        RadianceOutlinePainter outlinePainter) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -177,7 +177,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                             button.getComponentOrientation(),
                             scaledWidth, scaledHeight + 4.0f, radius, bottom, 2.0f);
 
-                    borderPainter.paintBorder(graphics1X, button, scaledWidth, scaledHeight + 2.0f,
+                    outlinePainter.paintOutline(graphics1X, button, scaledWidth, scaledHeight + 2.0f,
                             contour, contourInner, tokens);
                 });
         graphics.dispose();

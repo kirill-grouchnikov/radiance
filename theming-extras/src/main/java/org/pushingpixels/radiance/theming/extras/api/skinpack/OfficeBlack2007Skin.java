@@ -39,10 +39,10 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -275,7 +275,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
                     : colorTokens.getContainerSurfaceLow()});
 
-        this.borderPainter = new FlatBorderPainter();
+        this.outlinePainter = new FlatOutlinePainter();
 
         this.decorationPainter = new FractionBasedDecorationPainter(
             "Office Black 2007",

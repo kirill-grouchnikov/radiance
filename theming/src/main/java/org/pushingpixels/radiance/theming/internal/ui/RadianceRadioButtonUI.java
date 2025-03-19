@@ -32,8 +32,8 @@ package org.pushingpixels.radiance.theming.internal.ui;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -129,7 +129,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                         stateTransitionTracker.getModelStateInfo();
 
                 RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(button);
-                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
+                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(button);
                 ComponentState currState = modelStateInfo.getCurrModelState();
 
                 float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
@@ -141,7 +141,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
 
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
-                BladeIconUtils.drawTonalRadioButton(graphics, button, fillPainter, borderPainter,
+                BladeIconUtils.drawTonalRadioButton(graphics, button, fillPainter, outlinePainter,
                     checkMarkSize, currState, mutableContainerTokens, visibility);
                 graphics.dispose();
             }

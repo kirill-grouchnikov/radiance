@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.painter.border;
+package org.pushingpixels.radiance.theming.api.painter.outline;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -38,8 +38,8 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
  *
  * @author Kirill Grouchnikov
  */
-public class FlatBorderPainter extends FractionBasedTonalBorderPainter {
-	public FlatBorderPainter() {
+public class FlatOutlinePainter extends FractionBasedTonalOutlinePainter {
+	public FlatOutlinePainter() {
 		super(
             "Flat",
             new float[]{0.0f, 1.0f},

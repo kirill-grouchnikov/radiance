@@ -37,12 +37,12 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -231,9 +231,9 @@ public class TwilightSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface});
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightFillPainter = new ClassicFillPainter();
-        this.borderPainter = new CompositeBorderPainter("Twilight",
-            new FlatBorderPainter(),
-            new FractionBasedTonalBorderPainter("Twilight Inner",
+        this.outlinePainter = new CompositeOutlinePainter("Twilight",
+            new FlatOutlinePainter(),
+            new FractionBasedTonalOutlinePainter("Twilight Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {32, 24, 24},
                 new ContainerColorTokensSingleColorQuery[] {

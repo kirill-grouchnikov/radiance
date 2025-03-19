@@ -39,9 +39,9 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
@@ -230,7 +230,7 @@ public class SentinelSkin extends RadianceSkin {
         this.fillPainter = new MatteFillPainter();
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightFillPainter = new MatteFillPainter();
-        this.borderPainter = new FlatBorderPainter();
-        this.highlightBorderPainter = new FlatBorderPainter();
+        this.outlinePainter = new FlatOutlinePainter();
+        this.highlightOutlinePainter = new FlatOutlinePainter();
     }
 }

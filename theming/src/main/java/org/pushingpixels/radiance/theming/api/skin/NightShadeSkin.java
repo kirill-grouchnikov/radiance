@@ -39,12 +39,12 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
@@ -155,9 +155,9 @@ public class NightShadeSkin extends RadianceSkin {
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightFillPainter = new MatteFillPainter();
 
-        this.borderPainter = new CompositeBorderPainter("Night Shade",
-            new FlatBorderPainter(),
-            new FractionBasedTonalBorderPainter("Night Shade Inner",
+        this.outlinePainter = new CompositeOutlinePainter("Night Shade",
+            new FlatOutlinePainter(),
+            new FractionBasedTonalOutlinePainter("Night Shade Inner",
                 new float[]{0.0f, 1.0f},
                 new int[] {32, 12},
                 new ContainerColorTokensSingleColorQuery[]{

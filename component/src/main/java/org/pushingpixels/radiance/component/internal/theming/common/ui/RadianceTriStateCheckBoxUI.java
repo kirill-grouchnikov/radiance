@@ -34,8 +34,8 @@ import org.pushingpixels.radiance.component.api.common.JTriStateCheckBox;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicTriStateCheckBoxUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
@@ -79,7 +79,7 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                         stateTransitionTracker.getModelStateInfo();
 
                 RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(triStateCheckBox);
-                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(triStateCheckBox);
+                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(triStateCheckBox);
                 ComponentState currState = modelStateInfo.getCurrModelState();
 
                 float visibility = stateTransitionTracker.getFacetStrength(
@@ -115,7 +115,7 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
                 BladeIconUtils.drawTonalCheckBox(graphics, triStateCheckBox, fillPainter,
-                    borderPainter, checkMarkSize, currState, mutableContainerTokens, visibility,
+                    outlinePainter, checkMarkSize, currState, mutableContainerTokens, visibility,
                     checkmarkFlatness, isCheckMarkFadingOut);
                 graphics.dispose();
             }

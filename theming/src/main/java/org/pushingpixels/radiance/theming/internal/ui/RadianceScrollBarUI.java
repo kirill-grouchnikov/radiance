@@ -33,8 +33,8 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -176,7 +176,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, height,
             width, (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
-                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
+                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
                 float radius = scaledHeight / 2;
                 Shape contour = RadianceOutlineUtilities.getBaseOutline(
@@ -198,7 +198,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(AlphaComposite.getInstance(
                     AlphaComposite.SRC_OVER, containerOutlineAlpha));
-                borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
+                outlinePainter.paintOutline(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
                     contour, null, mutableContainerTokens);
             });
         graphics.dispose();
@@ -234,7 +234,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
-                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
+                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
                 float radius = scaledHeight / 2;
                 Shape contour = RadianceOutlineUtilities.getBaseOutline(
@@ -252,7 +252,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(AlphaComposite.getInstance(
                     AlphaComposite.SRC_OVER, containerOutlineAlpha));
-                borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
+                outlinePainter.paintOutline(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
                     contour, null, mutableContainerTokens);
             });
         graphics.dispose();

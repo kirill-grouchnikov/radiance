@@ -36,12 +36,12 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -123,7 +123,7 @@ public class StreetlightsSkin extends RadianceSkin {
         this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 0.5f);
         this.decorationPainter = new ArcDecorationPainter();
 
-        this.borderPainter = new FractionBasedTonalBorderPainter("Streetlights",
+        this.outlinePainter = new FractionBasedTonalOutlinePainter("Streetlights",
             new float[] {0.0f, 1.0f},
             new int[] {80, 80},
             new ContainerColorTokensSingleColorQuery[]{
@@ -132,6 +132,6 @@ public class StreetlightsSkin extends RadianceSkin {
             });
 
         this.highlightFillPainter = new ClassicFillPainter();
-        this.highlightBorderPainter = new FlatBorderPainter();
+        this.highlightOutlinePainter = new FlatOutlinePainter();
     }
 }

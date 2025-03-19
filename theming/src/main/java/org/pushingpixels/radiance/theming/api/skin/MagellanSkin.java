@@ -36,12 +36,12 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -246,9 +246,9 @@ public class MagellanSkin extends RadianceSkin {
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightFillPainter = new ClassicFillPainter();
 
-        this.borderPainter = new CompositeBorderPainter("Magellan",
-            new FlatBorderPainter(),
-            new FractionBasedTonalBorderPainter("Magellan Inner",
+        this.outlinePainter = new CompositeOutlinePainter("Magellan",
+            new FlatOutlinePainter(),
+            new FractionBasedTonalOutlinePainter("Magellan Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {112, 80, 64},
                 new ContainerColorTokensSingleColorQuery[] {

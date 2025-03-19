@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -71,7 +71,7 @@ public class SliderVerticalIcon implements Icon, UIResource {
                 stateTransitionTracker.getModelStateInfo();
 
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(this.slider);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
+        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.slider);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         // Populate color tokens based on the current transition state of the slider.
@@ -84,7 +84,7 @@ public class SliderVerticalIcon implements Icon, UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y - (this.size - height) / 2.0);
-        BladeIconUtils.drawSliderThumbVertical(graphics, this.slider, fillPainter, borderPainter,
+        BladeIconUtils.drawSliderThumbVertical(graphics, this.slider, fillPainter, outlinePainter,
             this.size, height, mutableColorTokens, currState);
         graphics.dispose();
     }

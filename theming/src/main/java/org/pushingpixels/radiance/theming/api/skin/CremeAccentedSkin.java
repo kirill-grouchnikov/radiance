@@ -38,12 +38,12 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
@@ -103,9 +103,9 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 0.5f);
 		this.decorationPainter = new ArcDecorationPainter();
 		this.highlightFillPainter = new MatteFillPainter();
-		this.borderPainter = new CompositeBorderPainter("Creme",
-			new FlatBorderPainter(),
-			new FractionBasedTonalBorderPainter("Creme Inner",
+		this.outlinePainter = new CompositeOutlinePainter("Creme",
+			new FlatOutlinePainter(),
+			new FractionBasedTonalOutlinePainter("Creme Inner",
 				new float[] {0.0f, 1.0f},
 				new ContainerColorTokensSingleColorQuery[] {
 					ContainerColorTokens::getComplementaryContainerOutline,

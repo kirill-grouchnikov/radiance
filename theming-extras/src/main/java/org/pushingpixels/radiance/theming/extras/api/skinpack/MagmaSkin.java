@@ -38,12 +38,12 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -112,7 +112,7 @@ public class MagmaSkin extends RadianceSkin {
         this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
         this.decorationPainter = new ArcDecorationPainter();
 
-        this.borderPainter = new FractionBasedTonalBorderPainter("Magma",
+        this.outlinePainter = new FractionBasedTonalOutlinePainter("Magma",
             new float[] {0.0f, 1.0f},
             new int[] {80, 80},
             new ContainerColorTokensSingleColorQuery[]{
@@ -121,6 +121,6 @@ public class MagmaSkin extends RadianceSkin {
             });
 
         this.highlightFillPainter = new ClassicFillPainter();
-        this.highlightBorderPainter = new FlatBorderPainter();
+        this.highlightOutlinePainter = new FlatOutlinePainter();
     }
 }

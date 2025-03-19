@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -100,7 +100,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
         if ((width <= 0) || (height <= 0))
             return;
 
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
+        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(c);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(xOffset, yOffset);
@@ -132,7 +132,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                         graphics1X.setComposite(WidgetUtilities.getAlphaComposite(c,
                             mutableContainerTokens.containerOutlineDisabledAlpha, g));
                     }
-                    borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight,
+                    outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight,
                         new Rectangle(0, 0, scaledWidth - 1, scaledHeight - 1),
                         null, mutableContainerTokens);
 
@@ -153,7 +153,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                     mutableContainerTokens.containerOutlineDisabledAlpha, g));
             }
 
-            borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight,
+            outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight,
                 new Rectangle(0, 0, scaledWidth - 1, scaledHeight - 1),
                 null, colorTokens);
         });

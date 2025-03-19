@@ -36,11 +36,11 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -224,9 +224,9 @@ public class GeminiSkin extends RadianceSkin {
                     : colorTokens.getContainerSurfaceLow(),
                 ContainerColorTokens::getContainerSurface});
 
-        this.borderPainter = new CompositeBorderPainter("Gemini",
-            new FlatBorderPainter(),
-            new FractionBasedTonalBorderPainter("Gemini Inner",
+        this.outlinePainter = new CompositeOutlinePainter("Gemini",
+            new FlatOutlinePainter(),
+            new FractionBasedTonalOutlinePainter("Gemini Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {96, 64, 32},
                 new ContainerColorTokensSingleColorQuery[] {
@@ -234,6 +234,6 @@ public class GeminiSkin extends RadianceSkin {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline
                 }));
-        this.highlightBorderPainter = new FlatBorderPainter();
+        this.highlightOutlinePainter = new FlatOutlinePainter();
     }
 }

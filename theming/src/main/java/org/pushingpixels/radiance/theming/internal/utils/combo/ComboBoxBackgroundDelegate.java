@@ -33,8 +33,8 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -56,7 +56,7 @@ public class ComboBoxBackgroundDelegate {
 
     public void drawBackground(
             Graphics2D graphics, JComboBox combo,
-            RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
+            RadianceFillPainter fillPainter, RadianceOutlinePainter outlinePainter, int width,
             int height) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) combo.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
@@ -67,13 +67,13 @@ public class ComboBoxBackgroundDelegate {
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             false, false, RadianceThemingSlices.ContainerType.MUTED);
 
-        drawBackground(graphics, combo, fillPainter, borderPainter, width, height,
+        drawBackground(graphics, combo, fillPainter, outlinePainter, width, height,
             mutableContainerTokens);
     }
 
     private void drawBackground(Graphics2D g, JComboBox combo,
         RadianceFillPainter fillPainter,
-        RadianceBorderPainter borderPainter, int width, int height,
+        RadianceOutlinePainter outlinePainter, int width, int height,
         ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -92,19 +92,19 @@ public class ComboBoxBackgroundDelegate {
                     scaledWidth - 1, scaledHeight - 1, radius, null, 0);
                 // If the border is painted, compute a separate contour for the fill.
                 // Otherwise pixels on the edge can "spill" outside
-                // the contour. Those pixels will be drawn by the border painter.
+                // the contour. Those pixels will be drawn by the outline painter.
                 Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
                     combo.getComponentOrientation(),
                     scaledWidth, scaledHeight, radius, null, 0.5f);
                 fillPainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
                     contourFill, colorTokens);
 
-                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                Shape contourInner = outlinePainter.isPaintingInnerContour() ?
                     RadianceOutlineUtilities.getBaseOutline(
                         combo.getComponentOrientation(),
                         scaledWidth - 1, scaledHeight - 1, radius - 1, null, 1)
                     : null;
-                borderPainter.paintBorder(graphics1X, combo, scaledWidth, scaledHeight,
+                outlinePainter.paintOutline(graphics1X, combo, scaledWidth, scaledHeight,
                     contourOuter, contourInner, colorTokens);
             });
     }
@@ -155,9 +155,9 @@ public class ComboBoxBackgroundDelegate {
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
             RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(combo);
-            RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(combo);
+            RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(combo);
 
-            drawBackground(graphics, combo, fillPainter, borderPainter, width, height);
+            drawBackground(graphics, combo, fillPainter, outlinePainter, width, height);
 
             graphics.dispose();
         }

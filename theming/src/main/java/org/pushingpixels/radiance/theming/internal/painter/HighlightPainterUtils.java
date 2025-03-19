@@ -34,8 +34,8 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -76,15 +76,15 @@ public class HighlightPainterUtils {
         Component compForQuerying = (rendererPane != null) ? rendererPane : c;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(compForQuerying);
         RadianceFillPainter highlightPainter = skin.getHighlightFillPainter();
-        RadianceBorderPainter highlightBorderPainter = RadianceCoreUtilities
-            .getHighlightBorderPainter(compForQuerying);
+        RadianceOutlinePainter highlightOutlinePainter = RadianceCoreUtilities
+            .getHighlightOutlinePainter(compForQuerying);
         Graphics2D g2d = (Graphics2D) g.create();
 
         if (openSides == null) {
             openSides = EnumSet.noneOf(RadianceThemingSlices.Side.class);
         }
         paintHighlight(g2d, c, rect, state, alpha, paintHighlightBorders, openSides, colorTokens,
-            highlightPainter, highlightBorderPainter);
+            highlightPainter, highlightOutlinePainter);
         g2d.dispose();
     }
 
@@ -92,7 +92,7 @@ public class HighlightPainterUtils {
         ComponentState state, float alpha, boolean paintHighlightBorders,
         Set<RadianceThemingSlices.Side> openSides,
         ContainerColorTokens colorTokens, RadianceFillPainter highlightPainter,
-        RadianceBorderPainter highlightBorderPainter) {
+        RadianceOutlinePainter highlightOutlinePainter) {
 
         Graphics2D g2d = (Graphics2D) g.create();
 
@@ -113,7 +113,7 @@ public class HighlightPainterUtils {
             }
             g2d.setComposite(WidgetUtilities.getAlphaComposite(c, borderAlpha, g));
             paintHighlightBorder1X(g2d, c, rect.width, rect.height, 1.0f, openSides,
-                highlightBorderPainter, colorTokens);
+                highlightOutlinePainter, colorTokens);
         }
 
         g2d.dispose();
@@ -121,7 +121,7 @@ public class HighlightPainterUtils {
 
     public static void paintHighlightBorder1X(Graphics2D g, Component comp, int width,
         int height, float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
-        RadianceBorderPainter highlightBorderPainter, ContainerColorTokens colorTokens) {
+        RadianceOutlinePainter highlightOutlinePainter, ContainerColorTokens colorTokens) {
         if (borderAlpha <= 0.0f) {
             return;
         }
@@ -154,7 +154,7 @@ public class HighlightPainterUtils {
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(comp, borderAlpha, graphics1X));
                 Shape contourInner = getBorderPath(orientation, scaledWidth, scaledHeight, 1.0f, openSides);
 
-                highlightBorderPainter.paintBorder(graphics1X, comp,
+                highlightOutlinePainter.paintOutline(graphics1X, comp,
                     scaledWidth + deltaLeft + deltaRight,
                     scaledHeight + deltaTop + deltaBottom,
                     contour, contourInner, colorTokens);

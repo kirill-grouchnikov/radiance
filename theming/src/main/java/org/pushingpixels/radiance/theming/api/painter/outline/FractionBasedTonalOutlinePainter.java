@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.painter.border;
+package org.pushingpixels.radiance.theming.api.painter.outline;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -45,10 +45,10 @@ import java.awt.MultipleGradientPaint.CycleMethod;
  *
  * @author Kirill Grouchnikov
  */
-public class FractionBasedTonalBorderPainter extends FractionBasedPainter
-		implements RadianceBorderPainter {
+public class FractionBasedTonalOutlinePainter extends FractionBasedPainter
+		implements RadianceOutlinePainter {
 	/**
-	 * Creates a new fraction-based border painter.
+	 * Creates a new fraction-based outline painter.
 	 *
 	 * @param displayName
 	 *            The display name of this painter.
@@ -60,13 +60,13 @@ public class FractionBasedTonalBorderPainter extends FractionBasedPainter
 	 *            the fractions array, and all entries must be non-
 	 *            <code>null</code>.
 	 */
-	public FractionBasedTonalBorderPainter(String displayName, float[] fractions,
+	public FractionBasedTonalOutlinePainter(String displayName, float[] fractions,
 		ContainerColorTokensSingleColorQuery[] colorQueries) {
 		super(displayName, fractions, colorQueries);
 	}
 
 	/**
-	 * Creates a new fraction-based border painter.
+	 * Creates a new fraction-based outline painter.
 	 *
 	 * @param displayName
 	 *            The display name of this painter.
@@ -79,13 +79,13 @@ public class FractionBasedTonalBorderPainter extends FractionBasedPainter
 	 *            the fractions array, and all entries must be non-
 	 *            <code>null</code>.
 	 */
-	public FractionBasedTonalBorderPainter(String displayName, float[] fractions,
+	public FractionBasedTonalOutlinePainter(String displayName, float[] fractions,
 		int[] alphas, ContainerColorTokensSingleColorQuery[] colorQueries) {
 		super(displayName, fractions, alphas, colorQueries);
 	}
 
 	@Override
-	public void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
+	public void paintOutline(Graphics g, Component c, float width, float height, Shape contour,
 		Shape innerContour, ContainerColorTokens colorTokens) {
 		if (contour == null)
 			return;

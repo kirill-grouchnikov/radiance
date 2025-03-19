@@ -37,13 +37,13 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatVariantBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatVariantOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -206,9 +206,9 @@ public class AutumnSkin extends RadianceSkin {
 			ContainerColorTokens::getContainerSurfaceLow,
 			ContainerColorTokens::getContainerSurfaceLow,
 			1.0f);
-		this.borderPainter = new CompositeBorderPainter("Autumn",
-			new FlatVariantBorderPainter(),
-			new FractionBasedTonalBorderPainter("Autumn Inner",
+		this.outlinePainter = new CompositeOutlinePainter("Autumn",
+			new FlatVariantOutlinePainter(),
+			new FractionBasedTonalOutlinePainter("Autumn Inner",
 				new float[] {0.0f, 1.0f},
 				new int[] {240, 240},
 				new ContainerColorTokensSingleColorQuery[] {

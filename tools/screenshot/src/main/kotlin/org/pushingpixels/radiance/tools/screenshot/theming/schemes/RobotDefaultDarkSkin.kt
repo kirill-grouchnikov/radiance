@@ -37,13 +37,13 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery
-import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter
-import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedTonalBorderPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
+import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
@@ -74,10 +74,10 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
 
         this.buttonShaper = ClassicButtonShaper()
         this.fillPainter = SpecularRectangularFillPainter(ClassicFillPainter(), 1.0f)
-        this.borderPainter = CompositeBorderPainter(
+        this.outlinePainter = CompositeOutlinePainter(
             "Robot",
-            FlatBorderPainter(),
-            FractionBasedTonalBorderPainter(
+            FlatOutlinePainter(),
+            FractionBasedTonalOutlinePainter(
                 "Robot Inner",
                 floatArrayOf(0.0f, 1.0f),
                 intArrayOf(96, 96),
