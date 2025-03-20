@@ -47,7 +47,6 @@ import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePain
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,9 +57,6 @@ public class BimodalControlStates extends JFrame {
 
         this.setLayout(new FlowLayout());
 
-        JButton attentionButton = new JButton("attention");
-        attentionButton.putClientProperty(RadianceSynapse.CONTENTS_MODIFIED, Boolean.TRUE);
-
         JToggleButton toggleButton = new JToggleButton("selected");
         toggleButton.setSelected(true);
 
@@ -69,7 +65,6 @@ public class BimodalControlStates extends JFrame {
         JButton disabledButton = new JButton("disabled");
         disabledButton.setEnabled(false);
 
-        this.add(attentionButton);
         this.add(toggleButton);
         this.add(enabledButton);
         this.add(disabledButton);
