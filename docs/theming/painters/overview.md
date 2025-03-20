@@ -12,8 +12,8 @@ Radiance uses five types of painters which are used on different types of contro
 
 Radiance uses the following painter types:
 
-* [Fill painters](fill.md)
-* [Border painters](border.md)
+* [Surface painters](surface.md)
+* [Outline painters](outline.md)
 * [Highlight painters](highlight.md)
 * [Decoration painters](decoration.md)
 * [Overlay painters](overlay.md)

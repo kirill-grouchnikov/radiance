@@ -38,8 +38,8 @@ Radiance provides a powerful and flexible set of APIs that can be used to skin S
 ### Painters
 
 * [Overview](painters/overview.md)
-* [Fill painters](painters/fill.md)
-* [Border painters](painters/border.md)
+* [Surface painters](painters/surface.md)
+* [Outline painters](painters/outline.md)
 * [Highlight painters](painters/highlight.md)
 * [Decoration painters](painters/decoration.md)
 * [Overlay painters](painters/overlay.md)

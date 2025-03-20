@@ -29,9 +29,9 @@ The skin definition consists of the following:
   * [Color scheme bundles](colorschemebundles.md) for the supported decoration areas.
   * Optional background [color schemes](colorschemes.md) for the supported decoration areas.
 * Painters:
-  * [Fill painter](../painters/fill.md).
-  * [Border painter](../painters/border.md).
-  * [Highlight painter](../painters/highlight.md).
+  * [Surface painter](../painters/surface.md).
+  * [Outline painter](../painters/outline.md).
+  * [Highlight painters](../painters/highlight.md).
   * [Decoration painter](../painters/decoration.md).
 * Miscellaneous:
   * [Button shaper](../../hyperion/hyperion.md).

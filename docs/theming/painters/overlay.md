@@ -13,22 +13,21 @@ This skin defines custom visual appearance for the title pane, the menu bar and 
 ```java
 // add an overlay painter to paint a drop shadow along the top
 // edge of toolbars
-this.addOverlayPainter(TopShadowOverlayPainter.getInstance(),
-    DecorationAreaType.TOOLBAR);
+this.addOverlayPainter(TopShadowOverlayPainter.getInstance(60),
+    RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 // add an overlay painter to paint separator lines along the bottom
 // edges of title panes and menu bars
 this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-    ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
-        ColorTransform.alpha(160)));
+    ContainerColorTokens::getContainerOutline);
 this.addOverlayPainter(this.bottomLineOverlayPainter,
-    DecorationAreaType.PRIMARY_TITLE_PANE,
-    DecorationAreaType.SECONDARY_TITLE_PANE,
-    DecorationAreaType.HEADER);
+    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+    RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+    RadianceThemingSlices.DecorationAreaType.HEADER);
 ```
 
 * The `TopShadowOverlayPainter` is associated with the `toolbar` decoration area - adding the drop shadow along the top edge of all application toolbars (see the bottom half of the zoomed area in the screenshot above).
-* The `BottomLineOverlayPainter` is associated with `title pane` and `header` decoration areas - adding a thin separator line along the bottom edge of the title pane and the menubar (see the top half of the zoomed area in the screenshot above). Note that the application needs to specify what color is used to paint the separator line - using the `org.pushingpixels.radiance.theming.api.ColorSchemeSingleColorQuery` - more on this interface later.
+* The `BottomLineOverlayPainter` is associated with `title pane` and `header` decoration areas - adding a thin separator line along the bottom edge of the title pane and the menubar (see the top half of the zoomed area in the screenshot above). Note that the application needs to specify what color is used to paint the separator line - using the `org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery` - more on this interface later.
 
 Here is the same skeleton window under the [Gemini](../skins/toneddown.md#gemini) skin:
 
@@ -39,31 +38,34 @@ This skin defines custom visual appearance for the title pane, the menu bar, the
 ```java
 // add an overlay painter to paint a bezel line along the top
 // edge of footer
-this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-    ColorSchemeSingleColorQuery.DARK, ColorSchemeSingleColorQuery.ULTRALIGHT);
-this.addOverlayPainter(this.footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);
+RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+    ContainerColorTokens::getContainerOutlineVariant,
+    ContainerColorTokensSingleColorQuery.composite(
+      ContainerColorTokens::getInverseContainerOutline,
+      ColorTransform.alpha(72)));
+this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 // add two overlay painters to create a bezel line between
 // menu bar and toolbars
-this.menuOverlayPainter = new BottomLineOverlayPainter(
-        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                ColorTransform.brightness(-0.5f)));
-this.toolbarOverlayPainter = new TopLineOverlayPainter(
-        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
-                ColorTransform.alpha(32)));
-this.addOverlayPainter(this.menuOverlayPainter, DecorationAreaType.HEADER);
-this.addOverlayPainter(this.toolbarOverlayPainter, DecorationAreaType.TOOLBAR);
+RadianceOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
+    ContainerColorTokens::getContainerOutline);
+RadianceOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
+    ContainerColorTokensSingleColorQuery.composite(
+      ContainerColorTokens::getComplementaryContainerOutline,
+      ColorTransform.alpha(48)));
+this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 // add overlay painter to paint drop shadows along the bottom
 // edges of toolbars
-this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(),
-    DecorationAreaType.TOOLBAR);
+this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+    RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 // add overlay painter to paint a dark line along the bottom
 // edge of toolbars
-this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-    ColorSchemeSingleColorQuery.ULTRADARK);
-this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
+RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+    ContainerColorTokens::getContainerOutline);
+this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 ```
 
 This skin shows two different ways to add double-line bezel separators - the first between the menu bar and tool bar, and the second between the main application area and the footer:
@@ -82,31 +84,32 @@ This skin defines custom visual appearance for the title pane, the menu bar, the
 ```java
 // Add overlay painters to paint drop shadows along the bottom
 // edges of toolbars and footers
-this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(),
-    DecorationAreaType.TOOLBAR);
-this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(), DecorationAreaType.FOOTER);
+this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+    RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+    RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 // add an overlay painter to paint a dark line along the bottom
 // edge of toolbars
-this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-    scheme -> scheme.getUltraDarkColor().darker());
-this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
+RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+    ContainerColorTokens::getContainerOutlineVariant);
+this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 // add an overlay painter to paint a dark line along the bottom
 // edge of toolbars
-this.toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
-        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
-                ColorTransform.alpha(32)));
-this.addOverlayPainter(this.toolbarTopLineOverlayPainter, DecorationAreaType.TOOLBAR);
+RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
+    ContainerColorTokensSingleColorQuery.composite(
+      ContainerColorTokens::getInverseContainerOutline,
+      ColorTransform.alpha(32)));
+this.addOverlayPainter(toolbarTopLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 // add an overlay painter to paint a bezel line along the top
 // edge of footer
-this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
-                ColorTransform.brightness(-0.5f)),
-        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
-                ColorTransform.alpha(32)));
-this.addOverlayPainter(this.footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);
+RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+    ContainerColorTokens::getContainerOutlineVariant,
+    ContainerColorTokensSingleColorQuery.composite(
+      ContainerColorTokens::getInverseContainerOutline,
+      ColorTransform.alpha(72)));
+this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 ```
 
 The overlay painters used in the Twilight skin are:

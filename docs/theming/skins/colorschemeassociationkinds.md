@@ -103,7 +103,7 @@ The second parameter specifies what should happen when the color scheme bundle d
 
 For example, the `ColorSchemeAssociationKind.MARK` has the `ColorSchemeAssociationKind.BORDER` as its fallback. This means that if you want to use the same color scheme for painting both borders and marks, you need to only call the `RadianceColorSchemeBundle.registerColorScheme` API with the `ColorSchemeAssociationKind.BORDER` value.
 
-The registered associations are used by the Radiance UI delegates during the component painting. Specifically for the checkbox, the UI delegate queries the three relevant association kinds (`ColorSchemeAssociationKind.FIL`L, `ColorSchemeAssociationKind.BORDER` and `ColorSchemeAssociationKind.MARK`) and uses the relevant painters ([fill](../painters/fill.md) and [border](../painters/border.md)) to paint the matching visual areas.
+The registered associations are used by the Radiance UI delegates during the component painting. Specifically for the checkbox, the UI delegate queries the three relevant association kinds (`ColorSchemeAssociationKind.FIL`L, `ColorSchemeAssociationKind.BORDER` and `ColorSchemeAssociationKind.MARK`) and uses the relevant painters ([surface](../painters/surface.md) and [outline](../painters/outline.md)) to paint the matching visual areas.
 
 Applications that want to provide [custom skinning](../painters/custom-skinning.md) of their UIs can use the following two supported APIs in order to get the relevant color schemes.
 

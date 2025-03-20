@@ -15,7 +15,7 @@ Additional [color schemes](skins/colorschemes.md) are available under the `org.p
 
 ### Painters
 
-Additional [fill](painters/fill.md) and [decoration](painters/decoration.md) painters are available under the `org.pushingpixels.radiance.theming.extras.api.painterpack` package.
+Additional [surface](painters/surface.md) and [decoration](painters/decoration.md) painters are available under the `org.pushingpixels.radiance.theming.extras.api.painterpack` package.
 
 ### Skins
 

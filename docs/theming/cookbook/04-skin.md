@@ -73,7 +73,7 @@ Analyzing the visuals, we can see:
 * The outer border is a gradient that goes from dark at the top to very dark at the bottom.
 * The inner border is a gradient that goes from very light at the top to completely translucent at the bottom.
 
-The implementation has a custom [fill painter](../painters/fill.md) and a custom [border painter](../painters/border.md). Base Radiance painters provide extension points for computing the relevant stop point colors, handling all the rest of the logic (anti-aliasing, stroke widths, insets, scaling gaps, caching etc). All we need to do in our custom painter implementation is to emulate the colors of the target design.
+The implementation has a custom [surface painter](../painters/surface.md) and a custom [outline painter](../painters/outline.md). Base Radiance painters provide extension points for computing the relevant stop point colors, handling all the rest of the logic (anti-aliasing, stroke widths, insets, scaling gaps, caching etc). All we need to do in our custom painter implementation is to emulate the colors of the target design.
 
 Here are the original design and the custom Radiance implementation side-by-side:
 

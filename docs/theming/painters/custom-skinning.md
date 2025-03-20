@@ -13,8 +13,8 @@ Instead of trying to match the colors, gradients and animation sequences from th
 
 The following Radiance APIs are most suited for painting custom components:
 
-* [Fill painters](fill.md)
-* [Border painters](border.md)
+* [Surface painters](surface.md)
+* [Outline painters](outline.md)
 * [Highlight painters](highlight.md)
 * [Decoration painters](decoration.md)
 * [Overlay painters](overlay.md)
