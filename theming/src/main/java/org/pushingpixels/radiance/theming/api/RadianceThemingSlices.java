@@ -816,12 +816,22 @@ public final class RadianceThemingSlices {
         }
     }
 
+    /**
+     * Enumeration of available container types. Each entry corresponds to the matching container
+     * color tokens passed to {@link RadianceColorSchemeBundle}.
+     */
     public enum ContainerType {
         NEUTRAL,
         MUTED,
         ACTIVE
     }
 
+    /**
+     * Enumeration of available system container types.
+     * 
+     * @see RadianceColorSchemeBundle#getSystemContainerTokens(SystemContainerType)
+     * @see RadianceColorSchemeBundle#getInverseSystemContainerTokens(SystemContainerType) 
+     */
     public enum SystemContainerType {
         INFO,
         WARNING,
@@ -977,7 +987,7 @@ public final class RadianceThemingSlices {
             new ContainerColorTokensAssociationKind("default", null);
 
         /**
-         * Fill visual area of the tabs.
+         * Visual area of tabs in {@link JTabbedPane}s.
          */
         public static final ContainerColorTokensAssociationKind TAB =
             new ContainerColorTokensAssociationKind("tab", DEFAULT);
@@ -1002,7 +1012,7 @@ public final class RadianceThemingSlices {
             new ContainerColorTokensAssociationKind("highlight_text", HIGHLIGHT);
 
         /**
-         * Visual area of separators.
+         * Visual area of {@link JSeparator}s.
          */
         public static final ContainerColorTokensAssociationKind SEPARATOR =
             new ContainerColorTokensAssociationKind("separator", DEFAULT);
