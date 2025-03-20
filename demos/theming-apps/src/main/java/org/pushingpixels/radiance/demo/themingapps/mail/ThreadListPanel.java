@@ -31,15 +31,15 @@ package org.pushingpixels.radiance.demo.themingapps.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.demo.themingapps.mail.svg.mode_edit_black_24dp;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.person_outline_black_24dp;
+import org.pushingpixels.radiance.demo.themingapps.mail.svg.refresh_black_24dp;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
-import org.pushingpixels.radiance.theming.internal.svg.edit_black_24dp;
-import org.pushingpixels.radiance.theming.internal.svg.refresh_black_24dp;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -67,7 +67,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         Color labelBackgroundColor = colorTokens.getContainerSurfaceHigh();
         Color labelSeparatorColor = colorTokens.getContainerOutline();
 
-        RadianceIcon editIcon = edit_black_24dp.of(14, 14);
+        RadianceIcon editIcon = mode_edit_black_24dp.of(14, 14);
         Color filterColor = new Color(mainSelectorIconColor.getRed(),
                 mainSelectorIconColor.getGreen(),
                 mainSelectorIconColor.getBlue(),

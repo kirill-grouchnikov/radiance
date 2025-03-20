@@ -42,7 +42,6 @@ import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolver
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,7 +82,6 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
                 /* contrastLevel */ 1.0,
                 /* surfaceRangeAmplitudeFactor */ 2.0),
             /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
-        System.out.println(RadianceColorUtilities.encode(brushedMetalTokens.getContainerSurfaceDim()));
 
         LookupFilter brushedMetalLookupFilter = new LookupFilter(new Gradient(
             new int[] { 0, 96, 128, 192, 255 },

@@ -20,6 +20,8 @@ In the mapping below, `o.p.r.t.a.p` stands for `org.pushingpixels.radiance.themi
 | `RadianceBorderPainter` | `RadianceOutlinePainter` |
 | `RadianceFillPainter` | `RadianceSurfacePainter` |
 
+All relevant APIs that work with these painters in `RadianceSkin` and elsewhere have been updated to reflect the new naming conventions.
+
 ### APIs that have been replaced
 
 * `RadianceColorScheme` has been replaced by `ContainerColorTokens`, including all relevant Radiance painter APIs. Use `ColorSchemeUtils` to get `ContainerColorTokens` from seed colors and additional container configuration options.
@@ -31,3 +33,5 @@ In the mapping below, `o.p.r.t.a.p` stands for `org.pushingpixels.radiance.themi
   * Negating and inverting by changing the dark flag in the container configuration
 * Color overlay APIs in `RadianceSkin` are removed. Use `RadianceColorSchemeBundle.registerActiveContainerTokens` for configuring state-specific color tokens to use to paint controls.
 * Base and derived colors are replaced by color tokens in `ContainerColorTokens`. Use `PaletteContainerColorsResolverOverlay` and `BimodalPaletteContainerColorsResolverOverlay` to tweak color token resolution for specific visuals in your application.
+* `RadianceThemingSlices.ColorSchemeAssociationKind` is replaced with `RadianceThemingSlices.ContainerColorTokensAssociationKind`.
+* Two new enums added to `RadianceThemingSlices` - `ContainerType` and `SystemContainerType` - to mirror the container-based APIs in `RadianceSkin` and `RadianceColorSchemeBundle`.
