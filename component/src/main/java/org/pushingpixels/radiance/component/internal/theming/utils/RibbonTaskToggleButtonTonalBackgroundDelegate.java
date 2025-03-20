@@ -69,7 +69,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
 
         // Populate color schemes tokens on the current transition state of the button.
         // To create visual continuity between the background of the selected task
-        // and its toggle button, we use the decoration painter and not fill painter.
+        // and its toggle button, we use the decoration painter and not surface painter.
         // We also ignore the selected state of the toggle button to compute the
         // color scheme to use.
         // If we have one active state which is *not* enabled, this means that we have

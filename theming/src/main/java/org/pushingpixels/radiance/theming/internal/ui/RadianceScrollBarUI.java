@@ -33,8 +33,8 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -175,7 +175,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         // with a 90 degree rotation transformation
         RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, height,
             width, (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
+                RadianceSurfacePainter painter = RadianceCoreUtilities.getSurfacePainter(this.scrollbar);
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
                 float radius = scaledHeight / 2;
@@ -233,7 +233,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
+                RadianceSurfacePainter painter = RadianceCoreUtilities.getSurfacePainter(this.scrollbar);
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
                 float radius = scaledHeight / 2;

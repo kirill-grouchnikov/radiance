@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.radiance.theming.api.painter.fill;
+package org.pushingpixels.radiance.theming.api.painter.surface;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -38,11 +38,11 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
  * 
  * @author Kirill Grouchnikov
  */
-public class GlassFillPainter extends FractionBasedFillPainter {
+public class GlassSurfacePainter extends FractionBasedSurfacePainter {
 	/**
 	 * Creates a new glass gradient painter.
 	 */
-	public GlassFillPainter() {
+	public GlassSurfacePainter() {
 		super("Glass",
 			new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {

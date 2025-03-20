@@ -40,8 +40,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
@@ -307,14 +307,14 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Returns the fill painter of the specified component.
+     * Returns the surface painter of the specified component.
      *
      * @param comp Component.
-     * @return The fill painter of the specified component.
-     * @see RadianceSkin#getFillPainter()
+     * @return The surface painter of the specified component.
+     * @see RadianceSkin#getSurfacePainter()
      */
-    public static RadianceFillPainter getFillPainter(Component comp) {
-        return RadianceCoreUtilities.getSkin(comp).getFillPainter();
+    public static RadianceSurfacePainter getSurfacePainter(Component comp) {
+        return RadianceCoreUtilities.getSkin(comp).getSurfacePainter();
     }
 
     /**

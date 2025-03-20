@@ -38,12 +38,12 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -220,7 +220,7 @@ public class TwilightSkin extends RadianceSkin {
         this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedFillPainter("Twilight",
+        this.surfacePainter = new FractionBasedSurfacePainter("Twilight",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokensSingleColorQuery.blend(
@@ -230,7 +230,7 @@ public class TwilightSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface,
                 ContainerColorTokens::getContainerSurface});
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightFillPainter = new ClassicFillPainter();
+        this.highlightSurfacePainter = new ClassicSurfacePainter();
         this.outlinePainter = new CompositeOutlinePainter("Twilight",
             new FlatOutlinePainter(),
             new FractionBasedTonalOutlinePainter("Twilight Inner",

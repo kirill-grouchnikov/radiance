@@ -39,11 +39,11 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class SeaGlassSkin extends RadianceSkin {
@@ -97,7 +97,7 @@ public class SeaGlassSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new FractionBasedFillPainter(
+		this.surfacePainter = new FractionBasedSurfacePainter(
 			"Sea Glass",
 			new float[] {0.0f, 0.49999f, 0.5f, 0.8f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
@@ -115,7 +115,7 @@ public class SeaGlassSkin extends RadianceSkin {
 			});
 
 		this.decorationPainter = new FlatDecorationPainter();
-		this.highlightFillPainter = new MatteFillPainter();
+		this.highlightSurfacePainter = new MatteSurfacePainter();
 
 		this.outlinePainter = new FractionBasedTonalOutlinePainter("Sea Glass",
 			new float[] {0.0f, 1.0f},

@@ -40,12 +40,12 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -118,10 +118,10 @@ public class FieldOfWheatSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 0.5f);
+        this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 0.5f);
         this.decorationPainter = new ArcDecorationPainter();
         this.outlinePainter = new FlatOutlinePainter();
-        this.highlightFillPainter = new MatteFillPainter();
+        this.highlightSurfacePainter = new MatteSurfacePainter();
         this.highlightOutlinePainter = new FlatOutlinePainter();
     }
 }

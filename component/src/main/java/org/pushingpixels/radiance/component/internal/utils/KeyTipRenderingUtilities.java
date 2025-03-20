@@ -36,8 +36,8 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import java.awt.*;
@@ -55,7 +55,7 @@ public class KeyTipRenderingUtilities {
 
     public static void renderKeyTip(Graphics g, Container c, Rectangle rect, String keyTip,
             boolean toPaintEnabled) {
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(c);
+        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(c);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities
                 .getOutlinePainter(c);
 
@@ -84,7 +84,7 @@ public class KeyTipRenderingUtilities {
                             null, 1.0f);
                     graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
                         c, tokens.getContainerSurfaceDisabledAlpha(), graphics));
-                    fillPainter.paintContourBackground(graphics1X, c, scaledWidth, scaledHeight,
+                    surfacePainter.paintContourBackground(graphics1X, c, scaledWidth, scaledHeight,
                             contour, tokens);
 
                     Shape contourInner = RadianceOutlineUtilities.getBaseOutline(

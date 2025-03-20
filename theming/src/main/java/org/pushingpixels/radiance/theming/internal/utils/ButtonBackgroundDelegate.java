@@ -35,8 +35,8 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
@@ -61,7 +61,7 @@ public class ButtonBackgroundDelegate {
 
     private void drawTonalBackground(
         Graphics2D graphics, AbstractButton button,
-        RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
+        RadianceButtonShaper shaper, RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int width, int height) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
@@ -106,7 +106,7 @@ public class ButtonBackgroundDelegate {
                     BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                         button, modificationTimeline.getTimelinePosition());
 
-                    drawTonalBackground(graphics, button, shaper, fillPainter, outlinePainter, width, height,
+                    drawTonalBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
                         mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted,
                         currState, overallAlpha);
                     return;
@@ -118,13 +118,13 @@ public class ButtonBackgroundDelegate {
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             false, false, RadianceThemingSlices.ContainerType.MUTED);
 
-        drawTonalBackground(graphics, button, shaper, fillPainter, outlinePainter, width, height,
+        drawTonalBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
             mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted, currState,
             overallAlpha);
     }
 
     private void drawTonalBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
-        RadianceFillPainter fillPainter, RadianceOutlinePainter outlinePainter, int width,
+        RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter, int width,
         int height, ContainerColorTokens colorTokens,
         Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled,
         boolean isBorderPainted, ComponentState currState, float overallAlpha) {
@@ -169,7 +169,7 @@ public class ButtonBackgroundDelegate {
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
                     overallAlpha * containerSurfaceAlpha, g));
-                fillPainter.paintContourBackground(graphics1X, button,
+                surfacePainter.paintContourBackground(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
                         scaledHeight + deltaTop + deltaBottom, contourFill, colorTokens);
             }
@@ -217,11 +217,11 @@ public class ButtonBackgroundDelegate {
         graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(button);
+        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(button);
         RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(button);
 
-        drawTonalBackground(graphics, button, shaper, fillPainter, outlinePainter, width, height);
+        drawTonalBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height);
 
         graphics.dispose();
     }

@@ -36,8 +36,8 @@ import org.pushingpixels.radiance.component.internal.ui.common.BasicSwitchUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
@@ -91,7 +91,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                 stateTransitionTracker.getModelStateInfo();
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(switchComp);
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(switchComp);
+        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(switchComp);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(switchComp);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
@@ -127,7 +127,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                             null, 0.0f
                     );
 
-                    fillPainter.paintContourBackground(graphics1X, switchComp, trackWidth,
+                    surfacePainter.paintContourBackground(graphics1X, switchComp, trackWidth,
                         trackHeight, contourFill, mutableContainerTokens);
 
                     Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(

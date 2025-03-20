@@ -38,7 +38,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
@@ -46,6 +45,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -188,7 +188,7 @@ public class MarinerSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedFillPainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
+        this.surfacePainter = new FractionBasedSurfacePainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
                     : colorTokens.getContainerSurfaceLowest(),
@@ -198,7 +198,7 @@ public class MarinerSkin extends RadianceSkin {
         });
 
         this.decorationPainter = new MatteDecorationPainter();
-        this.highlightFillPainter = new FractionBasedFillPainter("Mariner",
+        this.highlightSurfacePainter = new FractionBasedSurfacePainter("Mariner",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()

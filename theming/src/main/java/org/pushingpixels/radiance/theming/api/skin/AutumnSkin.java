@@ -38,14 +38,14 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatVariantOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -201,8 +201,8 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(
-			new MatteFillPainter(),
+		this.surfacePainter = new SpecularRectangularSurfacePainter(
+			new MatteSurfacePainter(),
 			ContainerColorTokens::getContainerSurfaceLow,
 			ContainerColorTokens::getContainerSurfaceLow,
 			1.0f);
@@ -216,7 +216,7 @@ public class AutumnSkin extends RadianceSkin {
 					ContainerColorTokens::getComplementaryContainerOutline
 				}));
 
-		this.highlightFillPainter = new FractionBasedFillPainter("Autumn",
+		this.highlightSurfacePainter = new FractionBasedSurfacePainter("Autumn",
 			new float[] {0.0f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
 				ContainerColorTokens::getContainerSurfaceHigh,

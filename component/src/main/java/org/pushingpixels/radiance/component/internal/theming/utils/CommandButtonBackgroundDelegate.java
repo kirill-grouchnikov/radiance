@@ -36,8 +36,8 @@ import org.pushingpixels.radiance.component.internal.theming.common.GlowingRadia
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -245,7 +245,7 @@ public class CommandButtonBackgroundDelegate {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0,
             commandButton.getWidth(), commandButton.getHeight(),
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(commandButton);
+                RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(commandButton);
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(commandButton);
 
                 RadianceThemingSlices.Sides sides = commandButton.getPresentationModel().getSides();
@@ -286,7 +286,7 @@ public class CommandButtonBackgroundDelegate {
                     commandButton.getComponentOrientation(),
                     scaledWidth + dw, scaledHeight + dh,
                     radius, straightSides, 0.5f);
-                fillPainter.paintContourBackground(graphics1X, commandButton,
+                surfacePainter.paintContourBackground(graphics1X, commandButton,
                     scaledWidth + dw,
                     scaledHeight + dh,
                     contourFill,

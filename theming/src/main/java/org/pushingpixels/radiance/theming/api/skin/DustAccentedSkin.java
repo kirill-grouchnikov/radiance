@@ -40,14 +40,14 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -127,9 +127,9 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 0.3f);
+		this.surfacePainter = new SpecularRectangularSurfacePainter(new MatteSurfacePainter(), 0.3f);
 		this.decorationPainter = new FlatDecorationPainter();
-		this.highlightFillPainter = new MatteFillPainter();
+		this.highlightSurfacePainter = new MatteSurfacePainter();
 		this.outlinePainter = new CompositeOutlinePainter("Dust",
 			new FlatOutlinePainter(),
 			new FractionBasedTonalOutlinePainter("Dust Inner",

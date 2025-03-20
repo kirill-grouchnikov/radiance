@@ -40,9 +40,9 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.tabbed.*;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -761,8 +761,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
      */
     private void paintCloseButtonImage(Graphics2D g, JTabbedPane tabPane, int width, int height,
         boolean toPaintBorder, ContainerColorTokens colorTokens) {
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(tabPane);
-        if (fillPainter == null) {
+        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(tabPane);
+        if (surfacePainter == null) {
             return;
         }
 
@@ -778,7 +778,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
                         tabPane.getComponentOrientation(),
                         scaledWidth, scaledHeight, 1, null);
-                    fillPainter.paintContourBackground(graphics1X, tabPane,
+                    surfacePainter.paintContourBackground(graphics1X, tabPane,
                         scaledWidth, scaledHeight, contour, colorTokens);
                     RadianceOutlinePainter outlinePainter = getOutlinePainter(tabPane, colorTokens);
                     outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, scaledHeight,

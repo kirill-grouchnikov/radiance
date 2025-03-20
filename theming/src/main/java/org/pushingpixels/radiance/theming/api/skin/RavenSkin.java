@@ -40,10 +40,10 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -147,10 +147,10 @@ public class RavenSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(
-			new GlassFillPainter(), 0.5f);
+		this.surfacePainter = new SpecularRectangularSurfacePainter(
+			new GlassSurfacePainter(), 0.5f);
 		this.decorationPainter = new ArcDecorationPainter();
-		this.highlightFillPainter = new ClassicFillPainter();
+		this.highlightSurfacePainter = new ClassicSurfacePainter();
 		this.outlinePainter = new FlatOutlinePainter();
 	}
 }

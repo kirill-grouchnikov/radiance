@@ -39,13 +39,13 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -144,7 +144,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new ClassicFillPainter(), 1.0f);
+		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
 		this.outlinePainter = new FlatOutlinePainter();
 
 		MarbleNoiseDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
@@ -152,6 +152,6 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		decorationPainter.setTextureAlpha(0.5f);
 		this.decorationPainter = decorationPainter;
 
-		this.highlightFillPainter = new MatteFillPainter();
+		this.highlightSurfacePainter = new MatteSurfacePainter();
 	}
 }

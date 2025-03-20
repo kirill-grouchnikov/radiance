@@ -37,12 +37,12 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
@@ -225,7 +225,7 @@ public class MagellanSkin extends RadianceSkin {
         this.addOverlayPainter(footerTopShadowOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedFillPainter("Magellan",
+        this.surfacePainter = new FractionBasedSurfacePainter("Magellan",
             new float[] {0.0f, 0.3f, 0.6f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark()
@@ -244,7 +244,7 @@ public class MagellanSkin extends RadianceSkin {
                     : colorTokens.getContainerSurfaceHighest()});
 
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightFillPainter = new ClassicFillPainter();
+        this.highlightSurfacePainter = new ClassicSurfacePainter();
 
         this.outlinePainter = new CompositeOutlinePainter("Magellan",
             new FlatOutlinePainter(),

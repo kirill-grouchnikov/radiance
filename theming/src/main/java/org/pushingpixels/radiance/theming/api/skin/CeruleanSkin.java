@@ -38,11 +38,11 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -154,9 +154,9 @@ public class CeruleanSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new ClassicFillPainter(), 1.0f);
+		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
 		this.decorationPainter = new ArcDecorationPainter();
-		this.highlightFillPainter = new GlassFillPainter();
+		this.highlightSurfacePainter = new GlassSurfacePainter();
 		this.outlinePainter = new FlatOutlinePainter();
 		this.highlightOutlinePainter = new FlatOutlinePainter();
 	}

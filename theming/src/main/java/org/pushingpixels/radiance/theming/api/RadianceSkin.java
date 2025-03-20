@@ -33,9 +33,9 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolver;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.SkinTonalUtilities;
@@ -218,14 +218,14 @@ public abstract class RadianceSkin implements RadianceTrait {
     protected RadianceButtonShaper buttonShaper;
 
     /**
-     * The fill painter of <code>this</code> skin. Must be non-<code>null</code>.
+     * The surface painter of <code>this</code> skin. Must be non-<code>null</code>.
      */
-    protected RadianceFillPainter fillPainter;
+    protected RadianceSurfacePainter surfacePainter;
 
     /**
-     * The highlight fill painter of <code>this</code> skin. Must be non-<code>null</code>.
+     * The highlight surface painter of <code>this</code> skin. Must be non-<code>null</code>.
      */
-    protected RadianceFillPainter highlightFillPainter;
+    protected RadianceSurfacePainter highlightSurfacePainter;
 
     /**
      * The outline painter of <code>this</code> skin. Must be non-<code>null</code>.
@@ -305,15 +305,15 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the fill painter of this skin.
+     * Returns the surface painter of this skin.
      *
-     * @return The fill painter of this skin. A valid skin cannot have a
+     * @return The surface painter of this skin. A valid skin cannot have a
      * <code>null</code> value returned from this method. Call
      * {@link #isValid()} to verify that the skin is valid.
      * @see #isValid()
      */
-    public final RadianceFillPainter getFillPainter() {
-        return this.fillPainter;
+    public final RadianceSurfacePainter getSurfacePainter() {
+        return this.surfacePainter;
     }
 
     /**
@@ -324,8 +324,8 @@ public abstract class RadianceSkin implements RadianceTrait {
      * {@link #isValid()} to verify that the skin is valid.
      * @see #isValid()
      */
-    public final RadianceFillPainter getHighlightFillPainter() {
-        return this.highlightFillPainter;
+    public final RadianceSurfacePainter getHighlightSurfacePainter() {
+        return this.highlightSurfacePainter;
     }
 
     /**
@@ -718,13 +718,13 @@ public abstract class RadianceSkin implements RadianceTrait {
         if (this.getButtonShaper() == null) {
             return false;
         }
-        if (this.getFillPainter() == null) {
+        if (this.getSurfacePainter() == null) {
             return false;
         }
         if (this.getOutlinePainter() == null) {
             return false;
         }
-        if (this.getHighlightFillPainter() == null) {
+        if (this.getHighlightSurfacePainter() == null) {
             return false;
         }
         if (this.getDecorationPainter() == null) {

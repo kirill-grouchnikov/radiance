@@ -37,13 +37,13 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -171,9 +171,9 @@ public class HarvestSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new MatteFillPainter();
+        this.surfacePainter = new MatteSurfacePainter();
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightFillPainter = new MatteFillPainter();
+        this.highlightSurfacePainter = new MatteSurfacePainter();
         this.outlinePainter = new FractionBasedTonalOutlinePainter("Harvest",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {

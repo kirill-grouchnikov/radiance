@@ -40,10 +40,10 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -264,7 +264,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
 
         this.buttonShaper = new ClassicButtonShaper();
 
-        this.fillPainter = new FractionBasedFillPainter("Office Black 2007",
+        this.surfacePainter = new FractionBasedSurfacePainter("Office Black 2007",
             new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
@@ -286,6 +286,6 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurfaceLowest,
                 ContainerColorTokens::getContainerSurfaceLowest});
 
-        this.highlightFillPainter = new MatteFillPainter();
+        this.highlightSurfacePainter = new MatteSurfacePainter();
     }
 }

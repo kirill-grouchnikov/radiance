@@ -40,8 +40,6 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
@@ -49,6 +47,8 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -145,7 +145,7 @@ public class NightShadeSkin extends RadianceSkin {
         this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedFillPainter("Night Shade",
+        this.surfacePainter = new FractionBasedSurfacePainter("Night Shade",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceLow,
@@ -153,7 +153,7 @@ public class NightShadeSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface});
 
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightFillPainter = new MatteFillPainter();
+        this.highlightSurfacePainter = new MatteSurfacePainter();
 
         this.outlinePainter = new CompositeOutlinePainter("Night Shade",
             new FlatOutlinePainter(),

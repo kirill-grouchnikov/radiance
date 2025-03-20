@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.painter.fill;
+package org.pushingpixels.radiance.theming.api.painter.surface;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
@@ -44,9 +44,9 @@ import java.awt.MultipleGradientPaint.CycleMethod;
  *
  * @author Kirill Grouchnikov
  */
-public class FractionBasedFillPainter extends FractionBasedPainter implements RadianceFillPainter {
+public class FractionBasedSurfacePainter extends FractionBasedPainter implements RadianceSurfacePainter {
     /**
-     * Creates a new fraction-based fill painter.
+     * Creates a new fraction-based surface painter.
      *
      * @param displayName  The display name of this painter.
      * @param fractions    The fractions of this painter. Must be strictly increasing,
@@ -55,7 +55,7 @@ public class FractionBasedFillPainter extends FractionBasedPainter implements Ra
      *                     the fractions array, and all entries must be non-
      *                     <code>null</code>.
      */
-    public FractionBasedFillPainter(String displayName, float[] fractions,
+    public FractionBasedSurfacePainter(String displayName, float[] fractions,
             ContainerColorTokensSingleColorQuery[] colorQueries) {
         super(displayName, fractions, colorQueries);
     }

@@ -42,10 +42,10 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
@@ -69,7 +69,7 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
                 RadianceThemingSlices.DecorationAreaType.HEADER)
 
         this.buttonShaper = ClassicButtonShaper()
-        this.fillPainter = SpecularRectangularFillPainter(ClassicFillPainter(), 1.0f)
+        this.surfacePainter = SpecularRectangularSurfacePainter(ClassicSurfacePainter(), 1.0f)
         this.outlinePainter = FlatOutlinePainter()
 
         val decorationPainter = MarbleNoiseDecorationPainter()
@@ -77,7 +77,7 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
         decorationPainter.setTextureAlpha(config.headerTextureAlpha)
         this.decorationPainter = decorationPainter
 
-        this.highlightFillPainter = ClassicFillPainter()
+        this.highlightSurfacePainter = ClassicSurfacePainter()
 
         val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaActiveTokens,
             this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, false)

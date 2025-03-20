@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.painter.fill;
+package org.pushingpixels.radiance.theming.api.painter.surface;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
@@ -45,19 +45,19 @@ import java.awt.image.*;
  *
  * @author Kirill Grouchnikov
  */
-public class SpecularRectangularFillPainter implements RadianceFillPainter {
+public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter {
     // Scale factor for the emulated shine. We compute a smaller, "shrunk down" version of the
     // shine and then draw it back by stretching it along both axes. The visuals don't have to
     // be pixel perfect, and this helps with the runtime performance.
     private static int SCALE = 2;
 
-    private RadianceFillPainter baseFillPainter;
+    private RadianceSurfacePainter baseSurfacePainter;
     private float alpha;
     private ContainerColorTokensSingleColorQuery topQuery;
     private ContainerColorTokensSingleColorQuery bottomQuery;
 
-    public SpecularRectangularFillPainter(RadianceFillPainter baseFillPainter, float alpha) {
-        this(baseFillPainter,
+    public SpecularRectangularSurfacePainter(RadianceSurfacePainter baseSurfacePainter, float alpha) {
+        this(baseSurfacePainter,
             (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
                 : colorTokens.getContainerSurfaceLowest(),
             (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
@@ -65,11 +65,11 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
             alpha);
     }
 
-    public SpecularRectangularFillPainter(RadianceFillPainter baseFillPainter,
+    public SpecularRectangularSurfacePainter(RadianceSurfacePainter baseSurfacePainter,
         ContainerColorTokensSingleColorQuery topQuery,
         ContainerColorTokensSingleColorQuery bottomQuery,
         float alpha) {
-        this.baseFillPainter = baseFillPainter;
+        this.baseSurfacePainter = baseSurfacePainter;
         this.topQuery = topQuery;
         this.bottomQuery = bottomQuery;
         this.alpha = alpha;
@@ -77,7 +77,7 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
 
     @Override
     public String getDisplayName() {
-        return "Specular Rectangular " + this.baseFillPainter.getDisplayName();
+        return "Specular Rectangular " + this.baseSurfacePainter.getDisplayName();
     }
 
     private double spline(double startY, double control1Y, double control2Y, double endY, double t) {
@@ -91,7 +91,7 @@ public class SpecularRectangularFillPainter implements RadianceFillPainter {
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
         Shape contour, ContainerColorTokens colorTokens) {
 
-        this.baseFillPainter.paintContourBackground(g, comp, width, height, contour, colorTokens);
+        this.baseSurfacePainter.paintContourBackground(g, comp, width, height, contour, colorTokens);
 
         int iw = (int) width;
         int ih = (int) height;

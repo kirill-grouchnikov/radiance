@@ -34,8 +34,8 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -75,7 +75,7 @@ public class HighlightPainterUtils {
 
         Component compForQuerying = (rendererPane != null) ? rendererPane : c;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(compForQuerying);
-        RadianceFillPainter highlightPainter = skin.getHighlightFillPainter();
+        RadianceSurfacePainter highlightPainter = skin.getHighlightSurfacePainter();
         RadianceOutlinePainter highlightOutlinePainter = RadianceCoreUtilities
             .getHighlightOutlinePainter(compForQuerying);
         Graphics2D g2d = (Graphics2D) g.create();
@@ -91,7 +91,7 @@ public class HighlightPainterUtils {
     private static void paintHighlight(Graphics g, Component c, Rectangle rect,
         ComponentState state, float alpha, boolean paintHighlightBorders,
         Set<RadianceThemingSlices.Side> openSides,
-        ContainerColorTokens colorTokens, RadianceFillPainter highlightPainter,
+        ContainerColorTokens colorTokens, RadianceSurfacePainter highlightPainter,
         RadianceOutlinePainter highlightOutlinePainter) {
 
         Graphics2D g2d = (Graphics2D) g.create();

@@ -36,11 +36,11 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -94,7 +94,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 		this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SpecularRectangularFillPainter(new ClassicFillPainter(), 1.0f);
+		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
 		this.outlinePainter = new FlatOutlinePainter();
 
 		BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
@@ -102,7 +102,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 		decorationPainter.setTextureAlpha(0.2f);
 		this.decorationPainter = decorationPainter;
 
-		this.highlightFillPainter = new ClassicFillPainter();
+		this.highlightSurfacePainter = new ClassicSurfacePainter();
 	}
 
 	protected abstract boolean isHeaderDark();

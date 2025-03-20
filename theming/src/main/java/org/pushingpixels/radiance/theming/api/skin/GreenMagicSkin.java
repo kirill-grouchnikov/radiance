@@ -41,11 +41,11 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -154,7 +154,7 @@ public class GreenMagicSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedFillPainter("Green Magic",
+        this.surfacePainter = new FractionBasedSurfacePainter("Green Magic",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceLowest,
@@ -162,6 +162,6 @@ public class GreenMagicSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface});
         this.outlinePainter = new FlatOutlinePainter();
         this.decorationPainter = new ArcDecorationPainter();
-        this.highlightFillPainter = new ClassicFillPainter();
+        this.highlightSurfacePainter = new ClassicSurfacePainter();
     }
 }

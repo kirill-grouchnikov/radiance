@@ -39,11 +39,11 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -109,7 +109,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 					ContainerColorTokens::getComplementaryContainerOutline
 				}));
 		this.highlightOutlinePainter = new FlatOutlinePainter();
-		this.fillPainter = new FractionBasedFillPainter("Graphite",
+		this.surfacePainter = new FractionBasedSurfacePainter("Graphite",
 			new float[] {0.0f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
 				ContainerColorTokens::getContainerSurfaceHigh,
@@ -117,6 +117,6 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 				ContainerColorTokens::getContainerSurface
 			});
 		this.decorationPainter = new FlatDecorationPainter();
-		this.highlightFillPainter = new MatteFillPainter();
+		this.highlightSurfacePainter = new MatteSurfacePainter();
 	}
 }

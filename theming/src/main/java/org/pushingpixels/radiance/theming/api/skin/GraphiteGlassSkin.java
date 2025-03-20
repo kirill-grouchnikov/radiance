@@ -37,12 +37,12 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 
 /**
  * <code>Graphite Glass</code> skin. This class is part of officially supported API.
@@ -83,7 +83,7 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 		this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.fillPainter = new SpecularRectangularFillPainter(new FractionBasedFillPainter(
+		this.surfacePainter = new SpecularRectangularSurfacePainter(new FractionBasedSurfacePainter(
 			"Graphite Glass",
 			new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
@@ -96,6 +96,6 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 				ContainerColorTokens::getContainerSurface
 			}), 1.0f);
 		this.decorationPainter = new ArcDecorationPainter();
-		this.highlightFillPainter = new GlassFillPainter();
+		this.highlightSurfacePainter = new GlassSurfacePainter();
 	}
 }

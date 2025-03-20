@@ -33,8 +33,8 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -56,7 +56,7 @@ public class ComboBoxBackgroundDelegate {
 
     public void drawBackground(
             Graphics2D graphics, JComboBox combo,
-            RadianceFillPainter fillPainter, RadianceOutlinePainter outlinePainter, int width,
+            RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter, int width,
             int height) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) combo.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
@@ -67,12 +67,12 @@ public class ComboBoxBackgroundDelegate {
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             false, false, RadianceThemingSlices.ContainerType.MUTED);
 
-        drawBackground(graphics, combo, fillPainter, outlinePainter, width, height,
+        drawBackground(graphics, combo, surfacePainter, outlinePainter, width, height,
             mutableContainerTokens);
     }
 
     private void drawBackground(Graphics2D g, JComboBox combo,
-        RadianceFillPainter fillPainter,
+        RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int width, int height,
         ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
@@ -96,7 +96,7 @@ public class ComboBoxBackgroundDelegate {
                 Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
                     combo.getComponentOrientation(),
                     scaledWidth, scaledHeight, radius, null, 0.5f);
-                fillPainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
+                surfacePainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
                     contourFill, colorTokens);
 
                 Shape contourInner = outlinePainter.isPaintingInnerContour() ?
@@ -154,10 +154,10 @@ public class ComboBoxBackgroundDelegate {
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-            RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(combo);
+            RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(combo);
             RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(combo);
 
-            drawBackground(graphics, combo, fillPainter, outlinePainter, width, height);
+            drawBackground(graphics, combo, surfacePainter, outlinePainter, width, height);
 
             graphics.dispose();
         }

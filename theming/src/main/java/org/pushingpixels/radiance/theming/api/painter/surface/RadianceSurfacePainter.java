@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.radiance.theming.api.painter.fill;
+package org.pushingpixels.radiance.theming.api.painter.surface;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
@@ -35,12 +35,12 @@ import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import java.awt.*;
 
 /**
- * Fill painter interface for <b>Radiance</b> look and feel. This class is part
+ * Surface painter interface for <b>Radiance</b> look and feel. This class is part
  * of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public interface RadianceFillPainter extends RadianceTrait {
+public interface RadianceSurfacePainter extends RadianceTrait {
 	/**
 	 * Fills the contour that matches the specified parameters.
 	 *

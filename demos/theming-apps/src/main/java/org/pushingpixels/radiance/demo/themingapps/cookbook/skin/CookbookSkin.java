@@ -36,13 +36,13 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class CookbookSkin extends RadianceSkin {
@@ -170,7 +170,7 @@ public class CookbookSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new CookbookFillPainter();
+        this.surfacePainter = new CookbookSurfacePainter();
 
         this.outlinePainter = new CompositeOutlinePainter("Cookbook",
             new FractionBasedTonalOutlinePainter("Cookbook Outer",
@@ -193,7 +193,7 @@ public class CookbookSkin extends RadianceSkin {
                 }));
 
         this.decorationPainter = new CookbookDecorationPainter();
-        this.highlightFillPainter = new MatteFillPainter();
+        this.highlightSurfacePainter = new MatteSurfacePainter();
 
         // Add an overlay painter to paint a bezel line along the top edge of the footer area
         RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(

@@ -34,9 +34,9 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -242,7 +242,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
 
         Graphics2D graphics1Xextra = (Graphics2D) graphics1X.create();
 
-        RadianceFillPainter fillPainter = new MatteFillPainter();
+        RadianceSurfacePainter surfacePainter = new MatteSurfacePainter();
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.slider);
 
         int componentFontSize = RadianceSizeUtils.getComponentFontSize(this.slider);
@@ -257,7 +257,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
         graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
             containerSurfaceAlpha, graphics1X));
-        fillPainter.paintContourBackground(graphics1Xextra, slider, width, height,
+        surfacePainter.paintContourBackground(graphics1Xextra, slider, width, height,
             contour, colorTokens);
 
         Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
@@ -295,7 +295,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         insets.bottom /= 2;
         insets.right /= 2;
 
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(this.slider);
+        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(this.slider);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.slider);
         float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
             RadianceSizeUtils.getComponentFontSize(slider)) / 2.0f;
@@ -326,7 +326,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, graphics1X));
-                fillPainter.paintContourBackground(graphics1Xextra, this.slider, fillWidth, fillHeight,
+                surfacePainter.paintContourBackground(graphics1Xextra, this.slider, fillWidth, fillHeight,
                     contour, colorTokens);
 
                 float containerOutlineAlpha =
@@ -362,7 +362,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, graphics1X));
-                fillPainter.paintContourBackground(graphics1Xextra, this.slider, fillWidth, fillHeight,
+                surfacePainter.paintContourBackground(graphics1Xextra, this.slider, fillWidth, fillHeight,
                     contour, colorTokens);
 
                 float containerOutlineAlpha =

@@ -40,12 +40,12 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -211,7 +211,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
 
         this.buttonShaper = new ClassicButtonShaper();
 
-        this.fillPainter = new FractionBasedFillPainter("Office Silver 2007",
+        this.surfacePainter = new FractionBasedSurfacePainter("Office Silver 2007",
             new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceLow,
@@ -250,6 +250,6 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurfaceLow,
                 ContainerColorTokens::getContainerSurfaceLowest});
 
-        this.highlightFillPainter = new ClassicFillPainter();
+        this.highlightSurfacePainter = new ClassicSurfacePainter();
     }
 }

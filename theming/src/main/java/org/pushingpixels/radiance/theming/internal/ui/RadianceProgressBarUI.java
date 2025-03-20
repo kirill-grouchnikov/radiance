@@ -40,8 +40,8 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -64,7 +64,7 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class RadianceProgressBarUI extends BasicProgressBarUI {
-    private static final RadianceFillPainter progressTonalFillPainter = new FractionBasedFillPainter(
+    private static final RadianceSurfacePainter progressTonalSurfacePainter = new FractionBasedSurfacePainter(
         "Progress tonal fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
         new ContainerColorTokensSingleColorQuery[]{
             ContainerColorTokens::getContainerSurface,
@@ -214,7 +214,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     }
 
     private void drawDeterminateBackground(Graphics2D g, JProgressBar bar, int width, int height,
-        ContainerColorTokens colorTokens, RadianceFillPainter fillPainter, int orientation,
+        ContainerColorTokens colorTokens, RadianceSurfacePainter surfacePainter, int orientation,
         ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -235,7 +235,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, null);
-                    fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                    surfacePainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
                         contour, colorTokens);
                 });
         } else {
@@ -252,7 +252,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, null);
-                    fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                    surfacePainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
                         contour, colorTokens);
                 });
         }
@@ -260,7 +260,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     }
 
     private void drawDeterminateProgress(Graphics2D g, JProgressBar bar, int width, int height,
-        boolean isFull, ContainerColorTokens colorTokens, RadianceFillPainter fillPainter,
+        boolean isFull, ContainerColorTokens colorTokens, RadianceSurfacePainter surfacePainter,
         int orientation, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -283,7 +283,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, straightSides);
-                    fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                    surfacePainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
                         contour, colorTokens);
                 });
         } else {
@@ -303,7 +303,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, straightSides);
-                    fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                    surfacePainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
                         contour, colorTokens);
                 });
         }
@@ -331,10 +331,10 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         ContainerColorTokens fillColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
             progressBar, fillState, RadianceThemingSlices.ContainerType.MUTED);
 
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(progressBar);
+        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(progressBar);
         g2d.translate(margin, margin);
         drawDeterminateBackground(g2d, progressBar, barRectWidth, barRectHeight,
-            fillColorTokens, fillPainter, progressBar.getOrientation(), fillState);
+            fillColorTokens, surfacePainter, progressBar.getOrientation(), fillState);
         g2d.translate(-margin, -margin);
 
         if (amountFull > 0) {
@@ -348,7 +348,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         : margin + barRectWidth - amountFull;
                     g2d.translate(dx, margin);
                     drawDeterminateProgress(g2d, progressBar, amountFull, barRectHeight,
-                        isFull, progressColorTokens, progressTonalFillPainter,
+                        isFull, progressColorTokens, progressTonalSurfacePainter,
                         progressBar.getOrientation(), progressState);
                     g2d.translate(-dx, -margin);
                 }
@@ -357,7 +357,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     g2d.translate(margin, margin + barRectHeight - amountFull);
                     // Vertical progress is "growing" from the bottom
                     drawDeterminateProgress(g2d, progressBar, barRectWidth, amountFull,
-                        isFull, progressColorTokens, progressTonalFillPainter,
+                        isFull, progressColorTokens, progressTonalSurfacePainter,
                         progressBar.getOrientation(), progressState);
                     g2d.translate(-margin, -(margin + barRectHeight - amountFull));
                 }

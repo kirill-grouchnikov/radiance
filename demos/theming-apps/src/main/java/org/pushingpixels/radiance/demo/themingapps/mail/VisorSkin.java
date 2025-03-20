@@ -39,9 +39,9 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class VisorSkin extends RadianceSkin {
@@ -155,7 +155,7 @@ public class VisorSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new MatteFillPainter();
+        this.surfacePainter = new MatteSurfacePainter();
         this.outlinePainter = new FlatOutlinePainter();
 
         BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
@@ -163,7 +163,7 @@ public class VisorSkin extends RadianceSkin {
         decorationPainter.setTextureAlpha(0.3f);
         this.decorationPainter = decorationPainter;
 
-        this.highlightFillPainter = new FractionBasedFillPainter("Visor Highlight",
+        this.highlightSurfacePainter = new FractionBasedSurfacePainter("Visor Highlight",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurface,

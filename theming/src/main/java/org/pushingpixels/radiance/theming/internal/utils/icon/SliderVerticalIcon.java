@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -70,7 +70,7 @@ public class SliderVerticalIcon implements Icon, UIResource {
         StateTransitionTracker.ModelStateInfo modelStateInfo =
                 stateTransitionTracker.getModelStateInfo();
 
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(this.slider);
+        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(this.slider);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.slider);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
@@ -84,7 +84,7 @@ public class SliderVerticalIcon implements Icon, UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y - (this.size - height) / 2.0);
-        BladeIconUtils.drawSliderThumbVertical(graphics, this.slider, fillPainter, outlinePainter,
+        BladeIconUtils.drawSliderThumbVertical(graphics, this.slider, surfacePainter, outlinePainter,
             this.size, height, mutableColorTokens, currState);
         graphics.dispose();
     }

@@ -37,11 +37,11 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
+import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -207,7 +207,7 @@ public class GeminiSkin extends RadianceSkin {
         this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new FractionBasedFillPainter("Gemini",
+        this.surfacePainter = new FractionBasedSurfacePainter("Gemini",
             new float[] {0.0f, 0.6f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
@@ -217,7 +217,7 @@ public class GeminiSkin extends RadianceSkin {
                     : colorTokens.getContainerSurfaceHigh()});
 
         this.decorationPainter = new MatteDecorationPainter();
-        this.highlightFillPainter = new FractionBasedFillPainter("Gemini Highlight",
+        this.highlightSurfacePainter = new FractionBasedSurfacePainter("Gemini Highlight",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()

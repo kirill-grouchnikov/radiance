@@ -40,12 +40,12 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -227,9 +227,9 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new MatteFillPainter();
+        this.surfacePainter = new MatteSurfacePainter();
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightFillPainter = new MatteFillPainter();
+        this.highlightSurfacePainter = new MatteSurfacePainter();
         this.outlinePainter = new FlatOutlinePainter();
         this.highlightOutlinePainter = new FlatOutlinePainter();
     }

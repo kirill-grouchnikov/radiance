@@ -39,11 +39,11 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -109,7 +109,7 @@ public class MagmaSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
+        this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 1.0f);
         this.decorationPainter = new ArcDecorationPainter();
 
         this.outlinePainter = new FractionBasedTonalOutlinePainter("Magma",
@@ -120,7 +120,7 @@ public class MagmaSkin extends RadianceSkin {
                 ContainerColorTokens::getComplementaryContainerOutline,
             });
 
-        this.highlightFillPainter = new ClassicFillPainter();
+        this.highlightSurfacePainter = new ClassicSurfacePainter();
         this.highlightOutlinePainter = new FlatOutlinePainter();
     }
 }

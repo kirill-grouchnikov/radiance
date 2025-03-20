@@ -27,29 +27,30 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.radiance.theming.api.painter.fill;
+package org.pushingpixels.radiance.theming.api.painter.surface;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 
 /**
- * Fill painter that draws visuals with matte appearance. This class is part
+ * Fill painter that draws visuals with classic appearance. This class is part
  * of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class MatteFillPainter extends FractionBasedFillPainter {
+public class ClassicSurfacePainter extends FractionBasedSurfacePainter {
 	/**
-	 * Creates a new matte fill painter.
+	 * Creates a new classic surface painter.
 	 */
-	public MatteFillPainter() {
-		super("Matte",
-			new float[] {0.0f, 0.25f, 1.0f},
+	public ClassicSurfacePainter() {
+		super("Classic",
+			new float[] {0.0f, 0.5f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
-				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
-					: colorTokens.getContainerSurfaceLow(),
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
+					: colorTokens.getContainerSurfaceHigh(),
 				ContainerColorTokens::getContainerSurface,
-				ContainerColorTokens::getContainerSurface
+				(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+					: colorTokens.getContainerSurfaceLowest()
 			}
 		);
 	}

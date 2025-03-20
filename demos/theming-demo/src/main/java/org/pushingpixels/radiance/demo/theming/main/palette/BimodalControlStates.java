@@ -42,10 +42,10 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 
@@ -117,7 +117,7 @@ public class BimodalControlStates extends JFrame {
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
             this.buttonShaper = new ClassicButtonShaper();
-            this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
+            this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 1.0f);
             this.outlinePainter = new FlatOutlinePainter();
 
             ImageWrapperDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
@@ -125,7 +125,7 @@ public class BimodalControlStates extends JFrame {
             decorationPainter.setTextureAlpha(0.3f);
             this.decorationPainter = decorationPainter;
 
-            this.highlightFillPainter = new ClassicFillPainter();
+            this.highlightSurfacePainter = new ClassicSurfacePainter();
         }
 
         @Override
