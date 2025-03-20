@@ -99,7 +99,7 @@ The resize policies are installed with the `AbstractRibbonBand.setResizePolicies
 The `CoreRibbonResizePolicies` class provides a number of built in resize policies that respect the hints passed to
 `JRibbonBand.addRibbonCommand()` and `JRibbonBand.addRibbonGallery()` APIs. There are three types of built in resize policies:
 
-- Resize policies for the `JFlowRibbonBand`s. The `FlowTwoRows` and `FlowThreeRows` allow placing the flow ribbon band content in two and three rows respectively.
+- Resize policies for the `JFlowRibbonBand`s. The `FlowOneRow`, `FlowTwoRows` and `FlowThreeRows` allow placing the flow ribbon band content in two and three rows respectively.
 - Resize policies for the `JRibbonBand`s. The
 `BaseCoreRibbonBandResizePolicy` is the base class for these policies. These policies respect the `JRibbonBand.PresentationPriority` associated with command buttons and ribbon galleries. They can also change the presentation state of the command buttons and the number of visible buttons in the ribbon galleries.
 - The collapsed policy that replaces the entire content of the ribbon band with a single popup button. This is done when there is not enough horizontal space to show the content of the ribbon band under the most restrictive resize policy. Activating the popup button will show the original content under the most permissive resize policy in a popup. This policy is implemented in the  `IconRibbonBandResizePolicy`
