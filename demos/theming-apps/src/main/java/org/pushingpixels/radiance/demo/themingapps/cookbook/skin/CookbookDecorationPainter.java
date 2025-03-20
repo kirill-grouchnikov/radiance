@@ -30,16 +30,11 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import com.jhlabs.image.*;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
-import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolverUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 
@@ -72,25 +67,25 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
         BrushedMetalFilter brushedMetalFilter = new BrushedMetalFilter();
         brushedMetalFilter.setAmount(10);
 
-        ContainerColorTokens brushedMetalTokens = ColorSchemeUtils.getBimodalContainerTokens(
-            /* seedOne */ Hct.fromInt(0xFF6F2003),
-            /* seedTwo */ Hct.fromInt(0xFFB05306),
-            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-            /* fidelityTone */ 45.0,
-            /* containerConfiguration */ new ContainerConfiguration(
-                /* isDark */ true,
-                /* contrastLevel */ 1.0,
-                /* surfaceRangeAmplitudeFactor */ 2.0),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
+//        ContainerColorTokens brushedMetalTokens = ColorSchemeUtils.getBimodalContainerTokens(
+//            /* seedOne */ Hct.fromInt(0xFF6F2003),
+//            /* seedTwo */ Hct.fromInt(0xFFB05306),
+//            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+//            /* fidelityTone */ 45.0,
+//            /* containerConfiguration */ new ContainerConfiguration(
+//                /* isDark */ true,
+//                /* contrastLevel */ 1.0,
+//                /* surfaceRangeAmplitudeFactor */ 2.0),
+//            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
 
         LookupFilter brushedMetalLookupFilter = new LookupFilter(new Gradient(
             new int[] { 0, 96, 128, 192, 255 },
             new int[] {
-                brushedMetalTokens.getContainerSurfaceBright().getRGB() & 0x00FFFFFF,
-                brushedMetalTokens.getContainerSurfaceBright().getRGB() & 0x00FFFFFF,
-                brushedMetalTokens.getContainerSurfaceDim().getRGB() & 0x28FFFFFF,
-                brushedMetalTokens.getContainerSurfaceDim().getRGB() & 0xC0FFFFFF,
-                brushedMetalTokens.getContainerSurfaceDim().getRGB() }));
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceBright().getRGB() & 0x00FFFFFF,
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceBright().getRGB() & 0x00FFFFFF,
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceDim().getRGB() & 0x28FFFFFF,
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceDim().getRGB() & 0xC0FFFFFF,
+                CookbookTokens.GOLDEN_BROWN_TOKENS.getContainerSurfaceDim().getRGB() }));
 
         this.brushedMetalImage = new CompoundFilter(brushedMetalFilter, brushedMetalLookupFilter)
                 .filter(new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB),
@@ -107,13 +102,14 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
         woodFilter.setgain(0.7f);
 
         LookupFilter woodLookupFilter = new LookupFilter(new Gradient(
-            new int[] { 0, 64, 128, 192, 255 },
+            new int[] { 0, 64, 128, 164, 224, 255 },
             new int[] {
-                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceHighest().getRGB(),
-                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceHighest().getRGB(),
                 CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceHigh().getRGB(),
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceHigh().getRGB(),
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurface().getRGB(),
                 CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceLow().getRGB(),
-                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceLowest().getRGB() }));
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceLowest().getRGB(),
+                CookbookTokens.DARK_BROWN_TOKENS.getContainerSurfaceDim().getRGB() }));
 
         this.woodImage = new CompoundFilter(woodFilter, woodLookupFilter).filter(
                 new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB), null);
@@ -136,33 +132,34 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
         if ((decorationAreaType == DecorationAreaType.PRIMARY_TITLE_PANE)
                 || (decorationAreaType == DecorationAreaType.SECONDARY_TITLE_PANE)
                 || (decorationAreaType == DecorationAreaType.HEADER)
-                || (decorationAreaType == DecorationAreaType.TOOLBAR)) {
+                || (decorationAreaType == DecorationAreaType.TOOLBAR)
+        ) {
             int dy = comp.getLocationOnScreen().y
                     - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().y;
-            // main background gradient
-            graphics.setPaint(new LinearGradientPaint(0, -dy, 0, 70 - dy,
-                new float[] { 0.0f, 0.2f, 0.4f, 0.6f, 0.8f, 1.0f },
-                new Color[] {
-                    tokens.getContainerSurfaceBright(),
-                    tokens.getContainerSurfaceHigh(),
-                    tokens.getContainerSurface(),
-                    tokens.getContainerSurfaceLow(),
-                    tokens.getContainerSurfaceLowest(),
-                    tokens.getContainerSurfaceDim() }));
-            graphics.fillRect(0, 0, width, height);
-        } else if (decorationAreaType == DecorationAreaType.FOOTER) {
-            // main background gradient
-            int dy = comp.getLocationOnScreen().y
-                    - farthestOfTheSameAreaType.getLocationOnScreen().y;
-            int footerHeight = farthestOfTheSameAreaType.getHeight();
-            graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + footerHeight,
-                new float[] { 0.0f, 0.3f, 0.55f, 0.77f, 1.0f },
+            int headerHeight = farthestOfTheSameAreaType.getHeight();
+            // header background gradient, slightly lighter colors
+            graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + headerHeight,
+                new float[] { 0.0f, 0.33f, 0.67f, 1.0f },
                 new Color[] {
                     tokens.getContainerSurfaceBright(),
                     tokens.getContainerSurfaceHighest(),
                     tokens.getContainerSurfaceHigh(),
+                    tokens.getContainerSurface()}));
+            graphics.fillRect(0, 0, width, height);
+        } else if (decorationAreaType == DecorationAreaType.FOOTER) {
+            int dy = comp.getLocationOnScreen().y
+                    - farthestOfTheSameAreaType.getLocationOnScreen().y;
+            int footerHeight = farthestOfTheSameAreaType.getHeight();
+            // footer background gradient, slightly darker colors
+            graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + footerHeight,
+                new float[] { 0.0f, 0.35f, 0.55f, 0.7f, 0.85f, 1.0f },
+                new Color[] {
+                    tokens.getContainerSurfaceHighest(),
+                    tokens.getContainerSurfaceHigh(),
+                    tokens.getContainerSurface(),
                     tokens.getContainerSurfaceLow(),
-                    tokens.getContainerSurfaceDim() }));
+                    tokens.getContainerSurfaceLowest(),
+                    tokens.getContainerSurfaceDim()}));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.CONTROL_PANE) {
             // general background gradient
@@ -180,7 +177,7 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
                 - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().y;
         int dx = comp.getLocationOnScreen().x
                 - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().x;
-        graphics.setComposite(AlphaComposite.SrcOver.derive(0.3f));
+        graphics.setComposite(AlphaComposite.SrcOver.derive(0.35f));
         graphics.drawImage(toOverlay, 0, 0, width, height, dx, dy, dx + width, dy + height, null);
         graphics.setComposite(AlphaComposite.SrcOver);
 

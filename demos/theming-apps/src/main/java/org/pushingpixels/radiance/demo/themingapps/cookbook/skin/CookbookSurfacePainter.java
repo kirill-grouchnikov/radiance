@@ -55,7 +55,7 @@ public class CookbookSurfacePainter implements RadianceSurfacePainter {
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerSurfaceBright,
                 ContainerColorTokens::getContainerSurface,
-                ContainerColorTokens::getContainerSurfaceLowest});
+                ContainerColorTokens::getContainerSurfaceLow});
 
         this.flatDelegate = new FractionBasedSurfacePainter("Cookbook Flat",
             new float[] {0.0f, 0.5f, 1.0f},
@@ -93,7 +93,7 @@ public class CookbookSurfacePainter implements RadianceSurfacePainter {
                         .getWatermarkImage(decorationAreaType);
                     Graphics2D g2d = (Graphics2D) g.create();
                     g2d.clip(contour);
-                    g2d.setComposite(AlphaComposite.SrcOver.derive(0.4f));
+                    g2d.setComposite(AlphaComposite.SrcOver.derive(0.7f));
                     int dx = comp.getLocationOnScreen().x;
                     int dy = comp.getLocationOnScreen().y;
                     g2d.drawImage(watermark, -dx, -dy, null);

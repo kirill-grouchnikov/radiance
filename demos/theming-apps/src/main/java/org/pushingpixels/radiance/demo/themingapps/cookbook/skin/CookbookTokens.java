@@ -30,18 +30,34 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 
 public class CookbookTokens {
     public static final ContainerColorTokens GOLDEN_BROWN_TOKENS =
-        ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFA4521B),
-            /* containerConfiguration */ ContainerConfiguration.defaultDark());
+        ColorSchemeUtils.getBimodalContainerTokens(
+            /* seedOne */ Hct.fromInt(0xFF713004),
+            /* seedTwo */ Hct.fromInt(0xFFB18337),
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* fidelityTone */ 54.0,
+            /* containerConfiguration */ new ContainerConfiguration(
+                /* isDark */ true,
+                /* contrastLevel */ 1.0,
+                /* surfaceRangeAmplitudeFactor */ 2.0),
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
 
     public static final ContainerColorTokens DARK_BROWN_TOKENS =
-        ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFF561703),
-            /* containerConfiguration */ ContainerConfiguration.defaultDark());
+        ColorSchemeUtils.getBimodalContainerTokens(
+            /* seedOne */ Hct.fromInt(0xFF4C1F02),
+            /* seedTwo */ Hct.fromInt(0xFF702103),
+            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+            /* fidelityTone */ 25.0,
+            /* containerConfiguration */ new ContainerConfiguration(
+                /* isDark */ true,
+                /* contrastLevel */ 1.0,
+                /* surfaceRangeAmplitudeFactor */ 1.6),
+            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
 }

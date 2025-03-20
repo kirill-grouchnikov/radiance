@@ -30,12 +30,14 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
@@ -75,7 +77,7 @@ public class CookbookSkin extends RadianceSkin {
 
         RadianceColorSchemeBundle cookbookControlPaneBundle = new RadianceColorSchemeBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFA23F00),
+                /* seed */ Hct.fromInt(0xFF974F11),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.6)),
@@ -85,7 +87,7 @@ public class CookbookSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 0.6)),
             /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF5F1000),
+                /* seed */ Hct.fromInt(0xFF6D2103),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.6)),
@@ -93,80 +95,21 @@ public class CookbookSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(cookbookControlPaneBundle,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        Hct cookbookHeaderPrimarySeed = Hct.fromInt(0xFF581000);
-        Hct cookbookHeaderMutedSeed1 = Hct.fromInt(0xFF6F2003);
-        Hct cookbookHeaderMutedSeed2 = Hct.fromInt(0xFFCE8C2B);
-        Hct cookbookHeaderNeutralSeed1 = Hct.fromInt(0xFFBC6010);
-        Hct cookbookHeaderNeutralSeed2 = Hct.fromInt(0xFFCE8C2B);
-
-        RadianceColorSchemeBundle cookbookHeaderBundle = new RadianceColorSchemeBundle(
+        RadianceColorSchemeBundle cookbookChromeBundle = new RadianceColorSchemeBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ cookbookHeaderPrimarySeed,
+                /* seed */ Hct.fromInt(0xFF581000),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
-                /* seedOne */ cookbookHeaderMutedSeed1,
-                /* seedTwo */ cookbookHeaderMutedSeed2,
-                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* fidelityTone */ (cookbookHeaderMutedSeed1.getTone() +
-                    cookbookHeaderMutedSeed2.getTone()) / 2.0,
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 1.0,
-                    /* surfaceRangeAmplitudeFactor */ 2.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
-            /* neutralContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
-                /* seedOne */ cookbookHeaderNeutralSeed1,
-                /* seedTwo */ cookbookHeaderNeutralSeed2,
-                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* fidelityTone */ 58.0,
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 1.0,
-                    /* surfaceRangeAmplitudeFactor */ 1.8),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
+            /* mutedContainerTokens */ CookbookTokens.GOLDEN_BROWN_TOKENS,
+            /* neutralContainerTokens */ CookbookTokens.GOLDEN_BROWN_TOKENS,
             /* isSystemDark */ true);
 
-        this.registerDecorationAreaSchemeBundle(cookbookHeaderBundle,
+        this.registerDecorationAreaSchemeBundle(cookbookChromeBundle,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER,
-            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        Hct cookbookFooterNeutralSeed1 = Hct.fromInt(0xFF6F2003);
-        Hct cookbookFooterNeutralSeed2 = Hct.fromInt(0xFFC37222);
-
-        RadianceColorSchemeBundle cookbookFooterBundle = new RadianceColorSchemeBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
-                /* seed */ cookbookHeaderPrimarySeed,
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 1.0)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
-                /* seedOne */ cookbookHeaderMutedSeed1,
-                /* seedTwo */ cookbookHeaderMutedSeed2,
-                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* fidelityTone */ (cookbookHeaderMutedSeed1.getTone() +
-                    cookbookHeaderMutedSeed2.getTone()) / 2.0,
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 1.0,
-                    /* surfaceRangeAmplitudeFactor */ 2.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
-            /* neutralContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
-                /* seedOne */ cookbookFooterNeutralSeed1,
-                /* seedTwo */ cookbookFooterNeutralSeed2,
-                /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-                /* fidelityTone */ 40.0,
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 1.0,
-                    /* surfaceRangeAmplitudeFactor */ 2.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
-            /* isSystemDark */ true);
-
-        this.registerDecorationAreaSchemeBundle(cookbookFooterBundle,
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.buttonShaper = new ClassicButtonShaper();

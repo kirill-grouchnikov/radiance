@@ -51,47 +51,47 @@ public class RecipeListPanel extends SingleContentPanel {
 
         // Configure the title pane content
         FormBuilder titlePaneBuilder = FormBuilder.create().
-                columns("pref, 0dlu, 0dlu:grow, 0dlu, pref, 6dlu, pref").
+                columns("pref, 6dlu, pref, 0dlu, 0dlu:grow, 0dlu, pref").
                 rows("p").
                 padding(new EmptyBorder(8, 4, 0, 4));
+
+        CommandToggleGroupModel viewGroup = new CommandToggleGroupModel();
+        JComponent titlePaneControlButtons = new CommandStripProjection(
+            new CommandGroup(
+                Command.builder()
+                    .setIconFactory(EchoRadianceIcon.factory(ScaledRadianceIcon
+                        .factory(ic_view_headline_white_24px.factory(), 0.75f)))
+                    .inToggleGroupAsSelected(viewGroup)
+                    .build(),
+                Command.builder()
+                    .setIconFactory(EchoRadianceIcon.factory(ScaledRadianceIcon
+                        .factory(ic_view_list_white_24px.factory(), 0.75f)))
+                    .inToggleGroup(viewGroup)
+                    .build(),
+                Command.builder()
+                    .setIconFactory(EchoRadianceIcon.factory(ScaledRadianceIcon
+                        .factory(ic_view_stream_white_24px.factory(), 0.75f)))
+                    .inToggleGroup(viewGroup)
+                    .build()),
+            CommandStripPresentationModel.withDefaults())
+            .buildComponent();
+
+        titlePaneBuilder.add(titlePaneControlButtons).xy(1, 1);
 
         EchoRadianceIcon smallerIcon = new EchoRadianceIcon(
                 ScaledRadianceIcon.factory(ic_format_size_white_24px.factory(), 0.6f));
         smallerIcon.setDimension(new Dimension(16, 16));
         JLabel smaller = new JLabel(smallerIcon);
-        titlePaneBuilder.add(smaller).xy(1, 1);
+        titlePaneBuilder.add(smaller).xy(3, 1);
 
         JSlider slider = new JSlider(0, 100, 80);
-        titlePaneBuilder.add(slider).xy(3, 1);
+        titlePaneBuilder.add(slider).xy(5, 1);
 
         EchoRadianceIcon biggerIcon = new EchoRadianceIcon(
                 ScaledRadianceIcon.factory(ic_format_size_white_24px.factory(), 0.8f));
         smallerIcon.setDimension(new Dimension(16, 16));
         JLabel bigger = new JLabel(biggerIcon);
-        titlePaneBuilder.add(bigger).xy(5, 1);
-
-        CommandToggleGroupModel viewGroup = new CommandToggleGroupModel();
-        JComponent titlePaneControlButtons = new CommandStripProjection(
-                new CommandGroup(
-                        Command.builder()
-                                .setIconFactory(EchoRadianceIcon.factory(ScaledRadianceIcon
-                                        .factory(ic_view_headline_white_24px.factory(), 0.75f)))
-                                .inToggleGroupAsSelected(viewGroup)
-                                .build(),
-                        Command.builder()
-                                .setIconFactory(EchoRadianceIcon.factory(ScaledRadianceIcon
-                                        .factory(ic_view_list_white_24px.factory(), 0.75f)))
-                                .inToggleGroup(viewGroup)
-                                .build(),
-                        Command.builder()
-                                .setIconFactory(EchoRadianceIcon.factory(ScaledRadianceIcon
-                                        .factory(ic_view_stream_white_24px.factory(), 0.75f)))
-                                .inToggleGroup(viewGroup)
-                                .build()),
-                CommandStripPresentationModel.withDefaults())
-                .buildComponent();
-
-        titlePaneBuilder.add(titlePaneControlButtons).xy(7, 1);
+        titlePaneBuilder.add(bigger).xy(7, 1);
 
         this.titlePanel.setLayout(new BorderLayout());
         this.titlePanel.add(titlePaneBuilder.build(), BorderLayout.CENTER);
