@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -226,7 +226,7 @@ public class GeminiSkin extends RadianceSkin {
 
         this.outlinePainter = new CompositeOutlinePainter("Gemini",
             new FlatOutlinePainter(),
-            new FractionBasedTonalOutlinePainter("Gemini Inner",
+            new FractionBasedOutlinePainter("Gemini Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {96, 64, 32},
                 new ContainerColorTokensSingleColorQuery[] {

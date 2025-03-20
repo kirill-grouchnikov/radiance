@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
@@ -233,7 +233,7 @@ public class TwilightSkin extends RadianceSkin {
         this.highlightSurfacePainter = new ClassicSurfacePainter();
         this.outlinePainter = new CompositeOutlinePainter("Twilight",
             new FlatOutlinePainter(),
-            new FractionBasedTonalOutlinePainter("Twilight Inner",
+            new FractionBasedOutlinePainter("Twilight Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {32, 24, 24},
                 new ContainerColorTokensSingleColorQuery[] {

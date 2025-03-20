@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
@@ -112,7 +112,7 @@ public class MagmaSkin extends RadianceSkin {
         this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 1.0f);
         this.decorationPainter = new ArcDecorationPainter();
 
-        this.outlinePainter = new FractionBasedTonalOutlinePainter("Magma",
+        this.outlinePainter = new FractionBasedOutlinePainter("Magma",
             new float[] {0.0f, 1.0f},
             new int[] {80, 80},
             new ContainerColorTokensSingleColorQuery[]{

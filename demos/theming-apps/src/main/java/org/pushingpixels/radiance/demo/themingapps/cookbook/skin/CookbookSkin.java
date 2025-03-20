@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
@@ -173,7 +173,7 @@ public class CookbookSkin extends RadianceSkin {
         this.surfacePainter = new CookbookSurfacePainter();
 
         this.outlinePainter = new CompositeOutlinePainter("Cookbook",
-            new FractionBasedTonalOutlinePainter("Cookbook Outer",
+            new FractionBasedOutlinePainter("Cookbook Outer",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokensSingleColorQuery.blend(
@@ -183,7 +183,7 @@ public class CookbookSkin extends RadianceSkin {
                     ContainerColorTokens::getContainerOutline,
                     ContainerColorTokens::getContainerOutline,
                 }),
-            new FractionBasedTonalOutlinePainter("Cookbook Inner",
+            new FractionBasedOutlinePainter("Cookbook Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {112, 80, 64},
                 new ContainerColorTokensSingleColorQuery[] {

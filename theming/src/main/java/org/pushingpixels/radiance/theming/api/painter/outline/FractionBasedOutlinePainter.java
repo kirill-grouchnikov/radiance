@@ -45,8 +45,8 @@ import java.awt.MultipleGradientPaint.CycleMethod;
  *
  * @author Kirill Grouchnikov
  */
-public class FractionBasedTonalOutlinePainter extends FractionBasedPainter
-		implements RadianceOutlinePainter {
+public class FractionBasedOutlinePainter extends FractionBasedPainter
+	implements RadianceOutlinePainter {
 	/**
 	 * Creates a new fraction-based outline painter.
 	 *
@@ -60,7 +60,7 @@ public class FractionBasedTonalOutlinePainter extends FractionBasedPainter
 	 *            the fractions array, and all entries must be non-
 	 *            <code>null</code>.
 	 */
-	public FractionBasedTonalOutlinePainter(String displayName, float[] fractions,
+	public FractionBasedOutlinePainter(String displayName, float[] fractions,
 		ContainerColorTokensSingleColorQuery[] colorQueries) {
 		super(displayName, fractions, colorQueries);
 	}
@@ -79,7 +79,7 @@ public class FractionBasedTonalOutlinePainter extends FractionBasedPainter
 	 *            the fractions array, and all entries must be non-
 	 *            <code>null</code>.
 	 */
-	public FractionBasedTonalOutlinePainter(String displayName, float[] fractions,
+	public FractionBasedOutlinePainter(String displayName, float[] fractions,
 		int[] alphas, ContainerColorTokensSingleColorQuery[] colorQueries) {
 		super(displayName, fractions, alphas, colorQueries);
 	}

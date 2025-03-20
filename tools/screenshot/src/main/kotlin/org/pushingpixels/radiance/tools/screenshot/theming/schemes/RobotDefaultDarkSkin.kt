@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPa
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
@@ -77,7 +77,7 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
         this.outlinePainter = CompositeOutlinePainter(
             "Robot",
             FlatOutlinePainter(),
-            FractionBasedTonalOutlinePainter(
+            FractionBasedOutlinePainter(
                 "Robot Inner",
                 floatArrayOf(0.0f, 1.0f),
                 intArrayOf(96, 96),

@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
  *
  * @author Kirill Grouchnikov
  */
-public class FlatOutlinePainter extends FractionBasedTonalOutlinePainter {
+public class FlatOutlinePainter extends FractionBasedOutlinePainter {
 	public FlatOutlinePainter() {
 		super(
             "Flat",

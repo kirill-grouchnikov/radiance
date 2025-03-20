@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
@@ -157,7 +157,7 @@ public class NightShadeSkin extends RadianceSkin {
 
         this.outlinePainter = new CompositeOutlinePainter("Night Shade",
             new FlatOutlinePainter(),
-            new FractionBasedTonalOutlinePainter("Night Shade Inner",
+            new FractionBasedOutlinePainter("Night Shade Inner",
                 new float[]{0.0f, 1.0f},
                 new int[] {32, 12},
                 new ContainerColorTokensSingleColorQuery[]{

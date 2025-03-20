@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatVariantOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
@@ -208,7 +208,7 @@ public class AutumnSkin extends RadianceSkin {
 			1.0f);
 		this.outlinePainter = new CompositeOutlinePainter("Autumn",
 			new FlatVariantOutlinePainter(),
-			new FractionBasedTonalOutlinePainter("Autumn Inner",
+			new FractionBasedOutlinePainter("Autumn Inner",
 				new float[] {0.0f, 1.0f},
 				new int[] {240, 240},
 				new ContainerColorTokensSingleColorQuery[] {

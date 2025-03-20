@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
@@ -210,7 +210,7 @@ public class MarinerSkin extends RadianceSkin {
 
         this.outlinePainter = new CompositeOutlinePainter("Mariner",
             new FlatOutlinePainter(),
-            new FractionBasedTonalOutlinePainter("Mariner Inner",
+            new FractionBasedOutlinePainter("Mariner Inner",
                 new float[] {0.0f, 1.0f},
                 new int[] {64, 64},
                 new ContainerColorTokensSingleColorQuery[] {

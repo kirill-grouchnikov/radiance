@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAr
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
@@ -222,14 +222,14 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface,
                 ContainerColorTokens::getContainerSurfaceLow});
 
-        FractionBasedTonalOutlinePainter outerOutlinePainter = new FractionBasedTonalOutlinePainter(
+        FractionBasedOutlinePainter outerOutlinePainter = new FractionBasedOutlinePainter(
             "Office Silver 2007 Outer", new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
                 ContainerColorTokens::getContainerOutline,
                 ContainerColorTokens::getContainerOutline
             });
         RadianceOutlinePainter innerOutlinePainter =
-            new FractionBasedTonalOutlinePainter("Office Silver 2007 Inner",
+            new FractionBasedOutlinePainter("Office Silver 2007 Inner",
                 new float[] {0.0f, 1.0f},
                 new int[] {240, 240},
                 new ContainerColorTokensSingleColorQuery[] {

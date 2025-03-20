@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
@@ -132,7 +132,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.highlightSurfacePainter = new MatteSurfacePainter();
 		this.outlinePainter = new CompositeOutlinePainter("Dust",
 			new FlatOutlinePainter(),
-			new FractionBasedTonalOutlinePainter("Dust Inner",
+			new FractionBasedOutlinePainter("Dust Inner",
 				new float[] {0.0f, 1.0f},
 				new int[] {64, 64},
 				new ContainerColorTokensSingleColorQuery[] {

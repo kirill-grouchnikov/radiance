@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
@@ -105,7 +105,7 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		this.highlightSurfacePainter = new MatteSurfacePainter();
 		this.outlinePainter = new CompositeOutlinePainter("Creme",
 			new FlatOutlinePainter(),
-			new FractionBasedTonalOutlinePainter("Creme Inner",
+			new FractionBasedOutlinePainter("Creme Inner",
 				new float[] {0.0f, 1.0f},
 				new ContainerColorTokensSingleColorQuery[] {
 					ContainerColorTokens::getComplementaryContainerOutline,

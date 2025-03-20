@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
@@ -123,7 +123,7 @@ public class StreetlightsSkin extends RadianceSkin {
         this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 0.5f);
         this.decorationPainter = new ArcDecorationPainter();
 
-        this.outlinePainter = new FractionBasedTonalOutlinePainter("Streetlights",
+        this.outlinePainter = new FractionBasedOutlinePainter("Streetlights",
             new float[] {0.0f, 1.0f},
             new int[] {80, 80},
             new ContainerColorTokensSingleColorQuery[]{

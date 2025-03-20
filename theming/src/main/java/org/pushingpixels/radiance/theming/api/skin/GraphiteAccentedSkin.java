@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSi
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -100,7 +100,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 		this.buttonShaper = new ClassicButtonShaper();
 		this.outlinePainter = new CompositeOutlinePainter("Graphite",
 			new FlatOutlinePainter(),
-			new FractionBasedTonalOutlinePainter("Graphite Inner",
+			new FractionBasedOutlinePainter("Graphite Inner",
 				new float[] {0.0f, 0.5f, 1.0f},
 				new int[] {92, 64, 92},
 				new ContainerColorTokensSingleColorQuery[] {

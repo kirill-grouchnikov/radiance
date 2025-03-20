@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
@@ -248,7 +248,7 @@ public class MagellanSkin extends RadianceSkin {
 
         this.outlinePainter = new CompositeOutlinePainter("Magellan",
             new FlatOutlinePainter(),
-            new FractionBasedTonalOutlinePainter("Magellan Inner",
+            new FractionBasedOutlinePainter("Magellan Inner",
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {112, 80, 64},
                 new ContainerColorTokensSingleColorQuery[] {

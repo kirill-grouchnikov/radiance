@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedTonalOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.tabbed.*;
@@ -122,7 +122,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
 
-    private static class TabOutlinePainterLight extends FractionBasedTonalOutlinePainter {
+    private static class TabOutlinePainterLight extends FractionBasedOutlinePainter {
         public TabOutlinePainterLight() {
             super(
                 "Tab Light",
@@ -135,7 +135,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         }
     }
 
-    private static class TabOutlinePainterDark extends FractionBasedTonalOutlinePainter {
+    private static class TabOutlinePainterDark extends FractionBasedOutlinePainter {
         public TabOutlinePainterDark() {
             super(
                 "Tab Dark",
