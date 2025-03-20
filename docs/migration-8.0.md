@@ -1,0 +1,33 @@
+## Migration to version 8.0
+
+Version 8.0 is the [long-planned](https://github.com/kirill-grouchnikov/radiance/issues/400) refactoring of the codebase to introduce a new color system.
+
+This page lists the mapping between the old and the new APIs.
+
+### Package names for public APIs
+
+In the mapping below, `o.p.r.t.a.p` stands for `org.pushingpixels.radiance.theming.api.painter`
+
+| In 7.5 | In 8.0 |
+| --- | --- |
+| `o.p.r.t.a.p.border` | `o.p.r.t.a.p.outline` |
+| `o.p.r.t.a.p.fill` | `o.p.r.t.a.p.surface` |
+
+### Class names for public APIs
+
+| In 7.5 | In 8.0 |
+| --- | --- |
+| `RadianceBorderPainter` | `RadianceOutlinePainter` |
+| `RadianceFillPainter` | `RadianceSurfacePainter` |
+
+### APIs that have been replaced
+
+* `RadianceColorScheme` has been replaced by `ContainerColorTokens`, including all relevant Radiance painter APIs. Use `ColorSchemeUtils` to get `ContainerColorTokens` from seed colors and additional container configuration options.
+* State-specific alphas (including for highlights) are now configured via `ContainerColorTokens` APIs for disabled alpha for container surface, on container, and container outline tokens.
+* Shading, tinting, toning, saturating, hue shifting, negating and inverting a `RadianceColorScheme` can be achieved with changing the seed HCT or container configuration passed to `ColorSchemeUtils.getContainerTokens`:
+  * Shading and tinting by changing the seed tone
+  * Toning and saturating by changing the seed chroma
+  * Hue shifting by changing the seed hue
+  * Negating and inverting by changing the dark flag in the container configuration
+* Color overlay APIs in `RadianceSkin` are removed. Use `RadianceColorSchemeBundle.registerActiveContainerTokens` for configuring state-specific color tokens to use to paint controls.
+* Base and derived colors are replaced by color tokens in `ContainerColorTokens`. Use `PaletteContainerColorsResolverOverlay` and `BimodalPaletteContainerColorsResolverOverlay` to tweak color token resolution for specific visuals in your application.
