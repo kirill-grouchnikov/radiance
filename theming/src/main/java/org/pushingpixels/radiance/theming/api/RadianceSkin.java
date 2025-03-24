@@ -483,21 +483,21 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Registers the specified background color tokens to be used on controls in
      * decoration areas.
      *
-     * @param backgroundContainerTokens The color tokens to use for background of controls in
+     * @param backgroundTokens The color tokens to use for background of controls in
      *                              decoration areas.
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      *                              Each decoration area type will be painted by
      *                              {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
      */
-    public void registerAsDecorationArea(ContainerColorTokens backgroundContainerTokens,
+    public void registerAsDecorationArea(ContainerColorTokens backgroundTokens,
             RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        if (backgroundContainerTokens == null) {
+        if (backgroundTokens == null) {
             throw new IllegalArgumentException(
                     "Cannot pass null background color tokens");
         }
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
             this.decoratedAreaSet.add(areaType);
-            this.tonalBackgroundTokensMap.put(areaType, backgroundContainerTokens);
+            this.tonalBackgroundTokensMap.put(areaType, backgroundTokens);
         }
     }
 

@@ -37,5 +37,5 @@ Radiance provides a number of surface painters that can be used as a starting po
 If you wish to use the surface painter of the current skin to provide additional custom painting in your application, call:
 
 * `RadianceThemingCortex.GlobalScope.getCurrentSkin()` to retrieve the current skin.
-* `RadianceSkin.getSurfacePainter()` to retrieve the fill painter of the current skin.
+* `RadianceSkin.getSurfacePainter()` to retrieve the surface painter of the current skin.
 * `RadianceSurfacePainter.paintContourBackground()` to paint the background on the specific graphics context.

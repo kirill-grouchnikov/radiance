@@ -27,7 +27,7 @@ The skin definition consists of the following:
 * Decoration areas and color scheme bundles:
   * List of supported [decoration areas](../painters/decoration.md).
   * [Color scheme bundles](colorschemebundles.md) for the supported decoration areas.
-  * Optional background [color schemes](colorschemes.md) for the supported decoration areas.
+  * Optional background [color tokens](colortokens.md) for the supported decoration areas.
 * Painters:
   * [Surface painter](../painters/surface.md).
   * [Outline painter](../painters/outline.md).
@@ -36,9 +36,8 @@ The skin definition consists of the following:
 * Miscellaneous:
   * [Button shaper](../../hyperion/hyperion.md).
   * Optional [overlay painters](../painters/overlay.md) for some decoration areas.
-  * Optional values for start and end values of tab fade on `JTabbedPane` and similar containers.
 
-In order to define a valid skin, you need to specify all its mandatory parameters. A valid skin must have a color scheme bundle for `DecorationAreaType.NONE`, a button shaper, a fill painter, a decoration painter, a highlight painter and a border painter. All other parts are optional.
+In order to define a valid skin, you need to specify all its mandatory parameters. A valid skin must have a color scheme bundle for `DecorationAreaType.NONE`, a button shaper, a surface painter, a decoration painter, a highlight surface painter and an outline painter. All other parts are optional.
 
 ### Decoration areas
 
@@ -49,7 +48,7 @@ The documentation on [decoration painters](../painters/decoration.md) explains t
 <img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/nebulaamethyst1.png" width="340" height="258">
 </p>
 
-In order to register a custom color scheme bundle and an optional background color scheme on the specific decoration area type(s), use the following APIs:
+In order to register a custom color scheme bundle and optional background color tokens on the specific decoration area type(s), use the following APIs:
 
 ```java
   /**
@@ -70,19 +69,19 @@ In order to register a custom color scheme bundle and an optional background col
    *
    * @param bundle
    *     The color scheme bundle to use on controls in decoration areas.
-   * @param backgroundColorScheme
-   *     The color scheme to use for background of controls in decoration
+   * @param backgroundTokens
+   *     The color tokens to use for background of controls in decoration
    *     areas.
    * @param areaTypes
    *     Enumerates the area types that are affected by the parameters.
    */
   public void registerDecorationAreaSchemeBundle(
       RadianceColorSchemeBundle bundle,
-      RadianceColorScheme backgroundColorScheme,
+      ContainerColorTokens backgroundTokens,
       DecorationAreaType... areaTypes)
 ```
 
-Decoration areas registered with these APIs will have their background painted by the skin's [decoration painter](../painters/decoration.md) based on the default color scheme of the registered color scheme bundle. You can also use the following API to use a custom default color scheme on the specified decoration area types (in this case the controls in those decoration areas will use the default color scheme bundle):
+Decoration areas registered with these APIs will have their background painted by the skin's [decoration painter](../painters/decoration.md) based on the default color scheme of the registered color scheme bundle. You can also use the following API to use custom color tokens on the specified decoration area types (in this case the controls in those decoration areas will use the default color scheme bundle):
 
 ```java
   /**
@@ -99,44 +98,78 @@ Decoration areas registered with these APIs will have their background painted b
    *     Component, DecorationAreaType, int, int, RadianceSkin)}.
    */
   public void registerAsDecorationArea(
-      RadianceColorScheme backgroundColorScheme,
+      ContainerColorTokens backgroundTokens,
       DecorationAreaType... areaTypes)
 ```
 
-Here is an example of specifying the default color scheme bundle for the [Business Blue Steel skin](toneddown.md#business-blue-steel):
+Here is an example of specifying the default color scheme bundle for the [Mariner skin](toneddown.md#mariner):
 
 ```java
-RadianceSkin.ColorSchemes businessSchemes = RadianceSkin
-    .getColorSchemes("org/pushingpixels/radiance/theming/api/skin/business.colorschemes");
+RadianceColorSchemeBundle marinerDefaultBundle = new RadianceColorSchemeBundle(
+    /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFFF6DD9D),
+        /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+    /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFFD9D8D5),
+        /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+    /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFFECF0F3),
+        /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+    /* isSystemDark */ false);
 
-RadianceColorScheme activeScheme = businessSchemes.get("Business Blue Steel Active");
-RadianceColorScheme enabledScheme = businessSchemes.get("Business Blue Steel Enabled");
-RadianceColorScheme disabledScheme = businessSchemes.get("Business Blue Steel Disabled");
 
-RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-    activeScheme, enabledScheme, disabledScheme);
+ContainerColorTokens marinerSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+    /* seed */ Hct.fromInt(0xFFF5D47A),
+    /* containerConfiguration */ ContainerConfiguration.defaultLight());
+ContainerColorTokens marinerSelectedHighlightContainerTokens =
+    ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFFF7D997),
+        /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
-RadianceColorScheme highlightColorScheme = businessSchemes
-    .get("Business Blue Steel Highlight");
-defaultSchemeBundle.registerColorScheme(activeScheme, 0.5f,
-    ComponentState.DISABLED_SELECTED);
-defaultSchemeBundle.registerHighlightColorScheme(highlightColorScheme);
-this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
+// More saturated seed for controls in selected state
+marinerDefaultBundle.registerActiveContainerTokens(marinerSelectedContainerTokens,
+    ComponentState.SELECTED);
+// And less saturated seed for selected highlights
+marinerDefaultBundle.registerActiveContainerTokens(
+    marinerSelectedHighlightContainerTokens,
+    RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+    ComponentState.SELECTED);
+this.registerDecorationAreaSchemeBundle(marinerDefaultBundle,
+    RadianceThemingSlices.DecorationAreaType.NONE);
 ```
 and a custom color scheme bundle for the `header`-type decoration areas:
 
 ```java
-RadianceColorScheme activeHeaderScheme = businessSchemes
-    .get("Business Blue Steel Active Header");
-RadianceColorScheme enabledHeaderScheme = businessSchemes
-    .get("Business Blue Steel Enabled Header");
-RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
-    activeHeaderScheme, enabledHeaderScheme, enabledHeaderScheme);
-headerSchemeBundle.registerColorScheme(enabledHeaderScheme, 0.5f,
-    ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
-    DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
-    DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR);
+RadianceColorSchemeBundle marinerHeaderBundle = new RadianceColorSchemeBundle(
+    /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFFF5D47A),
+        /* containerConfiguration */ new ContainerConfiguration(
+            /* isDark */ true,
+            /* contrastLevel */ 0.8)),
+    /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFF281D1E),
+        /* containerConfiguration */ new ContainerConfiguration(
+            /* isDark */ true,
+            /* contrastLevel */ 0.8)),
+    /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFF2C2021),
+        /* containerConfiguration */ new ContainerConfiguration(
+            /* isDark */ true,
+            /* contrastLevel */ 0.6)),
+    /* isSystemDark */ true);
+
+...
+
+this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
+    ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFF261D1E),
+        /* containerConfiguration */ new ContainerConfiguration(
+            /* isDark */ true,
+            /* contrastLevel */ 1.0),
+        /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+            PaletteContainerColorsResolverOverlay.builder()
+                .containerOutline(DynamicPalette::getContainerOutlineVariant)
+                .build())),
 ```
 
 And here is an example of specifying a number of decoration area types to have their background painted by the decoration painter and the specific color scheme, without registering a custom color scheme bundle for those areas:
@@ -172,14 +205,13 @@ Here is how the [Nebula skin](toneddown.md#nebula) is configured to paint drop s
 ```java
 // add an overlay painter to paint a drop shadow along the top
 // edge of toolbars
-this.addOverlayPainter(TopShadowOverlayPainter.getInstance(),
+this.addOverlayPainter(TopShadowOverlayPainter.getInstance(60),
     DecorationAreaType.TOOLBAR);
 
 // add an overlay painter to paint separator lines along the bottom
 // edges of title panes and menu bars
 this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-    ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
-        ColorTransform.alpha(160)));
+    ContainerColorTokens::getContainerOutline);
 this.addOverlayPainter(this.bottomLineOverlayPainter,
     DecorationAreaType.PRIMARY_TITLE_PANE,
     DecorationAreaType.SECONDARY_TITLE_PANE,
@@ -190,53 +222,9 @@ and here is how it looks like:
 
 <img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/nebula1.png" width="340" height="258">
 
-### Derived skins
-
-As with [color scheme bundles](colorschemebundles.md), it is possible to create a derived skin. The same warning applies - a skin is a delicate collection of different color scheme bundles, painters and additional settings carefully chosen to work together in providing visually appealing appearance and consistent animation sequences. In some cases, creating a derived skin will result in poor visuals.
-
-You can use the following API to create a derived skin:
-
-```java
-  /**
-   * Creates a new skin that has the same settings as this skin with the
-   * addition of applying the specified color scheme transformation on all the
-   * relevant color schemes
-   *
-   * @param transform
-   *     Color scheme transformation.
-   * @param name
-   *     The name of the new skin.
-   * @return The new skin.
-   */
-  @RadianceApi
-  public RadianceSkin transform(ColorSchemeTransform transform,
-      final String name)
-```      
-Where the color scheme transformation is defined by the following interface:
-
-```java
-/**
- * Defines transformation on a color scheme.
- *
- * @author Kirill Grouchnikov
- */
-public interface ColorSchemeTransform {
-  /**
-   * Transforms the specified color scheme.
-   *
-   * @param scheme
-   *            The original color scheme to transform.
-   * @return The transformed color scheme.
-   */
-  public RadianceColorScheme transform(RadianceColorScheme scheme);
-}
-```
-
 ### Accented skins
 
-Another, more fine grained mechanism for deriving a skin is using **accented skins**. This can be done by extending a skin that extends the `RadianceSkin.Accented` super class.
-
-Such skins "declare" themselves to support one particular, narrowly scoped kind of derivation - providing up to five [color schemes](colorschemes.md) as accents. It is up to a skin that declares itself as accented to "decide" how to apply those accent colors.
+Skins that share most of their visuals can be defined by using a base skin that extends the `RadianceSkin.Accented` super class. Such skins "declare" themselves to support one particular, narrowly scoped kind of derivation - providing up to 9 [color tokens](colortokens.md) as accents. It is up to a skin that declares itself as accented to "decide" how to apply those accent color tokens.
 
 For example, here are two `Creme` skins that extend the core `CremeAccentedSkin` class:
 
@@ -254,7 +242,7 @@ As another example, here are two `Nebula` skins that extend the core `NebulaAcce
 <img alt="Nebula Brick Wall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/nebulabrickwall1.png" width="340" height="258">
 </p>
 
-The first passes a light silver scheme as the window chrome accent, while the second passes an orange scheme as the window chrome accent. This particular accented skin family uses the window chrome accent on the root pane border, the title pane and the menu bar - while maintaining the overall consistency of its visual "language", such as decoration painter, fill painter, color scheme for active controls in the main UI area, etc.
+The first passes a light silver scheme as the window chrome accent, while the second passes an orange scheme as the window chrome accent. This particular accented skin family uses the window chrome accent on the root pane border, the title pane and the menu bar - while maintaining the overall consistency of its visual "language", such as decoration painter, surface painter, color scheme for active controls in the main UI area, etc.
 
 ### Providing custom skins
 

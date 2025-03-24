@@ -21,7 +21,7 @@ The `SchemeBaseColors` defines the following base colors:
 
 The first six colors are used to paint the background "layer" of a control, such as, for example, the background fill of a button. The foreground color is primarily used to paint the foreground "layer" of a control, such as, for example, the button text and optionally the themed button icon.
 
-It is up to the [surface painter](../painters/surface.md) to decide which specific colors to use for the background layer, and how to use them. For example, a completely flat (non-gradient) look can be achieved by the fill painter using a single color, or by a color scheme specifying identical color values for the entire ultra light / ultra dark spectrum.
+It is up to the [surface painter](../painters/surface.md) to decide which specific colors to use for the background layer, and how to use them. For example, a completely flat (non-gradient) look can be achieved by the surface painter using a single color, or by a color scheme specifying identical color values for the entire ultra light / ultra dark spectrum.
 
 ### Derived colors
 

@@ -112,4 +112,4 @@ For the title area, the application of color is the same:
 * The background is rendered with a gradient that uses a number of `containerSurfaceXyz` color tokens
 * The text and the icons are rendered with the `onContainer` token
 
-And the window pane border is rendered with a combination of `containerSurface` and `containerOutline` color tokens.
+And the window pane border is rendered with a combination of `containerSurface` and `containerOutline` / `containerOutlineVariant` color tokens.

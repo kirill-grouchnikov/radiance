@@ -33,22 +33,22 @@ Here is another example of this pattern, this time on a status bar component. As
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/footer.png" width="628" height="388"/>
 
-### Border tracing
+### Outline tracing
 
-Components that require consistent painting of borders or contours can use the border painter with the matching contour. Here is an example of border tracing in the `JRibbon` component from the component library:
+Components that require consistent painting of borders or contours can use the outline painter with the matching contour. Here is an example of outline tracing in the `JRibbon` component from the component library:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/jribbon.png" width="586" height="202"/>
 
-The UI delegates for the main `JRibbon` components and inner parts use the border painter extensively to create the required visuals. Note the outer contour of the ribbon that also includes the selected tab button, and the inner contours of the ribbon tasks.
+The UI delegates for the main `JRibbon` components and inner parts use the outline painter extensively to create the required visuals. Note the outer contour of the ribbon that also includes the selected tab button, and the inner contours of the ribbon tasks.
 
-Here is another example of this pattern, this time on the `JCommandButton` component from the Components library. The custom UI delegate uses the border painter to paint the button border (a simpler contour in this case):
+Here is another example of this pattern, this time on the `JCommandButton` component from the Components library. The custom UI delegate uses the outline painter to paint the button border (a simpler contour in this case):
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/jcommandbutton.png" width="586" height="202"/>
 
 ### Inner fills
 
-This pattern is used to paint the inner fill of custom components (along with the border tracing pattern to paint the component contour). This pattern uses the fill painter with the matching contour. Here is an example of the `JCommandButton` component from the component library:
+This pattern is used to paint the inner fill of custom components (along with the border tracing pattern to paint the component contour). This pattern uses the surface painter with the matching contour. Here is an example of the `JCommandButton` component from the component library:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/jtoggletabbutton.png" width="586" height="202"/>
 
-In this example, the `Style 1` command button has its inner fill painted by the current fill painter.
+In this example, the `Style 1` command button has its inner fill painted by the current surface painter.

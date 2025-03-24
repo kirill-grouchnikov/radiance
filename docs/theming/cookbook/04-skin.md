@@ -4,7 +4,7 @@
 
 While the concepts of decoration areas and decoration painters introduced in the [second phase](02-map.md) and implemented in the [third phase](03-decorations.md) are one of the most powerful features in Radiance, they are part of the more comprehensive package of settings designed to facilitate creation of consistent and configurable visuals for modern graphical user interfaces. In Radiance terminology it is called a [skin](../skins/overview.md).
 
-This phase of Cookbook UI implementation will focus on creating the other parts of the skin, including color schemes, color scheme bundles, the fill painter and the border painter.
+This phase of Cookbook UI implementation will focus on creating the other parts of the skin, including color schemes, color scheme bundles, the surface painter and the outline painter.
 
 ### Color schemes
 
@@ -60,7 +60,7 @@ In addition to the two color schemes above, we define three color schemes to be 
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/cookbook/04-skin/disabled.png" width="240" border=0/>
 
-### Fill and border painters
+### Surface and outline painters
 
 Here is a zoomed version of footer buttons in Cookbook UI:
 
