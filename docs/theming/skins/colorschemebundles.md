@@ -149,7 +149,7 @@ defaultSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.RO
 
 ### Finer grained control
 
-As described in the [color scheme association kind documentation](colorschemeassociationkinds.md), Swing controls have different visual areas. Even such a simple example as `JCheckBox` icon has three different visual areas: inner fill, border and the "V" mark:
+As described in the [color tokens association kind documentation](colortokensassociationkinds.md), Swing controls have different visual areas. Even such a simple example as `JCheckBox` icon has three different visual areas: inner fill, border and the "V" mark:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-scheme-association-kinds.png" width="96" height="96"/>
 

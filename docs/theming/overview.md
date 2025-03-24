@@ -27,11 +27,11 @@ Radiance provides a powerful and flexible set of APIs that can be used to skin S
 
 * [Overview](skins/overview.md)
 * [Component states](skins/componentstates.md)
-* [Color schemes](skins/colorschemes.md)
-* [Color scheme association kinds](skins/colorschemeassociationkinds.md)
-* [Color scheme file format](skins/colorschemes-fileformat.md)
+* [Color tokens](skins/colortokens.md)
+* [Color tokens association kinds](skins/colortokensassociationkinds.md)
 * [Color scheme bundles](skins/colorschemebundles.md)
-* [Color scheme extras](skins/colorschemes-extras.md)
+* [Palette seeds](skins/palette-seeds.md)
+* [Palette seeds extras](skins/palette-seeds-extras.md)
 * [Light skins](skins/toneddown.md)
 * [Dark skins](skins/dark.md)
 

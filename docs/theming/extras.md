@@ -4,9 +4,9 @@
 
 The **extras** module contains additional functionality that builds on top of the core Radiance module.
 
-### Color schemes
+### Palette seeds
 
-Additional [color schemes](skins/colorschemes.md) are available under the `org.pushingpixels.radiance.theming.extras.api.colorschemepack` package. See the [full list here](skins/colorschemes-extras.md).
+Additional [palette seeds](skins/palette-seeds.md) are available under the `org.pushingpixels.radiance.theming.extras.api.colorschemepack` package. See the [full list here](skins/palette-seeds-extras.md).
 
 <p>
 <img alt="Belize"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/colorschemes/belize.png" width="340" height="258" />

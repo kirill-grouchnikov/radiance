@@ -1,10 +1,10 @@
-## Radiance look and feel - color scheme association kinds
+## Radiance look and feel - color tokens association kinds
 
 Color scheme association kinds in Radiance are best illustrated by a simple example:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-scheme-association-kinds.png" width="96" height="96"/>
 
-This is a screenshot of a `JCheckBox` icon under 72 point font. This checkmark icon has three different visual areas: inner fill, border and the "V" mark. Each one of these areas is painted with a different [color scheme](colorschemes.md), and this is allowed by using the relevant **color scheme association kinds**.
+This is a screenshot of a `JCheckBox` icon under 72 point font. This checkmark icon has three different visual areas: inner fill, border and the "V" mark. Each one of these areas is painted with different [color tokens](colortokens.md), and this is allowed by using the relevant **color scheme association kinds**.
 
 The `RadianceThemingSlices.ColorSchemeAssociationKind` is the base class for core and custom color scheme association kinds. Where is this class used?
 
@@ -13,7 +13,7 @@ The `RadianceThemingSlices.ColorSchemeAssociationKind` is the base class for cor
 
 Let's go back to the `JCheckBox` icon example above. How do we use the color scheme association kinds to specify three different color schemes for painting this checkmark icon?
 
-As detailed in the [skin documentation](overview.md), each skin has a number of [color scheme bundles](colorschemebundles.md). This means that two checkboxes with the same model state (`selected` in our case) can have different visuals, depending on the [decoration areas](../painters/decoration.md) they reside in. In the definition of the specific color scheme bundle, you can specify different [color schemes](colorschemes.md) for different component states. This means that a selected checkbox can use colors different from those of a rollover selected checkbox.
+As detailed in the [skin documentation](overview.md), each skin has a number of [color scheme bundles](colorschemebundles.md). This means that two checkboxes with the same model state (`selected` in our case) can have different visuals, depending on the [decoration areas](../painters/decoration.md) they reside in. In the definition of the specific color scheme bundle, you can specify different [color tokens](colortokens.md) for different component states. This means that a selected checkbox can use colors different from those of a rollover selected checkbox.
 
 In our case, we want to specify different color schemes for different visual areas of **selected** checkboxes in the default decoration area. The relevant method in the `RadianceColorSchemeBundle` is:
 
@@ -118,8 +118,7 @@ First, use the following API in `RadianceThemingCortex.ComponentScope` class to 
    *            Component. May be <code>null</code> - in this case the global
    *            current Radiance skin will be returned.
    * @return Current skin for the specified component.
-   * @see #SKIN_PROPERTY
-   * @see #getCurrentSkin()
+   * @see GlobalScope#getCurrentSkin()
    */
   public static RadianceSkin getCurrentSkin(Component c)
 ```

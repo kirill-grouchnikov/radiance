@@ -35,3 +35,4 @@ All relevant APIs that work with these painters in `RadianceSkin` and elsewhere 
 * Base and derived colors are replaced by color tokens in `ContainerColorTokens`. Use `PaletteContainerColorsResolverOverlay` and `BimodalPaletteContainerColorsResolverOverlay` to tweak color token resolution for specific visuals in your application.
 * `RadianceThemingSlices.ColorSchemeAssociationKind` is replaced with `RadianceThemingSlices.ContainerColorTokensAssociationKind`.
 * Two new enums added to `RadianceThemingSlices` - `ContainerType` and `SystemContainerType` - to mirror the container-based APIs in `RadianceSkin` and `RadianceColorSchemeBundle`.
+* Core color schemes (such as Aqua, Bottle Green, etc) are now provided as a set of palette seeds in the `TonalPaletteSeeds` class.
