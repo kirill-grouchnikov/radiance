@@ -29,30 +29,31 @@
  */
 package org.pushingpixels.radiance.theming.api.colorscheme;
 
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
+import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 
 import java.util.function.Function;
 
 public class PaletteContainerColorsResolverOverlay {
-    private Function<DynamicPalette, Integer> containerSurfaceLowest;
-    private Function<DynamicPalette, Integer> containerSurfaceLow;
-    private Function<DynamicPalette, Integer> containerSurface;
-    private Function<DynamicPalette, Integer> containerSurfaceHigh;
-    private Function<DynamicPalette, Integer> containerSurfaceHighest;
-    private Function<DynamicPalette, Integer> containerSurfaceDim;
-    private Function<DynamicPalette, Integer> containerSurfaceBright;
-    private Function<DynamicPalette, Integer> onContainer;
-    private Function<DynamicPalette, Integer> onContainerVariant;
-    private Function<DynamicPalette, Integer> containerOutline;
-    private Function<DynamicPalette, Integer> containerOutlineVariant;
-    private Function<DynamicPalette, Float> containerSurfaceDisabledAlpha;
-    private Function<DynamicPalette, Float> onContainerDisabledAlpha;
-    private Function<DynamicPalette, Float> containerOutlineDisabledAlpha;
-    private Function<DynamicPalette, Integer> inverseContainerSurface;
-    private Function<DynamicPalette, Integer> inverseOnContainer;
-    private Function<DynamicPalette, Integer> inverseContainerOutline;
-    private Function<DynamicPalette, Integer> complementaryOnContainer;
-    private Function<DynamicPalette, Integer> complementaryContainerOutline;
+    private Function<TokenPalette, Integer> containerSurfaceLowest;
+    private Function<TokenPalette, Integer> containerSurfaceLow;
+    private Function<TokenPalette, Integer> containerSurface;
+    private Function<TokenPalette, Integer> containerSurfaceHigh;
+    private Function<TokenPalette, Integer> containerSurfaceHighest;
+    private Function<TokenPalette, Integer> containerSurfaceDim;
+    private Function<TokenPalette, Integer> containerSurfaceBright;
+    private Function<TokenPalette, Integer> onContainer;
+    private Function<TokenPalette, Integer> onContainerVariant;
+    private Function<TokenPalette, Integer> containerOutline;
+    private Function<TokenPalette, Integer> containerOutlineVariant;
+    private Function<TokenPalette, Float> containerSurfaceDisabledAlpha;
+    private Function<TokenPalette, Float> onContainerDisabledAlpha;
+    private Function<TokenPalette, Float> containerOutlineDisabledAlpha;
+    private Function<TokenPalette, Integer> inverseContainerSurface;
+    private Function<TokenPalette, Integer> inverseOnContainer;
+    private Function<TokenPalette, Integer> inverseContainerOutline;
+    private Function<TokenPalette, Integer> complementaryOnContainer;
+    private Function<TokenPalette, Integer> complementaryContainerOutline;
+    private Function<TokenPalette, Integer> accentOnContainer;
 
     public static Builder builder() {
         return new Builder();
@@ -60,204 +61,215 @@ public class PaletteContainerColorsResolverOverlay {
 
     private PaletteContainerColorsResolverOverlay() {}
 
-    public Function<DynamicPalette, Integer> getContainerSurfaceLowest() {
+    public Function<TokenPalette, Integer> getContainerSurfaceLowest() {
         return this.containerSurfaceLowest;
     }
 
-    public Function<DynamicPalette, Integer> getContainerSurfaceLow() {
+    public Function<TokenPalette, Integer> getContainerSurfaceLow() {
         return this.containerSurfaceLow;
     }
 
-    public Function<DynamicPalette, Integer> getContainerSurface() {
+    public Function<TokenPalette, Integer> getContainerSurface() {
         return this.containerSurface;
     }
 
-    public Function<DynamicPalette, Integer> getContainerSurfaceHigh() {
+    public Function<TokenPalette, Integer> getContainerSurfaceHigh() {
         return this.containerSurfaceHigh;
     }
 
-    public Function<DynamicPalette, Integer> getContainerSurfaceHighest() {
+    public Function<TokenPalette, Integer> getContainerSurfaceHighest() {
         return this.containerSurfaceHighest;
     }
 
-    public Function<DynamicPalette, Integer> getContainerSurfaceDim() {
+    public Function<TokenPalette, Integer> getContainerSurfaceDim() {
         return this.containerSurfaceDim;
     }
 
-    public Function<DynamicPalette, Integer> getContainerSurfaceBright() {
+    public Function<TokenPalette, Integer> getContainerSurfaceBright() {
         return this.containerSurfaceBright;
     }
 
-    public Function<DynamicPalette, Integer> getOnContainer() {
+    public Function<TokenPalette, Integer> getOnContainer() {
         return this.onContainer;
     }
 
-    public Function<DynamicPalette, Integer> getOnContainerVariant() {
+    public Function<TokenPalette, Integer> getOnContainerVariant() {
         return this.onContainerVariant;
     }
 
-    public Function<DynamicPalette, Integer> getContainerOutline() {
+    public Function<TokenPalette, Integer> getContainerOutline() {
         return this.containerOutline;
     }
 
-    public Function<DynamicPalette, Integer> getContainerOutlineVariant() {
+    public Function<TokenPalette, Integer> getContainerOutlineVariant() {
         return this.containerOutlineVariant;
     }
 
-    public Function<DynamicPalette, Float> getContainerSurfaceDisabledAlpha() {
+    public Function<TokenPalette, Float> getContainerSurfaceDisabledAlpha() {
         return this.containerSurfaceDisabledAlpha;
     }
 
-    public Function<DynamicPalette, Float> getOnContainerDisabledAlpha() {
+    public Function<TokenPalette, Float> getOnContainerDisabledAlpha() {
         return this.onContainerDisabledAlpha;
     }
 
-    public Function<DynamicPalette, Float> getContainerOutlineDisabledAlpha() {
+    public Function<TokenPalette, Float> getContainerOutlineDisabledAlpha() {
         return this.containerOutlineDisabledAlpha;
     }
 
-    public Function<DynamicPalette, Integer> getInverseContainerSurface() {
+    public Function<TokenPalette, Integer> getInverseContainerSurface() {
         return this.inverseContainerSurface;
     }
 
-    public Function<DynamicPalette, Integer> getInverseOnContainer() {
+    public Function<TokenPalette, Integer> getInverseOnContainer() {
         return this.inverseOnContainer;
     }
 
-    public Function<DynamicPalette, Integer> getInverseContainerOutline() {
+    public Function<TokenPalette, Integer> getInverseContainerOutline() {
         return this.inverseContainerOutline;
     }
 
-    public Function<DynamicPalette, Integer> getComplementaryOnContainer() {
+    public Function<TokenPalette, Integer> getComplementaryOnContainer() {
         return this.complementaryOnContainer;
     }
 
-    public Function<DynamicPalette, Integer> getComplementaryContainerOutline() {
+    public Function<TokenPalette, Integer> getComplementaryContainerOutline() {
         return this.complementaryContainerOutline;
     }
 
+    public Function<TokenPalette, Integer> getAccentOnContainer() {
+        return this.accentOnContainer;
+    }
+
     public final static class Builder {
-        private Function<DynamicPalette, Integer> containerSurfaceLowest;
-        private Function<DynamicPalette, Integer> containerSurfaceLow;
-        private Function<DynamicPalette, Integer> containerSurface;
-        private Function<DynamicPalette, Integer> containerSurfaceHigh;
-        private Function<DynamicPalette, Integer> containerSurfaceHighest;
-        private Function<DynamicPalette, Integer> containerSurfaceDim;
-        private Function<DynamicPalette, Integer> containerSurfaceBright;
-        private Function<DynamicPalette, Integer> onContainer;
-        private Function<DynamicPalette, Integer> onContainerVariant;
-        private Function<DynamicPalette, Integer> containerOutline;
-        private Function<DynamicPalette, Integer> containerOutlineVariant;
-        private Function<DynamicPalette, Float> containerSurfaceDisabledAlpha;
-        private Function<DynamicPalette, Float> onContainerDisabledAlpha;
-        private Function<DynamicPalette, Float> containerOutlineDisabledAlpha;
-        private Function<DynamicPalette, Integer> inverseContainerSurface;
-        private Function<DynamicPalette, Integer> inverseOnContainer;
-        private Function<DynamicPalette, Integer> inverseContainerOutline;
-        private Function<DynamicPalette, Integer> complementaryOnContainer;
-        private Function<DynamicPalette, Integer> complementaryContainerOutline;
+        private Function<TokenPalette, Integer> containerSurfaceLowest;
+        private Function<TokenPalette, Integer> containerSurfaceLow;
+        private Function<TokenPalette, Integer> containerSurface;
+        private Function<TokenPalette, Integer> containerSurfaceHigh;
+        private Function<TokenPalette, Integer> containerSurfaceHighest;
+        private Function<TokenPalette, Integer> containerSurfaceDim;
+        private Function<TokenPalette, Integer> containerSurfaceBright;
+        private Function<TokenPalette, Integer> onContainer;
+        private Function<TokenPalette, Integer> onContainerVariant;
+        private Function<TokenPalette, Integer> containerOutline;
+        private Function<TokenPalette, Integer> containerOutlineVariant;
+        private Function<TokenPalette, Float> containerSurfaceDisabledAlpha;
+        private Function<TokenPalette, Float> onContainerDisabledAlpha;
+        private Function<TokenPalette, Float> containerOutlineDisabledAlpha;
+        private Function<TokenPalette, Integer> inverseContainerSurface;
+        private Function<TokenPalette, Integer> inverseOnContainer;
+        private Function<TokenPalette, Integer> inverseContainerOutline;
+        private Function<TokenPalette, Integer> complementaryOnContainer;
+        private Function<TokenPalette, Integer> complementaryContainerOutline;
+        private Function<TokenPalette, Integer> accentOnContainer;
 
         private Builder() {}
 
-        public Builder containerSurfaceLowest(Function<DynamicPalette, Integer> containerSurfaceLowest) {
+        public Builder containerSurfaceLowest(Function<TokenPalette, Integer> containerSurfaceLowest) {
             this.containerSurfaceLowest = containerSurfaceLowest;
             return this;
         }
 
-        public Builder containerSurfaceLow(Function<DynamicPalette, Integer> containerSurfaceLow) {
+        public Builder containerSurfaceLow(Function<TokenPalette, Integer> containerSurfaceLow) {
             this.containerSurfaceLow = containerSurfaceLow;
             return this;
         }
 
-        public Builder containerSurface(Function<DynamicPalette, Integer> containerSurface) {
+        public Builder containerSurface(Function<TokenPalette, Integer> containerSurface) {
             this.containerSurface = containerSurface;
             return this;
         }
 
-        public Builder containerSurfaceHigh(Function<DynamicPalette, Integer> containerSurfaceHigh) {
+        public Builder containerSurfaceHigh(Function<TokenPalette, Integer> containerSurfaceHigh) {
             this.containerSurfaceHigh = containerSurfaceHigh;
             return this;
         }
 
-        public Builder containerSurfaceHighest(Function<DynamicPalette, Integer> containerSurfaceHighest) {
+        public Builder containerSurfaceHighest(Function<TokenPalette, Integer> containerSurfaceHighest) {
             this.containerSurfaceHighest = containerSurfaceHighest;
             return this;
         }
 
-        public Builder containerSurfaceDim(Function<DynamicPalette, Integer> containerSurfaceDim) {
+        public Builder containerSurfaceDim(Function<TokenPalette, Integer> containerSurfaceDim) {
             this.containerSurfaceDim = containerSurfaceDim;
             return this;
         }
 
-        public Builder containerSurfaceBright(Function<DynamicPalette, Integer> containerSurfaceBright) {
+        public Builder containerSurfaceBright(Function<TokenPalette, Integer> containerSurfaceBright) {
             this.containerSurfaceBright = containerSurfaceBright;
             return this;
         }
 
-        public Builder onContainer(Function<DynamicPalette, Integer> onContainer) {
+        public Builder onContainer(Function<TokenPalette, Integer> onContainer) {
             this.onContainer = onContainer;
             return this;
         }
 
-        public Builder onContainerVariant(Function<DynamicPalette, Integer> onContainerVariant) {
+        public Builder onContainerVariant(Function<TokenPalette, Integer> onContainerVariant) {
             this.onContainerVariant = onContainerVariant;
             return this;
         }
 
-        public Builder containerOutline(Function<DynamicPalette, Integer> containerOutline) {
+        public Builder containerOutline(Function<TokenPalette, Integer> containerOutline) {
             this.containerOutline = containerOutline;
             return this;
         }
 
-        public Builder containerOutlineVariant(Function<DynamicPalette, Integer> containerOutlineVariant) {
+        public Builder containerOutlineVariant(Function<TokenPalette, Integer> containerOutlineVariant) {
             this.containerOutlineVariant = containerOutlineVariant;
             return this;
         }
 
         public Builder containerSurfaceDisabledAlpha(
-            Function<DynamicPalette, Float> containerSurfaceDisabledAlpha) {
+            Function<TokenPalette, Float> containerSurfaceDisabledAlpha) {
             this.containerSurfaceDisabledAlpha = containerSurfaceDisabledAlpha;
             return this;
         }
 
         public Builder onContainerDisabledAlpha(
-            Function<DynamicPalette, Float> onContainerDisabledAlpha) {
+            Function<TokenPalette, Float> onContainerDisabledAlpha) {
             this.onContainerDisabledAlpha = onContainerDisabledAlpha;
             return this;
         }
 
         public Builder containerOutlineDisabledAlpha(
-            Function<DynamicPalette, Float> containerOutlineDisabledAlpha) {
+            Function<TokenPalette, Float> containerOutlineDisabledAlpha) {
             this.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
             return this;
         }
 
         public Builder inverseContainerSurface(
-            Function<DynamicPalette, Integer> inverseContainerSurface) {
+            Function<TokenPalette, Integer> inverseContainerSurface) {
             this.inverseContainerSurface = inverseContainerSurface;
             return this;
         }
 
-        public Builder inverseOnContainer(Function<DynamicPalette, Integer> inverseOnContainer) {
+        public Builder inverseOnContainer(Function<TokenPalette, Integer> inverseOnContainer) {
             this.inverseOnContainer = inverseOnContainer;
             return this;
         }
 
         public Builder inverseContainerOutline(
-            Function<DynamicPalette, Integer> inverseContainerOutline) {
+            Function<TokenPalette, Integer> inverseContainerOutline) {
             this.inverseContainerOutline = inverseContainerOutline;
             return this;
         }
 
         public Builder complementaryOnContainer(
-            Function<DynamicPalette, Integer> complementaryOnContainer) {
+            Function<TokenPalette, Integer> complementaryOnContainer) {
             this.complementaryOnContainer = complementaryOnContainer;
             return this;
         }
 
         public Builder complementaryContainerOutline(
-            Function<DynamicPalette, Integer> complementaryContainerOutline) {
+            Function<TokenPalette, Integer> complementaryContainerOutline) {
             this.complementaryContainerOutline = complementaryContainerOutline;
+            return this;
+        }
+
+        public Builder accentOnContainer(
+            Function<TokenPalette, Integer> accentOnContainer) {
+            this.accentOnContainer = accentOnContainer;
             return this;
         }
 
@@ -282,6 +294,7 @@ public class PaletteContainerColorsResolverOverlay {
             result.inverseContainerOutline = this.inverseContainerOutline;
             result.complementaryOnContainer = this.complementaryOnContainer;
             result.complementaryContainerOutline = this.complementaryContainerOutline;
+            result.accentOnContainer = this.accentOnContainer;
             return result;
         }
     }

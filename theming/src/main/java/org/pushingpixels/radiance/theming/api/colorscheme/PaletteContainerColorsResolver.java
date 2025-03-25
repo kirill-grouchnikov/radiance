@@ -29,36 +29,38 @@
  */
 package org.pushingpixels.radiance.theming.api.colorscheme;
 
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
+import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 
 import java.awt.*;
 
 public interface PaletteContainerColorsResolver {
-    Color getContainerSurfaceLowest(DynamicPalette dynamicPalette);
-    Color getContainerSurfaceLow(DynamicPalette dynamicPalette);
-    Color getContainerSurface(DynamicPalette dynamicPalette);
-    Color getContainerSurfaceHigh(DynamicPalette dynamicPalette);
-    Color getContainerSurfaceHighest(DynamicPalette dynamicPalette);
+    Color getContainerSurfaceLowest(TokenPalette tokenPalette);
+    Color getContainerSurfaceLow(TokenPalette tokenPalette);
+    Color getContainerSurface(TokenPalette tokenPalette);
+    Color getContainerSurfaceHigh(TokenPalette tokenPalette);
+    Color getContainerSurfaceHighest(TokenPalette tokenPalette);
 
-    Color getContainerSurfaceDim(DynamicPalette dynamicPalette);
-    Color getContainerSurfaceBright(DynamicPalette dynamicPalette);
+    Color getContainerSurfaceDim(TokenPalette tokenPalette);
+    Color getContainerSurfaceBright(TokenPalette tokenPalette);
 
-    Color getOnContainer(DynamicPalette dynamicPalette);
-    Color getOnContainerVariant(DynamicPalette dynamicPalette);
+    Color getOnContainer(TokenPalette tokenPalette);
+    Color getOnContainerVariant(TokenPalette tokenPalette);
 
-    Color getContainerOutline(DynamicPalette dynamicPalette);
-    Color getContainerOutlineVariant(DynamicPalette dynamicPalette);
+    Color getContainerOutline(TokenPalette tokenPalette);
+    Color getContainerOutlineVariant(TokenPalette tokenPalette);
 
-    float getContainerSurfaceDisabledAlpha(DynamicPalette dynamicPalette);
-    float getOnContainerDisabledAlpha(DynamicPalette dynamicPalette);
-    float getContainerOutlineDisabledAlpha(DynamicPalette dynamicPalette);
+    float getContainerSurfaceDisabledAlpha(TokenPalette tokenPalette);
+    float getOnContainerDisabledAlpha(TokenPalette tokenPalette);
+    float getContainerOutlineDisabledAlpha(TokenPalette tokenPalette);
 
-    Color getInverseContainerSurface(DynamicPalette dynamicPalette);
-    Color getInverseOnContainer(DynamicPalette dynamicPalette);
-    Color getInverseContainerOutline(DynamicPalette dynamicPalette);
+    Color getInverseContainerSurface(TokenPalette tokenPalette);
+    Color getInverseOnContainer(TokenPalette tokenPalette);
+    Color getInverseContainerOutline(TokenPalette tokenPalette);
 
-    Color getComplementaryOnContainer(DynamicPalette dynamicPalette);
-    Color getComplementaryContainerOutline(DynamicPalette dynamicPalette);
+    Color getComplementaryOnContainer(TokenPalette tokenPalette);
+    Color getComplementaryContainerOutline(TokenPalette tokenPalette);
+
+    Color getAccentOnContainer(TokenPalette tokenPalette);
 
     default PaletteContainerColorsResolver overlayWith(PaletteContainerColorsResolverOverlay overlay) {
         return PaletteResolverUtils.overlayWith(this, overlay);

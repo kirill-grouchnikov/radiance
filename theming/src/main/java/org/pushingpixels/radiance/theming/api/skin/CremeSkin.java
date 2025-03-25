@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
 import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
@@ -74,8 +74,8 @@ public class CremeSkin extends CremeAccentedSkin {
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
-                        .containerOutline(DynamicPalette::getContainerSurfaceHighest)
-                        .containerOutlineVariant(DynamicPalette::getContainerSurfaceHigh)
+                        .containerOutline(TokenPalette::getContainerSurfaceHighest)
+                        .containerOutlineVariant(TokenPalette::getContainerSurfaceHigh)
                         .build())))
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFACDDF4),
@@ -84,8 +84,8 @@ public class CremeSkin extends CremeAccentedSkin {
                     /* contrastLevel */ 0.3),
                 /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
-                        .containerOutline(DynamicPalette::getContainerSurfaceHighest)
-                        .containerOutlineVariant(DynamicPalette::getContainerSurfaceHigh)
+                        .containerOutline(TokenPalette::getContainerSurfaceHighest)
+                        .containerOutlineVariant(TokenPalette::getContainerSurfaceHigh)
                         .build()))));
     }
 }

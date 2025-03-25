@@ -114,6 +114,7 @@ public class ColorSchemeUtils {
         Color inverseContainerOutline = original.getInverseContainerOutline();
         Color complementaryOnContainer = original.getComplementaryOnContainer();
         Color complementaryContainerOutline = original.getComplementaryContainerOutline();
+        Color accentOnContainer = original.getAccentOnContainer();
 
         return new ContainerColorTokens() {
             @Override
@@ -214,6 +215,11 @@ public class ColorSchemeUtils {
             @Override
             public Color getComplementaryContainerOutline() {
                 return complementaryContainerOutline;
+            }
+
+            @Override
+            public Color getAccentOnContainer() {
+                return accentOnContainer;
             }
         };
     }
@@ -334,6 +340,11 @@ public class ColorSchemeUtils {
             public Color getComplementaryContainerOutline() {
                 return colorResolver.getComplementaryContainerOutline(dynamicPalette);
             }
+
+            @Override
+            public Color getAccentOnContainer() {
+                return colorResolver.getAccentOnContainer(dynamicPalette);
+            }
         };
     }
 
@@ -343,7 +354,7 @@ public class ColorSchemeUtils {
         DynamicBimodalPalette.TransitionRange transitionRange,
         double fidelityTone,
         ContainerConfiguration containerConfiguration,
-        BimodalPaletteContainerColorsResolver colorResolver) {
+        PaletteContainerColorsResolver colorResolver) {
 
         DynamicBimodalPalette dynamicPalette = new DynamicBimodalPalette(
             /* seedOne */ seedOne,
@@ -451,6 +462,11 @@ public class ColorSchemeUtils {
             @Override
             public Color getComplementaryContainerOutline() {
                 return colorResolver.getComplementaryContainerOutline(dynamicPalette);
+            }
+
+            @Override
+            public Color getAccentOnContainer() {
+                return colorResolver.getAccentOnContainer(dynamicPalette);
             }
         };
     }
@@ -583,6 +599,10 @@ public class ColorSchemeUtils {
             ? original.getComplementaryContainerOutline()
             : new Color(Blend.harmonizeAll(original.getComplementaryContainerOutline().getRGB(),
             backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color accentOnContainer = (foregroundShiftColor == null)
+            ? original.getAccentOnContainer()
+            : new Color(Blend.harmonizeAll(original.getAccentOnContainer().getRGB(),
+            foregroundShiftColor.getRGB(), foregroundShiftFactor));
 
         return new ContainerColorTokens() {
             @Override
@@ -683,6 +703,11 @@ public class ColorSchemeUtils {
             @Override
             public Color getComplementaryContainerOutline() {
                 return complementaryContainerOutline;
+            }
+
+            @Override
+            public Color getAccentOnContainer() {
+                return accentOnContainer;
             }
         };
     }

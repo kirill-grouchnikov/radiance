@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.demo.themingapps.mail;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
@@ -76,8 +76,8 @@ public class VisorSkin extends RadianceSkin {
         PaletteContainerColorsResolver threadsHighlightsPaletteResolver =
             PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .containerOutline(DynamicPalette::getContainerSurface)
-                    .containerOutlineVariant(DynamicPalette::getContainerSurfaceHigh)
+                    .containerOutline(TokenPalette::getContainerSurface)
+                    .containerOutlineVariant(TokenPalette::getContainerSurfaceHigh)
                     .build()
             );
         RadianceColorSchemeBundle visorThreadsBundle = new RadianceColorSchemeBundle(
@@ -113,8 +113,8 @@ public class VisorSkin extends RadianceSkin {
         PaletteContainerColorsResolver destinationsHighlightsPaletteResolver =
             PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .containerOutline(DynamicPalette::getContainerOutlineVariant)
-                    .containerOutlineVariant(DynamicPalette::getContainerOutlineVariant)
+                    .containerOutline(TokenPalette::getContainerOutlineVariant)
+                    .containerOutlineVariant(TokenPalette::getContainerOutlineVariant)
                     .build()
             );
         RadianceColorSchemeBundle visorDestinationsBundle = new RadianceColorSchemeBundle(

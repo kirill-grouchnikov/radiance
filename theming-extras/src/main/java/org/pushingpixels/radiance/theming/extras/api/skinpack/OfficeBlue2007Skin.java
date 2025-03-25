@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
@@ -122,8 +122,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                     PaletteContainerColorsResolverOverlay.builder()
-                        .containerOutline(DynamicPalette::getContainerOutlineVariant)
-                        .containerOutlineVariant(DynamicPalette::getContainerOutlineVariant)
+                        .containerOutline(TokenPalette::getContainerOutlineVariant)
+                        .containerOutlineVariant(TokenPalette::getContainerOutlineVariant)
                         .build()
                 ));
         ContainerColorTokens selectedContainerTokens =
@@ -136,7 +136,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* surfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());;
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
         ContainerColorTokens rolloverSelectedContainerTokens =
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
@@ -147,7 +147,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* surfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());;
+                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
@@ -181,7 +181,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
         PaletteContainerColorsResolver activeMarksColorResolver =
             PaletteResolverUtils.getPaletteColorResolver().overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .onContainer(DynamicPalette::getContainerOutline)
+                    .onContainer(TokenPalette::getContainerOutline)
                     .build());
 
         ContainerColorTokens rolloverMarkContainerTokens = ColorSchemeUtils.getContainerTokens(

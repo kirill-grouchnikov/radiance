@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
@@ -117,8 +117,8 @@ public class TwilightSkin extends RadianceSkin {
         PaletteContainerColorsResolver twilightPaletteContainerColorResolver =
             defaultPaletteContainerColorResolver.overlayWith(
                 PaletteContainerColorsResolverOverlay.builder()
-                    .containerOutline(DynamicPalette::getOnContainer)
-                    .containerOutlineVariant(DynamicPalette::getOnContainerVariant)
+                    .containerOutline(TokenPalette::getOnContainer)
+                    .containerOutlineVariant(TokenPalette::getOnContainerVariant)
                     .build());
 
         ContainerColorTokens twilightSelectedContainerTokens =

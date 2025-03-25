@@ -32,9 +32,9 @@ package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 
 public class CookbookTokens {
     public static final ContainerColorTokens GOLDEN_BROWN_TOKENS =
@@ -47,7 +47,7 @@ public class CookbookTokens {
                 /* isDark */ true,
                 /* contrastLevel */ 1.0,
                 /* surfaceRangeAmplitudeFactor */ 2.0),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
+            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
 
     public static final ContainerColorTokens DARK_BROWN_TOKENS =
         ColorSchemeUtils.getBimodalContainerTokens(
@@ -59,5 +59,5 @@ public class CookbookTokens {
                 /* isDark */ true,
                 /* contrastLevel */ 1.0,
                 /* surfaceRangeAmplitudeFactor */ 1.6),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
+            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
 }

@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
@@ -70,7 +70,7 @@ public class AutumnSkin extends RadianceSkin {
 		PaletteContainerColorsResolver resolver =
 			PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 				PaletteContainerColorsResolverOverlay.builder()
-					.onContainer(DynamicPalette::getContainerOutline)
+					.onContainer(TokenPalette::getContainerOutline)
 					.onContainerVariant((p) -> p.getContainerOutline() & 0xC0FFFFFF)
 					.containerSurfaceDisabledAlpha((s) -> 0.4f)
 					.onContainerDisabledAlpha((s) -> 0.6f)
@@ -150,7 +150,7 @@ public class AutumnSkin extends RadianceSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
 					PaletteContainerColorsResolverOverlay.builder()
-						.onContainer(DynamicPalette::getOnContainerVariant)
+						.onContainer(TokenPalette::getOnContainerVariant)
 						.build())),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

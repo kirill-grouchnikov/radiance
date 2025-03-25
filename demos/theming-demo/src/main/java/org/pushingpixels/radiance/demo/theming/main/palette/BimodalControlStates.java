@@ -37,8 +37,8 @@ import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
@@ -95,7 +95,7 @@ public class BimodalControlStates extends JFrame {
                     /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                     /* fidelityTone */ primaryTone,
                     /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-                    /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver()),
+                    /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver()),
                 /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(mutedSeed,
                     ContainerConfiguration.defaultLight()),
                 /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(neutralSeed,

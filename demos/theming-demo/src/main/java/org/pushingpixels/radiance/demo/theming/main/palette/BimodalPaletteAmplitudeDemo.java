@@ -38,9 +38,9 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.BimodalPaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -72,7 +72,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
             /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
+            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
 
         DynamicBimodalPalette bimodalPalette1 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
@@ -90,7 +90,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
                 /* surfaceRangeAmplitudeFactor */ 1.5),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
+            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
 
         DynamicBimodalPalette bimodalPalette2 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
@@ -111,7 +111,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
                 /* surfaceRangeAmplitudeFactor */ 2.0),
-            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
+            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
 
         DynamicBimodalPalette bimodalPalette3 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
