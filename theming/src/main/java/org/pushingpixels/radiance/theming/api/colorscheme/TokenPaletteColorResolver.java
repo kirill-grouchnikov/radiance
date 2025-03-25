@@ -33,7 +33,7 @@ import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 
 import java.awt.*;
 
-public interface PaletteContainerColorsResolver {
+public interface TokenPaletteColorResolver {
     Color getContainerSurfaceLowest(TokenPalette tokenPalette);
     Color getContainerSurfaceLow(TokenPalette tokenPalette);
     Color getContainerSurface(TokenPalette tokenPalette);
@@ -62,7 +62,7 @@ public interface PaletteContainerColorsResolver {
 
     Color getAccentOnContainer(TokenPalette tokenPalette);
 
-    default PaletteContainerColorsResolver overlayWith(PaletteContainerColorsResolverOverlay overlay) {
-        return PaletteResolverUtils.overlayWith(this, overlay);
+    default TokenPaletteColorResolver overlayWith(TokenPaletteColorResolverOverlay overlay) {
+        return TokenPaletteColorResolverUtils.overlayWith(this, overlay);
     }
 }

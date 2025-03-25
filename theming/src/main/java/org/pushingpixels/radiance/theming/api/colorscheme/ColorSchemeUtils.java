@@ -228,13 +228,13 @@ public class ColorSchemeUtils {
         Hct seed,
         ContainerConfiguration containerConfiguration) {
         return getContainerTokens(seed, containerConfiguration,
-            PaletteResolverUtils.getPaletteColorResolver());
+            TokenPaletteColorResolverUtils.getPaletteColorResolver());
     }
 
     public static ContainerColorTokens getContainerTokens(
         Hct seed,
         ContainerConfiguration containerConfiguration,
-        PaletteContainerColorsResolver colorResolver) {
+        TokenPaletteColorResolver colorResolver) {
 
         DynamicPalette dynamicPalette = new DynamicPalette(
             /* sourceColorHct */ seed,
@@ -354,7 +354,7 @@ public class ColorSchemeUtils {
         DynamicBimodalPalette.TransitionRange transitionRange,
         double fidelityTone,
         ContainerConfiguration containerConfiguration,
-        PaletteContainerColorsResolver colorResolver) {
+        TokenPaletteColorResolver colorResolver) {
 
         DynamicBimodalPalette dynamicPalette = new DynamicBimodalPalette(
             /* seedOne */ seedOne,

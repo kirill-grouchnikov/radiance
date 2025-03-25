@@ -68,8 +68,8 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         // 1. Outlines with additional alpha to make them softer.
         // 2. Custom alpha for outlines of disabled controls to have higher contrast and make
         //    them more visible.
-        PaletteContainerColorsResolver officeBlackPaletteResolver = PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-            PaletteContainerColorsResolverOverlay.builder()
+        TokenPaletteColorResolver officeBlackPaletteResolver = TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+            TokenPaletteColorResolverOverlay.builder()
                 .containerOutline((p) -> p.getContainerOutline() & 0xA0FFFFFF)
                 .containerOutlineVariant((p) -> p.getContainerOutlineVariant() & 0xA0FFFFFF)
                 .containerOutlineDisabledAlpha((s) -> 0.75f)
@@ -107,7 +107,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* surfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
         ContainerColorTokens rolloverSelectedContainerTokens =
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
@@ -118,7 +118,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* surfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
@@ -149,9 +149,9 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.ROLLOVER_SELECTED);
 
-        PaletteContainerColorsResolver activeMarksColorResolver =
-            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                PaletteContainerColorsResolverOverlay.builder()
+        TokenPaletteColorResolver activeMarksColorResolver =
+            TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                TokenPaletteColorResolverOverlay.builder()
                     .onContainer(TokenPalette::getContainerOutline)
                     .build());
 

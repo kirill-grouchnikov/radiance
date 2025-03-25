@@ -33,7 +33,7 @@ import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 
 import java.util.function.Function;
 
-public class PaletteContainerColorsResolverOverlay {
+public class TokenPaletteColorResolverOverlay {
     private Function<TokenPalette, Integer> containerSurfaceLowest;
     private Function<TokenPalette, Integer> containerSurfaceLow;
     private Function<TokenPalette, Integer> containerSurface;
@@ -59,7 +59,7 @@ public class PaletteContainerColorsResolverOverlay {
         return new Builder();
     }
 
-    private PaletteContainerColorsResolverOverlay() {}
+    private TokenPaletteColorResolverOverlay() {}
 
     public Function<TokenPalette, Integer> getContainerSurfaceLowest() {
         return this.containerSurfaceLowest;
@@ -273,8 +273,8 @@ public class PaletteContainerColorsResolverOverlay {
             return this;
         }
 
-        public PaletteContainerColorsResolverOverlay build() {
-            PaletteContainerColorsResolverOverlay result = new PaletteContainerColorsResolverOverlay();
+        public TokenPaletteColorResolverOverlay build() {
+            TokenPaletteColorResolverOverlay result = new TokenPaletteColorResolverOverlay();
             result.containerSurfaceLowest = this.containerSurfaceLowest;
             result.containerSurfaceLow = this.containerSurfaceLow;
             result.containerSurface = this.containerSurface;

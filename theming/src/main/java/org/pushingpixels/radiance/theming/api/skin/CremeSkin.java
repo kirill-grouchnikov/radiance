@@ -33,8 +33,8 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 
 /**
  * <code>Creme</code> skin. This class is part of officially supported API.
@@ -72,8 +72,8 @@ public class CremeSkin extends CremeAccentedSkin {
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9DD9F9),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                    PaletteContainerColorsResolverOverlay.builder()
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                    TokenPaletteColorResolverOverlay.builder()
                         .containerOutline(TokenPalette::getContainerSurfaceHighest)
                         .containerOutlineVariant(TokenPalette::getContainerSurfaceHigh)
                         .build())))
@@ -82,8 +82,8 @@ public class CremeSkin extends CremeAccentedSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.3),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                    PaletteContainerColorsResolverOverlay.builder()
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                    TokenPaletteColorResolverOverlay.builder()
                         .containerOutline(TokenPalette::getContainerSurfaceHighest)
                         .containerOutlineVariant(TokenPalette::getContainerSurfaceHigh)
                         .build()))));

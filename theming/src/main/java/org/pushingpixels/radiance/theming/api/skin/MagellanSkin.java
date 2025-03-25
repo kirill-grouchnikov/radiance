@@ -69,9 +69,9 @@ public class MagellanSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ -0.1),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                     // For active containers, use softer text / icon colors.
-                    PaletteContainerColorsResolverOverlay.builder()
+                    TokenPaletteColorResolverOverlay.builder()
                         .onContainer((p) -> p.getOnContainer() & 0xE0FFFFFF)
                         .onContainerVariant((p) -> p.getOnContainerVariant() & 0xE0FFFFFF)
                         .build())),
@@ -85,9 +85,9 @@ public class MagellanSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ -0.2),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                     // For neutral containers, use softer text / icon colors
-                    PaletteContainerColorsResolverOverlay.builder()
+                    TokenPaletteColorResolverOverlay.builder()
                         .onContainer((p) -> p.getOnContainer() & 0xD0FFFFFF)
                         .onContainerVariant((p) -> p.getOnContainerVariant() & 0xD0FFFFFF)
                         .build())),
@@ -97,8 +97,8 @@ public class MagellanSkin extends RadianceSkin {
             ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF006FDB),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                    PaletteContainerColorsResolverOverlay.builder()
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                    TokenPaletteColorResolverOverlay.builder()
                         .onContainer((p) -> p.getOnContainer() & 0xE0FFFFFF)
                         .onContainerVariant((p) -> p.getOnContainerVariant() & 0xE0FFFFFF)
                         .build()));

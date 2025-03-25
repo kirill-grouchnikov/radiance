@@ -37,8 +37,8 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
@@ -69,10 +69,10 @@ public class RavenSkin extends RadianceSkin {
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
 					/* contrastLevel */ 0.4),
-				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+				/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 					// For active containers, use higher alpha values for
 					// disabled controls for better contrast.
-					PaletteContainerColorsResolverOverlay.builder()
+					TokenPaletteColorResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((s) -> 0.4f)
 						.onContainerDisabledAlpha((s) -> 0.3f)
 						.containerOutlineDisabledAlpha((s) -> 0.55f)
@@ -82,10 +82,10 @@ public class RavenSkin extends RadianceSkin {
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
 					/* contrastLevel */ 0.4),
-			/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+			/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 				// For muted containers (enabled controls), use higher alpha values for
 				// disabled controls for better contrast.
-				PaletteContainerColorsResolverOverlay.builder()
+				TokenPaletteColorResolverOverlay.builder()
 					.containerSurfaceDisabledAlpha((s) -> 0.5f)
 					.onContainerDisabledAlpha((s) -> 0.3f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
@@ -108,8 +108,8 @@ public class RavenSkin extends RadianceSkin {
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ false,
 					/* contrastLevel */ 0.3),
-				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-					PaletteContainerColorsResolverOverlay.builder()
+				/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+					TokenPaletteColorResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((s) -> 0.4f)
 						.onContainerDisabledAlpha((s) -> 1.0f)
 						.containerOutlineDisabledAlpha((s) -> 0.55f)
