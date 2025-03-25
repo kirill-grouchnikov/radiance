@@ -73,8 +73,8 @@ public class StreetlightsSkin extends RadianceSkin {
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 1.0),
-            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                PaletteContainerColorsResolverOverlay.builder()
+            /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                TokenPaletteColorResolverOverlay.builder()
                     .onContainer((p) -> streetlightsDefaultMutedTokens.getOnContainer().getRGB())
                     .onContainerVariant((p) -> streetlightsDefaultMutedTokens.getOnContainerVariant().getRGB())
                     .build()));
@@ -109,8 +109,8 @@ public class StreetlightsSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                    PaletteContainerColorsResolverOverlay.builder()
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                    TokenPaletteColorResolverOverlay.builder()
                         .onContainer((p) -> streetlightsDefaultMutedTokens.getOnContainer().getRGB())
                         .onContainerVariant((p) -> streetlightsDefaultMutedTokens.getOnContainerVariant().getRGB())
                         .build()

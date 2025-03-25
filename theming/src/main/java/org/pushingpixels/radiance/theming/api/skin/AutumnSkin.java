@@ -67,9 +67,9 @@ public class AutumnSkin extends RadianceSkin {
 	public AutumnSkin() {
 		// For active containers, use softer text / icon colors.
 		// Also use higher alpha values for disabled controls for better contrast.
-		PaletteContainerColorsResolver resolver =
-			PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-				PaletteContainerColorsResolverOverlay.builder()
+		TokenPaletteColorResolver resolver =
+			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+				TokenPaletteColorResolverOverlay.builder()
 					.onContainer(TokenPalette::getContainerOutline)
 					.onContainerVariant((p) -> p.getContainerOutline() & 0xC0FFFFFF)
 					.containerSurfaceDisabledAlpha((s) -> 0.4f)
@@ -84,9 +84,9 @@ public class AutumnSkin extends RadianceSkin {
 		// For muted containers (enabled controls), use tonal on container and container outline
 		// values for consistency with active controls. Also use higher alpha values for disabled
 		// controls for better contrast.
-		PaletteContainerColorsResolver mutedResolver =
-			PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-				PaletteContainerColorsResolverOverlay.builder()
+		TokenPaletteColorResolver mutedResolver =
+			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+				TokenPaletteColorResolverOverlay.builder()
 					.containerOutline((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
 					.complementaryContainerOutline((p) -> autumnDefaultActiveTokens.getComplementaryContainerOutline().getRGB())
@@ -103,9 +103,9 @@ public class AutumnSkin extends RadianceSkin {
 
 		// For neutral containers, use active on container and container outline
 		// values for consistency with active controls.
-		PaletteContainerColorsResolver neutralResolver =
-			PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-				PaletteContainerColorsResolverOverlay.builder()
+		TokenPaletteColorResolver neutralResolver =
+			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+				TokenPaletteColorResolverOverlay.builder()
 					.containerOutline((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
 					.complementaryContainerOutline((p) -> autumnDefaultActiveTokens.getComplementaryContainerOutline().getRGB())
@@ -148,8 +148,8 @@ public class AutumnSkin extends RadianceSkin {
 			ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFEC983),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-					PaletteContainerColorsResolverOverlay.builder()
+				/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+					TokenPaletteColorResolverOverlay.builder()
 						.onContainer(TokenPalette::getOnContainerVariant)
 						.build())),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,

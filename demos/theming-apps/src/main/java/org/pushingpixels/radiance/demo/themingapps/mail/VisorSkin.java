@@ -73,9 +73,9 @@ public class VisorSkin extends RadianceSkin {
         // Custom palette resolver for the highlights in the threads decoration area
         // to set outline colors to be identical to surface colors (effectively removing the
         // visuals of the outlines)
-        PaletteContainerColorsResolver threadsHighlightsPaletteResolver =
-            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                PaletteContainerColorsResolverOverlay.builder()
+        TokenPaletteColorResolver threadsHighlightsPaletteResolver =
+            TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                TokenPaletteColorResolverOverlay.builder()
                     .containerOutline(TokenPalette::getContainerSurface)
                     .containerOutlineVariant(TokenPalette::getContainerSurfaceHigh)
                     .build()
@@ -110,9 +110,9 @@ public class VisorSkin extends RadianceSkin {
         // Custom palette resolver for the highlights in the threads decoration area
         // to set outline colors to be identical to surface colors (effectively removing the
         // visuals of the outlines)
-        PaletteContainerColorsResolver destinationsHighlightsPaletteResolver =
-            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                PaletteContainerColorsResolverOverlay.builder()
+        TokenPaletteColorResolver destinationsHighlightsPaletteResolver =
+            TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                TokenPaletteColorResolverOverlay.builder()
                     .containerOutline(TokenPalette::getContainerOutlineVariant)
                     .containerOutlineVariant(TokenPalette::getContainerOutlineVariant)
                     .build()

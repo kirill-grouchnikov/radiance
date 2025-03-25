@@ -32,8 +32,8 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 
 /**
  * <code>Graphite Gold</code> skin. This class is part of officially supported API.
@@ -56,8 +56,8 @@ public class GraphiteGoldSkin extends GraphiteAccentedSkin {
 			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFFC900),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-					PaletteContainerColorsResolverOverlay.builder()
+				/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+					TokenPaletteColorResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((p) -> 0.4f)
 						.onContainerDisabledAlpha((p) -> 0.8f)
 						.containerOutlineDisabledAlpha((p) -> 0.4f)

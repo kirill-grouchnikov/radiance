@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
@@ -93,7 +93,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
         ContainerColorTokens greenMagicPressedContainerTokens =
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00BF7F),
@@ -103,7 +103,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
 
         greenMagicDefaultBundle.registerActiveContainerTokens(greenMagicSelectedContainerTokens,
             ComponentState.SELECTED, ComponentState.ROLLOVER_UNSELECTED,
@@ -133,7 +133,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver()),
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver()),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);

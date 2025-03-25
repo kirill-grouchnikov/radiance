@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -72,7 +72,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
             /* fidelityTone */ fidelityTone,
             /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
+            /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
 
         DynamicBimodalPalette bimodalPalette1 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
@@ -90,7 +90,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
                 /* surfaceRangeAmplitudeFactor */ 1.5),
-            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
+            /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
 
         DynamicBimodalPalette bimodalPalette2 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,
@@ -111,7 +111,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
                 /* isDark */ true,
                 /* contrastLevel */ 0.0,
                 /* surfaceRangeAmplitudeFactor */ 2.0),
-            /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
+            /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
 
         DynamicBimodalPalette bimodalPalette3 = new DynamicBimodalPalette(
             /* seedOne */ seedTwo,

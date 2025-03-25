@@ -108,18 +108,18 @@ public class HarvestSkin extends RadianceSkin {
             /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF5B5B54),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                     // Take the default neutral container surface fill to be the on container roles.
-                    PaletteContainerColorsResolverOverlay.builder()
+                    TokenPaletteColorResolverOverlay.builder()
                         .onContainer((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
                         .onContainerVariant((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
                         .build())),
             /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3A3A39),
             /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                     // Take the default neutral container surface fill to be the on container roles.
-                    PaletteContainerColorsResolverOverlay.builder()
+                    TokenPaletteColorResolverOverlay.builder()
                         .onContainer((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
                         .onContainerVariant((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
                         .build())),
@@ -135,9 +135,9 @@ public class HarvestSkin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                     // Take the default neutral container surface fill to be the on container roles.
-                    PaletteContainerColorsResolverOverlay.builder()
+                    TokenPaletteColorResolverOverlay.builder()
                         .onContainer((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurface().getRGB())
                         .onContainerVariant((p) -> harvestDefaultBundle.getMainColorScheme().getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
                         .build()

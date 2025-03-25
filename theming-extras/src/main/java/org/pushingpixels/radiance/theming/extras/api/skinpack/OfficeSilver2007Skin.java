@@ -84,8 +84,8 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                    PaletteContainerColorsResolverOverlay.builder()
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                    TokenPaletteColorResolverOverlay.builder()
                         .containerOutline(TokenPalette::getContainerOutlineVariant)
                         .containerOutlineVariant(TokenPalette::getContainerOutlineVariant)
                         .build()
@@ -100,7 +100,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* surfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
         ContainerColorTokens rolloverSelectedContainerTokens =
             ColorSchemeUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
@@ -111,7 +111,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.2,
                     /* surfaceRangeAmplitudeFactor */ 1.0),
-                /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver());
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
         ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
@@ -142,9 +142,9 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.ROLLOVER_SELECTED);
 
-        PaletteContainerColorsResolver activeMarksColorResolver =
-            PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-                PaletteContainerColorsResolverOverlay.builder()
+        TokenPaletteColorResolver activeMarksColorResolver =
+            TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                TokenPaletteColorResolverOverlay.builder()
                     .onContainer(TokenPalette::getContainerOutline)
                     .build());
 

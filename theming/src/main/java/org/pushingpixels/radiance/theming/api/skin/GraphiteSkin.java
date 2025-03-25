@@ -33,8 +33,8 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolver;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolver;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 
 /**
  * <code>Graphite</code> skin. This class is part of officially supported API.
@@ -53,20 +53,20 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
     }
 
     public GraphiteSkin() {
-        this(PaletteResolverUtils.getPaletteColorResolver());
+        this(TokenPaletteColorResolverUtils.getPaletteColorResolver());
     }
 
-    protected GraphiteSkin(PaletteContainerColorsResolver paletteContainerColorsResolver) {
+    protected GraphiteSkin(TokenPaletteColorResolver tokenPaletteColorResolver) {
         super(new AccentBuilder()
-            .withDefaultAreaPaletteColorResolver(paletteContainerColorsResolver)
+            .withDefaultAreaPaletteColorResolver(tokenPaletteColorResolver)
             .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF606060),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ paletteContainerColorsResolver))
+                /* colorResolver */ tokenPaletteColorResolver))
             .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEBECF0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-                /* colorResolver */ paletteContainerColorsResolver)));
+                /* colorResolver */ tokenPaletteColorResolver)));
 
         this.graphiteDefaultBundle.registerActiveContainerTokens(
             ColorSchemeUtils.getContainerTokens(
@@ -74,7 +74,7 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ paletteContainerColorsResolver),
+                /* colorResolver */ tokenPaletteColorResolver),
             ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED,
             ComponentState.ROLLOVER_ARMED);
         this.graphiteDefaultBundle.registerActiveContainerTokens(
@@ -83,7 +83,7 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ paletteContainerColorsResolver),
+                /* colorResolver */ tokenPaletteColorResolver),
             ComponentState.PRESSED_UNSELECTED, ComponentState.PRESSED_SELECTED);
     }
 }

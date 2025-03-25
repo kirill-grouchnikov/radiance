@@ -32,8 +32,8 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 
 /**
  * <code>Graphite Sienna</code> skin. This class is part of officially supported API.
@@ -56,8 +56,8 @@ public class GraphiteSiennaSkin extends GraphiteAccentedSkin {
 			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB27565),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-				/* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-					PaletteContainerColorsResolverOverlay.builder()
+				/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+					TokenPaletteColorResolverOverlay.builder()
 						.containerSurfaceDisabledAlpha((s) -> 0.45f)
 						.onContainerDisabledAlpha((s) -> 0.5f)
 						.containerOutlineDisabledAlpha((s) -> 0.45f)

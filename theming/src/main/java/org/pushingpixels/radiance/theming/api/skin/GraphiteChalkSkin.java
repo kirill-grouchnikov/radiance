@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteContainerColorsResolverOverlay;
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 
 /**
@@ -51,8 +51,8 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 	}
 
 	public GraphiteChalkSkin() {
-		super(PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-			PaletteContainerColorsResolverOverlay.builder()
+		super(TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+			TokenPaletteColorResolverOverlay.builder()
 				.containerOutline((p) -> p.getComplementaryContainerOutline() & 0xA0FFFFFF)
 				.containerOutlineVariant((p) -> p.getComplementaryContainerOutline() & 0x80FFFFFF)
 				.complementaryContainerOutline(TokenPalette::getContainerOutline)

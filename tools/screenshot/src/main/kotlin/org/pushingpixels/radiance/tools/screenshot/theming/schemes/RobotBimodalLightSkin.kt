@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
-import org.pushingpixels.radiance.theming.api.colorscheme.PaletteResolverUtils
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
@@ -110,7 +110,7 @@ private fun getActiveContainerTokens(config: RobotConfig): ContainerColorTokens 
         /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
         /* fidelityTone */ primaryTone,
         /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-        /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver())
+        /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver())
 }
 
 private fun getMutedContainerTokens(config: RobotConfig): ContainerColorTokens {
@@ -136,5 +136,5 @@ private fun getSelectedTokens(config: RobotConfig): ContainerColorTokens {
         /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
         /* fidelityTone */ primaryTone + 5.0,  // lighter tone for selected and rollover states,
         /* containerConfiguration */ ContainerConfiguration.defaultLight(),
-        /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver())
+        /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver())
 }
