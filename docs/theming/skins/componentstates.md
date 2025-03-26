@@ -15,64 +15,35 @@ Each component state is defined by two arrays of component state facets (availab
 
 The `ComponentStateFacet` class defines a number of core facets. The `ComponentStateFacet.ENABLE` facet is universal - it is relevant for all Swing controls. Other facets apply to a wider range of controls. For example, `ComponentStateFacet.ROLLOVER` facet applies to all controls that can show rollover effects - including buttons, menu items, comboboxes, sliders, scrollbars and many more. Some facets apply to a more narrow range of controls. For example, `ComponentStateFacet.DETERMINATE` is only relevant for progress bars.
 
-The static instances of `ComponentState` defined in this class do not aim to cover all possible combinations of `on` and `off` facets. In addition to making this class too unwieldy, it is simply not feasible since application code can define its own facets. Instead, Radiance provides ways to fine-tune the mapping between the component states and the color schemes used to paint the components.
+The static instances of `ComponentState` defined in this class do not aim to cover all possible combinations of `on` and `off` facets. In addition to making this class too unwieldy, it is simply not feasible since application code can define its own facets. Instead, Radiance provides ways to fine-tune the mapping between the component states and the color tokens used to paint the components.
 
-1. When the skin is queried for the color scheme that matches the specific component state - let's say `ComponentState.PRESSED_SELECTED` - the skinning layer first looks for the exact state (as passed to `RadianceColorSchemeBundle.registerColorScheme(RadianceColorScheme, ColorSchemeAssociationKind, ComponentState)` or similar APIs). If the exact match is found, it is used. If there is no exact match, the skinning layer will look at all color schemes registered for the specific color scheme association kind in the matching color scheme bundle. The decision is made based on how "close" the registered component state is to the component state of the currently painted component. For example, `ComponentState.PRESSED_SELECTED` is a better match for `ComponentState.PRESSED_UNSELECTED` than `ComponentState.ROLLOVER_SELECTED` - since the `ComponentStateFacet.PRESS` has more weight than the `ComponentStateFacet.ROLLOVER` in the decision process. The skinning layer will choose the "closest" registered component state that is sufficiently close. For example, `ComponentState.DISABLED_SELECTED` will never be chosen for `ComponentState.SELECTED` , even if there are no other registered component states. This way the application code can register a few color schemes in the specific bundle, and have all other states "fall back" to the smaller subset of states.
+1. When the skin is queried for the color tokens that matches the specific component state - let's say `ComponentState.PRESSED_SELECTED` - the skinning layer first looks for the exact state (as passed to `RadianceColorSchemeBundle.registerActiveContainerTokens(ContainerColorTokens, ContainerColorTokensAssociationKind, ComponentState)` or similar APIs). If the exact match is found, it is used. If there is no exact match, the skinning layer will look at all color tokens registered for the specific token association kind in the matching color scheme bundle. The decision is made based on how "close" the registered component state is to the component state of the currently painted component. For example, `ComponentState.PRESSED_SELECTED` is a better match for `ComponentState.PRESSED_UNSELECTED` than `ComponentState.ROLLOVER_SELECTED` - since the `ComponentStateFacet.PRESS` has more weight than the `ComponentStateFacet.ROLLOVER` in the decision process. The skinning layer will choose the "closest" registered component state that is sufficiently close. For example, `ComponentState.DISABLED_SELECTED` will never be chosen for `ComponentState.SELECTED` , even if there are no other registered component states. This way the application code can register a few color tokens in the specific bundle, and have all other states "fall back" to the smaller subset of states.
 2. Custom application components may have facets that do not directly map to the core facets defined in the `ComponentStateFacet` class. In this case, the application code can create its own facet instances, and its own component states that use those facets in the on and off lists. Part of the custom code will be in the UI delegates that compute the current state of the custom component using the new facets. Other part of the custom code will be in the skin definition that maps the component states defined with the new facets to the specific color schemes.
 
 Note that you do not have to create explicit dependency between custom component states used in the skin definition and custom component states used in the painting routines (in the UI delegates). In fact, the custom component states defined in the Radiance UI delegate for progress bar are not accessible to the application code. The recommended way to separate the skin definition from the model lookups in the painting is:
 
 * The skin definition defines a sufficiently broad set of custom component states that use the new facets. Note that you do not have to create a custom state for every possible permutation of new facets (along with the relevant core facets). A well defined set of component states will provide a good fallback state for every relevant permutation of facets, keeping the skin definition small and manageable.
-* The UI delegate that queries the component model will use accurate component states that account for all the relevant on and off facets - including the core facets defined in the `ComponentStateFacet` class. When this (perhaps elaborate) state is passed to `RadianceColorSchemeBundle.getColorScheme(ColorSchemeAssociationKind, ComponentState)` API, the procedure described above will match the this state to one of the "base" states defined in your skin, and use the matching color scheme.
+* The UI delegate that queries the component model will use accurate component states that account for all the relevant on and off facets - including the core facets defined in the `ComponentStateFacet` class. When this (perhaps elaborate) state is passed to `RadianceColorSchemeBundle.getContainerTokens(ContainerColorTokensAssociationKind, ComponentState, ContainerType)` API, the procedure described above will match the this state to one of the "base" states defined in your skin, and use the matching color tokens.
 
 Note that the matching algorithm only looks at the facets in the on and off lists, and ignores the component state name. This allows you to create a broad component state in your skin, and a number of narrow component states during the painting - and have the Radiance skinning layer find the best match.
 
-When the matching algorithm cannot find a sufficiently close match, the skinning layer will fall back on one of the three base color schemes passed to the `RadianceColorSchemeBundle(RadianceColorScheme, RadianceColorScheme, RadianceColorScheme)` constructor. States with `ComponentStateFacet.ENABLE` in their `off` list will fall back to the disabled color scheme. The `ComponentState.ENABLED` will fall back to the enabled color scheme. The rest of the states will fall back to the active color scheme. To change the fallback behavior pass a non-null fallback color scheme to the `ComponentState(String, ComponentState, ComponentStateFacet[], ComponentStateFacet[])` constructor as the second parameter.
+When the matching algorithm cannot find a sufficiently close match, the skinning layer will fall back on one of the three base color schemes passed to the `RadianceColorSchemeBundle(ContainerColorTokens, ContainerColorTokens, ContainerColorTokens)` constructor. States with `ComponentStateFacet.ENABLE` in their `off` list will fall back to the enabled color tokens with disabled alpha applied during the drawing pass. The `ComponentState.ENABLED` will fall back to the color tokens for the passed inactive container type (muted or neutral). The rest of the states will fall back to the active color tokens. To change the fallback behavior pass a non-null fallback component state to the `ComponentState(String, ComponentState, ComponentStateFacet[], ComponentStateFacet[])` constructor as the second parameter.
 
 ### Examples
 
-As mentioned above, the [Nebula](../skins/light-skins.md#nebula) skin defines custom color schemes for progress bars using the `ComponentStateFacet.DETERMINATE`:
+As mentioned above, the [Nebula](../skins/light-skins.md#nebula) skin defines custom color schemes for progress bars using the `ComponentState.DETERMINATE` and `ComponentState.INDETERMINATE`:
 
 ```java
-    ComponentState determinateState = new ComponentState("determinate",
-        new ComponentStateFacet[] { ComponentStateFacet.ENABLE,
-            ComponentStateFacet.DETERMINATE }, null);
-    ComponentState indeterminateState = new ComponentState("indeterminate",
-        new ComponentStateFacet[] { ComponentStateFacet.ENABLE },
-        new ComponentStateFacet[] { ComponentStateFacet.DETERMINATE });
-    RadianceColorScheme determinateScheme = schemes
-        .get("Nebula Determinate");
-    RadianceColorScheme determinateBorderScheme = schemes
-        .get("Nebula Determinate Border");
-    defaultSchemeBundle.registerColorScheme(determinateScheme,
-        determinateState, indeterminateState);
-    defaultSchemeBundle.registerColorScheme(determinateBorderScheme,
-        ColorSchemeAssociationKind.BORDER, determinateState,
-        indeterminateState);
-
-    ComponentState determinateDisabledState = new ComponentState(
-        "determinate disabled",
-        new ComponentStateFacet[] { ComponentStateFacet.DETERMINATE },
-        new ComponentStateFacet[] { ComponentStateFacet.ENABLE });
-    ComponentState indeterminateDisabledState = new ComponentState(
-        "indeterminate disabled", null, new ComponentStateFacet[] {
-            ComponentStateFacet.ENABLE,
-            ComponentStateFacet.DETERMINATE });
-    RadianceColorScheme determinateDisabledScheme = schemes
-        .get("Nebula Determinate Disabled");
-    RadianceColorScheme determinateDisabledBorderScheme = schemes
-        .get("Nebula Determinate Disabled Border");
-    defaultSchemeBundle.registerColorScheme(determinateDisabledScheme,
-        determinateDisabledState, indeterminateDisabledState);
-    defaultSchemeBundle.registerColorScheme(
-        determinateDisabledBorderScheme,
-        ColorSchemeAssociationKind.BORDER, determinateDisabledState,
-        indeterminateDisabledState);
+ContainerColorTokens nebulaDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
+  /* seed */ Hct.fromInt(0xFFD2852F),
+  /* containerConfiguration */ ContainerConfiguration.defaultDark());
+nebulaDefaultBundle.registerActiveContainerTokens(nebulaDeterminateContainerTokens,
+  ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
 ```
 
 And the resulting visuals - note that the progress bars use brown color scheme, while all the other controls use gray colors:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/component-states-custom.png"
-width="520" height="469"/>
+width="450" height="472"/>
 
 Note that if your custom components use the `DETERMINATE` facet in the computation of their states, they will get the matching visuals from the corresponding core Radiance skins.
