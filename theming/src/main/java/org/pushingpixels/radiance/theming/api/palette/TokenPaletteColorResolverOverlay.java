@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.colorscheme;
+package org.pushingpixels.radiance.theming.api.palette;
 
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 

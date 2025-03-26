@@ -15,8 +15,8 @@
 package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
 import javax.swing.colorchooser.ColorSelectionModel;

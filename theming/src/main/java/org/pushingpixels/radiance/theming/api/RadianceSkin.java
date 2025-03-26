@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolver;
-import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolver;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.SkinTonalUtilities;

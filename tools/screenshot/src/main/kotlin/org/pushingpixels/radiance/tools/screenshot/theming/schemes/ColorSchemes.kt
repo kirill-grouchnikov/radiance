@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
-import org.pushingpixels.radiance.theming.api.colorscheme.TonalPaletteSeeds
+import org.pushingpixels.radiance.theming.api.palette.TonalPaletteSeeds
+import org.pushingpixels.radiance.theming.api.palette.TonalPaletteSeeds
 
 private val radianceLightColors = mapOf(
     "Aqua" to TonalPaletteSeeds.AQUA,

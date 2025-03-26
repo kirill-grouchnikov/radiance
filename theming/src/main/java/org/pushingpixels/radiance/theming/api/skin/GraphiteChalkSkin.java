@@ -30,9 +30,9 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
-import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverOverlay;
-import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 
 /**
  * <code>Graphite Chalk</code> skin. This class is part of officially supported API.

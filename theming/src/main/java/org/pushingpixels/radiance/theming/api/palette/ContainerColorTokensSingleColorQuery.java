@@ -27,33 +27,38 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.radiance.theming.api.colorscheme;
+package org.pushingpixels.radiance.theming.api.palette;
 
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
 
 /**
- * Defines a transformation on a color.
+ * Defines a query that returns a single color based on a color tokens.
  * 
  * @author Kirill Grouchnikov
  */
 @FunctionalInterface
-public interface ColorTransform {
-	/**
-	 * Transforms the specified color.
-	 * 
-	 * @param color
-	 *            The original color to transform.
-	 * @return The transformed color.
-	 */
-	Color transform(Color color);
+public interface ContainerColorTokensSingleColorQuery {
+	Color query(ContainerColorTokens colorTokens);
 
-	static ColorTransform alpha(int alpha) {
-		return (color) -> RadianceColorUtilities.getAlphaColor(color, alpha);
+	static ContainerColorTokensSingleColorQuery composite(
+		ContainerColorTokensSingleColorQuery base, ColorTransform... transforms) {
+		return colorTokens -> {
+			Color result = base.query(colorTokens);
+			for (ColorTransform transform: transforms) {
+				result = transform.transform(result);
+			}
+			return result;
+		};
 	}
 
-	static ColorTransform brightness(float brightnessFactor) {
-		return (color) -> RadianceColorUtilities.deriveByBrightness(color, brightnessFactor);
+	static ContainerColorTokensSingleColorQuery blend(
+		ContainerColorTokensSingleColorQuery first,
+		ContainerColorTokensSingleColorQuery second,
+		float firstLikeness) {
+		return colorTokens -> RadianceColorUtilities.getInterpolatedColor(first.query(colorTokens),
+            second.query(colorTokens), firstLikeness);
 	}
 }

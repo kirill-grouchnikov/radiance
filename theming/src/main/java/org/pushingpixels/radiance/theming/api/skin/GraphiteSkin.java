@@ -32,9 +32,9 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolver;
-import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolver;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 
 /**
  * <code>Graphite</code> skin. This class is part of officially supported API.

@@ -14,9 +14,9 @@
 
 package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser;
 
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 
 import javax.swing.*;

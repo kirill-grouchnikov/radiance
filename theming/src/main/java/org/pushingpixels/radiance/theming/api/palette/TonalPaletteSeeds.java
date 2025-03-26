@@ -27,42 +27,30 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.colorscheme;
-
-import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
+package org.pushingpixels.radiance.theming.api.palette;
 
 import java.awt.*;
 
-public interface TokenPaletteColorResolver {
-    Color getContainerSurfaceLowest(TokenPalette tokenPalette);
-    Color getContainerSurfaceLow(TokenPalette tokenPalette);
-    Color getContainerSurface(TokenPalette tokenPalette);
-    Color getContainerSurfaceHigh(TokenPalette tokenPalette);
-    Color getContainerSurfaceHighest(TokenPalette tokenPalette);
-
-    Color getContainerSurfaceDim(TokenPalette tokenPalette);
-    Color getContainerSurfaceBright(TokenPalette tokenPalette);
-
-    Color getOnContainer(TokenPalette tokenPalette);
-    Color getOnContainerVariant(TokenPalette tokenPalette);
-
-    Color getContainerOutline(TokenPalette tokenPalette);
-    Color getContainerOutlineVariant(TokenPalette tokenPalette);
-
-    float getContainerSurfaceDisabledAlpha(TokenPalette tokenPalette);
-    float getOnContainerDisabledAlpha(TokenPalette tokenPalette);
-    float getContainerOutlineDisabledAlpha(TokenPalette tokenPalette);
-
-    Color getInverseContainerSurface(TokenPalette tokenPalette);
-    Color getInverseOnContainer(TokenPalette tokenPalette);
-    Color getInverseContainerOutline(TokenPalette tokenPalette);
-
-    Color getComplementaryOnContainer(TokenPalette tokenPalette);
-    Color getComplementaryContainerOutline(TokenPalette tokenPalette);
-
-    Color getAccentOnContainer(TokenPalette tokenPalette);
-
-    default TokenPaletteColorResolver overlayWith(TokenPaletteColorResolverOverlay overlay) {
-        return TokenPaletteColorResolverUtils.overlayWith(this, overlay);
-    }
+public class TonalPaletteSeeds {
+    public static final Color AQUA = new Color(112, 206, 239);
+    public static final Color BARBY_PINK = new Color(238, 139, 230);
+    public static final Color BOTTLE_GREEN = new Color(63, 181, 59);
+    public static final Color BROWN = new Color(217, 179, 89);
+    public static final Color CHARCOAL = new Color(110, 21, 27);
+    public static final Color DESERT_SAND = new Color(182, 200, 119);
+    public static final Color JADE_FOREST = new Color(21, 82, 25);
+    public static final Color LIME_GREEN = new Color(169, 248, 57);
+    public static final Color METALLIC = new Color(180, 185, 190);
+    public static final Color OLIVE = new Color(175, 183, 142);
+    public static final Color ORANGE = new Color(245, 200, 144);
+    public static final Color PURPLE = new Color(203, 175, 237);
+    public static final Color RASPBERRY = new Color(251, 110, 144);
+    public static final Color SEPIA = new Color(195, 153, 128);
+    public static final Color STEEL_BLUE = new Color(118, 165, 195);
+    public static final Color SUNFIRE_RED = new Color(224, 20, 10);
+    public static final Color SUN_GLARE = new Color(255, 255, 80);
+    public static final Color SUNSET = new Color(255, 120, 41);
+    public static final Color TERRACOTTA = new Color(239, 176, 105);
+    public static final Color ULTRAMARINE = new Color(46, 22, 124);
+    public static final Color VIOLET = new Color(107, 22, 124);
 }

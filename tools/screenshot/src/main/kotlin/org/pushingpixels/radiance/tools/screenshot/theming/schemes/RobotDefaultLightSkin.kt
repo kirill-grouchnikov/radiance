@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
+import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
@@ -54,7 +55,8 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
         RadianceSkin.Accented(AccentBuilder()
             .withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
                 Hct.fromInt(accentColor.rgb), ContainerConfiguration.defaultLight()))
-            .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaMutedTokens(
+                ColorSchemeUtils.getContainerTokens(
                 MutedSeed, ContainerConfiguration.defaultLight()))
             .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
                 NeutralSeed, ContainerConfiguration.defaultLight()))) {
