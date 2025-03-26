@@ -39,8 +39,8 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -63,17 +63,17 @@ public class GreenMagicSkin extends RadianceSkin {
 
     public GreenMagicSkin() {
         ContainerColorTokensBundle greenMagicDefaultBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00C5A9),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8CDFB5),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFA3ECB9),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -81,7 +81,7 @@ public class GreenMagicSkin extends RadianceSkin {
             /* isSystemDark */ false);
 
         ContainerColorTokens greenMagicSelectedContainerTokens =
-            ColorSchemeUtils.getBimodalContainerTokens(
+            ContainerColorTokensUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00C6A8),
                 /* seedTwo */ Hct.fromInt(0xFF00E68A),
                 /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -91,7 +91,7 @@ public class GreenMagicSkin extends RadianceSkin {
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
         ContainerColorTokens greenMagicPressedContainerTokens =
-            ColorSchemeUtils.getBimodalContainerTokens(
+            ContainerColorTokensUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF00BF7F),
                 /* seedTwo */ Hct.fromInt(0xFF00B39A),
                 /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -114,14 +114,14 @@ public class GreenMagicSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
         this.registerDecorationAreaSchemeBundle(greenMagicDefaultBundle,
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFA3ECB9),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Headers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getBimodalContainerTokens(
+            ContainerColorTokensUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFF4ECDAA),
                 /* seedTwo */ Hct.fromInt(0xFFA3ECB9),
                 /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -136,7 +136,7 @@ public class GreenMagicSkin extends RadianceSkin {
 
         // Footers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8ADFB5),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.FOOTER);

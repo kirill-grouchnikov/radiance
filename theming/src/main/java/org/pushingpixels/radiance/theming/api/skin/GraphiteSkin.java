@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolver;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 
@@ -59,17 +59,17 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
     protected GraphiteSkin(TokenPaletteColorResolver tokenPaletteColorResolver) {
         super(new AccentBuilder()
             .withDefaultAreaPaletteColorResolver(tokenPaletteColorResolver)
-            .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaSelectedTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF606060),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ tokenPaletteColorResolver))
-            .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEBECF0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ tokenPaletteColorResolver)));
 
         this.graphiteDefaultBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEBECF0),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -78,7 +78,7 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
             ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED,
             ComponentState.ROLLOVER_ARMED);
         this.graphiteDefaultBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFACB2B9),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

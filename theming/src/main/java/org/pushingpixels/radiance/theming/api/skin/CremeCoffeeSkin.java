@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 /**
  * <code>Creme Coffee</code> skin. This class is part of officially supported API.
@@ -51,25 +51,25 @@ public class CremeCoffeeSkin extends CremeAccentedSkin {
 
     public CremeCoffeeSkin() {
         super(new AccentBuilder()
-            .withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDEC59D),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)))
-            .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaMutedTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF0F1EB),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)))
-            .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEEF3E5),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)))
-            .withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaSelectedTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDFBF7F),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()))
-            .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFE1C591),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

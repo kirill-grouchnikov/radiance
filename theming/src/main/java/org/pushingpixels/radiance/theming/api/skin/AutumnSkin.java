@@ -73,7 +73,7 @@ public class AutumnSkin extends RadianceSkin {
 					.onContainerDisabledAlpha((s) -> 0.6f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
 					.build());
-		ContainerColorTokens autumnDefaultActiveTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens autumnDefaultActiveTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFFFCB90),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ resolver);
@@ -93,7 +93,7 @@ public class AutumnSkin extends RadianceSkin {
 					.onContainerDisabledAlpha((s) -> 0.6f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
 					.build());
-		ContainerColorTokens autumnDefaultMutedTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens autumnDefaultMutedTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFFEDCB6),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ mutedResolver);
@@ -109,7 +109,7 @@ public class AutumnSkin extends RadianceSkin {
 					.onContainer((p) -> autumnDefaultActiveTokens.getOnContainer().getRGB())
 					.onContainerVariant((p) -> autumnDefaultActiveTokens.getOnContainerVariant().getRGB())
 					.build());
-		ContainerColorTokens autumnDefaultNeutralTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens autumnDefaultNeutralTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFFFE2C1),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ neutralResolver);
@@ -122,13 +122,13 @@ public class AutumnSkin extends RadianceSkin {
 		// 1. Deeper container surfaces (more saturated seed in fidelity mode)
 		// 2. Softer on container, mapped to container outline (used for texts and icons)
 		// 3. Higher alpha values for disabled controls for better contrast
-		autumnDefaultBundle.registerActiveContainerTokens(ColorSchemeUtils.getContainerTokens(
+		autumnDefaultBundle.registerActiveContainerTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFDBD72),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 				/* colorResolver */ resolver),
 			ComponentState.SELECTED);
 		autumnDefaultBundle.registerActiveContainerTokens(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
@@ -142,7 +142,7 @@ public class AutumnSkin extends RadianceSkin {
 		// Deeper container surfaces in title / header decoration areas, along with slightly
 		// softer texts / icons (on container overlaid to be on container variant).
 		this.registerDecorationAreaSchemeBundle(autumnDefaultBundle,
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFEC983),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 				/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
@@ -153,15 +153,15 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		ContainerColorTokens autumnControlPaneActiveTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens autumnControlPaneActiveTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFFDBD72),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ resolver);
-		ContainerColorTokens autumnControlPaneMutedTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens autumnControlPaneMutedTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFFEDCB6),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ mutedResolver);
-		ContainerColorTokens autumnControlPaneNeutralTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens autumnControlPaneNeutralTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFFFDDB9),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ neutralResolver);
@@ -170,7 +170,7 @@ public class AutumnSkin extends RadianceSkin {
 			new ContainerColorTokensBundle(autumnControlPaneActiveTokens, autumnControlPaneMutedTokens,
 				autumnControlPaneNeutralTokens, false);
 		autumnControlPaneBundle.registerActiveContainerTokens(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
@@ -178,7 +178,7 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(autumnControlPaneBundle,
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFED8B2),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

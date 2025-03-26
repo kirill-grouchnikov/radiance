@@ -32,10 +32,6 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
-import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
@@ -44,6 +40,10 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverla
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -63,30 +63,30 @@ public class HarvestSkin extends RadianceSkin {
 
     public HarvestSkin() {
         ContainerColorTokensBundle harvestDefaultBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFAEEAD),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFFCE9),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFCFAD6),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
             /* isSystemDark */ false);
 
-        ContainerColorTokens harvestActiveContainerTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens harvestActiveContainerTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFCCC8),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
                 /* contrastLevel */ 0.8));
         ContainerColorTokens harvestHighlightContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFD6CA),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -102,10 +102,10 @@ public class HarvestSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         ContainerColorTokensBundle harvestHeaderBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF12B37),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF5B5B54),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
@@ -114,7 +114,7 @@ public class HarvestSkin extends RadianceSkin {
                         .onContainer((p) -> harvestDefaultBundle.getNeutralContainerTokens().getContainerSurface().getRGB())
                         .onContainerVariant((p) -> harvestDefaultBundle.getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
                         .build())),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3A3A39),
             /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
@@ -130,7 +130,7 @@ public class HarvestSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         this.registerDecorationAreaSchemeBundle(harvestHeaderBundle,
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3A3A39),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -149,7 +149,7 @@ public class HarvestSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFCF7C0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

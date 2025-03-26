@@ -31,18 +31,17 @@ package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration
 import org.pushingpixels.ephemeral.chroma.hct.Hct
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
@@ -53,12 +52,14 @@ import java.awt.Color
  */
 class RobotDefaultLightSkin(accentColor: Color, val name: String) :
         RadianceSkin.Accented(AccentBuilder()
-            .withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaActiveTokens(
+                ContainerColorTokensUtils.getContainerTokens(
                 Hct.fromInt(accentColor.rgb), ContainerConfiguration.defaultLight()))
             .withDefaultAreaMutedTokens(
-                ColorSchemeUtils.getContainerTokens(
+                ContainerColorTokensUtils.getContainerTokens(
                 MutedSeed, ContainerConfiguration.defaultLight()))
-            .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaNeutralTokens(
+                ContainerColorTokensUtils.getContainerTokens(
                 NeutralSeed, ContainerConfiguration.defaultLight()))) {
 
     init {

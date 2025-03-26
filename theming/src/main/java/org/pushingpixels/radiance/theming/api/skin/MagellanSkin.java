@@ -61,7 +61,7 @@ public class MagellanSkin extends RadianceSkin {
 
     public MagellanSkin() {
         ContainerColorTokensBundle magellanDefaultBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF0070DF),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -72,12 +72,12 @@ public class MagellanSkin extends RadianceSkin {
                         .onContainer((p) -> p.getOnContainer() & 0xE0FFFFFF)
                         .onContainerVariant((p) -> p.getOnContainerVariant() & 0xE0FFFFFF)
                         .build())),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF004C92),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.1)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF005CB7),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -91,7 +91,7 @@ public class MagellanSkin extends RadianceSkin {
             /* isSystemDark */ true);
 
         ContainerColorTokens magellanSelectedContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF006FDB),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
@@ -101,24 +101,24 @@ public class MagellanSkin extends RadianceSkin {
                         .build()));
 
         ContainerColorTokens magellanPressedContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00AEB8),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         ContainerColorTokens magellanGreenContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF1EBF00),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens magellanGreenRolloverContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00B933),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens magellanGreenHighlightSelectedContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00B000),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens magellanGreenHighlightRolloverContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00A422),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
@@ -166,20 +166,20 @@ public class MagellanSkin extends RadianceSkin {
 
         // Toolbars, control panes
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF004D99),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         ContainerColorTokensBundle magellanFooterBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF006FDB),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFA0D8F7),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9DD2FF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
@@ -189,7 +189,7 @@ public class MagellanSkin extends RadianceSkin {
 
         // Headers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF003367),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,

@@ -37,10 +37,10 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
@@ -284,13 +284,13 @@ public class SampleMenuFactory {
 
         public CustomSkin() {
             ContainerColorTokensBundle customDefaultBundle = new ContainerColorTokensBundle(
-                /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF2C64B4),
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
-                /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFBABEC2),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-                /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFFF0F5FA),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
                 /* isSystemDark */ false);
@@ -299,13 +299,13 @@ public class SampleMenuFactory {
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
             ContainerColorTokensBundle customHeaderBundle = new ContainerColorTokensBundle(
-                /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF1A55BA),
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
-                /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF1A50AC),
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
-                /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                     /* seed */ Hct.fromInt(0xFF1A5ED2),
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
                 /* isSystemDark */ true);

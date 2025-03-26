@@ -38,8 +38,8 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -57,15 +57,15 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 		super(accentBuilder);
 
 		this.graphiteDefaultBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF636363),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark(),
 				/* colorResolver */ this.getDefaultAreaPaletteColorResolver()),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF424242),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark(),
 				/* colorResolver */ this.getDefaultAreaPaletteColorResolver()),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF424242),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark(),
 				/* colorResolver */ this.getDefaultAreaPaletteColorResolver()),

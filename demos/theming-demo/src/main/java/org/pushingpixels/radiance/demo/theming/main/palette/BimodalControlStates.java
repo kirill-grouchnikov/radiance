@@ -37,8 +37,6 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
@@ -46,6 +44,8 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 import javax.swing.*;
@@ -89,16 +89,16 @@ public class BimodalControlStates extends JFrame {
             Hct neutralSeed = Hct.from(secondarySeed.getHue(), 4.0, secondarySeed.getTone());
 
             ContainerColorTokensBundle defaultBundle = new ContainerColorTokensBundle(
-                /* activeContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
+                /* activeContainerTokens */ ContainerColorTokensUtils.getBimodalContainerTokens(
                     /* seedOne */ Hct.from(hue1, primarySeed.getChroma(), primaryTone),
                     /* seedTwo */ Hct.from(hue2, primarySeed.getChroma(), primaryTone),
                     /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
                     /* fidelityTone */ primaryTone,
                     /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                     /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver()),
-                /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(mutedSeed,
+                /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(mutedSeed,
                     ContainerConfiguration.defaultLight()),
-                /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(neutralSeed,
+                /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(neutralSeed,
                     ContainerConfiguration.defaultLight()),
                 /* isSystemDark */ false);
 

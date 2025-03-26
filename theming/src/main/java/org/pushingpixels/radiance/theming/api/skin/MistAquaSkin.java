@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 /**
  * <code>Mist Aqua</code> skin.
@@ -51,22 +51,22 @@ public class MistAquaSkin extends MistAccentedSkin {
 
     public MistAquaSkin() {
         super(new AccentBuilder()
-            .withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8ACBE9),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)))
-            .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaMutedTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD6D9DD),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)))
-            .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEBF0F4),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)))
-            .withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+            .withDefaultAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8CC7E1),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight())));
     }

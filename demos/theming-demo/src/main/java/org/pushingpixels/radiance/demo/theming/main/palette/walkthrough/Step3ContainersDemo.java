@@ -43,7 +43,7 @@ import org.pushingpixels.radiance.demo.theming.main.palette.TonalPalettePreview;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -67,25 +67,25 @@ public class Step3ContainersDemo extends JFrame {
         BaseTonalPalette neutralPalette = TonalPalette.fromHct(Hct.from(300.0, 8.0, 40.0));
 
         ContainerColorTokensBundle lightBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ activePalette.getHct(80.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ mutedPalette.getHct(85.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ neutralPalette.getHct(95.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
 
         ContainerColorTokensBundle darkBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ activePalette.getHct(20.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ mutedPalette.getHct(16.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ neutralPalette.getHct(8.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* isSystemDark */ false);

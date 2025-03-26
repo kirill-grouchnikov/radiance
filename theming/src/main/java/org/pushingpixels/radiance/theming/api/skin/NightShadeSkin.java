@@ -42,9 +42,9 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPai
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -64,17 +64,17 @@ public class NightShadeSkin extends RadianceSkin {
 
     public NightShadeSkin() {
         ContainerColorTokensBundle nightShadeDefaultBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF4E5562),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.5)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF373B45),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.5)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF292A32),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -82,11 +82,11 @@ public class NightShadeSkin extends RadianceSkin {
             /* isSystemDark */ true);
 
         ContainerColorTokens nightShadeSelectedContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3D4B63),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark());
         ContainerColorTokens nightShadeSelectedHighlightContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF414752),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark());
 
@@ -103,7 +103,7 @@ public class NightShadeSkin extends RadianceSkin {
 
         // Toolbars, footers, control panes
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF22252A),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             RadianceThemingSlices.DecorationAreaType.FOOTER,
@@ -112,7 +112,7 @@ public class NightShadeSkin extends RadianceSkin {
 
         // Headers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF22252A),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,

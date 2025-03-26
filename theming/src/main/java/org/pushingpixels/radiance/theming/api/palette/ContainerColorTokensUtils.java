@@ -40,10 +40,10 @@ import org.pushingpixels.radiance.theming.internal.utils.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 
-public class ColorSchemeUtils {
+public class ContainerColorTokensUtils {
     public static ContainerColorTokens getRolloverUnselectedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 20% of surface bright on top of base
-        return ColorSchemeUtils.overlay(
+        return ContainerColorTokensUtils.overlay(
             baseTokens,
             baseTokens.getContainerSurfaceBright(),
             0.2f);
@@ -51,7 +51,7 @@ public class ColorSchemeUtils {
 
     public static ContainerColorTokens getRolloverSelectedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 30% of surface bright on top of base
-        return ColorSchemeUtils.overlay(
+        return ContainerColorTokensUtils.overlay(
             baseTokens,
             baseTokens.getContainerSurfaceBright(),
             0.3f);
@@ -59,7 +59,7 @@ public class ColorSchemeUtils {
 
     public static ContainerColorTokens getRolloverArmedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 30% of surface bright on top of base
-        return ColorSchemeUtils.overlay(
+        return ContainerColorTokensUtils.overlay(
             baseTokens,
             baseTokens.getContainerSurfaceBright(),
             0.3f);
@@ -67,7 +67,7 @@ public class ColorSchemeUtils {
 
     public static ContainerColorTokens getPressedUnselectedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 50% of surface dim on top
-        return ColorSchemeUtils.overlay(
+        return ContainerColorTokensUtils.overlay(
             baseTokens,
             baseTokens.getContainerSurfaceDim(),
             0.5f);
@@ -75,7 +75,7 @@ public class ColorSchemeUtils {
 
     public static ContainerColorTokens getPressedSelectedTokens(ContainerColorTokens baseTokens) {
         // Mixing in 50% of surface dim on top
-        return ColorSchemeUtils.overlay(
+        return ContainerColorTokensUtils.overlay(
             baseTokens,
             baseTokens.getContainerSurfaceDim(),
             0.4f);

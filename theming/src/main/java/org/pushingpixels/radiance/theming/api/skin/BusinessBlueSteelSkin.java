@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 /**
  * <code>Business Blue Steel</code> skin. This class is part of officially supported API.
@@ -54,39 +54,39 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 
 	public BusinessBlueSteelSkin() {
 		super(new AccentBuilder()
-			.withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF98B7CC),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaMutedTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC4C8CC),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFE4EAF0),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEBD296),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF91B6CB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaMutedTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF9BBACD),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withHeaderAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFA1BCD0),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF83AFCE),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
 		ContainerColorTokensBundle businessBlueSteelControlBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF94B9D3),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFBFCFDB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFBFCFDB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);

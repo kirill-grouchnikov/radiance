@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
@@ -62,11 +62,11 @@ public class RadianceColorSchemeUtilities {
             componentState, RadianceThemingSlices.ContainerType.MUTED);
         if (tabIndex >= 0) {
             Component component = jtp.getComponentAt(tabIndex);
-            return ColorSchemeUtils.getColorizedTokens(component, nonColorized,
+            return ContainerColorTokensUtils.getColorizedTokens(component, nonColorized,
                 jtp.getForegroundAt(tabIndex), jtp.getBackgroundAt(tabIndex),
                 !componentState.isDisabled());
         } else {
-            return ColorSchemeUtils.getColorizedTokens(jtp, nonColorized, !componentState.isDisabled());
+            return ContainerColorTokensUtils.getColorizedTokens(jtp, nonColorized, !componentState.isDisabled());
         }
     }
 
@@ -85,7 +85,7 @@ public class RadianceColorSchemeUtilities {
                 && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
             ContainerColorTokens nonColorized = skin.getBackgroundContainerTokens(
                 DecorationPainterUtils.getDecorationType(component));
-            return ColorSchemeUtils.getColorizedTokens(orig, nonColorized, !componentState.isDisabled());
+            return ContainerColorTokensUtils.getColorizedTokens(orig, nonColorized, !componentState.isDisabled());
         }
 
         if (skin == null) {
@@ -95,7 +95,7 @@ public class RadianceColorSchemeUtilities {
         ContainerColorTokens nonColorized = skin.getContainerTokens(component,
             componentState, inactiveContainerType);
 
-        return ColorSchemeUtils.getColorizedTokens(orig, nonColorized, !componentState.isDisabled());
+        return ContainerColorTokensUtils.getColorizedTokens(orig, nonColorized, !componentState.isDisabled());
     }
 
     /**
@@ -135,7 +135,7 @@ public class RadianceColorSchemeUtilities {
             && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
             ContainerColorTokens nonColorized = skin.getBackgroundContainerTokens(
                 DecorationPainterUtils.getDecorationType(component));
-            return ColorSchemeUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
+            return ContainerColorTokensUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
         }
 
         if (skin == null) {
@@ -144,7 +144,7 @@ public class RadianceColorSchemeUtilities {
         }
         ContainerColorTokens nonColorized = skin.getContainerTokens(component,
             associationKind, componentState, inactiveContainerType);
-        return ColorSchemeUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
+        return ContainerColorTokensUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
     }
 
     /**
@@ -168,6 +168,6 @@ public class RadianceColorSchemeUtilities {
 
         ContainerColorTokens nonColorized = RadianceCoreUtilities.getSkin(component)
                 .getActiveContainerTokens(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component));
-        return ColorSchemeUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
+        return ContainerColorTokensUtils.getColorizedTokens(component, nonColorized, !componentState.isDisabled());
     }
 }

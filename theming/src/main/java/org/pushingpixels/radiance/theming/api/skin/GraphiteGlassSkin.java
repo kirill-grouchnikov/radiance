@@ -40,9 +40,9 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPain
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 /**
  * <code>Graphite Glass</code> skin. This class is part of officially supported API.
@@ -65,7 +65,7 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 
 		// Headers
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF4F4F4F),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,

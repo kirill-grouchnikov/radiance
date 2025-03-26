@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper;
 
 /**
@@ -69,7 +69,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB9C0C8),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ false,
@@ -81,7 +81,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCDD8E0),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

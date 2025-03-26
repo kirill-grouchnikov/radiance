@@ -33,20 +33,14 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette
 import org.pushingpixels.ephemeral.chroma.hct.Hct
 import org.pushingpixels.ephemeral.chroma.utils.MathUtils
-import org.pushingpixels.radiance.theming.api.ComponentState
-import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle
-import org.pushingpixels.radiance.theming.api.RadianceSkin
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens
-import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils
+import org.pushingpixels.radiance.theming.api.*
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
@@ -108,7 +102,7 @@ private fun getActiveContainerTokens(config: RobotConfig): ContainerColorTokens 
     val hue2 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaLow)
     val primaryTone = primarySeed.tone
 
-    return ColorSchemeUtils.getBimodalContainerTokens(
+    return ContainerColorTokensUtils.getBimodalContainerTokens(
         /* seedOne */ Hct.from(hue1, primarySeed.chroma, primaryTone),
         /* seedTwo */ Hct.from(hue2, primarySeed.chroma, primaryTone),
         /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -119,12 +113,12 @@ private fun getActiveContainerTokens(config: RobotConfig): ContainerColorTokens 
 
 private fun getMutedContainerTokens(config: RobotConfig): ContainerColorTokens {
     val mutedSeed = Hct.fromInt(Color(204, 210, 215).rgb)
-    return ColorSchemeUtils.getContainerTokens(mutedSeed, ContainerConfiguration.defaultLight())
+    return ContainerColorTokensUtils.getContainerTokens(mutedSeed, ContainerConfiguration.defaultLight())
 }
 
 private fun getNeutralContainerTokens(config: RobotConfig): ContainerColorTokens {
     val neutralSeed = Hct.fromInt(Color(240, 245, 249).rgb)
-    return ColorSchemeUtils.getContainerTokens(neutralSeed, ContainerConfiguration.defaultLight())
+    return ContainerColorTokensUtils.getContainerTokens(neutralSeed, ContainerConfiguration.defaultLight())
 }
 
 private fun getSelectedTokens(config: RobotConfig): ContainerColorTokens {
@@ -134,7 +128,7 @@ private fun getSelectedTokens(config: RobotConfig): ContainerColorTokens {
     val hue2 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaLow)
     val primaryTone = primarySeed.tone
 
-    return ColorSchemeUtils.getBimodalContainerTokens(
+    return ContainerColorTokensUtils.getBimodalContainerTokens(
         /* seedOne */ Hct.from(hue1, 1.5 * primarySeed.chroma, primaryTone),
         /* seedTwo */ Hct.from(hue2, 1.5 * primarySeed.chroma, primaryTone),
         /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,

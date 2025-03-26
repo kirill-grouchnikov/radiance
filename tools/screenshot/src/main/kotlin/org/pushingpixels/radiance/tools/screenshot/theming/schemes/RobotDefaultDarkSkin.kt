@@ -31,12 +31,10 @@ package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration
 import org.pushingpixels.ephemeral.chroma.hct.Hct
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter
@@ -45,8 +43,8 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutli
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
@@ -58,12 +56,14 @@ import java.awt.Color
 class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
     RadianceSkin.Accented(AccentBuilder()
         .withDefaultAreaActiveTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
             Hct.fromInt(accentColor.rgb), ContainerConfiguration(true, 0.3)))
-        .withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+        .withDefaultAreaMutedTokens(
+            ContainerColorTokensUtils.getContainerTokens(
             Hct.fromInt(accentColor.rgb).also { it.tone = it.tone * 1.2},
             ContainerConfiguration(true, 0.25)))
-        .withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+        .withDefaultAreaNeutralTokens(
+            ContainerColorTokensUtils.getContainerTokens(
             Hct.fromInt(accentColor.rgb).also { it.tone = it.tone / 3.5},
             ContainerConfiguration(true, 0.8)))) {
 

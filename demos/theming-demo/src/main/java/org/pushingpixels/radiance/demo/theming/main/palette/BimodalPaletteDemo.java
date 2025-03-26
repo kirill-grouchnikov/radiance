@@ -35,10 +35,10 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
@@ -64,7 +64,7 @@ public class BimodalPaletteDemo extends JFrame {
         int startTone = fidelityTone - 10;
         int endTone = fidelityTone + 10;
 
-        ContainerColorTokens tokensOneTwoLight = ColorSchemeUtils.getBimodalContainerTokens(
+        ContainerColorTokens tokensOneTwoLight = ContainerColorTokensUtils.getBimodalContainerTokens(
             /* seedOne */ seedOne,
             /* seedTwo */ seedTwo,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -72,7 +72,7 @@ public class BimodalPaletteDemo extends JFrame {
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
 
-        ContainerColorTokens tokensTwoOneLight = ColorSchemeUtils.getBimodalContainerTokens(
+        ContainerColorTokens tokensTwoOneLight = ContainerColorTokensUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,

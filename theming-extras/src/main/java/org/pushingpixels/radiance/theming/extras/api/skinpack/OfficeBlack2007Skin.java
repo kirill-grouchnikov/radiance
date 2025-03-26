@@ -35,7 +35,6 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
@@ -74,29 +73,29 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                 .build());
 
         ContainerColorTokensBundle officeBlackDefaultBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC6CACF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ officeBlackPaletteResolver),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB8C0C9),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ officeBlackPaletteResolver),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFD5DA),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ officeBlackPaletteResolver),
             /* isSystemDark */ false);
 
         ContainerColorTokens rolloverContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFD111),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ officeBlackPaletteResolver);
         ContainerColorTokens selectedContainerTokens =
-            ColorSchemeUtils.getBimodalContainerTokens(
+            ContainerColorTokensUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
                 /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -107,7 +106,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                     /* surfaceRangeAmplitudeFactor */ 1.0),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
         ContainerColorTokens rolloverSelectedContainerTokens =
-            ColorSchemeUtils.getBimodalContainerTokens(
+            ContainerColorTokensUtils.getBimodalContainerTokens(
                 /* seedOne */ Hct.fromInt(0xFFFFA300),
                 /* seedTwo */ Hct.fromInt(0xFFFFD007),
                 /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -117,10 +116,10 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                     /* contrastLevel */ 0.2,
                     /* surfaceRangeAmplitudeFactor */ 1.0),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
-        ContainerColorTokens pressedContainerTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens pressedContainerTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
-        ContainerColorTokens pressedSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens pressedSelectedContainerTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF991C),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
@@ -153,23 +152,23 @@ public class OfficeBlack2007Skin extends RadianceSkin {
                     .onContainer(TokenPalette::getContainerOutline)
                     .build());
 
-        ContainerColorTokens rolloverMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens rolloverMarkContainerTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFD111),
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
-        ContainerColorTokens selectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens selectedMarkContainerTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFBD51),
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
-        ContainerColorTokens rolloverSelectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens rolloverSelectedMarkContainerTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFFA400),
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
-        ContainerColorTokens pressedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens pressedMarkContainerTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF8C18),
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
-        ContainerColorTokens pressedSelectedMarkContainerTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens pressedSelectedMarkContainerTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF991C),
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ activeMarksColorResolver);
@@ -195,7 +194,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3D3D3D),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -204,17 +203,17 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             DecorationAreaType.SECONDARY_TITLE_PANE);
 
         ContainerColorTokensBundle officeBlackSecondaryBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB9BCC1),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF454545),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2D2D2D),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -222,14 +221,14 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             /* isSystemDark */ true);
 
         officeBlackSecondaryBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFD5DA),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
             ComponentState.getActiveStates());
         officeBlackSecondaryBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFCFD5DA),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -239,7 +238,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
 
         this.registerDecorationAreaSchemeBundle(
             officeBlackSecondaryBundle,
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2D2D2D),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -247,7 +246,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB3BEC8),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,

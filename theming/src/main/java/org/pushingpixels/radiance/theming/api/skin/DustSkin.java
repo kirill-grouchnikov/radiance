@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 /**
  * <code>Dust</code> skin. This class is part of officially supported API.
@@ -51,24 +51,24 @@ public class DustSkin extends DustAccentedSkin {
 
 	public DustSkin() {
 		super(new AccentBuilder()
-			.withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFADA59A),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaMutedTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFE5E2DB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEAE7E2),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaSelectedTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFAE9B7A),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB7A78E),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ false,
 					/* contrastLevel */ 0.3)))
-			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF5E4436),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,

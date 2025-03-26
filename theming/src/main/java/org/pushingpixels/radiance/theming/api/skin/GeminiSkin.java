@@ -59,27 +59,27 @@ public class GeminiSkin extends RadianceSkin {
 
     public GeminiSkin() {
         // Same seed for primary and muted
-        ContainerColorTokens geminiDefaultActiveTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens geminiDefaultActiveTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFB0BBB8),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
-        ContainerColorTokens geminiDefaultMutedTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens geminiDefaultMutedTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFB0BBB8),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
                 /* contrastLevel */ 0.2));
-        ContainerColorTokens geminiDefaultNeutralTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens geminiDefaultNeutralTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFD1E1E0),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
                 /* contrastLevel */ 0.6));
 
         ContainerColorTokens geminiHighlightContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         ContainerColorTokens geminiHighlightOutlineContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -88,7 +88,7 @@ public class GeminiSkin extends RadianceSkin {
         // Use muted visuals for the container surface roles, and highlight (yellow) tokens
         // for outline roles
         ContainerColorTokens geminiHighlightRolloverContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB0BBB8),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
@@ -119,7 +119,7 @@ public class GeminiSkin extends RadianceSkin {
 
         // Control panes, footers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFA9B4B1),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
@@ -127,15 +127,15 @@ public class GeminiSkin extends RadianceSkin {
 
         // Toolbars
         ContainerColorTokensBundle geminiToolbarBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF142429),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF203042),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -146,24 +146,24 @@ public class GeminiSkin extends RadianceSkin {
 
         // Headers
         ContainerColorTokensBundle geminiHeaderBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.8)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF1C282D),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF142429),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.9)),
             /* isSystemDark */ true);
         this.registerDecorationAreaSchemeBundle(geminiHeaderBundle,
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF142429),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,

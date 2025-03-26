@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 
@@ -53,7 +53,7 @@ public class GraphiteSiennaSkin extends GraphiteAccentedSkin {
 
 	public GraphiteSiennaSkin() {
 		super(new AccentBuilder()
-			.withDefaultAreaSelectedTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaSelectedTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB27565),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 				/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
@@ -62,7 +62,7 @@ public class GraphiteSiennaSkin extends GraphiteAccentedSkin {
 						.onContainerDisabledAlpha((s) -> 0.5f)
 						.containerOutlineDisabledAlpha((s) -> 0.45f)
 						.build())))
-			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB27565),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 	}

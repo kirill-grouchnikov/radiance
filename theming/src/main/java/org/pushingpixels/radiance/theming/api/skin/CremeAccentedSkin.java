@@ -41,8 +41,8 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverla
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -73,7 +73,7 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEBECE5),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ false,

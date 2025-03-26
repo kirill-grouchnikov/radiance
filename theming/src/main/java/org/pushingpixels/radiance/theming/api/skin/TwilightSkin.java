@@ -68,7 +68,7 @@ public class TwilightSkin extends RadianceSkin {
                     .onContainerDisabledAlpha((s) -> 0.6f)
                     .containerOutlineDisabledAlpha((s) -> 0.55f)
                     .build());
-        ContainerColorTokens twilightDefaultMutedTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens twilightDefaultMutedTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF3B3A32),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
@@ -87,7 +87,7 @@ public class TwilightSkin extends RadianceSkin {
                     .onContainerDisabledAlpha((p) -> 0.6f)
                     .containerOutlineDisabledAlpha((p) -> 0.55f)
                     .build());
-        ContainerColorTokens twilightDefaultActiveTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens twilightDefaultActiveTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF8F8B7A),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
@@ -102,7 +102,7 @@ public class TwilightSkin extends RadianceSkin {
                     .onContainer((p) -> twilightDefaultMutedTokens.getOnContainer().getRGB())
                     .onContainerVariant((p) -> twilightDefaultMutedTokens.getOnContainerVariant().getRGB())
                     .build());
-        ContainerColorTokens twilightDefaultNeutralTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens twilightDefaultNeutralTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFF48443B),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
@@ -119,14 +119,14 @@ public class TwilightSkin extends RadianceSkin {
                     .build());
 
         ContainerColorTokens twilightSelectedContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF91865D),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ -0.1),
                 /* colorResolver */ twilightPaletteContainerColorResolver);
         ContainerColorTokens twilightSelectedHighlightContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8F8B7A),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ twilightPaletteContainerColorResolver);
@@ -144,7 +144,7 @@ public class TwilightSkin extends RadianceSkin {
             ComponentState.SELECTED);
         // Selected tabs with active (not muted) outlines
         twilightDefaultBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF91865D),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -152,7 +152,7 @@ public class TwilightSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
             ComponentState.SELECTED);
         twilightDefaultBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8F8B7A),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -164,7 +164,7 @@ public class TwilightSkin extends RadianceSkin {
 
         // Toolbars, footers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF45433A),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             RadianceThemingSlices.DecorationAreaType.FOOTER,
@@ -172,14 +172,14 @@ public class TwilightSkin extends RadianceSkin {
 
         // Control panes
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF504E45),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         // Headers
         this.registerAsDecorationArea(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF0E0E0E),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,

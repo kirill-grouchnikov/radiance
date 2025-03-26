@@ -36,10 +36,10 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
@@ -66,7 +66,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
         int startTone = fidelityTone - 10;
         int endTone = fidelityTone + 10;
 
-        ContainerColorTokens tokens1 = ColorSchemeUtils.getBimodalContainerTokens(
+        ContainerColorTokens tokens1 = ContainerColorTokensUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -81,7 +81,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
             /* fidelityTone */ fidelityTone,
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
 
-        ContainerColorTokens tokens2 = ColorSchemeUtils.getBimodalContainerTokens(
+        ContainerColorTokens tokens2 = ContainerColorTokensUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -102,7 +102,7 @@ public class BimodalPaletteAmplitudeDemo extends JFrame {
                 /* contrastLevel */ 0.0,
                 /* surfaceRangeAmplitudeFactor */ 1.5));
 
-        ContainerColorTokens tokens3 = ColorSchemeUtils.getBimodalContainerTokens(
+        ContainerColorTokens tokens3 = ContainerColorTokensUtils.getBimodalContainerTokens(
             /* seedOne */ seedTwo,
             /* seedTwo */ seedOne,
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,

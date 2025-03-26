@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggle
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -101,7 +101,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
         // Account for contextual hue color associated with the button's group
         Color contextualGroupHueColor = button.getContextualGroupHueColor();
         ContainerColorTokens finalTokens = (contextualGroupHueColor != null)
-            ? ColorSchemeUtils.getBlendedTokens(mutableTokens,
+            ? ContainerColorTokensUtils.getBlendedTokens(mutableTokens,
                 contextualGroupHueColor, RibbonContextualTaskGroup.HUE_ALPHA, null, 0.0f)
             : mutableTokens;
 

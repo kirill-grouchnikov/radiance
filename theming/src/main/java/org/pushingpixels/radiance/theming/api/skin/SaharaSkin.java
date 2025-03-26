@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -59,19 +59,19 @@ public class SaharaSkin extends RadianceSkin {
 
 	public SaharaSkin() {
 		ContainerColorTokensBundle desertSandDefaultBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFA5BB59),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD5D9DE),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEFF5FB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);
 
 		ContainerColorTokens desertHighlightContainerTokens =
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCAD0BE),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		desertSandDefaultBundle.registerActiveContainerTokens(desertHighlightContainerTokens,
@@ -82,18 +82,18 @@ public class SaharaSkin extends RadianceSkin {
 
 
 		ContainerColorTokensBundle desertSandHeaderBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFA2B851),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF99A764),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFEFF5FB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);
 		ContainerColorTokens desertHeaderHighlightContainerTokens =
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFB2BC91),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		desertSandHeaderBundle.registerActiveContainerTokens(desertHeaderHighlightContainerTokens,

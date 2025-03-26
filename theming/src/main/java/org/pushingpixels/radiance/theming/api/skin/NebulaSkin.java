@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 /**
  * <code>Nebula</code> skin. This class is part of officially supported API.
@@ -51,13 +51,13 @@ public class NebulaSkin extends NebulaAccentedSkin {
 
     public NebulaSkin() {
         super(new AccentBuilder()
-            .withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+            .withHeaderAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD9E8ED),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()))
-            .withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+            .withHeaderAreaMutedTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD6E3EE),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()))
-            .withHeaderAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+            .withHeaderAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF3F7FD),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight())));
     }

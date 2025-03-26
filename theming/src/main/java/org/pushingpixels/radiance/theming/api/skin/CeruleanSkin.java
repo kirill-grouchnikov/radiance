@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPa
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -59,33 +59,33 @@ public class CeruleanSkin extends RadianceSkin {
 
 	public CeruleanSkin() {
 		ContainerColorTokensBundle ceruleanDefaultBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD2E0ED),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFECECED),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFBFCFC),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);
 
-		ContainerColorTokens ceruleanSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens ceruleanSelectedContainerTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFC0DBEE),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		ContainerColorTokens ceruleanSelectedHighlightContainerTokens =
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFBDCA1),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		ContainerColorTokens ceruleanRolloverHighlightContainerTokens =
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFF7E5C4),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		ContainerColorTokens ceruleanTextHighlightContainerTokens =
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFEDB7C),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight());
-		ContainerColorTokens ceruleanDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens ceruleanDeterminateContainerTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFCFEAFE),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight());
 
@@ -115,18 +115,18 @@ public class CeruleanSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		ContainerColorTokensBundle ceruleanHeaderBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC0DBEE),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF3B7BA8),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF8BCBF8),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
 			/* isSystemDark */ true);
 		ceruleanHeaderBundle.registerActiveContainerTokens(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF638EA8),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -143,7 +143,7 @@ public class CeruleanSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCBD1D7),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.FOOTER,

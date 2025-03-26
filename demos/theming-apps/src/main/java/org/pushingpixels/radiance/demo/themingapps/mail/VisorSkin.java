@@ -33,7 +33,6 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
@@ -55,13 +54,13 @@ public class VisorSkin extends RadianceSkin {
 
     public VisorSkin() {
         ContainerColorTokensBundle visorDefaultBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF99B6CB),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDEDDDF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEFF8FF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
@@ -79,25 +78,25 @@ public class VisorSkin extends RadianceSkin {
                     .build()
             );
         ContainerColorTokensBundle visorThreadsBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9CBDD3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC9D5DE),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD8E2EA),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
         visorThreadsBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF5B91F8),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ threadsHighlightsPaletteResolver),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
         visorThreadsBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF80B6CB),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ threadsHighlightsPaletteResolver),
@@ -116,18 +115,18 @@ public class VisorSkin extends RadianceSkin {
                     .build()
             );
         ContainerColorTokensBundle visorDestinationsBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9CBDD3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC9D5DE),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD3E2EF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
         visorDestinationsBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFE8EDAF),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -136,7 +135,7 @@ public class VisorSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
         visorDestinationsBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFD7E1C2),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
@@ -147,7 +146,7 @@ public class VisorSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(visorDestinationsBundle, VisorMail.DESTINATIONS);
 
         // For the overall frame decoration border
-        this.registerAsDecorationArea(ColorSchemeUtils.getContainerTokens(
+        this.registerAsDecorationArea(ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFC9D6DF),
             /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);

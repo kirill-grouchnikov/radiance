@@ -38,7 +38,6 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
@@ -46,6 +45,7 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 import javax.swing.*;
@@ -83,13 +83,13 @@ public class Step4ComponentStatesDemo extends JFrame {
             BaseTonalPalette neutralPalette = TonalPalette.fromHct(Hct.from(300.0, 8.0, 40.0));
 
             ContainerColorTokensBundle defaultBundle = new ContainerColorTokensBundle(
-                /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                     /* seed */ activePalette.getHct(80.0),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-                /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                     /* seed */ mutedPalette.getHct(85.0),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-                /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+                /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                     /* seed */ neutralPalette.getHct(95.0),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
                 /* isSystemDark */ false);

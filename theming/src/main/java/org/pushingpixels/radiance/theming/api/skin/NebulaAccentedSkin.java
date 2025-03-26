@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPa
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -62,28 +62,28 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		super(accentBuilder);
 
 		ContainerColorTokensBundle nebulaDefaultBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFBAD2E3),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD7DBE1),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFF3F7FD),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);
 
-		ContainerColorTokens nebulaRolloverHighlightContainerTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens nebulaRolloverHighlightContainerTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFF6B92AF),
 			/* containerConfiguration */ ContainerConfiguration.defaultDark());
-		ContainerColorTokens nebulaPressedContainerTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens nebulaPressedContainerTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFF276792),
 			/* containerConfiguration */ ContainerConfiguration.defaultDark());
 		ContainerColorTokens nebulaSelectedHighlightContainerTokens =
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF5B85A6),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark());
-		ContainerColorTokens nebulaDeterminateContainerTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens nebulaDeterminateContainerTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFD2852F),
 			/* containerConfiguration */ ContainerConfiguration.defaultDark());
 
@@ -106,7 +106,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		this.registerDecorationAreaSchemeBundle(nebulaDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		ContainerColorTokens nebulaDecorationsColorTokens = ColorSchemeUtils.getContainerTokens(
+		ContainerColorTokens nebulaDecorationsColorTokens = ContainerColorTokensUtils.getContainerTokens(
 			/* seed */ Hct.fromInt(0xFFC2D1DA),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight());
 		this.registerAsDecorationArea(nebulaDecorationsColorTokens,

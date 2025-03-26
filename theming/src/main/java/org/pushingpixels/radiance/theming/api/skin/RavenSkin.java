@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -60,7 +60,7 @@ public class RavenSkin extends RadianceSkin {
 
 	public RavenSkin() {
 		ContainerColorTokensBundle ravenDefaultBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF424242),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
@@ -73,7 +73,7 @@ public class RavenSkin extends RadianceSkin {
 						.onContainerDisabledAlpha((s) -> 0.3f)
 						.containerOutlineDisabledAlpha((s) -> 0.55f)
 						.build())),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF504842),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
@@ -86,7 +86,7 @@ public class RavenSkin extends RadianceSkin {
 					.onContainerDisabledAlpha((s) -> 0.3f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
 					.build())),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF333333),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
@@ -94,12 +94,12 @@ public class RavenSkin extends RadianceSkin {
 			/* isSystemDark */ true);
 
 		ContainerColorTokens ravenHighlightContainerTokens =
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC4C3C5),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight());
 
 		ContainerColorTokens ravenSelectedContainerTokens =
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCDD0D5),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ false,
@@ -130,7 +130,7 @@ public class RavenSkin extends RadianceSkin {
 
 		// Decoration areas
 		this.registerAsDecorationArea(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF4E463E),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,

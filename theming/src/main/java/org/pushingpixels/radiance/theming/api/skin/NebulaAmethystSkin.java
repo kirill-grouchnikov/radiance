@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 /**
  * <code>Nebula Amethyst</code> skin. This class is part of officially supported API.
@@ -54,30 +54,30 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 
 	public NebulaAmethystSkin() {
 		super(new AccentBuilder()
-			.withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC2A9EF),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaMutedTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD1A9F1),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withHeaderAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFF3F7FD),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
 		// Also extend the window chrome accent color to the TOOLBAR area
 		ContainerColorTokensBundle nebulaAmethystToolbarBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD264EB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD1A9F1),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD1A9F1),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);
 		nebulaAmethystToolbarBundle.registerEnabledContainerTokens(
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD1A9F1),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ false,

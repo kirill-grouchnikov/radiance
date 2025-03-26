@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 /**
  * <code>Business Black Steel</code> skin. This class is part of officially supported API.
@@ -54,39 +54,39 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 
 	public BusinessBlackSteelSkin() {
 		super(new AccentBuilder()
-			.withDefaultAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF98B7CC),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaMutedTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC4C8CC),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFE4EAF0),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withDefaultAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+			.withDefaultAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFA1BCCF),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
-			.withHeaderAreaActiveTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF404040),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()))
-			.withHeaderAreaMutedTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaMutedTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF606060),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()))
-			.withHeaderAreaNeutralTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF555555),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()))
-			.withHeaderAreaHighlightTokens(ColorSchemeUtils.getContainerTokens(
+			.withHeaderAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF85A3B5),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
 		ContainerColorTokensBundle businessBlackSteelControlBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFAFBEC7),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD5DBDF),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD0D7DC),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);

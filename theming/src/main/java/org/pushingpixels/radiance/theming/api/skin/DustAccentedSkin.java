@@ -41,9 +41,9 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPai
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -74,17 +74,17 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		ContainerColorTokensBundle dustHeaderBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF5E3D2B),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
 					/* contrastLevel */ 0.4)),
-			/* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF3C3B37),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
 					/* contrastLevel */ 0.4)),
-			/* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF2B2A28),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
@@ -96,7 +96,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.SELECTED,
 			ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
 		this.registerDecorationAreaSchemeBundle(dustHeaderBundle,
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF2B2A28),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
@@ -107,7 +107,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
 		this.registerDecorationAreaSchemeBundle(dustHeaderBundle,
-			ColorSchemeUtils.getContainerTokens(
+			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF3A3935),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);

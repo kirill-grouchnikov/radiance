@@ -39,10 +39,10 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.demo.component.svg.SvgBatikRadianceIcon;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TonalPaletteSeeds;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
@@ -112,7 +112,7 @@ public class IconFrame {
                     .build();
             frame.add(originalTangoCommand.project(presentationModel).buildComponent());
 
-            ContainerColorTokens redTokens = ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokens redTokens = ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(TonalPaletteSeeds.SUNFIRE_RED.getRGB()),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
             Command redTangoCommand = Command.builder()
@@ -122,7 +122,7 @@ public class IconFrame {
                     .build();
             frame.add(redTangoCommand.project(presentationModel).buildComponent());
 
-            ContainerColorTokens greenTokens = ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokens greenTokens = ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(TonalPaletteSeeds.LIME_GREEN.getRGB()),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
             Command greenTangoCommand = Command.builder()
@@ -132,7 +132,7 @@ public class IconFrame {
                     .build();
             frame.add(greenTangoCommand.project(presentationModel).buildComponent());
 
-            ContainerColorTokens blueTokens = ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokens blueTokens = ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(TonalPaletteSeeds.STEEL_BLUE.getRGB()),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
             Command blueTangoCommand = Command.builder()

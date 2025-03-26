@@ -32,13 +32,13 @@ package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 
 public class CookbookTokens {
     public static final ContainerColorTokens GOLDEN_BROWN_TOKENS =
-        ColorSchemeUtils.getBimodalContainerTokens(
+        ContainerColorTokensUtils.getBimodalContainerTokens(
             /* seedOne */ Hct.fromInt(0xFF713004),
             /* seedTwo */ Hct.fromInt(0xFFB18337),
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
@@ -50,7 +50,7 @@ public class CookbookTokens {
             /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
 
     public static final ContainerColorTokens DARK_BROWN_TOKENS =
-        ColorSchemeUtils.getBimodalContainerTokens(
+        ContainerColorTokensUtils.getBimodalContainerTokens(
             /* seedOne */ Hct.fromInt(0xFF4C1F02),
             /* seedTwo */ Hct.fromInt(0xFF702103),
             /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,

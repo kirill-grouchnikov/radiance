@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverla
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -61,22 +61,22 @@ public class SentinelSkin extends RadianceSkin {
 
     public SentinelSkin() {
         ContainerColorTokensBundle sentinelDefaultBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFE8C3A6),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFD8B6),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
 
-        ContainerColorTokens sentinelSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens sentinelSelectedContainerTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFFF9E7B),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens sentinelSelectedHighlightContainerTokens =
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFC0A5),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
@@ -93,17 +93,17 @@ public class SentinelSkin extends RadianceSkin {
 
         // Headers
         ContainerColorTokensBundle sentinelHeaderBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.8)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF4A2C25),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.8)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF7A5C55),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -111,14 +111,14 @@ public class SentinelSkin extends RadianceSkin {
             /* isSystemDark */ true);
 
         sentinelHeaderBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDE9D87),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         // Lighter outlines for checkboxes and radio button menu items
         sentinelHeaderBundle.registerEnabledContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF4A2C25),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
@@ -129,7 +129,7 @@ public class SentinelSkin extends RadianceSkin {
                 )),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK);
         sentinelHeaderBundle.registerActiveContainerTokens(
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2A0C05),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -143,7 +143,7 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             ComponentState.getActiveStates());
         this.registerDecorationAreaSchemeBundle(sentinelHeaderBundle,
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2A0C05),
                 /* true */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -154,17 +154,17 @@ public class SentinelSkin extends RadianceSkin {
 
         // Control panes
         ContainerColorTokensBundle sentinelControlPaneBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ -0.6)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF8F543B),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ -0.7)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF754133),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -172,7 +172,7 @@ public class SentinelSkin extends RadianceSkin {
             /* isSystemDark */ true);
 
         this.registerDecorationAreaSchemeBundle(sentinelControlPaneBundle,
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF754133),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
@@ -181,24 +181,24 @@ public class SentinelSkin extends RadianceSkin {
 
         // Toolbars and footers
         ContainerColorTokensBundle sentinelBarsBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.1)),
-            /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF703723),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.1)),
-            /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF53281A),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.1)),
             /* isSystemDark */ true);
         this.registerDecorationAreaSchemeBundle(sentinelBarsBundle,
-            ColorSchemeUtils.getContainerTokens(
+            ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF53281A),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
