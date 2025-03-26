@@ -84,7 +84,7 @@ import java.util.*;
  * {@link ContainerColorTokensBundle#registerActiveContainerTokens(ContainerColorTokens, ComponentState...)}
  * or similar APIs). If the exact match is found, it is used. If there is no
  * exact match, the skinning layer will look at all color tokens registered for
- * the specific color scheme association kind in the matching color scheme
+ * the specific color tokens association kind in the matching color tokens
  * bundle. The decision is made based on how "close" the registered component
  * state is to the component state of the currently painted component. For
  * example, {@link ComponentState#PRESSED_SELECTED} is a better match for

@@ -90,7 +90,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 			this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		this.registerDecorationAreaSchemeBundle(this.graphiteDefaultBundle,
+		this.registerDecorationAreaTokensBundle(this.graphiteDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.buttonShaper = new ClassicButtonShaper();

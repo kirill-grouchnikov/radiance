@@ -67,7 +67,7 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
 
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
-    private BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;
+    private BladeTransitionAwareIcon.ColorTokensAssociationKindDelegate colorTokensAssociationKindDelegate;
 
     public BladeHighlightableTransitionAwareIcon(final JComponent component,
             BladeTransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate,
@@ -75,7 +75,7 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
         this.component = component;
         this.transitionAwareUIDelegate = transitionAwareUIDelegate;
         this.delegate = delegate;
-        this.colorSchemeAssociationKindDelegate = state -> state.isFacetActive(facetForHighlights)
+        this.colorTokensAssociationKindDelegate = state -> state.isFacetActive(facetForHighlights)
                 ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
                 : RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK;
 
@@ -99,11 +99,11 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
         BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
-                BladeUtils.getDefaultColorSchemeDelegate(c,
-                        this.colorSchemeAssociationKindDelegate),
+                BladeUtils.getDefaultColorTokensDelegate(c,
+                        this.colorTokensAssociationKindDelegate),
                 false);
 
-        this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
+        this.delegate.drawColorTokensIcon(graphics, mutableContainerTokens, iconAlpha);
         graphics.dispose();
     }
 

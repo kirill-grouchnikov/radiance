@@ -60,7 +60,7 @@ public class ContainerColorTokensBundle {
     private ContainerColorTokens inverseSystemSuccessContainerTokens;
 
     /**
-     * Maps from color scheme association kinds to the map of color tokens. Controls in the specific
+     * Maps from color tokens association kinds to the map of color tokens. Controls in the specific
      * decoration area can use different colors for different active states, for example yellow
      * for rollover and deep orange for pressed. In this case, this map will have an entry with
      * {@link RadianceThemingSlices.ContainerColorTokensAssociationKind#DEFAULT} key and a value
@@ -81,7 +81,7 @@ public class ContainerColorTokensBundle {
     private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
     /**
-     * Creates a new color scheme bundle.
+     * Creates a new color tokens bundle.
      *
      * @param activeContainerTokens
      *            The active color tokens of this bundle.
@@ -178,7 +178,7 @@ public class ContainerColorTokensBundle {
      * </ul>
      *
      * @param stateContainerTokens Container color tokens for the specified active component states.
-     * @param associationKind Color scheme association kind that specifies the visual areas
+     * @param associationKind Color tokens association kind that specifies the visual areas
      *                        of controls to be painted with this color tokens.
      * @param activeStates          Component states that further restrict the usage of the
      *                        specified color tokens.
@@ -378,7 +378,7 @@ public class ContainerColorTokensBundle {
      * Returns the color tokens to be used for painting components under the specified component
      * state.
      *
-     * @param associationKind Color scheme association kind.
+     * @param associationKind Color tokens association kind.
      * @param componentState  Component state.
      * @return Color tokens to be used for painting the specified visual area of
      * the component under the specified component state.

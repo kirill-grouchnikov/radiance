@@ -88,7 +88,7 @@ public class MagmaSkin extends RadianceSkin {
             magmaHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
-        this.registerDecorationAreaSchemeBundle(magmaDefaultBundle,
+        this.registerDecorationAreaTokensBundle(magmaDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(

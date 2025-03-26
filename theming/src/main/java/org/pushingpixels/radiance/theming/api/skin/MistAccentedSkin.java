@@ -65,7 +65,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 		mistDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		this.registerDecorationAreaSchemeBundle(mistDefaultBundle,
+		this.registerDecorationAreaTokensBundle(mistDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.registerAsDecorationArea(

@@ -102,7 +102,7 @@ public class BimodalControlStates extends JFrame {
                     ContainerConfiguration.defaultLight()),
                 /* isSystemDark */ false);
 
-            this.registerDecorationAreaSchemeBundle(defaultBundle,
+            this.registerDecorationAreaTokensBundle(defaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
             this.registerAsDecorationArea(

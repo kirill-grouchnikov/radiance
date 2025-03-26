@@ -121,7 +121,7 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                 new BladeTransitionAwareIcon.Delegate() {
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         RadianceThemingCortex.GlobalScope.getIconPack()
                             .getTextCutActionIcon(ICON_SIZE, colorTokens)
                             .paintIcon(null, g, 0, 0);
@@ -149,7 +149,7 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                 new BladeTransitionAwareIcon.Delegate() {
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         RadianceThemingCortex.GlobalScope.getIconPack()
                             .getTextCopyActionIcon(ICON_SIZE, colorTokens)
                             .paintIcon(null, g, 0, 0);
@@ -183,7 +183,7 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                 new BladeTransitionAwareIcon.Delegate() {
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         RadianceThemingCortex.GlobalScope.getIconPack()
                             .getTextPasteActionIcon(ICON_SIZE, colorTokens)
                             .paintIcon(null, g, 0, 0);
@@ -212,7 +212,7 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                 new BladeTransitionAwareIcon.Delegate() {
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         RadianceThemingCortex.GlobalScope.getIconPack()
                             .getTextDeleteActionIcon(ICON_SIZE, colorTokens)
                             .paintIcon(null, g, 0, 0);
@@ -240,7 +240,7 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                 new BladeTransitionAwareIcon.Delegate() {
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         RadianceThemingCortex.GlobalScope.getIconPack()
                             .getTextSelectAllActionIcon(ICON_SIZE, colorTokens)
                             .paintIcon(null, g, 0, 0);

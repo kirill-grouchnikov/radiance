@@ -62,7 +62,7 @@ public class TabOverviewButton extends JButton implements UIResource {
         this.setIcon(new BladeTransitionAwareIcon(this,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         RadianceThemingCortex.GlobalScope.getIconPack()
                             .getInspectIcon(dimension, colorTokens)
                             .paintIcon(null, g, 0, 0);

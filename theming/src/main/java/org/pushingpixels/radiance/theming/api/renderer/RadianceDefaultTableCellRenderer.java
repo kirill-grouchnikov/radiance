@@ -319,16 +319,16 @@ public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
                         ComponentState activeState = activeEntry.getKey();
                         ContainerColorTokens activeTokens = getColorTokensForState(
                             table, ui, activeState);
-                        Color schemeFg = activeTokens.getOnContainer();
+                        Color foreground = activeTokens.getOnContainer();
                         float contribution = activeEntry.getValue().getContribution();
                         if (activeState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
                             || activeState.isFacetActive(
                             RadianceThemingSlices.ComponentStateFacet.ARM)) {
                             this.activeContributions.put(activeState, contribution);
                         }
-                        aggrRed += schemeFg.getRed() * contribution;
-                        aggrGreen += schemeFg.getGreen() * contribution;
-                        aggrBlue += schemeFg.getBlue() * contribution;
+                        aggrRed += foreground.getRed() * contribution;
+                        aggrGreen += foreground.getGreen() * contribution;
+                        aggrBlue += foreground.getBlue() * contribution;
                     }
                     super.setForeground(new ColorUIResource(new Color(
                         (int) aggrRed, (int) aggrGreen, (int) aggrBlue)));

@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -290,7 +289,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
             Color background = hostFrame.getBackground();
             if (!(background instanceof UIResource)) {
                 double colorization = RadianceCoreUtilities.getColorizationFactor(hostForColorization);
-                colorTokens = ContainerColorTokensUtils.getBlendedTokens(colorTokens, background,
+                colorTokens = CoreColorTokenUtils.getBlendedTokens(colorTokens, background,
                     colorization, null, 0.0);
             }
             RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
@@ -318,7 +317,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 new BladeTransitionAwareIcon.Delegate() {
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         restoreButtonProvider.drawIcon(g, colorTokens, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
@@ -333,7 +332,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 new BladeTransitionAwareIcon.Delegate() {
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         maximizeButtonProvider.drawIcon(g, colorTokens, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
@@ -348,7 +347,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 new BladeTransitionAwareIcon.Delegate() {
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         iconifyButtonProvider.drawIcon(g, colorTokens, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
@@ -363,7 +362,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 new BladeTransitionAwareIcon.Delegate() {
 
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         closeButtonProvider.drawIcon(g, colorTokens, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 

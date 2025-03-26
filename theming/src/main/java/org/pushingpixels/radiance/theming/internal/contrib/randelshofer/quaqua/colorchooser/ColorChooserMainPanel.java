@@ -65,7 +65,7 @@ public class ColorChooserMainPanel extends javax.swing.JPanel {
             // based on the color tokens that matches the current state of our toggle button
             tb.setIcon(new BladeTransitionAwareIcon(tb, new BladeTransitionAwareIcon.Delegate() {
                 @Override
-                public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                     ccp.getHiDpiAwareIcon(18, colorTokens).paintIcon(null, g, 0, 0);
                 }
 

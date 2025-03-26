@@ -61,7 +61,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			this.getDefaultAreaActiveTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,
+		this.registerDecorationAreaTokensBundle(businessDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		ContainerColorTokensBundle businessDefaultHeaderBundle =
@@ -74,7 +74,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 		}
-		this.registerDecorationAreaSchemeBundle(businessDefaultHeaderBundle,
+		this.registerDecorationAreaTokensBundle(businessDefaultHeaderBundle,
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

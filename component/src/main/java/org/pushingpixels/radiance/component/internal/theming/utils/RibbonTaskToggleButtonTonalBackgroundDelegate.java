@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggle
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -63,20 +62,20 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                 .getModelStateInfo();
 
-        // Populate color schemes tokens on the current transition state of the button.
+        // Populate color tokens based on the current transition state of the button.
         // To create visual continuity between the background of the selected task
         // and its toggle button, we use the decoration painter and not surface painter.
         // We also ignore the selected state of the toggle button to compute the
-        // color scheme to use.
+        // color tokens to use.
         // If we have one active state which is *not* enabled, this means that we have
         // fully transitioned / animated to a state like rollover or pressed (no selection
-        // as mentioned before). For such a state, we use the matching FILL color scheme.
-        // Otherwise, we use the background color scheme as the base fill for the visual
+        // as mentioned before). For such a state, we use the matching FILL color tokens.
+        // Otherwise, we use the background color tokens as the base fill for the visual
         // continuity, and let the other active states (if any) paint the additional
         // transition visuals.
         BladeUtils.populateColorTokens(mutableTokens,
                 modelStateInfo, currState,
-                new BladeUtils.ColorSchemeDelegate() {
+                new BladeUtils.ColorTokensDelegate() {
 
                     @Override
                     public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
@@ -101,7 +100,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
         // Account for contextual hue color associated with the button's group
         Color contextualGroupHueColor = button.getContextualGroupHueColor();
         ContainerColorTokens finalTokens = (contextualGroupHueColor != null)
-            ? ContainerColorTokensUtils.getBlendedTokens(mutableTokens,
+            ? CoreColorTokenUtils.getBlendedTokens(mutableTokens,
                 contextualGroupHueColor, RibbonContextualTaskGroup.HUE_ALPHA, null, 0.0f)
             : mutableTokens;
 

@@ -190,7 +190,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             ComponentState.PRESSED_SELECTED);
 
-        this.registerDecorationAreaSchemeBundle(officeBlackDefaultBundle,
+        this.registerDecorationAreaTokensBundle(officeBlackDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(
@@ -236,7 +236,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
 
-        this.registerDecorationAreaSchemeBundle(
+        this.registerDecorationAreaTokensBundle(
             officeBlackSecondaryBundle,
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2D2D2D),

@@ -295,11 +295,6 @@ public class RadianceRibbonTaskToggleButtonUI extends
                 ? parentTokens.getOnContainer()
                 : activeTokens.getOnContainer();
 
-//            System.out.println("\t" + activeState + " at alpha " + alpha + " from " +
-//                    (correspondsToParentFill ? parentFillScheme :
-//                            activeColorScheme).getDisplayName()
-//                    + "[" + correspondsToParentFill + "] contributes color " +
-//                    activeForeground);
             aggrRed += alpha * activeForeground.getRed();
             aggrGreen += alpha * activeForeground.getGreen();
             aggrBlue += alpha * activeForeground.getBlue();

@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel.ScrollType;
-import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorSchemeIcon;
+import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorTokensIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
@@ -174,7 +174,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                     viewOffset -= 12;
                     syncScrolling();
                 })
-                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
                         (g, tokens, alpha, width, height) -> {
                             BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                     RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
@@ -191,7 +191,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                     viewOffset += 12;
                     syncScrolling();
                 })
-                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
                         (g, tokens, alpha, width, height) -> {
                             BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                     RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),

@@ -400,7 +400,7 @@ public class CoreColorTokenUtils {
         return tokens;
     }
 
-    private static ContainerColorTokens getBlendedTokens(ContainerColorTokens original,
+    public static ContainerColorTokens getBlendedTokens(ContainerColorTokens original,
         Color backgroundShiftColor, double backgroundShiftFactor, Color foregroundShiftColor,
         double foregroundShiftFactor) {
         HashMapKey key = RadianceCoreUtilities.getHashKey(original,

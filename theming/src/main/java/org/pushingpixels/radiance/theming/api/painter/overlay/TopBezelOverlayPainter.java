@@ -50,29 +50,29 @@ public final class TopBezelOverlayPainter implements RadianceOverlayPainter {
      * Used to compute the color of the top line painted by this overlay
      * painter.
      */
-    ContainerColorTokensSingleColorQuery colorSchemeQueryTop;
+    ContainerColorTokensSingleColorQuery colorTokensQueryTop;
 
     /**
      * Used to compute the color of the bottom line painted by this overlay
      * painter.
      */
-    ContainerColorTokensSingleColorQuery colorSchemeQueryBottom;
+    ContainerColorTokensSingleColorQuery colorTokensQueryBottom;
 
     /**
      * Creates a new overlay painter that paints a bezel line at the top edge of
      * the relevant decoration area
      *
-     * @param colorSchemeQueryTop    Used to compute the color of the top line painted by this
+     * @param colorTokensQueryTop    Used to compute the color of the top line painted by this
      *                               overlay painter.
-     * @param colorSchemeQueryBottom Used to compute the color of the bottom line painted by this
+     * @param colorTokensQueryBottom Used to compute the color of the bottom line painted by this
      *                               overlay painter.
      */
     public TopBezelOverlayPainter(
-        ContainerColorTokensSingleColorQuery colorSchemeQueryTop,
-        ContainerColorTokensSingleColorQuery colorSchemeQueryBottom) {
+        ContainerColorTokensSingleColorQuery colorTokensQueryTop,
+        ContainerColorTokensSingleColorQuery colorTokensQueryBottom) {
 
-        this.colorSchemeQueryTop = colorSchemeQueryTop;
-        this.colorSchemeQueryBottom = colorSchemeQueryBottom;
+        this.colorTokensQueryTop = colorTokensQueryTop;
+        this.colorTokensQueryBottom = colorTokensQueryBottom;
     }
 
     @Override
@@ -99,12 +99,12 @@ public final class TopBezelOverlayPainter implements RadianceOverlayPainter {
                     ContainerColorTokens surfaceTokens =
                         skin.getBackgroundContainerTokens(decorationAreaType);
 
-                    graphics1X.setColor(this.colorSchemeQueryTop.query(surfaceTokens));
+                    graphics1X.setColor(this.colorTokensQueryTop.query(surfaceTokens));
 
                     int topY = -(int) (scaleFactor * dy);
                     graphics1X.drawLine(0, topY, scaledWidth, topY);
 
-                    graphics1X.setColor(this.colorSchemeQueryBottom.query(surfaceTokens));
+                    graphics1X.setColor(this.colorTokensQueryBottom.query(surfaceTokens));
 
                     int bezelY = 1 - (int) (scaleFactor * dy);
                     graphics1X.drawLine(0, bezelY, scaledWidth, bezelY);

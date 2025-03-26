@@ -83,7 +83,7 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 					/* isDark */ false,
 					/* contrastLevel */ -1.0)),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
-		this.registerDecorationAreaSchemeBundle(nebulaAmethystToolbarBundle,
+		this.registerDecorationAreaTokensBundle(nebulaAmethystToolbarBundle,
 			nebulaAmethystToolbarBundle.getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 

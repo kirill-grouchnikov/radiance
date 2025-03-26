@@ -94,7 +94,7 @@ public class Step4ComponentStatesDemo extends JFrame {
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
                 /* isSystemDark */ false);
 
-            this.registerDecorationAreaSchemeBundle(defaultBundle,
+            this.registerDecorationAreaTokensBundle(defaultBundle,
                     RadianceThemingSlices.DecorationAreaType.NONE);
 
             this.registerAsDecorationArea(

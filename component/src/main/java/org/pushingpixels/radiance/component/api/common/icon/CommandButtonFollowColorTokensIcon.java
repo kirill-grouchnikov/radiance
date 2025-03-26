@@ -45,13 +45,13 @@ import java.awt.*;
 
 /**
  * Implementation of {@link RadianceIcon} for command buttons that wish to have their icon
- * be dynamically rendered at runtime based on the color tokens that matches the current
+ * be dynamically rendered at runtime based on the color tokens that match the current
  * transition-aware state.
  *
  * @author Kirill Grouchnikov
  */
 @TransitionAware
-public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
+public class CommandButtonFollowColorTokensIcon implements RadianceIcon {
     /**
      * The width of the rendered image.
      */
@@ -72,25 +72,25 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
     @FunctionalInterface
     public interface Delegate {
         /**
-         * Draws the icon that matches the specified color scheme.
+         * Draws the icon that matches the specified color tokens.
          *
-         * @param tokens Color scheme.
+         * @param tokens Color tokens.
          * @param width  Icon width.
          * @param height Icon height.
-         * @return Icon that matches the specified theme.
+         * @return Icon that matches the specified tokens.
          */
-        void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens tokens, float alpha, int width, int height);
+        void drawColorTokensIcon(Graphics2D g, ContainerColorTokens tokens, float alpha, int width, int height);
     }
 
-    // Color scheme association kind. {@link ColorSchemeAssociationKind#MARK} by default
-    private RadianceThemingSlices.ContainerColorTokensAssociationKind colorSchemeAssociationKind;
+    // Color tokens association kind.
+    private RadianceThemingSlices.ContainerColorTokensAssociationKind colorTokensAssociationKind;
 
     // Delegate to compute the actual icons.
     private Delegate delegate;
 
     private BladeContainerColorTokens mutableTokens = new BladeContainerColorTokens();
 
-    public CommandButtonFollowColorSchemeIcon(Delegate delegate, Dimension initialDim) {
+    public CommandButtonFollowColorTokensIcon(Delegate delegate, Dimension initialDim) {
         this(RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             delegate, initialDim);
     }
@@ -98,16 +98,16 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
     /**
      * Creates a new icon.
      *
-     * @param colorSchemeAssociationKind Color scheme association kind to use for determining
+     * @param colorTokensAssociationKind Color tokens association kind to use for determining
      *                                   the color tokens for this icon.
      * @param delegate                   Delegate to compute the actual icons.
      * @param initialDim                 Initial icon dimension.
      */
-    public CommandButtonFollowColorSchemeIcon(
-        RadianceThemingSlices.ContainerColorTokensAssociationKind colorSchemeAssociationKind,
+    public CommandButtonFollowColorTokensIcon(
+        RadianceThemingSlices.ContainerColorTokensAssociationKind colorTokensAssociationKind,
         Delegate delegate, Dimension initialDim) {
 
-        this.colorSchemeAssociationKind = colorSchemeAssociationKind;
+        this.colorTokensAssociationKind = colorTokensAssociationKind;
         this.delegate = delegate;
         this.width = initialDim.width;
         this.height = initialDim.height;
@@ -123,7 +123,7 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
             BladeUtils.populateColorTokens(mutableTokens, null, null,
                 ((c == null) || !c.isEnabled()) ? ComponentState.DISABLED_UNSELECTED
                     : ComponentState.ENABLED,
-                this.colorSchemeAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
+                this.colorTokensAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
             if ((c == null) || !c.isEnabled()) {
                 alpha = CoreColorTokenUtils.getActiveContainerTokens(
                     c, ComponentState.DISABLED_UNSELECTED).getOnContainerDisabledAlpha();
@@ -139,14 +139,14 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
             ComponentState currState = modelStateInfo.getCurrModelState();
 
             BladeUtils.populateColorTokens(mutableTokens, commandButton, modelStateInfo, currState,
-                    this.colorSchemeAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
+                    this.colorTokensAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
             alpha = CoreColorTokenUtils.getContainerTokens(
                 c, currState, RadianceThemingSlices.ContainerType.MUTED).getOnContainerDisabledAlpha();
         }
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        this.delegate.drawColorSchemeIcon(graphics, mutableTokens, alpha, this.width, this.height);
+        this.delegate.drawColorTokensIcon(graphics, mutableTokens, alpha, this.width, this.height);
         graphics.dispose();
     }
 

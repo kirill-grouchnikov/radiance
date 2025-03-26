@@ -125,7 +125,7 @@ public class RavenSkin extends RadianceSkin {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 
-		this.registerDecorationAreaSchemeBundle(ravenDefaultBundle,
+		this.registerDecorationAreaTokensBundle(ravenDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		// Decoration areas

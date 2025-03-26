@@ -60,17 +60,17 @@ public class BladeTransitionAwareIcon implements Icon {
      * @author Kirill Grouchnikov
      */
     public interface Delegate {
-        void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha);
+        void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha);
 
         Dimension getIconDimension();
     }
 
     @FunctionalInterface
-    public interface ColorSchemeAssociationKindDelegate {
-        RadianceThemingSlices.ContainerColorTokensAssociationKind getContainterColorTokensAssociationKind(ComponentState state);
+    public interface ColorTokensAssociationKindDelegate {
+        RadianceThemingSlices.ContainerColorTokensAssociationKind getContainerColorTokensAssociationKind(ComponentState state);
     }
 
-    private static ColorSchemeAssociationKindDelegate MARK_DELEGATE =
+    private static ColorTokensAssociationKindDelegate MARK_DELEGATE =
             state -> RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK;
 
     private TransitionAwareUIDelegate transitionAwareUIDelegate;
@@ -78,7 +78,7 @@ public class BladeTransitionAwareIcon implements Icon {
     // Delegate to draw the icons visuals that match the current model state.
     private Delegate delegate;
 
-    private ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;
+    private ColorTokensAssociationKindDelegate colorTokensAssociationKindDelegate;
 
     private int iconWidth;
 
@@ -97,12 +97,11 @@ public class BladeTransitionAwareIcon implements Icon {
     public BladeTransitionAwareIcon(
             TransitionAwareUIDelegate transitionAwareUIDelegate,
             Delegate delegate,
-            ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
+            ColorTokensAssociationKindDelegate colorTokensAssociationKindDelegate) {
         this.transitionAwareUIDelegate = transitionAwareUIDelegate;
         this.delegate = delegate;
-        this.colorSchemeAssociationKindDelegate =
-                (colorSchemeAssociationKindDelegate != null) ?
-                        colorSchemeAssociationKindDelegate : MARK_DELEGATE;
+        this.colorTokensAssociationKindDelegate =
+                (colorTokensAssociationKindDelegate != null) ? colorTokensAssociationKindDelegate : MARK_DELEGATE;
 
         Dimension iconDimension = this.delegate.getIconDimension();
         this.iconWidth = iconDimension.width;
@@ -159,11 +158,11 @@ public class BladeTransitionAwareIcon implements Icon {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
         BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
-                BladeUtils.getDefaultColorSchemeDelegate(c,
-                        this.colorSchemeAssociationKindDelegate),
+                BladeUtils.getDefaultColorTokensDelegate(c,
+                        this.colorTokensAssociationKindDelegate),
                 false);
 
-        this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
+        this.delegate.drawColorTokensIcon(graphics, mutableContainerTokens, iconAlpha);
         graphics.dispose();
     }
 

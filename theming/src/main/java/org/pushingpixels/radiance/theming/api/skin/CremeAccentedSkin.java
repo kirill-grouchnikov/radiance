@@ -69,7 +69,7 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		cremeDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		this.registerDecorationAreaSchemeBundle(cremeDefaultBundle,
+		this.registerDecorationAreaTokensBundle(cremeDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.registerAsDecorationArea(

@@ -160,10 +160,10 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
                         float contribution = activeEntry.getValue().getContribution();
 
                         ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, activeState);
-                        Color schemeFg = colorTokens.getOnContainer();
-                        aggrRed += schemeFg.getRed() * contribution;
-                        aggrGreen += schemeFg.getGreen() * contribution;
-                        aggrBlue += schemeFg.getBlue() * contribution;
+                        Color foreground = colorTokens.getOnContainer();
+                        aggrRed += foreground.getRed() * contribution;
+                        aggrGreen += foreground.getGreen() * contribution;
+                        aggrBlue += foreground.getBlue() * contribution;
                     }
                     labelForeground = new ColorUIResource(
                             new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue));

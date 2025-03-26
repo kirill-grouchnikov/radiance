@@ -111,7 +111,7 @@ public class CeruleanSkin extends RadianceSkin {
 		// Progress bars
 		ceruleanDefaultBundle.registerActiveContainerTokens(ceruleanDeterminateContainerTokens,
 			ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
-		this.registerDecorationAreaSchemeBundle(ceruleanDefaultBundle,
+		this.registerDecorationAreaTokensBundle(ceruleanDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		ContainerColorTokensBundle ceruleanHeaderBundle = new ContainerColorTokensBundle(
@@ -131,7 +131,7 @@ public class CeruleanSkin extends RadianceSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
-		this.registerDecorationAreaSchemeBundle(ceruleanHeaderBundle,
+		this.registerDecorationAreaTokensBundle(ceruleanHeaderBundle,
 			ceruleanHeaderBundle.getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

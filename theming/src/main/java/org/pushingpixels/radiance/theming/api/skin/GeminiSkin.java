@@ -114,7 +114,7 @@ public class GeminiSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
 
-        this.registerDecorationAreaSchemeBundle(geminiDefaultBundle,
+        this.registerDecorationAreaTokensBundle(geminiDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Control panes, footers
@@ -141,7 +141,7 @@ public class GeminiSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 0.4)),
             /* isSystemDark */ true);
-        this.registerDecorationAreaSchemeBundle(geminiToolbarBundle,
+        this.registerDecorationAreaTokensBundle(geminiToolbarBundle,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // Headers
@@ -162,7 +162,7 @@ public class GeminiSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 0.9)),
             /* isSystemDark */ true);
-        this.registerDecorationAreaSchemeBundle(geminiHeaderBundle,
+        this.registerDecorationAreaTokensBundle(geminiHeaderBundle,
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF142429),
                 /* containerConfiguration */ new ContainerConfiguration(

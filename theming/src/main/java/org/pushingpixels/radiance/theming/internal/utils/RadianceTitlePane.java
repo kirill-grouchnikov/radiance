@@ -468,7 +468,7 @@ public class RadianceTitlePane extends JComponent {
         Icon closeIcon = new BladeTransitionAwareIcon(closeButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                    public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                         closeButtonProvider.drawIcon(g, colorTokens, alpha,
                                 RadianceSizeUtils.getTitlePaneIconSize());
                     }
@@ -500,7 +500,7 @@ public class RadianceTitlePane extends JComponent {
             Icon minIcon = new BladeTransitionAwareIcon(minimizeButton,
                     new BladeTransitionAwareIcon.Delegate() {
                         @Override
-                        public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                        public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                             minimizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                     RadianceSizeUtils.getTitlePaneIconSize());
                         }
@@ -530,7 +530,7 @@ public class RadianceTitlePane extends JComponent {
                 Icon restoreIcon = new BladeTransitionAwareIcon(toggleButton,
                         new BladeTransitionAwareIcon.Delegate() {
                             @Override
-                            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                            public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                                 restoreButtonProvider.drawIcon(g, colorTokens, alpha,
                                         RadianceSizeUtils.getTitlePaneIconSize());
                             }
@@ -551,7 +551,7 @@ public class RadianceTitlePane extends JComponent {
                         new BladeTransitionAwareIcon.Delegate() {
 
                             @Override
-                            public void drawColorSchemeIcon(Graphics2D g,
+                            public void drawColorTokensIcon(Graphics2D g,
                                     ContainerColorTokens colorTokens, float alpha) {
                                 maximizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                         RadianceSizeUtils.getTitlePaneIconSize());
@@ -645,7 +645,7 @@ public class RadianceTitlePane extends JComponent {
                                 new BladeTransitionAwareIcon.Delegate() {
 
                                     @Override
-                                    public void drawColorSchemeIcon(Graphics2D g,
+                                    public void drawColorTokensIcon(Graphics2D g,
                                             ContainerColorTokens colorTokens, float alpha) {
                                         restoreButtonProvider.drawIcon(g, colorTokens, alpha,
                                                 RadianceSizeUtils.getTitlePaneIconSize());
@@ -668,7 +668,7 @@ public class RadianceTitlePane extends JComponent {
                                 new BladeTransitionAwareIcon.Delegate() {
 
                                     @Override
-                                    public void drawColorSchemeIcon(Graphics2D g,
+                                    public void drawColorTokensIcon(Graphics2D g,
                                             ContainerColorTokens colorTokens, float alpha) {
                                         maximizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                                 RadianceSizeUtils.getTitlePaneIconSize());
@@ -876,7 +876,7 @@ public class RadianceTitlePane extends JComponent {
                     new BladeTransitionAwareIcon(closeButton,
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                                     closeButtonProvider.drawIcon(g, colorTokens, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }
@@ -909,7 +909,7 @@ public class RadianceTitlePane extends JComponent {
                     new BladeTransitionAwareIcon(minimizeButton,
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                                     minimizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }
@@ -943,7 +943,7 @@ public class RadianceTitlePane extends JComponent {
                     new BladeTransitionAwareIcon(toggleButton,
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g,
+                                public void drawColorTokensIcon(Graphics2D g,
                                         ContainerColorTokens colorTokens,
                                         float alpha) {
                                     restoreButtonProvider.drawIcon(g, colorTokens, alpha,
@@ -986,7 +986,7 @@ public class RadianceTitlePane extends JComponent {
                     new BladeTransitionAwareIcon(toggleButton,
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+                                public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                                     maximizeButtonProvider.drawIcon(g, colorTokens, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }

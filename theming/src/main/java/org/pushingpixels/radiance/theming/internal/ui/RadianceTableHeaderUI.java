@@ -651,7 +651,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
     @Override
     public void update(Graphics g, JComponent c) {
         // fix for issue 175 - table header under resize mode off
-        // was painted in color scheme-agnostic (gray) color.
+        // was painted in color tokens-agnostic (gray) color.
         boolean isEnabled = this.header.isEnabled();
         if (this.header.getTable() != null) {
             // fix for issue 472 - handle standalone table headers
@@ -666,7 +666,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
         if (clip == null)
             clip = c.getBounds();
 
-        // do not use the highlight scheme for painting the
+        // do not use the highlight tokens for painting the
         // table header background
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(c,
             backgroundState, RadianceThemingSlices.ContainerType.MUTED);

@@ -89,14 +89,14 @@ public class BusinessSkin extends BusinessAccentedSkin {
                 /* seed */ Hct.fromInt(0xFFD4D9DF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
-        this.registerDecorationAreaSchemeBundle(businessControlBundle,
+        this.registerDecorationAreaTokensBundle(businessControlBundle,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         ContainerColorTokensBundle businessFooterBundle =
             new ContainerColorTokensBundle(this.getHeaderAreaActiveTokens(),
                 this.getHeaderAreaMutedTokens(), this.getHeaderAreaNeutralTokens(),
                 this.isHeaderDark());
-        this.registerDecorationAreaSchemeBundle(businessFooterBundle,
+        this.registerDecorationAreaTokensBundle(businessFooterBundle,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
     }
 

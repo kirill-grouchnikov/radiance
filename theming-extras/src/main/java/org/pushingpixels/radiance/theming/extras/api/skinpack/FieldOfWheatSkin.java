@@ -91,7 +91,7 @@ public class FieldOfWheatSkin extends RadianceSkin {
             fieldOfWheatHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
-        this.registerDecorationAreaSchemeBundle(fieldOfWheatDefaultBundle,
+        this.registerDecorationAreaTokensBundle(fieldOfWheatDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(

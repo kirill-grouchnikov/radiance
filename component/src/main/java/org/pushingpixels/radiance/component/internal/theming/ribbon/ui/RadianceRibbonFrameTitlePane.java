@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
-import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorSchemeIcon;
+import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorTokensIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
@@ -294,7 +294,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             CommandButtonProjection<Command> overflowProjection = Command.builder()
                     .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
                             showOverflowTaskbarContent(commandActionEvent.getButtonSource())))
-                    .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                    .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
                             (g, tokens, alpha, width, height) -> {
                                 BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                         RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),

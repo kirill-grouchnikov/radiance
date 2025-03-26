@@ -152,7 +152,7 @@ public class BladeUtils {
         RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (!SwingUtilities.isEventDispatchThread()) {
             UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
-                    "Color scheme population must be done on Event Dispatch Thread");
+                    "Color tokens population must be done on Event Dispatch Thread");
             uiThreadingViolationError.printStackTrace(System.err);
             throw uiThreadingViolationError;
         }
@@ -281,27 +281,27 @@ public class BladeUtils {
         bladeContainerTokens.isDark = isDark;
     }
 
-    public interface ColorSchemeDelegate {
+    public interface ColorTokensDelegate {
         ContainerColorTokens getContainerTokensForCurrentState(ComponentState state);
 
         ContainerColorTokens getContainerTokensForActiveState(ComponentState state);
     }
 
     // TODO: TONAL - revisit this
-    public static ColorSchemeDelegate getDefaultColorSchemeDelegate(Component component,
-            BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
-        return new ColorSchemeDelegate() {
+    public static ColorTokensDelegate getDefaultColorTokensDelegate(Component component,
+            BladeTransitionAwareIcon.ColorTokensAssociationKindDelegate colorTokensAssociationKindDelegate) {
+        return new ColorTokensDelegate() {
             @Override
             public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
                 return CoreColorTokenUtils.getContainerTokens(component,
-                    colorSchemeAssociationKindDelegate.getContainterColorTokensAssociationKind(state), state,
+                    colorTokensAssociationKindDelegate.getContainerColorTokensAssociationKind(state), state,
                     RadianceThemingSlices.ContainerType.MUTED);
             }
 
             @Override
             public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
                 return CoreColorTokenUtils.getContainerTokens(component,
-                    colorSchemeAssociationKindDelegate.getContainterColorTokensAssociationKind(state), state,
+                    colorTokensAssociationKindDelegate.getContainerColorTokensAssociationKind(state), state,
                     RadianceThemingSlices.ContainerType.MUTED);
             }
         };
@@ -311,11 +311,11 @@ public class BladeUtils {
             BladeContainerColorTokens bladeContainerTokens,
             StateTransitionTracker.ModelStateInfo modelStateInfo,
             ComponentState currState,
-            ColorSchemeDelegate colorSchemeDelegate,
+            ColorTokensDelegate colorTokensDelegate,
             boolean useNoSelectionStateContributionMap) {
         if (!SwingUtilities.isEventDispatchThread()) {
             UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
-                    "Color scheme population must be done on Event Dispatch Thread");
+                    "Color tokens population must be done on Event Dispatch Thread");
             uiThreadingViolationError.printStackTrace(System.err);
             throw uiThreadingViolationError;
         }
@@ -323,7 +323,7 @@ public class BladeUtils {
         StringBuilder nameBuilder = new StringBuilder();
 
         ContainerColorTokens currColorTokens =
-                colorSchemeDelegate.getContainerTokensForCurrentState(currState);
+                colorTokensDelegate.getContainerTokensForCurrentState(currState);
 
         Color containerSurfaceLowest = currColorTokens.getContainerSurfaceLowest();
         Color containerSurfaceLow = currColorTokens.getContainerSurfaceLow();
@@ -368,7 +368,7 @@ public class BladeUtils {
                 }
                 // Get the color tokens that match the contribution state
                 ContainerColorTokens contributionColorTokens =
-                        colorSchemeDelegate.getContainerTokensForActiveState(activeEntry.getKey());
+                        colorTokensDelegate.getContainerTokensForActiveState(activeEntry.getKey());
 
                 // And interpolate the colors
                 containerSurfaceLowest = RadianceColorUtilities.getInterpolatedColor(containerSurfaceLowest,
@@ -450,7 +450,7 @@ public class BladeUtils {
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
         if (!SwingUtilities.isEventDispatchThread()) {
             UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
-                "Color scheme population must be done on Event Dispatch Thread");
+                "Color tokens population must be done on Event Dispatch Thread");
             uiThreadingViolationError.printStackTrace(System.err);
             throw uiThreadingViolationError;
         }

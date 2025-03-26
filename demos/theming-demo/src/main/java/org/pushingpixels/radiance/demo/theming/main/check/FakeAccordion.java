@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 
 import javax.swing.*;
@@ -73,8 +72,8 @@ public class FakeAccordion extends JPanel {
             // accented background fill
             deepNonOpaque(content);
 
-            // Wrap the passed content panel to have a bit of padding and accented background fill
-            // (using the RadianceColorScheme.getAccentedBackgroundFillColor API)
+            // Wrap the passed content panel to have a bit of padding and different background fill
+            // (using the ContainerColorTokens.getContainerSurfaceLow API)
             this.contentWrapper = new JPanel(new BorderLayout()) {
                 @Override
                 protected void paintComponent(Graphics g) {

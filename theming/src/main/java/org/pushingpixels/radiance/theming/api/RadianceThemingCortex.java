@@ -769,7 +769,7 @@ public class RadianceThemingCortex {
         /**
          * Sets the new setting for the icons of the <code>JOptionPane</code>s created with
          * predefined message types. The default setting is <code>true</code> (use constant color
-         * scheme). To use color scheme-consistent coloring, call this method and pass
+         * scheme). To use color tokens-consistent coloring, call this method and pass
          * <code>false</code>.
          *
          * @param useConstantThemesOnOptionPanes if <code>true</code>, the

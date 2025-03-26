@@ -72,7 +72,7 @@ public class CookbookSkin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
             /* isSystemDark */ false);
-        this.registerDecorationAreaSchemeBundle(cookbookDefaultBundle,
+        this.registerDecorationAreaTokensBundle(cookbookDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         ContainerColorTokensBundle cookbookControlPaneBundle = new ContainerColorTokensBundle(
@@ -92,7 +92,7 @@ public class CookbookSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 0.6)),
             /* isSystemDark */ false);
-        this.registerDecorationAreaSchemeBundle(cookbookControlPaneBundle,
+        this.registerDecorationAreaTokensBundle(cookbookControlPaneBundle,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         ContainerColorTokensBundle cookbookChromeBundle = new ContainerColorTokensBundle(
@@ -105,7 +105,7 @@ public class CookbookSkin extends RadianceSkin {
             /* neutralContainerTokens */ CookbookTokens.GOLDEN_BROWN_TOKENS,
             /* isSystemDark */ true);
 
-        this.registerDecorationAreaSchemeBundle(cookbookChromeBundle,
+        this.registerDecorationAreaTokensBundle(cookbookChromeBundle,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER,

@@ -161,7 +161,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
         // Populate color tokens based on the current transition state of the scrollbar.
         // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
-        // parameter to "populateColorScheme").
+        // parameter to "populateColorTokens").
         BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             true, false, RadianceThemingSlices.ContainerType.MUTED);
@@ -221,7 +221,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
         // Populate color tokens based on the current transition state of the scrollbar.
         // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
-        // parameter to "populateColorScheme").
+        // parameter to "populateColorTokens").
         BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             true, false, RadianceThemingSlices.ContainerType.MUTED);

@@ -100,7 +100,7 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
             this.defaultAreaActiveTokens,
             this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, true
         )
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
+        this.registerDecorationAreaTokensBundle(defaultSchemeBundle,
             RadianceThemingSlices.DecorationAreaType.NONE)
 
         this.registerAsDecorationArea(this.defaultAreaActiveTokens,

@@ -295,7 +295,7 @@ public class SampleMenuFactory {
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),
                 /* isSystemDark */ false);
 
-            this.registerDecorationAreaSchemeBundle(customDefaultBundle,
+            this.registerDecorationAreaTokensBundle(customDefaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
             ContainerColorTokensBundle customHeaderBundle = new ContainerColorTokensBundle(
@@ -309,7 +309,7 @@ public class SampleMenuFactory {
                     /* seed */ Hct.fromInt(0xFF1A5ED2),
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
                 /* isSystemDark */ true);
-            this.registerDecorationAreaSchemeBundle(customHeaderBundle,
+            this.registerDecorationAreaTokensBundle(customHeaderBundle,
                 customHeaderBundle.getActiveContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

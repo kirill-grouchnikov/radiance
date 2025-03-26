@@ -100,7 +100,7 @@ public class StreetlightsSkin extends RadianceSkin {
             streetlightsHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
-        this.registerDecorationAreaSchemeBundle(streetlightsDefaultBundle,
+        this.registerDecorationAreaTokensBundle(streetlightsDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(

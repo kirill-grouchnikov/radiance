@@ -161,7 +161,7 @@ public class MagellanSkin extends RadianceSkin {
             magellanGreenHighlightRolloverContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_UNSELECTED);
-        this.registerDecorationAreaSchemeBundle(magellanDefaultBundle,
+        this.registerDecorationAreaTokensBundle(magellanDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Toolbars, control panes
@@ -184,7 +184,7 @@ public class MagellanSkin extends RadianceSkin {
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
 
-        this.registerDecorationAreaSchemeBundle(magellanFooterBundle,
+        this.registerDecorationAreaTokensBundle(magellanFooterBundle,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         // Headers

@@ -81,7 +81,7 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
         )
         defaultSchemeBundle.registerActiveContainerTokens(getSelectedTokens(config),
             ComponentState.SELECTED)
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
+        this.registerDecorationAreaTokensBundle(defaultSchemeBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 
         this.registerAsDecorationArea(this.defaultAreaActiveTokens,

@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorSchemeIcon;
+import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorTokensIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
@@ -181,7 +181,7 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
         return Command.builder()
                 .setAction(ribbonBand.getExpandCommandListener())
                 .setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip())
-                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
                         (g, tokens, alpha, width, height) -> {
                             BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                     RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),

@@ -103,7 +103,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		nebulaDefaultBundle.registerActiveContainerTokens(nebulaDeterminateContainerTokens,
 			ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
 
-		this.registerDecorationAreaSchemeBundle(nebulaDefaultBundle,
+		this.registerDecorationAreaTokensBundle(nebulaDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		ContainerColorTokens nebulaDecorationsColorTokens = ContainerColorTokensUtils.getContainerTokens(
@@ -120,7 +120,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 			nebulaRolloverHighlightContainerTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
-		this.registerDecorationAreaSchemeBundle(nebulaHeaderBundle,
+		this.registerDecorationAreaTokensBundle(nebulaHeaderBundle,
 			nebulaHeaderBundle.getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

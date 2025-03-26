@@ -159,7 +159,7 @@ public class TwilightSkin extends RadianceSkin {
                     /* contrastLevel */ -0.1)),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
             ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_UNSELECTED);
-        this.registerDecorationAreaSchemeBundle(twilightDefaultBundle,
+        this.registerDecorationAreaTokensBundle(twilightDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Toolbars, footers

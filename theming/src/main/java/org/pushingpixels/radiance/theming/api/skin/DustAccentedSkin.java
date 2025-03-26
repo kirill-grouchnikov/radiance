@@ -70,7 +70,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		dustDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		this.registerDecorationAreaSchemeBundle(dustDefaultBundle,
+		this.registerDecorationAreaTokensBundle(dustDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		ContainerColorTokensBundle dustHeaderBundle = new ContainerColorTokensBundle(
@@ -95,7 +95,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.SELECTED,
 			ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
-		this.registerDecorationAreaSchemeBundle(dustHeaderBundle,
+		this.registerDecorationAreaTokensBundle(dustHeaderBundle,
 			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF2B2A28),
 				/* containerConfiguration */ new ContainerConfiguration(
@@ -106,7 +106,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.HEADER,
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-		this.registerDecorationAreaSchemeBundle(dustHeaderBundle,
+		this.registerDecorationAreaTokensBundle(dustHeaderBundle,
 			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF3A3935),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),

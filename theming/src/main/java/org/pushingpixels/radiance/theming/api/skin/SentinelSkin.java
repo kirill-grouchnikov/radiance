@@ -88,7 +88,7 @@ public class SentinelSkin extends RadianceSkin {
             sentinelSelectedHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.SELECTED, ComponentState.ARMED);
-        this.registerDecorationAreaSchemeBundle(sentinelDefaultBundle,
+        this.registerDecorationAreaTokensBundle(sentinelDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Headers
@@ -142,7 +142,7 @@ public class SentinelSkin extends RadianceSkin {
                 )),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             ComponentState.getActiveStates());
-        this.registerDecorationAreaSchemeBundle(sentinelHeaderBundle,
+        this.registerDecorationAreaTokensBundle(sentinelHeaderBundle,
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF2A0C05),
                 /* true */ new ContainerConfiguration(
@@ -171,7 +171,7 @@ public class SentinelSkin extends RadianceSkin {
                     /* contrastLevel */ -0.7)),
             /* isSystemDark */ true);
 
-        this.registerDecorationAreaSchemeBundle(sentinelControlPaneBundle,
+        this.registerDecorationAreaTokensBundle(sentinelControlPaneBundle,
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF754133),
                 /* containerConfiguration */ new ContainerConfiguration(
@@ -197,7 +197,7 @@ public class SentinelSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 0.1)),
             /* isSystemDark */ true);
-        this.registerDecorationAreaSchemeBundle(sentinelBarsBundle,
+        this.registerDecorationAreaTokensBundle(sentinelBarsBundle,
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF53281A),
                 /* containerConfiguration */ new ContainerConfiguration(

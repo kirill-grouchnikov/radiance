@@ -220,7 +220,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             ComponentState.PRESSED_SELECTED);
 
-        this.registerDecorationAreaSchemeBundle(officeBlueDefaultBundle,
+        this.registerDecorationAreaTokensBundle(officeBlueDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         TokenPaletteColorResolver defaultPaletteColorResolver =

@@ -69,7 +69,7 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
     private BladeTransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate;
 
-    private BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;
+    private BladeTransitionAwareIcon.ColorTokensAssociationKindDelegate colorTokensAssociationKindDelegate;
 
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
@@ -94,7 +94,7 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
         this.transitionAwareUIDelegate = transitionAwareUIDelegate;
         this.delegate = new BladeTransitionAwareIcon.Delegate() {
             @Override
-            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+            public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(component);
                 BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(), orientation,
                     colorTokens, alpha);
@@ -109,7 +109,7 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
         this.iconWidth = iconDimension.width;
         this.iconHeight = iconDimension.height;
 
-        this.colorSchemeAssociationKindDelegate = state -> {
+        this.colorTokensAssociationKindDelegate = state -> {
             // Use HIGHLIGHT for rollover menus (arrow icons) and MARK for the rest
             return (component instanceof JMenu) && state.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
                 ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
@@ -131,12 +131,12 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
         BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,
-                BladeUtils.getDefaultColorSchemeDelegate(c,
-                        this.colorSchemeAssociationKindDelegate),
+                BladeUtils.getDefaultColorTokensDelegate(c,
+                        this.colorTokensAssociationKindDelegate),
                 false);
         float iconAlpha = currState.isDisabled()
             ? mutableContainerTokens.onContainerDisabledAlpha : 1.0f;
-        this.delegate.drawColorSchemeIcon(graphics, mutableContainerTokens, iconAlpha);
+        this.delegate.drawColorTokensIcon(graphics, mutableContainerTokens, iconAlpha);
         graphics.dispose();
     }
 

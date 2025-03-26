@@ -82,7 +82,7 @@ public class MarinerSkin extends RadianceSkin {
             marinerSelectedHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.SELECTED);
-        this.registerDecorationAreaSchemeBundle(marinerDefaultBundle,
+        this.registerDecorationAreaTokensBundle(marinerDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         ContainerColorTokensBundle marinerHeaderBundle = new ContainerColorTokensBundle(
@@ -119,7 +119,7 @@ public class MarinerSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 0.7)),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
-        this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
+        this.registerDecorationAreaTokensBundle(marinerHeaderBundle,
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF261D1E),
                 /* containerConfiguration */ new ContainerConfiguration(
@@ -145,7 +145,7 @@ public class MarinerSkin extends RadianceSkin {
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
 
-        this.registerDecorationAreaSchemeBundle(marinerFooterBundle,
+        this.registerDecorationAreaTokensBundle(marinerFooterBundle,
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFB9B7B9),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),

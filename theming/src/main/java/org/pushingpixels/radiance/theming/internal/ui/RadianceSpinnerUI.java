@@ -106,7 +106,7 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
         Icon icon = new BladeTransitionAwareIcon(this.nextButton, new BladeTransitionAwareIcon.Delegate() {
 
             @Override
-            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+            public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                 BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
                     RadianceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.NORTH,
                     colorTokens, alpha);
@@ -146,7 +146,7 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
         Icon icon = new BladeTransitionAwareIcon(this.prevButton, new BladeTransitionAwareIcon.Delegate() {
 
             @Override
-            public void drawColorSchemeIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
+            public void drawColorTokensIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha) {
                 BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
                     RadianceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.SOUTH,
                     colorTokens, alpha);

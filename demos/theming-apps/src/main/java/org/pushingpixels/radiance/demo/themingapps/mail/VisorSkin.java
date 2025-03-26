@@ -64,7 +64,7 @@ public class VisorSkin extends RadianceSkin {
                 /* seed */ Hct.fromInt(0xFFEFF8FF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
-        this.registerDecorationAreaSchemeBundle(visorDefaultBundle,
+        this.registerDecorationAreaTokensBundle(visorDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Custom palette resolver for the highlights in the threads decoration area
@@ -102,7 +102,7 @@ public class VisorSkin extends RadianceSkin {
                 /* colorResolver */ threadsHighlightsPaletteResolver),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.ROLLOVER_UNSELECTED);
-        this.registerDecorationAreaSchemeBundle(visorThreadsBundle, VisorMail.THREADS);
+        this.registerDecorationAreaTokensBundle(visorThreadsBundle, VisorMail.THREADS);
 
         // Custom palette resolver for the highlights in the threads decoration area
         // to set outline colors to be identical to surface colors (effectively removing the
@@ -143,7 +143,7 @@ public class VisorSkin extends RadianceSkin {
                 /* colorResolver */ destinationsHighlightsPaletteResolver),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.ROLLOVER_UNSELECTED);
-        this.registerDecorationAreaSchemeBundle(visorDestinationsBundle, VisorMail.DESTINATIONS);
+        this.registerDecorationAreaTokensBundle(visorDestinationsBundle, VisorMail.DESTINATIONS);
 
         // For the overall frame decoration border
         this.registerAsDecorationArea(ContainerColorTokensUtils.getContainerTokens(

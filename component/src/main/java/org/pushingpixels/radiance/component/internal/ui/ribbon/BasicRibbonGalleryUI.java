@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorSchemeIcon;
+import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorTokensIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel.StripOrientation;
 import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
@@ -134,7 +134,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     scrollOneRowUp();
                     ribbonGallery.revalidate();
                 })
-                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
                         (g, tokens, alpha, width, height) ->
                                 BladeArrowIconUtils.drawArrow(g, width, height,
                                         RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
@@ -146,7 +146,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     scrollOneRowDown();
                     ribbonGallery.revalidate();
                 })
-                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
                         (g, tokens, alpha, width, height) ->
                                 BladeArrowIconUtils.drawArrow(g, width, height,
                                         RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
@@ -157,7 +157,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         this.expandedGalleryContentModel = getExpandPopupMenuContentModel(ribbonGallery.getProjection());
         this.expandCommand = Command.builder()
                 .setSecondaryContentModel(this.expandedGalleryContentModel)
-                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
                         (g, tokens, alpha, width, height) ->
                                 BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                         RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),

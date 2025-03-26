@@ -133,7 +133,7 @@ public class CommandButtonBackgroundDelegate {
 
         BladeUtils.populateColorTokens(mutableContainerTokens,
             actionTransitionTracker.getModelStateInfo(), currActionState,
-            BladeUtils.getDefaultColorSchemeDelegate(commandButton, state -> RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT),
+            BladeUtils.getDefaultColorTokensDelegate(commandButton, state -> RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT),
             ignoreSelectedState);
 
         float actionAlpha;
@@ -183,7 +183,7 @@ public class CommandButtonBackgroundDelegate {
 
         BladeUtils.populateColorTokens(mutableContainerTokens,
             popupTransitionTracker.getModelStateInfo(), currPopupState,
-            BladeUtils.getDefaultColorSchemeDelegate(commandButton,
+            BladeUtils.getDefaultColorTokensDelegate(commandButton,
                 state -> RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT),
             false);
 

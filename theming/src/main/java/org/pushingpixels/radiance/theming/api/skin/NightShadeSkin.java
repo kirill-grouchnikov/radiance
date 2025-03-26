@@ -98,7 +98,7 @@ public class NightShadeSkin extends RadianceSkin {
             nightShadeSelectedHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.SELECTED);
-        this.registerDecorationAreaSchemeBundle(nightShadeDefaultBundle,
+        this.registerDecorationAreaTokensBundle(nightShadeDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Toolbars, footers, control panes

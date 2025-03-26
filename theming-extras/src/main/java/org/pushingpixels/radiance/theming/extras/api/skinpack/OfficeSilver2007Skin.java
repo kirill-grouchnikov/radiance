@@ -183,7 +183,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             ComponentState.PRESSED_SELECTED);
 
-        this.registerDecorationAreaSchemeBundle(officeSilverDefaultBundle,
+        this.registerDecorationAreaTokensBundle(officeSilverDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(

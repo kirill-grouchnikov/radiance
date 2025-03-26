@@ -144,11 +144,10 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
 
                             ContainerColorTokens colorTokens = getContainerTokensForState(
                                 list, index, listUI, activeState);
-                            Color schemeFg =
-                                colorTokens.getOnContainer();
-                            aggrRed += schemeFg.getRed() * activeContribution;
-                            aggrGreen += schemeFg.getGreen() * activeContribution;
-                            aggrBlue += schemeFg.getBlue() * activeContribution;
+                            Color foreground = colorTokens.getOnContainer();
+                            aggrRed += foreground.getRed() * activeContribution;
+                            aggrGreen += foreground.getGreen() * activeContribution;
+                            aggrBlue += foreground.getBlue() * activeContribution;
                         }
                         result.setForeground(new ColorUIResource(new Color(
                                 (int) aggrRed, (int) aggrGreen, (int) aggrBlue)));

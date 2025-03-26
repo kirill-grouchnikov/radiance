@@ -31,11 +31,11 @@ package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import com.jhlabs.image.*;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 
 import javax.swing.*;
@@ -66,17 +66,6 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
         // brushed metal filter
         BrushedMetalFilter brushedMetalFilter = new BrushedMetalFilter();
         brushedMetalFilter.setAmount(10);
-
-//        ContainerColorTokens brushedMetalTokens = ColorSchemeUtils.getBimodalContainerTokens(
-//            /* seedOne */ Hct.fromInt(0xFF6F2003),
-//            /* seedTwo */ Hct.fromInt(0xFFB05306),
-//            /* transitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
-//            /* fidelityTone */ 45.0,
-//            /* containerConfiguration */ new ContainerConfiguration(
-//                /* isDark */ true,
-//                /* contrastLevel */ 1.0,
-//                /* surfaceRangeAmplitudeFactor */ 2.0),
-//            /* colorResolver */ BimodalPaletteResolverUtils.getBimodalPaletteColorResolver());
 
         LookupFilter brushedMetalLookupFilter = new LookupFilter(new Gradient(
             new int[] { 0, 96, 128, 192, 255 },
