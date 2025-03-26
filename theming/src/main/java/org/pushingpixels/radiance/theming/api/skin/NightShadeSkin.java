@@ -31,13 +31,9 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
@@ -67,7 +63,7 @@ public class NightShadeSkin extends RadianceSkin {
     }
 
     public NightShadeSkin() {
-        RadianceColorSchemeBundle nightShadeDefaultBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle nightShadeDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF4E5562),
                 /* containerConfiguration */ new ContainerConfiguration(

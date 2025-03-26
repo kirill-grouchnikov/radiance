@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api.icon;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 
 /**
  * Icon pack interface for <b>Radiance</b> look and feel. This class is part of officially

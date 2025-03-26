@@ -33,7 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -88,7 +88,7 @@ public class BimodalControlStates extends JFrame {
             Hct mutedSeed = Hct.from(secondarySeed.getHue(), 12.0, secondarySeed.getTone());
             Hct neutralSeed = Hct.from(secondarySeed.getHue(), 4.0, secondarySeed.getTone());
 
-            RadianceColorSchemeBundle defaultBundle = new RadianceColorSchemeBundle(
+            ContainerColorTokensBundle defaultBundle = new ContainerColorTokensBundle(
                 /* activeContainerTokens */ ColorSchemeUtils.getBimodalContainerTokens(
                     /* seedOne */ Hct.from(hue1, primarySeed.getChroma(), primaryTone),
                     /* seedTwo */ Hct.from(hue2, primarySeed.getChroma(), primaryTone),

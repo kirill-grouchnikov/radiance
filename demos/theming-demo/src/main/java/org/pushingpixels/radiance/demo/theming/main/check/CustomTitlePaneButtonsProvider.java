@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.theming.main.check;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 

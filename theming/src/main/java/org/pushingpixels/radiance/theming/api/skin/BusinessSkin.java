@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 
@@ -78,7 +78,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                 /* seed */ Hct.fromInt(0xFFEBD296),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
-        RadianceColorSchemeBundle businessControlBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle businessControlBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEAEDF3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -92,8 +92,8 @@ public class BusinessSkin extends BusinessAccentedSkin {
         this.registerDecorationAreaSchemeBundle(businessControlBundle,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        RadianceColorSchemeBundle businessFooterBundle =
-            new RadianceColorSchemeBundle(this.getHeaderAreaActiveTokens(),
+        ContainerColorTokensBundle businessFooterBundle =
+            new ContainerColorTokensBundle(this.getHeaderAreaActiveTokens(),
                 this.getHeaderAreaMutedTokens(), this.getHeaderAreaNeutralTokens(),
                 this.isHeaderDark());
         this.registerDecorationAreaSchemeBundle(businessFooterBundle,

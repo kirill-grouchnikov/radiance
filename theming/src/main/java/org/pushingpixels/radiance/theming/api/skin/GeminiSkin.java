@@ -31,10 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
@@ -101,8 +98,8 @@ public class GeminiSkin extends RadianceSkin {
                         .build()
                 ));
 
-        RadianceColorSchemeBundle geminiDefaultBundle =
-            new RadianceColorSchemeBundle(geminiDefaultActiveTokens, geminiDefaultMutedTokens,
+        ContainerColorTokensBundle geminiDefaultBundle =
+            new ContainerColorTokensBundle(geminiDefaultActiveTokens, geminiDefaultMutedTokens,
                 geminiDefaultNeutralTokens, false);
         // Highlight tokens for controls in selected states
         geminiDefaultBundle.registerActiveContainerTokens(geminiHighlightContainerTokens,
@@ -129,7 +126,7 @@ public class GeminiSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         // Toolbars
-        RadianceColorSchemeBundle geminiToolbarBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle geminiToolbarBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -148,7 +145,7 @@ public class GeminiSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // Headers
-        RadianceColorSchemeBundle geminiHeaderBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle geminiHeaderBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFFDC02),
                 /* containerConfiguration */ new ContainerConfiguration(

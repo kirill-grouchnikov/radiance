@@ -32,10 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
@@ -57,7 +54,7 @@ public class MarinerSkin extends RadianceSkin {
     public static final String NAME = "Mariner";
 
     public MarinerSkin() {
-        RadianceColorSchemeBundle marinerDefaultBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle marinerDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF6DD9D),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -88,7 +85,7 @@ public class MarinerSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(marinerDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
-        RadianceColorSchemeBundle marinerHeaderBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle marinerHeaderBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF5D47A),
                 /* containerConfiguration */ new ContainerConfiguration(
@@ -136,7 +133,7 @@ public class MarinerSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        RadianceColorSchemeBundle marinerFooterBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle marinerFooterBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF6DD9D),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),

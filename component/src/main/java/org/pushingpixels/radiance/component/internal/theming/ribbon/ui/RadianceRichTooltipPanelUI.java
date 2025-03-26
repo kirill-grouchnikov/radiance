@@ -32,10 +32,10 @@ package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicRichTooltipPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.JRichTooltipPanel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 
 import javax.swing.*;

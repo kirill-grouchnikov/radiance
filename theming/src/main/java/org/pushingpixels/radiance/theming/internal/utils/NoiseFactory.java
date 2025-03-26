@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

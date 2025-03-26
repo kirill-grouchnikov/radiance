@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.TonalPaletteSeeds;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 

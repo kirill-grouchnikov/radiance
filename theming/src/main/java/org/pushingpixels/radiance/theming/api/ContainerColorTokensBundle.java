@@ -32,21 +32,20 @@ package org.pushingpixels.radiance.theming.api;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.SystemColorTokenUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Color scheme bundle. Defines the visual appearance of a single decoration area of a skin.
+ * Color tokens bundle. Defines the visual appearance of a single decoration area of a skin.
  *
  * @author Kirill Grouchnikov
  * @see RadianceThemingSlices.DecorationAreaType
  * @see RadianceThemingSlices.ContainerColorTokensAssociationKind
  * @see RadianceSkin
  */
-public class RadianceColorSchemeBundle {
+public class ContainerColorTokensBundle {
     private ContainerColorTokens activeContainerTokens;
     private ContainerColorTokens mutedContainerTokens;
     private ContainerColorTokens neutralContainerTokens;
@@ -93,7 +92,7 @@ public class RadianceColorSchemeBundle {
      * @param isSystemDark
      *            <code>true</code> if the system tokens should be created in dark mode.
      */
-    public RadianceColorSchemeBundle(ContainerColorTokens activeContainerTokens,
+    public ContainerColorTokensBundle(ContainerColorTokens activeContainerTokens,
         ContainerColorTokens mutedContainerTokens, ContainerColorTokens neutralContainerTokens,
         boolean isSystemDark) {
         if ((activeContainerTokens == null) || (mutedContainerTokens == null)

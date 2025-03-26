@@ -31,10 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
@@ -63,7 +60,7 @@ public class MagellanSkin extends RadianceSkin {
     }
 
     public MagellanSkin() {
-        RadianceColorSchemeBundle magellanDefaultBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle magellanDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF0070DF),
                 /* containerConfiguration */ new ContainerConfiguration(
@@ -175,7 +172,7 @@ public class MagellanSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        RadianceColorSchemeBundle magellanFooterBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle magellanFooterBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF006FDB),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),

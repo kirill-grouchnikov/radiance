@@ -31,12 +31,8 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
@@ -52,7 +48,7 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
  * @author Kirill Grouchnikov
  */
 public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
-	protected RadianceColorSchemeBundle graphiteDefaultBundle;
+	protected ContainerColorTokensBundle graphiteDefaultBundle;
 
 	/**
 	 * Creates a new accented <code>Graphite</code> skin.
@@ -60,7 +56,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 	protected GraphiteAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		this.graphiteDefaultBundle = new RadianceColorSchemeBundle(
+		this.graphiteDefaultBundle = new ContainerColorTokensBundle(
 			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF636363),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark(),

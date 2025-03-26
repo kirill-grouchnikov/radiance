@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.demo.component.ktx.svg.radiance_menu
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import java.awt.Component
 import java.awt.Dimension
 import java.awt.image.BufferedImage

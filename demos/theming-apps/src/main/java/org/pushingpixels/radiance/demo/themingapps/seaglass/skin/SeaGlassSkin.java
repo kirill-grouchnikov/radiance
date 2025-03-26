@@ -32,11 +32,11 @@ package org.pushingpixels.radiance.demo.themingapps.seaglass.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
@@ -58,7 +58,7 @@ public class SeaGlassSkin extends RadianceSkin {
 	}
 
 	public SeaGlassSkin() {
-		RadianceColorSchemeBundle seaGlassDefaultBundle = new RadianceColorSchemeBundle(
+		ContainerColorTokensBundle seaGlassDefaultBundle = new ContainerColorTokensBundle(
 			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF6FA5E0),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),

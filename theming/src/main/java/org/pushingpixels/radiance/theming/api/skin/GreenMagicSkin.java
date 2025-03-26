@@ -32,12 +32,8 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
@@ -66,7 +62,7 @@ public class GreenMagicSkin extends RadianceSkin {
     }
 
     public GreenMagicSkin() {
-        RadianceColorSchemeBundle greenMagicDefaultBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle greenMagicDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF00C5A9),
                 /* containerConfiguration */ new ContainerConfiguration(

@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 
 import javax.swing.*;
 import java.util.*;
@@ -82,7 +81,7 @@ import java.util.*;
  * <li>When the skin is queried for the color tokens that matches the specific
  * component state - let's say {@link ComponentState#PRESSED_SELECTED} - the
  * skinning layer first looks for the exact state (as passed to
- * {@link RadianceColorSchemeBundle#registerActiveContainerTokens(ContainerColorTokens, ComponentState...)}
+ * {@link ContainerColorTokensBundle#registerActiveContainerTokens(ContainerColorTokens, ComponentState...)}
  * or similar APIs). If the exact match is found, it is used. If there is no
  * exact match, the skinning layer will look at all color tokens registered for
  * the specific color scheme association kind in the matching color scheme
@@ -129,7 +128,7 @@ import java.util.*;
  * component states that account for all the relevant on and off facets -
  * including the core facets defined in the {@link RadianceThemingSlices.ComponentStateFacet} class.
  * When this (perhaps elaborate) state is passed to
- * {@link RadianceColorSchemeBundle#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
+ * {@link ContainerColorTokensBundle#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
  * API, the procedure described above will match the this state to one of
  * the "base" states defined in your skin, and use the matching color tokens.</li>
  * </ul>
@@ -145,7 +144,7 @@ import java.util.*;
  * <p>
  * When the matching algorithm cannot find a sufficiently close match, the
  * skinning layer will fall back on one of the three base color tokens passed
- * to the {@link RadianceColorSchemeBundle} constructor.
+ * to the {@link ContainerColorTokensBundle} constructor.
  * States with {@link RadianceThemingSlices.ComponentStateFacet#ENABLE} in their off list
  * will fall back to the matching enabled color tokens. The
  * {@link ComponentState#ENABLED} will fall back to the enabled color tokens.
@@ -402,7 +401,7 @@ public final class ComponentState {
      * @param name         Component state name. Does not have to be unique. The name is
      *                     only used in the {@link #toString()}.
      * @param hardFallback The fallback state that will be used in
-     *                     {@link RadianceColorSchemeBundle#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
+     *                     {@link ContainerColorTokensBundle#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
      *                     in case {@link #bestFit(Collection)} returns <code>null</code>
      * @param facetsOn     Indicates that are turned on for this state. For example,
      *                     {@link #ROLLOVER_SELECTED} should pass both

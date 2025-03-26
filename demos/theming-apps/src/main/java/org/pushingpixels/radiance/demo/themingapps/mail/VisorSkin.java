@@ -32,10 +32,7 @@ package org.pushingpixels.radiance.demo.themingapps.mail;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
@@ -56,7 +53,7 @@ public class VisorSkin extends RadianceSkin {
     }
 
     public VisorSkin() {
-        RadianceColorSchemeBundle visorDefaultBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle visorDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF99B6CB),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -80,7 +77,7 @@ public class VisorSkin extends RadianceSkin {
                     .containerOutlineVariant(TokenPalette::getContainerSurfaceHigh)
                     .build()
             );
-        RadianceColorSchemeBundle visorThreadsBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle visorThreadsBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9CBDD3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -117,7 +114,7 @@ public class VisorSkin extends RadianceSkin {
                     .containerOutlineVariant(TokenPalette::getContainerOutlineVariant)
                     .build()
             );
-        RadianceColorSchemeBundle visorDestinationsBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle visorDestinationsBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF9CBDD3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),

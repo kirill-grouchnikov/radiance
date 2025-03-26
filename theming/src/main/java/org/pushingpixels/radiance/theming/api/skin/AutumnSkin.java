@@ -32,10 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
@@ -117,8 +114,8 @@ public class AutumnSkin extends RadianceSkin {
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ neutralResolver);
 
-		RadianceColorSchemeBundle autumnDefaultBundle =
-			new RadianceColorSchemeBundle(autumnDefaultActiveTokens, autumnDefaultMutedTokens,
+		ContainerColorTokensBundle autumnDefaultBundle =
+			new ContainerColorTokensBundle(autumnDefaultActiveTokens, autumnDefaultMutedTokens,
 				autumnDefaultNeutralTokens, false);
 
 		// Custom visuals for controls in selected state:
@@ -169,8 +166,8 @@ public class AutumnSkin extends RadianceSkin {
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ neutralResolver);
 
-		RadianceColorSchemeBundle autumnControlPaneBundle =
-			new RadianceColorSchemeBundle(autumnControlPaneActiveTokens, autumnControlPaneMutedTokens,
+		ContainerColorTokensBundle autumnControlPaneBundle =
+			new ContainerColorTokensBundle(autumnControlPaneActiveTokens, autumnControlPaneMutedTokens,
 				autumnControlPaneNeutralTokens, false);
 		autumnControlPaneBundle.registerActiveContainerTokens(
 			ColorSchemeUtils.getContainerTokens(

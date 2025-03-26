@@ -31,12 +31,8 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
@@ -65,7 +61,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 	protected NebulaAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle nebulaDefaultBundle = new RadianceColorSchemeBundle(
+		ContainerColorTokensBundle nebulaDefaultBundle = new ContainerColorTokensBundle(
 			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFBAD2E3),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -117,7 +113,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-		RadianceColorSchemeBundle nebulaHeaderBundle = new RadianceColorSchemeBundle(
+		ContainerColorTokensBundle nebulaHeaderBundle = new ContainerColorTokensBundle(
 			this.getHeaderAreaActiveTokens(), this.getHeaderAreaMutedTokens(),
 			this.getHeaderAreaNeutralTokens(), false);
 		nebulaHeaderBundle.registerActiveContainerTokens(

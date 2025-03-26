@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.theming.api.icon;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.svg.*;
 
 /**

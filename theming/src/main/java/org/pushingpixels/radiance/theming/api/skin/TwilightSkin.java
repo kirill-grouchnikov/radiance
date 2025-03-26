@@ -32,10 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
@@ -134,8 +131,8 @@ public class TwilightSkin extends RadianceSkin {
                 /* containerConfiguration */ ContainerConfiguration.defaultLight(),
                 /* colorResolver */ twilightPaletteContainerColorResolver);
 
-        RadianceColorSchemeBundle twilightDefaultBundle =
-            new RadianceColorSchemeBundle(twilightDefaultActiveTokens, twilightDefaultMutedTokens,
+        ContainerColorTokensBundle twilightDefaultBundle =
+            new ContainerColorTokensBundle(twilightDefaultActiveTokens, twilightDefaultMutedTokens,
                 twilightDefaultNeutralTokens, true);
         // More saturated seed for controls in selected state
         twilightDefaultBundle.registerActiveContainerTokens(twilightSelectedContainerTokens,

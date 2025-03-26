@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.internal.widget.scroll;
 
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 

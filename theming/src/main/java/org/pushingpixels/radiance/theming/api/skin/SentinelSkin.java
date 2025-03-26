@@ -31,12 +31,8 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
@@ -64,7 +60,7 @@ public class SentinelSkin extends RadianceSkin {
     }
 
     public SentinelSkin() {
-        RadianceColorSchemeBundle sentinelDefaultBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle sentinelDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -96,7 +92,7 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Headers
-        RadianceColorSchemeBundle sentinelHeaderBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle sentinelHeaderBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ new ContainerConfiguration(
@@ -157,7 +153,7 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         // Control panes
-        RadianceColorSchemeBundle sentinelControlPaneBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle sentinelControlPaneBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ new ContainerConfiguration(
@@ -184,7 +180,7 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         // Toolbars and footers
-        RadianceColorSchemeBundle sentinelBarsBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle sentinelBarsBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFEB79E),
                 /* containerConfiguration */ new ContainerConfiguration(

@@ -31,11 +31,11 @@ package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration
 import org.pushingpixels.ephemeral.chroma.hct.Hct
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
@@ -93,8 +93,10 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
 
         this.highlightSurfacePainter = ClassicSurfacePainter()
 
-        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaActiveTokens,
-            this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, true)
+        val defaultSchemeBundle = ContainerColorTokensBundle(
+            this.defaultAreaActiveTokens,
+            this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, true
+        )
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
             RadianceThemingSlices.DecorationAreaType.NONE)
 

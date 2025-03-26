@@ -31,12 +31,8 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
@@ -62,7 +58,7 @@ public class CeruleanSkin extends RadianceSkin {
 	}
 
 	public CeruleanSkin() {
-		RadianceColorSchemeBundle ceruleanDefaultBundle = new RadianceColorSchemeBundle(
+		ContainerColorTokensBundle ceruleanDefaultBundle = new ContainerColorTokensBundle(
 			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD2E0ED),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -118,7 +114,7 @@ public class CeruleanSkin extends RadianceSkin {
 		this.registerDecorationAreaSchemeBundle(ceruleanDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorSchemeBundle ceruleanHeaderBundle = new RadianceColorSchemeBundle(
+		ContainerColorTokensBundle ceruleanHeaderBundle = new ContainerColorTokensBundle(
 			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC0DBEE),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),

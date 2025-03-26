@@ -31,12 +31,12 @@ package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
@@ -55,7 +55,7 @@ public class CookbookSkin extends RadianceSkin {
     }
 
     public CookbookSkin() {
-        RadianceColorSchemeBundle cookbookDefaultBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle cookbookDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFC8A26E),
                 /* containerConfiguration */ new ContainerConfiguration(
@@ -75,7 +75,7 @@ public class CookbookSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(cookbookDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
-        RadianceColorSchemeBundle cookbookControlPaneBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle cookbookControlPaneBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF974F11),
                 /* containerConfiguration */ new ContainerConfiguration(
@@ -95,7 +95,7 @@ public class CookbookSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(cookbookControlPaneBundle,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        RadianceColorSchemeBundle cookbookChromeBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle cookbookChromeBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF581000),
                 /* containerConfiguration */ new ContainerConfiguration(

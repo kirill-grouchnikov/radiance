@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 
@@ -79,7 +79,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				/* seed */ Hct.fromInt(0xFF85A3B5),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
-		RadianceColorSchemeBundle businessBlackSteelControlBundle = new RadianceColorSchemeBundle(
+		ContainerColorTokensBundle businessBlackSteelControlBundle = new ContainerColorTokensBundle(
 			/* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFAFBEC7),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),

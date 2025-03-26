@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 
 import javax.swing.*;

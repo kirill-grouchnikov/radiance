@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -82,7 +82,7 @@ public class Step4ComponentStatesDemo extends JFrame {
             BaseTonalPalette mutedPalette = TonalPalette.fromHct(Hct.from(300.0, 18.0, 40.0));
             BaseTonalPalette neutralPalette = TonalPalette.fromHct(Hct.from(300.0, 8.0, 40.0));
 
-            RadianceColorSchemeBundle defaultBundle = new RadianceColorSchemeBundle(
+            ContainerColorTokensBundle defaultBundle = new ContainerColorTokensBundle(
                 /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                     /* seed */ activePalette.getHct(80.0),
                     /* containerConfiguration */ ContainerConfiguration.defaultLight()),

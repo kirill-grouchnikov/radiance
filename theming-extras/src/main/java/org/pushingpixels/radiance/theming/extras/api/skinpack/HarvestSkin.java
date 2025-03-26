@@ -31,11 +31,11 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
+import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
@@ -62,7 +62,7 @@ public class HarvestSkin extends RadianceSkin {
     }
 
     public HarvestSkin() {
-        RadianceColorSchemeBundle harvestDefaultBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle harvestDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFFAEEAD),
                 /* containerConfiguration */ new ContainerConfiguration(
@@ -101,7 +101,7 @@ public class HarvestSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(harvestDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
-        RadianceColorSchemeBundle harvestHeaderBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle harvestHeaderBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF12B37),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),

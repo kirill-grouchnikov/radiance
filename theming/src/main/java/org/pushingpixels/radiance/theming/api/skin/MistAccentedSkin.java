@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
@@ -55,7 +55,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 	protected MistAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle mistDefaultBundle = new RadianceColorSchemeBundle(
+		ContainerColorTokensBundle mistDefaultBundle = new ContainerColorTokensBundle(
 			this.getDefaultAreaActiveTokens(), this.getDefaultAreaMutedTokens(),
 			this.getDefaultAreaNeutralTokens(), false);
 		mistDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),

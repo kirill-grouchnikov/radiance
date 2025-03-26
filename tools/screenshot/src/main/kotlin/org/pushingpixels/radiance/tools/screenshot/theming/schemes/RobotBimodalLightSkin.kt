@@ -34,11 +34,11 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette
 import org.pushingpixels.ephemeral.chroma.hct.Hct
 import org.pushingpixels.ephemeral.chroma.utils.MathUtils
 import org.pushingpixels.radiance.theming.api.ComponentState
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
@@ -79,8 +79,10 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
 
         this.highlightSurfacePainter = ClassicSurfacePainter()
 
-        val defaultSchemeBundle = RadianceColorSchemeBundle(this.defaultAreaActiveTokens,
-            this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, false)
+        val defaultSchemeBundle = ContainerColorTokensBundle(
+            this.defaultAreaActiveTokens,
+            this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, false
+        )
         defaultSchemeBundle.registerActiveContainerTokens(getSelectedTokens(config),
             ComponentState.SELECTED)
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,

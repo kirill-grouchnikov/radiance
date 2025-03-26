@@ -29,11 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
@@ -55,8 +51,8 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 	protected BusinessAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
 
-		RadianceColorSchemeBundle businessDefaultBundle =
-			new RadianceColorSchemeBundle(this.getDefaultAreaActiveTokens(),
+		ContainerColorTokensBundle businessDefaultBundle =
+			new ContainerColorTokensBundle(this.getDefaultAreaActiveTokens(),
 				this.getDefaultAreaMutedTokens(), this.getDefaultAreaNeutralTokens(), false);
 		businessDefaultBundle.registerActiveContainerTokens(this.getDefaultAreaHighlightTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
@@ -68,8 +64,8 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 		this.registerDecorationAreaSchemeBundle(businessDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-		RadianceColorSchemeBundle businessDefaultHeaderBundle =
-			new RadianceColorSchemeBundle(this.getHeaderAreaActiveTokens(),
+		ContainerColorTokensBundle businessDefaultHeaderBundle =
+			new ContainerColorTokensBundle(this.getHeaderAreaActiveTokens(),
 				this.getHeaderAreaMutedTokens(), this.getHeaderAreaNeutralTokens(),
 				this.isHeaderDark());
 		if (this.getHeaderAreaHighlightTokens() != null) {

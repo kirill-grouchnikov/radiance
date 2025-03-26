@@ -34,6 +34,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.plaf.UIResource;

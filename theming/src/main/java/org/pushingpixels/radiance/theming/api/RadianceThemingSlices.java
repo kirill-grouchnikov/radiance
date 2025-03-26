@@ -818,7 +818,7 @@ public final class RadianceThemingSlices {
 
     /**
      * Enumeration of available container types. Each entry corresponds to the matching container
-     * color tokens passed to {@link RadianceColorSchemeBundle}.
+     * color tokens passed to {@link ContainerColorTokensBundle}.
      */
     public enum ContainerType {
         NEUTRAL,
@@ -829,8 +829,8 @@ public final class RadianceThemingSlices {
     /**
      * Enumeration of available system container types.
      * 
-     * @see RadianceColorSchemeBundle#getSystemContainerTokens(SystemContainerType)
-     * @see RadianceColorSchemeBundle#getInverseSystemContainerTokens(SystemContainerType) 
+     * @see ContainerColorTokensBundle#getSystemContainerTokens(SystemContainerType)
+     * @see ContainerColorTokensBundle#getInverseSystemContainerTokens(SystemContainerType)
      */
     public enum SystemContainerType {
         INFO,

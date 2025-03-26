@@ -31,12 +31,8 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
@@ -63,7 +59,7 @@ public class ModerateSkin extends RadianceSkin {
     }
 
     public ModerateSkin() {
-        RadianceColorSchemeBundle steelBlueDefaultBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle steelBlueDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF6CA9CE),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -86,7 +82,7 @@ public class ModerateSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(steelBlueDefaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE);
 
-        RadianceColorSchemeBundle steelBlueHeaderBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle steelBlueHeaderBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF6D9BBA),
                 /* containerConfiguration */ new ContainerConfiguration(

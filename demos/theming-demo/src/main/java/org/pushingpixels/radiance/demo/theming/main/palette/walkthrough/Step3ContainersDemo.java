@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.palette.ContainerPalettePreview;
 import org.pushingpixels.radiance.demo.theming.main.palette.ContainerPreview;
 import org.pushingpixels.radiance.demo.theming.main.palette.TonalPalettePreview;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
@@ -66,7 +66,7 @@ public class Step3ContainersDemo extends JFrame {
         BaseTonalPalette mutedPalette = TonalPalette.fromHct(Hct.from(300.0, 18.0, 40.0));
         BaseTonalPalette neutralPalette = TonalPalette.fromHct(Hct.from(300.0, 8.0, 40.0));
 
-        RadianceColorSchemeBundle lightBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle lightBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ activePalette.getHct(80.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -78,7 +78,7 @@ public class Step3ContainersDemo extends JFrame {
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
 
-        RadianceColorSchemeBundle darkBundle = new RadianceColorSchemeBundle(
+        ContainerColorTokensBundle darkBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
                 /* seed */ activePalette.getHct(20.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),

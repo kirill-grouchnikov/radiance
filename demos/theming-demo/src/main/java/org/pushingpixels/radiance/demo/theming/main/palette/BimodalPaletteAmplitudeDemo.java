@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 

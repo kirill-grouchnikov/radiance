@@ -41,9 +41,9 @@ import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 

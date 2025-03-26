@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.blade;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 
 import java.awt.*;
 

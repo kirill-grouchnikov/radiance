@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolver;
 import org.pushingpixels.radiance.theming.api.colorscheme.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
@@ -199,7 +198,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Maps decoration area type to the color scheme bundles. Must contain an
      * entry for {@link RadianceThemingSlices.DecorationAreaType#NONE}.
      */
-    private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle> tonalColorSchemeMap;
+    private Map<RadianceThemingSlices.DecorationAreaType, ContainerColorTokensBundle> tonalColorSchemeMap;
 
     /**
      * Maps decoration area type to the background color tokens.
@@ -446,7 +445,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      */
     public void registerDecorationAreaSchemeBundle(
-        RadianceColorSchemeBundle bundle,
+        ContainerColorTokensBundle bundle,
         ContainerColorTokens backgroundTokens,
         RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (bundle == null) {
@@ -473,7 +472,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param areaTypes Enumerates the area types that are affected by the parameters.
      */
     public void registerDecorationAreaSchemeBundle(
-        RadianceColorSchemeBundle bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        ContainerColorTokensBundle bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
         this.registerDecorationAreaSchemeBundle(bundle,
             bundle.getNeutralContainerTokens(),
             areaTypes);
