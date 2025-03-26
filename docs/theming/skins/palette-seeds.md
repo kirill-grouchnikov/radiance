@@ -4,7 +4,7 @@ The `TonalPaletteSeeds` class in `theming.api.colorscheme` package replaces the 
 
 ### Light seeds
 
-It is up to the application code to decide how to generate a full color scheme bundle from one of the light seeds. Active container color tokens can be generated directly from the seed using `ColorSchemeUtils.getContainerTokens(Hct.fromInt(TonalPaletteSeeds.XYZ), ContainerConfiguration.defaultLight())`. Muted and neutral container color tokens can be generated from the same seed but lower chroma, or from app-specific neutral / greyscale seeds.
+It is up to the application code to decide how to generate a full color scheme bundle from one of the light seeds. Active container color tokens can be generated directly from the seed using `ContainerColorTokensUtils.getContainerTokens(Hct.fromInt(TonalPaletteSeeds.XYZ), ContainerConfiguration.defaultLight())`. Muted and neutral container color tokens can be generated from the same seed but lower chroma, or from app-specific neutral / greyscale seeds.
 
 The following screenshots show sample skins created from each one of the 15 light seeds, where the muted and neutral container color tokens were generated from hardcoded neutral seeds:
 
@@ -57,7 +57,7 @@ Terracotta
 
 ### Dark seeds
 
-It is up to the application code to decide how to generate a full color scheme bundle from one of the dark seeds. Active container color tokens can be generated directly from the seed using `ColorSchemeUtils.getContainerTokens(Hct.fromInt(TonalPaletteSeeds.XYZ), ContainerConfiguration.defaultDark())`. Muted and neutral container color tokens can be generated from the same seed but lower chroma, or from app-specific neutral / greyscale seeds.
+It is up to the application code to decide how to generate a full color scheme bundle from one of the dark seeds. Active container color tokens can be generated directly from the seed using `ContainerColorTokensUtils.getContainerTokens(Hct.fromInt(TonalPaletteSeeds.XYZ), ContainerConfiguration.defaultDark())`. Muted and neutral container color tokens can be generated from the same seed but lower chroma, or from app-specific neutral / greyscale seeds.
 
 The following screenshots show sample skins created from each one of the 5 light seeds, where the muted and neutral container color tokens were generated from hardcoded neutral seeds:
 

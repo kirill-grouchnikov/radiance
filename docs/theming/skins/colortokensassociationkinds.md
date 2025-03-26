@@ -15,7 +15,7 @@ Let's go back to the `JCheckBox` icon example above. How do we use the color sch
 
 As detailed in the [skin documentation](overview.md), each skin has a number of [color scheme bundles](colorschemebundles.md). This means that two checkboxes with the same model state (`selected` in our case) can have different visuals, depending on the [decoration areas](../painters/decoration.md) they reside in. In the definition of the specific color scheme bundle, you can specify different [color tokens](colortokens.md) for different component states. This means that a selected checkbox can use colors different from those of a rollover selected checkbox.
 
-In our case, we want to specify different color schemes for different visual areas of **selected** checkboxes in the default decoration area. The relevant method in the `RadianceColorSchemeBundle` is:
+In our case, we want to specify different color schemes for different visual areas of **selected** checkboxes in the default decoration area. The relevant method in the `ContainerColorTokensBundle` is:
 
 ```java
   /**
@@ -62,7 +62,7 @@ RadianceColorScheme activeScheme = ...;
 RadianceColorScheme defaultScheme = ...;
 RadianceColorScheme disabledScheme = ...;
 
-RadianceColorSchemeBundle defaultBundle = new RadianceColorSchemeBundle(
+ContainerColorTokensBundle defaultBundle = new ContainerColorTokensBundle(
     activeScheme, defaultScheme, disabledScheme);
 
 RadianceColorScheme selectedBorderScheme = ...;
@@ -74,7 +74,7 @@ defaultBundle.registerColorScheme(selectedMarkScheme,
     ColorSchemeAssociationKind.MARK, ComponentState.SELECTED);
 ```
 
-Note that there is no explicit usage of the `ColorSchemeAssociationKind.FILL` value. This illustrates the **fallback** mechanism. In this particular case, the second parameter to the `RadianceColorSchemeBundle` constructor is used as the fallback color scheme for inner fills under all component states. The fallback mechanism also extends to the other color scheme association kinds.
+Note that there is no explicit usage of the `ColorSchemeAssociationKind.FILL` value. This illustrates the **fallback** mechanism. In this particular case, the second parameter to the `ContainerColorTokensBundle` constructor is used as the fallback color scheme for inner fills under all component states. The fallback mechanism also extends to the other color scheme association kinds.
 
 Here is the constructor signature of the `ColorSchemeAssociationKind`:
 
@@ -101,7 +101,7 @@ Here is the constructor signature of the `ColorSchemeAssociationKind`:
 
 The second parameter specifies what should happen when the color scheme bundle definition does not have an explicitly registered color scheme for the specific color scheme association kind under the specific component state.
 
-For example, the `ColorSchemeAssociationKind.MARK` has the `ColorSchemeAssociationKind.BORDER` as its fallback. This means that if you want to use the same color scheme for painting both borders and marks, you need to only call the `RadianceColorSchemeBundle.registerColorScheme` API with the `ColorSchemeAssociationKind.BORDER` value.
+For example, the `ColorSchemeAssociationKind.MARK` has the `ColorSchemeAssociationKind.BORDER` as its fallback. This means that if you want to use the same color scheme for painting both borders and marks, you need to only call the `ContainerColorTokensBundle.registerColorScheme` API with the `ColorSchemeAssociationKind.BORDER` value.
 
 The registered associations are used by the Radiance UI delegates during the component painting. Specifically for the checkbox, the UI delegate queries the three relevant association kinds (`ColorSchemeAssociationKind.FIL`L, `ColorSchemeAssociationKind.BORDER` and `ColorSchemeAssociationKind.MARK`) and uses the relevant painters ([surface](../painters/surface.md) and [outline](../painters/outline.md)) to paint the matching visual areas.
 

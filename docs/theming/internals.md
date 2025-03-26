@@ -41,7 +41,7 @@ As a high-level view, the following Radiance classes (and dependencies) address 
 * `RadianceSizeUtils` has a bunch of methods to compute the different metrics based on the component font size. It makes sure that all the component visuals (paddings, gaps, margins, insets, ...) scale and result in consistent physical appearance on various hardware.
 * [Common](../common/common.md) has font policy implementations for Windows, Gnome, KDE and Mac desktops.
 * [Animation](../animation/animation.md) is the animation engine that powers all built-in animations.
-* `RadianceSkin` and `RadianceColorSchemeBundle` are the main classes in the skinning layer.
+* `RadianceSkin` and `ContainerColorTokensBundle` are the main classes in the skinning layer.
 
 Each Radiance UI delegate uses these four classes at different contact points:
 

@@ -106,23 +106,23 @@ Here is an example of specifying the default color scheme bundle for the [Marine
 
 ```java
 RadianceColorSchemeBundle marinerDefaultBundle = new RadianceColorSchemeBundle(
-    /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+    /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFF6DD9D),
         /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-    /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+    /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFD9D8D5),
         /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-    /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+    /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFECF0F3),
         /* containerConfiguration */ ContainerConfiguration.defaultLight()),
     /* isSystemDark */ false);
 
 
-ContainerColorTokens marinerSelectedContainerTokens = ColorSchemeUtils.getContainerTokens(
+ContainerColorTokens marinerSelectedContainerTokens = ContainerColorTokensUtils.getContainerTokens(
     /* seed */ Hct.fromInt(0xFFF5D47A),
     /* containerConfiguration */ ContainerConfiguration.defaultLight());
 ContainerColorTokens marinerSelectedHighlightContainerTokens =
-    ColorSchemeUtils.getContainerTokens(
+    ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFF7D997),
         /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
@@ -141,17 +141,17 @@ and a custom color scheme bundle for the `header`-type decoration areas:
 
 ```java
 RadianceColorSchemeBundle marinerHeaderBundle = new RadianceColorSchemeBundle(
-    /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+    /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFF5D47A),
         /* containerConfiguration */ new ContainerConfiguration(
             /* isDark */ true,
             /* contrastLevel */ 0.8)),
-    /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+    /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFF281D1E),
         /* containerConfiguration */ new ContainerConfiguration(
             /* isDark */ true,
             /* contrastLevel */ 0.8)),
-    /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+    /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFF2C2021),
         /* containerConfiguration */ new ContainerConfiguration(
             /* isDark */ true,
@@ -161,7 +161,7 @@ RadianceColorSchemeBundle marinerHeaderBundle = new RadianceColorSchemeBundle(
 ...
 
 this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
-    ColorSchemeUtils.getContainerTokens(
+    ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFF261D1E),
         /* containerConfiguration */ new ContainerConfiguration(
             /* isDark */ true,

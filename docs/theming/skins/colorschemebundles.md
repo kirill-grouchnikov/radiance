@@ -1,6 +1,6 @@
 ## Radiance look and feel - color scheme bundles
 
-A **color scheme bundle** is a set of information that allows painting controls in a specific decoration area. The `RadianceColorSchemeBundle` contains all the APIs officially supported by Radiance color scheme bundles.
+A **color scheme bundle** is a set of information that allows painting controls in a specific decoration area. The `ContainerColorTokensBundle` contains all the APIs officially supported by Radiance color scheme bundles.
 
 ### Basics
 
@@ -19,7 +19,7 @@ The `ComponentState` is the base class for core and custom [component states](co
  * @param isSystemDark
  *            <code>true</code> if the system tokens should be created in dark mode.
  */
-public RadianceColorSchemeBundle(ContainerColorTokens activeContainerTokens,
+public ContainerColorTokensBundle(ContainerColorTokens activeContainerTokens,
     ContainerColorTokens mutedContainerTokens, ContainerColorTokens neutralContainerTokens,
     boolean isSystemDark)
 ```
@@ -31,14 +31,14 @@ Here is a screenshot of three buttons (active, enabled and disabled) under the c
 Here is the relevant code snippet from the definition of this skin:
 
 ```java
-RadianceColorSchemeBundle marinerDefaultBundle = new RadianceColorSchemeBundle(
-    /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+ContainerColorTokensBundle marinerDefaultBundle = new ContainerColorTokensBundle(
+    /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFF6DD9D),
         /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-    /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+    /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFD9D8D5),
         /* containerConfiguration */ ContainerConfiguration.defaultLight()),
-    /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+    /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFECF0F3),
         /* containerConfiguration */ ContainerConfiguration.defaultLight()),
     /* isSystemDark */ false);
