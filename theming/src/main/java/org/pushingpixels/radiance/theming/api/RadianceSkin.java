@@ -371,7 +371,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
 
         // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
+        // are decoration-specific tokens bundles.
         if (this.tonalColorTokensMap.size() > 1) {
             RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
                 RadianceThemingSlices.DecorationAreaType.NONE :
@@ -392,7 +392,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             .get(RadianceThemingSlices.DecorationAreaType.NONE)
             .getContainerTokens(componentState, inactiveContainerType);
         if (registered == null) {
-            throw new IllegalStateException("Color tokens scheme shouldn't be null here. Please report " + "this issue");
+            throw new IllegalStateException("Color tokens shouldn't be null here. Please report " + "this issue");
         }
 
         return registered;
@@ -401,7 +401,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     public final ContainerColorTokens getSystemContainerTokens(Component comp,
         RadianceThemingSlices.SystemContainerType systemContainerType) {
         // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
+        // are decoration-specific tokens bundles.
         if (this.tonalColorTokensMap.size() > 1) {
             RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
                 RadianceThemingSlices.DecorationAreaType.NONE :
@@ -419,7 +419,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     public final ContainerColorTokens getInverseSystemContainerTokens(Component comp,
         RadianceThemingSlices.SystemContainerType systemContainerType) {
         // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
+        // are decoration-specific tokens bundles.
         if (this.tonalColorTokensMap.size() > 1) {
             RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
                 RadianceThemingSlices.DecorationAreaType.NONE :
@@ -632,7 +632,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
 
         // small optimization - lookup the decoration area only if there
-        // are decoration-specific scheme bundles.
+        // are decoration-specific tokens bundles.
         if (this.tonalColorTokensMap.size() > 1) {
             RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ? RadianceThemingSlices.DecorationAreaType.NONE
                 : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
@@ -657,11 +657,11 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     public final ContainerColorTokens getBackgroundContainerTokens(
             RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        // 1 - check the registered background scheme for this specific area type.
+        // 1 - check the registered background tokens for this specific area type.
         if (this.tonalBackgroundTokensMap.containsKey(decorationAreaType)) {
             return this.tonalBackgroundTokensMap.get(decorationAreaType);
         }
-        // 2 - check the registered scheme bundle for this specific area type.
+        // 2 - check the registered tokens bundle for this specific area type.
         if (this.tonalColorTokensMap.containsKey(decorationAreaType)) {
             ContainerColorTokens registered = this.tonalBackgroundTokensMap.
                 get(decorationAreaType);
@@ -669,7 +669,7 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return registered;
             }
         }
-        // 3 - return the background scheme for the default area type
+        // 3 - return the background tokens for the default area type
         return this.tonalBackgroundTokensMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
     }
 

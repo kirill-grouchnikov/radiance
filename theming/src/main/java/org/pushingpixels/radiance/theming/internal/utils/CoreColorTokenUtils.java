@@ -358,7 +358,7 @@ public class CoreColorTokenUtils {
 
 
     /**
-     * Cache of blended schemes.
+     * Cache of blended tokens.
      */
     private final static LazyResettableHashMap<ContainerColorTokens> blendedCache =
         new LazyResettableHashMap<>("ContainerColorTokensUtils.blendedTokens");

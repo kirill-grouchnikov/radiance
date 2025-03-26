@@ -41,7 +41,7 @@ import java.util.*;
  * cover most action-based controls such as buttons, check boxes and menu items.
  * In addition, application code can define custom component states that create
  * fine grained mapping between arbitrary states of controls and specific color
- * scheme bundles in custom skins.
+ * tokens bundles in custom skins.
  * </p>
  *
  * <p>

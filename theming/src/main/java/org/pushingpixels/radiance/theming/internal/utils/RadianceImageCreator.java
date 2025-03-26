@@ -280,10 +280,10 @@ public final class RadianceImageCreator {
     }
 
     /**
-     * Returns a lock icon that matches the specified scheme.
+     * Returns a lock icon that matches the specified tokens.
      *
      * @param tokens Tokens.
-     * @return Lock icon that matches the specified scheme.
+     * @return Lock icon that matches the specified tokens.
      */
     public static Icon getSmallLockIcon(ContainerColorTokens tokens, Component c) {
         int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
@@ -294,10 +294,10 @@ public final class RadianceImageCreator {
     }
 
     /**
-     * Returns a caps lock icon that matches the specified scheme.
+     * Returns a caps lock icon that matches the specified tokens.
      *
      * @param tokens Tokens.
-     * @return Caps lock icon that matches the specified scheme.
+     * @return Caps lock icon that matches the specified tokens.
      */
     public static Icon getCapsLockIcon(ContainerColorTokens tokens, Component c) {
         return RadianceThemingCortex.GlobalScope.getIconPack().getCapsLockIcon(32, tokens);
@@ -310,7 +310,7 @@ public final class RadianceImageCreator {
      * @param comp        Component.
      * @param original    The original icon.
      * @param colorTokens Color tokens.
-     * @return Scheme-based version of the original icon.
+     * @return Tokens-based version of the original icon.
      */
     public static BufferedImage getContainerTokensImage(Component comp, Icon original,
         ContainerColorTokens colorTokens, float originalBrightnessFactor) {
@@ -339,7 +339,7 @@ public final class RadianceImageCreator {
      * @param original                 The original image.
      * @param colorTokens              Color tokens.
      * @param originalBrightnessFactor The original brightness factor.
-     * @return Scheme-based version of the original icon.
+     * @return Tokens-based version of the original icon.
      */
     public static BufferedImage getContainerTokensImage(BufferedImage original,
             ContainerColorTokens colorTokens, float originalBrightnessFactor,

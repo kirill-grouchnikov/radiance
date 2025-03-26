@@ -210,13 +210,13 @@ public class RadianceDefaultTableHeaderCellRenderer extends
 
     private ContainerColorTokens getTokensForState(
         JTableHeader tableHeader, ComponentState activeState) {
-        ContainerColorTokens scheme = (activeState == ComponentState.ENABLED)
+        ContainerColorTokens tokens = (activeState == ComponentState.ENABLED)
             ? CoreColorTokenUtils.getContainerTokens(tableHeader, activeState,
                 RadianceThemingSlices.ContainerType.MUTED)
             : CoreColorTokenUtils.getContainerTokens(tableHeader,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
                 RadianceThemingSlices.ContainerType.MUTED);
-        return scheme;
+        return tokens;
     }
 
     @Override

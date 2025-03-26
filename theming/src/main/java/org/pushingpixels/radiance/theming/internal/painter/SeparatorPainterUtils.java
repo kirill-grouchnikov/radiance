@@ -130,8 +130,8 @@ public class SeparatorPainterUtils {
             ((parent instanceof JComponent) && ((JComponent) parent).getClientProperty(
                 DecorationPainterUtils.POPUP_ORIGINATOR_LINK) != null);
         if (isParentAPopup) {
-            // For separators in popups, first see if we have a color
-            // scheme explicitly registered for the SEPARATOR association kind.
+            // For separators in popups, first see if we have color
+            // tokens explicitly registered for the SEPARATOR association kind.
             colorTokens = CoreColorTokenUtils.getContainerTokens(c,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                 ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
