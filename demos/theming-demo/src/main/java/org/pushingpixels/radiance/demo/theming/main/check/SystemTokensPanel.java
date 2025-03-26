@@ -140,7 +140,7 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         textSecondaryLabel.setForeground(containerTokens.getOnContainerVariant());
         textSecondaryLabel.setFont(controlFont.deriveFont(controlFont.getSize2D() + 1f));
 
-        iconPrimary.setColorFilter(color -> systemTokens.getContainerSurfaceHighest());
+        iconPrimary.setColorFilter(color -> systemTokens.getAccentOnContainer());
 
         RadianceIcon iconSecondary = close_16dp.of(12, 12);
         iconSecondary.setColorFilter(color -> containerTokens.getOnContainerVariant());
@@ -209,28 +209,28 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(tokensPanel);
 
         makeNeutral(tokensPanel, builder,
-            skin.getInverseSystemContainerTokens(tokensPanel,
+            skin.getSystemContainerTokens(tokensPanel,
                 RadianceThemingSlices.SystemContainerType.INFO),
             info_24dp_fill.of(24, 24),
             "Update available",
             "Click to install version 8.0");
 
         makeNeutral(tokensPanel, builder,
-            skin.getInverseSystemContainerTokens(tokensPanel,
+            skin.getSystemContainerTokens(tokensPanel,
                 RadianceThemingSlices.SystemContainerType.SUCCESS),
             check_24dp_fill.of(24, 24),
             "Connection established",
             "Streaming content");
 
         makeNeutral(tokensPanel, builder,
-            skin.getInverseSystemContainerTokens(tokensPanel,
+            skin.getSystemContainerTokens(tokensPanel,
                 RadianceThemingSlices.SystemContainerType.WARNING),
             warning_24dp_fill.of(24, 24),
             "Connection lost",
             "Connect to WiFi to continue");
 
         makeNeutral(tokensPanel, builder,
-            skin.getInverseSystemContainerTokens(tokensPanel,
+            skin.getSystemContainerTokens(tokensPanel,
                 RadianceThemingSlices.SystemContainerType.ERROR),
             error_24dp_fill.of(24, 24),
             "Access denied",

@@ -34,6 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.utils.SystemColorTokenUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,29 +78,29 @@ public class RadianceColorSchemeBundle {
             throw new IllegalArgumentException("Cannot pass null tokens");
         }
 
-        ContainerColorTokens systemInfoLightTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFBFE6FE),
+        ContainerColorTokens systemInfoLightTokens = SystemColorTokenUtils.getSystemTokens(
+            /* seed */ Hct.fromInt(0xFF1060D0),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
-        ContainerColorTokens systemWarningLightTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFFCE352),
+        ContainerColorTokens systemWarningLightTokens = SystemColorTokenUtils.getSystemTokens(
+            /* seed */ Hct.fromInt(0xFFFCC00),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
-        ContainerColorTokens systemErrorLightTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFFFDACA),
+        ContainerColorTokens systemErrorLightTokens = SystemColorTokenUtils.getSystemTokens(
+            /* seed */ Hct.fromInt(0xFFC01707),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
-        ContainerColorTokens systemSuccessLightTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFF8EFA9D),
+        ContainerColorTokens systemSuccessLightTokens = SystemColorTokenUtils.getSystemTokens(
+            /* seed */ Hct.fromInt(0xFF008817),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
-        ContainerColorTokens systemInfoDarkTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens systemInfoDarkTokens = SystemColorTokenUtils.getSystemTokens(
             /* seed */ Hct.fromInt(0xFF1060D0),
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
-        ContainerColorTokens systemWarningDarkTokens = ColorSchemeUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFBC6213),
+        ContainerColorTokens systemWarningDarkTokens = SystemColorTokenUtils.getSystemTokens(
+            /* seed */ Hct.fromInt(0xFFFCC00),
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
-        ContainerColorTokens systemErrorDarkTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens systemErrorDarkTokens = SystemColorTokenUtils.getSystemTokens(
             /* seed */ Hct.fromInt(0xFFC01707),
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
-        ContainerColorTokens systemSuccessDarkTokens = ColorSchemeUtils.getContainerTokens(
+        ContainerColorTokens systemSuccessDarkTokens = SystemColorTokenUtils.getSystemTokens(
             /* seed */ Hct.fromInt(0xFF008817),
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
 

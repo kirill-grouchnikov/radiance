@@ -36,116 +36,112 @@ import java.util.function.Function;
 
 public class TokenPaletteColorResolverUtils {
     public static TokenPaletteColorResolver getPaletteColorResolver() {
-        TokenPaletteColorResolver result =
-            new TokenPaletteColorResolver() {
+        return new TokenPaletteColorResolver() {
+            @Override
+            public Color getContainerSurfaceLowest(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerSurfaceLowest());
+            }
 
-                @Override
-                public Color getContainerSurfaceLowest(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getContainerSurfaceLowest());
-                }
+            @Override
+            public Color getContainerSurfaceLow(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerSurfaceLow());
+            }
 
-                @Override
-                public Color getContainerSurfaceLow(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getContainerSurfaceLow());
-                }
+            @Override
+            public Color getContainerSurface(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerSurface());
+            }
 
-                @Override
-                public Color getContainerSurface(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getContainerSurface());
-                }
+            @Override
+            public Color getContainerSurfaceHigh(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerSurfaceHigh());
+            }
 
-                @Override
-                public Color getContainerSurfaceHigh(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getContainerSurfaceHigh());
-                }
+            @Override
+            public Color getContainerSurfaceHighest(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerSurfaceHighest());
+            }
 
-                @Override
-                public Color getContainerSurfaceHighest(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getContainerSurfaceHighest());
-                }
+            @Override
+            public Color getContainerSurfaceDim(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerSurfaceDim());
+            }
 
-                @Override
-                public Color getContainerSurfaceDim(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getContainerSurfaceDim());
-                }
+            @Override
+            public Color getContainerSurfaceBright(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerSurfaceBright());
+            }
 
-                @Override
-                public Color getContainerSurfaceBright(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getContainerSurfaceBright());
-                }
+            @Override
+            public Color getOnContainer(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getOnContainer());
+            }
 
-                @Override
-                public Color getOnContainer(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getOnContainer());
-                }
+            @Override
+            public Color getOnContainerVariant(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getOnContainerVariant());
+            }
 
-                @Override
-                public Color getOnContainerVariant(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getOnContainerVariant());
-                }
+            @Override
+            public Color getContainerOutline(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerOutline());
+            }
 
-                @Override
-                public Color getContainerOutline(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getContainerOutline());
-                }
+            @Override
+            public Color getContainerOutlineVariant(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerOutlineVariant());
+            }
 
-                @Override
-                public Color getContainerOutlineVariant(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getContainerOutlineVariant());
-                }
+            @Override
+            public float getContainerSurfaceDisabledAlpha(TokenPalette tokenPalette) {
+                return 0.3f;
+            }
 
-                @Override
-                public float getContainerSurfaceDisabledAlpha(TokenPalette tokenPalette) {
-                    return 0.3f;
-                }
+            @Override
+            public float getOnContainerDisabledAlpha(TokenPalette tokenPalette) {
+                return 0.45f;
+            }
 
-                @Override
-                public float getOnContainerDisabledAlpha(TokenPalette tokenPalette) {
-                    return 0.45f;
-                }
+            @Override
+            public float getContainerOutlineDisabledAlpha(TokenPalette tokenPalette) {
+                return 0.35f;
+            }
 
-                @Override
-                public float getContainerOutlineDisabledAlpha(TokenPalette tokenPalette) {
-                    return 0.35f;
-                }
+            @Override
+            public Color getInverseContainerSurface(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getInverseContainerSurface());
+            }
 
-                @Override
-                public Color getInverseContainerSurface(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getInverseContainerSurface());
-                }
+            @Override
+            public Color getInverseOnContainer(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getInverseOnContainer());
+            }
 
-                @Override
-                public Color getInverseOnContainer(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getInverseOnContainer());
-                }
+            @Override
+            public Color getInverseContainerOutline(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getInverseContainerOutline());
+            }
 
-                @Override
-                public Color getInverseContainerOutline(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getInverseContainerOutline());
-                }
+            @Override
+            public Color getComplementaryOnContainer(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getComplementaryOnContainer());
+            }
 
-                @Override
-                public Color getComplementaryOnContainer(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getComplementaryOnContainer());
-                }
+            @Override
+            public Color getComplementaryContainerOutline(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getComplementaryContainerOutline());
+            }
 
-                @Override
-                public Color getComplementaryContainerOutline(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getComplementaryContainerOutline());
-                }
-
-                @Override
-                public Color getAccentOnContainer(TokenPalette tokenPalette) {
-                    return new Color(tokenPalette.getAccentOnContainer());
-                }
-            };
-        return result;
+            @Override
+            public Color getAccentOnContainer(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getAccentOnContainer());
+            }
+        };
     }
     
     public static TokenPaletteColorResolver overlayWith(TokenPaletteColorResolver original,
         TokenPaletteColorResolverOverlay overlay) {
         return new TokenPaletteColorResolver() {
-
             @Override
             public Color getContainerSurfaceLowest(TokenPalette tokenPalette) {
                 Function<TokenPalette, Integer> spec = overlay.getContainerSurfaceLowest();
