@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.tools.screenshot.theming.schemes
+package org.pushingpixels.radiance.tools.screenshot.theming.paletteseeds
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -50,11 +50,11 @@ import javax.imageio.ImageIO
 import javax.swing.JFrame
 
 /**
- * The base class for taking screenshots of color schemes for Radiance documentation.
+ * The base class for taking screenshots of palette seed based UIs for Radiance documentation.
  *
  * @author Kirill Grouchnikov
  */
-abstract class BaseColorSchemeRobot(
+abstract class BasePaletteSeedRobot(
     private val skins: List<RadianceSkin>,
     private val screenshotSubfolder: String,
     private val frameTitle: String
@@ -164,29 +164,29 @@ abstract class BaseColorSchemeRobot(
     }
 }
 
-abstract class LightColorSchemeRobot(
+abstract class LightPaletteSeedRobot(
     accents: Map<String, Color>,
     screenshotSubfolder: String,
     frameTitle: String) :
-    BaseColorSchemeRobot(
+    BasePaletteSeedRobot(
         skins = accents.map { RobotDefaultLightSkin(it.value, it.key) },
         screenshotSubfolder = screenshotSubfolder,
         frameTitle = frameTitle)
 
-abstract class LightBimodalColorSchemeRobot(
+abstract class LightBimodalPaletteSeedRobot(
     configs: List<RobotConfig>,
     screenshotSubfolder: String,
     frameTitle: String) :
-    BaseColorSchemeRobot(
+    BasePaletteSeedRobot(
         skins = configs.map { RobotBimodalLightSkin(it) },
         screenshotSubfolder = screenshotSubfolder,
         frameTitle = frameTitle)
 
-abstract class DarkColorSchemeRobot(
+abstract class DarkPaletteSeedRobot(
     accents: Map<String, Color>,
     screenshotSubfolder: String,
     frameTitle: String) :
-    BaseColorSchemeRobot(
+    BasePaletteSeedRobot(
         skins = accents.map { RobotDefaultDarkSkin(it.value, it.key) },
         screenshotSubfolder = screenshotSubfolder,
         frameTitle = frameTitle)

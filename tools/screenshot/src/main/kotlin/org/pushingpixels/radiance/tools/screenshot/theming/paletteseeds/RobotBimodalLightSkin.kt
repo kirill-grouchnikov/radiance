@@ -27,14 +27,13 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.tools.screenshot.theming.schemes
+package org.pushingpixels.radiance.tools.screenshot.theming.paletteseeds
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette
 import org.pushingpixels.ephemeral.chroma.hct.Hct
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens
-import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle
-import org.pushingpixels.radiance.theming.api.RadianceSkin
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.ephemeral.chroma.utils.MathUtils
+import org.pushingpixels.radiance.theming.api.*
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
@@ -42,25 +41,20 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import java.awt.Color
 
 /**
- * The default light skin for the skin screenshot scripts.
+ * The bimodal light skin for the skin screenshot scripts.
  *
  * @author Kirill Grouchnikov
  */
-class RobotDefaultLightSkin(accentColor: Color, val name: String) :
+class RobotBimodalLightSkin(val config: RobotConfig) :
         RadianceSkin.Accented(AccentBuilder()
-            .withDefaultAreaActiveTokens(
-                ContainerColorTokensUtils.getContainerTokens(
-                Hct.fromInt(accentColor.rgb), ContainerConfiguration.defaultLight()))
-            .withDefaultAreaMutedTokens(
-                ContainerColorTokensUtils.getContainerTokens(
-                MutedSeed, ContainerConfiguration.defaultLight()))
-            .withDefaultAreaNeutralTokens(
-                ContainerColorTokensUtils.getContainerTokens(
-                NeutralSeed, ContainerConfiguration.defaultLight()))) {
+            .withDefaultAreaActiveTokens(getActiveContainerTokens(config))
+            .withDefaultAreaMutedTokens(getMutedContainerTokens(config))
+            .withDefaultAreaNeutralTokens(getNeutralContainerTokens(config))) {
 
     init {
         val bottomLineOverlayPainter =
@@ -76,7 +70,7 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
 
         val decorationPainter = MarbleNoiseDecorationPainter()
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())
-        decorationPainter.setTextureAlpha(0.3f)
+        decorationPainter.setTextureAlpha(config.headerTextureAlpha)
         this.decorationPainter = decorationPainter
 
         this.highlightSurfacePainter = ClassicSurfacePainter()
@@ -85,6 +79,8 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
             this.defaultAreaActiveTokens,
             this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, false
         )
+        defaultSchemeBundle.registerActiveContainerTokens(getSelectedTokens(config),
+            ComponentState.SELECTED)
         this.registerDecorationAreaTokensBundle(defaultSchemeBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 
@@ -95,11 +91,48 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
     }
 
     override fun getDisplayName(): String {
-        return name
+        return config.name
     }
+}
 
-    companion object {
-        val MutedSeed: Hct = Hct.fromInt(Color(208, 212, 216).rgb)
-        val NeutralSeed: Hct = Hct.fromInt(Color(252, 249, 248).rgb)
-    }
+private fun getActiveContainerTokens(config: RobotConfig): ContainerColorTokens {
+    val primarySeed = Hct.fromInt(config.seed.rgb)
+    val primaryHue = primarySeed.hue
+    val hue1 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaHigh)
+    val hue2 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaLow)
+    val primaryTone = primarySeed.tone
+
+    return ContainerColorTokensUtils.getBimodalContainerTokens(
+        /* seedOne */ Hct.from(hue1, primarySeed.chroma, primaryTone),
+        /* seedTwo */ Hct.from(hue2, primarySeed.chroma, primaryTone),
+        /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+        /* fidelityTone */ primaryTone,
+        /* containerConfiguration */ ContainerConfiguration.defaultLight(),
+        /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver())
+}
+
+private fun getMutedContainerTokens(config: RobotConfig): ContainerColorTokens {
+    val mutedSeed = Hct.fromInt(Color(204, 210, 215).rgb)
+    return ContainerColorTokensUtils.getContainerTokens(mutedSeed, ContainerConfiguration.defaultLight())
+}
+
+private fun getNeutralContainerTokens(config: RobotConfig): ContainerColorTokens {
+    val neutralSeed = Hct.fromInt(Color(240, 245, 249).rgb)
+    return ContainerColorTokensUtils.getContainerTokens(neutralSeed, ContainerConfiguration.defaultLight())
+}
+
+private fun getSelectedTokens(config: RobotConfig): ContainerColorTokens {
+    val primarySeed = Hct.fromInt(config.seed.rgb)
+    val primaryHue = primarySeed.hue
+    val hue1 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaHigh)
+    val hue2 = MathUtils.sanitizeDegreesDouble(primaryHue + config.hueDeltaLow)
+    val primaryTone = primarySeed.tone
+
+    return ContainerColorTokensUtils.getBimodalContainerTokens(
+        /* seedOne */ Hct.from(hue1, 1.5 * primarySeed.chroma, primaryTone),
+        /* seedTwo */ Hct.from(hue2, 1.5 * primarySeed.chroma, primaryTone),
+        /* tonalTransitionRange */ DynamicBimodalPalette.TransitionRange.TONAL_CONTAINER_SURFACES,
+        /* fidelityTone */ primaryTone + 5.0,  // lighter tone for selected and rollover states,
+        /* containerConfiguration */ ContainerConfiguration.defaultLight(),
+        /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver())
 }

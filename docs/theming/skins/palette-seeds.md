@@ -10,49 +10,49 @@ The following screenshots show sample skins created from each one of the 15 ligh
 
 Aqua, Barby Pink
 <p>
-<img alt="Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/aqua.png" width="340" height="258" />
-<img alt="Barby Pink"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/barby-pink.png" width="340" height="258" />
+<img alt="Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/aqua.png" width="340" height="258" />
+<img alt="Barby Pink"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/barby-pink.png" width="340" height="258" />
 </p>
 
 Bottle Green, Brown
 <p>
-<img alt="Bottle Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/bottle-green.png" width="340" height="258" />
-<img alt="Brown"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/brown.png" width="340" height="258" />
+<img alt="Bottle Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/bottle-green.png" width="340" height="258" />
+<img alt="Brown"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/brown.png" width="340" height="258" />
 </p>
 
 Desert Sand, Lime Green
 <p>
-<img alt="Desert Sand"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/desert-sand.png" width="340" height="258" />
-<img alt="Lime Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/lime-green.png" width="340" height="258" />
+<img alt="Desert Sand"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/desert-sand.png" width="340" height="258" />
+<img alt="Lime Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/lime-green.png" width="340" height="258" />
 </p>
 
 Olive, Orange
 <p>
-<img alt="Olive"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/olive.png" width="340" height="258" />
-<img alt="Orange"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/orange.png" width="340" height="258" />
+<img alt="Olive"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/olive.png" width="340" height="258" />
+<img alt="Orange"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/orange.png" width="340" height="258" />
 </p>
 
 Purple, Raspberry
 <p>
-<img alt="Purple"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/purple.png" width="340" height="258" />
-<img alt="Raspberry"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/raspberry.png" width="340" height="258" />
+<img alt="Purple"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/purple.png" width="340" height="258" />
+<img alt="Raspberry"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/raspberry.png" width="340" height="258" />
 </p>
 
 Sepia, Steel Blue
 <p>
-<img alt="Sepia"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/sepia.png" width="340" height="258" />
-<img alt="Steel Blue"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/steel-blue.png" width="340" height="258" />
+<img alt="Sepia"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/sepia.png" width="340" height="258" />
+<img alt="Steel Blue"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/steel-blue.png" width="340" height="258" />
 </p>
 
 Sun Glare, Sunset
 <p>
-<img alt="Sunset"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/sunset.png" width="340" height="258" />
-<img alt="Sun Glare"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/sun-glare.png" width="340" height="258" />
+<img alt="Sunset"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/sunset.png" width="340" height="258" />
+<img alt="Sun Glare"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/sun-glare.png" width="340" height="258" />
 </p>
 
 Terracotta
 <p>
-<img alt="Terracotta"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/terracotta.png" width="340" height="258" />
+<img alt="Terracotta"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/terracotta.png" width="340" height="258" />
 </p>
 
 ### Dark seeds
@@ -63,13 +63,13 @@ The following screenshots show sample skins created from each one of the 5 light
 
 Charcoal, Jade Forest
 <p>
-<img alt="Charcoal"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/charcoal.png" width="340" height="258" />
-<img alt="Jade Forest"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/jade-forest.png" width="340" height="258" />
+<img alt="Charcoal"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/charcoal.png" width="340" height="258" />
+<img alt="Jade Forest"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/jade-forest.png" width="340" height="258" />
 </p>
 Ultramarine, Violet
 <p>
-<img alt="Ultramarine"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/ultramarine.png" width="340" height="258" />
-<img alt="Violet"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/violet.png" width="340" height="258" />
+<img alt="Ultramarine"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/ultramarine.png" width="340" height="258" />
+<img alt="Violet"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/paletteseeds/violet.png" width="340" height="258" />
 </p>
 
 ### Additional palette seeds

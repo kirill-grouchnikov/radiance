@@ -27,11 +27,11 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.extras.api.colorschemepack;
+package org.pushingpixels.radiance.theming.extras.api.paletteseedspack;
 
 import java.awt.*;
 
-public class TonalPaletteExtrasSeeds {
+public class TonalPaletteSeedsExtras {
     public static final Color BELIZE = new Color(168, 221, 181);
     public static final Color BLOODY_MOON = new Color(252, 146, 114);
     public static final Color BLUE_YONDER = new Color(166, 189, 219);

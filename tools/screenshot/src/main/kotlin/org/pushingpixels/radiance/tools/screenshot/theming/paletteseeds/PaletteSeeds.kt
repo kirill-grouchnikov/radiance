@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.tools.screenshot.theming.schemes
+package org.pushingpixels.radiance.tools.screenshot.theming.paletteseeds
 
 import org.pushingpixels.radiance.theming.api.palette.TonalPaletteSeeds
 
@@ -57,12 +57,12 @@ private val radianceDarkColors = mapOf(
 )
 
 /**
- * Screenshot robots for Radiance color schemes.
+ * Screenshot robots for Radiance palette seeds.
  *
  * @author Kirill Grouchnikov
  */
-class AllLight : LightColorSchemeRobot(radianceLightColors, "theming/colorschemes", "Radiance")
-class AllDark : DarkColorSchemeRobot(radianceDarkColors, "theming/colorschemes", "Radiance")
+class AllLight : LightPaletteSeedRobot(radianceLightColors, "theming/paletteseeds", "Radiance")
+class AllDark : DarkPaletteSeedRobot(radianceDarkColors, "theming/paletteseeds", "Radiance")
 
-class EphemeralAllLight : LightColorSchemeRobot(radianceLightColors, "theming/colorschemes", "Ephemeral")
-class EphemeralAllDark : DarkColorSchemeRobot(radianceDarkColors, "theming/colorschemes", "Ephemeral")
+class EphemeralAllLight : LightPaletteSeedRobot(radianceLightColors, "theming/paletteseeds", "Ephemeral")
+class EphemeralAllDark : DarkPaletteSeedRobot(radianceDarkColors, "theming/paletteseeds", "Ephemeral")
