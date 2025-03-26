@@ -151,7 +151,7 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
         private double hgapScaleFactor = -1;
         private double vgapScaleFactor = -1;
         private StripOrientation orientation = StripOrientation.HORIZONTAL;

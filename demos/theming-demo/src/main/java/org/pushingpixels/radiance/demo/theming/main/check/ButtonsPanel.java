@@ -369,17 +369,17 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
             new ChainCommand<>(
                 (AbstractButton ab) -> ab.setEnabled(false),
                 new IconCommand(se.of(16, 16))));
-        this.addRow(builder, "Themed follow color scheme", edit_cut.of(16, 16),
+        this.addRow(builder, "Themed follow color tokens", edit_cut.of(16, 16),
             new ChainCommand<>(new IconCommand(edit_cut.of(16, 16)),
                 (AbstractButton ab) ->
                     RadianceThemingCortex.ComponentScope.setIconFilterStrategies(ab,
                         RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
-                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
-                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME)),
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS,
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS)),
             (JLabel label) -> RadianceThemingCortex.ComponentScope.setIconFilterStrategies(label,
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME));
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS));
         this.addRow(builder, "Themed follow text", help_black_24dp.of(16, 16),
             new ChainCommand<>(new IconCommand(help_black_24dp.of(16, 16)),
                 (AbstractButton ab) ->

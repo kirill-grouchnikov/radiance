@@ -66,7 +66,7 @@ public class BreadcrumbBarPresentationModel implements ImmutablePresentationMode
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
 
         public Builder setIconFilterStrategies(
                 RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy,

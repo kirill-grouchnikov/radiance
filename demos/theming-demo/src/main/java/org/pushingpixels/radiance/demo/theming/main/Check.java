@@ -620,8 +620,8 @@ public class Check extends JFrame {
             RadianceThemingCortex.ComponentScope.setIconFilterStrategies(
                     button,
                     RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
-                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
-                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
+                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS,
+                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS);
         }
     }
 

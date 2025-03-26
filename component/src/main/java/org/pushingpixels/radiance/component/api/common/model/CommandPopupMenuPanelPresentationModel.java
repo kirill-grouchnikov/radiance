@@ -251,7 +251,7 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
         private HorizontalAlignment commandHorizontalAlignment = CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
 
         public Builder setLayoutSpec(MenuPopupPanelLayoutSpec layoutSpec) {

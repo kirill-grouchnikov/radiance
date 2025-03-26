@@ -35,5 +35,6 @@ All relevant APIs that work with these painters in `RadianceSkin` and elsewhere 
 * Color overlay APIs in `RadianceSkin` are removed. Use `ContainerColorTokensBundle.registerActiveContainerTokens` for configuring state-specific color tokens to use to paint controls.
 * Base and derived colors are replaced by color tokens in `ContainerColorTokens`. Use `PaletteContainerColorsResolverOverlay` and `BimodalPaletteContainerColorsResolverOverlay` to tweak color token resolution for specific visuals in your application.
 * `RadianceThemingSlices.ColorSchemeAssociationKind` is replaced with `RadianceThemingSlices.ContainerColorTokensAssociationKind`.
+* `RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME` is now `RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS`
 * Two new enums added to `RadianceThemingSlices` - `ContainerType` and `SystemContainerType` - to mirror the container-based APIs in `RadianceSkin` and `ContainerColorTokensBundle`.
 * Core color schemes (such as Aqua, Bottle Green, etc) are now provided as a set of palette seeds in the `TonalPaletteSeeds` class.

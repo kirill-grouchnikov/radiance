@@ -67,8 +67,8 @@ public class SetIconFilterStrategies extends JFrame {
             // based on the checkbox selection status, call the API
             RadianceThemingCortex.GlobalScope.setIconFilterStrategies(
                     RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
-                    useThemedIcons.isSelected() ? RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME : RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
-                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
+                    useThemedIcons.isSelected() ? RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS : RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
+                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS
             );
             SetIconFilterStrategies.this.repaint();
         }));

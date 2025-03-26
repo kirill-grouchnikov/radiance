@@ -69,7 +69,7 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
 
         private BaseCommandPopupMenuPresentationModel popupMenuPresentationModel;
 

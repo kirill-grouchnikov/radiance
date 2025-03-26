@@ -363,7 +363,7 @@ public open class KCommandButtonPresentation {
     public var enabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
         RadianceThemingSlices.IconFilterStrategy.ORIGINAL
     public var disabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
-        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
+        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS
     public var selectedStateHighlight: SelectedStateHighlight =
         SelectedStateHighlight.FULL_SIZE
     public var actionKeyTip: String? = null

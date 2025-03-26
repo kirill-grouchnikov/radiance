@@ -188,7 +188,7 @@ public class RootPaneTitlePaneUiDebugger extends RadianceThemingWidget<JRootPane
                                     RadianceThemingCortex.GlobalScope.setIconFilterStrategies(
                                             RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
                                             RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
-                                            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
+                                            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS);
                                     jcomp.repaint();
                                 }));
                         iconFiltering.add(defaultIconFiltering);
@@ -198,8 +198,8 @@ public class RootPaneTitlePaneUiDebugger extends RadianceThemingWidget<JRootPane
                                 SwingUtilities.invokeLater(() -> {
                                     RadianceThemingCortex.GlobalScope.setIconFilterStrategies(
                                             RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
-                                            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
-                                            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
+                                            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS,
+                                            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS);
                                     jcomp.repaint();
                                 }));
                         iconFiltering.add(mutedIconFiltering);

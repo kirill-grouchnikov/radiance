@@ -856,9 +856,9 @@ public final class RadianceThemingSlices {
         THEMED_FOLLOW_TEXT,
 
         /**
-         * The icon is themed based on the color tokens that matches the current component state.
+         * The icon is themed based on the color tokens that match the current component state.
          */
-        THEMED_FOLLOW_COLOR_SCHEME
+        THEMED_FOLLOW_COLOR_TOKENS
     }
 
     public enum BackgroundAppearanceStrategy {

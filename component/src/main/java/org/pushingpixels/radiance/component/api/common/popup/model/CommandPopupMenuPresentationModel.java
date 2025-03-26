@@ -148,7 +148,7 @@ public class CommandPopupMenuPresentationModel extends BaseCommandPopupMenuPrese
         private RadianceThemingSlices.IconFilterStrategy itemEnabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy itemDisabledIconFilterStrategy =
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
         private Insets itemContentPadding =
                 CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
         private RadianceThemingSlices.Sides itemSides = RadianceThemingSlices.Sides.CLOSED_RECTANGLE;

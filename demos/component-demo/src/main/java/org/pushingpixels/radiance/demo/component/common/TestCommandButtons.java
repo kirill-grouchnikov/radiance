@@ -500,7 +500,7 @@ public class TestCommandButtons extends JFrame {
                         .setIconFilterStrategies(
                                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME)
+                                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS)
                         .build());
     }
 

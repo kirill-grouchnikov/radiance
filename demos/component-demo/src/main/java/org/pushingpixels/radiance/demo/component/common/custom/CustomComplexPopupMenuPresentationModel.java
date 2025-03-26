@@ -53,7 +53,7 @@ public class CustomComplexPopupMenuPresentationModel extends BaseCommandPopupMen
     public final RadianceThemingSlices.IconFilterStrategy itemIconEnabledFilterStrategy =
             RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
     public final RadianceThemingSlices.IconFilterStrategy itemIconDisabledFilterStrategy =
-            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
     public final Insets itemContentPadding = new Insets(6, 16, 6, 16);
     public final HorizontalAlignment itemHorizontalAlignment = HorizontalAlignment.FILL;
     public final RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
@@ -79,7 +79,7 @@ public class CustomComplexPopupMenuPresentationModel extends BaseCommandPopupMen
                     .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)
                     .setIconFilterStrategies(RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                             RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME)
+                            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS)
                     .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
                     .setContentPadding(new Insets(6, 16, 6, 16))
                     .build();

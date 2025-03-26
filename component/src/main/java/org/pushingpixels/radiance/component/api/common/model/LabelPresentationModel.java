@@ -99,7 +99,7 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
         private Font font = null;
         private HorizontalAlignment horizontalAlignment = HorizontalAlignment.LEADING;
         private int iconTextGap = DEFAULT_ICON_TEXT_GAP;

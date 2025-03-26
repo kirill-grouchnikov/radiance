@@ -286,7 +286,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
-                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
         private HorizontalAlignment commandHorizontalAlignment = CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
         private CommandButtonPresentationModel.PopupFireTrigger commandPopupFireTrigger =
                 CommandButtonPresentationModel.PopupFireTrigger.ON_PRESSED;

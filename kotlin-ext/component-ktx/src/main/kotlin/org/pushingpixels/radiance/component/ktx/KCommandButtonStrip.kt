@@ -48,7 +48,7 @@ public class KCommandButtonStripPresentation {
     public var enabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
         RadianceThemingSlices.IconFilterStrategy.ORIGINAL
     public var disabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
-        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
+        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS
     public var horizontalGapScaleFactor: Double = -1.0
     public var verticalGapScaleFactor: Double = -1.0
 

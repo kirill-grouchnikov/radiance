@@ -709,7 +709,7 @@ public class RadianceCoreUtilities {
 
     public static RadianceThemingSlices.IconFilterStrategy getDisabledIconFilterStrategy(JComponent comp) {
         if ((comp == null) || comp.getClass().isAnnotationPresent(RadianceInternalButton.class)) {
-            return RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+            return RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
         }
         Object compProperty = comp.getClientProperty(RadianceSynapse.ICON_FILTER_STRATEGY_DISABLED);
         if (compProperty instanceof RadianceThemingSlices.IconFilterStrategy) {
@@ -721,7 +721,7 @@ public class RadianceCoreUtilities {
             return (RadianceThemingSlices.IconFilterStrategy) globalProperty;
         }
 
-        return RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+        return RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
     }
 
     /**
@@ -937,7 +937,7 @@ public class RadianceCoreUtilities {
                 Color foreground = (textColor != null) ? textColor : colorTokens.getOnContainer();
                 return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
                     comp, orig, foreground, 1.0f), scale);
-            case THEMED_FOLLOW_COLOR_SCHEME:
+            case THEMED_FOLLOW_COLOR_TOKENS:
                 return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getContainerTokensImage(
                     comp, orig, colorTokens, 0.4f), scale);
         }
@@ -959,7 +959,7 @@ public class RadianceCoreUtilities {
                 Color foreground = (textColor != null) ? textColor : colorTokens.getOnContainer();
                 return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
                     tab, orig, foreground, 1.0f), scale);
-            case THEMED_FOLLOW_COLOR_SCHEME:
+            case THEMED_FOLLOW_COLOR_TOKENS:
                 return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getContainerTokensImage(
                     tab, orig, colorTokens, 0.4f), scale);
         }
