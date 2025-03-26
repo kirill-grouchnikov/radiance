@@ -33,7 +33,6 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.utils.SystemColorTokenUtils;
 
 import java.util.HashMap;
@@ -48,8 +47,18 @@ import java.util.Map;
  * @see RadianceSkin
  */
 public class RadianceColorSchemeBundle {
-    // The main color scheme of this bundle
-    private RadianceColorScheme mainColorScheme;
+    private ContainerColorTokens activeContainerTokens;
+    private ContainerColorTokens mutedContainerTokens;
+    private ContainerColorTokens neutralContainerTokens;
+
+    private ContainerColorTokens systemInfoContainerTokens;
+    private ContainerColorTokens inverseSystemInfoContainerTokens;
+    private ContainerColorTokens systemWarningContainerTokens;
+    private ContainerColorTokens inverseSystemWarningContainerTokens;
+    private ContainerColorTokens systemErrorContainerTokens;
+    private ContainerColorTokens inverseSystemErrorContainerTokens;
+    private ContainerColorTokens systemSuccessContainerTokens;
+    private ContainerColorTokens inverseSystemSuccessContainerTokens;
 
     /**
      * Maps from color scheme association kinds to the map of color tokens. Controls in the specific
@@ -69,6 +78,8 @@ public class RadianceColorSchemeBundle {
         Map<ComponentState, ContainerColorTokens>> colorTokensForActiveStates;
 
     private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> colorTokensForEnabledState;
+
+    private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
     /**
      * Creates a new color scheme bundle.
@@ -121,122 +132,19 @@ public class RadianceColorSchemeBundle {
             /* seed */ systemSuccessSeed,
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
 
-        this.mainColorScheme = new RadianceColorScheme() {
-            private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
+        this.activeContainerTokens = activeContainerTokens;
+        this.mutedContainerTokens = mutedContainerTokens;
+        this.neutralContainerTokens = neutralContainerTokens;
 
-            @Override
-            public ContainerColorTokens getNeutralContainerTokens() {
-                return neutralContainerTokens;
-            }
+        this.systemInfoContainerTokens = isSystemDark ? systemInfoDarkTokens : systemInfoLightTokens;
+        this.systemWarningContainerTokens = isSystemDark ? systemWarningDarkTokens : systemWarningLightTokens;
+        this.systemErrorContainerTokens = isSystemDark ? systemErrorDarkTokens : systemErrorLightTokens;
+        this.systemSuccessContainerTokens = isSystemDark ? systemSuccessDarkTokens : systemSuccessLightTokens;
 
-            @Override
-            public ContainerColorTokens getMutedContainerTokens() {
-                return mutedContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getActiveContainerTokens() {
-                return activeContainerTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemInfoContainerTokens() {
-                return isSystemDark ? systemInfoDarkTokens : systemInfoLightTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getInverseSystemInfoContainerTokens() {
-                return isSystemDark ? systemInfoLightTokens : systemInfoDarkTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemWarningContainerTokens() {
-                return isSystemDark ? systemWarningDarkTokens : systemWarningLightTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getInverseSystemWarningContainerTokens() {
-                return isSystemDark ? systemWarningLightTokens : systemWarningDarkTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemErrorContainerTokens() {
-                return isSystemDark ? systemErrorDarkTokens : systemErrorLightTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getInverseSystemErrorContainerTokens() {
-                return isSystemDark ? systemErrorLightTokens : systemErrorDarkTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getSystemSuccessContainerTokens() {
-                return isSystemDark ? systemSuccessDarkTokens : systemSuccessLightTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getInverseSystemSuccessContainerTokens() {
-                return isSystemDark ? systemSuccessLightTokens : systemSuccessDarkTokens;
-            }
-
-            @Override
-            public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
-                if (componentState.isDisabled()) {
-                    return getContainerTokensForState(componentState.getEnabledMatch());
-                }
-
-                ContainerColorTokens tonals = getActiveContainerTokens();
-                if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
-                    (componentState == ComponentState.ARMED)) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.getPressedUnselectedTokens(tonals));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.PRESSED_SELECTED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.getPressedSelectedTokens(tonals));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.SELECTED) {
-                    return tonals;
-                }
-                if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.getRolloverUnselectedTokens(tonals));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.ROLLOVER_SELECTED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.getRolloverSelectedTokens(tonals));
-                    }
-                    return stateTokens.get(componentState);
-                }
-                if (componentState == ComponentState.ROLLOVER_ARMED) {
-                    if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.getRolloverArmedTokens(tonals));
-                    }
-                    return stateTokens.get(componentState);
-                }
-
-                ComponentState hardFallback = componentState.getHardFallback();
-                if (hardFallback != null) {
-                    return this.getContainerTokensForState(hardFallback);
-                }
-
-                if (componentState == ComponentState.ENABLED) {
-                    return getMutedContainerTokens();
-                }
-                return tonals;
-            }
-        };
+        this.inverseSystemInfoContainerTokens = isSystemDark ? systemInfoLightTokens : systemInfoDarkTokens;
+        this.inverseSystemWarningContainerTokens = isSystemDark ? systemWarningLightTokens : systemWarningDarkTokens;
+        this.inverseSystemErrorContainerTokens = isSystemDark ? systemErrorLightTokens : systemErrorDarkTokens;
+        this.inverseSystemSuccessContainerTokens = isSystemDark ? systemSuccessLightTokens : systemSuccessDarkTokens;
 
         this.colorTokensForEnabledState = new HashMap<>();
         this.colorTokensForActiveStates = new HashMap<>();
@@ -244,7 +152,6 @@ public class RadianceColorSchemeBundle {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
             this.colorTokensForActiveStates.put(associationKind, new HashMap<>());
         }
-
     }
 
     /**
@@ -326,7 +233,7 @@ public class RadianceColorSchemeBundle {
                 // in registerActiveContainerTokens
                 return registered;
             } else {
-                return this.mainColorScheme.getContainerTokensForState(componentState);
+                return this.getContainerTokensForState(componentState);
             }
         }
 
@@ -335,41 +242,137 @@ public class RadianceColorSchemeBundle {
         if (registered != null) {
             return registered;
         } else {
-            return this.mainColorScheme.getContainerTokens(inactiveContainerType);
+            switch (inactiveContainerType) {
+                case NEUTRAL: return this.getNeutralContainerTokens();
+                case MUTED: return this.getMutedContainerTokens();
+                default: throw new IllegalArgumentException("Only NEUTRAL and MUTED are accepted");
+            }
         }
     }
 
     public ContainerColorTokens getSystemContainerTokens(
         RadianceThemingSlices.SystemContainerType systemContainerType) {
         switch (systemContainerType) {
-            case INFO: return this.mainColorScheme.getSystemInfoContainerTokens();
-            case WARNING: return this.mainColorScheme.getSystemWarningContainerTokens();
-            case ERROR: return this.mainColorScheme.getSystemErrorContainerTokens();
+            case INFO: return this.getSystemInfoContainerTokens();
+            case WARNING: return this.getSystemWarningContainerTokens();
+            case ERROR: return this.getSystemErrorContainerTokens();
             case SUCCESS:
             default:
-                return this.mainColorScheme.getSystemSuccessContainerTokens();
+                return this.getSystemSuccessContainerTokens();
         }
     }
 
     public ContainerColorTokens getInverseSystemContainerTokens(
         RadianceThemingSlices.SystemContainerType systemContainerType) {
         switch (systemContainerType) {
-            case INFO: return this.mainColorScheme.getInverseSystemInfoContainerTokens();
-            case WARNING: return this.mainColorScheme.getInverseSystemWarningContainerTokens();
-            case ERROR: return this.mainColorScheme.getInverseSystemErrorContainerTokens();
+            case INFO: return this.getInverseSystemInfoContainerTokens();
+            case WARNING: return this.getInverseSystemWarningContainerTokens();
+            case ERROR: return this.getInverseSystemErrorContainerTokens();
             case SUCCESS:
             default:
-                return this.mainColorScheme.getInverseSystemSuccessContainerTokens();
+                return this.getInverseSystemSuccessContainerTokens();
         }
     }
 
-    /**
-     * Returns the main color scheme of this bundle.
-     *
-     * @return The main color scheme of this bundle.
-     */
-    public RadianceColorScheme getMainColorScheme() {
-        return this.mainColorScheme;
+    public ContainerColorTokens getActiveContainerTokens() {
+        return this.activeContainerTokens;
+    }
+
+    public ContainerColorTokens getNeutralContainerTokens() {
+        return this.neutralContainerTokens;
+    }
+
+    public ContainerColorTokens getMutedContainerTokens() {
+        return this.mutedContainerTokens;
+    }
+
+    public ContainerColorTokens getSystemInfoContainerTokens() {
+        return this.systemInfoContainerTokens;
+    }
+
+    public ContainerColorTokens getInverseSystemInfoContainerTokens() {
+        return this.inverseSystemInfoContainerTokens;
+    }
+
+    public ContainerColorTokens getSystemWarningContainerTokens() {
+        return this.systemWarningContainerTokens;
+    }
+
+    public ContainerColorTokens getInverseSystemWarningContainerTokens() {
+        return this.inverseSystemWarningContainerTokens;
+    }
+
+    public ContainerColorTokens getSystemErrorContainerTokens() {
+        return this.systemErrorContainerTokens;
+    }
+
+    public ContainerColorTokens getInverseSystemErrorContainerTokens() {
+        return this.inverseSystemErrorContainerTokens;
+    }
+
+    public ContainerColorTokens getSystemSuccessContainerTokens() {
+        return this.systemSuccessContainerTokens;
+    }
+
+    public ContainerColorTokens getInverseSystemSuccessContainerTokens() {
+        return this.inverseSystemSuccessContainerTokens;
+    }
+
+    public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
+        if (componentState.isDisabled()) {
+            return getContainerTokensForState(componentState.getEnabledMatch());
+        }
+
+        ContainerColorTokens tonals = getActiveContainerTokens();
+        if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
+            (componentState == ComponentState.ARMED)) {
+            if (!stateTokens.containsKey(componentState)) {
+                stateTokens.put(componentState,
+                    ColorSchemeUtils.getPressedUnselectedTokens(tonals));
+            }
+            return stateTokens.get(componentState);
+        }
+        if (componentState == ComponentState.PRESSED_SELECTED) {
+            if (!stateTokens.containsKey(componentState)) {
+                stateTokens.put(componentState,
+                    ColorSchemeUtils.getPressedSelectedTokens(tonals));
+            }
+            return stateTokens.get(componentState);
+        }
+        if (componentState == ComponentState.SELECTED) {
+            return tonals;
+        }
+        if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
+            if (!stateTokens.containsKey(componentState)) {
+                stateTokens.put(componentState,
+                    ColorSchemeUtils.getRolloverUnselectedTokens(tonals));
+            }
+            return stateTokens.get(componentState);
+        }
+        if (componentState == ComponentState.ROLLOVER_SELECTED) {
+            if (!stateTokens.containsKey(componentState)) {
+                stateTokens.put(componentState,
+                    ColorSchemeUtils.getRolloverSelectedTokens(tonals));
+            }
+            return stateTokens.get(componentState);
+        }
+        if (componentState == ComponentState.ROLLOVER_ARMED) {
+            if (!stateTokens.containsKey(componentState)) {
+                stateTokens.put(componentState,
+                    ColorSchemeUtils.getRolloverArmedTokens(tonals));
+            }
+            return stateTokens.get(componentState);
+        }
+
+        ComponentState hardFallback = componentState.getHardFallback();
+        if (hardFallback != null) {
+            return this.getContainerTokensForState(hardFallback);
+        }
+
+        if (componentState == ComponentState.ENABLED) {
+            return getMutedContainerTokens();
+        }
+        return tonals;
     }
 
     /**

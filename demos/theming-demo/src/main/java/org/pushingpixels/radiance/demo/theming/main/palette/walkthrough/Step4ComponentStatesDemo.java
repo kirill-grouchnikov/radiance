@@ -98,7 +98,7 @@ public class Step4ComponentStatesDemo extends JFrame {
                     RadianceThemingSlices.DecorationAreaType.NONE);
 
             this.registerAsDecorationArea(
-                defaultBundle.getMainColorScheme().getActiveContainerTokens(),
+                defaultBundle.getActiveContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);

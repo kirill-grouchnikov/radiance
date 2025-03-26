@@ -136,7 +136,7 @@ public class CeruleanSkin extends RadianceSkin {
 				RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				ComponentState.getActiveStates());
 		this.registerDecorationAreaSchemeBundle(ceruleanHeaderBundle,
-			ceruleanHeaderBundle.getMainColorScheme().getMutedContainerTokens(),
+			ceruleanHeaderBundle.getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

@@ -475,7 +475,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     public void registerDecorationAreaSchemeBundle(
         RadianceColorSchemeBundle bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
         this.registerDecorationAreaSchemeBundle(bundle,
-            bundle.getMainColorScheme().getNeutralContainerTokens(),
+            bundle.getNeutralContainerTokens(),
             areaTypes);
     }
 
@@ -520,28 +520,28 @@ public abstract class RadianceSkin implements RadianceTrait {
     public final ContainerColorTokens getNeutralContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getNeutralContainerTokens();
+            return this.tonalColorSchemeMap.get(decorationAreaType).getNeutralContainerTokens();
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getMainColorScheme().getNeutralContainerTokens();
+            .getNeutralContainerTokens();
     }
 
     public final ContainerColorTokens getMutedContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getMutedContainerTokens();
+            return this.tonalColorSchemeMap.get(decorationAreaType).getMutedContainerTokens();
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getMainColorScheme().getMutedContainerTokens();
+            .getMutedContainerTokens();
     }
 
     public final ContainerColorTokens getActiveContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-            return this.tonalColorSchemeMap.get(decorationAreaType).getMainColorScheme().getActiveContainerTokens();
+            return this.tonalColorSchemeMap.get(decorationAreaType).getActiveContainerTokens();
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getMainColorScheme().getActiveContainerTokens();
+            .getActiveContainerTokens();
     }
 
     /**

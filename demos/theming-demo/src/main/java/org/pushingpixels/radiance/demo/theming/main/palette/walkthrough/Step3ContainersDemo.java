@@ -108,29 +108,29 @@ public class Step3ContainersDemo extends JFrame {
 
         row += 2;
         builder.addROLabel("Active container").xy(1, row, "right, bottom")
-            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getActiveContainerTokens(), true)).xy(3, row)
-            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getActiveContainerTokens(), true)).xy(5, row);
+            .add(new ContainerPalettePreview(lightBundle.getActiveContainerTokens(), true)).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getActiveContainerTokens(), true)).xy(5, row);
         row += 2;
         builder.addROLabel("Muted container").xy(1, row, "right, bottom")
-            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getMutedContainerTokens(), false)).xy(3, row)
-            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getMutedContainerTokens(), false)).xy(5, row);
+            .add(new ContainerPalettePreview(lightBundle.getMutedContainerTokens(), false)).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getMutedContainerTokens(), false)).xy(5, row);
         row += 2;
         builder.addROLabel("Neutral container").xy(1, row, "right, bottom")
-            .add(new ContainerPalettePreview(lightBundle.getMainColorScheme().getNeutralContainerTokens(), false)).xy(3, row)
-            .add(new ContainerPalettePreview(darkBundle.getMainColorScheme().getNeutralContainerTokens(), false)).xy(5, row);
+            .add(new ContainerPalettePreview(lightBundle.getNeutralContainerTokens(), false)).xy(3, row)
+            .add(new ContainerPalettePreview(darkBundle.getNeutralContainerTokens(), false)).xy(5, row);
 
         row += 2;
         builder.addROLabel("Active container").xy(1, row)
-            .add(new ContainerPreview(lightBundle.getMainColorScheme().getActiveContainerTokens(), "Tonal")).xy(3, row)
-            .add(new ContainerPreview(darkBundle.getMainColorScheme().getActiveContainerTokens(), "Tonal")).xy(5, row);
+            .add(new ContainerPreview(lightBundle.getActiveContainerTokens(), "Tonal")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getActiveContainerTokens(), "Tonal")).xy(5, row);
         row += 2;
         builder.addROLabel("Muted container").xy(1, row)
-            .add(new ContainerPreview(lightBundle.getMainColorScheme().getMutedContainerTokens(), "Muted")).xy(3, row)
-            .add(new ContainerPreview(darkBundle.getMainColorScheme().getMutedContainerTokens(), "Muted")).xy(5, row);
+            .add(new ContainerPreview(lightBundle.getMutedContainerTokens(), "Muted")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getMutedContainerTokens(), "Muted")).xy(5, row);
         row += 2;
         builder.addROLabel("Neutral container").xy(1, row)
-            .add(new ContainerPreview(lightBundle.getMainColorScheme().getNeutralContainerTokens(), "Neutral")).xy(3, row)
-            .add(new ContainerPreview(darkBundle.getMainColorScheme().getNeutralContainerTokens(), "Neutral")).xy(5, row);
+            .add(new ContainerPreview(lightBundle.getNeutralContainerTokens(), "Neutral")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getNeutralContainerTokens(), "Neutral")).xy(5, row);
 
         this.add(builder.build());
 
