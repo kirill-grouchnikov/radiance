@@ -680,19 +680,19 @@ public abstract class RadianceSkin implements RadianceTrait {
         // associated with the full skin
         if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.INFORMATION_MESSAGE)) {
             this.optionPaneIconColorTokenMap.put(JOptionPane.INFORMATION_MESSAGE,
-                this.getInverseSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO));
+                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO));
         }
         if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.QUESTION_MESSAGE)) {
             this.optionPaneIconColorTokenMap.put(JOptionPane.QUESTION_MESSAGE,
-                this.getInverseSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO));
+                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO));
         }
         if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.WARNING_MESSAGE)) {
             this.optionPaneIconColorTokenMap.put(JOptionPane.WARNING_MESSAGE,
-                this.getInverseSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.WARNING));
+                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.WARNING));
         }
         if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.ERROR_MESSAGE)) {
             this.optionPaneIconColorTokenMap.put(JOptionPane.ERROR_MESSAGE,
-                this.getInverseSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.ERROR));
+                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.ERROR));
         }
         return this.optionPaneIconColorTokenMap.get(optionPaneMessageType);
     }

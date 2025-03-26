@@ -45,7 +45,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     public RadianceIcon getOptionPaneInformationIcon(int preferredSize,
         ContainerColorTokens preferredIconColorTokens) {
         RadianceIcon result = info_black_24dp.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(color -> preferredIconColorTokens.getContainerSurface());
+        result.setColorFilter(color -> preferredIconColorTokens.getAccentOnContainer());
         return result;
     }
 
@@ -53,7 +53,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     public RadianceIcon getOptionPaneWarningIcon(int preferredSize,
         ContainerColorTokens preferredIconColorTokens) {
         RadianceIcon result = warning_black_24dp.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(color -> preferredIconColorTokens.getContainerSurface());
+        result.setColorFilter(color -> preferredIconColorTokens.getAccentOnContainer());
         return result;
     }
 
@@ -61,7 +61,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     public RadianceIcon getOptionPaneErrorIcon(int preferredSize,
         ContainerColorTokens preferredIconColorTokens) {
         RadianceIcon result = error_black_24dp.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(color -> preferredIconColorTokens.getContainerSurface());
+        result.setColorFilter(color -> preferredIconColorTokens.getAccentOnContainer());
         return result;
     }
 
@@ -69,7 +69,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     public RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
         ContainerColorTokens preferredIconColorTokens) {
         RadianceIcon result = help_black_24dp.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(color -> preferredIconColorTokens.getContainerSurface());
+        result.setColorFilter(color -> preferredIconColorTokens.getAccentOnContainer());
         return result;
     }
 

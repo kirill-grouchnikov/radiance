@@ -78,30 +78,35 @@ public class RadianceColorSchemeBundle {
             throw new IllegalArgumentException("Cannot pass null tokens");
         }
 
+        Hct systemInfoSeed = Hct.fromInt(0xFF1060D0);
+        Hct systemWarningSeed = Hct.fromInt(0xFFFCC00);
+        Hct systemErrorSeed = Hct.fromInt(0xFFC01707);
+        Hct systemSuccessSeed = Hct.fromInt(0xFF008817);
+
         ContainerColorTokens systemInfoLightTokens = SystemColorTokenUtils.getSystemTokens(
-            /* seed */ Hct.fromInt(0xFF1060D0),
+            /* seed */ systemInfoSeed,
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens systemWarningLightTokens = SystemColorTokenUtils.getSystemTokens(
-            /* seed */ Hct.fromInt(0xFFFCC00),
+            /* seed */ systemWarningSeed,
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens systemErrorLightTokens = SystemColorTokenUtils.getSystemTokens(
-            /* seed */ Hct.fromInt(0xFFC01707),
+            /* seed */ systemErrorSeed,
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
         ContainerColorTokens systemSuccessLightTokens = SystemColorTokenUtils.getSystemTokens(
-            /* seed */ Hct.fromInt(0xFF008817),
+            /* seed */ systemSuccessSeed,
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
 
         ContainerColorTokens systemInfoDarkTokens = SystemColorTokenUtils.getSystemTokens(
-            /* seed */ Hct.fromInt(0xFF1060D0),
+            /* seed */ systemInfoSeed,
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
         ContainerColorTokens systemWarningDarkTokens = SystemColorTokenUtils.getSystemTokens(
-            /* seed */ Hct.fromInt(0xFFFCC00),
+            /* seed */ systemWarningSeed,
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
         ContainerColorTokens systemErrorDarkTokens = SystemColorTokenUtils.getSystemTokens(
-            /* seed */ Hct.fromInt(0xFFC01707),
+            /* seed */ systemErrorSeed,
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
         ContainerColorTokens systemSuccessDarkTokens = SystemColorTokenUtils.getSystemTokens(
-            /* seed */ Hct.fromInt(0xFF008817),
+            /* seed */ systemSuccessSeed,
             /* containerConfiguration */ ContainerConfiguration.defaultDark());
 
         this.mainColorScheme = new RadianceColorScheme() {
