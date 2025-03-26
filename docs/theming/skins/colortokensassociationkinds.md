@@ -13,7 +13,7 @@ The `RadianceThemingSlices.ColorSchemeAssociationKind` is the base class for cor
 
 Let's go back to the `JCheckBox` icon example above. How do we use the color scheme association kinds to specify three different color schemes for painting this checkmark icon?
 
-As detailed in the [skin documentation](overview.md), each skin has a number of [color scheme bundles](colorschemebundles.md). This means that two checkboxes with the same model state (`selected` in our case) can have different visuals, depending on the [decoration areas](../painters/decoration.md) they reside in. In the definition of the specific color scheme bundle, you can specify different [color tokens](colortokens.md) for different component states. This means that a selected checkbox can use colors different from those of a rollover selected checkbox.
+As detailed in the [skin documentation](overview.md), each skin has a number of [color tokens bundles](colortokensbundles.md). This means that two checkboxes with the same model state (`selected` in our case) can have different visuals, depending on the [decoration areas](../painters/decoration.md) they reside in. In the definition of the specific color tokens bundle, you can specify different [color tokens](colortokens.md) for different component states. This means that a selected checkbox can use colors different from those of a rollover selected checkbox.
 
 In our case, we want to specify different color schemes for different visual areas of **selected** checkboxes in the default decoration area. The relevant method in the `ContainerColorTokensBundle` is:
 
@@ -99,7 +99,7 @@ Here is the constructor signature of the `ColorSchemeAssociationKind`:
       ColorSchemeAssociationKind fallback)
 ```
 
-The second parameter specifies what should happen when the color scheme bundle definition does not have an explicitly registered color scheme for the specific color scheme association kind under the specific component state.
+The second parameter specifies what should happen when the color tokens bundle definition does not have an explicitly registered color scheme for the specific color scheme association kind under the specific component state.
 
 For example, the `ColorSchemeAssociationKind.MARK` has the `ColorSchemeAssociationKind.BORDER` as its fallback. This means that if you want to use the same color scheme for painting both borders and marks, you need to only call the `ContainerColorTokensBundle.registerColorScheme` API with the `ColorSchemeAssociationKind.BORDER` value.
 

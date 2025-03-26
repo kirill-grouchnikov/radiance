@@ -4,7 +4,7 @@
 
 While the concepts of decoration areas and decoration painters introduced in the [second phase](02-map.md) and implemented in the [third phase](03-decorations.md) are one of the most powerful features in Radiance, they are part of the more comprehensive package of settings designed to facilitate creation of consistent and configurable visuals for modern graphical user interfaces. In Radiance terminology it is called a [skin](../skins/overview.md).
 
-This phase of Cookbook UI implementation will focus on creating the other parts of the skin, including color schemes, color scheme bundles, the surface painter and the outline painter.
+This phase of Cookbook UI implementation will focus on creating the other parts of the skin, including color schemes, color tokens bundles, the surface painter and the outline painter.
 
 ### Color tokens
 
@@ -33,7 +33,7 @@ The `Dark Brown` color scheme is used for:
 * Selected buttons in header and footer area.
 * Slider track in header area.
 
-The definition of color scheme bundles in the custom Radiance skin will use these two color schemes as the main building blocks. `Dark Brown` will be used for:
+The definition of color tokens bundles in the custom Radiance skin will use these two color schemes as the main building blocks. `Dark Brown` will be used for:
 
 * `CONTROL_PANE` area, controls in default and disabled state. Disabled controls will be painted with 70% opacity.
 * `PRIMARY_TITLE_PANE`, `TOOLBAR` and `FOOTER` areas, controls in active states. This will make the selected button in the toolbar painted with dark background.
@@ -52,7 +52,7 @@ Note the correct color schemes for the relevant decoration areas, including the 
 * the slider track – by design Radiance uses the same default (Golden Brown) color scheme to paint its track unless the mouse is over the slider.
 * the scroll bar track - by design Radiance fills the entire area of the scroll bar with flat color based on the associated skin, decoration area type and color scheme.
 
-In addition to the two color schemes above, we define three color schemes to be used on `NONE` area type. In case of Cookbook UI these schemes are only relevant for the search text field in the second footer panel (marked as `NONE` to create the custom visuals). Since every Radiance skin must define a color scheme bundle for the `NONE` area type, this is a step that you can not omit. Here are the palettes for the active, default and disabled color schemes of `NONE`:
+In addition to the two color schemes above, we define three color schemes to be used on `NONE` area type. In case of Cookbook UI these schemes are only relevant for the search text field in the second footer panel (marked as `NONE` to create the custom visuals). Since every Radiance skin must define a color tokens bundle for the `NONE` area type, this is a step that you can not omit. Here are the palettes for the active, default and disabled color schemes of `NONE`:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/cookbook/04-skin/active.png" width="240" border=0/>
 

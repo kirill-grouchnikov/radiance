@@ -1,14 +1,14 @@
-## Radiance look and feel - color scheme bundles
+## Radiance look and feel - color tokens bundles
 
-A **color scheme bundle** is a set of information that allows painting controls in a specific decoration area. The `ContainerColorTokensBundle` contains all the APIs officially supported by Radiance color scheme bundles.
+A **color tokens bundle** is a set of information that allows painting controls in a specific decoration area. The `ContainerColorTokensBundle` contains all the APIs officially supported by Radiance color tokens bundles.
 
 ### Basics
 
-The `ComponentState` is the base class for core and custom [component states](componentstates.md). A color scheme bundle is created with three major color tokens - for active, muted and neutral containers. If no state-specific color tokens are registered on the color scheme bundle, the major color tokens are used for all component states. A color scheme bundle is created with the following constructor:
+The `ComponentState` is the base class for core and custom [component states](componentstates.md). A color tokens bundle is created with three major color tokens - for active, muted and neutral containers. If no state-specific color tokens are registered on the color tokens bundle, the major color tokens are used for all component states. A color tokens bundle is created with the following constructor:
 
 ```java
 /**
- * Creates a new color scheme bundle.
+ * Creates a new color tokens bundle.
  *
  * @param activeContainerTokens
  *            The active color tokens of this bundle.

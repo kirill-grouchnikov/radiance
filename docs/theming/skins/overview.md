@@ -24,9 +24,9 @@ The core Radiance skins are in the `org.pushingpixels.radiance.theming.api.skin`
 
 The skin definition consists of the following:
 
-* Decoration areas and color scheme bundles:
+* Decoration areas and color tokens bundles:
   * List of supported [decoration areas](../painters/decoration.md).
-  * [Color scheme bundles](colorschemebundles.md) for the supported decoration areas.
+  * [color tokens bundles](colortokensbundles.md) for the supported decoration areas.
   * Optional background [color tokens](colortokens.md) for the supported decoration areas.
 * Painters:
   * [Surface painter](../painters/surface.md).
@@ -37,26 +37,26 @@ The skin definition consists of the following:
   * [Button shaper](../../hyperion/hyperion.md).
   * Optional [overlay painters](../painters/overlay.md) for some decoration areas.
 
-In order to define a valid skin, you need to specify all its mandatory parameters. A valid skin must have a color scheme bundle for `DecorationAreaType.NONE`, a button shaper, a surface painter, a decoration painter, a highlight surface painter and an outline painter. All other parts are optional.
+In order to define a valid skin, you need to specify all its mandatory parameters. A valid skin must have a color tokens bundle for `DecorationAreaType.NONE`, a button shaper, a surface painter, a decoration painter, a highlight surface painter and an outline painter. All other parts are optional.
 
 ### Decoration areas
 
-The documentation on [decoration painters](../painters/decoration.md) explains the notion of a decoration area type. While a valid skin must define a color scheme bundle for `DecorationAreaType.NONE`, all other decoration area types are optional. Different skins have different sets of decoration areas that are painted. For example, the [Moderate skin](light-skins.md#moderate) decorates `DecorationAreaType.PRIMARY_TITLE_PANE`, `DecorationAreaType.SECONDARY_TITLE_PANE` and `DecorationAreaType.HEADER`, while the [Nebula Amethyst skin](light-skins.md#nebula-amethyst) also decorates `DecorationAreaType.TOOLBAR`:
+The documentation on [decoration painters](../painters/decoration.md) explains the notion of a decoration area type. While a valid skin must define a color tokens bundle for `DecorationAreaType.NONE`, all other decoration area types are optional. Different skins have different sets of decoration areas that are painted. For example, the [Moderate skin](light-skins.md#moderate) decorates `DecorationAreaType.PRIMARY_TITLE_PANE`, `DecorationAreaType.SECONDARY_TITLE_PANE` and `DecorationAreaType.HEADER`, while the [Nebula Amethyst skin](light-skins.md#nebula-amethyst) also decorates `DecorationAreaType.TOOLBAR`:
 
 <p>
 <img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/moderate1.png" width="340" height="258">
 <img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/nebulaamethyst1.png" width="340" height="258">
 </p>
 
-In order to register a custom color scheme bundle and optional background color tokens on the specific decoration area type(s), use the following APIs:
+In order to register a custom color tokens bundle and optional background color tokens on the specific decoration area type(s), use the following APIs:
 
 ```java
   /**
-   * Registers the specified color scheme bundle to be used on controls in
+   * Registers the specified color tokens bundle to be used on controls in
    * decoration areas.
    *
    * @param bundle
-   *     The color scheme bundle to use on controls in decoration areas.
+   *     The color tokens bundle to use on controls in decoration areas.
    * @param areaTypes
    *     Enumerates the area types that are affected by the parameters.
    */
@@ -64,11 +64,11 @@ In order to register a custom color scheme bundle and optional background color 
       RadianceColorSchemeBundle bundle, DecorationAreaType... areaTypes)
 
   /**
-   * Registers the specified color scheme bundle and background color scheme
+   * Registers the specified color tokens bundle and background color scheme
    * to be used on controls in decoration areas.
    *
    * @param bundle
-   *     The color scheme bundle to use on controls in decoration areas.
+   *     The color tokens bundle to use on controls in decoration areas.
    * @param backgroundTokens
    *     The color tokens to use for background of controls in decoration
    *     areas.
@@ -81,7 +81,7 @@ In order to register a custom color scheme bundle and optional background color 
       DecorationAreaType... areaTypes)
 ```
 
-Decoration areas registered with these APIs will have their background painted by the skin's [decoration painter](../painters/decoration.md) based on the default color scheme of the registered color scheme bundle. You can also use the following API to use custom color tokens on the specified decoration area types (in this case the controls in those decoration areas will use the default color scheme bundle):
+Decoration areas registered with these APIs will have their background painted by the skin's [decoration painter](../painters/decoration.md) based on the default color scheme of the registered color tokens bundle. You can also use the following API to use custom color tokens on the specified decoration area types (in this case the controls in those decoration areas will use the default color tokens bundle):
 
 ```java
   /**
@@ -102,7 +102,7 @@ Decoration areas registered with these APIs will have their background painted b
       DecorationAreaType... areaTypes)
 ```
 
-Here is an example of specifying the default color scheme bundle for the [Mariner skin](light-skins.md#mariner):
+Here is an example of specifying the default color tokens bundle for the [Mariner skin](light-skins.md#mariner):
 
 ```java
 RadianceColorSchemeBundle marinerDefaultBundle = new RadianceColorSchemeBundle(
@@ -137,7 +137,7 @@ marinerDefaultBundle.registerActiveContainerTokens(
 this.registerDecorationAreaSchemeBundle(marinerDefaultBundle,
     RadianceThemingSlices.DecorationAreaType.NONE);
 ```
-and a custom color scheme bundle for the `header`-type decoration areas:
+and a custom color tokens bundle for the `header`-type decoration areas:
 
 ```java
 RadianceColorSchemeBundle marinerHeaderBundle = new RadianceColorSchemeBundle(
@@ -172,7 +172,7 @@ this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
                 .build())),
 ```
 
-And here is an example of specifying a number of decoration area types to have their background painted by the decoration painter and the specific color scheme, without registering a custom color scheme bundle for those areas:
+And here is an example of specifying a number of decoration area types to have their background painted by the decoration painter and the specific color scheme, without registering a custom color tokens bundle for those areas:
 
 ```java
     this.registerAsDecorationArea(defaultScheme,
