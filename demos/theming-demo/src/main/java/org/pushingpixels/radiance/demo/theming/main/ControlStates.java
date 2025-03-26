@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.demo.theming.main;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin;
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +62,7 @@ public class ControlStates extends JFrame {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
             new ControlStates().setVisible(true);
         });
     }

@@ -4,57 +4,60 @@ A **color scheme bundle** is a set of information that allows painting controls 
 
 ### Basics
 
-The `ComponentState` is the base class for core and custom [component states](componentstates.md). A color scheme bundle is created with three major color schemes - for active, enabled and disabled controls. If no state-specific color schemes are registered on the color scheme bundle, the major color schemes are used for all component states. A color scheme bundle is created with the following constructor:
+The `ComponentState` is the base class for core and custom [component states](componentstates.md). A color scheme bundle is created with three major color tokens - for active, muted and neutral containers. If no state-specific color tokens are registered on the color scheme bundle, the major color tokens are used for all component states. A color scheme bundle is created with the following constructor:
 
 ```java
-  /**
-   * Creates a new color scheme bundle.
-   *
-   * @param activeColorScheme
-   *            The active color scheme of this bundle.
-   * @param enabledColorScheme
-   *            The enabled color scheme of this bundle.
-   * @param disabledColorScheme
-   *            The disabled color scheme of this bundle.
-   */
-  public RadianceColorSchemeBundle(RadianceColorScheme activeColorScheme,
-      RadianceColorScheme enabledColorScheme,
-      RadianceColorScheme disabledColorScheme)
+/**
+ * Creates a new color scheme bundle.
+ *
+ * @param activeContainerTokens
+ *            The active color tokens of this bundle.
+ * @param mutedContainerTokens
+ *            The muted color tokens of this bundle.
+ * @param neutralContainerTokens
+ *            The neutral color tokens of this bundle.
+ * @param isSystemDark
+ *            <code>true</code> if the system tokens should be created in dark mode.
+ */
+public RadianceColorSchemeBundle(ContainerColorTokens activeContainerTokens,
+    ContainerColorTokens mutedContainerTokens, ContainerColorTokens neutralContainerTokens,
+    boolean isSystemDark)
 ```
 
-Here is a screenshot of three buttons (active, enabled and disabled) under the core [Business Black Steel skin](light-skins.md#business-black-steel):
+Here is a screenshot of three buttons (active, enabled and disabled) under the core [Mariner skin](light-skins.md#mariner):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/states/control-states.png" width="293" height="101" />
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/states/control-states.png" width="305" height="114" />
 
 Here is the relevant code snippet from the definition of this skin:
 
 ```java
-RadianceSkin.ColorSchemes businessSchemes = RadianceSkin
-    .getColorSchemes("org/pushingpixels/radiance/theming/api/skin/business.colorschemes");
-
-RadianceColorScheme activeScheme = businessSchemes.get("Business Black Steel Active");
-RadianceColorScheme enabledScheme = businessSchemes.get("Business Black Steel Enabled");
-RadianceColorScheme disabledScheme = businessSchemes.get("Business Black Steel Disabled");
-
-// the default color scheme bundle
-RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-    activeScheme, enabledScheme, disabledScheme);
+RadianceColorSchemeBundle marinerDefaultBundle = new RadianceColorSchemeBundle(
+    /* activeContainerTokens */ ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFFF6DD9D),
+        /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+    /* mutedContainerTokens */ ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFFD9D8D5),
+        /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+    /* neutralContainerTokens */ ColorSchemeUtils.getContainerTokens(
+        /* seed */ Hct.fromInt(0xFFECF0F3),
+        /* containerConfiguration */ ContainerConfiguration.defaultLight()),
+    /* isSystemDark */ false);
 ```
 
 ### More states
 
-The following API allows specifying a custom color scheme for a specific component state:
+The following API allows specifying custom color tokens for a specific component state:
 
 ```java
   /**
-   * Registers a color scheme for the specific component state.
+   * Registers container color tokens for the specific active component states.
    *
-   * @param stateColorScheme
-   *     Color scheme for the specified component state.
+   * @param stateContainerTokens
+   *     Container color tokens for the specified active component states.
    * @param states
    *     Component states.
    */
-  public void registerColorScheme(RadianceColorScheme stateColorScheme,
+  public void registerActiveContainerTokens(ContainerColorTokens stateContainerTokens,
       ComponentState... states)
 ```      
 
@@ -65,168 +68,74 @@ For example, you can use this API if you want to visualy distinguish between but
 Here is the relevant code snippet:
 
 ```java
-    defaultSchemeBundle.registerColorScheme(rolloverScheme,
-        ComponentState.ROLLOVER_UNSELECTED);
-    defaultSchemeBundle.registerColorScheme(rolloverSelectedScheme,
-        ComponentState.ROLLOVER_SELECTED);
-    defaultSchemeBundle.registerColorScheme(selectedScheme,
-        ComponentState.SELECTED);
-    defaultSchemeBundle.registerColorScheme(pressedScheme,
-        ComponentState.PRESSED_UNSELECTED);
-    defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
-        ComponentState.PRESSED_SELECTED);
+officeSilverDefaultBundle.registerActiveContainerTokens(rolloverContainerTokens,
+    ComponentState.ROLLOVER_UNSELECTED);
+officeSilverDefaultBundle.registerActiveContainerTokens(rolloverSelectedContainerTokens,
+    ComponentState.ROLLOVER_SELECTED);
+officeSilverDefaultBundle.registerActiveContainerTokens(selectedContainerTokens,
+    ComponentState.SELECTED);
+officeSilverDefaultBundle.registerActiveContainerTokens(pressedContainerTokens,
+    ComponentState.PRESSED_UNSELECTED);
+officeSilverDefaultBundle.registerActiveContainerTokens(pressedSelectedContainerTokens,
+    ComponentState.PRESSED_SELECTED);
 ```
 
-It is possible to specify a custom alpha value for controls in some states. This can be useful if you want to use the same color scheme for both enabled and disabled states, and have disabled controls painted with a custom alpha translucency (making them blend with the background). Use the following API:
+Controls in disabled states are drawn using the following alpha tokens:
 
-```java
-/**
- * Registers an alpha channel value for the specific component states.
- *
- * @param alpha  Alpha channel value.
- * @param states Component states.
- */
-public void registerAlpha(float alpha, ComponentState... states)
-```      
-Here is sample code from the [Autumn skin](light-skins.md#autumn) that uses the same color scheme for enabled and disabled states, setting alpha channel to 60% for the disabled states:
-
-```java
-RadianceSkin.ColorSchemes schemes = RadianceSkin
-    .getColorSchemes("org/pushingpixels/radiance/theming/api/skin/autumn.colorschemes");
-
-RadianceColorScheme activeScheme = schemes.get("Autumn Active");
-RadianceColorScheme enabledScheme = schemes.get("Autumn Enabled");
-RadianceColorScheme disabledScheme = enabledScheme;
-
-RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-    activeScheme, enabledScheme, disabledScheme);
-defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
-defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
-```
+* `containerSurfaceDisabledAlpha`
+* `containerOutlineDisabledAlpha`
+* `onContainerDisabledAlpha`
 
 ### Highlights
 
-The [highlight painters](../painters/highlight.md) are used to paint highlight areas on such components as lists, tables, table headers, trees and menus. Use the following APIs to specify custom highlight color schemes for specific component states, along with custom alpha values:
-
-```java
-  /**
-   * Registers a highlight color scheme for the specific component state if
-   * the component state is not <code>null</code>, or a global highlight color
-   * scheme otherwise.
-   *
-   * @param stateHighlightScheme
-   *     Highlight color scheme for the specified component state.
-   * @param states
-   *     Component states. If <code>null</code>, the specified color scheme
-   *     will be applied for all states left unspecified.
-   */
-  public void registerHighlightColorScheme(
-      RadianceColorScheme stateHighlightScheme, ComponentState... states)
-
-  /**
-   * Registers a highlight alpha channel value for the specific component states.
-   *
-   * @param alpha  Highlight alpha channel value.
-   * @param states Component states.
-   */
-  public void registerHighlightAlpha(float alpha, ComponentState... states)
-```
-
-Here is an example of using these APIs to set state-specific alpha values for highlights in the [Business Black Steel skin](light-skins.md#business-black-steel):
-
-```java
-RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
-    activeScheme, enabledScheme, disabledScheme);
-defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
-defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
-defaultSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
-defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-defaultSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.ROLLOVER_UNSELECTED,
-    ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
-    ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-```        
-
-### Finer grained control
-
-As described in the [color tokens association kind documentation](colortokensassociationkinds.md), Swing controls have different visual areas. Even such a simple example as `JCheckBox` icon has three different visual areas: inner fill, border and the "V" mark:
-
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-scheme-association-kinds.png" width="96" height="96"/>
-
-Use the following API to specify custom color schemes to be used for specific visual areas under specific component states:
-
-```java
-  /**
-   * Registers the color scheme to be used for the specified visual area of
-   * controls under the specified states. For example, if the light orange
-   * scheme has to be used for gradient fill of rollover selected and rollover
-   * controls, the parameters would be:
-   *
-   * <ul>
-   * <li><code>scheme</code>=light orange scheme</li>
-   * <li>
-   * <code>associationKind</code>={@link ColorSchemeAssociationKind#FILL}</li>
-   * <li>
-   * <code>states</code>={@link ComponentState#ROLLOVER_SELECTED}, {@link ComponentState#ROLLOVER_UNSELECTED}
-   * </li>
-   * </ul>
-   *
-   * @param scheme
-   *            Color scheme.
-   * @param associationKind
-   *            Color scheme association kind that specifies the visual areas
-   *            of controls to be painted with this color scheme.
-   * @param states
-   *            Component states that further restrict the usage of the
-   *            specified color scheme.
-   */
-  public void registerColorScheme(RadianceColorScheme scheme,
-      ColorSchemeAssociationKind associationKind,
-      ComponentState... states)
-```
-
-Here is an example of using this API in the [Office Silver 2007 skin](light-skins.md#office-silver-2007) skin to specify a custom color scheme to be used on borders of controls in the `ComponentState.SELECTED` state:
-
-```java
-    defaultSchemeBundle.registerColorScheme(borderSelectedScheme,
-        ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
-```
-
-### Derived bundles
-
-As with color schemes, it is possible to create a derived color scheme bundle. The same warning applies - a color scheme bundle is a delicate collection of different color schemes and alpha values carefully chosen to work together in providing visually appealing appearance and consistent animation sequences. In some cases, creating a derived color scheme bundle will result in poor visuals.
-
-You can use the following API to create a derived color scheme bundle:
-
-```java
-  /**
-   * Creates a new color scheme bundle that has the same settings as this
-   * color scheme bundle with the addition of applying the specified color
-   * scheme transformation on all the relevant color schemes
-   *
-   * @param transform
-   *     Color scheme transformation.
-   * @return The new color scheme bundle.
-   */
-  public RadianceColorSchemeBundle transform(ColorSchemeTransform transform)
-```
-
-Where the color scheme transformation is defined by the following interface:
+The [highlight painters](../painters/highlight.md) are used to paint highlight areas on such components as lists, tables, table headers, trees and menus. Use the following API to specify custom highlight color tokens for specific component states:
 
 ```java
 /**
- * Defines transformation on a color scheme.
+ * Registers the container color tokens to be used for controls in specified active states.
+ * For example, if light orange color tokens are to be used for rollover selected and rollover
+ * controls in highlights, the parameters would be:
  *
- * @author Kirill Grouchnikov
+ * <ul>
+ * <li><code>stateContainerTokens</code>=light orange color tokens</li>
+ * <li><code>associationKind</code>={@link RadianceThemingSlices.ContainerColorTokensAssociationKind#HIGHLIGHT}</li>
+ * <li><code>states</code>={@link ComponentState#ROLLOVER_SELECTED}, {@link ComponentState#ROLLOVER_UNSELECTED}</li>
+ * </ul>
+ *
+ * @param stateContainerTokens Container color tokens for the specified active component states.
+ * @param associationKind Color scheme association kind that specifies the visual areas
+ *                        of controls to be painted with this color tokens.
+ * @param activeStates    Component states that further restrict the usage of the
+ *                        specified color tokens.
  */
-public interface ColorSchemeTransform {
-  /**
-   * Transforms the specified color scheme.
-   *
-   * @param scheme
-   *            The original color scheme to transform.
-   * @return The transformed color scheme.
-   */
-  public RadianceColorScheme transform(RadianceColorScheme scheme);
-}
-```     
+public void registerActiveContainerTokens(ContainerColorTokens stateContainerTokens,
+    RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+    ComponentState... activeStates)
+```
+
+Here is an example of using these APIs to set custom highlight color tokens in the [Mariner skin](light-skins.md#mariner):
+
+```java
+marinerDefaultBundle.registerActiveContainerTokens(
+    marinerSelectedHighlightContainerTokens,
+    RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+    ComponentState.SELECTED);
+```        
+
+This API can also be used for configuring custom color tokens for other association kinds, like the `MARK` in the [Magellan skin](dark-skins.md#magellan):
+
+```java
+magellanDefaultBundle.registerActiveContainerTokens(magellanGreenContainerTokens,
+    RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+    ComponentState.SELECTED);
+magellanDefaultBundle.registerActiveContainerTokens(magellanGreenRolloverContainerTokens,
+    RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+    ComponentState.ROLLOVER_SELECTED,
+    ComponentState.ROLLOVER_UNSELECTED,
+    ComponentState.ARMED,
+    ComponentState.ROLLOVER_ARMED);
+magellanDefaultBundle.registerActiveContainerTokens(magellanPressedContainerTokens,
+    RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+    ComponentState.PRESSED_UNSELECTED,
+    ComponentState.PRESSED_SELECTED);
+```

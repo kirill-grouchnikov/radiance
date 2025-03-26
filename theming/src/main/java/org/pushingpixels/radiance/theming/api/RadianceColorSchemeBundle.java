@@ -70,6 +70,18 @@ public class RadianceColorSchemeBundle {
 
     private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> colorTokensForEnabledState;
 
+    /**
+     * Creates a new color scheme bundle.
+     *
+     * @param activeContainerTokens
+     *            The active color tokens of this bundle.
+     * @param mutedContainerTokens
+     *            The muted color tokens of this bundle.
+     * @param neutralContainerTokens
+     *            The neutral color tokens of this bundle.
+     * @param isSystemDark
+     *            <code>true</code> if the system tokens should be created in dark mode.
+     */
     public RadianceColorSchemeBundle(ContainerColorTokens activeContainerTokens,
         ContainerColorTokens mutedContainerTokens, ContainerColorTokens neutralContainerTokens,
         boolean isSystemDark) {
