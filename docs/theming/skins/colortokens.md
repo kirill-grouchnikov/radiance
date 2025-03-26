@@ -58,6 +58,7 @@ Each one of these three parts has multiple color tokens available to render them
   * `onContainerVariant`
   * `inverseOnContainer`
   * `complementaryOnContainer`
+  * `accentOnContainer`
 
 In addition, a container has the following alpha tokens for rendering disabled elements:
 * `containerSurfaceDisabledAlpha`

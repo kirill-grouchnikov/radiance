@@ -22,7 +22,7 @@ The `ComponentState` is the base class for core and custom [component states](co
       RadianceColorScheme disabledColorScheme)
 ```
 
-Here is a screenshot of three buttons (active, enabled and disabled) under the core [Business Black Steel skin](toneddown.md#business-black-steel):
+Here is a screenshot of three buttons (active, enabled and disabled) under the core [Business Black Steel skin](light-skins.md#business-black-steel):
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/states/control-states.png" width="293" height="101" />
 
@@ -58,7 +58,7 @@ The following API allows specifying a custom color scheme for a specific compone
       ComponentState... states)
 ```      
 
-For example, you can use this API if you want to visualy distinguish between buttons in rollover state and rollover selected state. Here is a screenshot of buttons in different states under the core [Office Silver 2007 skin](toneddown.md#office-silver-2007):
+For example, you can use this API if you want to visualy distinguish between buttons in rollover state and rollover selected state. Here is a screenshot of buttons in different states under the core [Office Silver 2007 skin](light-skins.md#office-silver-2007):
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/states/control-states-extended.png" width="275" height="279" />
 
@@ -88,7 +88,7 @@ It is possible to specify a custom alpha value for controls in some states. This
  */
 public void registerAlpha(float alpha, ComponentState... states)
 ```      
-Here is sample code from the [Autumn skin](toneddown.md#autumn) that uses the same color scheme for enabled and disabled states, setting alpha channel to 60% for the disabled states:
+Here is sample code from the [Autumn skin](light-skins.md#autumn) that uses the same color scheme for enabled and disabled states, setting alpha channel to 60% for the disabled states:
 
 ```java
 RadianceSkin.ColorSchemes schemes = RadianceSkin
@@ -133,7 +133,7 @@ The [highlight painters](../painters/highlight.md) are used to paint highlight a
   public void registerHighlightAlpha(float alpha, ComponentState... states)
 ```
 
-Here is an example of using these APIs to set state-specific alpha values for highlights in the [Business Black Steel skin](toneddown.md#business-black-steel):
+Here is an example of using these APIs to set state-specific alpha values for highlights in the [Business Black Steel skin](light-skins.md#business-black-steel):
 
 ```java
 RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
@@ -185,7 +185,7 @@ Use the following API to specify custom color schemes to be used for specific vi
       ComponentState... states)
 ```
 
-Here is an example of using this API in the [Office Silver 2007 skin](toneddown.md#office-silver-2007) skin to specify a custom color scheme to be used on borders of controls in the `ComponentState.SELECTED` state:
+Here is an example of using this API in the [Office Silver 2007 skin](light-skins.md#office-silver-2007) skin to specify a custom color scheme to be used on borders of controls in the `ComponentState.SELECTED` state:
 
 ```java
     defaultSchemeBundle.registerColorScheme(borderSelectedScheme,

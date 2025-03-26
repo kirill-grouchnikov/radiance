@@ -19,6 +19,6 @@ For earlier versions of Radiance, see [this page](../../archive/older-releases.m
 
 You have these options to use Radiance in your application:
 
-* Call `UIManager.setLookAndFeel()` with one of the skin-based look-and-feel classes ([light](skins/toneddown.md) or [dark](skins/dark.md)).
+* Call `UIManager.setLookAndFeel()` with one of the skin-based look-and-feel classes ([light](skins/light-skins.md) or [dark](skins/dark-skins.md)).
 * Use the static `setSkin(RadianceSkin)` or `setSkin(String)` APIs in `RadianceThemingCortex.GlobalScope` to set the specific skin.
 * Extend the `RadianceLookAndFeel` class and pass a `RadianceSkin` instance to the super constructor. Then call `UIManager.setLookAndFeel()` API.

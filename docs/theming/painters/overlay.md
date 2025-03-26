@@ -4,7 +4,7 @@
 
 ### Overlays
 
-The overlays are best illustrated with screenshots. The following screenshot is a skeleton window under the [Nebula Brick Wall](../skins/toneddown.md#nebula-brick-wall) skin:
+The overlays are best illustrated with screenshots. The following screenshot is a skeleton window under the [Nebula Brick Wall](../skins/light-skins.md#nebula-brick-wall) skin:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/overlay/nebulabrickwall.png" width="646" height="446"/>
 
@@ -29,7 +29,7 @@ this.addOverlayPainter(this.bottomLineOverlayPainter,
 * The `TopShadowOverlayPainter` is associated with the `toolbar` decoration area - adding the drop shadow along the top edge of all application toolbars (see the bottom half of the zoomed area in the screenshot above).
 * The `BottomLineOverlayPainter` is associated with `title pane` and `header` decoration areas - adding a thin separator line along the bottom edge of the title pane and the menubar (see the top half of the zoomed area in the screenshot above). Note that the application needs to specify what color is used to paint the separator line - using the `org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery` - more on this interface later.
 
-Here is the same skeleton window under the [Gemini](../skins/toneddown.md#gemini) skin:
+Here is the same skeleton window under the [Gemini](../skins/light-skins.md#gemini) skin:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/overlay/gemini.png" width="646" height="446"/>
 
@@ -75,7 +75,7 @@ This skin shows two different ways to add double-line bezel separators - the fir
   * An instance of `BottomLineOverlayPainter` associated with header decoration area - paints the top (darker) separator line along the bottom edge of the menu bar.
   * An instance of `TopLineOverlayPainter` associated with toolbar decoration area - paints the bottom (lighter) separator line along the top edge of the tool bar.
 
-The last example comes from the [Twilight](../skins/dark.md#twilight) skin:
+The last example comes from the [Twilight](../skins/dark-skins.md#twilight) skin:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/overlay/twilight.png" width="646" height="446"/>
 

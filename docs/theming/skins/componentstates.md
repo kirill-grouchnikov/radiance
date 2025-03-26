@@ -31,7 +31,7 @@ When the matching algorithm cannot find a sufficiently close match, the skinning
 
 ### Examples
 
-As mentioned above, the [Nebula](../skins/toneddown.md#nebula) skin defines custom color schemes for progress bars using the `ComponentStateFacet.DETERMINATE`:
+As mentioned above, the [Nebula](../skins/light-skins.md#nebula) skin defines custom color schemes for progress bars using the `ComponentStateFacet.DETERMINATE`:
 
 ```java
     ComponentState determinateState = new ComponentState("determinate",

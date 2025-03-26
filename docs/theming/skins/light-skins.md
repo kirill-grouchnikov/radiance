@@ -1,4 +1,4 @@
-## Radiance look and feel - toned down skins
+## Radiance look and feel - light skins
 
 ### Business
 

@@ -32,8 +32,8 @@ Radiance provides a powerful and flexible set of APIs that can be used to skin S
 * [Color scheme bundles](skins/colorschemebundles.md)
 * [Palette seeds](skins/palette-seeds.md)
 * [Palette seeds extras](skins/palette-seeds-extras.md)
-* [Light skins](skins/toneddown.md)
-* [Dark skins](skins/dark.md)
+* [Light skins](skins/light-skins.md)
+* [Dark skins](skins/dark-skins.md)
 
 ### Painters
 

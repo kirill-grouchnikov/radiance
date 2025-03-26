@@ -4,14 +4,14 @@
 
 A **skin** is a set of visual settings that gives your application a polished and consistent look. The core Radiance library bundles a number of predefined skins that can be broadly categorized as light and dark.
 
-[Light skins](toneddown.md) use predominantly light colors for painting the UI controls and containers. [Business skin](toneddown.md#business) is an example of a light skin:
+[Light skins](light-skins.md) use predominantly light colors for painting the UI controls and containers. [Business skin](light-skins.md#business) is an example of a light skin:
 
 <p>
 <img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/business1.png" width="340" height="258">
 <img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/business2.png" width="340" height="258">
 </p>
 
-[Dark skins](dark.md) use predominantly dark colors for painting the UI controls and containers. [Graphite Chalk](dark.md#graphite-chalk) skin is an example of a dark skin:
+[Dark skins](dark-skins.md) use predominantly dark colors for painting the UI controls and containers. [Graphite Chalk](dark-skins.md#graphite-chalk) skin is an example of a dark skin:
 
 <p>
 <img alt="GraphiteChalk" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphitechalk1.png" width="340" height="258">
@@ -41,7 +41,7 @@ In order to define a valid skin, you need to specify all its mandatory parameter
 
 ### Decoration areas
 
-The documentation on [decoration painters](../painters/decoration.md) explains the notion of a decoration area type. While a valid skin must define a color scheme bundle for `DecorationAreaType.NONE`, all other decoration area types are optional. Different skins have different sets of decoration areas that are painted. For example, the [Moderate skin](toneddown.md#moderate) decorates `DecorationAreaType.PRIMARY_TITLE_PANE`, `DecorationAreaType.SECONDARY_TITLE_PANE` and `DecorationAreaType.HEADER`, while the [Nebula Amethyst skin](toneddown.md#nebula-amethyst) also decorates `DecorationAreaType.TOOLBAR`:
+The documentation on [decoration painters](../painters/decoration.md) explains the notion of a decoration area type. While a valid skin must define a color scheme bundle for `DecorationAreaType.NONE`, all other decoration area types are optional. Different skins have different sets of decoration areas that are painted. For example, the [Moderate skin](light-skins.md#moderate) decorates `DecorationAreaType.PRIMARY_TITLE_PANE`, `DecorationAreaType.SECONDARY_TITLE_PANE` and `DecorationAreaType.HEADER`, while the [Nebula Amethyst skin](light-skins.md#nebula-amethyst) also decorates `DecorationAreaType.TOOLBAR`:
 
 <p>
 <img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/moderate1.png" width="340" height="258">
@@ -102,7 +102,7 @@ Decoration areas registered with these APIs will have their background painted b
       DecorationAreaType... areaTypes)
 ```
 
-Here is an example of specifying the default color scheme bundle for the [Mariner skin](toneddown.md#mariner):
+Here is an example of specifying the default color scheme bundle for the [Mariner skin](light-skins.md#mariner):
 
 ```java
 RadianceColorSchemeBundle marinerDefaultBundle = new RadianceColorSchemeBundle(
@@ -200,7 +200,7 @@ To add polishing touches to the specific decoration areas, use [overlay painters
       DecorationAreaType... areaTypes)
 ```
 
-Here is how the [Nebula skin](toneddown.md#nebula) is configured to paint drop shadows on the toolbars and separators on title panes and headers:
+Here is how the [Nebula skin](light-skins.md#nebula) is configured to paint drop shadows on the toolbars and separators on title panes and headers:
 
 ```java
 // add an overlay painter to paint a drop shadow along the top
