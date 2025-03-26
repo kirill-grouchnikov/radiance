@@ -26,7 +26,7 @@ Screenshot scripts are in `scripts/screenshot` folder. The structure of each scr
 
 * Set up the version of Java to use
 * Set up the classpath with all runtime dependencies
-* Run Screenshot command for each skin / color scheme
+* Run Screenshot command for each skin / color tokens
 
 For example, to run Screenshot to create screenshots for all Radiance core skins:
 

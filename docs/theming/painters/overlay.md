@@ -27,7 +27,7 @@ this.addOverlayPainter(this.bottomLineOverlayPainter,
 ```
 
 * The `TopShadowOverlayPainter` is associated with the `toolbar` decoration area - adding the drop shadow along the top edge of all application toolbars (see the bottom half of the zoomed area in the screenshot above).
-* The `BottomLineOverlayPainter` is associated with `title pane` and `header` decoration areas - adding a thin separator line along the bottom edge of the title pane and the menubar (see the top half of the zoomed area in the screenshot above). Note that the application needs to specify what color is used to paint the separator line - using the `org.pushingpixels.radiance.theming.api.colorscheme.ContainerColorTokensSingleColorQuery` - more on this interface later.
+* The `BottomLineOverlayPainter` is associated with `title pane` and `header` decoration areas - adding a thin separator line along the bottom edge of the title pane and the menubar (see the top half of the zoomed area in the screenshot above). Note that the application needs to specify what color is used to paint the separator line - using the `org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery` - more on this interface later.
 
 Here is the same skeleton window under the [Gemini](../skins/light-skins.md#gemini) skin:
 

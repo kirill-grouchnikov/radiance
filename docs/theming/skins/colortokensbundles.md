@@ -103,8 +103,8 @@ The [highlight painters](../painters/highlight.md) are used to paint highlight a
  * </ul>
  *
  * @param stateContainerTokens Container color tokens for the specified active component states.
- * @param associationKind Color scheme association kind that specifies the visual areas
- *                        of controls to be painted with this color tokens.
+ * @param associationKind Color tokens association kind that specifies the visual areas
+ *                        of controls to be painted with these color tokens.
  * @param activeStates    Component states that further restrict the usage of the
  *                        specified color tokens.
  */

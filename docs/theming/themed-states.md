@@ -16,7 +16,7 @@ This comes particularly handy for skins that mix light and dark visuals for diff
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/states/control-states-extended-mix.png"
 width="275" height="279"/>
 
-Note how the selected button uses light text on dark background, while the rollover selected button uses dark text on light background. If your UI uses the Magellan skin (or any other skin that uses a mix of light and dark color schemes), Radiance will do the right thing to animate all relevant parts of your UI as the user interacts with it.
+Note how the selected button uses light text on dark background, while the rollover selected button uses dark text on light background. If your UI uses the Magellan skin (or any other skin that uses a mix of light and dark color tokens), Radiance will do the right thing to animate all relevant parts of your UI as the user interacts with it.
 
 What about the icons?
 
@@ -40,17 +40,17 @@ These APIs apply for components / icons in three states:
  Three icon filtering strategies are supported:
  * `ORIGINAL` - leave the icon as supplied by the application with no filtering applied
  * `THEMED_FOLLOW_TEXT` - filter the icon to use the text color that matches the current component state
- * `THEMED_FOLLOW_COLOR_SCHEME` - filter the icon to use the Radiance color scheme from the currently set skin that matches the component in its current state
+ * `THEMED_FOLLOW_COLOR_TOKENS` - filter the icon to use the Radiance color scheme from the currently set skin that matches the component in its current state
 
-`THEMED_FOLLOW_COLOR_SCHEME` which works best for multi-color / multi-tone icons and Radiance skins with multi-color color schemes. Here is the same UI with this icon filter strategy applied on enabled and disabled component states:
+`THEMED_FOLLOW_COLOR_TOKENS` which works best for multi-color / multi-tone icons and Radiance skins with multi-color color tokens. Here is the same UI with this icon filter strategy applied on enabled and disabled component states:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/states/icon-theming-enabled.png"
 width="757" height="550"/>
 
-Take a look at the icons in the toolbar. The icon for the active / selected button (bold A) is still in full original color, but the rest of the icons have been themed with the colors of the enabled color scheme configured for the toolbar area of the Nebula Amethyst skin. This work well in this particular case because:
+Take a look at the icons in the toolbar. The icon for the active / selected button (bold A) is still in full original color, but the rest of the icons have been themed with the colors of the muted color tokens configured for the toolbar area of the Nebula Amethyst skin. This work well in this particular case because:
 
 * The original Tango icons have enough contrast to continue being easily recognizable when they are themed in what is essentially a mono-chrome purple color palette
-* Nebula Amethyst skin uses color schemes with different background colors for the ultra light to ultra dark range, so that when these colors are used to theme the original icons, the icons remain crisp and legible.
+* Nebula Amethyst skin uses color tokens with different background colors for the ultra light to ultra dark range, so that when these colors are used to theme the original icons, the icons remain crisp and legible.
 
 `THEMED_FOLLOW_TEXT` works best for single-tone icons found in such popular icon packs as [Material](https://material.io/resources/icons/), [Ionicons](https://ionicons.com/), [Friconix](https://friconix.com/), [Flexicons](https://setproduct.com/flexicons), [Font Awesome](https://fontawesome.com/) and many others:
 

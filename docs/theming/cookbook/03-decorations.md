@@ -28,7 +28,7 @@ Another option is to implement the target design programmatically. While it is h
 
 To show my appreciation of the power of Java2D (and as a programmer myself), this specific implementation is going to use pure code to achieve visuals that are significantly close to the target UI. To speed up the development process i'm going to use the [excellent collection](http://www.jhlabs.com/ip/filters/index.html) of filters available from Jerry Huxtable under the Apache 2.0 license.
 
-The header and the footer portions of the Cookbook UI use a texture that looks like a cross between brushed metal and wood. To implement this texture, i'm using a combination of `BrushedMetalFilter` and `LookupFilter` to create a brushed texture that is mapped to the colors of the relevant Radiance [color tokens](../skins/colortokens.md) (more on the color scheme selection in the next phase).
+The header and the footer portions of the Cookbook UI use a texture that looks like a cross between brushed metal and wood. To implement this texture, i'm using a combination of `BrushedMetalFilter` and `LookupFilter` to create a brushed texture that is mapped to the colors of the relevant Radiance [color tokens](../skins/colortokens.md) (more on the color tokens selection in the next phase).
 
 Here is the texture image that is going to be painted on top of the gradient fill:
 
@@ -42,7 +42,7 @@ The screenshot on the left shows a portion of Cookbook UI footer area, and right
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/cookbook/03-decorations/footers.png" width="132" border=0/>
 
-The sidebar of the Cookbook UI uses a fine-wood texture. To implement this texture, i'm using a combination of `WoodFilter` and `LookupFilter` to create a wood texture that is mapped to the colors of the relevant Radiance color scheme.
+The sidebar of the Cookbook UI uses a fine-wood texture. To implement this texture, i'm using a combination of `WoodFilter` and `LookupFilter` to create a wood texture that is mapped to the colors of the relevant Radiance color tokens.
 
 Here is the texture image that is going to be painted on top of the gradient fill:
 

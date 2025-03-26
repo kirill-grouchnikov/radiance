@@ -34,7 +34,7 @@ Let's go back to the original screenshot:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/decoration/thumb.png" width="600" height="448"/>
 
-It illustrates that the specific skin assigns different color schemes to different decoration areas. The controls in those areas get the background and foreground colors based on their assigned color scheme (without any custom application code), thus creating visual distinction between different application areas.
+It illustrates that the specific skin assigns different color tokens to different decoration areas. The controls in those areas get the background and foreground colors based on their assigned color tokens (without any custom application code), thus creating visual distinction between different application areas.
 
 ### Application-facing APIs
 

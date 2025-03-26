@@ -200,7 +200,7 @@ Sets the new setting for the icons of the `JOptionPane`s created with predefined
 
 `public static void setUseThemedDefaultIcons(Boolean useThemedDefaultIcons)`
 
-Specifies that icons on controls such as buttons, toggle buttons, labels, tabs and menu items should match the color of the current color scheme when they are in default state.
+Specifies that icons on controls such as buttons, toggle buttons, labels, tabs and menu items should match the color of the current color tokens when they are in default state.
 
 #### Working with button bars
 
@@ -284,7 +284,7 @@ Specifies corner radius for all toolbar buttons.
 
 `public static void setColorizationFactor(double colorizationFactor)`
 
-Specifies colorization amount applied to the background and foreground of the current color scheme and all controls.
+Specifies colorization amount applied to the background and foreground of the current color tokens and all controls.
 
 `public static void setTabContentPaneBorderKind(TabContentPaneBorderKind tabContentPaneBorderKind)`
 
@@ -536,7 +536,7 @@ Specifies that extra UI elements (such as menu items in system menu or lock bord
 
 `public static void setColorizationFactor(JComponent comp, double colorizationFactor)`
 
-Specifies colorization amount applied to the background and foreground of the current color scheme and the specific control.
+Specifies colorization amount applied to the background and foreground of the current color tokens and the specific control.
 
 `public static void setFocusKind(JComponent comp, FocusKind focusKind)`
 

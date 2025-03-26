@@ -61,9 +61,6 @@ It is up to the application code to decide how to generate a full color tokens b
 
 The following screenshots show sample skins created from each one of the 5 light seeds, where the muted and neutral container color tokens were generated from hardcoded neutral seeds:
 
-### Core dark color schemes
-The Radiance core library provides the following 4 dark color schemes:
-
 Charcoal, Jade Forest
 <p>
 <img alt="Charcoal"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/charcoal.png" width="340" height="258" />
