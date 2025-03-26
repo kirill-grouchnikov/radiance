@@ -217,7 +217,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     ComponentState currState = modelStateInfo.getCurrModelState();
 
                     ContainerColorTokens trackColorTokensUnselected =
-                        RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+                        CoreColorTokenUtils.getContainerTokens(this.slider,
                             this.slider.isEnabled() ? ComponentState.ENABLED
                                 : ComponentState.DISABLED_UNSELECTED,
                             RadianceThemingSlices.ContainerType.MUTED);
@@ -573,7 +573,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
     @Override
     public void paintTicks(Graphics g) {
         Rectangle tickBounds = this.tickRect;
-        ContainerColorTokens tickTokens = RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+        ContainerColorTokens tickTokens = CoreColorTokenUtils.getContainerTokens(this.slider,
             this.slider.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED,
             RadianceThemingSlices.ContainerType.NEUTRAL);

@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.SystemColorTokenUtils;
 
 import java.util.HashMap;
@@ -327,14 +327,14 @@ public class ContainerColorTokensBundle {
             (componentState == ComponentState.ARMED)) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    ContainerColorTokensUtils.getPressedUnselectedTokens(tonals));
+                    CoreColorTokenUtils.getPressedUnselectedTokens(tonals));
             }
             return stateTokens.get(componentState);
         }
         if (componentState == ComponentState.PRESSED_SELECTED) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    ContainerColorTokensUtils.getPressedSelectedTokens(tonals));
+                    CoreColorTokenUtils.getPressedSelectedTokens(tonals));
             }
             return stateTokens.get(componentState);
         }
@@ -344,21 +344,21 @@ public class ContainerColorTokensBundle {
         if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    ContainerColorTokensUtils.getRolloverUnselectedTokens(tonals));
+                    CoreColorTokenUtils.getRolloverUnselectedTokens(tonals));
             }
             return stateTokens.get(componentState);
         }
         if (componentState == ComponentState.ROLLOVER_SELECTED) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    ContainerColorTokensUtils.getRolloverSelectedTokens(tonals));
+                    CoreColorTokenUtils.getRolloverSelectedTokens(tonals));
             }
             return stateTokens.get(componentState);
         }
         if (componentState == ComponentState.ROLLOVER_ARMED) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    ContainerColorTokensUtils.getRolloverArmedTokens(tonals));
+                    CoreColorTokenUtils.getRolloverArmedTokens(tonals));
             }
             return stateTokens.get(componentState);
         }

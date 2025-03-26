@@ -929,7 +929,7 @@ public class RadianceCoreUtilities {
         RadianceThemingSlices.IconFilterStrategy iconFilterStrategy =
             getIconFilterStrategy(comp, componentState);
         ContainerColorTokens colorTokens =
-            RadianceColorSchemeUtilities.getContainerTokens(comp, componentState, inactiveContainerType);
+            CoreColorTokenUtils.getContainerTokens(comp, componentState, inactiveContainerType);
         switch (iconFilterStrategy) {
             case ORIGINAL:
                 return orig;
@@ -951,7 +951,7 @@ public class RadianceCoreUtilities {
 
         RadianceThemingSlices.IconFilterStrategy iconFilterStrategy = getIconFilterStrategy(tab, componentState);
         ContainerColorTokens colorTokens =
-            RadianceColorSchemeUtilities.getContainerTokens(tab, componentState, inactiveContainerType);
+            CoreColorTokenUtils.getContainerTokens(tab, componentState, inactiveContainerType);
         switch (iconFilterStrategy) {
             case ORIGINAL:
                 return orig;
@@ -1851,20 +1851,20 @@ public class RadianceCoreUtilities {
     }
 
     public static Color getTextBackgroundFill(Component component, ComponentState componentState) {
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             component, componentState, RadianceThemingSlices.ContainerType.NEUTRAL);
         return tokens.isDark() ? tokens.getContainerSurfaceHigh()
             : tokens.getContainerSurfaceLow();
     }
 
     public static Color getTextSelectionBackground(Component component, ComponentState componentState) {
-        return RadianceColorSchemeUtilities.getContainerTokens(component,
+        return CoreColorTokenUtils.getContainerTokens(component,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT, componentState,
             RadianceThemingSlices.ContainerType.MUTED).getContainerSurface();
     }
 
     public static Color getTextSelectionForeground(Component component, ComponentState componentState) {
-        return RadianceColorSchemeUtilities.getContainerTokens(component,
+        return CoreColorTokenUtils.getContainerTokens(component,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT, componentState,
             RadianceThemingSlices.ContainerType.MUTED).getOnContainer();
     }

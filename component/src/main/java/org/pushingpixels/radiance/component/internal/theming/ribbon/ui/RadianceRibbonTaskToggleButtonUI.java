@@ -209,7 +209,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
 
         Color fgColor = getTonalForegroundColor(this.commandButton, modelStateInfo);
         if (currState.isDisabled()) {
-            float alpha = RadianceColorSchemeUtilities.getContainerTokens(
+            float alpha = CoreColorTokenUtils.getContainerTokens(
                     this.commandButton, currState, RadianceThemingSlices.ContainerType.NEUTRAL)
                 .getOnContainerDisabledAlpha();
             fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
@@ -258,7 +258,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
             modelStateInfo.getStateNoSelectionContributionMap();
 
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             button, currStateIgnoreSelection, RadianceThemingSlices.ContainerType.MUTED);
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
         RadianceThemingSlices.DecorationAreaType parentDecorationAreaType =
@@ -288,7 +288,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
             boolean correspondsToParentFill = (activeState == ComponentState.ENABLED) &&
                 !button.getActionModel().isSelected();
             ContainerColorTokens activeTokens =
-                RadianceColorSchemeUtilities.getContainerTokens(button,
+                CoreColorTokenUtils.getContainerTokens(button,
                     activeState, RadianceThemingSlices.ContainerType.MUTED);
             //System.out.println("\t" + activeState + " : " + currState);
             Color activeForeground = correspondsToParentFill

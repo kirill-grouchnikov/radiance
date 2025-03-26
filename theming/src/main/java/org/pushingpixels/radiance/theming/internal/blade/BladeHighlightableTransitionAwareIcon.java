@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import javax.swing.*;
@@ -92,7 +92,7 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
-        float iconAlpha = RadianceColorSchemeUtilities.getContainerTokens(c,
+        float iconAlpha = CoreColorTokenUtils.getContainerTokens(c,
                 modelStateInfo.getCurrModelState(), RadianceThemingSlices.ContainerType.MUTED)
             .getOnContainerDisabledAlpha();
 

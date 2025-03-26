@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
@@ -88,7 +88,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                     HighlightPainterUtils.paintHighlightBorder1X(graphics1X,
                         this.colorSelectorPanel, scaledWidth, scaledHeight, 1.0f, openSides,
                         RadianceCoreUtilities.getOutlinePainter(this.colorSelectorPanel),
-                        RadianceColorSchemeUtilities.getContainerTokens(this.colorSelectorPanel,
+                        CoreColorTokenUtils.getContainerTokens(this.colorSelectorPanel,
                             ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL));
                 });
         graphics.dispose();
@@ -104,7 +104,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                     this.colorSelectorPanel, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                     ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
                 Color borderColor = tokens.getContainerOutline();

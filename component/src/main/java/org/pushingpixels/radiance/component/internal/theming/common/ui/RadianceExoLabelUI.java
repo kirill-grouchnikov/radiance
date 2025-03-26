@@ -315,10 +315,10 @@ public class RadianceExoLabelUI extends ComponentUI {
                 ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
 
             RadianceSkin skin = RadianceCoreUtilities.getSkin(label);
-            Color textColor = RadianceColorSchemeUtilities.getContainerTokens(label, state,
+            Color textColor = CoreColorTokenUtils.getContainerTokens(label, state,
                 RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
             if (!contentModel.isEnabled()) {
-                float fgAlpha = RadianceColorSchemeUtilities.getContainerTokens(label, state,
+                float fgAlpha = CoreColorTokenUtils.getContainerTokens(label, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
                 textColor = RadianceColorUtilities.getAlphaColor(textColor,
                     (int) (textColor.getAlpha() * fgAlpha));

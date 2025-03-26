@@ -328,7 +328,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
 
         Graphics2D g2d = (Graphics2D) g.create();
 
-        ContainerColorTokens fillColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens fillColorTokens = CoreColorTokenUtils.getContainerTokens(
             progressBar, fillState, RadianceThemingSlices.ContainerType.MUTED);
 
         RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(progressBar);
@@ -339,7 +339,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
 
         if (amountFull > 0) {
             boolean isFull = (this.progressBar.getModel().getValue() == this.progressBar.getMaximum());
-            ContainerColorTokens progressColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+            ContainerColorTokens progressColorTokens = CoreColorTokenUtils.getContainerTokens(
                 progressBar, progressState, RadianceThemingSlices.ContainerType.MUTED);
 
             if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
@@ -377,7 +377,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     protected Color getSelectionBackground() {
         ComponentState fillState = getFillState();
 
-        ContainerColorTokens fillColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens fillColorTokens = CoreColorTokenUtils.getContainerTokens(
             this.progressBar, fillState, RadianceThemingSlices.ContainerType.MUTED);
         return RadianceColorUtilities.getForegroundColor(fillColorTokens);
     }
@@ -386,7 +386,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     protected Color getSelectionForeground() {
         ComponentState progressState = getProgressState();
 
-        ContainerColorTokens progressColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens progressColorTokens = CoreColorTokenUtils.getContainerTokens(
             this.progressBar, progressState, RadianceThemingSlices.ContainerType.MUTED);
         return RadianceColorUtilities.getForegroundColor(progressColorTokens);
     }
@@ -491,7 +491,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
             RadianceSizeUtils.getComponentFontSize(progressBar));
         g2d.clip(new RoundRectangle2D.Float(margin, margin, barRectWidth, barRectHeight, radius, radius));
 
-        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
             progressBar, progressState, RadianceThemingSlices.ContainerType.MUTED);
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
             paintRectangularStripedBackground(g2d, margin, margin, barRectWidth, barRectHeight,

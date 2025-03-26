@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableHeaderUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -178,11 +178,11 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                         (state == ComponentState.ENABLED)
                             ? RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT
                             : RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
-                    tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    tokens = CoreColorTokenUtils.getContainerTokens(
                         tableHeader, colorSchemeAssociationKind, state,
                         RadianceThemingSlices.ContainerType.MUTED);
                 } else {
-                    tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    tokens = CoreColorTokenUtils.getContainerTokens(
                         tableHeader, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
                 }
 
@@ -211,9 +211,9 @@ public class RadianceDefaultTableHeaderCellRenderer extends
     private ContainerColorTokens getTokensForState(
         JTableHeader tableHeader, ComponentState activeState) {
         ContainerColorTokens scheme = (activeState == ComponentState.ENABLED)
-            ? RadianceColorSchemeUtilities.getContainerTokens(tableHeader, activeState,
+            ? CoreColorTokenUtils.getContainerTokens(tableHeader, activeState,
                 RadianceThemingSlices.ContainerType.MUTED)
-            : RadianceColorSchemeUtilities.getContainerTokens(tableHeader,
+            : CoreColorTokenUtils.getContainerTokens(tableHeader,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
                 RadianceThemingSlices.ContainerType.MUTED);
         return scheme;

@@ -136,7 +136,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
 
                 ContainerColorTokens colorTokens = getContainerTokensForState(list, ui, currState);
                 if (isDropLocation) {
-                    colorTokens = RadianceColorSchemeUtilities.getContainerTokens(list,
+                    colorTokens = CoreColorTokenUtils.getContainerTokens(list,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                 }
@@ -192,14 +192,14 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
         UpdateOptimizationInfo updateOptimizationInfo = ui.getUpdateOptimizationInfo();
         if (state == ComponentState.ENABLED) {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getContainerTokens(list, state,
+                return CoreColorTokenUtils.getContainerTokens(list, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }
         } else {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getContainerTokens(list,
+                return CoreColorTokenUtils.getContainerTokens(list,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {

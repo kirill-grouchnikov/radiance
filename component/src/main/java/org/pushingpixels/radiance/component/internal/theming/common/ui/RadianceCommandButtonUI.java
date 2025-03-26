@@ -338,7 +338,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                                 ? ComponentState.SELECTED
                                 : ComponentState.DISABLED_SELECTED;
 
-                        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                                 this.commandButton,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                             currState, RadianceThemingSlices.ContainerType.MUTED);
@@ -368,7 +368,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             ComponentState currState = this.commandButton.getActionModel().isEnabled()
                     ? ComponentState.SELECTED
                     : ComponentState.DISABLED_SELECTED;
-            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                 this.commandButton, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 currState, RadianceThemingSlices.ContainerType.MUTED);
             g2d.setColor(tokens.getOnContainer());
@@ -397,7 +397,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         float fadeAlpha = this.getSeparatorAlpha();
         g2d.setComposite(AlphaComposite.SrcOver.derive(fadeAlpha));
 
-        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
             this.commandButton,
             ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
             RadianceThemingSlices.ContainerType.MUTED);
@@ -414,7 +414,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         float fadeAlpha = this.getSeparatorAlpha();
         g2d.setComposite(AlphaComposite.SrcOver.derive(fadeAlpha));
 
-        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
             this.commandButton,
             ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
             RadianceThemingSlices.ContainerType.MUTED);
@@ -724,7 +724,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         if (currState.isActive()
             && !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
             currAssocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(menuButton,
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(menuButton,
             currAssocKind, currState, RadianceThemingSlices.ContainerType.MUTED);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return tokens.getOnContainer();
@@ -743,7 +743,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             if (activeState.isActive()
                 && !activeState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
                 assocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
-            ContainerColorTokens activeTokens = RadianceColorSchemeUtilities.getContainerTokens(menuButton,
+            ContainerColorTokens activeTokens = CoreColorTokenUtils.getContainerTokens(menuButton,
                 currAssocKind, activeState, RadianceThemingSlices.ContainerType.MUTED);
             Color activeForeground = activeTokens.getOnContainer();
             aggrRed += alpha * activeForeground.getRed();
@@ -765,7 +765,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         if (currState.isActive()
             && !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
             currAssocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(menuButton,
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(menuButton,
             currAssocKind, currState, RadianceThemingSlices.ContainerType.MUTED);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return tokens.getOnContainerVariant();
@@ -784,7 +784,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             if (activeState.isActive()
                 && !activeState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
                 assocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
-            ContainerColorTokens activeTokens = RadianceColorSchemeUtilities.getContainerTokens(menuButton,
+            ContainerColorTokens activeTokens = CoreColorTokenUtils.getContainerTokens(menuButton,
                 currAssocKind, activeState, RadianceThemingSlices.ContainerType.MUTED);
             Color activeForeground = activeTokens.getOnContainer();
             aggrRed += alpha * activeForeground.getRed();

@@ -171,7 +171,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
             .getUpdateOptimizationInfo();
         if (toUseHighlightKindForCurrState) {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getContainerTokens(list,
+                return CoreColorTokenUtils.getContainerTokens(list,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {
@@ -179,7 +179,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
             }
         } else {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getContainerTokens(list, state,
+                return CoreColorTokenUtils.getContainerTokens(list, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();

@@ -550,7 +550,7 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
         if (dropLocation != null && !dropLocation.isInsert() && dropLocation.getIndex() == row) {
             // mark drop location
             ContainerColorTokens colorTokens =
-                RadianceColorSchemeUtilities.getContainerTokens(list,
+                CoreColorTokenUtils.getContainerTokens(list,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                     currState, RadianceThemingSlices.ContainerType.NEUTRAL);
             Rectangle cellRect = new Rectangle(cx, cy, cw, ch);

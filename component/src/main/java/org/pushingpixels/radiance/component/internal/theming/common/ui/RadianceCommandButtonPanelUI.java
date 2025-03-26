@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
@@ -109,7 +109,7 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
         g2d.fillRect(0, 0, width, height);
         HighlightPainterUtils.paintHighlightBorder1X(g2d, this.buttonPanel, width, height, 1.0f,
             openSides, RadianceCoreUtilities.getOutlinePainter(this.buttonPanel),
-            RadianceColorSchemeUtilities.getContainerTokens(this.buttonPanel,
+            CoreColorTokenUtils.getContainerTokens(this.buttonPanel,
                 ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL));
         g2d.dispose();
     }

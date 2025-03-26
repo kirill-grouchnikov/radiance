@@ -43,7 +43,7 @@ import org.pushingpixels.radiance.theming.extras.internal.contrib.blogofbug.swin
 import org.pushingpixels.radiance.theming.extras.internal.contrib.blogofbug.swing.components.ReflectedImageLabel;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -502,7 +502,7 @@ public class TabOverviewDialog extends JDialog {
             this.caroselMenu.setMenuScrollColor(UIManager.getColor("Panel.background"));
             this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
 
-            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                 this.caroselMenu, ComponentState.DEFAULT, RadianceThemingSlices.ContainerType.MUTED);
             this.caroselMenu.setUpDownIcons(
                 BladeArrowIconUtils.getArrowIcon(caroselMenu,
@@ -535,7 +535,7 @@ public class TabOverviewDialog extends JDialog {
                 this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
                 this.caroselMenu.setBackground(UIManager.getColor("Panel.background"));
 
-                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                     this.caroselMenu, ComponentState.DEFAULT, RadianceThemingSlices.ContainerType.MUTED);
                 this.caroselMenu.setUpDownIcons(
                     BladeArrowIconUtils.getArrowIcon(this.caroselMenu,

@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 
 import javax.swing.border.Border;
 import java.awt.*;
@@ -53,7 +53,7 @@ public class RadianceEtchedBorder implements Border {
      * @return Matching highlight color.
      */
     private Color getHighlightColor(Component c) {
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
         return SeparatorPainterUtils.getPrimarySeparatorColor(tokens);
     }
@@ -65,7 +65,7 @@ public class RadianceEtchedBorder implements Border {
      * @return Matching shadow color.
      */
     private Color getShadowColor(Component c) {
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
         return SeparatorPainterUtils.getSecondarySeparatorColor(tokens);
     }

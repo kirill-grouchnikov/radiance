@@ -51,7 +51,7 @@ public class UpdateOptimizationInfo {
         this.component = component;
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        this.defaultColorTokens = RadianceColorSchemeUtilities.getContainerTokens(this.component,
+        this.defaultColorTokens = CoreColorTokenUtils.getContainerTokens(this.component,
             ComponentState.ENABLED, inactiveContainerType);
         this.decorationAreaType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(
             this.component);
@@ -67,7 +67,7 @@ public class UpdateOptimizationInfo {
         }
         ContainerColorTokens result = this.highlightContainerTokens.get(state);
         if (result == null) {
-            result = RadianceColorSchemeUtilities.getContainerTokens(this.component,
+            result = CoreColorTokenUtils.getContainerTokens(this.component,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
                 RadianceThemingSlices.ContainerType.NEUTRAL);
             this.highlightContainerTokens.put(state, result);

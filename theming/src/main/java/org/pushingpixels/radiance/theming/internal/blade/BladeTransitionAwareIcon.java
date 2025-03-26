@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
@@ -129,7 +129,7 @@ public class BladeTransitionAwareIcon implements Icon {
             stateTransitionTracker = this.transitionAwareUIDelegate.getTransitionAwareUI().
                     getTransitionTracker();
             modelStateInfo = stateTransitionTracker.getModelStateInfo();
-            iconAlpha = RadianceColorSchemeUtilities.getContainerTokens(c,
+            iconAlpha = CoreColorTokenUtils.getContainerTokens(c,
                     modelStateInfo.getCurrModelState(), RadianceThemingSlices.ContainerType.MUTED)
                 .getOnContainerDisabledAlpha();
         } else if (c instanceof AbstractButton) {
@@ -139,7 +139,7 @@ public class BladeTransitionAwareIcon implements Icon {
             TransitionAwareUI transitionAwareUI = (TransitionAwareUI) ab.getUI();
             stateTransitionTracker = transitionAwareUI.getTransitionTracker();
             modelStateInfo = stateTransitionTracker.getModelStateInfo();
-            iconAlpha = RadianceColorSchemeUtilities.getContainerTokens(c,
+            iconAlpha = CoreColorTokenUtils.getContainerTokens(c,
                     modelStateInfo.getCurrModelState(), RadianceThemingSlices.ContainerType.MUTED)
                 .getOnContainerDisabledAlpha();
         } else {

@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
@@ -64,7 +64,7 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
     @Override
     protected void paintRibbonGalleryBorder(Graphics graphics) {
         Graphics2D g2d = (Graphics2D) graphics;
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             this.ribbonGallery, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
         BladeDrawingUtils.paintBladeTonalBorder(this.ribbonGallery, g2d, this.margin.left,
             this.margin.top,

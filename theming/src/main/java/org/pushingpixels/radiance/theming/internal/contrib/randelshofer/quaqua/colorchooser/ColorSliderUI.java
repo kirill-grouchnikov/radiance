@@ -23,7 +23,7 @@ import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.VisualMargin;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceSliderUI;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RolloverControlListener;
 
 import javax.swing.*;
@@ -208,7 +208,7 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
             ch = trackBounds.height + pad * 2 - 5;
         }
 
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(this.slider,
             ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
         Color backgroundFill = tokens.getContainerSurfaceLow();
         g.setColor(backgroundFill);
@@ -235,7 +235,7 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
 
     @Override
     public void paintTicks(Graphics g) {
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(this.slider,
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(this.slider,
             ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
 
         Rectangle tickBounds = tickRect;

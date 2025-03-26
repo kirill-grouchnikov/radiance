@@ -17,7 +17,7 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -106,7 +106,7 @@ public class SwatchPanel extends javax.swing.JPanel {
     public void paintComponent(Graphics g) {
         Dimension preferredSize = getSwatchesSize();
 
-        Color border = RadianceColorSchemeUtilities.getContainerTokens(this,
+        Color border = CoreColorTokenUtils.getContainerTokens(this,
             ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).getContainerOutline();
 
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT

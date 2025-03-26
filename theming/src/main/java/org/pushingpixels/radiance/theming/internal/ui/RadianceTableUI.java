@@ -654,7 +654,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         Graphics2D g2d = (Graphics2D) g.create();
         ComponentState currState = this.table.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             this.table, currState, RadianceThemingSlices.ContainerType.NEUTRAL);
         float alpha = tokens.getContainerOutlineDisabledAlpha();
         g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
@@ -1075,7 +1075,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                         && !dropLocation.isInsertColumn() && dropLocation.getRow() == row
                         && dropLocation.getColumn() == column) {
                     // mark drop location
-                    ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
                         table, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                     float extra = RadianceSizeUtils.getBorderStrokeWidth(table);
@@ -1154,7 +1154,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
             return;
         }
 
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(this.table,
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(this.table,
             ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
         Color color = tokens.getContainerOutlineVariant();
         Color shortColor = tokens.getContainerOutline();

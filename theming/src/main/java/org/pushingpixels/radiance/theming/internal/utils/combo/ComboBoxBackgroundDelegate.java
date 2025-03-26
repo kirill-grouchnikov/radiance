@@ -143,7 +143,7 @@ public class ComboBoxBackgroundDelegate {
                 extraAlpha += activeEntry.getValue().getContribution();
             }
         } else if (!combo.isEnabled()) {
-            extraAlpha = RadianceColorSchemeUtilities.getContainerTokens(combo,
+            extraAlpha = CoreColorTokenUtils.getContainerTokens(combo,
                     modelStateInfo.getCurrModelState(), RadianceThemingSlices.ContainerType.MUTED)
                 .getContainerSurfaceDisabledAlpha();
         }

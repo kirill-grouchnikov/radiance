@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
@@ -105,7 +105,7 @@ public class BreadcrumbCommandButtonPopupIcon implements RadianceIcon {
 
         ComponentState currState = modelStateInfo.getCurrModelState();
         float iconAlpha = modelStateInfo.getCurrModelState().isDisabled()
-            ? RadianceColorSchemeUtilities.getContainerTokens(commandButton, currState,
+            ? CoreColorTokenUtils.getContainerTokens(commandButton, currState,
                 RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha()
             : 1.0f;
 

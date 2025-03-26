@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
 
@@ -91,7 +91,7 @@ public class RadianceRibbonApplicationMenuPopupPanelUI
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, c.getWidth(), c.getHeight(),
                     (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                             applicationMenuPopupPanel, ComponentState.ENABLED,
                             RadianceThemingSlices.ContainerType.NEUTRAL);
                         graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));

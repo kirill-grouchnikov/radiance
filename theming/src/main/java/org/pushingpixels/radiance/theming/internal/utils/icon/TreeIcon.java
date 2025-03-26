@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -64,7 +64,7 @@ public class TreeIcon implements Icon, UIResource {
         ComponentState state = ((tree == null) || tree.isEnabled()) ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
 
-        ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
             this.tree, state, RadianceThemingSlices.ContainerType.MUTED);
 
         Graphics2D graphics = (Graphics2D) g.create();

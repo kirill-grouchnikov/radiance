@@ -271,11 +271,11 @@ public class RadianceTextUtilities {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
-                : RadianceColorSchemeUtilities.getContainerTokens(component, state, inactiveContainerType)
+                : CoreColorTokenUtils.getContainerTokens(component, state, inactiveContainerType)
                     .getOnContainer();
         float fgAlpha = toEnforceFgColor ? component.getForeground().getAlpha() / 255.0f
             : (state.isDisabled()
-                ? RadianceColorSchemeUtilities.getContainerTokens(component, state, inactiveContainerType)
+                ? CoreColorTokenUtils.getContainerTokens(component, state, inactiveContainerType)
                     .getOnContainerDisabledAlpha()
                 : 1.0f);
 
@@ -348,7 +348,7 @@ public class RadianceTextUtilities {
             float activeStrength = Math.max(selectionStrength, rolloverStrength);
             if (activeStrength > 0.0f) {
                 // Account for the selection  / rollover state
-                ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+                ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                     componentForTransitions, ComponentState.ENABLED,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
                 Color interpolateTowards = tokens.isDark() ? tokens.getContainerSurfaceHighest()
@@ -394,7 +394,7 @@ public class RadianceTextUtilities {
                     continue;
                 }
 
-                float alpha = RadianceColorSchemeUtilities.getActiveContainerTokens(comp, activeState)
+                float alpha = CoreColorTokenUtils.getActiveContainerTokens(comp, activeState)
                     .getContainerSurfaceDisabledAlpha();
                 if (alpha == 0.0f) {
                     continue;
@@ -439,7 +439,7 @@ public class RadianceTextUtilities {
                     continue;
                 }
 
-                float alpha = RadianceColorSchemeUtilities.getActiveContainerTokens(comp, activeState)
+                float alpha = CoreColorTokenUtils.getActiveContainerTokens(comp, activeState)
                     .getOnContainerDisabledAlpha();
                 if (alpha == 0.0f) {
                     continue;
@@ -494,7 +494,7 @@ public class RadianceTextUtilities {
         }
 
         // Get the base border color
-        ContainerColorTokens baseColorTokens = RadianceColorSchemeUtilities.getContainerTokens(comp,
+        ContainerColorTokens baseColorTokens = CoreColorTokenUtils.getContainerTokens(comp,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
             RadianceThemingSlices.ContainerType.NEUTRAL);
         Color borderColor = baseColorTokens.getContainerOutline();
@@ -514,7 +514,7 @@ public class RadianceTextUtilities {
                     continue;
                 }
 
-                ContainerColorTokens activeColorTokens = RadianceColorSchemeUtilities.getContainerTokens(comp,
+                ContainerColorTokens activeColorTokens = CoreColorTokenUtils.getContainerTokens(comp,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, activeState,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
                 Color activeBorderColor = activeColorTokens.getContainerOutline();

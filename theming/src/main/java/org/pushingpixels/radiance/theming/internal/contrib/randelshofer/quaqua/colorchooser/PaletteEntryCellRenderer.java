@@ -18,7 +18,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceStripingUtils;
 
 import javax.swing.*;
@@ -51,7 +51,7 @@ public class PaletteEntryCellRenderer extends RadianceDefaultListCellRenderer {
 		}
 
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			Color border = RadianceColorSchemeUtilities.getContainerTokens(c,
+			Color border = CoreColorTokenUtils.getContainerTokens(c,
 				ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).getContainerOutline();
 			// Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
 			// to not normalize coordinates to paint at full pixels, and will result in blurry

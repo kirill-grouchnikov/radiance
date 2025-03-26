@@ -223,7 +223,7 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                     graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane,
                         contribution, g));
                     BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
-                        thumbWidth, gripHeight, false, RadianceColorSchemeUtilities.getContainerTokens(
+                        thumbWidth, gripHeight, false, CoreColorTokenUtils.getContainerTokens(
                             this,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, activeState,
                             RadianceThemingSlices.ContainerType.MUTED),
@@ -254,7 +254,7 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
                     graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane, contribution, g));
                     BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
-                        gripWidth, thumbHeight, true, RadianceColorSchemeUtilities.getContainerTokens(
+                        gripWidth, thumbHeight, true, CoreColorTokenUtils.getContainerTokens(
                             this, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                             activeState, RadianceThemingSlices.ContainerType.MUTED),
                         activeState);

@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
@@ -546,7 +546,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
 
         ComponentState currState = isEnabled ? ComponentState.ENABLED
             : ComponentState.DISABLED_UNSELECTED;
-        Color gridColor = RadianceColorSchemeUtilities.getContainerTokens(
+        Color gridColor = CoreColorTokenUtils.getContainerTokens(
             header, currState, RadianceThemingSlices.ContainerType.NEUTRAL).getContainerOutline();
 
         return gridColor;
@@ -599,7 +599,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
         if (hasHighlights) {
             if (activeStates == null) {
                 if ((currState != ComponentState.ENABLED) && (currState != ComponentState.DISABLED_UNSELECTED)) {
-                    ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
                         this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.MUTED);
                     HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
@@ -615,7 +615,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                         (stateEntry.getValue().getContribution() == 0.0f)) {
                         continue;
                     }
-                    ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
                         this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         activeState, RadianceThemingSlices.ContainerType.MUTED);
                     HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererPane,
@@ -668,7 +668,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
 
         // do not use the highlight scheme for painting the
         // table header background
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(c,
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(c,
             backgroundState, RadianceThemingSlices.ContainerType.MUTED);
         HighlightPainterUtils.paintHighlight(g, null, c, clip, backgroundState, 1.0f, false,
             null, tokens);
@@ -789,7 +789,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                     && header.getTable().isEnabled()) ? ComponentState.ENABLED
                             : ComponentState.DISABLED_UNSELECTED;
 
-            ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+            ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                 this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 backgroundState, RadianceThemingSlices.ContainerType.MUTED);
 

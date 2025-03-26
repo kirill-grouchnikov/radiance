@@ -135,7 +135,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
                 ComponentState state = field.isEnabled() ? ComponentState.ENABLED
                     : ComponentState.DISABLED_UNSELECTED;
                 ContainerColorTokens colorTokens =
-                    RadianceColorSchemeUtilities.getContainerTokens(field, state,
+                    CoreColorTokenUtils.getContainerTokens(field, state,
                         RadianceThemingSlices.ContainerType.NEUTRAL);
                 Color color = RadianceColorUtilities.getForegroundColor(colorTokens);
                 graphics.setColor(color);

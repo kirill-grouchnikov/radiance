@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import java.awt.*;
@@ -125,7 +125,7 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
                     : ComponentState.ENABLED,
                 this.colorSchemeAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
             if ((c == null) || !c.isEnabled()) {
-                alpha = RadianceColorSchemeUtilities.getActiveContainerTokens(
+                alpha = CoreColorTokenUtils.getActiveContainerTokens(
                     c, ComponentState.DISABLED_UNSELECTED).getOnContainerDisabledAlpha();
             }
         } else {
@@ -140,7 +140,7 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
 
             BladeUtils.populateColorTokens(mutableTokens, commandButton, modelStateInfo, currState,
                     this.colorSchemeAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
-            alpha = RadianceColorSchemeUtilities.getContainerTokens(
+            alpha = CoreColorTokenUtils.getContainerTokens(
                 c, currState, RadianceThemingSlices.ContainerType.MUTED).getOnContainerDisabledAlpha();
         }
 

@@ -818,7 +818,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         }
 
         if (!this.tabPane.isEnabledAt(tabIndex)) {
-            finalAlpha *= RadianceColorSchemeUtilities.getContainerTokens(
+            finalAlpha *= CoreColorTokenUtils.getContainerTokens(
                 this.tabPane, tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                 currState).getContainerSurfaceDisabledAlpha();
         }
@@ -1552,7 +1552,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     // Draw unbroken line if tabs are not on BOTTOM, OR
                     // selected tab is not in run adjacent to content, OR
                     // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
                         this.tabPane, selectedIndex,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                         ComponentState.SELECTED);
@@ -1622,7 +1622,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     // Draw unbroken line if tabs are not on LEFT, OR
                     // selected tab is not in run adjacent to content, OR
                     // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
                         this.tabPane, selectedIndex,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                         ComponentState.SELECTED);
@@ -1688,7 +1688,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     // Draw unbroken line if tabs are not on RIGHT, OR
                     // selected tab is not in run adjacent to content, OR
                     // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
                         this.tabPane, selectedIndex,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                         ComponentState.SELECTED);
@@ -1757,7 +1757,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     // Draw unbroken line if tabs are not on TOP, OR
                     // selected tab is not in run adjacent to content, OR
                     // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
                         this.tabPane, selectedIndex,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                         ComponentState.SELECTED);
@@ -1851,7 +1851,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     : ComponentState.DISABLED_UNSELECTED;
 
             // System.out.println("Tab " + title + ":" + currState);
-            ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(tabPane,
+            ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(tabPane,
                 tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB, currState);
             Color fg = colorTokens.getOnContainer();
             if (currState.isDisabled()) {

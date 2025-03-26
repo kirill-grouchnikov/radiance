@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
@@ -130,7 +130,7 @@ public class RadianceBorder implements Border, UIResource {
 
 		ComponentState state = isEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
 
-		ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+		ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
 			c, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
 			RadianceThemingSlices.ContainerType.MUTED);
 

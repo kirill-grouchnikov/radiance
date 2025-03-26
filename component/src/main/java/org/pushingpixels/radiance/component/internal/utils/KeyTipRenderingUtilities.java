@@ -61,7 +61,7 @@ public class KeyTipRenderingUtilities {
 
         ComponentState state =
                 toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
-        ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             c, state, RadianceThemingSlices.ContainerType.MUTED);
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -97,7 +97,7 @@ public class KeyTipRenderingUtilities {
                             contourInner, tokens);
                 });
 
-        graphics.setColor(RadianceColorSchemeUtilities.getContainerTokens(
+        graphics.setColor(CoreColorTokenUtils.getContainerTokens(
             c, state, RadianceThemingSlices.ContainerType.MUTED).getOnContainer());
         Font font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                 getControlFont();

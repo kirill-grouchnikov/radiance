@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.overlay;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -96,7 +96,7 @@ public final class BottomShadowOverlayPainter implements RadianceOverlayPainter 
 		 RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
 		 RadianceSkin skin) {
 
-		Color shadowColor = RadianceColorSchemeUtilities.getContainerTokens(comp,
+		Color shadowColor = CoreColorTokenUtils.getContainerTokens(comp,
 				ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL)
 			.getContainerOutline();
 

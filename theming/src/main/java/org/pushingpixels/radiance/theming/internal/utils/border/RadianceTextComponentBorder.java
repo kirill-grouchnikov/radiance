@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -144,7 +144,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                 : ComponentState.DISABLED_UNSELECTED;
 
             ContainerColorTokens colorTokens =
-                RadianceColorSchemeUtilities.getContainerTokens(c,
+                CoreColorTokenUtils.getContainerTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                     currState, RadianceThemingSlices.ContainerType.MUTED);
 

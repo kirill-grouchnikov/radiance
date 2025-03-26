@@ -140,7 +140,7 @@ public class CommandButtonBackgroundDelegate {
         if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
             if (currActionState == ComponentState.DISABLED_SELECTED) {
                 // Respect the alpha in disabled+selected state
-                actionAlpha = RadianceColorSchemeUtilities.getActiveContainerTokens(
+                actionAlpha = CoreColorTokenUtils.getActiveContainerTokens(
                     commandButton, currActionState).getContainerSurfaceDisabledAlpha();
             } else {
                 // For flat buttons, compute the combined contribution of all
@@ -168,7 +168,7 @@ public class CommandButtonBackgroundDelegate {
             }
         } else {
             if (currActionState.isDisabled()) {
-                actionAlpha = RadianceColorSchemeUtilities.getContainerTokens(
+                actionAlpha = CoreColorTokenUtils.getContainerTokens(
                     commandButton, currActionState, RadianceThemingSlices.ContainerType.MUTED)
                     .getContainerSurfaceDisabledAlpha();
             } else {
@@ -191,7 +191,7 @@ public class CommandButtonBackgroundDelegate {
         if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
             if (currPopupState == ComponentState.DISABLED_SELECTED) {
                 // Respect the alpha in disabled+selected state
-                popupAlpha = RadianceColorSchemeUtilities.getActiveContainerTokens(
+                popupAlpha = CoreColorTokenUtils.getActiveContainerTokens(
                     commandButton, currPopupState).getContainerSurfaceDisabledAlpha();
             } else {
                 // For flat buttons, compute the combined contribution of all
@@ -218,7 +218,7 @@ public class CommandButtonBackgroundDelegate {
             }
         } else {
             if (currPopupState.isDisabled()) {
-                popupAlpha = RadianceColorSchemeUtilities.getContainerTokens(
+                popupAlpha = CoreColorTokenUtils.getContainerTokens(
                     commandButton, currPopupState, RadianceThemingSlices.ContainerType.MUTED)
                     .getContainerSurfaceDisabledAlpha();
             } else {

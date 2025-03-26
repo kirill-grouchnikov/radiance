@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -167,7 +167,7 @@ public class RadianceMenuBackgroundDelegate {
 			}
 
 			ContainerColorTokens colorTokens =
-				RadianceColorSchemeUtilities.getContainerTokens(
+				CoreColorTokenUtils.getContainerTokens(
 					menuItem, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 					activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
 			HighlightPainterUtils.paintHighlight(graphics, null, menuItem,

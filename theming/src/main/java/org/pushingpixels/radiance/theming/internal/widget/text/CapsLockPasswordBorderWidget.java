@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 
@@ -231,7 +231,7 @@ public class CapsLockPasswordBorderWidget extends RadianceThemingWidget<JPasswor
         public Insets getBorderInsets(Component c) {
             RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
             Icon capsLockIcon = RadianceImageCreator.getCapsLockIcon(
-                RadianceColorSchemeUtilities.getContainerTokens(
+                CoreColorTokenUtils.getContainerTokens(
                     c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c);
 
             Insets origInsets = this.originalBorder.getBorderInsets(c);
@@ -271,7 +271,7 @@ public class CapsLockPasswordBorderWidget extends RadianceThemingWidget<JPasswor
             }
 
             Icon capsLockIcon = RadianceImageCreator.getCapsLockIcon(
-                RadianceColorSchemeUtilities.getContainerTokens(
+                CoreColorTokenUtils.getContainerTokens(
                     c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c);
 
             int iconY = y + (height - capsLockIcon.getIconHeight()) / 2;

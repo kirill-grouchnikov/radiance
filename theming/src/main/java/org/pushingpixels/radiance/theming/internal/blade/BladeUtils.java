@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -159,8 +159,8 @@ public class BladeUtils {
 
         StringBuilder nameBuilder = new StringBuilder();
         ContainerColorTokens currColorTokens = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
-            ? RadianceColorSchemeUtilities.getActiveContainerTokens(component, currState)
-            : RadianceColorSchemeUtilities.getContainerTokens(component, associationKind, currState,
+            ? CoreColorTokenUtils.getActiveContainerTokens(component, currState)
+            : CoreColorTokenUtils.getContainerTokens(component, associationKind, currState,
                 inactiveContainerType, skipFlatCheck);
         Color containerSurfaceLowest = currColorTokens.getContainerSurfaceLowest();
         Color containerSurfaceLow = currColorTokens.getContainerSurfaceLow();
@@ -204,8 +204,8 @@ public class BladeUtils {
                 }
                 // Get the color tokens that matches the contribution state
                 ContainerColorTokens contributionColorTokens = (treatEnabledAsActive && (activeState == ComponentState.ENABLED))
-                        ? RadianceColorSchemeUtilities.getActiveContainerTokens(component, activeState)
-                        : RadianceColorSchemeUtilities.getContainerTokens(component, associationKind, activeState, inactiveContainerType);
+                        ? CoreColorTokenUtils.getActiveContainerTokens(component, activeState)
+                        : CoreColorTokenUtils.getContainerTokens(component, associationKind, activeState, inactiveContainerType);
 
                 // And interpolate the colors
                 containerSurfaceLowest = RadianceColorUtilities.getInterpolatedColor(containerSurfaceLowest,
@@ -293,14 +293,14 @@ public class BladeUtils {
         return new ColorSchemeDelegate() {
             @Override
             public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
-                return RadianceColorSchemeUtilities.getContainerTokens(component,
+                return CoreColorTokenUtils.getContainerTokens(component,
                     colorSchemeAssociationKindDelegate.getContainterColorTokensAssociationKind(state), state,
                     RadianceThemingSlices.ContainerType.MUTED);
             }
 
             @Override
             public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
-                return RadianceColorSchemeUtilities.getContainerTokens(component,
+                return CoreColorTokenUtils.getContainerTokens(component,
                     colorSchemeAssociationKindDelegate.getContainterColorTokensAssociationKind(state), state,
                     RadianceThemingSlices.ContainerType.MUTED);
             }
@@ -456,7 +456,7 @@ public class BladeUtils {
         }
 
         StringBuilder nameBuilder = new StringBuilder();
-        ContainerColorTokens currColorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+        ContainerColorTokens currColorTokens = CoreColorTokenUtils.getContainerTokens(
             tabbedPane, tabIndex, associationKind, currState);
         Color containerSurfaceLowest = currColorTokens.getContainerSurfaceLowest();
         Color containerSurfaceLow = currColorTokens.getContainerSurfaceLow();
@@ -500,7 +500,7 @@ public class BladeUtils {
                 }
                 // Get the color tokens that matches the contribution state
                 ContainerColorTokens contributionColorTokens =
-                    RadianceColorSchemeUtilities.getContainerTokens(
+                    CoreColorTokenUtils.getContainerTokens(
                         tabbedPane, tabIndex, associationKind, activeState);
 
                 // And interpolate the colors

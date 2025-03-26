@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.internal.painter;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -132,7 +132,7 @@ public class SeparatorPainterUtils {
         if (isParentAPopup) {
             // For separators in popups, first see if we have a color
             // scheme explicitly registered for the SEPARATOR association kind.
-            colorTokens = RadianceColorSchemeUtilities.getContainerTokens(c,
+            colorTokens = CoreColorTokenUtils.getContainerTokens(c,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                 ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
             if (colorTokens == null) {
@@ -146,7 +146,7 @@ public class SeparatorPainterUtils {
             // And finally, get the separator's color tokens via the regular
             // route that includes fall back in case there is no explicitly registered
             // color tokens for the SEPARATOR association kind.
-            colorTokens = RadianceColorSchemeUtilities.getContainerTokens(c,
+            colorTokens = CoreColorTokenUtils.getContainerTokens(c,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
                 ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
         }

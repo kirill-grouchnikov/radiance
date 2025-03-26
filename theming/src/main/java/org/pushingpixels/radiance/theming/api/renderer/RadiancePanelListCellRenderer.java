@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceListUI;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.UpdateOptimizationInfo;
 
 import javax.swing.*;
@@ -171,7 +171,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
             } else {
                 ContainerColorTokens colorTokens = getContainerTokensForState(list, ui, currState);
                 if (isDropLocation) {
-                    colorTokens = RadianceColorSchemeUtilities.getContainerTokens(list,
+                    colorTokens = CoreColorTokenUtils.getContainerTokens(list,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                 }
@@ -221,14 +221,14 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
         UpdateOptimizationInfo updateOptimizationInfo = ui.getUpdateOptimizationInfo();
         if (state == ComponentState.ENABLED) {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getContainerTokens(list, state,
+                return CoreColorTokenUtils.getContainerTokens(list, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }
         } else {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getContainerTokens(list,
+                return CoreColorTokenUtils.getContainerTokens(list,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
                     RadianceThemingSlices.ContainerType.NEUTRAL);
             } else {

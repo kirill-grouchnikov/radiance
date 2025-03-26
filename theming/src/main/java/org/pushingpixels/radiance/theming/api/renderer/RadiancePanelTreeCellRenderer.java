@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTreeUI;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -171,7 +171,7 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
             } else {
                 ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
                 if (isDropLocation) {
-                    colorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
+                    colorTokens = CoreColorTokenUtils.getContainerTokens(tree,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                 }
@@ -220,11 +220,11 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
         ComponentState activeState) {
         ContainerColorTokens colorTokens = (activeState == ComponentState.ENABLED)
             ? ui.getDefaultColorTokens()
-            : RadianceColorSchemeUtilities.getContainerTokens(tree,
+            : CoreColorTokenUtils.getContainerTokens(tree,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
             RadianceThemingSlices.ContainerType.NEUTRAL);
         if (colorTokens == null) {
-            colorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
+            colorTokens = CoreColorTokenUtils.getContainerTokens(tree,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
                 RadianceThemingSlices.ContainerType.NEUTRAL);
         }

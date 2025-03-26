@@ -279,7 +279,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 		if (dropLocation != null && dropLocation.getChildIndex() == -1
 				&& tree.getRowForPath(dropLocation.getPath()) == row) {
 			// mark drop location
-			ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+			ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
 				tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 				currState, RadianceThemingSlices.ContainerType.NEUTRAL);
 			HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer, rowRectangle,
@@ -288,7 +288,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 			if (hasHighlights) {
 				if (activeStates == null) {
 					if ((currState != ComponentState.ENABLED) && (currState != ComponentState.DISABLED_UNSELECTED)) {
-						ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+						ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
 							this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 							currState, RadianceThemingSlices.ContainerType.NEUTRAL);
 						// Fix for defect 180 - painting the
@@ -305,7 +305,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 							(stateEntry.getValue().getContribution() == 0.0f)) {
 							continue;
 						}
-						ContainerColorTokens colorTokens = RadianceColorSchemeUtilities.getContainerTokens(
+						ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
 							this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 							activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
 						// Fix for defect 180 - painting the
@@ -390,7 +390,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 			boolean isLeaf) {
 
 		float alpha = this.tree.isEnabled() ? 1.0f
-			: RadianceColorSchemeUtilities.getContainerTokens(this.tree,
+			: CoreColorTokenUtils.getContainerTokens(this.tree,
 				ComponentState.DISABLED_UNSELECTED,
 				RadianceThemingSlices.ContainerType.MUTED).getContainerOutlineDisabledAlpha();
 
@@ -894,7 +894,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 		}
 
 		// compute the default color tokens - to optimize the performance
-		this.currDefaultColorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
+		this.currDefaultColorTokens = CoreColorTokenUtils.getContainerTokens(tree,
 			ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
 
 		Rectangle paintBounds = g.getClipBounds();

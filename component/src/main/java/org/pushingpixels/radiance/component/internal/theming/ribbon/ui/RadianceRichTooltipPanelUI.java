@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -66,7 +66,7 @@ public class RadianceRichTooltipPanelUI extends BasicRichTooltipPanelUI {
 	protected void paintBackground(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
 
-		ContainerColorTokens tokens = RadianceColorSchemeUtilities.getContainerTokens(
+		ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
 			this.richTooltipPanel, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
 		Color topColor = tokens.isDark() ? tokens.getContainerSurface()
 			: tokens.getContainerSurfaceLowest();

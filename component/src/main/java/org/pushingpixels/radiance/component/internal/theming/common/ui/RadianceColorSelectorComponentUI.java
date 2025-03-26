@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
@@ -138,7 +138,7 @@ public class RadianceColorSelectorComponentUI extends BasicColorSelectorComponen
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
                 ContainerColorTokens tokens =
-                    RadianceColorSchemeUtilities.getContainerTokens(this.colorSelectorComponent,
+                    CoreColorTokenUtils.getContainerTokens(this.colorSelectorComponent,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         ComponentState.ROLLOVER_UNSELECTED,
                         RadianceThemingSlices.ContainerType.MUTED);

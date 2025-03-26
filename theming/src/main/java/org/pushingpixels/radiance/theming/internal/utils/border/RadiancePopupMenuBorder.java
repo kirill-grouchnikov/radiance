@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 
 import javax.swing.border.Border;
 import javax.swing.plaf.UIResource;
@@ -46,7 +46,7 @@ public class RadiancePopupMenuBorder implements Border, UIResource {
 		graphics.translate(x, y);
 
 		ContainerColorTokens containerTokens =
-			RadianceColorSchemeUtilities.getContainerTokens(c, ComponentState.ENABLED,
+			CoreColorTokenUtils.getContainerTokens(c, ComponentState.ENABLED,
 				RadianceThemingSlices.ContainerType.NEUTRAL);
 		BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
 			containerTokens);

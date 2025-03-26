@@ -216,7 +216,7 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
             } else {
                 ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
                 if (isDropLocation) {
-                    colorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
+                    colorTokens = CoreColorTokenUtils.getContainerTokens(tree,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, RadianceThemingSlices.ContainerType.NEUTRAL);
                 }
@@ -279,11 +279,11 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
         ComponentState activeState) {
         ContainerColorTokens colorTokens = (activeState == ComponentState.ENABLED)
             ? ui.getDefaultColorTokens()
-            : RadianceColorSchemeUtilities.getContainerTokens(tree,
+            : CoreColorTokenUtils.getContainerTokens(tree,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
                 RadianceThemingSlices.ContainerType.NEUTRAL);
         if (colorTokens == null) {
-            colorTokens = RadianceColorSchemeUtilities.getContainerTokens(tree,
+            colorTokens = CoreColorTokenUtils.getContainerTokens(tree,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
                 RadianceThemingSlices.ContainerType.NEUTRAL);
         }

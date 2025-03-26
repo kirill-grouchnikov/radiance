@@ -80,7 +80,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
 
                     @Override
                     public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
-                        return RadianceColorSchemeUtilities.getContainerTokens(button,
+                        return CoreColorTokenUtils.getContainerTokens(button,
                             state, RadianceThemingSlices.ContainerType.ACTIVE);
                     }
 
@@ -92,7 +92,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
                             return skin.getBackgroundContainerTokens(buttonDecorationAreaType);
                         }
-                        return RadianceColorSchemeUtilities.getContainerTokens(button,
+                        return CoreColorTokenUtils.getContainerTokens(button,
                             state, RadianceThemingSlices.ContainerType.ACTIVE);
                     }
                 },

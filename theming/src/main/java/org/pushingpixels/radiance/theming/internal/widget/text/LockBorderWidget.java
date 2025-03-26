@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 
@@ -216,7 +216,7 @@ public class LockBorderWidget extends RadianceThemingWidget<JTextComponent> {
         @Override
         public Insets getBorderInsets(Component c) {
             Icon lockIcon = RadianceImageCreator.getSmallLockIcon(
-                RadianceColorSchemeUtilities.getContainerTokens(
+                CoreColorTokenUtils.getContainerTokens(
                     c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c);
 
             Insets origInsets = this.originalBorder.getBorderInsets(c);
@@ -241,7 +241,7 @@ public class LockBorderWidget extends RadianceThemingWidget<JTextComponent> {
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             this.originalBorder.paintBorder(c, g, x, y, width, height);
             Icon lockIcon = RadianceImageCreator.getSmallLockIcon(
-                RadianceColorSchemeUtilities.getContainerTokens(
+                CoreColorTokenUtils.getContainerTokens(
                     c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c);
 
             int offsetY = 1;
