@@ -32,11 +32,9 @@ package org.pushingpixels.radiance.demo.themingapps.mail;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.*;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 
 import javax.swing.*;
@@ -87,13 +85,11 @@ public class DestinationsPanel extends PanelWithRightLine {
         RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
 
         ComponentOrParentChainScope.setDecorationType(this, VisorMail.DESTINATIONS);
-        this.setRightLineColor(currentSkin.getContainerTokens(this,
-            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).getContainerOutline());
+        this.setRightLineColor(currentSkin.getNeutralContainerTokens(this).getContainerOutline());
         this.setLayout(new VerticalStackLayout());
 
         // Get the color for colorizing the icons.
-        Color mainSelectorIconTitleColor = currentSkin.getContainerTokens(this,
-                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
+        Color mainSelectorIconTitleColor = currentSkin.getNeutralContainerTokens(this).getOnContainer();
 
         RadianceIcon refreshIcon = refresh_black_24dp.factory().createNewIcon();
         refreshIcon.setColorFilter(color -> mainSelectorIconTitleColor);

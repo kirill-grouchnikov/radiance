@@ -1,7 +1,6 @@
 package org.pushingpixels.radiance.theming.internal.contrib.xoetrope.editor.color;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -1162,8 +1161,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 				double sin = Math.sin(angle2);
 				double cos = Math.cos(angle2);
 
-				boolean isDark = RadianceCoreUtilities.getSkin(this).getContainerTokens(
-					this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL).isDark();
+				boolean isDark = RadianceCoreUtilities.getSkin(this).getNeutralContainerTokens(this).isDark();
 
 				AttributedString as = new AttributedString(getLabel(
 						"Xoetrope.warm", "WARM"));

@@ -112,7 +112,7 @@ public class MarinerSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         // More muted separators
-        marinerHeaderBundle.registerEnabledContainerTokens(
+        marinerHeaderBundle.registerNeutralContainerTokens(
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF261D1E),
                 /* containerConfiguration */ new ContainerConfiguration(

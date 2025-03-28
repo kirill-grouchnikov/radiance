@@ -34,11 +34,10 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.mode_edit_black_24dp;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.person_outline_black_24dp;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.refresh_black_24dp;
-import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 
 import javax.swing.*;
@@ -58,8 +57,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
         RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREADS);
 
-        ContainerColorTokens colorTokens = currentSkin.getContainerTokens(this,
-            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        ContainerColorTokens colorTokens = currentSkin.getNeutralContainerTokens(this);
 
         this.setRightLineColor(colorTokens.getContainerOutline());
         // Get the color tokens for colorizing the icons.

@@ -30,9 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -193,8 +191,7 @@ public class RadianceEditorPaneUI extends BasicEditorPaneUI implements Transitio
             if ((foregr == null) || (foregr instanceof UIResource)) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(editorPane);
                 editorPane.setForeground(RadianceColorUtilities.getForegroundColor(
-                    skin.getContainerTokens(editorPane, ComponentState.ENABLED,
-                        RadianceThemingSlices.ContainerType.MUTED)));
+                    skin.getMutedContainerTokens(editorPane)));
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {

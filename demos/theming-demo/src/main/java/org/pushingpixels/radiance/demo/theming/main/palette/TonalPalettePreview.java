@@ -31,9 +31,7 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,8 +73,7 @@ public class TonalPalettePreview extends JComponent {
             Color toneColor = new Color(toneRgb);
             paintSquare(g2d, xOffset, showLegend ? 20 : 0, 20, toneColor);
             g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this)
-                .getContainerTokens(this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL)
-                .getOnContainer());
+                .getNeutralContainerTokens(this).getOnContainer());
             xOffset += 20;
         }
 

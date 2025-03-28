@@ -32,11 +32,10 @@ package org.pushingpixels.radiance.demo.themingapps.mail;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.*;
-import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -51,8 +50,7 @@ public class ThreadPanel extends JPanel {
         this.setLayout(new VerticalStackLayout());
 
         RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
-        ContainerColorTokens colorTokens = currentSkin.getContainerTokens(this,
-            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        ContainerColorTokens colorTokens = currentSkin.getNeutralContainerTokens(this);
         Color onContainer = colorTokens.getOnContainer();
         Color iconColor = new Color(onContainer.getRed(),
             onContainer.getGreen(), onContainer.getBlue(), 204);

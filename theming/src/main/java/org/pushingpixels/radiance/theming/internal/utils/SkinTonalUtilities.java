@@ -78,9 +78,7 @@ public class SkinTonalUtilities {
                 new ColorUIResource(mainMutedTokens.getContainerSurfaceLow());
 
         Color disabledForegroundColor = RadianceColorUtilities.getForegroundColor(mainMutedTokens);
-        float alpha = skin.getContainerTokens(null,
-            ComponentState.DISABLED_UNSELECTED,
-            RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
+        float alpha = skin.getNeutralContainerTokens((Component) null).getOnContainerDisabledAlpha();
         Color disabledTextComponentForegroundColor = new ColorUIResource(
                 RadianceColorUtilities.getInterpolatedColor(
                     disabledForegroundColor, defaultTextBackgroundColor, alpha));
@@ -91,21 +89,21 @@ public class SkinTonalUtilities {
         int lcb = RadianceColorUtilities.getColorBrightness(lineColor.getRGB());
         Color lineBwColor = new ColorUIResource(new Color(lcb, lcb, lcb));
 
-        ContainerColorTokens textHighlightColorTokens = skin.getContainerTokens(null,
+        ContainerColorTokens textHighlightColorTokens = skin.getActiveContainerTokens(null,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
-            ComponentState.SELECTED, RadianceThemingSlices.ContainerType.ACTIVE);
+            ComponentState.SELECTED);
         if (textHighlightColorTokens == null) {
-            textHighlightColorTokens = skin.getContainerTokens(null,
-                ComponentState.ROLLOVER_SELECTED, RadianceThemingSlices.ContainerType.ACTIVE);
+            textHighlightColorTokens = skin.getActiveContainerTokens(null,
+                ComponentState.ROLLOVER_SELECTED);
         }
         Color selectionTextBackgroundColor = new ColorUIResource(
             textHighlightColorTokens.getContainerSurfaceLow());
         Color selectionTextForegroundColor = new ColorUIResource(
             textHighlightColorTokens.getOnContainer());
 
-        ContainerColorTokens highlightColorTokens = skin.getContainerTokens(
+        ContainerColorTokens highlightColorTokens = skin.getActiveContainerTokens(
             null, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-            ComponentState.SELECTED, RadianceThemingSlices.ContainerType.MUTED);
+            ComponentState.SELECTED);
         Color selectionCellForegroundColor = new ColorUIResource(
             highlightColorTokens.getOnContainer());
         Color selectionCellBackgroundColor = new ColorUIResource(

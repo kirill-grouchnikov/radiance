@@ -33,14 +33,11 @@ import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.layout.CellConstraints;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.skin.*;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SkinContainersDemo extends JFrame {
     private int row = 1;
@@ -122,24 +119,21 @@ public class SkinContainersDemo extends JFrame {
         int rows = (skins.length + 1) / 2;
         int skinIndex = 0;
         for (int skinRow = 0; skinRow < rows; skinRow++) {
-            ContainerColorTokens muted = skins[skinIndex].getContainerTokens(null,
-                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
+            ContainerColorTokens muted = skins[skinIndex].getMutedContainerTokens((Component) null);
             ContainerColorTokens tonal = skins[skinIndex].getActiveContainerTokens(
                 RadianceThemingSlices.DecorationAreaType.NONE);
-            ContainerColorTokens selected = skins[skinIndex].getContainerTokens(
-                null, ComponentState.SELECTED, RadianceThemingSlices.ContainerType.ACTIVE);
+            ContainerColorTokens selected = skins[skinIndex].getActiveContainerTokens(
+                null, ComponentState.SELECTED);
             builder.addROLabel(skins[skinIndex].getDisplayName()).xy(1, row)
                 .add(new ContainerPreview(muted, "Muted", ContainerPreview.Variant.COMPACT)).xy(3, row)
                 .add(new ContainerPreview(tonal, "Tonal", ContainerPreview.Variant.COMPACT)).xy(5, row)
                 .add(new ContainerPreview(selected, "Selected", ContainerPreview.Variant.COMPACT)).xy(7, row);
             skinIndex++;
             if (skinIndex < skins.length) {
-                muted = skins[skinIndex].getContainerTokens(null,
-                    ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
+                muted = skins[skinIndex].getMutedContainerTokens((Component) null);
                 tonal = skins[skinIndex].getActiveContainerTokens(
                     RadianceThemingSlices.DecorationAreaType.NONE);
-                selected = skins[skinIndex].getContainerTokens(
-                    null, ComponentState.SELECTED, RadianceThemingSlices.ContainerType.ACTIVE);
+                selected = skins[skinIndex].getActiveContainerTokens(null, ComponentState.SELECTED);
                 builder.addROLabel(skins[skinIndex].getDisplayName()).xy(9, row)
                     .add(new ContainerPreview(muted, "Muted", ContainerPreview.Variant.COMPACT)).xy(11, row)
                     .add(new ContainerPreview(tonal, "Tonal", ContainerPreview.Variant.COMPACT)).xy(13, row)

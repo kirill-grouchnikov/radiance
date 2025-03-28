@@ -32,7 +32,9 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableCellRenderer;
 
@@ -343,8 +345,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(table);
             SwingComponentTimeline.componentBuilder(instructional)
                 .addPropertyToInterpolate("foreground",
-                    () -> skin.getContainerTokens(table, ComponentState.ENABLED,
-                        RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer(),
+                    () -> skin.getNeutralContainerTokens(table).getOnContainer(),
                     () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
                 .setDuration(1000)
                 .playLoop(RepeatBehavior.REVERSE);

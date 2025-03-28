@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.se;
-import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -431,10 +431,10 @@ public class ListPanel extends ControllablePanel {
             // mark every fifth row as disabled
             if ((index % 5) == 0) {
                 result.setEnabled(false);
-                ComponentState state = isSelected ? ComponentState.DISABLED_SELECTED
-                        : ComponentState.DISABLED_UNSELECTED;
-                result.setForeground(skin.getContainerTokens(list, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer());
+                ContainerColorTokens tokens = isSelected
+                    ? skin.getActiveContainerTokens(list)
+                    : skin.getNeutralContainerTokens(list);
+                result.setForeground(tokens.getOnContainer());
                 result.setBackground(new Color(255, 196, 196));
                 result.setText(entry.text + " [disabled by renderer]");
             } else {

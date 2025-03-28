@@ -311,8 +311,14 @@ public class RadianceColorUtilities {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            return skin.getContainerTokens(comp, currState, RadianceThemingSlices.ContainerType.MUTED)
-                .getOnContainer();
+            if (currState.isDisabled()) {
+                currState = currState.getEnabledMatch();
+            }
+            if (currState.isActive()) {
+                return skin.getActiveContainerTokens(comp, currState).getOnContainer();
+            } else {
+                return skin.getMutedContainerTokens(comp).getOnContainer();
+            }
         }
 
         float aggrRed = 0;
@@ -322,8 +328,12 @@ public class RadianceColorUtilities {
                 activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             float alpha = activeEntry.getValue().getContribution();
-            Color active = skin.getContainerTokens(comp, activeState, RadianceThemingSlices.ContainerType.MUTED)
-                    .getOnContainer();
+            Color active;
+            if (activeState.isActive()) {
+                active = skin.getActiveContainerTokens(comp, activeState).getOnContainer();
+            } else {
+                active = skin.getMutedContainerTokens(comp).getOnContainer();
+            }
             aggrRed += alpha * active.getRed();
             aggrGreen += alpha * active.getGreen();
             aggrBlue += alpha * active.getBlue();
@@ -526,9 +536,15 @@ public class RadianceColorUtilities {
             }
         }
 
-        ContainerColorTokens colorTokens =
-            skin.getContainerTokens(component, currState, inactiveContainerType);
-        return colorTokens.getOnContainerDisabledAlpha();
+        ComponentState enabledState = currState.getEnabledMatch();
+        if (enabledState.isActive()) {
+            return skin.getActiveContainerTokens(component, enabledState).getOnContainerDisabledAlpha();
+        }
+        if (inactiveContainerType == RadianceThemingSlices.ContainerType.MUTED) {
+            return skin.getMutedContainerTokens(component).getOnContainerDisabledAlpha();
+        } else {
+            return skin.getNeutralContainerTokens(component).getOnContainerDisabledAlpha();
+        }
     }
 
     /**
@@ -727,8 +743,7 @@ public class RadianceColorUtilities {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        ContainerColorTokens tokens = skin.getContainerTokens(component, ComponentState.ENABLED,
-            RadianceThemingSlices.ContainerType.NEUTRAL);
+        ContainerColorTokens tokens = skin.getNeutralContainerTokens(component);
         if (rowIndex % 2 == 0) {
             // Surface for even rows
             return tokens.getContainerSurface();

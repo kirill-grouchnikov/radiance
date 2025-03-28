@@ -59,8 +59,13 @@ public class CoreColorTokenUtils {
             RadianceCoreUtilities.traceRadianceApiUsage(jtp,
                 "Radiance delegate used when Radiance is not the current LAF");
         }
-        ContainerColorTokens nonColorized = skin.getContainerTokens(jtp, associationKind,
-            componentState, RadianceThemingSlices.ContainerType.MUTED);
+
+        if (componentState.isDisabled()) {
+            componentState = componentState.getEnabledMatch();
+        }
+        ContainerColorTokens nonColorized = componentState.isActive()
+            ? skin.getActiveContainerTokens(jtp, associationKind, componentState)
+            : skin.getMutedContainerTokens(jtp, associationKind);
         if (tabIndex >= 0) {
             Component component = jtp.getComponentAt(tabIndex);
             return getBlendedTokens(component, nonColorized,
@@ -93,8 +98,20 @@ public class CoreColorTokenUtils {
             RadianceCoreUtilities.traceRadianceApiUsage(component,
                 "Radiance delegate used when Radiance is not the current LAF");
         }
-        ContainerColorTokens nonColorized = skin.getContainerTokens(component,
-            componentState, inactiveContainerType);
+
+        if (componentState.isDisabled()) {
+            componentState = componentState.getEnabledMatch();
+        }
+        ContainerColorTokens nonColorized;
+        if (componentState.isActive()) {
+            nonColorized = skin.getActiveContainerTokens(component, componentState);
+        } else {
+            if (inactiveContainerType == RadianceThemingSlices.ContainerType.MUTED) {
+                nonColorized = skin.getMutedContainerTokens(component);
+            } else {
+                nonColorized = skin.getNeutralContainerTokens(component);
+            }
+        }
 
         return getBlendedTokens(orig, nonColorized, !componentState.isDisabled());
     }
@@ -143,8 +160,20 @@ public class CoreColorTokenUtils {
             RadianceCoreUtilities.traceRadianceApiUsage(component,
                 "Radiance delegate used when Radiance is not the current LAF");
         }
-        ContainerColorTokens nonColorized = skin.getContainerTokens(component,
-            associationKind, componentState, inactiveContainerType);
+        if (componentState.isDisabled()) {
+            componentState = componentState.getEnabledMatch();
+        }
+        ContainerColorTokens nonColorized;
+        if (componentState.isActive()) {
+            nonColorized = skin.getActiveContainerTokens(component, associationKind,
+                componentState);
+        } else {
+            if (inactiveContainerType == RadianceThemingSlices.ContainerType.NEUTRAL) {
+                nonColorized = skin.getNeutralContainerTokens(component, associationKind);
+            } else {
+                nonColorized = skin.getMutedContainerTokens(component, associationKind);
+            }
+        }
         return getBlendedTokens(component, nonColorized, !componentState.isDisabled());
     }
 

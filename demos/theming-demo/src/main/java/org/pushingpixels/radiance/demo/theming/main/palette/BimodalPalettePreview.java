@@ -32,9 +32,7 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPaletteColor;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,8 +71,7 @@ public class BimodalPalettePreview extends JComponent {
             Color toneColor = new Color(toneRgb);
             paintSquare(g2d, xOffset, 20, 20, toneColor);
             g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this)
-                .getContainerTokens(this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL)
-                .getOnContainer());
+                .getNeutralContainerTokens(this).getOnContainer());
             String toneLabel = "" + tone;
             int toneLabelWidth = fm.stringWidth(toneLabel);
             g2d.drawString(toneLabel, xOffset + (20 - toneLabelWidth) / 2, 15);

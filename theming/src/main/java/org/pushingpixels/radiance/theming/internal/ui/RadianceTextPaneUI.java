@@ -30,9 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -188,8 +186,7 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
             if ((foregr == null) || (foregr instanceof UIResource)) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(textPane);
                 textPane.setForeground(RadianceColorUtilities.getForegroundColor(
-                    skin.getContainerTokens(textPane, ComponentState.ENABLED,
-                        RadianceThemingSlices.ContainerType.MUTED)));
+                    skin.getMutedContainerTokens(textPane)));
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {

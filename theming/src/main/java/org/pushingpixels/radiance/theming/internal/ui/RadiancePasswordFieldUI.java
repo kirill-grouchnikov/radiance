@@ -399,8 +399,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
             if ((foregr == null) || (foregr instanceof UIResource)) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(passwordField);
                 passwordField.setForeground(RadianceColorUtilities.getForegroundColor(
-                    skin.getContainerTokens(passwordField, ComponentState.ENABLED,
-                        RadianceThemingSlices.ContainerType.MUTED)));
+                    skin.getMutedContainerTokens(passwordField)));
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {

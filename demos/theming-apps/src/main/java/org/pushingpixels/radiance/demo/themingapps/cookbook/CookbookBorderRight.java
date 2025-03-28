@@ -30,10 +30,8 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.border.Border;
 import java.awt.*;
@@ -70,8 +68,7 @@ public class CookbookBorderRight implements Border {
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         ContainerColorTokens tokens = RadianceThemingCortex.ComponentScope.getCurrentSkin(c)
-            .getContainerTokens(c, ComponentState.ENABLED,
-                RadianceThemingSlices.ContainerType.NEUTRAL);
+            .getNeutralContainerTokens(c);
 
         Graphics2D g2d = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT

@@ -38,7 +38,10 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.help_black_24dp;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.info_24dp_outline;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.folder_open;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.warning_24dp_outline;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.*;
 import org.pushingpixels.radiance.theming.api.icon.RadianceDefaultIconPack;
 import org.pushingpixels.radiance.theming.api.painter.preview.DefaultPreviewPainter;
@@ -580,8 +583,7 @@ public class ControlPanelFactory {
                     RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(myContentPane);
                     SwingComponentTimeline.componentBuilder(instructional)
                         .addPropertyToInterpolate("foreground",
-                            () -> skin.getContainerTokens(myContentPane, ComponentState.ENABLED,
-                                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer(),
+                            () -> skin.getNeutralContainerTokens(myContentPane).getOnContainer(),
                             () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
                         .setDuration(1000)
                         .playLoop(RepeatBehavior.REVERSE);
@@ -624,8 +626,7 @@ public class ControlPanelFactory {
                     RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(myContentPane);
                     SwingComponentTimeline.componentBuilder(instructional)
                         .addPropertyToInterpolate("foreground",
-                            () -> skin.getContainerTokens(myContentPane, ComponentState.ENABLED,
-                                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer(),
+                            () -> skin.getNeutralContainerTokens(myContentPane).getOnContainer(),
                             () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
                         .setDuration(1000)
                         .playLoop(RepeatBehavior.REVERSE);

@@ -99,8 +99,7 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.buttonPanel);
-        ContainerColorTokens tokens = skin.getContainerTokens(
-            this.buttonPanel, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+        ContainerColorTokens tokens = skin.getNeutralContainerTokens(this.buttonPanel);
         Color backgroundFill = tokens.isDark() ? tokens.getContainerSurfaceLow()
             : tokens.getContainerSurfaceHigh();
 

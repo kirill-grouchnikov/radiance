@@ -30,9 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -208,8 +206,7 @@ public class RadianceTextFieldUI extends BasicTextFieldUI implements TransitionA
             if ((foregr == null) || (foregr instanceof UIResource)) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(textField);
                 textField.setForeground(RadianceColorUtilities.getForegroundColor(
-                    skin.getContainerTokens(textField, ComponentState.ENABLED,
-                        RadianceThemingSlices.ContainerType.MUTED)));
+                    skin.getMutedContainerTokens(textField)));
             }
         });
         for (RadianceThemingWidget themingWidget : this.themingWidgets) {

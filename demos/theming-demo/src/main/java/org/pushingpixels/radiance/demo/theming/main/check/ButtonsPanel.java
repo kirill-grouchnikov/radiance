@@ -41,7 +41,6 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.bullseye;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.button;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.check_square_o;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.dot_circle;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -305,8 +304,7 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         this.setLayout(new BorderLayout());
 
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-        Color textColor = skin.getContainerTokens(this, ComponentState.ENABLED,
-            RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
+        Color textColor = skin.getNeutralContainerTokens(this).getOnContainer();
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
             "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +

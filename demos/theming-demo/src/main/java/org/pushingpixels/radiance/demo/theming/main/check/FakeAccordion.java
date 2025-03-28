@@ -82,8 +82,7 @@ public class FakeAccordion extends JPanel {
                     if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                         // Get the accented background fill to delineate the content
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-                        Color accentedFill = skin.getContainerTokens(this, ComponentState.ENABLED,
-                                RadianceThemingSlices.ContainerType.NEUTRAL).getContainerSurfaceLow();
+                        Color accentedFill = skin.getNeutralContainerTokens(this).getContainerSurfaceLow();
 
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(accentedFill);
@@ -150,11 +149,8 @@ public class FakeAccordion extends JPanel {
                                 GeneralPath outer = getOutline(0, 0, scaledWidth, scaledHeight,
                                         1.0f, 0, radiusOuter);
 
-                                ContainerColorTokens containerTokens = skin.getContainerTokens(
-                                    contentWrapper,
-                                    RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                                    ComponentState.ENABLED,
-                                    RadianceThemingSlices.ContainerType.MUTED);
+                                ContainerColorTokens containerTokens =
+                                    skin.getMutedContainerTokens(contentWrapper);
                                 outlinePainter.paintOutline(graphics1X, contentWrapper,
                                     scaledWidth, scaledHeight, outer, inner, containerTokens);
                             });

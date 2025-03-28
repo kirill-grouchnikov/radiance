@@ -117,7 +117,7 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         // Lighter outlines for checkboxes and radio button menu items
-        sentinelHeaderBundle.registerEnabledContainerTokens(
+        sentinelHeaderBundle.registerMutedContainerTokens(
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF4A2C25),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),

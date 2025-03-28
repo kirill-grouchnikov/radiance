@@ -74,9 +74,11 @@ public class ContainerColorTokensBundle {
      * </ul>
      */
     private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind,
-        Map<ComponentState, ContainerColorTokens>> colorTokensForActiveStates;
+        Map<ComponentState, ContainerColorTokens>> activeTokenOverrides;
 
-    private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> colorTokensForEnabledState;
+    private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> mutedTokenOverrides;
+
+    private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> neutralTokenOverrides;
 
     private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
 
@@ -145,12 +147,14 @@ public class ContainerColorTokensBundle {
         this.inverseSystemErrorContainerTokens = isSystemDark ? systemErrorLightTokens : systemErrorDarkTokens;
         this.inverseSystemSuccessContainerTokens = isSystemDark ? systemSuccessLightTokens : systemSuccessDarkTokens;
 
-        this.colorTokensForEnabledState = new HashMap<>();
-        this.colorTokensForActiveStates = new HashMap<>();
+        this.activeTokenOverrides = new HashMap<>();
         for (RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind :
             RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
-            this.colorTokensForActiveStates.put(associationKind, new HashMap<>());
+            this.activeTokenOverrides.put(associationKind, new HashMap<>());
         }
+
+        this.mutedTokenOverrides = new HashMap<>();
+        this.neutralTokenOverrides = new HashMap<>();
     }
 
     /**
@@ -177,16 +181,16 @@ public class ContainerColorTokensBundle {
      * <li><code>states</code>={@link ComponentState#ROLLOVER_SELECTED}, {@link ComponentState#ROLLOVER_UNSELECTED}</li>
      * </ul>
      *
-     * @param stateContainerTokens Container color tokens for the specified active component states.
+     * @param colorTokens Container color tokens for the specified active component states.
      * @param associationKind Color tokens association kind that specifies the visual areas
      *                        of controls to be painted with this color tokens.
      * @param activeStates          Component states that further restrict the usage of the
      *                        specified color tokens.
      */
-    public void registerActiveContainerTokens(ContainerColorTokens stateContainerTokens,
+    public void registerActiveContainerTokens(ContainerColorTokens colorTokens,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         ComponentState... activeStates) {
-        if (stateContainerTokens == null) {
+        if (colorTokens == null) {
             throw new IllegalArgumentException("Cannot pass null color tokens");
         }
 
@@ -198,54 +202,45 @@ public class ContainerColorTokensBundle {
             if (state.isDisabled() || !state.isActive()) {
                 throw new IllegalArgumentException("Only active states can have custom color tokens");
             }
-            this.colorTokensForActiveStates.get(associationKind).put(state, stateContainerTokens);
+            this.activeTokenOverrides.get(associationKind).put(state, colorTokens);
         }
     }
 
-    public void registerEnabledContainerTokens(ContainerColorTokens stateContainerTokens,
+    public void registerMutedContainerTokens(ContainerColorTokens colorTokens,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
-        if (stateContainerTokens == null) {
+        if (colorTokens == null) {
             throw new IllegalArgumentException("Cannot pass null color tokens");
         }
 
-        this.colorTokensForEnabledState.put(associationKind, stateContainerTokens);
+        this.mutedTokenOverrides.put(associationKind, colorTokens);
     }
 
-    /**
-     * Returns the color tokens of the specified component in the specified
-     * component state.
-     *
-     * @param componentState Component state.
-     * @return The color tokens of the component in the specified component state.
-     */
-    public ContainerColorTokens getContainerTokens(ComponentState componentState,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+    public void registerNeutralContainerTokens(ContainerColorTokens colorTokens,
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
+        if (colorTokens == null) {
+            throw new IllegalArgumentException("Cannot pass null color tokens");
+        }
+
+        this.neutralTokenOverrides.put(associationKind, colorTokens);
+    }
+
+    public ContainerColorTokens getActiveContainerTokens(ComponentState componentState) {
         if (componentState.isDisabled()) {
-            return getContainerTokens(componentState.getEnabledMatch(), inactiveContainerType);
+            return getActiveContainerTokens(componentState.getEnabledMatch());
         }
 
-        if (componentState.isActive()) {
-            ContainerColorTokens registered = this.colorTokensForActiveStates.get(
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
-            if (registered != null) {
-                // If we're here, the component state is guaranteed to be active due to restrictions
-                // in registerActiveContainerTokens
-                return registered;
-            } else {
-                return this.getContainerTokensForState(componentState);
-            }
+        if (!componentState.isActive()) {
+            throw new IllegalArgumentException("Only active states supported");
         }
 
-        ContainerColorTokens registered = this.colorTokensForEnabledState.get(
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT);
+        ContainerColorTokens registered = this.activeTokenOverrides.get(
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
+            // If we're here, the component state is guaranteed to be active due to restrictions
+            // in registerActiveContainerTokens
             return registered;
         } else {
-            switch (inactiveContainerType) {
-                case NEUTRAL: return this.getNeutralContainerTokens();
-                case MUTED: return this.getMutedContainerTokens();
-                default: throw new IllegalArgumentException("Only NEUTRAL and MUTED are accepted");
-            }
+            return this.getContainerTokensForState(componentState);
         }
     }
 
@@ -385,43 +380,70 @@ public class ContainerColorTokensBundle {
      * @see #registerActiveContainerTokens(ContainerColorTokens, ComponentState...)
      * @see #registerActiveContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
      */
-    public ContainerColorTokens getContainerTokens(
+    public ContainerColorTokens getActiveContainerTokens(
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        ComponentState componentState,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        ComponentState componentState) {
 
         if (associationKind == RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT) {
-            return this.getContainerTokens(componentState, inactiveContainerType);
+            return this.getActiveContainerTokens(componentState);
         }
 
         if (componentState.isDisabled()) {
             // Use the enabled match, and alpha will be applied during rendering
-            return getContainerTokens(associationKind, componentState.getEnabledMatch(),
-                inactiveContainerType);
+            return getActiveContainerTokens(associationKind, componentState.getEnabledMatch());
         }
 
-        if (componentState.isActive()) {
-            ContainerColorTokens registered =
-                this.colorTokensForActiveStates.get(associationKind).get(componentState);
-            if (registered != null) {
-                // If we're here, the component state is guaranteed to be active due to restrictions
-                // in registerActiveContainerTokens
-                return registered;
-            }
-        }
-
-        if (componentState == ComponentState.ENABLED) {
-            ContainerColorTokens registered = this.colorTokensForEnabledState.get(associationKind);
-            if (registered != null) {
-                return registered;
-            }
+        ContainerColorTokens registered =
+            this.activeTokenOverrides.get(associationKind).get(componentState);
+        if (registered != null) {
+            return registered;
         }
 
         RadianceThemingSlices.ContainerColorTokensAssociationKind fallback = associationKind.getFallback();
         if (fallback != null) {
-            return getContainerTokens(fallback, componentState, inactiveContainerType);
+            return getActiveContainerTokens(fallback, componentState);
         }
 
-        return getContainerTokens(componentState, inactiveContainerType);
+        return this.getActiveContainerTokens(componentState);
+    }
+
+    public ContainerColorTokens getMutedContainerTokens(
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
+
+        if (associationKind == RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT) {
+            return this.getMutedContainerTokens();
+        }
+
+        ContainerColorTokens registered = this.mutedTokenOverrides.get(associationKind);
+        if (registered != null) {
+            return registered;
+        }
+
+        RadianceThemingSlices.ContainerColorTokensAssociationKind fallback = associationKind.getFallback();
+        if (fallback != null) {
+            return getMutedContainerTokens(fallback);
+        }
+
+        return this.getMutedContainerTokens();
+    }
+
+    public ContainerColorTokens getNeutralContainerTokens(
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
+
+        if (associationKind == RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT) {
+            return this.getNeutralContainerTokens();
+        }
+
+        ContainerColorTokens registered = this.neutralTokenOverrides.get(associationKind);
+        if (registered != null) {
+            return registered;
+        }
+
+        RadianceThemingSlices.ContainerColorTokensAssociationKind fallback = associationKind.getFallback();
+        if (fallback != null) {
+            return getNeutralContainerTokens(fallback);
+        }
+
+        return this.getNeutralContainerTokens();
     }
 }

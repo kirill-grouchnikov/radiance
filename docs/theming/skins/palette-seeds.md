@@ -1,6 +1,6 @@
 ## Radiance look and feel - palette seeds
 
-The `TonalPaletteSeeds` class in `theming.api.colorscheme` package replaces the pre-Chroma set of core color schemes.
+The `TonalPaletteSeeds` class in `theming.api.palette` package replaces the pre-Chroma set of core color schemes.
 
 ### Light seeds
 
