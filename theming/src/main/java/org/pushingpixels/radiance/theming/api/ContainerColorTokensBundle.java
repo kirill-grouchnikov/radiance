@@ -46,18 +46,18 @@ import java.util.Map;
  * @see RadianceSkin
  */
 public class ContainerColorTokensBundle {
-    private ContainerColorTokens activeContainerTokens;
-    private ContainerColorTokens mutedContainerTokens;
-    private ContainerColorTokens neutralContainerTokens;
+    private final ContainerColorTokens activeContainerTokens;
+    private final ContainerColorTokens mutedContainerTokens;
+    private final ContainerColorTokens neutralContainerTokens;
 
-    private ContainerColorTokens systemInfoContainerTokens;
-    private ContainerColorTokens inverseSystemInfoContainerTokens;
-    private ContainerColorTokens systemWarningContainerTokens;
-    private ContainerColorTokens inverseSystemWarningContainerTokens;
-    private ContainerColorTokens systemErrorContainerTokens;
-    private ContainerColorTokens inverseSystemErrorContainerTokens;
-    private ContainerColorTokens systemSuccessContainerTokens;
-    private ContainerColorTokens inverseSystemSuccessContainerTokens;
+    private final ContainerColorTokens systemInfoContainerTokens;
+    private final ContainerColorTokens inverseSystemInfoContainerTokens;
+    private final ContainerColorTokens systemWarningContainerTokens;
+    private final ContainerColorTokens inverseSystemWarningContainerTokens;
+    private final ContainerColorTokens systemErrorContainerTokens;
+    private final ContainerColorTokens inverseSystemErrorContainerTokens;
+    private final ContainerColorTokens systemSuccessContainerTokens;
+    private final ContainerColorTokens inverseSystemSuccessContainerTokens;
 
     /**
      * Maps from color tokens association kinds to the map of color tokens. Controls in the specific
@@ -73,14 +73,14 @@ public class ContainerColorTokensBundle {
      * points to the deep orange color tokens.</li>
      * </ul>
      */
-    private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind,
+    private final Map<RadianceThemingSlices.ContainerColorTokensAssociationKind,
         Map<ComponentState, ContainerColorTokens>> activeTokenOverrides;
 
-    private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> mutedTokenOverrides;
+    private final HashMap<ComponentState, ContainerColorTokens> activeTokenStateOverrides;
 
-    private Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> neutralTokenOverrides;
+    private final Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> mutedTokenOverrides;
 
-    private HashMap<ComponentState, ContainerColorTokens> stateTokens = new HashMap<>();
+    private final Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> neutralTokenOverrides;
 
     /**
      * Creates a new color tokens bundle.
@@ -152,6 +152,7 @@ public class ContainerColorTokensBundle {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
             this.activeTokenOverrides.put(associationKind, new HashMap<>());
         }
+        this.activeTokenStateOverrides = new HashMap<>();
 
         this.mutedTokenOverrides = new HashMap<>();
         this.neutralTokenOverrides = new HashMap<>();
@@ -320,42 +321,42 @@ public class ContainerColorTokensBundle {
         ContainerColorTokens activeTokens = getActiveContainerTokens();
         if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
             (componentState == ComponentState.ARMED)) {
-            if (!stateTokens.containsKey(componentState)) {
-                stateTokens.put(componentState,
+            if (!activeTokenStateOverrides.containsKey(componentState)) {
+                activeTokenStateOverrides.put(componentState,
                     CoreColorTokenUtils.getPressedUnselectedTokens(activeTokens));
             }
-            return stateTokens.get(componentState);
+            return activeTokenStateOverrides.get(componentState);
         }
         if (componentState == ComponentState.PRESSED_SELECTED) {
-            if (!stateTokens.containsKey(componentState)) {
-                stateTokens.put(componentState,
+            if (!activeTokenStateOverrides.containsKey(componentState)) {
+                activeTokenStateOverrides.put(componentState,
                     CoreColorTokenUtils.getPressedSelectedTokens(activeTokens));
             }
-            return stateTokens.get(componentState);
+            return activeTokenStateOverrides.get(componentState);
         }
         if (componentState == ComponentState.SELECTED) {
             return activeTokens;
         }
         if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
-            if (!stateTokens.containsKey(componentState)) {
-                stateTokens.put(componentState,
+            if (!activeTokenStateOverrides.containsKey(componentState)) {
+                activeTokenStateOverrides.put(componentState,
                     CoreColorTokenUtils.getRolloverUnselectedTokens(activeTokens));
             }
-            return stateTokens.get(componentState);
+            return activeTokenStateOverrides.get(componentState);
         }
         if (componentState == ComponentState.ROLLOVER_SELECTED) {
-            if (!stateTokens.containsKey(componentState)) {
-                stateTokens.put(componentState,
+            if (!activeTokenStateOverrides.containsKey(componentState)) {
+                activeTokenStateOverrides.put(componentState,
                     CoreColorTokenUtils.getRolloverSelectedTokens(activeTokens));
             }
-            return stateTokens.get(componentState);
+            return activeTokenStateOverrides.get(componentState);
         }
         if (componentState == ComponentState.ROLLOVER_ARMED) {
-            if (!stateTokens.containsKey(componentState)) {
-                stateTokens.put(componentState,
+            if (!activeTokenStateOverrides.containsKey(componentState)) {
+                activeTokenStateOverrides.put(componentState,
                     CoreColorTokenUtils.getRolloverArmedTokens(activeTokens));
             }
-            return stateTokens.get(componentState);
+            return activeTokenStateOverrides.get(componentState);
         }
 
         ComponentState hardFallback = componentState.getHardFallback();
