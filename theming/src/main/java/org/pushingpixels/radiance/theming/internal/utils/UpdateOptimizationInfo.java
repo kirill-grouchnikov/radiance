@@ -47,7 +47,7 @@ public class UpdateOptimizationInfo {
     public boolean isInDecorationArea;
 
     public UpdateOptimizationInfo(JComponent component,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         this.component = component;
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
@@ -69,7 +69,7 @@ public class UpdateOptimizationInfo {
         if (result == null) {
             result = CoreColorTokenUtils.getContainerTokens(this.component,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
-                RadianceThemingSlices.ContainerType.NEUTRAL);
+                CoreColorTokenUtils.ContainerType.NEUTRAL);
             this.highlightContainerTokens.put(state, result);
         }
         return result;

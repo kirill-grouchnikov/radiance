@@ -206,7 +206,7 @@ public class RadianceTextUtilities {
      * @param mnemonicIndex Mnemonic index.
      */
     public static Color paintTonalText(Graphics g, AbstractButton button, Rectangle textRect, String text,
-        int mnemonicIndex, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        int mnemonicIndex, CoreColorTokenUtils.ContainerType inactiveContainerType) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
 
@@ -232,7 +232,7 @@ public class RadianceTextUtilities {
      * @param state         Component state.
      */
     public static Color paintTonalText(Graphics g, JComponent component, Rectangle textRect, String text,
-        int mnemonicIndex, ComponentState state, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        int mnemonicIndex, ComponentState state, CoreColorTokenUtils.ContainerType inactiveContainerType) {
         Color fgColor = getTonalForegroundColor(component, state, inactiveContainerType);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
@@ -242,7 +242,7 @@ public class RadianceTextUtilities {
 
     public static Color paintTonalText(Graphics g, JComponent component, Rectangle textRect, String text,
         int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         Color fgColor = getTonalForegroundColor(component, text, modelStateInfo, inactiveContainerType);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
@@ -267,7 +267,7 @@ public class RadianceTextUtilities {
      * @return The foreground color for the specified component.
      */
     public static Color getTonalForegroundColor(JComponent component, ComponentState state,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
@@ -295,7 +295,7 @@ public class RadianceTextUtilities {
      */
     public static Color getTonalForegroundColor(JComponent component, String text,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
@@ -320,15 +320,15 @@ public class RadianceTextUtilities {
         }
 
         Color fgColor = RadianceColorUtilities.getTonalMenuComponentForegroundColor(
-            menuComponent, modelStateInfo, RadianceThemingSlices.ContainerType.NEUTRAL);
+            menuComponent, modelStateInfo, CoreColorTokenUtils.ContainerType.NEUTRAL);
         float fgAlpha = RadianceColorUtilities.getTonalMenuComponentForegroundAlpha(
-            menuComponent, modelStateInfo, RadianceThemingSlices.ContainerType.NEUTRAL);
+            menuComponent, modelStateInfo, CoreColorTokenUtils.ContainerType.NEUTRAL);
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (255.0f * fgAlpha));
     }
 
     public static Color getTextBackgroundTonalFillColor(JComponent comp) {
         Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(comp,
-            RadianceThemingSlices.ContainerType.NEUTRAL);
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
 
         JTextComponent componentForTransitions = RadianceCoreUtilities.getTextComponentForTransitions(comp);
         if (componentForTransitions == null) {
@@ -350,7 +350,7 @@ public class RadianceTextUtilities {
                 // Account for the selection  / rollover state
                 ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                     componentForTransitions, ComponentState.ENABLED,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
                 Color interpolateTowards = tokens.isDark() ? tokens.getContainerSurfaceHighest()
                     : tokens.getContainerSurfaceLowest();
 
@@ -496,7 +496,7 @@ public class RadianceTextUtilities {
         // Get the base border color
         ContainerColorTokens baseColorTokens = CoreColorTokenUtils.getContainerTokens(comp,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
-            RadianceThemingSlices.ContainerType.NEUTRAL);
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
         Color borderColor = baseColorTokens.getContainerOutline();
 
         if (!state.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
@@ -516,7 +516,7 @@ public class RadianceTextUtilities {
 
                 ContainerColorTokens activeColorTokens = CoreColorTokenUtils.getContainerTokens(comp,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, activeState,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
                 Color activeBorderColor = activeColorTokens.getContainerOutline();
                 borderColor = RadianceColorUtilities.getInterpolatedColor(borderColor,
                     activeBorderColor, 1.0f - contribution);

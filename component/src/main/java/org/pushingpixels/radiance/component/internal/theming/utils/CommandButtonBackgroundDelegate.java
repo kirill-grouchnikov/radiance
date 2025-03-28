@@ -87,14 +87,14 @@ public class CommandButtonBackgroundDelegate {
             // No support yet for transitions between disabled and enabled / active
             // states
             Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(commandButton,
-                    regular, currentState, textColor, RadianceThemingSlices.ContainerType.MUTED);
+                    regular, currentState, textColor, CoreColorTokenUtils.ContainerType.MUTED);
             disabledIcon.paintIcon(commandButton, g2d, 0, 0);
         } else {
             // Active states are painted on top of the icon that corresponds to the
             // enabled state
             Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(commandButton,
                     regular, ComponentState.ENABLED, textColor,
-                RadianceThemingSlices.ContainerType.MUTED);
+                CoreColorTokenUtils.ContainerType.MUTED);
             enabledIcon.paintIcon(commandButton, g2d, 0, 0);
             if (stateTransitionTracker.getActiveStrength() > 0.0f) {
                 for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
@@ -105,7 +105,7 @@ public class CommandButtonBackgroundDelegate {
                     float contribution = entry.getValue().getContribution();
                     if (contribution > 0.0f) {
                         Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(commandButton,
-                            regular, entry.getKey(), textColor, RadianceThemingSlices.ContainerType.MUTED);
+                            regular, entry.getKey(), textColor, CoreColorTokenUtils.ContainerType.MUTED);
                         if (activeIcon != enabledIcon) {
                             g2d.setComposite(WidgetUtilities.getAlphaComposite(
                                 commandButton, contribution, g));
@@ -169,7 +169,7 @@ public class CommandButtonBackgroundDelegate {
         } else {
             if (currActionState.isDisabled()) {
                 actionAlpha = CoreColorTokenUtils.getContainerTokens(
-                    commandButton, currActionState, RadianceThemingSlices.ContainerType.MUTED)
+                    commandButton, currActionState, CoreColorTokenUtils.ContainerType.MUTED)
                     .getContainerSurfaceDisabledAlpha();
             } else {
                 actionAlpha = 1.0f;
@@ -219,7 +219,7 @@ public class CommandButtonBackgroundDelegate {
         } else {
             if (currPopupState.isDisabled()) {
                 popupAlpha = CoreColorTokenUtils.getContainerTokens(
-                    commandButton, currPopupState, RadianceThemingSlices.ContainerType.MUTED)
+                    commandButton, currPopupState, CoreColorTokenUtils.ContainerType.MUTED)
                     .getContainerSurfaceDisabledAlpha();
             } else {
                 popupAlpha = 1.0f;

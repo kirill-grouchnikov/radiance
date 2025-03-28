@@ -43,7 +43,6 @@ import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonPanelUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
@@ -137,7 +136,7 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
                 public void paintBorder(Component c, Graphics g, int x, int y, int width,
                                         int height) {
                     g.setColor(CoreColorTokenUtils.getContainerTokens(c,
-                            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL)
+                            ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL)
                         .getContainerOutline());
                     g.drawLine(x, y + height - 1, x + width, y + height - 1);
                 }

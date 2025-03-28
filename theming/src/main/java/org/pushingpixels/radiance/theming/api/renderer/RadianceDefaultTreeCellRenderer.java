@@ -218,7 +218,7 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
                 if (isDropLocation) {
                     colorTokens = CoreColorTokenUtils.getContainerTokens(tree,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                        currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+                        currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 }
                 Color foreground = colorTokens.getOnContainer();
                 if (currState.isDisabled()) {
@@ -281,11 +281,11 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
             ? ui.getDefaultColorTokens()
             : CoreColorTokenUtils.getContainerTokens(tree,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
-                RadianceThemingSlices.ContainerType.NEUTRAL);
+                CoreColorTokenUtils.ContainerType.NEUTRAL);
         if (colorTokens == null) {
             colorTokens = CoreColorTokenUtils.getContainerTokens(tree,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
-                RadianceThemingSlices.ContainerType.NEUTRAL);
+                CoreColorTokenUtils.ContainerType.NEUTRAL);
         }
         return colorTokens;
     }

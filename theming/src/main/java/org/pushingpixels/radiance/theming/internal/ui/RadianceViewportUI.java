@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -62,7 +62,7 @@ public class RadianceViewportUI extends BasicViewportUI {
 		Color backgr = c.getBackground();
 		if ((backgr == null) || (backgr instanceof UIResource)) {
             Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(c,
-					RadianceThemingSlices.ContainerType.NEUTRAL);
+					CoreColorTokenUtils.ContainerType.NEUTRAL);
             if (backgroundFillColor != null) {
                 c.setBackground(new ColorUIResource(backgroundFillColor));
             }

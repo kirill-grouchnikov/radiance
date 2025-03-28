@@ -655,7 +655,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         ComponentState currState = this.table.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-            this.table, currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+            this.table, currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
         float alpha = tokens.getContainerOutlineDisabledAlpha();
         g2d.setComposite(WidgetUtilities.getAlphaComposite(this.table, alpha, g));
 
@@ -1077,7 +1077,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                     // mark drop location
                     ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
                         table, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                        currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+                        currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
                     float extra = RadianceSizeUtils.getBorderStrokeWidth(table);
                     HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererComponent,
                         new Rectangle(highlightCellRect.x - (int) extra,
@@ -1155,7 +1155,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         }
 
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(this.table,
-            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+            ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
         Color color = tokens.getContainerOutlineVariant();
         Color shortColor = tokens.getContainerOutline();
 
@@ -2084,7 +2084,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         public boolean hasRolloverAnimations;
 
         public TableUpdateOptimizationInfo() {
-            super(table, RadianceThemingSlices.ContainerType.NEUTRAL);
+            super(table, CoreColorTokenUtils.ContainerType.NEUTRAL);
             this.hasSelectionAnimations = _hasSelectionAnimations();
             this.hasRolloverAnimations = _hasRolloverAnimations();
         }

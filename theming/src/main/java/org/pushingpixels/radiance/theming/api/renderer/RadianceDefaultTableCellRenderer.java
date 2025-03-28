@@ -342,7 +342,7 @@ public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
             if (isDropLocation) {
                 tokens = CoreColorTokenUtils.getContainerTokens(table,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, currState,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
             }
             boolean isActive = currState.isFacetActive(
                 RadianceThemingSlices.ComponentStateFacet.ROLLOVER) ||
@@ -405,7 +405,7 @@ public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
         if (state == ComponentState.ENABLED) {
             if (updateOptimizationInfo == null) {
                 return CoreColorTokenUtils.getContainerTokens(table, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }
@@ -413,7 +413,7 @@ public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
             if (updateOptimizationInfo == null) {
                 return CoreColorTokenUtils.getContainerTokens(table,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getHighlightColorTokens(state);
             }

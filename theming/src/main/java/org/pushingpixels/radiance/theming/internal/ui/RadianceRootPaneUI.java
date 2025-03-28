@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
@@ -261,7 +260,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
         Color backgr = c.getBackground();
         if ((backgr == null) || (backgr instanceof UIResource)) {
             Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(c,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
             // fix for issue 244 - set the root pane BG color
             if (backgroundFillColor != null) {
                 c.setBackground(new ColorUIResource(backgroundFillColor));

@@ -173,7 +173,7 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
                 if (isDropLocation) {
                     colorTokens = CoreColorTokenUtils.getContainerTokens(tree,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                        currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+                        currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 }
                 labelForeground = new ColorUIResource(colorTokens.getOnContainer());
             }
@@ -222,11 +222,11 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
             ? ui.getDefaultColorTokens()
             : CoreColorTokenUtils.getContainerTokens(tree,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
-            RadianceThemingSlices.ContainerType.NEUTRAL);
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
         if (colorTokens == null) {
             colorTokens = CoreColorTokenUtils.getContainerTokens(tree,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, activeState,
-                RadianceThemingSlices.ContainerType.NEUTRAL);
+                CoreColorTokenUtils.ContainerType.NEUTRAL);
         }
         return colorTokens;
     }

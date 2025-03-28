@@ -173,7 +173,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                 if (isDropLocation) {
                     colorTokens = CoreColorTokenUtils.getContainerTokens(list,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                        currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+                        currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 }
                 labelForeground = new ColorUIResource(colorTokens.getOnContainer());
             }
@@ -222,7 +222,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
         if (state == ComponentState.ENABLED) {
             if (updateOptimizationInfo == null) {
                 return CoreColorTokenUtils.getContainerTokens(list, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }
@@ -230,7 +230,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
             if (updateOptimizationInfo == null) {
                 return CoreColorTokenUtils.getContainerTokens(list,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getHighlightColorTokens(state);
             }

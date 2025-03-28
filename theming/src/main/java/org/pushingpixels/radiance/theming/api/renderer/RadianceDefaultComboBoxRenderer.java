@@ -97,7 +97,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                 // Pass 1.0f as the alpha, even for disabled comboboxes. The alpha will be
                 // applied at painting time of the label itself.
                 Color fg = RadianceTextUtilities.getTonalForegroundColor(combo,
-                    ((JLabel) result).getText(), modelStateInfo, RadianceThemingSlices.ContainerType.MUTED);
+                    ((JLabel) result).getText(), modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
                 result.setForeground(fg);
 
                 for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
@@ -172,14 +172,14 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
             if (updateOptimizationInfo == null) {
                 return CoreColorTokenUtils.getContainerTokens(list,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getHighlightColorTokens(state);
             }
         } else {
             if (updateOptimizationInfo == null) {
                 return CoreColorTokenUtils.getContainerTokens(list, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL);
+                    CoreColorTokenUtils.ContainerType.NEUTRAL);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }

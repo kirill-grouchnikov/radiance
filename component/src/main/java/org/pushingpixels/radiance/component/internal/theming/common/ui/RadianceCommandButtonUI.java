@@ -341,7 +341,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                                 this.commandButton,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                            currState, RadianceThemingSlices.ContainerType.MUTED);
+                            currState, CoreColorTokenUtils.ContainerType.MUTED);
                         RadianceSurfacePainter surfacePainter = RadianceCoreUtilities
                                 .getSurfacePainter(this.commandButton);
                         surfacePainter.paintContourBackground(graphics1X, this.commandButton,
@@ -370,7 +370,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                     : ComponentState.DISABLED_SELECTED;
             ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                 this.commandButton, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                currState, RadianceThemingSlices.ContainerType.MUTED);
+                currState, CoreColorTokenUtils.ContainerType.MUTED);
             g2d.setColor(tokens.getOnContainer());
 
             int iw = iconRect.width;
@@ -400,7 +400,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
             this.commandButton,
             ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
-            RadianceThemingSlices.ContainerType.MUTED);
+            CoreColorTokenUtils.ContainerType.MUTED);
         SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens,
             this.commandButton.getWidth(), 1, SwingConstants.HORIZONTAL, true, 4, 4, true);
 
@@ -417,7 +417,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
             this.commandButton,
             ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
-            RadianceThemingSlices.ContainerType.MUTED);
+            CoreColorTokenUtils.ContainerType.MUTED);
         SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens, 1,
             this.commandButton.getHeight(), SwingConstants.VERTICAL, true, 4, 4, true);
 
@@ -581,10 +581,10 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 fgColor = getMenuButtonTonalForegroundColor(this.commandButton, modelStateInfo);
             } else {
                 fgColor = RadianceColorUtilities.getTonalForegroundColor(
-                    this.commandButton, modelStateInfo, RadianceThemingSlices.ContainerType.MUTED);
+                    this.commandButton, modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
             }
             float fgAlpha = RadianceColorUtilities.getTonalForegroundAlpha(
-                this.commandButton, modelStateInfo, RadianceThemingSlices.ContainerType.MUTED);
+                this.commandButton, modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
             if (fgAlpha < 1.0f) {
                 fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
                     (int) (fgColor.getAlpha() * fgAlpha));
@@ -601,10 +601,10 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 fgColor = getMenuButtonTonalForegroundVariantColor(this.commandButton, modelStateInfo);
             } else {
                 fgColor = RadianceColorUtilities.getTonalForegroundVariantColor(
-                    this.commandButton, modelStateInfo, RadianceThemingSlices.ContainerType.MUTED);
+                    this.commandButton, modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
             }
             float fgAlpha = RadianceColorUtilities.getTonalForegroundAlpha(
-                this.commandButton, modelStateInfo, RadianceThemingSlices.ContainerType.MUTED);
+                this.commandButton, modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
             if (fgAlpha < 1.0f) {
                 fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
                     (int) (fgColor.getAlpha() * fgAlpha));
@@ -725,7 +725,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             && !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
             currAssocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(menuButton,
-            currAssocKind, currState, RadianceThemingSlices.ContainerType.MUTED);
+            currAssocKind, currState, CoreColorTokenUtils.ContainerType.MUTED);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return tokens.getOnContainer();
         }
@@ -737,14 +737,14 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             float alpha = activeEntry.getValue().getContribution();
-            RadianceThemingSlices.ContainerColorTokensAssociationKind assocKind =
+            RadianceThemingSlices.ContainerColorTokensAssociationKind activeAssocKind =
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
             // use HIGHLIGHT on active and non-rollover menu items
             if (activeState.isActive()
                 && !activeState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
-                assocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
+                activeAssocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
             ContainerColorTokens activeTokens = CoreColorTokenUtils.getContainerTokens(menuButton,
-                currAssocKind, activeState, RadianceThemingSlices.ContainerType.MUTED);
+                activeAssocKind, activeState, CoreColorTokenUtils.ContainerType.MUTED);
             Color activeForeground = activeTokens.getOnContainer();
             aggrRed += alpha * activeForeground.getRed();
             aggrGreen += alpha * activeForeground.getGreen();
@@ -766,7 +766,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             && !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
             currAssocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(menuButton,
-            currAssocKind, currState, RadianceThemingSlices.ContainerType.MUTED);
+            currAssocKind, currState, CoreColorTokenUtils.ContainerType.MUTED);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return tokens.getOnContainerVariant();
         }
@@ -778,14 +778,14 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             float alpha = activeEntry.getValue().getContribution();
-            RadianceThemingSlices.ContainerColorTokensAssociationKind assocKind =
+            RadianceThemingSlices.ContainerColorTokensAssociationKind activeAssocKind =
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
             // use HIGHLIGHT on active and non-rollover menu items
             if (activeState.isActive()
                 && !activeState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
-                assocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
+                activeAssocKind = RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT;
             ContainerColorTokens activeTokens = CoreColorTokenUtils.getContainerTokens(menuButton,
-                currAssocKind, activeState, RadianceThemingSlices.ContainerType.MUTED);
+                activeAssocKind, activeState, CoreColorTokenUtils.ContainerType.MUTED);
             Color activeForeground = activeTokens.getOnContainer();
             aggrRed += alpha * activeForeground.getRed();
             aggrGreen += alpha * activeForeground.getGreen();

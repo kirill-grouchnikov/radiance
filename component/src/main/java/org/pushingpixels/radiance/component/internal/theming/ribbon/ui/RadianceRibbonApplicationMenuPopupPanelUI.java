@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.BasicRibb
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
@@ -93,7 +92,7 @@ public class RadianceRibbonApplicationMenuPopupPanelUI
                     (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                             applicationMenuPopupPanel, ComponentState.ENABLED,
-                            RadianceThemingSlices.ContainerType.NEUTRAL);
+                            CoreColorTokenUtils.ContainerType.NEUTRAL);
                         graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
                         boolean ltr = applicationMenuPopupPanel.getComponentOrientation().isLeftToRight();
                         int lineX = ltr ? 1 : scaledWidth - 2;

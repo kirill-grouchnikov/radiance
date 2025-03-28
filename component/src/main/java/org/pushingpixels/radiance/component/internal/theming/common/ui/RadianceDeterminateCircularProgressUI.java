@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.component.internal.theming.common.ui;
 import org.pushingpixels.radiance.component.api.common.JDeterminateCircularProgress;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicDeterminateCircularProgressUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -62,11 +61,11 @@ public class RadianceDeterminateCircularProgressUI extends BasicDeterminateCircu
 
         Color result = CoreColorTokenUtils.getContainerTokens(
             this.determinateCircularProgress, state,
-            RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
+            CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainer();
         if (!isEnabled) {
             float fgAlpha = CoreColorTokenUtils.getContainerTokens(
                 this.determinateCircularProgress, state,
-                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
+                CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
             result = RadianceColorUtilities.getAlphaColor(result,
                 (int) (result.getAlpha() * fgAlpha));
         }

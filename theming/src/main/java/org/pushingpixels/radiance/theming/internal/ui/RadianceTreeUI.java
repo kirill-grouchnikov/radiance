@@ -281,7 +281,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 			// mark drop location
 			ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
 				tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-				currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+				currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
 			HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer, rowRectangle,
 				currState, 1.0f, true, null, colorTokens);
 		} else {
@@ -290,7 +290,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 					if ((currState != ComponentState.ENABLED) && (currState != ComponentState.DISABLED_UNSELECTED)) {
 						ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
 							this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-							currState, RadianceThemingSlices.ContainerType.NEUTRAL);
+							currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
 						// Fix for defect 180 - painting the
 						// highlight beneath the entire row
 						HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
@@ -307,7 +307,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 						}
 						ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
 							this.tree, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-							activeState, RadianceThemingSlices.ContainerType.NEUTRAL);
+							activeState, CoreColorTokenUtils.ContainerType.NEUTRAL);
 						// Fix for defect 180 - painting the
 						// highlight beneath the entire row
 						HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer,
@@ -392,7 +392,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 		float alpha = this.tree.isEnabled() ? 1.0f
 			: CoreColorTokenUtils.getContainerTokens(this.tree,
 				ComponentState.DISABLED_UNSELECTED,
-				RadianceThemingSlices.ContainerType.MUTED).getContainerOutlineDisabledAlpha();
+				CoreColorTokenUtils.ContainerType.MUTED).getContainerOutlineDisabledAlpha();
 
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
@@ -895,7 +895,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 
 		// compute the default color tokens - to optimize the performance
 		this.currDefaultColorTokens = CoreColorTokenUtils.getContainerTokens(tree,
-			ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+			ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
 
 		Rectangle paintBounds = g.getClipBounds();
 		Insets insets = tree.getInsets();

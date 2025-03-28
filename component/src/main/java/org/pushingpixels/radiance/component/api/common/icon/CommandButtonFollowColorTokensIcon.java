@@ -123,7 +123,7 @@ public class CommandButtonFollowColorTokensIcon implements RadianceIcon {
             BladeUtils.populateColorTokens(mutableTokens, null, null,
                 ((c == null) || !c.isEnabled()) ? ComponentState.DISABLED_UNSELECTED
                     : ComponentState.ENABLED,
-                this.colorTokensAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
+                this.colorTokensAssociationKind, false, false, CoreColorTokenUtils.ContainerType.MUTED);
             if ((c == null) || !c.isEnabled()) {
                 alpha = CoreColorTokenUtils.getActiveContainerTokens(
                     c, ComponentState.DISABLED_UNSELECTED).getOnContainerDisabledAlpha();
@@ -139,9 +139,9 @@ public class CommandButtonFollowColorTokensIcon implements RadianceIcon {
             ComponentState currState = modelStateInfo.getCurrModelState();
 
             BladeUtils.populateColorTokens(mutableTokens, commandButton, modelStateInfo, currState,
-                    this.colorTokensAssociationKind, false, false, RadianceThemingSlices.ContainerType.MUTED);
+                    this.colorTokensAssociationKind, false, false, CoreColorTokenUtils.ContainerType.MUTED);
             alpha = CoreColorTokenUtils.getContainerTokens(
-                c, currState, RadianceThemingSlices.ContainerType.MUTED).getOnContainerDisabledAlpha();
+                c, currState, CoreColorTokenUtils.ContainerType.MUTED).getOnContainerDisabledAlpha();
         }
 
         Graphics2D graphics = (Graphics2D) g.create();

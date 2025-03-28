@@ -42,10 +42,7 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -98,7 +95,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
         // Populate color tokens based on the current transition state of the switch.
         BladeUtils.populateColorTokens(mutableContainerTokens, switchComp, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-            false, true, RadianceThemingSlices.ContainerType.MUTED);
+            false, true, CoreColorTokenUtils.ContainerType.MUTED);
 
         float alpha = currState.isDisabled()
             ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;

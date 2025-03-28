@@ -149,7 +149,7 @@ public class BladeUtils {
         StateTransitionTracker.ModelStateInfo modelStateInfo, ComponentState currState,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         boolean treatEnabledAsActive, boolean skipFlatCheck,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         if (!SwingUtilities.isEventDispatchThread()) {
             UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
                     "Color tokens population must be done on Event Dispatch Thread");
@@ -295,14 +295,14 @@ public class BladeUtils {
             public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
                 return CoreColorTokenUtils.getContainerTokens(component,
                     colorTokensAssociationKindDelegate.getContainerColorTokensAssociationKind(state), state,
-                    RadianceThemingSlices.ContainerType.MUTED);
+                    CoreColorTokenUtils.ContainerType.MUTED);
             }
 
             @Override
             public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
                 return CoreColorTokenUtils.getContainerTokens(component,
                     colorTokensAssociationKindDelegate.getContainerColorTokensAssociationKind(state), state,
-                    RadianceThemingSlices.ContainerType.MUTED);
+                    CoreColorTokenUtils.ContainerType.MUTED);
             }
         };
     }

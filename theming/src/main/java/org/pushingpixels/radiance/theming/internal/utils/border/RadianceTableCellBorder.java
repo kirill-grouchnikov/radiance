@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorToke
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -118,7 +119,7 @@ public class RadianceTableCellBorder implements Border, UIResource {
 		BladeUtils.populateColorTokens(mutableColorTokens, c,
 			modelStateInfo, currState,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-			false, true, RadianceThemingSlices.ContainerType.NEUTRAL);
+			false, true, CoreColorTokenUtils.ContainerType.NEUTRAL);
 		BladeDrawingUtils.paintBladeTonalBorder(c, graphics, x, y, width, height, radius,
 			mutableColorTokens);
 		graphics.dispose();

@@ -141,7 +141,7 @@ public class RadianceColorSelectorComponentUI extends BasicColorSelectorComponen
                     CoreColorTokenUtils.getContainerTokens(this.colorSelectorComponent,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         ComponentState.ROLLOVER_UNSELECTED,
-                        RadianceThemingSlices.ContainerType.MUTED);
+                        CoreColorTokenUtils.ContainerType.MUTED);
                     graphics1X.setColor(tokens.getContainerOutline());
                     graphics1X.drawRect(0, 0, scaledWidth - 1, scaledHeight - 1);
                     graphics1X.setColor(RadianceColorUtilities.getAlphaColor(

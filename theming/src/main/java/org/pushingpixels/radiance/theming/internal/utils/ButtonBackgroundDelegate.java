@@ -116,7 +116,7 @@ public class ButtonBackgroundDelegate {
 
         BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-            false, false, RadianceThemingSlices.ContainerType.MUTED);
+            false, false, CoreColorTokenUtils.ContainerType.MUTED);
 
         drawTonalBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
             mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted, currState,

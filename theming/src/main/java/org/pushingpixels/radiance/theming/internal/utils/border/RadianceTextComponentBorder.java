@@ -127,7 +127,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
 
                     BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                        false, false, RadianceThemingSlices.ContainerType.MUTED);
+                        false, false, CoreColorTokenUtils.ContainerType.MUTED);
                     if (currState.isDisabled()) {
                         graphics1X.setComposite(WidgetUtilities.getAlphaComposite(c,
                             mutableContainerTokens.containerOutlineDisabledAlpha, g));
@@ -146,7 +146,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
             ContainerColorTokens colorTokens =
                 CoreColorTokenUtils.getContainerTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                    currState, RadianceThemingSlices.ContainerType.MUTED);
+                    currState, CoreColorTokenUtils.ContainerType.MUTED);
 
             if (currState.isDisabled()) {
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(c,

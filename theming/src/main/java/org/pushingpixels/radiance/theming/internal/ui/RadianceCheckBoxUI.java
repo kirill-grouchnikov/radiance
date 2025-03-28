@@ -38,10 +38,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePai
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RolloverButtonListener;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -114,7 +111,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                 // Populate color tokens based on the current transition state of the check box.
                 BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
                     currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                    false, true, RadianceThemingSlices.ContainerType.MUTED);
+                    false, true, CoreColorTokenUtils.ContainerType.MUTED);
 
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);

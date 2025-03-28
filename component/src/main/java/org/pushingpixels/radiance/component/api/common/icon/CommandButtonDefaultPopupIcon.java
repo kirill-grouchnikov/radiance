@@ -105,12 +105,12 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
         ComponentState currState = modelStateInfo.getCurrModelState();
         float iconAlpha = modelStateInfo.getCurrModelState().isDisabled()
             ? CoreColorTokenUtils.getContainerTokens(commandButton, currState,
-                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha()
+                CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainerDisabledAlpha()
             : 1.0f;
 
         BladeUtils.populateColorTokens(mutableColorTokens, c, modelStateInfo, currState,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-            false, false, RadianceThemingSlices.ContainerType.MUTED);
+            false, false, CoreColorTokenUtils.ContainerType.MUTED);
         RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 commandButton.getPresentationModel().getPopupPlacementStrategy();
         int direction =

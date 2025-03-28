@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorToke
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
@@ -110,7 +111,7 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                 // Populate color tokens based on the current transition state of the checkbox.
                 BladeUtils.populateColorTokens(mutableContainerTokens, triStateCheckBox, modelStateInfo,
                     currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                    false, true, RadianceThemingSlices.ContainerType.MUTED);
+                    false, true, CoreColorTokenUtils.ContainerType.MUTED);
 
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
@@ -171,7 +172,7 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                 ComponentState stateForText = b.isEnabled() ? ComponentState.ENABLED
                     : ComponentState.DISABLED_UNSELECTED;
                 RadianceTextUtilities.paintTonalText(g, b, textRect,
-                    text, -1, stateForText, RadianceThemingSlices.ContainerType.NEUTRAL);
+                    text, -1, stateForText, CoreColorTokenUtils.ContainerType.NEUTRAL);
             }
         }
 

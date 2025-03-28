@@ -30,7 +30,10 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.text.RadiancePasswordField;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
@@ -136,7 +139,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
                     : ComponentState.DISABLED_UNSELECTED;
                 ContainerColorTokens colorTokens =
                     CoreColorTokenUtils.getContainerTokens(field, state,
-                        RadianceThemingSlices.ContainerType.NEUTRAL);
+                        CoreColorTokenUtils.ContainerType.NEUTRAL);
                 Color color = RadianceColorUtilities.getForegroundColor(colorTokens);
                 graphics.setColor(color);
             }

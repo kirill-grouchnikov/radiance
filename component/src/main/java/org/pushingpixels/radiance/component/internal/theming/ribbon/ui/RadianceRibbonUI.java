@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -103,7 +102,7 @@ public class RadianceRibbonUI extends BasicRibbonUI {
             }
 
             ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(ribbon,
-                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+                ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
             for (RibbonTask taskWithTrailingSeparator : tasksWithTrailingSeparators) {
                 JComponent taskToggleButton = taskToggleButtons.get(taskWithTrailingSeparator);
                 Rectangle bounds = taskToggleButton.getBounds();
@@ -129,7 +128,7 @@ public class RadianceRibbonUI extends BasicRibbonUI {
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, this.getWidth(), this.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-                        this, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+                        this, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
                     graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
                     int separatorY = scaledHeight - 1;
                     graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
@@ -185,7 +184,7 @@ public class RadianceRibbonUI extends BasicRibbonUI {
             this.ribbon.getWidth(), this.ribbon.getHeight(),
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-                    this.ribbon, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+                    this.ribbon, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
                 int separatorY = (int) (scaleFactor * (this.taskToggleButtonsScrollablePanel.getY() +
                     this.taskToggleButtonsScrollablePanel.getHeight())) - 1;

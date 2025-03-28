@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
@@ -420,14 +419,14 @@ public class RadianceButtonUI extends BasicButtonUI implements
                 // No support yet for transitions between disabled and enabled / active
                 // states
                 Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(b, originalIcon,
-                    currentState, this.textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
+                    currentState, this.textColor, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 disabledIcon.paintIcon(b, graphics, 0, 0);
             } else {
                 // Active states are painted on top of the icon that corresponds to the
                 // enabled state
                 Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(b,
                     originalIcon, ComponentState.ENABLED, this.textColor,
-                    RadianceThemingSlices.ContainerType.MUTED);
+                    CoreColorTokenUtils.ContainerType.MUTED);
                 enabledIcon.paintIcon(b, graphics, 0, 0);
                 if (stateTracker.getActiveStrength() > 0.0f) {
                     for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
@@ -439,7 +438,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
                         if (contribution > 0.0f) {
                             Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(b,
                                 originalIcon, entry.getKey(), this.textColor,
-                                RadianceThemingSlices.ContainerType.MUTED);
+                                CoreColorTokenUtils.ContainerType.MUTED);
                             if (activeIcon != enabledIcon) {
                                 graphics.setComposite(WidgetUtilities.getAlphaComposite(b, contribution, g));
                                 activeIcon.paintIcon(b, graphics, 0, 0);
@@ -463,7 +462,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
     private Color paintButtonText(Graphics g, AbstractButton button,
             Rectangle textRect, String text) {
         return RadianceTextUtilities.paintTonalText(g, button, textRect, text,
-            button.getDisplayedMnemonicIndex(), RadianceThemingSlices.ContainerType.MUTED);
+            button.getDisplayedMnemonicIndex(), CoreColorTokenUtils.ContainerType.MUTED);
     }
 
     /**

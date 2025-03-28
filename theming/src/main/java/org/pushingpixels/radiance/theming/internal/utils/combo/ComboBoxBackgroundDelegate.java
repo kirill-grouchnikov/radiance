@@ -65,7 +65,7 @@ public class ComboBoxBackgroundDelegate {
 
         BladeUtils.populateColorTokens(mutableContainerTokens, combo, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-            false, false, RadianceThemingSlices.ContainerType.MUTED);
+            false, false, CoreColorTokenUtils.ContainerType.MUTED);
 
         drawBackground(graphics, combo, surfacePainter, outlinePainter, width, height,
             mutableContainerTokens);
@@ -144,7 +144,7 @@ public class ComboBoxBackgroundDelegate {
             }
         } else if (!combo.isEnabled()) {
             extraAlpha = CoreColorTokenUtils.getContainerTokens(combo,
-                    modelStateInfo.getCurrModelState(), RadianceThemingSlices.ContainerType.MUTED)
+                    modelStateInfo.getCurrModelState(), CoreColorTokenUtils.ContainerType.MUTED)
                 .getContainerSurfaceDisabledAlpha();
         }
 

@@ -127,9 +127,10 @@ import java.util.*;
  * <li>The UI delegate that queries the component model will use accurate
  * component states that account for all the relevant on and off facets -
  * including the core facets defined in the {@link RadianceThemingSlices.ComponentStateFacet} class.
- * When this (perhaps elaborate) state is passed to
- * {@link ContainerColorTokensBundle#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
- * API, the procedure described above will match the this state to one of
+ * When this (perhaps elaborate) state is passed to APIs such as
+ * {@link ContainerColorTokensBundle#getActiveContainerTokens(ComponentState)} or
+ * {@link ContainerColorTokensBundle#getActiveContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)}
+ * the procedure described above will match this state to one of
  * the "base" states defined in your skin, and use the matching color tokens.</li>
  * </ul>
  *
@@ -400,8 +401,9 @@ public final class ComponentState {
      *
      * @param name         Component state name. Does not have to be unique. The name is
      *                     only used in the {@link #toString()}.
-     * @param hardFallback The fallback state that will be used in
-     *                     {@link ContainerColorTokensBundle#getContainerTokens(ComponentState, RadianceThemingSlices.ContainerType)}
+     * @param hardFallback The fallback state that will be used in APIs such as
+     *                     {@link ContainerColorTokensBundle#getActiveContainerTokens(ComponentState)} or
+     *                     {@link ContainerColorTokensBundle#getActiveContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)}
      *                     in case {@link #bestFit(Collection)} returns <code>null</code>
      * @param facetsOn     Indicates that are turned on for this state. For example,
      *                     {@link #ROLLOVER_SELECTED} should pass both

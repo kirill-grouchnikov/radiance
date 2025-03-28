@@ -240,7 +240,7 @@ public class ContainerColorTokensBundle {
             // in registerActiveContainerTokens
             return registered;
         } else {
-            return this.getContainerTokensForState(componentState);
+            return this.getActiveContainerTokensForState(componentState);
         }
     }
 
@@ -312,61 +312,61 @@ public class ContainerColorTokensBundle {
         return this.inverseSystemSuccessContainerTokens;
     }
 
-    public ContainerColorTokens getContainerTokensForState(ComponentState componentState) {
+    private ContainerColorTokens getActiveContainerTokensForState(ComponentState componentState) {
         if (componentState.isDisabled()) {
-            return getContainerTokensForState(componentState.getEnabledMatch());
+            return getActiveContainerTokensForState(componentState.getEnabledMatch());
         }
 
-        ContainerColorTokens tonals = getActiveContainerTokens();
+        ContainerColorTokens activeTokens = getActiveContainerTokens();
         if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
             (componentState == ComponentState.ARMED)) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    CoreColorTokenUtils.getPressedUnselectedTokens(tonals));
+                    CoreColorTokenUtils.getPressedUnselectedTokens(activeTokens));
             }
             return stateTokens.get(componentState);
         }
         if (componentState == ComponentState.PRESSED_SELECTED) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    CoreColorTokenUtils.getPressedSelectedTokens(tonals));
+                    CoreColorTokenUtils.getPressedSelectedTokens(activeTokens));
             }
             return stateTokens.get(componentState);
         }
         if (componentState == ComponentState.SELECTED) {
-            return tonals;
+            return activeTokens;
         }
         if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    CoreColorTokenUtils.getRolloverUnselectedTokens(tonals));
+                    CoreColorTokenUtils.getRolloverUnselectedTokens(activeTokens));
             }
             return stateTokens.get(componentState);
         }
         if (componentState == ComponentState.ROLLOVER_SELECTED) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    CoreColorTokenUtils.getRolloverSelectedTokens(tonals));
+                    CoreColorTokenUtils.getRolloverSelectedTokens(activeTokens));
             }
             return stateTokens.get(componentState);
         }
         if (componentState == ComponentState.ROLLOVER_ARMED) {
             if (!stateTokens.containsKey(componentState)) {
                 stateTokens.put(componentState,
-                    CoreColorTokenUtils.getRolloverArmedTokens(tonals));
+                    CoreColorTokenUtils.getRolloverArmedTokens(activeTokens));
             }
             return stateTokens.get(componentState);
         }
 
         ComponentState hardFallback = componentState.getHardFallback();
         if (hardFallback != null) {
-            return this.getContainerTokensForState(hardFallback);
+            return this.getActiveContainerTokensForState(hardFallback);
         }
 
         if (componentState == ComponentState.ENABLED) {
             return getMutedContainerTokens();
         }
-        return tonals;
+        return activeTokens;
     }
 
     /**

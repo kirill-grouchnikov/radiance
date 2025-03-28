@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.widget.text;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
@@ -217,7 +216,7 @@ public class LockBorderWidget extends RadianceThemingWidget<JTextComponent> {
         public Insets getBorderInsets(Component c) {
             Icon lockIcon = RadianceImageCreator.getSmallLockIcon(
                 CoreColorTokenUtils.getContainerTokens(
-                    c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c);
+                    c, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL), c);
 
             Insets origInsets = this.originalBorder.getBorderInsets(c);
 
@@ -242,7 +241,7 @@ public class LockBorderWidget extends RadianceThemingWidget<JTextComponent> {
             this.originalBorder.paintBorder(c, g, x, y, width, height);
             Icon lockIcon = RadianceImageCreator.getSmallLockIcon(
                 CoreColorTokenUtils.getContainerTokens(
-                    c, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL), c);
+                    c, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL), c);
 
             int offsetY = 1;
             if (c.getParent() instanceof JViewport) {

@@ -67,7 +67,7 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 			ContainerColorTokens colorTokens =
 				CoreColorTokenUtils.getContainerTokens(toolbar,
 					RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-					ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+					ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
 
 			if (orientation == SwingConstants.HORIZONTAL) {
 				// fix for defect 3 on NB module

@@ -93,7 +93,7 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
 
         ComponentState currState = modelStateInfo.getCurrModelState();
         float iconAlpha = CoreColorTokenUtils.getContainerTokens(c,
-                modelStateInfo.getCurrModelState(), RadianceThemingSlices.ContainerType.MUTED)
+                modelStateInfo.getCurrModelState(), CoreColorTokenUtils.ContainerType.MUTED)
             .getOnContainerDisabledAlpha();
 
         Graphics2D graphics = (Graphics2D) g.create();

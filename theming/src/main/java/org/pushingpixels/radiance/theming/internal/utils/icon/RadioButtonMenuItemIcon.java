@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -90,7 +91,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         // Populate color tokens based on the current transition state of the menu item.
         BladeUtils.populateColorTokens(mutableContainerTokens, this.menuItem, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, false,
-            true, RadianceThemingSlices.ContainerType.MUTED);
+            true, CoreColorTokenUtils.ContainerType.MUTED);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);

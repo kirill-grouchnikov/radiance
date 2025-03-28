@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
@@ -63,7 +63,7 @@ public class RadiancePanelUI extends BasicPanelUI {
 		Color backgr = p.getBackground();
 		if ((backgr == null) || (backgr instanceof UIResource)) {
 			Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(
-				p, RadianceThemingSlices.ContainerType.NEUTRAL);
+				p, CoreColorTokenUtils.ContainerType.NEUTRAL);
 			// fix for issue 436 - logic in getBackground() of
 			// custom panels can result in null value
 			if (backgroundFillColor != null) {

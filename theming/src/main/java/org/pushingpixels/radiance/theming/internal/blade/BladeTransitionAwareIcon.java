@@ -129,7 +129,7 @@ public class BladeTransitionAwareIcon implements Icon {
                     getTransitionTracker();
             modelStateInfo = stateTransitionTracker.getModelStateInfo();
             iconAlpha = CoreColorTokenUtils.getContainerTokens(c,
-                    modelStateInfo.getCurrModelState(), RadianceThemingSlices.ContainerType.MUTED)
+                    modelStateInfo.getCurrModelState(), CoreColorTokenUtils.ContainerType.MUTED)
                 .getOnContainerDisabledAlpha();
         } else if (c instanceof AbstractButton) {
             // This is for icons set on buttons via actions, such as the menu bar on
@@ -139,7 +139,7 @@ public class BladeTransitionAwareIcon implements Icon {
             stateTransitionTracker = transitionAwareUI.getTransitionTracker();
             modelStateInfo = stateTransitionTracker.getModelStateInfo();
             iconAlpha = CoreColorTokenUtils.getContainerTokens(c,
-                    modelStateInfo.getCurrModelState(), RadianceThemingSlices.ContainerType.MUTED)
+                    modelStateInfo.getCurrModelState(), CoreColorTokenUtils.ContainerType.MUTED)
                 .getOnContainerDisabledAlpha();
         } else {
             // No support for this icon set on a non-button component

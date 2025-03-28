@@ -31,9 +31,13 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
@@ -133,10 +137,10 @@ public class RadianceFileChooserUI extends MetalFileChooserUI {
 
             // Filter the icon
             Color textColor = RadianceTextUtilities.getTonalForegroundColor(
-                fileChooser, ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+                fileChooser, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
             icon = RadianceCoreUtilities.getFilteredIcon(fileChooser,
                 icon, ComponentState.ENABLED, textColor,
-                RadianceThemingSlices.ContainerType.NEUTRAL);
+                CoreColorTokenUtils.ContainerType.NEUTRAL);
 
             return icon;
         }

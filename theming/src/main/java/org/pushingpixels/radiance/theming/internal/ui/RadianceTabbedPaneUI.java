@@ -738,7 +738,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 if (tabColor instanceof UIResource) {
                     // special handling of tabs placed in decoration areas
                     tabColor = RadianceColorUtilities.getTonalBackgroundFillColor(
-                        compForBackground, RadianceThemingSlices.ContainerType.NEUTRAL);
+                        compForBackground, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 }
 
                 if (tabPlacement == BOTTOM) {
@@ -1888,14 +1888,14 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             // states
             Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(this.tabPane,
                 icon, currentState, this.tabTextColorMap.get(tabIndex),
-                RadianceThemingSlices.ContainerType.NEUTRAL);
+                CoreColorTokenUtils.ContainerType.NEUTRAL);
             disabledIcon.paintIcon(this.tabPane, g2d, 0, 0);
         } else {
             // Active states are painted on top of the icon that corresponds to the
             // enabled state
             Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(this.tabPane,
                 icon, ComponentState.ENABLED, this.tabTextColorMap.get(tabIndex),
-                RadianceThemingSlices.ContainerType.MUTED);
+                CoreColorTokenUtils.ContainerType.MUTED);
             enabledIcon.paintIcon(this.tabPane, g2d, 0, 0);
             if ((tabTracker != null) && (tabTracker.getActiveStrength() > 0.0f)) {
                 for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
@@ -1907,7 +1907,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     if (contribution > 0.0f) {
                         Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(this.tabPane,
                             icon, entry.getKey(), this.tabTextColorMap.get(tabIndex),
-                            RadianceThemingSlices.ContainerType.MUTED);
+                            CoreColorTokenUtils.ContainerType.MUTED);
                         if (activeIcon != enabledIcon) {
                             g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane,
                                     contribution, g));

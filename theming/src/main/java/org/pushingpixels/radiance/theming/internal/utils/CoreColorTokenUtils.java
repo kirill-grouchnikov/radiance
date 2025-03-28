@@ -44,6 +44,16 @@ import java.awt.*;
  */
 public class CoreColorTokenUtils {
     /**
+     * Enumeration of available container types. Each entry corresponds to the matching container
+     * color tokens passed to {@link ContainerColorTokensBundle}.
+     */
+    public enum ContainerType {
+        NEUTRAL,
+        MUTED,
+        ACTIVE
+    }
+
+    /**
      * Returns the color tokens of the specified tabbed pane tab.
      *
      * @param jtp            Tabbed pane.
@@ -77,7 +87,7 @@ public class CoreColorTokenUtils {
     }
 
     public static ContainerColorTokens getContainerTokens(Component component,
-        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        ComponentState componentState, ContainerType inactiveContainerType) {
         Component orig = component;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         // special case - if the component is marked as flat and
@@ -106,7 +116,7 @@ public class CoreColorTokenUtils {
         if (componentState.isActive()) {
             nonColorized = skin.getActiveContainerTokens(component, componentState);
         } else {
-            if (inactiveContainerType == RadianceThemingSlices.ContainerType.MUTED) {
+            if (inactiveContainerType == ContainerType.MUTED) {
                 nonColorized = skin.getMutedContainerTokens(component);
             } else {
                 nonColorized = skin.getNeutralContainerTokens(component);
@@ -126,7 +136,7 @@ public class CoreColorTokenUtils {
      */
     public static ContainerColorTokens getContainerTokens(Component component,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        ComponentState componentState, ContainerType inactiveContainerType) {
         return getContainerTokens(component, associationKind, componentState, inactiveContainerType,
             false);
     }
@@ -141,7 +151,7 @@ public class CoreColorTokenUtils {
      */
     public static ContainerColorTokens getContainerTokens(Component component,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType,
+        ComponentState componentState, ContainerType inactiveContainerType,
         boolean skipFlatCheck) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
 
@@ -168,7 +178,7 @@ public class CoreColorTokenUtils {
             nonColorized = skin.getActiveContainerTokens(component, associationKind,
                 componentState);
         } else {
-            if (inactiveContainerType == RadianceThemingSlices.ContainerType.NEUTRAL) {
+            if (inactiveContainerType == ContainerType.NEUTRAL) {
                 nonColorized = skin.getNeutralContainerTokens(component, associationKind);
             } else {
                 nonColorized = skin.getMutedContainerTokens(component, associationKind);

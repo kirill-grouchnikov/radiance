@@ -109,7 +109,7 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
         HighlightPainterUtils.paintHighlightBorder1X(g2d, this.buttonPanel, width, height, 1.0f,
             openSides, RadianceCoreUtilities.getOutlinePainter(this.buttonPanel),
             CoreColorTokenUtils.getContainerTokens(this.buttonPanel,
-                ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL));
+                ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL));
         g2d.dispose();
     }
 

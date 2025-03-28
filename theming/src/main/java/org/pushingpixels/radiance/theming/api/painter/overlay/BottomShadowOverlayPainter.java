@@ -97,7 +97,7 @@ public final class BottomShadowOverlayPainter implements RadianceOverlayPainter 
 		 RadianceSkin skin) {
 
 		Color shadowColor = CoreColorTokenUtils.getContainerTokens(comp,
-				ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL)
+				ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL)
 			.getContainerOutline();
 
 		Component topMostWithSameDecorationAreaType = RadianceCoreUtilities

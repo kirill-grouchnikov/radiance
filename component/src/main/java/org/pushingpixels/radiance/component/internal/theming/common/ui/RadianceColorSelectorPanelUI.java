@@ -89,7 +89,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                         this.colorSelectorPanel, scaledWidth, scaledHeight, 1.0f, openSides,
                         RadianceCoreUtilities.getOutlinePainter(this.colorSelectorPanel),
                         CoreColorTokenUtils.getContainerTokens(this.colorSelectorPanel,
-                            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL));
+                            ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL));
                 });
         graphics.dispose();
     }
@@ -106,7 +106,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                     this.colorSelectorPanel, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                    ComponentState.ENABLED, RadianceThemingSlices.ContainerType.NEUTRAL);
+                    ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 Color borderColor = tokens.getContainerOutline();
 
                 graphics1X.setColor(borderColor);

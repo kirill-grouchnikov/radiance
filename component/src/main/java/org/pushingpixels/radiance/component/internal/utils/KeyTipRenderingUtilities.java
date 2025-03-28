@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -62,7 +61,7 @@ public class KeyTipRenderingUtilities {
         ComponentState state =
                 toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-            c, state, RadianceThemingSlices.ContainerType.MUTED);
+            c, state, CoreColorTokenUtils.ContainerType.MUTED);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -98,7 +97,7 @@ public class KeyTipRenderingUtilities {
                 });
 
         graphics.setColor(CoreColorTokenUtils.getContainerTokens(
-            c, state, RadianceThemingSlices.ContainerType.MUTED).getOnContainer());
+            c, state, CoreColorTokenUtils.ContainerType.MUTED).getOnContainer());
         Font font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                 getControlFont();
         font = font.deriveFont(font.getSize() + 1.0f);

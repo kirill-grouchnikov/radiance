@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.component.api.common.model.LabelPresentationMo
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -316,16 +315,16 @@ public class RadianceExoLabelUI extends ComponentUI {
 
             RadianceSkin skin = RadianceCoreUtilities.getSkin(label);
             Color textColor = CoreColorTokenUtils.getContainerTokens(label, state,
-                RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainer();
+                CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainer();
             if (!contentModel.isEnabled()) {
                 float fgAlpha = CoreColorTokenUtils.getContainerTokens(label, state,
-                    RadianceThemingSlices.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
+                    CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
                 textColor = RadianceColorUtilities.getAlphaColor(textColor,
                     (int) (textColor.getAlpha() * fgAlpha));
             }
 
             Icon filteredIcon = RadianceCoreUtilities.getFilteredIcon(label,
-                this.icon, state, textColor, RadianceThemingSlices.ContainerType.NEUTRAL);
+                this.icon, state, textColor, CoreColorTokenUtils.ContainerType.NEUTRAL);
             filteredIcon.paintIcon(label, g2d, 0, 0);
         }
 

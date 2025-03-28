@@ -226,7 +226,7 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                         thumbWidth, gripHeight, false, CoreColorTokenUtils.getContainerTokens(
                             this,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, activeState,
-                            RadianceThemingSlices.ContainerType.MUTED),
+                            CoreColorTokenUtils.ContainerType.MUTED),
                         activeState);
                 }
             }
@@ -256,7 +256,7 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                     BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
                         gripWidth, thumbHeight, true, CoreColorTokenUtils.getContainerTokens(
                             this, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                            activeState, RadianceThemingSlices.ContainerType.MUTED),
+                            activeState, CoreColorTokenUtils.ContainerType.MUTED),
                         activeState);
                 }
             }

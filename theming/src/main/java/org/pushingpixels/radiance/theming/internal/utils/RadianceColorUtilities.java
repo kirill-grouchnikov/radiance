@@ -364,7 +364,7 @@ public class RadianceColorUtilities {
      */
     public static Color getTonalForegroundColor(Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelState();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
             modelStateInfo.getStateContributionMap();
@@ -430,7 +430,7 @@ public class RadianceColorUtilities {
 
     public static Color getTonalForegroundVariantColor(Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelState();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
             modelStateInfo.getStateContributionMap();
@@ -496,7 +496,7 @@ public class RadianceColorUtilities {
 
     public static float getTonalForegroundAlpha(Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         // special case for enabled buttons with no background -
@@ -540,7 +540,7 @@ public class RadianceColorUtilities {
         if (enabledState.isActive()) {
             return skin.getActiveContainerTokens(component, enabledState).getOnContainerDisabledAlpha();
         }
-        if (inactiveContainerType == RadianceThemingSlices.ContainerType.MUTED) {
+        if (inactiveContainerType == CoreColorTokenUtils.ContainerType.MUTED) {
             return skin.getMutedContainerTokens(component).getOnContainerDisabledAlpha();
         } else {
             return skin.getNeutralContainerTokens(component).getOnContainerDisabledAlpha();
@@ -556,7 +556,7 @@ public class RadianceColorUtilities {
      */
     public static Color getTonalMenuComponentForegroundColor(JMenuItem menuComponent,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
             modelStateInfo.getStateNoSelectionContributionMap();
@@ -597,7 +597,7 @@ public class RadianceColorUtilities {
 
     public static float getTonalMenuComponentForegroundAlpha(JMenuItem menuComponent,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
 
         // use HIGHLIGHT on active menu items
@@ -617,7 +617,7 @@ public class RadianceColorUtilities {
      * @return The background fill color of the specified component.
      */
     public static Color getTonalBackgroundFillColor(Component component,
-        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        CoreColorTokenUtils.ContainerType inactiveContainerType) {
         Color backgr = component.getBackground();
         boolean isBackgroundUiResource = backgr instanceof UIResource;
 
@@ -691,7 +691,7 @@ public class RadianceColorUtilities {
     public static Color getBackgroundTonalFillColorScrollBar(JScrollBar scrollbar) {
         ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
             scrollbar, scrollbar.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
-            RadianceThemingSlices.ContainerType.NEUTRAL);
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
         return colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
             : colorTokens.getContainerSurfaceHigh();
     }

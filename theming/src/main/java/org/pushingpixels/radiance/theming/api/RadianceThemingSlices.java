@@ -817,16 +817,6 @@ public final class RadianceThemingSlices {
     }
 
     /**
-     * Enumeration of available container types. Each entry corresponds to the matching container
-     * color tokens passed to {@link ContainerColorTokensBundle}.
-     */
-    public enum ContainerType {
-        NEUTRAL,
-        MUTED,
-        ACTIVE
-    }
-
-    /**
      * Enumeration of available system container types.
      * 
      * @see ContainerColorTokensBundle#getSystemContainerTokens(SystemContainerType)

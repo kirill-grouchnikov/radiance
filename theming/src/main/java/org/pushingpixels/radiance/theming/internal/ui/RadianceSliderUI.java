@@ -220,7 +220,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                         CoreColorTokenUtils.getContainerTokens(this.slider,
                             this.slider.isEnabled() ? ComponentState.ENABLED
                                 : ComponentState.DISABLED_UNSELECTED,
-                            RadianceThemingSlices.ContainerType.MUTED);
+                            CoreColorTokenUtils.ContainerType.MUTED);
                     this.paintSliderTrack1X(graphics1X, trackColorTokensUnselected,
                         scaledWidth, scaledHeight, scaleFactor, currState);
 
@@ -229,7 +229,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                         modelStateInfo, currState,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                         false, false,
-                        RadianceThemingSlices.ContainerType.MUTED);
+                        CoreColorTokenUtils.ContainerType.MUTED);
                     this.paintSliderTrackSelected1X(graphics1X, drawInverted, paintRect,
                         mutableColorTokens, scaledWidth, scaledHeight, scaleFactor, currState);
                 });
@@ -576,7 +576,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         ContainerColorTokens tickTokens = CoreColorTokenUtils.getContainerTokens(this.slider,
             this.slider.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED,
-            RadianceThemingSlices.ContainerType.NEUTRAL);
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
         if (this.slider.getOrientation() == JSlider.HORIZONTAL) {
             long value = this.slider.getMinimum() + this.slider.getMinorTickSpacing();
 

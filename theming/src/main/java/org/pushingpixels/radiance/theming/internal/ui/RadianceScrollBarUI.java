@@ -164,7 +164,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         // parameter to "populateColorTokens").
         BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-            true, false, RadianceThemingSlices.ContainerType.MUTED);
+            true, false, CoreColorTokenUtils.ContainerType.MUTED);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -224,7 +224,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         // parameter to "populateColorTokens").
         BladeUtils.populateColorTokens(mutableContainerTokens, this.scrollbar, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-            true, false, RadianceThemingSlices.ContainerType.MUTED);
+            true, false, CoreColorTokenUtils.ContainerType.MUTED);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT

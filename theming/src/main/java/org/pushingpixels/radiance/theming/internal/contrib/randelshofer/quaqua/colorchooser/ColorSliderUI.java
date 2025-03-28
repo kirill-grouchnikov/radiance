@@ -17,7 +17,6 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.VisualMargin;
@@ -209,7 +208,7 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
         }
 
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(this.slider,
-            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
+            ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.MUTED);
         Color backgroundFill = tokens.getContainerSurfaceLow();
         g.setColor(backgroundFill);
         g.fillRect(cx, cy, cw, ch);
@@ -236,7 +235,7 @@ public class ColorSliderUI extends RadianceSliderUI implements TransitionAwareUI
     @Override
     public void paintTicks(Graphics g) {
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(this.slider,
-            ComponentState.ENABLED, RadianceThemingSlices.ContainerType.MUTED);
+            ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.MUTED);
 
         Rectangle tickBounds = tickRect;
 

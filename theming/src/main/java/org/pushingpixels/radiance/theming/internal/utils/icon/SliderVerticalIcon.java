@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -77,7 +78,7 @@ public class SliderVerticalIcon implements Icon, UIResource {
         // Populate color tokens based on the current transition state of the slider.
         BladeUtils.populateColorTokens(mutableColorTokens, this.slider, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-            false, false, RadianceThemingSlices.ContainerType.MUTED);
+            false, false, CoreColorTokenUtils.ContainerType.MUTED);
 
         float activeStrength = stateTransitionTracker.getActiveStrength();
         int height = (int) (this.size * (2.0f + activeStrength) / 3.0f);
