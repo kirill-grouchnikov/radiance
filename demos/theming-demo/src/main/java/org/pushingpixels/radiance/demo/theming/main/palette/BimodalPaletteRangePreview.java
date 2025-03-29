@@ -72,7 +72,6 @@ public class BimodalPaletteRangePreview extends JComponent {
                 /* isBackground= */ true,
                 /* isInverse= */ false,
                 /* background= */ null,
-                /* secondBackground= */ null,
                 /* contrastCurve= */ null);
             int toneRgb = this.bimodalPalette.getArgb(dynamicColor);
             Color toneColor = new Color(toneRgb);
