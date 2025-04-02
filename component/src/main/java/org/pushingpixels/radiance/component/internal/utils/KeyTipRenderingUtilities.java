@@ -81,8 +81,10 @@ public class KeyTipRenderingUtilities {
                             c.getComponentOrientation(),
                             scaledWidth, scaledHeight, radius,
                             null, 1.0f);
-                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
-                        c, tokens.getContainerSurfaceDisabledAlpha(), graphics));
+                    if (!toPaintEnabled) {
+                        graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
+                            c, tokens.getContainerSurfaceDisabledAlpha(), graphics));
+                    }
                     surfacePainter.paintContourBackground(graphics1X, c, scaledWidth, scaledHeight,
                             contour, tokens);
 
@@ -90,8 +92,10 @@ public class KeyTipRenderingUtilities {
                             c.getComponentOrientation(),
                             scaledWidth, scaledHeight,
                             radius, null, 2.0f);
-                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
-                        c, tokens.getContainerOutlineDisabledAlpha(), graphics));
+                    if (!toPaintEnabled) {
+                        graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
+                            c, tokens.getContainerOutlineDisabledAlpha(), graphics));
+                    }
                     outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, contour,
                             contourInner, tokens);
                 });
@@ -107,8 +111,10 @@ public class KeyTipRenderingUtilities {
         LineMetrics lineMetrics = graphics.getFontMetrics().getLineMetrics(keyTip, graphics);
         int strHeight = (int) lineMetrics.getHeight();
         RadianceCommonCortex.installDesktopHints(graphics, font);
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(
-            c, tokens.getOnContainerDisabledAlpha(), g));
+        if (!toPaintEnabled) {
+            graphics.setComposite(WidgetUtilities.getAlphaComposite(
+                c, tokens.getOnContainerDisabledAlpha(), g));
+        }
         graphics.drawString(keyTip, (rect.width - strWidth) / 2,
                 (rect.height + strHeight) / 2 - graphics.getFontMetrics().getDescent());
 
