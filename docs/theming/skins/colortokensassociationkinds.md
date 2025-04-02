@@ -1,8 +1,8 @@
 ## Radiance look and feel - color tokens association kinds
 
-Color scheme association kinds in Radiance are best illustrated by a simple example:
+Color tokens association kinds in Radiance are best illustrated by a simple example:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-scheme-association-kinds.png" width="386" height="304"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-tokens-association-kinds.png" width="386" height="304"/>
 
 This is a screenshot of a sample application UI window with a variety of Swing controls - buttons, checkboxes, comboboxes, menu items, etc. Of a particular interest to us in this instance are controls in selected state:
 
@@ -10,7 +10,11 @@ This is a screenshot of a sample application UI window with a variety of Swing c
 * The light blue button in the bottom right corner (with "OK" text)
 
 All three have their selected bit turned on, but the button is light blue while the other two controls tokens with different visual areas of Swing controls.
-* The specific UI delegates query the component skin for the color schemes that match the relevant visual areas.
+
+The `RadianceThemingSlices.ContainerColorTokensAssociationKind` is the base class for core and custom color tokens association kinds. Where is this class used?
+
+* The skin definition, and more specifically the `ContainerColorTokensBundle` APIs that allow associating different color tokens with different visual areas of Swing controls.
+* The specific UI delegates that query the current skin for the color tokens that match the relevant visual areas of the specific control that is painted by that UI delegate.
 
 Let's go back to our application window above. How do we use the color tokens association kinds to specify different color tokens for controls (buttons vs checkboxes and radio buttons) in selected state?
 
@@ -46,7 +50,7 @@ public void registerActiveContainerTokens(ContainerColorTokens colorTokens,
 
 Going back once again to the original image:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-scheme-association-kinds.png" width="386" height="304"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-tokens-association-kinds.png" width="386" height="304"/>
 
 Here is the outline of the relevant configuration code:
 
@@ -74,7 +78,7 @@ Here is the constructor signature of the `ContainerColorTokensAssociationKind`:
  *                 {@link JTabbedPane} UI delegate is painting the tabs, it will
  *                 try to use the color tokens associated with
  *                 {@link #TAB}. If none was registered, it will fall back
- *                 to use the color scheme associated with {@link #DEFAULT}.
+ *                 to use the color tokens associated with {@link #DEFAULT}.
  */
 public ContainerColorTokensAssociationKind(String name,
     ContainerColorTokensAssociationKind fallback)
@@ -102,7 +106,7 @@ First, use the following API in `RadianceThemingCortex.ComponentScope` class to 
   public static RadianceSkin getCurrentSkin(Component c)
 ```
 
-Then, use the following API in the obtained `RadianceSkin` class to get the color scheme for the relevant visual area:
+Then, use the following API in the obtained `RadianceSkin` class to get the color tokens for the relevant visual area:
 
 ```java
 /**

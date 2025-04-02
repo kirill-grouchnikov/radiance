@@ -963,7 +963,7 @@ public final class RadianceThemingSlices {
          *                 {@link JTabbedPane} UI delegate is painting the tabs, it will
          *                 try to use the color tokens associated with
          *                 {@link #TAB}. If none was registered, it will fall back
-         *                 to use the color scheme associated with {@link #DEFAULT}.
+         *                 to use the color tokens associated with {@link #DEFAULT}.
          */
         public ContainerColorTokensAssociationKind(String name,
             ContainerColorTokensAssociationKind fallback) {
