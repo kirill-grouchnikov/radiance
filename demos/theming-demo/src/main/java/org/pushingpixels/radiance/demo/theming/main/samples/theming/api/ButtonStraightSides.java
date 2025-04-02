@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.demo.theming.main.samples.theming.api;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin;
 

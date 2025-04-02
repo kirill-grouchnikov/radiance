@@ -33,10 +33,10 @@ import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.*;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

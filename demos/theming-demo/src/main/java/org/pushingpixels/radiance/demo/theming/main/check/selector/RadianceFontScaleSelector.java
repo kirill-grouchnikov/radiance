@@ -31,11 +31,8 @@ package org.pushingpixels.radiance.demo.theming.main.check.selector;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.font.FontPolicy;
-import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.view_zoom_in;
-import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.view_zoom_out;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.zoom_in_black_24dp;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.zoom_out_black_24dp;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;

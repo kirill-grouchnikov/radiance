@@ -43,8 +43,8 @@ import javax.swing.tree.TreeNode;
 import java.awt.*;
 import java.io.File;
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * Test application panel for testing {@link JTree} component and

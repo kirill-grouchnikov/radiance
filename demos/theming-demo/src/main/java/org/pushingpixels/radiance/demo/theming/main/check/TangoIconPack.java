@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.*;
-import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 
 /**
  * Custom Radiance icon pack based on Tango icons (license in resources/TangoIcons.license).

@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.demo.theming.main.palette;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
