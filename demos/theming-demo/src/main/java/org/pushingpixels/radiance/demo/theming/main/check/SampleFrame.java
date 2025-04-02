@@ -241,14 +241,14 @@ public class SampleFrame extends JFrame {
         this.prev = new JButton("prev");
         JButton cancel = new JButton("cancel");
         cancel.setEnabled(false);
-        final JToggleButton ok = new JToggleButton("OK");
+        final JButton ok = new JButton("OK");
         ok.setSelected(true);
         buttons2.add(this.prev);
         buttons2.add(cancel);
         buttons2.add(ok);
         buttons2.setBorder(new EmptyBorder(2, 0, 2, 0));
-        //this.getRootPane().setDefaultButton(ok);
-         ok.requestFocusInWindow();
+        this.getRootPane().setDefaultButton(ok);
+        ok.requestFocusInWindow();
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
@@ -318,7 +318,7 @@ public class SampleFrame extends JFrame {
 
         this.synchronize();
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(SampleFrame.this::synchronize);
-        //this.getRootPane().setDefaultButton(ok);
+        this.getRootPane().setDefaultButton(ok);
     }
 
     protected void synchronize() {
