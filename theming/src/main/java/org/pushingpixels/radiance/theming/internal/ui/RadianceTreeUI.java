@@ -423,7 +423,9 @@ public class RadianceTreeUI extends BasicTreeUI {
 		this.radiancePropertyChangeListener = propertyChangeEvent -> {
 			if ("font".equals(propertyChangeEvent.getPropertyName())) {
 				SwingUtilities.invokeLater(() -> {
-					tree.updateUI();
+					if (tree != null) {
+						tree.updateUI();
+					}
 				});
 			}
 			if ("dropLocation".equals(propertyChangeEvent.getPropertyName())) {
