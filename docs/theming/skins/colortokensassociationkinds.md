@@ -2,110 +2,89 @@
 
 Color scheme association kinds in Radiance are best illustrated by a simple example:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-scheme-association-kinds.png" width="96" height="96"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-scheme-association-kinds.png" width="386" height="304"/>
 
-This is a screenshot of a `JCheckBox` icon under 72 point font. This checkmark icon has three different visual areas: inner fill, border and the "V" mark. Each one of these areas is painted with different [color tokens](colortokens.md), and this is allowed by using the relevant **color scheme association kinds**.
+This is a screenshot of a sample application UI window with a variety of Swing controls - buttons, checkboxes, comboboxes, menu items, etc. Of a particular interest to us in this instance are controls in selected state:
 
-The `RadianceThemingSlices.ColorSchemeAssociationKind` is the base class for core and custom color scheme association kinds. Where is this class used?
+* The green checkbox and radio button (with "Enabled selected" text)
+* The light blue button in the bottom right corner (with "OK" text)
 
-* The first usage is in the skin definition. The main `RadianceSkin` APIs allow associating different color schemes with different visual areas of Swing controls.
+All three have their selected bit turned on, but the button is light blue while the other two controls tokens with different visual areas of Swing controls.
 * The specific UI delegates query the component skin for the color schemes that match the relevant visual areas.
 
-Let's go back to the `JCheckBox` icon example above. How do we use the color scheme association kinds to specify three different color schemes for painting this checkmark icon?
+Let's go back to our application window above. How do we use the color tokens association kinds to specify different color tokens for controls (buttons vs checkboxes and radio buttons) in selected state?
 
-As detailed in the [skin documentation](overview.md), each skin has a number of [color tokens bundles](colortokensbundles.md). This means that two checkboxes with the same model state (`selected` in our case) can have different visuals, depending on the [decoration areas](../painters/decoration.md) they reside in. In the definition of the specific color tokens bundle, you can specify different [color tokens](colortokens.md) for different component states. This means that a selected checkbox can use colors different from those of a rollover selected checkbox.
+As detailed in the [skin documentation](overview.md), each skin has a number of [color tokens bundles](colortokensbundles.md). This means that two controls with the same model state (`selected` in our case) can have different visuals, depending on the [decoration areas](../painters/decoration.md) they reside in. In the definition of the specific color tokens bundle, you can specify different [color tokens](colortokens.md) for different component states. This means that a selected checkbox can use colors different from those of a rollover selected checkbox.
 
-In our case, we want to specify different color schemes for different visual areas of **selected** checkboxes in the default decoration area. The relevant method in the `ContainerColorTokensBundle` is:
+In our case, we want to specify different color tokens for **selected** buttons vs **selected** checkboxes in the default decoration area. The relevant method in the `ContainerColorTokensBundle` is:
 
 ```java
-  /**
-   * Registers the color scheme to be used for the specified visual area of
-   * controls under the specified states. For example, if the light orange
-   * scheme has to be used for gradient fill for rollover selected and rollover
-   * controls, the parameters would be:
-   *
-   * <ul>
-   * <li><code>scheme</code>=light orange scheme</li>
-   * <li>
-   * <code>associationKind</code>={@link ColorSchemeAssociationKind#FILL}</li>
-   * <li>
-   * <code>states</code>={@link ComponentState#ROLLOVER_SELECTED}, {@link ComponentState#ROLLOVER_UNSELECTED}
-   * </li>
-   * </ul>
-   *
-   * @param scheme
-   *            Color scheme.
-   * @param associationKind
-   *            Color scheme association kind that specifies the visual areas
-   *            of controls to be painted with this color scheme.
-   * @param states
-   *            Component states that further restrict the usage of the
-   *            specified color scheme.
-   */
-  public void registerColorScheme(RadianceColorScheme scheme,
-      ColorSchemeAssociationKind associationKind,
-      ComponentState... states)
+/**
+ * Registers the container color tokens to be used for controls in specified active states.
+ * For example, if light orange color tokens are to be used for rollover selected and rollover
+ * controls in highlights, the parameters would be:
+ *
+ * <ul>
+ * <li><code>stateContainerTokens</code>=light orange color tokens</li>
+ * <li><code>associationKind</code>={@link RadianceThemingSlices.ContainerColorTokensAssociationKind#HIGHLIGHT}</li>
+ * <li><code>states</code>={@link ComponentState#ROLLOVER_SELECTED}, {@link ComponentState#ROLLOVER_UNSELECTED}</li>
+ * </ul>
+ *
+ * @param colorTokens Container color tokens for the specified active component states.
+ * @param associationKind Color tokens association kind that specifies the visual areas
+ *                        of controls to be painted with this color tokens.
+ * @param activeStates          Component states that further restrict the usage of the
+ *                        specified color tokens.
+ */
+public void registerActiveContainerTokens(ContainerColorTokens colorTokens,
+    RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+    ComponentState... activeStates)
 ```
 
-* The inner fill is specified by the `ColorSchemeAssociationKind.FILL`
-* The border is specified by the `ColorSchemeAssociationKind.BORDER`
-* The mark is specified by the `ColorSchemeAssociationKind.MARK`
+* Buttons use the default `ContainerColorTokensAssociationKind.DEFAULT` kind
+* Check marks of components such as checkboxes and radio buttons use `ContainerColorTokensAssociationKind.MARK`
 
 Going back once again to the original image:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-scheme-association-kinds.png" width="96" height="96"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/color-scheme-association-kinds.png" width="386" height="304"/>
 
 Here is the outline of the relevant configuration code:
 
 ```java
-RadianceColorScheme activeScheme = ...;
-RadianceColorScheme defaultScheme = ...;
-RadianceColorScheme disabledScheme = ...;
+ContainerColorTokensBundle magellanDefaultBundle = new ContainerColorTokensBundle(
+    activeContainerTokens, mutedContainerTokens, neutralContainerTokens);
 
-ContainerColorTokensBundle defaultBundle = new ContainerColorTokensBundle(
-    activeScheme, defaultScheme, disabledScheme);
-
-RadianceColorScheme selectedBorderScheme = ...;
-defaultBundle.registerColorScheme(selectedBorderScheme,
-    ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
-
-RadianceColorScheme selectedMarkScheme = ...;
-defaultBundle.registerColorScheme(selectedMarkScheme,
-    ColorSchemeAssociationKind.MARK, ComponentState.SELECTED);
+magellanDefaultBundle.registerActiveContainerTokens(magellanGreenContainerTokens,
+    RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+    ComponentState.SELECTED);
 ```
 
-Note that there is no explicit usage of the `ColorSchemeAssociationKind.FILL` value. This illustrates the **fallback** mechanism. In this particular case, the second parameter to the `ContainerColorTokensBundle` constructor is used as the fallback color scheme for inner fills under all component states. The fallback mechanism also extends to the other color scheme association kinds.
+Note that there is no explicit usage of the `ContainerColorTokensAssociationKind.DEFAULT` value. This illustrates the **fallback** mechanism. In this particular case, the active container tokens passed to the `ContainerColorTokensBundle` constructor are used as the fallback color tokens for all active states (`ComponentState.SELECTED` included). The fallback mechanism also extends to the other color tokens association kinds.
 
-Here is the constructor signature of the `ColorSchemeAssociationKind`:
+Here is the constructor signature of the `ContainerColorTokensAssociationKind`:
 
 ```java
-  /**
-   * Creates a new association kind.
-   *
-   * @param name
-   *            Association kind name.
-   * @param fallback
-   *            Fallback association kind. This is used when no color scheme
-   *            is associated with this kind. For example, {@link #TAB_BORDER}
-   *            specifies that its fallback is {@link #BORDER}. When the
-   *            {@link JTabbedPane} UI delegate is painting the tabs, it will
-   *            try to use the color scheme associated with
-   *            {@link #TAB_BORDER}. If none was registered, it will fall back
-   *            to use the color scheme associated with {@link #BORDER}, and
-   *            if that is not registered as well, will use the color scheme
-   *            associated with {@link #FILL}.
-   */
-  public ColorSchemeAssociationKind(String name,
-      ColorSchemeAssociationKind fallback)
+/**
+ * Creates a new association kind.
+ *
+ * @param name     Association kind name.
+ * @param fallback Fallback association kind. This is used when no color tokens
+ *                 are associated with this kind. For example, {@link #TAB}
+ *                 specifies that its fallback is {@link #DEFAULT}. When the
+ *                 {@link JTabbedPane} UI delegate is painting the tabs, it will
+ *                 try to use the color tokens associated with
+ *                 {@link #TAB}. If none was registered, it will fall back
+ *                 to use the color scheme associated with {@link #DEFAULT}.
+ */
+public ContainerColorTokensAssociationKind(String name,
+    ContainerColorTokensAssociationKind fallback)
 ```
 
-The second parameter specifies what should happen when the color tokens bundle definition does not have an explicitly registered color scheme for the specific color scheme association kind under the specific component state.
+The second parameter specifies what should happen when the color tokens bundle definition does not have explicitly registered color tokens for the specific color tokens association kind under the specific component state.
 
-For example, the `ColorSchemeAssociationKind.MARK` has the `ColorSchemeAssociationKind.BORDER` as its fallback. This means that if you want to use the same color scheme for painting both borders and marks, you need to only call the `ContainerColorTokensBundle.registerColorScheme` API with the `ColorSchemeAssociationKind.BORDER` value.
+The registered associations are used by the Radiance UI delegates during the component painting. Specifically for the checkbox, the UI delegate queries `ContainerColorTokensAssociationKind.MARK` and uses the relevant painters ([surface](../painters/surface.md) and [outline](../painters/outline.md)) to paint the matching visual areas.
 
-The registered associations are used by the Radiance UI delegates during the component painting. Specifically for the checkbox, the UI delegate queries the three relevant association kinds (`ColorSchemeAssociationKind.FIL`L, `ColorSchemeAssociationKind.BORDER` and `ColorSchemeAssociationKind.MARK`) and uses the relevant painters ([surface](../painters/surface.md) and [outline](../painters/outline.md)) to paint the matching visual areas.
-
-Applications that want to provide [custom skinning](../painters/custom-skinning.md) of their UIs can use the following two supported APIs in order to get the relevant color schemes.
+Applications that want to provide [custom skinning](../painters/custom-skinning.md) of their UIs can use the following two supported APIs in order to get the relevant color tokens.
 
 First, use the following API in `RadianceThemingCortex.ComponentScope` class to obtain the skin that should be used for painting your component:
 
@@ -126,21 +105,18 @@ First, use the following API in `RadianceThemingCortex.ComponentScope` class to 
 Then, use the following API in the obtained `RadianceSkin` class to get the color scheme for the relevant visual area:
 
 ```java
-  /**
-   * Returns the color scheme to be used for painting the specified visual
-   * area of the component under the specified component state.
-   *
-   * @param comp
-   *            Component.
-   * @param associationKind
-   *            Color scheme association kind.
-   * @param componentState
-   *            Component state.
-   * @return Color scheme to be used for painting the specified visual area of
-   *         the component under the specified component state.
-   */
-  public RadianceColorScheme getColorScheme(Component comp,
-      ColorSchemeAssociationKind associationKind,
-      ComponentState componentState)
+/**
+ * Returns the color tokens to be used for painting the specified visual
+ * area of the component under the specified component state.
+ *
+ * @param comp            Component.
+ * @param associationKind Color tokens association kind.
+ * @param componentState  Component state.
+ * @return Color tokens to be used for painting the specified visual area of
+ * the component under the specified component state.
+ */
+public final ContainerColorTokens getActiveContainerTokens(Component comp,
+    RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+    ComponentState componentState)
 ```			
-Note that the second method should always return a non-`null` value, using the fallback mechanism discussed above to return the matching color scheme.
+This method will always return a non-`null` value, using the fallback mechanism discussed above to return the matching color tokens.

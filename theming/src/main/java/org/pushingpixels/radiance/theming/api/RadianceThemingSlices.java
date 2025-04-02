@@ -957,6 +957,13 @@ public final class RadianceThemingSlices {
          * Creates a new association kind.
          *
          * @param name     Association kind name.
+         * @param fallback Fallback association kind. This is used when no color tokens
+         *                 are associated with this kind. For example, {@link #TAB}
+         *                 specifies that its fallback is {@link #DEFAULT}. When the
+         *                 {@link JTabbedPane} UI delegate is painting the tabs, it will
+         *                 try to use the color tokens associated with
+         *                 {@link #TAB}. If none was registered, it will fall back
+         *                 to use the color scheme associated with {@link #DEFAULT}.
          */
         public ContainerColorTokensAssociationKind(String name,
             ContainerColorTokensAssociationKind fallback) {

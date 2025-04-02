@@ -26,7 +26,7 @@ The skin definition consists of the following:
 
 * Decoration areas and color tokens bundles:
   * List of supported [decoration areas](../painters/decoration.md).
-  * [color tokens bundles](colortokensbundles.md) for the supported decoration areas.
+  * [Color tokens bundles](colortokensbundles.md) for the supported decoration areas.
   * Optional background [color tokens](colortokens.md) for the supported decoration areas.
 * Painters:
   * [Surface painter](../painters/surface.md).
@@ -60,11 +60,11 @@ In order to register a custom color tokens bundle and optional background color 
    * @param areaTypes
    *     Enumerates the area types that are affected by the parameters.
    */
-  public void registerDecorationAreaSchemeBundle(
-      RadianceColorSchemeBundle bundle, DecorationAreaType... areaTypes)
+  public void registerDecorationAreaTokensBundle(
+      ContainerColorTokensBundle bundle, DecorationAreaType... areaTypes)
 
   /**
-   * Registers the specified color tokens bundle and background color scheme
+   * Registers the specified color tokens bundle and background color tokens
    * to be used on controls in decoration areas.
    *
    * @param bundle
@@ -75,21 +75,21 @@ In order to register a custom color tokens bundle and optional background color 
    * @param areaTypes
    *     Enumerates the area types that are affected by the parameters.
    */
-  public void registerDecorationAreaSchemeBundle(
-      RadianceColorSchemeBundle bundle,
+  public void registerDecorationAreaTokensBundle(
+      ContainerColorTokensBundle bundle,
       ContainerColorTokens backgroundTokens,
       DecorationAreaType... areaTypes)
 ```
 
-Decoration areas registered with these APIs will have their background painted by the skin's [decoration painter](../painters/decoration.md) based on the default color scheme of the registered color tokens bundle. You can also use the following API to use custom color tokens on the specified decoration area types (in this case the controls in those decoration areas will use the default color tokens bundle):
+Decoration areas registered with these APIs will have their background painted by the skin's [decoration painter](../painters/decoration.md) based on the default color tokens of the registered color tokens bundle. You can also use the following API to use custom color tokens on the specified decoration area types (in this case the controls in those decoration areas will use the default color tokens bundle):
 
 ```java
   /**
-   * Registers the specified background color scheme to be used on controls in
+   * Registers the specified background color tokens to be used on controls in
    * decoration areas.
    *
-   * @param backgroundColorScheme
-   *     The color scheme to use for background of controls in decoration
+   * @param backgroundTokens
+   *     The color tokens to use for background of controls in decoration
    *     areas.
    * @param areaTypes
    *     Enumerates the area types that are affected by the parameters. Each
@@ -105,7 +105,7 @@ Decoration areas registered with these APIs will have their background painted b
 Here is an example of specifying the default color tokens bundle for the [Mariner skin](light-skins.md#mariner):
 
 ```java
-RadianceColorSchemeBundle marinerDefaultBundle = new RadianceColorSchemeBundle(
+ContainerColorTokensBundle marinerDefaultBundle = new ContainerColorTokensBundle(
     /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFF6DD9D),
         /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -134,13 +134,13 @@ marinerDefaultBundle.registerActiveContainerTokens(
     marinerSelectedHighlightContainerTokens,
     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
     ComponentState.SELECTED);
-this.registerDecorationAreaSchemeBundle(marinerDefaultBundle,
+this.registerDecorationAreaTokensBundle(marinerDefaultBundle,
     RadianceThemingSlices.DecorationAreaType.NONE);
 ```
 and a custom color tokens bundle for the `header`-type decoration areas:
 
 ```java
-RadianceColorSchemeBundle marinerHeaderBundle = new RadianceColorSchemeBundle(
+ContainerColorTokensBundle marinerHeaderBundle = new ContainerColorTokensBundle(
     /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFFF5D47A),
         /* containerConfiguration */ new ContainerConfiguration(
@@ -160,7 +160,7 @@ RadianceColorSchemeBundle marinerHeaderBundle = new RadianceColorSchemeBundle(
 
 ...
 
-this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
+this.registerDecorationAreaTokensBundle(marinerHeaderBundle,
     ContainerColorTokensUtils.getContainerTokens(
         /* seed */ Hct.fromInt(0xFF261D1E),
         /* containerConfiguration */ new ContainerConfiguration(
@@ -172,10 +172,10 @@ this.registerDecorationAreaSchemeBundle(marinerHeaderBundle,
                 .build())),
 ```
 
-And here is an example of specifying a number of decoration area types to have their background painted by the decoration painter and the specific color scheme, without registering a custom color tokens bundle for those areas:
+And here is an example of specifying a number of decoration area types to have their background painted by the decoration painter and the specific color tokens, without registering a custom color tokens bundle for those areas:
 
 ```java
-    this.registerAsDecorationArea(defaultScheme,
+    this.registerAsDecorationArea(defaultTokens,
         DecorationAreaType.PRIMARY_TITLE_PANE,
         DecorationAreaType.SECONDARY_TITLE_PANE,
         DecorationAreaType.HEADER, DecorationAreaType.FOOTER,
@@ -233,7 +233,7 @@ For example, here are two `Creme` skins that extend the core `CremeAccentedSkin`
 <img alt="Creme Coffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/cremecoffee1.png" width="340" height="258">
 </p>
 
-The first passes a light blue color scheme as the accent for active controls and cell highlights, while the second passes a light brown scheme as the accent for the same parts of the UI. This particular accented skin family uses these two accent types for selected tabs, checkboxes, radio buttons, default buttons, scroll bars and active cells in tables, trees, and lists.
+The first passes light blue color tokens as the accent for active controls and cell highlights, while the second passes light brown tokens as the accent for the same parts of the UI. This particular accented skin family uses these two accent types for selected tabs, checkboxes, radio buttons, default buttons, scroll bars and active cells in tables, trees, and lists.
 
 As another example, here are two `Nebula` skins that extend the core `NebulaAccentedSkin` class:
 
@@ -242,11 +242,11 @@ As another example, here are two `Nebula` skins that extend the core `NebulaAcce
 <img alt="Nebula Brick Wall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/nebulabrickwall1.png" width="340" height="258">
 </p>
 
-The first passes a light silver scheme as the window chrome accent, while the second passes an orange scheme as the window chrome accent. This particular accented skin family uses the window chrome accent on the root pane border, the title pane and the menu bar - while maintaining the overall consistency of its visual "language", such as decoration painter, surface painter, color scheme for active controls in the main UI area, etc.
+The first passes light silver tokens as the window chrome accent, while the second passes orange tokens as the window chrome accent. This particular accented skin family uses the window chrome accent on the root pane border, the title pane and the menu bar - while maintaining the overall consistency of its visual "language", such as decoration painter, surface painter, color tokens for active controls in the main UI area, etc.
 
 ### Providing custom skins
 
-Radiance provides an option for specifying custom skin. This option uses the Radiance plugin mechanism to register additional skins at runtime.
+Radiance provides an option for specifying custom skins. This option uses the Radiance plugin mechanism to register additional skins at runtime.
 
 The top-level entry into a skin plugin is `RadianceThemingSkinPlugin` interface. This interface specifies the following method:
 

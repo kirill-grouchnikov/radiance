@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.skin.CremeCoffeeSkin;
+import org.pushingpixels.radiance.theming.api.skin.MagellanSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -241,13 +241,14 @@ public class SampleFrame extends JFrame {
         this.prev = new JButton("prev");
         JButton cancel = new JButton("cancel");
         cancel.setEnabled(false);
-        final JButton ok = new JButton("OK");
+        final JToggleButton ok = new JToggleButton("OK");
+        ok.setSelected(true);
         buttons2.add(this.prev);
         buttons2.add(cancel);
         buttons2.add(ok);
         buttons2.setBorder(new EmptyBorder(2, 0, 2, 0));
-        this.getRootPane().setDefaultButton(ok);
-        // ok.requestFocusInWindow();
+        //this.getRootPane().setDefaultButton(ok);
+         ok.requestFocusInWindow();
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
@@ -317,7 +318,7 @@ public class SampleFrame extends JFrame {
 
         this.synchronize();
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(SampleFrame.this::synchronize);
-        this.getRootPane().setDefaultButton(ok);
+        //this.getRootPane().setDefaultButton(ok);
     }
 
     protected void synchronize() {
@@ -334,7 +335,7 @@ public class SampleFrame extends JFrame {
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
             if (System.getProperty("swing.defaultlaf") == null) {
-                RadianceThemingCortex.GlobalScope.setSkin(new CremeCoffeeSkin());
+                RadianceThemingCortex.GlobalScope.setSkin(new MagellanSkin());
             }
             JFrame.setDefaultLookAndFeelDecorated(true);
             SampleFrame sf = new SampleFrame("Radiance");
