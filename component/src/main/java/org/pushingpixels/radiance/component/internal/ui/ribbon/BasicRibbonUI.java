@@ -39,15 +39,13 @@ import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
-import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.radiance.component.api.ribbon.RibbonTask;
+import org.pushingpixels.radiance.component.api.ribbon.*;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizeSequencingPolicy;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
+import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
@@ -1259,7 +1257,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
             // + bandScrollablePanel.getView()
             // .getComponentCount());
 
-            JPopupPanel popupPanel = new BandHostPopupPanel(bandScrollablePanel,
+            JRibbonFrame ribbonFrame = (JRibbonFrame) SwingUtilities.getWindowAncestor(taskToggleButton);
+            JPopupPanel popupPanel = new BandHostPopupPanel(ribbonFrame, bandScrollablePanel,
                     new Dimension(ribbon.getWidth(), prefHeight));
 
             int x = ribbon.getLocationOnScreen().x;
@@ -1354,9 +1353,141 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     @RadiancePopupContainer
     private static class BandHostPopupPanel extends JPopupPanel {
-        private BandHostPopupPanel(Component component, Dimension originalSize) {
+        private BandHostPopupPanel(JRibbonFrame ribbonFrame, Component component, Dimension originalSize) {
+            JLayeredPane layeredPane = new JLayeredPane();
+            layeredPane.setLayout(new LayoutManager() {
+                @Override
+                public void addLayoutComponent(String name, Component comp) {
+                }
+
+                @Override
+                public void removeLayoutComponent(Component comp) {
+                }
+
+                @Override
+                public Dimension preferredLayoutSize(Container parent) {
+                    return null;
+                }
+
+                @Override
+                public Dimension minimumLayoutSize(Container parent) {
+                    return null;
+                }
+
+                @Override
+                public void layoutContainer(Container parent) {
+                    int width = parent.getWidth();
+                    int height = parent.getHeight();
+
+                    for (int i = 0; i < parent.getComponentCount(); i++) {
+                        parent.getComponent(i).setBounds(0, 0, width, height);
+                    }
+                }
+            });
+
+            JPanel keyTipLayer = new JPanel() {
+                private boolean hasClientPropertySetToTrue(Component c, String clientPropName) {
+                    while (c != null) {
+                        if (c instanceof JComponent) {
+                            JComponent jc = (JComponent) c;
+                            if (Boolean.TRUE.equals(jc.getClientProperty(clientPropName)))
+                                return true;
+                        }
+                        c = c.getParent();
+                    }
+                    return false;
+                }
+
+                @Override
+                protected void paintComponent(Graphics g) {
+                    if (!ribbonFrame.isShowingKeyTips()) {
+                        return;
+                    }
+
+                    // don't show keytips on inactive windows
+                    if (!ribbonFrame.isActive()) {
+                        return;
+                    }
+
+                    Collection<KeyTipManager.KeyTipLink> keyTips = KeyTipManager.defaultManager().getCurrentlyShownKeyTips();
+                    if (keyTips != null) {
+                        Graphics2D g2d = (Graphics2D) g.create();
+                        RadianceCommonCortex.installDesktopHints(g2d, getFont());
+
+                        for (KeyTipManager.KeyTipLink keyTip : keyTips) {
+                            // don't display key tips on hidden components
+                            Rectangle compBounds = keyTip.comp.getBounds();
+                            if (!keyTip.comp.isShowing() || (compBounds.getWidth() == 0)
+                                || (compBounds.getHeight() == 0)) {
+                                continue;
+                            }
+
+                            Dimension pref = KeyTipRenderingUtilities.getPrefSize(g2d.getFontMetrics(),
+                                keyTip.keyTipString);
+
+                            Point prefCenter = keyTip.prefAnchorPoint;
+                            Point loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter, this);
+                            Container bandControlPanel = SwingUtilities
+                                .getAncestorOfClass(AbstractBandControlPanel.class, keyTip.comp);
+                            if (bandControlPanel != null) {
+                                // special case for controls in threesome ribbon band rows
+                                if (hasClientPropertySetToTrue(keyTip.comp,
+                                    BasicBandControlPanelUI.TOP_ROW)) {
+                                    loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                                        bandControlPanel);
+                                    loc.y = 0;
+                                    loc = SwingUtilities.convertPoint(bandControlPanel, loc, this);
+                                    // prefCenter.y = 0;
+                                }
+                                if (hasClientPropertySetToTrue(keyTip.comp,
+                                    BasicBandControlPanelUI.MID_ROW)) {
+                                    loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                                        bandControlPanel);
+                                    loc.y = bandControlPanel.getHeight() / 2;
+                                    loc = SwingUtilities.convertPoint(bandControlPanel, loc, this);
+                                    // prefCenter.y = keyTip.comp.getHeight() / 2;
+                                }
+                                if (hasClientPropertySetToTrue(keyTip.comp,
+                                    BasicBandControlPanelUI.BOTTOM_ROW)) {
+                                    loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                                        bandControlPanel);
+                                    loc.y = bandControlPanel.getHeight() - pref.height / 2;
+                                    loc = SwingUtilities.convertPoint(bandControlPanel, loc, this);
+                                    // prefCenter.y = keyTip.comp.getHeight();
+                                }
+                            }
+
+                            int targetTopY = loc.y - pref.height / 2;
+                            // Fit in the available vertical space
+                            if (targetTopY < 0) {
+                                targetTopY = 0;
+                            }
+                            if ((targetTopY + pref.height) > this.getHeight()) {
+                                targetTopY = this.getHeight() - pref.height;
+                            }
+
+                            KeyTipRenderingUtilities.renderKeyTip(
+                                g2d, this, new Rectangle(loc.x - pref.width / 2,
+                                    targetTopY, pref.width, pref.height),
+                                keyTip.keyTipString, keyTip.enabled);
+                        }
+
+                        g2d.dispose();
+                    }
+                }
+            };
+            keyTipLayer.setOpaque(false);
+            // Support placing heavyweight components in the ribbon frame. See
+            // https://community.oracle.com/docs/DOC-982814.
+            keyTipLayer.setMixingCutoutShape(new Rectangle());
+
+            layeredPane.add(keyTipLayer, JLayeredPane.DEFAULT_LAYER + 60);
+            layeredPane.setLayer(keyTipLayer, JLayeredPane.DEFAULT_LAYER + 60);
+            layeredPane.add(component, JLayeredPane.FRAME_CONTENT_LAYER);
+
             this.setLayout(new BorderLayout());
-            this.add(component, BorderLayout.CENTER);
+            this.add(layeredPane, BorderLayout.CENTER);
+
             this.setPreferredSize(originalSize);
             this.setSize(originalSize);
             RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this,
