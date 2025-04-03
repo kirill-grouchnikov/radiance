@@ -346,7 +346,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
             SwingComponentTimeline.componentBuilder(instructional)
                 .addPropertyToInterpolate("foreground",
                     () -> skin.getNeutralContainerTokens(table).getOnContainer(),
-                    () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
+                    () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getAccentOnContainer())
                 .setDuration(1000)
                 .playLoop(RepeatBehavior.REVERSE);
         }

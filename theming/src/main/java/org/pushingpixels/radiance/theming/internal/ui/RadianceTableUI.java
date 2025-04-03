@@ -669,49 +669,56 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         Rectangle maxCell = this.table.getCellRect(rMax, cMax, true);
         Rectangle damagedArea = minCell.union(maxCell);
 
-        float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this.table);
-        g2d.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(g2d, damagedArea.x, damagedArea.y,
+            damagedArea.width, damagedArea.height,
+            (graphics1X, scaledDamagedAreaX, scaledDamagedAreaY,
+                scaledDamagedAreaWidth, scaledDamagedAreaHeight, scaleFactor) -> {
+                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
+                if (this.table.getShowHorizontalLines()) {
+                    int tableWidth = scaledDamagedAreaX + scaledDamagedAreaWidth;
+                    int y = scaledDamagedAreaY;
+                    for (int row = rMin; row <= rMax; row++) {
+                        y += (int) (scaleFactor * this.table.getRowHeight(row));
+                        graphics1X.drawLine(scaledDamagedAreaX, y - 1, tableWidth - 1, y - 1);
+                    }
+                }
+                if (this.table.getShowVerticalLines()) {
+                    TableColumnModel cm = this.table.getColumnModel();
+                    int tableHeight = scaledDamagedAreaY + scaledDamagedAreaHeight;
+                    int x;
+                    if (this.table.getComponentOrientation().isLeftToRight()) {
+                        x = scaledDamagedAreaX;
+                        for (int column = cMin; column <= cMax; column++) {
+                            int w = (int) (scaleFactor * cm.getColumn(column).getWidth());
+                            if (hasLeadingVerticalGridLine(column)) {
+                                graphics1X.drawLine(x, 0, x, tableHeight - 1);
+                            }
+                            x += w;
+                            if (hasTrailingVerticalGridLine(cm, column)) {
+                                graphics1X.drawLine(x - 1, 0, x - 1, tableHeight - 1);
+                            }
+                        }
+                    } else {
+                        x = scaledDamagedAreaX + scaledDamagedAreaWidth;
+                        // fix for defect 196 - proper grid painting on RTL tables
+                        for (int column = cMin; column <= cMax; column++) {
+                            int w = (int) (scaleFactor * cm.getColumn(column).getWidth());
+                            if (hasLeadingVerticalGridLine(column)) {
+                                graphics1X.drawLine(x - 1, 0, x - 1, tableHeight - 1);
+                            }
+                            x -= w;
+                            if (hasTrailingVerticalGridLine(cm, column)) {
+                                graphics1X.drawLine(x, 0, x, tableHeight - 1);
+                            }
+                        }
+                    }
+                }
+        });
 
-        if (this.table.getShowHorizontalLines()) {
-            int tableWidth = damagedArea.x + damagedArea.width;
-            int y = damagedArea.y;
-            for (int row = rMin; row <= rMax; row++) {
-                y += this.table.getRowHeight(row);
-                g2d.drawLine(damagedArea.x, y - 1, tableWidth - 1, y - 1);
-            }
-        }
-        if (this.table.getShowVerticalLines()) {
-            TableColumnModel cm = this.table.getColumnModel();
-            int tableHeight = damagedArea.y + damagedArea.height;
-            int x;
-            if (this.table.getComponentOrientation().isLeftToRight()) {
-                x = damagedArea.x;
-                for (int column = cMin; column <= cMax; column++) {
-                    int w = cm.getColumn(column).getWidth();
-                    if (hasLeadingVerticalGridLine(column)) {
-                        g2d.drawLine(x, 0, x, tableHeight - 1);
-                    }
-                    x += w;
-                    if (hasTrailingVerticalGridLine(cm, column)) {
-                        g2d.drawLine(x - 1, 0, x - 1, tableHeight - 1);
-                    }
-                }
-            } else {
-                x = damagedArea.x + damagedArea.width;
-                // fix for defect 196 - proper grid painting on RTL tables
-                for (int column = cMin; column <= cMax; column++) {
-                    int w = cm.getColumn(column).getWidth();
-                    if (hasLeadingVerticalGridLine(column)) {
-                        g2d.drawLine(x - 1, 0, x - 1, tableHeight - 1);
-                    }
-                    x -= w;
-                    if (hasTrailingVerticalGridLine(cm, column)) {
-                        g2d.drawLine(x, 0, x, tableHeight - 1);
-                    }
-                }
-            }
-        }
         g2d.dispose();
     }
 

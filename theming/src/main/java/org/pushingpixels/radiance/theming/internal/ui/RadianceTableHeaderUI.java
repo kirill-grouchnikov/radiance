@@ -57,7 +57,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -421,11 +420,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
 
         Rectangle clip = g.getClipBounds();
         Point left = clip.getLocation();
-        // tweak the points for issue 378 - making sure that the
-        // grid lines are repainted correctly on scroll.
-        int lineWeight = (int) Math.ceil(RadianceSizeUtils.getBorderStrokeWidth(header));
-        left = new Point(left.x - 2 * lineWeight, left.y);
-        Point right = new Point(clip.x + clip.width + 2 * lineWeight, clip.y);
+        Point right = new Point(clip.x + clip.width, clip.y);
 
         TableColumnModel cm = header.getColumnModel();
 
@@ -435,68 +430,85 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
         if (cMin == -1) {
             cMin = 0;
         }
-
-        Rectangle cellRect0 = header.getHeaderRect(cMin);
-        // int top = cellRect0.y;
-        int bottom = cellRect0.y + cellRect0.height;
-
-        Color gridColor = getGridColor(this.header);
-
-        float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this.header);
-        g2d.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(gridColor);
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, 0.7f, g));
-
-        float bottomLineY = bottom - strokeWidth / 2;
-        g2d.draw(new Line2D.Float((float) left.getX(), bottomLineY, (float) right.getX(),
-                bottomLineY));
         // If the table does not have enough columns to fill the view we'll
         // get -1. Replace this with the index of the last column.
         if (cMax == -1) {
             cMax = cm.getColumnCount() - 1;
         }
 
-        TableColumn draggedColumn = this.header.getDraggedColumn();
-        int columnWidth;
-        Rectangle cellRect = this.header.getHeaderRect(ltr ? cMin : cMax);
-        TableColumn aColumn;
-        if (ltr) {
-            for (int column = cMin; column <= cMax; column++) {
-                aColumn = cm.getColumn(column);
-                columnWidth = aColumn.getWidth();
-                cellRect.width = columnWidth;
+        Rectangle cellRect0 = header.getHeaderRect(cMin);
 
-                if (aColumn != draggedColumn) {
-                    if (hasLeadingVerticalGridLine(header, column)) {
-                        g2d.drawLine(cellRect.x, cellRect.y, cellRect.x, bottom);
+        Color gridColor = getGridColor(this.header);
+
+        g2d.setColor(gridColor);
+        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, 0.7f, g));
+
+        int finalColumnMin = cMin;
+        int finalColumnMax = cMax;
+
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.translate(clip.x, clip.y);
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, clip.width, clip.height,
+            (graphics1X, scaledClipX, scaledClipY, scaledClipWidth, scaledClipHeight, scaleFactor) -> {
+                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
+
+                int bottomLineY = (int) (scaleFactor * (cellRect0.y + cellRect0.height) - 1);
+                graphics1X.drawLine(scaledClipX - 1, bottomLineY,
+                    scaledClipX + scaledClipWidth + 1, bottomLineY);
+
+                TableColumn draggedColumn = this.header.getDraggedColumn();
+                int columnWidth;
+                Rectangle cellRect = this.header.getHeaderRect(ltr ? finalColumnMin : finalColumnMax);
+                TableColumn aColumn;
+                if (ltr) {
+                    for (int column = finalColumnMin; column <= finalColumnMax; column++) {
+                        aColumn = cm.getColumn(column);
+                        columnWidth = aColumn.getWidth();
+                        cellRect.width = columnWidth;
+
+                        if (aColumn != draggedColumn) {
+                            if (hasLeadingVerticalGridLine(header, column)) {
+                                graphics1X.drawLine((int) (scaleFactor * cellRect.x),
+                                    (int) (scaleFactor * cellRect.y),
+                                    (int) (scaleFactor * cellRect.x), bottomLineY);
+                            }
+                            if (hasTrailingVerticalGridLine(header, cellRect, column)) {
+                                graphics1X.drawLine((int) (scaleFactor * (cellRect.x + cellRect.width)) - 1,
+                                    (int) (scaleFactor * cellRect.y),
+                                    (int) (scaleFactor * (cellRect.x + cellRect.width) - 1),
+                                    bottomLineY);
+                            }
+                        }
+
+                        cellRect.x += columnWidth;
                     }
-                    if (hasTrailingVerticalGridLine(header, cellRect, column)) {
-                        g2d.drawLine(cellRect.x + cellRect.width - 1, cellRect.y,
-                                cellRect.x + cellRect.width - 1, bottom);
+                } else {
+                    for (int column = finalColumnMax; column >= finalColumnMin; column--) {
+                        aColumn = cm.getColumn(column);
+                        columnWidth = aColumn.getWidth();
+                        cellRect.width = columnWidth;
+
+                        if (aColumn != draggedColumn) {
+                            if (hasLeadingVerticalGridLine(header, column)) {
+                                graphics1X.drawLine((int) (scaleFactor * (cellRect.x + cellRect.width)) - 1,
+                                    (int) (scaleFactor * cellRect.y),
+                                    (int) (scaleFactor * (cellRect.x + cellRect.width)) - 1,
+                                    bottomLineY);
+                            }
+                            if (hasTrailingVerticalGridLine(header, cellRect, column)) {
+                                graphics1X.drawLine((int) (scaleFactor * cellRect.x),
+                                    (int) (scaleFactor * cellRect.y),
+                                    (int) (scaleFactor * cellRect.x),
+                                    bottomLineY);
+                            }
+                        }
+                        cellRect.x += scaleFactor * columnWidth;
                     }
                 }
-
-                cellRect.x += columnWidth;
-            }
-        } else {
-            for (int column = cMax; column >= cMin; column--) {
-                aColumn = cm.getColumn(column);
-                columnWidth = aColumn.getWidth();
-                cellRect.width = columnWidth;
-
-                if (aColumn != draggedColumn) {
-                    if (hasLeadingVerticalGridLine(header, column)) {
-                        g2d.drawLine(cellRect.x + cellRect.width - 1, cellRect.y,
-                                cellRect.x + cellRect.width - 1, bottom);
-                    }
-                    if (hasTrailingVerticalGridLine(header, cellRect, column)) {
-                        g2d.drawLine(cellRect.x, cellRect.y, cellRect.x, bottom);
-                    }
-                }
-                cellRect.x += columnWidth;
-            }
-        }
+            });
 
         g2d.dispose();
     }
