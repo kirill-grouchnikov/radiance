@@ -1195,9 +1195,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
             Point pt = ev.getPoint();
 
             if (this.isMovingWindow) {
-                PointerInfo pi = MouseInfo.getPointerInfo();
-                if (pi != null) {
-                    Point windowPt = pi.getLocation();
+                Point windowPt = ev.getLocationOnScreen();
+                if (windowPt != null) {
                     windowPt.x = windowPt.x - this.dragOffsetX;
                     windowPt.y = windowPt.y - this.dragOffsetY;
                     w.setLocation(windowPt);
