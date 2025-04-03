@@ -475,8 +475,21 @@ public class SampleMenuFactory {
         a03Menu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "A03 Aphrodite",
                 "a03.swing.plaf.aphrodite.A03AphroditeLookAndFeel"));
 
-        customLafMenus.add(RadianceLookAndFeelChanger.getMenuItem(frame, "Alloy",
-                "com.incors.plaf.alloy.AlloyLookAndFeel"));
+        JMenu alloyMenu = new JMenu("Alloy family");
+        customLafMenus.add(alloyMenu);
+        alloyMenu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "Alloy Default",
+            "com.incors.plaf.alloy.AlloyLookAndFeel"));
+        alloyMenu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "Alloy Acid",
+            "com.incors.plaf.alloy.AlloyAcidLookAndFeel"));
+        alloyMenu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "Alloy Bedouin",
+            "com.incors.plaf.alloy.AlloyBedouinLookAndFeel"));
+        alloyMenu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "Alloy EJ",
+            "com.incors.plaf.alloy.AlloyEJLookAndFeel"));
+        alloyMenu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "Alloy Glass",
+            "com.incors.plaf.alloy.AlloyGlassLookAndFeel"));
+        alloyMenu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "Alloy Modern",
+            "com.incors.plaf.alloy.AlloyModernLookAndFeel"));
+
         customLafMenus.add(RadianceLookAndFeelChanger.getMenuItem(frame, "BeautyEye Cross",
                 "org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelCross"));
         customLafMenus.add(RadianceLookAndFeelChanger.getMenuItem(frame, "BeautyEye Win",
