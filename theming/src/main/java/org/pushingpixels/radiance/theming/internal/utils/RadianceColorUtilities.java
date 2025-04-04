@@ -689,30 +689,11 @@ public class RadianceColorUtilities {
     }
 
     public static Color getBackgroundTonalFillColorScrollBar(JScrollBar scrollbar) {
-        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
-            scrollbar, scrollbar.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
-            CoreColorTokenUtils.ContainerType.NEUTRAL);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(scrollbar);
+        ContainerColorTokens colorTokens = skin.getBackgroundContainerTokens(
+            DecorationPainterUtils.getDecorationType(scrollbar));
         return colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
             : colorTokens.getContainerSurfaceHigh();
-    }
-
-    /**
-     * Returns the default background color for the specified component.
-     *
-     * @param comp      Component.
-     * @param compState Component state.
-     * @return The default background color for the components of the specified
-     * class.
-     */
-    private static ColorUIResource getDefaultBackgroundColor(Component comp,
-        ComponentState compState) {
-        if (comp instanceof JTextComponent) {
-            // special case for text-based components
-            return new ColorUIResource(RadianceCoreUtilities.getTextBackgroundFill(comp, compState));
-        }
-        return new ColorUIResource(RadianceCoreUtilities.getBackgroundFill(
-            RadianceThemingCortex.ComponentScope.getCurrentSkin(comp),
-            DecorationPainterUtils.getDecorationType(comp)));
     }
 
     private static ColorUIResource getDefaultTonalBackgroundColor(Component comp,
