@@ -42,7 +42,6 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
@@ -809,16 +808,22 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                 new Rectangle(0, 0, this.getWidth(), this.getHeight()), backgroundState,
                 1.0f, false, null, tokens);
 
-            g2d.setColor(getGridColor(this.header));
-            float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this.header);
-            g2d.setStroke(
-                    new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.header, 0.7f, g));
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.getWidth(), this.getHeight(),
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
+                    graphics1X.setColor(getGridColor(this.header));
+                    graphics1X.setStroke(
+                        new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
+                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(this.header, 0.7f, g2d));
+                    int x = ltr ? 1 : scaledWidth - 2;
+                    graphics1X.drawLine(x, 0, x, scaledHeight);
 
-            int x = ltr ? (int) strokeWidth / 2 : getWidth() - 1 - (int) strokeWidth / 2;
-            g2d.drawLine(x, 0, x, getHeight());
+                    graphics1X.drawLine(0, scaledHeight - 1, scaledWidth, scaledHeight - 1);
+                });
 
             g2d.dispose();
         }

@@ -361,30 +361,35 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         if (showSelectionAroundIcon && (this.icon == null)) {
             // draw a checkmark
             Graphics2D g2d = (Graphics2D) g.create();
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
+                RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            ComponentState currState = this.commandButton.getActionModel().isEnabled()
-                    ? ComponentState.SELECTED
-                    : ComponentState.DISABLED_SELECTED;
-            ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-                this.commandButton, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                currState, CoreColorTokenUtils.ContainerType.MUTED);
-            g2d.setColor(tokens.getOnContainer());
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            RadianceCommonCortex.paintAtScale1x(g2d, iconRect.x, iconRect.y,
+                iconRect.width, iconRect.height,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    ComponentState currState = this.commandButton.getActionModel().isEnabled()
+                        ? ComponentState.SELECTED
+                        : ComponentState.DISABLED_SELECTED;
+                    ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
+                        this.commandButton, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                        currState, CoreColorTokenUtils.ContainerType.MUTED);
+                    graphics1X.setColor(tokens.getOnContainer());
 
-            int iw = iconRect.width;
-            int ih = iconRect.height;
-            GeneralPath path = new GeneralPath();
+                    GeneralPath path = new GeneralPath();
 
-            path.moveTo(0.2f * iw, 0.5f * ih);
-            path.lineTo(0.42f * iw, 0.8f * ih);
-            path.lineTo(0.8f * iw, 0.2f * ih);
-            g2d.translate(iconRect.x, iconRect.y);
-            Stroke stroke = new BasicStroke((float) 0.12 * iw, BasicStroke.CAP_ROUND,
-                    BasicStroke.JOIN_ROUND);
-            g2d.setStroke(stroke);
-            g2d.draw(path);
+                    path.moveTo(0.2f * scaledWidth, 0.5f * scaledHeight);
+                    path.lineTo(0.42f * scaledWidth, 0.8f * scaledHeight);
+                    path.lineTo(0.8f * scaledWidth, 0.2f * scaledHeight);
+                    graphics1X.translate(scaledX, scaledY);
+                    Stroke stroke = new BasicStroke((float) 0.12 * scaledWidth,
+                        BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+                    graphics1X.setStroke(stroke);
+                    graphics1X.draw(path);
+                });
 
             g2d.dispose();
         }
