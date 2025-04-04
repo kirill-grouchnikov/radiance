@@ -724,7 +724,8 @@ public class RadianceColorUtilities {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        ContainerColorTokens tokens = skin.getNeutralContainerTokens(component);
+        ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
+            DecorationPainterUtils.getDecorationType(component));
         if (rowIndex % 2 == 0) {
             // Surface for even rows
             return tokens.getContainerSurface();

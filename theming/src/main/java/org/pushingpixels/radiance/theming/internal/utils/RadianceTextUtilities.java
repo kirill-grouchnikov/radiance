@@ -32,10 +32,12 @@ package org.pushingpixels.radiance.theming.internal.utils;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceTextComponentBorder;
 
 import javax.swing.*;
@@ -270,14 +272,28 @@ public class RadianceTextUtilities {
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
-        Color fgColor = toEnforceFgColor ? component.getForeground()
-                : CoreColorTokenUtils.getContainerTokens(component, state, inactiveContainerType)
-                    .getOnContainer();
-        float fgAlpha = toEnforceFgColor ? component.getForeground().getAlpha() / 255.0f
-            : (state.isDisabled()
-                ? CoreColorTokenUtils.getContainerTokens(component, state, inactiveContainerType)
-                    .getOnContainerDisabledAlpha()
-                : 1.0f);
+        Color fgColor;
+        float fgAlpha;
+        if (toEnforceFgColor) {
+            fgColor = component.getForeground();
+            fgAlpha = 1.0f;
+        } else {
+            ComponentState stateForQuery = state.isDisabled() ? state.getEnabledMatch() : state;
+            if ((stateForQuery == ComponentState.ENABLED) &&
+                (inactiveContainerType == CoreColorTokenUtils.ContainerType.NEUTRAL)) {
+                // Use the background container tokens
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+                ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
+                    DecorationPainterUtils.getDecorationType(component));
+                fgColor = tokens.getOnContainer();
+                fgAlpha = state.isDisabled() ? tokens.getContainerSurfaceDisabledAlpha() : 1.0f;
+            } else {
+                ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
+                    component, state, inactiveContainerType);
+                fgColor = tokens.getOnContainer();
+                fgAlpha = state.isDisabled() ? tokens.getContainerSurfaceDisabledAlpha() : 1.0f;
+            }
+        }
 
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * fgAlpha));
     }
@@ -287,10 +303,6 @@ public class RadianceTextUtilities {
      *
      * @param component Component.
      * @param text      Text. If empty or <code>null</code>, the result is <code>null</code>.
-     * @param textAlpha Alpha channel for painting the text. If value is less than 1.0, the result is an
-     *                  opaque color which is an interpolation between the "real" foreground color and the
-     *                  background color of the component. This is done to ensure that native text
-     *                  rasterization will be performed on Windows.
      * @return The foreground color for the specified component.
      */
     public static Color getTonalForegroundColor(JComponent component, String text,
