@@ -102,16 +102,25 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             Color hueColor = this.taskGroup.getHueColor();
 
             Graphics2D g2d = (Graphics2D) g.create();
-            Paint paint = new GradientPaint(0, 0,
-                    RadianceColorUtilities.getAlphaColor(hueColor, 0), 0, height,
-                    RadianceColorUtilities.getAlphaColor(hueColor,
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, width, height,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    Paint paint = new GradientPaint(0, 0,
+                        RadianceColorUtilities.getAlphaColor(hueColor, 0), 0, scaledHeight,
+                        RadianceColorUtilities.getAlphaColor(hueColor,
                             (int) (255 * RibbonContextualTaskGroup.HUE_ALPHA)));
-            // translucent gradient paint
-            g2d.setPaint(paint);
-            g2d.fillRect(0, 0, width, height);
-            // and a solid line at the bottom
-            g2d.setColor(hueColor);
-            g2d.drawLine(1, height - 1, width, height - 1);
+                    // translucent gradient paint
+                    graphics1X.setPaint(paint);
+                    graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+                    // and a solid line at the bottom
+                    graphics1X.setColor(hueColor);
+                    graphics1X.setStroke(new BasicStroke((float) scaleFactor,
+                        BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
+                    graphics1X.drawLine(1, scaledHeight - 1, scaledWidth - 2, scaledHeight - 1);
+                });
 
             JRibbon ribbon = getRibbon();
 
