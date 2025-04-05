@@ -114,9 +114,6 @@ public class GreenMagicSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
         this.registerDecorationAreaTokensBundle(greenMagicDefaultBundle,
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFA3ECB9),
-                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         // Headers

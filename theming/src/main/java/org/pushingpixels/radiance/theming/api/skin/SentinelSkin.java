@@ -104,10 +104,10 @@ public class SentinelSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 0.8)),
             /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF7A5C55),
+                /* seed */ Hct.fromInt(0xFF2A0C05),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
-                    /* contrastLevel */ 0.8)),
+                    /* contrastLevel */ 0.6)),
             /* isSystemDark */ true);
 
         sentinelHeaderBundle.registerActiveContainerTokens(
@@ -143,11 +143,6 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             ComponentState.getActiveStates());
         this.registerDecorationAreaTokensBundle(sentinelHeaderBundle,
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF2A0C05),
-                /* true */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 0.6)),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
@@ -172,11 +167,6 @@ public class SentinelSkin extends RadianceSkin {
             /* isSystemDark */ true);
 
         this.registerDecorationAreaTokensBundle(sentinelControlPaneBundle,
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF754133),
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ -0.7)),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         // Toolbars and footers
@@ -198,11 +188,6 @@ public class SentinelSkin extends RadianceSkin {
                     /* contrastLevel */ 0.1)),
             /* isSystemDark */ true);
         this.registerDecorationAreaTokensBundle(sentinelBarsBundle,
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF53281A),
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 0.1)),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 

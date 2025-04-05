@@ -97,10 +97,14 @@ public class MarinerSkin extends RadianceSkin {
                     /* isDark */ true,
                     /* contrastLevel */ 0.8)),
             /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF2C2021),
+                /* seed */ Hct.fromInt(0xFF261D1E),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
-                    /* contrastLevel */ 0.6)),
+                    /* contrastLevel */ 1.0),
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
+                    TokenPaletteColorResolverOverlay.builder()
+                        .containerOutline(TokenPalette::getContainerOutlineVariant)
+                        .build())),
             /* isSystemDark */ true);
 
         // More saturated seed for controls in selected state
@@ -120,15 +124,6 @@ public class MarinerSkin extends RadianceSkin {
                     /* contrastLevel */ 0.7)),
             RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
         this.registerDecorationAreaTokensBundle(marinerHeaderBundle,
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF261D1E),
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 1.0),
-                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                    TokenPaletteColorResolverOverlay.builder()
-                        .containerOutline(TokenPalette::getContainerOutlineVariant)
-                        .build())),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
@@ -146,9 +141,6 @@ public class MarinerSkin extends RadianceSkin {
             /* isSystemDark */ false);
 
         this.registerDecorationAreaTokensBundle(marinerFooterBundle,
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFB9B7B9),
-                /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.FOOTER,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);

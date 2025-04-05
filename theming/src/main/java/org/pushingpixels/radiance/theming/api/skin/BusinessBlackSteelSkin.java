@@ -87,7 +87,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				/* seed */ Hct.fromInt(0xFFD5DBDF),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFD0D7DC),
+				/* seed */ Hct.fromInt(0xFFD5DBDF),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);
 		businessBlackSteelControlBundle.registerActiveContainerTokens(
@@ -95,7 +95,6 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaTokensBundle(businessBlackSteelControlBundle,
-			businessBlackSteelControlBundle.getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 	}

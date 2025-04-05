@@ -141,7 +141,7 @@ public class AutumnSkin extends RadianceSkin {
 
 		// Deeper container surfaces in title / header decoration areas, along with slightly
 		// softer texts / icons (on container overlaid to be on container variant).
-		this.registerDecorationAreaTokensBundle(autumnDefaultBundle,
+		this.registerAsDecorationArea(
 			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFEC983),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
@@ -167,8 +167,12 @@ public class AutumnSkin extends RadianceSkin {
 			/* colorResolver */ neutralResolver);
 
 		ContainerColorTokensBundle autumnControlPaneBundle =
-			new ContainerColorTokensBundle(autumnControlPaneActiveTokens, autumnControlPaneMutedTokens,
-				autumnControlPaneNeutralTokens, false);
+			new ContainerColorTokensBundle(autumnControlPaneActiveTokens,
+				autumnControlPaneMutedTokens,
+				ContainerColorTokensUtils.getContainerTokens(
+					/* seed */ Hct.fromInt(0xFFFED8B2),
+					/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+				false);
 		autumnControlPaneBundle.registerActiveContainerTokens(
 			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
@@ -178,9 +182,6 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaTokensBundle(autumnControlPaneBundle,
-			ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFFED8B2),
-				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 		// add an overlay painter to paint a drop shadow along the top

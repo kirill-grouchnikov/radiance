@@ -238,11 +238,6 @@ public class OfficeBlack2007Skin extends RadianceSkin {
 
         this.registerDecorationAreaTokensBundle(
             officeBlackSecondaryBundle,
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF2D2D2D),
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 1.0)),
             DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(

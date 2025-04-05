@@ -89,7 +89,7 @@ public class SaharaSkin extends RadianceSkin {
 				/* seed */ Hct.fromInt(0xFF99A764),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFEFF5FB),
+				/* seed */ Hct.fromInt(0xFF99A764),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			/* isSystemDark */ false);
 		ContainerColorTokens desertHeaderHighlightContainerTokens =
@@ -100,7 +100,6 @@ public class SaharaSkin extends RadianceSkin {
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 		this.registerDecorationAreaTokensBundle(desertSandHeaderBundle,
-			desertSandHeaderBundle.getMutedContainerTokens(),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

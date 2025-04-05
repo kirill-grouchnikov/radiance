@@ -448,25 +448,17 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Registers the specified color tokens bundle and background color tokens
-     * to be used on controls in decoration areas.
+     * Registers the specified color tokens bundle to be used on controls in
+     * decoration areas.
      *
-     * @param bundle                The color tokens bundle to use on controls in decoration
-     *                              areas.
-     * @param neutralTokens The color tokens to use for background of controls in
-     *                              decoration areas.
-     * @param areaTypes             Enumerates the area types that are affected by the parameters.
+     * @param bundle    The color tokens bundle to use on controls in decoration
+     *                  areas.
+     * @param areaTypes Enumerates the area types that are affected by the parameters.
      */
     public void registerDecorationAreaTokensBundle(
-        ContainerColorTokensBundle bundle,
-        ContainerColorTokens neutralTokens,
-        RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        ContainerColorTokensBundle bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (bundle == null) {
-            return;
-        }
-
-        if (neutralTokens == null) {
-            throw new IllegalArgumentException("Cannot pass null background tokens");
+            throw new IllegalArgumentException("Cannot pass null bundle");
         }
 
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
@@ -477,27 +469,11 @@ public abstract class RadianceSkin implements RadianceTrait {
 
             this.decoratedAreaSet.add(areaType);
             this.colorTokensBundleMap.put(areaType, bundle);
-            this.neutralColorTokensOverrideMap.put(areaType, neutralTokens);
         }
     }
 
     /**
-     * Registers the specified color tokens bundle to be used on controls in
-     * decoration areas.
-     *
-     * @param bundle    The color tokens bundle to use on controls in decoration
-     *                  areas.
-     * @param areaTypes Enumerates the area types that are affected by the parameters.
-     */
-    public void registerDecorationAreaTokensBundle(
-        ContainerColorTokensBundle bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        this.registerDecorationAreaTokensBundle(bundle,
-            bundle.getNeutralContainerTokens(),
-            areaTypes);
-    }
-
-    /**
-     * Registers the specified background color tokens to be used on controls in
+     * Registers the specified neutral color tokens to be used on controls in
      * decoration areas.
      *
      * @param neutralContainerTokens The neutral tokens to use in specified decoration areas.
@@ -509,7 +485,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (neutralContainerTokens == null) {
             throw new IllegalArgumentException(
-                "Cannot pass null background color tokens");
+                "Cannot pass null neutral color tokens");
         }
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
             if (areaType == RadianceThemingSlices.DecorationAreaType.NONE) {

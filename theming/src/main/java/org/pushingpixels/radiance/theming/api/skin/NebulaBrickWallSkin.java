@@ -58,7 +58,7 @@ public class NebulaBrickWallSkin extends NebulaAccentedSkin {
 				/* seed */ Hct.fromInt(0xFFF6C272),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()))
 			.withHeaderAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFF3F7FD),
+				/* seed */ Hct.fromInt(0xFFF6C272),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight())));
 	}
 }

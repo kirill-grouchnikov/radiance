@@ -88,7 +88,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 				/* seed */ Hct.fromInt(0xFF2B2A28),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ true,
-					/* contrastLevel */ 0.4)),
+					/* contrastLevel */ 0.2)),
 			/* isSystemDark */ true);
 		dustHeaderBundle.registerActiveContainerTokens(
 			this.getHeaderAreaHighlightTokens(),
@@ -96,20 +96,32 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.SELECTED,
 			ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
 		this.registerDecorationAreaTokensBundle(dustHeaderBundle,
-			ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFF2B2A28),
-				/* containerConfiguration */ new ContainerConfiguration(
-					/* isDark */ true,
-					/* contrastLevel */ 0.2)),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER,
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-		this.registerDecorationAreaTokensBundle(dustHeaderBundle,
-			ContainerColorTokensUtils.getContainerTokens(
+		ContainerColorTokensBundle dustToolbarBundle = new ContainerColorTokensBundle(
+			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF5E3D2B),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.4)),
+			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
+				/* seed */ Hct.fromInt(0xFF3C3B37),
+				/* containerConfiguration */ new ContainerConfiguration(
+					/* isDark */ true,
+					/* contrastLevel */ 0.4)),
+			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF3A3935),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()),
+			/* isSystemDark */ true);
+		dustToolbarBundle.registerActiveContainerTokens(
+			this.getHeaderAreaHighlightTokens(),
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.SELECTED,
+			ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
+		this.registerDecorationAreaTokensBundle(dustToolbarBundle,
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// add two overlay painters to create a bezel line between menu bar and toolbars

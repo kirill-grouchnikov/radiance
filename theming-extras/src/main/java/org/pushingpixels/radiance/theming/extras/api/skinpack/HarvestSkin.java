@@ -116,7 +116,9 @@ public class HarvestSkin extends RadianceSkin {
                         .build())),
             /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF3A3A39),
-            /* containerConfiguration */ ContainerConfiguration.defaultDark(),
+                /* containerConfiguration */ new ContainerConfiguration(
+                    /* isDark */ true,
+                    /* contrastLevel */ 0.6),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                     // Take the default neutral container surface fill to be the on container roles.
                     TokenPaletteColorResolverOverlay.builder()
@@ -130,18 +132,6 @@ public class HarvestSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         this.registerDecorationAreaTokensBundle(harvestHeaderBundle,
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF3A3A39),
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 0.6),
-                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                    // Take the default neutral container surface fill to be the on container roles.
-                    TokenPaletteColorResolverOverlay.builder()
-                        .onContainer((p) -> harvestDefaultBundle.getNeutralContainerTokens().getContainerSurface().getRGB())
-                        .onContainerVariant((p) -> harvestDefaultBundle.getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
-                        .build()
-                )),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER,

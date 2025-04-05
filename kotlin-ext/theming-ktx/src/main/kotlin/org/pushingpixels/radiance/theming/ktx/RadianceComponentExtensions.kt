@@ -44,7 +44,7 @@ import javax.swing.*
 import javax.swing.text.JTextComponent
 
 /**
- * Returns the current skin for the this component. If the current look-and-feel is not
+ * Returns the current skin for this component. If the current look-and-feel is not
  * Radiance, this method returns `null`.
  *
  * @return Current skin for the specified component.

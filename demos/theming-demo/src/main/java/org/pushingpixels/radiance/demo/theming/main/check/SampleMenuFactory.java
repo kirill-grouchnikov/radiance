@@ -306,11 +306,10 @@ public class SampleMenuFactory {
                     /* seed */ Hct.fromInt(0xFF1A50AC),
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
                 /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                    /* seed */ Hct.fromInt(0xFF1A5ED2),
+                    /* seed */ Hct.fromInt(0xFF1A55BA),
                     /* containerConfiguration */ ContainerConfiguration.defaultDark()),
                 /* isSystemDark */ true);
             this.registerDecorationAreaTokensBundle(customHeaderBundle,
-                customHeaderBundle.getActiveContainerTokens(),
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);

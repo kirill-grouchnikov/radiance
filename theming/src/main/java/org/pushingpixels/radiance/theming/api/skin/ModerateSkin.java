@@ -94,7 +94,7 @@ public class ModerateSkin extends RadianceSkin {
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
             /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF8BBAD5),
+                /* seed */ Hct.fromInt(0xFF6D9BBA),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.6)),
@@ -109,7 +109,6 @@ public class ModerateSkin extends RadianceSkin {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
         this.registerDecorationAreaTokensBundle(steelBlueHeaderBundle,
-            steelBlueHeaderBundle.getActiveContainerTokens(),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);

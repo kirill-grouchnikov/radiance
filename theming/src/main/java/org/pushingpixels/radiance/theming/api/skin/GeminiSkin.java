@@ -163,11 +163,6 @@ public class GeminiSkin extends RadianceSkin {
                     /* contrastLevel */ 0.9)),
             /* isSystemDark */ true);
         this.registerDecorationAreaTokensBundle(geminiHeaderBundle,
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF142429),
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 0.9)),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
