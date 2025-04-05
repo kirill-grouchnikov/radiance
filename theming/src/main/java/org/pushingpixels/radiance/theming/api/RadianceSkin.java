@@ -201,9 +201,9 @@ public abstract class RadianceSkin implements RadianceTrait {
     private final Map<RadianceThemingSlices.DecorationAreaType, ContainerColorTokensBundle> colorTokensBundleMap;
 
     /**
-     * Maps decoration area type to the background color tokens.
+     * Maps decoration area type to the neutral color tokens overrides.
      */
-    private final Map<RadianceThemingSlices.DecorationAreaType, ContainerColorTokens> backgroundColorTokensMap;
+    private final Map<RadianceThemingSlices.DecorationAreaType, ContainerColorTokens> neutralColorTokensOverrideMap;
 
     /**
      * Maps decoration area type to the registered overlay painters. Each
@@ -258,7 +258,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     protected RadianceSkin() {
         this.colorTokensBundleMap = new HashMap<>();
-        this.backgroundColorTokensMap = new HashMap<>();
+        this.neutralColorTokensOverrideMap = new HashMap<>();
         this.overlayPaintersMap = new HashMap<>();
 
         this.decoratedAreaSet = new HashSet<>();
@@ -453,26 +453,31 @@ public abstract class RadianceSkin implements RadianceTrait {
      *
      * @param bundle                The color tokens bundle to use on controls in decoration
      *                              areas.
-     * @param backgroundTokens The color tokens to use for background of controls in
+     * @param neutralTokens The color tokens to use for background of controls in
      *                              decoration areas.
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      */
     public void registerDecorationAreaTokensBundle(
         ContainerColorTokensBundle bundle,
-        ContainerColorTokens backgroundTokens,
+        ContainerColorTokens neutralTokens,
         RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (bundle == null) {
             return;
         }
 
-        if (backgroundTokens == null) {
+        if (neutralTokens == null) {
             throw new IllegalArgumentException("Cannot pass null background tokens");
         }
 
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
+            if (this.neutralColorTokensOverrideMap.containsKey(areaType)) {
+                throw new IllegalArgumentException("Decorated area type " + areaType +
+                    " already configured");
+            }
+
             this.decoratedAreaSet.add(areaType);
             this.colorTokensBundleMap.put(areaType, bundle);
-            this.backgroundColorTokensMap.put(areaType, backgroundTokens);
+            this.neutralColorTokensOverrideMap.put(areaType, neutralTokens);
         }
     }
 
@@ -495,21 +500,28 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Registers the specified background color tokens to be used on controls in
      * decoration areas.
      *
-     * @param backgroundTokens The color tokens to use for background of controls in
-     *                              decoration areas.
+     * @param neutralContainerTokens The neutral tokens to use in specified decoration areas.
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      *                              Each decoration area type will be painted by
      *                              {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
      */
-    public void registerAsDecorationArea(ContainerColorTokens backgroundTokens,
+    public void registerAsDecorationArea(ContainerColorTokens neutralContainerTokens,
             RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        if (backgroundTokens == null) {
+        if (neutralContainerTokens == null) {
             throw new IllegalArgumentException(
-                    "Cannot pass null background color tokens");
+                "Cannot pass null background color tokens");
         }
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
+            if (areaType == RadianceThemingSlices.DecorationAreaType.NONE) {
+                throw new IllegalArgumentException(
+                    "Decoration area type NONE not supported by this API");
+            }
+            if (this.colorTokensBundleMap.containsKey(areaType)) {
+                throw new IllegalArgumentException("Decoration area type " + areaType +
+                    " already configured");
+            }
             this.decoratedAreaSet.add(areaType);
-            this.backgroundColorTokensMap.put(areaType, backgroundTokens);
+            this.neutralColorTokensOverrideMap.put(areaType, neutralContainerTokens);
         }
     }
 
@@ -531,9 +543,20 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     public final ContainerColorTokens getNeutralContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        // 1 - If it's the default area type, take its neutral container tokens
+        if (decorationAreaType == RadianceThemingSlices.DecorationAreaType.NONE) {
+            return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+                .getNeutralContainerTokens();
+        }
+        // 2 - check the registered neutral tokens override for this specific area type.
+        if (this.neutralColorTokensOverrideMap.containsKey(decorationAreaType)) {
+            return this.neutralColorTokensOverrideMap.get(decorationAreaType);
+        }
+        // 3 - check the registered tokens bundle for this specific area type.
         if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
             return this.colorTokensBundleMap.get(decorationAreaType).getNeutralContainerTokens();
         }
+        // 4 - return the neutral tokens for the default area type
         return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
             .getNeutralContainerTokens();
     }
@@ -703,20 +726,22 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     public final ContainerColorTokens getBackgroundContainerTokens(
             RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        // 1 - check the registered background tokens for this specific area type.
-        if (this.backgroundColorTokensMap.containsKey(decorationAreaType)) {
-            return this.backgroundColorTokensMap.get(decorationAreaType);
+        // 1 - If it's the default area type, take its neutral container tokens
+        if (decorationAreaType == RadianceThemingSlices.DecorationAreaType.NONE) {
+            return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+                .getNeutralContainerTokens();
         }
-        // 2 - check the registered tokens bundle for this specific area type.
+        // 2 - check the registered neutral tokens override for this specific area type.
+        if (this.neutralColorTokensOverrideMap.containsKey(decorationAreaType)) {
+            return this.neutralColorTokensOverrideMap.get(decorationAreaType);
+        }
+        // 3 - check the registered tokens bundle for this specific area type.
         if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
-            ContainerColorTokens registered = this.backgroundColorTokensMap.
-                get(decorationAreaType);
-            if (registered != null) {
-                return registered;
-            }
+            return this.colorTokensBundleMap.get(decorationAreaType).getNeutralContainerTokens();
         }
-        // 3 - return the background tokens for the default area type
-        return this.backgroundColorTokensMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
+        // 4 - return the neutral tokens for the default area type
+        return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getNeutralContainerTokens();
     }
 
     public ContainerColorTokens getOptionPaneIconContainerTokens(int optionPaneMessageType) {
