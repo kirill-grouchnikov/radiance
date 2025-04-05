@@ -125,7 +125,7 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
         Color fgColor;
 
         // make the title color blend a little with the background
-        ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
+        ContainerColorTokens tokens = skin.getNeutralContainerTokens(
             DecorationAreaType.CONTROL_PANE);
         fgColor = tokens.getOnContainer();
         fgColor = RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * 0.95));

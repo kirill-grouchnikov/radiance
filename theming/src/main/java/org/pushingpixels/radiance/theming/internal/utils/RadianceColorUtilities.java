@@ -690,7 +690,7 @@ public class RadianceColorUtilities {
 
     public static Color getBackgroundTonalFillColorScrollBar(JScrollBar scrollbar) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(scrollbar);
-        ContainerColorTokens colorTokens = skin.getBackgroundContainerTokens(
+        ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(
             DecorationPainterUtils.getDecorationType(scrollbar));
         return colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
             : colorTokens.getContainerSurfaceHigh();
@@ -724,7 +724,7 @@ public class RadianceColorUtilities {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
+        ContainerColorTokens tokens = skin.getNeutralContainerTokens(
             DecorationPainterUtils.getDecorationType(component));
         if (rowIndex % 2 == 0) {
             // Surface for even rows

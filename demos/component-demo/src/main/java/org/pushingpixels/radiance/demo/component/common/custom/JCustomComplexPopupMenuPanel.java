@@ -40,10 +40,10 @@ import org.pushingpixels.radiance.component.api.common.model.LabelPresentationMo
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.projection.LabelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.text.RadianceTextUtils;
 
 import javax.swing.*;
@@ -484,7 +484,7 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
             RadianceThemingSlices.DecorationAreaType decorationAreaType =
                     RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-            ContainerColorTokens tokens = skin.getBackgroundContainerTokens(decorationAreaType);
+            ContainerColorTokens tokens = skin.getNeutralContainerTokens(decorationAreaType);
 
             RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(signInPanel, 1.0);
             signInPanel.setBackground(tokens.getContainerSurfaceLow());
@@ -536,7 +536,7 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
             RadianceThemingSlices.DecorationAreaType decorationAreaType =
                     RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-            ContainerColorTokens tokens = skin.getBackgroundContainerTokens(decorationAreaType);
+            ContainerColorTokens tokens = skin.getNeutralContainerTokens(decorationAreaType);
 
             RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this, 1.0);
             this.setBackground(tokens.getContainerSurfaceLow());

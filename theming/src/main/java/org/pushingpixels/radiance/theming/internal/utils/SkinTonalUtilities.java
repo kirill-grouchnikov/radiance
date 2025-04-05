@@ -139,7 +139,7 @@ public class SkinTonalUtilities {
                                                 .getControlFontSize())),
                         new MarginBorder());
 
-        ContainerColorTokens titlePaneTokens = skin.getBackgroundContainerTokens(
+        ContainerColorTokens titlePaneTokens = skin.getNeutralContainerTokens(
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
         UIDefaults.LazyValue menuItemInsets = (UIDefaults table) -> {

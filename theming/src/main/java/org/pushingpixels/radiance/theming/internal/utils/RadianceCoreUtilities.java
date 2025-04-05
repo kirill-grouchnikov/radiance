@@ -1847,7 +1847,7 @@ public class RadianceCoreUtilities {
     }
 
     public static Color getBackgroundFill(RadianceSkin skin, RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        return skin.getBackgroundContainerTokens(decorationAreaType).getContainerSurface();
+        return skin.getNeutralContainerTokens(decorationAreaType).getContainerSurface();
     }
 
     public static Color getTextBackgroundFill(Component component, ComponentState componentState) {

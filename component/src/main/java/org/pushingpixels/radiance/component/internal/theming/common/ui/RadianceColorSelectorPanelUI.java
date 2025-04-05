@@ -75,7 +75,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(this.colorSelectorPanel);
-                    ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
+                    ContainerColorTokens tokens = skin.getNeutralContainerTokens(
                         DecorationPainterUtils.getDecorationType(this.colorSelectorPanel));
                     Color backgroundFill = tokens.isDark() ? tokens.getContainerSurfaceLow()
                         : tokens.getContainerSurfaceHigh();

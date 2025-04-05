@@ -264,7 +264,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
         RadianceThemingSlices.DecorationAreaType parentDecorationAreaType =
             RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button.getParent());
         ContainerColorTokens parentTokens =
-            skin.getBackgroundContainerTokens(parentDecorationAreaType);
+            skin.getNeutralContainerTokens(parentDecorationAreaType);
 
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             ContainerColorTokens tokensForCurrState = (currState == ComponentState.ENABLED)

@@ -107,7 +107,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 			RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
 			RadianceSkin skin) {
 		ContainerColorTokens colorTokens =
-			skin.getBackgroundContainerTokens(decorationAreaType);
+			skin.getNeutralContainerTokens(decorationAreaType);
 		if (this.decoratedAreas.contains(decorationAreaType)) {
 			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
 					width, height, colorTokens);

@@ -82,7 +82,7 @@ public final class TopLineOverlayPainter implements RadianceOverlayPainter {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 ContainerColorTokens surfaceTokens =
-                    skin.getBackgroundContainerTokens(decorationAreaType);
+                    skin.getNeutralContainerTokens(decorationAreaType);
                 Color lineColor = this.containerTokensQuery.query(surfaceTokens);
                 graphics1X.setColor(lineColor);
 

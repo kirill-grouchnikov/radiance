@@ -99,7 +99,7 @@ public class CoreColorTokenUtils {
         if (isButtonThatIsNeverPainted
             || (!componentState.isActive()
                 && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
-            ContainerColorTokens nonColorized = skin.getBackgroundContainerTokens(
+            ContainerColorTokens nonColorized = skin.getNeutralContainerTokens(
                 DecorationPainterUtils.getDecorationType(component));
             return getBlendedTokens(orig, nonColorized, !componentState.isDisabled());
         }
@@ -161,7 +161,7 @@ public class CoreColorTokenUtils {
         if (!skipFlatCheck && !(component instanceof JToolBar)
             && !componentState.isActive()
             && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
-            ContainerColorTokens nonColorized = skin.getBackgroundContainerTokens(
+            ContainerColorTokens nonColorized = skin.getNeutralContainerTokens(
                 DecorationPainterUtils.getDecorationType(component));
             return getBlendedTokens(component, nonColorized, !componentState.isDisabled());
         }

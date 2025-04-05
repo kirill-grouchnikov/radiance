@@ -327,7 +327,7 @@ public class SampleFrame extends JFrame {
                 RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(
                     SampleFrame.this.getRootPane());
                 SampleFrame.this.setIconImage(RadianceLogo.getLogoImage(SampleFrame.this,
-                    skin.getBackgroundContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)));
+                    skin.getNeutralContainerTokens(DecorationAreaType.PRIMARY_TITLE_PANE)));
             }
         });
     }

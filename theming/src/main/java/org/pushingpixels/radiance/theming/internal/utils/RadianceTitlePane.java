@@ -172,7 +172,7 @@ public class RadianceTitlePane extends JComponent {
         RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
         RadianceSkin skin = RadianceCoreUtilities.getSkin(root);
-        this.setForeground(skin.getBackgroundContainerTokens(
+        this.setForeground(skin.getNeutralContainerTokens(
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
                 .getOnContainer());
     }
@@ -849,7 +849,7 @@ public class RadianceTitlePane extends JComponent {
             int yOffset = titleTextRect.y + (int) ((titleTextRect.getHeight() - fm.getHeight()) / 2)
                     + fm.getAscent();
 
-            ContainerColorTokens colorTokens = skin.getBackgroundContainerTokens(
+            ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(
                     RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
             RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
                     colorTokens.getOnContainer(),

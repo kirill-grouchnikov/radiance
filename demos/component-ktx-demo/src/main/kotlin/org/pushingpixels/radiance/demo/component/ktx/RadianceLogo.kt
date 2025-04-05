@@ -33,9 +33,9 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.demo.component.ktx.svg.radiance_menu
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import java.awt.Component
 import java.awt.Dimension
 import java.awt.image.BufferedImage
@@ -63,14 +63,14 @@ object RadianceLogo {
         frame.iconImage = RadianceLogo.getLogoImage(
             frame,
             RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                .getBackgroundContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                .getNeutralContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
         )
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener {
             SwingUtilities.invokeLater {
                 frame.iconImage = RadianceLogo.getLogoImage(
                     frame,
                     RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                        .getBackgroundContainerTokens(
+                        .getNeutralContainerTokens(
                             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE
                         )
                 )
@@ -83,7 +83,7 @@ object RadianceLogo {
             RadianceLogo.getLogoImage(
                 dialog,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
-                    .getBackgroundContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                    .getNeutralContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
             )
         )
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener {
@@ -92,7 +92,7 @@ object RadianceLogo {
                     RadianceLogo.getLogoImage(
                         dialog,
                         RadianceThemingCortex.ComponentScope.getCurrentSkin(dialog.getRootPane())
-                            .getBackgroundContainerTokens(
+                            .getNeutralContainerTokens(
                                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE
                             )
                     )
@@ -105,7 +105,7 @@ object RadianceLogo {
         frame.setFrameIcon(
             RadianceLogo.getLogoIcon(
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                    .getBackgroundContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
+                    .getNeutralContainerTokens(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
             )
         )
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener {
@@ -113,7 +113,7 @@ object RadianceLogo {
                 frame.setFrameIcon(
                     RadianceLogo.getLogoIcon(
                         RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
-                            .getBackgroundContainerTokens(
+                            .getNeutralContainerTokens(
                                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE
                             )
                     )

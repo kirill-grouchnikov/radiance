@@ -58,7 +58,7 @@ public class Glass3DDecorationPainter implements RadianceDecorationPainter {
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
         RadianceSkin skin) {
 
-        ContainerColorTokens baseTokens = skin.getBackgroundContainerTokens(decorationAreaType);
+        ContainerColorTokens baseTokens = skin.getNeutralContainerTokens(decorationAreaType);
         LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, comp.getHeight(),
             new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
             new Color[] {

@@ -94,7 +94,7 @@ public class ContainerPalettePreview extends JComponent {
         if (showLegend) {
             String label = "surface";
             int labelWidth = fm.stringWidth(label);
-            g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getBackgroundContainerTokens(
+            g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getNeutralContainerTokens(
                 RadianceThemingSlices.DecorationAreaType.NONE).getOnContainer());
             g2d.drawString(label, sectionXStart + (sectionXEnd - sectionXStart - labelWidth) / 2, 15);
         }
@@ -113,7 +113,7 @@ public class ContainerPalettePreview extends JComponent {
         if (showLegend) {
             String label = "on";
             int labelWidth = fm.stringWidth(label);
-            g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getBackgroundContainerTokens(
+            g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getNeutralContainerTokens(
                 RadianceThemingSlices.DecorationAreaType.NONE).getOnContainer());
             g2d.drawString(label, sectionXStart + (sectionXEnd - sectionXStart - labelWidth) / 2, 15);
         }
@@ -132,7 +132,7 @@ public class ContainerPalettePreview extends JComponent {
         if (showLegend) {
             String label = "outline";
             int labelWidth = fm.stringWidth(label);
-            g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getBackgroundContainerTokens(
+            g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this).getNeutralContainerTokens(
                 RadianceThemingSlices.DecorationAreaType.NONE).getOnContainer());
             g2d.drawString(label, sectionXStart + (sectionXEnd - sectionXStart - labelWidth) / 2, 15);
         }

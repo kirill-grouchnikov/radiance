@@ -283,7 +283,7 @@ public class RadianceTextUtilities {
                 (inactiveContainerType == CoreColorTokenUtils.ContainerType.NEUTRAL)) {
                 // Use the background container tokens
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-                ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
+                ContainerColorTokens tokens = skin.getNeutralContainerTokens(
                     DecorationPainterUtils.getDecorationType(component));
                 fgColor = tokens.getOnContainer();
                 fgAlpha = state.isDisabled() ? tokens.getContainerSurfaceDisabledAlpha() : 1.0f;

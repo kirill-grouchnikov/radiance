@@ -714,36 +714,6 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getNeutralContainerTokens(associationKind);
     }
 
-    /**
-     * Returns the background color tokens for the specified decoration area
-     * type. This method is mainly for the internal use of
-     * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
-     * but can be used in applications that wish to provide custom overlay
-     * background painting.
-     *
-     * @param decorationAreaType Decoration area type.
-     * @return The background color tokens for the specified decoration area type.
-     */
-    public final ContainerColorTokens getBackgroundContainerTokens(
-            RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        // 1 - If it's the default area type, take its neutral container tokens
-        if (decorationAreaType == RadianceThemingSlices.DecorationAreaType.NONE) {
-            return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-                .getNeutralContainerTokens();
-        }
-        // 2 - check the registered neutral tokens override for this specific area type.
-        if (this.neutralColorTokensOverrideMap.containsKey(decorationAreaType)) {
-            return this.neutralColorTokensOverrideMap.get(decorationAreaType);
-        }
-        // 3 - check the registered tokens bundle for this specific area type.
-        if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
-            return this.colorTokensBundleMap.get(decorationAreaType).getNeutralContainerTokens();
-        }
-        // 4 - return the neutral tokens for the default area type
-        return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getNeutralContainerTokens();
-    }
-
     public ContainerColorTokens getOptionPaneIconContainerTokens(int optionPaneMessageType) {
         // late initialization of tokens. This isn't done at construction time, since
         // in the constructor of this base skin we don't yet have access to the color tokens

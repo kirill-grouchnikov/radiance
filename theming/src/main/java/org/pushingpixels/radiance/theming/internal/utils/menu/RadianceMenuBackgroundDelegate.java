@@ -97,7 +97,7 @@ public class RadianceMenuBackgroundDelegate {
 						menuItem, fillAlpha, g));
 				RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
 				ContainerColorTokens backgroundTokens =
-					skin.getBackgroundContainerTokens(
+					skin.getNeutralContainerTokens(
 						DecorationPainterUtils.getDecorationType(menuItem));
 				Color gutterColor = backgroundTokens.isDark()
 					? backgroundTokens.getContainerSurfaceHighest()

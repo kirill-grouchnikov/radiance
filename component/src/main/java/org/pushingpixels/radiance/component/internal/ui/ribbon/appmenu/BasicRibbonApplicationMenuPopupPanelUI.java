@@ -252,7 +252,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             @Override
             protected void paintComponent(Graphics g) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
-                ContainerColorTokens tokens = skin.getBackgroundContainerTokens(
+                ContainerColorTokens tokens = skin.getNeutralContainerTokens(
                         DecorationPainterUtils.getDecorationType(this));
                 Color backgroundFill = tokens.getContainerSurfaceLow();
 

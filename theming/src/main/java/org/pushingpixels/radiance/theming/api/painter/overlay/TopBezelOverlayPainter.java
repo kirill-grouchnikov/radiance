@@ -97,7 +97,7 @@ public final class TopBezelOverlayPainter implements RadianceOverlayPainter {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     ContainerColorTokens surfaceTokens =
-                        skin.getBackgroundContainerTokens(decorationAreaType);
+                        skin.getNeutralContainerTokens(decorationAreaType);
 
                     graphics1X.setColor(this.colorTokensQueryTop.query(surfaceTokens));
 

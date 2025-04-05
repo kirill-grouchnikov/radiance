@@ -116,7 +116,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
             RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
             RadianceSkin skin) {
         ContainerColorTokens tileContainerTokens =
-                skin.getBackgroundContainerTokens(decorationAreaType);
+                skin.getNeutralContainerTokens(decorationAreaType);
         if (this.baseDecorationPainter == null) {
             graphics.setColor(tileContainerTokens.getContainerSurface());
             graphics.fillRect(0, 0, width, height);
@@ -152,7 +152,7 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
 
         ContainerColorTokens tileContainerTokens =
-            skin.getBackgroundContainerTokens(decorationAreaType);
+            skin.getNeutralContainerTokens(decorationAreaType);
         if (this.baseDecorationPainter != null) {
             this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, width, height, skin);
         } else {
