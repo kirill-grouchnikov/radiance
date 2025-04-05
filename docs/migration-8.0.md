@@ -26,6 +26,7 @@ All relevant APIs that work with these painters in `RadianceSkin` and elsewhere 
 
 * `RadianceColorScheme` has been replaced by `ContainerColorTokens`, including all relevant Radiance painter APIs. Use `ContainerColorTokensUtils` to get `ContainerColorTokens` from seed colors and additional container configuration options.
 * State-specific alphas (including for highlights) are now configured via `ContainerColorTokens` APIs for disabled alpha for container surface, on container, and container outline tokens.
+* `RadianceSkin.getBackgroundColorScheme` is now `RadianceSkin.getNeutralContainerTokens`
 * Shading, tinting, toning, saturating, hue shifting, negating and inverting a `RadianceColorScheme` can be achieved with changing the seed HCT or container configuration passed to `ContainerColorTokensUtils.getContainerTokens`:
   * Shading and tinting by changing the seed tone
   * Toning and saturating by changing the seed chroma
