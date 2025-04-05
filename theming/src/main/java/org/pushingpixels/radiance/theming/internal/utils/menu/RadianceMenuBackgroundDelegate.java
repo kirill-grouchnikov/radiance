@@ -96,12 +96,12 @@ public class RadianceMenuBackgroundDelegate {
 				graphics.setComposite(WidgetUtilities.getAlphaComposite(
 						menuItem, fillAlpha, g));
 				RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
-				ContainerColorTokens backgroundTokens =
+				ContainerColorTokens neutralTokens =
 					skin.getNeutralContainerTokens(
 						DecorationPainterUtils.getDecorationType(menuItem));
-				Color gutterColor = backgroundTokens.isDark()
-					? backgroundTokens.getContainerSurfaceHighest()
-					: backgroundTokens.getContainerSurfaceLowest();
+				Color gutterColor = neutralTokens.isDark()
+					? neutralTokens.getContainerSurfaceHighest()
+					: neutralTokens.getContainerSurfaceLowest();
 				graphics.setColor(gutterColor);
 				if (menuItem.getComponentOrientation().isLeftToRight()) {
 					graphics.fillRect(0, 0, textOffset - 2, menuHeight);

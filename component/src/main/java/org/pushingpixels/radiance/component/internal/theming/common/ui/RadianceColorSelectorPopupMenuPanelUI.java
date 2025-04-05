@@ -96,12 +96,12 @@ public class RadianceColorSelectorPopupMenuPanelUI extends BasicColorSelectorPop
                 g2d.setComposite(WidgetUtilities.getAlphaComposite(this, fillAlpha, g));
 
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
-                ContainerColorTokens backgroundTokens =
+                ContainerColorTokens neutralTokens =
                     skin.getNeutralContainerTokens(
                             DecorationPainterUtils.getDecorationType(this));
-                Color gutterColor = backgroundTokens.isDark()
-                    ? backgroundTokens.getContainerSurfaceHighest()
-                    : backgroundTokens.getContainerSurfaceLowest();
+                Color gutterColor = neutralTokens.isDark()
+                    ? neutralTokens.getContainerSurfaceHighest()
+                    : neutralTokens.getContainerSurfaceLowest();
                 g2d.setColor(gutterColor);
 
                 int sepX = this.getSeparatorX();

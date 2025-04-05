@@ -48,7 +48,7 @@ The documentation on [decoration painters](../painters/decoration.md) explains t
 <img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/nebulaamethyst1.png" width="340" height="258">
 </p>
 
-In order to register a custom color tokens bundle and optional background color tokens on the specific decoration area type(s), use the following APIs:
+In order to register a custom color tokens bundle on the specific decoration area type(s), use the following API:
 
 ```java
   /**
@@ -62,34 +62,17 @@ In order to register a custom color tokens bundle and optional background color 
    */
   public void registerDecorationAreaTokensBundle(
       ContainerColorTokensBundle bundle, DecorationAreaType... areaTypes)
-
-  /**
-   * Registers the specified color tokens bundle and background color tokens
-   * to be used on controls in decoration areas.
-   *
-   * @param bundle
-   *     The color tokens bundle to use on controls in decoration areas.
-   * @param backgroundTokens
-   *     The color tokens to use for background of controls in decoration
-   *     areas.
-   * @param areaTypes
-   *     Enumerates the area types that are affected by the parameters.
-   */
-  public void registerDecorationAreaTokensBundle(
-      ContainerColorTokensBundle bundle,
-      ContainerColorTokens backgroundTokens,
-      DecorationAreaType... areaTypes)
 ```
 
-Decoration areas registered with these APIs will have their background painted by the skin's [decoration painter](../painters/decoration.md) based on the default color tokens of the registered color tokens bundle. You can also use the following API to use custom color tokens on the specified decoration area types (in this case the controls in those decoration areas will use the default color tokens bundle):
+Decoration areas registered with this API will have their background painted by the skin's [decoration painter](../painters/decoration.md) based on the default color tokens of the registered color tokens bundle. You can also use the following API to use custom color tokens on the specified decoration area types (in this case the controls in those decoration areas will use the default color tokens bundle):
 
 ```java
   /**
-   * Registers the specified background color tokens to be used on controls in
+   * Registers the specified neutral color tokens to be used on controls in
    * decoration areas.
    *
-   * @param backgroundTokens
-   *     The color tokens to use for background of controls in decoration
+   * @param neutralContainerTokens
+   *     The neutral color tokens to use for background of controls in decoration
    *     areas.
    * @param areaTypes
    *     Enumerates the area types that are affected by the parameters. Each
@@ -98,7 +81,7 @@ Decoration areas registered with these APIs will have their background painted b
    *     Component, DecorationAreaType, int, int, RadianceSkin)}.
    */
   public void registerAsDecorationArea(
-      ContainerColorTokens backgroundTokens,
+      ContainerColorTokens neutralContainerTokens,
       DecorationAreaType... areaTypes)
 ```
 
@@ -116,7 +99,6 @@ ContainerColorTokensBundle marinerDefaultBundle = new ContainerColorTokensBundle
         /* seed */ Hct.fromInt(0xFFECF0F3),
         /* containerConfiguration */ ContainerConfiguration.defaultLight()),
     /* isSystemDark */ false);
-
 
 ContainerColorTokens marinerSelectedContainerTokens = ContainerColorTokensUtils.getContainerTokens(
     /* seed */ Hct.fromInt(0xFFF5D47A),
@@ -160,16 +142,10 @@ ContainerColorTokensBundle marinerHeaderBundle = new ContainerColorTokensBundle(
 
 ...
 
-this.registerDecorationAreaTokensBundle(marinerHeaderBundle,
-    ContainerColorTokensUtils.getContainerTokens(
-        /* seed */ Hct.fromInt(0xFF261D1E),
-        /* containerConfiguration */ new ContainerConfiguration(
-            /* isDark */ true,
-            /* contrastLevel */ 1.0),
-        /* colorResolver */ PaletteResolverUtils.getPaletteColorResolver().overlayWith(
-            PaletteContainerColorsResolverOverlay.builder()
-                .containerOutline(DynamicPalette::getContainerOutlineVariant)
-                .build())),
+this.registerDecorationAreaTokensBundle(marinerHeaderBundle, 
+    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+    RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+    RadianceThemingSlices.DecorationAreaType.HEADER)
 ```
 
 And here is an example of specifying a number of decoration area types to have their background painted by the decoration painter and the specific color tokens, without registering a custom color tokens bundle for those areas:
