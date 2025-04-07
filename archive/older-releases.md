@@ -125,8 +125,9 @@ Some larger projects over the last few years to reorganize the codebase:
 
 * **Cerebrum** - a unified API surface across Substance, 2018
 * **Corpora** - folding the previously separate laf-plugin and laf-widget into Substance, 2018
-* **Visor** - configurable title pane content in Substance, 2018
-* **Blade** - direct rendering of most Radiance visuals (instead of to offscreen images), 2022
+* **Visor** - [configurable title pane content](https://github.com/kirill-grouchnikov/substance/issues/42) in Substance, 2018
+* **Blade** - [direct rendering](https://github.com/kirill-grouchnikov/radiance/issues/388) of most Radiance visuals (instead of using offscreen images), 2022
+* **Chroma** - [token-based color layer](https://github.com/kirill-grouchnikov/radiance/issues/400) across the entire codebase, 2025
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
