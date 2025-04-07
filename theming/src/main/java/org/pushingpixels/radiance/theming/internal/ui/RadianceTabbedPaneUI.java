@@ -694,27 +694,27 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(tabPane));
         width -= 1;
 
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+        Shape outline = RadianceOutlineUtilities.getBaseOutline(
             tabPane.getComponentOrientation(),
             width, height + dy, cornerRadius, straightSides, 1.0f);
 
         graphics1X.setColor(tabColor);
-        graphics1X.fill(contour);
+        graphics1X.fill(outline);
         Graphics2D clipped = (Graphics2D) graphics1X.create();
         clipped.clipRect(0, 0, width, (int) (0.2f * height));
         clipped.setColor(colorTokens.isDark()
             ? colorTokens.getContainerSurfaceHigh()
             : colorTokens.getContainerSurfaceLow());
-        clipped.fill(contour);
+        clipped.fill(outline);
         clipped.dispose();
 
-        Shape contourInner = outlinePainter.isPaintingInnerContour() ?
+        Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
             RadianceOutlineUtilities.getBaseOutline(
                 tabPane.getComponentOrientation(),
                 width, height + dy, cornerRadius - 1.0f, straightSides, 2.0f)
             : null;
 
-        outlinePainter.paintOutline(graphics1X, tabPane, width, height + dy, contour, contourInner,
+        outlinePainter.paintOutline(graphics1X, tabPane, width, height + dy, outline, outlineInner,
             colorTokens);
     }
 
@@ -771,14 +771,14 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 if (toPaintBorder) {
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         tabPane.getComponentOrientation(),
                         scaledWidth, scaledHeight, 1, null);
-                    surfacePainter.paintContourBackground(graphics1X, tabPane,
-                        scaledWidth, scaledHeight, contour, colorTokens);
+                    surfacePainter.paintSurface(graphics1X, tabPane,
+                        scaledWidth, scaledHeight, outline, colorTokens);
                     RadianceOutlinePainter outlinePainter = getOutlinePainter(tabPane, colorTokens);
                     outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, scaledHeight,
-                        contour, null, colorTokens);
+                        outline, null, colorTokens);
                 }
 
                 BladeIconUtils.drawCloseIcon(graphics1X, scaledWidth,

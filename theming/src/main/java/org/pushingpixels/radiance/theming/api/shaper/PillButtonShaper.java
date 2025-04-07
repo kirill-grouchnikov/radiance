@@ -48,9 +48,9 @@ import java.util.Set;
  */
 public class PillButtonShaper implements RadianceButtonShaper, RectangularButtonShaper {
     /**
-     * Cache of already computed contours.
+     * Cache of already computed outlines.
      */
-    private final static LazyResettableHashMap<Shape> contours = new LazyResettableHashMap<>(
+    private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
             "PillButtonShaper");
 
     @Override
@@ -73,7 +73,7 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
         HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius,
                 extraInsets);
 
-        Shape result = contours.get(key);
+        Shape result = outlines.get(key);
         if (result != null) {
             return result;
         }
@@ -82,7 +82,7 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
                 button.getComponentOrientation(),
                 width - 1, height - 1, radius, straightSides,
                 extraInsets);
-        contours.put(key, result);
+        outlines.put(key, result);
         return result;
     }
 

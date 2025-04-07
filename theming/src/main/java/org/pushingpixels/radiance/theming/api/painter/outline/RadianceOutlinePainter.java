@@ -56,23 +56,23 @@ public interface RadianceOutlinePainter extends RadianceTrait {
 	 *            Width of a UI component.
 	 * @param height
 	 *            Height of a UI component.
-	 * @param contour
-	 *            Primary contour to paint.
-	 * @param innerContour
-	 *            Optional inner contour to paint. May be ignored if the
-	 *            specific implementation paints only the primary contour.
+	 * @param outline
+	 *            Primary outline to paint.
+	 * @param innerOutline
+	 *            Optional inner outline to paint. May be ignored if the
+	 *            specific implementation paints only the primary outline.
 	 * @param colorTokens
 	 *            The color tokens.
 	 */
-	void paintOutline(Graphics g, Component c, float width, float height, Shape contour,
-			Shape innerContour, ContainerColorTokens colorTokens);
+	void paintOutline(Graphics g, Component c, float width, float height, Shape outline,
+			Shape innerOutline, ContainerColorTokens colorTokens);
 
 	/**
 	 * Returns boolean indication whether this outline painter is painting the
-	 * inner contours.
+	 * inner outlines.
 	 * 
 	 * @return <code>true</code> if this outline painter is painting the inner
-	 *         contours, <code>false</code> otherwise.
+	 *         outlines, <code>false</code> otherwise.
 	 */
-    boolean isPaintingInnerContour();
+    boolean isPaintingInnerOutline();
 }

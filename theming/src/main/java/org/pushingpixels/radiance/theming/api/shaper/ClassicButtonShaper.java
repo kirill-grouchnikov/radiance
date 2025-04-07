@@ -47,8 +47,8 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class ClassicButtonShaper implements RadianceButtonShaper, RectangularButtonShaper {
-    /** Cache of already computed contours. */
-    private final static LazyResettableHashMap<Shape> contours = new LazyResettableHashMap<>(
+    /** Cache of already computed outlines. */
+    private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
             "ClassicButtonShaper");
 
     /**
@@ -77,7 +77,7 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
         HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius,
                 extraInsets);
 
-        Shape result = contours.get(key);
+        Shape result = outlines.get(key);
         if (result != null) {
             return result;
         }
@@ -86,7 +86,7 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
                 button.getComponentOrientation(),
                 width - 1, height - 1, radius, straightSides,
                 extraInsets);
-        contours.put(key, result);
+        outlines.put(key, result);
         return result;
     }
 

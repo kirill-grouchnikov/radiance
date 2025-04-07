@@ -128,23 +128,23 @@ public class ProgressIndication extends JFrame {
             }
 
             // Inner gradient fill
-            Shape innerContour = new RoundRectangle2D.Double((w - INNER_WIDTH) / 2.0,
+            Shape innerOutline = new RoundRectangle2D.Double((w - INNER_WIDTH) / 2.0,
                     (h - INNER_HEIGHT) / 2.0, INNER_WIDTH, INNER_HEIGHT, 10, 10);
             g2d.setPaint(new GradientPaint((w - INNER_WIDTH) / 2.0f, (h - INNER_HEIGHT) / 2.0f,
                     new Color(47, 47, 47), (w - INNER_WIDTH) / 2.0f, (h + INNER_HEIGHT) / 2.0f,
                     Color.black));
-            g2d.fill(innerContour);
+            g2d.fill(innerOutline);
 
-            // Inner contour
+            // Inner outline
             g2d.setColor(new Color(67, 67, 67));
-            g2d.draw(innerContour);
+            g2d.draw(innerOutline);
 
             // Progress track
             int trackWidth = INNER_WIDTH - 36;
             int trackHeight = 1;
             g2d.setColor(new Color(91, 91, 91));
             for (int i = 2; i >= 0; i--) {
-                Shape trackContour = new RoundRectangle2D.Double((w - INNER_WIDTH) / 2 + 18 - i,
+                Shape trackOutline = new RoundRectangle2D.Double((w - INNER_WIDTH) / 2 + 18 - i,
                         h / 2 - i - 1, trackWidth + i * 2, trackHeight + i * 2, 2 * i, 2 * i);
                 float alpha = 1.0f;
                 if (i == 1)
@@ -152,7 +152,7 @@ public class ProgressIndication extends JFrame {
                 if (i == 2)
                     alpha = 0.1f;
                 g2d.setComposite(AlphaComposite.SrcOver.derive(alpha));
-                g2d.draw(trackContour);
+                g2d.draw(trackOutline);
             }
 
             // Highlighter

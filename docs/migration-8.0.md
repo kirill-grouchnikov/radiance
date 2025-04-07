@@ -26,7 +26,7 @@ All relevant APIs that work with these painters in `RadianceSkin` and elsewhere 
 
 * `RadianceColorScheme` has been replaced by `ContainerColorTokens`, including all relevant Radiance painter APIs. Use `ContainerColorTokensUtils` to get `ContainerColorTokens` from seed colors and additional container configuration options.
 * State-specific alphas (including for highlights) are now configured via `ContainerColorTokens` APIs for disabled alpha for container surface, on container, and container outline tokens.
-* `RadianceSkin.getBackgroundColorScheme` is now `RadianceSkin.getNeutralContainerTokens`
+* `RadianceSkin.getBackgroundColorScheme` is now `RadianceSkin.getNeutralContainerTokens`.
 * Shading, tinting, toning, saturating, hue shifting, negating and inverting a `RadianceColorScheme` can be achieved with changing the seed HCT or container configuration passed to `ContainerColorTokensUtils.getContainerTokens`:
   * Shading and tinting by changing the seed tone
   * Toning and saturating by changing the seed chroma
@@ -37,5 +37,6 @@ All relevant APIs that work with these painters in `RadianceSkin` and elsewhere 
 * Base and derived colors are replaced by color tokens in `ContainerColorTokens`. Use `PaletteContainerColorsResolverOverlay` and `BimodalPaletteContainerColorsResolverOverlay` to tweak color token resolution for specific visuals in your application.
 * `RadianceThemingSlices.ColorSchemeAssociationKind` is replaced with `RadianceThemingSlices.ContainerColorTokensAssociationKind`.
 * `RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME` is now `RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS`
+* `RadianceFillPainter.paintContourBackground` is now `RadianceSurfacePainter.paintSurface`.
 * Two new enums added to `RadianceThemingSlices` - `ContainerType` and `SystemContainerType` - to mirror the container-based APIs in `RadianceSkin` and `ContainerColorTokensBundle`.
 * Core color schemes (such as Aqua, Bottle Green, etc) are now provided as a set of palette seeds in the `TonalPaletteSeeds` class.

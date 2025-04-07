@@ -34,18 +34,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.swing.ktx.addDelayedComponentListener
-import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
-import org.pushingpixels.radiance.swing.ktx.awt.render
-import org.pushingpixels.radiance.animation.ktx.componentTimeline
-import org.pushingpixels.radiance.animation.ktx.from
-import org.pushingpixels.radiance.animation.ktx.goingThrough
-import org.pushingpixels.radiance.animation.ktx.repaintTimeline
 import org.pushingpixels.radiance.animation.api.Timeline
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
 import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames
 import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes
 import org.pushingpixels.radiance.animation.api.interpolator.KeyValues
+import org.pushingpixels.radiance.animation.ktx.componentTimeline
+import org.pushingpixels.radiance.animation.ktx.from
+import org.pushingpixels.radiance.animation.ktx.goingThrough
+import org.pushingpixels.radiance.animation.ktx.repaintTimeline
+import org.pushingpixels.radiance.swing.ktx.addDelayedComponentListener
+import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import java.awt.*
 import java.awt.geom.RoundRectangle2D
 import javax.swing.JFrame
@@ -122,23 +122,23 @@ class ProgressPanel : JPanel() {
             }
 
             // Inner gradient fill
-            val innerContour = RoundRectangle2D.Double((w - INNER_WIDTH) / 2.0,
+            val innerOutline = RoundRectangle2D.Double((w - INNER_WIDTH) / 2.0,
                     (h - INNER_HEIGHT) / 2.0, INNER_WIDTH.toDouble(), INNER_HEIGHT.toDouble(), 10.0, 10.0)
             it.paint = GradientPaint((w - INNER_WIDTH) / 2.0f, (h - INNER_HEIGHT) / 2.0f,
                     Color(47, 47, 47), (w - INNER_WIDTH) / 2.0f, (h + INNER_HEIGHT) / 2.0f,
                     Color.black)
-            it.fill(innerContour)
+            it.fill(innerOutline)
 
-            // Inner contour
+            // Inner outline
             it.color = Color(67, 67, 67)
-            it.draw(innerContour)
+            it.draw(innerOutline)
 
             // Progress track
             val trackWidth = INNER_WIDTH - 36
             val trackHeight = 1
             it.color = Color(91, 91, 91)
             for (i in 2 downTo 0) {
-                val trackContour = RoundRectangle2D.Double(((w - INNER_WIDTH) / 2 + 18 - i).toDouble(),
+                val trackOutline = RoundRectangle2D.Double(((w - INNER_WIDTH) / 2 + 18 - i).toDouble(),
                         (h / 2 - i - 1).toDouble(), (trackWidth + i * 2).toDouble(), (trackHeight + i * 2).toDouble(),
                         (2 * i).toDouble(), (2 * i).toDouble())
                 var alpha = 1.0f
@@ -147,7 +147,7 @@ class ProgressPanel : JPanel() {
                 if (i == 2)
                     alpha = 0.1f
                 it.composite = AlphaComposite.SrcOver.derive(alpha)
-                it.draw(trackContour)
+                it.draw(trackOutline)
             }
 
             // Highlighter

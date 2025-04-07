@@ -82,12 +82,12 @@ The second paints the passed shape:
  *            Component.
  * @param decorationAreaType           
  *            Decoration area type. Must not be <code>null</code>.
- * @param contour                      
- *            Contour to fill.
+ * @param outline                      
+ *            Outline to fill.
  * @param colorTokens                  
  *            Color tokens for painting the decoration area.
  */
 void paintDecorationArea(Graphics2D graphics, Component comp,
-        DecorationAreaType decorationAreaType, Shape contour,
+        DecorationAreaType decorationAreaType, Shape outline,
         ContainerColorTokens colorTokens);
 ```        

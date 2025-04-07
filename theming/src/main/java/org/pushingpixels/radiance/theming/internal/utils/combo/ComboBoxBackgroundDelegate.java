@@ -87,25 +87,25 @@ public class ComboBoxBackgroundDelegate {
                 float radius = (float) scaleFactor *
                     RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
 
-                Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                Shape outlineOuter = RadianceOutlineUtilities.getBaseOutline(
                     combo.getComponentOrientation(),
                     scaledWidth - 1, scaledHeight - 1, radius, null, 0);
-                // If the border is painted, compute a separate contour for the fill.
+                // If the border is painted, compute a separate outline for the fill.
                 // Otherwise pixels on the edge can "spill" outside
-                // the contour. Those pixels will be drawn by the outline painter.
-                Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                // the outline. Those pixels will be drawn by the outline painter.
+                Shape outlineFill = RadianceOutlineUtilities.getBaseOutline(
                     combo.getComponentOrientation(),
                     scaledWidth, scaledHeight, radius, null, 0.5f);
-                surfacePainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
-                    contourFill, colorTokens);
+                surfacePainter.paintSurface(graphics1X, combo, scaledWidth, scaledHeight,
+                    outlineFill, colorTokens);
 
-                Shape contourInner = outlinePainter.isPaintingInnerContour() ?
+                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
                     RadianceOutlineUtilities.getBaseOutline(
                         combo.getComponentOrientation(),
                         scaledWidth - 1, scaledHeight - 1, radius - 1, null, 1)
                     : null;
                 outlinePainter.paintOutline(graphics1X, combo, scaledWidth, scaledHeight,
-                    contourOuter, contourInner, colorTokens);
+                    outlineOuter, outlineInner, colorTokens);
             });
     }
 

@@ -153,7 +153,7 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                     Set<Side> bottom = EnumSet.of(Side.BOTTOM);
 
                     float radius = (float) scaleFactor * getTaskToggleButtonCornerRadius(button);
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
                             button.getComponentOrientation(),
                             scaledWidth, scaledHeight + 3.0f, radius, bottom, 1.0f);
 
@@ -161,19 +161,19 @@ public class RibbonTaskToggleButtonTonalBackgroundDelegate {
                     RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
                             RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
                     if (skin.isRegisteredAsDecorationArea(buttonDecorationAreaType)) {
-                        DecorationPainterUtils.paintDecorationArea(graphics1X, button, contour,
+                        DecorationPainterUtils.paintDecorationArea(graphics1X, button, outline,
                                 buttonDecorationAreaType, tokens, false);
                     } else {
                         graphics1X.setColor(tokens.getContainerSurface());
-                        graphics1X.fill(contour);
+                        graphics1X.fill(outline);
                     }
 
-                    Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outlineInner = RadianceOutlineUtilities.getBaseOutline(
                             button.getComponentOrientation(),
                             scaledWidth, scaledHeight + 4.0f, radius, bottom, 2.0f);
 
                     outlinePainter.paintOutline(graphics1X, button, scaledWidth, scaledHeight + 2.0f,
-                            contour, contourInner, tokens);
+                            outline, outlineInner, tokens);
                 });
         graphics.dispose();
     }

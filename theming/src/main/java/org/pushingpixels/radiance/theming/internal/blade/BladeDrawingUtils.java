@@ -55,19 +55,19 @@ public class BladeDrawingUtils {
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(c);
                 float scaledRadius = (float) scaleFactor * baseRadius;
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                Shape outline = RadianceOutlineUtilities.getBaseOutline(
                     c.getComponentOrientation(),
                     scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, null, 0.0f);
                 boolean skipInnerBorder = (c instanceof JTextComponent)
                     || ((SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null)
                     && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
-                Shape contourInner = skipInnerBorder ? null :
+                Shape outlineInner = skipInnerBorder ? null :
                     RadianceOutlineUtilities.getBaseOutline(
                         c.getComponentOrientation(),
                         scaledWidth - 1.0f, scaledHeight - 1.0f,
                         Math.max(scaledRadius - 1.0f, 0.0f), null, 1.0f);
-                outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, contour,
-                    contourInner, colorTokens);
+                outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, outline,
+                    outlineInner, colorTokens);
             });
         graphics.dispose();
     }

@@ -166,21 +166,20 @@ public abstract class ImageWrapperDecorationPainter implements RadianceDecoratio
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+            RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
         ContainerColorTokens colorTokens) {
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
         if (this.baseDecorationPainter != null) {
-            this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
-                    contour, colorTokens);
+            this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, outline, colorTokens);
         } else {
             graphics.setColor(colorTokens.getContainerSurface());
-            graphics.fill(contour);
+            graphics.fill(outline);
         }
         Graphics2D temp = (Graphics2D) graphics.create();
         // Clip the area for tiling with the image. Ideally this would be done
         // with soft clipping (in RadianceCoreUtilities), but that creates an
         // additional image. For now do hard clipping instead.
-        temp.setClip(contour);
+        temp.setClip(outline);
         this.tileArea(temp, comp, colorTokens, offset.x, offset.y, comp.getWidth(),
                 comp.getHeight());
         temp.dispose();

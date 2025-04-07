@@ -85,9 +85,9 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
 	}
 
 	@Override
-	public void paintOutline(Graphics g, Component c, float width, float height, Shape contour,
-		Shape innerContour, ContainerColorTokens colorTokens) {
-		if (contour == null)
+	public void paintOutline(Graphics g, Component c, float width, float height, Shape outline,
+		Shape innerOutline, ContainerColorTokens colorTokens) {
+		if (outline == null)
 			return;
 
 		Graphics2D graphics = (Graphics2D) g.create();
@@ -114,12 +114,12 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
 		MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, this.fractions,
 				drawColors, CycleMethod.REPEAT);
 		graphics.setPaint(gradient);
-		graphics.draw(contour);
+		graphics.draw(outline);
 		graphics.dispose();
 	}
 
 	@Override
-	public boolean isPaintingInnerContour() {
+	public boolean isPaintingInnerOutline() {
 		return false;
 	}
 

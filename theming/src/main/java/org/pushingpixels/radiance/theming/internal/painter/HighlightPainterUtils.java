@@ -102,7 +102,7 @@ public class HighlightPainterUtils {
             fillAlpha *= colorTokens.getContainerSurfaceDisabledAlpha();
         }
         g2d.setComposite(WidgetUtilities.getAlphaComposite(c, fillAlpha, g));
-        highlightPainter.paintContourBackground(g2d, c, rect.width, rect.height, rect, colorTokens);
+        highlightPainter.paintSurface(g2d, c, rect.width, rect.height, rect, colorTokens);
 
         // Border
         if (paintHighlightBorders) {
@@ -150,14 +150,14 @@ public class HighlightPainterUtils {
                 int deltaTop = openSides.contains(RadianceThemingSlices.Side.TOP) ? openDelta : 0;
                 int deltaBottom = openSides.contains(RadianceThemingSlices.Side.BOTTOM) ? openDelta : 0;
 
-                Shape contour = getBorderPath(orientation, scaledWidth, scaledHeight, 0.0f, openSides);
+                Shape outline = getBorderPath(orientation, scaledWidth, scaledHeight, 0.0f, openSides);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(comp, borderAlpha, graphics1X));
-                Shape contourInner = getBorderPath(orientation, scaledWidth, scaledHeight, 1.0f, openSides);
+                Shape outlineInner = getBorderPath(orientation, scaledWidth, scaledHeight, 1.0f, openSides);
 
                 highlightOutlinePainter.paintOutline(graphics1X, comp,
                     scaledWidth + deltaLeft + deltaRight,
                     scaledHeight + deltaTop + deltaBottom,
-                    contour, contourInner, colorTokens);
+                    outline, outlineInner, colorTokens);
                 graphics1X.translate(deltaLeft, deltaTop);
             });
         graphics.dispose();

@@ -51,7 +51,7 @@ public interface RadianceButtonShaper extends RadianceTrait {
      * @param height      Button height.
      * @param scaleFactor Scale factor.
      * @param isInner     Indication whether the returned outline is used for the inner
-     *                    contour.
+     *                    outline.
      * @return The outline path for the specified button.
      */
     Shape getButtonOutline(AbstractButton button, float extraInsets,

@@ -249,7 +249,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         float radius = (float) scaleFactor *
             RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
 
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+        Shape outline = RadianceOutlineUtilities.getBaseOutline(
             this.slider.getComponentOrientation(),
             width, height, radius, null, 1.0f);
 
@@ -257,10 +257,10 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
         graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
             containerSurfaceAlpha, graphics1X));
-        surfacePainter.paintContourBackground(graphics1Xextra, slider, width, height,
-            contour, colorTokens);
+        surfacePainter.paintSurface(graphics1Xextra, slider, width, height,
+            outline, colorTokens);
 
-        Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
+        Shape outlineInner = RadianceOutlineUtilities.getBaseOutline(
             this.slider.getComponentOrientation(),
             width, height, radius - 1.0f, null, 2.0f);
         float containerOutlineAlpha =
@@ -268,7 +268,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
             containerOutlineAlpha, graphics1X));
         outlinePainter.paintOutline(graphics1Xextra, slider, width, height,
-            contour, contourInner, colorTokens);
+            outline, outlineInner, colorTokens);
 
         graphics1Xextra.dispose();
     }
@@ -317,7 +317,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             int fillWidth = fillMaxX - fillMinX;
             int fillHeight = height;
             if ((fillWidth > 0) && (fillHeight > 0)) {
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                Shape outline = RadianceOutlineUtilities.getBaseOutline(
                     this.slider.getComponentOrientation(),
                     fillWidth, fillHeight, radius, null, 1.0f);
                 graphics1Xextra.translate(fillMinX, 0);
@@ -326,14 +326,14 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, graphics1X));
-                surfacePainter.paintContourBackground(graphics1Xextra, this.slider, fillWidth, fillHeight,
-                    contour, colorTokens);
+                surfacePainter.paintSurface(graphics1Xextra, this.slider, fillWidth, fillHeight,
+                    outline, colorTokens);
 
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, graphics1X));
-                outlinePainter.paintOutline(graphics1Xextra, this.slider, fillWidth, fillHeight, contour,
+                outlinePainter.paintOutline(graphics1Xextra, this.slider, fillWidth, fillHeight, outline,
                     null, colorTokens);
             }
         } else {
@@ -354,7 +354,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             int fillWidth = fillMax - fillMin;
             int fillHeight = height;
             if ((fillWidth > 0) && (fillHeight > 0)) {
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                Shape outline = RadianceOutlineUtilities.getBaseOutline(
                     this.slider.getComponentOrientation(),
                     fillWidth, fillHeight, radius, null, 1.0f);
 
@@ -362,14 +362,14 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, graphics1X));
-                surfacePainter.paintContourBackground(graphics1Xextra, this.slider, fillWidth, fillHeight,
-                    contour, colorTokens);
+                surfacePainter.paintSurface(graphics1Xextra, this.slider, fillWidth, fillHeight,
+                    outline, colorTokens);
 
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, graphics1X));
-                outlinePainter.paintOutline(graphics1Xextra, this.slider, fillWidth, fillHeight, contour,
+                outlinePainter.paintOutline(graphics1Xextra, this.slider, fillWidth, fillHeight, outline,
                     null, colorTokens);
             }
         }

@@ -152,30 +152,30 @@ public class ButtonBackgroundDelegate {
             int deltaBottom =
                     ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
 
-            Shape contourOuter = shaper.getButtonOutline(button, 0.0f,
+            Shape outlineOuter = shaper.getButtonOutline(button, 0.0f,
                     scaledWidth + deltaLeft + deltaRight, scaledHeight + deltaTop + deltaBottom,
                     scaleFactor, false);
 
             graphics1X.translate(-deltaLeft, -deltaTop);
             if (isContentAreaFilled) {
-                // If the border is painted, compute a separate contour for the fill.
+                // If the border is painted, compute a separate outline for the fill.
                 // Otherwise pixels on the edge can "spill" outside
-                // the contour. Those pixels will be drawn by the outline painter.
-                Shape contourFill = isBorderPainted ? shaper.getButtonOutline(button, 0.5f,
+                // the outline. Those pixels will be drawn by the outline painter.
+                Shape outlineFill = isBorderPainted ? shaper.getButtonOutline(button, 0.5f,
                         scaledWidth + deltaLeft + deltaRight + 1.0f,
                         scaledHeight + deltaTop + deltaBottom + 1.0f, scaleFactor, false) :
-                        contourOuter;
+                        outlineOuter;
                 float containerSurfaceAlpha = overallAlpha *
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
                     overallAlpha * containerSurfaceAlpha, g));
-                surfacePainter.paintContourBackground(graphics1X, button,
+                surfacePainter.paintSurface(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
-                        scaledHeight + deltaTop + deltaBottom, contourFill, colorTokens);
+                        scaledHeight + deltaTop + deltaBottom, outlineFill, colorTokens);
             }
 
             if (isBorderPainted) {
-                Shape contourInner = outlinePainter.isPaintingInnerContour() ?
+                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
                         shaper.getButtonOutline(button, 1.0f,
                                 scaledWidth + deltaLeft + deltaRight,
                                 scaledHeight + deltaTop + deltaBottom, scaleFactor, true) : null;
@@ -185,7 +185,7 @@ public class ButtonBackgroundDelegate {
                     overallAlpha * containerOutlineAlpha, g));
                 outlinePainter.paintOutline(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
-                        scaledHeight + deltaTop + deltaBottom, contourOuter, contourInner,
+                        scaledHeight + deltaTop + deltaBottom, outlineOuter, outlineInner,
                         colorTokens);
             }
             graphics1X.translate(deltaLeft, deltaTop);
@@ -246,8 +246,8 @@ public class ButtonBackgroundDelegate {
         if (shaper == null) {
             return false;
         }
-        Shape contour = shaper.getButtonOutline(button, 0.0f, button.getWidth(), button.getHeight(),
+        Shape outline = shaper.getButtonOutline(button, 0.0f, button.getWidth(), button.getHeight(),
                 RadianceCommonCortex.getScaleFactor(button), false);
-        return contour.contains(x, y);
+        return outline.contains(x, y);
     }
 }

@@ -88,10 +88,10 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
     }
 
     @Override
-    public void paintContourBackground(Graphics g, Component comp, float width, float height,
-        Shape contour, ContainerColorTokens colorTokens) {
+    public void paintSurface(Graphics g, Component comp, float width, float height,
+        Shape outline, ContainerColorTokens colorTokens) {
 
-        this.baseSurfacePainter.paintContourBackground(g, comp, width, height, contour, colorTokens);
+        this.baseSurfacePainter.paintSurface(g, comp, width, height, outline, colorTokens);
 
         int iw = (int) width;
         int ih = (int) height;
@@ -100,7 +100,7 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
         int shineHeight = ih / (2 * SCALE);
 
         if ((shineWidth > 0) && (shineHeight > 0)) {
-            BufferedImage shineImage = getShineImage(comp, contour,
+            BufferedImage shineImage = getShineImage(comp, outline,
                 this.topQuery.query(colorTokens),
                 this.bottomQuery.query(colorTokens),
                 this.alpha, shineWidth, shineHeight);
@@ -117,7 +117,7 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
             graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
                 RenderingHints.VALUE_COLOR_RENDER_SPEED);
 
-            graphics.clip(contour);
+            graphics.clip(outline);
             graphics.drawImage(shineImage, 0, 0, iw, ih / 2, 0, 0,
                 shineImage.getWidth(), shineImage.getHeight(), null);
 
@@ -158,16 +158,16 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
 
             double topLeftCornerRadius = 0;
             double topRightCornerRadius = 0;
-            if (this.shine.contour instanceof RoundRectangle2D) {
+            if (this.shine.outline instanceof RoundRectangle2D) {
                 // This matches the logic in RadianceOutlineUtilities.getBaseOutline
-                RoundRectangle2D rrContour = (RoundRectangle2D) this.shine.contour;
-                topLeftCornerRadius = rrContour.getArcWidth() / (2.0 * SCALE);
-                topRightCornerRadius = rrContour.getArcWidth() / (2.0 * SCALE);
-            } else if (this.shine.contour instanceof Ellipse2D) {
+                RoundRectangle2D rrOutline = (RoundRectangle2D) this.shine.outline;
+                topLeftCornerRadius = rrOutline.getArcWidth() / (2.0 * SCALE);
+                topRightCornerRadius = rrOutline.getArcWidth() / (2.0 * SCALE);
+            } else if (this.shine.outline instanceof Ellipse2D) {
                 // This matches the logic in BladeIconUtils.drawRadioButton
-                Ellipse2D ellContour = (Ellipse2D) this.shine.contour;
-                topLeftCornerRadius = ellContour.getWidth() / (2.0 * SCALE);
-                topRightCornerRadius = ellContour.getWidth() / (2.0 * SCALE);
+                Ellipse2D ellOutline = (Ellipse2D) this.shine.outline;
+                topLeftCornerRadius = ellOutline.getWidth() / (2.0 * SCALE);
+                topRightCornerRadius = ellOutline.getWidth() / (2.0 * SCALE);
             }
 
             int[] dstPixels = new int[shineWidth];
@@ -257,15 +257,15 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
 
     private class Shine implements Composite {
         private Component comp;
-        private Shape contour;
+        private Shape outline;
         private Color topShineColor;
         private Color bottomShineColor;
         private float alpha;
 
-        public Shine(Component comp, Shape contour, Color topShineColor, Color bottomShineColor,
+        public Shine(Component comp, Shape outline, Color topShineColor, Color bottomShineColor,
                 float alpha) {
             this.comp = comp;
-            this.contour = contour;
+            this.outline = outline;
             this.topShineColor = topShineColor;
             this.bottomShineColor = bottomShineColor;
             this.alpha = alpha;
@@ -278,7 +278,7 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
         }
     }
 
-    private BufferedImage getShineImage(Component comp, Shape contour,
+    private BufferedImage getShineImage(Component comp, Shape outline,
             Color topShineColor, Color bottomShineColor, float alpha,
             int shineWidth, int shineHeight) {
         // Important - do not use GraphicsConfiguration.createCompatibleImage(.., .., Transparency.TRANSLUCENT)
@@ -287,7 +287,7 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
         BufferedImage shineImage = new BufferedImage(shineWidth, shineHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = shineImage.createGraphics();
 
-        g2d.setComposite(new Shine(comp, contour, topShineColor, bottomShineColor, alpha));
+        g2d.setComposite(new Shine(comp, outline, topShineColor, bottomShineColor, alpha));
 
         g2d.fillRect(0, 0, shineWidth, shineHeight);
         g2d.dispose();

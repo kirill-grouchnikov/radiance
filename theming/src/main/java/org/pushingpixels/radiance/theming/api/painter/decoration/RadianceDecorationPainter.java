@@ -63,10 +63,10 @@ public interface RadianceDecorationPainter extends RadianceTrait {
      * @param graphics           Graphics context.
      * @param comp               Component.
      * @param decorationAreaType Decoration area type. Must not be <code>null</code>.
-     * @param contour            Contour to fill.
-     * @param colorTokens        Color tokens for painting the decoration area.
+     * @param outline            Outline to paint.
+     * @param colorTokens        Color tokens for painting the outline.
      */
     void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
         ContainerColorTokens colorTokens);
 }

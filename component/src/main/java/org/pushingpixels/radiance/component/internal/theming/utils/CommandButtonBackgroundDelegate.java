@@ -279,25 +279,25 @@ public class CommandButtonBackgroundDelegate {
                         RadianceSizeUtils.getComponentFontSize(commandButton));
 
                 graphics1X.translate(dx, dy);
-                // Compute a separate contour for the fill.
+                // Compute a separate outline for the fill.
                 // Otherwise pixels on the edge can "spill" outside
-                // the contour. Those pixels will be drawn by the outline painter.
-                Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                // the outline. Those pixels will be drawn by the outline painter.
+                Shape outlineFill = RadianceOutlineUtilities.getBaseOutline(
                     commandButton.getComponentOrientation(),
                     scaledWidth + dw, scaledHeight + dh,
                     radius, straightSides, 0.5f);
-                surfacePainter.paintContourBackground(graphics1X, commandButton,
+                surfacePainter.paintSurface(graphics1X, commandButton,
                     scaledWidth + dw,
                     scaledHeight + dh,
-                    contourFill,
+                    outlineFill,
                     mutableContainerTokens);
 
                 // Border
-                Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                Shape outlineOuter = RadianceOutlineUtilities.getBaseOutline(
                     commandButton.getComponentOrientation(),
                     scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
                     straightSides, 0.0f);
-                Shape contourInner = outlinePainter.isPaintingInnerContour() ?
+                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
                     RadianceOutlineUtilities.getBaseOutline(
                         commandButton.getComponentOrientation(),
                         scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
@@ -306,7 +306,7 @@ public class CommandButtonBackgroundDelegate {
                 outlinePainter.paintOutline(graphics1X, commandButton,
                     scaledWidth + dw,
                     scaledHeight + dh,
-                    contourOuter, contourInner, mutableContainerTokens);
+                    outlineOuter, outlineInner, mutableContainerTokens);
 
                 graphics1X.translate(-dx, -dy);
             });

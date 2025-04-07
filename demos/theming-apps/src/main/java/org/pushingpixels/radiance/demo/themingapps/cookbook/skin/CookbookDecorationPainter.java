@@ -194,7 +194,7 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-        DecorationAreaType decorationAreaType, Shape contour, ContainerColorTokens colorTokens) {
+        DecorationAreaType decorationAreaType, Shape outline, ContainerColorTokens colorTokens) {
     }
 
     private Component getFarthest(Component comp, DecorationAreaType type) {

@@ -118,14 +118,13 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 
     @Override
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
 		ContainerColorTokens colorTokens) {
 
 		if (this.decoratedAreas.contains(decorationAreaType)) {
-			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
-				contour, colorTokens);
+			this.paintDecoratedBackground(graphics, comp, decorationAreaType, outline, colorTokens);
 		} else {
-			this.paintSolidBackground(graphics, contour, colorTokens);
+			this.paintSolidBackground(graphics, outline, colorTokens);
 		}
 	}
 
@@ -162,7 +161,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	}
 
 	private void paintDecoratedBackground(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
 		ContainerColorTokens colorTokens) {
 
 		Graphics2D g2d = (Graphics2D) graphics.create();
@@ -188,7 +187,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 			drawColors, CycleMethod.REPEAT);
 		g2d.setPaint(gradient);
 		g2d.translate(0, -dy);
-		g2d.fill(contour);
+		g2d.fill(outline);
 
 		g2d.dispose();
 	}
@@ -200,10 +199,10 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 		graphics.fillRect(0, 0, width, height);
 	}
 
-	private void paintSolidBackground(Graphics2D graphics, Shape contour,
+	private void paintSolidBackground(Graphics2D graphics, Shape outline,
 		ContainerColorTokens colorTokens) {
 
 		graphics.setColor(colorTokens.getContainerSurface());
-		graphics.fill(contour);
+		graphics.fill(outline);
 	}
 }

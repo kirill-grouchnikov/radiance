@@ -161,7 +161,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
         ContainerColorTokens colorTokens) {
 
         boolean isDark = colorTokens.isDark();
@@ -188,7 +188,7 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
                 CycleMethod.REPEAT);
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setPaint(gradientBottom);
-            g2d.fill(contour);
+            g2d.fill(outline);
             g2d.dispose();
         }
     }

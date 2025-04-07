@@ -29,15 +29,15 @@
  */
 package org.pushingpixels.radiance.demo.animation.kmusicapp
 
+import org.pushingpixels.radiance.animation.ktx.RadianceComponent
+import org.pushingpixels.radiance.animation.ktx.componentTimeline
+import org.pushingpixels.radiance.animation.ktx.from
 import org.pushingpixels.radiance.demo.animation.kmusicapp.details.DetailsWindowManager
 import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
 import org.pushingpixels.radiance.swing.ktx.addDelayedHierarchyListener
 import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
 import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
 import org.pushingpixels.radiance.swing.ktx.awt.render
-import org.pushingpixels.radiance.animation.ktx.RadianceComponent
-import org.pushingpixels.radiance.animation.ktx.componentTimeline
-import org.pushingpixels.radiance.animation.ktx.from
 import java.awt.*
 import java.awt.geom.Ellipse2D
 import javax.swing.JButton
@@ -107,12 +107,12 @@ class CloseButton : JButton() {
 
             // paint the background - black fill and a dark outline
             // based on the current foreground color
-            val contour = Ellipse2D.Double(1.0, 1.0, (width - 3).toDouble(), (height - 3).toDouble())
+            val outline = Ellipse2D.Double(1.0, 1.0, (width - 3).toDouble(), (height - 3).toDouble())
             it.color = Color.black
             it.stroke = BasicStroke(2.0f)
-            it.fill(contour)
+            it.fill(outline)
             it.color = this.foreground.deriveByBrightness(-0.5)
-            it.draw(contour)
+            it.draw(outline)
 
             // paint the outer cross (always white)
             it.color = Color.white

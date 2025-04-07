@@ -232,11 +232,11 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
                         .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, null);
-                    surfacePainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
-                        contour, colorTokens);
+                    surfacePainter.paintSurface(graphics1X, bar, scaledWidth, scaledHeight,
+                        outline, colorTokens);
                 });
         } else {
             // Flip width and height, and then apply a rotation transformation
@@ -249,11 +249,11 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
 
                     float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
                         .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, null);
-                    surfacePainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
-                        contour, colorTokens);
+                    surfacePainter.paintSurface(graphics1X, bar, scaledWidth, scaledHeight,
+                        outline, colorTokens);
                 });
         }
         graphics.dispose();
@@ -280,11 +280,11 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
                     RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.TRAILING;
                     Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, straightSides);
-                    surfacePainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
-                        contour, colorTokens);
+                    surfacePainter.paintSurface(graphics1X, bar, scaledWidth, scaledHeight,
+                        outline, colorTokens);
                 });
         } else {
             // Flip width and height, and then apply a rotation transformation
@@ -300,11 +300,11 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.TRAILING;
                     Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
 
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, straightSides);
-                    surfacePainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
-                        contour, colorTokens);
+                    surfacePainter.paintSurface(graphics1X, bar, scaledWidth, scaledHeight,
+                        outline, colorTokens);
                 });
         }
         graphics.dispose();

@@ -76,7 +76,7 @@ public class Glass3DDecorationPainter implements RadianceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
         ContainerColorTokens colorTokens) {
 
         ContainerColorTokens baseTokens = colorTokens;
@@ -92,6 +92,6 @@ public class Glass3DDecorationPainter implements RadianceDecorationPainter {
                     : baseTokens.getContainerSurfaceLowest() },
             MultipleGradientPaint.CycleMethod.REPEAT);
         graphics.setPaint(paint);
-        graphics.fill(contour);
+        graphics.fill(outline);
     }
 }

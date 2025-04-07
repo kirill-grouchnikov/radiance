@@ -117,28 +117,28 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     float trackWidth = presentationModel.getTrackSize().width * (float) scaleFactor;
                     float trackHeight = presentationModel.getTrackSize().height * (float) scaleFactor;
 
-                    Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outlineFill = RadianceOutlineUtilities.getBaseOutline(
                             switchComp.getComponentOrientation(),
                             trackWidth, trackHeight,
                             trackHeight * 0.5f,
                             null, 0.0f
                     );
 
-                    surfacePainter.paintContourBackground(graphics1X, switchComp, trackWidth,
-                        trackHeight, contourFill, mutableContainerTokens);
+                    surfacePainter.paintSurface(graphics1X, switchComp, trackWidth,
+                        trackHeight, outlineFill, mutableContainerTokens);
 
-                    Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outlineOuter = RadianceOutlineUtilities.getBaseOutline(
                             switchComp.getComponentOrientation(),
                             trackWidth, trackHeight,
                             trackHeight * 0.5f, null
                     );
-                    Shape contourInner = outlinePainter.isPaintingInnerContour() ? RadianceOutlineUtilities.getBaseOutline(
+                    Shape outlineInner = outlinePainter.isPaintingInnerOutline() ? RadianceOutlineUtilities.getBaseOutline(
                             switchComp.getComponentOrientation(),
                             trackWidth, trackHeight,
                             trackHeight * 0.5f - 1.0f, null, 1.0f
                     ) : null;
                     outlinePainter.paintOutline(graphics1X, switchComp, trackWidth, trackHeight,
-                        contourOuter, contourInner, mutableContainerTokens);
+                        outlineOuter, outlineInner, mutableContainerTokens);
 
                     float thumbSelectionFactor = stateTransitionTracker.getFacetStrength(
                             RadianceThemingSlices.ComponentStateFacet.SELECTION);

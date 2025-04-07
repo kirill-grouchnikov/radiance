@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.demo.animation.jmusicapp.content;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -149,9 +149,9 @@ public class Stage0Base extends JComponent {
 
         int radius = 16;
 
-        Shape contour = new RoundRectangle2D.Double(0, 0, getWidth() - 1,
+        Shape outline = new RoundRectangle2D.Double(0, 0, getWidth() - 1,
                 getHeight() - 1, radius, radius);
-        Shape innerContour = new RoundRectangle2D.Double(1, 1, getWidth() - 3,
+        Shape innerOutline = new RoundRectangle2D.Double(1, 1, getWidth() - 3,
                 getHeight() - 3, radius - 1, radius - 1);
 
         g2d.setComposite(AlphaComposite.SrcOver.derive(1.0f - (float) Math.pow(
@@ -163,12 +163,12 @@ public class Stage0Base extends JComponent {
                 new float[] { 0.0f, 0.49999f, 0.5f, 1.0f }, new Color[] {
                 new Color(119, 152, 251), new Color(80, 127, 250),
                 new Color(48, 109, 250), new Color(10, 97, 250) }));
-        g2d.fill(contour);
+        g2d.fill(outline);
         g2d.setPaint(new GradientPaint(0, 0, new Color(151, 179, 253), 0,
                 TITLE_HEIGHT, new Color(19, 92, 233)));
-        g2d.draw(innerContour);
+        g2d.draw(innerOutline);
         g2d.setColor(new Color(11, 61, 200));
-        g2d.draw(contour);
+        g2d.draw(outline);
 
         g2d.setClip(clip);
 
@@ -190,13 +190,13 @@ public class Stage0Base extends JComponent {
         g2d.clipRect(0, TITLE_HEIGHT, getWidth(), getHeight() - TITLE_HEIGHT + 1);
 
         g2d.setColor(new Color(0, 0, 0));
-        g2d.fill(contour);
+        g2d.fill(outline);
         g2d.setPaint(new GradientPaint(0, TITLE_HEIGHT, new Color(57, 56, 57),
                 0, getHeight() - TITLE_HEIGHT, new Color(50, 48, 50)));
-        g2d.draw(innerContour);
+        g2d.draw(innerOutline);
         g2d.setPaint(new GradientPaint(0, TITLE_HEIGHT, new Color(13, 11, 15),
                 0, getHeight() - TITLE_HEIGHT, new Color(15, 8, 13)));
-        g2d.draw(contour);
+        g2d.draw(outline);
 
         // separator
         g2d.setClip(clip);

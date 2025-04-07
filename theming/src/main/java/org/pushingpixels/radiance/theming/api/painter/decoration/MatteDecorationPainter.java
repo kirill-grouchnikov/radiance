@@ -109,7 +109,7 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
         ContainerColorTokens colorTokens) {
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
@@ -129,6 +129,6 @@ public class MatteDecorationPainter implements RadianceDecorationPainter {
                 MultipleGradientPaint.CycleMethod.NO_CYCLE);
 
         graphics.setPaint(paint);
-        graphics.fill(contour);
+        graphics.fill(outline);
     }
 }

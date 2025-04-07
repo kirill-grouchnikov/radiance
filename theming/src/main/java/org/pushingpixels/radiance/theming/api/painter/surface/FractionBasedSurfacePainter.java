@@ -61,8 +61,8 @@ public class FractionBasedSurfacePainter extends FractionBasedPainter implements
     }
 
     @Override
-    public void paintContourBackground(Graphics g, Component comp, float width, float height,
-            Shape contour, ContainerColorTokens colorTokens) {
+    public void paintSurface(Graphics g, Component comp, float width, float height,
+            Shape outline, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
 
         Color[] drawColors = new Color[this.fractions.length];
@@ -78,7 +78,7 @@ public class FractionBasedSurfacePainter extends FractionBasedPainter implements
         MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, this.fractions,
             drawColors, CycleMethod.REPEAT);
         graphics.setPaint(gradient);
-        graphics.fill(contour);
+        graphics.fill(outline);
         graphics.dispose();
     }
 

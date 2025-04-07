@@ -42,7 +42,7 @@ import java.awt.*;
  */
 public interface RadianceSurfacePainter extends RadianceTrait {
 	/**
-	 * Fills the contour that matches the specified parameters.
+	 * Fills the surface defined by the specified outline.
 	 *
 	 * @param g
 	 *            Graphics context.
@@ -52,11 +52,11 @@ public interface RadianceSurfacePainter extends RadianceTrait {
 	 *            Width of a UI component.
 	 * @param height
 	 *            Height of a UI component.
-	 * @param contour
-	 *            Contour of a UI component.
+	 * @param outline
+	 *            Outline of a UI component.
 	 * @param colorTokens
 	 *            Color tokens.
 	 */
-	void paintContourBackground(Graphics g, Component comp, float width, float height,
-			Shape contour, ContainerColorTokens colorTokens);
+	void paintSurface(Graphics g, Component comp, float width, float height,
+			Shape outline, ContainerColorTokens colorTokens);
 }

@@ -100,13 +100,13 @@ and implement the painting based on the current alpha value:
       g2d.clipRect(0, TITLE_HEIGHT, getWidth(), getHeight() - TITLE_HEIGHT + 1);
 
       g2d.setColor(new Color(0, 0, 0));
-      g2d.fill(contour);
+      g2d.fill(outline);
       g2d.setPaint(new GradientPaint(0, TITLE_HEIGHT, new Color(57, 56, 57),
               0, getHeight() - TITLE_HEIGHT, new Color(50, 48, 50)));
-      g2d.draw(innerContour);
+      g2d.draw(innerOutline);
       g2d.setPaint(new GradientPaint(0, TITLE_HEIGHT, new Color(13, 11, 15),
               0, getHeight() - TITLE_HEIGHT, new Color(15, 8, 13)));
-      g2d.draw(contour);
+      g2d.draw(outline);
       ...
       g2d.dispose();
    }

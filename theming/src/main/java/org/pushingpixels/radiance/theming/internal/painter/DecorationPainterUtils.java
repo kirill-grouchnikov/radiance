@@ -216,7 +216,7 @@ public class DecorationPainterUtils {
     }
 
     public static void paintDecorationArea(Graphics g, Component c,
-        Shape contour, RadianceThemingSlices.DecorationAreaType decorationType,
+        Shape outline, RadianceThemingSlices.DecorationAreaType decorationType,
         ContainerColorTokens tokens, boolean force) {
         // System.out.println("Painting " + c.getClass().getSimpleName());
         boolean isInCellRenderer = (SwingUtilities.getAncestorOfClass(CellRendererPane.class,
@@ -239,7 +239,7 @@ public class DecorationPainterUtils {
         RadianceDecorationPainter painter = skin.getDecorationPainter();
 
         Graphics2D g2d = (Graphics2D) g.create();
-        painter.paintDecorationArea(g2d, c, decorationType, contour, tokens);
+        painter.paintDecorationArea(g2d, c, decorationType, outline, tokens);
 
         g2d.dispose();
     }

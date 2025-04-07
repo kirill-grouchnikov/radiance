@@ -472,11 +472,11 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
                     int comboFontSize = RadianceSizeUtils.getComponentFontSize(this.comboBox);
                     float radius = (float) scaleFactor *
                             RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
                             this.comboBox.getComponentOrientation(),
                             scaledWidth - 1, scaledHeight - 1, radius, null, 0);
                     RadianceCoreUtilities.paintFocus(graphics1X, this.comboBox, this.comboBox,
-                            this, scaleFactor, contour, bounds, 1.0f,
+                            this, scaleFactor, outline, bounds, 1.0f,
                             (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(
                                     this.comboBox, RadianceSizeUtils.getComponentFontSize(this.comboBox)));
                 }
@@ -556,11 +556,11 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
         if (!RadianceCoreUtilities.isCurrentLookAndFeel()) {
             return false;
         }
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(this.comboBox,
+        Shape outline = RadianceOutlineUtilities.getBaseOutline(this.comboBox,
                 RadianceSizeUtils.getClassicButtonCornerRadius(
                         RadianceSizeUtils.getComponentFontSize(this.comboBox)),
                 null);
-        return contour.contains(me.getPoint());
+        return outline.contains(me.getPoint());
     }
 
     @Override

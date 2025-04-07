@@ -64,10 +64,10 @@ public class FlatDecorationPainter implements RadianceDecorationPainter {
 
     @Override
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
 		ContainerColorTokens colorTokens) {
 
 		graphics.setColor(colorTokens.getContainerSurface());
-		graphics.fill(contour);
+		graphics.fill(outline);
 	}
 }

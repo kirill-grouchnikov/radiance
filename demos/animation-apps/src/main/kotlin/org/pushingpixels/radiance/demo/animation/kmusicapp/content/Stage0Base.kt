@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.radiance.demo.animation.kmusicapp.content
 
-import org.pushingpixels.radiance.swing.ktx.addDelayedHierarchyListener
-import org.pushingpixels.radiance.swing.ktx.awt.render
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.animation.ktx.componentTimeline
 import org.pushingpixels.radiance.animation.ktx.from
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.swing.ktx.addDelayedHierarchyListener
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import java.awt.*
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
@@ -137,9 +137,9 @@ open class Stage0Base : JComponent() {
 
             val radius = 16
 
-            val contour = RoundRectangle2D.Double(0.0, 0.0, (width - 1).toDouble(),
+            val outline = RoundRectangle2D.Double(0.0, 0.0, (width - 1).toDouble(),
                     (height - 1).toDouble(), radius.toDouble(), radius.toDouble())
-            val innerContour = RoundRectangle2D.Double(1.0, 1.0, (width - 3).toDouble(),
+            val innerOutline = RoundRectangle2D.Double(1.0, 1.0, (width - 3).toDouble(),
                     (height - 3).toDouble(), (radius - 1).toDouble(), (radius - 1).toDouble())
 
             it.composite = AlphaComposite.SrcOver.derive(1.0f - (1.0f - alpha).toDouble().pow(3.0).toFloat())
@@ -149,12 +149,12 @@ open class Stage0Base : JComponent() {
             it.paint = LinearGradientPaint(0f, 0f, 0f, TITLE_HEIGHT.toFloat(),
                     floatArrayOf(0.0f, 0.49999f, 0.5f, 1.0f),
                     arrayOf(Color(119, 152, 251), Color(80, 127, 250), Color(48, 109, 250), Color(10, 97, 250)))
-            it.fill(contour)
+            it.fill(outline)
             it.paint = GradientPaint(0f, 0f, Color(151, 179, 253), 0f,
                     TITLE_HEIGHT.toFloat(), Color(19, 92, 233))
-            it.draw(innerContour)
+            it.draw(innerOutline)
             it.color = Color(11, 61, 200)
-            it.draw(contour)
+            it.draw(outline)
 
             it.clip = clip
 
@@ -176,13 +176,13 @@ open class Stage0Base : JComponent() {
             it.clipRect(0, TITLE_HEIGHT, width, height - TITLE_HEIGHT + 1)
 
             it.color = Color(0, 0, 0)
-            it.fill(contour)
+            it.fill(outline)
             it.paint = GradientPaint(0f, TITLE_HEIGHT.toFloat(), Color(57, 56, 57),
                     0f, (height - TITLE_HEIGHT).toFloat(), Color(50, 48, 50))
-            it.draw(innerContour)
+            it.draw(innerOutline)
             it.paint = GradientPaint(0f, TITLE_HEIGHT.toFloat(), Color(13, 11, 15),
                     0f, (height - TITLE_HEIGHT).toFloat(), Color(15, 8, 13))
-            it.draw(contour)
+            it.draw(outline)
 
             // separator
             it.clip = clip

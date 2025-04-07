@@ -1,6 +1,6 @@
 ## Radiance look and feel - outline painters
 
-The base class for Radiance outline painters is `RadianceOutlinePainter`. Outline painter is used to paint the outer contour of most UI components, such as buttons, check boxes, radio buttons, progress bars, tabs, scroll bars and others. This allows providing a consistent and pluggable appearance to those components. In addition, it provides an external API for applications that wish to skin custom components in a visually consistent manner.
+The base class for Radiance outline painters is `RadianceOutlinePainter`. Outline painter is used to paint the outer outline of most UI components, such as buttons, check boxes, radio buttons, progress bars, tabs, scroll bars and others. This allows providing a consistent and pluggable appearance to those components. In addition, it provides an external API for applications that wish to skin custom components in a visually consistent manner.
 
 The `RadianceOutlinePainter` interface defines the following painting method:
 
@@ -16,39 +16,39 @@ The `RadianceOutlinePainter` interface defines the following painting method:
    *            Width of a UI component.
    * @param height
    *            Height of a UI component.
-   * @param contour
-   *            Primary contour to paint.
-   * @param innerContour
-   *            Optional inner contour  to paint. May be ignored if the
-   *            specific implementation paints only the primary contour.
+   * @param outline
+   *            Primary outline to paint.
+   * @param innerOutline
+   *            Optional inner outline  to paint. May be ignored if the
+   *            specific implementation paints only the primary outline.
    * @param colorTokens
    *            The color tokens.
    */
   public void paintOutline(Graphics g, Component c, int width, int height,
-      Shape contour, Shape innerContour, ContainerColorTokens colorTokens);
+      Shape outline, Shape innerOutline, ContainerColorTokens colorTokens);
 ```
 
-The `contour` and `innerContour` parameters specify the outer and inner contour shapes to paint, while the `colorTokens` specifies the color tokens to be used to compute the outline colors. The internal implementation of a specific outline painter may decide to ignore the `innerContour` if this are not relevant.
+The `outline` and `innerOutline` parameters specify the outer and inner outline shapes to paint, while the `colorTokens` specifies the color tokens to be used to compute the outline colors. The internal implementation of a specific outline painter may decide to ignore the `innerOutline` if this are not relevant.
 
 For optimization purposes, the `RadianceOutlinePainter` defines the following method that must be implemented by the specific outline painter:
 
 ```java
   /**
    * Returns boolean indication whether this outline painter is painting the
-   * inner contours.
+   * inner outlines.
    *
    * @return <code>true</code> if this outline painter is painting the inner
-   *         contours, <code>false</code> otherwise.
+   *         outlines, <code>false</code> otherwise.
    */
-  public boolean isPaintingInnerContour();
+  public boolean isPaintingInnerOutline();
 ```
 
-Note that if this method returns `false`, the implementation of the `paintOutline()` **must** ignore the `innerContour` parameter.
+Note that if this method returns `false`, the implementation of the `paintOutline()` **must** ignore the `innerOutline` parameter.
 
 Radiance provides a number of outline painters that can be used as a starting point for your custom application visuals.
 
 * `FractionBasedOutlinePainter` enables vertical gradients with arbitrary multi-stop colors. Most core Radiance outline painters extend this class.
-* `CompositeOutlinePainter` combines two outline painters, using one for just the primary contour, and the other just for the inner contour.
+* `CompositeOutlinePainter` combines two outline painters, using one for just the primary outline, and the other just for the inner outline.
 
 
 ### Management API

@@ -65,7 +65,7 @@ class ShapeEditor : JFrame() {
 
     private val loadImageButton: JButton
 
-    private val loadContourButton: JButton
+    private val loadOutlineButton: JButton
 
     private val showImageCB: JCheckBox
 
@@ -81,7 +81,7 @@ class ShapeEditor : JFrame() {
 
     private val editModeRB: JRadioButton
 
-    private val saveContourButton: JButton
+    private val saveOutlineButton: JButton
 
     private val cancelButton: JButton
 
@@ -305,7 +305,7 @@ class ShapeEditor : JFrame() {
 
     init {
         this.loadImageButton = JButton("Load image")
-        this.loadContourButton = JButton("Load contour")
+        this.loadOutlineButton = JButton("Load outline")
         this.showImageCB = JCheckBox("Show image")
         this.showPathCB = JCheckBox("Show path")
         this.editMajorRB = JRadioButton("Edit major points")
@@ -313,7 +313,7 @@ class ShapeEditor : JFrame() {
         this.addModeRB = JRadioButton("Add mode")
         this.deleteModeRB = JRadioButton("Delete mode")
         this.editModeRB = JRadioButton("Edit mode")
-        this.saveContourButton = JButton("Save contour")
+        this.saveOutlineButton = JButton("Save outline")
         this.cancelButton = JButton("Cancel")
 
         val editGroup = ButtonGroup()
@@ -354,7 +354,7 @@ class ShapeEditor : JFrame() {
             }
         }
 
-        this.loadContourButton.addActionListener {
+        this.loadOutlineButton.addActionListener {
             val chooser = JFileChooser()
             chooser.fileSelectionMode = JFileChooser.FILES_ONLY
             // modalize on the main frame
@@ -374,7 +374,7 @@ class ShapeEditor : JFrame() {
             }
         }
 
-        this.saveContourButton.addActionListener {
+        this.saveOutlineButton.addActionListener {
             val chooser = JFileChooser()
             chooser.fileSelectionMode = JFileChooser.FILES_ONLY
             // modalize on the main frame
@@ -414,7 +414,7 @@ class ShapeEditor : JFrame() {
 
         val topPanel = JPanel(FlowLayout(FlowLayout.CENTER))
         topPanel.add(this.loadImageButton)
-        topPanel.add(this.loadContourButton)
+        topPanel.add(this.loadOutlineButton)
 
         val midPanel = JPanel(GridLayout(3, 1))
         val showPanel = JPanel(GridLayout(2, 1))
@@ -437,7 +437,7 @@ class ShapeEditor : JFrame() {
         midPanel.add(addDeleteModePanel)
 
         val bottomPanel = JPanel(FlowLayout(FlowLayout.CENTER))
-        bottomPanel.add(this.saveContourButton)
+        bottomPanel.add(this.saveOutlineButton)
         bottomPanel.add(this.cancelButton)
 
         val controlPanel = JPanel(BorderLayout())

@@ -11,5 +11,5 @@ The highlight painters can also be used to paint visuals of third-party componen
 If you wish to use the highlight painters of the current skin to provide additional custom painting in your application, call:
 
 * `RadianceThemingCortex.GlobalScope.getCurrentSkin()` to retrieve the current skin.
-* `RadianceSkin.getHighlightSurfacePainter()` to retrieve the highlight surface painter of the current skin and `RadianceSurfacePainter.paintContourBackground()` to paint the highlight surface on the specific graphics context.
-* `RadianceSkin.getHighlightOutlinePainter()` to retrieve the highlight outline painter of the current skin and `RadianceOutlinePainter.paintContourBackground()` to paint the highlight outline on the specific graphics context.
+* `RadianceSkin.getHighlightSurfacePainter()` to retrieve the highlight surface painter of the current skin and `RadianceSurfacePainter.paintSurface()` to paint the highlight surface on the specific graphics context.
+* `RadianceSkin.getHighlightOutlinePainter()` to retrieve the highlight outline painter of the current skin and `RadianceOutlinePainter.paintSurface()` to paint the highlight outline on the specific graphics context.

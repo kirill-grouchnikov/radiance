@@ -35,7 +35,7 @@ import java.awt.*;
 
 /**
  * Composite outline painter that delegates the painting of outer and inner
- * contours.
+ * outlines.
  * 
  * @author Kirill Grouchnikov
  */
@@ -46,12 +46,12 @@ public class CompositeOutlinePainter implements RadianceOutlinePainter {
 	private String displayName;
 
 	/**
-	 * Delegate painter for painting the inner contours.
+	 * Delegate painter for painting the inner outlines.
 	 */
 	private RadianceOutlinePainter inner;
 
 	/**
-	 * Delegate painter for painting the outer contours.
+	 * Delegate painter for painting the outer outlines.
 	 */
 	private RadianceOutlinePainter outer;
 
@@ -61,9 +61,9 @@ public class CompositeOutlinePainter implements RadianceOutlinePainter {
 	 * @param displayName
 	 *            Display name.
 	 * @param outer
-	 *            Delegate painter for painting the outer contours.
+	 *            Delegate painter for painting the outer outlines.
 	 * @param inner
-	 *            Delegate painter for painting the inner contours.
+	 *            Delegate painter for painting the inner outlines.
 	 */
 	public CompositeOutlinePainter(String displayName,
 			RadianceOutlinePainter outer, RadianceOutlinePainter inner) {
@@ -73,18 +73,18 @@ public class CompositeOutlinePainter implements RadianceOutlinePainter {
 	}
 
 	@Override
-	public boolean isPaintingInnerContour() {
+	public boolean isPaintingInnerOutline() {
 		return true;
 	}
 
 	@Override
-	public void paintOutline(Graphics g, Component c, float width, float height, Shape contour,
-		Shape innerContour, ContainerColorTokens colorTokens) {
-		if (innerContour != null) {
-			this.inner.paintOutline(g, c, width, height, innerContour, null, colorTokens);
+	public void paintOutline(Graphics g, Component c, float width, float height, Shape outline,
+		Shape innerOutline, ContainerColorTokens colorTokens) {
+		if (innerOutline != null) {
+			this.inner.paintOutline(g, c, width, height, innerOutline, null, colorTokens);
 		}
-		if (contour != null) {
-			this.outer.paintOutline(g, c, width, height, contour, null, colorTokens);
+		if (outline != null) {
+			this.outer.paintOutline(g, c, width, height, outline, null, colorTokens);
 		}
 	}
 

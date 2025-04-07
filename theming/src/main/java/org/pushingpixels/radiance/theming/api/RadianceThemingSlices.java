@@ -189,7 +189,7 @@ public final class RadianceThemingSlices {
 
                 int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner)) ? 0
                         : 1;
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         mainComp.getComponentOrientation(),
                         (float) scaleFactor * textRect.width + 2 * delta,
                         (float) scaleFactor * textRect.height,
@@ -198,7 +198,7 @@ public final class RadianceThemingSlices {
 
                 graphics.translate((float) scaleFactor * textRect.x - delta,
                         (float) scaleFactor * textRect.y);
-                graphics.draw(contour);
+                graphics.draw(outline);
             }
 
             @Override
@@ -232,14 +232,14 @@ public final class RadianceThemingSlices {
                             1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                             new float[]{dashLength, dashGap}, dashPhase));
 
-                    Shape contour = shaper.getButtonOutline((AbstractButton) mainComp, 1.0f,
+                    Shape outline = shaper.getButtonOutline((AbstractButton) mainComp, 1.0f,
                             (float) scaleFactor * mainComp.getWidth(),
                             (float) scaleFactor * mainComp.getHeight(),
                             scaleFactor, false);
-                    graphics.draw(contour);
+                    graphics.draw(outline);
                 } else {
                     float delta = RadianceSizeUtils.getBorderStrokeWidth(mainComp);
-                    Shape contour = (focusShape != null) ? focusShape
+                    Shape outline = (focusShape != null) ? focusShape
                             : RadianceOutlineUtilities.getBaseOutline(
                             mainComp.getComponentOrientation(),
                             (float) scaleFactor * mainComp.getWidth() - 2 * delta,
@@ -251,7 +251,7 @@ public final class RadianceThemingSlices {
                     graphics.setStroke(new BasicStroke(
                             1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                             new float[]{dashLength, dashGap}, dashPhase));
-                    graphics.draw(contour);
+                    graphics.draw(outline);
                 }
             }
 
@@ -289,14 +289,14 @@ public final class RadianceThemingSlices {
                                 new float[]{dashLength, dashGap}, dashPhase));
                         float insetsPix = extraPadding;
 
-                        Shape contour = shaper.getButtonOutline((AbstractButton) mainComp, insetsPix,
+                        Shape outline = shaper.getButtonOutline((AbstractButton) mainComp, insetsPix,
                                 (float) scaleFactor * mainComp.getWidth(),
                                 (float) scaleFactor * mainComp.getHeight(), scaleFactor, true);
-                        graphics.draw(contour);
+                        graphics.draw(outline);
                     }
                 } else {
                     graphics.translate(extraPadding / 2, extraPadding / 2);
-                    Shape contour = (focusShape != null) ? focusShape
+                    Shape outline = (focusShape != null) ? focusShape
                             : RadianceOutlineUtilities.getBaseOutline(
                             mainComp.getComponentOrientation(),
                             (float) scaleFactor * mainComp.getWidth() - extraPadding,
@@ -308,7 +308,7 @@ public final class RadianceThemingSlices {
                     graphics.setStroke(new BasicStroke(
                             1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                             new float[]{dashLength, dashGap}, dashPhase));
-                    graphics.draw(contour);
+                    graphics.draw(outline);
                 }
             }
 
@@ -334,15 +334,15 @@ public final class RadianceThemingSlices {
                         return;
 
                     if (shaper.isProportionate()) {
-                        Shape contour = shaper.getButtonOutline((AbstractButton) mainComp, extraPadding,
+                        Shape outline = shaper.getButtonOutline((AbstractButton) mainComp, extraPadding,
                                 (float) scaleFactor * mainComp.getWidth(),
                                 (float) scaleFactor * mainComp.getHeight(),
                                 scaleFactor, true);
-                        graphics.draw(contour);
+                        graphics.draw(outline);
                     }
                 } else {
                     graphics.translate(extraPadding / 2, extraPadding / 2);
-                    Shape contour = (focusShape != null) ? focusShape
+                    Shape outline = (focusShape != null) ? focusShape
                             : RadianceOutlineUtilities.getBaseOutline(
                             mainComp.getComponentOrientation(),
                             (float) scaleFactor * mainComp.getWidth() - extraPadding,
@@ -351,7 +351,7 @@ public final class RadianceThemingSlices {
                                     - extraPadding,
                             null);
 
-                    graphics.draw(contour);
+                    graphics.draw(outline);
                 }
             }
         },

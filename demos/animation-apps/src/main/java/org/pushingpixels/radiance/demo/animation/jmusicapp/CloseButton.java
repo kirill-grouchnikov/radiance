@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.demo.animation.jmusicapp;
 
-import org.pushingpixels.radiance.demo.animation.jmusicapp.details.DetailsWindowManager;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.demo.animation.jmusicapp.details.DetailsWindowManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -125,12 +125,12 @@ public class CloseButton extends JButton {
 
         // paint the background - black fill and a dark outline
         // based on the current foreground color
-        Shape contour = new Ellipse2D.Double(1, 1, getWidth() - 3, getHeight() - 3);
+        Shape outline = new Ellipse2D.Double(1, 1, getWidth() - 3, getHeight() - 3);
         g2d.setColor(Color.black);
         g2d.setStroke(new BasicStroke(2.0f));
-        g2d.fill(contour);
+        g2d.fill(outline);
         g2d.setColor(this.getForeground().darker().darker());
-        g2d.draw(contour);
+        g2d.draw(outline);
 
         // paint the outer cross (always white)
         g2d.setColor(Color.white);

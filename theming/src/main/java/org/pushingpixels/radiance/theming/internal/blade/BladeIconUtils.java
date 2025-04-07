@@ -83,33 +83,33 @@ public class BladeIconUtils {
                     RadianceSizeUtils.getClassicButtonCornerRadius(
                         RadianceSizeUtils.getComponentFontSize(component));
 
-                int contourDim = scaledWidth - 1;
-                Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                int outlineDim = scaledWidth - 1;
+                Shape outlineOuter = RadianceOutlineUtilities.getBaseOutline(
                     component.getComponentOrientation(),
-                    contourDim, contourDim,
+                    outlineDim, outlineDim,
                     cornerRadius, null, 0.0f);
 
                 float containerAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerAlpha));
-                Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                Shape outlineFill = RadianceOutlineUtilities.getBaseOutline(
                     component.getComponentOrientation(),
-                    contourDim + 1, contourDim + 1,
+                    outlineDim + 1, outlineDim + 1,
                     cornerRadius, null, 0.5f);
-                surfacePainter.paintContourBackground(graphics1X, component,
-                    contourDim, contourDim,
-                    contourFill, colorTokens);
+                surfacePainter.paintSurface(graphics1X, component,
+                    outlineDim, outlineDim,
+                    outlineFill, colorTokens);
 
-                Shape contourInner = outlinePainter.isPaintingInnerContour() ?
+                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
                     RadianceOutlineUtilities.getBaseOutline(
                         component.getComponentOrientation(),
-                        contourDim, contourDim, cornerRadius, null, 1.0f)
+                        outlineDim, outlineDim, cornerRadius, null, 1.0f)
                     : null;
                 float containerOutlineAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
-                outlinePainter.paintOutline(graphics1X, component, contourDim, contourDim,
-                    contourOuter, contourInner, colorTokens);
+                outlinePainter.paintOutline(graphics1X, component, outlineDim, outlineDim,
+                    outlineOuter, outlineInner, colorTokens);
 
                 float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
                     1.0f : checkMarkVisibility;
@@ -160,18 +160,18 @@ public class BladeIconUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                int contourDim = scaledWidth;
-                Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
+                int outlineDim = scaledWidth;
+                Shape outlineOuter = new Ellipse2D.Float(0.0f, 0.0f, outlineDim, outlineDim);
 
                 float containerAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerAlpha));
-                surfacePainter.paintContourBackground(graphics1X, button,
-                    contourDim, contourDim,
-                    new Ellipse2D.Float(0.5f, 0.5f, contourDim, contourDim),
+                surfacePainter.paintSurface(graphics1X, button,
+                    outlineDim, outlineDim,
+                    new Ellipse2D.Float(0.5f, 0.5f, outlineDim, outlineDim),
                     colorTokens);
 
-                Shape contourInner = outlinePainter.isPaintingInnerContour() ?
+                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
                     new Ellipse2D.Float(1.0f, 1.0f, contourDim - 2.0f, contourDim - 2.0f)
                     : null;
                 float containerOutlineAlpha = currentState.isDisabled()
@@ -224,7 +224,7 @@ public class BladeIconUtils {
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, g));
-                surfacePainter.paintContourBackground(graphics1X, slider,
+                surfacePainter.paintSurface(graphics1X, slider,
                     scaledWidth, scaledHeight,
                     RadianceOutlineUtilities.getTriangleButtonOutline(
                         scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
@@ -270,7 +270,7 @@ public class BladeIconUtils {
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, g));
-                surfacePainter.paintContourBackground(graphics1X, slider,
+                surfacePainter.paintSurface(graphics1X, slider,
                     scaledWidth, scaledHeight,
                     RadianceOutlineUtilities.getTriangleButtonOutline(
                         scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
@@ -307,7 +307,7 @@ public class BladeIconUtils {
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, g));
-                surfacePainter.paintContourBackground(graphics1X, slider,
+                surfacePainter.paintSurface(graphics1X, slider,
                     scaledWidth, scaledHeight,
                     new Ellipse2D.Float(0.5f, 0.5f,
                         scaledWidth - 2.0f, scaledHeight - 2.0f),
@@ -348,7 +348,7 @@ public class BladeIconUtils {
                         RadianceSizeUtils.getComponentFontSize(tree)) / 1.5f, null,
                     1.0f);
 
-                surfacePainter.paintContourBackground(graphics1X, tree, scaledWidth, scaledHeight,
+                surfacePainter.paintSurface(graphics1X, tree, scaledWidth, scaledHeight,
                     contour, colorTokens);
                 outlinePainter.paintOutline(graphics1X, tree, scaledWidth, scaledHeight, contour,
                     null, colorTokens);

@@ -179,7 +179,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
                 float radius = scaledHeight / 2;
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                Shape outline = RadianceOutlineUtilities.getBaseOutline(
                     this.scrollbar.getComponentOrientation(), scaledWidth, scaledHeight, radius, null, 1.0f);
 
                 // Rotate the graphics context for correct "orientation" of the visuals
@@ -191,15 +191,15 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(AlphaComposite.getInstance(
                     AlphaComposite.SRC_OVER, containerAlpha));
-                painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    contour, mutableContainerTokens);
+                painter.paintSurface(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
+                    outline, mutableContainerTokens);
 
                 float containerOutlineAlpha = currState.isDisabled()
                     ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(AlphaComposite.getInstance(
                     AlphaComposite.SRC_OVER, containerOutlineAlpha));
                 outlinePainter.paintOutline(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    contour, null, mutableContainerTokens);
+                    outline, null, mutableContainerTokens);
             });
         graphics.dispose();
     }
@@ -237,7 +237,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
                 float radius = scaledHeight / 2;
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                Shape outline = RadianceOutlineUtilities.getBaseOutline(
                     this.scrollbar.getComponentOrientation(), scaledWidth, scaledHeight, radius, null, 1.0f);
                 graphics1X.translate(x, y + voffset * scaleFactor);
 
@@ -245,15 +245,15 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(AlphaComposite.getInstance(
                     AlphaComposite.SRC_OVER, containerAlpha));
-                painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    contour, mutableContainerTokens);
+                painter.paintSurface(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
+                    outline, mutableContainerTokens);
 
                 float containerOutlineAlpha = currState.isDisabled()
                     ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(AlphaComposite.getInstance(
                     AlphaComposite.SRC_OVER, containerOutlineAlpha));
                 outlinePainter.paintOutline(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    contour, null, mutableContainerTokens);
+                    outline, null, mutableContainerTokens);
             });
         graphics.dispose();
     }

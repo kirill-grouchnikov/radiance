@@ -344,7 +344,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                             currState, CoreColorTokenUtils.ContainerType.MUTED);
                         RadianceSurfacePainter surfacePainter = RadianceCoreUtilities
                                 .getSurfacePainter(this.commandButton);
-                        surfacePainter.paintContourBackground(graphics1X, this.commandButton,
+                        surfacePainter.paintSurface(graphics1X, this.commandButton,
                                 extended.x + extended.width, extended.y + extended.height,
                                 extended, tokens);
 

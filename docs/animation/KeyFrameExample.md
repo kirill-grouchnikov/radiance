@@ -76,4 +76,4 @@ The panel constructor also creates a repaint timeline so that the progress anima
 SwingRepaintTimeline.repaintBuilder(this).playLoop(RepeatBehavior.LOOP);
 ```
 
-The actual painting is done in the custom `paintComponent` method of this `JPanel` extension. The full code can be found in the `ProgressIndication` class. It uses the matching Java2D graphics operations to paint the overall background, the inner gradient background and contour, the track and the track highlight. The track highlight painting uses the current values of both `xPosition` and `alpha` fields to display the correct visuals.
+The actual painting is done in the custom `paintComponent` method of this `JPanel` extension. The full code can be found in the `ProgressIndication` class. It uses the matching Java2D graphics operations to paint the overall background, the inner gradient background and outline, the track and the track highlight. The track highlight painting uses the current values of both `xPosition` and `alpha` fields to display the correct visuals.

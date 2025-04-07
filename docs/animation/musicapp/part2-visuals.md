@@ -15,14 +15,14 @@ protected void paintComponent(Graphics g) {
    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
          RenderingHints.VALUE_ANTIALIAS_ON);
 ```
-Next, we compute the outer and inner contours of the panel (the inner contour will be painted with slightly brighter colors as shown in the screenshot above):
+Next, we compute the outer and inner outlines of the panel (the inner outline will be painted with slightly brighter colors as shown in the screenshot above):
 
 ```java
    int radius = 16;
 
-   Shape contour = new RoundRectangle2D.Double(0, 0, getWidth() - 1,
+   Shape outline = new RoundRectangle2D.Double(0, 0, getWidth() - 1,
          getHeight() - 1, radius, radius);
-   Shape innerContour = new RoundRectangle2D.Double(1, 1, getWidth() - 3,
+   Shape innerOutline = new RoundRectangle2D.Double(1, 1, getWidth() - 3,
          getHeight() - 3, radius - 1, radius - 1);
 ```
 When the main window is first shown and disposed, a special timeline is played to make the window appear and disappear smoothly. The timeline interpolates the alpha field between 0.0 and 0.9. The main panel has two parts – the bright blue header and the black content. While the content is painted based on the current value of alpha, the header uses less translucency:
@@ -31,7 +31,7 @@ When the main window is first shown and disposed, a special timeline is played t
    g2d.setComposite(AlphaComposite.SrcOver.derive(1.0f - (float) Math.pow(
          1.0f - alpha, 3.0)));
 ```
-To paint the header, we first update the current clip to make sure that the painting is only done in the header section. Next, we fill the contour, draw the inner contour and draw the outer contour – all based on the specific colors required by the target design:
+To paint the header, we first update the current clip to make sure that the painting is only done in the header section. Next, we fill the outline, draw the inner outline and draw the outer outline – all based on the specific colors required by the target design:
 
 ```java
    // top part
@@ -40,12 +40,12 @@ To paint the header, we first update the current clip to make sure that the pain
          new float[] { 0.0f, 0.49999f, 0.5f, 1.0f }, new Color[] {
                new Color(119, 152, 251), new Color(80, 127, 250),
                new Color(48, 109, 250), new Color(10, 97, 250) }));
-   g2d.fill(contour);
+   g2d.fill(outline);
    g2d.setPaint(new GradientPaint(0, 0, new Color(151, 179, 253), 0,
          TITLE_HEIGHT, new Color(19, 92, 233)));
-   g2d.draw(innerContour);
+   g2d.draw(innerOutline);
    g2d.setColor(new Color(11, 61, 200));
-   g2d.draw(contour);
+   g2d.draw(outline);
 ```
 Now we restore the clip:
 
@@ -70,7 +70,7 @@ If we have an artist name to display, we position it in the middle of the title 
    }
    ```
 
-The main content area is painted in the same way as the header. We update the clip, fill the contour, draw the inner contour and draw the outer contour:
+The main content area is painted in the same way as the header. We update the clip, fill the outline, draw the inner outline and draw the outer outline:
 
 ```java
    // bottom part
@@ -78,13 +78,13 @@ The main content area is painted in the same way as the header. We update the cl
    g2d.clipRect(0, TITLE_HEIGHT, getWidth(), getHeight() - TITLE_HEIGHT + 1);
 
    g2d.setColor(new Color(0, 0, 0));
-   g2d.fill(contour);
+   g2d.fill(outline);
    g2d.setPaint(new GradientPaint(0, TITLE_HEIGHT, new Color(57, 56, 57),
          0, getHeight() - TITLE_HEIGHT, new Color(50, 48, 50)));
-   g2d.draw(innerContour);
+   g2d.draw(innerOutline);
    g2d.setPaint(new GradientPaint(0, TITLE_HEIGHT, new Color(13, 11, 15),
          0, getHeight() - TITLE_HEIGHT, new Color(15, 8, 13)));
-   g2d.draw(contour);
+   g2d.draw(outline);
 ```
 Finally, we draw a single line separator between the title and main content areas:
 

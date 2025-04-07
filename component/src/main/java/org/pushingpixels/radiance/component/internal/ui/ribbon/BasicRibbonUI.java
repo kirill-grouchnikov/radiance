@@ -243,7 +243,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 taskToggleButtonsHostPanel, JScrollablePanel.ScrollType.HORIZONTALLY);
         this.taskToggleButtonsScrollablePanel.setScrollOnRollover(false);
         // need to repaint the entire ribbon on change since scrolling
-        // the task toggle buttons affects the contour outline
+        // the task toggle buttons affects the outline
         // of the ribbon
         this.taskToggleButtonsScrollablePanel.addChangeListener(changeEvent -> ribbon.repaint());
         this.ribbon.add(this.taskToggleButtonsScrollablePanel);

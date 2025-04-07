@@ -190,13 +190,13 @@ Here, after switching the anti-alias on, we are setting the composite based on t
 ```java
    // paint the background - black fill and a dark outline
    // based on the current foreground color
-   Shape contour = new Ellipse2D.Double(1, 1, getWidth() - 3,
+   Shape outline = new Ellipse2D.Double(1, 1, getWidth() - 3,
       getHeight() - 3);
    g2d.setColor(Color.black);
    g2d.setStroke(new BasicStroke(2.0f));
-   g2d.fill(contour);
+   g2d.fill(outline);
    g2d.setColor(this.getForeground().darker().darker());
-   g2d.draw(contour);
+   g2d.draw(outline);
 
    // paint the outer cross (always white)
    g2d.setColor(Color.white);
@@ -208,7 +208,7 @@ Here, after switching the anti-alias on, we are setting the composite based on t
    g2d.drawLine(getWidth() - offset - 1, offset, offset, getHeight()
       - offset - 1);
 ```
-This code paints the black background and the white outer cross. Note how here we are using the current foreground color for the outer contour of the button – since setForeground calls repaint inside, on every step of the rollover timeline the foreground will be changed, and the paintComponent method will be called – effectively animating the outer contour from white to blue on mouse enter and from blue to white on mouse exit.
+This code paints the black background and the white outer cross. Note how here we are using the current foreground color for the outer outline of the button – since setForeground calls repaint inside, on every step of the rollover timeline the foreground will be changed, and the paintComponent method will be called – effectively animating the outer outline from white to blue on mouse enter and from blue to white on mouse exit.
 
 ```java
    // paint the inner cross (using the current foreground color)

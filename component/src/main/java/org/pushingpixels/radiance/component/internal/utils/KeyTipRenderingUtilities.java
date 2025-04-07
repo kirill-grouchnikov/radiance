@@ -77,7 +77,7 @@ public class KeyTipRenderingUtilities {
                     float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
                             RadianceSizeUtils.getComponentFontSize(c));
 
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
                             c.getComponentOrientation(),
                             scaledWidth, scaledHeight, radius,
                             null, 1.0f);
@@ -85,10 +85,10 @@ public class KeyTipRenderingUtilities {
                         graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
                             c, tokens.getContainerSurfaceDisabledAlpha(), graphics));
                     }
-                    surfacePainter.paintContourBackground(graphics1X, c, scaledWidth, scaledHeight,
-                            contour, tokens);
+                    surfacePainter.paintSurface(graphics1X, c, scaledWidth, scaledHeight,
+                            outline, tokens);
 
-                    Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
+                    Shape outlineInner = RadianceOutlineUtilities.getBaseOutline(
                             c.getComponentOrientation(),
                             scaledWidth, scaledHeight,
                             radius, null, 2.0f);
@@ -96,8 +96,8 @@ public class KeyTipRenderingUtilities {
                         graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
                             c, tokens.getContainerOutlineDisabledAlpha(), graphics));
                     }
-                    outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, contour,
-                            contourInner, tokens);
+                    outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, outline,
+                            outlineInner, tokens);
                 });
 
         graphics.setColor(CoreColorTokenUtils.getContainerTokens(

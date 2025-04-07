@@ -66,14 +66,14 @@ public class CookbookSurfacePainter implements RadianceSurfacePainter {
     }
 
     @Override
-    public void paintContourBackground(Graphics g, Component comp, float width, float height,
-        Shape contour, ContainerColorTokens colorTokens) {
+    public void paintSurface(Graphics g, Component comp, float width, float height,
+        Shape outline, ContainerColorTokens colorTokens) {
         if (comp instanceof JScrollBar) {
-            this.flatDelegate.paintContourBackground(g, comp, width, height, contour, colorTokens);
+            this.flatDelegate.paintSurface(g, comp, width, height, outline, colorTokens);
             return;
         }
 
-        this.delegate.paintContourBackground(g, comp, width, height, contour, colorTokens);
+        this.delegate.paintSurface(g, comp, width, height, outline, colorTokens);
 
         if (comp instanceof JCommandButton) {
             // special case - overlay the buttons with the watermark image
@@ -92,7 +92,7 @@ public class CookbookSurfacePainter implements RadianceSurfacePainter {
                     BufferedImage watermark = ((CookbookDecorationPainter) decoPainter)
                         .getWatermarkImage(decorationAreaType);
                     Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.clip(contour);
+                    g2d.clip(outline);
                     g2d.setComposite(AlphaComposite.SrcOver.derive(0.7f));
                     int dx = comp.getLocationOnScreen().x;
                     int dy = comp.getLocationOnScreen().y;
