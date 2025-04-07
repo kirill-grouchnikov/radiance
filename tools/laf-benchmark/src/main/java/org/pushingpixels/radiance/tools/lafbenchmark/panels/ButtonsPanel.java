@@ -30,9 +30,9 @@
 package org.pushingpixels.radiance.tools.lafbenchmark.panels;
 
 import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.radiance.tools.lafbenchmark.*;
 import org.pushingpixels.radiance.tools.lafbenchmark.commands.ChainCommand;
 import org.pushingpixels.radiance.tools.lafbenchmark.commands.ConfigurationCommand;
-import org.pushingpixels.radiance.tools.lafbenchmark.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,7 +56,7 @@ public class ButtonsPanel extends JPanel {
      *
      * @author Kirill Grouchnikov
      */
-    private class MarginCommand implements ConfigurationCommand<AbstractButton> {
+    private static class MarginCommand implements ConfigurationCommand<AbstractButton> {
         @Override
         public void configure(AbstractButton ab) {
             ab.setMargin(new Insets(5, 5, 5, 5));
@@ -68,7 +68,7 @@ public class ButtonsPanel extends JPanel {
      *
      * @author Kirill Grouchnikov
      */
-    private class TextCommand implements ConfigurationCommand<AbstractButton> {
+    private static class TextCommand implements ConfigurationCommand<AbstractButton> {
         /**
          * Text to set.
          */
@@ -94,7 +94,7 @@ public class ButtonsPanel extends JPanel {
      *
      * @author Kirill Grouchnikov
      */
-    private class FontCommand implements ConfigurationCommand<AbstractButton> {
+    private static class FontCommand implements ConfigurationCommand<AbstractButton> {
         /**
          * Font to set.
          */
@@ -120,7 +120,7 @@ public class ButtonsPanel extends JPanel {
      *
      * @author Kirill Grouchnikov
      */
-    private class IconCommand implements ConfigurationCommand<AbstractButton> {
+    private static class IconCommand implements ConfigurationCommand<AbstractButton> {
         /**
          * Icon to set.
          */
@@ -149,7 +149,7 @@ public class ButtonsPanel extends JPanel {
      *
      * @author Kirill Grouchnikov
      */
-    private class NoContentAreaFilledCommand implements
+    private static class NoContentAreaFilledCommand implements
             ConfigurationCommand<AbstractButton> {
         @Override
         public void configure(AbstractButton ab) {
@@ -162,7 +162,7 @@ public class ButtonsPanel extends JPanel {
      *
      * @author Kirill Grouchnikov
      */
-    private class NoBorderPaintedCommand implements
+    private static class NoBorderPaintedCommand implements
             ConfigurationCommand<AbstractButton> {
         @Override
         public void configure(AbstractButton ab) {
@@ -256,13 +256,10 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "Custom margin", null, new MarginCommand());
 
         builder.appendSeparator("Misc settings");
-        this.addRow(builder, "No content area", null,
-                new NoContentAreaFilledCommand());
+        this.addRow(builder, "No content area", null, new NoContentAreaFilledCommand());
         this.addRow(builder, "No border", null, new NoBorderPaintedCommand());
         this.addRow(builder, "No background", null,
-                new ChainCommand<Component>(new ConfigurationCommand[] {
-                        new NoContentAreaFilledCommand(),
-                        new NoBorderPaintedCommand()}));
+                new ChainCommand<Component>(new ConfigurationCommand[] {new NoContentAreaFilledCommand(), new NoBorderPaintedCommand()}));
 
         builder.appendSeparator("Unicode texts");
         this.addRow(builder, "Hebrew", null, new TextCommand(
@@ -399,7 +396,7 @@ public class ButtonsPanel extends JPanel {
 
     @PerformanceScenarioParticipant
     public PerformanceScenario getChangeTextScenario() {
-        return new BasePerformanceScenario<AbstractButton>(
+        return new BasePerformanceScenario<>(
                 ButtonsPanel.this, AbstractButton.class, false) {
             Map<AbstractButton, String> origText;
 

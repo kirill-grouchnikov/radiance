@@ -67,6 +67,8 @@ public class SkinTonalUtilities {
             RadianceThemingSlices.DecorationAreaType.NONE);
         ContainerColorTokens mainMutedTokens = skin.getMutedContainerTokens(
             RadianceThemingSlices.DecorationAreaType.NONE);
+        ContainerColorTokens mainNeutralTokens = skin.getNeutralContainerTokens(
+            RadianceThemingSlices.DecorationAreaType.NONE);
         Color controlText = new ColorUIResource(mainActiveTokens.getContainerSurface());
         Color foregroundColor = RadianceColorUtilities.getForegroundColor(mainMutedTokens);
         Color backgroundActiveColor = new ColorUIResource(mainActiveTokens.getContainerSurface());
@@ -74,11 +76,12 @@ public class SkinTonalUtilities {
 
         ColorUIResource defaultBackgroundColor = new ColorUIResource(
                 RadianceCoreUtilities.getBackgroundFill(skin, RadianceThemingSlices.DecorationAreaType.NONE));
-        ColorUIResource defaultTextBackgroundColor =
-                new ColorUIResource(mainMutedTokens.getContainerSurfaceLow());
+        ColorUIResource defaultTextBackgroundColor = mainMutedTokens.isDark()
+            ? new ColorUIResource(mainMutedTokens.getContainerSurfaceHigh())
+            : new ColorUIResource(mainMutedTokens.getContainerSurfaceLow());
 
         Color disabledForegroundColor = RadianceColorUtilities.getForegroundColor(mainMutedTokens);
-        float alpha = skin.getNeutralContainerTokens((Component) null).getOnContainerDisabledAlpha();
+        float alpha = mainNeutralTokens.getOnContainerDisabledAlpha();
         Color disabledTextComponentForegroundColor = new ColorUIResource(
                 RadianceColorUtilities.getInterpolatedColor(
                     disabledForegroundColor, defaultTextBackgroundColor, alpha));
