@@ -33,6 +33,8 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
+import java.util.Arrays;
+
 /**
  * Base painter with fraction-based stops and a color query associated with each
  * stop. This class allows creating multi-stop gradients with exact control over
@@ -75,9 +77,7 @@ public abstract class FractionBasedPainter implements RadianceTrait {
 
 	private static int[] makeDefaultAlphas(int count) {
 		int[] result = new int[count];
-		for (int i = 0; i < count; i++) {
-			result[i] = 255;
-		}
+        Arrays.fill(result, 255);
 		return result;
 	}
 

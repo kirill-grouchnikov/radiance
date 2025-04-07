@@ -113,7 +113,7 @@ public class RecipeListPanel extends SingleContentPanel {
 
         // Footer content
         FormBuilder footerPaneBuilder = FormBuilder.create().
-                columns("pref, 12dlu, 0dlu:grow").
+                columns("pref, 12dlu, 0dlu:grow, 8dlu, 6dlu").
                 rows("p").
                 padding(new EmptyBorder(6, 0, 4, 0));
 
@@ -137,6 +137,7 @@ public class RecipeListPanel extends SingleContentPanel {
 
         footerPaneBuilder.add(controlButtons).xy(1, 1);
         footerPaneBuilder.add(searchTextField).xy(3, 1);
+        footerPaneBuilder.add(new ResizeGripper()).xy(5, 1);
 
         this.getFooterContentPanel().add(footerPaneBuilder.build());
 

@@ -38,6 +38,7 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.*;
+import java.util.Arrays;
 
 /**
  * Surface painter that draws visuals with subtle 3D gradient appearance. This class is part of
@@ -174,9 +175,7 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
             for (int row = 0; row < shineHeight; row++) {
                 if (row <= gap) {
                     // Leading vertical gap
-                    for (int col = 0; col < shineWidth; col++) {
-                        dstPixels[col] = 0x00000000;
-                    }
+                    Arrays.fill(dstPixels, 0x00000000);
                 } else {
                     // Get the interpolated shine color for this row
                     int rowColor = RadianceColorUtilities.getInterpolatedRGB(

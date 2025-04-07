@@ -43,10 +43,7 @@ import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.ListUI;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Base class for list renderers that are more complex than what is provided by
@@ -104,9 +101,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
     }
 
     protected void registerThemeAwareLabelsWithText(JLabel... labels) {
-        for (JLabel label : labels) {
-            this.themeAwareLabels.add(label);
-        }
+        this.themeAwareLabels.addAll(Arrays.asList(labels));
     }
 
     protected void unregisterThemeAwareLabelsWithText(JLabel... labels) {

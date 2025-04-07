@@ -43,10 +43,7 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.TreeUI;
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Base class for tree renderers that are more complex than what is provided by
@@ -102,9 +99,7 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
     }
 
     protected void registerThemeAwareLabelsWithText(JLabel... labels) {
-        for (JLabel label : labels) {
-            this.themeAwareLabels.add(label);
-        }
+        this.themeAwareLabels.addAll(Arrays.asList(labels));
     }
 
     protected void unregisterThemeAwareLabelsWithText(JLabel... labels) {
