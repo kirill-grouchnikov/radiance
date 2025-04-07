@@ -12,7 +12,7 @@ Taskbar content is arranged as a single-line horizontal flow of components. If t
 
 In the screenshot below you can see that overflow taskbar content that has a number of buttons and one checkbox. One of the buttons corresponds to the [in-ribbon gallery](RibbonBandGalleries.md) from the "Quick Styles" ribbon band. In the taskbar that gallery is projected as a small popup button with the full ribbon content and extra popup commands shown when that button is activated:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1428" border=0/>
 
 ### Taskbar content - commands
 
@@ -34,7 +34,7 @@ You don't need to configure the rich tooltip twice for the same "Paste" command.
 
 ### Taskbar content - galleries
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1428" border=0/>
 
 Here is the code behind this popup button that, when activated, shows the ribbon gallery content in its popup menu:
 

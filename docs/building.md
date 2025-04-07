@@ -10,7 +10,7 @@ Radiance is built with Java 11. Search for "Java 11 download" in your favorite s
 
 Radiance artifacts are split into three groups - `core`, `demo` and `tools`. Core artifacts are binaries that provide application-facing functionality of **Common**, **Animation**, **Theming**, **Components** etc. Demo artifacts are binaries that provide the bundled test / demo applications for local testing of the various core Radiance libraries. Tools artifacts are binaries for general maintenance of various Radiance libraries.
 
-To build library artifacts, run `./gradlew` in your terminal. After this command completes, the packaged jar files will be under the matching library folders. To copy all the jars under one location, run `./gradlew copyJars` command. For version `X.Y` of Radiance (see `version` in `build.gradle`), the artifacts will be copied under:
+To build library artifacts, run `./gradlew build` in your terminal. After this command completes, the packaged jar files will be under the matching library folders. To copy all the jars under one location, run `./gradlew copyJars` command. For version `X.Y` of Radiance (see `version` in `build.gradle`), the artifacts will be copied under:
 
 * `drop/X.Y/core` for core artifacts
 * `drop/X.Y/demo` for demo artifacts

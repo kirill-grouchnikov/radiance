@@ -35,7 +35,7 @@ the [Ephemeral](https://github.com/kirill-grouchnikov/ephemeral) design system. 
 
 [Components](docs/component/overview.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing the powerful command button and breadcrumb bar components, it packs an Office Command Bar (ribbon) container that hosts complex hierarchies of content on a flexible and adaptive surface.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1338" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1428" border=0/>
 
 ## Core Kotlin libraries
 
