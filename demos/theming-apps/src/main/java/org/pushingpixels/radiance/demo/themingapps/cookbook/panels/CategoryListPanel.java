@@ -50,7 +50,7 @@ public class CategoryListPanel extends SingleContentPanel {
         super(mainPanelTopOffset);
 
         FormBuilder footerPaneBuilder = FormBuilder.create().
-                columns("pref, 0dlu:grow, 6dlu").
+                columns("pref, 0dlu:grow, 0dlu, 0dlu, 6dlu").
                 rows("p").
                 padding(new EmptyBorder(6, 0, 4, 0));
 
@@ -76,7 +76,8 @@ public class CategoryListPanel extends SingleContentPanel {
                 .buildComponent();
 
         footerPaneBuilder.add(controlButtons).xy(1, 1);
-        footerPaneBuilder.add(new ResizeGripper()).xy(3, 1);
+        footerPaneBuilder.add(new JTextField(0)).xy(3, 1);
+        footerPaneBuilder.add(new ResizeGripper()).xy(5, 1);
 
         this.getFooterContentPanel().add(footerPaneBuilder.build());
     }
