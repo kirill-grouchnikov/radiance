@@ -1080,7 +1080,7 @@ public class RadianceCoreUtilities {
         graphics1X.setComposite(WidgetUtilities.getAlphaComposite(mainComp, focusStrength, graphics1X));
 
         graphics1X.setColor(focusColor);
-        focusKind.paintFocus(mainComp, focusedComp, transitionAwareUI, graphics1X, scaleFactor,
+        focusKind.paintFocus1X(mainComp, focusedComp, transitionAwareUI, graphics1X, scaleFactor,
                 focusShape, textRect, extraPadding);
     }
 

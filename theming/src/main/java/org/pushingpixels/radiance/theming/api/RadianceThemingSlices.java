@@ -162,7 +162,9 @@ public final class RadianceThemingSlices {
          */
         NONE {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+            public void paintFocus1X(Component mainComp, Component focusedComp,
+                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
+                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
             }
         },
 
@@ -171,34 +173,39 @@ public final class RadianceThemingSlices {
          */
         TEXT {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
-                if (textRect == null)
+            public void paintFocus1X(Component mainComp, Component focusedComp,
+                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
+                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+
+                if (textRect == null) {
                     return;
-                if ((textRect.width == 0) || (textRect.height == 0))
+                }
+                if ((textRect.width == 0) || (textRect.height == 0)) {
                     return;
+                }
 
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 float dashLength = (float) scaleFactor * getDashLength(fontSize);
                 float dashGap = (float) scaleFactor * getDashGap(fontSize);
                 float dashPhase = (dashLength + dashGap)
-                        * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
+                    * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
 
-                graphics.setStroke(new BasicStroke(1.0f,
-                        BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                        new float[]{dashLength, dashGap}, dashPhase));
+                graphics1X.setStroke(new BasicStroke(1.0f,
+                    BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
+                    new float[]{dashLength, dashGap}, dashPhase));
 
-                int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner)) ? 0
-                        : 1;
+                int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner))
+                    ? 0 : 1;
                 Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                        mainComp.getComponentOrientation(),
-                        (float) scaleFactor * textRect.width + 2 * delta,
-                        (float) scaleFactor * textRect.height,
-                        (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(fontSize),
-                        null);
+                    mainComp.getComponentOrientation(),
+                    (float) scaleFactor * textRect.width + 2 * delta,
+                    (float) scaleFactor * textRect.height,
+                    (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(fontSize),
+                    null);
 
-                graphics.translate((float) scaleFactor * textRect.x - delta,
-                        (float) scaleFactor * textRect.y);
-                graphics.draw(outline);
+                graphics1X.translate((float) scaleFactor * textRect.x - delta,
+                    (float) scaleFactor * textRect.y);
+                graphics1X.draw(outline);
             }
 
             @Override
@@ -212,45 +219,47 @@ public final class RadianceThemingSlices {
          */
         ALL {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp,
-                    TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor,
-                    Shape focusShape, Rectangle textRect, float extraPadding) {
+            public void paintFocus1X(Component mainComp, Component focusedComp,
+                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X, double scaleFactor,
+                Shape focusShape, Rectangle textRect, float extraPadding) {
+
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 float dashLength = (float) scaleFactor * getDashLength(fontSize);
                 float dashGap = (float) scaleFactor * getDashGap(fontSize);
                 float dashPhase = (dashLength + dashGap) * (1.0f
-                        - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
+                    - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
 
                 if ((focusShape == null)
-                        && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
-                        && !(mainComp instanceof JRadioButton))) {
+                    && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
+                    && !(mainComp instanceof JRadioButton))) {
                     RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(mainComp);
-                    if (shaper == null)
+                    if (shaper == null) {
                         return;
+                    }
 
-                    graphics.setStroke(new BasicStroke(
-                            1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[]{dashLength, dashGap}, dashPhase));
+                    graphics1X.setStroke(new BasicStroke(
+                        1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
+                        new float[]{dashLength, dashGap}, dashPhase));
 
                     Shape outline = shaper.getButtonOutline((AbstractButton) mainComp, 1.0f,
-                            (float) scaleFactor * mainComp.getWidth(),
-                            (float) scaleFactor * mainComp.getHeight(),
-                            scaleFactor, false);
-                    graphics.draw(outline);
+                        (float) scaleFactor * mainComp.getWidth(),
+                        (float) scaleFactor * mainComp.getHeight(),
+                        scaleFactor, false);
+                    graphics1X.draw(outline);
                 } else {
                     Shape outline = (focusShape != null) ? focusShape
-                            : RadianceOutlineUtilities.getBaseOutline(
+                        : RadianceOutlineUtilities.getBaseOutline(
                             mainComp.getComponentOrientation(),
                             (float) scaleFactor * mainComp.getWidth() - 2,
                             (float) scaleFactor * mainComp.getHeight() - 2,
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                                    RadianceSizeUtils.getComponentFontSize(mainComp)),
+                                RadianceSizeUtils.getComponentFontSize(mainComp)),
                             null);
 
-                    graphics.setStroke(new BasicStroke(
-                            1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[]{dashLength, dashGap}, dashPhase));
-                    graphics.draw(outline);
+                    graphics1X.setStroke(new BasicStroke(
+                    1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
+                        new float[]{dashLength, dashGap}, dashPhase));
+                    graphics1X.draw(outline);
                 }
             }
 
@@ -265,36 +274,38 @@ public final class RadianceThemingSlices {
          */
         ALL_INNER {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI,
-                    Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect,
-                    float extraPadding) {
+            public void paintFocus1X(Component mainComp, Component focusedComp,
+                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
+                double scaleFactor, Shape focusShape, Rectangle textRect,
+                float extraPadding) {
 
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 float dashLength = (float) scaleFactor * getDashLength(fontSize);
                 float dashGap = (float) scaleFactor * getDashGap(fontSize);
                 float dashPhase = (dashLength + dashGap) * (1.0f
-                        - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
+                    - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
 
                 if ((focusShape == null)
-                        && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
-                        && !(mainComp instanceof JRadioButton))) {
+                    && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
+                    && !(mainComp instanceof JRadioButton))) {
                     RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(mainComp);
-                    if (shaper == null)
+                    if (shaper == null) {
                         return;
+                    }
 
                     if (shaper.isProportionate()) {
-                        graphics.setStroke(new BasicStroke(
-                                1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                                new float[]{dashLength, dashGap}, dashPhase));
+                        graphics1X.setStroke(new BasicStroke(
+                            1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
+                            new float[]{dashLength, dashGap}, dashPhase));
                         float insetsPix = extraPadding;
 
                         Shape outline = shaper.getButtonOutline((AbstractButton) mainComp, insetsPix,
-                                (float) scaleFactor * mainComp.getWidth(),
-                                (float) scaleFactor * mainComp.getHeight(), scaleFactor, true);
-                        graphics.draw(outline);
+                            (float) scaleFactor * mainComp.getWidth(),
+                            (float) scaleFactor * mainComp.getHeight(), scaleFactor, true);
+                        graphics1X.draw(outline);
                     }
                 } else {
-                    graphics.translate(extraPadding / 2, extraPadding / 2);
+                    graphics1X.translate(extraPadding / 2, extraPadding / 2);
                     Shape outline = (focusShape != null) ? focusShape
                             : RadianceOutlineUtilities.getBaseOutline(
                             mainComp.getComponentOrientation(),
@@ -304,10 +315,10 @@ public final class RadianceThemingSlices {
                                     - extraPadding,
                             null);
 
-                    graphics.setStroke(new BasicStroke(
-                            1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[]{dashLength, dashGap}, dashPhase));
-                    graphics.draw(outline);
+                    graphics1X.setStroke(new BasicStroke(
+                        1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
+                        new float[]{dashLength, dashGap}, dashPhase));
+                    graphics1X.draw(outline);
                 }
             }
 
@@ -322,35 +333,40 @@ public final class RadianceThemingSlices {
          */
         ALL_STRONG_INNER {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+            public void paintFocus1X(Component mainComp, Component focusedComp,
+                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
+                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
-                graphics.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+                graphics1X.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
                 if ((focusShape == null)
-                        && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
-                        && !(mainComp instanceof JRadioButton))) {
+                    && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
+                    && !(mainComp instanceof JRadioButton))) {
+
                     RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(mainComp);
-                    if (shaper == null)
+                    if (shaper == null) {
                         return;
+                    }
 
                     if (shaper.isProportionate()) {
                         Shape outline = shaper.getButtonOutline((AbstractButton) mainComp, extraPadding,
-                                (float) scaleFactor * mainComp.getWidth(),
-                                (float) scaleFactor * mainComp.getHeight(),
-                                scaleFactor, true);
-                        graphics.draw(outline);
+                            (float) scaleFactor * mainComp.getWidth(),
+                            (float) scaleFactor * mainComp.getHeight(),
+                            scaleFactor, true);
+                        graphics1X.draw(outline);
                     }
                 } else {
-                    graphics.translate(extraPadding / 2, extraPadding / 2);
+                    graphics1X.translate(extraPadding / 2, extraPadding / 2);
                     Shape outline = (focusShape != null) ? focusShape
-                            : RadianceOutlineUtilities.getBaseOutline(
+                        : RadianceOutlineUtilities.getBaseOutline(
                             mainComp.getComponentOrientation(),
                             (float) scaleFactor * mainComp.getWidth() - extraPadding,
                             (float) scaleFactor * mainComp.getHeight() - extraPadding,
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(fontSize)
-                                    - extraPadding,
+                                - extraPadding,
                             null);
 
-                    graphics.draw(outline);
+                    graphics1X.draw(outline);
                 }
             }
         },
@@ -360,24 +376,27 @@ public final class RadianceThemingSlices {
          */
         UNDERLINE {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
-                if (textRect == null)
+            public void paintFocus1X(Component mainComp, Component focusedComp,
+                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
+                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+                if (textRect == null) {
                     return;
+                }
 
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 float dashLength = (float) scaleFactor * getDashLength(fontSize);
                 float dashGap = (float) scaleFactor * getDashGap(fontSize);
                 float dashPhase = (dashLength + dashGap)
-                        * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
+                    * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
 
-                graphics.setStroke(new BasicStroke(
-                        1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                        new float[]{dashLength, dashGap}, dashPhase));
+                graphics1X.setStroke(new BasicStroke(
+                    1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
+                    new float[]{dashLength, dashGap}, dashPhase));
 
-                graphics.translate((float) scaleFactor * textRect.x - 1, (float) scaleFactor * textRect.y);
-                graphics.drawLine(0, (int) (scaleFactor * textRect.height - 1),
-                        (int) (scaleFactor * textRect.width), (int) (scaleFactor * textRect.height - 1));
-                graphics.dispose();
+                graphics1X.translate((float) scaleFactor * textRect.x - 1, (float) scaleFactor * textRect.y);
+                graphics1X.drawLine(0, (int) (scaleFactor * textRect.height - 1),
+                    (int) (scaleFactor * textRect.width), (int) (scaleFactor * textRect.height - 1));
+                graphics1X.dispose();
             }
 
             @Override
@@ -391,22 +410,26 @@ public final class RadianceThemingSlices {
          */
         STRONG_UNDERLINE {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
-                if (textRect == null)
-                    return;
+            public void paintFocus1X(Component mainComp, Component focusedComp,
+                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
+                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
 
-                graphics.setStroke(new BasicStroke(
-                        1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
-                graphics.translate((float) scaleFactor * textRect.x - 1,
-                        (float) scaleFactor * textRect.y);
-                graphics.drawLine(0, (int) (scaleFactor * textRect.height - 1),
-                        (int) (scaleFactor * textRect.width), (int) (scaleFactor * textRect.height - 1));
+                if (textRect == null) {
+                    return;
+                }
+
+                graphics1X.setStroke(new BasicStroke(
+                    1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+                graphics1X.translate((float) scaleFactor * textRect.x - 1,
+                    (float) scaleFactor * textRect.y);
+                graphics1X.drawLine(0, (int) (scaleFactor * textRect.height - 1),
+                    (int) (scaleFactor * textRect.width), (int) (scaleFactor * textRect.height - 1));
             }
         };
 
-        public abstract void paintFocus(Component mainComp, Component focusedComp,
-                TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor,
-                Shape focusShape, Rectangle textRect, float extraPadding);
+        public abstract void paintFocus1X(Component mainComp, Component focusedComp,
+            TransitionAwareUI transitionAwareUI, Graphics2D graphics1X, double scaleFactor,
+            Shape focusShape, Rectangle textRect, float extraPadding);
 
         /**
          * Returns DPI-aware dash length for dash-based focus painting.
