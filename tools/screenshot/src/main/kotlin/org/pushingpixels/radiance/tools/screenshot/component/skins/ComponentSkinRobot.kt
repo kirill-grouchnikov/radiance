@@ -152,7 +152,7 @@ abstract class ComponentSkinRobot(
         ribbonFrame.paint(g)
 
         val finalIm = RadianceCommonCortex.getBlankScaledImage(
-            RadianceCommonCortex.getScaleFactor(ribbonFrame), 500, 200
+            RadianceCommonCortex.getScaleFactor(ribbonFrame), 900, 300
         )
         finalIm.graphics.drawImage(bi, 0, 0, null)
 
