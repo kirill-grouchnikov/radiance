@@ -1199,7 +1199,7 @@ public class RadianceCoreUtilities {
      * Returns the outline painter for the specified component.
      *
      * @param comp Component.
-     * @return Border painter for the specified component.
+     * @return Outline painter for the specified component.
      * @see RadianceSkin#getOutlinePainter()
      */
     public static RadianceOutlinePainter getOutlinePainter(Component comp) {

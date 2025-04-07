@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 
 /**
- * Fill painter that draws visuals with classic appearance. This class is part
+ * Surface painter that draws visuals with classic appearance. This class is part
  * of officially supported API.
  * 
  * @author Kirill Grouchnikov

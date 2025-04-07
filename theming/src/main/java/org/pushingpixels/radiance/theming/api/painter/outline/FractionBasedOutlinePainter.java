@@ -39,7 +39,7 @@ import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 
 /**
- * Border painter with fraction-based stops and a color query associated with
+ * Outline painter with fraction-based stops and a color query associated with
  * each stop. This class allows creating multi-gradient borders with exact
  * control over which color is used at every gradient control point.
  *

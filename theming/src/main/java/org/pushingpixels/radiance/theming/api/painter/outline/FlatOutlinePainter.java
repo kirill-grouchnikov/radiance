@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 
 /**
- * Border painter that draws visuals with flat appearance using the container outline
+ * Outline painter that draws visuals with flat appearance using the container outline
  * token. This class is part of officially supported API.
  *
  * @author Kirill Grouchnikov

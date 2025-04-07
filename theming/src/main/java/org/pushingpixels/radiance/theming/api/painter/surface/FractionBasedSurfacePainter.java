@@ -38,7 +38,7 @@ import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 
 /**
- * Fill painter with fraction-based stops and a color query associated with each
+ * Surface painter with fraction-based stops and a color query associated with each
  * stop. This class allows creating multi-gradient fills with exact control over
  * which color is used at every gradient control point.
  *
