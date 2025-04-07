@@ -172,16 +172,16 @@ public class BladeIconUtils {
                     colorTokens);
 
                 Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
-                    new Ellipse2D.Float(1.0f, 1.0f, contourDim - 2.0f, contourDim - 2.0f)
+                    new Ellipse2D.Float(1.0f, 1.0f, outlineDim - 2.0f, outlineDim - 2.0f)
                     : null;
                 float containerOutlineAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
-                outlinePainter.paintOutline(graphics1X, button, contourDim, contourDim,
-                    contourOuter, contourInner, colorTokens);
+                outlinePainter.paintOutline(graphics1X, button, outlineDim, outlineDim,
+                    outlineOuter, outlineInner, colorTokens);
 
-                float rc = contourDim / 2.0f + 0.5f;
-                float radius = contourDim / 4.5f;
+                float rc = outlineDim / 2.0f + 0.5f;
+                float radius = outlineDim / 4.5f;
                 Shape markOval = new Ellipse2D.Double(rc - radius, rc - radius, 2 * radius, 2 * radius);
                 Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
 
@@ -230,16 +230,16 @@ public class BladeIconUtils {
                         scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
                     colorTokens);
 
-                Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
+                Shape outlineOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
                     scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
-                Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
+                Shape outlineInner = RadianceOutlineUtilities.getTriangleButtonOutline(
                     scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
                 outlinePainter.paintOutline(graphics1X, slider,
-                    scaledWidth, scaledHeight, contourOuter, contourInner, colorTokens);
+                    scaledWidth, scaledHeight, outlineOuter, outlineInner, colorTokens);
             });
         graphics.dispose();
     }
@@ -276,9 +276,9 @@ public class BladeIconUtils {
                         scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
                     colorTokens);
 
-                Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
+                Shape outlineOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
                     scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
-                Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
+                Shape outlineInner = RadianceOutlineUtilities.getTriangleButtonOutline(
                     scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
@@ -286,7 +286,7 @@ public class BladeIconUtils {
                     containerOutlineAlpha, g));
                 outlinePainter.paintOutline(graphics1X, slider,
                     scaledWidth, scaledHeight,
-                    contourOuter, contourInner, colorTokens);
+                    outlineOuter, outlineInner, colorTokens);
             });
         graphics.dispose();
     }
@@ -313,16 +313,16 @@ public class BladeIconUtils {
                         scaledWidth - 2.0f, scaledHeight - 2.0f),
                     colorTokens);
 
-                Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f,
+                Shape outlineOuter = new Ellipse2D.Float(0.0f, 0.0f,
                     scaledWidth - 1.0f, scaledHeight - 1.0f);
-                Shape contourInner = new Ellipse2D.Float(1.0f, 1.0f,
+                Shape outlineInner = new Ellipse2D.Float(1.0f, 1.0f,
                     scaledWidth - 3.0f, scaledHeight - 3.0f);
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
                 outlinePainter.paintOutline(graphics1X, slider,
-                    scaledWidth, scaledHeight, contourOuter, contourInner, colorTokens);
+                    scaledWidth, scaledHeight, outlineOuter, outlineInner, colorTokens);
             });
         graphics.dispose();
     }
@@ -341,7 +341,7 @@ public class BladeIconUtils {
                 RadianceSurfacePainter surfacePainter = SimplisticSoftBorderReverseSurfacePainter.INSTANCE;
                 RadianceOutlinePainter outlinePainter = new FlatOutlinePainter();
 
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                Shape outline = RadianceOutlineUtilities.getBaseOutline(
                     tree.getComponentOrientation(),
                     scaledWidth, scaledHeight,
                     (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
@@ -349,8 +349,8 @@ public class BladeIconUtils {
                     1.0f);
 
                 surfacePainter.paintSurface(graphics1X, tree, scaledWidth, scaledHeight,
-                    contour, colorTokens);
-                outlinePainter.paintOutline(graphics1X, tree, scaledWidth, scaledHeight, contour,
+                    outline, colorTokens);
+                outlinePainter.paintOutline(graphics1X, tree, scaledWidth, scaledHeight, outline,
                     null, colorTokens);
 
                 Color signColor = colorTokens.getOnContainer();

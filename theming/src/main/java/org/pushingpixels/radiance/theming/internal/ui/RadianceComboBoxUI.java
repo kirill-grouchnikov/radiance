@@ -475,8 +475,8 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
                     Shape outline = RadianceOutlineUtilities.getBaseOutline(
                             this.comboBox.getComponentOrientation(),
                             scaledWidth - 1, scaledHeight - 1, radius, null, 0);
-                    RadianceCoreUtilities.paintFocus(graphics1X, this.comboBox, this.comboBox,
-                            this, scaleFactor, outline, bounds, 1.0f,
+                    RadianceCoreUtilities.paintFocus1X(graphics1X, this.comboBox, this.comboBox,
+                            this, scaleFactor, outline, bounds,
                             (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(
                                     this.comboBox, RadianceSizeUtils.getComponentFontSize(this.comboBox)));
                 }

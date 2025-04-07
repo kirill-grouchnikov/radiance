@@ -241,9 +241,9 @@ public class RadianceRibbonTaskToggleButtonUI extends
                             radius, EnumSet.of(RadianceThemingSlices.Side.BOTTOM),
                             focusRingPadding);
 
-                    RadianceCoreUtilities.paintFocus(graphics1X,
+                    RadianceCoreUtilities.paintFocus1X(graphics1X,
                             this.commandButton, this.commandButton, this,
-                            scaleFactor, outline, textRect, focusColor, 1.0f, 0);
+                            scaleFactor, outline, textRect, focusColor, 0);
                 }
         );
 

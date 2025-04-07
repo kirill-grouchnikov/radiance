@@ -196,9 +196,8 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
         RadianceCommonCortex.paintAtScale1x(graphicsFocus, 0, 0,
                 b.getWidth(), b.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceCoreUtilities.paintFocus(graphics1X, b, b, this, scaleFactor,
-                            null, textRect, 1.0f,
-                            (float) scaleFactor * focusRingPadding);
+                    RadianceCoreUtilities.paintFocus1X(graphics1X, b, b, this, scaleFactor,
+                            null, textRect, (float) scaleFactor * focusRingPadding);
                 }
         );
         graphicsFocus.dispose();

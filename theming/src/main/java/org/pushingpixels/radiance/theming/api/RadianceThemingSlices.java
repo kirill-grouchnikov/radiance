@@ -238,12 +238,11 @@ public final class RadianceThemingSlices {
                             scaleFactor, false);
                     graphics.draw(outline);
                 } else {
-                    float delta = RadianceSizeUtils.getBorderStrokeWidth(mainComp);
                     Shape outline = (focusShape != null) ? focusShape
                             : RadianceOutlineUtilities.getBaseOutline(
                             mainComp.getComponentOrientation(),
-                            (float) scaleFactor * mainComp.getWidth() - 2 * delta,
-                            (float) scaleFactor * mainComp.getHeight() - 2 * delta,
+                            (float) scaleFactor * mainComp.getWidth() - 2,
+                            (float) scaleFactor * mainComp.getHeight() - 2,
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
                                     RadianceSizeUtils.getComponentFontSize(mainComp)),
                             null);
@@ -821,6 +820,8 @@ public final class RadianceThemingSlices {
      * 
      * @see ContainerColorTokensBundle#getSystemContainerTokens(SystemContainerType)
      * @see ContainerColorTokensBundle#getInverseSystemContainerTokens(SystemContainerType)
+     * @see RadianceSkin#getSystemContainerTokens(Component, SystemContainerType)
+     * @see RadianceSkin#getInverseSystemContainerTokens(Component, SystemContainerType)
      */
     public enum SystemContainerType {
         INFO,

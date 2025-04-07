@@ -261,9 +261,8 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
             RadianceCommonCortex.paintAtScale1x(graphicsFocus, 0, 0,
                     button.getWidth(), button.getHeight(),
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                        RadianceCoreUtilities.paintFocus(graphics1X, button, button, this, scaleFactor,
-                                null, textRect, 1.0f,
-                                (float) scaleFactor * focusRingPadding);
+                        RadianceCoreUtilities.paintFocus1X(graphics1X, button, button, this, scaleFactor,
+                                null, textRect, (float) scaleFactor * focusRingPadding);
                     }
             );
             graphicsFocus.dispose();

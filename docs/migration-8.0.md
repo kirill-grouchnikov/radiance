@@ -38,5 +38,6 @@ All relevant APIs that work with these painters in `RadianceSkin` and elsewhere 
 * `RadianceThemingSlices.ColorSchemeAssociationKind` is replaced with `RadianceThemingSlices.ContainerColorTokensAssociationKind`.
 * `RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME` is now `RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS`
 * `RadianceFillPainter.paintContourBackground` is now `RadianceSurfacePainter.paintSurface`.
-* Two new enums added to `RadianceThemingSlices` - `ContainerType` and `SystemContainerType` - to mirror the container-based APIs in `RadianceSkin` and `ContainerColorTokensBundle`.
+* `RadianceBorderPainter.paintBorder` is now `RadianceOutlinePainter.paintOutline`.
+* A new enum added to `RadianceThemingSlices` - `SystemContainerType` - for retrieving system container color tokens from `RadianceSkin` and `ContainerColorTokensBundle`.
 * Core color schemes (such as Aqua, Bottle Green, etc) are now provided as a set of palette seeds in the `TonalPaletteSeeds` class.

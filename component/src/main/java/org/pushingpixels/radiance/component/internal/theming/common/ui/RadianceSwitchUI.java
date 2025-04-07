@@ -173,9 +173,8 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                         float focusRingPadding = RadianceSizeUtils.getFocusRingPadding(
                                 switchComp, RadianceSizeUtils.getComponentFontSize(switchComp)) / 2;
 
-                        RadianceCoreUtilities.paintFocus(graphics1X, switchComp, switchComp, this,
-                                scaleFactor, null, null, 1.0f,
-                                (float) scaleFactor * focusRingPadding);
+                        RadianceCoreUtilities.paintFocus1X(graphics1X, switchComp, switchComp, this,
+                                scaleFactor, null, null, (float) scaleFactor * focusRingPadding);
                     }
                 });
 

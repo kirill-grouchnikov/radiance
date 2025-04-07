@@ -1055,17 +1055,17 @@ public class RadianceCoreUtilities {
         return result;
     }
 
-    public static void paintFocus(Graphics g, Component mainComp, Component focusedComp,
+    public static void paintFocus1X(Graphics2D graphics1X, Component mainComp, Component focusedComp,
             TransitionAwareUI transitionAwareUI, double scaleFactor, Shape focusShape,
-            Rectangle textRect, float maxAlphaCoef, float extraPadding) {
+            Rectangle textRect, float extraPadding) {
         Color color = RadianceColorUtilities.getFocusColor(mainComp, transitionAwareUI);
-        paintFocus(g, mainComp, focusedComp, transitionAwareUI,
-                scaleFactor, focusShape, textRect, color, maxAlphaCoef, extraPadding);
+        paintFocus1X(graphics1X, mainComp, focusedComp, transitionAwareUI,
+                scaleFactor, focusShape, textRect, color, extraPadding);
     }
 
-    public static void paintFocus(Graphics g, Component mainComp, Component focusedComp,
+    public static void paintFocus1X(Graphics2D graphics1X, Component mainComp, Component focusedComp,
             TransitionAwareUI transitionAwareUI, double scaleFactor, Shape focusShape,
-            Rectangle textRect, Color focusColor, float maxAlphaCoef, float extraPadding) {
+            Rectangle textRect, Color focusColor, float extraPadding) {
         float focusStrength = transitionAwareUI.getTransitionTracker()
                 .getFocusStrength(focusedComp.hasFocus());
         if (focusStrength == 0.0f) {
@@ -1077,17 +1077,11 @@ public class RadianceCoreUtilities {
             return;
         }
 
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics1X.setComposite(WidgetUtilities.getAlphaComposite(mainComp, focusStrength, graphics1X));
 
-        float alpha = maxAlphaCoef * focusStrength;
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(mainComp, alpha, g));
-
-        graphics.setColor(focusColor);
-        focusKind.paintFocus(mainComp, focusedComp, transitionAwareUI, graphics, scaleFactor,
+        graphics1X.setColor(focusColor);
+        focusKind.paintFocus(mainComp, focusedComp, transitionAwareUI, graphics1X, scaleFactor,
                 focusShape, textRect, extraPadding);
-        graphics.dispose();
     }
 
     /**

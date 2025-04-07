@@ -171,9 +171,9 @@ public class RadianceColorSelectorComponentUI extends BasicColorSelectorComponen
                     Shape insetFocusArea = new Rectangle2D.Float(focusRingPadding, focusRingPadding,
                             scaledWidth - 2 * focusRingPadding,
                             scaledHeight - 2 * focusRingPadding);
-                    RadianceCoreUtilities.paintFocus(graphics1X, this.colorSelectorComponent,
+                    RadianceCoreUtilities.paintFocus1X(graphics1X, this.colorSelectorComponent,
                             this.colorSelectorComponent, this, scaleFactor,
-                            insetFocusArea, null, 1.0f, 0);
+                            insetFocusArea, null, 0);
                 });
 
         g2d.dispose();

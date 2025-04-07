@@ -545,8 +545,8 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         RadianceCommonCortex.paintAtScale1x(g2d, 0, 0,
                 this.slider.getWidth(), this.slider.getWidth(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceCoreUtilities.paintFocus(graphics1X, this.slider, this.slider, this,
-                            scaleFactor, null, null, 1.0f,
+                    RadianceCoreUtilities.paintFocus1X(graphics1X, this.slider, this.slider, this,
+                            scaleFactor, null, null,
                             (float) scaleFactor * RadianceSizeUtils.getFocusStrokeWidth(this.slider));
                 }
         );

@@ -259,8 +259,8 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
                     RenderingHints.VALUE_ANTIALIAS_ON);
             RadianceCommonCortex.paintAtScale1x(graphicsFocus, 0, 0, b.getWidth(), b.getHeight(),
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                        RadianceCoreUtilities.paintFocus(graphics1X, b, b, this, scaleFactor,
-                                null, textRect, 1.0f,
+                        RadianceCoreUtilities.paintFocus1X(graphics1X, b, b, this, scaleFactor,
+                                null, textRect,
                                 (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(
                                         b, RadianceSizeUtils.getComponentFontSize(b)));
                     }
