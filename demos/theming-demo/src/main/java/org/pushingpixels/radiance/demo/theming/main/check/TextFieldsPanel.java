@@ -60,7 +60,7 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
     private JPanel getContents() {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 4dlu, fill:default:grow(1), 4dlu,"
-                + "fill:default:grow(1), 4dlu, fill:default:grow(1)", 4, 28)
+                + "fill:default:grow(1), 4dlu, fill:default:grow(1)", 4, 29)
                 .padding(Paddings.DIALOG);
 
         JLabel textLabel = new JLabel("Text fields");
@@ -339,6 +339,14 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         }
         textAreaScroll.setEditable(false);
         builder.append("Scrollable", new JScrollPane(textAreaScroll));
+        builder.nextLine();
+
+        JTextArea textAreaScrollShort = new JTextArea(3, 15);
+        for (int i = 0; i < 20; i++) {
+            textAreaScrollShort.append("Some long long long line with number " + i + "\n");
+        }
+        textAreaScrollShort.setEditable(false);
+        builder.append("Scrollable, short", new JScrollPane(textAreaScrollShort));
         builder.nextLine();
 
         JTextArea textAreaScrollWithLock = new JTextArea(5, 15);
