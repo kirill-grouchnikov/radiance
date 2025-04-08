@@ -117,7 +117,7 @@ public class CoreRibbonResizePolicies {
      *
      * @author Kirill Grouchnikov
      */
-    interface Mapping {
+    public interface Mapping {
         /**
          * Maps the element priority associated with a ribbon band component to
          * the element priority assigned by the specific resize policy.
