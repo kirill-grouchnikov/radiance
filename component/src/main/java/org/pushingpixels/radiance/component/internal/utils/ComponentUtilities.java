@@ -130,11 +130,9 @@ public class ComponentUtilities {
                 builder.append("Inconsistent preferred widths\n");
                 builder.append("Ribbon band '" + ribbonBand.getTitle()
                         + "' has the following resize policies\n");
-                for (int j = 0; j < resizePolicies.size(); j++) {
-                    RibbonBandResizePolicy policy = resizePolicies.get(j);
+                for (RibbonBandResizePolicy policy : resizePolicies) {
                     int width = policy.getPreferredWidth(height, 4);
-                    builder.append("\t" + policy.getClass().getName() + " with preferred width "
-                            + width + "\n");
+                    builder.append("\t" + policy.getClass().getName() + " with preferred width " + width + "\n");
                 }
                 builder.append(policy1.getClass().getName() + " with pref width " + width1
                         + " is followed by resize policy " + policy2.getClass().getName()

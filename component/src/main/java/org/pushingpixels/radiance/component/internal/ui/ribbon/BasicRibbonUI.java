@@ -1081,7 +1081,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
         });
     }
 
-    @SuppressWarnings("unchecked")
     private void syncRibbonState() {
         // remove all existing ribbon bands
         JPanel bandHostPanel = this.bandScrollablePanel.getView();

@@ -77,7 +77,6 @@ public class CommandButtonFollowColorTokensIcon implements RadianceIcon {
          * @param tokens Color tokens.
          * @param width  Icon width.
          * @param height Icon height.
-         * @return Icon that matches the specified tokens.
          */
         void drawColorTokensIcon(Graphics2D g, ContainerColorTokens tokens, float alpha, int width, int height);
     }

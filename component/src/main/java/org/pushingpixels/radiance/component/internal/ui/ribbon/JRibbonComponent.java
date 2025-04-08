@@ -207,7 +207,7 @@ public class JRibbonComponent extends JComponent
      * <code>false</code> otherwise.
      */
     public boolean isSimpleWrapper() {
-        return (this.caption == null) || (this.caption.length() == 0);
+        return (this.caption == null) || this.caption.isEmpty();
     }
 
     /**

@@ -170,7 +170,7 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 		lineLayoutInfo.textRect.width = labelWidth;
 		lineLayoutInfo.textRect.height = labelHeight;
 
-		result.textLayoutInfoList = new ArrayList<TextLayoutInfo>();
+		result.textLayoutInfoList = new ArrayList<>();
 		result.textLayoutInfoList.add(lineLayoutInfo);
 
 		return result;

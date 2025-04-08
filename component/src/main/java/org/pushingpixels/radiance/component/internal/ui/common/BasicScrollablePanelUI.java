@@ -175,15 +175,14 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                     syncScrolling();
                 })
                 .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
-                        (g, tokens, alpha, width, height) -> {
-                            BladeArrowIconUtils.drawDoubleArrow(g, width, height,
-                                    RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                    RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                    (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
-                                            ? SwingUtilities.WEST
-                                            : SwingUtilities.NORTH,
-                                    tokens, alpha);
-                        }, new Dimension(arrowIconHeight, arrowIconWidth)))
+                    (g, tokens, alpha, width, height) ->
+                        BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                            RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                            RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                            (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY)
+                                ? SwingUtilities.WEST : SwingUtilities.NORTH,
+                            tokens, alpha),
+                    new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
 
         this.trailingScrollCommand = Command.builder()
@@ -192,15 +191,14 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                     syncScrolling();
                 })
                 .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
-                        (g, tokens, alpha, width, height) -> {
-                            BladeArrowIconUtils.drawDoubleArrow(g, width, height,
-                                    RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                    RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                    (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
-                                            ? SwingUtilities.EAST
-                                            : SwingUtilities.SOUTH,
-                                    tokens, alpha);
-                        }, new Dimension(arrowIconHeight, arrowIconWidth)))
+                    (g, tokens, alpha, width, height) ->
+                        BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                            RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                            RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                            (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY)
+                                ? SwingUtilities.EAST : SwingUtilities.SOUTH,
+                            tokens, alpha),
+                    new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
         this.syncScrollers();
     }

@@ -151,7 +151,6 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     protected JCommandButton createExpandButton() {
         final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
@@ -182,14 +181,14 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
                 .setAction(ribbonBand.getExpandCommandListener())
                 .setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip())
                 .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
-                        (g, tokens, alpha, width, height) -> {
-                            BladeArrowIconUtils.drawDoubleArrow(g, width, height,
-                                    RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                    RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                    componentOrientation.isLeftToRight()
-                                            ? SwingConstants.EAST : SwingConstants.WEST,
-                                    tokens, alpha);
-                        }, new Dimension(arrowIconHeight, arrowIconWidth)))
+                    (g, tokens, alpha, width, height) ->
+                        BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                            RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                            RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                            componentOrientation.isLeftToRight()
+                                ? SwingConstants.EAST : SwingConstants.WEST,
+                            tokens, alpha),
+                    new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
     }
 

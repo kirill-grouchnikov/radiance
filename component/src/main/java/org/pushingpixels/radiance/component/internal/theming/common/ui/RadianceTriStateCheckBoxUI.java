@@ -192,13 +192,12 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphicsFocus.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphicsFocus, 0, 0,
-                b.getWidth(), b.getHeight(),
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceCoreUtilities.paintFocus1X(graphics1X, b, b, this, scaleFactor,
-                            null, textRect, (float) scaleFactor * focusRingPadding);
-                }
+            b.getWidth(), b.getHeight(),
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) ->
+                RadianceCoreUtilities.paintFocus1X(graphics1X, b, b, this, scaleFactor,
+                    null, textRect, (float) scaleFactor * focusRingPadding)
         );
         graphicsFocus.dispose();
         // g2d.setColor(Color.red);

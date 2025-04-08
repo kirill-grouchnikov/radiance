@@ -605,9 +605,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     }
 
     private void configureBreadcrumbButton(final JCommandButton button) {
-        button.getPopupModel().addChangeListener(changeEvent -> {
-            button.repaint();
-        });
+        button.getPopupModel().addChangeListener(changeEvent -> button.repaint());
     }
 
     /**
@@ -617,7 +615,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
      * @param bic The choice item to push.
      * @return The item that has been pushed.
      */
-    protected Object pushChoices(BreadcrumbItemChoices<Object> bic) {
+    private Object pushChoices(BreadcrumbItemChoices<Object> bic) {
         return pushChoices(bic, true);
     }
 
@@ -629,7 +627,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
      * @param toUpdateUI Indication whether the bar should be repainted.
      * @return The item that has been pushed.
      */
-    protected synchronized Object pushChoices(BreadcrumbItemChoices<Object> bic, boolean toUpdateUI) {
+    private synchronized Object pushChoices(BreadcrumbItemChoices<Object> bic, boolean toUpdateUI) {
         if (bic == null)
             return null;
         if (modelStack.size() % 2 == 1) {

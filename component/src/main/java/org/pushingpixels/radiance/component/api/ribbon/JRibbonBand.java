@@ -162,7 +162,6 @@ public class JRibbonBand extends AbstractRibbonBand {
      *
      * @param projection Command projection to add.
      * @param priority   Priority of the command.
-     * @return The command button that represents the command.
      */
     public void addRibbonCommand(BaseCommandButtonProjection<? extends BaseCommand<?>,
             ? extends BaseCommandMenuContentModel,

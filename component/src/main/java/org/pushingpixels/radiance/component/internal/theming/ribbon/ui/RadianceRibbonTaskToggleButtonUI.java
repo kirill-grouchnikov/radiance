@@ -188,7 +188,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
 
         // show the first characters that fit into the available text rectangle
         while (true) {
-            if (toPaint.length() == 0)
+            if (toPaint.isEmpty())
                 break;
             int strWidth = fm.stringWidth(toPaint);
             if (strWidth <= textRect.width)

@@ -115,7 +115,7 @@ public class KeyTipManager {
         public boolean enabled;
     }
 
-    public class KeyTipChain {
+    public static class KeyTipChain {
         private List<KeyTipLink> links;
 
         private int keyTipLookupIndex;

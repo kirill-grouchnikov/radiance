@@ -217,7 +217,7 @@ public class CoreRibbonResizePolicies {
         /**
          * The element priority mapping.
          */
-        protected Mapping mapping;
+        private Mapping mapping;
 
         /**
          * Creates a new resize policy.
@@ -599,7 +599,6 @@ public class CoreRibbonResizePolicies {
             super(ribbonBand, (JRibbonBand.PresentationPriority priority) -> {
                 switch (priority) {
                     case TOP:
-                        return JRibbonBand.PresentationPriority.TOP;
                     case MEDIUM:
                         return JRibbonBand.PresentationPriority.TOP;
                     case LOW:
@@ -636,7 +635,6 @@ public class CoreRibbonResizePolicies {
                     case TOP:
                         return JRibbonBand.PresentationPriority.TOP;
                     case MEDIUM:
-                        return JRibbonBand.PresentationPriority.MEDIUM;
                     case LOW:
                         return JRibbonBand.PresentationPriority.MEDIUM;
                 }
@@ -688,7 +686,6 @@ public class CoreRibbonResizePolicies {
                     case TOP:
                         return JRibbonBand.PresentationPriority.TOP;
                     case MEDIUM:
-                        return JRibbonBand.PresentationPriority.LOW;
                     case LOW:
                         return JRibbonBand.PresentationPriority.LOW;
                 }
@@ -723,7 +720,6 @@ public class CoreRibbonResizePolicies {
                     case TOP:
                         return JRibbonBand.PresentationPriority.MEDIUM;
                     case MEDIUM:
-                        return JRibbonBand.PresentationPriority.LOW;
                     case LOW:
                         return JRibbonBand.PresentationPriority.LOW;
                 }

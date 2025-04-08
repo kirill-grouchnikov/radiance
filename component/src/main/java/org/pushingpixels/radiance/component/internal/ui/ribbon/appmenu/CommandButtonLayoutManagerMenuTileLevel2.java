@@ -91,7 +91,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         int fontHeight = fm.getAscent() + fm.getDescent();
         int textHeight = fontHeight + layoutVGap;
         String extraText = command.getExtraText();
-        if ((extraText != null) && (extraText.length() > 0)) {
+        if ((extraText != null) && !extraText.isEmpty()) {
             textHeight += 2 * fontHeight;
         }
         return new Dimension(bx + widthMed, by
@@ -221,7 +221,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             result.textLayoutInfoList.add(lineLayoutInfo);
 
             String extraText = commandButton.getContentModel().getExtraText();
-            if ((extraText == null) || (extraText.length() == 0)) {
+            if ((extraText == null) || extraText.isEmpty()) {
                 lineLayoutInfo.textRect.y = (height - labelHeight) / 2;
             } else {
                 AttributedString attributedDescription = new AttributedString(extraText);
@@ -342,7 +342,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             result.textLayoutInfoList.add(lineLayoutInfo);
 
             String extraText = commandButton.getContentModel().getExtraText();
-            if ((extraText == null) || (extraText.length() == 0)) {
+            if ((extraText == null) || extraText.isEmpty()) {
                 lineLayoutInfo.textRect.y = (height - labelHeight) / 2;
             } else {
                 AttributedString attributedDescription = new AttributedString(extraText);

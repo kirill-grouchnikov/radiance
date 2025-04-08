@@ -90,10 +90,9 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
     private void syncContent() {
         List<ColorSelectorPopupMenuGroupModel> menuGroups = this.contentModel.getMenuGroups();
         boolean atLeastOneButtonHasIcon = false;
-        for (int i = 0; i < menuGroups.size(); i++) {
-            ColorSelectorPopupMenuGroupModel menuGroup = menuGroups.get(i);
+        for (ColorSelectorPopupMenuGroupModel menuGroup : menuGroups) {
             for (KeyValuePair<ColorSelectorPopupMenuGroupModel.GroupEntryKind, Object> groupEntry :
-                    menuGroup.getGroupContent()) {
+                menuGroup.getGroupContent()) {
                 if (groupEntry.getKey() == ColorSelectorPopupMenuGroupModel.GroupEntryKind.COMMAND) {
                     Command command = (Command) groupEntry.getValue();
                     if ((command.getIconFactory() != null) || command.isToggle()) {

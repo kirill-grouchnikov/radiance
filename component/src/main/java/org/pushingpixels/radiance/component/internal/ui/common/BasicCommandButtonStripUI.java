@@ -160,7 +160,6 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         this.commandButtonMap.clear();
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
     private void syncButtons() {
         CommandStripPresentationModel stripPresentationModel =
                 this.buttonStrip.getProjection().getPresentationModel();

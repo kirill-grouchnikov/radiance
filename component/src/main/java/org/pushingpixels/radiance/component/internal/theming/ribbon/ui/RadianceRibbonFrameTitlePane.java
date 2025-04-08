@@ -163,7 +163,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
     }
 
     @RadiancePopupContainer
-    private class TaskbarOverflowPopupPanelContent extends JPanel {
+    private static class TaskbarOverflowPopupPanelContent extends JPanel {
         public TaskbarOverflowPopupPanelContent(LayoutManager layout) {
             super(layout);
         }
@@ -304,14 +304,14 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
                     .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
                             showOverflowTaskbarContent(commandActionEvent.getButtonSource())))
                     .setIconFactory(() -> new CommandButtonFollowColorTokensIcon(
-                            (g, tokens, alpha, width, height) -> {
-                                BladeArrowIconUtils.drawDoubleArrow(g, width, height,
-                                        RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                        getComponentOrientation().isLeftToRight()
-                                                ? SwingConstants.EAST : SwingConstants.WEST,
-                                        tokens, alpha);
-                            }, new Dimension(arrowIconHeight, arrowIconWidth)))
+                        (g, tokens, alpha, width, height) ->
+                            BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                                RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                getComponentOrientation().isLeftToRight()
+                                    ? SwingConstants.EAST : SwingConstants.WEST,
+                                tokens, alpha),
+                        new Dimension(arrowIconHeight, arrowIconWidth)))
                     .setTag(TASKBAR_OVERFLOW_BUTTON)
                     .build().project(CommandButtonPresentationModel.builder()
                             .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)

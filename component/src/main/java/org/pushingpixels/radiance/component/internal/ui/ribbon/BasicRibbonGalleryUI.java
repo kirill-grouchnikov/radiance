@@ -120,7 +120,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     /**
      * Installs subcomponents on the associated ribbon gallery.
      */
-    @SuppressWarnings("unchecked")
     protected void installComponents() {
 
         final int fontSize = RadianceSizeUtils.getComponentFontSize(this.ribbonGallery);

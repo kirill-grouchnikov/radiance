@@ -179,7 +179,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                 this.ribbonComponent.getFont().getSize());
         int tipCenterY = (this.ribbonComponent.getHeight() + smallIconSize) / 2;
         String caption = this.ribbonComponent.getCaption();
-        boolean hasCaption = (caption != null) && (caption.length() > 0);
+        boolean hasCaption = (caption != null) && !caption.isEmpty();
         if (hasCaption) {
             return new Point(this.captionLabel.getX(), tipCenterY);
         } else {

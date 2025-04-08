@@ -249,7 +249,7 @@ public class JRibbon extends JComponent {
         JComponent buildComponent(RibbonTaskbarKeyTipPolicy keyTipPolicy, int currentKeyTipIndex);
     }
 
-    private class TaskbarCommandHandler<M extends BaseCommand<MCM>,
+    private static class TaskbarCommandHandler<M extends BaseCommand<MCM>,
             MCM extends BaseCommandMenuContentModel,
             P extends BaseCommandButtonPresentationModel<MPM, P>,
             MPM extends BaseCommandPopupMenuPresentationModel> implements TaskbarContentHandler<M> {
@@ -370,7 +370,7 @@ public class JRibbon extends JComponent {
         }
     }
 
-    private class TaskbarGalleryDropdownHandler implements TaskbarContentHandler<RibbonGalleryContentModel> {
+    private static class TaskbarGalleryDropdownHandler implements TaskbarContentHandler<RibbonGalleryContentModel> {
         private RibbonGalleryProjection galleryProjection;
 
         public TaskbarGalleryDropdownHandler(RibbonGalleryProjection galleryProjection) {
@@ -413,7 +413,7 @@ public class JRibbon extends JComponent {
         }
     }
 
-    private class TaskbarComponentHandler<C extends JComponent, CCM extends ComponentContentModel>
+    private static class TaskbarComponentHandler<C extends JComponent, CCM extends ComponentContentModel>
             implements TaskbarContentHandler<CCM> {
         private ComponentProjection<C, CCM> projection;
 

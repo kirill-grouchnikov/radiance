@@ -271,7 +271,7 @@ public class BasicCommandButtonListener implements MouseListener,
         @Override
         public void actionPerformed(ActionEvent e) {
             ButtonModel model = button.getUI().isInnerFocusOnAction() ? button.getActionModel()
-                    : ((JCommandButton) button).getPopupModel();
+                : button.getPopupModel();
             model.setArmed(true);
             model.setPressed(true);
             if (!button.hasFocus()) {
@@ -295,7 +295,7 @@ public class BasicCommandButtonListener implements MouseListener,
         @Override
         public void actionPerformed(ActionEvent e) {
             ButtonModel model = button.getUI().isInnerFocusOnAction() ? button.getActionModel()
-                    : ((JCommandButton) button).getPopupModel();
+                : button.getPopupModel();
             model.setPressed(false);
             model.setArmed(false);
         }

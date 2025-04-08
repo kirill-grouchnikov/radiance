@@ -277,7 +277,7 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
         }
     }
 
-    private class PopupDismissAction extends ColorSelectorComponentAction {
+    private static class PopupDismissAction extends ColorSelectorComponentAction {
         private static final String DISMISS = "popupDismiss";
 
         PopupDismissAction(JColorSelectorComponent colorSelectorComponent) {
@@ -290,7 +290,7 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
         }
     }
 
-    private abstract class FocusTraversalAction extends ColorSelectorComponentAction {
+    private static abstract class FocusTraversalAction extends ColorSelectorComponentAction {
         FocusTraversalAction(String actionName, JColorSelectorComponent colorSelectorComponent) {
             super(actionName, colorSelectorComponent);
         }

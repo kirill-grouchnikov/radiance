@@ -42,8 +42,7 @@ public class SequentialFocusTraversalPolicy extends FocusTraversalPolicy {
 
     @Override
     public Component getFirstComponent(Container container) {
-        for (int index = 0; index < this.componentSequence.size(); index++) {
-            Component curr = this.componentSequence.get(index);
+        for (Component curr : this.componentSequence) {
             if (curr.isEnabled() && curr.isFocusable() && curr.isVisible()) {
                 return curr;
             }

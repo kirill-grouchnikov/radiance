@@ -57,10 +57,9 @@ public class GlowingRadianceIcon implements RadianceIcon {
     public GlowingRadianceIcon(RadianceIcon delegate, IconGlowTracker iconGlowTracker) {
         this.delegate = delegate;
         this.iconGlowTracker = iconGlowTracker;
-        this.cachedImages = new LinkedHashMap<String, BufferedImage>() {
+        this.cachedImages = new LinkedHashMap<>() {
             @Override
-            protected boolean removeEldestEntry(
-                    java.util.Map.Entry<String, BufferedImage> eldest) {
+            protected boolean removeEldestEntry(Map.Entry<String, BufferedImage> eldest) {
                 return size() > 5;
             }
         };

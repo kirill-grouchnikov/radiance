@@ -284,8 +284,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                     int startingRow = hasTitle ? 1 : 0;
                     int rowIndex = startingRow;
 
-                    for (int i = 0; i < ribbonComps.size(); i++) {
-                        JRibbonComponent coreComp = ribbonComps.get(i);
+                    for (JRibbonComponent coreComp : ribbonComps) {
                         int prefWidth = coreComp.getPreferredSize().width;
                         int rowSpan = 1;
 
@@ -293,12 +292,10 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         int nextRowIndex = rowIndex + rowSpan;
                         if (nextRowIndex > 3) {
                             if (ltr) {
-                                if (hasLeadingComponent)
-                                    x += gap;
+                                if (hasLeadingComponent) x += gap;
                                 x += maxWidthInCurrColumn;
                             } else {
-                                if (hasLeadingComponent)
-                                    x -= gap;
+                                if (hasLeadingComponent) x -= gap;
                                 x -= maxWidthInCurrColumn;
                             }
                             hasLeadingComponent = true;
@@ -308,8 +305,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         }
 
                         // how much vertical space does a component get?
-                        int compHeight = Math.min(rowSpan * singleRowHeight - gap / 4,
-                                coreComp.getPreferredSize().height);
+                        int compHeight = Math.min(rowSpan * singleRowHeight - gap / 4, coreComp.getPreferredSize().height);
                         int yNudge = rowSpan * singleRowHeight - compHeight;
                         int y = rowIndex * singleRowHeight + ins.top;
 
@@ -322,12 +318,9 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         maxWidthInCurrColumn = Math.max(maxWidthInCurrColumn, prefWidth);
                         currColumn.add(coreComp);
 
-                        coreComp.putClientProperty(TOP_ROW,
-                                Boolean.valueOf(rowIndex == 0));
-                        coreComp.putClientProperty(MID_ROW,
-                                Boolean.valueOf((rowIndex > 0) && (rowIndex < 2)));
-                        coreComp.putClientProperty(BOTTOM_ROW,
-                                Boolean.valueOf(rowIndex == 2));
+                        coreComp.putClientProperty(TOP_ROW, Boolean.valueOf(rowIndex == 0));
+                        coreComp.putClientProperty(MID_ROW, Boolean.valueOf(rowIndex == 1));
+                        coreComp.putClientProperty(BOTTOM_ROW, Boolean.valueOf(rowIndex == 2));
 
                         // scan the components in this column and make them to
                         // have the same width as the widest component in this
@@ -335,11 +328,9 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         for (JRibbonComponent comp : currColumn) {
                             Rectangle bounds = comp.getBounds();
                             if (ltr) {
-                                comp.setBounds(bounds.x, bounds.y, maxWidthInCurrColumn,
-                                        bounds.height);
+                                comp.setBounds(bounds.x, bounds.y, maxWidthInCurrColumn, bounds.height);
                             } else {
-                                comp.setBounds(bounds.x + bounds.width - maxWidthInCurrColumn,
-                                        bounds.y, maxWidthInCurrColumn, bounds.height);
+                                comp.setBounds(bounds.x + bounds.width - maxWidthInCurrColumn, bounds.y, maxWidthInCurrColumn, bounds.height);
                             }
                             comp.doLayout();
                         }
