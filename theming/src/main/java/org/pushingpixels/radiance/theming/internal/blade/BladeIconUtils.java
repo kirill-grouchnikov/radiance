@@ -41,10 +41,7 @@ import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
+import java.awt.geom.*;
 
 public class BladeIconUtils {
 
@@ -380,10 +377,19 @@ public class BladeIconUtils {
         int end = iconSize - start;
 
         Color primaryColor = colorTokens.getOnContainer();
+        Color secondaryColor = colorTokens.getComplementaryOnContainer();
+
+        Stroke secondaryStroke = new BasicStroke(2.5f * primaryStrokeWidth,
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        graphics.setStroke(secondaryStroke);
+        graphics.setColor(secondaryColor);
+        graphics.drawLine(start, start, end, end);
+        graphics.drawLine(start, end, end, start);
 
         Stroke primaryStroke = new BasicStroke(primaryStrokeWidth,
-                BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
         graphics.setStroke(primaryStroke);
         graphics.setColor(primaryColor);
         graphics.drawLine(start, start, end, end);
@@ -405,7 +411,13 @@ public class BladeIconUtils {
         int size = end - start - 2;
 
         Color primaryColor = colorTokens.getOnContainer();
+        Color secondaryColor = colorTokens.getComplementaryOnContainer();
 
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        graphics.setColor(secondaryColor);
+        graphics.fillRect(start + 1, end - 2, size + 2, 5);
+
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
         graphics.setColor(primaryColor);
         graphics.fillRect(start + 2, end - 1, size, 3);
         graphics.dispose();
@@ -423,7 +435,30 @@ public class BladeIconUtils {
         int end = iconSize - start;
 
         Color primaryColor = colorTokens.getOnContainer();
+        Color secondaryColor = colorTokens.getComplementaryOnContainer();
 
+        double offset = 1.0 / RadianceCommonCortex.getScaleFactor(null);
+        Stroke secondaryStroke = new BasicStroke(3.0f,
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        graphics.setStroke(secondaryStroke);
+        graphics.setColor(secondaryColor);
+        Path2D secondary = new Path2D.Double();
+        secondary.moveTo(start, start);
+        // top first
+        secondary.lineTo(end - offset, start);
+        secondary.lineTo(end - offset, start + 1);
+        // top second (for a thicker overall top line)
+        secondary.lineTo(start, start + 1);
+        // left
+        secondary.lineTo(start, end - offset);
+        // bottom
+        secondary.lineTo(end - offset, end - offset);
+        // right
+        secondary.lineTo(end - offset, start + 1);
+        graphics.draw(secondary);
+
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
         graphics.setColor(primaryColor);
         // top (thicker)
         graphics.fillRect(start, start, end - start, 2);
@@ -447,13 +482,57 @@ public class BladeIconUtils {
         int start = iconSize / 4 - 1;
         int end = iconSize - start;
         int smallSquareSize = end - start - 3;
-        Color primaryColor = colorTokens.getOnContainer();
-
-        graphics.setColor(primaryColor);
 
         // "Main" rectangle
         int mainStartX = start;
+        int mainEndX = mainStartX + smallSquareSize;
         int mainStartY = end - smallSquareSize;
+        int mainEndY = mainStartY + smallSquareSize;
+
+        // "Secondary rectangle"
+        int secondaryStartX = mainStartX + 3;
+        int secondaryEndX = secondaryStartX + smallSquareSize;
+        int secondaryStartY = mainStartY - 3;
+        int secondaryEndY = secondaryStartY + smallSquareSize;
+
+        Color primaryColor = colorTokens.getOnContainer();
+        Color secondaryColor = colorTokens.getComplementaryOnContainer();
+
+        double offset = 1.0 / RadianceCommonCortex.getScaleFactor(null);
+        Stroke secondaryStroke = new BasicStroke(3.0f,
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        graphics.setStroke(secondaryStroke);
+        graphics.setColor(secondaryColor);
+        Path2D secondary = new Path2D.Double();
+        secondary.moveTo(mainStartX, mainStartY);
+        // top first
+        secondary.lineTo(mainEndX - offset, mainStartY);
+        secondary.lineTo(mainEndX - offset, mainStartY + 1);
+        // top second (for a thicker overall top line)
+        secondary.lineTo(mainStartX, mainStartY + 1);
+        // left
+        secondary.lineTo(mainStartX, mainEndY - offset);
+        // bottom
+        secondary.lineTo(mainEndX - offset, mainEndY - offset);
+        // right
+        secondary.lineTo(mainEndX - offset, mainStartY + 1);
+
+        // top (thicker)
+        secondary.moveTo(secondaryEndX - offset, secondaryStartY);
+        secondary.lineTo(secondaryStartX, secondaryStartY);
+        secondary.lineTo(secondaryStartX, secondaryStartY + 1);
+        secondary.lineTo(secondaryEndX - offset, secondaryStartY + 1);
+        // right
+        secondary.lineTo(secondaryEndX - offset, secondaryEndY);
+        // bottom (partial)
+        secondary.lineTo(secondaryEndX - offset - 2, secondaryEndY);
+
+        graphics.draw(secondary);
+
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+        graphics.setColor(primaryColor);
+
         // top (thicker)
         graphics.fillRect(mainStartX, mainStartY, smallSquareSize, 2);
         // left
@@ -463,9 +542,6 @@ public class BladeIconUtils {
         // bottom
         graphics.fillRect(mainStartX, mainStartY + smallSquareSize - 1, smallSquareSize, 1);
 
-        // "Secondary rectangle"
-        int secondaryStartX = mainStartX + 3;
-        int secondaryStartY = mainStartY - 3;
         // top (thicker)
         graphics.fillRect(secondaryStartX, secondaryStartY, smallSquareSize, 2);
         // right

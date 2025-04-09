@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -152,8 +151,6 @@ public class BladeTransitionAwareIcon implements Icon {
             if (currState.isFacetActive(ComponentStateFacet.ENABLE))
                 currState = ComponentState.ENABLED;
         }
-
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);

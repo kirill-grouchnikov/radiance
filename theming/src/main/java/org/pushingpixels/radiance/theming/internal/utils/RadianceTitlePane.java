@@ -44,6 +44,7 @@ import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -172,9 +173,9 @@ public class RadianceTitlePane extends JComponent {
         RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
         RadianceSkin skin = RadianceCoreUtilities.getSkin(root);
-        this.setForeground(skin.getNeutralContainerTokens(
+        this.setForeground(new ColorUIResource(skin.getNeutralContainerTokens(
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
-                .getOnContainer());
+                .getOnContainer()));
     }
 
     /**
