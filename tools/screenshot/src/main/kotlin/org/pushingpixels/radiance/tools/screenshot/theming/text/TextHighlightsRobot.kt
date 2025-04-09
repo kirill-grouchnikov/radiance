@@ -109,7 +109,7 @@ abstract class TextHighlightsRobot(
 
         panelTitlePane.add(frame.makeTextField("sample title pane"))
         panelToolbar.add(frame.makeTextField("sample toolbar"))
-        panelGeneral.add(frame.makeTextField("sample general"))
+        panelGeneral.add(frame.makeTextField("sample control pane"))
         panelNone.add(frame.makeTextField("sample none"))
         panelFooter.add(frame.makeTextField("sample footer"))
 

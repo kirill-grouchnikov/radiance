@@ -747,6 +747,9 @@ public class RadianceColorUtilities {
     }
 
     public static String encode(Color color) {
+        if (color == null) {
+            return "[null]";
+        }
         return "#" + encode(color.getRed()) + encode(color.getGreen())
                 + encode(color.getBlue()) + " [a=" + encode(color.getAlpha()) + "]";
     }

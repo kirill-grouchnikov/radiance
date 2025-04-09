@@ -32,12 +32,10 @@ package org.pushingpixels.radiance.theming.internal.utils;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceTextComponentBorder;
 
 import javax.swing.*;
@@ -272,29 +270,14 @@ public class RadianceTextUtilities {
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
-        Color fgColor;
-        float fgAlpha;
         if (toEnforceFgColor) {
-            fgColor = component.getForeground();
-            fgAlpha = 1.0f;
-        } else {
-            ComponentState stateForQuery = state.isDisabled() ? state.getEnabledMatch() : state;
-            if ((stateForQuery == ComponentState.ENABLED) &&
-                (inactiveContainerType == CoreColorTokenUtils.ContainerType.NEUTRAL)) {
-                // Use the background container tokens
-                RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-                ContainerColorTokens tokens = skin.getNeutralContainerTokens(
-                    DecorationPainterUtils.getDecorationType(component));
-                fgColor = tokens.getOnContainer();
-                fgAlpha = state.isDisabled() ? tokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-            } else {
-                ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-                    component, state, inactiveContainerType);
-                fgColor = tokens.getOnContainer();
-                fgAlpha = state.isDisabled() ? tokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-            }
+            return component.getForeground();
         }
 
+        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(component, state,
+            inactiveContainerType);
+        Color fgColor = tokens.getOnContainer();
+        float fgAlpha = state.isDisabled() ? tokens.getOnContainerDisabledAlpha() : 1.0f;
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * fgAlpha));
     }
 

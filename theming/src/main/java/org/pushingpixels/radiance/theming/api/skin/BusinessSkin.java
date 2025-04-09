@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
@@ -78,7 +79,7 @@ public class BusinessSkin extends BusinessAccentedSkin {
                 /* seed */ Hct.fromInt(0xFFEBD296),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight())));
 
-        ContainerColorTokensBundle businessControlBundle = new ContainerColorTokensBundle(
+        ContainerColorTokensBundle businessControlPaneBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFEAEDF3),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
@@ -89,13 +90,21 @@ public class BusinessSkin extends BusinessAccentedSkin {
                 /* seed */ Hct.fromInt(0xFFD4D9DF),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* isSystemDark */ false);
-        this.registerDecorationAreaTokensBundle(businessControlBundle,
+        businessControlPaneBundle.registerActiveContainerTokens(
+            this.getDefaultAreaHighlightTokens(),
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+            ComponentState.getActiveStates());
+        this.registerDecorationAreaTokensBundle(businessControlPaneBundle,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
         ContainerColorTokensBundle businessFooterBundle =
             new ContainerColorTokensBundle(this.getHeaderAreaActiveTokens(),
                 this.getHeaderAreaMutedTokens(), this.getHeaderAreaNeutralTokens(),
                 this.isHeaderDark());
+        businessFooterBundle.registerActiveContainerTokens(
+            this.getDefaultAreaHighlightTokens(),
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+            ComponentState.getActiveStates());
         this.registerDecorationAreaTokensBundle(businessFooterBundle,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
     }

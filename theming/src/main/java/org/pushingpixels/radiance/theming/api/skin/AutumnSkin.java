@@ -131,7 +131,7 @@ public class AutumnSkin extends RadianceSkin {
 			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
 				/* containerConfiguration */ new ContainerConfiguration(
-					/* isDark */ true,
+					/* isDark */ false,
 					/* contrastLevel */ 0.2),
 				/* colorResolver */ resolver),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
@@ -173,7 +173,7 @@ public class AutumnSkin extends RadianceSkin {
 			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFCEF9F),
 				/* containerConfiguration */ new ContainerConfiguration(
-					/* isDark */ true,
+					/* isDark */ false,
 					/* contrastLevel */ 0.2)),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());

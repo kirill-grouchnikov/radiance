@@ -104,9 +104,11 @@ public class ModerateSkin extends RadianceSkin {
             ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF6EA7CA),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight());
-
         steelBlueHeaderBundle.registerActiveContainerTokens(steelBlueHeaderHighlightContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+            ComponentState.getActiveStates());
+        steelBlueHeaderBundle.registerActiveContainerTokens(steelBlueHighlightContainerTokens,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
             ComponentState.getActiveStates());
         this.registerDecorationAreaTokensBundle(steelBlueHeaderBundle,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
