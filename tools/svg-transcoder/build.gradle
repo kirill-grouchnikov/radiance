@@ -35,6 +35,10 @@ dependencies {
     implementation project(':common')
 }
 
+configurations.implementation {
+    exclude group: "xml-apis"
+}
+
 ext.designation = "tools"
 
 apply plugin: 'com.vanniktech.maven.publish'

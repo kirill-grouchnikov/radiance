@@ -1867,6 +1867,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     }
 
                     @Override
+                    @SuppressWarnings("unchecked")
                     public CommandMenuContentModel getContextualMenuContentModel(JRibbon ribbon,
                             BaseCommandButtonProjection<? extends BaseCommand<?>,
                                     ? extends BaseCommandMenuContentModel,
@@ -1880,9 +1881,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                     .setAction(commandActionEvent -> ribbon.removeTaskbarCommand(originalCommand))
                                     .build();
                         } else {
+                            // Note that the cast in the addTaskbarCommand call is not necessary,
+                            // but it's here to make Eclipse compiler happy
                             commandCommand = Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
-                                    .setAction(commandActionEvent -> ribbon.addTaskbarCommand(commandButtonProjection))
+                                    .setAction(commandActionEvent -> ribbon.addTaskbarCommand((BaseCommandButtonProjection) commandButtonProjection))
                                     .build();
                         }
 

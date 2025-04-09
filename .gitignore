@@ -10,3 +10,7 @@ build/
 out/
 bin/
 drop/*-SNAPSHOT/**
+
+.project
+.classpath
+

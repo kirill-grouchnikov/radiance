@@ -43,4 +43,8 @@ dependencies {
     implementation project(':demos:theming-demo')
 }
 
+configurations.implementation {
+    exclude group: "xml-apis", module: "xml-apis"
+}
+
 ext.designation = "demo"

@@ -46,4 +46,8 @@ dependencies {
     implementation libs.jgoodies.forms
 }
 
+configurations.implementation {
+    exclude group: "xml-apis"
+}
+
 ext.designation = "demo"
