@@ -30,7 +30,7 @@ Screenshot scripts are in `scripts/screenshot` folder. The structure of each scr
 
 For example, to run Screenshot to create screenshots for all Radiance core skins:
 
-``` export JAVA_HOME=`/usr/libexec/java_home -v 16` ```
+``` export JAVA_HOME=`/usr/libexec/java_home -v 22` ```
 
 `alias JAVA="java"`
 
@@ -38,9 +38,9 @@ For example, to run Screenshot to create screenshots for all Radiance core skins
 
 `EPHEMERAL_VERSION=1.0-SNAPSHOT`
 
-`KOTLIN_VERSION=2.1.10`
+`KOTLIN_VERSION=2.1.20`
 
-`KOTLIN_COROUTINES_VERSION=1.10.1`
+`KOTLIN_COROUTINES_VERSION=1.10.2`
 
 `CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-screenshot-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/tools/radiance-tools-common-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-theming-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-theming-extras-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-common-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-animation-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/demo/radiance-theming-demo-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-theming-extras-$RADIANCE_VERSION.jar:../../build/libs-core/ephemeral-chroma-$EPHEMERAL_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar:../../build/libs-tools/kotlin-stdlib-$KOTLIN_VERSION.jar:../../build/libs-tools/kotlin-stdlib-common-$KOTLIN_VERSION.jar:../../build/libs-tools/kotlinx-coroutines-core-jvm-$KOTLIN_COROUTINES_VERSION.jar:../../build/libs-tools/kotlinx-coroutines-swing-$KOTLIN_COROUTINES_VERSION.jar`
 

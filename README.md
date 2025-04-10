@@ -53,8 +53,6 @@ the [Ephemeral](https://github.com/kirill-grouchnikov/ephemeral) design system. 
 
 * [Theming Debugger](docs/tools/theming-debugger/theming-debugger.md) is a visual runtime debugger for Radiance look-and-feel.
 
-* [Scheme Editor](docs/tools/scheme-editor/scheme-editor.md) is a tool for creating and editing color scheme lists.
-
 * [Screenshot](docs/tools/screenshot/screenshot.md) has utilities for taking screenshots for Radiance documentation.
 
 * [Shaper Editor](docs/tools/shape-editor/shape-editor.md) can be used creating and editing files that define custom button shapers.

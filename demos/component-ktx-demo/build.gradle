@@ -47,7 +47,7 @@ dependencies {
 }
 
 configurations.implementation {
-    exclude group: "xml-apis"
+    exclude group: "xml-apis", module: "xml-apis"
 }
 
 ext.designation = "demo"

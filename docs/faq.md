@@ -6,13 +6,13 @@ Radiance libraries are released under BSD license. You are free to fork and modi
 
 **What is the policy for backwards binary and visual compatibility?**
 
-I will do my best not to break the APIs exposed in the `org.pushingpixels.***.api` packages. Classes in the `org.pushingpixels.***.internal` packages are not for application use and can change at any point in time.
+I will do my best not to break the APIs exposed in the `org.pushingpixels.radiance.***.api` packages. Classes in the `org.pushingpixels.radiance.***.internal` packages are not for application use and can change at any point in time.
 
 There are no guarantees about visual compatibility between major or minor releases. Visuals of different components and skins undergo periodic reexamination to address visual flaws, add polish and remove  visual noise. If your application requires absolute visual backwards compatibility, it would be best to create a custom skin that does not extend any of the existing core Radiance skins.
 
 The best way to stop me from breaking Radiance APIs is to test them early and give me feedback on what doesn't work. There's plenty of time in the release cycle (roughly twice a year now) to take the latest development bits for a spin and see how well - or not - Radiance APIs address the needs of your application.
 
-I plan for Radiance to be here in the next 10-15 years. That's a long time to carry the burden of APIs that were not designed well. If I make a mistake and release APIs that are not good, I'm not going to support them forever. Again, the best way to get well functioning Radiance APIs is to tell me what is missing, and what does not work well.
+I plan for Radiance to be here in the next 10-15 years. That's a long time to carry the burden of APIs that were not designed well. If I make a mistake and release APIs that are not good, I'm not going to support them forever. The best way to get well functioning Radiance APIs is to tell me what is missing, and what does not work well.
 
 **Is it possible to backport Radiance to run on earlier releases of Java?**
 
@@ -42,7 +42,7 @@ That's not really a question. If you don't like it, you can either help improve 
 
 To create a custom look for your application, start by reading the [skinning documentation](theming/skins/overview.md) and the code of the core skins in the `org.pushingpixels.radiance.theming.api.skin` package.
 
-While you can extend the UI delegates in the `org.pushingpixels.radiance.theming.internal.ui` package, it is not recommended. In fact, anything in this package is subject to change at any point in time - and frequently does so between releases. At some point down the line Radiance will use the Java module system to effectively hide the internal implementation details further.
+While you can extend the UI delegates in the `org.pushingpixels.radiance.theming.internal.ui` package, it is not recommended. In fact, anything in this package is subject to change at any point in time - and frequently does so between releases. At some point down the line Radiance might start using the Java module system to effectively hide the internal implementation details further.
 
 **Can I control some aspects of Radiance via _UIManager_ or _UIDefaults_ key/value entries like I can with other look-and-feels?**
 
@@ -50,7 +50,7 @@ The official answer is no, even though it might work right now for some of those
 
 The main reason that it doesn't work under Radiance is that in many places it simply did not scale well to the world where individual top-level windows are skinned differently and / or use different font sizes. Using a single global data table when different parts of the UI need different treatment is simply not a good solution.
 
-To properly control the visual appearance of your app use [skins](theming/skins/overview.md). If that doesn't work for you, let's chat.
+To properly control the visual appearance of your app use [skins](theming/skins/overview.md). If that doesn't work for you, [let's chat](https://github.com/kirill-grouchnikov/radiance/discussions).
 
 **How can I use Radiance on Mac and still have the standard Mac application menu bar?**
 
