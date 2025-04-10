@@ -69,12 +69,8 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD264EB),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFD1A9F1),
-				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
-			/* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFD1A9F1),
-				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
+			/* mutedContainerTokens */ this.getHeaderAreaMutedTokens(),
+			/* neutralContainerTokens */ this.getHeaderAreaNeutralTokens(),
 			/* isSystemDark */ false);
 		nebulaAmethystToolbarBundle.registerNeutralContainerTokens(
 			ContainerColorTokensUtils.getContainerTokens(
