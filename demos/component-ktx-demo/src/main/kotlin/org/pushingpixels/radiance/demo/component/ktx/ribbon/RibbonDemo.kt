@@ -49,7 +49,6 @@ import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPane
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection
-import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon.OnShowContextualMenuListener
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand

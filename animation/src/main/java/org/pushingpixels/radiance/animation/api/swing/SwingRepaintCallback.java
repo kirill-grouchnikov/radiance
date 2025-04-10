@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.animation.api.swing;
 
-import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter;
 
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;

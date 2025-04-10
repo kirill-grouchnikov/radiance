@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.radiance.demo.animation.kmusicapp.details
 
-import org.pushingpixels.radiance.demo.animation.kmusicapp.MusicAppUtils
-import org.pushingpixels.radiance.demo.animation.kmusicapp.MainWindow
-import org.pushingpixels.radiance.demo.animation.kmusicapp.data.SearchResultRelease
 import org.pushingpixels.radiance.animation.ktx.RadianceWindow
 import org.pushingpixels.radiance.animation.ktx.windowTimeline
+import org.pushingpixels.radiance.demo.animation.kmusicapp.MainWindow
+import org.pushingpixels.radiance.demo.animation.kmusicapp.MusicAppUtils
+import org.pushingpixels.radiance.demo.animation.kmusicapp.data.SearchResultRelease
 import java.awt.Color
 
 /**

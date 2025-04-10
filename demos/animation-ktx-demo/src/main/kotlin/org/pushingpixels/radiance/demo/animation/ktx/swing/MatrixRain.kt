@@ -34,18 +34,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.swing.ktx.addDelayedComponentListener
-import org.pushingpixels.radiance.swing.ktx.awt.render
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
+import org.pushingpixels.radiance.animation.api.TimelineScenario
 import org.pushingpixels.radiance.animation.ktx.from
 import org.pushingpixels.radiance.animation.ktx.repaintTimeline
 import org.pushingpixels.radiance.animation.ktx.timeline
-import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
-import org.pushingpixels.radiance.animation.api.TimelineScenario
+import org.pushingpixels.radiance.swing.ktx.addDelayedComponentListener
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import java.awt.*
 import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
-import kotlin.collections.ArrayList
 
 class Letter(private val x: Int, private val y: Int, private val c: Char, private var font: Font) {
     var color: Color = Color.white

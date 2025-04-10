@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.demo.animation.jmusicapp.details;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.demo.animation.jmusicapp.MusicAppUtils;
 import org.pushingpixels.radiance.demo.animation.jmusicapp.data.SearchResultRelease;
 import org.pushingpixels.radiance.demo.animation.jmusicapp.data.Track;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.radiance.component.ktx.synapse
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.RibbonDefaultComboBoxContentModel
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.RibbonComboBoxProjection
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon
-import org.pushingpixels.radiance.component.ktx.RadianceElementMarker
 import org.pushingpixels.radiance.component.ktx.KRichTooltip
 import org.pushingpixels.radiance.component.ktx.NullableDelegate
+import org.pushingpixels.radiance.component.ktx.RadianceElementMarker
 import org.pushingpixels.radiance.component.ktx.ribbon.KFlowRibbonBand
 import org.pushingpixels.radiance.component.ktx.ribbon.KRibbonBand
 import org.pushingpixels.radiance.component.ktx.ribbon.KRibbonBandGroup

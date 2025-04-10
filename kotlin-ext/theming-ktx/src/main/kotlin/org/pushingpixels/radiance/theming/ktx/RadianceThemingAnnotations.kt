@@ -29,8 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.ktx
 
-import java.awt.*
-import javax.swing.*
+import java.awt.Component
+import java.awt.Window
+import javax.swing.JRootPane
 
 /**
  * APIs in this scope apply to individual application [Component]s.

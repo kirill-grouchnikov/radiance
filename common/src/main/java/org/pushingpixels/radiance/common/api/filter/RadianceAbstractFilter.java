@@ -37,7 +37,8 @@ package org.pushingpixels.radiance.common.api.filter;
 import org.pushingpixels.radiance.common.internal.contrib.intellij.JBHiDPIScaledImage;
 
 import java.awt.*;
-import java.awt.geom.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.*;
 
 /**

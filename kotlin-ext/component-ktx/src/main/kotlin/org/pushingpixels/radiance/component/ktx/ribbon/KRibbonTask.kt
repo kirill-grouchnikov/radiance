@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.component.ktx.ribbon
 
 import org.pushingpixels.radiance.component.api.ribbon.RibbonTask
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizeSequencingPolicy
-import org.pushingpixels.radiance.component.ktx.RadianceElementMarker
 import org.pushingpixels.radiance.component.ktx.NullableDelegate
+import org.pushingpixels.radiance.component.ktx.RadianceElementMarker
 
 @RadianceElementMarker
 public class KRibbonTaskBandContainer {

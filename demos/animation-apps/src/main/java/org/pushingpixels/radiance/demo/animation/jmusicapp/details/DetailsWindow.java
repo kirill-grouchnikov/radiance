@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.radiance.demo.animation.jmusicapp.details;
 
-import org.pushingpixels.radiance.demo.animation.jmusicapp.BackendConnector;
-import org.pushingpixels.radiance.demo.animation.jmusicapp.data.SearchResultRelease;
-import org.pushingpixels.radiance.demo.animation.jmusicapp.data.Track;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.TimelineRunnable;
 import org.pushingpixels.radiance.animation.api.TimelineScenario;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 import org.pushingpixels.radiance.animation.api.swing.TimelineSwingWorker;
+import org.pushingpixels.radiance.demo.animation.jmusicapp.BackendConnector;
+import org.pushingpixels.radiance.demo.animation.jmusicapp.data.SearchResultRelease;
+import org.pushingpixels.radiance.demo.animation.jmusicapp.data.Track;
 
 import javax.swing.*;
 import java.awt.*;

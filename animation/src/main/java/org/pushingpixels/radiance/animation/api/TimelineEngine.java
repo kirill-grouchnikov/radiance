@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.animation.api;
 
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.RunOnEventDispatchThread;
 import org.pushingpixels.radiance.animation.internal.swing.SwingUtils;
-import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 
 import java.util.HashSet;
 import java.util.Iterator;

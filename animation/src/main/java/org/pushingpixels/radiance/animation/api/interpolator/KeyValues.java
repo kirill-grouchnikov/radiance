@@ -31,8 +31,8 @@
 
 package org.pushingpixels.radiance.animation.api.interpolator;
 
-import org.pushingpixels.radiance.animation.api.TimelinePropertyBuilder.PropertySetter;
 import org.pushingpixels.radiance.animation.api.RadianceAnimationCortex;
+import org.pushingpixels.radiance.animation.api.TimelinePropertyBuilder.PropertySetter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

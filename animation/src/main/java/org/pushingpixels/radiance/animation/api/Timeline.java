@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.radiance.animation.api;
 
+import org.pushingpixels.radiance.animation.api.callback.TimelineCallback;
 import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.ease.TimelineEase;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
 import org.pushingpixels.radiance.animation.api.swing.RunOnEventDispatchThread;
 import org.pushingpixels.radiance.animation.internal.swing.SwingUtils;
-import org.pushingpixels.radiance.animation.api.callback.TimelineCallback;
 
 import java.util.ArrayList;
 import java.util.List;

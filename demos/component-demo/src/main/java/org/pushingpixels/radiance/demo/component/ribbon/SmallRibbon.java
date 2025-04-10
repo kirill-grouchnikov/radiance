@@ -13,8 +13,6 @@ import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePo
 import org.pushingpixels.radiance.demo.component.svg.material.transcoded.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.skin.CeruleanSkin;
-import org.pushingpixels.radiance.theming.api.skin.CremeCoffeeSkin;
 import org.pushingpixels.radiance.theming.api.skin.TwilightSkin;
 
 import javax.swing.*;

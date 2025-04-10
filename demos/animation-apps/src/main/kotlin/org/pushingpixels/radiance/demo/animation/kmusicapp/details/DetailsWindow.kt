@@ -29,18 +29,17 @@
  */
 package org.pushingpixels.radiance.demo.animation.kmusicapp.details
 
+import org.pushingpixels.radiance.animation.api.TimelineRunnable
+import org.pushingpixels.radiance.animation.api.TimelineScenario
+import org.pushingpixels.radiance.animation.api.swing.TimelineSwingWorker
+import org.pushingpixels.radiance.animation.ktx.componentTimeline
+import org.pushingpixels.radiance.animation.ktx.from
+import org.pushingpixels.radiance.animation.ktx.fromCurrentTo
 import org.pushingpixels.radiance.demo.animation.kmusicapp.BackendConnector
 import org.pushingpixels.radiance.demo.animation.kmusicapp.data.SearchResultRelease
 import org.pushingpixels.radiance.demo.animation.kmusicapp.data.Track
 import org.pushingpixels.radiance.swing.ktx.awt.RadianceLayoutManager
-import org.pushingpixels.radiance.animation.ktx.componentTimeline
-import org.pushingpixels.radiance.animation.ktx.from
-import org.pushingpixels.radiance.animation.ktx.fromCurrentTo
-import org.pushingpixels.radiance.animation.api.TimelineRunnable
-import org.pushingpixels.radiance.animation.api.TimelineScenario
-import org.pushingpixels.radiance.animation.api.swing.TimelineSwingWorker
 import java.awt.image.BufferedImage
-import java.util.*
 import javax.swing.JWindow
 
 /**

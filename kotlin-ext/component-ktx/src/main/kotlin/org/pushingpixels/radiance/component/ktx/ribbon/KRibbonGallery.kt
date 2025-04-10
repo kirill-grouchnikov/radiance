@@ -29,20 +29,19 @@
  */
 package org.pushingpixels.radiance.component.ktx.ribbon
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.Command
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryPresentationModel
-import org.pushingpixels.radiance.component.ktx.RadianceElementMarker
 import org.pushingpixels.radiance.component.ktx.KCommand
 import org.pushingpixels.radiance.component.ktx.KCommandGroup
 import org.pushingpixels.radiance.component.ktx.NullableDelegate
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
-import org.pushingpixels.radiance.component.api.common.model.BaseCommand
-import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel
-import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
+import org.pushingpixels.radiance.component.ktx.RadianceElementMarker
 
 @RadianceElementMarker
 public class GalleryCommandVisibilityContainer {

@@ -34,12 +34,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.swing.ktx.awt.render
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline
 import org.pushingpixels.radiance.animation.ktx.from
 import org.pushingpixels.radiance.animation.ktx.repaintTimeline
 import org.pushingpixels.radiance.animation.ktx.timeline
-import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
-import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Graphics

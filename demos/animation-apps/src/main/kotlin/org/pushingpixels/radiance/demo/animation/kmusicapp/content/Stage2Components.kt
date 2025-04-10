@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
 import org.pushingpixels.radiance.swing.ktx.swing.KeyboardActionScopeType
 import org.pushingpixels.radiance.swing.ktx.swing.wireActionToKeyStrokes
 import java.awt.Graphics
-import java.util.*
 import javax.swing.KeyStroke
 
 /**

@@ -34,9 +34,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
 import org.pushingpixels.radiance.animation.ktx.RadianceComponent
 import org.pushingpixels.radiance.animation.ktx.componentTimeline
+import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
 import java.awt.Color
 import java.awt.FlowLayout
 import javax.swing.JButton

@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.radiance.demo.animation.jmusicapp;
 
-import org.pushingpixels.radiance.demo.animation.jmusicapp.data.SearchResultRelease;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.TimelineRunnable;
@@ -39,6 +37,8 @@ import org.pushingpixels.radiance.animation.api.ease.Spline;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 import org.pushingpixels.radiance.animation.api.swing.TimelineSwingWorker;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.demo.animation.jmusicapp.data.SearchResultRelease;
 
 import javax.swing.*;
 import java.awt.*;

@@ -40,9 +40,7 @@ import org.pushingpixels.radiance.demo.component.icon.IcoWrapperRadianceIcon
 import org.pushingpixels.radiance.demo.component.icon.ImageWrapperRadianceIcon
 import org.pushingpixels.radiance.demo.component.svg.SvgBatikRadianceIcon
 import java.awt.Dimension
-import java.io.File
 import java.io.InputStream
-import javax.swing.filechooser.FileSystemView
 
 /**
  * Panel that hosts image-based buttons.

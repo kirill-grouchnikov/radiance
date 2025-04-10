@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.demo.animation.kmusicapp.content
 
+import org.pushingpixels.radiance.animation.api.Timeline
 import org.pushingpixels.radiance.animation.ktx.componentTimeline
 import org.pushingpixels.radiance.animation.ktx.fromCurrentTo
-import org.pushingpixels.radiance.animation.api.Timeline
 
 /**
  * Adds the following functionality to the album scroller container:

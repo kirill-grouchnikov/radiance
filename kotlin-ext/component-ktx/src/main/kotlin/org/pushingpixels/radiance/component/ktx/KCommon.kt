@@ -29,13 +29,10 @@
  */
 package org.pushingpixels.radiance.component.ktx
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.component.api.common.RichTooltip
 import org.pushingpixels.radiance.component.api.common.model.CommandToggleGroupModel
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
-import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Insets

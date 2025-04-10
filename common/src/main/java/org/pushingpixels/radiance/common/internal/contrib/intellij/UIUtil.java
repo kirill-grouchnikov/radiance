@@ -17,7 +17,7 @@ package org.pushingpixels.radiance.common.internal.contrib.intellij;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.util.*;
+import java.util.WeakHashMap;
 
 /**
  * @author max

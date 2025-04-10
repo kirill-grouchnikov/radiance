@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.animation.jmusicapp;
 
-import org.pushingpixels.radiance.demo.animation.jmusicapp.details.DetailsWindowManager;
 import org.pushingpixels.radiance.demo.animation.jmusicapp.data.SearchResultRelease;
+import org.pushingpixels.radiance.demo.animation.jmusicapp.details.DetailsWindowManager;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;

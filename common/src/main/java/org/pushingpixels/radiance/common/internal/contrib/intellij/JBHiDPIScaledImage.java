@@ -16,7 +16,9 @@
 package org.pushingpixels.radiance.common.internal.contrib.intellij;
 
 import java.awt.*;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 
 /**
  * @author Konstantin Bulenkov

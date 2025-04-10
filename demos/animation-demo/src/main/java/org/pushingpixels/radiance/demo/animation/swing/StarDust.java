@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.demo.animation.swing;
 
+import org.pushingpixels.radiance.animation.api.RadianceAnimationCortex;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
-import org.pushingpixels.radiance.animation.api.RadianceAnimationCortex;
 import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
 

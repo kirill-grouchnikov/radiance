@@ -47,7 +47,6 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentCo
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.radiance.component.ktx.*
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.PopupPlacementStrategy
 import javax.swing.JComponent
 
 @RadianceElementMarker

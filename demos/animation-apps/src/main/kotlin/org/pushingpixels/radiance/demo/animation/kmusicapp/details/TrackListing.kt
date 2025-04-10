@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.radiance.demo.animation.kmusicapp.details
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.demo.animation.kmusicapp.MusicAppUtils
 import org.pushingpixels.radiance.demo.animation.kmusicapp.data.SearchResultRelease
 import org.pushingpixels.radiance.demo.animation.kmusicapp.data.Track
 import org.pushingpixels.radiance.swing.ktx.awt.render
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import java.awt.*
 import java.awt.font.FontRenderContext
 import java.awt.geom.AffineTransform

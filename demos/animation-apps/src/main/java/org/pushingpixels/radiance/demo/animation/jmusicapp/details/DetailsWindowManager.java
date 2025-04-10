@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.demo.animation.jmusicapp.details;
 
-import org.pushingpixels.radiance.demo.animation.jmusicapp.MusicAppUtils;
-import org.pushingpixels.radiance.demo.animation.jmusicapp.MainWindow;
-import org.pushingpixels.radiance.demo.animation.jmusicapp.data.SearchResultRelease;
 import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.demo.animation.jmusicapp.MainWindow;
+import org.pushingpixels.radiance.demo.animation.jmusicapp.MusicAppUtils;
+import org.pushingpixels.radiance.demo.animation.jmusicapp.data.SearchResultRelease;
 
 import java.awt.*;
 

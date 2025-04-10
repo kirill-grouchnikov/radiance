@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.demo.animation.kmusicapp.details.DetailsWindow
 import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
 import org.pushingpixels.radiance.swing.ktx.addDelayedWindowFocusListener
 import org.pushingpixels.radiance.swing.ktx.awt.RadianceLayoutManager
-import java.awt.*
+import java.awt.Color
 import javax.swing.JFrame
 
 class MainWindow : JFrame("Music demo") {

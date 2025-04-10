@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.animation.api.swing;
 
-import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.callback.TimelineCallback;
+import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter;
 
 /**
  * Empty implementation of {@link TimelineCallback} that does nothing but is

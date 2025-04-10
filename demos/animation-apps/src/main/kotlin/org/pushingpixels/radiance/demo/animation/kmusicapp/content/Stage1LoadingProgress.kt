@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.radiance.demo.animation.kmusicapp.content
 
-import org.pushingpixels.radiance.swing.ktx.awt.render
-import org.pushingpixels.radiance.animation.ktx.componentTimeline
-import org.pushingpixels.radiance.animation.ktx.from
 import org.pushingpixels.radiance.animation.api.Timeline
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState
+import org.pushingpixels.radiance.animation.ktx.componentTimeline
+import org.pushingpixels.radiance.animation.ktx.from
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import java.awt.*
 import java.awt.geom.RoundRectangle2D
 

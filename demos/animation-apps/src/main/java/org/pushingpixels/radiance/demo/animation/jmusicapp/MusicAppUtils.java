@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.demo.animation.jmusicapp;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import java.awt.*;
 import java.awt.font.*;

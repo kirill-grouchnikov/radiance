@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.animation.swing;
 
-import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.RadianceAnimationCortex;
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Sine;
 import org.pushingpixels.radiance.animation.api.interpolator.PropertyInterpolator;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;

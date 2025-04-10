@@ -34,14 +34,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
+import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel
+import org.pushingpixels.radiance.component.ktx.commandToggleButtonStrip
 import org.pushingpixels.radiance.demo.component.ktx.svg.Format_justify_center
 import org.pushingpixels.radiance.demo.component.ktx.svg.Format_justify_fill
 import org.pushingpixels.radiance.demo.component.ktx.svg.Format_justify_left
 import org.pushingpixels.radiance.demo.component.ktx.svg.Format_justify_right
-import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.radiance.swing.ktx.swing.AlignType
 import org.pushingpixels.radiance.swing.ktx.swing.setAlignment
-import org.pushingpixels.radiance.component.ktx.commandToggleButtonStrip
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin
 import java.awt.BorderLayout

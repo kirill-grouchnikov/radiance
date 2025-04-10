@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.animation;
 
-import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.RadianceAnimationCortex;
+import org.pushingpixels.radiance.animation.api.Timeline;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
