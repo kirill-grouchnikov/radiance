@@ -14,6 +14,7 @@
 | 6.5 | **Jade** | December 1, 2022 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2022/12/01/radiance-6-5-0.html) |
 | 7.0 | **Karat** | January 20, 2024 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2024/01/20/radiance-7-0-0.html) |
 | 7.5 | **Larimar** | June 24, 2024 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2024/06/25/radiance-7-5-0.html) |
+| 8.0 | **Marble** | May 30, 2025 (planned) | Java 9+ |  |
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
