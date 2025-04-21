@@ -68,8 +68,10 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         "Progress fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
         new ContainerColorTokensSingleColorQuery[]{
             ContainerColorTokens::getContainerSurface,
-            ContainerColorTokens::getContainerSurfaceHigh,
-            ContainerColorTokens::getContainerSurfaceHighest}
+            (tokens) -> tokens.isDark() ? tokens.getContainerSurfaceLow()
+                : tokens.getContainerSurfaceHigh(),
+            (tokens) -> tokens.isDark() ? tokens.getContainerSurfaceLowest()
+                : tokens.getContainerSurfaceHighest()}
     );
 
     private final class RadianceChangeListener implements ChangeListener {
