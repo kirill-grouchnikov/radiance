@@ -189,7 +189,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getNotAllowedIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         RadianceIcon result = remove_circle_black_24dp.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(color -> preferredIconColorTokens.getContainerSurface());
+        result.setColorFilter(color -> preferredIconColorTokens.getAccentOnContainer());
         return result;
     }
 

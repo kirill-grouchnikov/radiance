@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.theming.main.check;
 
+import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
@@ -62,7 +63,7 @@ import java.util.Date;
  *
  * @author Kirill Grouchnikov
  */
-public class TablePanel extends ControllablePanel implements Deferrable {
+public class TablePanel extends ControllablePanel implements Deferrable, SkinDependent {
     private boolean isInitialized;
     private static DataFlavor integerFlavor = new DataFlavor(Integer.class, "Row Index");
 
@@ -75,6 +76,8 @@ public class TablePanel extends ControllablePanel implements Deferrable {
      * The table.
      */
     private JTable table;
+
+    private Timeline instructionalTimeline;
 
     /**
      * Custom renderer for columns that contain {@link Color} data.
@@ -278,8 +281,16 @@ public class TablePanel extends ControllablePanel implements Deferrable {
     }
 
     @SuppressWarnings("unchecked")
-    public synchronized void initialize() {
+    @Override
+    public void reload() {
+        this.removeAll();
+
         this.table = new JTable(new MoveableTableModel(20));
+
+        if (this.instructionalTimeline != null) {
+            this.instructionalTimeline.abort();
+            this.instructionalTimeline = null;
+        }
 
         this.table.setTransferHandler(new TransferHandler() {
             @Override
@@ -344,13 +355,14 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         // create a looping animation to change the label foreground to draw some attention.
         if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(table);
-            SwingComponentTimeline.componentBuilder(instructional)
+            this.instructionalTimeline = SwingComponentTimeline.componentBuilder(instructional)
                 .addPropertyToInterpolate("foreground",
                     () -> skin.getNeutralContainerTokens(table).getOnContainer(),
                     () -> skin.getSystemContainerTokens(table,
                         RadianceThemingSlices.SystemContainerType.ERROR).getAccentOnContainer())
                 .setDuration(1000)
-                .playLoop(RepeatBehavior.REVERSE);
+                .build();
+            this.instructionalTimeline.playLoop(RepeatBehavior.REVERSE);
         }
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
@@ -594,6 +606,11 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         builder.append("Set font", tahoma13);
 
         this.controlPanel = builder.build();
+    }
+
+    @Override
+    public void initialize() {
+        this.reload();
         this.isInitialized = true;
     }
 }
