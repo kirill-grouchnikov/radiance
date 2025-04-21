@@ -245,7 +245,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Set of all decoration area types that are not explicitly registered in
      * {@link #colorTokensBundleMap} but still are considered as decoration
      * areas in this skin. Controls in such areas will have their background painted by
-     * <p>
      * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
      * instead of a simple background fill.
      */
@@ -356,6 +355,17 @@ public abstract class RadianceSkin implements RadianceTrait {
         SkinTonalUtilities.addCustomEntriesToTable(table, this);
     }
 
+    /**
+     * Returns neutral container tokens for the specified component.
+     *
+     * @param comp Component.
+     * @return Neutral container tokens for the component.
+     * 
+     * @see #getNeutralContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #getNeutralContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     * @see #getMutedContainerTokens(Component)
+     * @see #getActiveContainerTokens(Component)
+     */
     public final ContainerColorTokens getNeutralContainerTokens(Component comp) {
         RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
             RadianceThemingSlices.DecorationAreaType.NONE :
@@ -363,6 +373,17 @@ public abstract class RadianceSkin implements RadianceTrait {
         return getNeutralContainerTokens(decorationAreaType);
     }
 
+    /**
+     * Returns muted container tokens for the specified component.
+     *
+     * @param comp Component.
+     * @return Muted container tokens for the component.
+     *
+     * @see #getMutedContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind) 
+     * @see #getMutedContainerTokens(RadianceThemingSlices.DecorationAreaType) 
+     * @see #getNeutralContainerTokens(Component) 
+     * @see #getActiveContainerTokens(Component)
+     */
     public final ContainerColorTokens getMutedContainerTokens(Component comp) {
         RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
             RadianceThemingSlices.DecorationAreaType.NONE :
@@ -370,6 +391,18 @@ public abstract class RadianceSkin implements RadianceTrait {
         return getMutedContainerTokens(decorationAreaType);
     }
 
+    /**
+     * Returns active container tokens for the specified component.
+     *
+     * @param comp Component.
+     * @return Active container tokens for the component.
+     *
+     * @see #getActiveContainerTokens(Component, ComponentState) 
+     * @see #getActiveContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState) 
+     * @see #getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType) 
+     * @see #getNeutralContainerTokens(Component)
+     * @see #getMutedContainerTokens(Component) 
+     */
     public final ContainerColorTokens getActiveContainerTokens(Component comp) {
         RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
             RadianceThemingSlices.DecorationAreaType.NONE :
@@ -377,6 +410,17 @@ public abstract class RadianceSkin implements RadianceTrait {
         return getActiveContainerTokens(decorationAreaType);
     }
 
+    /**
+     * Returns active container tokens for the specified component in the specific state.
+     *
+     * @param comp Component.
+     * @param componentState Component state.
+     * @return Active container tokens for the component.
+     *
+     * @see #getActiveContainerTokens(Component)
+     * @see #getActiveContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)
+     * @see #getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     */
     public final ContainerColorTokens getActiveContainerTokens(Component comp,
         ComponentState componentState) {
         if (componentState.isDisabled()) {
@@ -411,6 +455,15 @@ public abstract class RadianceSkin implements RadianceTrait {
         return registered;
     }
 
+    /**
+     * Returns system container tokens for the specified component.
+     *
+     * @param comp Component.
+     * @param systemContainerType System container type.
+     * @return System container tokens for the component.
+     *
+     * @see #getInverseSystemContainerTokens(Component, RadianceThemingSlices.SystemContainerType)
+     */
     public final ContainerColorTokens getSystemContainerTokens(Component comp,
         RadianceThemingSlices.SystemContainerType systemContainerType) {
         // small optimization - lookup the decoration area only if there
@@ -429,6 +482,15 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getSystemContainerTokens(systemContainerType);
     }
 
+    /**
+     * Returns inverse system container tokens for the specified component.
+     *
+     * @param comp Component.
+     * @param systemContainerType System container type.
+     * @return Inverse system container tokens for the component.
+     *
+     * @see #getSystemContainerTokens(Component, RadianceThemingSlices.SystemContainerType)
+     */
     public final ContainerColorTokens getInverseSystemContainerTokens(Component comp,
         RadianceThemingSlices.SystemContainerType systemContainerType) {
         // small optimization - lookup the decoration area only if there
@@ -517,6 +579,17 @@ public abstract class RadianceSkin implements RadianceTrait {
         return this.decoratedAreaSet.contains(decorationType);
     }
 
+    /**
+     * Returns neutral container tokens for the specified decoration area type.
+     *
+     * @param decorationAreaType Decoration area type.
+     * @return Neutral container tokens for the decoration area type.
+     *
+     * @see #getNeutralContainerTokens(Component)
+     * @see #getNeutralContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #getMutedContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     * @see #getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     */
     public final ContainerColorTokens getNeutralContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         // 1 - If it's the default area type, take its neutral container tokens
@@ -537,6 +610,17 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getNeutralContainerTokens();
     }
 
+    /**
+     * Returns muted container tokens for the specified decoration area type.
+     *
+     * @param decorationAreaType Decoration area type.
+     * @return Muted container tokens for the decoration area type.
+     *
+     * @see #getMutedContainerTokens(Component) 
+     * @see #getMutedContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind) 
+     * @see #getNeutralContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     * @see #getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     */
     public final ContainerColorTokens getMutedContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
@@ -546,6 +630,18 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getMutedContainerTokens();
     }
 
+    /**
+     * Returns active container tokens for the specified decoration area type.
+     *
+     * @param decorationAreaType Decoration area type.
+     * @return Active container tokens for the decoration area type.
+     *
+     * @see #getActiveContainerTokens(Component)
+     * @see #getActiveContainerTokens(Component, ComponentState) 
+     * @see #getActiveContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState) 
+     * @see #getMutedContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     * @see #getNeutralContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     */
     public final ContainerColorTokens getActiveContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
@@ -625,14 +721,19 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the color tokens to be used for painting the specified visual
-     * area of the component under the specified component state.
+     * Returns active container tokens for the specified visual area of a component in the specific 
+     * state.
      *
-     * @param comp            Component.
+     * @param comp Component.
      * @param associationKind Color tokens association kind.
-     * @param componentState  Component state.
-     * @return Color tokens to be used for painting the specified visual area of
-     * the component under the specified component state.
+     * @param componentState Component state.
+     * @return Active container tokens for the component.
+     *
+     * @see #getActiveContainerTokens(Component)
+     * @see #getActiveContainerTokens(Component, ComponentState) 
+     * @see #getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     * @see #getNeutralContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #getMutedContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind) 
      */
     public final ContainerColorTokens getActiveContainerTokens(Component comp,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
@@ -656,6 +757,18 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getActiveContainerTokens(associationKind, componentState);
     }
 
+    /**
+     * Returns muted container tokens for the specified visual area of a component.
+     *
+     * @param comp Component.
+     * @param associationKind Color tokens association kind.
+     * @return Muted container tokens for the component.
+     *
+     * @see #getMutedContainerTokens(Component)
+     * @see #getMutedContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     * @see #getNeutralContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #getActiveContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)
+     */
     public final ContainerColorTokens getMutedContainerTokens(Component comp,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
 
@@ -673,6 +786,18 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getMutedContainerTokens(associationKind);
     }
 
+    /**
+     * Returns neutral container tokens for the specified visual area of a component.
+     *
+     * @param comp Component.
+     * @param associationKind Color tokens association kind.
+     * @return Neutral container tokens for the component.
+     *
+     * @see #getNeutralContainerTokens(Component)
+     * @see #getNeutralContainerTokens(RadianceThemingSlices.DecorationAreaType)
+     * @see #getMutedContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #getActiveContainerTokens(Component, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)
+     */
     public final ContainerColorTokens getNeutralContainerTokens(Component comp,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
 

@@ -86,11 +86,11 @@ public class ContainerColorTokensBundle {
      * Creates a new color tokens bundle.
      *
      * @param activeContainerTokens
-     *            The active color tokens of this bundle.
+     *            Active color tokens of this bundle.
      * @param mutedContainerTokens
-     *            The muted color tokens of this bundle.
+     *            Muted color tokens of this bundle.
      * @param neutralContainerTokens
-     *            The neutral color tokens of this bundle.
+     *            Neutral color tokens of this bundle.
      * @param isSystemDark
      *            <code>true</code> if the system tokens should be created in dark mode.
      */
@@ -161,8 +161,16 @@ public class ContainerColorTokensBundle {
     /**
      * Registers container color tokens for the specific active component states.
      *
-     * @param stateContainerTokens Container color tokens for the specified active component states.
-     * @param activeStates         Component states.
+     * @param stateContainerTokens
+     *     Container color tokens for the specified active component states.
+     * @param activeStates
+     *     Component states.
+     * @see #registerNeutralContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #registerMutedContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
+     * @see #getActiveContainerTokens()
+     * @see #getActiveContainerTokens(ComponentState)
+     * @see #getActiveContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)
      */
     public void registerActiveContainerTokens(ContainerColorTokens stateContainerTokens,
         ComponentState... activeStates) {
@@ -179,14 +187,24 @@ public class ContainerColorTokensBundle {
      * <ul>
      * <li><code>stateContainerTokens</code>=light orange color tokens</li>
      * <li><code>associationKind</code>={@link RadianceThemingSlices.ContainerColorTokensAssociationKind#HIGHLIGHT}</li>
-     * <li><code>states</code>={@link ComponentState#ROLLOVER_SELECTED}, {@link ComponentState#ROLLOVER_UNSELECTED}</li>
+     * <li><code>states</code>={@link ComponentState#ROLLOVER_SELECTED},
+     * {@link ComponentState#ROLLOVER_UNSELECTED}</li>
      * </ul>
      *
-     * @param colorTokens Container color tokens for the specified active component states.
-     * @param associationKind Color tokens association kind that specifies the visual areas
-     *                        of controls to be painted with this color tokens.
-     * @param activeStates          Component states that further restrict the usage of the
-     *                        specified color tokens.
+     * @param colorTokens
+     *     Container color tokens for the specified active component states.
+     * @param associationKind
+     *     Color tokens association kind that specifies the visual areas
+     *     of controls to be painted with this color tokens.
+     * @param activeStates
+     *     Component states that further restrict the usage of the
+     *     specified color tokens.
+     * @see #registerNeutralContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #registerMutedContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, ComponentState...)
+     * @see #getActiveContainerTokens()
+     * @see #getActiveContainerTokens(ComponentState)
+     * @see #getActiveContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)
      */
     public void registerActiveContainerTokens(ContainerColorTokens colorTokens,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
@@ -207,6 +225,19 @@ public class ContainerColorTokensBundle {
         }
     }
 
+    /**
+     * Registers muted container color tokens for the specified visual area of a component.
+     *
+     * @param colorTokens
+     *     Muted container color tokens for the specified visual area.
+     * @param associationKind
+     *     Color tokens association kind.
+     * @see #registerNeutralContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, ComponentState...)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
+     * @see #getMutedContainerTokens()
+     * @see #getMutedContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     */
     public void registerMutedContainerTokens(ContainerColorTokens colorTokens,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
         if (colorTokens == null) {
@@ -216,6 +247,19 @@ public class ContainerColorTokensBundle {
         this.mutedTokenOverrides.put(associationKind, colorTokens);
     }
 
+    /**
+     * Registers neutral container color tokens for the specified visual area of a component.
+     *
+     * @param colorTokens
+     *     Neutral container color tokens for the specified visual area.
+     * @param associationKind
+     *     Color tokens association kind.
+     * @see #registerMutedContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, ComponentState...)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
+     * @see #getNeutralContainerTokens()
+     * @see #getNeutralContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     */
     public void registerNeutralContainerTokens(ContainerColorTokens colorTokens,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
         if (colorTokens == null) {
@@ -225,6 +269,17 @@ public class ContainerColorTokensBundle {
         this.neutralTokenOverrides.put(associationKind, colorTokens);
     }
 
+    /**
+     * Returns active container tokens for the specified component state.
+     *
+     * @param componentState Component state.
+     * @return Active container tokens for the component state.
+     *
+     * @see #getActiveContainerTokens()
+     * @see #getActiveContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)
+     * @see #getNeutralContainerTokens()
+     * @see #getMutedContainerTokens()
+     */
     public ContainerColorTokens getActiveContainerTokens(ComponentState componentState) {
         if (componentState.isDisabled()) {
             return getActiveContainerTokens(componentState.getEnabledMatch());
@@ -245,72 +300,88 @@ public class ContainerColorTokensBundle {
         }
     }
 
+    /**
+     * Returns system container tokens.
+     *
+     * @param systemContainerType System container type.
+     * @return System container tokens.
+     *
+     * @see #getInverseSystemContainerTokens(RadianceThemingSlices.SystemContainerType)
+     */
     public ContainerColorTokens getSystemContainerTokens(
         RadianceThemingSlices.SystemContainerType systemContainerType) {
         switch (systemContainerType) {
-            case INFO: return this.getSystemInfoContainerTokens();
-            case WARNING: return this.getSystemWarningContainerTokens();
-            case ERROR: return this.getSystemErrorContainerTokens();
+            case INFO: return this.systemInfoContainerTokens;
+            case WARNING: return this.systemWarningContainerTokens;
+            case ERROR: return this.systemErrorContainerTokens;
             case SUCCESS:
             default:
-                return this.getSystemSuccessContainerTokens();
+                return this.systemSuccessContainerTokens;
         }
     }
 
+    /**
+     * Returns inverse system container tokens.
+     *
+     * @param systemContainerType System container type.
+     * @return Inverse system container tokens.
+     *
+     * @see #getSystemContainerTokens(RadianceThemingSlices.SystemContainerType)
+     */
     public ContainerColorTokens getInverseSystemContainerTokens(
         RadianceThemingSlices.SystemContainerType systemContainerType) {
         switch (systemContainerType) {
-            case INFO: return this.getInverseSystemInfoContainerTokens();
-            case WARNING: return this.getInverseSystemWarningContainerTokens();
-            case ERROR: return this.getInverseSystemErrorContainerTokens();
+            case INFO: return this.inverseSystemInfoContainerTokens;
+            case WARNING: return this.inverseSystemWarningContainerTokens;
+            case ERROR: return this.inverseSystemErrorContainerTokens;
             case SUCCESS:
             default:
-                return this.getInverseSystemSuccessContainerTokens();
+                return this.inverseSystemSuccessContainerTokens;
         }
     }
 
+    /**
+     * Returns active container tokens.
+     *
+     * @return Active container tokens.
+     *
+     * @see #getActiveContainerTokens(ComponentState)
+     * @see #getActiveContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)
+     * @see #getNeutralContainerTokens()
+     * @see #getMutedContainerTokens()
+     * @see #registerActiveContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
+     */
     public ContainerColorTokens getActiveContainerTokens() {
         return this.activeContainerTokens;
     }
 
+    /**
+     * Returns neutral container tokens.
+     *
+     * @return Neutral container tokens.
+     *
+     * @see #getNeutralContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #getActiveContainerTokens()
+     * @see #getMutedContainerTokens()
+     * @see #registerNeutralContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     */
     public ContainerColorTokens getNeutralContainerTokens() {
         return this.neutralContainerTokens;
     }
 
+    /**
+     * Returns muted container tokens.
+     *
+     * @return Muted container tokens.
+     *
+     * @see #getMutedContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #getActiveContainerTokens()
+     * @see #getNeutralContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #registerMutedContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     */
     public ContainerColorTokens getMutedContainerTokens() {
         return this.mutedContainerTokens;
-    }
-
-    public ContainerColorTokens getSystemInfoContainerTokens() {
-        return this.systemInfoContainerTokens;
-    }
-
-    public ContainerColorTokens getInverseSystemInfoContainerTokens() {
-        return this.inverseSystemInfoContainerTokens;
-    }
-
-    public ContainerColorTokens getSystemWarningContainerTokens() {
-        return this.systemWarningContainerTokens;
-    }
-
-    public ContainerColorTokens getInverseSystemWarningContainerTokens() {
-        return this.inverseSystemWarningContainerTokens;
-    }
-
-    public ContainerColorTokens getSystemErrorContainerTokens() {
-        return this.systemErrorContainerTokens;
-    }
-
-    public ContainerColorTokens getInverseSystemErrorContainerTokens() {
-        return this.inverseSystemErrorContainerTokens;
-    }
-
-    public ContainerColorTokens getSystemSuccessContainerTokens() {
-        return this.systemSuccessContainerTokens;
-    }
-
-    public ContainerColorTokens getInverseSystemSuccessContainerTokens() {
-        return this.inverseSystemSuccessContainerTokens;
     }
 
     private ContainerColorTokens getActiveContainerTokensForState(ComponentState componentState) {
@@ -371,15 +442,19 @@ public class ContainerColorTokensBundle {
     }
 
     /**
-     * Returns the color tokens to be used for painting components under the specified component
-     * state.
+     * Returns active container tokens for the specified visual area of a component in a specified
+     * component state.
      *
      * @param associationKind Color tokens association kind.
-     * @param componentState  Component state.
-     * @return Color tokens to be used for painting the specified visual area of
-     * the component under the specified component state.
-     * @see #registerActiveContainerTokens(ContainerColorTokens, ComponentState...)
+     * @param componentState Component state.
+     * @return Active container tokens.
+     *
+     * @see #getActiveContainerTokens()
+     * @see #getActiveContainerTokens(ComponentState)
+     * @see #getNeutralContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #getMutedContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind)
      * @see #registerActiveContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState...)
+     * @see #registerActiveContainerTokens(ContainerColorTokens, ComponentState...)
      */
     public ContainerColorTokens getActiveContainerTokens(
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
@@ -408,6 +483,17 @@ public class ContainerColorTokensBundle {
         return this.getActiveContainerTokens(componentState);
     }
 
+    /**
+     * Returns muted container tokens for the specified visual area of a component.
+     *
+     * @param associationKind Color tokens association kind.
+     * @return Muted container tokens.
+     *
+     * @see #getMutedContainerTokens()
+     * @see #getActiveContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)
+     * @see #getNeutralContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     * @see #registerMutedContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     */
     public ContainerColorTokens getMutedContainerTokens(
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
 
@@ -428,6 +514,17 @@ public class ContainerColorTokensBundle {
         return this.getMutedContainerTokens();
     }
 
+    /**
+     * Returns neutral container tokens for the specified visual area of a component.
+     *
+     * @param associationKind Color tokens association kind.
+     * @return Neutral container tokens.
+     *
+     * @see #getNeutralContainerTokens() 
+     * @see #getActiveContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind, ComponentState)
+     * @see #getMutedContainerTokens(RadianceThemingSlices.ContainerColorTokensAssociationKind) 
+     * @see #registerNeutralContainerTokens(ContainerColorTokens, RadianceThemingSlices.ContainerColorTokensAssociationKind)
+     */
     public ContainerColorTokens getNeutralContainerTokens(
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
 
