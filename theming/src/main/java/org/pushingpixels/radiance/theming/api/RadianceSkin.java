@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolver;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
-import org.pushingpixels.radiance.theming.internal.utils.SkinTonalUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.SkinUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -348,7 +348,7 @@ public abstract class RadianceSkin implements RadianceTrait {
             return;
         }
 
-        SkinTonalUtilities.addCustomEntriesToTable(table, this);
+        SkinUtilities.addCustomEntriesToTable(table, this);
     }
 
     /**

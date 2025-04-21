@@ -139,7 +139,7 @@ public class RadianceBorder implements Border, UIResource {
 
 		float baseRadius = this.radiusScaleFactor *
 			RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
-		BladeDrawingUtils.paintBladeTonalBorder(c, graphics, x, y, width, height, baseRadius,
+		BladeDrawingUtils.paintBladeBorder(c, graphics, x, y, width, height, baseRadius,
 			colorTokens);
 
 		graphics.dispose();

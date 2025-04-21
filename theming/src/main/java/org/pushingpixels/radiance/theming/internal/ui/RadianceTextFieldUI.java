@@ -129,7 +129,7 @@ public class RadianceTextFieldUI extends BasicTextFieldUI implements TransitionA
 
     @Override
     protected void paintBackground(Graphics g) {
-        RadianceTextUtilities.paintTextCompTonalBackground(g, this.textField);
+        RadianceTextUtilities.paintTextCompBackground(g, this.textField);
     }
 
     @Override

@@ -108,7 +108,7 @@ public class RadianceRibbonUI extends BasicRibbonUI {
                 Rectangle bounds = taskToggleButton.getBounds();
                 int x = bounds.x + bounds.width + getTabButtonGap() / 2 - 1;
                 g2d.translate(x, 0);
-                SeparatorPainterUtils.paintTonalSeparator(ribbon, g2d, tokens, 2, getHeight(),
+                SeparatorPainterUtils.paintSeparator(ribbon, g2d, tokens, 2, getHeight(),
                     SwingConstants.VERTICAL, false, getHeight() / 3, 0, true);
                 g2d.translate(-x, 0);
             }

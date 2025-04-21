@@ -47,7 +47,7 @@ public class RadiancePopupMenuBorder implements Border, UIResource {
 		ContainerColorTokens containerTokens =
 			CoreColorTokenUtils.getContainerTokens(c, ComponentState.ENABLED,
 				CoreColorTokenUtils.ContainerType.NEUTRAL);
-		BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f,
+		BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f,
 			containerTokens);
 		graphics.dispose();
 	}

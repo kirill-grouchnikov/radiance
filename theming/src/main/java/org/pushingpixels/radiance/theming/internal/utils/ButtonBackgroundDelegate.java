@@ -59,7 +59,7 @@ import java.util.Set;
 public class ButtonBackgroundDelegate {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
-    private void drawTonalBackground(
+    private void drawBackground(
         Graphics2D graphics, AbstractButton button,
         RadianceButtonShaper shaper, RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int width, int height) {
@@ -106,7 +106,7 @@ public class ButtonBackgroundDelegate {
                     BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                         button, modificationTimeline.getTimelinePosition());
 
-                    drawTonalBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
+                    drawBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
                         mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted,
                         currState, overallAlpha);
                     return;
@@ -118,12 +118,12 @@ public class ButtonBackgroundDelegate {
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             false, false, CoreColorTokenUtils.ContainerType.MUTED);
 
-        drawTonalBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
+        drawBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
             mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted, currState,
             overallAlpha);
     }
 
-    private void drawTonalBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
+    private void drawBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
         RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter, int width,
         int height, ContainerColorTokens colorTokens,
         Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled,
@@ -221,7 +221,7 @@ public class ButtonBackgroundDelegate {
         RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(button);
 
-        drawTonalBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height);
+        drawBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height);
 
         graphics.dispose();
     }

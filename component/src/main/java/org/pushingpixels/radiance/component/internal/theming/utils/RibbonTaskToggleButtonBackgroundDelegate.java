@@ -52,7 +52,7 @@ import java.util.Set;
  *
  * @author Kirill Grouchnikov
  */
-public class RibbonTaskToggleButtonTonalBackgroundDelegate {
+public class RibbonTaskToggleButtonBackgroundDelegate {
     private BladeContainerColorTokens mutableTokens = new BladeContainerColorTokens();
 
     public void updateTaskToggleButtonBackground(Graphics2D g, JRibbonTaskToggleButton button) {

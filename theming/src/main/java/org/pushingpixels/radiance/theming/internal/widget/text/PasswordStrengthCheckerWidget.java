@@ -211,7 +211,7 @@ public class PasswordStrengthCheckerWidget extends RadianceThemingWidget<JPasswo
         }
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, g));
-        BladeDrawingUtils.paintBladeSimpleTonalBorder(c, graphics, width, height, 0.0f, colorTokens);
+        BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f, colorTokens);
 
         graphics.dispose();
     }

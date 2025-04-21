@@ -98,7 +98,7 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        BladeIconUtils.drawTonalCheckBox(graphics, this.menuItem, surfacePainter, outlinePainter,
+        BladeIconUtils.drawCheckBox(graphics, this.menuItem, surfacePainter, outlinePainter,
             this.size, currState, mutableContainerTokens, visibility, 0.0f,
             isCheckMarkFadingOut);
         graphics.dispose();

@@ -421,7 +421,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
 
     @Override
     protected void paintBackground(Graphics g) {
-        RadianceTextUtilities.paintTextCompTonalBackground(g, this.passwordField);
+        RadianceTextUtilities.paintTextCompBackground(g, this.passwordField);
     }
 
     @Override

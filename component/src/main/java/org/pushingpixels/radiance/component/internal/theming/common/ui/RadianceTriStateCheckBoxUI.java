@@ -115,7 +115,7 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
 
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
-                BladeIconUtils.drawTonalCheckBox(graphics, triStateCheckBox, surfacePainter,
+                BladeIconUtils.drawCheckBox(graphics, triStateCheckBox, surfacePainter,
                     outlinePainter, checkMarkSize, currState, mutableContainerTokens, visibility,
                     checkmarkFlatness, isCheckMarkFadingOut);
                 graphics.dispose();
@@ -171,7 +171,7 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
             } else {
                 ComponentState stateForText = b.isEnabled() ? ComponentState.ENABLED
                     : ComponentState.DISABLED_UNSELECTED;
-                RadianceTextUtilities.paintTonalText(g, b, textRect,
+                RadianceTextUtilities.paintText(g, b, textRect,
                     text, -1, stateForText, CoreColorTokenUtils.ContainerType.NEUTRAL);
             }
         }

@@ -360,7 +360,7 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
      */
     private Color paintButtonText(Graphics g, AbstractButton button,
             Rectangle textRect, String text) {
-        return RadianceTextUtilities.paintTonalText(g, button, textRect, text,
+        return RadianceTextUtilities.paintText(g, button, textRect, text,
             button.getDisplayedMnemonicIndex(), CoreColorTokenUtils.ContainerType.MUTED);
     }
 

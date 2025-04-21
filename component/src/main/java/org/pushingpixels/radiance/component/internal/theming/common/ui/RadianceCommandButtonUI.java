@@ -406,7 +406,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             this.commandButton,
             ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
             CoreColorTokenUtils.ContainerType.MUTED);
-        SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens,
+        SeparatorPainterUtils.paintSeparator(this.commandButton, g2d, colorTokens,
             this.commandButton.getWidth(), 1, SwingConstants.HORIZONTAL, true, 4, 4, true);
 
         g2d.dispose();
@@ -423,7 +423,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             this.commandButton,
             ComponentState.getState(this.commandButton.getActionModel(), this.commandButton),
             CoreColorTokenUtils.ContainerType.MUTED);
-        SeparatorPainterUtils.paintTonalSeparator(this.commandButton, g2d, colorTokens, 1,
+        SeparatorPainterUtils.paintSeparator(this.commandButton, g2d, colorTokens, 1,
             this.commandButton.getHeight(), SwingConstants.VERTICAL, true, 4, 4, true);
 
         g2d.dispose();
@@ -484,7 +484,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 ? this.getActionTransitionTracker()
                 : this.getPopupTransitionTracker();
         ModelStateInfo modelStateInfoForFg = transitionTrackerForFg.getModelStateInfo();
-        Color fgColor = getTonalForegroundColor(modelStateInfoForFg);
+        Color fgColor = getForegroundColor(modelStateInfoForFg);
 
         if (layoutInfo.textLayoutInfoList != null) {
             for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo :
@@ -498,7 +498,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         }
 
         if (layoutInfo.extraTextLayoutInfoList != null) {
-            Color secondaryFgColor = getTonalForegroundVariantColor(modelStateInfoForFg);
+            Color secondaryFgColor = getForegroundVariantColor(modelStateInfoForFg);
             for (CommandButtonLayoutManager.TextLayoutInfo extraTextLayoutInfo :
                     layoutInfo.extraTextLayoutInfoList) {
                 if (extraTextLayoutInfo.text != null) {
@@ -512,7 +512,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         if (layoutInfo.iconRect != null) {
             // Important - have the icon follow the foreground color of the action area
             // if it is configured with RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
-            Color textColor = getTonalForegroundColor(this.getActionTransitionTracker().getModelStateInfo());
+            Color textColor = getForegroundColor(this.getActionTransitionTracker().getModelStateInfo());
             this.paintButtonIcon(g2d, layoutInfo.iconRect, textColor);
         }
         if (layoutInfo.popupActionRect.getWidth() > 0) {
@@ -578,17 +578,17 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         g2d.dispose();
     }
 
-    private Color getTonalForegroundColor(ModelStateInfo modelStateInfo) {
+    private Color getForegroundColor(ModelStateInfo modelStateInfo) {
         Color fgColor = this.commandButton.getForeground();
         if (fgColor instanceof UIResource) {
             if (this.commandButton.getPresentationModel().getSelectedStateHighlight() ==
                 CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) {
-                fgColor = getMenuButtonTonalForegroundColor(this.commandButton, modelStateInfo);
+                fgColor = getMenuButtonForegroundColor(this.commandButton, modelStateInfo);
             } else {
-                fgColor = RadianceColorUtilities.getTonalForegroundColor(
+                fgColor = RadianceColorUtilities.getForegroundColor(
                     this.commandButton, modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
             }
-            float fgAlpha = RadianceColorUtilities.getTonalForegroundAlpha(
+            float fgAlpha = RadianceColorUtilities.getForegroundAlpha(
                 this.commandButton, modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
             if (fgAlpha < 1.0f) {
                 fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
@@ -598,17 +598,17 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         return fgColor;
     }
 
-    private Color getTonalForegroundVariantColor(ModelStateInfo modelStateInfo) {
+    private Color getForegroundVariantColor(ModelStateInfo modelStateInfo) {
         Color fgColor = this.commandButton.getForeground();
         if (fgColor instanceof UIResource) {
             if (this.commandButton.getPresentationModel().getSelectedStateHighlight() ==
                 CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) {
-                fgColor = getMenuButtonTonalForegroundVariantColor(this.commandButton, modelStateInfo);
+                fgColor = getMenuButtonForegroundVariantColor(this.commandButton, modelStateInfo);
             } else {
-                fgColor = RadianceColorUtilities.getTonalForegroundVariantColor(
+                fgColor = RadianceColorUtilities.getForegroundVariantColor(
                     this.commandButton, modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
             }
-            float fgAlpha = RadianceColorUtilities.getTonalForegroundAlpha(
+            float fgAlpha = RadianceColorUtilities.getForegroundAlpha(
                 this.commandButton, modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
             if (fgAlpha < 1.0f) {
                 fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
@@ -717,7 +717,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         return this.radianceVisualStateTracker.getPopupStateTransitionTracker();
     }
 
-    private static Color getMenuButtonTonalForegroundColor(JCommandButton menuButton,
+    private static Color getMenuButtonForegroundColor(JCommandButton menuButton,
         StateTransitionTracker.ModelStateInfo modelStateInfo) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
@@ -758,7 +758,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 
-    private static Color getMenuButtonTonalForegroundVariantColor(JCommandButton menuButton,
+    private static Color getMenuButtonForegroundVariantColor(JCommandButton menuButton,
         StateTransitionTracker.ModelStateInfo modelStateInfo) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo

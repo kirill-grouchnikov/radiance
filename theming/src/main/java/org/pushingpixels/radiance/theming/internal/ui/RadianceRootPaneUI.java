@@ -259,7 +259,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
         // support for per-window skins
         Color backgr = c.getBackground();
         if ((backgr == null) || (backgr instanceof UIResource)) {
-            Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(c,
+            Color backgroundFillColor = RadianceColorUtilities.getBackgroundFillColor(c,
                     CoreColorTokenUtils.ContainerType.NEUTRAL);
             // fix for issue 244 - set the root pane BG color
             if (backgroundFillColor != null) {

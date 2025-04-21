@@ -61,7 +61,7 @@ public class RadianceViewportUI extends BasicViewportUI {
 		// support for per-window skins
 		Color backgr = c.getBackground();
 		if ((backgr == null) || (backgr instanceof UIResource)) {
-            Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(c,
+            Color backgroundFillColor = RadianceColorUtilities.getBackgroundFillColor(c,
 					CoreColorTokenUtils.ContainerType.NEUTRAL);
             if (backgroundFillColor != null) {
                 c.setBackground(new ColorUIResource(backgroundFillColor));

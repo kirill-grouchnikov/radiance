@@ -141,7 +141,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
 
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
-                BladeIconUtils.drawTonalRadioButton(graphics, button, surfacePainter, outlinePainter,
+                BladeIconUtils.drawRadioButton(graphics, button, surfacePainter, outlinePainter,
                     checkMarkSize, currState, mutableContainerTokens, visibility);
                 graphics.dispose();
             }
@@ -291,7 +291,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
      */
     private void paintButtonText(Graphics g, AbstractButton button, Rectangle textRect,
             String text) {
-        RadianceTextUtilities.paintTonalText(g, button, textRect, text,
+        RadianceTextUtilities.paintText(g, button, textRect, text,
             button.getDisplayedMnemonicIndex(), CoreColorTokenUtils.ContainerType.NEUTRAL);
     }
 

@@ -50,7 +50,7 @@ import javax.swing.plaf.basic.BasicBorders.MarginBorder;
 import java.awt.*;
 import java.util.Locale;
 
-public class SkinTonalUtilities {
+public class SkinUtilities {
     /**
      * Adds skin-specific entries to the UI defaults table.
      *

@@ -51,25 +51,25 @@ import java.util.List;
  * @author Kirill Grouchnikov
  */
 
-public class TonalContainerFilter extends RadianceAbstractFilter {
+public class ContainerTokensFilter extends RadianceAbstractFilter {
     private int[] interpolated;
 
     private static final int MAPSTEPS = 512;
 
-    private final static LazyResettableHashMap<TonalContainerFilter> filters =
-            new LazyResettableHashMap<>("TonalContainerFilter");
+    private final static LazyResettableHashMap<ContainerTokensFilter> filters =
+            new LazyResettableHashMap<>("ContainerTokensFilter");
 
     private float originalBrightnessFactor;
     private float alpha;
 
-    public static TonalContainerFilter getContainerTokensFilter(
+    public static ContainerTokensFilter getContainerTokensFilter(
             ContainerColorTokens colorTokens,
             float originalBrightnessFactor, float alpha) {
         HashMapKey key = RadianceCoreUtilities.getHashKey(colorTokens.hashCode(),
                 originalBrightnessFactor, alpha);
-        TonalContainerFilter filter = filters.get(key);
+        ContainerTokensFilter filter = filters.get(key);
         if (filter == null) {
-            filter = new TonalContainerFilter(colorTokens, originalBrightnessFactor, alpha);
+            filter = new ContainerTokensFilter(colorTokens, originalBrightnessFactor, alpha);
             filters.put(key, filter);
         }
         return filter;
@@ -162,7 +162,7 @@ public class TonalContainerFilter extends RadianceAbstractFilter {
     /**
      * @throws IllegalArgumentException if <code>containerColorTokens</code> is null
      */
-    private TonalContainerFilter(ContainerColorTokens containerColorTokens,
+    private ContainerTokensFilter(ContainerColorTokens containerColorTokens,
             float originalBrightnessFactor, float alpha) {
         if (containerColorTokens == null) {
             throw new IllegalArgumentException("Color tokens cannot be null");

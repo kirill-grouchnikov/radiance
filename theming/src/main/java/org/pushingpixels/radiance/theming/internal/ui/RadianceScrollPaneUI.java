@@ -278,7 +278,7 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
 
             if (RadianceCoreUtilities.isOpaque(c)) {
                 Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(RadianceColorUtilities.getBackgroundTonalFillColorScrollBar(
+                g2d.setColor(RadianceColorUtilities.getBackgroundFillColorScrollBar(
                     this.scrollpane.getVerticalScrollBar()));
                 for (Component corner : corners) {
                     g2d.fill(corner.getBounds());

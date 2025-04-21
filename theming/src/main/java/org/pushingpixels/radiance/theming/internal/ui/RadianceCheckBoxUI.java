@@ -115,7 +115,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
 
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
-                BladeIconUtils.drawTonalCheckBox(graphics, button, surfacePainter, outlinePainter,
+                BladeIconUtils.drawCheckBox(graphics, button, surfacePainter, outlinePainter,
                     checkMarkSize, currState, mutableContainerTokens, visibility, 0.0f,
                     isCheckMarkFadingOut);
                 graphics.dispose();

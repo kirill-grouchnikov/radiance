@@ -210,7 +210,7 @@ public class RadianceEditorPaneUI extends BasicEditorPaneUI implements Transitio
 
     @Override
     protected void paintBackground(Graphics g) {
-        RadianceTextUtilities.paintTextCompTonalBackground(g, this.editorPane);
+        RadianceTextUtilities.paintTextCompBackground(g, this.editorPane);
     }
 
     @Override

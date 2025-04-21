@@ -267,7 +267,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         } else {
             graphics.translate(trackBounds.x - THUMB_DELTA, trackBounds.y);
         }
-        graphics.setColor(RadianceColorUtilities.getBackgroundTonalFillColorScrollBar(this.scrollbar));
+        graphics.setColor(RadianceColorUtilities.getBackgroundFillColorScrollBar(this.scrollbar));
         graphics.fillRect(0, 0, this.scrollbar.getWidth(), this.scrollbar.getHeight());
 
         GhostPaintingUtils.paintGhostImages(this.scrollbar, graphics);

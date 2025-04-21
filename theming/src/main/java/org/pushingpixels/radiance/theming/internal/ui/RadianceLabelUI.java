@@ -136,7 +136,7 @@ public class RadianceLabelUI extends BasicLabelUI {
             // This text color may not correspond to the text of the HTML-based rendering, but we
             // still need "something" for filtered icons
 
-            textColor = RadianceTextUtilities.getTonalForegroundColor(label,
+            textColor = RadianceTextUtilities.getForegroundColor(label,
                 labelState, CoreColorTokenUtils.ContainerType.NEUTRAL);
         } else {
             if (label.getClientProperty(RadianceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
@@ -154,7 +154,7 @@ public class RadianceLabelUI extends BasicLabelUI {
             } else {
                 // fix for issue 406 - use the same FG computation
                 // color as for other controls
-                textColor = RadianceTextUtilities.paintTonalText(g2d, label, paintTextR,
+                textColor = RadianceTextUtilities.paintText(g2d, label, paintTextR,
                     clippedText, label.getDisplayedMnemonicIndex(), labelState,
                     CoreColorTokenUtils.ContainerType.NEUTRAL);
             }

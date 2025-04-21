@@ -118,7 +118,7 @@ public class BackgroundPaintingUtils {
             // fill the area with solid color
             Component compForBackgroundFill =
                 ((c instanceof JTextComponent) || (c instanceof JSpinner)) ? c.getParent() : c;
-            Color background = RadianceColorUtilities.getTonalBackgroundFillColor(compForBackgroundFill,
+            Color background = RadianceColorUtilities.getBackgroundFillColor(compForBackgroundFill,
                 CoreColorTokenUtils.ContainerType.NEUTRAL);
             graphics.setColor(background);
             graphics.fillRect(0, 0, c.getWidth(), c.getHeight());

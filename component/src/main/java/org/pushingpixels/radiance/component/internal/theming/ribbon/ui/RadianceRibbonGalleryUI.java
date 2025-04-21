@@ -65,7 +65,7 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
         Graphics2D g2d = (Graphics2D) graphics;
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             this.ribbonGallery, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-        BladeDrawingUtils.paintBladeTonalBorder(this.ribbonGallery, g2d, this.margin.left,
+        BladeDrawingUtils.paintBladeBorder(this.ribbonGallery, g2d, this.margin.left,
             this.margin.top,
             this.ribbonGallery.getWidth() - this.margin.left - this.margin.right,
             this.ribbonGallery.getHeight() - this.margin.top - this.margin.bottom,

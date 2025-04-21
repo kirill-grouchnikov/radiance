@@ -362,7 +362,7 @@ public class RadianceColorUtilities {
      * @param modelStateInfo Component model state info.
      * @return The foreground text color of the specified component.
      */
-    public static Color getTonalForegroundColor(Component component,
+    public static Color getForegroundColor(Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelState();
@@ -428,7 +428,7 @@ public class RadianceColorUtilities {
         return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 
-    public static Color getTonalForegroundVariantColor(Component component,
+    public static Color getForegroundVariantColor(Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelState();
@@ -494,7 +494,7 @@ public class RadianceColorUtilities {
         return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 
-    public static float getTonalForegroundAlpha(Component component,
+    public static float getForegroundAlpha(Component component,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelState();
@@ -554,7 +554,7 @@ public class RadianceColorUtilities {
      * @param modelStateInfo Model state info for the component.
      * @return The foreground text color of the specified menu component.
      */
-    public static Color getTonalMenuComponentForegroundColor(JMenuItem menuComponent,
+    public static Color getMenuComponentForegroundColor(JMenuItem menuComponent,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
@@ -595,7 +595,7 @@ public class RadianceColorUtilities {
         return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 
-    public static float getTonalMenuComponentForegroundAlpha(JMenuItem menuComponent,
+    public static float getMenuComponentForegroundAlpha(JMenuItem menuComponent,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
@@ -616,7 +616,7 @@ public class RadianceColorUtilities {
      * @param component Component.
      * @return The background fill color of the specified component.
      */
-    public static Color getTonalBackgroundFillColor(Component component,
+    public static Color getBackgroundFillColor(Component component,
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         Color backgr = component.getBackground();
         boolean isBackgroundUiResource = backgr instanceof UIResource;
@@ -665,9 +665,9 @@ public class RadianceColorUtilities {
                 if (!isEditable) {
                     Component parent = component.getParent();
                     if (original == parent) {
-                        return getTonalBackgroundFillColor(original.getParent(), inactiveContainerType);
+                        return getBackgroundFillColor(original.getParent(), inactiveContainerType);
                     }
-                    return getTonalBackgroundFillColor(parent, inactiveContainerType);
+                    return getBackgroundFillColor(parent, inactiveContainerType);
                 }
             }
             // menu items always use the same background color so that the
@@ -676,11 +676,11 @@ public class RadianceColorUtilities {
                 state = ComponentState.ENABLED;
             }
 
-            backgr = RadianceColorUtilities.getDefaultTonalBackgroundColor(component, state);
+            backgr = RadianceColorUtilities.getDefaultBackgroundColor(component, state);
             float alpha = state.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
             if (alpha < 1.0f) {
                 Color defaultColor = RadianceColorUtilities
-                    .getDefaultTonalBackgroundColor(component, ComponentState.ENABLED);
+                    .getDefaultBackgroundColor(component, ComponentState.ENABLED);
                 backgr = RadianceColorUtilities.getInterpolatedColor(
                     backgr, defaultColor, 1.0f - (1.0f - alpha) / 2.0f);
             }
@@ -688,7 +688,7 @@ public class RadianceColorUtilities {
         return backgr;
     }
 
-    public static Color getBackgroundTonalFillColorScrollBar(JScrollBar scrollbar) {
+    public static Color getBackgroundFillColorScrollBar(JScrollBar scrollbar) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(scrollbar);
         ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(
             DecorationPainterUtils.getDecorationType(scrollbar));
@@ -696,7 +696,7 @@ public class RadianceColorUtilities {
             : colorTokens.getContainerSurfaceHigh();
     }
 
-    private static ColorUIResource getDefaultTonalBackgroundColor(Component comp,
+    private static ColorUIResource getDefaultBackgroundColor(Component comp,
         ComponentState compState) {
         if (comp instanceof JTextComponent) {
             // special case for text-based components

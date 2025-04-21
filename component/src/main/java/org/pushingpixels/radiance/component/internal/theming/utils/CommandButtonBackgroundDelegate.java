@@ -176,7 +176,7 @@ public class CommandButtonBackgroundDelegate {
             }
         }
 
-        drawTonalArea(g, commandButton, actionAlpha, actionArea);
+        drawArea(g, commandButton, actionAlpha, actionArea);
 
         // Draw popup area second
         ComponentState currPopupState = popupTransitionTracker.getModelStateInfo().getCurrModelState();
@@ -226,10 +226,10 @@ public class CommandButtonBackgroundDelegate {
             }
         }
 
-        drawTonalArea(g, commandButton, popupAlpha, popupArea);
+        drawArea(g, commandButton, popupAlpha, popupArea);
     }
 
-    private void drawTonalArea(Graphics2D g, JCommandButton commandButton, float alpha,
+    private void drawArea(Graphics2D g, JCommandButton commandButton, float alpha,
         Rectangle clipArea) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(

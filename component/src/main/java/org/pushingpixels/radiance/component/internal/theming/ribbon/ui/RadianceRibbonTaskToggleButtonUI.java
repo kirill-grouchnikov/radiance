@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
-import org.pushingpixels.radiance.component.internal.theming.utils.RibbonTaskToggleButtonTonalBackgroundDelegate;
+import org.pushingpixels.radiance.component.internal.theming.utils.RibbonTaskToggleButtonBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonTaskToggleButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.theming.api.*;
@@ -79,13 +79,13 @@ public class RadianceRibbonTaskToggleButtonUI extends
     /**
      * Painting delegate.
      */
-    private RibbonTaskToggleButtonTonalBackgroundDelegate tonalDelegate;
+    private RibbonTaskToggleButtonBackgroundDelegate tonalDelegate;
 
     /**
      * Simple constructor.
      */
     private RadianceRibbonTaskToggleButtonUI() {
-        this.tonalDelegate = new RibbonTaskToggleButtonTonalBackgroundDelegate();
+        this.tonalDelegate = new RibbonTaskToggleButtonBackgroundDelegate();
     }
 
     @Override
@@ -207,7 +207,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
                 .getActionStateTransitionTracker().getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
 
-        Color fgColor = getTonalForegroundColor(this.commandButton, modelStateInfo);
+        Color fgColor = getForegroundColor(this.commandButton, modelStateInfo);
         if (currState.isDisabled()) {
             float alpha = CoreColorTokenUtils.getContainerTokens(
                     this.commandButton, currState, CoreColorTokenUtils.ContainerType.NEUTRAL)
@@ -231,7 +231,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     // Use foreground color for consistency - since non-active task toggle buttons use parent's
                     // decoration background fill.
-                    float radius = (float) scaleFactor * RibbonTaskToggleButtonTonalBackgroundDelegate.getTaskToggleButtonCornerRadius(
+                    float radius = (float) scaleFactor * RibbonTaskToggleButtonBackgroundDelegate.getTaskToggleButtonCornerRadius(
                             (JRibbonTaskToggleButton) this.commandButton);
                     float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(this.commandButton,
                             RadianceSizeUtils.getComponentFontSize(this.commandButton));
@@ -250,7 +250,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
         g2d.dispose();
     }
 
-    private static Color getTonalForegroundColor(JCommandButton button,
+    private static Color getForegroundColor(JCommandButton button,
         StateTransitionTracker.ModelStateInfo modelStateInfo) {
         ComponentState currStateIgnoreSelection =
             ComponentState.getState(button.getActionModel(), button, true);

@@ -42,7 +42,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 public class BladeDrawingUtils {
-    public static void paintBladeTonalBorder(Component c, Graphics2D g, int x, int y, int width,
+    public static void paintBladeBorder(Component c, Graphics2D g, int x, int y, int width,
         int height, float baseRadius, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
@@ -72,7 +72,7 @@ public class BladeDrawingUtils {
         graphics.dispose();
     }
 
-    public static void paintBladeSimpleTonalBorder(Component c, Graphics2D g, int width, int height,
+    public static void paintBladeSimpleBorder(Component c, Graphics2D g, int width, int height,
         float baseRadius, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT

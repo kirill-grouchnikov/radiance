@@ -44,7 +44,7 @@ import java.awt.*;
 import java.awt.geom.*;
 
 public class BladeIconUtils {
-    public static void drawTonalCheckBox(Graphics2D g, JComponent component, RadianceSurfacePainter surfacePainter,
+    public static void drawCheckBox(Graphics2D g, JComponent component, RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility,
         float checkMarkFlatness, boolean isCheckMarkFadingOut) {
@@ -126,7 +126,7 @@ public class BladeIconUtils {
         graphics1X.draw(path);
     }
 
-    public static void drawTonalRadioButton(Graphics2D g, AbstractButton button, RadianceSurfacePainter surfacePainter,
+    public static void drawRadioButton(Graphics2D g, AbstractButton button, RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility) {
 

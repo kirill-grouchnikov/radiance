@@ -95,7 +95,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        BladeIconUtils.drawTonalRadioButton(graphics, this.menuItem, surfacePainter, outlinePainter,
+        BladeIconUtils.drawRadioButton(graphics, this.menuItem, surfacePainter, outlinePainter,
             this.size, currState, mutableContainerTokens, visibility);
         graphics.dispose();
     }

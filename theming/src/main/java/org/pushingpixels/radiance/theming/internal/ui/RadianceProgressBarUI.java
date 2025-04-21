@@ -64,8 +64,8 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class RadianceProgressBarUI extends BasicProgressBarUI {
-    private static final RadianceSurfacePainter progressTonalSurfacePainter = new FractionBasedSurfacePainter(
-        "Progress tonal fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
+    private static final RadianceSurfacePainter progressSurfacePainter = new FractionBasedSurfacePainter(
+        "Progress fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
         new ContainerColorTokensSingleColorQuery[]{
             ContainerColorTokens::getContainerSurface,
             ContainerColorTokens::getContainerSurfaceHigh,
@@ -348,7 +348,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         : margin + barRectWidth - amountFull;
                     g2d.translate(dx, margin);
                     drawDeterminateProgress(g2d, progressBar, amountFull, barRectHeight,
-                        isFull, progressColorTokens, progressTonalSurfacePainter,
+                        isFull, progressColorTokens, progressSurfacePainter,
                         progressBar.getOrientation(), progressState);
                     g2d.translate(-dx, -margin);
                 }
@@ -357,7 +357,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     g2d.translate(margin, margin + barRectHeight - amountFull);
                     // Vertical progress is "growing" from the bottom
                     drawDeterminateProgress(g2d, progressBar, barRectWidth, amountFull,
-                        isFull, progressColorTokens, progressTonalSurfacePainter,
+                        isFull, progressColorTokens, progressSurfacePainter,
                         progressBar.getOrientation(), progressState);
                     g2d.translate(-margin, -(margin + barRectHeight - amountFull));
                 }
@@ -460,7 +460,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null,
                 borderAlpha * containerOutlineAlpha, graphics));
 
-            BladeDrawingUtils.paintBladeSimpleTonalBorder(this.progressBar, g2d, width, height,
+            BladeDrawingUtils.paintBladeSimpleBorder(this.progressBar, g2d, width, height,
                 RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(this.progressBar)),
                 colorTokens);
             g2d.dispose();

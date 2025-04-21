@@ -270,7 +270,7 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
     @Override
     public void paint(Graphics g, JComponent c) {
         super.paint(g, c);
-        RadianceTextUtilities.paintTextCompTonalBackground(g, c);
+        RadianceTextUtilities.paintTextCompBackground(g, c);
     }
 
     @Override

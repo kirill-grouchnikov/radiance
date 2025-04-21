@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.filters.TonalContainerFilter;
+import org.pushingpixels.radiance.theming.internal.utils.filters.ContainerTokensFilter;
 
 import java.awt.*;
 
@@ -69,7 +69,7 @@ public interface ContainerColorTokens {
     default RadianceIcon.ColorFilter getColorFilter(float brightnessFactor, float alpha) {
         ContainerColorTokens origin = this;
         return color -> {
-            int[] interpolated = TonalContainerFilter.getInterpolatedColors(origin);
+            int[] interpolated = ContainerTokensFilter.getInterpolatedColors(origin);
             int steps = interpolated.length;
 
             int brightness = RadianceColorUtilities.getColorBrightness(color.getRGB());

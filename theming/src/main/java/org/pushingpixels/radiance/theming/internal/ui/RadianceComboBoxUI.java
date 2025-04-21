@@ -401,7 +401,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
 
         int componentFontSize = RadianceSizeUtils.getComponentFontSize(this.comboBox);
         if (this.comboBox.isEditable()) {
-            RadianceTextUtilities.paintTextCompTonalBackground(g, c);
+            RadianceTextUtilities.paintTextCompBackground(g, c);
         } else {
             this.delegate.updateBackground(graphics, this.comboBox);
 

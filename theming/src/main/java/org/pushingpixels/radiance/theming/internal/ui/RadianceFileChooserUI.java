@@ -136,7 +136,7 @@ public class RadianceFileChooserUI extends MetalFileChooserUI {
             }
 
             // Filter the icon
-            Color textColor = RadianceTextUtilities.getTonalForegroundColor(
+            Color textColor = RadianceTextUtilities.getForegroundColor(
                 fileChooser, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
             icon = RadianceCoreUtilities.getFilteredIcon(fileChooser,
                 icon, ComponentState.ENABLED, textColor,

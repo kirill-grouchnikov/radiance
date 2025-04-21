@@ -96,7 +96,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                 ModelStateInfo modelStateInfo = stateTransitionTracker.getModelStateInfo();
                 // Pass 1.0f as the alpha, even for disabled comboboxes. The alpha will be
                 // applied at painting time of the label itself.
-                Color fg = RadianceTextUtilities.getTonalForegroundColor(combo,
+                Color fg = RadianceTextUtilities.getForegroundColor(combo,
                     ((JLabel) result).getText(), modelStateInfo, CoreColorTokenUtils.ContainerType.MUTED);
                 result.setForeground(fg);
 

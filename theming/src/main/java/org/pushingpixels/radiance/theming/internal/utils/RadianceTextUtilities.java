@@ -205,7 +205,7 @@ public class RadianceTextUtilities {
      * @param text          Text to paint
      * @param mnemonicIndex Mnemonic index.
      */
-    public static Color paintTonalText(Graphics g, AbstractButton button, Rectangle textRect, String text,
+    public static Color paintText(Graphics g, AbstractButton button, Rectangle textRect, String text,
         int mnemonicIndex, CoreColorTokenUtils.ContainerType inactiveContainerType) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
@@ -213,10 +213,10 @@ public class RadianceTextUtilities {
         if (button instanceof JMenuItem) {
             // A slightly different path for menu items as we ignore the selection
             // state for visual consistency in menu content
-            return paintTonalMenuItemText(g, (JMenuItem) button, textRect, text, mnemonicIndex,
+            return paintMenuItemText(g, (JMenuItem) button, textRect, text, mnemonicIndex,
                 stateTransitionTracker.getModelStateInfo());
         } else {
-            return paintTonalText(g, button, textRect, text, mnemonicIndex,
+            return paintText(g, button, textRect, text, mnemonicIndex,
                 stateTransitionTracker.getModelStateInfo(), inactiveContainerType);
         }
     }
@@ -231,28 +231,28 @@ public class RadianceTextUtilities {
      * @param mnemonicIndex Mnemonic index.
      * @param state         Component state.
      */
-    public static Color paintTonalText(Graphics g, JComponent component, Rectangle textRect, String text,
+    public static Color paintText(Graphics g, JComponent component, Rectangle textRect, String text,
         int mnemonicIndex, ComponentState state, CoreColorTokenUtils.ContainerType inactiveContainerType) {
-        Color fgColor = getTonalForegroundColor(component, state, inactiveContainerType);
+        Color fgColor = getForegroundColor(component, state, inactiveContainerType);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
 
         return fgColor;
     }
 
-    public static Color paintTonalText(Graphics g, JComponent component, Rectangle textRect, String text,
+    public static Color paintText(Graphics g, JComponent component, Rectangle textRect, String text,
         int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo,
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
-        Color fgColor = getTonalForegroundColor(component, text, modelStateInfo, inactiveContainerType);
+        Color fgColor = getForegroundColor(component, text, modelStateInfo, inactiveContainerType);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
 
         return fgColor;
     }
 
-    public static Color paintTonalMenuItemText(Graphics g, JMenuItem menuItem, Rectangle textRect,
+    public static Color paintMenuItemText(Graphics g, JMenuItem menuItem, Rectangle textRect,
         String text, int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo) {
-        Color fgColor = getTonalMenuComponentForegroundColor(menuItem, text, modelStateInfo);
+        Color fgColor = getMenuComponentForegroundColor(menuItem, text, modelStateInfo);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, menuItem.getFont(), fgColor, null);
 
@@ -266,7 +266,7 @@ public class RadianceTextUtilities {
      * @param state     Component state.
      * @return The foreground color for the specified component.
      */
-    public static Color getTonalForegroundColor(JComponent component, ComponentState state,
+    public static Color getForegroundColor(JComponent component, ComponentState state,
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
@@ -288,15 +288,15 @@ public class RadianceTextUtilities {
      * @param text      Text. If empty or <code>null</code>, the result is <code>null</code>.
      * @return The foreground color for the specified component.
      */
-    public static Color getTonalForegroundColor(JComponent component, String text,
+    public static Color getForegroundColor(JComponent component, String text,
         StateTransitionTracker.ModelStateInfo modelStateInfo,
         CoreColorTokenUtils.ContainerType inactiveContainerType) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
-            : RadianceColorUtilities.getTonalForegroundColor(component, modelStateInfo, inactiveContainerType);
+            : RadianceColorUtilities.getForegroundColor(component, modelStateInfo, inactiveContainerType);
         float fgAlpha = toEnforceFgColor ? component.getForeground().getAlpha() / 255.0f
-            : RadianceColorUtilities.getTonalForegroundAlpha(component, modelStateInfo, inactiveContainerType);
+            : RadianceColorUtilities.getForegroundAlpha(component, modelStateInfo, inactiveContainerType);
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * fgAlpha));
     }
 
@@ -308,21 +308,21 @@ public class RadianceTextUtilities {
      * @param modelStateInfo Model state info for the specified component.
      * @return The foreground color for the specified menu component.
      */
-    public static Color getTonalMenuComponentForegroundColor(JMenuItem menuComponent, String text,
+    public static Color getMenuComponentForegroundColor(JMenuItem menuComponent, String text,
         StateTransitionTracker.ModelStateInfo modelStateInfo) {
         if ((text == null) || (text.length() == 0)) {
             return null;
         }
 
-        Color fgColor = RadianceColorUtilities.getTonalMenuComponentForegroundColor(
+        Color fgColor = RadianceColorUtilities.getMenuComponentForegroundColor(
             menuComponent, modelStateInfo, CoreColorTokenUtils.ContainerType.NEUTRAL);
-        float fgAlpha = RadianceColorUtilities.getTonalMenuComponentForegroundAlpha(
+        float fgAlpha = RadianceColorUtilities.getMenuComponentForegroundAlpha(
             menuComponent, modelStateInfo, CoreColorTokenUtils.ContainerType.NEUTRAL);
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (255.0f * fgAlpha));
     }
 
-    public static Color getTextBackgroundTonalFillColor(JComponent comp) {
-        Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(comp,
+    public static Color getTextBackgroundFillColor(JComponent comp) {
+        Color backgroundFillColor = RadianceColorUtilities.getBackgroundFillColor(comp,
             CoreColorTokenUtils.ContainerType.NEUTRAL);
 
         JTextComponent componentForTransitions = RadianceCoreUtilities.getTextComponentForTransitions(comp);
@@ -453,12 +453,12 @@ public class RadianceTextUtilities {
      * @param g    Graphics context.
      * @param comp Component.
      */
-    public static void paintTextCompTonalBackground(Graphics g, JComponent comp) {
+    public static void paintTextCompBackground(Graphics g, JComponent comp) {
         Graphics2D g2d = (Graphics2D) g.create();
 
         BackgroundPaintingUtils.update(g2d, comp, false);
 
-        Color backgroundFillColor = getTextBackgroundTonalFillColor(comp);
+        Color backgroundFillColor = getTextBackgroundFillColor(comp);
         g2d.setColor(backgroundFillColor);
 
         // Match the logic / shape in RadianceImageCreator.paintSimpleBorder that draws the

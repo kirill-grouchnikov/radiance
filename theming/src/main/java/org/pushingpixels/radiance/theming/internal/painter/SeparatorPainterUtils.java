@@ -151,7 +151,7 @@ public class SeparatorPainterUtils {
                 ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
         }
 
-        paintTonalSeparator(c, g, colorTokens, width, height, orientation, hasShadow,
+        paintSeparator(c, g, colorTokens, width, height, orientation, hasShadow,
             maxGradLengthStart, maxGradLengthEnd, toEnforceAlphaColors);
     }
 
@@ -167,7 +167,7 @@ public class SeparatorPainterUtils {
             : RadianceColorUtilities.getAlphaColor(tokens.getComplementaryContainerOutline(), 240);
     }
 
-    public static void paintTonalSeparator(Component c, Graphics g,
+    public static void paintSeparator(Component c, Graphics g,
         ContainerColorTokens colorTokens, int width, int height, int orientation,
         boolean hasShadow, int maxGradLengthStart, int maxGradLengthEnd, boolean toEnforceAlphaColors) {
 
@@ -203,7 +203,7 @@ public class SeparatorPainterUtils {
                         || !skin.getOverlayPainters(decorationAreaType).isEmpty();
                 toUseAlphaColors = toUseAlphaColors || toEnforceAlphaColors;
 
-                Color backgroundFill = RadianceColorUtilities.getTonalBackgroundFillColor(
+                Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(
                     c, CoreColorTokenUtils.ContainerType.NEUTRAL);
 
                 Color primary = getPrimarySeparatorColor(colorTokens);
@@ -383,7 +383,7 @@ public class SeparatorPainterUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, maxX - minX + 1, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                Color backgroundFill = RadianceColorUtilities.getTonalBackgroundFillColor(
+                Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(
                     c, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 Color primary = getPrimarySeparatorColor(tokens);
                 Color secondary = getSecondarySeparatorColor(tokens);
@@ -432,7 +432,7 @@ public class SeparatorPainterUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, maxY - minY + 1,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                Color backgroundFill = RadianceColorUtilities.getTonalBackgroundFillColor(
+                Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(
                     c, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 Color primary = getPrimarySeparatorColor(tokens);
                 Color secondary = getSecondarySeparatorColor(tokens);

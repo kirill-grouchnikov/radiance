@@ -62,7 +62,7 @@ public class RadiancePanelUI extends BasicPanelUI {
 		// support for per-window skins
 		Color backgr = p.getBackground();
 		if ((backgr == null) || (backgr instanceof UIResource)) {
-			Color backgroundFillColor = RadianceColorUtilities.getTonalBackgroundFillColor(
+			Color backgroundFillColor = RadianceColorUtilities.getBackgroundFillColor(
 				p, CoreColorTokenUtils.ContainerType.NEUTRAL);
 			// fix for issue 436 - logic in getBackground() of
 			// custom panels can result in null value

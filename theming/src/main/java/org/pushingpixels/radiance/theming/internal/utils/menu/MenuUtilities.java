@@ -622,15 +622,15 @@ public class MenuUtilities {
             v.paint(graphics, mli.textRect);
             // This text color may not correspond to the text of the HTML-based rendering, but we
             // still need "something" for filtered icons
-            textColor = RadianceTextUtilities.getTonalMenuComponentForegroundColor(
+            textColor = RadianceTextUtilities.getMenuComponentForegroundColor(
                 menuItem, mli.text, stateInfo);
         } else {
-            textColor = RadianceTextUtilities.paintTonalMenuItemText(graphics, menuItem,
+            textColor = RadianceTextUtilities.paintMenuItemText(graphics, menuItem,
                 mli.textRect, mli.text, menuItem.getDisplayedMnemonicIndex(), stateInfo);
         }
         // draw the accelerator text
         if (acceleratorText != null && !acceleratorText.equals("")) {
-            RadianceTextUtilities.paintTonalMenuItemText(
+            RadianceTextUtilities.paintMenuItemText(
                 graphics, menuItem, mli.acceleratorRect, acceleratorText, -1, stateInfo);
         }
 

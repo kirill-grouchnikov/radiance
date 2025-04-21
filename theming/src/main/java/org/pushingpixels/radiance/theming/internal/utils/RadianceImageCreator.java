@@ -32,8 +32,8 @@ package org.pushingpixels.radiance.theming.internal.utils;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.internal.utils.filters.ContainerTokensFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ImageColorFilter;
-import org.pushingpixels.radiance.theming.internal.utils.filters.TonalContainerFilter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -344,7 +344,7 @@ public final class RadianceImageCreator {
     public static BufferedImage getContainerTokensImage(BufferedImage original,
             ContainerColorTokens colorTokens, float originalBrightnessFactor,
             float alpha) {
-        return TonalContainerFilter.getContainerTokensFilter(colorTokens, originalBrightnessFactor, alpha)
+        return ContainerTokensFilter.getContainerTokensFilter(colorTokens, originalBrightnessFactor, alpha)
                 .filter(original, null);
     }
 
