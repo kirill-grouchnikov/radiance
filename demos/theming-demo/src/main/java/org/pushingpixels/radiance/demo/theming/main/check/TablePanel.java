@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
 import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableCellRenderer;
 
@@ -346,7 +347,8 @@ public class TablePanel extends ControllablePanel implements Deferrable {
             SwingComponentTimeline.componentBuilder(instructional)
                 .addPropertyToInterpolate("foreground",
                     () -> skin.getNeutralContainerTokens(table).getOnContainer(),
-                    () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getAccentOnContainer())
+                    () -> skin.getSystemContainerTokens(table,
+                        RadianceThemingSlices.SystemContainerType.ERROR).getAccentOnContainer())
                 .setDuration(1000)
                 .playLoop(RepeatBehavior.REVERSE);
         }

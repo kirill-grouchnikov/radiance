@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -130,7 +131,8 @@ class DnDBorderFactory {
             RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
             RadianceIconPack iconPack = RadianceThemingCortex.GlobalScope.getIconPack();
             RadianceIcon icon = iconPack.getNotAllowedIcon(12,
-                skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE));
+                skin.getSystemContainerTokens(c,
+                    RadianceThemingSlices.SystemContainerType.ERROR));
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.translate(x, y + (height - icon.getIconHeight()) / 2);
             icon.paintIcon(c, g2d, 0, 0);

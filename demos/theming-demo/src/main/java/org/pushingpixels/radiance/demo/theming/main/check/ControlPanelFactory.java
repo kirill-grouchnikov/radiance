@@ -584,7 +584,8 @@ public class ControlPanelFactory {
                     SwingComponentTimeline.componentBuilder(instructional)
                         .addPropertyToInterpolate("foreground",
                             () -> skin.getNeutralContainerTokens(myContentPane).getOnContainer(),
-                            () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
+                            () -> skin.getSystemContainerTokens(myContentPane,
+                                RadianceThemingSlices.SystemContainerType.ERROR).getContainerSurface())
                         .setDuration(1000)
                         .playLoop(RepeatBehavior.REVERSE);
 
@@ -627,7 +628,8 @@ public class ControlPanelFactory {
                     SwingComponentTimeline.componentBuilder(instructional)
                         .addPropertyToInterpolate("foreground",
                             () -> skin.getNeutralContainerTokens(myContentPane).getOnContainer(),
-                            () -> skin.getOptionPaneIconContainerTokens(JOptionPane.ERROR_MESSAGE).getContainerSurface())
+                            () -> skin.getSystemContainerTokens(myContentPane,
+                                RadianceThemingSlices.SystemContainerType.ERROR).getContainerSurface())
                         .setDuration(1000)
                         .playLoop(RepeatBehavior.REVERSE);
 

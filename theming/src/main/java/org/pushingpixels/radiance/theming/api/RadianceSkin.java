@@ -250,8 +250,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private final Set<RadianceThemingSlices.DecorationAreaType> decoratedAreaSet;
 
-    private final Map<Integer, ContainerColorTokens> optionPaneIconColorTokenMap;
-
     /**
      * Constructs the basic data structures for a skin.
      */
@@ -263,8 +261,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         this.decoratedAreaSet = new HashSet<>();
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
-
-        this.optionPaneIconColorTokenMap = new HashMap<>();
     }
 
     /**
@@ -814,30 +810,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
             .getNeutralContainerTokens(associationKind);
     }
-
-    public ContainerColorTokens getOptionPaneIconContainerTokens(int optionPaneMessageType) {
-        // late initialization of tokens. This isn't done at construction time, since
-        // in the constructor of this base skin we don't yet have access to the color tokens
-        // associated with the full skin
-        if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.INFORMATION_MESSAGE)) {
-            this.optionPaneIconColorTokenMap.put(JOptionPane.INFORMATION_MESSAGE,
-                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO));
-        }
-        if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.QUESTION_MESSAGE)) {
-            this.optionPaneIconColorTokenMap.put(JOptionPane.QUESTION_MESSAGE,
-                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.INFO));
-        }
-        if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.WARNING_MESSAGE)) {
-            this.optionPaneIconColorTokenMap.put(JOptionPane.WARNING_MESSAGE,
-                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.WARNING));
-        }
-        if (!this.optionPaneIconColorTokenMap.containsKey(JOptionPane.ERROR_MESSAGE)) {
-            this.optionPaneIconColorTokenMap.put(JOptionPane.ERROR_MESSAGE,
-                this.getSystemContainerTokens(null, RadianceThemingSlices.SystemContainerType.ERROR));
-        }
-        return this.optionPaneIconColorTokenMap.get(optionPaneMessageType);
-    }
-
 
     /**
      * Checks whether this skin is valid. A valid skin must have a color tokens

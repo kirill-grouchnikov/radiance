@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -127,16 +126,23 @@ public class RadianceOptionPaneUI extends BasicOptionPaneUI {
                 RadianceSizeUtils.getControlFontSize(), ICON_SIZE, 3, 2);
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.optionPane);
-        ContainerColorTokens colorTokens = skin.getOptionPaneIconContainerTokens(messageType);
         switch (messageType) {
             case JOptionPane.ERROR_MESSAGE:
-                return iconPack.getOptionPaneErrorIcon(size, colorTokens);
+                return iconPack.getOptionPaneErrorIcon(size,
+                    skin.getSystemContainerTokens(this.optionPane,
+                        RadianceThemingSlices.SystemContainerType.ERROR));
             case JOptionPane.INFORMATION_MESSAGE:
-                return iconPack.getOptionPaneInformationIcon(size, colorTokens);
+                return iconPack.getOptionPaneInformationIcon(size,
+                    skin.getSystemContainerTokens(this.optionPane,
+                        RadianceThemingSlices.SystemContainerType.INFO));
             case JOptionPane.WARNING_MESSAGE:
-                return iconPack.getOptionPaneWarningIcon(size, colorTokens);
+                return iconPack.getOptionPaneWarningIcon(size,
+                    skin.getSystemContainerTokens(this.optionPane,
+                        RadianceThemingSlices.SystemContainerType.WARNING));
             case JOptionPane.QUESTION_MESSAGE:
-                return iconPack.getOptionPaneQuestionIcon(size, colorTokens);
+                return iconPack.getOptionPaneQuestionIcon(size,
+                    skin.getSystemContainerTokens(this.optionPane,
+                        RadianceThemingSlices.SystemContainerType.INFO));
         }
         return null;
     }
