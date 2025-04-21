@@ -22,7 +22,7 @@ In the mapping below, `o.p.r.t.a.p` stands for `org.pushingpixels.radiance.themi
 
 All relevant APIs that work with these painters in `RadianceSkin` and elsewhere have been updated to reflect the new naming conventions.
 
-### APIs that have been replaced
+### API changes
 
 * `RadianceColorScheme` has been replaced by `ContainerColorTokens`, including all relevant Radiance painter APIs. Use `ContainerColorTokensUtils` to get `ContainerColorTokens` from seed colors and additional container configuration options.
 * State-specific alphas (including for highlights) are now configured via `ContainerColorTokens` APIs for disabled alpha for container surface, on container, and container outline tokens.
@@ -34,10 +34,12 @@ All relevant APIs that work with these painters in `RadianceSkin` and elsewhere 
   * Negating and inverting by changing the dark flag in the container configuration
 * `RadianceColorSchemeBundle` has been replaced by `ContainerColorTokensBundle`.
 * Color overlay APIs in `RadianceSkin` are removed. Use `ContainerColorTokensBundle.registerActiveContainerTokens` for configuring state-specific color tokens to use to paint controls.
-* Base and derived colors are replaced by color tokens in `ContainerColorTokens`. Use `PaletteContainerColorsResolverOverlay` and `BimodalPaletteContainerColorsResolverOverlay` to tweak color token resolution for specific visuals in your application.
+* Base and derived colors are replaced by color tokens in `ContainerColorTokens`. Use `TokenPaletteColorResolverOverlay` to tweak color token resolution for specific visuals in your application.
+* `RadianceSkin.setOptionPaneIconColorScheme` has been removed. There is no replacement API.
+* `RadianceSkin.getOptionPaneIconColorScheme` has been removed. Use the new `RadianceSkin.getSystemContainerTokens` and `RadianceSkin.getInverseSystemContainerTokens` instead.
 * `RadianceThemingSlices.ColorSchemeAssociationKind` is replaced with `RadianceThemingSlices.ContainerColorTokensAssociationKind`.
 * `RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME` is now `RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS`
 * `RadianceFillPainter.paintContourBackground` is now `RadianceSurfacePainter.paintSurface`.
 * `RadianceBorderPainter.paintBorder` is now `RadianceOutlinePainter.paintOutline`.
 * A new enum added to `RadianceThemingSlices` - `SystemContainerType` - for retrieving system container color tokens from `RadianceSkin` and `ContainerColorTokensBundle`.
-* Core color schemes (such as Aqua, Bottle Green, etc) are now provided as a set of palette seeds in the `TonalPaletteSeeds` class.
+* Core color schemes (such as Aqua, Bottle Green, etc) are now provided as a set of palette seeds in the `TonalPaletteSeeds` class. Use `ContainerColorTokensUtils.getContainerTokens` to generate a full `ContainerColorTokens` object from a particular palette seed.
