@@ -44,25 +44,6 @@ import java.awt.*;
 import java.awt.geom.*;
 
 public class BladeIconUtils {
-
-    private static class SimplisticSoftBorderReverseSurfacePainter extends FractionBasedSurfacePainter {
-        /**
-         * Singleton instance.
-         */
-        public static final RadianceSurfacePainter INSTANCE = new SimplisticSoftBorderReverseSurfacePainter();
-
-        private SimplisticSoftBorderReverseSurfacePainter() {
-            super("Simplistic Soft Border Reverse",
-                new float[] {0.0f, 0.5f, 1.0f},
-                new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokens::getContainerSurfaceLowest,
-                    ContainerColorTokens::getContainerSurfaceLow,
-                    ContainerColorTokens::getContainerSurface
-                }
-            );
-        }
-    }
-
     public static void drawTonalCheckBox(Graphics2D g, JComponent component, RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility,
@@ -327,6 +308,16 @@ public class BladeIconUtils {
     public static void drawTreeIcon(Graphics2D g, JTree tree, int size,
         ContainerColorTokens colorTokens, boolean isCollapsed) {
 
+        RadianceSurfacePainter surfacePainter = new FractionBasedSurfacePainter("Tree icon",
+            new float[] {0.0f, 0.5f, 1.0f},
+            new ContainerColorTokensSingleColorQuery[] {
+                (tokens) -> tokens.isDark() ? tokens.getContainerSurfaceHighest()
+                    : tokens.getContainerSurfaceLowest(),
+                (tokens) -> tokens.isDark() ? tokens.getContainerSurfaceHigh()
+                    : tokens.getContainerSurfaceLow(),
+                ContainerColorTokens::getContainerSurface});
+        RadianceOutlinePainter outlinePainter = new FlatOutlinePainter();
+
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -335,8 +326,6 @@ public class BladeIconUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, size, size,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceSurfacePainter surfacePainter = SimplisticSoftBorderReverseSurfacePainter.INSTANCE;
-                RadianceOutlinePainter outlinePainter = new FlatOutlinePainter();
 
                 Shape outline = RadianceOutlineUtilities.getBaseOutline(
                     tree.getComponentOrientation(),
