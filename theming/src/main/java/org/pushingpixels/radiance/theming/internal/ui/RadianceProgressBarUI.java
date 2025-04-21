@@ -339,8 +339,8 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
 
         if (amountFull > 0) {
             boolean isFull = (this.progressBar.getModel().getValue() == this.progressBar.getMaximum());
-            ContainerColorTokens progressColorTokens = CoreColorTokenUtils.getContainerTokens(
-                progressBar, progressState, CoreColorTokenUtils.ContainerType.MUTED);
+            ContainerColorTokens progressColorTokens = CoreColorTokenUtils.getActiveContainerTokens(
+                progressBar, progressState);
 
             if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
                 if (barRectHeight > 0) {
@@ -491,16 +491,16 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
             RadianceSizeUtils.getComponentFontSize(progressBar));
         g2d.clip(new RoundRectangle2D.Float(margin, margin, barRectWidth, barRectHeight, radius, radius));
 
-        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
-            progressBar, progressState, CoreColorTokenUtils.ContainerType.MUTED);
+        ContainerColorTokens progressColorTokens = CoreColorTokenUtils.getActiveContainerTokens(
+            progressBar, progressState);
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
             paintRectangularStripedBackground(g2d, margin, margin, barRectWidth, barRectHeight,
-                colorTokens, valComplete, 0.6f, progressState, false);
+                progressColorTokens, valComplete, 0.6f, progressState, false);
         } else {
             // fix for issue 95. Vertical progress bar grows from the
             // bottom.
             paintRectangularStripedBackground(g2d, margin, margin, barRectWidth, barRectHeight,
-                colorTokens, 2 * barRectWidth - valComplete, 0.6f, progressState, true);
+                progressColorTokens, 2 * barRectWidth - valComplete, 0.6f, progressState, true);
         }
 
         // Deal with possible text painting

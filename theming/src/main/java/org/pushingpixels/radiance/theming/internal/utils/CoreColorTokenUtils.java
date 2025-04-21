@@ -191,23 +191,28 @@ public class CoreColorTokenUtils {
      * Returns the active color tokens of the component.
      *
      * @param component      Component.
-     * @param componentState Component state.
      * @return Component color tokens.
      */
+    public static ContainerColorTokens getActiveContainerTokens(Component component) {
+        ContainerColorTokens nonColorized = RadianceCoreUtilities.getSkin(component)
+            .getActiveContainerTokens(component);
+        return getBlendedTokens(component, nonColorized, true);
+    }
+
     public static ContainerColorTokens getActiveContainerTokens(Component component,
-            ComponentState componentState) {
+        ComponentState componentState) {
         // special case - if the component is marked as flat and
         // it is in the enabled state, get the color tokens of the parent.
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
         if (!(component instanceof JToolBar)
-                && RadianceCoreUtilities.hasFlatAppearance(component, false)
-                && (componentState == ComponentState.ENABLED)) {
+            && RadianceCoreUtilities.hasFlatAppearance(component, false)
+            && (componentState == ComponentState.ENABLED)) {
             component = component.getParent();
         }
 
         ContainerColorTokens nonColorized = RadianceCoreUtilities.getSkin(component)
-                .getActiveContainerTokens(RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component));
+            .getActiveContainerTokens(component, componentState);
         return getBlendedTokens(component, nonColorized, !componentState.isDisabled());
     }
 

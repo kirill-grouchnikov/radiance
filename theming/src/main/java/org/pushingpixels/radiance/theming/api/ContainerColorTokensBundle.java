@@ -76,8 +76,6 @@ public class ContainerColorTokensBundle {
     private final Map<RadianceThemingSlices.ContainerColorTokensAssociationKind,
         Map<ComponentState, ContainerColorTokens>> activeTokenOverrides;
 
-    private final HashMap<ComponentState, ContainerColorTokens> activeTokenStateOverrides;
-
     private final Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> mutedTokenOverrides;
 
     private final Map<RadianceThemingSlices.ContainerColorTokensAssociationKind, ContainerColorTokens> neutralTokenOverrides;
@@ -152,7 +150,6 @@ public class ContainerColorTokensBundle {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
             this.activeTokenOverrides.put(associationKind, new HashMap<>());
         }
-        this.activeTokenStateOverrides = new HashMap<>();
 
         this.mutedTokenOverrides = new HashMap<>();
         this.neutralTokenOverrides = new HashMap<>();
@@ -390,6 +387,9 @@ public class ContainerColorTokensBundle {
         }
 
         ContainerColorTokens activeTokens = getActiveContainerTokens();
+        Map<ComponentState, ContainerColorTokens> activeTokenStateOverrides =
+            this.activeTokenOverrides.get(RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT);
+
         if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
             (componentState == ComponentState.ARMED)) {
             if (!activeTokenStateOverrides.containsKey(componentState)) {
@@ -406,7 +406,10 @@ public class ContainerColorTokensBundle {
             return activeTokenStateOverrides.get(componentState);
         }
         if (componentState == ComponentState.SELECTED) {
-            return activeTokens;
+            if (!activeTokenStateOverrides.containsKey(componentState)) {
+                activeTokenStateOverrides.put(componentState, activeTokens);
+            }
+            return activeTokenStateOverrides.get(componentState);
         }
         if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
             if (!activeTokenStateOverrides.containsKey(componentState)) {

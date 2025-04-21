@@ -159,7 +159,7 @@ public class BladeUtils {
 
         StringBuilder nameBuilder = new StringBuilder();
         ContainerColorTokens currColorTokens = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
-            ? CoreColorTokenUtils.getActiveContainerTokens(component, currState)
+            ? CoreColorTokenUtils.getActiveContainerTokens(component)
             : CoreColorTokenUtils.getContainerTokens(component, associationKind, currState,
                 inactiveContainerType, skipFlatCheck);
         Color containerSurfaceLowest = currColorTokens.getContainerSurfaceLowest();
@@ -204,7 +204,7 @@ public class BladeUtils {
                 }
                 // Get the color tokens that matches the contribution state
                 ContainerColorTokens contributionColorTokens = (treatEnabledAsActive && (activeState == ComponentState.ENABLED))
-                        ? CoreColorTokenUtils.getActiveContainerTokens(component, activeState)
+                        ? CoreColorTokenUtils.getActiveContainerTokens(component)
                         : CoreColorTokenUtils.getContainerTokens(component, associationKind, activeState, inactiveContainerType);
 
                 // And interpolate the colors
