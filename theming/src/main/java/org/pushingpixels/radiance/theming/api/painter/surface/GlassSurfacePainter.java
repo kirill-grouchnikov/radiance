@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingle
  */
 public class GlassSurfacePainter extends FractionBasedSurfacePainter {
 	/**
-	 * Creates a new glass gradient painter.
+	 * Creates a new glass surface painter.
 	 */
 	public GlassSurfacePainter() {
 		super("Glass",
