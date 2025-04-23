@@ -178,7 +178,11 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 RadianceSurfacePainter painter = RadianceCoreUtilities.getSurfacePainter(this.scrollbar);
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
-                float radius = scaledHeight / 2;
+                // Adaptive corner radius, either half the height (which will be width after
+                // rotation) for larger thumbs, or quarter the height for smaller thumbs
+                float radius = (scaledWidth >= 1.5 * scaledHeight)
+                    ? scaledHeight / 2.0f
+                    : scaledHeight / 4.0f;
                 Shape outline = RadianceOutlineUtilities.getBaseOutline(
                     this.scrollbar.getComponentOrientation(), scaledWidth, scaledHeight, radius, null, 1.0f);
 
@@ -236,7 +240,11 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 RadianceSurfacePainter painter = RadianceCoreUtilities.getSurfacePainter(this.scrollbar);
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
-                float radius = scaledHeight / 2;
+                // Adaptive corner radius, either half the height for larger thumbs, or quarter the
+                // height for smaller thumbs
+                float radius = (scaledWidth >= 1.5 * scaledHeight)
+                    ? scaledHeight / 2.0f
+                    : scaledHeight / 4.0f;
                 Shape outline = RadianceOutlineUtilities.getBaseOutline(
                     this.scrollbar.getComponentOrientation(), scaledWidth, scaledHeight, radius, null, 1.0f);
                 graphics1X.translate(x, y + voffset * scaleFactor);
@@ -479,7 +487,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
         int thumbH = (range <= 0) ? this.getMaximumThumbSize().height
                 : (int) (trackH * (extent / range));
-        thumbH = Math.max(thumbH, this.getMinimumThumbSize().height);
+        thumbH = Math.max(thumbH, sbSize.height / 4);
         thumbH = Math.min(thumbH, this.getMaximumThumbSize().height);
         thumbH -= THUMB_DELTA;
 
@@ -552,7 +560,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
         int thumbW = (range <= 0) ? this.getMaximumThumbSize().width
                 : (int) (trackW * (extent / range));
-        thumbW = Math.max(thumbW, this.getMinimumThumbSize().width);
+        thumbW = Math.max(thumbW, sbSize.width / 4);
         thumbW = Math.min(thumbW, this.getMaximumThumbSize().width);
         thumbW -= THUMB_DELTA;
 

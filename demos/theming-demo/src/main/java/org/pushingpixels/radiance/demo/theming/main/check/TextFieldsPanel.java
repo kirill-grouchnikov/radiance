@@ -342,7 +342,7 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         builder.nextLine();
 
         JTextArea textAreaScrollShort = new JTextArea(3, 15);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 200; i++) {
             textAreaScrollShort.append("Some long long long line with number " + i + "\n");
         }
         textAreaScrollShort.setEditable(false);

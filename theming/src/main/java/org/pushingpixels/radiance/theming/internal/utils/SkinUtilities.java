@@ -782,12 +782,12 @@ public class SkinUtilities {
                 Integer.valueOf(RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
                         .getControlFontSize())),
 
-                "ScrollBar.minimumThumbSize",
-                new DimensionUIResource(
-                        3 * RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
-                                .getControlFontSize()),
-                        3 * RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
-                                .getControlFontSize())),
+                "ScrollBar.minimumThumbSize", new DimensionUIResource(0, 0),
+//                new DimensionUIResource(
+//                        3 * RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
+//                                .getControlFontSize()),
+//                        3 * RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
+//                                .getControlFontSize())),
 
                 "ScrollPane.background",
                 defaultBackgroundColor,
