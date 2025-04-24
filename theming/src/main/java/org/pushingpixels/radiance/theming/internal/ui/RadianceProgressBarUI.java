@@ -400,6 +400,11 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         if (!isVertical) {
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    float containerSurfaceAlpha =
+                        (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(progressBar,
+                        containerSurfaceAlpha, g));
+
                     LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, scaledHeight,
                         new float[]{0.0f, 0.2f, 0.5f, 0.8f, 1.0f},
                         new Color[]{
@@ -429,6 +434,11 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     AffineTransform at = AffineTransform.getRotateInstance(Math.PI / 2);
                     at.translate(x, y - scaledHeight);
                     graphics1X.transform(at);
+
+                    float containerSurfaceAlpha =
+                        (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(progressBar,
+                        containerSurfaceAlpha, g));
 
                     LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, scaledHeight,
                         new float[]{0.0f, 0.2f, 0.5f, 0.8f, 1.0f},
