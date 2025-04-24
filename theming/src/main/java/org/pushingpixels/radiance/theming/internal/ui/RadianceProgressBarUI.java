@@ -314,10 +314,6 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
 
     @Override
     public void paintDeterminate(Graphics g, JComponent c) {
-        if (!(g instanceof Graphics2D)) {
-            return;
-        }
-
         ComponentState fillState = getFillState();
         ComponentState progressState = getProgressState();
 
@@ -482,10 +478,6 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
 
     @Override
     public void paintIndeterminate(Graphics g, JComponent c) {
-        if (!(g instanceof Graphics2D)) {
-            return;
-        }
-
         ComponentState progressState = getProgressState();
 
         final int barRectWidth = progressBar.getWidth() - 2 * margin;
