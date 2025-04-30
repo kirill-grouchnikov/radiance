@@ -78,7 +78,7 @@ public class VisorMail extends JFrame {
 
             // Set initial size, center in screen, configure to exit the app on clicking the
             // close button
-            visorMail.setSize(900, 600);
+            visorMail.setSize(1000, 600);
             visorMail.setLocationRelativeTo(null);
             visorMail.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

@@ -55,7 +55,7 @@ public class VisorSkin extends RadianceSkin {
     public VisorSkin() {
         ContainerColorTokensBundle visorDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF99B6CB),
+                /* seed */ Hct.fromInt(0xFF9FC5E8),
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFDEDDDF),

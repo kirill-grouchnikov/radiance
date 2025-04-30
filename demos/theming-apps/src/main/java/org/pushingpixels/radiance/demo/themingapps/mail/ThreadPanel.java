@@ -39,6 +39,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
@@ -50,34 +51,39 @@ public class ThreadPanel extends JPanel {
         this.setLayout(new VerticalStackLayout());
 
         RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
-        ContainerColorTokens colorTokens = currentSkin.getNeutralContainerTokens(this);
-        Color onContainer = colorTokens.getOnContainer();
+
+        ContainerColorTokens neutralColorTokens = currentSkin.getNeutralContainerTokens(this);
+        Color onContainer = neutralColorTokens.getOnContainer();
         Color iconColor = new Color(onContainer.getRed(),
             onContainer.getGreen(), onContainer.getBlue(), 204);
-        Color backgroundColor = colorTokens.getContainerSurface();
-        Color innerBackgroundColor = colorTokens.getContainerSurfaceLowest();
+        Color backgroundColor = neutralColorTokens.getContainerSurface();
+        Color innerBackgroundColor = neutralColorTokens.getContainerSurfaceHighest();
+        Color innerBorderColor = neutralColorTokens.getContainerOutlineVariant();
+
+        ContainerColorTokens activeColorTokens = currentSkin.getActiveContainerTokens(this);
+        Color accentedColor = activeColorTokens.getAccentOnContainer();
 
         this.add(getHeaderActionsPanel(iconColor, backgroundColor));
         this.add(getMessageTitlePanel("Keys found", backgroundColor));
 
         this.add(getCollapsedMessagePanel("Reception desk",
                 "If you lost your keys stop by the reception desk", "10:25am", innerBackgroundColor,
-                backgroundColor));
+            innerBorderColor, backgroundColor));
         this.add(getCollapsedMessagePanel("Bryce Dunwood", "I think those might be Grayson's",
-                "10:28am", innerBackgroundColor, backgroundColor));
+                "10:28am", innerBackgroundColor, innerBorderColor, backgroundColor));
         this.add(getFullMessagePanel("Reception desk", "Today, 4:15pm",
                 "Bryce Dunwood, Grayson Flay",
                 "Thanks, Bryce.\n\nGrayson, can you check if you still have your keys?\n\n"
                         + "It's a silver keychain with five keys and a small elephant. "
                         + "If these are yours, please stop by. We'll be here until six today.\n\n"
                         + "Morgan from reception.",
-                innerBackgroundColor, backgroundColor, iconColor));
+                innerBackgroundColor, innerBorderColor, backgroundColor, iconColor, accentedColor));
 
-        this.add(getFooterActionsPanel(backgroundColor, iconColor));
+        this.add(getFooterActionsPanel(backgroundColor));
 
         this.setBackground(backgroundColor);
 
-        this.setPreferredSize(new Dimension(400, 0));
+        this.setPreferredSize(new Dimension(500, 0));
     }
 
     private JPanel getHeaderActionsPanel(Color iconColor, Color backgroundColor) {
@@ -124,11 +130,12 @@ public class ThreadPanel extends JPanel {
     }
 
     private JPanel getCollapsedMessagePanel(String from, String summary, String date,
-            Color innerBackground, Color outerBackground) {
+        Color innerBackground, Color innerBorder, Color outerBackground) {
+
         FormBuilder builder = FormBuilder.create().
-                columns("center:pref, 8dlu, 0dlu:grow, 8dlu, right:pref").
-                rows("p").
-                padding(new EmptyBorder(8, 16, 8, 16));
+            columns("center:pref, 8dlu, 0dlu:grow, 8dlu, right:pref").
+            rows("p").
+            padding(new EmptyBorder(8, 16, 8, 16));
         Font baseFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
 
@@ -146,16 +153,21 @@ public class ThreadPanel extends JPanel {
         result.setBorder(new EmptyBorder(2, 8, 2, 8));
         result.setBackground(outerBackground);
 
-        JPanel inner = builder.build();
+        JPanel inner = new JPanel(new BorderLayout());
+        inner.setBorder(new LineBorder(innerBorder));
+        inner.add(builder.build(), BorderLayout.CENTER);
         inner.setOpaque(true);
         inner.setBackground(innerBackground);
+
         result.add(inner, BorderLayout.CENTER);
 
         return result;
     }
 
     private JPanel getFullMessagePanel(String from, String date, String to, String message,
-            Color innerBackground, Color outerBackground, Color iconColor) {
+        Color innerBackground, Color innerBorder, Color outerBackground, Color iconColor,
+        Color accentedColor) {
+
         FormBuilder firstRow = FormBuilder.create().
                 columns("0dlu:grow, 8dlu, right:pref, 8dlu, center:pref, 8dlu, center:pref").
                 rows("p").
@@ -188,13 +200,12 @@ public class ThreadPanel extends JPanel {
         messagePane.setBackground(innerBackground);
         messagePane.setText(message);
 
-        Color historyColor = new Color(32, 96, 148);
         RadianceIcon historyIcon = refresh_black_24dp.factory().createNewIcon();
-        historyIcon.setColorFilter(color -> historyColor);
+        historyIcon.setColorFilter(color -> accentedColor);
         historyIcon.setDimension(new Dimension(12, 12));
         JLabel historyLabel = new JLabel("Show History", historyIcon, JLabel.LEADING);
         historyLabel.setBorder(new EmptyBorder(24, 16, 16, 16));
-        historyLabel.setForeground(historyColor);
+        historyLabel.setForeground(accentedColor);
         RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(historyLabel, 1.0);
 
         JPanel result = new JPanel(new BorderLayout());
@@ -204,6 +215,7 @@ public class ThreadPanel extends JPanel {
         JPanel inner = new JPanel(new VerticalStackLayout());
         inner.setOpaque(true);
         inner.setBackground(innerBackground);
+        inner.setBorder(new LineBorder(innerBorder));
         inner.add(firstRow.build());
         inner.add(toLabel);
         inner.add(messagePane);
@@ -214,21 +226,23 @@ public class ThreadPanel extends JPanel {
         return result;
     }
 
-    private JPanel getFooterActionsPanel(Color backgroundColor, Color iconColor) {
+    private JPanel getFooterActionsPanel(Color backgroundColor) {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.TRAILING, 8, 0));
         result.setBorder(new EmptyBorder(16, 24, 16, 0));
 
         RadianceIcon replyIcon = reply_black_24dp.of(14, 14);
-        replyIcon.setColorFilter(color -> iconColor);
         JButton reply = new JButton("Reply", replyIcon);
 
         RadianceIcon forwardIcon = forward_black_24dp.of(14, 14);
-        forwardIcon.setColorFilter(color -> iconColor);
         JButton forward = new JButton("Forward", forwardIcon);
 
         // Mark the button panel to be flat - effectively marking both action buttons as flat
         RadianceThemingCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(result,
-                RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT);
+            RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT);
+        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(result,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS);
 
         result.add(reply);
         result.add(forward);
