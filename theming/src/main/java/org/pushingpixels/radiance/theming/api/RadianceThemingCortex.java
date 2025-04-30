@@ -767,24 +767,6 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Sets the new setting for the icons of the <code>JOptionPane</code>s created with
-         * predefined message types. The default setting is <code>true</code> (use constant color
-         * tokens). To use color tokens-consistent coloring, call this method and pass
-         * <code>false</code>.
-         *
-         * @param useConstantThemesOnOptionPanes if <code>true</code>, the
-         *                                       <code>JOptionPane</code>s created with predefined
-         *                                       message types will use constant color tokens
-         *                                       for the icons.
-         */
-        public static void setUseConstantThemesOnOptionPanes(
-                Boolean useConstantThemesOnOptionPanes) {
-            UIManager.put(RadianceSynapse.USE_THEMED_ICONS_ON_OPTION_PANES,
-                    useConstantThemesOnOptionPanes);
-            SwingUtilities.invokeLater(RadianceCoreUtilities::updateActiveUi);
-        }
-
-        /**
          * Specifies how icons on controls such as buttons, toggle buttons, labels, tabs and menu
          * items are themed.
          *

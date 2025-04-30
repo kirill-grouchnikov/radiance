@@ -121,12 +121,6 @@ public class RadianceSynapse {
     public final static String COLORIZATION_FACTOR = "radiance.theming.internal.colorizationFactor";
 
     /**
-     * Client property name for specifying that icons on <code>JOptionPane</code>s created with
-     * predefined message types will use constant color tokens for the icons.
-     */
-    public final static String USE_THEMED_ICONS_ON_OPTION_PANES = "radiance.theming.internal.useThemedIconsOnOptionPanes";
-
-    /**
      * Client property name for specifying how icons in active states are filtered.
      */
     public final static String ICON_FILTER_STRATEGY_ACTIVE = "radiance.theming.internal.iconFilterStrategyActive";
