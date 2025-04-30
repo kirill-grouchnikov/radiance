@@ -122,13 +122,6 @@ public class ControlPanelFactory {
 
         builder.appendSeparator("Miscellaneous");
 
-        final JCheckBox useConstantThemesOnOptionPanes = new JCheckBox("use constant themes");
-        useConstantThemesOnOptionPanes.setSelected(true);
-        useConstantThemesOnOptionPanes
-                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> RadianceThemingCortex.GlobalScope.setUseConstantThemesOnOptionPanes(
-                        useConstantThemesOnOptionPanes.isSelected())));
-        builder.append("Option pane icons", useConstantThemesOnOptionPanes);
-
         final JComboBox<String> placementCombo = new JComboBox<>(
                 new String[]{"top", "bottom", "left", "right"});
         placementCombo.addActionListener(actionEvent -> {

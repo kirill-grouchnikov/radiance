@@ -585,7 +585,6 @@ public class Check extends JFrame {
                 e.printStackTrace();
             }
 
-            RadianceThemingCortex.GlobalScope.setUseConstantThemesOnOptionPanes(true);
             RadianceThemingCortex.GlobalScope.setTabCloseButtonsVisible(true);
             RadianceThemingCortex.GlobalScope.setExtraWidgetsPresence(true);
             JFrame.setDefaultLookAndFeelDecorated(true);
