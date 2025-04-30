@@ -268,7 +268,7 @@ Specifies whether trees should have should have automatic drag and drop support.
 
 `public static void setAutomaticScrollPresence(Boolean hasAutomaticScroll)`
 
-Specifies whether scroll panes should have have auto-scroll support invoked on mouse button click that triggers popups.
+Specifies whether scroll panes should have auto-scroll support invoked on mouse button click that triggers popups.
 
 `public static void setButtonIgnoreMinimumSize(Boolean buttonIgnoreMinimumSize)`
 
@@ -500,7 +500,7 @@ Specifies whether the tree should have automatic drag and drop support.
 
 `public static void setAutomaticScrollPresence(JScrollPane scrollPane, Boolean hasAutomaticScroll)`
 
-Specifies whether the scroll pane should have have auto-scroll support invoked on mouse button click that triggers popups.
+Specifies whether the scroll pane should have auto-scroll support invoked on mouse button click that triggers popups.
 
 `public static void setNumberOfPasswordEchoesPerCharacter(JPasswordField passwordField, int echoCount)`
 

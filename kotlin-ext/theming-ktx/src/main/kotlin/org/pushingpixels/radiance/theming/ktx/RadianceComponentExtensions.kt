@@ -215,10 +215,10 @@ public fun JTree.setAutomaticDragAndDropSupportPresence(hasAutomaticDragAndDropS
 }
 
 /**
- * Specifies whether this scroll pane should have have auto-scroll support invoked on mouse
+ * Specifies whether this scroll pane should have auto-scroll support invoked on mouse
  * button click that triggers popups.
  *
- * @param hasAutomaticScroll If `true`, this scroll pane will have have
+ * @param hasAutomaticScroll If `true`, this scroll pane will have
  * auto-scroll support invoked on mouse button click that triggers popups. Pass
  * `null` to reset to the default behavior.
  */

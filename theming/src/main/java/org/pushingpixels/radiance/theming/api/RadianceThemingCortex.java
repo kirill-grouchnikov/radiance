@@ -1040,10 +1040,10 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Specifies whether scroll panes should have have auto-scroll support invoked on mouse
+         * Specifies whether scroll panes should have auto-scroll support invoked on mouse
          * button click that triggers popups.
          *
-         * @param hasAutomaticScroll If <code>true</code>, scroll panes will have have
+         * @param hasAutomaticScroll If <code>true</code>, scroll panes will have
          *                           auto-scroll support invoked
          *                           on mouse button click that triggers popups. Pass
          *                           <code>null</code> to reset to
@@ -1564,11 +1564,11 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Specifies whether the scroll pane should have have auto-scroll support invoked on mouse
+         * Specifies whether the scroll pane should have auto-scroll support invoked on mouse
          * button click that triggers popups.
          *
          * @param scrollPane         Scroll pane component.
-         * @param hasAutomaticScroll If <code>true</code>, the scroll pane will have have
+         * @param hasAutomaticScroll If <code>true</code>, the scroll pane will have
          *                           auto-scroll support
          *                           invoked on mouse button click that triggers popups. Pass
          *                           <code>null</code> to
