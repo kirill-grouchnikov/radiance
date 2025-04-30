@@ -194,13 +194,9 @@ Sets the global icon pack to be used by Radiance.
 
 Retrieves the currently used global icon pack.
 
-`public static void setUseConstantThemesOnOptionPanes(Boolean useConstantThemesOnOptionPanes)`
+`public static void setIconFilterStrategies(RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy, RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy, RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy)`
 
-Sets the new setting for the icons of the `JOptionPane`s created with predefined message types
-
-`public static void setUseThemedDefaultIcons(Boolean useThemedDefaultIcons)`
-
-Specifies that icons on controls such as buttons, toggle buttons, labels, tabs and menu items should match the color of the current color tokens when they are in default state.
+Specifies how icons on controls such as buttons, toggle buttons, labels, tabs and menu items are themed.
 
 #### Working with button bars
 
@@ -305,10 +301,6 @@ Returns the menu gutter fill alpha.
 `public static void setTraceFilename(String traceFilename)`
 
 Specifies the trace filename.
-
-`public static void setHeapStatusTraceFilename(String heapStatusTraceFilename)`
-
-Specifies the heap status trace filename.
 
 `public static void setFocusKind(FocusKind focusKind)`
 
