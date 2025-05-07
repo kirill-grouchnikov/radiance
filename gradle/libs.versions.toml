@@ -3,7 +3,7 @@ kotlin = "2.1.20"
 coroutines = "1.10.2"
 dokka = "2.0.0"
 
-batik = "1.18"
+batik = "1.19"
 retrofit = "2.11.0"
 jgoodies_common = "1.8.1"
 jgoodies_forms = "1.9.0"
