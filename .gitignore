@@ -13,4 +13,6 @@ drop/*-SNAPSHOT/**
 
 .project
 .classpath
+*.iml
+
 
