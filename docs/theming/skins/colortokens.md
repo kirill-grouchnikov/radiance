@@ -4,9 +4,10 @@
 
 Let's look at two Radiance skins, Dust Coffee and Magellan:
 
+<p align="left">
 <img alt="Dust Coffee"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/dustcoffee1.png" width="340" height="258" />
-
 <img alt="Magellan"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/magellan1.png" width="340" height="258" />
+</p>
 
 These two screenshots show the same application content, from the title pane to the menu bar, down to the tabs and individual buttons. The only difference is in design decisions on what colors are used for each individual part of each individual component - the gradient fill of a button, the outline of a text field, the checkmark of a checkbox, text test of a menu item. All of these are color tokens.
 
@@ -106,11 +107,11 @@ For the main content area:
   * `containerOutline` for the border
   * `onContainer` for the text
   * A combination of various `containerSurfaceXyz` tokens for the gradient stops of the background fill
-* The visual differences between a selected and an enabled button is not in the choice of the color tokens, but in the mapping of those tokens by the matching container (active or muted).
-* The visual differences between an enabled and a disable button is in the alpha tokens applied to the surface, outline and content color tokens during the drawing pass.
+* What is different between drawing a selected button and an enabled button? The draw logic uses the same tokens (surface, outline and content). The difference is that a selected button is an **active container** while an enabled button is a **muted container**. In this particular case, an active container uses a higher chroma value as the seed for its tonal palette, resulting in more vibrant purple colors - while an enabled container uses a lower chroma value as the seed for its tonal palette, resulting in more muted purple colors.
+* What is different between drawing an enabled button and a disabled button? The draw logic uses the same tokens **and** the same **muted container** type. The only difference is in the alpha tokens applied to the surface, outline and content color tokens during the drawing pass.
 
 For the title area, the application of color is the same:
 * The background is rendered with a gradient that uses a number of `containerSurfaceXyz` color tokens
 * The text and the icons are rendered with the `onContainer` token
 
-And the window pane border is rendered with a combination of `containerSurface` and `containerOutline` / `containerOutlineVariant` color tokens.
+Finally, the window pane border is rendered with a combination of `containerSurface` and `containerOutline` / `containerOutlineVariant` color tokens.
