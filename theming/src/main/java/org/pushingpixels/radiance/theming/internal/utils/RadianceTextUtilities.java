@@ -85,9 +85,8 @@ public class RadianceTextUtilities {
         float luminFactor = RadianceColorUtilities.getColorStrength(foregroundColor);
         gBlurred.setColor(echoColor);
         ConvolveOp convolve = new ConvolveOp(
-                new Kernel(3, 3,
-                        new float[] {.04f, .06f, .04f, .06f, .04f, .06f, .04f, .06f, .04f}),
-                ConvolveOp.EDGE_NO_OP, null);
+            new Kernel(3, 3, new float[] {.12f, .24f, .12f, .24f, .12f, .24f, .12f, .24f, .12f}),
+            ConvolveOp.EDGE_NO_OP, null);
         gBlurred.drawString(text, xOffset, yOffset);
         blurred = convolve.filter(blurred, null);
 
