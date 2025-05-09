@@ -56,12 +56,13 @@ public class SkinUtilities {
      *
      * @param uiDefaults UI defaults table.
      */
-    public static void addCustomEntriesToTable(UIDefaults uiDefaults,
-            RadianceSkin skin) {
+    public static void addCustomEntriesToTable(UIDefaults uiDefaults, RadianceSkin skin) {
+        int controlFontSize = RadianceSizeUtils.getControlFontSize();
+
         UIDefaults.LazyValue menuArrowIcon = (UIDefaults table) -> new MenuArrowIcon(null);
 
         UIDefaults.ActiveValue listCellRendererActiveValue =
-                (UIDefaults table) -> new RadianceDefaultListCellRenderer.RadianceUIResource();
+            (UIDefaults table) -> new RadianceDefaultListCellRenderer.RadianceUIResource();
 
         ContainerColorTokens mainActiveTokens = skin.getActiveContainerTokens(
             RadianceThemingSlices.DecorationAreaType.NONE);
@@ -75,7 +76,7 @@ public class SkinUtilities {
         Color backgroundDefaultColor = new ColorUIResource(mainMutedTokens.getContainerSurface());
 
         ColorUIResource defaultBackgroundColor = new ColorUIResource(
-                RadianceCoreUtilities.getBackgroundFill(skin, RadianceThemingSlices.DecorationAreaType.NONE));
+            RadianceCoreUtilities.getBackgroundFill(skin, RadianceThemingSlices.DecorationAreaType.NONE));
         ColorUIResource defaultTextBackgroundColor = mainMutedTokens.isDark()
             ? new ColorUIResource(mainMutedTokens.getContainerSurfaceHigh())
             : new ColorUIResource(mainMutedTokens.getContainerSurfaceLow());
@@ -83,8 +84,8 @@ public class SkinUtilities {
         Color disabledForegroundColor = RadianceColorUtilities.getForegroundColor(mainMutedTokens);
         float alpha = mainNeutralTokens.getOnContainerDisabledAlpha();
         Color disabledTextComponentForegroundColor = new ColorUIResource(
-                RadianceColorUtilities.getInterpolatedColor(
-                    disabledForegroundColor, defaultTextBackgroundColor, alpha));
+            RadianceColorUtilities.getInterpolatedColor(
+                disabledForegroundColor, defaultTextBackgroundColor, alpha));
 
         Color lineColor = new ColorUIResource(mainActiveTokens.getContainerOutline());
         Color lineColorDefault = new ColorUIResource(mainMutedTokens.getContainerOutline());
@@ -96,8 +97,8 @@ public class SkinUtilities {
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
             ComponentState.SELECTED);
         if (textHighlightColorTokens == null) {
-            textHighlightColorTokens = skin.getActiveContainerTokens(null,
-                ComponentState.ROLLOVER_SELECTED);
+            textHighlightColorTokens = skin.getActiveContainerTokens(
+                null, ComponentState.ROLLOVER_SELECTED);
         }
         Color selectionTextBackgroundColor = new ColorUIResource(
             textHighlightColorTokens.getContainerSurfaceLow());
@@ -115,1044 +116,1013 @@ public class SkinUtilities {
         UIDefaults.LazyValue popupMenuBorder = (UIDefaults table) -> new RadiancePopupMenuBorder();
 
         UIDefaults.LazyValue desktopIconMarginBorder = (UIDefaults table) ->
-                new BorderUIResource(new RadianceBorder(new Insets(0, 0, 0, 0)));
+            new BorderUIResource(new RadianceBorder(new Insets(0, 0, 0, 0)));
 
         UIDefaults.LazyValue textBorder = (UIDefaults table) ->
             new BorderUIResource.CompoundBorderUIResource(
                 new RadianceTextComponentBorder(
-                    RadianceSizeUtils.getTextBorderInsets(RadianceSizeUtils.getControlFontSize())),
+                    RadianceSizeUtils.getTextBorderInsets(controlFontSize)),
                 new MarginBorder());
 
-        UIDefaults.LazyValue textMarginBorder =
-                (UIDefaults table) -> new MarginBorder();
+        UIDefaults.LazyValue textMarginBorder = (UIDefaults table) -> new MarginBorder();
 
         UIDefaults.LazyValue tooltipBorder = (UIDefaults table) ->
-                new RadianceBorder(0.0f, RadianceSizeUtils.getToolTipBorderInsets(
-                        RadianceSizeUtils.getControlFontSize()));
+            new RadianceBorder(0.0f, RadianceSizeUtils.getToolTipBorderInsets(controlFontSize));
 
         UIDefaults.LazyValue comboBorder = (UIDefaults table) ->
-                new RadianceBorder(RadianceSizeUtils.getComboBorderInsets(
-                        RadianceSizeUtils.getControlFontSize()));
+            new RadianceBorder(RadianceSizeUtils.getComboBorderInsets(controlFontSize));
 
         UIDefaults.LazyValue spinnerBorder = (UIDefaults table) ->
-                new BorderUIResource.CompoundBorderUIResource(
-                        new RadianceTextComponentBorder(
-                                RadianceSizeUtils
-                                        .getSpinnerBorderInsets(RadianceSizeUtils
-                                                .getControlFontSize())),
-                        new MarginBorder());
+            new BorderUIResource.CompoundBorderUIResource(
+                new RadianceTextComponentBorder(
+                    RadianceSizeUtils.getSpinnerBorderInsets(controlFontSize)),
+                new MarginBorder());
 
         ContainerColorTokens titlePaneTokens = skin.getNeutralContainerTokens(
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
         UIDefaults.LazyValue menuItemInsets = (UIDefaults table) -> {
-            int menuItemMargin = RadianceSizeUtils
-                    .getMenuItemMargin(RadianceSizeUtils
-                            .getComponentFontSize(null));
-            return new InsetsUIResource(menuItemMargin, menuItemMargin,
-                    menuItemMargin, menuItemMargin);
+            int menuItemMargin = RadianceSizeUtils.getMenuItemMargin(controlFontSize);
+            return new InsetsUIResource(menuItemMargin, menuItemMargin, menuItemMargin, menuItemMargin);
         };
 
         UIDefaults.LazyValue emptyIcon = (UIDefaults table) ->
-                new IconUIResource(new Icon() {
-                    public int getIconHeight() {
-                        // return the value that matches the core height, so
-                        // that the DefaultTreeCellEditor.EditorContainer
-                        // returns the correct value in its getPreferredSize
-                        // when it consults the "editingIcon" height.
-                        return 16;
-                    }
+            new IconUIResource(new Icon() {
+                public int getIconHeight() {
+                    // return the value that matches the core height, so
+                    // that the DefaultTreeCellEditor.EditorContainer
+                    // returns the correct value in its getPreferredSize
+                    // when it consults the "editingIcon" height.
+                    return 16;
+                }
 
-                    public int getIconWidth() {
-                        return 2;
-                    }
+                public int getIconWidth() {
+                    return 2;
+                }
 
-                    public void paintIcon(Component c, Graphics g, int x, int y) {
-                    }
-                });
+                public void paintIcon(Component c, Graphics g, int x, int y) {
+                }
+            });
 
         Object[] defaults = new Object[] {
-                "control",
-                controlText,
+            "control",
+            controlText,
 
-                "Button.defaultButtonFollowsFocus",
-                Boolean.FALSE,
+            "Button.defaultButtonFollowsFocus",
+            Boolean.FALSE,
 
-                "Button.disabledText",
-                disabledForegroundColor,
+            "Button.disabledText",
+            disabledForegroundColor,
 
-                "Button.foreground",
-                foregroundColor,
+            "Button.foreground",
+            foregroundColor,
 
-                "Button.margin",
-                new InsetsUIResource(0, 0, 0, 0),
+            "Button.margin",
+            new InsetsUIResource(0, 0, 0, 0),
 
-                "CheckBox.background",
-                defaultBackgroundColor,
+            "CheckBox.background",
+            defaultBackgroundColor,
 
-                "CheckBox.border",
-                new BorderUIResource.CompoundBorderUIResource(
-                        RadianceSizeUtils.getCheckBoxBorder(
-                                RadianceSizeUtils.getControlFontSize(),
-                                ComponentOrientation.getOrientation(
-                                        Locale.getDefault()).isLeftToRight()),
-                        new MarginBorder()),
+            "CheckBox.border",
+            new BorderUIResource.CompoundBorderUIResource(
+                RadianceSizeUtils.getCheckBoxBorder(controlFontSize,
+                    ComponentOrientation.getOrientation(Locale.getDefault()).isLeftToRight()),
+                new MarginBorder()),
 
-                "CheckBox.disabledText",
-                disabledForegroundColor,
+            "CheckBox.disabledText",
+            disabledForegroundColor,
 
-                "CheckBox.foreground",
-                foregroundColor,
+            "CheckBox.foreground",
+            foregroundColor,
 
-                "CheckBoxMenuItem.acceleratorForeground",
-                foregroundColor,
+            "CheckBoxMenuItem.acceleratorForeground",
+            foregroundColor,
 
-                "CheckBoxMenuItem.acceleratorSelectionForeground",
-                foregroundColor,
+            "CheckBoxMenuItem.acceleratorSelectionForeground",
+            foregroundColor,
 
-                "CheckBoxMenuItem.background",
-                defaultBackgroundColor,
+            "CheckBoxMenuItem.background",
+            defaultBackgroundColor,
 
-                "CheckBoxMenuItem.borderPainted",
-                Boolean.FALSE,
+            "CheckBoxMenuItem.borderPainted",
+            Boolean.FALSE,
 
-                "CheckBoxMenuItem.checkIcon",
-                new CheckBoxMenuItemIcon(null,
-                        1 + RadianceSizeUtils.getMenuCheckMarkSize(RadianceSizeUtils
-                                .getControlFontSize())),
+            "CheckBoxMenuItem.checkIcon",
+            new CheckBoxMenuItemIcon(null, 1 + RadianceSizeUtils.getMenuCheckMarkSize(controlFontSize)),
 
-                "CheckBoxMenuItem.disabledForeground",
-                disabledForegroundColor,
+            "CheckBoxMenuItem.disabledForeground",
+            disabledForegroundColor,
 
-                "CheckBoxMenuItem.foreground",
-                foregroundColor,
+            "CheckBoxMenuItem.foreground",
+            foregroundColor,
 
-                "CheckBoxMenuItem.margin",
-                menuItemInsets,
+            "CheckBoxMenuItem.margin",
+            menuItemInsets,
 
-                "CheckBoxMenuItem.selectionForeground",
-                selectionCellForegroundColor,
+            "CheckBoxMenuItem.selectionForeground",
+            selectionCellForegroundColor,
 
-                "ColorChooser.background",
-                defaultBackgroundColor,
+            "ColorChooser.background",
+            defaultBackgroundColor,
 
-                "ColorChooser.foreground",
-                foregroundColor,
+            "ColorChooser.foreground",
+            foregroundColor,
 
-                "ComboBox.background",
-                defaultBackgroundColor,
+            "ComboBox.background",
+            defaultBackgroundColor,
 
-                "ComboBox.border",
-                comboBorder,
+            "ComboBox.border",
+            comboBorder,
 
-                "ComboBox.disabledBackground",
-                defaultTextBackgroundColor,
+            "ComboBox.disabledBackground",
+            defaultTextBackgroundColor,
 
-                "ComboBox.disabledForeground",
-                disabledForegroundColor,
+            "ComboBox.disabledForeground",
+            disabledForegroundColor,
 
-                "ComboBox.foreground",
-                foregroundColor,
+            "ComboBox.foreground",
+            foregroundColor,
 
-                "ComboBox.selectionBackground",
-                selectionCellBackgroundColor,
+            "ComboBox.selectionBackground",
+            selectionCellBackgroundColor,
 
-                "ComboBox.selectionForeground",
-                selectionCellForegroundColor,
+            "ComboBox.selectionForeground",
+            selectionCellForegroundColor,
 
-                "DesktopIcon.border",
-                desktopIconMarginBorder,
+            "DesktopIcon.border",
+            desktopIconMarginBorder,
 
-                "DesktopIcon.width",
-                Integer.valueOf(140),
+            "DesktopIcon.width",
+            Integer.valueOf(140),
 
-                "Desktop.background",
-                new ColorUIResource(new Color(0x0, true)),
+            "Desktop.background",
+            new ColorUIResource(new Color(0x0, true)),
 
-                "Desktop.foreground",
-                foregroundColor,
+            "Desktop.foreground",
+            foregroundColor,
 
-                "Dialog.background",
-                defaultBackgroundColor,
+            "Dialog.background",
+            defaultBackgroundColor,
 
-                "EditorPane.background",
-                defaultTextBackgroundColor,
+            "EditorPane.background",
+            defaultTextBackgroundColor,
 
-                "EditorPane.border",
-                textMarginBorder,
+            "EditorPane.border",
+            textMarginBorder,
 
-                "EditorPane.foreground",
-                foregroundColor,
+            "EditorPane.foreground",
+            foregroundColor,
 
-                "EditorPane.caretForeground",
-                foregroundColor,
+            "EditorPane.caretForeground",
+            foregroundColor,
 
-                "EditorPane.disabledBackground",
-                defaultTextBackgroundColor,
+            "EditorPane.disabledBackground",
+            defaultTextBackgroundColor,
 
-                "EditorPane.inactiveBackground",
-                defaultTextBackgroundColor,
+            "EditorPane.inactiveBackground",
+            defaultTextBackgroundColor,
 
-                "EditorPane.inactiveForeground",
-                disabledTextComponentForegroundColor,
+            "EditorPane.inactiveForeground",
+            disabledTextComponentForegroundColor,
 
-                "EditorPane.selectionBackground",
-                selectionTextBackgroundColor,
+            "EditorPane.selectionBackground",
+            selectionTextBackgroundColor,
 
-                "EditorPane.selectionForeground",
-                selectionTextForegroundColor,
+            "EditorPane.selectionForeground",
+            selectionTextForegroundColor,
 
-                "FileChooser.upFolderIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserUpFolderIcon(16, mainMutedTokens)),
+            "FileChooser.upFolderIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserUpFolderIcon(16, mainMutedTokens)),
 
-                "FileChooser.newFolderIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserNewFolderIcon(16, mainMutedTokens)),
+            "FileChooser.newFolderIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserNewFolderIcon(16, mainMutedTokens)),
 
-                "FileChooser.homeFolderIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserHomeFolderIcon(16, mainMutedTokens)),
+            "FileChooser.homeFolderIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserHomeFolderIcon(16, mainMutedTokens)),
 
-                "FileChooser.listViewIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserListViewIcon(16, mainMutedTokens)),
+            "FileChooser.listViewIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserListViewIcon(16, mainMutedTokens)),
 
-                "FileChooser.detailsViewIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserDetailsViewIcon(16, mainMutedTokens)),
+            "FileChooser.detailsViewIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserDetailsViewIcon(16, mainMutedTokens)),
 
-                "FileChooser.viewMenuIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserViewMenuIcon(16, mainMutedTokens)),
+            "FileChooser.viewMenuIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserViewMenuIcon(16, mainMutedTokens)),
 
-                "FileChooser.usesSingleFilePane",
-                Boolean.TRUE,
+            "FileChooser.usesSingleFilePane",
+            Boolean.TRUE,
 
-                "FileView.computerIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserComputerIcon(16, mainMutedTokens)),
+            "FileView.computerIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserComputerIcon(16, mainMutedTokens)),
 
-                "FileView.directoryIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserDirectoryIcon(16, mainMutedTokens)),
+            "FileView.directoryIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserDirectoryIcon(16, mainMutedTokens)),
 
-                "FileView.fileIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserFileIcon(16, mainMutedTokens)),
-
-                "FileView.floppyDriveIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserFloppyDriveIcon(16, mainMutedTokens)),
-
-                "FileView.hardDriveIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceThemingCortex.GlobalScope.getIconPack().
-                                getFileChooserHardDriveIcon(16, mainMutedTokens)),
-
-                "FormattedTextField.background",
-                defaultTextBackgroundColor,
-
-                "FormattedTextField.border",
-                textBorder,
-
-                "FormattedTextField.caretForeground",
-                foregroundColor,
-
-                "FormattedTextField.disabledBackground",
-                defaultTextBackgroundColor,
-
-                "FormattedTextField.foreground",
-                foregroundColor,
-
-                "FormattedTextField.inactiveBackground",
-                defaultTextBackgroundColor,
-
-                "FormattedTextField.inactiveForeground",
-                disabledTextComponentForegroundColor,
-
-                "FormattedTextField.selectionBackground",
-                selectionTextBackgroundColor,
-
-                "FormattedTextField.selectionForeground",
-                selectionTextForegroundColor,
-
-                "InternalFrame.activeTitleBackground",
-                selectionTextForegroundColor,
-
-                "InternalFrame.inactiveTitleBackground",
-                foregroundColor,
-
-                "InternalFrame.border",
-                new BorderUIResource(new RadiancePaneBorder()),
-
-                "InternalFrame.closeIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new IconUIResource(new Icon() {
-                            @Override
-                            public void paintIcon(Component c, Graphics g, int x, int y) {
-                                Graphics2D graphics = (Graphics2D) g.create();
-                                graphics.translate(x, y);
-
-                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                                BladeIconUtils.drawCloseIcon(graphics, iconSize,
-                                    RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), titlePaneTokens);
-
-                                graphics.dispose();
-                            }
-
-                            @Override
-                            public int getIconWidth() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
-
-                            @Override
-                            public int getIconHeight() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
-                        })),
-
-                "InternalFrame.iconifyIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new IconUIResource(new Icon() {
-                            @Override
-                            public void paintIcon(Component c, Graphics g, int x, int y) {
-                                Graphics2D graphics = (Graphics2D) g.create();
-                                graphics.translate(x, y);
-
-                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                                BladeIconUtils.drawIconifyIcon(graphics, iconSize, titlePaneTokens);
-
-                                graphics.dispose();
-                            }
-
-                            @Override
-                            public int getIconWidth() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
-
-                            @Override
-                            public int getIconHeight() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
-                        })),
-
-                "InternalFrame.maximizeIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new IconUIResource(new Icon() {
-                            @Override
-                            public void paintIcon(Component c, Graphics g, int x, int y) {
-                                Graphics2D graphics = (Graphics2D) g.create();
-                                graphics.translate(x, y);
-
-                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                                BladeIconUtils.drawMaximizeIcon(graphics, iconSize, titlePaneTokens);
-
-                                graphics.dispose();
-                            }
-
-                            @Override
-                            public int getIconWidth() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
-
-                            @Override
-                            public int getIconHeight() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
-                        })),
-
-                "InternalFrame.minimizeIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new IconUIResource(new Icon() {
-                            @Override
-                            public void paintIcon(Component c, Graphics g, int x, int y) {
-                                Graphics2D graphics = (Graphics2D) g.create();
-                                graphics.translate(x, y);
+            "FileView.fileIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserFileIcon(16, mainMutedTokens)),
+
+            "FileView.floppyDriveIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserFloppyDriveIcon(16, mainMutedTokens)),
+
+            "FileView.hardDriveIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().
+                    getFileChooserHardDriveIcon(16, mainMutedTokens)),
+
+            "FormattedTextField.background",
+            defaultTextBackgroundColor,
+
+            "FormattedTextField.border",
+            textBorder,
+
+            "FormattedTextField.caretForeground",
+            foregroundColor,
+
+            "FormattedTextField.disabledBackground",
+            defaultTextBackgroundColor,
+
+            "FormattedTextField.foreground",
+            foregroundColor,
+
+            "FormattedTextField.inactiveBackground",
+            defaultTextBackgroundColor,
+
+            "FormattedTextField.inactiveForeground",
+            disabledTextComponentForegroundColor,
+
+            "FormattedTextField.selectionBackground",
+            selectionTextBackgroundColor,
+
+            "FormattedTextField.selectionForeground",
+            selectionTextForegroundColor,
+
+            "InternalFrame.activeTitleBackground",
+            selectionTextForegroundColor,
+
+            "InternalFrame.inactiveTitleBackground",
+            foregroundColor,
+
+            "InternalFrame.border",
+            new BorderUIResource(new RadiancePaneBorder()),
+
+            "InternalFrame.closeIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                new IconUIResource(new Icon() {
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        Graphics2D graphics = (Graphics2D) g.create();
+                        graphics.translate(x, y);
+
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawCloseIcon(graphics, iconSize,
+                            RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), titlePaneTokens);
+
+                        graphics.dispose();
+                    }
+
+                    @Override
+                    public int getIconWidth() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
+
+                    @Override
+                    public int getIconHeight() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
+                })),
+
+            "InternalFrame.iconifyIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                new IconUIResource(new Icon() {
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        Graphics2D graphics = (Graphics2D) g.create();
+                        graphics.translate(x, y);
+
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawIconifyIcon(graphics, iconSize, titlePaneTokens);
+
+                        graphics.dispose();
+                    }
+
+                    @Override
+                    public int getIconWidth() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
+
+                    @Override
+                    public int getIconHeight() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
+                })),
+
+            "InternalFrame.maximizeIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                new IconUIResource(new Icon() {
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        Graphics2D graphics = (Graphics2D) g.create();
+                        graphics.translate(x, y);
+
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawMaximizeIcon(graphics, iconSize, titlePaneTokens);
+
+                        graphics.dispose();
+                    }
+
+                    @Override
+                    public int getIconWidth() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
+
+                    @Override
+                    public int getIconHeight() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
+                })),
+
+            "InternalFrame.minimizeIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                new IconUIResource(new Icon() {
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        Graphics2D graphics = (Graphics2D) g.create();
+                        graphics.translate(x, y);
 
-                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                                BladeIconUtils.drawRestoreIcon(graphics, iconSize, titlePaneTokens);
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawRestoreIcon(graphics, iconSize, titlePaneTokens);
 
-                                graphics.dispose();
-                            }
-
-                            @Override
-                            public int getIconWidth() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
+                        graphics.dispose();
+                    }
+
+                    @Override
+                    public int getIconWidth() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
+
+                    @Override
+                    public int getIconHeight() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
+                })),
 
-                            @Override
-                            public int getIconHeight() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
-                        })),
+            "InternalFrame.paletteCloseIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                new IconUIResource(new Icon() {
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        Graphics2D graphics = (Graphics2D) g.create();
+                        graphics.translate(x, y);
 
-                "InternalFrame.paletteCloseIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new IconUIResource(new Icon() {
-                            @Override
-                            public void paintIcon(Component c, Graphics g, int x, int y) {
-                                Graphics2D graphics = (Graphics2D) g.create();
-                                graphics.translate(x, y);
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawCloseIcon(graphics, iconSize,
+                            RadianceSizeUtils.getCloseIconStrokeWidth(iconSize),
+                            titlePaneTokens);
 
-                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                                BladeIconUtils.drawCloseIcon(graphics, iconSize,
-                                    RadianceSizeUtils.getCloseIconStrokeWidth(iconSize),
-                                    titlePaneTokens);
+                        graphics.dispose();
+                    }
 
-                                graphics.dispose();
-                            }
+                    @Override
+                    public int getIconWidth() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
 
-                            @Override
-                            public int getIconWidth() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
+                    @Override
+                    public int getIconHeight() {
+                        return RadianceSizeUtils.getTitlePaneIconSize();
+                    }
+                })),
 
-                            @Override
-                            public int getIconHeight() {
-                                return RadianceSizeUtils.getTitlePaneIconSize();
-                            }
-                        })),
+            "Label.background",
+            defaultBackgroundColor,
 
-                "Label.background",
-                defaultBackgroundColor,
+            "Label.foreground",
+            foregroundColor,
 
-                "Label.foreground",
-                foregroundColor,
+            "Label.disabledText",
+            disabledForegroundColor,
 
-                "Label.disabledText",
-                disabledForegroundColor,
+            "Label.disabledForeground",
+            disabledForegroundColor,
 
-                "Label.disabledForeground",
-                disabledForegroundColor,
+            "List.background",
+            defaultBackgroundColor,
 
-                "List.background",
-                defaultBackgroundColor,
+            "List.cellRenderer",
+            listCellRendererActiveValue,
 
-                "List.cellRenderer",
-                listCellRendererActiveValue,
+            "List.focusCellHighlightBorder",
+            new RadianceBorder(new Insets(1, 1, 1, 1)),
 
-                "List.focusCellHighlightBorder",
-                new RadianceBorder(new Insets(1, 1, 1, 1)),
+            "List.focusSelectedCellHighlightBorder",
+            new BorderUIResource.EmptyBorderUIResource(1, 1, 1, 1),
 
-                "List.focusSelectedCellHighlightBorder",
-                new BorderUIResource.EmptyBorderUIResource(1, 1, 1, 1),
+            "List.foreground",
+            foregroundColor,
 
-                "List.foreground",
-                foregroundColor,
+            "List.selectionBackground",
+            selectionCellBackgroundColor,
 
-                "List.selectionBackground",
-                selectionCellBackgroundColor,
+            "List.selectionForeground",
+            selectionCellForegroundColor,
 
-                "List.selectionForeground",
-                selectionCellForegroundColor,
+            "Menu.arrowIcon",
+            menuArrowIcon,
 
-                "Menu.arrowIcon",
-                menuArrowIcon,
+            "Menu.background",
+            defaultBackgroundColor,
 
-                "Menu.background",
-                defaultBackgroundColor,
+            "Menu.borderPainted",
+            Boolean.FALSE,
 
-                "Menu.borderPainted",
-                Boolean.FALSE,
+            "Menu.checkIcon",
+            null,
 
-                "Menu.checkIcon",
-                null,
+            "Menu.disabledForeground",
+            disabledForegroundColor,
 
-                "Menu.disabledForeground",
-                disabledForegroundColor,
+            "Menu.foreground",
+            foregroundColor,
 
-                "Menu.foreground",
-                foregroundColor,
+            "Menu.margin",
+            menuItemInsets,
 
-                "Menu.margin",
-                menuItemInsets,
+            "Menu.selectionForeground",
+            selectionCellForegroundColor,
 
-                "Menu.selectionForeground",
-                selectionCellForegroundColor,
+            // This is a very rough "approximation" since the menu bar can be painted with the decoration
+            // painter which may or may not use any particular color from the color tokens
+            "MenuBar.background",
+            new ColorUIResource(skin.getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER)
+                .getContainerSurface()),
 
-                // This is a very rough "approximation" since the menu bar can be painted with the decoration
-                // painter which may or may not use any particular color from the color tokens
-                "MenuBar.background",
-                new ColorUIResource(skin.getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getContainerSurface()),
+            "MenuBar.foreground",
+            new ColorUIResource(skin.getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER)
+                .getOnContainer()),
 
-                "MenuBar.foreground",
-                new ColorUIResource(skin.getActiveContainerTokens(RadianceThemingSlices.DecorationAreaType.HEADER).getOnContainer()),
+            "MenuBar.border",
+            null,
 
-                "MenuBar.border",
-                null,
+            "MenuItem.acceleratorForeground",
+            foregroundColor,
 
-                "MenuItem.acceleratorForeground",
-                foregroundColor,
+            "MenuItem.acceleratorSelectionForeground",
+            foregroundColor,
 
-                "MenuItem.acceleratorSelectionForeground",
-                foregroundColor,
+            "MenuItem.background",
+            defaultBackgroundColor,
 
-                "MenuItem.background",
-                defaultBackgroundColor,
+            "MenuItem.borderPainted",
+            Boolean.FALSE,
 
-                "MenuItem.borderPainted",
-                Boolean.FALSE,
+            "MenuItem.checkIcon",
+            null,
 
-                "MenuItem.checkIcon",
-                null,
+            "MenuItem.disabledForeground",
+            disabledForegroundColor,
 
-                "MenuItem.disabledForeground",
-                disabledForegroundColor,
+            "MenuItem.foreground",
+            foregroundColor,
 
-                "MenuItem.foreground",
-                foregroundColor,
+            "MenuItem.margin",
+            menuItemInsets,
 
-                "MenuItem.margin",
-                menuItemInsets,
+            "MenuItem.selectionForeground",
+            selectionCellForegroundColor,
 
-                "MenuItem.selectionForeground",
-                selectionCellForegroundColor,
+            "OptionPane.background",
+            defaultBackgroundColor,
 
-                "OptionPane.background",
-                defaultBackgroundColor,
+            "OptionPane.errorIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneErrorIcon(
+                    20, mainMutedTokens)),
 
-                "OptionPane.errorIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                    RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneErrorIcon(
-                        20, mainMutedTokens)),
+            "OptionPane.foreground",
+            foregroundColor,
 
-                "OptionPane.foreground",
-                foregroundColor,
+            "OptionPane.informationIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneInformationIcon(
+                    20, mainMutedTokens)),
 
-                "OptionPane.informationIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                    RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneInformationIcon(
-                        20, mainMutedTokens)),
+            "OptionPane.messageForeground",
+            foregroundColor,
 
-                "OptionPane.messageForeground",
-                foregroundColor,
+            "OptionPane.questionIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneQuestionIcon(
+                    20, mainMutedTokens)),
 
-                "OptionPane.questionIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                    RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneQuestionIcon(
-                        20, mainMutedTokens)),
+            "OptionPane.warningIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneWarningIcon(
+                    20, mainMutedTokens)),
 
-                "OptionPane.warningIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                    RadianceThemingCortex.GlobalScope.getIconPack().getOptionPaneWarningIcon(
-                        20, mainMutedTokens)),
+            "OptionPane.buttonPadding",
+            8,
 
-                "OptionPane.buttonPadding",
-                8,
+            "OptionPane.sameSizeButtons",
+            true,
 
-                "OptionPane.sameSizeButtons",
-                true,
+            "OptionPane.buttonOrientation",
+            ComponentOrientation.getOrientation(Locale.getDefault()).isLeftToRight()
+                ? SwingConstants.RIGHT : SwingConstants.LEFT,
 
-                "OptionPane.buttonOrientation",
-                ComponentOrientation.getOrientation(Locale.getDefault()).isLeftToRight()
-                        ? SwingConstants.RIGHT : SwingConstants.LEFT,
+            "OptionPane.isYesLast",
+            true,
 
-                "OptionPane.isYesLast",
-                true,
+            "Panel.background",
+            defaultBackgroundColor,
 
-                "Panel.background",
-                defaultBackgroundColor,
+            "Panel.foreground",
+            foregroundColor,
 
-                "Panel.foreground",
-                foregroundColor,
+            "PasswordField.background",
+            defaultTextBackgroundColor,
 
-                "PasswordField.background",
-                defaultTextBackgroundColor,
+            "PasswordField.border",
+            textBorder,
 
-                "PasswordField.border",
-                textBorder,
+            "PasswordField.caretForeground",
+            foregroundColor,
 
-                "PasswordField.caretForeground",
-                foregroundColor,
+            "PasswordField.disabledBackground",
+            defaultTextBackgroundColor,
 
-                "PasswordField.disabledBackground",
-                defaultTextBackgroundColor,
+            "PasswordField.foreground",
+            foregroundColor,
 
-                "PasswordField.foreground",
-                foregroundColor,
+            "PasswordField.inactiveBackground",
+            defaultTextBackgroundColor,
 
-                "PasswordField.inactiveBackground",
-                defaultTextBackgroundColor,
+            "PasswordField.inactiveForeground",
+            disabledTextComponentForegroundColor,
 
-                "PasswordField.inactiveForeground",
-                disabledTextComponentForegroundColor,
+            "PasswordField.selectionBackground",
+            selectionTextBackgroundColor,
 
-                "PasswordField.selectionBackground",
-                selectionTextBackgroundColor,
+            "PasswordField.selectionForeground",
+            selectionTextForegroundColor,
 
-                "PasswordField.selectionForeground",
-                selectionTextForegroundColor,
+            "PopupMenu.background",
+            new ColorUIResource(RadianceCoreUtilities.getBackgroundFill(skin, RadianceThemingSlices.DecorationAreaType.NONE)),
 
-                "PopupMenu.background",
-                new ColorUIResource(RadianceCoreUtilities.getBackgroundFill(skin, RadianceThemingSlices.DecorationAreaType.NONE)),
+            "PopupMenu.border",
+            popupMenuBorder,
 
-                "PopupMenu.border",
-                popupMenuBorder,
+            "ProgressBar.border",
+            new BorderUIResource(new RadianceBorder()),
 
-                "ProgressBar.border",
-                new BorderUIResource(new RadianceBorder()),
+            "ProgressBar.cycleTime",
+            Integer.valueOf(1000),
 
-                "ProgressBar.cycleTime",
-                Integer.valueOf(1000),
+            "ProgressBar.repaintInterval",
+            Integer.valueOf(50),
 
-                "ProgressBar.repaintInterval",
-                Integer.valueOf(50),
+            "ProgressBar.horizontalSize",
+            new DimensionUIResource(146, controlFontSize),
 
-                "ProgressBar.horizontalSize",
-                new DimensionUIResource(146,
-                        RadianceSizeUtils.getControlFontSize()),
+            "ProgressBar.verticalSize",
+            new DimensionUIResource(controlFontSize, 146),
 
-                "ProgressBar.verticalSize",
-                new DimensionUIResource(
-                        RadianceSizeUtils.getControlFontSize(), 146),
+            "ProgressBar.selectionBackground",
+            foregroundColor,
 
-                "ProgressBar.selectionBackground",
-                foregroundColor,
+            "ProgressBar.selectionForeground",
+            foregroundColor,
 
-                "ProgressBar.selectionForeground",
-                foregroundColor,
+            "RadioButton.background",
+            defaultBackgroundColor,
 
-                "RadioButton.background",
-                defaultBackgroundColor,
+            "RadioButton.border",
+            new BorderUIResource.CompoundBorderUIResource(
+                RadianceSizeUtils.getRadioButtonBorder(controlFontSize,
+                        ComponentOrientation.getOrientation(Locale.getDefault()).isLeftToRight()),
+                new MarginBorder()),
 
-                "RadioButton.border",
-                new BorderUIResource.CompoundBorderUIResource(
-                        RadianceSizeUtils.getRadioButtonBorder(
-                                RadianceSizeUtils.getControlFontSize(),
-                                ComponentOrientation.getOrientation(
-                                        Locale.getDefault()).isLeftToRight()),
-                        new MarginBorder()),
+            "RadioButton.foreground",
+            foregroundColor,
 
-                "RadioButton.foreground",
-                foregroundColor,
+            "RadioButton.disabledText",
+            disabledForegroundColor,
 
-                "RadioButton.disabledText",
-                disabledForegroundColor,
+            "RadioButtonMenuItem.acceleratorForeground",
+            foregroundColor,
 
-                "RadioButtonMenuItem.acceleratorForeground",
-                foregroundColor,
+            "RadioButtonMenuItem.acceleratorSelectionForeground",
+            foregroundColor,
 
-                "RadioButtonMenuItem.acceleratorSelectionForeground",
-                foregroundColor,
+            "RadioButtonMenuItem.background",
+            defaultBackgroundColor,
 
-                "RadioButtonMenuItem.background",
-                defaultBackgroundColor,
+            "RadioButtonMenuItem.borderPainted",
+            Boolean.FALSE,
 
-                "RadioButtonMenuItem.borderPainted",
-                Boolean.FALSE,
+            "RadioButtonMenuItem.checkIcon",
+            new RadioButtonMenuItemIcon(null, RadianceSizeUtils.getMenuCheckMarkSize(controlFontSize)),
 
-                "RadioButtonMenuItem.checkIcon",
-                new RadioButtonMenuItemIcon(null,
-                        RadianceSizeUtils.getMenuCheckMarkSize(RadianceSizeUtils
-                                .getControlFontSize())),
+            "RadioButtonMenuItem.disabledForeground",
+            disabledForegroundColor,
 
-                "RadioButtonMenuItem.disabledForeground",
-                disabledForegroundColor,
+            "RadioButtonMenuItem.foreground",
+            foregroundColor,
 
-                "RadioButtonMenuItem.foreground",
-                foregroundColor,
+            "RadioButtonMenuItem.margin",
+            menuItemInsets,
 
-                "RadioButtonMenuItem.margin",
-                menuItemInsets,
+            "RadioButtonMenuItem.selectionForeground",
+            selectionCellForegroundColor,
 
-                "RadioButtonMenuItem.selectionForeground",
-                selectionCellForegroundColor,
+            "RootPane.background",
+            defaultBackgroundColor,
 
-                "RootPane.background",
-                defaultBackgroundColor,
+            "RootPane.border",
+            new RadiancePaneBorder(),
 
-                "RootPane.border",
-                new RadiancePaneBorder(),
+            "ScrollBar.background",
+            defaultBackgroundColor,
 
-                "ScrollBar.background",
-                defaultBackgroundColor,
+            "ScrollBar.width",
+            Integer.valueOf(RadianceSizeUtils.getScrollBarWidth(controlFontSize)),
 
-                "ScrollBar.width",
-                Integer.valueOf(RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
-                        .getControlFontSize())),
+            "ScrollBar.minimumThumbSize", new DimensionUIResource(0, 0),
 
-                "ScrollBar.minimumThumbSize", new DimensionUIResource(0, 0),
-//                new DimensionUIResource(
-//                        3 * RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
-//                                .getControlFontSize()),
-//                        3 * RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
-//                                .getControlFontSize())),
+            "ScrollPane.background",
+            defaultBackgroundColor,
 
-                "ScrollPane.background",
-                defaultBackgroundColor,
+            "ScrollPane.foreground",
+            foregroundColor,
 
-                "ScrollPane.foreground",
-                foregroundColor,
+            "ScrollPane.border",
+            new RadianceScrollPaneBorder(),
 
-                "ScrollPane.border",
-                new RadianceScrollPaneBorder(),
+            "Separator.background",
+            backgroundDefaultColor,
 
-                "Separator.background",
-                backgroundDefaultColor,
+            "Separator.foreground",
+            separatorColor,
 
-                "Separator.foreground",
-                separatorColor,
+            "Slider.altTrackColor",
+            lineColor,
 
-                "Slider.altTrackColor",
-                lineColor,
+            "Slider.background",
+            defaultBackgroundColor,
 
-                "Slider.background",
-                defaultBackgroundColor,
+            "Slider.darkShadow",
+            lineColor,
 
-                "Slider.darkShadow",
-                lineColor,
+            "Slider.focus",
+            lineColor,
 
-                "Slider.focus",
-                lineColor,
+            "Slider.focusInsets",
+            new InsetsUIResource(2, 2, 0, 2),
 
-                "Slider.focusInsets",
-                new InsetsUIResource(2, 2, 0, 2),
+            "Slider.foreground",
+            lineColor,
 
-                "Slider.foreground",
-                lineColor,
+            "Slider.highlight",
+            defaultTextBackgroundColor,
 
-                "Slider.highlight",
-                defaultTextBackgroundColor,
+            "Slider.shadow",
+            lineColor,
 
-                "Slider.shadow",
-                lineColor,
+            "Slider.tickColor",
+            foregroundColor,
 
-                "Slider.tickColor",
-                foregroundColor,
+            "Spinner.arrowButtonInsets",
+            RadianceSizeUtils.getSpinnerArrowButtonInsets(null),
 
-                "Spinner.arrowButtonInsets",
-                RadianceSizeUtils.getSpinnerArrowButtonInsets(null),
+            "Spinner.background",
+            defaultTextBackgroundColor,
 
-                "Spinner.background",
-                defaultTextBackgroundColor,
+            "Spinner.border",
+            spinnerBorder,
 
-                "Spinner.border",
-                spinnerBorder,
+            "Spinner.disableOnBoundaryValues",
+            Boolean.TRUE,
 
-                "Spinner.disableOnBoundaryValues",
-                Boolean.TRUE,
+            "Spinner.foreground",
+            foregroundColor,
 
-                "Spinner.foreground",
-                foregroundColor,
+            "Spinner.editorBorderPainted",
+            Boolean.TRUE,
 
-                "Spinner.editorBorderPainted",
-                Boolean.TRUE,
+            "SplitPane.background",
+            defaultBackgroundColor,
 
-                "SplitPane.background",
-                defaultBackgroundColor,
+            "SplitPane.foreground",
+            foregroundColor,
 
-                "SplitPane.foreground",
-                foregroundColor,
+            "SplitPane.dividerFocusColor",
+            backgroundDefaultColor,
 
-                "SplitPane.dividerFocusColor",
-                backgroundDefaultColor,
+            "SplitPaneDivider.draggingColor",
+            backgroundActiveColor,
 
-                "SplitPaneDivider.draggingColor",
-                backgroundActiveColor,
+            "SplitPane.border",
+            new BorderUIResource(new EmptyBorder(0, 0, 0, 0)),
 
-                "SplitPane.border",
-                new BorderUIResource(new EmptyBorder(0, 0, 0, 0)),
+            "SplitPane.dividerSize",
+            (int) (RadianceSizeUtils.getArrowIconWidth(controlFontSize) + 
+                RadianceSizeUtils.getAdjustedSize(controlFontSize, -1, 6, -1, true)),
 
-                "SplitPane.dividerSize",
-                (int) (RadianceSizeUtils.getArrowIconWidth(RadianceSizeUtils
-                        .getControlFontSize()) + RadianceSizeUtils
-                        .getAdjustedSize(
-                                RadianceSizeUtils.getControlFontSize(), -1, 6,
-                                -1, true)),
+            "SplitPaneDivider.border",
+            new BorderUIResource(new EmptyBorder(1, 1, 1, 1)),
 
-                "SplitPaneDivider.border",
-                new BorderUIResource(new EmptyBorder(1, 1, 1, 1)),
+            "TabbedPane.tabAreaBackground",
+            backgroundDefaultColor,
 
-                "TabbedPane.tabAreaBackground",
-                backgroundDefaultColor,
+            "TabbedPane.unselectedBackground",
+            backgroundDefaultColor,
 
-                "TabbedPane.unselectedBackground",
-                backgroundDefaultColor,
+            "TabbedPane.background",
+            defaultBackgroundColor,
 
-                "TabbedPane.background",
-                defaultBackgroundColor,
+            "TabbedPane.borderHighlightColor",
+            new ColorUIResource(mainActiveTokens.getContainerSurface()),
 
-                "TabbedPane.borderHighlightColor",
-                new ColorUIResource(mainActiveTokens.getContainerSurface()),
+            "TabbedPane.contentAreaColor",
+            null,
 
-                "TabbedPane.contentAreaColor",
-                null,
+            "TabbedPane.contentBorderInsets",
+            new InsetsUIResource(4, 4, 4, 4),
 
-                "TabbedPane.contentBorderInsets",
-                new InsetsUIResource(4, 4, 4, 4),
+            "TabbedPane.contentOpaque",
+            Boolean.FALSE,
 
-                "TabbedPane.contentOpaque",
-                Boolean.FALSE,
+            "TabbedPane.darkShadow",
+            new ColorUIResource(lineColorDefault),
 
-                "TabbedPane.darkShadow",
-                new ColorUIResource(lineColorDefault),
+            "TabbedPane.focus",
+            foregroundColor,
 
-                "TabbedPane.focus",
-                foregroundColor,
+            "TabbedPane.foreground",
+            foregroundColor,
 
-                "TabbedPane.foreground",
-                foregroundColor,
+            "TabbedPane.highlight",
+            new ColorUIResource(mainActiveTokens.getContainerSurfaceLow()),
 
-                "TabbedPane.highlight",
-                new ColorUIResource(mainActiveTokens.getContainerSurfaceLow()),
+            "TabbedPane.light",
+            new ColorUIResource(SeparatorPainterUtils.getSecondarySeparatorColor(mainMutedTokens)),
 
-                "TabbedPane.light",
-                new ColorUIResource(SeparatorPainterUtils.getSecondarySeparatorColor(mainMutedTokens)),
+            "TabbedPane.selected",
+            new ColorUIResource(mainActiveTokens.getContainerSurfaceLowest()),
 
-                "TabbedPane.selected",
-                new ColorUIResource(mainActiveTokens.getContainerSurfaceLowest()),
+            "TabbedPane.selectedForeground",
+            foregroundColor,
 
-                "TabbedPane.selectedForeground",
-                foregroundColor,
+            "TabbedPane.selectHighlight",
+            new ColorUIResource(mainActiveTokens.getContainerSurface()),
 
-                "TabbedPane.selectHighlight",
-                new ColorUIResource(mainActiveTokens.getContainerSurface()),
+            "TabbedPane.shadow",
+            new ColorUIResource(RadianceColorUtilities.getInterpolatedColor(
+                mainMutedTokens.getContainerSurfaceLowest(),
+                mainMutedTokens.getContainerSurfaceLow(), 0.5)),
 
-                "TabbedPane.shadow",
-                new ColorUIResource(
-                        RadianceColorUtilities.getInterpolatedColor(
-                                mainMutedTokens.getContainerSurfaceLowest(),
-                                mainMutedTokens.getContainerSurfaceLow(), 0.5)),
+            "TabbedPane.tabRunOverlay",
+            Integer.valueOf(0),
 
-                "TabbedPane.tabRunOverlay",
-                Integer.valueOf(0),
+            "Table.background",
+            defaultBackgroundColor,
 
-                "Table.background",
-                defaultBackgroundColor,
+            "Table.cellNoFocusBorder",
+            new BorderUIResource.EmptyBorderUIResource(
+                RadianceSizeUtils.getDefaultBorderInsets(controlFontSize)),
 
-                "Table.cellNoFocusBorder",
-                new BorderUIResource.EmptyBorderUIResource(
-                        RadianceSizeUtils
-                                .getDefaultBorderInsets(RadianceSizeUtils
-                                        .getComponentFontSize(null))),
+            "Table.focusCellBackground",
+            backgroundActiveColor,
 
-                "Table.focusCellBackground",
-                backgroundActiveColor,
+            "Table.focusCellForeground",
+            foregroundColor,
 
-                "Table.focusCellForeground",
-                foregroundColor,
+            "Table.focusCellHighlightBorder",
+            new RadianceBorder(),
 
-                "Table.focusCellHighlightBorder",
-                new RadianceBorder(),
+            "Table.foreground",
+            foregroundColor,
 
-                "Table.foreground",
-                foregroundColor,
+            "Table.gridColor",
+            lineColorDefault,
 
-                "Table.gridColor",
-                lineColorDefault,
+            "Table.scrollPaneBorder",
+            new RadianceScrollPaneBorder(),
 
-                "Table.scrollPaneBorder",
-                new RadianceScrollPaneBorder(),
+            "Table.selectionBackground",
+            selectionCellBackgroundColor,
 
-                "Table.selectionBackground",
-                selectionCellBackgroundColor,
+            "Table.selectionForeground",
+            selectionCellForegroundColor,
 
-                "Table.selectionForeground",
-                selectionCellForegroundColor,
+            "TableHeader.cellBorder",
+            null,
 
-                "TableHeader.cellBorder",
-                null,
+            "TableHeader.foreground",
+            foregroundColor,
 
-                "TableHeader.foreground",
-                foregroundColor,
+            "TableHeader.background",
+            defaultBackgroundColor,
 
-                "TableHeader.background",
-                defaultBackgroundColor,
+            "TextArea.background",
+            defaultTextBackgroundColor,
 
-                "TextArea.background",
-                defaultTextBackgroundColor,
+            "TextArea.border",
+            textMarginBorder,
 
-                "TextArea.border",
-                textMarginBorder,
+            "TextArea.caretForeground",
+            foregroundColor,
 
-                "TextArea.caretForeground",
-                foregroundColor,
+            "TextArea.disabledBackground",
+            defaultTextBackgroundColor,
 
-                "TextArea.disabledBackground",
-                defaultTextBackgroundColor,
+            "TextArea.foreground",
+            foregroundColor,
 
-                "TextArea.foreground",
-                foregroundColor,
+            "TextArea.inactiveBackground",
+            defaultTextBackgroundColor,
 
-                "TextArea.inactiveBackground",
-                defaultTextBackgroundColor,
+            "TextArea.inactiveForeground",
+            disabledTextComponentForegroundColor,
 
-                "TextArea.inactiveForeground",
-                disabledTextComponentForegroundColor,
+            "TextArea.selectionBackground",
+            selectionTextBackgroundColor,
 
-                "TextArea.selectionBackground",
-                selectionTextBackgroundColor,
+            "TextArea.selectionForeground",
+            selectionTextForegroundColor,
 
-                "TextArea.selectionForeground",
-                selectionTextForegroundColor,
+            "TextField.background",
+            defaultTextBackgroundColor,
 
-                "TextField.background",
-                defaultTextBackgroundColor,
+            "TextField.border",
+            textBorder,
 
-                "TextField.border",
-                textBorder,
+            "TextField.caretForeground",
+            foregroundColor,
 
-                "TextField.caretForeground",
-                foregroundColor,
+            "TextField.disabledBackground",
+            defaultTextBackgroundColor,
 
-                "TextField.disabledBackground",
-                defaultTextBackgroundColor,
+            "TextField.foreground",
+            foregroundColor,
 
-                "TextField.foreground",
-                foregroundColor,
+            "TextField.inactiveBackground",
+            defaultTextBackgroundColor,
 
-                "TextField.inactiveBackground",
-                defaultTextBackgroundColor,
+            "TextField.inactiveForeground",
+            disabledTextComponentForegroundColor,
 
-                "TextField.inactiveForeground",
-                disabledTextComponentForegroundColor,
+            "TextField.selectionBackground",
+            selectionTextBackgroundColor,
 
-                "TextField.selectionBackground",
-                selectionTextBackgroundColor,
+            "TextField.selectionForeground",
+            selectionTextForegroundColor,
 
-                "TextField.selectionForeground",
-                selectionTextForegroundColor,
+            "TextPane.background",
+            defaultTextBackgroundColor,
 
-                "TextPane.background",
-                defaultTextBackgroundColor,
+            "TextPane.border",
+            textMarginBorder,
 
-                "TextPane.border",
-                textMarginBorder,
+            "TextPane.disabledBackground",
+            defaultTextBackgroundColor,
 
-                "TextPane.disabledBackground",
-                defaultTextBackgroundColor,
+            "TextPane.foreground",
+            foregroundColor,
 
-                "TextPane.foreground",
-                foregroundColor,
+            "TextPane.caretForeground",
+            foregroundColor,
 
-                "TextPane.caretForeground",
-                foregroundColor,
+            "TextPane.inactiveBackground",
+            defaultTextBackgroundColor,
 
-                "TextPane.inactiveBackground",
-                defaultTextBackgroundColor,
+            "TextPane.inactiveForeground",
+            disabledTextComponentForegroundColor,
 
-                "TextPane.inactiveForeground",
-                disabledTextComponentForegroundColor,
+            "TextPane.selectionBackground",
+            selectionTextBackgroundColor,
 
-                "TextPane.selectionBackground",
-                selectionTextBackgroundColor,
+            "TextPane.selectionForeground",
+            selectionTextForegroundColor,
 
-                "TextPane.selectionForeground",
-                selectionTextForegroundColor,
+            "TitledBorder.titleColor",
+            foregroundColor,
 
-                "TitledBorder.titleColor",
-                foregroundColor,
+            "TitledBorder.border",
+            new RadianceEtchedBorder(),
 
-                "TitledBorder.border",
-                new RadianceEtchedBorder(),
+            "ToggleButton.foreground",
+            foregroundColor,
 
-                "ToggleButton.foreground",
-                foregroundColor,
+            "ToggleButton.disabledText",
+            disabledForegroundColor,
 
-                "ToggleButton.disabledText",
-                disabledForegroundColor,
+            "ToggleButton.margin",
+            new InsetsUIResource(0, 0, 0, 0),
 
-                "ToggleButton.margin",
-                new InsetsUIResource(0, 0, 0, 0),
+            "ToolBar.background",
+            defaultBackgroundColor,
 
-                "ToolBar.background",
-                defaultBackgroundColor,
+            "ToolBar.border",
+            new BorderUIResource(new RadianceToolBarBorder()),
 
-                "ToolBar.border",
-                new BorderUIResource(new RadianceToolBarBorder()),
+            "ToolBar.isRollover",
+            Boolean.TRUE,
 
-                "ToolBar.isRollover",
-                Boolean.TRUE,
+            "ToolBar.foreground",
+            foregroundColor,
 
-                "ToolBar.foreground",
-                foregroundColor,
+            "ToolBarSeparator.background",
+            defaultBackgroundColor,
 
-                "ToolBarSeparator.background",
-                defaultBackgroundColor,
+            "ToolBarSeparator.foreground",
+            separatorColor,
 
-                "ToolBarSeparator.foreground",
-                separatorColor,
+            "ToolBar.separatorSize",
+            null,
 
-                "ToolBar.separatorSize",
-                null,
+            "ToolTip.border",
+            tooltipBorder,
 
-                "ToolTip.border",
-                tooltipBorder,
+            "ToolTip.borderInactive",
+            tooltipBorder,
 
-                "ToolTip.borderInactive",
-                tooltipBorder,
+            "ToolTip.background",
+            defaultBackgroundColor,
 
-                "ToolTip.background",
-                defaultBackgroundColor,
+            "ToolTip.backgroundInactive",
+            defaultTextBackgroundColor,
 
-                "ToolTip.backgroundInactive",
-                defaultTextBackgroundColor,
+            "ToolTip.foreground",
+            foregroundColor,
 
-                "ToolTip.foreground",
-                foregroundColor,
+            "ToolTip.foregroundInactive",
+            disabledForegroundColor,
 
-                "ToolTip.foregroundInactive",
-                disabledForegroundColor,
+            "Tree.closedIcon",
+            emptyIcon,
 
-                "Tree.closedIcon",
-                emptyIcon,
+            "Tree.collapsedIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                new IconUIResource(new TreeIcon(null,
+                    RadianceSizeUtils.getTreeIconSize(controlFontSize), true))),
 
-                "Tree.collapsedIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new IconUIResource(new TreeIcon(null, RadianceSizeUtils.getTreeIconSize(
-                                RadianceSizeUtils.getComponentFontSize(null)), true))),
+            "Tree.expandedIcon",
+            (UIDefaults.LazyValue) ((UIDefaults table) ->
+                new IconUIResource(new TreeIcon(null,
+                    RadianceSizeUtils.getTreeIconSize(controlFontSize), false))),
 
-                "Tree.expandedIcon",
-                (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new IconUIResource(new TreeIcon(null, RadianceSizeUtils.getTreeIconSize(
-                                RadianceSizeUtils.getComponentFontSize(null)), false))),
+            "Tree.leftChildIndent", RadianceSizeUtils.getTreeLeftIndent(controlFontSize),
 
-                "Tree.leftChildIndent", RadianceSizeUtils.getTreeLeftIndent(
-                RadianceSizeUtils.getControlFontSize()),
+            "Tree.rightChildIndent", RadianceSizeUtils.getTreeRightIndent(controlFontSize),
 
-                "Tree.rightChildIndent", RadianceSizeUtils.getTreeRightIndent(
-                RadianceSizeUtils.getControlFontSize()),
+            "Tree.leafIcon",
+            emptyIcon,
 
-                "Tree.leafIcon",
-                emptyIcon,
+            "Tree.openIcon",
+            emptyIcon,
 
-                "Tree.openIcon",
-                emptyIcon,
+            "Tree.background",
+            defaultBackgroundColor,
 
-                "Tree.background",
-                defaultBackgroundColor,
+            "Tree.selectionBackground", selectionCellBackgroundColor,
 
-                "Tree.selectionBackground", selectionCellBackgroundColor,
+            "Tree.foreground", foregroundColor,
 
-                "Tree.foreground", foregroundColor,
+            "Tree.hash", lineColorDefault,
 
-                "Tree.hash", lineColorDefault,
+            "Tree.rowHeight", Integer.valueOf(0),
 
-                "Tree.rowHeight", Integer.valueOf(0),
+            "Tree.selectionBorderColor", lineColor,
 
-                "Tree.selectionBorderColor", lineColor,
+            "Tree.selectionForeground", selectionCellForegroundColor,
 
-                "Tree.selectionForeground", selectionCellForegroundColor,
+            "Tree.textBackground", backgroundDefaultColor,
 
-                "Tree.textBackground", backgroundDefaultColor,
+            "Tree.textForeground", foregroundColor,
 
-                "Tree.textForeground", foregroundColor,
+            "Viewport.background", backgroundDefaultColor,
 
-                "Viewport.background", backgroundDefaultColor,
-
-                "Viewport.foreground", foregroundColor,
-
+            "Viewport.foreground", foregroundColor,
         };
         uiDefaults.putDefaults(defaults);
 
@@ -1163,62 +1133,62 @@ public class SkinUtilities {
         }
 
         uiDefaults.put("Button.focusInputMap",
-                inputMapSet.getButtonFocusInputMap().getUiMap());
+            inputMapSet.getButtonFocusInputMap().getUiMap());
         uiDefaults.put("CheckBox.focusInputMap",
-                inputMapSet.getCheckBoxFocusInputMap().getUiMap());
+            inputMapSet.getCheckBoxFocusInputMap().getUiMap());
         uiDefaults.put("ComboBox.ancestorInputMap",
-                inputMapSet.getComboBoxAncestorInputMap().getUiMap());
+            inputMapSet.getComboBoxAncestorInputMap().getUiMap());
         uiDefaults.put("Desktop.ancestorInputMap",
-                inputMapSet.getDesktopAncestorInputMap().getUiMap());
+            inputMapSet.getDesktopAncestorInputMap().getUiMap());
         uiDefaults.put("EditorPane.focusInputMap",
-                inputMapSet.getEditorPaneFocusInputMap().getUiMap());
+            inputMapSet.getEditorPaneFocusInputMap().getUiMap());
         uiDefaults.put("FileChooser.ancestorInputMap",
-                inputMapSet.getFileChooserAncestorInputMap().getUiMap());
+            inputMapSet.getFileChooserAncestorInputMap().getUiMap());
         uiDefaults.put("FormattedTextField.focusInputMap",
-                inputMapSet.getFormattedTextFieldFocusInputMap().getUiMap());
+            inputMapSet.getFormattedTextFieldFocusInputMap().getUiMap());
         uiDefaults.put("List.focusInputMap",
-                inputMapSet.getListFocusInputMap().getUiMap());
+            inputMapSet.getListFocusInputMap().getUiMap());
         uiDefaults.put("PasswordField.focusInputMap",
-                inputMapSet.getPasswordFieldFocusInputMap().getUiMap());
+            inputMapSet.getPasswordFieldFocusInputMap().getUiMap());
         uiDefaults.put("RadioButton.focusInputMap",
-                inputMapSet.getRadioButtonFocusInputMap().getUiMap());
+            inputMapSet.getRadioButtonFocusInputMap().getUiMap());
         uiDefaults.put("RootPane.ancestorInputMap",
-                inputMapSet.getRootPaneAncestorInputMap().getUiMap());
+            inputMapSet.getRootPaneAncestorInputMap().getUiMap());
         uiDefaults.put("ScrollBar.ancestorInputMap",
-                inputMapSet.getScrollBarAncestorInputMap().getUiMap());
+            inputMapSet.getScrollBarAncestorInputMap().getUiMap());
         uiDefaults.put("ScrollPane.ancestorInputMap",
-                inputMapSet.getScrollPaneAncestorInputMap().getUiMap());
+            inputMapSet.getScrollPaneAncestorInputMap().getUiMap());
         uiDefaults.put("Slider.focusInputMap",
-                inputMapSet.getSliderFocusInputMap().getUiMap());
+            inputMapSet.getSliderFocusInputMap().getUiMap());
         uiDefaults.put("Spinner.ancestorInputMap",
-                inputMapSet.getSpinnerAncestorInputMap().getUiMap());
+            inputMapSet.getSpinnerAncestorInputMap().getUiMap());
         uiDefaults.put("SplitPane.ancestorInputMap",
-                inputMapSet.getSplitPaneAncestorInputMap().getUiMap());
+            inputMapSet.getSplitPaneAncestorInputMap().getUiMap());
         uiDefaults.put("TabbedPane.ancestorInputMap",
-                inputMapSet.getTabbedPaneAncestorInputMap().getUiMap());
+            inputMapSet.getTabbedPaneAncestorInputMap().getUiMap());
         uiDefaults.put("TabbedPane.focusInputMap",
-                inputMapSet.getTabbedPaneFocusInputMap().getUiMap());
+            inputMapSet.getTabbedPaneFocusInputMap().getUiMap());
         uiDefaults.put("Table.ancestorInputMap",
-                inputMapSet.getTableAncestorInputMap().getUiMap());
+            inputMapSet.getTableAncestorInputMap().getUiMap());
         uiDefaults.put("TableHeader.ancestorInputMap",
-                inputMapSet.getTableHeaderAncestorInputMap().getUiMap());
+            inputMapSet.getTableHeaderAncestorInputMap().getUiMap());
         uiDefaults.put("TextArea.focusInputMap",
-                inputMapSet.getTextAreaFocusInputMap().getUiMap());
+            inputMapSet.getTextAreaFocusInputMap().getUiMap());
         uiDefaults.put("TextField.focusInputMap",
-                inputMapSet.getTextFieldFocusInputMap().getUiMap());
+            inputMapSet.getTextFieldFocusInputMap().getUiMap());
         uiDefaults.put("TextPane.focusInputMap",
-                inputMapSet.getTextPaneFocusInputMap().getUiMap());
+            inputMapSet.getTextPaneFocusInputMap().getUiMap());
         uiDefaults.put("ToggleButton.focusInputMap",
-                inputMapSet.getToggleButtonFocusInputMap().getUiMap());
+            inputMapSet.getToggleButtonFocusInputMap().getUiMap());
         uiDefaults.put("ToolBar.ancestorInputMap",
-                inputMapSet.getToolBarAncestorInputMap().getUiMap());
+            inputMapSet.getToolBarAncestorInputMap().getUiMap());
         uiDefaults.put("Tree.ancestorInputMap",
-                inputMapSet.getTreeAncestorInputMap().getUiMap());
+            inputMapSet.getTreeAncestorInputMap().getUiMap());
         uiDefaults.put("Tree.focusInputMap",
-                inputMapSet.getTreeFocusInputMap().getUiMap());
+            inputMapSet.getTreeFocusInputMap().getUiMap());
 
         // add user scale factor to allow layout managers (e.g. MigLayout) to use it
         uiDefaults.put("laf.scaleFactor",
-                (UIDefaults.ActiveValue) t -> RadianceCommonCortex.getScaleFactor(null));
+            (UIDefaults.ActiveValue) t -> RadianceCommonCortex.getScaleFactor(null));
     }
 }
