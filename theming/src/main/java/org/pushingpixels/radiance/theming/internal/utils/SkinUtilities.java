@@ -89,8 +89,8 @@ public class SkinUtilities {
         Color lineColor = new ColorUIResource(mainActiveTokens.getContainerOutline());
         Color lineColorDefault = new ColorUIResource(mainMutedTokens.getContainerOutline());
 
-        int lcb = RadianceColorUtilities.getColorBrightness(lineColor.getRGB());
-        Color lineBwColor = new ColorUIResource(new Color(lcb, lcb, lcb));
+        Color separatorColor = new ColorUIResource(SeparatorPainterUtils.getPrimarySeparatorColor(
+            mainNeutralTokens));
 
         ContainerColorTokens textHighlightColorTokens = skin.getActiveContainerTokens(null,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
@@ -802,7 +802,7 @@ public class SkinUtilities {
                 backgroundDefaultColor,
 
                 "Separator.foreground",
-                lineBwColor,
+                separatorColor,
 
                 "Slider.altTrackColor",
                 lineColor,
@@ -1082,7 +1082,7 @@ public class SkinUtilities {
                 defaultBackgroundColor,
 
                 "ToolBarSeparator.foreground",
-                lineBwColor,
+                separatorColor,
 
                 "ToolBar.separatorSize",
                 null,
