@@ -180,21 +180,6 @@ public class RadianceColorUtilities {
     }
 
     /**
-     * Returns a negative of the specified color.
-     *
-     * @param rgb Color RGB.
-     * @return Negative of the specified color.
-     */
-    public static int getNegativeColor(int rgb) {
-        int transp = (rgb >>> 24) & 0xFF;
-        int r = (rgb >>> 16) & 0xFF;
-        int g = (rgb >>> 8) & 0xFF;
-        int b = (rgb >>> 0) & 0xFF;
-
-        return (transp << 24) | ((255 - r) << 16) | ((255 - g) << 8) | (255 - b);
-    }
-
-    /**
      * Returns a translucent of the specified color.
      *
      * @param color Color.
@@ -339,17 +324,6 @@ public class RadianceColorUtilities {
             aggrBlue += alpha * active.getBlue();
         }
         return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
-    }
-
-    /**
-     * Returns the color strength.
-     *
-     * @param color Color.
-     * @return Color strength.
-     */
-    public static float getColorStrength(Color color) {
-        return Math.max(getColorBrightness(color.getRGB()),
-                getColorBrightness(getNegativeColor(color.getRGB()))) / 255.0f;
     }
 
     private static BladeContainerColorTokens mutableContainerTokens =

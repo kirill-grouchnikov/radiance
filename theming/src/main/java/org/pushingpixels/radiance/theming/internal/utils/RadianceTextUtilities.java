@@ -75,26 +75,23 @@ public class RadianceTextUtilities {
         Graphics2D graphics = (Graphics2D) g.create();
         RadianceCommonCortex.installDesktopHints(graphics, c.getFont());
 
-        // blur the text shadow
+        // blur the text shadow in a separate offscreen image
         BufferedImage blurred = RadianceCoreUtilities.getBlankImage(
                 RadianceCommonCortex.getScaleFactor(c), width, height);
         Graphics2D gBlurred = (Graphics2D) blurred.getGraphics();
         gBlurred.setFont(graphics.getFont());
         gBlurred.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-        float luminFactor = RadianceColorUtilities.getColorStrength(foregroundColor);
         gBlurred.setColor(echoColor);
         ConvolveOp convolve = new ConvolveOp(
-            new Kernel(3, 3, new float[] {.12f, .24f, .12f, .24f, .12f, .24f, .12f, .24f, .12f}),
+            new Kernel(3, 3, new float[] {.1f, .2f, .1f, .2f, .1f, .2f, .1f, .2f, .1f}),
             ConvolveOp.EDGE_NO_OP, null);
         gBlurred.drawString(text, xOffset, yOffset);
         blurred = convolve.filter(blurred, null);
 
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(c, luminFactor, g));
         double scaleFactor = RadianceCommonCortex.getScaleFactor(c);
         graphics.drawImage(blurred, 0, 0, (int) (blurred.getWidth() / scaleFactor),
                 (int) (blurred.getHeight() / scaleFactor), null);
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(c, g));
 
         FontMetrics fm = graphics.getFontMetrics();
         RadianceTextUtilities.paintText(graphics,
