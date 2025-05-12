@@ -23,13 +23,13 @@ buildscript {
 apply plugin: 'org.pushing-pixels.radiance.tools.svgtranscoder.gradle'
 ```
 
-In case you want to use the latest snapshot version of the plugin, use the Sonatype repository:
+In case you want to use the latest snapshot version of the plugin, use the Maven Central snapshot repository:
 
 ```groovy
 buildscript {
     repositories {
         maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots'
+            url 'https://central.sonatype.com/repository/maven-snapshots/'
         }
     }
     dependencies {
@@ -130,12 +130,12 @@ buildscript {
 }
 ```
 
-In case you want to use the latest snapshot version of the plugin, use the Sonatype repository:
+In case you want to use the latest snapshot version of the plugin, use the Maven Central snapshot repository:
 
 ```kotlin
 buildscript {
     repositories {
-        maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
+        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots/") }
     }
     dependencies {
         classpath("org.pushing-pixels:radiance-svg-transcoder-gradle-plugin:X.Y.Z-SNAPSHOT")
