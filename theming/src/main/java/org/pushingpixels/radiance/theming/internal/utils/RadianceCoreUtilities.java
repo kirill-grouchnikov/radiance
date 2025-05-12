@@ -1769,15 +1769,14 @@ public class RadianceCoreUtilities {
         int dy = 0;
 
         if (rootPane != null) {
-            JLayeredPane layeredPane = rootPane.getLayeredPane();
-
-            if (layeredPane != null) {
-                Insets layeredPaneInsets = layeredPane.getInsets();
-                if (comp.isShowing() && layeredPane.isShowing()) {
-                    dx += (comp.getLocationOnScreen().x - layeredPane.getLocationOnScreen().x
-                            + layeredPaneInsets.left);
-                    dy += (comp.getLocationOnScreen().y - layeredPane.getLocationOnScreen().y
-                            + layeredPaneInsets.top);
+            // Is this in a JInternalFrame?
+            JInternalFrame hostFrame = (JInternalFrame) SwingUtilities
+                .getAncestorOfClass(JInternalFrame.class, comp);
+            if (hostFrame != null) {
+                Insets hostFrameInsets = hostFrame.getInsets();
+                if (comp.isShowing() && hostFrame.isShowing()) {
+                    dx += (comp.getLocationOnScreen().x - hostFrame.getLocationOnScreen().x - hostFrameInsets.left);
+                    dy += (comp.getLocationOnScreen().y - hostFrame.getLocationOnScreen().y - hostFrameInsets.top);
                 } else {
                     // have to traverse the hierarchy
                     Component c = comp;
@@ -1788,7 +1787,7 @@ public class RadianceCoreUtilities {
                         dy += c.getY();
                         c = c.getParent();
                     }
-                    c = layeredPane;
+                    c = hostFrame;
                     if ((c != null) && (c.getParent() != null)) {
                         while (c != rootPane) {
                             dx -= c.getX();
@@ -1796,8 +1795,38 @@ public class RadianceCoreUtilities {
                             c = c.getParent();
                         }
                     }
-                    dx += layeredPaneInsets.left;
-                    dy += layeredPaneInsets.right;
+                    dx += hostFrameInsets.left;
+                    dy += hostFrameInsets.right;
+                }
+
+            } else {
+                JLayeredPane layeredPane = rootPane.getLayeredPane();
+                if (layeredPane != null) {
+                    Insets layeredPaneInsets = layeredPane.getInsets();
+                    if (comp.isShowing() && layeredPane.isShowing()) {
+                        dx += (comp.getLocationOnScreen().x - layeredPane.getLocationOnScreen().x + layeredPaneInsets.left);
+                        dy += (comp.getLocationOnScreen().y - layeredPane.getLocationOnScreen().y + layeredPaneInsets.top);
+                    } else {
+                        // have to traverse the hierarchy
+                        Component c = comp;
+                        dx = 0;
+                        dy = 0;
+                        while (c != rootPane) {
+                            dx += c.getX();
+                            dy += c.getY();
+                            c = c.getParent();
+                        }
+                        c = layeredPane;
+                        if ((c != null) && (c.getParent() != null)) {
+                            while (c != rootPane) {
+                                dx -= c.getX();
+                                dy -= c.getY();
+                                c = c.getParent();
+                            }
+                        }
+                        dx += layeredPaneInsets.left;
+                        dy += layeredPaneInsets.right;
+                    }
                 }
             }
         }
