@@ -93,17 +93,6 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
     }
 
     @Override
-    protected void installDefaults() {
-        super.installDefaults();
-        if (RadianceCoreUtilities.isCurrentLookAndFeel()) {
-            RadianceSkin skin = RadianceCoreUtilities.getSkin(this.frame);
-            this.setForeground(skin.getActiveContainerTokens(
-                    RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)
-                .getOnContainer());
-        }
-    }
-
-    @Override
     protected void installListeners() {
         super.installListeners();
         this.radiancePropertyListener = propertyChangeEvent -> {
