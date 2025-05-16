@@ -4,7 +4,7 @@ coroutines = "1.10.2"
 dokka = "2.0.0"
 
 batik = "1.19"
-retrofit = "2.11.0"
+retrofit = "3.0.0"
 jgoodies_common = "1.8.1"
 jgoodies_forms = "1.9.0"
 jhlabs = "2.0.235"
@@ -12,7 +12,7 @@ jhlabs = "2.0.235"
 ephemeral_chroma = "1.0-SNAPSHOT"
 
 versionchecker = "0.52.0"
-mavenpublish = "0.31.0"
+mavenpublish = "0.32.0"
 
 [libraries]
 
