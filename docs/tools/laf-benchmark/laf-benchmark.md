@@ -50,7 +50,7 @@ With this, you can compare the performance of your look-and-feel with that of co
 ``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
 `RADIANCE_VERSION=8.0-SNAPSHOT`
-`EPHEMERAL_VERSION=1.0-SNAPSHOT`
+`EPHEMERAL_VERSION=1.0.0`
 
 `CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-laf-benchmark-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar`
 
