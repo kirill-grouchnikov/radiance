@@ -68,7 +68,7 @@ the [Ephemeral](https://github.com/kirill-grouchnikov/ephemeral) design system. 
 
 ## Radiance artifacts
 
-Radiance artifacts are available in the central Sonatype repository under `groupId=org.pushing-pixels`
+Radiance artifacts are available in the Maven Central repository under `groupId=org.pushing-pixels`
 
 ### Core artifacts
 
