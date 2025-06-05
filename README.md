@@ -68,32 +68,32 @@ the [Ephemeral](https://github.com/kirill-grouchnikov/ephemeral) design system. 
 
 ## Radiance artifacts
 
-Radiance artifacts are available in the central Maven repository under `groupId=org.pushing-pixels`
+Radiance artifacts are available in the central Sonatype repository under `groupId=org.pushing-pixels`
 
 ### Core artifacts
 
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-common/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-common)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-common/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-common/8.0.0)
 `radiance-common` for [Common](docs/common/common.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation) `radiance-animation` for [Animation](docs/animation/animation.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming) `radiance-theming` for [Theming](docs/theming/overview.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component) `radiance-component` for [Component](docs/component/overview.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-extras/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-extras) `radiance-theming-extras` for [Theming extras](docs/theming/extras.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-animation/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-animation/8.0.0) `radiance-animation` for [Animation](docs/animation/animation.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-theming/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming/8.0.0) `radiance-theming` for [Theming](docs/theming/overview.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-component/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-component/8.0.0) `radiance-component` for [Component](docs/component/overview.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-theming-extras/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming-extras/8.0.0) `radiance-theming-extras` for [Theming extras](docs/theming/extras.md)
 
 ### Kotlin extension artifacts
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-swing-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-swing-ktx) `radiance-swing-ktx` for [Swing Kotlin extensions](docs/kotlin-ext/swing/swing.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation-ktx) `radiance-animation-ktx` for [Animation Kotlin extensions](docs/kotlin-ext/animation/animation-ktx.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-ktx) `radiance-theming-ktx` for [Theming Kotlin extensions](docs/kotlin-ext/theming/theming-ktx.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component-ktx) `radiance-component-ktx` for [Component Kotlin extensions](docs/kotlin-ext/component/component-ktx.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-swing-ktx/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-swing-ktx/8.0.0) `radiance-swing-ktx` for [Swing Kotlin extensions](docs/kotlin-ext/swing/swing.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-animation-ktx/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-animation-ktx/8.0.0) `radiance-animation-ktx` for [Animation Kotlin extensions](docs/kotlin-ext/animation/animation-ktx.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-theming-ktx/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming-ktx/8.0.0) `radiance-theming-ktx` for [Theming Kotlin extensions](docs/kotlin-ext/theming/theming-ktx.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-component-ktx/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-component-ktx/8.0.0) `radiance-component-ktx` for [Component Kotlin extensions](docs/kotlin-ext/component/component-ktx.md)
 
 ### Tools artifacts
 
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder) `radiance-svg-transcoder` for [SVG transcoder](docs/tools/svg-transcoder/svg-transcoder.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin) `radiance-svg-transcoder-gradle-plugin` for [SVG transcoder Gradle plugin](docs/tools/svg-transcoder/svg-transcoder-gradle-plugin.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-debugger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-debugger) `radiance-theming-debugger` for [Theming debugger](docs/tools/theming-debugger/theming-debugger.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-svg-transcoder/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-svg-transcoder/8.0.0) `radiance-svg-transcoder` for [SVG transcoder](docs/tools/svg-transcoder/svg-transcoder.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin/8.0.0) `radiance-svg-transcoder-gradle-plugin` for [SVG transcoder Gradle plugin](docs/tools/svg-transcoder/svg-transcoder-gradle-plugin.md)
+* [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-theming-debugger/badge.png?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming-debugger/8.0.0) `radiance-theming-debugger` for [Theming debugger](docs/tools/theming-debugger/theming-debugger.md)
 
 ### Snapshots
 
-Radiance snapshot artifacts [are available in the Maven Central snapshot repository](https://central.sonatype.com/service/rest/repository/browse/maven-snapshots/org/pushing-pixels/) using the `https://central.sonatype.com/repository/maven-snapshots/` URL. 
+Radiance snapshot artifacts [are available in the Maven Central snapshot repository](https://central.sonatype.com/service/rest/repository/browse/maven-snapshots/org/pushing-pixels/) using the `https://central.sonatype.com/repository/maven-snapshots/` URL.
 
 ## Building Radiance
 
