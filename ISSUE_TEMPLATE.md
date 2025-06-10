@@ -1,4 +1,4 @@
-### Version of Radiance (latest release is 8.0.0)
+### Version of Radiance (latest dev is 8.5-SNAPSHOT)
 
 ### Sub-project (Common, Animation, Theming, Component, ...)
 
