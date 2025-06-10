@@ -80,15 +80,15 @@ public class Step3ContainersDemo extends JFrame {
 
         ContainerColorTokensBundle darkBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ activePalette.getHct(20.0),
+                /* seed */ activePalette.getHct(40.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ mutedPalette.getHct(16.0),
+                /* seed */ mutedPalette.getHct(32.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
             /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ neutralPalette.getHct(8.0),
+                /* seed */ neutralPalette.getHct(26.0),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
-            /* isSystemDark */ false);
+            /* isSystemDark */ true);
 
         builder.addROLabel("Active palette").xy(1, row, "right, bottom")
             .add(new TonalPalettePreview(activePalette, true))
