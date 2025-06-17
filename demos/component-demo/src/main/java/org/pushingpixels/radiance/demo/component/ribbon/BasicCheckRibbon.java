@@ -62,6 +62,7 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.model.*;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.*;
 import org.pushingpixels.radiance.demo.component.common.QuickStylesPanel;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
+import org.pushingpixels.radiance.demo.theming.main.check.CustomTitlePaneButtonsProvider;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceFontScaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
@@ -2305,7 +2306,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JPanel getControlPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 8dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(new EmptyBorder(20, 4, 0, 4));
 
         final JCheckBox group1Visible = new JCheckBox("visible");
@@ -2334,6 +2335,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
         }));
         builder.add("App menu").xy(1, 7).add(appMenuVisible).xy(3, 7);
 
+        final JCheckBox useCustomTitlePaneButtonsProvider = new JCheckBox("use custom");
+        useCustomTitlePaneButtonsProvider.setSelected(false);
+        useCustomTitlePaneButtonsProvider.addActionListener(actionEvent -> RadianceThemingCortex.RootPaneScope
+            .setTitlePaneButtonsProvider(this.getRootPane(),
+                useCustomTitlePaneButtonsProvider.isSelected() ?
+                    new CustomTitlePaneButtonsProvider() : null));
+        builder.add("Title buttons").xy(1, 9).add(useCustomTitlePaneButtonsProvider).xy(3, 9);
+
         final JCheckBox taskbarFull = new JCheckBox("full");
         taskbarFull.setSelected(true);
         taskbarFull.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
@@ -2346,7 +2355,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JPanel taskbarPanel = new JPanel();
         taskbarPanel.setLayout(new BorderLayout());
         taskbarPanel.add(taskbarFull, BorderLayout.LINE_START);
-        builder.add("Taskbar").xy(1, 9).add(taskbarPanel).xy(3, 9);
+        builder.add("Taskbar").xy(1, 11).add(taskbarPanel).xy(3, 11);
 
         JButton changeParagraph = new JButton("change");
         changeParagraph
@@ -2367,7 +2376,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         return newTitle;
                     }
                 }));
-        builder.add("Change 'Paragraph'").xy(1, 11).add(changeParagraph).xy(3, 11);
+        builder.add("Change 'Paragraph'").xy(1, 13).add(changeParagraph).xy(3, 13);
 
         JButton changePaste = new JButton("change");
         changePaste
@@ -2388,7 +2397,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         return newTitle;
                     }
                 }));
-        builder.add("Change 'Paste'").xy(1, 13).add(changePaste).xy(3, 13);
+        builder.add("Change 'Paste'").xy(1, 15).add(changePaste).xy(3, 15);
 
         JButton changeShare = new JButton("change");
         changeShare
@@ -2410,9 +2419,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         return newTitle;
                     }
                 }));
-        builder.add("Change 'Share'").xy(1, 15).add(changeShare).xy(3, 15);
+        builder.add("Change 'Share'").xy(1, 17).add(changeShare).xy(3, 17);
 
-        builder.add("Locale").xy(1, 17).add(new RadianceLocaleSelector(false, selected -> {
+        builder.add("Locale").xy(1, 19).add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
@@ -2420,7 +2429,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
                 SwingUtilities.updateComponentTreeUI(window);
             }
-        })).xy(3, 17);
+        })).xy(3, 19);
 
         JButton galleryUpdate = new JButton("update");
         galleryUpdate.addActionListener(actionEvent -> {
@@ -2460,8 +2469,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
             // And mark the second new command as the new selection in the gallery
             this.styleGalleryContentModel.setSelectedCommand(this.styleGalleryCommandGroup1.getCommands().get(1));
         });
-        builder.add("Update gallery").xy(1, 19).add(galleryUpdate).xy(3, 19);
-        builder.add(new RadianceFontScaleSelector()).xyw(1, 21, 3);
+        builder.add("Update gallery").xy(1, 19).add(galleryUpdate).xy(3, 21);
+        builder.add(new RadianceFontScaleSelector()).xyw(1, 23, 3);
 
         return builder.build();
     }
