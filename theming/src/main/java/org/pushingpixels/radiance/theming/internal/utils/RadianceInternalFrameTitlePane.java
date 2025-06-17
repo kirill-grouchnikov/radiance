@@ -282,9 +282,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                     colorization, null, 0.0);
             }
             RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                colorTokens.getOnContainer(),
-                colorTokens.getComplementaryOnContainer(),
-                displayTitle, width, height, xOffset, yOffset);
+                colorTokens, displayTitle, width, height, xOffset, yOffset);
         }
 
         graphics.dispose();

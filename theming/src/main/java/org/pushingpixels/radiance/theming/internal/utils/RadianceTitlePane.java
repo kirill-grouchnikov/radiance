@@ -851,11 +851,9 @@ public class RadianceTitlePane extends JComponent {
                     + fm.getAscent();
 
             ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(
-                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
             RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                    colorTokens.getOnContainer(),
-                    colorTokens.getComplementaryOnContainer(),
-                    displayTitle, width, height, xOffset, yOffset);
+                colorTokens, displayTitle, width, height, xOffset, yOffset);
         }
 
         GhostPaintingUtils.paintGhostImages(this, graphics);

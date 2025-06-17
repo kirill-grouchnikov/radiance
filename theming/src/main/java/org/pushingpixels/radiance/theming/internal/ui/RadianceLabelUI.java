@@ -143,12 +143,11 @@ public class RadianceLabelUI extends BasicLabelUI {
                 ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(
                     RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
                 textColor = colorTokens.getOnContainer();
-                Color echoColor = colorTokens.getComplementaryOnContainer();
                 int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
                         + fm.getAscent();
                 g2d.translate(paintTextR.x + 3, 0);
                 RadianceTextUtilities.paintTextWithDropShadow(label, g2d,
-                        textColor, echoColor, clippedText,
+                        colorTokens, clippedText,
                         paintTextR.width + 6, paintTextR.height, 0, yOffset);
                 g2d.translate(-paintTextR.x - 3, 0);
             } else {

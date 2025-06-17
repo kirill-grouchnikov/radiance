@@ -63,15 +63,15 @@ public class RadianceTextUtilities {
      *
      * @param c               Component.
      * @param g               Graphics context.
-     * @param foregroundColor Foreground color.
+     * @param tokens          Color tokens.
      * @param text            Text to paint.
      * @param width           Text rectangle width.
      * @param height          Text rectangle height.
      * @param xOffset         Text rectangle X offset.
      * @param yOffset         Text rectangle Y offset.
      */
-    public static void paintTextWithDropShadow(JComponent c, Graphics g, Color foregroundColor,
-            Color echoColor, String text, int width, int height, int xOffset, int yOffset) {
+    public static void paintTextWithDropShadow(JComponent c, Graphics g,
+        ContainerColorTokens tokens, String text, int width, int height, int xOffset, int yOffset) {
         Graphics2D graphics = (Graphics2D) g.create();
         RadianceCommonCortex.installDesktopHints(graphics, c.getFont());
 
@@ -82,9 +82,11 @@ public class RadianceTextUtilities {
         gBlurred.setFont(graphics.getFont());
         gBlurred.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-        gBlurred.setColor(echoColor);
-        ConvolveOp convolve = new ConvolveOp(
-            new Kernel(3, 3, new float[] {.1f, .2f, .1f, .2f, .1f, .2f, .1f, .2f, .1f}),
+        gBlurred.setColor(tokens.getComplementaryOnContainer());
+        float[] kernelMatrix = tokens.isDark()
+            ? new float[] {.1f, .2f, .1f, .2f, .1f, .2f, .1f, .2f, .1f}
+            : new float[] {.04f, .1f, .04f, .1f, .04f, .1f, .04f, .1f, .04f};
+        ConvolveOp convolve = new ConvolveOp(new Kernel(3, 3, kernelMatrix),
             ConvolveOp.EDGE_NO_OP, null);
         gBlurred.drawString(text, xOffset, yOffset);
         blurred = convolve.filter(blurred, null);
@@ -96,7 +98,7 @@ public class RadianceTextUtilities {
         FontMetrics fm = graphics.getFontMetrics();
         RadianceTextUtilities.paintText(graphics,
                 new Rectangle(xOffset, yOffset - fm.getAscent(), width - xOffset, fm.getHeight()),
-                text, -1, graphics.getFont(), foregroundColor, graphics.getClipBounds());
+                text, -1, graphics.getFont(), tokens.getOnContainer(), graphics.getClipBounds());
 
         graphics.dispose();
     }
