@@ -704,7 +704,7 @@ public class RadianceColorUtilities {
             // Surface for even rows
             return tokens.getContainerSurface();
         } else {
-            // Container surface low for odd rows
+            // Container surface low / high for odd rows
             return tokens.isDark() ? tokens.getContainerSurfaceLow()
                 : tokens.getContainerSurfaceHigh();
         }
