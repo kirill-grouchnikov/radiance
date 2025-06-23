@@ -296,6 +296,7 @@ public class RadianceTitlePane extends JComponent {
                 this.installSubcomponents();
             }
             this.installListeners();
+            this.syncButtons();
         }
         this.setToolTipText(this.getTitle());
         this.updateAppIcon();
