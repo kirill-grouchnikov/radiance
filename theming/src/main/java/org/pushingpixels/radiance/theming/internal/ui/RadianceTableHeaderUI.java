@@ -796,9 +796,12 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
             // + ((header == null) ? "null" : header.hashCode()));
 
             boolean ltr = header.getComponentOrientation().isLeftToRight();
-            final ComponentState backgroundState = (header.isEnabled()
-                    && header.getTable().isEnabled()) ? ComponentState.ENABLED
-                            : ComponentState.DISABLED_UNSELECTED;
+            boolean isEnabled = this.header.isEnabled();
+            if (this.header.getTable() != null) {
+                isEnabled = isEnabled && this.header.getTable().isEnabled();
+            }
+            final ComponentState backgroundState = isEnabled ? ComponentState.ENABLED
+                : ComponentState.DISABLED_UNSELECTED;
 
             ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
                 this.header, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
