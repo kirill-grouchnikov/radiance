@@ -344,7 +344,7 @@ public class JRibbonFrame extends JFrame {
         };
 
         JRibbonRootPane rootPane = (JRibbonRootPane) this.getRootPane();
-        JRibbonRootPane.KeyTipLayer keyTipLayer = rootPane.getKeyTipLayer();
+        JComponent keyTipLayer = rootPane.getKeyTipLayer();
         JLayeredPane layeredPane = rootPane.getLayeredPane();
         layeredPane.add(keyTipLayer, (Integer) (JLayeredPane.DEFAULT_LAYER + 60));
 

@@ -60,7 +60,7 @@ public class RadianceRibbonRootPaneUI extends RadianceRootPaneUI {
     @Override
     protected LayoutManager createLayoutManager() {
         LayoutManager coreRadianceLayoutManager = super.createLayoutManager();
-        LayoutManager wrapped = new LayoutManager() {
+        return new LayoutManager() {
             public void addLayoutComponent(String name, Component comp) {
                 coreRadianceLayoutManager.addLayoutComponent(name, comp);
             }
@@ -68,7 +68,7 @@ public class RadianceRibbonRootPaneUI extends RadianceRootPaneUI {
             public void layoutContainer(Container parent) {
                 coreRadianceLayoutManager.layoutContainer(parent);
                 JRibbonRootPane root = (JRibbonRootPane) parent;
-                JRibbonRootPane.KeyTipLayer keyTipLayer = root.getKeyTipLayer();
+                JComponent keyTipLayer = root.getKeyTipLayer();
                 if (root.getWindowDecorationStyle() != JRootPane.NONE) {
                     keyTipLayer.setBounds(root.getBounds());
                 } else {
@@ -88,6 +88,5 @@ public class RadianceRibbonRootPaneUI extends RadianceRootPaneUI {
                 coreRadianceLayoutManager.removeLayoutComponent(comp);
             }
         };
-        return wrapped;
     }
 }

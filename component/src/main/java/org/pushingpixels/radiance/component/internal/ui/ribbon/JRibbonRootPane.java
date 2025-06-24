@@ -58,14 +58,14 @@ public class JRibbonRootPane extends JRootPane {
      */
     public static final String uiClassID = "RibbonRootPaneUI";
 
-    private KeyTipLayer keyTipLayer;
+    private JComponent keyTipLayer;
 
     /**
      * A custom layer that shows the currently visible key tip chain.
      *
      * @author Kirill Grouchnikov
      */
-    public static class KeyTipLayer extends JComponent {
+    private static class KeyTipLayer extends JComponent {
         /**
          * Creates a new key tip layer.
          */
@@ -300,7 +300,7 @@ public class JRibbonRootPane extends JRootPane {
         }
     }
 
-    public KeyTipLayer getKeyTipLayer() {
+    public JComponent getKeyTipLayer() {
         return keyTipLayer;
     }
 }
