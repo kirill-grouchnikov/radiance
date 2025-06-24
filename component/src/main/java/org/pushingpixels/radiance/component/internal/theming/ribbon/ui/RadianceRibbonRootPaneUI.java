@@ -30,11 +30,13 @@
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
+import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonRootPane;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTitlePane;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
+import java.awt.*;
 
 /**
  * UI delegate for root panes of {@link JRibbonFrame} under Radiance
@@ -54,4 +56,38 @@ public class RadianceRibbonRootPaneUI extends RadianceRootPaneUI {
 	protected RadianceTitlePane createTitlePane(JRootPane root) {
 		return new RadianceRibbonFrameTitlePane(root, this);
 	}
+
+    @Override
+    protected LayoutManager createLayoutManager() {
+        LayoutManager coreRadianceLayoutManager = super.createLayoutManager();
+        LayoutManager wrapped = new LayoutManager() {
+            public void addLayoutComponent(String name, Component comp) {
+                coreRadianceLayoutManager.addLayoutComponent(name, comp);
+            }
+
+            public void layoutContainer(Container parent) {
+                coreRadianceLayoutManager.layoutContainer(parent);
+                JRibbonRootPane root = (JRibbonRootPane) parent;
+                JRibbonRootPane.KeyTipLayer keyTipLayer = root.getKeyTipLayer();
+                if (root.getWindowDecorationStyle() != JRootPane.NONE) {
+                    keyTipLayer.setBounds(root.getBounds());
+                } else {
+                    keyTipLayer.setBounds(root.getContentPane().getBounds());
+                }
+            }
+
+            public Dimension minimumLayoutSize(Container parent) {
+                return coreRadianceLayoutManager.minimumLayoutSize(parent);
+            }
+
+            public Dimension preferredLayoutSize(Container parent) {
+                return coreRadianceLayoutManager.preferredLayoutSize(parent);
+            }
+
+            public void removeLayoutComponent(Component comp) {
+                coreRadianceLayoutManager.removeLayoutComponent(comp);
+            }
+        };
+        return wrapped;
+    }
 }

@@ -32,13 +32,18 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandActionEvent;
 import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
+import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonFrameTitlePane;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonRootPaneUI;
+import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
+import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -53,8 +58,182 @@ public class JRibbonRootPane extends JRootPane {
      */
     public static final String uiClassID = "RibbonRootPaneUI";
 
+    private KeyTipLayer keyTipLayer;
+
+    /**
+     * A custom layer that shows the currently visible key tip chain.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public static class KeyTipLayer extends JComponent {
+        /**
+         * Creates a new key tip layer.
+         */
+        public KeyTipLayer() {
+            this.setOpaque(false);
+
+            // Support placing heavyweight components in the ribbon frame. See
+            // https://community.oracle.com/docs/DOC-982814.
+            this.setMixingCutoutShape(new Rectangle());
+        }
+
+        @Override
+        public synchronized void addMouseListener(MouseListener l) {
+        }
+
+        @Override
+        public synchronized void addMouseMotionListener(MouseMotionListener l) {
+        }
+
+        @Override
+        public synchronized void addMouseWheelListener(MouseWheelListener l) {
+        }
+
+        @Override
+        public synchronized void addKeyListener(KeyListener l) {
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            JRibbonFrame ribbonFrame = (JRibbonFrame) SwingUtilities.getWindowAncestor(this);
+            if (!ribbonFrame.isShowingKeyTips()) {
+                return;
+            }
+
+            // don't show keytips on inactive windows
+            if (!ribbonFrame.isActive()) {
+                return;
+            }
+
+            Collection<KeyTipManager.KeyTipLink> keyTips = KeyTipManager.defaultManager()
+                .getCurrentlyShownKeyTips();
+            if (keyTips != null) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                RadianceCommonCortex.installDesktopHints(g2d, getFont());
+
+                for (KeyTipManager.KeyTipLink keyTip : keyTips) {
+                    // Components in generic popup panels do not display keytips as that interferes
+                    // with the popup layer in the root pane. However, there is a special treatment
+                    // for the taskbar overflow popup where the height is limited and we push the
+                    // key tips to be displayed below the popup.
+                    boolean isInPopup = (SwingUtilities.getAncestorOfClass(
+                        JPopupPanel.class, keyTip.comp) != null);
+                    if (isInPopup && (SwingUtilities.getAncestorOfClass(
+                        RadianceRibbonFrameTitlePane.TaskbarOverflowPopupPanel.class,
+                        keyTip.comp) == null)) {
+                        continue;
+                    }
+
+                    // don't display key tips on hidden components
+                    Rectangle compBounds = keyTip.comp.getBounds();
+                    if (!keyTip.comp.isShowing() || (compBounds.getWidth() == 0)
+                        || (compBounds.getHeight() == 0)) {
+                        continue;
+                    }
+
+                    Dimension pref = KeyTipRenderingUtilities.getPrefSize(g2d.getFontMetrics(),
+                        keyTip.keyTipString);
+
+                    Point prefCenter = keyTip.prefAnchorPoint;
+                    Point loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter, this);
+                    Container bandControlPanel = SwingUtilities
+                        .getAncestorOfClass(AbstractBandControlPanel.class, keyTip.comp);
+                    if (bandControlPanel != null) {
+                        // special case for controls in threesome ribbon band rows
+                        if (hasClientPropertySetToTrue(keyTip.comp,
+                            BasicBandControlPanelUI.TOP_ROW)) {
+                            loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                                bandControlPanel);
+                            loc.y = 0;
+                            loc = SwingUtilities.convertPoint(bandControlPanel, loc, this);
+                            // prefCenter.y = 0;
+                        }
+                        if (hasClientPropertySetToTrue(keyTip.comp,
+                            BasicBandControlPanelUI.MID_ROW)) {
+                            loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                                bandControlPanel);
+                            loc.y = bandControlPanel.getHeight() / 2;
+                            loc = SwingUtilities.convertPoint(bandControlPanel, loc, this);
+                            // prefCenter.y = keyTip.comp.getHeight() / 2;
+                        }
+                        if (hasClientPropertySetToTrue(keyTip.comp,
+                            BasicBandControlPanelUI.BOTTOM_ROW)) {
+                            loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                                bandControlPanel);
+                            loc.y = bandControlPanel.getHeight();
+                            loc = SwingUtilities.convertPoint(bandControlPanel, loc, this);
+                            // prefCenter.y = keyTip.comp.getHeight();
+                        }
+                    }
+
+                    Container taskbarOverflowPanel = SwingUtilities
+                        .getAncestorOfClass(
+                            RadianceRibbonFrameTitlePane.TaskbarOverflowPopupPanel.class,
+                            keyTip.comp);
+                    if (taskbarOverflowPanel != null) {
+                        // special case for controls in taskbar overflow - push them down
+                        loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                            taskbarOverflowPanel);
+                        loc.y = pref.height / 2 + taskbarOverflowPanel.getHeight();
+                        loc = SwingUtilities.convertPoint(taskbarOverflowPanel, loc, this);
+                    }
+
+                    Container titlePane = SwingUtilities
+                        .getAncestorOfClass(RadianceRibbonFrameTitlePane.class,
+                            keyTip.comp);
+                    if (titlePane != null) {
+                        // special case for controls in title pane (taskbar)
+                        loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                            titlePane);
+                        loc.y = pref.height / 2 + titlePane.getHeight() / 2;
+                        loc = SwingUtilities.convertPoint(titlePane, loc, this);
+                    }
+
+                    KeyTipRenderingUtilities.renderKeyTip(
+                        g2d, this, new Rectangle(loc.x - pref.width / 2,
+                            loc.y - pref.height / 2, pref.width, pref.height),
+                        keyTip.keyTipString, keyTip.enabled);
+                }
+
+                g2d.dispose();
+            }
+        }
+
+        /**
+         * Checks whether the specified component or one of its ancestors has the specified client
+         * property set to {@link Boolean#TRUE}.
+         *
+         * @param c              Component.
+         * @param clientPropName Client property name.
+         * @return <code>true</code> if the specified component or one of its ancestors has the
+         * specified client property set to {@link Boolean#TRUE}, <code>false</code>
+         * otherwise.
+         */
+        private boolean hasClientPropertySetToTrue(Component c, String clientPropName) {
+            while (c != null) {
+                if (c instanceof JComponent) {
+                    JComponent jc = (JComponent) c;
+                    if (Boolean.TRUE.equals(jc.getClientProperty(clientPropName)))
+                        return true;
+                }
+                c = c.getParent();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean contains(int x, int y) {
+            // pass the mouse events to the underlying layers for
+            // showing the correct cursor. See
+            // https://community.oracle.com/blogs/alexfromsun/2006/09/20/well-behaved-glasspane
+            return false;
+        }
+    }
+
     public JRibbonRootPane() {
         updateUI();
+
+        this.keyTipLayer = new JRibbonRootPane.KeyTipLayer();
 
         KeyboardFocusManager.getCurrentKeyboardFocusManager().
                 setDefaultFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
@@ -119,5 +298,9 @@ public class JRibbonRootPane extends JRootPane {
             });
             inputMap.put(action.getActionKeyStroke(), action.getActionName());
         }
+    }
+
+    public KeyTipLayer getKeyTipLayer() {
+        return keyTipLayer;
     }
 }
