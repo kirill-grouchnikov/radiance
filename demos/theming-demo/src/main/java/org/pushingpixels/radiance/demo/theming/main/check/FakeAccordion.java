@@ -69,7 +69,7 @@ public class FakeAccordion extends JPanel {
             this.add(titleButton, BorderLayout.NORTH);
 
             // Mark controls in the content panel as non-opaque so that we show our
-            // accented background fill
+            // custom background fill
             deepNonOpaque(content);
 
             // Wrap the passed content panel to have a bit of padding and different background fill
@@ -80,7 +80,7 @@ public class FakeAccordion extends JPanel {
                     super.paintComponent(g);
 
                     if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
-                        // Get the accented background fill to delineate the content
+                        // Use surface low to delineate the content
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
                         Color accentedFill = skin.getNeutralContainerTokens(this).getContainerSurfaceLow();
 
