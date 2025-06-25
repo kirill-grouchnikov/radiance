@@ -115,10 +115,8 @@ public class TabControlPanel extends JPanel {
             final MyTabPreviewPainter mainTabPreviewPainter) {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 4dlu, fill:min:grow(1), 2dlu, fill:min:grow(1)").
-                rows("p, 2dlu, p, 3dlu, p, 3dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, "
-                        + "p, 3dlu, p, 7dlu, p, 2dlu, p, 0dlu, p, 0dlu, p, 0dlu, p, 7dlu,"
-                        + "p, 2dlu, p, 3dlu, p, 0dlu, p, 3dlu, p, 3dlu, p, 7dlu, "
-                        + "p, 2dlu, p, 0dlu, p, 0dlu, p, 0dlu, p, 7dlu, p, 2dlu, p, 3dlu, p").
+                rows("p, 2dlu, p, 3dlu, p, 3dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 3dlu, p, 8dlu, "
+                        + "p, 3dlu, p, 7dlu, p, 2dlu, p, 2dlu, p, 8dlu, p, 3dlu, p").
                 columnGroups(new int[][] { { 3, 5 } });
 
         int row = 1;
@@ -385,7 +383,7 @@ public class TabControlPanel extends JPanel {
 
         this.setLayout(new BorderLayout());
         JPanel contents = getContents(jtp, previewPainter);
-        contents.setOpaque(false);
+        setOpaque(false);
         RadianceThemingCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(contents, true);
         this.add(contents, BorderLayout.CENTER);
     }
