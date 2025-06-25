@@ -73,7 +73,6 @@ public class FakeAccordion extends JPanel {
             deepNonOpaque(content);
 
             // Wrap the passed content panel to have a bit of padding and different background fill
-            // (using the ContainerColorTokens.getContainerSurfaceLow API)
             this.contentWrapper = new JPanel(new BorderLayout()) {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -82,7 +81,10 @@ public class FakeAccordion extends JPanel {
                     if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                         // Use surface low to delineate the content
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-                        Color accentedFill = skin.getNeutralContainerTokens(this).getContainerSurfaceLow();
+                        ContainerColorTokens neutralTokens = skin.getNeutralContainerTokens(this);
+                        Color accentedFill = neutralTokens.isDark()
+                            ? neutralTokens.getContainerSurfaceHigh()
+                            : neutralTokens.getContainerSurfaceLow();
 
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(accentedFill);
