@@ -4,7 +4,7 @@ The goal of this project is to provide a robust set of additional Swing componen
 
 Components is built on top of [Theming](../theming/overview.md). All components are rendered based on the currently set Radiance skin.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component) `radiance-component` for build instructions of the latest stable release.
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-component/badge.svg?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-component) `radiance-component` for build instructions of the latest stable release.
 
 ### Introduction
 

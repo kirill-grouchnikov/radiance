@@ -1,6 +1,6 @@
 ## Theming Debugger - visual runtime debugger for Radiance
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-debugger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-debugger) `radiance-theming-debugger` for build instructions of the latest stable release.
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-theming-debugger/badge.svg?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming-debugger) `radiance-theming-debugger` for build instructions of the latest stable release.
 
 To enable Theming Debugger in your app, add the matching dependency to your build script and add the following line in your `main()` method before creating the app:
 

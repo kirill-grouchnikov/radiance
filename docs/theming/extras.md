@@ -1,6 +1,6 @@
 ## Radiance look and feel - extras
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-extras/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-extras) `radiance-theming-extras`
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-theming-extras/badge.svg?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming-extras) `radiance-theming-extras`
 
 The **extras** module contains additional functionality that builds on top of the core Radiance module.
 
