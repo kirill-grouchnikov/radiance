@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.internal.contrib.jgoodies.looks.LookUti
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
-import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
@@ -163,8 +162,8 @@ public final class RadianceThemingSlices {
         NONE {
             @Override
             public void paintFocus1X(Component mainComp, Component focusedComp,
-                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
-                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+                Graphics2D graphics1X, double scaleFactor, float focusLoopPosition,
+                Shape focusShape, Rectangle textRect, float extraPadding) {
             }
         },
 
@@ -174,8 +173,8 @@ public final class RadianceThemingSlices {
         TEXT {
             @Override
             public void paintFocus1X(Component mainComp, Component focusedComp,
-                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
-                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+                Graphics2D graphics1X, double scaleFactor, float focusLoopPosition,
+                Shape focusShape, Rectangle textRect, float extraPadding) {
 
                 if (textRect == null) {
                     return;
@@ -187,8 +186,7 @@ public final class RadianceThemingSlices {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 float dashLength = (float) scaleFactor * getDashLength(fontSize);
                 float dashGap = (float) scaleFactor * getDashGap(fontSize);
-                float dashPhase = (dashLength + dashGap)
-                    * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
+                float dashPhase = (dashLength + dashGap) * (1.0f - focusLoopPosition);
 
                 graphics1X.setStroke(new BasicStroke(1.0f,
                     BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
@@ -220,14 +218,13 @@ public final class RadianceThemingSlices {
         ALL {
             @Override
             public void paintFocus1X(Component mainComp, Component focusedComp,
-                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X, double scaleFactor,
+                Graphics2D graphics1X, double scaleFactor, float focusLoopPosition,
                 Shape focusShape, Rectangle textRect, float extraPadding) {
 
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 float dashLength = (float) scaleFactor * getDashLength(fontSize);
                 float dashGap = (float) scaleFactor * getDashGap(fontSize);
-                float dashPhase = (dashLength + dashGap) * (1.0f
-                    - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
+                float dashPhase = (dashLength + dashGap) * (1.0f - focusLoopPosition);
 
                 if ((focusShape == null)
                     && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
@@ -275,15 +272,13 @@ public final class RadianceThemingSlices {
         ALL_INNER {
             @Override
             public void paintFocus1X(Component mainComp, Component focusedComp,
-                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
-                double scaleFactor, Shape focusShape, Rectangle textRect,
-                float extraPadding) {
+                Graphics2D graphics1X, double scaleFactor, float focusLoopPosition,
+                Shape focusShape, Rectangle textRect, float extraPadding) {
 
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 float dashLength = (float) scaleFactor * getDashLength(fontSize);
                 float dashGap = (float) scaleFactor * getDashGap(fontSize);
-                float dashPhase = (dashLength + dashGap) * (1.0f
-                    - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
+                float dashPhase = (dashLength + dashGap) * (1.0f - focusLoopPosition);
 
                 if ((focusShape == null)
                     && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
@@ -334,8 +329,8 @@ public final class RadianceThemingSlices {
         ALL_STRONG_INNER {
             @Override
             public void paintFocus1X(Component mainComp, Component focusedComp,
-                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
-                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+                Graphics2D graphics1X, double scaleFactor, float focusLoopPosition,
+                Shape focusShape, Rectangle textRect, float extraPadding) {
 
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 graphics1X.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
@@ -377,8 +372,9 @@ public final class RadianceThemingSlices {
         UNDERLINE {
             @Override
             public void paintFocus1X(Component mainComp, Component focusedComp,
-                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
-                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+                Graphics2D graphics1X, double scaleFactor, float focusLoopPosition,
+                Shape focusShape, Rectangle textRect, float extraPadding) {
+
                 if (textRect == null) {
                     return;
                 }
@@ -386,8 +382,7 @@ public final class RadianceThemingSlices {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 float dashLength = (float) scaleFactor * getDashLength(fontSize);
                 float dashGap = (float) scaleFactor * getDashGap(fontSize);
-                float dashPhase = (dashLength + dashGap)
-                    * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
+                float dashPhase = (dashLength + dashGap) * (1.0f - focusLoopPosition);
 
                 graphics1X.setStroke(new BasicStroke(
                     1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
@@ -411,8 +406,8 @@ public final class RadianceThemingSlices {
         STRONG_UNDERLINE {
             @Override
             public void paintFocus1X(Component mainComp, Component focusedComp,
-                TransitionAwareUI transitionAwareUI, Graphics2D graphics1X,
-                double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+                Graphics2D graphics1X, double scaleFactor, float focusLoopPosition,
+                Shape focusShape, Rectangle textRect, float extraPadding) {
 
                 if (textRect == null) {
                     return;
@@ -428,7 +423,7 @@ public final class RadianceThemingSlices {
         };
 
         public abstract void paintFocus1X(Component mainComp, Component focusedComp,
-            TransitionAwareUI transitionAwareUI, Graphics2D graphics1X, double scaleFactor,
+            Graphics2D graphics1X, double scaleFactor, float focusLoopPosition,
             Shape focusShape, Rectangle textRect, float extraPadding);
 
         /**

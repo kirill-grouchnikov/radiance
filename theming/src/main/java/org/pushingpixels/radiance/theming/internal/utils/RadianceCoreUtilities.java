@@ -43,6 +43,7 @@ import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
+import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowButtonTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
@@ -1066,8 +1067,9 @@ public class RadianceCoreUtilities {
     public static void paintFocus1X(Graphics2D graphics1X, Component mainComp, Component focusedComp,
             TransitionAwareUI transitionAwareUI, double scaleFactor, Shape focusShape,
             Rectangle textRect, Color focusColor, float extraPadding) {
-        float focusStrength = transitionAwareUI.getTransitionTracker()
-                .getFocusStrength(focusedComp.hasFocus());
+
+        StateTransitionTracker transitionTracker = transitionAwareUI.getTransitionTracker();
+        float focusStrength = transitionTracker.getFocusStrength(focusedComp.hasFocus());
         if (focusStrength == 0.0f) {
             return;
         }
@@ -1080,8 +1082,8 @@ public class RadianceCoreUtilities {
         graphics1X.setComposite(WidgetUtilities.getAlphaComposite(mainComp, focusStrength, graphics1X));
 
         graphics1X.setColor(focusColor);
-        focusKind.paintFocus1X(mainComp, focusedComp, transitionAwareUI, graphics1X, scaleFactor,
-                focusShape, textRect, extraPadding);
+        focusKind.paintFocus1X(mainComp, focusedComp, graphics1X, scaleFactor,
+            transitionTracker.getFocusLoopPosition(), focusShape, textRect, extraPadding);
     }
 
     /**
