@@ -270,8 +270,9 @@ public class ControlPanelFactory {
         builder.appendSeparator("Menu bar");
         final JCheckBox menuSearch = new JCheckBox("Has menu search");
         menuSearch.setSelected(false);
-        menuSearch.addActionListener(actionEvent -> RadianceThemingCortex.WindowScope.setWidgetVisible(mainFrame,
-                menuSearch.isSelected(), WidgetType.MENU_SEARCH));
+        menuSearch.addActionListener(actionEvent ->
+            RadianceThemingCortex.RootPaneScope.setMenuSearchWidgetVisible(mainFrame.getRootPane(),
+                menuSearch.isSelected()));
         builder.append("Menu search", menuSearch);
 
         builder.appendSeparator("Icon pack");

@@ -504,21 +504,6 @@ public final class RadianceThemingSlices {
     }
 
     /**
-     * Enumerates configurable Radiance-specific widget types for
-     * {@link RadianceThemingCortex.GlobalScope#setWidgetVisible(boolean, WidgetType...)} and
-     * {@link RadianceThemingCortex.WindowScope#setWidgetVisible(java.awt.Window, boolean, WidgetType...)}
-     * APIs.
-     *
-     * @author Kirill Grouchnikov
-     */
-    public enum WidgetType {
-        /**
-         * Menu search widget.
-         */
-        MENU_SEARCH,
-    }
-
-    /**
      * Button order for grouped buttons.
      */
     public enum ButtonOrder {

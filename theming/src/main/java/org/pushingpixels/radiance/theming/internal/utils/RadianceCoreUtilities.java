@@ -352,6 +352,17 @@ public class RadianceCoreUtilities {
         return new DefaultTitlePaneButtonsProvider();
     }
 
+    public static boolean isMenuSearchWidgetVisible(JRootPane rootPane) {
+        if (rootPane != null) {
+            Object attached = rootPane.getClientProperty(RadianceSynapse.MENU_SEARCH_WIDGET_VISIBLE);
+            if (attached instanceof Boolean) {
+                return (Boolean) attached;
+            }
+        }
+        // check property in UIManager
+        return UIManager.getBoolean(RadianceSynapse.MENU_SEARCH_WIDGET_VISIBLE);
+    }
+
     /**
      * Checks whether the specified tab has a close button.
      *

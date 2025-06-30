@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.demo.theming.main.samples.theming.api;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.WidgetType;
 import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin;
 
 import javax.swing.*;
@@ -38,17 +37,17 @@ import java.awt.*;
 
 /**
  * Test application that shows the use of the
- * {@link RadianceThemingCortex.RootPaneScope#setWidgetVisible(JRootPane, boolean, WidgetType...)}
+ * {@link RadianceThemingCortex.RootPaneScope#setMenuSearchWidgetVisible(JRootPane, boolean)}
  * API.
  * 
  * @author Kirill Grouchnikov
- * @see RadianceThemingCortex.RootPaneScope#setWidgetVisible(JRootPane, boolean, WidgetType...)
+ * @see RadianceThemingCortex.RootPaneScope#setMenuSearchWidgetVisible(JRootPane, boolean)
  */
-public class SetWidgetVisible extends JFrame {
+public class SetMenuSearchWidgetVisible extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public SetWidgetVisible() {
+    public SetMenuSearchWidgetVisible() {
         super("Set widget visible");
 
         this.setLayout(new BorderLayout());
@@ -76,8 +75,9 @@ public class SetWidgetVisible extends JFrame {
         final JCheckBox showMenuSearchPanels = new JCheckBox("Show menu search panels");
         showMenuSearchPanels.setSelected(false);
         showMenuSearchPanels.addActionListener(actionEvent -> SwingUtilities.invokeLater(
-                () -> RadianceThemingCortex.WindowScope.setWidgetVisible(SetWidgetVisible.this,
-                        showMenuSearchPanels.isSelected(), WidgetType.MENU_SEARCH)));
+                () -> RadianceThemingCortex.RootPaneScope.setMenuSearchWidgetVisible(
+                    SetMenuSearchWidgetVisible.this.getRootPane(),
+                        showMenuSearchPanels.isSelected())));
         controls.add(showMenuSearchPanels);
         this.add(controls, BorderLayout.SOUTH);
 
@@ -96,7 +96,7 @@ public class SetWidgetVisible extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new SetWidgetVisible().setVisible(true);
+            new SetMenuSearchWidgetVisible().setVisible(true);
         });
     }
 }

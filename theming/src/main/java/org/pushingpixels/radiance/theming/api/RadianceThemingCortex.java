@@ -938,17 +938,13 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Sets the visibility of the specified widget kind(s). This call applies to all root panes.
+         * Sets the visibility of the menu search widget. This call applies to all root panes.
          * This method should not be called from inside the initialization sequence of your window.
-         * If the specific widget needs to be visible when the window is shown, wrap the call with
-         * {@link SwingUtilities#invokeLater(Runnable)}.
          *
          * @param visible         Visibility indication.
-         * @param radianceWidgets Widget types.
          */
-        public static void setWidgetVisible(boolean visible,
-                RadianceThemingSlices.WidgetType... radianceWidgets) {
-            RadianceWidgetManager.getInstance().register(null, visible, radianceWidgets);
+        public static void setMenuSearchWidgetVisible(boolean visible) {
+            UIManager.put(RadianceSynapse.MENU_SEARCH_WIDGET_VISIBLE, visible);
             for (Window window : Window.getWindows()) {
                 JRootPane root = SwingUtilities.getRootPane(window);
                 SwingUtilities.updateComponentTreeUI(root);
@@ -2233,34 +2229,27 @@ public class RadianceThemingCortex {
             rootPane.putClientProperty(RadianceSynapse.TITLE_PANE_BUTTONS_PROVIDER,
                     titlePaneButtonsProvider);
         }
+
+        /**
+         * Sets the visibility of the menu search widget for the specified root pane.
+         *
+         * @param rootPane        Root pane.
+         * @param visible         Visibility indication.
+         */
+        public static void setMenuSearchWidgetVisible(JRootPane rootPane, boolean visible) {
+            if (rootPane == null) {
+                throw new IllegalArgumentException(
+                    "Root pane scope APIs do not accept null root panes");
+            }
+            rootPane.putClientProperty(RadianceSynapse.MENU_SEARCH_WIDGET_VISIBLE, visible);
+            SwingUtilities.updateComponentTreeUI(rootPane);
+        }
     }
 
     /**
      * APIs in this scope apply to individual application {@link Window}s.
      */
     public static final class WindowScope {
-        /**
-         * Sets the visibility of the specified widget type(s). This method should not be called
-         * from inside the initialization sequence of your window. If the specific widget needs to
-         * be visible when the window is shown, wrap the call with
-         * {@link SwingUtilities#invokeLater(Runnable)}.
-         *
-         * @param window          Window. May not be <code>null</code>.
-         * @param visible         Visibility indication.
-         * @param radianceWidgets Widget types.
-         */
-        public static void setWidgetVisible(Window window, boolean visible,
-                RadianceThemingSlices.WidgetType... radianceWidgets) {
-            if (window == null) {
-                throw new IllegalArgumentException("Window scope APIs do not accept null windows");
-            }
-            JRootPane rootPane = SwingUtilities.getRootPane(window);
-            if (rootPane != null) {
-                RadianceWidgetManager.getInstance().register(rootPane, visible, radianceWidgets);
-                SwingUtilities.updateComponentTreeUI(rootPane);
-            }
-        }
-
         /**
          * Marks the specified window to have its content extend vertically into the title pane
          * area. Use the following methods for finer control over such extended content:

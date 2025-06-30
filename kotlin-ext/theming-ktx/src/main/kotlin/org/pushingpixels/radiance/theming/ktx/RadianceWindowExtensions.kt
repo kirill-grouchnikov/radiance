@@ -34,23 +34,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import java.awt.Insets
 import java.awt.Window
 import javax.swing.JButton
-import javax.swing.SwingUtilities
-
-/**
- * Sets the visibility of the specified widget type(s). This method should not be called
- * from inside the initialization sequence of this window. If the specific widget needs to
- * be visible when the window is shown, wrap the call with
- * [SwingUtilities.invokeLater] or [GlobalScope.launch(Dispatchers.Swing)]
- *
- * @param visible          Visibility indication.
- * @param radianceWidgets Widget types.
- */
-@RadianceWindowScope
-public fun Window.setWidgetVisible(visible: Boolean,
-        vararg radianceWidgets: RadianceThemingSlices.WidgetType
-) {
-    RadianceThemingCortex.WindowScope.setWidgetVisible(this, visible, *radianceWidgets)
-}
 
 /**
  * Marks this window to have its content extend vertically into the title pane

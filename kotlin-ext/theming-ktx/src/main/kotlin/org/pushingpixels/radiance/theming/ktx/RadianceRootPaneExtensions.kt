@@ -69,3 +69,13 @@ public fun JRootPane.setSkin(skin: RadianceSkin) {
 public fun JRootPane.setContentsModified(contentsModified: Boolean?) {
     RadianceThemingCortex.RootPaneScope.setContentsModified(this, contentsModified)
 }
+
+/**
+ * Sets the visibility of the menu search widget on this root pane.
+ *
+ * @param visible          Visibility indication.
+ */
+@RadianceRootPaneScope
+public fun JRootPane.setMenuSearchWidgetVisible(visible: Boolean) {
+    RadianceThemingCortex.RootPaneScope.setMenuSearchWidgetVisible(this, visible)
+}

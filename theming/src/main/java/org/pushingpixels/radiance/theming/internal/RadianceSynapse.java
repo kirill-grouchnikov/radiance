@@ -184,6 +184,11 @@ public class RadianceSynapse {
     public final static String MENU_GUTTER_FILL_ALPHA = "radiance.theming.internal.menuGutterFillAlpha";
 
     /**
+     * Client property name for specifying the visibility of the menu search widget.
+     */
+    public final static String MENU_SEARCH_WIDGET_VISIBLE = "radiance.theming.internal.menuSearchWidgetVisible";
+
+    /**
      * Client property name for specifying the trace file.
      */
     public final static String TRACE_FILE = "radiance.theming.internal.traceFile";

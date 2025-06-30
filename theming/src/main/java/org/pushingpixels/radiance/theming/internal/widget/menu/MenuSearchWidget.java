@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.WidgetType;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
@@ -42,7 +41,6 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIco
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTitlePane;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceWidgetManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -402,8 +400,7 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
     private static boolean toInstallMenuSearch(JMenuBar menuBar) {
         // if the menu search widget has not been allowed,
         // return false
-        if (!RadianceWidgetManager.getInstance().isAllowed(SwingUtilities.getRootPane(menuBar),
-                WidgetType.MENU_SEARCH)) {
+        if (!RadianceCoreUtilities.isMenuSearchWidgetVisible(menuBar.getRootPane())) {
             return false;
         }
         // don't install on menu bar of title panes
@@ -456,9 +453,12 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
 
     @Override
     public void installUI() {
+        if (!toInstallMenuSearch(this.jcomp)) {
+            return;
+        }
         this.searchPanel = new SearchPanel();
         this.jcomp.add(searchPanel, this.jcomp.getComponentCount());
-        this.searchPanel.setVisible(toInstallMenuSearch(this.jcomp));
+        this.searchPanel.setVisible(true);
 
         // need to add a container listener that will move a newly added
         // JMenu one entry before the last (so that our search panel
@@ -494,7 +494,9 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
 
     @Override
     public void uninstallUI() {
-        this.jcomp.remove(this.searchPanel);
+        if (this.searchPanel != null) {
+            this.jcomp.remove(this.searchPanel);
+        }
         super.uninstallUI();
     }
 
@@ -521,7 +523,9 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
 
     @Override
     public void uninstallListeners() {
-        this.jcomp.removePropertyChangeListener(this.propertyListener);
+        if (this.propertyListener != null) {
+            this.jcomp.removePropertyChangeListener(this.propertyListener);
+        }
         this.propertyListener = null;
     }
 
