@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal;
 
+import org.pushingpixels.radiance.theming.internal.widget.menu.MenuSearchWidget;
 import org.pushingpixels.radiance.theming.internal.widget.text.CapsLockPasswordBorderWidget;
 import org.pushingpixels.radiance.theming.internal.widget.text.LockBorderWidget;
 
@@ -184,7 +185,7 @@ public class RadianceSynapse {
     public final static String MENU_GUTTER_FILL_ALPHA = "radiance.theming.internal.menuGutterFillAlpha";
 
     /**
-     * Client property name for specifying the visibility of the menu search widget.
+     * Client property name for specifying the visibility of {@link MenuSearchWidget}.
      */
     public final static String MENU_SEARCH_WIDGET_VISIBLE = "radiance.theming.internal.menuSearchWidgetVisible";
 
