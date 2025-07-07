@@ -1259,17 +1259,29 @@ public class RadianceTitlePane extends JComponent {
     }
 
     private void syncButtons() {
-        this.remove(this.minimizeButton);
-        this.remove(this.toggleButton);
-        this.remove(this.closeButton);
+        if (this.minimizeButton != null) {
+            this.remove(this.minimizeButton);
+        }
+        if (this.toggleButton != null) {
+            this.remove(this.toggleButton);
+        }
+        if (this.closeButton != null) {
+            this.remove(this.closeButton);
+        }
 
         this.titlePaneButtonsProvider = RadianceCoreUtilities.getTitlePaneButtonsProvider(this.rootPane);
         this.createActions();
         this.createButtons();
 
-        this.add(this.minimizeButton);
-        this.add(this.toggleButton);
-        this.add(this.closeButton);
+        if (this.minimizeButton != null) {
+            this.add(this.minimizeButton);
+        }
+        if (this.toggleButton != null) {
+            this.add(this.toggleButton);
+        }
+        if (this.closeButton != null) {
+            this.add(this.closeButton);
+        }
 
         this.invalidate();
         this.revalidate();
