@@ -18,7 +18,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Radiance SVG transcoder</a>.
  */
-public class palette_black_24dp implements RadianceIcon {
+public class album_24dp implements RadianceIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -32,59 +32,69 @@ public class palette_black_24dp implements RadianceIcon {
 	private void _paint0(Graphics2D g,float origAlpha) {
 // 
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
+transformsStack.push(g.getTransform());
+g.transform(new AffineTransform(0.02500000037252903f, 0.0f, 0.0f, 0.02500000037252903f, -0.0f, 24.00000035762787f));
 // _0
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 // _0_0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_0_0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_1
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_1_0
 if (generalPath == null) {
    generalPath = new GeneralPath();
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(12.0f, 2.0f);
-generalPath.curveTo(6.49f, 2.0f, 2.0f, 6.49f, 2.0f, 12.0f);
-generalPath.curveTo(2.0f, 17.51f, 6.49f, 22.0f, 12.0f, 22.0f);
-generalPath.curveTo(13.38f, 22.0f, 14.5f, 20.88f, 14.5f, 19.5f);
-generalPath.curveTo(14.5f, 18.89f, 14.27f, 18.3f, 13.86f, 17.83f);
-generalPath.curveTo(13.78f, 17.73f, 13.73f, 17.62f, 13.73f, 17.5f);
-generalPath.curveTo(13.73f, 17.22f, 13.95f, 17.0f, 14.23f, 17.0f);
-generalPath.lineTo(16.0f, 17.0f);
-generalPath.curveTo(19.31f, 17.0f, 22.0f, 14.309999f, 22.0f, 11.0f);
-generalPath.curveTo(22.0f, 6.04f, 17.51f, 2.0f, 12.0f, 2.0f);
+generalPath.moveTo(480.0f, -300.0f);
+generalPath.quadTo(555.0f, -300.0f, 607.5f, -352.5f);
+generalPath.quadTo(660.0f, -405.0f, 660.0f, -480.0f);
+generalPath.quadTo(660.0f, -555.0f, 607.5f, -607.5f);
+generalPath.quadTo(555.0f, -660.0f, 480.0f, -660.0f);
+generalPath.quadTo(405.0f, -660.0f, 352.5f, -607.5f);
+generalPath.quadTo(300.0f, -555.0f, 300.0f, -480.0f);
+generalPath.quadTo(300.0f, -405.0f, 352.5f, -352.5f);
+generalPath.quadTo(405.0f, -300.0f, 480.0f, -300.0f);
 generalPath.closePath();
-generalPath.moveTo(17.5f, 13.0f);
-generalPath.curveTo(16.67f, 13.0f, 16.0f, 12.33f, 16.0f, 11.5f);
-generalPath.curveTo(16.0f, 10.67f, 16.67f, 10.0f, 17.5f, 10.0f);
-generalPath.curveTo(18.33f, 10.0f, 19.0f, 10.67f, 19.0f, 11.5f);
-generalPath.curveTo(19.0f, 12.33f, 18.33f, 13.0f, 17.5f, 13.0f);
+generalPath.moveTo(480.0f, -440.0f);
+generalPath.quadTo(463.0f, -440.0f, 451.5f, -451.5f);
+generalPath.quadTo(440.0f, -463.0f, 440.0f, -480.0f);
+generalPath.quadTo(440.0f, -497.0f, 451.5f, -508.5f);
+generalPath.quadTo(463.0f, -520.0f, 480.0f, -520.0f);
+generalPath.quadTo(497.0f, -520.0f, 508.5f, -508.5f);
+generalPath.quadTo(520.0f, -497.0f, 520.0f, -480.0f);
+generalPath.quadTo(520.0f, -463.0f, 508.5f, -451.5f);
+generalPath.quadTo(497.0f, -440.0f, 480.0f, -440.0f);
 generalPath.closePath();
-generalPath.moveTo(14.5f, 9.0f);
-generalPath.curveTo(13.67f, 9.0f, 13.0f, 8.33f, 13.0f, 7.5f);
-generalPath.curveTo(13.0f, 6.67f, 13.67f, 6.0f, 14.5f, 6.0f);
-generalPath.curveTo(15.33f, 6.0f, 16.0f, 6.67f, 16.0f, 7.5f);
-generalPath.curveTo(16.0f, 8.33f, 15.33f, 9.0f, 14.5f, 9.0f);
+generalPath.moveTo(480.0f, -80.0f);
+generalPath.quadTo(397.0f, -80.0f, 324.0f, -111.5f);
+generalPath.quadTo(251.0f, -143.0f, 197.0f, -197.0f);
+generalPath.quadTo(143.0f, -251.0f, 111.5f, -324.0f);
+generalPath.quadTo(80.0f, -397.0f, 80.0f, -480.0f);
+generalPath.quadTo(80.0f, -563.0f, 111.5f, -636.0f);
+generalPath.quadTo(143.0f, -709.0f, 197.0f, -763.0f);
+generalPath.quadTo(251.0f, -817.0f, 324.0f, -848.5f);
+generalPath.quadTo(397.0f, -880.0f, 480.0f, -880.0f);
+generalPath.quadTo(563.0f, -880.0f, 636.0f, -848.5f);
+generalPath.quadTo(709.0f, -817.0f, 763.0f, -763.0f);
+generalPath.quadTo(817.0f, -709.0f, 848.5f, -636.0f);
+generalPath.quadTo(880.0f, -563.0f, 880.0f, -480.0f);
+generalPath.quadTo(880.0f, -397.0f, 848.5f, -324.0f);
+generalPath.quadTo(817.0f, -251.0f, 763.0f, -197.0f);
+generalPath.quadTo(709.0f, -143.0f, 636.0f, -111.5f);
+generalPath.quadTo(563.0f, -80.0f, 480.0f, -80.0f);
 generalPath.closePath();
-generalPath.moveTo(5.0f, 11.5f);
-generalPath.curveTo(5.0f, 10.67f, 5.67f, 10.0f, 6.5f, 10.0f);
-generalPath.curveTo(7.33f, 10.0f, 8.0f, 10.67f, 8.0f, 11.5f);
-generalPath.curveTo(8.0f, 12.33f, 7.33f, 13.0f, 6.5f, 13.0f);
-generalPath.curveTo(5.67f, 13.0f, 5.0f, 12.33f, 5.0f, 11.5f);
-generalPath.closePath();
-generalPath.moveTo(11.0f, 7.5f);
-generalPath.curveTo(11.0f, 8.33f, 10.33f, 9.0f, 9.5f, 9.0f);
-generalPath.curveTo(8.67f, 9.0f, 8.0f, 8.33f, 8.0f, 7.5f);
-generalPath.curveTo(8.0f, 6.67f, 8.67f, 6.0f, 9.5f, 6.0f);
-generalPath.curveTo(10.33f, 6.0f, 11.0f, 6.67f, 11.0f, 7.5f);
+generalPath.moveTo(480.0f, -160.0f);
+generalPath.quadTo(614.0f, -160.0f, 707.0f, -253.0f);
+generalPath.quadTo(800.0f, -346.0f, 800.0f, -480.0f);
+generalPath.quadTo(800.0f, -614.0f, 707.0f, -707.0f);
+generalPath.quadTo(614.0f, -800.0f, 480.0f, -800.0f);
+generalPath.quadTo(346.0f, -800.0f, 253.0f, -707.0f);
+generalPath.quadTo(160.0f, -614.0f, 160.0f, -480.0f);
+generalPath.quadTo(160.0f, -346.0f, 253.0f, -253.0f);
+generalPath.quadTo(346.0f, -160.0f, 480.0f, -160.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(31, 31, 31, 255)) : new Color(31, 31, 31, 255);
 g.setPaint(paint);
 g.fill(shape);
+g.setTransform(transformsStack.pop());
 
 }
 
@@ -159,7 +169,7 @@ g.fill(shape);
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private palette_black_24dp() {
+	private album_24dp() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -228,7 +238,7 @@ g.fill(shape);
      * @return A new instance of this icon with specified dimensions.
      */
     public static RadianceIcon of(int width, int height) {
-       palette_black_24dp base = new palette_black_24dp();
+       album_24dp base = new album_24dp();
        base.width = width;
        base.height = height;
        return base;
@@ -242,7 +252,7 @@ g.fill(shape);
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static RadianceIconUIResource uiResourceOf(int width, int height) {
-       palette_black_24dp base = new palette_black_24dp();
+       album_24dp base = new album_24dp();
        base.width = width;
        base.height = height;
        return new RadianceIconUIResource(base);
@@ -254,7 +264,7 @@ g.fill(shape);
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return palette_black_24dp::new;
+        return album_24dp::new;
     }
 }
 

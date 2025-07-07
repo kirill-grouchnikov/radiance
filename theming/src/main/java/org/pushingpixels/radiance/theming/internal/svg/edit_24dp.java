@@ -18,7 +18,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Radiance SVG transcoder</a>.
  */
-public class edit_black_24dp implements RadianceIcon {
+public class edit_24dp implements RadianceIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -32,35 +32,52 @@ public class edit_black_24dp implements RadianceIcon {
 	private void _paint0(Graphics2D g,float origAlpha) {
 // 
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
+transformsStack.push(g.getTransform());
+g.transform(new AffineTransform(0.02500000037252903f, 0.0f, 0.0f, 0.02500000037252903f, -0.0f, 24.00000035762787f));
 // _0
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 // _0_0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_1
 if (generalPath == null) {
    generalPath = new GeneralPath();
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(3.0f, 17.25f);
-generalPath.lineTo(3.0f, 21.0f);
-generalPath.lineTo(6.75f, 21.0f);
-generalPath.lineTo(17.81f, 9.94f);
-generalPath.lineTo(14.059999f, 6.1899996f);
-generalPath.lineTo(3.0f, 17.25f);
+generalPath.moveTo(200.0f, -200.0f);
+generalPath.lineTo(257.0f, -200.0f);
+generalPath.lineTo(648.0f, -591.0f);
+generalPath.lineTo(591.0f, -648.0f);
+generalPath.lineTo(200.0f, -257.0f);
+generalPath.lineTo(200.0f, -200.0f);
 generalPath.closePath();
-generalPath.moveTo(20.71f, 7.04f);
-generalPath.curveTo(21.099998f, 6.65f, 21.099998f, 6.02f, 20.71f, 5.63f);
-generalPath.lineTo(18.369999f, 3.2900002f);
-generalPath.curveTo(17.98f, 2.9f, 17.349998f, 2.9f, 16.96f, 3.2900002f);
-generalPath.lineTo(15.129999f, 5.1200004f);
-generalPath.lineTo(18.88f, 8.870001f);
-generalPath.lineTo(20.71f, 7.040001f);
+generalPath.moveTo(120.0f, -120.0f);
+generalPath.lineTo(120.0f, -290.0f);
+generalPath.lineTo(648.0f, -817.0f);
+generalPath.quadTo(660.0f, -828.0f, 674.5f, -834.0f);
+generalPath.quadTo(689.0f, -840.0f, 705.0f, -840.0f);
+generalPath.quadTo(721.0f, -840.0f, 736.0f, -834.0f);
+generalPath.quadTo(751.0f, -828.0f, 762.0f, -816.0f);
+generalPath.lineTo(817.0f, -760.0f);
+generalPath.quadTo(829.0f, -749.0f, 834.5f, -734.0f);
+generalPath.quadTo(840.0f, -719.0f, 840.0f, -704.0f);
+generalPath.quadTo(840.0f, -688.0f, 834.5f, -673.5f);
+generalPath.quadTo(829.0f, -659.0f, 817.0f, -647.0f);
+generalPath.lineTo(290.0f, -120.0f);
+generalPath.lineTo(120.0f, -120.0f);
+generalPath.closePath();
+generalPath.moveTo(760.0f, -704.0f);
+generalPath.lineTo(704.0f, -760.0f);
+generalPath.lineTo(760.0f, -704.0f);
+generalPath.closePath();
+generalPath.moveTo(619.0f, -619.0f);
+generalPath.lineTo(591.0f, -648.0f);
+generalPath.lineTo(648.0f, -591.0f);
+generalPath.lineTo(619.0f, -619.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(31, 31, 31, 255)) : new Color(31, 31, 31, 255);
 g.setPaint(paint);
 g.fill(shape);
+g.setTransform(transformsStack.pop());
 
 }
 
@@ -104,7 +121,7 @@ g.fill(shape);
      * @return The Y of the bounding box of the original SVG image.
      */
     public static double getOrigY() {
-        return 2.9000000953674316;
+        return 3.0;
     }
 
 	/**
@@ -113,7 +130,7 @@ g.fill(shape);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 18.099998474121094;
+		return 18.0;
 	}
 
 	/**
@@ -122,7 +139,7 @@ g.fill(shape);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 18.100000381469727;
+		return 18.0;
 	}
 
 	/** The current width of this icon. */
@@ -135,7 +152,7 @@ g.fill(shape);
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private edit_black_24dp() {
+	private edit_24dp() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -204,7 +221,7 @@ g.fill(shape);
      * @return A new instance of this icon with specified dimensions.
      */
     public static RadianceIcon of(int width, int height) {
-       edit_black_24dp base = new edit_black_24dp();
+       edit_24dp base = new edit_24dp();
        base.width = width;
        base.height = height;
        return base;
@@ -218,7 +235,7 @@ g.fill(shape);
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static RadianceIconUIResource uiResourceOf(int width, int height) {
-       edit_black_24dp base = new edit_black_24dp();
+       edit_24dp base = new edit_24dp();
        base.width = width;
        base.height = height;
        return new RadianceIconUIResource(base);
@@ -230,7 +247,7 @@ g.fill(shape);
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return edit_black_24dp::new;
+        return edit_24dp::new;
     }
 }
 

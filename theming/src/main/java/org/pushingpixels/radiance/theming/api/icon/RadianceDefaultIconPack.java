@@ -110,7 +110,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
 
     @Override
     public RadianceIcon getFileChooserViewMenuIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = menu_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = menu_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
@@ -230,42 +230,42 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
 
     @Override
     public RadianceIcon getColorChooserColorPalettesIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = palette_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = palette_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
     @Override
     public RadianceIcon getColorChooserColorSlidersIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = menu_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = menu_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
     @Override
     public RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = grid_on_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = grid_on_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
     @Override
     public RadianceIcon getColorChooserColorWheelIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = album_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = album_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
     @Override
     public RadianceIcon getColorChooserCrayonsIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = edit_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = edit_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
     @Override
     public RadianceIcon getColorChooserImagePalettesIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = brightness_high_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = brightness_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }

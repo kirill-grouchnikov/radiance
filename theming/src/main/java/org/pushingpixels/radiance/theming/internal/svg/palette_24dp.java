@@ -18,7 +18,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Radiance SVG transcoder</a>.
  */
-public class grid_on_black_24dp implements RadianceIcon {
+public class palette_24dp implements RadianceIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -32,84 +32,101 @@ public class grid_on_black_24dp implements RadianceIcon {
 	private void _paint0(Graphics2D g,float origAlpha) {
 // 
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
+transformsStack.push(g.getTransform());
+g.transform(new AffineTransform(0.02500000037252903f, 0.0f, 0.0f, 0.02500000037252903f, -0.0f, 24.00000035762787f));
 // _0
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 // _0_0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_1
 if (generalPath == null) {
    generalPath = new GeneralPath();
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(20.0f, 2.0f);
-generalPath.lineTo(4.0f, 2.0f);
-generalPath.curveTo(2.9f, 2.0f, 2.0f, 2.9f, 2.0f, 4.0f);
-generalPath.lineTo(2.0f, 20.0f);
-generalPath.curveTo(2.0f, 21.1f, 2.9f, 22.0f, 4.0f, 22.0f);
-generalPath.lineTo(20.0f, 22.0f);
-generalPath.curveTo(21.1f, 22.0f, 22.0f, 21.1f, 22.0f, 20.0f);
-generalPath.lineTo(22.0f, 4.0f);
-generalPath.curveTo(22.0f, 2.9f, 21.1f, 2.0f, 20.0f, 2.0f);
+generalPath.moveTo(480.0f, -80.0f);
+generalPath.quadTo(398.0f, -80.0f, 325.0f, -111.5f);
+generalPath.quadTo(252.0f, -143.0f, 197.5f, -197.5f);
+generalPath.quadTo(143.0f, -252.0f, 111.5f, -325.0f);
+generalPath.quadTo(80.0f, -398.0f, 80.0f, -480.0f);
+generalPath.quadTo(80.0f, -563.0f, 112.5f, -636.0f);
+generalPath.quadTo(145.0f, -709.0f, 200.5f, -763.0f);
+generalPath.quadTo(256.0f, -817.0f, 330.0f, -848.5f);
+generalPath.quadTo(404.0f, -880.0f, 488.0f, -880.0f);
+generalPath.quadTo(568.0f, -880.0f, 639.0f, -852.5f);
+generalPath.quadTo(710.0f, -825.0f, 763.5f, -776.5f);
+generalPath.quadTo(817.0f, -728.0f, 848.5f, -661.5f);
+generalPath.quadTo(880.0f, -595.0f, 880.0f, -518.0f);
+generalPath.quadTo(880.0f, -403.0f, 810.0f, -341.5f);
+generalPath.quadTo(740.0f, -280.0f, 640.0f, -280.0f);
+generalPath.lineTo(566.0f, -280.0f);
+generalPath.quadTo(557.0f, -280.0f, 553.5f, -275.0f);
+generalPath.quadTo(550.0f, -270.0f, 550.0f, -264.0f);
+generalPath.quadTo(550.0f, -252.0f, 565.0f, -229.5f);
+generalPath.quadTo(580.0f, -207.0f, 580.0f, -178.0f);
+generalPath.quadTo(580.0f, -128.0f, 552.5f, -104.0f);
+generalPath.quadTo(525.0f, -80.0f, 480.0f, -80.0f);
 generalPath.closePath();
-generalPath.moveTo(8.0f, 20.0f);
-generalPath.lineTo(4.0f, 20.0f);
-generalPath.lineTo(4.0f, 16.0f);
-generalPath.lineTo(8.0f, 16.0f);
-generalPath.lineTo(8.0f, 20.0f);
+generalPath.moveTo(260.0f, -440.0f);
+generalPath.quadTo(286.0f, -440.0f, 303.0f, -457.0f);
+generalPath.quadTo(320.0f, -474.0f, 320.0f, -500.0f);
+generalPath.quadTo(320.0f, -526.0f, 303.0f, -543.0f);
+generalPath.quadTo(286.0f, -560.0f, 260.0f, -560.0f);
+generalPath.quadTo(234.0f, -560.0f, 217.0f, -543.0f);
+generalPath.quadTo(200.0f, -526.0f, 200.0f, -500.0f);
+generalPath.quadTo(200.0f, -474.0f, 217.0f, -457.0f);
+generalPath.quadTo(234.0f, -440.0f, 260.0f, -440.0f);
 generalPath.closePath();
-generalPath.moveTo(8.0f, 14.0f);
-generalPath.lineTo(4.0f, 14.0f);
-generalPath.lineTo(4.0f, 10.0f);
-generalPath.lineTo(8.0f, 10.0f);
-generalPath.lineTo(8.0f, 14.0f);
+generalPath.moveTo(380.0f, -600.0f);
+generalPath.quadTo(406.0f, -600.0f, 423.0f, -617.0f);
+generalPath.quadTo(440.0f, -634.0f, 440.0f, -660.0f);
+generalPath.quadTo(440.0f, -686.0f, 423.0f, -703.0f);
+generalPath.quadTo(406.0f, -720.0f, 380.0f, -720.0f);
+generalPath.quadTo(354.0f, -720.0f, 337.0f, -703.0f);
+generalPath.quadTo(320.0f, -686.0f, 320.0f, -660.0f);
+generalPath.quadTo(320.0f, -634.0f, 337.0f, -617.0f);
+generalPath.quadTo(354.0f, -600.0f, 380.0f, -600.0f);
 generalPath.closePath();
-generalPath.moveTo(8.0f, 8.0f);
-generalPath.lineTo(4.0f, 8.0f);
-generalPath.lineTo(4.0f, 4.0f);
-generalPath.lineTo(8.0f, 4.0f);
-generalPath.lineTo(8.0f, 8.0f);
+generalPath.moveTo(580.0f, -600.0f);
+generalPath.quadTo(606.0f, -600.0f, 623.0f, -617.0f);
+generalPath.quadTo(640.0f, -634.0f, 640.0f, -660.0f);
+generalPath.quadTo(640.0f, -686.0f, 623.0f, -703.0f);
+generalPath.quadTo(606.0f, -720.0f, 580.0f, -720.0f);
+generalPath.quadTo(554.0f, -720.0f, 537.0f, -703.0f);
+generalPath.quadTo(520.0f, -686.0f, 520.0f, -660.0f);
+generalPath.quadTo(520.0f, -634.0f, 537.0f, -617.0f);
+generalPath.quadTo(554.0f, -600.0f, 580.0f, -600.0f);
 generalPath.closePath();
-generalPath.moveTo(14.0f, 20.0f);
-generalPath.lineTo(10.0f, 20.0f);
-generalPath.lineTo(10.0f, 16.0f);
-generalPath.lineTo(14.0f, 16.0f);
-generalPath.lineTo(14.0f, 20.0f);
+generalPath.moveTo(700.0f, -440.0f);
+generalPath.quadTo(726.0f, -440.0f, 743.0f, -457.0f);
+generalPath.quadTo(760.0f, -474.0f, 760.0f, -500.0f);
+generalPath.quadTo(760.0f, -526.0f, 743.0f, -543.0f);
+generalPath.quadTo(726.0f, -560.0f, 700.0f, -560.0f);
+generalPath.quadTo(674.0f, -560.0f, 657.0f, -543.0f);
+generalPath.quadTo(640.0f, -526.0f, 640.0f, -500.0f);
+generalPath.quadTo(640.0f, -474.0f, 657.0f, -457.0f);
+generalPath.quadTo(674.0f, -440.0f, 700.0f, -440.0f);
 generalPath.closePath();
-generalPath.moveTo(14.0f, 14.0f);
-generalPath.lineTo(10.0f, 14.0f);
-generalPath.lineTo(10.0f, 10.0f);
-generalPath.lineTo(14.0f, 10.0f);
-generalPath.lineTo(14.0f, 14.0f);
-generalPath.closePath();
-generalPath.moveTo(14.0f, 8.0f);
-generalPath.lineTo(10.0f, 8.0f);
-generalPath.lineTo(10.0f, 4.0f);
-generalPath.lineTo(14.0f, 4.0f);
-generalPath.lineTo(14.0f, 8.0f);
-generalPath.closePath();
-generalPath.moveTo(20.0f, 20.0f);
-generalPath.lineTo(16.0f, 20.0f);
-generalPath.lineTo(16.0f, 16.0f);
-generalPath.lineTo(20.0f, 16.0f);
-generalPath.lineTo(20.0f, 20.0f);
-generalPath.closePath();
-generalPath.moveTo(20.0f, 14.0f);
-generalPath.lineTo(16.0f, 14.0f);
-generalPath.lineTo(16.0f, 10.0f);
-generalPath.lineTo(20.0f, 10.0f);
-generalPath.lineTo(20.0f, 14.0f);
-generalPath.closePath();
-generalPath.moveTo(20.0f, 8.0f);
-generalPath.lineTo(16.0f, 8.0f);
-generalPath.lineTo(16.0f, 4.0f);
-generalPath.lineTo(20.0f, 4.0f);
-generalPath.lineTo(20.0f, 8.0f);
+generalPath.moveTo(480.0f, -160.0f);
+generalPath.quadTo(489.0f, -160.0f, 494.5f, -165.0f);
+generalPath.quadTo(500.0f, -170.0f, 500.0f, -178.0f);
+generalPath.quadTo(500.0f, -192.0f, 485.0f, -211.0f);
+generalPath.quadTo(470.0f, -230.0f, 470.0f, -268.0f);
+generalPath.quadTo(470.0f, -310.0f, 499.0f, -335.0f);
+generalPath.quadTo(528.0f, -360.0f, 570.0f, -360.0f);
+generalPath.lineTo(640.0f, -360.0f);
+generalPath.quadTo(706.0f, -360.0f, 753.0f, -398.5f);
+generalPath.quadTo(800.0f, -437.0f, 800.0f, -518.0f);
+generalPath.quadTo(800.0f, -639.0f, 707.5f, -719.5f);
+generalPath.quadTo(615.0f, -800.0f, 488.0f, -800.0f);
+generalPath.quadTo(352.0f, -800.0f, 256.0f, -707.0f);
+generalPath.quadTo(160.0f, -614.0f, 160.0f, -480.0f);
+generalPath.quadTo(160.0f, -347.0f, 253.5f, -253.5f);
+generalPath.quadTo(347.0f, -160.0f, 480.0f, -160.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(31, 31, 31, 255)) : new Color(31, 31, 31, 255);
 g.setPaint(paint);
 g.fill(shape);
+g.setTransform(transformsStack.pop());
 
 }
 
@@ -184,7 +201,7 @@ g.fill(shape);
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private grid_on_black_24dp() {
+	private palette_24dp() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -253,7 +270,7 @@ g.fill(shape);
      * @return A new instance of this icon with specified dimensions.
      */
     public static RadianceIcon of(int width, int height) {
-       grid_on_black_24dp base = new grid_on_black_24dp();
+       palette_24dp base = new palette_24dp();
        base.width = width;
        base.height = height;
        return base;
@@ -267,7 +284,7 @@ g.fill(shape);
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static RadianceIconUIResource uiResourceOf(int width, int height) {
-       grid_on_black_24dp base = new grid_on_black_24dp();
+       palette_24dp base = new palette_24dp();
        base.width = width;
        base.height = height;
        return new RadianceIconUIResource(base);
@@ -279,7 +296,7 @@ g.fill(shape);
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return grid_on_black_24dp::new;
+        return palette_24dp::new;
     }
 }
 
