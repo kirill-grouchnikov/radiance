@@ -18,7 +18,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Radiance SVG transcoder</a>.
  */
-public class refresh_black_24dp implements RadianceIcon {
+public class lock_24dp implements RadianceIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -32,35 +32,71 @@ public class refresh_black_24dp implements RadianceIcon {
 	private void _paint0(Graphics2D g,float origAlpha) {
 // 
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
+transformsStack.push(g.getTransform());
+g.transform(new AffineTransform(0.02500000037252903f, 0.0f, 0.0f, 0.02500000037252903f, -0.0f, 24.00000035762787f));
 // _0
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 // _0_0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_1
 if (generalPath == null) {
    generalPath = new GeneralPath();
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(17.65f, 6.35f);
-generalPath.curveTo(16.2f, 4.9f, 14.21f, 4.0f, 12.0f, 4.0f);
-generalPath.curveTo(7.58f, 4.0f, 4.01f, 7.58f, 4.01f, 12.0f);
-generalPath.curveTo(4.01f, 16.42f, 7.58f, 20.0f, 12.0f, 20.0f);
-generalPath.curveTo(15.73f, 20.0f, 18.84f, 17.45f, 19.73f, 14.0f);
-generalPath.lineTo(17.65f, 14.0f);
-generalPath.curveTo(16.83f, 16.33f, 14.61f, 18.0f, 12.0f, 18.0f);
-generalPath.curveTo(8.690001f, 18.0f, 6.0f, 15.309999f, 6.0f, 12.0f);
-generalPath.curveTo(6.0f, 8.690001f, 8.690001f, 6.0f, 12.0f, 6.0f);
-generalPath.curveTo(13.66f, 6.0f, 15.14f, 6.69f, 16.22f, 7.7799997f);
-generalPath.lineTo(13.0f, 11.0f);
-generalPath.lineTo(20.0f, 11.0f);
-generalPath.lineTo(20.0f, 4.0f);
-generalPath.lineTo(17.65f, 6.35f);
+generalPath.moveTo(240.0f, -80.0f);
+generalPath.quadTo(207.0f, -80.0f, 183.5f, -103.5f);
+generalPath.quadTo(160.0f, -127.0f, 160.0f, -160.0f);
+generalPath.lineTo(160.0f, -560.0f);
+generalPath.quadTo(160.0f, -593.0f, 183.5f, -616.5f);
+generalPath.quadTo(207.0f, -640.0f, 240.0f, -640.0f);
+generalPath.lineTo(280.0f, -640.0f);
+generalPath.lineTo(280.0f, -720.0f);
+generalPath.quadTo(280.0f, -803.0f, 338.5f, -861.5f);
+generalPath.quadTo(397.0f, -920.0f, 480.0f, -920.0f);
+generalPath.quadTo(563.0f, -920.0f, 621.5f, -861.5f);
+generalPath.quadTo(680.0f, -803.0f, 680.0f, -720.0f);
+generalPath.lineTo(680.0f, -640.0f);
+generalPath.lineTo(720.0f, -640.0f);
+generalPath.quadTo(753.0f, -640.0f, 776.5f, -616.5f);
+generalPath.quadTo(800.0f, -593.0f, 800.0f, -560.0f);
+generalPath.lineTo(800.0f, -160.0f);
+generalPath.quadTo(800.0f, -127.0f, 776.5f, -103.5f);
+generalPath.quadTo(753.0f, -80.0f, 720.0f, -80.0f);
+generalPath.lineTo(240.0f, -80.0f);
+generalPath.closePath();
+generalPath.moveTo(240.0f, -160.0f);
+generalPath.lineTo(720.0f, -160.0f);
+generalPath.lineTo(720.0f, -560.0f);
+generalPath.lineTo(240.0f, -560.0f);
+generalPath.lineTo(240.0f, -160.0f);
+generalPath.closePath();
+generalPath.moveTo(480.0f, -280.0f);
+generalPath.quadTo(513.0f, -280.0f, 536.5f, -303.5f);
+generalPath.quadTo(560.0f, -327.0f, 560.0f, -360.0f);
+generalPath.quadTo(560.0f, -393.0f, 536.5f, -416.5f);
+generalPath.quadTo(513.0f, -440.0f, 480.0f, -440.0f);
+generalPath.quadTo(447.0f, -440.0f, 423.5f, -416.5f);
+generalPath.quadTo(400.0f, -393.0f, 400.0f, -360.0f);
+generalPath.quadTo(400.0f, -327.0f, 423.5f, -303.5f);
+generalPath.quadTo(447.0f, -280.0f, 480.0f, -280.0f);
+generalPath.closePath();
+generalPath.moveTo(360.0f, -640.0f);
+generalPath.lineTo(600.0f, -640.0f);
+generalPath.lineTo(600.0f, -720.0f);
+generalPath.quadTo(600.0f, -770.0f, 565.0f, -805.0f);
+generalPath.quadTo(530.0f, -840.0f, 480.0f, -840.0f);
+generalPath.quadTo(430.0f, -840.0f, 395.0f, -805.0f);
+generalPath.quadTo(360.0f, -770.0f, 360.0f, -720.0f);
+generalPath.lineTo(360.0f, -640.0f);
+generalPath.closePath();
+generalPath.moveTo(240.0f, -160.0f);
+generalPath.lineTo(240.0f, -560.0f);
+generalPath.lineTo(240.0f, -160.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(31, 31, 31, 255)) : new Color(31, 31, 31, 255);
 g.setPaint(paint);
 g.fill(shape);
+g.setTransform(transformsStack.pop());
 
 }
 
@@ -95,7 +131,7 @@ g.fill(shape);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 4.010000228881836;
+        return 4.0;
     }
 
     /**
@@ -104,7 +140,7 @@ g.fill(shape);
      * @return The Y of the bounding box of the original SVG image.
      */
     public static double getOrigY() {
-        return 4.0;
+        return 1.0;
     }
 
 	/**
@@ -113,7 +149,7 @@ g.fill(shape);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 15.989999771118164;
+		return 16.0;
 	}
 
 	/**
@@ -122,7 +158,7 @@ g.fill(shape);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 16.0;
+		return 21.0;
 	}
 
 	/** The current width of this icon. */
@@ -135,7 +171,7 @@ g.fill(shape);
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private refresh_black_24dp() {
+	private lock_24dp() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -204,7 +240,7 @@ g.fill(shape);
      * @return A new instance of this icon with specified dimensions.
      */
     public static RadianceIcon of(int width, int height) {
-       refresh_black_24dp base = new refresh_black_24dp();
+       lock_24dp base = new lock_24dp();
        base.width = width;
        base.height = height;
        return base;
@@ -218,7 +254,7 @@ g.fill(shape);
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static RadianceIconUIResource uiResourceOf(int width, int height) {
-       refresh_black_24dp base = new refresh_black_24dp();
+       lock_24dp base = new lock_24dp();
        base.width = width;
        base.height = height;
        return new RadianceIconUIResource(base);
@@ -230,7 +266,7 @@ g.fill(shape);
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return refresh_black_24dp::new;
+        return lock_24dp::new;
     }
 }
 

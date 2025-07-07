@@ -152,21 +152,21 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
 
     @Override
     public RadianceIcon getLockIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = lock_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = lock_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
     @Override
     public RadianceIcon getCapsLockIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = keyboard_capslock_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = keyboard_capslock_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
     @Override
     public RadianceIcon getInspectIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = adjust_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = mode_standby_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color ->
             preferredIconColorTokens.getOnContainerVariant());
         return result;
@@ -174,21 +174,21 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
 
     @Override
     public RadianceIcon getRefreshIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = refresh_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = refresh_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
     @Override
     public RadianceIcon getAllowedIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = add_circle_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = add_circle_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getOnContainer());
         return result;
     }
 
     @Override
     public RadianceIcon getNotAllowedIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
-        RadianceIcon result = remove_circle_black_24dp.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = block_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorTokens.getAccentOnContainer());
         return result;
     }
