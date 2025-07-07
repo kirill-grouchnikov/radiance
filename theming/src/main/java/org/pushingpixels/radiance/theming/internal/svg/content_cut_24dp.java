@@ -18,7 +18,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Radiance SVG transcoder</a>.
  */
-public class content_cut_black_24dp implements RadianceIcon {
+public class content_cut_24dp implements RadianceIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -32,69 +32,87 @@ public class content_cut_black_24dp implements RadianceIcon {
 	private void _paint0(Graphics2D g,float origAlpha) {
 // 
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
+transformsStack.push(g.getTransform());
+g.transform(new AffineTransform(0.02500000037252903f, 0.0f, 0.0f, 0.02500000037252903f, -0.0f, 24.00000035762787f));
 // _0
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 // _0_0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_1
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_2
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_3
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-// _0_4
 if (generalPath == null) {
    generalPath = new GeneralPath();
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(9.64f, 7.64f);
-generalPath.curveTo(9.87f, 7.14f, 10.0f, 6.59f, 10.0f, 6.0f);
-generalPath.curveTo(10.0f, 3.79f, 8.21f, 2.0f, 6.0f, 2.0f);
-generalPath.curveTo(3.79f, 2.0f, 2.0f, 3.79f, 2.0f, 6.0f);
-generalPath.curveTo(2.0f, 8.21f, 3.79f, 10.0f, 6.0f, 10.0f);
-generalPath.curveTo(6.59f, 10.0f, 7.14f, 9.87f, 7.64f, 9.64f);
-generalPath.lineTo(10.0f, 12.0f);
-generalPath.lineTo(7.6400003f, 14.36f);
-generalPath.curveTo(7.14f, 14.13f, 6.59f, 14.0f, 6.0f, 14.0f);
-generalPath.curveTo(3.79f, 14.0f, 2.0f, 15.79f, 2.0f, 18.0f);
-generalPath.curveTo(2.0f, 20.21f, 3.79f, 22.0f, 6.0f, 22.0f);
-generalPath.curveTo(8.21f, 22.0f, 10.0f, 20.21f, 10.0f, 18.0f);
-generalPath.curveTo(10.0f, 17.41f, 9.87f, 16.86f, 9.64f, 16.36f);
-generalPath.lineTo(12.0f, 14.0f);
-generalPath.lineTo(19.0f, 21.0f);
-generalPath.lineTo(22.0f, 21.0f);
-generalPath.lineTo(22.0f, 20.0f);
-generalPath.lineTo(9.64f, 7.64f);
+generalPath.moveTo(760.0f, -120.0f);
+generalPath.lineTo(480.0f, -400.0f);
+generalPath.lineTo(386.0f, -306.0f);
+generalPath.quadTo(394.0f, -291.0f, 397.0f, -274.0f);
+generalPath.quadTo(400.0f, -257.0f, 400.0f, -240.0f);
+generalPath.quadTo(400.0f, -174.0f, 353.0f, -127.0f);
+generalPath.quadTo(306.0f, -80.0f, 240.0f, -80.0f);
+generalPath.quadTo(174.0f, -80.0f, 127.0f, -127.0f);
+generalPath.quadTo(80.0f, -174.0f, 80.0f, -240.0f);
+generalPath.quadTo(80.0f, -306.0f, 127.0f, -353.0f);
+generalPath.quadTo(174.0f, -400.0f, 240.0f, -400.0f);
+generalPath.quadTo(257.0f, -400.0f, 274.0f, -397.0f);
+generalPath.quadTo(291.0f, -394.0f, 306.0f, -386.0f);
+generalPath.lineTo(400.0f, -480.0f);
+generalPath.lineTo(306.0f, -574.0f);
+generalPath.quadTo(291.0f, -566.0f, 274.0f, -563.0f);
+generalPath.quadTo(257.0f, -560.0f, 240.0f, -560.0f);
+generalPath.quadTo(174.0f, -560.0f, 127.0f, -607.0f);
+generalPath.quadTo(80.0f, -654.0f, 80.0f, -720.0f);
+generalPath.quadTo(80.0f, -786.0f, 127.0f, -833.0f);
+generalPath.quadTo(174.0f, -880.0f, 240.0f, -880.0f);
+generalPath.quadTo(306.0f, -880.0f, 353.0f, -833.0f);
+generalPath.quadTo(400.0f, -786.0f, 400.0f, -720.0f);
+generalPath.quadTo(400.0f, -703.0f, 397.0f, -686.0f);
+generalPath.quadTo(394.0f, -669.0f, 386.0f, -654.0f);
+generalPath.lineTo(880.0f, -160.0f);
+generalPath.lineTo(880.0f, -120.0f);
+generalPath.lineTo(760.0f, -120.0f);
 generalPath.closePath();
-generalPath.moveTo(6.0f, 8.0f);
-generalPath.curveTo(4.9f, 8.0f, 4.0f, 7.11f, 4.0f, 6.0f);
-generalPath.curveTo(4.0f, 4.89f, 4.9f, 4.0f, 6.0f, 4.0f);
-generalPath.curveTo(7.1f, 4.0f, 8.0f, 4.89f, 8.0f, 6.0f);
-generalPath.curveTo(8.0f, 7.11f, 7.1f, 8.0f, 6.0f, 8.0f);
+generalPath.moveTo(600.0f, -520.0f);
+generalPath.lineTo(520.0f, -600.0f);
+generalPath.lineTo(760.0f, -840.0f);
+generalPath.lineTo(880.0f, -840.0f);
+generalPath.lineTo(880.0f, -800.0f);
+generalPath.lineTo(600.0f, -520.0f);
 generalPath.closePath();
-generalPath.moveTo(6.0f, 20.0f);
-generalPath.curveTo(4.9f, 20.0f, 4.0f, 19.11f, 4.0f, 18.0f);
-generalPath.curveTo(4.0f, 16.89f, 4.9f, 16.0f, 6.0f, 16.0f);
-generalPath.curveTo(7.1f, 16.0f, 8.0f, 16.89f, 8.0f, 18.0f);
-generalPath.curveTo(8.0f, 19.11f, 7.1f, 20.0f, 6.0f, 20.0f);
+generalPath.moveTo(240.0f, -640.0f);
+generalPath.quadTo(273.0f, -640.0f, 296.5f, -663.5f);
+generalPath.quadTo(320.0f, -687.0f, 320.0f, -720.0f);
+generalPath.quadTo(320.0f, -753.0f, 296.5f, -776.5f);
+generalPath.quadTo(273.0f, -800.0f, 240.0f, -800.0f);
+generalPath.quadTo(207.0f, -800.0f, 183.5f, -776.5f);
+generalPath.quadTo(160.0f, -753.0f, 160.0f, -720.0f);
+generalPath.quadTo(160.0f, -687.0f, 183.5f, -663.5f);
+generalPath.quadTo(207.0f, -640.0f, 240.0f, -640.0f);
 generalPath.closePath();
-generalPath.moveTo(12.0f, 12.5f);
-generalPath.curveTo(11.72f, 12.5f, 11.5f, 12.28f, 11.5f, 12.0f);
-generalPath.curveTo(11.5f, 11.72f, 11.72f, 11.5f, 12.0f, 11.5f);
-generalPath.curveTo(12.28f, 11.5f, 12.5f, 11.72f, 12.5f, 12.0f);
-generalPath.curveTo(12.5f, 12.28f, 12.28f, 12.5f, 12.0f, 12.5f);
+generalPath.moveTo(480.0f, -460.0f);
+generalPath.quadTo(488.0f, -460.0f, 494.0f, -466.0f);
+generalPath.quadTo(500.0f, -472.0f, 500.0f, -480.0f);
+generalPath.quadTo(500.0f, -488.0f, 494.0f, -494.0f);
+generalPath.quadTo(488.0f, -500.0f, 480.0f, -500.0f);
+generalPath.quadTo(472.0f, -500.0f, 466.0f, -494.0f);
+generalPath.quadTo(460.0f, -488.0f, 460.0f, -480.0f);
+generalPath.quadTo(460.0f, -472.0f, 466.0f, -466.0f);
+generalPath.quadTo(472.0f, -460.0f, 480.0f, -460.0f);
 generalPath.closePath();
-generalPath.moveTo(19.0f, 3.0f);
-generalPath.lineTo(13.0f, 9.0f);
-generalPath.lineTo(15.0f, 11.0f);
-generalPath.lineTo(22.0f, 4.0f);
-generalPath.lineTo(22.0f, 3.0f);
+generalPath.moveTo(240.0f, -160.0f);
+generalPath.quadTo(273.0f, -160.0f, 296.5f, -183.5f);
+generalPath.quadTo(320.0f, -207.0f, 320.0f, -240.0f);
+generalPath.quadTo(320.0f, -273.0f, 296.5f, -296.5f);
+generalPath.quadTo(273.0f, -320.0f, 240.0f, -320.0f);
+generalPath.quadTo(207.0f, -320.0f, 183.5f, -296.5f);
+generalPath.quadTo(160.0f, -273.0f, 160.0f, -240.0f);
+generalPath.quadTo(160.0f, -207.0f, 183.5f, -183.5f);
+generalPath.quadTo(207.0f, -160.0f, 240.0f, -160.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(31, 31, 31, 255)) : new Color(31, 31, 31, 255);
 g.setPaint(paint);
 g.fill(shape);
+g.setTransform(transformsStack.pop());
 
 }
 
@@ -169,7 +187,7 @@ g.fill(shape);
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private content_cut_black_24dp() {
+	private content_cut_24dp() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -238,7 +256,7 @@ g.fill(shape);
      * @return A new instance of this icon with specified dimensions.
      */
     public static RadianceIcon of(int width, int height) {
-       content_cut_black_24dp base = new content_cut_black_24dp();
+       content_cut_24dp base = new content_cut_24dp();
        base.width = width;
        base.height = height;
        return base;
@@ -252,7 +270,7 @@ g.fill(shape);
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static RadianceIconUIResource uiResourceOf(int width, int height) {
-       content_cut_black_24dp base = new content_cut_black_24dp();
+       content_cut_24dp base = new content_cut_24dp();
        base.width = width;
        base.height = height;
        return new RadianceIconUIResource(base);
@@ -264,7 +282,7 @@ g.fill(shape);
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return content_cut_black_24dp::new;
+        return content_cut_24dp::new;
     }
 }
 
