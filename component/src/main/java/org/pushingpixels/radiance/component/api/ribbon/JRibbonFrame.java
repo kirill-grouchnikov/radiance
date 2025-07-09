@@ -247,7 +247,7 @@ public class JRibbonFrame extends JFrame {
                             switch (keyEvent.getID()) {
                                 case KeyEvent.KEY_RELEASED:
                                     boolean wasAltModif = prevAltModif;
-                                    prevAltModif = (keyEvent.getModifiersEx() == InputEvent.ALT_DOWN_MASK);
+                                    prevAltModif = ((keyEvent.getModifiersEx() & InputEvent.ALT_DOWN_MASK) != 0);
                                     if (wasAltModif && keyEvent.getKeyCode() == KeyEvent.VK_ALT) {
                                         break;
                                     }
