@@ -35,13 +35,12 @@ import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePai
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 
-import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 public class BladeDrawingUtils {
+
     public static void paintBladeBorder(Component c, Graphics2D g, int x, int y, int width,
         int height, float baseRadius, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
@@ -53,21 +52,18 @@ public class BladeDrawingUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(c);
+
                 float scaledRadius = (float) scaleFactor * baseRadius;
-                Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                    c.getComponentOrientation(),
-                    scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, null, 0.0f);
-                boolean skipInnerBorder = (c instanceof JTextComponent)
-                    || ((SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null)
-                    && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
-                Shape outlineInner = skipInnerBorder ? null :
-                    RadianceOutlineUtilities.getBaseOutline(
-                        c.getComponentOrientation(),
-                        scaledWidth - 1.0f, scaledHeight - 1.0f,
-                        Math.max(scaledRadius - 1.0f, 0.0f), null, 1.0f);
-                outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, outline,
-                    outlineInner, colorTokens);
+
+                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(c);
+                RadianceOutlinePainter.ShapeSuppler bladeShapeSupplier =
+                    (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeScaleFactor) ->
+                        RadianceOutlineUtilities.getBaseOutline(
+                            shapeComponent.getComponentOrientation(),
+                            shapeWidth - 1.0f, shapeHeight - 1.0f, scaledRadius, null, 0.0f);
+
+                outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, scaleFactor,
+                    bladeShapeSupplier, colorTokens);
             });
         graphics.dispose();
     }

@@ -308,18 +308,28 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
+    private static RadianceOutlinePainter treeIconOutlinePainter = new FlatOutlinePainter();
+    private static RadianceSurfacePainter treeIconSurfacePainter = new FractionBasedSurfacePainter(
+        "Tree icon",
+        new float[] {0.0f, 0.5f, 1.0f},
+        new ContainerColorTokensSingleColorQuery[] {
+            (tokens) -> tokens.isDark() ? tokens.getContainerSurfaceHighest()
+                : tokens.getContainerSurfaceLowest(),
+            (tokens) -> tokens.isDark() ? tokens.getContainerSurfaceHigh()
+                : tokens.getContainerSurfaceLow(),
+            ContainerColorTokens::getContainerSurface});
+    private static RadianceOutlinePainter.ShapeSuppler treeIconShapeSupplier =
+        (c, width, height, insets, scaleFactor) ->
+            RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(),
+                width, height,
+                (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
+                    RadianceSizeUtils.getComponentFontSize(c)) / 1.5f, null,
+                1.0f);
+
     public static void drawTreeIcon(Graphics2D g, JTree tree, int size,
         ContainerColorTokens colorTokens, boolean isCollapsed) {
 
-        RadianceSurfacePainter surfacePainter = new FractionBasedSurfacePainter("Tree icon",
-            new float[] {0.0f, 0.5f, 1.0f},
-            new ContainerColorTokensSingleColorQuery[] {
-                (tokens) -> tokens.isDark() ? tokens.getContainerSurfaceHighest()
-                    : tokens.getContainerSurfaceLowest(),
-                (tokens) -> tokens.isDark() ? tokens.getContainerSurfaceHigh()
-                    : tokens.getContainerSurfaceLow(),
-                ContainerColorTokens::getContainerSurface});
-        RadianceOutlinePainter outlinePainter = new FlatOutlinePainter();
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -330,17 +340,13 @@ public class BladeIconUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, size, size,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                    tree.getComponentOrientation(),
-                    scaledWidth, scaledHeight,
-                    (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                        RadianceSizeUtils.getComponentFontSize(tree)) / 1.5f, null,
-                    1.0f);
-
-                surfacePainter.paintSurface(graphics1X, tree, scaledWidth, scaledHeight,
+                Shape outline = treeIconShapeSupplier.getShape(tree,
+                    scaledWidth, scaledHeight, 0.0f, scaleFactor);
+                treeIconSurfacePainter.paintSurface(graphics1X, tree, scaledWidth, scaledHeight,
                     outline, colorTokens);
-                outlinePainter.paintOutline(graphics1X, tree, scaledWidth, scaledHeight, outline,
-                    null, colorTokens);
+
+                treeIconOutlinePainter.paintOutline(graphics1X, tree, scaledWidth, scaledHeight,
+                    scaleFactor, treeIconShapeSupplier, colorTokens);
 
                 Color signColor = colorTokens.getOnContainer();
                 graphics1X.setColor(signColor);

@@ -150,21 +150,25 @@ public class HighlightPainterUtils {
                 int deltaTop = openSides.contains(RadianceThemingSlices.Side.TOP) ? openDelta : 0;
                 int deltaBottom = openSides.contains(RadianceThemingSlices.Side.BOTTOM) ? openDelta : 0;
 
-                Shape outline = getBorderPath(orientation, scaledWidth, scaledHeight, 0.0f, openSides);
+                RadianceOutlinePainter.ShapeSuppler outlineShapeSupplier =
+                    (c, shapeWidth, shapeHeight, shapeInsets, shapeScaleFactor) ->
+                        getBorderPath(c.getComponentOrientation(), shapeWidth, shapeHeight,
+                            shapeInsets, openSides);
+
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(comp, borderAlpha, graphics1X));
-                Shape outlineInner = getBorderPath(orientation, scaledWidth, scaledHeight, 1.0f, openSides);
 
                 highlightOutlinePainter.paintOutline(graphics1X, comp,
                     scaledWidth + deltaLeft + deltaRight,
                     scaledHeight + deltaTop + deltaBottom,
-                    outline, outlineInner, colorTokens);
+                    scaleFactor, outlineShapeSupplier, colorTokens);
+
                 graphics1X.translate(deltaLeft, deltaTop);
             });
         graphics.dispose();
     }
 
     private static Path2D getBorderPath(ComponentOrientation orientation,
-            int width, int height, float insets,
+            float width, float height, float insets,
             Set<RadianceThemingSlices.Side> openSides) {
         RadianceThemingSlices.Side leftSide =
                 orientation.isLeftToRight()

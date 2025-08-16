@@ -31,6 +31,8 @@ package org.pushingpixels.radiance.theming.api.painter.outline;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 
 /**
@@ -89,14 +91,23 @@ public class CompositeOutlinePainter implements RadianceOutlinePainter {
 	}
 
     @Override
-    public void paintOutline(Graphics g, Component c, float width, float height, 
+    public void paintOutline(Graphics g, Component c, float width, float height,
         double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
 
+        // Skip inner outline in text components, and in renderer-hosted components in the file
+        // chooser container
+        boolean skipInnerOutline = (c instanceof JTextComponent)
+            || ((SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null)
+            && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
+
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.translate(1, 1);
-        this.inner.paintOutline(g2d, c, width - 2.0f, height - 2.0f, scaleFactor,
-            shapeSupplier, colorTokens);
-        g2d.translate(-1, -1);
+
+        if (!skipInnerOutline) {
+            g2d.translate(1, 1);
+            this.inner.paintOutline(g2d, c, width - 2.0f, height - 2.0f, scaleFactor,
+                shapeSupplier, colorTokens);
+            g2d.translate(-1, -1);
+        }
         this.outer.paintOutline(g2d, c, width, height, scaleFactor, shapeSupplier,
             colorTokens);
         g2d.dispose();
