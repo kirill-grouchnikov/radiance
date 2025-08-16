@@ -88,7 +88,21 @@ public class CompositeOutlinePainter implements RadianceOutlinePainter {
 		}
 	}
 
-	@Override
+    @Override
+    public void paintOutline(Graphics g, Component c, float width, float height, 
+        double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
+
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.translate(1, 1);
+        this.inner.paintOutline(g2d, c, width - 2.0f, height - 2.0f, scaleFactor,
+            shapeSupplier, colorTokens);
+        g2d.translate(-1, -1);
+        this.outer.paintOutline(g2d, c, width, height, scaleFactor, shapeSupplier,
+            colorTokens);
+        g2d.dispose();
+    }
+
+    @Override
 	public String getDisplayName() {
 		return this.displayName;
 	}

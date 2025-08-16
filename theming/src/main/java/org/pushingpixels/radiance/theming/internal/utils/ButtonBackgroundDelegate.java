@@ -59,6 +59,16 @@ import java.util.Set;
 public class ButtonBackgroundDelegate {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
+    private RadianceOutlinePainter.ShapeSuppler shapeSupplier =
+        (c, width, height, insets, scaleFactor) -> {
+
+        AbstractButton button = (AbstractButton) c;
+        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+
+        return shaper.getButtonOutline(button, width, height, insets,
+            scaleFactor);
+    };
+
     private void drawBackground(
         Graphics2D graphics, AbstractButton button,
         RadianceButtonShaper shaper, RadianceSurfacePainter surfacePainter,
@@ -175,18 +185,13 @@ public class ButtonBackgroundDelegate {
             }
 
             if (isBorderPainted) {
-                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
-                        shaper.getButtonOutline(button, 1.0f,
-                                scaledWidth + deltaLeft + deltaRight,
-                                scaledHeight + deltaTop + deltaBottom, scaleFactor, true) : null;
                 float containerOutlineAlpha = overallAlpha *
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
                     overallAlpha * containerOutlineAlpha, g));
-                outlinePainter.paintOutline(graphics1X, button,
-                        scaledWidth + deltaLeft + deltaRight,
-                        scaledHeight + deltaTop + deltaBottom, outlineOuter, outlineInner,
-                        colorTokens);
+                outlinePainter.paintOutline(graphics1X, button, scaledWidth + deltaLeft + deltaRight,
+                    scaledHeight + deltaTop + deltaBottom, scaleFactor, this.shapeSupplier,
+                    colorTokens);
             }
             graphics1X.translate(deltaLeft, deltaTop);
         });

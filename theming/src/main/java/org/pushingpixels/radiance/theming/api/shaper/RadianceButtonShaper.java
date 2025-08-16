@@ -55,7 +55,10 @@ public interface RadianceButtonShaper extends RadianceTrait {
      * @return The outline path for the specified button.
      */
     Shape getButtonOutline(AbstractButton button, float extraInsets,
-            float width, float height, double scaleFactor, boolean isInner);
+        float width, float height, double scaleFactor, boolean isInner);
+
+    Shape getButtonOutline(AbstractButton button,
+        float width, float height, float insets, double scaleFactor);
 
     /**
      * Returns the border for the specified button.

@@ -44,6 +44,17 @@ import java.awt.*;
 import java.awt.geom.*;
 
 public class BladeIconUtils {
+    private static RadianceOutlinePainter.ShapeSuppler checkBoxShapeSupplier =
+        (c, width, height, insets, scaleFactor) -> {
+
+        float cornerRadius = (float) scaleFactor *
+            RadianceSizeUtils.getClassicButtonCornerRadius(
+                RadianceSizeUtils.getComponentFontSize(c));
+
+        return RadianceOutlineUtilities.getBaseOutline(
+            c.getComponentOrientation(), width, height, cornerRadius, null, insets);
+    };
+
     public static void drawCheckBox(Graphics2D g, JComponent component, RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility,
@@ -62,10 +73,6 @@ public class BladeIconUtils {
                         RadianceSizeUtils.getComponentFontSize(component));
 
                 int outlineDim = scaledWidth - 1;
-                Shape outlineOuter = RadianceOutlineUtilities.getBaseOutline(
-                    component.getComponentOrientation(),
-                    outlineDim, outlineDim,
-                    cornerRadius, null, 0.0f);
 
                 float containerAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
@@ -78,16 +85,11 @@ public class BladeIconUtils {
                     outlineDim, outlineDim,
                     outlineFill, colorTokens);
 
-                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
-                    RadianceOutlineUtilities.getBaseOutline(
-                        component.getComponentOrientation(),
-                        outlineDim, outlineDim, cornerRadius, null, 1.0f)
-                    : null;
                 float containerOutlineAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
                 outlinePainter.paintOutline(graphics1X, component, outlineDim, outlineDim,
-                    outlineOuter, outlineInner, colorTokens);
+                    scaleFactor, checkBoxShapeSupplier, colorTokens);
 
                 float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
                     1.0f : checkMarkVisibility;
@@ -126,6 +128,10 @@ public class BladeIconUtils {
         graphics1X.draw(path);
     }
 
+    private static RadianceOutlinePainter.ShapeSuppler radioButtonShapeSupplier =
+        (c, width, height, insets, scaleFactor) ->
+            new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height -  - 2.0f * insets);
+
     public static void drawRadioButton(Graphics2D g, AbstractButton button, RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility) {
@@ -139,7 +145,6 @@ public class BladeIconUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 int outlineDim = scaledWidth;
-                Shape outlineOuter = new Ellipse2D.Float(0.0f, 0.0f, outlineDim, outlineDim);
 
                 float containerAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
@@ -149,14 +154,11 @@ public class BladeIconUtils {
                     new Ellipse2D.Float(0.5f, 0.5f, outlineDim, outlineDim),
                     colorTokens);
 
-                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
-                    new Ellipse2D.Float(1.0f, 1.0f, outlineDim - 2.0f, outlineDim - 2.0f)
-                    : null;
                 float containerOutlineAlpha = currentState.isDisabled()
                     ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
                 graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
                 outlinePainter.paintOutline(graphics1X, button, outlineDim, outlineDim,
-                    outlineOuter, outlineInner, colorTokens);
+                    scaleFactor, radioButtonShapeSupplier, colorTokens);
 
                 float rc = outlineDim / 2.0f + 0.5f;
                 float radius = outlineDim / 4.5f;
@@ -186,6 +188,11 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
+    private static RadianceOutlinePainter.ShapeSuppler sliderThumbHorizontalShapeSupplier =
+        (c, width, height, insets, scaleFactor) ->
+            RadianceOutlineUtilities.getTriangleButtonOutline(
+                width, height, 2 * (float) scaleFactor, 1.0f + insets);
+
     public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
         RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
@@ -208,19 +215,20 @@ public class BladeIconUtils {
                         scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
                     colorTokens);
 
-                Shape outlineOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
-                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
-                Shape outlineInner = RadianceOutlineUtilities.getTriangleButtonOutline(
-                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
-                outlinePainter.paintOutline(graphics1X, slider,
-                    scaledWidth, scaledHeight, outlineOuter, outlineInner, colorTokens);
+                outlinePainter.paintOutline(graphics1X, slider, scaledWidth, scaledHeight,
+                    scaleFactor, sliderThumbHorizontalShapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
+
+    private static RadianceOutlinePainter.ShapeSuppler sliderThumbVerticalShapeSupplier =
+        (c, width, height, insets, scaleFactor) ->
+            RadianceOutlineUtilities.getTriangleButtonOutline(
+                width, height, 2 * (float) scaleFactor, 1.0f + insets);
 
     public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
         RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter,
@@ -254,20 +262,19 @@ public class BladeIconUtils {
                         scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
                     colorTokens);
 
-                Shape outlineOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
-                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
-                Shape outlineInner = RadianceOutlineUtilities.getTriangleButtonOutline(
-                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
-                outlinePainter.paintOutline(graphics1X, slider,
-                    scaledWidth, scaledHeight,
-                    outlineOuter, outlineInner, colorTokens);
+                outlinePainter.paintOutline(graphics1X, slider, scaledWidth, scaledHeight,
+                    scaleFactor, sliderThumbHorizontalShapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
+
+    private static RadianceOutlinePainter.ShapeSuppler sliderThumbRoundShapeSupplier =
+        (c, width, height, insets, scaleFactor) ->
+            new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
     public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
         RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter,
@@ -291,16 +298,12 @@ public class BladeIconUtils {
                         scaledWidth - 2.0f, scaledHeight - 2.0f),
                     colorTokens);
 
-                Shape outlineOuter = new Ellipse2D.Float(0.0f, 0.0f,
-                    scaledWidth - 1.0f, scaledHeight - 1.0f);
-                Shape outlineInner = new Ellipse2D.Float(1.0f, 1.0f,
-                    scaledWidth - 3.0f, scaledHeight - 3.0f);
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
-                outlinePainter.paintOutline(graphics1X, slider,
-                    scaledWidth, scaledHeight, outlineOuter, outlineInner, colorTokens);
+                outlinePainter.paintOutline(graphics1X, slider, scaledWidth, scaledHeight,
+                    scaleFactor, sliderThumbRoundShapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
@@ -580,6 +583,11 @@ public class BladeIconUtils {
         return AlphaComposite.getInstance(AlphaComposite.SRC_OVER, finalAlpha);
     }
 
+
+    private static RadianceOutlinePainter.ShapeSuppler splitDividerBumpShapeSupplier =
+        (c, width, height, insets, scaleFactor) ->
+            new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
+
     public static void drawSplitDividerBumpImage(Graphics g, RadianceSplitPaneDivider divider,
         int x, int y, int width, int height, boolean isHorizontal,
         ContainerColorTokens colorTokens, ComponentState state) {
@@ -621,7 +629,7 @@ public class BladeIconUtils {
                         graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha * 0.32f));
                         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(divider);
                         outlinePainter.paintOutline(graphics1X, divider, bumpDotDiameter, bumpDotDiameter,
-                            new Ellipse2D.Float(0, 0, bumpDotDiameter, bumpDotDiameter), null, colorTokens);
+                            scaleFactor, splitDividerBumpShapeSupplier, colorTokens);
 
                         graphics1X.translate(-cx, -cy);
                     }

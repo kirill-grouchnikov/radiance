@@ -45,6 +45,10 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public interface RadianceOutlinePainter extends RadianceTrait {
+    interface ShapeSuppler {
+        Shape getShape(Component c, float width, float height, float insets, double scaleFactor);
+    }
+
 	/**
 	 * Paints the outline.
 	 *
@@ -66,6 +70,9 @@ public interface RadianceOutlinePainter extends RadianceTrait {
 	 */
 	void paintOutline(Graphics g, Component c, float width, float height, Shape outline,
 			Shape innerOutline, ContainerColorTokens colorTokens);
+
+    void paintOutline(Graphics g, Component c, float width, float height, double scaleFactor,
+        ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens);
 
 	/**
 	 * Returns boolean indication whether this outline painter is painting the

@@ -118,7 +118,43 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
 		graphics.dispose();
 	}
 
-	@Override
+    @Override
+    public void paintOutline(Graphics g, Component c, float width, float height,
+        double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
+
+        Shape outline = shapeSupplier.getShape(c, width, height, 0.0f, scaleFactor);
+        if (outline == null)
+            return;
+
+        Graphics2D graphics = (Graphics2D) g.create();
+
+        Color[] drawColors = new Color[this.fractions.length];
+        for (int i = 0; i < this.fractions.length; i++) {
+            ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
+            Color fromQuery = colorQuery.query(colorTokens);
+            int alpha = this.alphas[i];
+            int finalAlpha = fromQuery.getAlpha() * alpha / 255;
+            Color finalColor = RadianceColorUtilities.getAlphaColor(fromQuery, finalAlpha);
+            drawColors[i] = finalColor;
+        }
+
+        // issue 433 - the "c" can be null when painting
+        // the border of a tree icon used outside the
+        // JTree context.
+        boolean isSpecialButton = (c != null) && c.getClass()
+            .isAnnotationPresent(RadianceInternalArrowButton.class);
+        int joinKind = isSpecialButton ? BasicStroke.JOIN_MITER : BasicStroke.JOIN_ROUND;
+        int capKind = isSpecialButton ? BasicStroke.CAP_SQUARE : BasicStroke.CAP_BUTT;
+        graphics.setStroke(new BasicStroke(1.0f, capKind, joinKind));
+
+        MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, this.fractions,
+            drawColors, CycleMethod.REPEAT);
+        graphics.setPaint(gradient);
+        graphics.draw(outline);
+        graphics.dispose();
+    }
+
+    @Override
 	public boolean isPaintingInnerOutline() {
 		return false;
 	}

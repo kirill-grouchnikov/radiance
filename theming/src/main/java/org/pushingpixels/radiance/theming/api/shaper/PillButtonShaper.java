@@ -51,7 +51,9 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
      * Cache of already computed outlines.
      */
     private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
-            "PillButtonShaper");
+        "PillButtonShaper");
+    private final static LazyResettableHashMap<Shape> outlinesNew = new LazyResettableHashMap<>(
+        "PillButtonShaperNew");
 
     @Override
     public String getDisplayName() {
@@ -83,6 +85,27 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
                 width - 1, height - 1, radius, straightSides,
                 extraInsets);
         outlines.put(key, result);
+        return result;
+    }
+
+    @Override
+    public Shape getButtonOutline(AbstractButton button, float width, float height, float insets, double scaleFactor) {
+        Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(button,
+            RadianceSynapse.BUTTON_STRAIGHT_SIDE);
+
+        float radius = (float) scaleFactor * this.getCornerRadius(button, insets);
+
+        HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius, insets);
+
+        Shape result = outlinesNew.get(key);
+        if (result != null) {
+            return result;
+        }
+
+        result = RadianceOutlineUtilities.getBaseOutline(
+            button.getComponentOrientation(),
+            width - 1, height - 1, radius, straightSides, insets);
+        outlinesNew.put(key, result);
         return result;
     }
 
