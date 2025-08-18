@@ -74,22 +74,6 @@ public class CompositeOutlinePainter implements RadianceOutlinePainter {
 		this.inner = inner;
 	}
 
-	@Override
-	public boolean isPaintingInnerOutline() {
-		return true;
-	}
-
-	@Override
-	public void paintOutline(Graphics g, Component c, float width, float height, Shape outline,
-		Shape innerOutline, ContainerColorTokens colorTokens) {
-		if (innerOutline != null) {
-			this.inner.paintOutline(g, c, width, height, innerOutline, null, colorTokens);
-		}
-		if (outline != null) {
-			this.outer.paintOutline(g, c, width, height, outline, null, colorTokens);
-		}
-	}
-
     @Override
     public void paintOutline(Graphics g, Component c, float width, float height,
         double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
