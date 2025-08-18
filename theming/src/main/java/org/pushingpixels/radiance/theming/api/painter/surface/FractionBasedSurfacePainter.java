@@ -76,7 +76,7 @@ public class FractionBasedSurfacePainter extends FractionBasedPainter implements
         }
 
         MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, this.fractions,
-            drawColors, CycleMethod.REPEAT);
+            drawColors, CycleMethod.NO_CYCLE);
         graphics.setPaint(gradient);
         graphics.fill(outline);
         graphics.dispose();

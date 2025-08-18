@@ -152,7 +152,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 
 		MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0,
 			topMostWithSameDecorationAreaType.getHeight(), this.fractions,
-			drawColors, CycleMethod.REPEAT);
+			drawColors, CycleMethod.NO_CYCLE);
 		g2d.setPaint(gradient);
 		g2d.translate(0, -dy);
 		g2d.fillRect(0, 0, width, topMostWithSameDecorationAreaType.getHeight());
@@ -184,7 +184,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 
 		MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0,
 			topMostWithSameDecorationAreaType.getHeight(), this.fractions,
-			drawColors, CycleMethod.REPEAT);
+			drawColors, CycleMethod.NO_CYCLE);
 		g2d.setPaint(gradient);
 		g2d.translate(0, -dy);
 		g2d.fill(outline);

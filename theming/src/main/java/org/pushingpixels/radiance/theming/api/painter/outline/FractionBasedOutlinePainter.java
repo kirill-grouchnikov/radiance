@@ -148,7 +148,7 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
         graphics.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
         MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, this.fractions,
-            drawColors, CycleMethod.REPEAT);
+            drawColors, CycleMethod.NO_CYCLE);
         graphics.setPaint(gradient);
         graphics.draw(outline);
         graphics.dispose();

@@ -54,6 +54,17 @@ import java.util.Map;
 public class ComboBoxBackgroundDelegate {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
+    private RadianceOutlinePainter.ShapeSuppler shapeSupplier =
+        (c, width, height, insets, scaleFactor) -> {
+            int fontSize = RadianceSizeUtils.getComponentFontSize(c);
+            float radius = (float) scaleFactor *
+                RadianceSizeUtils.getClassicButtonCornerRadius(fontSize) - insets;
+
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(),
+                width, height, radius, null, insets);
+        };
+
     public void drawBackground(
             Graphics2D graphics, JComboBox combo,
             RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter, int width,
@@ -83,29 +94,17 @@ public class ComboBoxBackgroundDelegate {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                int comboFontSize = RadianceSizeUtils.getComponentFontSize(combo);
-                float radius = (float) scaleFactor *
-                    RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
 
-                Shape outlineOuter = RadianceOutlineUtilities.getBaseOutline(
-                    combo.getComponentOrientation(),
-                    scaledWidth - 1, scaledHeight - 1, radius, null, 0);
-                // If the border is painted, compute a separate outline for the fill.
+                // Compute a separate outline for the fill.
                 // Otherwise pixels on the edge can "spill" outside
                 // the outline. Those pixels will be drawn by the outline painter.
-                Shape outlineFill = RadianceOutlineUtilities.getBaseOutline(
-                    combo.getComponentOrientation(),
-                    scaledWidth, scaledHeight, radius, null, 0.5f);
+                Shape outlineFill = shapeSupplier.getShape(combo,
+                    scaledWidth, scaledHeight, 0.5f, scaleFactor);
                 surfacePainter.paintSurface(graphics1X, combo, scaledWidth, scaledHeight,
                     outlineFill, colorTokens);
 
-                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
-                    RadianceOutlineUtilities.getBaseOutline(
-                        combo.getComponentOrientation(),
-                        scaledWidth - 1, scaledHeight - 1, radius - 1, null, 1)
-                    : null;
-                outlinePainter.paintOutline(graphics1X, combo, scaledWidth, scaledHeight,
-                    outlineOuter, outlineInner, colorTokens);
+                outlinePainter.paintOutline(graphics1X, combo, scaledWidth - 1, scaledHeight - 1,
+                    scaleFactor, shapeSupplier, colorTokens);
             });
     }
 
