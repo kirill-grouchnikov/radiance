@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.common.internal.contrib.jgoodies.looks.LookUtils;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
@@ -50,6 +51,16 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public final class RadianceThemingSlices {
+    private static RadianceOutlinePainter.ShapeSuppler buttonShapeSupplier =
+        (c, width, height, insets, scaleFactor) -> {
+
+            AbstractButton button = (AbstractButton) c;
+            RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+
+            return shaper.getButtonOutline(button, width, height, insets,
+                scaleFactor);
+        };
+
     /**
      * Listener for the locale changes.
      *
@@ -238,10 +249,10 @@ public final class RadianceThemingSlices {
                         1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                         new float[]{dashLength, dashGap}, dashPhase));
 
-                    Shape outline = shaper.getButtonOutline((AbstractButton) mainComp, 1.0f,
+                    Shape outline = buttonShapeSupplier.getShape(mainComp,
                         (float) scaleFactor * mainComp.getWidth(),
                         (float) scaleFactor * mainComp.getHeight(),
-                        scaleFactor, false);
+                        1.0f, scaleFactor);
                     graphics1X.draw(outline);
                 } else {
                     Shape outline = (focusShape != null) ? focusShape
@@ -294,9 +305,10 @@ public final class RadianceThemingSlices {
                             new float[]{dashLength, dashGap}, dashPhase));
                         float insetsPix = extraPadding;
 
-                        Shape outline = shaper.getButtonOutline((AbstractButton) mainComp, insetsPix,
+                        Shape outline = buttonShapeSupplier.getShape(mainComp,
                             (float) scaleFactor * mainComp.getWidth(),
-                            (float) scaleFactor * mainComp.getHeight(), scaleFactor, true);
+                            (float) scaleFactor * mainComp.getHeight(),
+                            insetsPix, scaleFactor);
                         graphics1X.draw(outline);
                     }
                 } else {
@@ -344,10 +356,10 @@ public final class RadianceThemingSlices {
                     }
 
                     if (shaper.isProportionate()) {
-                        Shape outline = shaper.getButtonOutline((AbstractButton) mainComp, extraPadding,
+                        Shape outline = buttonShapeSupplier.getShape(mainComp,
                             (float) scaleFactor * mainComp.getWidth(),
                             (float) scaleFactor * mainComp.getHeight(),
-                            scaleFactor, true);
+                            1.0f, scaleFactor);
                         graphics1X.draw(outline);
                     }
                 } else {

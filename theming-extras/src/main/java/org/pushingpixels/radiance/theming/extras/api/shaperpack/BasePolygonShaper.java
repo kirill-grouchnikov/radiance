@@ -161,17 +161,6 @@ public abstract class BasePolygonShaper implements RadianceButtonShaper {
     }
 
     @Override
-    public Shape getButtonOutline(AbstractButton button, float extraInsets, float width, float height,
-            double scaleFactor, boolean isInner) {
-        if (RadianceCoreUtilities.hasText(button)) {
-            return this.canonicalPath.getPath(width, height, extraInsets);
-        }
-
-        return RadianceOutlineUtilities.getBaseOutline(button.getComponentOrientation(),
-                width, height, 2, null, extraInsets);
-    }
-
-    @Override
     public Shape getButtonOutline(AbstractButton button, float width, float height, float insets, double scaleFactor) {
         if (RadianceCoreUtilities.hasText(button)) {
             return this.canonicalPath.getPath(width, height, insets);

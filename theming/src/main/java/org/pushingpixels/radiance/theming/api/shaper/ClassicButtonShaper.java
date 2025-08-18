@@ -49,8 +49,6 @@ import java.util.Set;
 public class ClassicButtonShaper implements RadianceButtonShaper, RectangularButtonShaper {
     /** Cache of already computed outlines. */
     private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
-        "ClassicButtonShaper");
-    private final static LazyResettableHashMap<Shape> outlinesNew = new LazyResettableHashMap<>(
         "ClassicButtonShaperNew");
 
     /**
@@ -64,35 +62,6 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
     }
 
     @Override
-    public Shape getButtonOutline(AbstractButton button, float extraInsets, float width, float height,
-            double scaleFactor, boolean isInner) {
-        Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(button,
-                RadianceSynapse.BUTTON_STRAIGHT_SIDE);
-
-        float radius = (float) scaleFactor * this.getCornerRadius(button, extraInsets);
-        if (isInner) {
-            radius -= 1.0f;
-            if (radius < 0.0f)
-                radius = 0.0f;
-        }
-
-        HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius,
-                extraInsets);
-
-        Shape result = outlines.get(key);
-        if (result != null) {
-            return result;
-        }
-
-        result = RadianceOutlineUtilities.getBaseOutline(
-                button.getComponentOrientation(),
-                width - 1, height - 1, radius, straightSides,
-                extraInsets);
-        outlines.put(key, result);
-        return result;
-    }
-
-    @Override
     public Shape getButtonOutline(AbstractButton button, float width, float height, float insets,
         double scaleFactor) {
         Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(button,
@@ -102,7 +71,7 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
 
         HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius, insets);
 
-        Shape result = outlinesNew.get(key);
+        Shape result = outlines.get(key);
         if (result != null) {
             return result;
         }
@@ -110,7 +79,7 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
         result = RadianceOutlineUtilities.getBaseOutline(
             button.getComponentOrientation(),
             width - 1, height - 1, radius, straightSides, insets);
-        outlinesNew.put(key, result);
+        outlines.put(key, result);
         return result;
     }
 

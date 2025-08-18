@@ -59,7 +59,7 @@ import java.util.Set;
 public class ButtonBackgroundDelegate {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
-    private RadianceOutlinePainter.ShapeSuppler shapeSupplier =
+    private static RadianceOutlinePainter.ShapeSuppler buttonShapeSupplier =
         (c, width, height, insets, scaleFactor) -> {
 
         AbstractButton button = (AbstractButton) c;
@@ -162,19 +162,19 @@ public class ButtonBackgroundDelegate {
             int deltaBottom =
                     ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
 
-            Shape outlineOuter = shaper.getButtonOutline(button, 0.0f,
-                    scaledWidth + deltaLeft + deltaRight, scaledHeight + deltaTop + deltaBottom,
-                    scaleFactor, false);
+            Shape outlineOuter = this.buttonShapeSupplier.getShape(button,
+                scaledWidth + deltaLeft + deltaRight, scaledHeight + deltaTop + deltaBottom,
+                0.0f,scaleFactor);
 
             graphics1X.translate(-deltaLeft, -deltaTop);
             if (isContentAreaFilled) {
                 // If the border is painted, compute a separate outline for the fill.
                 // Otherwise pixels on the edge can "spill" outside
                 // the outline. Those pixels will be drawn by the outline painter.
-                Shape outlineFill = isBorderPainted ? shaper.getButtonOutline(button, 0.5f,
-                        scaledWidth + deltaLeft + deltaRight + 1.0f,
-                        scaledHeight + deltaTop + deltaBottom + 1.0f, scaleFactor, false) :
-                        outlineOuter;
+                Shape outlineFill = isBorderPainted ? this.buttonShapeSupplier.getShape(
+                    button, scaledWidth + deltaLeft + deltaRight + 1.0f,
+                    scaledHeight + deltaTop + deltaBottom + 1.0f,
+                    0.5f, scaleFactor) : outlineOuter;
                 float containerSurfaceAlpha = overallAlpha *
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
@@ -190,7 +190,7 @@ public class ButtonBackgroundDelegate {
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
                     overallAlpha * containerOutlineAlpha, g));
                 outlinePainter.paintOutline(graphics1X, button, scaledWidth + deltaLeft + deltaRight,
-                    scaledHeight + deltaTop + deltaBottom, scaleFactor, this.shapeSupplier,
+                    scaledHeight + deltaTop + deltaBottom, scaleFactor, this.buttonShapeSupplier,
                     colorTokens);
             }
             graphics1X.translate(deltaLeft, deltaTop);
@@ -251,8 +251,8 @@ public class ButtonBackgroundDelegate {
         if (shaper == null) {
             return false;
         }
-        Shape outline = shaper.getButtonOutline(button, 0.0f, button.getWidth(), button.getHeight(),
-                RadianceCommonCortex.getScaleFactor(button), false);
+        Shape outline = buttonShapeSupplier.getShape(button, button.getWidth(), button.getHeight(),
+            0.0f, RadianceCommonCortex.getScaleFactor(button));
         return outline.contains(x, y);
     }
 }
