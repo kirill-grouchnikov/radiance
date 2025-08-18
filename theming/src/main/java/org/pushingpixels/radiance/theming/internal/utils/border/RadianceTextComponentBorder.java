@@ -48,6 +48,7 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Text component border for the <b>Radiance</b> look and feel.
@@ -61,6 +62,10 @@ public class RadianceTextComponentBorder implements Border, UIResource {
     protected Insets myInsets;
     private BladeContainerColorTokens mutableContainerTokens =
         new BladeContainerColorTokens();
+
+    RadianceOutlinePainter.ShapeSuppler shapeSupplier =
+        (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeScaleFactor) ->
+            new Rectangle2D.Float(0, 0, shapeWidth - 1, shapeHeight - 1);
 
     /**
      * Creates a new border with the specified insets.
@@ -79,9 +84,9 @@ public class RadianceTextComponentBorder implements Border, UIResource {
      *            The component.
      * @param g
      *            Graphics context.
-     * @param x
+     * @param xOffset
      *            Component left X (in graphics context).
-     * @param y
+     * @param yOffset
      *            Component top Y (in graphics context).
      * @param width
      *            Component width.
@@ -133,8 +138,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                             mutableContainerTokens.containerOutlineDisabledAlpha, g));
                     }
                     outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight,
-                        new Rectangle(0, 0, scaledWidth - 1, scaledHeight - 1),
-                        null, mutableContainerTokens);
+                        scaleFactor, shapeSupplier, mutableContainerTokens);
 
                     return;
                 }
@@ -154,8 +158,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
             }
 
             outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight,
-                new Rectangle(0, 0, scaledWidth - 1, scaledHeight - 1),
-                null, colorTokens);
+                scaleFactor, shapeSupplier, colorTokens);
         });
 
         graphics.dispose();

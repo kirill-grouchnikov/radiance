@@ -94,9 +94,10 @@ public class CompositeOutlinePainter implements RadianceOutlinePainter {
     public void paintOutline(Graphics g, Component c, float width, float height,
         double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
 
-        // Skip inner outline in text components, and in renderer-hosted components in the file
-        // chooser container
+        // Skip inner outline in text components, scrollbars, and in renderer-hosted components in
+        // the file chooser container
         boolean skipInnerOutline = (c instanceof JTextComponent)
+            || (c instanceof JScrollBar)
             || ((SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null)
             && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
 

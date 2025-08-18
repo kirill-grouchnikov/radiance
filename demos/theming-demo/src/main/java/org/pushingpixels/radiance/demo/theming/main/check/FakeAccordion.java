@@ -146,15 +146,16 @@ public class FakeAccordion extends JPanel {
                                 RadianceOutlinePainter outlinePainter = skin.getOutlinePainter();
 
                                 float radiusOuter = (float) scaleFactor * 5.0f;
-                                GeneralPath inner = getOutline(0, 0, scaledWidth, scaledHeight,
-                                        1.0f, 1.0f, radiusOuter - 1.0f);
-                                GeneralPath outer = getOutline(0, 0, scaledWidth, scaledHeight,
-                                        1.0f, 0, radiusOuter);
+                                RadianceOutlinePainter.ShapeSuppler outlineShapeSupplier =
+                                    (shapeComponent, shapeWidth, shapeHeight, insets, shapeScaleFactor) ->
+                                        getOutline(0, 0, (int) shapeWidth, (int) shapeHeight,
+                                            1.0f, insets, radiusOuter - insets);
 
                                 ContainerColorTokens containerTokens =
                                     skin.getMutedContainerTokens(contentWrapper);
                                 outlinePainter.paintOutline(graphics1X, contentWrapper,
-                                    scaledWidth, scaledHeight, outer, inner, containerTokens);
+                                    scaledWidth, scaledHeight, scaleFactor,
+                                    outlineShapeSupplier, containerTokens);
                             });
                     graphics.dispose();
                 }

@@ -94,6 +94,28 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
     private static int THUMB_DELTA = 2;
 
+    private RadianceOutlinePainter.ShapeSuppler thumbVerticalShapeSupplier =
+        (c, width, height, insets, scaleFactor) -> {
+            // Adaptive corner radius, either half the height (which will be width after
+            // rotation) for larger thumbs, or quarter the height for smaller thumbs
+            float radius = (width >= 1.5 * height)
+                ? height / 2.0f
+                : height / 4.0f;
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
+        };
+
+    private RadianceOutlinePainter.ShapeSuppler thumbHorizontalShapeSupplier =
+        (c, width, height, insets, scaleFactor) -> {
+            // Adaptive corner radius, either half the height for larger thumbs, or quarter the
+            // height for smaller thumbs
+            float radius = (width >= 1.5 * height)
+                ? height / 2.0f
+                : height / 4.0f;
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
+        };
+
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new RadianceScrollBarUI(comp);
@@ -178,13 +200,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 RadianceSurfacePainter painter = RadianceCoreUtilities.getSurfacePainter(this.scrollbar);
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
-                // Adaptive corner radius, either half the height (which will be width after
-                // rotation) for larger thumbs, or quarter the height for smaller thumbs
-                float radius = (scaledWidth >= 1.5 * scaledHeight)
-                    ? scaledHeight / 2.0f
-                    : scaledHeight / 4.0f;
-                Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                    this.scrollbar.getComponentOrientation(), scaledWidth, scaledHeight, radius, null, 1.0f);
+                Shape outline = thumbVerticalShapeSupplier.getShape(this.scrollbar,
+                    scaledWidth, scaledHeight, 0.0f, scaleFactor);
 
                 // Rotate the graphics context for correct "orientation" of the visuals
                 AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
@@ -203,7 +220,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 graphics1X.setComposite(AlphaComposite.getInstance(
                     AlphaComposite.SRC_OVER, containerOutlineAlpha));
                 outlinePainter.paintOutline(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    outline, null, mutableContainerTokens);
+                    scaleFactor, thumbVerticalShapeSupplier, mutableContainerTokens);
             });
         graphics.dispose();
     }
@@ -240,13 +257,9 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 RadianceSurfacePainter painter = RadianceCoreUtilities.getSurfacePainter(this.scrollbar);
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
-                // Adaptive corner radius, either half the height for larger thumbs, or quarter the
-                // height for smaller thumbs
-                float radius = (scaledWidth >= 1.5 * scaledHeight)
-                    ? scaledHeight / 2.0f
-                    : scaledHeight / 4.0f;
-                Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                    this.scrollbar.getComponentOrientation(), scaledWidth, scaledHeight, radius, null, 1.0f);
+                Shape outline = thumbHorizontalShapeSupplier.getShape(this.scrollbar,
+                    scaledWidth, scaledHeight, 0.0f, scaleFactor);
+
                 graphics1X.translate(x, y + voffset * scaleFactor);
 
                 float containerAlpha = currState.isDisabled()
@@ -261,7 +274,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 graphics1X.setComposite(AlphaComposite.getInstance(
                     AlphaComposite.SRC_OVER, containerOutlineAlpha));
                 outlinePainter.paintOutline(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    outline, null, mutableContainerTokens);
+                    scaleFactor, thumbHorizontalShapeSupplier, mutableContainerTokens);
             });
         graphics.dispose();
     }
