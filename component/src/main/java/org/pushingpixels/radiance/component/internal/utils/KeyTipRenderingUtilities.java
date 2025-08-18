@@ -101,8 +101,7 @@ public class KeyTipRenderingUtilities {
                         scaleFactor, keyTipShapeSupplier, tokens);
                 });
 
-        graphics.setColor(CoreColorTokenUtils.getContainerTokens(
-            c, state, CoreColorTokenUtils.ContainerType.MUTED).getOnContainer());
+        graphics.setColor(tokens.getOnContainer());
         Font font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                 getControlFont();
         font = font.deriveFont(font.getSize() + 1.0f);

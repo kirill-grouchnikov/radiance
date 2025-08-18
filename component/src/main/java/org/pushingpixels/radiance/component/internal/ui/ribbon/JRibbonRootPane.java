@@ -39,8 +39,13 @@ import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceR
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonRootPaneUI;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Collection;
@@ -234,6 +239,14 @@ public class JRibbonRootPane extends JRootPane {
         updateUI();
 
         this.keyTipLayer = new JRibbonRootPane.KeyTipLayer();
+
+        // Explicitly configure the foreground color on the ribbon root pane. This is needed so that
+        // the rendering of key tips and other elements is done with correct color tokens (not
+        // blended with the default system colors set on the ribbon root pane).
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
+        ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(
+            RadianceThemingSlices.DecorationAreaType.NONE);
+        this.keyTipLayer.setForeground(new ColorUIResource(colorTokens.getOnContainer()));
 
         KeyboardFocusManager.getCurrentKeyboardFocusManager().
                 setDefaultFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
