@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import com.jgoodies.forms.builder.FormBuilder;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.person_outline_black_24dp;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
@@ -39,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRend
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,13 +129,66 @@ public class FancyListPanel extends ControllablePanel {
         this.add(jsp, BorderLayout.CENTER);
     }
 
+    private static class ContainedLabel extends JPanel {
+        private JLabel label;
+        private ContainerColorTokens containerColorTokens;
+
+        public ContainedLabel() {
+            this.label = new JLabel();
+            this.setLayout(new BorderLayout());
+            this.setBorder(new EmptyBorder(2, 10, 2, 10));
+            this.add(this.label, BorderLayout.CENTER);
+            this.setOpaque(false);
+        }
+
+        public void setContainerColorTokens(ContainerColorTokens containerColorTokens) {
+            this.containerColorTokens = containerColorTokens;
+            this.label.setForeground(containerColorTokens.getOnContainerVariant());
+            this.repaint();
+        }
+
+        public void setText(String text) {
+            this.label.setText(text);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            if (this.containerColorTokens == null) {
+                return;
+            }
+
+            Graphics2D g2d = (Graphics2D) g.create();
+
+            int width = this.getWidth();
+            int height = this.getHeight();
+
+            RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    // Inner fill
+                    graphics1X.setColor(this.containerColorTokens.getContainerSurfaceLowest());
+                    graphics1X.fill(new RoundRectangle2D.Float(0.5f, 0.5f,
+                        scaledWidth - 2.0f, scaledHeight - 2.0f,
+                        scaledHeight - 2.0f, scaledHeight - 2.0f));
+
+                    // Outline
+                    graphics1X.setColor(this.containerColorTokens.getContainerOutlineVariant());
+                    graphics1X.draw(new RoundRectangle2D.Float(0.0f, 0.0f,
+                        scaledWidth - 1.0f, scaledHeight - 1.0f,
+                        scaledHeight - 2.0f, scaledHeight - 2.0f));
+                });
+
+
+            g2d.dispose();
+        }
+    }
+
     private static class ThreadRenderer extends RadiancePanelListCellRenderer<ThreadInfo> {
         private JLabel personLabel;
         private JLabel fromLabel;
         private JLabel timeLabel;
         private JLabel titleLabel;
         private JLabel summaryLabel;
-        private JLabel unreadLabel;
+        private ContainedLabel unreadLabel;
         private JSeparator separator;
 
         public ThreadRenderer() {
@@ -167,7 +222,7 @@ public class FancyListPanel extends ControllablePanel {
                     padding(new EmptyBorder(0, 16, 16, 16));
             this.summaryLabel = new JLabel();
             thirdRow.add(this.summaryLabel).xy(1, 1);
-            this.unreadLabel = new JLabel();
+            this.unreadLabel = new ContainedLabel();
             thirdRow.add(this.unreadLabel).xy(3, 1);
 
             this.separator = new JSeparator(JSeparator.HORIZONTAL);
@@ -202,7 +257,7 @@ public class FancyListPanel extends ControllablePanel {
             this.timeLabel.setForeground(colorTokens.getOnContainer());
             this.titleLabel.setForeground(colorTokens.getOnContainer());
             this.summaryLabel.setForeground(colorTokens.getOnContainer());
-            this.unreadLabel.setForeground(colorTokens.getOnContainer());
+            this.unreadLabel.setContainerColorTokens(colorTokens);
 
             // And icons
             RadianceIcon personIcon = person_outline_black_24dp.factory().createNewIcon();
