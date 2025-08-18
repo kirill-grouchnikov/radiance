@@ -5,45 +5,29 @@ The base class for Radiance outline painters is `RadianceOutlinePainter`. Outlin
 The `RadianceOutlinePainter` interface defines the following painting method:
 
 ```java
-  /**
-   * Paints the outline.
-   *
-   * @param g
-   *            Graphics.
-   * @param c
-   *            Component.
-   * @param width
-   *            Width of a UI component.
-   * @param height
-   *            Height of a UI component.
-   * @param outline
-   *            Primary outline to paint.
-   * @param innerOutline
-   *            Optional inner outline  to paint. May be ignored if the
-   *            specific implementation paints only the primary outline.
-   * @param colorTokens
-   *            The color tokens.
-   */
-  public void paintOutline(Graphics g, Component c, int width, int height,
-      Shape outline, Shape innerOutline, ContainerColorTokens colorTokens);
+/**
+ * Paints the outline.
+ *
+ * @param g
+ *     Graphics.
+ * @param c
+ *     Component.
+ * @param width
+ *     Width of a UI component.
+ * @param height
+ *     Height of a UI component.
+ * @param scaleFactor
+ *     Scale factor.
+ * @param shapeSupplier
+ *     To compute the shape(s) painted by this painter.
+ * @param colorTokens
+ *     The color tokens.
+ */
+void paintOutline(Graphics g, Component c, float width, float height, double scaleFactor,
+    ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens);
 ```
 
-The `outline` and `innerOutline` parameters specify the outer and inner outline shapes to paint, while the `colorTokens` specifies the color tokens to be used to compute the outline colors. The internal implementation of a specific outline painter may decide to ignore the `innerOutline` if this are not relevant.
-
-For optimization purposes, the `RadianceOutlinePainter` defines the following method that must be implemented by the specific outline painter:
-
-```java
-  /**
-   * Returns boolean indication whether this outline painter is painting the
-   * inner outlines.
-   *
-   * @return <code>true</code> if this outline painter is painting the inner
-   *         outlines, <code>false</code> otherwise.
-   */
-  public boolean isPaintingInnerOutline();
-```
-
-Note that if this method returns `false`, the implementation of the `paintOutline()` **must** ignore the `innerOutline` parameter.
+The `shapeSupplier` parameter is used to compute the shape(s) to paint, while the `colorTokens` specifies the color tokens to be used to compute the outline colors. The internal implementation of a specific outline painter may decide to draw multiple shapes, such as a darker outer outline and a lighter inner outline, depending on the target visuals.
 
 Radiance provides a number of outline painters that can be used as a starting point for your custom application visuals.
 
