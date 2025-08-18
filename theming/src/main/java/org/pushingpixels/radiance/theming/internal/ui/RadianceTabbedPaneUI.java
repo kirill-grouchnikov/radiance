@@ -35,10 +35,8 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.tabbed.*;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -59,7 +57,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.beans.PropertyChangeListener;
 import java.util.*;
@@ -117,32 +114,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     private Map<Integer, Color> tabTextColorMap;
 
     private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
-
-    private static class TabOutlinePainterLight extends FractionBasedOutlinePainter {
-        public TabOutlinePainterLight() {
-            super(
-                "Tab Light",
-                new float[]{0.0f, 1.0f},
-                new ContainerColorTokensSingleColorQuery[]{
-                    ContainerColorTokens::getContainerOutline,
-                    ContainerColorTokens::getContainerOutline
-                }
-            );
-        }
-    }
-
-    private static class TabOutlinePainterDark extends FractionBasedOutlinePainter {
-        public TabOutlinePainterDark() {
-            super(
-                "Tab Dark",
-                new float[]{0.0f, 1.0f},
-                new ContainerColorTokensSingleColorQuery[]{
-                    ContainerColorTokens::getComplementaryContainerOutline,
-                    ContainerColorTokens::getComplementaryContainerOutline
-                }
-            );
-        }
-    }
 
     /**
      * Tracks changes to the tabbed pane contents. Each tab component is tracked for changes on the
@@ -676,27 +647,34 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         super.uninstallComponents();
     }
 
-    private static RadianceOutlinePainter getOutlinePainter(JTabbedPane tabPane,
-        ContainerColorTokens colorTokens) {
-        return colorTokens.isDark() ? new TabOutlinePainterDark() : new TabOutlinePainterLight();
+    private static Color getContentBorderEdgeColor(ContainerColorTokens colorTokens) {
+        return colorTokens.isDark()
+            ? colorTokens.getComplementaryContainerOutline()
+            : colorTokens.getContainerOutline();
     }
+
+    private static RadianceOutlinePainter.ShapeSuppler tabOutlineShapeSupplier =
+        (c, width, height, insets, scaleFactor) -> {
+
+            // Always use slightly rounded corners on tabs
+            float cornerRadius = (float) scaleFactor * RadianceSizeUtils
+                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
+
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(),
+                width, height, cornerRadius - insets,
+                EnumSet.of(RadianceThemingSlices.Side.BOTTOM), 1.0f + insets);
+        };
+
 
     private static void paintTabBackgroundAt1X(Graphics2D graphics1X,
         JTabbedPane tabPane, int tabIndex, double scaleFactor, int width, int height,
         ContainerColorTokens colorTokens, Color tabColor) {
-        RadianceOutlinePainter outlinePainter = getOutlinePainter(tabPane, colorTokens);
 
         int dy = 3;
-        Set<RadianceThemingSlices.Side> straightSides = EnumSet.of(RadianceThemingSlices.Side.BOTTOM);
-
-        // Always use slightly rounded corners on tabs
-        float cornerRadius = (float) scaleFactor * RadianceSizeUtils
-            .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(tabPane));
         width -= 1;
 
-        Shape outline = RadianceOutlineUtilities.getBaseOutline(
-            tabPane.getComponentOrientation(),
-            width, height + dy, cornerRadius, straightSides, 1.0f);
+        Shape outline = tabOutlineShapeSupplier.getShape(tabPane, width, height + dy, 0.0f, scaleFactor);
 
         graphics1X.setColor(tabColor);
         graphics1X.fill(outline);
@@ -708,14 +686,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         clipped.fill(outline);
         clipped.dispose();
 
-        Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
-            RadianceOutlineUtilities.getBaseOutline(
-                tabPane.getComponentOrientation(),
-                width, height + dy, cornerRadius - 1.0f, straightSides, 2.0f)
-            : null;
-
-        outlinePainter.paintOutline(graphics1X, tabPane, width, height + dy, outline, outlineInner,
-            colorTokens);
+        graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
+        graphics1X.draw(outline);
     }
 
     private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane, int tabIndex,
@@ -776,9 +748,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         scaledWidth, scaledHeight, 1, null);
                     surfacePainter.paintSurface(graphics1X, tabPane,
                         scaledWidth, scaledHeight, outline, colorTokens);
-                    RadianceOutlinePainter outlinePainter = getOutlinePainter(tabPane, colorTokens);
-                    outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, scaledHeight,
-                        outline, null, colorTokens);
+                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
+                    graphics1X.draw(outline);
                 }
 
                 BladeIconUtils.drawCloseIcon(graphics1X, scaledWidth,
@@ -1556,11 +1527,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         this.tabPane, selectedIndex,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                         ComponentState.SELECTED);
-                    RadianceOutlinePainter outlinePainter = getOutlinePainter(tabPane, colorTokens);
+                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
                     if (isUnbroken) {
-                        outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, scaledHeight,
-                            new Line2D.Double(0, scaledHeight - 1, scaledWidth - 1, scaledHeight - 1),
-                            null, colorTokens);
+                        graphics1X.drawLine(0, scaledHeight - 1, scaledWidth - 1, scaledHeight - 1);
                     } else {
                         // Break line to show visual connection to selected tab
                         int delta = 1;
@@ -1572,15 +1541,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                             bottomOutline.moveTo(selectionEndX, scaledHeight - 1);
                             bottomOutline.lineTo(scaledWidth - 1, scaledHeight - 1);
                         }
-                        outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, scaledHeight,
-                            bottomOutline, null, colorTokens);
                         graphics1X.draw(bottomOutline);
                     }
 
                     if (isDouble) {
-                        outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, scaledHeight,
-                            new Line2D.Double(0, scaledHeight - 1 - ribbonDelta, scaledWidth - 1,
-                                scaledHeight - 1 - ribbonDelta), null, colorTokens);
+                        graphics1X.drawLine(0, scaledHeight - 1 - ribbonDelta,
+                            scaledWidth - 1, scaledHeight - 1 - ribbonDelta);
                     }
                 });
         graphics.dispose();
@@ -1626,10 +1592,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         this.tabPane, selectedIndex,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                         ComponentState.SELECTED);
-                    RadianceOutlinePainter outlinePainter = getOutlinePainter(tabPane, colorTokens);
+                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
                     if (isUnbroken) {
-                        outlinePainter.paintOutline(graphics1X, tabPane, 1, scaledHeight,
-                            new Line2D.Double(0, 0, 0, scaledHeight), null, colorTokens);
+                        graphics1X.drawLine(0, 0, 0, scaledHeight);
                     } else {
                         // Break line to show visual connection to selected tab
                         int delta = 1;
@@ -1642,13 +1607,11 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                             leftOutline.moveTo(0, selectionEndY);
                             leftOutline.lineTo(0, scaledHeight);
                         }
-                        outlinePainter.paintOutline(graphics1X, tabPane, 1, scaledHeight,
-                            leftOutline, null, colorTokens);
+                        graphics1X.draw(leftOutline);
                     }
 
                     if (isDouble) {
-                        outlinePainter.paintOutline(graphics1X, tabPane, ribbonDelta, scaledHeight,
-                            new Line2D.Double(ribbonDelta, 0, ribbonDelta, scaledHeight), null, colorTokens);
+                        graphics1X.drawLine(ribbonDelta, 0, ribbonDelta, scaledHeight);
                     }
                 });
         graphics.dispose();
@@ -1692,11 +1655,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         this.tabPane, selectedIndex,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                         ComponentState.SELECTED);
-                    RadianceOutlinePainter outlinePainter = getOutlinePainter(tabPane, colorTokens);
+                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
                     if (isUnbroken) {
-                        outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, scaledHeight,
-                            new Line2D.Double(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight),
-                            null, colorTokens);
+                        graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight);
                     } else {
                         // Break line to show visual connection to selected tab
                         int delta = 1;
@@ -1709,14 +1670,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                             rightOutline.moveTo(scaledWidth - 1, selectionEndY);
                             rightOutline.lineTo(scaledWidth - 1, scaledHeight);
                         }
-                        outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, scaledHeight,
-                            rightOutline, null, colorTokens);
+                        graphics1X.draw(rightOutline);
                     }
 
                     if (isDouble) {
-                        outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, scaledHeight,
-                            new Line2D.Double(scaledWidth - 1 - ribbonDelta, 0,
-                                scaledWidth - 1 - ribbonDelta, scaledHeight), null, colorTokens);
+                        graphics1X.drawLine(scaledWidth - 1 - ribbonDelta, 0,
+                            scaledWidth - 1 - ribbonDelta, scaledHeight);
                     }
                 });
         graphics.dispose();
@@ -1761,10 +1720,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         this.tabPane, selectedIndex,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
                         ComponentState.SELECTED);
-                    RadianceOutlinePainter outlinePainter = getOutlinePainter(tabPane, colorTokens);
+                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
                     if (isUnbroken) {
-                        outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, 1,
-                            new Line2D.Double(0, 0, scaledWidth, 0), null, colorTokens);
+                        graphics1X.drawLine(0, 0, scaledWidth, 0);
                     } else {
                         // Break line to show visual connection to selected tab
                         int delta = 1;
@@ -1776,13 +1734,11 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                             topOutline.moveTo(selectionEndX, 0);
                             topOutline.lineTo(scaledWidth, 0);
                         }
-                        outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, 1,
-                            topOutline, null, colorTokens);
+                        graphics1X.draw(topOutline);
                     }
 
                     if (isDouble) {
-                        outlinePainter.paintOutline(graphics1X, tabPane, scaledWidth, ribbonDelta,
-                            new Line2D.Double(0, ribbonDelta, scaledWidth, ribbonDelta), null, colorTokens);
+                        graphics1X.drawLine(0, ribbonDelta, scaledWidth, ribbonDelta);
                     }
                 });
         graphics.dispose();
