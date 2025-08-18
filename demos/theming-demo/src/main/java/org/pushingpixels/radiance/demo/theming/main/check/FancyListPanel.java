@@ -30,7 +30,9 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import com.jgoodies.forms.builder.FormBuilder;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.person_outline_black_24dp;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 
@@ -176,21 +178,14 @@ public class FancyListPanel extends ControllablePanel {
             this.add(thirdRow.build());
             this.add(this.separator);
 
-            // Register the text labels so that they get the right colors on rollover,
-            // selection and other highlight effects
-            this.registerThemeAwareLabelsWithText(this.fromLabel, this.timeLabel, this.titleLabel,
-                    this.summaryLabel, this.unreadLabel);
-            // Register the icon factory for the person label here since the icon visuals
-            // are the same for all the thread rows in this app
-            this.registerThemeAwareLabelWithIcon(this.personLabel,
-                    person_outline_black_24dp.factory(),
-                    new Dimension(10, 10));
-
             this.setOpaque(false);
         }
 
         @Override
-        protected void bindData(JList<? extends ThreadInfo> list, ThreadInfo value, int index) {
+        protected void bindRenderer(JList<? extends ThreadInfo> list, ThreadInfo value, int index,
+            ContainerColorTokens colorTokens) {
+
+            // Bind data
             this.fromLabel.setText(value.from);
             this.timeLabel.setText(value.time);
             this.titleLabel.setText(value.title);
@@ -201,6 +196,20 @@ public class FancyListPanel extends ControllablePanel {
             } else {
                 this.unreadLabel.setVisible(false);
             }
+
+            // Configure colors
+            this.fromLabel.setForeground(colorTokens.getOnContainer());
+            this.timeLabel.setForeground(colorTokens.getOnContainer());
+            this.titleLabel.setForeground(colorTokens.getOnContainer());
+            this.summaryLabel.setForeground(colorTokens.getOnContainer());
+            this.unreadLabel.setForeground(colorTokens.getOnContainer());
+
+            // And icons
+            RadianceIcon personIcon = person_outline_black_24dp.factory().createNewIcon();
+            personIcon.setColorFilter(color -> colorTokens.getOnContainer());
+            personIcon.setDimension(new Dimension(10, 10));
+            this.personLabel.setIcon(personIcon);
         }
+
     }
 }

@@ -29,49 +29,30 @@
  */
 package org.pushingpixels.radiance.theming.api.renderer;
 
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceListUI;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.UpdateOptimizationInfo;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.ListUI;
 import java.awt.*;
-import java.util.*;
+import java.util.Map;
 
 /**
  * Base class for list renderers that are more complex than what is provided by
  * {@link RadianceDefaultListCellRenderer}. Extend this class to have consistent
- * highlight visuals and animations under all Radiance skins. The flow of layout and
- * data is:
+ * highlight visuals and animations under all Radiance skins.
  *
- * <ul>
- * <li>In the constructor, add all sub-components to your renderer and define the
- * layout logic.</li>
- * <li>In {@link #bindData(JList, Object, int)} bind the relevant data fields to those
- * sub-components.</li>
- * <li>Use {@link #registerThemeAwareLabelsWithText(JLabel...)} in the constructor
- * to "mark" those sub-component labels that should participate in highlight animations
- * on their text based on the current state (rollover, selection, etc). In case a specific
- * label is using a fixed foreground / text color for some of the rows in your list, use
- * {@link #registerThemeAwareLabelsWithText(JLabel...)} and
- * {@link #unregisterThemeAwareLabelsWithText(JLabel...)} in
- * {@link #onPreRender(JList, Object, int)} instead of in the constructor.</li>
- * <li>Use {@link #registerThemeAwareLabelWithIcon(JLabel, RadianceIcon.Factory, Dimension)}
- * in the constructor to "mark" those sub-component labels that should participate in highlight
- * animations on their icons based on the current state (rollover, selection, etc). In case a
- * specific label is using a fixed icon for some of the rows in your list or different icon
- * sources for different rows, use
- * {@link #registerThemeAwareLabelWithIcon(JLabel, RadianceIcon.Factory, Dimension)} and
- * {@link #unregisterThemeAwareLabelWithIcon(JLabel)} in
- * {@link #onPreRender(JList, Object, int)} instead of in the constructor.</li>
- * </ul>
+ * The abstract {@link #bindRenderer(JList, Object, int, ContainerColorTokens)} will be called
+ * during the drawing phase, passing the color tokens that match the current list item state.
+ * In your implementation of this method, bind the data (text, icon, etc), as well as colors.
  *
  * Note that {@link #getListCellRendererComponent(JList, Object, int, boolean, boolean)} in this
  * class is marked as final and can not be overriden in the application code.
@@ -81,42 +62,10 @@ import java.util.*;
 @RadianceRenderer
 public abstract class RadiancePanelListCellRenderer<T> extends JPanel
         implements ListCellRenderer<T> {
-    private static class IconData {
-        private RadianceIcon.Factory iconFactory;
-        private Dimension iconSize;
-
-        private IconData(RadianceIcon.Factory iconFactory, Dimension iconSize) {
-            this.iconFactory = iconFactory;
-            this.iconSize = iconSize;
-        }
-    }
-
-    private Set<JLabel> themeAwareLabels;
-    private Map<JLabel, IconData> themeAwareLabelsWithIcons;
+    private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     public RadiancePanelListCellRenderer() {
         RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this, 1.0);
-        this.themeAwareLabels = new HashSet<>();
-        this.themeAwareLabelsWithIcons = new HashMap<>();
-    }
-
-    protected void registerThemeAwareLabelsWithText(JLabel... labels) {
-        this.themeAwareLabels.addAll(Arrays.asList(labels));
-    }
-
-    protected void unregisterThemeAwareLabelsWithText(JLabel... labels) {
-        for (JLabel label : labels) {
-            this.themeAwareLabels.remove(label);
-        }
-    }
-
-    protected void registerThemeAwareLabelWithIcon(JLabel label,
-            RadianceIcon.Factory radianceIconFactory, Dimension iconDimension) {
-        this.themeAwareLabelsWithIcons.put(label, new IconData(radianceIconFactory, iconDimension));
-    }
-
-    protected void unregisterThemeAwareLabelWithIcon(JLabel label) {
-        this.themeAwareLabelsWithIcons.remove(label);
     }
 
     @Override
@@ -124,7 +73,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
             boolean isSelected, boolean cellHasFocus) {
         this.setComponentOrientation(list.getComponentOrientation());
 
-        Color labelForeground;
+        ContainerColorTokens colorTokensForRenderer;
         ListUI listUI = list.getUI();
         if (listUI instanceof RadianceListUI) {
             RadianceListUI ui = (RadianceListUI) listUI;
@@ -142,74 +91,38 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                         modelStateInfo.getStateContributionMap();
                 if (currState.isDisabled() || (activeStates == null)
                         || (activeStates.size() == 1)) {
-                    ContainerColorTokens colorTokens = getContainerTokensForState(list, ui, currState);
-                    labelForeground = new ColorUIResource(colorTokens.getOnContainer());
+                    colorTokensForRenderer = getContainerTokensForState(list, ui, currState);
                 } else {
-                    float aggrRed = 0;
-                    float aggrGreen = 0;
-                    float aggrBlue = 0;
-
-                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : modelStateInfo
-                            .getStateContributionMap().entrySet()) {
-                        ComponentState activeState = activeEntry.getKey();
-                        float contribution = activeEntry.getValue().getContribution();
-                        ContainerColorTokens colorTokens = getContainerTokensForState(
-                            list, ui, activeState);
-                        Color foreground = colorTokens.getOnContainer();
-                        aggrRed += foreground.getRed() * contribution;
-                        aggrGreen += foreground.getGreen() * contribution;
-                        aggrBlue += foreground.getBlue() * contribution;
-                    }
-                    labelForeground = new ColorUIResource(
-                            new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue));
+                    BladeUtils.populateColorTokens(
+                        mutableContainerTokens, list, modelStateInfo, currState,
+                        RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                        false, false, CoreColorTokenUtils.ContainerType.NEUTRAL);
+                    colorTokensForRenderer = mutableContainerTokens;
                 }
             } else {
-                ContainerColorTokens colorTokens = getContainerTokensForState(list, ui, currState);
+                colorTokensForRenderer = getContainerTokensForState(list, ui, currState);
                 if (isDropLocation) {
-                    colorTokens = CoreColorTokenUtils.getContainerTokens(list,
+                    colorTokensForRenderer = CoreColorTokenUtils.getContainerTokens(list,
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                         currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 }
-                labelForeground = new ColorUIResource(colorTokens.getOnContainer());
             }
         } else {
-            if (isSelected) {
-                labelForeground = list.getSelectionForeground();
-            } else {
-                labelForeground = list.getForeground();
-            }
+            colorTokensForRenderer = CoreColorTokenUtils.getContainerTokens(list,
+                isSelected ? ComponentState.SELECTED : ComponentState.ENABLED,
+                CoreColorTokenUtils.ContainerType.NEUTRAL);
         }
 
         this.setEnabled(list.isEnabled());
         this.setFont(list.getFont());
 
-        this.bindData(list, value, index);
-
-        this.onPreRender(list, value, index);
-
-        for (JLabel themeAwareLabel : this.themeAwareLabels) {
-            themeAwareLabel.setForeground(labelForeground);
-        }
-
-        for (Map.Entry<JLabel, IconData> themeAwareLabelsWithIcons :
-                this.themeAwareLabelsWithIcons.entrySet()) {
-            JLabel label = themeAwareLabelsWithIcons.getKey();
-            IconData iconData = themeAwareLabelsWithIcons.getValue();
-
-            RadianceIcon icon = iconData.iconFactory.createNewIcon();
-            icon.setColorFilter(color -> labelForeground);
-            icon.setDimension(iconData.iconSize);
-
-            label.setIcon(icon);
-        }
+        this.bindRenderer(list, value, index, colorTokensForRenderer);
 
         return this;
     }
 
-    protected abstract void bindData(JList<? extends T> list, T value, int index);
-
-    protected void onPreRender(JList<? extends T> list, T value, int index) {
-    }
+    protected abstract void bindRenderer(JList<? extends T> list, T value, int index,
+        ContainerColorTokens colorTokens);
 
     private ContainerColorTokens getContainerTokensForState(JList list, RadianceListUI ui,
         ComponentState state) {

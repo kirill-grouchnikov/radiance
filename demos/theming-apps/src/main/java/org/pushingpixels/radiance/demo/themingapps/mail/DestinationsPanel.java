@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.demo.themingapps.mail;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.*;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
@@ -134,10 +135,6 @@ public class DestinationsPanel extends PanelWithRightLine {
             builder.add(this.titleLabel).xy(3, 1);
             builder.add(this.unreadLabel).xy(5, 1);
 
-            // Register the text labels so that they get the right colors on rollover,
-            // selection and other highlight effects
-            this.registerThemeAwareLabelsWithText(this.iconLabel, this.titleLabel, this.unreadLabel);
-
             this.setLayout(new BorderLayout());
             this.add(builder.build(), BorderLayout.CENTER);
 
@@ -145,20 +142,23 @@ public class DestinationsPanel extends PanelWithRightLine {
         }
 
         @Override
-        protected void bindData(JList<? extends DestinationInfo> list, DestinationInfo value,
-                int index) {
+        protected void bindRenderer(JList<? extends DestinationInfo> list, DestinationInfo value,
+            int index, ContainerColorTokens colorTokens) {
+
+            // Bind data
             this.titleLabel.setText(value.title);
             this.unreadLabel.setText(value.unread > 0 ? Integer.toString(value.unread) : "");
-        }
 
-        @Override
-        protected void onPreRender(JList<? extends DestinationInfo> list, DestinationInfo value,
-                int index) {
-            // Register the matching icon factory here without setting the actual icon. The
-            // icon will be created and colorized by Radiance runtime based on the highlight
-            // state of the specific row at render time
-            this.registerThemeAwareLabelWithIcon(this.iconLabel, value.iconFactory,
-                    new Dimension(16, 16));
+            // Configure colors
+            this.iconLabel.setForeground(colorTokens.getOnContainer());
+            this.titleLabel.setForeground(colorTokens.getOnContainer());
+            this.unreadLabel.setForeground(colorTokens.getOnContainer());
+
+            // And icons
+            RadianceIcon icon = value.iconFactory.createNewIcon();
+            icon.setColorFilter(color -> colorTokens.getOnContainer());
+            icon.setDimension(new Dimension(16, 16));
+            this.iconLabel.setIcon(icon);
         }
     }
 
