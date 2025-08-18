@@ -292,21 +292,18 @@ public class CommandButtonBackgroundDelegate {
                     outlineFill,
                     mutableContainerTokens);
 
-                // Border
-                Shape outlineOuter = RadianceOutlineUtilities.getBaseOutline(
-                    commandButton.getComponentOrientation(),
-                    scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
-                    straightSides, 0.0f);
-                Shape outlineInner = outlinePainter.isPaintingInnerOutline() ?
-                    RadianceOutlineUtilities.getBaseOutline(
-                        commandButton.getComponentOrientation(),
-                        scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
-                        straightSides, 1.0f)
-                    : null;
+                // Outline
+                RadianceOutlinePainter.ShapeSuppler outlineShapeSupplier =
+                    (c, outlineWidth, outlineHeight, outlineInsets, outlineScaleFactor) ->
+                        RadianceOutlineUtilities.getBaseOutline(
+                            c.getComponentOrientation(),
+                            outlineWidth, outlineHeight, radius - outlineInsets,
+                            straightSides, outlineInsets);
+
                 outlinePainter.paintOutline(graphics1X, commandButton,
-                    scaledWidth + dw,
-                    scaledHeight + dh,
-                    outlineOuter, outlineInner, mutableContainerTokens);
+                    scaledWidth + dw - 1,
+                    scaledHeight + dh - 1,
+                    scaleFactor, outlineShapeSupplier, mutableContainerTokens);
 
                 graphics1X.translate(-dx, -dy);
             });

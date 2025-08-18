@@ -52,6 +52,15 @@ public class KeyTipRenderingUtilities {
         return new Dimension(prefWidth, prefHeight);
     }
 
+    private static RadianceOutlinePainter.ShapeSuppler keyTipShapeSupplier =
+        (c, width, height, insets, scaleFactor) -> {
+            float radius = (float) scaleFactor *
+                RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
+            return RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
+                width, height, radius, null, insets + 1.0f);
+        };
+
+
     public static void renderKeyTip(Graphics g, Container c, Rectangle rect, String keyTip,
             boolean toPaintEnabled) {
         RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(c);
@@ -74,13 +83,9 @@ public class KeyTipRenderingUtilities {
 
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, rect.width, rect.height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                            RadianceSizeUtils.getComponentFontSize(c));
 
-                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                            c.getComponentOrientation(),
-                            scaledWidth, scaledHeight, radius,
-                            null, 1.0f);
+                    Shape outline = keyTipShapeSupplier.getShape(c, scaledWidth,
+                        scaledHeight, 1.0f, scaleFactor);
                     if (!toPaintEnabled) {
                         graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
                             c, tokens.getContainerSurfaceDisabledAlpha(), graphics));
@@ -88,16 +93,12 @@ public class KeyTipRenderingUtilities {
                     surfacePainter.paintSurface(graphics1X, c, scaledWidth, scaledHeight,
                             outline, tokens);
 
-                    Shape outlineInner = RadianceOutlineUtilities.getBaseOutline(
-                            c.getComponentOrientation(),
-                            scaledWidth, scaledHeight,
-                            radius, null, 2.0f);
                     if (!toPaintEnabled) {
                         graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
                             c, tokens.getContainerOutlineDisabledAlpha(), graphics));
                     }
-                    outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, outline,
-                            outlineInner, tokens);
+                    outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight,
+                        scaleFactor, keyTipShapeSupplier, tokens);
                 });
 
         graphics.setColor(CoreColorTokenUtils.getContainerTokens(

@@ -45,7 +45,6 @@ import org.pushingpixels.radiance.theming.internal.utils.*;
 import java.awt.*;
 import java.util.EnumSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Delegate class for painting backgrounds of {@link JRibbonTaskToggleButton}s.
@@ -136,6 +135,16 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 RadianceSizeUtils.getComponentFontSize(button), 3.0f, 6, 1.0f);
     }
 
+    private static RadianceOutlinePainter.ShapeSuppler outlineShapeSupplier =
+        (c, width, height, insets, scaleFactor) -> {
+            float radius = (float) scaleFactor *
+                getTaskToggleButtonCornerRadius((JRibbonTaskToggleButton) c);
+
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(),
+                width, height + insets, radius, EnumSet.of(Side.BOTTOM), 1.0f + insets);
+        };
+
     private static void drawFullAlphaBackground(Graphics2D g,
         JRibbonTaskToggleButton button,
         ContainerColorTokens tokens,
@@ -150,12 +159,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 0, 0, button.getWidth(), button.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    Set<Side> bottom = EnumSet.of(Side.BOTTOM);
-
-                    float radius = (float) scaleFactor * getTaskToggleButtonCornerRadius(button);
-                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                            button.getComponentOrientation(),
-                            scaledWidth, scaledHeight + 3.0f, radius, bottom, 1.0f);
+                    Shape outline = outlineShapeSupplier.getShape(button,
+                        scaledWidth, scaledHeight + 3.0f, 0.0f, scaleFactor);
 
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
                     RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
@@ -168,12 +173,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                         graphics1X.fill(outline);
                     }
 
-                    Shape outlineInner = RadianceOutlineUtilities.getBaseOutline(
-                            button.getComponentOrientation(),
-                            scaledWidth, scaledHeight + 4.0f, radius, bottom, 2.0f);
-
-                    outlinePainter.paintOutline(graphics1X, button, scaledWidth, scaledHeight + 2.0f,
-                            outline, outlineInner, tokens);
+                    outlinePainter.paintOutline(graphics1X, button, scaledWidth, scaledHeight + 3.0f,
+                        scaleFactor, outlineShapeSupplier, tokens);
                 });
         graphics.dispose();
     }

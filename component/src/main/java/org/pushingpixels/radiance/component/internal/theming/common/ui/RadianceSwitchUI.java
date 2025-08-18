@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.component.api.common.JSwitch;
 import org.pushingpixels.radiance.component.api.common.model.SwitchPresentationModel;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicSwitchUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
@@ -62,6 +61,11 @@ public class RadianceSwitchUI extends BasicSwitchUI {
 
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
+    private RadianceOutlinePainter.ShapeSuppler switchShapeSupplier =
+        (c, width, height, insets, scaleFactor) ->
+            RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
+                width, height, height * 0.5f, null, insets);
+
     private RadianceSwitchUI(JSwitch switchComp) {
         super(switchComp);
     }
@@ -87,7 +91,6 @@ public class RadianceSwitchUI extends BasicSwitchUI {
         StateTransitionTracker.ModelStateInfo modelStateInfo =
                 stateTransitionTracker.getModelStateInfo();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(switchComp);
         RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(switchComp);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(switchComp);
         ComponentState currState = modelStateInfo.getCurrModelState();
@@ -117,28 +120,14 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     float trackWidth = presentationModel.getTrackSize().width * (float) scaleFactor;
                     float trackHeight = presentationModel.getTrackSize().height * (float) scaleFactor;
 
-                    Shape outlineFill = RadianceOutlineUtilities.getBaseOutline(
-                            switchComp.getComponentOrientation(),
-                            trackWidth, trackHeight,
-                            trackHeight * 0.5f,
-                            null, 0.0f
-                    );
+                    Shape outlineFill = switchShapeSupplier.getShape(switchComp,
+                        trackWidth, trackHeight, 0.0f, scaleFactor);
 
                     surfacePainter.paintSurface(graphics1X, switchComp, trackWidth,
                         trackHeight, outlineFill, mutableContainerTokens);
 
-                    Shape outlineOuter = RadianceOutlineUtilities.getBaseOutline(
-                            switchComp.getComponentOrientation(),
-                            trackWidth, trackHeight,
-                            trackHeight * 0.5f, null
-                    );
-                    Shape outlineInner = outlinePainter.isPaintingInnerOutline() ? RadianceOutlineUtilities.getBaseOutline(
-                            switchComp.getComponentOrientation(),
-                            trackWidth, trackHeight,
-                            trackHeight * 0.5f - 1.0f, null, 1.0f
-                    ) : null;
                     outlinePainter.paintOutline(graphics1X, switchComp, trackWidth, trackHeight,
-                        outlineOuter, outlineInner, mutableContainerTokens);
+                        scaleFactor, switchShapeSupplier, mutableContainerTokens);
 
                     float thumbSelectionFactor = stateTransitionTracker.getFacetStrength(
                             RadianceThemingSlices.ComponentStateFacet.SELECTION);

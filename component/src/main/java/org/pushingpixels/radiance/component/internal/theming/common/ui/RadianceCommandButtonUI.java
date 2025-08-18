@@ -49,6 +49,7 @@ import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilit
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -331,8 +332,15 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             graphics.translate(iconRect.x, iconRect.y);
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, iconRect.width, iconRect.height,
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                        Rectangle2D.Float extended = new Rectangle2D.Float(-1.0f, -1.0f,
-                                scaledWidth + 2.0f, scaledHeight + 2.0f);
+                        RadianceOutlinePainter.ShapeSuppler iconContainerShapeSupplier =
+                            (c, iconContainerWidth, iconContainerHeight, iconContainerInsets,
+                                iconContainerScaleFactor) ->
+                                new Rectangle2D.Float(0.0f, 0.0f,
+                                    iconContainerWidth, iconContainerHeight);
+
+                        Rectangle2D.Float extended =
+                            (Rectangle2D.Float) iconContainerShapeSupplier.getShape(
+                                this.commandButton, scaledWidth, scaledHeight, 0.0f, scaleFactor);
 
                         ComponentState currState = this.commandButton.getActionModel().isEnabled()
                                 ? ComponentState.SELECTED
@@ -348,11 +356,10 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                                 extended.x + extended.width, extended.y + extended.height,
                                 extended, tokens);
 
-                        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities
-                                .getOutlinePainter(this.commandButton);
+                        RadianceOutlinePainter outlinePainter = new FlatOutlinePainter();
                         outlinePainter.paintOutline(graphics1X, this.commandButton,
                                 extended.x + extended.width, extended.y + extended.height,
-                                extended, null, tokens);
+                                scaleFactor, iconContainerShapeSupplier, tokens);
                     });
             graphics.dispose();
         }
