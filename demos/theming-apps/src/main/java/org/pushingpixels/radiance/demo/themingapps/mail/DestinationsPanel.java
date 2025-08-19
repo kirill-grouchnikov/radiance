@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.demo.themingapps.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.*;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
@@ -41,6 +42,7 @@ import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRend
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,10 +119,68 @@ public class DestinationsPanel extends PanelWithRightLine {
         this.setPreferredSize(new Dimension(200, 0));
     }
 
+    private static class ContainedLabel extends JPanel {
+        private JLabel label;
+        private ContainerColorTokens containerColorTokens;
+
+        public ContainedLabel() {
+            this.label = new JLabel();
+            this.setLayout(new BorderLayout());
+            this.setBorder(new EmptyBorder(2, 10, 2, 10));
+            this.add(this.label, BorderLayout.CENTER);
+            this.setOpaque(false);
+        }
+
+        public void setContainerColorTokens(ContainerColorTokens containerColorTokens) {
+            this.containerColorTokens = containerColorTokens;
+            this.label.setForeground(containerColorTokens.getOnContainerVariant());
+            this.repaint();
+        }
+
+        public void setText(String text) {
+            this.label.setText(text);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            if (this.containerColorTokens == null) {
+                return;
+            }
+
+            String text = this.label.getText();
+            if ((text == null) || text.isEmpty()) {
+                return;
+            }
+
+            Graphics2D g2d = (Graphics2D) g.create();
+
+            int width = this.getWidth();
+            int height = this.getHeight();
+
+            RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    // Inner fill
+                    graphics1X.setColor(this.containerColorTokens.getContainerSurfaceLow());
+                    graphics1X.fill(new RoundRectangle2D.Float(0.5f, 0.5f,
+                        scaledWidth - 2.0f, scaledHeight - 2.0f,
+                        scaledHeight - 2.0f, scaledHeight - 2.0f));
+
+                    // Outline
+                    graphics1X.setColor(this.containerColorTokens.getContainerOutlineVariant());
+                    graphics1X.draw(new RoundRectangle2D.Float(0.0f, 0.0f,
+                        scaledWidth - 1.0f, scaledHeight - 1.0f,
+                        scaledHeight - 2.0f, scaledHeight - 2.0f));
+                });
+
+
+            g2d.dispose();
+        }
+    }
+
     private static class DestinationRenderer extends RadiancePanelListCellRenderer<DestinationInfo> {
         private JLabel iconLabel;
         private JLabel titleLabel;
-        private JLabel unreadLabel;
+        private ContainedLabel unreadLabel;
 
         public DestinationRenderer() {
             FormBuilder builder = FormBuilder.create().
@@ -130,7 +190,7 @@ public class DestinationsPanel extends PanelWithRightLine {
 
             this.iconLabel = new JLabel();
             this.titleLabel = new JLabel();
-            this.unreadLabel = new JLabel();
+            this.unreadLabel = new ContainedLabel();
             builder.add(this.iconLabel).xy(1, 1);
             builder.add(this.titleLabel).xy(3, 1);
             builder.add(this.unreadLabel).xy(5, 1);
@@ -152,7 +212,7 @@ public class DestinationsPanel extends PanelWithRightLine {
             // Configure colors
             this.iconLabel.setForeground(colorTokens.getOnContainer());
             this.titleLabel.setForeground(colorTokens.getOnContainer());
-            this.unreadLabel.setForeground(colorTokens.getOnContainer());
+            this.unreadLabel.setContainerColorTokens(colorTokens);
 
             // And icons
             RadianceIcon icon = value.iconFactory.createNewIcon();
