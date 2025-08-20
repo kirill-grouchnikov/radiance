@@ -35,9 +35,9 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
-import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceListUI;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.UpdateOptimizationInfo;
 
 import javax.swing.*;
@@ -93,10 +93,19 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                         || (activeStates.size() == 1)) {
                     colorTokensForRenderer = getContainerTokensForState(list, ui, currState);
                 } else {
-                    BladeUtils.populateColorTokens(
-                        mutableContainerTokens, list, modelStateInfo, currState,
-                        RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                        false, false, CoreColorTokenUtils.ContainerType.NEUTRAL);
+                    mergeIntoMutableColorTokens(mutableContainerTokens,
+                        getContainerTokensForState(list, ui, currState), 1.0f);
+                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                        modelStateInfo.getStateContributionMap().entrySet()) {
+                        ComponentState activeState = activeEntry.getKey();
+                        if (activeState == currState) {
+                            continue;
+                        }
+                        float contribution = activeEntry.getValue().getContribution();
+                        mergeIntoMutableColorTokens(mutableContainerTokens,
+                            getContainerTokensForState(list, ui, activeState), contribution);
+                    }
+
                     colorTokensForRenderer = mutableContainerTokens;
                 }
             } else {
@@ -143,5 +152,78 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                 return updateOptimizationInfo.getHighlightColorTokens(state);
             }
         }
+    }
+
+    private static void mergeIntoMutableColorTokens(
+        BladeContainerColorTokens bladeContainerTokens,
+        ContainerColorTokens contributionColorTokens,
+        float amount
+    ) {
+        // Update the mutable color tokens with the interpolated colors
+        bladeContainerTokens.containerSurfaceLowest =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerSurfaceLowest,
+            contributionColorTokens.getContainerSurfaceLowest(), 1.0f - amount);
+        bladeContainerTokens.containerSurfaceLow =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerSurfaceLow,
+                contributionColorTokens.getContainerSurfaceLow(), 1.0f - amount);
+        bladeContainerTokens.containerSurface =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerSurface,
+                contributionColorTokens.getContainerSurface(), 1.0f - amount);
+        bladeContainerTokens.containerSurfaceHigh =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerSurfaceHigh,
+                contributionColorTokens.getContainerSurfaceHigh(), 1.0f - amount);
+        bladeContainerTokens.containerSurfaceHighest =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerSurfaceHighest,
+                contributionColorTokens.getContainerSurfaceHighest(), 1.0f - amount);
+        bladeContainerTokens.containerSurfaceDim =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerSurfaceDim,
+                contributionColorTokens.getContainerSurfaceDim(), 1.0f - amount);
+        bladeContainerTokens.containerSurfaceBright =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerSurfaceBright,
+                contributionColorTokens.getContainerSurfaceBright(), 1.0f - amount);
+        bladeContainerTokens.onContainer =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.onContainer,
+                contributionColorTokens.getOnContainer(), 1.0f - amount);
+        bladeContainerTokens.onContainerVariant =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.onContainerVariant,
+                contributionColorTokens.getOnContainerVariant(), 1.0f - amount);
+        bladeContainerTokens.containerOutline =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerOutline,
+                contributionColorTokens.getContainerOutline(), 1.0f - amount);
+        bladeContainerTokens.containerOutlineVariant =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerOutlineVariant,
+                contributionColorTokens.getContainerOutlineVariant(), 1.0f - amount);
+        bladeContainerTokens.containerSurfaceDisabledAlpha =
+            (1.0f - amount) * bladeContainerTokens.containerSurfaceDisabledAlpha +
+                amount * contributionColorTokens.getContainerSurfaceDisabledAlpha();
+        bladeContainerTokens.onContainerDisabledAlpha =
+            (1.0f - amount) * bladeContainerTokens.onContainerDisabledAlpha +
+                amount * contributionColorTokens.getOnContainerDisabledAlpha();
+        bladeContainerTokens.containerOutlineDisabledAlpha =
+            (1.0f - amount) * bladeContainerTokens.containerOutlineDisabledAlpha +
+            amount * contributionColorTokens.getContainerOutlineDisabledAlpha();
+        bladeContainerTokens.inverseContainerSurface =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.inverseContainerSurface,
+                contributionColorTokens.getInverseContainerSurface(), 1.0f - amount);
+        bladeContainerTokens.inverseOnContainer =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.inverseOnContainer,
+                contributionColorTokens.getInverseOnContainer(), 1.0f - amount);
+        bladeContainerTokens.inverseContainerOutline =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.inverseContainerOutline,
+                contributionColorTokens.getInverseContainerOutline(), 1.0f - amount);
+        bladeContainerTokens.complementaryOnContainer =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.complementaryOnContainer,
+                contributionColorTokens.getComplementaryOnContainer(), 1.0f - amount);
+        bladeContainerTokens.complementaryContainerOutline =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.complementaryContainerOutline,
+                contributionColorTokens.getComplementaryContainerOutline(), 1.0f - amount);
+        bladeContainerTokens.accentOnContainer =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.accentOnContainer,
+                contributionColorTokens.getAccentOnContainer(), 1.0f - amount);
+
+        bladeContainerTokens.combinedName = bladeContainerTokens.hashCode() + ", [" +
+            contributionColorTokens.hashCode() + ":" + amount + "]";
+
+        bladeContainerTokens.isDark = bladeContainerTokens.isDark() && contributionColorTokens.isDark();
     }
 }

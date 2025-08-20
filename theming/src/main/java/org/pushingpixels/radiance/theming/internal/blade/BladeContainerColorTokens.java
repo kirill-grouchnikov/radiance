@@ -46,7 +46,7 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     public Color onContainerVariant = Color.white;
     public Color containerOutline = Color.white;
     public Color containerOutlineVariant = Color.white;
-    public float containerDisabledAlpha = 0.0f;
+    public float containerSurfaceDisabledAlpha = 0.0f;
     public float onContainerDisabledAlpha = 0.0f;
     public float containerOutlineDisabledAlpha = 0.0f;
     public Color inverseContainerSurface = Color.white;
@@ -122,7 +122,7 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
 
     @Override
     public float getContainerSurfaceDisabledAlpha() {
-        return this.containerDisabledAlpha;
+        return this.containerSurfaceDisabledAlpha;
     }
 
     @Override
