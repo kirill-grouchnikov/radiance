@@ -58,7 +58,7 @@ public abstract class FractionBasedPainter implements RadianceTrait {
 	/**
 	 * The alphas of this painter. Each entry in this array corresponds to the matching entry in
 	 * {@link #fractions} and {@link #colorQueries}. Each entry is applied to the matching
-	 * @link #colorQueries} entry to determine the final color at the {@link #fractions} entry.
+	 * {@link #colorQueries} entry to determine the final color at the {@link #fractions} entry.
 	 */
 	protected int[] alphas;
 

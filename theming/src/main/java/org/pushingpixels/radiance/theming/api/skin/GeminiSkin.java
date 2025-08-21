@@ -33,9 +33,8 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
@@ -216,16 +215,19 @@ public class GeminiSkin extends RadianceSkin {
                     : colorTokens.getContainerSurfaceLow(),
                 ContainerColorTokens::getContainerSurface});
 
-        this.outlinePainter = new CompositeOutlinePainter("Gemini",
-            new FlatOutlinePainter(),
-            new FractionBasedOutlinePainter("Gemini Inner",
+        this.outlinePainter = InlayOutlinePainter.builder()
+            .displayName("Gemini")
+            .outer(ContainerColorTokens::getContainerOutline)
+            .inner(
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {96, 64, 32},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline
-                }));
+                })
+            .build();
+
         this.highlightOutlinePainter = new FlatOutlinePainter();
     }
 }
