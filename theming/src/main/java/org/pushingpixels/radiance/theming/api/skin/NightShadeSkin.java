@@ -33,9 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
@@ -151,14 +149,16 @@ public class NightShadeSkin extends RadianceSkin {
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightSurfacePainter = new MatteSurfacePainter();
 
-        this.outlinePainter = new CompositeOutlinePainter("Night Shade",
-            new FlatOutlinePainter(),
-            new FractionBasedOutlinePainter("Night Shade Inner",
+        this.outlinePainter = InlayOutlinePainter.builder()
+            .displayName("Night Shade")
+            .outer(ContainerColorTokens::getContainerOutline)
+            .inner(
                 new float[]{0.0f, 1.0f},
                 new int[] {32, 12},
                 new ContainerColorTokensSingleColorQuery[]{
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline,
-                }));
+                })
+            .build();
     }
 }

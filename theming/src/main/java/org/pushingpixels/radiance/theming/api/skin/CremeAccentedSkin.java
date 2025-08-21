@@ -33,9 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
@@ -99,13 +97,15 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new MatteSurfacePainter(), 0.5f);
 		this.decorationPainter = new ArcDecorationPainter();
 		this.highlightSurfacePainter = new MatteSurfacePainter();
-		this.outlinePainter = new CompositeOutlinePainter("Creme",
-			new FlatOutlinePainter(),
-			new FractionBasedOutlinePainter("Creme Inner",
+		this.outlinePainter = InlayOutlinePainter.builder()
+            .displayName("Creme")
+            .outer(ContainerColorTokens::getContainerOutline)
+            .inner(
 				new float[] {0.0f, 1.0f},
 				new ContainerColorTokensSingleColorQuery[] {
 					ContainerColorTokens::getComplementaryContainerOutline,
 					ContainerColorTokens::getComplementaryContainerOutline
-				}));
+				})
+            .build();
 	}
 }

@@ -36,9 +36,7 @@ import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
@@ -219,22 +217,17 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface,
                 ContainerColorTokens::getContainerSurfaceLow});
 
-        FractionBasedOutlinePainter outerOutlinePainter = new FractionBasedOutlinePainter(
-            "Office Silver 2007 Outer", new float[] {0.0f, 1.0f},
-            new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokens::getContainerOutline,
-                ContainerColorTokens::getContainerOutline
-            });
-        RadianceOutlinePainter innerOutlinePainter =
-            new FractionBasedOutlinePainter("Office Silver 2007 Inner",
+        this.outlinePainter = InlayOutlinePainter.builder()
+            .displayName("Office Silver 2007")
+            .outer(ContainerColorTokens::getContainerOutline)
+            .inner(
                 new float[] {0.0f, 1.0f},
                 new int[] {240, 240},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline
-                });
-        this.outlinePainter = new CompositeOutlinePainter("Office Silver 2007",
-            outerOutlinePainter, innerOutlinePainter);
+                })
+            .build();
 
         this.decorationPainter = new FractionBasedDecorationPainter(
             "Office Silver 2007",

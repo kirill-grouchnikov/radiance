@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowBu
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * Inlay outline painter that paints a double outline, with the inner one following the shape
@@ -170,6 +171,12 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             }
         }
 
+        private static int[] makeDefaultAlphas(int count) {
+            int[] result = new int[count];
+            Arrays.fill(result, 255);
+            return result;
+        }
+
         public Builder outer(ContainerColorTokensSingleColorQuery colorQuery) {
             this.outerColorQueries = new ContainerColorTokensSingleColorQuery[] {
                 colorQuery,
@@ -193,6 +200,13 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             return this;
         }
 
+        public Builder outer(float[] outerFractions,
+            ContainerColorTokensSingleColorQuery[] outerColorQueries) {
+
+            return this.outer(outerFractions, makeDefaultAlphas(outerFractions.length),
+                outerColorQueries);
+        }
+
         public Builder inner(ContainerColorTokensSingleColorQuery colorQuery) {
             this.innerColorQueries = new ContainerColorTokensSingleColorQuery[] {
                 colorQuery,
@@ -214,6 +228,13 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             System.arraycopy(innerColorQueries, 0, this.innerColorQueries, 0, length);
 
             return this;
+        }
+
+        public Builder inner(float[] innerFractions,
+            ContainerColorTokensSingleColorQuery[] innerColorQueries) {
+
+            return this.inner(innerFractions, makeDefaultAlphas(innerFractions.length),
+                innerColorQueries);
         }
 
         public InlayOutlinePainter build() {

@@ -33,9 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
@@ -138,14 +136,16 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new MatteSurfacePainter(), 0.3f);
 		this.decorationPainter = new FlatDecorationPainter();
 		this.highlightSurfacePainter = new MatteSurfacePainter();
-		this.outlinePainter = new CompositeOutlinePainter("Dust",
-			new FlatOutlinePainter(),
-			new FractionBasedOutlinePainter("Dust Inner",
+		this.outlinePainter = InlayOutlinePainter.builder()
+            .displayName("Dust")
+            .outer(ContainerColorTokens::getContainerOutline)
+            .inner(
 				new float[] {0.0f, 1.0f},
 				new int[] {64, 64},
 				new ContainerColorTokensSingleColorQuery[] {
 					ContainerColorTokens::getComplementaryContainerOutline,
 					ContainerColorTokens::getComplementaryContainerOutline
-				}));
+				})
+            .build();
 	}
 }

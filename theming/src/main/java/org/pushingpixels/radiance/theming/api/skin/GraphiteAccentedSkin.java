@@ -33,9 +33,8 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -94,16 +93,18 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.outlinePainter = new CompositeOutlinePainter("Graphite",
-			new FlatOutlinePainter(),
-			new FractionBasedOutlinePainter("Graphite Inner",
+		this.outlinePainter = InlayOutlinePainter.builder()
+            .displayName("Graphite")
+            .outer(ContainerColorTokens::getContainerOutline)
+            .inner(
 				new float[] {0.0f, 0.5f, 1.0f},
 				new int[] {92, 64, 92},
 				new ContainerColorTokensSingleColorQuery[] {
 					ContainerColorTokens::getComplementaryContainerOutline,
 					ContainerColorTokens::getComplementaryContainerOutline,
 					ContainerColorTokens::getComplementaryContainerOutline
-				}));
+				})
+            .build();
 		this.highlightOutlinePainter = new FlatOutlinePainter();
 		this.surfacePainter = new FractionBasedSurfacePainter("Graphite",
 			new float[] {0.0f, 0.5f, 1.0f},

@@ -34,9 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
@@ -228,15 +226,17 @@ public class TwilightSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface});
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightSurfacePainter = new ClassicSurfacePainter();
-        this.outlinePainter = new CompositeOutlinePainter("Twilight",
-            new FlatOutlinePainter(),
-            new FractionBasedOutlinePainter("Twilight Inner",
+        this.outlinePainter = InlayOutlinePainter.builder()
+            .displayName("Twilight")
+            .outer(ContainerColorTokens::getContainerOutline)
+            .inner(
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {32, 24, 24},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline
-                }));
+                })
+            .build();
     }
 }

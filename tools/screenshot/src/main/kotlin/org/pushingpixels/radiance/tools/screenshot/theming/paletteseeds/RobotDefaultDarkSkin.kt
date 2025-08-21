@@ -37,9 +37,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
-import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
@@ -77,17 +75,17 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
 
         this.buttonShaper = ClassicButtonShaper()
         this.surfacePainter = SpecularRectangularSurfacePainter(ClassicSurfacePainter(), 1.0f)
-        this.outlinePainter = CompositeOutlinePainter(
-            "Robot",
-            FlatOutlinePainter(),
-            FractionBasedOutlinePainter(
-                "Robot Inner",
+        this.outlinePainter = InlayOutlinePainter.builder()
+            .displayName("Robot")
+            .outer { it.containerOutline }
+            .inner(
                 floatArrayOf(0.0f, 1.0f),
                 intArrayOf(96, 96),
                 arrayOf<ContainerColorTokensSingleColorQuery>(
                     ContainerColorTokensSingleColorQuery { it.getComplementaryContainerOutline() },
                     ContainerColorTokensSingleColorQuery { it.getComplementaryContainerOutline() }
-                )))
+                ))
+            .build()
 
         val decorationPainter = MarbleNoiseDecorationPainter()
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())

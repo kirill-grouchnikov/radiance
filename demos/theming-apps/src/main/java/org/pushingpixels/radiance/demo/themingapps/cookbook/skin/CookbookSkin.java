@@ -35,8 +35,7 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.outline.CompositeOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
@@ -115,8 +114,9 @@ public class CookbookSkin extends RadianceSkin {
         this.buttonShaper = new ClassicButtonShaper();
         this.surfacePainter = new CookbookSurfacePainter();
 
-        this.outlinePainter = new CompositeOutlinePainter("Cookbook",
-            new FractionBasedOutlinePainter("Cookbook Outer",
+        this.outlinePainter = InlayOutlinePainter.builder()
+            .displayName("Cookbook")
+            .outer(
                 new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokensSingleColorQuery.blend(
@@ -125,15 +125,16 @@ public class CookbookSkin extends RadianceSkin {
                         0.8f),
                     ContainerColorTokens::getContainerOutline,
                     ContainerColorTokens::getContainerOutline,
-                }),
-            new FractionBasedOutlinePainter("Cookbook Inner",
+                })
+            .inner(
                 new float[] {0.0f, 0.5f, 1.0f},
                 new int[] {112, 80, 64},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline
-                }));
+                })
+            .build();
 
         this.decorationPainter = new CookbookDecorationPainter();
         this.highlightSurfacePainter = new MatteSurfacePainter();
