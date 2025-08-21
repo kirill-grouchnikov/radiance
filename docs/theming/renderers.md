@@ -20,16 +20,14 @@ If you do not configure a custom renderer for one of your data containers, a mat
 
 ### Complex Radiance list renderers
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/complex-list-renderer.png" width="946" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/complex-list-renderer.png" width="546" border=0/>
 
 [VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps/mail) demo app illustrates the usage of `RadiancePanelListCellRenderer` base class for more complex `JList` content. It is used in the destinations list on the left to host three labels (icon, destination name, unread count) and in the threads list in the middle to host six labels across three rows.
 
-In both cases the [highlights](painters/highlight.md) configured on the matching [decoration areas](painters/decoration.md) provide "special" visuals for highlighted rows - those that are in selected, rollover, armed or pressed state. In addition to configuring the background and foreground colors for the highlights at the skin level, the flow of layout and data binding when you use the `RadiancePanelListCellRenderer` base class is:
+In both cases the [highlights](painters/highlight.md) configured on the matching [decoration areas](painters/decoration.md) provide "special" visuals for highlighted rows - those that are in selected, rollover, armed or pressed state. In addition to configuring the background and foreground colors for the highlights at the skin level, during rendering the `RadiancePanelListCellRenderer` calls its abstract `bindRenderer` method. Here, the application should:
 
-* In your renderer constructor, add all sub-components to your renderer and define the layout constraints.
-* In `bindData(JList, Object, int)` bind the relevant data fields to those sub-components.
-* Use `registerThemeAwareLabelsWithText(JLabel...)` in the constructor to "mark" those sub-component labels that should participate in highlight animations on their text based on the current state (rollover, selection, etc). In case a specific label is using a fixed foreground / text color for some of the rows in your list, use `registerThemeAwareLabelsWithText(JLabel...)` and `unregisterThemeAwareLabelsWithText(JLabel...)` in `onPreRender(JList, Object, int)` instead of in the constructor.
-* Use `registerThemeAwareLabelWithIcon(JLabel, RadianceIcon.Factory, Dimension)}` in the constructor to "mark" those sub-component labels that should participate in highlight animations on their icons based on the current state (rollover, selection, etc). In case a specific label is using a fixed icon for some of the rows in your list or different icon sources for different rows, use `registerThemeAwareLabelWithIcon(JLabel, RadianceIcon.Factory, Dimension)` and `unregisterThemeAwareLabelWithIcon(JLabel)` in `onPreRender(JList, Object, int)` instead of in the constructor.
+* Bind the relevant data fields to the sub-components present in your renderer panel (icons, labels, etc)
+* Use the incoming container color tokens to configure the visuals of the relevant sub-components - text color, icon color, outlines, etc
 
 Here is how this flow looks like for the leftmost destinations list. The data model content is configured statically in this sample app:
 
@@ -51,7 +49,7 @@ private static class DestinationRenderer extends
         RadiancePanelListCellRenderer<DestinationInfo> {
     private JLabel iconLabel;
     private JLabel titleLabel;
-    private JLabel unreadLabel;
+    private ContainedLabel unreadLabel;
 ```
 
 The constructor uses `FormLayout` to configure the layout constraints and registers the three labels to be theme-aware so that at runtime these labels will participate in correct highlight animation sequences driven by Radiance:
@@ -70,10 +68,6 @@ public DestinationRenderer() {
     builder.add(this.titleLabel).xy(3, 1);
     builder.add(this.unreadLabel).xy(5, 1);
 
-    // Register the text labels so that they get the right colors on rollover,
-    // selection and other highlight effects
-    this.registerThemeAwareLabelsWithText(this.iconLabel, this.titleLabel, this.unreadLabel);
-
     this.setLayout(new BorderLayout());
     this.add(builder.build(), BorderLayout.CENTER);
 
@@ -81,28 +75,93 @@ public DestinationRenderer() {
 }
 ```
 
-The data binding pass wires the data from the data model to the labels that are part of our renderer:
+The renderer binding wires the data from the data model to the labels that are part of our renderer, as well as configuring the color tokens to use on different parts of the UI:
 
 ```java
 @Override
-protected void bindData(JList<? extends DestinationInfo> list,
-        DestinationInfo value, int index) {
+protected void bindRenderer(JList<? extends DestinationInfo> list, DestinationInfo value,
+    int index, ContainerColorTokens colorTokens) {
+
+    // Bind data
     this.titleLabel.setText(value.title);
     this.unreadLabel.setText(value.unread > 0 ? Integer.toString(value.unread) : "");
+
+    // Configure colors
+    this.iconLabel.setForeground(colorTokens.getOnContainer());
+    this.titleLabel.setForeground(colorTokens.getOnContainer());
+    this.unreadLabel.setContainerColorTokens(colorTokens);
+
+    // And icons
+    RadianceIcon icon = value.iconFactory.createNewIcon();
+    icon.setColorFilter(color -> colorTokens.getOnContainer());
+    icon.setDimension(new Dimension(16, 16));
+    this.iconLabel.setIcon(icon);
 }
 ```
 
-And finally, we configure the icon factory for the renderer based on the data model so that it is properly colorized for highlight animations:
+Our `ContainedLabel` has custom drawing for the unread label, styling it as a rounded badge, using:
+
+* `containerSurfaceLow` color token for the badge fill
+* `containerOutlineVariant` color token for the badge outline
+* `onContainerVariant` color token for the badge text
 
 ```java
-@Override
-protected void onPreRender(JList<? extends DestinationInfo> list,
-        DestinationInfo value, int index) {
-    // Register the matching icon factory here without setting the actual icon. The
-    // icon will be created and colorized by Radiance runtime based on the highlight
-    // state of the specific row at render time
-    this.registerThemeAwareLabelWithIcon(this.iconLabel, value.iconFactory,
-            new Dimension(16, 16));
+private static class ContainedLabel extends JPanel {
+    private JLabel label;
+    private ContainerColorTokens containerColorTokens;
+
+    public ContainedLabel() {
+        this.label = new JLabel();
+        this.setLayout(new BorderLayout());
+        this.setBorder(new EmptyBorder(2, 10, 2, 10));
+        this.add(this.label, BorderLayout.CENTER);
+        this.setOpaque(false);
+    }
+
+    public void setContainerColorTokens(ContainerColorTokens containerColorTokens) {
+        this.containerColorTokens = containerColorTokens;
+        this.label.setForeground(containerColorTokens.getOnContainerVariant());
+        this.repaint();
+    }
+
+    public void setText(String text) {
+        this.label.setText(text);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        if (this.containerColorTokens == null) {
+            return;
+        }
+
+        String text = this.label.getText();
+        if ((text == null) || text.isEmpty()) {
+            return;
+        }
+
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        int width = this.getWidth();
+        int height = this.getHeight();
+
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, width, height,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                // Inner fill
+                graphics1X.setColor(this.containerColorTokens.getContainerSurfaceLow());
+                graphics1X.fill(new RoundRectangle2D.Float(0.5f, 0.5f,
+                    scaledWidth - 2.0f, scaledHeight - 2.0f,
+                    scaledHeight - 2.0f, scaledHeight - 2.0f));
+
+                // Outline
+                graphics1X.setColor(this.containerColorTokens.getContainerOutlineVariant());
+                graphics1X.draw(new RoundRectangle2D.Float(0.0f, 0.0f,
+                    scaledWidth - 1.0f, scaledHeight - 1.0f,
+                    scaledHeight - 2.0f, scaledHeight - 2.0f));
+            });
+
+
+        g2d.dispose();
+    }
 }
 ```
 
@@ -110,9 +169,4 @@ At runtime, the highlighted destination is using the light-yellow background fil
 
 ### Complex Radiance tree renderers
 
-For more complex `JTree` content, use `RadiancePanelTreeCellRenderer` with the same flow of layout and data binding as for complex lists:
-
-* In your renderer constructor, add all sub-components to your renderer and define the layout constraints.
-* In `bindData(JTree, Object, int)` bind the relevant data fields to those sub-components.
-* Use `registerThemeAwareLabelsWithText(JLabel...)` in the constructor to "mark" those sub-component labels that should participate in highlight animations on their text based on the current state (rollover, selection, etc). In case a specific label is using a fixed foreground / text color for some of the rows in your tree, use `registerThemeAwareLabelsWithText(JLabel...)` and `unregisterThemeAwareLabelsWithText(JLabel...)` in `onPreRender(JTree, Object, int)` instead of in the constructor.
-* Use `registerThemeAwareLabelWithIcon(JLabel, RadianceIcon.Factory, Dimension)}` in the constructor to "mark" those sub-component labels that should participate in highlight animations on their icons based on the current state (rollover, selection, etc). In case a specific label is using a fixed icon for some of the rows in your list or different icon sources for different rows, use `registerThemeAwareLabelWithIcon(JLabel, RadianceIcon.Factory, Dimension)` and `unregisterThemeAwareLabelWithIcon(JLabel)` in `onPreRender(JTree, Object, int)` instead of in the constructor.
+For more complex `JTree` content, use `RadiancePanelTreeCellRenderer` with the same implementation of the abstract `bindRenderer` method as documented for complex list renderers in the previous section.
