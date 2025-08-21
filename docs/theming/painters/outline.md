@@ -32,7 +32,7 @@ The `shapeSupplier` parameter is used to compute the shape(s) to paint, while th
 Radiance provides a number of outline painters that can be used as a starting point for your custom application visuals.
 
 * `FractionBasedOutlinePainter` enables vertical gradients with arbitrary multi-stop colors. Most core Radiance outline painters extend this class.
-* `CompositeOutlinePainter` combines two outline painters, using one for just the primary outline, and the other just for the inner outline.
+* `InlayOutlinePainter` paints a double outline, with the inner one following the shape of the outer one with no gaps between them. The visuals for both outlines have configurable vertical gradients.
 
 
 ### Management API
