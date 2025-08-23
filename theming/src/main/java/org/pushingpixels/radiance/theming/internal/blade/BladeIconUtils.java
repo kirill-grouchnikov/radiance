@@ -130,7 +130,7 @@ public class BladeIconUtils {
 
     private static RadianceOutlinePainter.ShapeSuppler radioButtonShapeSupplier =
         (c, width, height, insets, scaleFactor) ->
-            new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height -  - 2.0f * insets);
+            new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
     public static void drawRadioButton(Graphics2D g, AbstractButton button, RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
