@@ -252,18 +252,20 @@ public class FancyListPanel extends ControllablePanel {
                 this.unreadLabel.setVisible(false);
             }
 
-            // Configure colors
-            this.fromLabel.setForeground(colorTokens.getOnContainer());
-            this.timeLabel.setForeground(colorTokens.getOnContainer());
-            this.titleLabel.setForeground(colorTokens.getOnContainer());
-            this.summaryLabel.setForeground(colorTokens.getOnContainer());
-            this.unreadLabel.setContainerColorTokens(colorTokens);
+            if (colorTokens != null) {
+                // Configure colors
+                this.fromLabel.setForeground(colorTokens.getOnContainer());
+                this.timeLabel.setForeground(colorTokens.getOnContainer());
+                this.titleLabel.setForeground(colorTokens.getOnContainer());
+                this.summaryLabel.setForeground(colorTokens.getOnContainer());
+                this.unreadLabel.setContainerColorTokens(colorTokens);
 
-            // And icons
-            RadianceIcon personIcon = person_outline_black_24dp.factory().createNewIcon();
-            personIcon.setColorFilter(color -> colorTokens.getOnContainer());
-            personIcon.setDimension(new Dimension(10, 10));
-            this.personLabel.setIcon(personIcon);
+                // And icons
+                RadianceIcon personIcon = person_outline_black_24dp.factory().createNewIcon();
+                personIcon.setColorFilter(color -> colorTokens.getOnContainer());
+                personIcon.setDimension(new Dimension(10, 10));
+                this.personLabel.setIcon(personIcon);
+            }
         }
 
     }

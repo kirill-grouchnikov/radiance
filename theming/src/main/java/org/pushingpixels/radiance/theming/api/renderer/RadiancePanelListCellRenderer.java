@@ -117,9 +117,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                 }
             }
         } else {
-            colorTokensForRenderer = CoreColorTokenUtils.getContainerTokens(list,
-                isSelected ? ComponentState.SELECTED : ComponentState.ENABLED,
-                CoreColorTokenUtils.ContainerType.NEUTRAL);
+            colorTokensForRenderer = null;
         }
 
         this.setEnabled(list.isEnabled());
