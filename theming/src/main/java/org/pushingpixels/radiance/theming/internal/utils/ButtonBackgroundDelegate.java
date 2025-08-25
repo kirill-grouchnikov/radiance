@@ -60,13 +60,13 @@ public class ButtonBackgroundDelegate {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     private static RadianceOutlinePainter.ShapeSuppler buttonShapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
         AbstractButton button = (AbstractButton) c;
         RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
 
         return shaper.getButtonOutline(button, width, height, insets,
-            scaleFactor);
+            radiusAdjustment, scaleFactor);
     };
 
     private void drawBackground(
@@ -164,7 +164,7 @@ public class ButtonBackgroundDelegate {
 
             Shape outlineOuter = this.buttonShapeSupplier.getShape(button,
                 scaledWidth + deltaLeft + deltaRight, scaledHeight + deltaTop + deltaBottom,
-                0.0f,scaleFactor);
+                0.0f, 0.0f, scaleFactor);
 
             graphics1X.translate(-deltaLeft, -deltaTop);
             if (isContentAreaFilled) {
@@ -174,7 +174,7 @@ public class ButtonBackgroundDelegate {
                 Shape outlineFill = isBorderPainted ? this.buttonShapeSupplier.getShape(
                     button, scaledWidth + deltaLeft + deltaRight + 1.0f,
                     scaledHeight + deltaTop + deltaBottom + 1.0f,
-                    0.5f, scaleFactor) : outlineOuter;
+                    0.5f, 0.0f, scaleFactor) : outlineOuter;
                 float containerSurfaceAlpha = overallAlpha *
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
@@ -252,7 +252,7 @@ public class ButtonBackgroundDelegate {
             return false;
         }
         Shape outline = buttonShapeSupplier.getShape(button, button.getWidth(), button.getHeight(),
-            0.0f, RadianceCommonCortex.getScaleFactor(button));
+            0.0f, 0.0f, RadianceCommonCortex.getScaleFactor(button));
         return outline.contains(x, y);
     }
 }

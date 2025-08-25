@@ -62,7 +62,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     private RadianceOutlinePainter.ShapeSuppler switchShapeSupplier =
-        (c, width, height, insets, scaleFactor) ->
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
                 width, height, height * 0.5f, null, insets);
 
@@ -121,7 +121,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     float trackHeight = presentationModel.getTrackSize().height * (float) scaleFactor;
 
                     Shape outlineFill = switchShapeSupplier.getShape(switchComp,
-                        trackWidth, trackHeight, 0.0f, scaleFactor);
+                        trackWidth, trackHeight, 0.0f, 0.0f, scaleFactor);
 
                     surfacePainter.paintSurface(graphics1X, switchComp, trackWidth,
                         trackHeight, outlineFill, mutableContainerTokens);

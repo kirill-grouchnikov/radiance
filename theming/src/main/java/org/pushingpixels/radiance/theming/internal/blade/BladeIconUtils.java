@@ -45,7 +45,7 @@ import java.awt.geom.*;
 
 public class BladeIconUtils {
     private static RadianceOutlinePainter.ShapeSuppler checkBoxShapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
         float cornerRadius = (float) scaleFactor *
             RadianceSizeUtils.getClassicButtonCornerRadius(
@@ -129,7 +129,7 @@ public class BladeIconUtils {
     }
 
     private static RadianceOutlinePainter.ShapeSuppler radioButtonShapeSupplier =
-        (c, width, height, insets, scaleFactor) ->
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
     public static void drawRadioButton(Graphics2D g, AbstractButton button, RadianceSurfacePainter surfacePainter,
@@ -189,7 +189,7 @@ public class BladeIconUtils {
     }
 
     private static RadianceOutlinePainter.ShapeSuppler sliderThumbHorizontalShapeSupplier =
-        (c, width, height, insets, scaleFactor) ->
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             RadianceOutlineUtilities.getTriangleButtonOutline(
                 width, height, 2 * (float) scaleFactor, 1.0f + insets);
 
@@ -226,7 +226,7 @@ public class BladeIconUtils {
     }
 
     private static RadianceOutlinePainter.ShapeSuppler sliderThumbVerticalShapeSupplier =
-        (c, width, height, insets, scaleFactor) ->
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             RadianceOutlineUtilities.getTriangleButtonOutline(
                 width, height, 2 * (float) scaleFactor, 1.0f + insets);
 
@@ -273,7 +273,7 @@ public class BladeIconUtils {
     }
 
     private static RadianceOutlinePainter.ShapeSuppler sliderThumbRoundShapeSupplier =
-        (c, width, height, insets, scaleFactor) ->
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
     public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
@@ -319,7 +319,7 @@ public class BladeIconUtils {
                 : tokens.getContainerSurfaceLow(),
             ContainerColorTokens::getContainerSurface});
     private static RadianceOutlinePainter.ShapeSuppler treeIconShapeSupplier =
-        (c, width, height, insets, scaleFactor) ->
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(),
                 width, height,
@@ -341,7 +341,7 @@ public class BladeIconUtils {
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
                 Shape outline = treeIconShapeSupplier.getShape(tree,
-                    scaledWidth, scaledHeight, 0.0f, scaleFactor);
+                    scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
                 treeIconSurfacePainter.paintSurface(graphics1X, tree, scaledWidth, scaledHeight,
                     outline, colorTokens);
 
@@ -591,7 +591,7 @@ public class BladeIconUtils {
 
 
     private static RadianceOutlinePainter.ShapeSuppler splitDividerBumpShapeSupplier =
-        (c, width, height, insets, scaleFactor) ->
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
     public static void drawSplitDividerBumpImage(Graphics g, RadianceSplitPaneDivider divider,

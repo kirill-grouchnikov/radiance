@@ -238,10 +238,10 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
     }
 
     private static RadianceOutlinePainter.ShapeSuppler sliderTrackShapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
             float radius = (float) scaleFactor *
-                RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
+                RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f - radiusAdjustment;
 
             return RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(),
@@ -258,7 +258,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(slider);
 
         Shape outline = sliderTrackShapeSupplier.getShape(slider,
-            width, height, 0.0f, scaleFactor);
+            width, height, 0.0f, 0.0f, scaleFactor);
 
         float containerSurfaceAlpha =
             (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
@@ -323,7 +323,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             int fillHeight = height;
             if ((fillWidth > 0) && (fillHeight > 0)) {
                 Shape outline = sliderTrackShapeSupplier.getShape(
-                    slider, fillWidth, fillHeight, 0.0f, scaleFactor);
+                    slider, fillWidth, fillHeight, 0.0f, 0.0f, scaleFactor);
                 graphics1Xextra.translate(fillMinX, 0);
 
                 float containerSurfaceAlpha =
@@ -359,7 +359,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             int fillHeight = height;
             if ((fillWidth > 0) && (fillHeight > 0)) {
                 Shape outline = sliderTrackShapeSupplier.getShape(
-                    slider, fillWidth, fillHeight, 0.0f, scaleFactor);
+                    slider, fillWidth, fillHeight, 0.0f, 0.0f, scaleFactor);
 
                 float containerSurfaceAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);

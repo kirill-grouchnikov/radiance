@@ -55,10 +55,10 @@ public class ComboBoxBackgroundDelegate {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     private RadianceOutlinePainter.ShapeSuppler shapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int fontSize = RadianceSizeUtils.getComponentFontSize(c);
             float radius = (float) scaleFactor *
-                RadianceSizeUtils.getClassicButtonCornerRadius(fontSize) - insets;
+                RadianceSizeUtils.getClassicButtonCornerRadius(fontSize) - insets - radiusAdjustment;
 
             return RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(),
@@ -99,7 +99,7 @@ public class ComboBoxBackgroundDelegate {
                 // Otherwise pixels on the edge can "spill" outside
                 // the outline. Those pixels will be drawn by the outline painter.
                 Shape outlineFill = shapeSupplier.getShape(combo,
-                    scaledWidth, scaledHeight, 0.5f, scaleFactor);
+                    scaledWidth, scaledHeight, 0.5f, 0.0f, scaleFactor);
                 surfacePainter.paintSurface(graphics1X, combo, scaledWidth, scaledHeight,
                     outlineFill, colorTokens);
 

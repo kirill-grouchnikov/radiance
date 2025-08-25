@@ -53,7 +53,7 @@ public class KeyTipRenderingUtilities {
     }
 
     private static RadianceOutlinePainter.ShapeSuppler keyTipShapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             float radius = (float) scaleFactor *
                 RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
             return RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
@@ -85,7 +85,7 @@ public class KeyTipRenderingUtilities {
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
                     Shape outline = keyTipShapeSupplier.getShape(c, scaledWidth,
-                        scaledHeight, 1.0f, scaleFactor);
+                        scaledHeight, 1.0f, 0.0f, scaleFactor);
                     if (!toPaintEnabled) {
                         graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
                             c, tokens.getContainerSurfaceDisabledAlpha(), graphics));

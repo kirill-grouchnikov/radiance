@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowBu
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.geom.Path2D;
 import java.util.Arrays;
 
 /**
@@ -267,28 +268,25 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
 
         Graphics2D g2d = (Graphics2D) g.create();
+        g2d.translate(0.5f, 0.5f);
 
         if (!skipInnerOutline) {
             g2d.translate(this.strokeWidth, this.strokeWidth);
             paint(g2d, c, width - 2.0f * this.strokeWidth, height - 2.0f * strokeWidth,
-                scaleFactor, shapeSupplier, colorTokens, this.strokeWidth,
-                this.innerFractions, this.innerAlphas, this.innerColorQueries);
+                /* radiusAdjustment */ this.strokeWidth, scaleFactor, shapeSupplier, colorTokens
+                , this.strokeWidth, this.innerFractions, this.innerAlphas, this.innerColorQueries);
             g2d.translate(-this.strokeWidth, -this.strokeWidth);
         }
-        paint(g2d, c, width, height,
+        paint(g2d, c, width, height, /* radiusAdjustment */ 0.0f,
             scaleFactor, shapeSupplier, colorTokens, this.strokeWidth,
             this.outerFractions, this.outerAlphas, this.outerColorQueries);
         g2d.dispose();
     }
 
     private static void paint(Graphics2D graphics, Component c, float width, float height,
-        double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens,
-        float strokeWidth, float[] fractions, int[] alphas,
+        float radiusAdjustment, double scaleFactor, ShapeSuppler shapeSupplier,
+        ContainerColorTokens colorTokens, float strokeWidth, float[] fractions, int[] alphas,
         ContainerColorTokensSingleColorQuery[] colorQueries) {
-
-        Shape outline = shapeSupplier.getShape(c, width, height, 0.0f, scaleFactor);
-        if (outline == null)
-            return;
 
         Color[] drawColors = new Color[fractions.length];
         for (int i = 0; i < fractions.length; i++) {
@@ -312,7 +310,20 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
         MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, fractions,
             drawColors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
         graphics.setPaint(gradient);
-        graphics.draw(outline);
+
+        if (strokeWidth == 1.0f) {
+            Shape outline = shapeSupplier.getShape(c, width, height, 0.0f, radiusAdjustment, scaleFactor);
+            graphics.draw(outline);
+        } else {
+            Path2D outlinePath = new Path2D.Float(Path2D.WIND_EVEN_ODD);
+            Shape outlineOuterShape = shapeSupplier.getShape(c, width, height, -0.5f,
+                radiusAdjustment, scaleFactor);
+            Shape outlineInnerShape = shapeSupplier.getShape(c, width, height, 1.5f,
+                radiusAdjustment, scaleFactor);
+            outlinePath.append(outlineOuterShape, false);
+            outlinePath.append(outlineInnerShape, false);
+            graphics.fill(outlinePath);
+        }
     }
 
     @Override

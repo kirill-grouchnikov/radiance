@@ -226,6 +226,7 @@ public class GeminiSkin extends RadianceSkin {
                     ContainerColorTokens::getComplementaryContainerOutline,
                     ContainerColorTokens::getComplementaryContainerOutline
                 })
+            .strokeWidth(2.0f)
             .build();
 
         this.highlightOutlinePainter = new FlatOutlinePainter();

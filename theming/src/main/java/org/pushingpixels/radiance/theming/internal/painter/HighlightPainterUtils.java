@@ -151,7 +151,7 @@ public class HighlightPainterUtils {
                 int deltaBottom = openSides.contains(RadianceThemingSlices.Side.BOTTOM) ? openDelta : 0;
 
                 RadianceOutlinePainter.ShapeSuppler outlineShapeSupplier =
-                    (c, shapeWidth, shapeHeight, shapeInsets, shapeScaleFactor) ->
+                    (c, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment, shapeScaleFactor) ->
                         getBorderPath(c.getComponentOrientation(), shapeWidth, shapeHeight,
                             shapeInsets, openSides);
 

@@ -654,11 +654,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private static RadianceOutlinePainter.ShapeSuppler tabOutlineShapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
             // Always use slightly rounded corners on tabs
             float cornerRadius = (float) scaleFactor * RadianceSizeUtils
-                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
+                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c)) -
+                radiusAdjustment;
 
             return RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(),
@@ -674,7 +675,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         int dy = 3;
         width -= 1;
 
-        Shape outline = tabOutlineShapeSupplier.getShape(tabPane, width, height + dy, 0.0f, scaleFactor);
+        Shape outline = tabOutlineShapeSupplier.getShape(tabPane, width, height + dy,
+            0.0f, 0.0f, scaleFactor);
 
         graphics1X.setColor(tabColor);
         graphics1X.fill(outline);

@@ -103,7 +103,7 @@ public class RadianceOutlineUtilities {
 	 * @return The basic outline for the specified parameters.
 	 */
 	public static Shape getBaseOutline(ComponentOrientation orientation, float width, float height,
-                                       float radius, Set<RadianceThemingSlices.Side> straightSides, float insets) {
+           float radius, Set<RadianceThemingSlices.Side> straightSides, float insets) {
 		RadianceThemingSlices.Side leftSide =
 				orientation.isLeftToRight()
 						? RadianceThemingSlices.Side.LEADING

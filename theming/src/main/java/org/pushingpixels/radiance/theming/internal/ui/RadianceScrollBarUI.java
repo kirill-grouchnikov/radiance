@@ -95,7 +95,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
     private static int THUMB_DELTA = 2;
 
     private RadianceOutlinePainter.ShapeSuppler thumbVerticalShapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             // Adaptive corner radius, either half the height (which will be width after
             // rotation) for larger thumbs, or quarter the height for smaller thumbs
             float radius = (width >= 1.5 * height)
@@ -106,7 +106,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         };
 
     private RadianceOutlinePainter.ShapeSuppler thumbHorizontalShapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             // Adaptive corner radius, either half the height for larger thumbs, or quarter the
             // height for smaller thumbs
             float radius = (width >= 1.5 * height)
@@ -201,7 +201,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
                 Shape outline = thumbVerticalShapeSupplier.getShape(this.scrollbar,
-                    scaledWidth, scaledHeight, 0.0f, scaleFactor);
+                    scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
 
                 // Rotate the graphics context for correct "orientation" of the visuals
                 AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
@@ -258,7 +258,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
 
                 Shape outline = thumbHorizontalShapeSupplier.getShape(this.scrollbar,
-                    scaledWidth, scaledHeight, 0.0f, scaleFactor);
+                    scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
 
                 graphics1X.translate(x, y + voffset * scaleFactor);
 

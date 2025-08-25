@@ -334,13 +334,13 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         RadianceOutlinePainter.ShapeSuppler iconContainerShapeSupplier =
                             (c, iconContainerWidth, iconContainerHeight, iconContainerInsets,
-                                iconContainerScaleFactor) ->
+                                iconRadiusAdjustment, iconContainerScaleFactor) ->
                                 new Rectangle2D.Float(0.0f, 0.0f,
                                     iconContainerWidth, iconContainerHeight);
 
                         Rectangle2D.Float extended =
                             (Rectangle2D.Float) iconContainerShapeSupplier.getShape(
-                                this.commandButton, scaledWidth, scaledHeight, 0.0f, scaleFactor);
+                                this.commandButton, scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
 
                         ComponentState currState = this.commandButton.getActionModel().isEnabled()
                                 ? ComponentState.SELECTED

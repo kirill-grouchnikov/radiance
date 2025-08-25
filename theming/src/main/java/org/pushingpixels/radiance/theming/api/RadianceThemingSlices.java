@@ -52,13 +52,13 @@ import java.util.Set;
  */
 public final class RadianceThemingSlices {
     private static RadianceOutlinePainter.ShapeSuppler buttonShapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
             AbstractButton button = (AbstractButton) c;
             RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
 
             return shaper.getButtonOutline(button, width, height, insets,
-                scaleFactor);
+                radiusAdjustment, scaleFactor);
         };
 
     /**
@@ -252,7 +252,7 @@ public final class RadianceThemingSlices {
                     Shape outline = buttonShapeSupplier.getShape(mainComp,
                         (float) scaleFactor * mainComp.getWidth(),
                         (float) scaleFactor * mainComp.getHeight(),
-                        1.0f, scaleFactor);
+                        1.0f, 0.0f, scaleFactor);
                     graphics1X.draw(outline);
                 } else {
                     Shape outline = (focusShape != null) ? focusShape
@@ -308,7 +308,7 @@ public final class RadianceThemingSlices {
                         Shape outline = buttonShapeSupplier.getShape(mainComp,
                             (float) scaleFactor * mainComp.getWidth(),
                             (float) scaleFactor * mainComp.getHeight(),
-                            insetsPix, scaleFactor);
+                            insetsPix, 0.0f, scaleFactor);
                         graphics1X.draw(outline);
                     }
                 } else {
@@ -359,7 +359,7 @@ public final class RadianceThemingSlices {
                         Shape outline = buttonShapeSupplier.getShape(mainComp,
                             (float) scaleFactor * mainComp.getWidth(),
                             (float) scaleFactor * mainComp.getHeight(),
-                            1.0f, scaleFactor);
+                            1.0f, 0.0f, scaleFactor);
                         graphics1X.draw(outline);
                     }
                 } else {

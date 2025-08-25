@@ -63,11 +63,11 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
 
     @Override
     public Shape getButtonOutline(AbstractButton button, float width, float height, float insets,
-        double scaleFactor) {
+        float radiusAdjustment, double scaleFactor) {
         Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(button,
             RadianceSynapse.BUTTON_STRAIGHT_SIDE);
 
-        float radius = (float) scaleFactor * this.getCornerRadius(button, insets);
+        float radius = (float) scaleFactor * this.getCornerRadius(button, insets, radiusAdjustment);
 
         HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius, insets);
 
@@ -193,7 +193,7 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
     }
 
     @Override
-    public float getCornerRadius(AbstractButton button, float insets) {
+    public float getCornerRadius(AbstractButton button, float insets, float radiusAdjustment) {
         float radius = RadianceSizeUtils
                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
         if ((button != null)
@@ -206,6 +206,7 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
         if (RadianceCoreUtilities.isToolBarButton(button)) {
             radius = RadianceCoreUtilities.getToolbarButtonCornerRadius(button, insets);
         }
+        radius -= radiusAdjustment;
         return radius;
     }
 }

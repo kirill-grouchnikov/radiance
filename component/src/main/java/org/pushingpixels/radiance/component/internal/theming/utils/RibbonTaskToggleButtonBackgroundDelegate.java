@@ -136,7 +136,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
     }
 
     private static RadianceOutlinePainter.ShapeSuppler outlineShapeSupplier =
-        (c, width, height, insets, scaleFactor) -> {
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             float radius = (float) scaleFactor *
                 getTaskToggleButtonCornerRadius((JRibbonTaskToggleButton) c);
 
@@ -160,7 +160,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
                     Shape outline = outlineShapeSupplier.getShape(button,
-                        scaledWidth, scaledHeight + 3.0f, 0.0f, scaleFactor);
+                        scaledWidth, scaledHeight + 3.0f, 0.0f, 0.0f, scaleFactor);
 
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
                     RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =

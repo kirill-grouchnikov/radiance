@@ -294,10 +294,11 @@ public class CommandButtonBackgroundDelegate {
 
                 // Outline
                 RadianceOutlinePainter.ShapeSuppler outlineShapeSupplier =
-                    (c, outlineWidth, outlineHeight, outlineInsets, outlineScaleFactor) ->
+                    (c, outlineWidth, outlineHeight, outlineInsets, outlineRadiusAdjustment, outlineScaleFactor) ->
                         RadianceOutlineUtilities.getBaseOutline(
                             c.getComponentOrientation(),
-                            outlineWidth, outlineHeight, radius - outlineInsets,
+                            outlineWidth, outlineHeight,
+                            radius - outlineInsets - outlineRadiusAdjustment,
                             straightSides, outlineInsets);
 
                 outlinePainter.paintOutline(graphics1X, commandButton,

@@ -46,7 +46,8 @@ import java.awt.*;
  */
 public interface RadianceOutlinePainter extends RadianceTrait {
     interface ShapeSuppler {
-        Shape getShape(Component c, float width, float height, float insets, double scaleFactor);
+        Shape getShape(Component c, float width, float height, float insets,
+            float radiusAdjustment, double scaleFactor);
     }
 
     /**
