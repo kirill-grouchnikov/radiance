@@ -60,7 +60,8 @@ public class BladeDrawingUtils {
                     (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeScaleFactor) ->
                         RadianceOutlineUtilities.getBaseOutline(
                             shapeComponent.getComponentOrientation(),
-                            shapeWidth - 1.0f, shapeHeight - 1.0f, scaledRadius, null, 0.0f);
+                            shapeWidth - 1.0f, shapeHeight - 1.0f,
+                            scaledRadius, null, shapeInsets);
 
                 outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, scaleFactor,
                     bladeShapeSupplier, colorTokens);

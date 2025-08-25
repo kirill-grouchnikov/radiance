@@ -314,7 +314,10 @@ public class SampleMenuFactory {
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
-            this.outlinePainter = new FlatOutlinePainter();
+            FlatOutlinePainter flatOutlinePainter = new FlatOutlinePainter();
+            flatOutlinePainter.setStrokeWidth(2.0f);
+            this.outlinePainter = flatOutlinePainter;
+
             this.surfacePainter = new GlassSurfacePainter();
             this.buttonShaper = new ClassicButtonShaper();
             this.decorationPainter = new ArcDecorationPainter();

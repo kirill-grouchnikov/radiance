@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowBu
 
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
+import java.awt.geom.Path2D;
 
 /**
  * Outline painter with fraction-based stops and a color query associated with
@@ -47,6 +48,9 @@ import java.awt.MultipleGradientPaint.CycleMethod;
  */
 public class FractionBasedOutlinePainter extends FractionBasedPainter
 	implements RadianceOutlinePainter {
+
+    private float strokeWidth = 1.0f;
+
 	/**
 	 * Creates a new fraction-based outline painter.
 	 *
@@ -84,15 +88,19 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
 		super(displayName, fractions, alphas, colorQueries);
 	}
 
+    public void setStrokeWidth(float strokeWidth) {
+        if (strokeWidth <= 0.0f) {
+            throw new IllegalArgumentException("Unsupported stroke width " + strokeWidth);
+        }
+        this.strokeWidth = strokeWidth;
+    }
+
     @Override
     public void paintOutline(Graphics g, Component c, float width, float height,
         double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
 
-        Shape outline = shapeSupplier.getShape(c, width, height, 0.0f, scaleFactor);
-        if (outline == null)
-            return;
-
         Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(0.5f, 0.5f);
 
         Color[] drawColors = new Color[this.fractions.length];
         for (int i = 0; i < this.fractions.length; i++) {
@@ -111,12 +119,23 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
             .isAnnotationPresent(RadianceInternalArrowButton.class);
         int joinKind = isSpecialButton ? BasicStroke.JOIN_MITER : BasicStroke.JOIN_ROUND;
         int capKind = isSpecialButton ? BasicStroke.CAP_SQUARE : BasicStroke.CAP_BUTT;
-        graphics.setStroke(new BasicStroke(1.0f, capKind, joinKind));
+        graphics.setStroke(new BasicStroke(this.strokeWidth, capKind, joinKind));
 
         MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, this.fractions,
             drawColors, CycleMethod.NO_CYCLE);
         graphics.setPaint(gradient);
-        graphics.draw(outline);
+
+        if (strokeWidth == 1.0f) {
+            Shape outline = shapeSupplier.getShape(c, width, height, 0.0f, scaleFactor);
+            graphics.draw(outline);
+        } else {
+            Path2D outlinePath = new Path2D.Float((Path2D.WIND_EVEN_ODD));
+            Shape outlineOuterShape = shapeSupplier.getShape(c, width, height, -0.5f, scaleFactor);
+            Shape outlineInnerShape = shapeSupplier.getShape(c, width, height, 1.5f, scaleFactor);
+            outlinePath.append(outlineOuterShape, false);
+            outlinePath.append(outlineInnerShape, false);
+            graphics.fill(outlinePath);
+        }
         graphics.dispose();
     }
 }

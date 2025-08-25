@@ -65,7 +65,8 @@ public class RadianceTextComponentBorder implements Border, UIResource {
 
     RadianceOutlinePainter.ShapeSuppler shapeSupplier =
         (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeScaleFactor) ->
-            new Rectangle2D.Float(0, 0, shapeWidth - 1, shapeHeight - 1);
+            new Rectangle2D.Float(shapeInsets, shapeInsets, shapeWidth - 1 - 2.0f * shapeInsets,
+                shapeHeight - 1 - 2.0f * shapeInsets);
 
     /**
      * Creates a new border with the specified insets.
