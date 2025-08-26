@@ -252,8 +252,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
             break;
         }
         if (areAllRenderersFromRadiance) {
-            Insets rendererInsets = RadianceSizeUtils
-                    .getTableCellRendererInsets(RadianceSizeUtils.getComponentFontSize(table));
+            Insets rendererInsets = RadianceSizeUtils.getTableCellRendererInsets(table);
             JLabel forSizing = new JLabel("Text");
             forSizing.setFont(table.getFont());
             int rowHeight = forSizing.getPreferredSize().height + rendererInsets.bottom + rendererInsets.top;
@@ -263,8 +262,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         // instead of computing the cell renderer insets on
         // every cell rendering, compute it once and expose to the
         // RadianceDefaultTableCellRenderer
-        this.cellRendererInsets = RadianceSizeUtils
-                .getTableCellRendererInsets(RadianceSizeUtils.getComponentFontSize(table));
+        this.cellRendererInsets = RadianceSizeUtils.getTableCellRendererInsets(table);
     }
 
     /**

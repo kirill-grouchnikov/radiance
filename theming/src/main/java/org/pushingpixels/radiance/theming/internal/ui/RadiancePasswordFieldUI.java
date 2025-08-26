@@ -389,7 +389,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
         if (b == null || b instanceof UIResource) {
             Border newB = new BorderUIResource.CompoundBorderUIResource(
                     new RadianceTextComponentBorder(RadianceSizeUtils.getTextBorderInsets(
-                            RadianceSizeUtils.getComponentFontSize(this.passwordField))),
+                        this.passwordField)),
                     new BasicBorders.MarginBorder());
             this.passwordField.setBorder(newB);
         }

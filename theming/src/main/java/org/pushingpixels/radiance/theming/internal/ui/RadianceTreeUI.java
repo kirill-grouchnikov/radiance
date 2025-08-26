@@ -172,8 +172,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 		// instead of computing the cell renderer insets on
 		// every cell rendering, compute it once and expose to the
 		// RadianceDefaultTreeCellRenderer
-		this.cellRendererInsets = RadianceSizeUtils.getTreeCellRendererInsets(
-				tree, RadianceSizeUtils.getComponentFontSize(tree));
+		this.cellRendererInsets = RadianceSizeUtils.getTreeCellRendererInsets(tree);
 
 		// Update indents so that the expand / collapse icons are not cut off
 		setLeftChildIndent(RadianceSizeUtils.getTreeLeftIndent(fontSize));

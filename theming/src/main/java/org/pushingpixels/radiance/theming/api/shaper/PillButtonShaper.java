@@ -85,7 +85,7 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
         return new RadianceButtonBorder(PillButtonShaper.class) {
             public Insets getBorderInsets(Component c) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-                Insets buttonInsets = RadianceSizeUtils.getButtonInsets(button, fontSize);
+                Insets buttonInsets = RadianceSizeUtils.getButtonInsets(button);
                 float focusPadding = RadianceSizeUtils.getFocusRingPadding(button, fontSize);
                 int lrPadding = RadianceCoreUtilities.hasText(button)
                         ? RadianceSizeUtils.getTextButtonLRPadding(fontSize)

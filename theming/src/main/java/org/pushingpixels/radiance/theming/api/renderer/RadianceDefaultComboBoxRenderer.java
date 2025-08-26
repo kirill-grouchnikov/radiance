@@ -68,8 +68,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
         super();
         this.combo = combo;
 
-        Insets ins = RadianceSizeUtils.getListCellRendererInsets(combo,
-                RadianceSizeUtils.getComponentFontSize(combo));
+        Insets ins = RadianceSizeUtils.getListCellRendererInsets(combo);
         this.setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
     }
 

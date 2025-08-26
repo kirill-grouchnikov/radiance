@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.common.api.font.FontPolicy;
 import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 import javax.swing.border.Border;
@@ -220,26 +221,35 @@ public class RadianceSizeUtils {
 		return 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
 	}
 
+    public static float getOutlineWidthForContent(Component c) {
+        return RadianceCoreUtilities.getSkin(c).getOutlinePainter().getOutlineInset(
+            RadianceOutlinePainter.InsetKind.CONTENT) / (float) RadianceCommonCortex.getScaleFactor(c);
+    }
+
 	/**
 	 * Returns the button insets under the specified font size.
 	 * 
-	 * @param fontSize
-	 *            Font size.
+	 * @param c Component.
 	 * @return Button insets under the specified font size.
 	 */
-	public static Insets getButtonInsets(Component c, int fontSize) {
+	public static Insets getButtonInsets(Component c) {
 		// Special handling to make buttons
 		// have the same height as text components.
 		// We subtract the border stroke width - since the new
 		// text component border appearance has a lighter "halo"
 		// around the darker inner border.
-		Insets textInsets = getTextBorderInsets(fontSize);
+		Insets textInsets = getTextBorderInsets(c);
 		int borderStroke = (int) getBorderStrokeWidth(c);
 		int topDelta = textInsets.top - borderStroke;
 		int bottomDelta = textInsets.bottom - borderStroke;
 
+        int fontSize = RadianceSizeUtils.getComponentFontSize(c);
 		int lrInset = RadianceSizeUtils.getAdjustedSize(fontSize, 4, 4, 1, false);
-		return new Insets(topDelta, lrInset, bottomDelta, lrInset);
+
+        int extraOutlineInset = Math.max((int) getOutlineWidthForContent(c) - 1, 0);
+
+		return new Insets(topDelta, lrInset + extraOutlineInset,
+            bottomDelta, lrInset + extraOutlineInset);
 	}
 
 	/**
@@ -294,13 +304,13 @@ public class RadianceSizeUtils {
 	/**
 	 * Returns the combo box border insets under the specified font size.
 	 * 
-	 * @param fontSize
-	 *            Font size.
+	 * @param c Component.
 	 * @return Combo box border insets under the specified font size.
 	 */
-	public static Insets getComboBorderInsets(int fontSize) {
+	public static Insets getComboBorderInsets(Component c) {
 		// The base insets are 1,2,1,2. We add one pixel for
 		// each 3 extra points in base control size.
+        int fontSize = RadianceSizeUtils.getComponentFontSize(c);
 		int tbInset = getAdjustedSize(fontSize, 1, 3, 1, false);
 		int lrInset = getAdjustedSize(fontSize, 2, 3, 1, false);
 		return new Insets(tbInset, lrInset, tbInset, lrInset);
@@ -324,19 +334,19 @@ public class RadianceSizeUtils {
 	/**
 	 * Returns the combo box text border insets under the specified font size.
 	 * 
-	 * @param fontSize
-	 *            Font size.
+	 * @param c Component.
 	 * @return Combo box text border insets under the specified font size.
 	 */
-	public static Insets getComboTextBorderInsets(int fontSize) {
+	public static Insets getComboTextBorderInsets(Component c) {
 		// the following makes sure that the text components
 		// and combos have the same height and text alignment
 		// under all font sizes.
-		Insets textInsets = getTextBorderInsets(fontSize);
-		Insets comboInsets = getComboBorderInsets(fontSize);
+		Insets textInsets = getTextBorderInsets(c);
+		Insets comboInsets = getComboBorderInsets(c);
 		int topDelta = textInsets.top - comboInsets.top;// - 1;
 		int bottomDelta = textInsets.bottom - comboInsets.bottom;// - 1;
 
+        int fontSize = RadianceSizeUtils.getComponentFontSize(c);
 		int lrInset = getAdjustedSize(fontSize, 3, 4, 1, false);
 		return new Insets(topDelta, lrInset, bottomDelta, lrInset);
 	}
@@ -446,11 +456,10 @@ public class RadianceSizeUtils {
 	/**
 	 * Returns the list cell renderer insets under the specified font size.
 	 * 
-	 * @param fontSize
-	 *            Font size.
+	 * @param c Component.
 	 * @return List cell renderer insets under the specified font size.
 	 */
-	public static Insets getListCellRendererInsets(Component c, int fontSize) {
+	public static Insets getListCellRendererInsets(Component c) {
 		// Special handling to make non-editable combo boxes
 		// have the same height as text components. The combo box
 		// uses list cell renderer, so to compute the top and
@@ -459,12 +468,13 @@ public class RadianceSizeUtils {
 		// We also subtract the border stroke width - since the new
 		// text component border appearance has a lighter "halo"
 		// around the darker inner border.
-		Insets textInsets = getTextBorderInsets(fontSize);
-		Insets comboInsets = getComboBorderInsets(fontSize);
+		Insets textInsets = getTextBorderInsets(c);
+		Insets comboInsets = getComboBorderInsets(c);
 		int borderStroke = (int) getBorderStrokeWidth(c);
 		int topDelta = textInsets.top - comboInsets.top - borderStroke;
 		int bottomDelta = textInsets.bottom - comboInsets.bottom - borderStroke;
 
+        int fontSize = RadianceSizeUtils.getComponentFontSize(c);
 		int lrInset = RadianceSizeUtils.getAdjustedSize(fontSize, 4, 4, 1, false);
 		return new Insets(topDelta, lrInset, bottomDelta, lrInset);
 	}
@@ -692,14 +702,13 @@ public class RadianceSizeUtils {
 	/**
 	 * Returns the spinner border insets under the specified font size.
 	 * 
-	 * @param fontSize
-	 *            Font size.
+	 * @param c Component.
 	 * @return Spinner border insets under the specified font size.
 	 */
-	public static Insets getSpinnerBorderInsets(int fontSize) {
+	public static Insets getSpinnerBorderInsets(Component c) {
 		// make sure that spinners and combos have the same height and text
 		// alignment under all font sizes.
-		Insets comboInsets = getComboBorderInsets(fontSize);
+		Insets comboInsets = getComboBorderInsets(c);
 		return new Insets(comboInsets.top + 1, comboInsets.left,
 				comboInsets.bottom + 1, comboInsets.right);
 	}
@@ -717,12 +726,11 @@ public class RadianceSizeUtils {
 	/**
 	 * Returns the spinner text border insets under the specified font size.
 	 * 
-	 * @param fontSize
-	 *            Font size.
+	 * @param c Component.
 	 * @return Spinner text border insets under the specified font size.
 	 */
-	public static Insets getSpinnerTextBorderInsets(int fontSize) {
-		Insets textInsets = getComboTextBorderInsets(fontSize);
+	public static Insets getSpinnerTextBorderInsets(Component c) {
+		Insets textInsets = getComboTextBorderInsets(c);
 		return new Insets(textInsets.top - 1, textInsets.left,
 				textInsets.bottom - 1, textInsets.right);
 	}
@@ -806,15 +814,16 @@ public class RadianceSizeUtils {
 	/**
 	 * Returns the table cell renderer insets under the specified font size.
 	 * 
-	 * @param fontSize
-	 *            Font size.
+	 * @param c Component.
 	 * @return Table cell renderer insets under the specified font size.
 	 */
-	public static Insets getTableCellRendererInsets(int fontSize) {
-		Insets textInsets = getTextBorderInsets(fontSize);
-		Insets comboInsets = getComboBorderInsets(fontSize);
+	public static Insets getTableCellRendererInsets(Component c) {
+		Insets textInsets = getTextBorderInsets(c);
+		Insets comboInsets = getComboBorderInsets(c);
 		int topDelta = textInsets.top - comboInsets.top - 1;
 		int bottomDelta = textInsets.bottom - comboInsets.bottom - 2;
+
+        int fontSize = RadianceSizeUtils.getComponentFontSize(c);
 		if (fontSize == 11) {
 			bottomDelta++;
 		}
@@ -825,13 +834,14 @@ public class RadianceSizeUtils {
 	}
 
 	/**
-	 * Returns the text border insets under the specified font size.
+	 * Returns the text border insets for the specified component.
 	 * 
-	 * @param fontSize
-	 *            Font size.
+	 * @param c Component
 	 * @return Text border insets under the specified font size.
 	 */
-	public static Insets getTextBorderInsets(int fontSize) {
+	public static Insets getTextBorderInsets(Component c) {
+        int fontSize = (c == null) ? RadianceSizeUtils.getControlFontSize()
+            : RadianceSizeUtils.getComponentFontSize(c);
 		// The base insets are 3,5,4,5. We add one pixel for
 		// each 3 extra points in base control size.
 		int tInset = getAdjustedSize(fontSize, 3, 3, 1, false);
@@ -841,7 +851,11 @@ public class RadianceSizeUtils {
 			bInset = 3;
 		}
 		int lrInset = getAdjustedSize(fontSize, 5, 3, 1, false);
-		return new Insets(tInset, lrInset, bInset, lrInset);
+
+        int extraOutlineInset = Math.max((int) getOutlineWidthForContent(c) - 1, 0);
+
+        return new Insets(tInset + extraOutlineInset, lrInset + extraOutlineInset,
+            bInset + extraOutlineInset, lrInset + extraOutlineInset);
 	}
 
 	/**
@@ -907,12 +921,11 @@ public class RadianceSizeUtils {
 	/**
 	 * Returns the tree cell renderer insets under the specified font size.
 	 * 
-	 * @param fontSize
-	 *            Font size.
+	 * @param c Component.
 	 * @return Tree cell renderer insets under the specified font size.
 	 */
-	public static Insets getTreeCellRendererInsets(Component c, int fontSize) {
-		Insets listCellInsets = getListCellRendererInsets(c, fontSize);
+	public static Insets getTreeCellRendererInsets(Component c) {
+		Insets listCellInsets = getListCellRendererInsets(c);
 		return new Insets(listCellInsets.top - 1, listCellInsets.left - 2,
 				listCellInsets.bottom - 1, listCellInsets.right - 2);
 	}

@@ -193,7 +193,7 @@ public class RadianceTextFieldUI extends BasicTextFieldUI implements TransitionA
         if (b == null || b instanceof UIResource) {
             Border newB = new BorderUIResource.CompoundBorderUIResource(
                     new RadianceTextComponentBorder(RadianceSizeUtils.getTextBorderInsets(
-                            RadianceSizeUtils.getComponentFontSize(this.textField))),
+                        this.textField)),
                     new BasicBorders.MarginBorder());
             this.textField.setBorder(newB);
         }

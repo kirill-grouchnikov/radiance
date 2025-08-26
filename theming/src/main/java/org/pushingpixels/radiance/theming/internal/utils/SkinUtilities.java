@@ -121,7 +121,7 @@ public class SkinUtilities {
         UIDefaults.LazyValue textBorder = (UIDefaults table) ->
             new BorderUIResource.CompoundBorderUIResource(
                 new RadianceTextComponentBorder(
-                    RadianceSizeUtils.getTextBorderInsets(controlFontSize)),
+                    RadianceSizeUtils.getTextBorderInsets(null)),
                 new MarginBorder());
 
         UIDefaults.LazyValue textMarginBorder = (UIDefaults table) -> new MarginBorder();
@@ -130,12 +130,12 @@ public class SkinUtilities {
             new RadianceBorder(0.0f, RadianceSizeUtils.getToolTipBorderInsets(controlFontSize));
 
         UIDefaults.LazyValue comboBorder = (UIDefaults table) ->
-            new RadianceBorder(RadianceSizeUtils.getComboBorderInsets(controlFontSize));
+            new RadianceBorder(RadianceSizeUtils.getComboBorderInsets(null));
 
         UIDefaults.LazyValue spinnerBorder = (UIDefaults table) ->
             new BorderUIResource.CompoundBorderUIResource(
                 new RadianceTextComponentBorder(
-                    RadianceSizeUtils.getSpinnerBorderInsets(controlFontSize)),
+                    RadianceSizeUtils.getSpinnerBorderInsets(null)),
                 new MarginBorder());
 
         ContainerColorTokens titlePaneTokens = skin.getNeutralContainerTokens(

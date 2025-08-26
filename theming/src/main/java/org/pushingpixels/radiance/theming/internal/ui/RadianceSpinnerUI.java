@@ -181,8 +181,7 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
         if ((editor instanceof JSpinner.DefaultEditor)) {
             JTextField tf = ((JSpinner.DefaultEditor) editor).getTextField();
             if (tf != null) {
-                int fontSize = RadianceSizeUtils.getComponentFontSize(this.spinner);
-                Insets ins = RadianceSizeUtils.getSpinnerTextBorderInsets(fontSize);
+                Insets ins = RadianceSizeUtils.getSpinnerTextBorderInsets(this.spinner);
                 tf.setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
                 tf.setFont(spinner.getFont());
                 tf.setOpaque(false);
@@ -195,8 +194,7 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
         Border b = this.spinner.getBorder();
         if (b == null || b instanceof UIResource) {
             RadianceTextComponentBorder border = new RadianceTextComponentBorder(
-                    RadianceSizeUtils.getSpinnerBorderInsets(
-                            RadianceSizeUtils.getComponentFontSize(this.spinner)));
+                RadianceSizeUtils.getSpinnerBorderInsets(this.spinner));
             this.spinner.setBorder(border);
         }
     }
@@ -213,8 +211,7 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
                     if ((editor instanceof JSpinner.DefaultEditor)) {
                         JTextField tf = ((JSpinner.DefaultEditor) editor).getTextField();
                         if (tf != null) {
-                            Insets ins = RadianceSizeUtils.getSpinnerTextBorderInsets(
-                                    RadianceSizeUtils.getComponentFontSize(spinner));
+                            Insets ins = RadianceSizeUtils.getSpinnerTextBorderInsets(spinner);
                             tf.setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
                             tf.revalidate();
                         }

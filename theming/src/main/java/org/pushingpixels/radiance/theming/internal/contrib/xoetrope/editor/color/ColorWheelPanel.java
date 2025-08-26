@@ -265,8 +265,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 		baseColorEdit.setOpaque(true);
 		fixedPanel.add(baseColorEdit);
 		baseColorEdit.addActionListener(this);
-		Insets baseColorEditInsets = RadianceSizeUtils.getTextBorderInsets(RadianceSizeUtils
-                .getComponentFontSize(baseColorEdit));
+		Insets baseColorEditInsets = RadianceSizeUtils.getTextBorderInsets(baseColorEdit);
 		baseColorEditInsets.top = 0;
 		baseColorEditInsets.bottom = 0;
         baseColorEdit.setBorder(new CompoundBorder(

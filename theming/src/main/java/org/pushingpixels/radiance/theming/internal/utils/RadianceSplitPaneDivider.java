@@ -95,8 +95,7 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
         @Override
         public Dimension getPreferredSize() {
-            Insets bInsets = RadianceSizeUtils.getButtonInsets(this,
-                    RadianceSizeUtils.getComponentFontSize(this));
+            Insets bInsets = RadianceSizeUtils.getButtonInsets(this);
             int iconWidth = getIcon().getIconWidth();
             int iconHeight = getIcon().getIconHeight();
             return new Dimension(iconWidth + bInsets.left + bInsets.right,

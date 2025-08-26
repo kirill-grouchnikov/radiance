@@ -88,7 +88,7 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
         return new RadianceButtonBorder(ClassicButtonShaper.class) {
             public Insets getBorderInsets(Component c) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-                Insets buttonInsets = RadianceSizeUtils.getButtonInsets(button, fontSize);
+                Insets buttonInsets = RadianceSizeUtils.getButtonInsets(button);
                 float focusPadding = RadianceSizeUtils.getFocusRingPadding(button, fontSize);
                 int lrPadding = RadianceCoreUtilities.hasText(button)
                         ? RadianceSizeUtils.getTextButtonLRPadding(fontSize)

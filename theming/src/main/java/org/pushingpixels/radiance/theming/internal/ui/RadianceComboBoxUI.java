@@ -508,8 +508,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
         // This for Mustang - setting Radiance once again adds a border on
         // the text field in the combo editor.
         if (this.editor instanceof JComponent) {
-            Insets ins = RadianceSizeUtils.getComboTextBorderInsets(
-                    RadianceSizeUtils.getComponentFontSize(this.editor));
+            Insets ins = RadianceSizeUtils.getComboTextBorderInsets(this.editor);
             ((JComponent) this.editor).setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
             this.editor.setBackground(this.comboBox.getBackground());
         }
@@ -523,8 +522,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
     private void updateComboBoxBorder() {
         Border b = this.comboBox.getBorder();
         if (b == null || b instanceof UIResource) {
-            int comboFontSize = RadianceSizeUtils.getComponentFontSize(this.comboBox);
-            Insets comboBorderInsets = RadianceSizeUtils.getComboBorderInsets(comboFontSize);
+            Insets comboBorderInsets = RadianceSizeUtils.getComboBorderInsets(this.comboBox);
             if (this.comboBox.isEditable()) {
                 RadianceTextComponentBorder border = new RadianceTextComponentBorder(
                         comboBorderInsets);
@@ -540,6 +538,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
                 // will invalidate the cached sizes.
                 this.comboBox.setPrototypeDisplayValue(this.comboBox.getPrototypeDisplayValue());
             }
+            int comboFontSize = RadianceSizeUtils.getComponentFontSize(this.comboBox);
             this.layoutInsets = RadianceSizeUtils.getComboLayoutInsets(comboFontSize);
         } else {
             this.layoutInsets = new Insets(0, 0, 0, 0);

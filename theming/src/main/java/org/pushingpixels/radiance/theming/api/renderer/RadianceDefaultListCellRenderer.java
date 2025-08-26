@@ -174,8 +174,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
         this.setEnabled(list.isEnabled());
         this.setFont(list.getFont());
 
-        Insets ins = RadianceSizeUtils.getListCellRendererInsets(list,
-                RadianceSizeUtils.getComponentFontSize(list));
+        Insets ins = RadianceSizeUtils.getListCellRendererInsets(list);
         this.setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
 
         this.setOpaque(false);
