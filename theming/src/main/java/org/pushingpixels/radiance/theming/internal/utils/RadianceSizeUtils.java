@@ -313,7 +313,9 @@ public class RadianceSizeUtils {
         int fontSize = RadianceSizeUtils.getComponentFontSize(c);
 		int tbInset = getAdjustedSize(fontSize, 1, 3, 1, false);
 		int lrInset = getAdjustedSize(fontSize, 2, 3, 1, false);
-		return new Insets(tbInset, lrInset, tbInset, lrInset);
+        int extraOutlineInset = Math.max((int) getOutlineWidthForContent(c), 0);
+		return new Insets(tbInset, lrInset + extraOutlineInset,
+            tbInset, lrInset + extraOutlineInset);
 	}
 
 	/**

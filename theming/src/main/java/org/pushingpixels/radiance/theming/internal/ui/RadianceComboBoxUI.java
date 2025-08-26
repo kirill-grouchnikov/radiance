@@ -227,8 +227,9 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
 
             Insets insets = layoutInsets;
             int buttonWidth = comboBox.isEditable()
-                    ? RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils.getComponentFontSize(comboBox))
-                    : uneditableArrowIcon.getIconWidth();
+                ? RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils.getComponentFontSize(comboBox))
+                    + 2 * (int) RadianceSizeUtils.getOutlineWidthForContent(comboBox) + 1
+                : uneditableArrowIcon.getIconWidth();
 
             if (arrowButton != null) {
                 if (!comboBox.isEditable()) {
@@ -414,11 +415,11 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             int iconY = 1 + insets.top + (height - insets.top - insets.bottom - ih) / 2;
             if (this.comboBox.getComponentOrientation().isLeftToRight()) {
-                int iconX = width - origButtonWidth - insets.right / 2 + (origButtonWidth - iw) / 2;
+                int iconX = width - origButtonWidth - insets.right + (origButtonWidth - iw) / 2;
                 forIcon.translate(iconX, iconY);
                 icon.paintIcon(this.comboBox, forIcon, 0, 0);
             } else {
-                int iconX = insets.left / 2 + (origButtonWidth - iw) / 2;
+                int iconX = insets.left + (origButtonWidth - iw) / 2;
                 forIcon.translate(iconX, iconY);
                 icon.paintIcon(this.comboBox, forIcon, 0, 0);
             }
