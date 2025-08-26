@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
@@ -41,7 +40,6 @@ import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePai
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
-import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -225,13 +223,12 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                         scaledWidth, scaledHeight, scaleFactor, currState);
 
                     // Populate color tokens based on the current transition state of the slider.
-                    BladeUtils.populateColorTokens(mutableColorTokens, this.slider,
-                        modelStateInfo, currState,
-                        RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                        false, false,
-                        CoreColorTokenUtils.ContainerType.MUTED);
+                    ContainerColorTokens progressColorTokens =
+                        CoreColorTokenUtils.getActiveContainerTokens(slider,
+                            slider.isEnabled() ? ComponentState.DETERMINATE
+                            : ComponentState.DISABLED_DETERMINATE);
                     paintSliderTrackSelected1X(slider, graphics1X, drawInverted, thumbRect,
-                        paintRect, mutableColorTokens, scaledWidth, scaledHeight, scaleFactor,
+                        paintRect, progressColorTokens, scaledWidth, scaledHeight, scaleFactor,
                         currState);
                 });
         g2d.dispose();
