@@ -205,20 +205,26 @@ public class BladeIconUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                // Icon fill
                 float containerSurfaceAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, g));
+
+                float outlineInset = outlinePainter.getOutlineInset(
+                    RadianceOutlinePainter.InsetKind.SURFACE);
                 surfacePainter.paintSurface(graphics1X, slider,
                     scaledWidth, scaledHeight,
-                    RadianceOutlineUtilities.getTriangleButtonOutline(
-                        scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
+                    sliderThumbHorizontalShapeSupplier.getShape(slider, scaledWidth, scaledHeight,
+                        outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
+                // Icon outline
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
+
                 outlinePainter.paintOutline(graphics1X, slider, scaledWidth, scaledHeight,
                     scaleFactor, sliderThumbHorizontalShapeSupplier, colorTokens);
             });
@@ -252,22 +258,27 @@ public class BladeIconUtils {
                     graphics1X.transform(mirror);
                 }
 
+                // Icon fill
                 float containerSurfaceAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, g));
+
+                float outlineInset = outlinePainter.getOutlineInset(
+                    RadianceOutlinePainter.InsetKind.SURFACE);
                 surfacePainter.paintSurface(graphics1X, slider,
                     scaledWidth, scaledHeight,
-                    RadianceOutlineUtilities.getTriangleButtonOutline(
-                        scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
+                    sliderThumbVerticalShapeSupplier.getShape(slider, scaledWidth, scaledHeight,
+                        outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
+                // Icon outline
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
                 outlinePainter.paintOutline(graphics1X, slider, scaledWidth, scaledHeight,
-                    scaleFactor, sliderThumbHorizontalShapeSupplier, colorTokens);
+                    scaleFactor, sliderThumbVerticalShapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
@@ -288,22 +299,26 @@ public class BladeIconUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                // Icon fill
                 float containerSurfaceAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, g));
+
                 float outlineInset = outlinePainter.getOutlineInset(
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 surfacePainter.paintSurface(graphics1X, slider,
                     scaledWidth, scaledHeight,
-                    new Ellipse2D.Float(outlineInset, outlineInset,
-                        scaledWidth - 2.0f * outlineInset, scaledHeight - 2.0f * outlineInset),
+                    sliderThumbRoundShapeSupplier.getShape(slider, scaledWidth, scaledHeight,
+                        outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
+                // Icon outline
                 float containerOutlineAlpha =
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerOutlineAlpha, g));
+
                 outlinePainter.paintOutline(graphics1X, slider, scaledWidth, scaledHeight,
                     scaleFactor, sliderThumbRoundShapeSupplier, colorTokens);
             });
