@@ -48,8 +48,10 @@ public class BladeArrowIconUtils {
             height *= 2;
         float strokeWidth = RadianceSizeUtils.getArrowStrokeWidth(fontSize);
 
-        int dx = (int) (boundingBox.width - width) / 2;
-        int dy = (int) (boundingBox.height - height) / 2;
+        boolean flipDimensions =
+            (direction == SwingConstants.EAST || direction == SwingConstants.WEST);
+        float dx = (boundingBox.width - (flipDimensions ? height : width)) / 2.0f;
+        float dy = (boundingBox.height - (flipDimensions ? width : height)) / 2.0f;
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(dx, dy);
@@ -62,7 +64,8 @@ public class BladeArrowIconUtils {
         if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
             float tmp = width;
             width = height;
-            height = tmp;
+            // Reduce the height (originally width) by 1 for better vertical alignment with text
+            height = tmp - 1;
         }
 
         // get graphics and set hints
@@ -82,9 +85,16 @@ public class BladeArrowIconUtils {
 
         if (direction == SwingConstants.CENTER) {
             float smallHeight = (height - strokeWidth) / 2;
+
+            // Vertically center the full icon in its bounds
+            float fullHeight = 2.0f * smallHeight;
+            graphics.translate(0, (int) (height - fullHeight) / 2.0);
+
+            // draw the top part
             drawArrow(graphics, width, smallHeight, strokeWidth,
                 SwingConstants.NORTH, colorTokens, alpha);
             graphics.translate(0, (int) (height / 2.0));
+            // draw the bottom part
             drawArrow(graphics, width, smallHeight, strokeWidth,
                 SwingConstants.SOUTH, colorTokens, alpha);
         } else {
