@@ -50,6 +50,10 @@ public interface RadianceOutlinePainter extends RadianceTrait {
             float radiusAdjustment, double scaleFactor);
     }
 
+    enum InsetKind {
+        SURFACE, CONTENT
+    }
+
     /**
      * Paints the outline.
      *
@@ -70,4 +74,6 @@ public interface RadianceOutlinePainter extends RadianceTrait {
      */
     void paintOutline(Graphics g, Component c, float width, float height, double scaleFactor,
         ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens);
+
+    float getOutlineInset(InsetKind insetKind);
 }

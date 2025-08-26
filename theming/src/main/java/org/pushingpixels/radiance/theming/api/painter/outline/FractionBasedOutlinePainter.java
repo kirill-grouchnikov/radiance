@@ -138,4 +138,11 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
         }
         graphics.dispose();
     }
+
+    @Override
+    public float getOutlineInset(InsetKind insetKind) {
+        return (insetKind == InsetKind.SURFACE)
+            ? this.strokeWidth / 2.0f
+            : this.strokeWidth;
+    }
 }

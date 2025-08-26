@@ -33,15 +33,15 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.info_24dp_outline;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
 import javax.swing.*;
@@ -270,8 +270,15 @@ public class SampleMenuFactory {
         final CustomSkin customSkin = new CustomSkin();
         JMenuItem jmiSkin = new JMenuItem(customSkin.getDisplayName());
         jmiSkin.addActionListener(actionEvent -> RadianceThemingCortex.GlobalScope.setSkin(customSkin));
-
         jmSkin.add(jmiSkin);
+
+        final GeminiWithThickOutlineSkin geminiWithThickOutlineSkin =
+            new GeminiWithThickOutlineSkin();
+        JMenuItem jmiGeminiWithThickOutlineSkin = new JMenuItem(
+            geminiWithThickOutlineSkin.getDisplayName());
+        jmiGeminiWithThickOutlineSkin.addActionListener(actionEvent ->
+            RadianceThemingCortex.GlobalScope.setSkin(geminiWithThickOutlineSkin));
+        jmSkin.add(jmiGeminiWithThickOutlineSkin);
 
         return jmSkin;
     }
@@ -322,6 +329,31 @@ public class SampleMenuFactory {
             this.buttonShaper = new ClassicButtonShaper();
             this.decorationPainter = new ArcDecorationPainter();
             this.highlightSurfacePainter = new GlassSurfacePainter();
+        }
+    }
+
+    protected static class GeminiWithThickOutlineSkin extends GeminiSkin {
+        @Override
+        public String getDisplayName() {
+            return "Gemini Thick Outline";
+        }
+
+        public GeminiWithThickOutlineSkin() {
+            super();
+
+            this.outlinePainter = InlayOutlinePainter.builder()
+                .displayName("Gemini")
+                .outer(ContainerColorTokens::getContainerOutline)
+                .inner(
+                    new float[] {0.0f, 0.5f, 1.0f},
+                    new int[] {96, 64, 32},
+                    new ContainerColorTokensSingleColorQuery[] {
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline,
+                        ContainerColorTokens::getComplementaryContainerOutline
+                    })
+                .strokeWidth(2.0f)
+                .build();
         }
     }
 

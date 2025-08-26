@@ -81,8 +81,8 @@ public class ButtonBackgroundDelegate {
 
         Set<RadianceThemingSlices.Side> openSides = RadianceCoreUtilities.getSides(button,
             RadianceSynapse.BUTTON_OPEN_SIDE);
-        boolean isContentAreaFilled = button.isContentAreaFilled();
-        boolean isBorderPainted = button.isBorderPainted();
+        boolean isSurfacePainted = button.isContentAreaFilled();
+        boolean isOutlinePainted = button.isBorderPainted();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
             modelStateInfo.getStateContributionMap();
 
@@ -117,7 +117,7 @@ public class ButtonBackgroundDelegate {
                         button, modificationTimeline.getTimelinePosition());
 
                     drawBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
-                        mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted,
+                        mutableContainerTokens, openSides, isSurfacePainted, isOutlinePainted,
                         currState, overallAlpha);
                     return;
                 }
@@ -129,15 +129,16 @@ public class ButtonBackgroundDelegate {
             false, false, CoreColorTokenUtils.ContainerType.MUTED);
 
         drawBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
-            mutableContainerTokens, openSides, isContentAreaFilled, isBorderPainted, currState,
+            mutableContainerTokens, openSides, isSurfacePainted, isOutlinePainted, currState,
             overallAlpha);
     }
 
     private void drawBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
         RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter, int width,
         int height, ContainerColorTokens colorTokens,
-        Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled,
-        boolean isBorderPainted, ComponentState currState, float overallAlpha) {
+        Set<RadianceThemingSlices.Side> openSides,
+        boolean isSurfacePainted, boolean isOutlinePainted,
+        ComponentState currState, float overallAlpha) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -157,40 +158,41 @@ public class ButtonBackgroundDelegate {
             int deltaLeft = ((openSides != null) && openSides.contains(leftSide)) ? openDelta : 0;
             int deltaRight = ((openSides != null) && openSides.contains(rightSide)) ? openDelta : 0;
             int deltaTop =
-                    ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ?
-                            openDelta : 0;
+                ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP))
+                    ? openDelta : 0;
             int deltaBottom =
-                    ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
-
-            Shape outlineOuter = this.buttonShapeSupplier.getShape(button,
-                scaledWidth + deltaLeft + deltaRight, scaledHeight + deltaTop + deltaBottom,
-                0.0f, 0.0f, scaleFactor);
+                ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM))
+                    ? openDelta : 0;
 
             graphics1X.translate(-deltaLeft, -deltaTop);
-            if (isContentAreaFilled) {
-                // If the border is painted, compute a separate outline for the fill.
-                // Otherwise pixels on the edge can "spill" outside
-                // the outline. Those pixels will be drawn by the outline painter.
-                Shape outlineFill = isBorderPainted ? this.buttonShapeSupplier.getShape(
-                    button, scaledWidth + deltaLeft + deltaRight + 1.0f,
-                    scaledHeight + deltaTop + deltaBottom + 1.0f,
-                    0.5f, 0.0f, scaleFactor) : outlineOuter;
+            if (isSurfacePainted) {
+                // If the outline is painted, get the outline inset from the outline
+                // painter to compute the surface outline. Otherwise pixels on the edge of the
+                // surface fill can "spill" outside the button outline. Those pixels should only be
+                // drawn by the outline painter.
+                float outlineInset = isOutlinePainted
+                    ? outlinePainter.getOutlineInset(RadianceOutlinePainter.InsetKind.SURFACE)
+                    : 0.0f;
+                Shape outlineSurface = buttonShapeSupplier.getShape(
+                    button, scaledWidth + deltaLeft + deltaRight + 2.0f * outlineInset,
+                    scaledHeight + deltaTop + deltaBottom + 2.0f * outlineInset,
+                    outlineInset, 0.0f, scaleFactor);
                 float containerSurfaceAlpha = overallAlpha *
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
                     overallAlpha * containerSurfaceAlpha, g));
                 surfacePainter.paintSurface(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
-                        scaledHeight + deltaTop + deltaBottom, outlineFill, colorTokens);
+                        scaledHeight + deltaTop + deltaBottom, outlineSurface, colorTokens);
             }
 
-            if (isBorderPainted) {
+            if (isOutlinePainted) {
                 float containerOutlineAlpha = overallAlpha *
                     (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
                     overallAlpha * containerOutlineAlpha, g));
                 outlinePainter.paintOutline(graphics1X, button, scaledWidth + deltaLeft + deltaRight,
-                    scaledHeight + deltaTop + deltaBottom, scaleFactor, this.buttonShapeSupplier,
+                    scaledHeight + deltaTop + deltaBottom, scaleFactor, buttonShapeSupplier,
                     colorTokens);
             }
             graphics1X.translate(deltaLeft, deltaTop);

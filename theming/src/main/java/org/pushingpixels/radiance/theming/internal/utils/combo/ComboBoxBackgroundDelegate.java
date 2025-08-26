@@ -95,11 +95,17 @@ public class ComboBoxBackgroundDelegate {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                // Compute a separate outline for the fill.
+                // Compute a separate outline for the surface based on the outline inset from the
+                // outline painter. Otherwise pixels on the edge of the surface fill can "spill"
+                // outside the button outline. Those pixels should only be drawn by the outline
+                // painter.
+                float outlineInset = outlinePainter.getOutlineInset(
+                    RadianceOutlinePainter.InsetKind.SURFACE);
+
                 // Otherwise pixels on the edge can "spill" outside
                 // the outline. Those pixels will be drawn by the outline painter.
                 Shape outlineFill = shapeSupplier.getShape(combo,
-                    scaledWidth, scaledHeight, 0.5f, 0.0f, scaleFactor);
+                    scaledWidth, scaledHeight, outlineInset, 0.0f, scaleFactor);
                 surfacePainter.paintSurface(graphics1X, combo, scaledWidth, scaledHeight,
                     outlineFill, colorTokens);
 

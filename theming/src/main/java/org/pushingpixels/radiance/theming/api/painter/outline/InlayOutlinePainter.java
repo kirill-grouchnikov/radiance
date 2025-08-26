@@ -327,6 +327,13 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
     }
 
     @Override
+    public float getOutlineInset(InsetKind insetKind) {
+        return (insetKind == InsetKind.SURFACE)
+            ? this.strokeWidth / 2.0f
+            : 2.0f * this.strokeWidth;
+    }
+
+    @Override
 	public String getDisplayName() {
 		return this.displayName;
 	}
