@@ -292,10 +292,12 @@ public class BladeIconUtils {
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, g));
+                float outlineInset = outlinePainter.getOutlineInset(
+                    RadianceOutlinePainter.InsetKind.SURFACE);
                 surfacePainter.paintSurface(graphics1X, slider,
                     scaledWidth, scaledHeight,
-                    new Ellipse2D.Float(0.5f, 0.5f,
-                        scaledWidth - 2.0f, scaledHeight - 2.0f),
+                    new Ellipse2D.Float(outlineInset, outlineInset,
+                        scaledWidth - 2.0f * outlineInset, scaledHeight - 2.0f * outlineInset),
                     colorTokens);
 
                 float containerOutlineAlpha =
