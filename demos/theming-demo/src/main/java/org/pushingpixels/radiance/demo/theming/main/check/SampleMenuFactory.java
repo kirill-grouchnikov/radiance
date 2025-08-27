@@ -354,6 +354,11 @@ public class SampleMenuFactory {
                     })
                 .strokeWidth(2.0f)
                 .build();
+
+            FlatOutlinePainter customHighlightOutlinePainter = new FlatOutlinePainter();
+            customHighlightOutlinePainter.setStrokeWidth(2.0f);
+            this.highlightOutlinePainter = customHighlightOutlinePainter;
+
         }
     }
 
