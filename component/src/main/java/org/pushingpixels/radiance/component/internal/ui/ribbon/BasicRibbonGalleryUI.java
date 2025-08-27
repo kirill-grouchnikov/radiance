@@ -534,7 +534,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     }
 
     private int getScrollerButtonWidth() {
-        return ComponentUtilities.getScaledSize(15, RadianceThemingCortex.GlobalScope.getFontPolicy()
+        return ComponentUtilities.getScaledSize(16, RadianceThemingCortex.GlobalScope.getFontPolicy()
                 .getFontSet().getControlFont().getSize(), 1.0f, 1);
     }
 

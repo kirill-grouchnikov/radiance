@@ -29,7 +29,9 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
-import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 
 import java.awt.*;
@@ -43,6 +45,8 @@ import java.util.List;
  * @author Kirill Grouchnikov
  */
 public interface CommandButtonLayoutManager extends PropertyChangeListener {
+    float POPUP_ICON_LAYOUT_PADDING_MULTIPLIER = 1.5f;
+
     /**
      * Enumerates the available values for separator orientations.
      *
@@ -164,8 +168,8 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
          * The popup area. A mouse click in this area will show the popup content
          * associated with the command button.
          *
-         * @see Command.Builder#setSecondaryContentModel(CommandMenuContentModel)
-         * @see CommandButtonPresentationModel.Builder#setPopupMenuPresentationModel(BaseCommandPopupMenuPresentationModel)
+         * @see BaseCommand.BaseBuilder#setSecondaryContentModel(BaseCommandMenuContentModel) 
+         * @see BaseCommandButtonPresentationModel.BaseBuilder#setPopupMenuPresentationModel(BaseCommandPopupMenuPresentationModel) 
          */
         public Rectangle popupClickArea;
 
