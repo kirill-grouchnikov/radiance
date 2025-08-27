@@ -43,7 +43,6 @@ import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.RibbonUI;
-import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -239,10 +238,14 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             // How wide is the full overflow content?
             int gap = getTaskBarLayoutGap(this);
             int overflowFullWidth = gap;
+            int overflowFullHeight = 0;
             for (Component overflow : this.overflowComponents) {
-                overflowFullWidth += (overflow.getPreferredSize().width + gap);
+                Dimension overflowPreferredSize = overflow.getPreferredSize();
+                overflowFullWidth += (overflowPreferredSize.width + gap);
+                overflowFullHeight = Math.max(overflowPreferredSize.height, overflowFullHeight);
             }
             overflowFullWidth += 2 * gap;
+            overflowFullHeight += 2 * gap;
 
             // How wide is the ribbon?
             int ribbonWidth = RadianceRibbonFrameTitlePane.this.getWidth();
@@ -283,8 +286,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             // Create the popup panel with the overflow content (with scrolling if necessary)
             JPopupPanel overflowPopupPanel = new TaskbarOverflowPopupPanel(
                     this.overflowComponents,
-                    new Dimension(popupWidth,
-                            ComponentUtilities.getTaskToggleButtonHeight(getRibbon())),
+                    new Dimension(popupWidth, overflowFullHeight),
                     overflowFullWidth > ribbonWidth);
             overflowPopupPanel.applyComponentOrientation(this.getComponentOrientation());
 
