@@ -248,7 +248,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             });
         }
 
-        this.popupIcon = this.commandButton.getPresentationModel().getPopupIcon();
+        this.popupIcon = this.commandButton.getPresentationModel().getPopupIconFactory().createNewIcon();
     }
 
     /**
@@ -571,7 +571,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      */
     protected void updatePopupIcon() {
         if (this.commandButton.getContentModel().hasSecondaryContent()) {
-            this.popupIcon = this.commandButton.getPresentationModel().getPopupIcon();
+            this.popupIcon = this.commandButton.getPresentationModel().getPopupIconFactory().createNewIcon();
         } else {
             this.popupIcon = null;
         }

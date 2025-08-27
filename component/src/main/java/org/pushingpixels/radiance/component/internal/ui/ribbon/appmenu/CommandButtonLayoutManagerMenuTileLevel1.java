@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
@@ -79,7 +80,7 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLa
                 + jsep.getPreferredSize().width
                 + titleWidth
                 + (command.hasSecondaryContent()
-                ? presentationModel.getPopupIcon().getIconWidth()
+                ? presentationModel.getPopupIconFactory().createNewIcon().getIconWidth()
                 + 4 * layoutHGap + jsep.getPreferredSize().width
                 : 0);
         return new Dimension(bx + widthMed,
@@ -233,8 +234,9 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLa
             }
 
             if (commandButton.getContentModel().hasSecondaryContent()) {
-                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
-                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+                RadianceIcon popupIcon = presentationModel.getPopupIconFactory().createNewIcon();
+                int popupIconWidth = popupIcon.getIconWidth();
+                int popupIconHeight = popupIcon.getIconHeight();
 
                 result.popupActionRect.x = width - ins.right - popupIconWidth;
                 result.popupActionRect.y = (height - popupIconHeight) / 2;
@@ -309,8 +311,9 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLa
             }
 
             if (commandButton.getContentModel().hasSecondaryContent()) {
-                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
-                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+                RadianceIcon popupIcon = presentationModel.getPopupIconFactory().createNewIcon();
+                int popupIconWidth = popupIcon.getIconWidth();
+                int popupIconHeight = popupIcon.getIconHeight();
 
                 result.popupActionRect.x = ins.left;
                 result.popupActionRect.y = (height - popupIconHeight) / 2;

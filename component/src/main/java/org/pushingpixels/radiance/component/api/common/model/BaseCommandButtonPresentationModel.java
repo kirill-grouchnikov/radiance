@@ -69,7 +69,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
     protected boolean toDismissPopupsOnActivation;
     protected boolean showPopupIcon;
     protected PopupAnchorBoundsProvider popupAnchorBoundsProvider;
-    protected RadianceIcon popupIcon;
+    protected RadianceIcon.Factory popupIconFactory;
     protected MPM popupMenuPresentationModel;
     protected TextClick textClick;
     protected boolean isAutoRepeatAction;
@@ -151,8 +151,8 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         return this.showPopupIcon;
     }
 
-    public RadianceIcon getPopupIcon() {
-        return this.popupIcon;
+    public RadianceIcon.Factory getPopupIconFactory() {
+        return this.popupIconFactory;
     }
 
     public PopupAnchorBoundsProvider getPopupAnchorBoundsProvider() {
@@ -289,7 +289,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private Font font;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
         private Boolean showPopupIcon;
-        private RadianceIcon popupIcon;
+        private RadianceIcon.Factory popupIconFactory;
         private PopupAnchorBoundsProvider popupAnchorBoundsProvider;
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
@@ -377,8 +377,8 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this;
         }
 
-        public Overlay setPopupIcon(RadianceIcon popupIcon) {
-            this.popupIcon = popupIcon;
+        public Overlay setPopupIconFactory(RadianceIcon.Factory popupIconFactory) {
+            this.popupIconFactory = popupIconFactory;
             return this;
         }
 
@@ -523,8 +523,8 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this.showPopupIcon;
         }
 
-        public RadianceIcon getPopupIcon() {
-            return this.popupIcon;
+        public RadianceIcon.Factory getPopupIconFactory() {
+            return this.popupIconFactory;
         }
 
         public PopupAnchorBoundsProvider getPopupAnchorBoundsProvider() {
@@ -614,7 +614,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
         private boolean showPopupIcon = true;
-        private RadianceIcon popupIcon = new CommandButtonDefaultPopupIcon();
+        private RadianceIcon.Factory popupIconFactory = CommandButtonDefaultPopupIcon::new;
         private PopupAnchorBoundsProvider popupAnchorBoundsProvider;
         private String actionKeyTip;
         private String popupKeyTip;
@@ -726,11 +726,11 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         }
 
         @SuppressWarnings("unchecked")
-        public B setPopupIcon(RadianceIcon popupIcon) {
-            if (popupIcon == null) {
-                throw new IllegalArgumentException("Cannot pass null popup icon");
+        public B setPopupIconFactory(RadianceIcon.Factory popupIconFactory) {
+            if (popupIconFactory == null) {
+                throw new IllegalArgumentException("Cannot pass null popup icon factory");
             }
-            this.popupIcon = popupIcon;
+            this.popupIconFactory = popupIconFactory;
             return (B) this;
         }
 
@@ -838,7 +838,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             presentationModel.font = this.font;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
             presentationModel.showPopupIcon = this.showPopupIcon;
-            presentationModel.popupIcon = this.popupIcon;
+            presentationModel.popupIconFactory = this.popupIconFactory;
             presentationModel.popupAnchorBoundsProvider = this.popupAnchorBoundsProvider;
             presentationModel.actionKeyTip = this.actionKeyTip;
             presentationModel.popupKeyTip = this.popupKeyTip;

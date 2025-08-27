@@ -425,7 +425,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                         )
                         .setPopupPlacementStrategy(
                                 RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START)
-                        .setPopupIcon(new BreadcrumbCommandButtonPopupIcon())
+                        .setPopupIconFactory(BreadcrumbCommandButtonPopupIcon::new)
                         .setHorizontalGapScaleFactor(0.75)
                         .setPopupMenuPresentationModel(
                                 CommandPopupMenuPresentationModel.builder()

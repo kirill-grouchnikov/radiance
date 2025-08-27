@@ -33,14 +33,12 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
@@ -95,7 +93,6 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         JCommandButton commandButton = (JCommandButton) c;
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(commandButton);
 
         StateTransitionTracker stateTransitionTracker =
                 ((ActionPopupTransitionAwareUI) commandButton.getUI()).getPopupTransitionTracker();

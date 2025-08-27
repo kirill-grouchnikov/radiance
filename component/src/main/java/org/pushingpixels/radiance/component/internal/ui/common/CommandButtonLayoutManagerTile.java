@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
@@ -110,7 +111,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             // padding before the popup icon
             width += layoutHGap;
             // popup icon width
-            width += presentationModel.getPopupIcon().getIconWidth();
+            width += presentationModel.getPopupIconFactory().createNewIcon().getIconWidth();
             // padding after the popup icon
             width += layoutHGap;
         }
@@ -292,8 +293,9 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             }
 
             if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
-                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
-                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+                RadianceIcon popupIcon = presentationModel.getPopupIconFactory().createNewIcon();
+                int popupIconWidth = popupIcon.getIconWidth();
+                int popupIconHeight = popupIcon.getIconHeight();
                 if (hasText || hasIcon) {
                     if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
                         // Under Fill alignment, popup icon goes all the way to the right edge
@@ -473,8 +475,9 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             }
 
             if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
-                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
-                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+                RadianceIcon popupIcon = presentationModel.getPopupIconFactory().createNewIcon();
+                int popupIconWidth = popupIcon.getIconWidth();
+                int popupIconHeight = popupIcon.getIconHeight();
                 if (hasText || hasIcon) {
                     if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
                         // Under Fill alignment, popup icon goes all the way to the left edge

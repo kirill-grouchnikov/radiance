@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
@@ -415,7 +416,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                     ? fm.stringWidth(this.titlePart2) : 0;
 
             int extraWidth = (hasPopupIcon && presentationModel.isShowPopupIcon()) ?
-                    presentationModel.getPopupIcon().getIconWidth() : 0;
+                    presentationModel.getPopupIconFactory().createNewIcon().getIconWidth() : 0;
 
             if (ltr) {
                 x = ins.left + (width - lastTextLineWidth - extraWidth - ins.left - ins.right) / 2;
@@ -452,8 +453,9 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 x = (width - 1 - labelHeight / 2) / 2;
             }
 
-            int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
-            int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+            RadianceIcon popupIcon = presentationModel.getPopupIconFactory().createNewIcon();
+            int popupIconWidth = popupIcon.getIconWidth();
+            int popupIconHeight = popupIcon.getIconHeight();
 
             result.popupActionRect.x = x;
             result.popupActionRect.y = y + (labelHeight - popupIconHeight) / 2;
