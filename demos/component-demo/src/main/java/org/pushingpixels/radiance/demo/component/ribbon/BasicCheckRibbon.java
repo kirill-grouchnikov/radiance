@@ -66,8 +66,13 @@ import org.pushingpixels.radiance.demo.theming.main.check.CustomTitlePaneButtons
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceFontScaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.imageio.ImageIO;
@@ -2306,7 +2311,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JPanel getControlPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 8dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(new EmptyBorder(20, 4, 0, 4));
         int row = 1;
 
@@ -2321,13 +2326,53 @@ public class BasicCheckRibbon extends JRibbonFrame {
         builder.add("Group 2").xy(1, row).add(group2Visible).xy(3, row);
         row += 2;
 
-        builder.addLabel("Skin").xy(1, row).add(new RadianceSkinSelector()).xy(3, row);
-        row += 2;
         RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> {
             rulerPanel.selectBackgroundFill(RadianceThemingCortex.GlobalScope.getCurrentSkin()
                 .getMutedContainerTokens(RadianceThemingSlices.DecorationAreaType.NONE)
                 .getContainerSurface());
         });
+        builder.addLabel("Skin").xy(1, row).add(new RadianceSkinSelector()).xy(3, row);
+        row += 2;
+
+        JButton geminiModifiedSkin = new JButton("apply");
+        geminiModifiedSkin.addActionListener(
+            actionEvent -> SwingUtilities.invokeLater(new Runnable() {
+                class GeminiWithThickOutlineSkin extends GeminiSkin {
+                    @Override
+                    public String getDisplayName() {
+                        return "Gemini Thick Outline";
+                    }
+
+                    public GeminiWithThickOutlineSkin() {
+                        super();
+
+                        this.outlinePainter = InlayOutlinePainter.builder()
+                            .displayName("Gemini")
+                            .outer(ContainerColorTokens::getContainerOutline)
+                            .inner(
+                                new float[] {0.0f, 0.5f, 1.0f},
+                                new int[] {96, 64, 32},
+                                new ContainerColorTokensSingleColorQuery[] {
+                                    ContainerColorTokens::getComplementaryContainerOutline,
+                                    ContainerColorTokens::getComplementaryContainerOutline,
+                                    ContainerColorTokens::getComplementaryContainerOutline
+                                })
+                            .strokeWidth(2.0f)
+                            .build();
+
+                        FlatOutlinePainter customHighlightOutlinePainter = new FlatOutlinePainter();
+                        customHighlightOutlinePainter.setStrokeWidth(2.0f);
+                        this.highlightOutlinePainter = customHighlightOutlinePainter;
+                    }
+                }
+
+                @Override
+                public void run() {
+                    RadianceThemingCortex.GlobalScope.setSkin(new GeminiWithThickOutlineSkin());
+                }
+            }));
+        builder.addLabel("Skin with thick outlines").xy(1, row).add(geminiModifiedSkin).xy(3, row);
+        row += 2;
 
         final JCheckBox appMenuVisible = new JCheckBox("visible");
         appMenuVisible.setSelected(true);
