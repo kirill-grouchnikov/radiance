@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonRootPane;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTitlePane;
 
@@ -52,7 +53,16 @@ public class RadianceRibbonRootPaneUI extends RadianceRootPaneUI {
 	private RadianceRibbonRootPaneUI() {
 	}
 
-	@Override
+    @Override
+    protected void installDefaults(JRootPane c) {
+        super.installDefaults(c);
+
+        // Set control font, so that it can be used in the key tip layer to determine how big
+        // each key tip is during its rendering.
+        c.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont());
+    }
+
+    @Override
 	protected RadianceTitlePane createTitlePane(JRootPane root) {
 		return new RadianceRibbonFrameTitlePane(root, this);
 	}

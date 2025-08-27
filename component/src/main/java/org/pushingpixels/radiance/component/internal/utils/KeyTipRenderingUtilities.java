@@ -46,9 +46,13 @@ import java.util.Collection;
 public class KeyTipRenderingUtilities {
 
     public static Dimension getPrefSize(FontMetrics fm, String keyTip) {
-        int INSETS = 3;
-        int prefWidth = fm.stringWidth(keyTip) + 2 * INSETS + 1;
-        int prefHeight = fm.getHeight() + INSETS - 1;
+        int fontSize = fm.getFont().getSize();
+        int horizontalInset = RadianceSizeUtils.getAdjustedSize(fontSize, 8, 3, 1, false);
+        int verticalInset = RadianceSizeUtils.getAdjustedSize(fontSize, 2, 4, 1, false);
+
+        int prefWidth = fm.stringWidth(keyTip) + horizontalInset;
+        int prefHeight = fm.getHeight() + verticalInset;
+
         return new Dimension(prefWidth, prefHeight);
     }
 
