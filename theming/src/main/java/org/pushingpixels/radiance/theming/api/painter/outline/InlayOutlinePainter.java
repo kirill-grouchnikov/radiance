@@ -272,9 +272,14 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
 
         if (!skipInnerOutline) {
             g2d.translate(this.strokeWidth, this.strokeWidth);
+            // In theory, the radius adjustment for the inner outline should be the full stroke
+            // width - for perfect concentric rounded corners. In practice, for smaller corners,
+            // reducing the inner outline radius by the full stroke width results in inner outline
+            // corners that are too tight. This might be revisited in the future.
+            float innerOutlineRadiusAdjustment = this.strokeWidth / 2.0f;
             paint(g2d, c, width - 2.0f * this.strokeWidth, height - 2.0f * strokeWidth,
-                /* radiusAdjustment */ this.strokeWidth, scaleFactor, shapeSupplier, colorTokens
-                , this.strokeWidth, this.innerFractions, this.innerAlphas, this.innerColorQueries);
+                innerOutlineRadiusAdjustment, scaleFactor, shapeSupplier, colorTokens,
+                this.strokeWidth, this.innerFractions, this.innerAlphas, this.innerColorQueries);
             g2d.translate(-this.strokeWidth, -this.strokeWidth);
         }
         paint(g2d, c, width, height, /* radiusAdjustment */ 0.0f,
