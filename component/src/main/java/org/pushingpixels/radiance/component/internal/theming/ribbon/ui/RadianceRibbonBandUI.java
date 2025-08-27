@@ -156,15 +156,19 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
 
+        int horizontalInset = RadianceSizeUtils.getAdjustedSize(fontSize, 3, 3, 1, false);
+        int verticalInset = RadianceSizeUtils.getAdjustedSize(fontSize, 2, 4, 1, false);
+
         CommandButtonProjection<Command> expandCommandProjection =
-                new CommandButtonProjection<>(this.expandCommand,
-                        CommandButtonPresentationModel.builder()
-                                .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
-                                .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
-                                .setContentPadding(new Insets(3, 2, 3, 2))
-                                .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
-                                .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
-                                .build());
+            new CommandButtonProjection<>(this.expandCommand,
+                CommandButtonPresentationModel.builder()
+                    .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
+                    .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
+                    .setContentPadding(new Insets(verticalInset, horizontalInset,
+                        verticalInset, horizontalInset))
+                    .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
+                    .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
+                    .build());
         JCommandButton result = expandCommandProjection.buildComponent();
         // since paintBandTitleBackground uses CONTROL_PANE, mark this button with
         // CONTROL_PANE as well to sync the mark color
