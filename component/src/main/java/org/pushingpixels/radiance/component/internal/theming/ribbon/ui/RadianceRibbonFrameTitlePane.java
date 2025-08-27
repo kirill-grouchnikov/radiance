@@ -298,7 +298,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             this.overflowComponents.clear();
 
             final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
-            int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
+            int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize) + 1;
             int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
             CommandButtonProjection<Command> overflowProjection = Command.builder()
                     .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
