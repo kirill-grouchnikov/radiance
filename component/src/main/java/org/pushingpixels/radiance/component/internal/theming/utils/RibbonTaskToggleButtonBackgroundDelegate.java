@@ -141,8 +141,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 getTaskToggleButtonCornerRadius((JRibbonTaskToggleButton) c);
 
             return RadianceOutlineUtilities.getBaseOutline(
-                c.getComponentOrientation(),
-                width, height + insets, radius, EnumSet.of(Side.BOTTOM), 1.0f + insets);
+                c.getComponentOrientation(), width, height + insets, radius - radiusAdjustment,
+                EnumSet.of(Side.BOTTOM), 1.0f + insets);
         };
 
     private static void drawFullAlphaBackground(Graphics2D g,
