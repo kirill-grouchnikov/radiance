@@ -31,6 +31,8 @@ package org.pushingpixels.radiance.demo.component.common;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.font.FontPolicy;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
@@ -325,6 +327,26 @@ public class TestCommandButtons extends JFrame {
                         .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent());
+
+        Command largeFontsCommand = Command.builder()
+            .setText("Large fonts")
+            .setAction(e -> {
+                SwingUtilities.invokeLater(() -> {
+                    // reset the base font policy to null - this
+                    // restores the original font policy (default size).
+                    RadianceThemingCortex.GlobalScope.setFontPolicy(null);
+                    // Create a scaled font policy that matches the current scale selection
+                    FontPolicy newFontPolicy = RadianceCommonCortex.getScaledFontPolicy(2.0f);
+                    RadianceThemingCortex.GlobalScope.setFontPolicy(newFontPolicy);
+                });
+            })
+            .build();
+        controlPanel.add(largeFontsCommand.project(
+                CommandButtonPresentationModel.builder()
+                    .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                    .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
+                    .build())
+            .buildComponent());
 
         controlPanel.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;

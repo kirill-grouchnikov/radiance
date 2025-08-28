@@ -46,7 +46,10 @@ import org.pushingpixels.radiance.component.internal.theming.utils.CommandButton
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
@@ -481,8 +484,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 //        g2d.fill(layoutInfo.actionClickArea);
 //        g2d.setColor(new Color(255, 220, 220));
 //        g2d.fill(layoutInfo.popupClickArea);
-
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.commandButton);
 
         // decide which command button model should be used to
         // compute the foreground color of the command button's text

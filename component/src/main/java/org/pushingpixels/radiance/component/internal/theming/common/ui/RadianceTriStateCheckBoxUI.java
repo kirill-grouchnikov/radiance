@@ -164,7 +164,7 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                 (buttonText == null) ? 0 : this.iconTextGap);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        if (text != null && !text.equals("")) {
+        if (text != null && !text.isEmpty()) {
             final View v = (View) b.getClientProperty(BasicHTML.propertyKey);
             if (v != null) {
                 v.paint(g2d, textRect);

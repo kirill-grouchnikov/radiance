@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.component.api.common.JExoLabel;
 import org.pushingpixels.radiance.component.api.common.model.LabelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -313,7 +312,6 @@ public class RadianceExoLabelUI extends ComponentUI {
             ComponentState state = contentModel.isEnabled() ?
                 ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
 
-            RadianceSkin skin = RadianceCoreUtilities.getSkin(label);
             Color textColor = CoreColorTokenUtils.getContainerTokens(label, state,
                 CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainer();
             if (!contentModel.isEnabled()) {
