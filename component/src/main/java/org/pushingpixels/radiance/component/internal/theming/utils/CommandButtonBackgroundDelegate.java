@@ -262,7 +262,8 @@ public class CommandButtonBackgroundDelegate {
                         ? RadianceThemingSlices.Side.TRAILING
                         : RadianceThemingSlices.Side.LEADING;
 
-                int openDelta = (int) (3 * scaleFactor);
+                int openDelta = (int) (scaleFactor *
+                    outlinePainter.getOutlineInset(RadianceOutlinePainter.InsetKind.CONTENT));
                 int deltaLeft = ((openSides != null) && openSides.contains(leftSide)) ? openDelta : 0;
                 int deltaRight = ((openSides != null) && openSides.contains(rightSide)) ? openDelta : 0;
                 int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
