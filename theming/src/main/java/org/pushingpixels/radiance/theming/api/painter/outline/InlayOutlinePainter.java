@@ -323,7 +323,7 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             Path2D outlinePath = new Path2D.Float(Path2D.WIND_EVEN_ODD);
             Shape outlineOuterShape = shapeSupplier.getShape(c, width, height, -0.5f,
                 radiusAdjustment, scaleFactor);
-            Shape outlineInnerShape = shapeSupplier.getShape(c, width, height, 1.5f,
+            Shape outlineInnerShape = shapeSupplier.getShape(c, width, height, strokeWidth - 0.5f,
                 radiusAdjustment, scaleFactor);
             outlinePath.append(outlineOuterShape, false);
             outlinePath.append(outlineInnerShape, false);

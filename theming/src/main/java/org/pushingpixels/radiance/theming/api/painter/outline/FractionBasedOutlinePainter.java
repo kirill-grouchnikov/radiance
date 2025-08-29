@@ -130,8 +130,10 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
             graphics.draw(outline);
         } else {
             Path2D outlinePath = new Path2D.Float(Path2D.WIND_EVEN_ODD);
-            Shape outlineOuterShape = shapeSupplier.getShape(c, width, height, -0.5f, 0.0f, scaleFactor);
-            Shape outlineInnerShape = shapeSupplier.getShape(c, width, height, 1.5f, 0.0f, scaleFactor);
+            Shape outlineOuterShape = shapeSupplier.getShape(c, width, height, -0.5f,
+                0.0f, scaleFactor);
+            Shape outlineInnerShape = shapeSupplier.getShape(c, width, height, strokeWidth - 0.5f,
+                0.0f, scaleFactor);
             outlinePath.append(outlineOuterShape, false);
             outlinePath.append(outlineInnerShape, false);
             graphics.fill(outlinePath);
