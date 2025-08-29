@@ -98,9 +98,10 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             // Adaptive corner radius, either half the height (which will be width after
             // rotation) for larger thumbs, or quarter the height for smaller thumbs
+            float adjustedInsets = insets + 1.0f;
             float radius = (width >= 1.5 * height)
-                ? height / 2.0f
-                : height / 4.0f;
+                ? (height - 2.0f * adjustedInsets) / 2.0f
+                : (height - 2.0f * adjustedInsets) / 4.0f;
             return RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
         };
@@ -109,9 +110,10 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             // Adaptive corner radius, either half the height for larger thumbs, or quarter the
             // height for smaller thumbs
+            float adjustedInsets = insets + 1.0f;
             float radius = (width >= 1.5 * height)
-                ? height / 2.0f
-                : height / 4.0f;
+                ? (height - 2.0f * adjustedInsets) / 2.0f
+                : (height - 2.0f * adjustedInsets) / 4.0f;
             return RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
         };
