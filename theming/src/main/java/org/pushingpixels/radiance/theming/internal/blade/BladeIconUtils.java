@@ -52,7 +52,7 @@ public class BladeIconUtils {
                 RadianceSizeUtils.getComponentFontSize(c));
 
         return RadianceOutlineUtilities.getBaseOutline(
-            c.getComponentOrientation(), width, height, cornerRadius, null, insets);
+            c.getComponentOrientation(), width, height, cornerRadius - radiusAdjustment, null, insets);
     };
 
     public static void drawCheckBox(Graphics2D g, JComponent component, RadianceSurfacePainter surfacePainter,
