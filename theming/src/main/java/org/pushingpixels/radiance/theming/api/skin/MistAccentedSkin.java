@@ -36,10 +36,9 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.LuminousOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.LuminousSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper;
 
@@ -87,10 +86,10 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
 		this.buttonShaper = new PillButtonShaper();
-		this.surfacePainter = new SpecularRectangularSurfacePainter(new MatteSurfacePainter(), 1.0f);
-		this.outlinePainter = new FlatOutlinePainter();
+        this.surfacePainter = new LuminousSurfacePainter();
+        this.outlinePainter = new LuminousOutlinePainter();
 
-		this.decorationPainter = new MatteDecorationPainter();
+        this.decorationPainter = new MatteDecorationPainter();
 		this.highlightSurfacePainter = new ClassicSurfacePainter();
 	}
 }
