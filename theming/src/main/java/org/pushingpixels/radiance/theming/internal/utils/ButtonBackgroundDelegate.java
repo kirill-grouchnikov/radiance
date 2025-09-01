@@ -175,8 +175,8 @@ public class ButtonBackgroundDelegate {
                     ? outlinePainter.getOutlineInset(RadianceOutlinePainter.InsetKind.SURFACE)
                     : 0.0f;
                 Shape outlineSurface = buttonShapeSupplier.getShape(
-                    button, scaledWidth + deltaLeft + deltaRight + 2.0f * outlineInset,
-                    scaledHeight + deltaTop + deltaBottom + 2.0f * outlineInset,
+                    button, scaledWidth + deltaLeft + deltaRight,
+                    scaledHeight + deltaTop + deltaBottom,
                     outlineInset, 0.0f, scaleFactor);
                 float containerSurfaceAlpha = overallAlpha *
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
