@@ -30,7 +30,7 @@ Important thing to note - a surface painter **must not** paint the focus ring or
 Radiance provides a number of surface painters that can be used as a starting point for your custom application visuals.
 
 * `FractionBasedSurfacePainter` enables vertical gradients with arbitrary multi-stop colors. Most core Radiance surface painters extend this class.
-* `SpecularRectangularSurfacePainter` allows adding specular shine along the top part of the surface area.
+* `SpecularRectangularSurfacePainter` allows adding specular bottomShine along the top part of the surface area.
 
 ### Management API
 
