@@ -36,7 +36,9 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowBu
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
+import java.awt.geom.RoundRectangle2D;
 
 /**
  * Inlay outline painter that paints an emulated outline of a 3D glass object lit from straight
@@ -56,7 +58,6 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             ContainerColorTokens::getContainerOutline};
 
     private static float innerStrokeWidth = 2.0f;
-    private static float[] innerHorizontalFractions = new float[] {0.0f, 0.06f, 0.94f, 1.0f};
     private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueries =
         new ContainerColorTokensSingleColorQuery[] {
             ContainerColorTokens::getContainerOutline,
@@ -90,7 +91,7 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             float innerOutlineRadiusAdjustment = outerStrokeWidth / 2.0f;
             paintHorizontal(g2d, c, width - 2.0f * outerStrokeWidth, height - 2.0f * outerStrokeWidth,
                 innerOutlineRadiusAdjustment, scaleFactor, shapeSupplier, colorTokens,
-                innerStrokeWidth, innerHorizontalFractions, innerHorizontalColorQueries);
+                innerStrokeWidth, innerHorizontalColorQueries);
             g2d.translate(-outerStrokeWidth, -outerStrokeWidth);
         }
         paintVertical(g2d, c, width, height, /* radiusAdjustment */ 0.0f,
@@ -140,11 +141,11 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
 
     private static void paintHorizontal(Graphics2D graphics, Component c, float width, float height,
         float radiusAdjustment, double scaleFactor, ShapeSuppler shapeSupplier,
-        ContainerColorTokens colorTokens, float strokeWidth, float[] fractions,
+        ContainerColorTokens colorTokens, float strokeWidth,
         ContainerColorTokensSingleColorQuery[] colorQueries) {
 
-        Color[] drawColors = new Color[fractions.length];
-        for (int i = 0; i < fractions.length; i++) {
+        Color[] drawColors = new Color[colorQueries.length];
+        for (int i = 0; i < colorQueries.length; i++) {
             ContainerColorTokensSingleColorQuery colorQuery = colorQueries[i];
             drawColors[i] = colorQuery.query(colorTokens);
         }
@@ -158,12 +159,45 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
         int capKind = isSpecialButton ? BasicStroke.CAP_SQUARE : BasicStroke.CAP_BUTT;
         graphics.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
 
-        MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, width, 0, fractions,
-            drawColors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
-        graphics.setPaint(gradient);
-
         if (strokeWidth == 1.0f) {
             Shape outline = shapeSupplier.getShape(c, width, height, 0.0f, radiusAdjustment, scaleFactor);
+
+            double leftCornerRadius = 0.0;
+            double rightCornerRadius = 0;
+            if (outline instanceof RoundRectangle2D) {
+                // This matches the logic in RadianceOutlineUtilities.getBaseOutline
+                RoundRectangle2D rrOutline = (RoundRectangle2D) outline;
+                leftCornerRadius = rrOutline.getArcWidth() / 2.0f;
+                rightCornerRadius = rrOutline.getArcWidth() / 2.0f;
+            } else if (outline instanceof Ellipse2D) {
+                // This matches the logic in BladeIconUtils.drawRadioButton
+                Ellipse2D ellOutline = (Ellipse2D) outline;
+                leftCornerRadius = ellOutline.getWidth() / 2.0f;
+                rightCornerRadius = ellOutline.getWidth() / 2.0f;
+            }
+
+            // Handle completely square corners
+            if (leftCornerRadius == 0.0) {
+                leftCornerRadius = 1.0f;
+            }
+            if (rightCornerRadius == 0.0) {
+                rightCornerRadius = 1.0f;
+            }
+
+            // And clamp them to not be more than 10% of the overall width
+            leftCornerRadius = Math.min(leftCornerRadius, 0.1f * width);
+            rightCornerRadius = Math.min(rightCornerRadius, 0.1f * width);
+
+            // Dynamically compute the gradient fractions to follow the corner radius on left
+            // and right sides
+            float[] fractions = new float[] { 0.0f,
+                Math.min(0.499f, 0.5f * (float) leftCornerRadius / width),
+                Math.max(0.501f, 1.0f - 0.5f * (float) rightCornerRadius / width),
+                1.0f};
+            MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, width, 0, fractions,
+                drawColors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
+            graphics.setPaint(gradient);
+
             graphics.draw(outline);
         } else {
             Path2D outlinePath = new Path2D.Float(Path2D.WIND_EVEN_ODD);
@@ -173,6 +207,43 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
                 radiusAdjustment, scaleFactor);
             outlinePath.append(outlineOuterShape, false);
             outlinePath.append(outlineInnerShape, false);
+
+            double leftCornerRadius = 0;
+            double rightCornerRadius = 0;
+            if (outlineOuterShape instanceof RoundRectangle2D) {
+                // This matches the logic in RadianceOutlineUtilities.getBaseOutline
+                RoundRectangle2D rrOutline = (RoundRectangle2D) outlineOuterShape;
+                leftCornerRadius = rrOutline.getArcWidth() / 2.0f;
+                rightCornerRadius = rrOutline.getArcWidth() / 2.0f;
+            } else if (outlineOuterShape instanceof Ellipse2D) {
+                // This matches the logic in BladeIconUtils.drawRadioButton
+                Ellipse2D ellOutline = (Ellipse2D) outlineOuterShape;
+                leftCornerRadius = ellOutline.getWidth() / 2.0f;
+                rightCornerRadius = ellOutline.getWidth() / 2.0f;
+            }
+
+            // Handle completely square corners
+            if (leftCornerRadius == 0.0) {
+                leftCornerRadius = 1.0f;
+            }
+            if (rightCornerRadius == 0.0) {
+                rightCornerRadius = 1.0f;
+            }
+
+            // And clamp them to not be more than 10% of the overall width
+            leftCornerRadius = Math.min(leftCornerRadius, 0.1f * width);
+            rightCornerRadius = Math.min(rightCornerRadius, 0.1f * width);
+
+            // Dynamically compute the gradient fractions to follow the corner radius on left
+            // and right sides
+            float[] fractions = new float[] { 0.0f,
+                Math.min(0.499f, 0.5f * (float) leftCornerRadius / width),
+                Math.max(0.501f, 1.0f - 0.5f * (float) rightCornerRadius / width),
+                1.0f};
+            MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, width, 0, fractions,
+                drawColors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
+            graphics.setPaint(gradient);
+
             graphics.fill(outlinePath);
         }
     }

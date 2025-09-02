@@ -181,7 +181,6 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
                 // ramp-down from the bottom to the top
                 double yfraction = (double) row / (double) shineHeight;
                 double yalpha = spline(0.0, 0.1, 0.9, 1.0, yfraction);
-                System.out.println("Row " + row + "/" + shineHeight + ": " + yalpha);
 
                 double rowFactor = (double) (shineHeight - row) / (double) shineHeight;
                 // Gap - max at the top row, zero at the bottom row
