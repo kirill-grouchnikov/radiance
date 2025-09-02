@@ -45,9 +45,9 @@ import java.awt.image.*;
  * @author Kirill Grouchnikov
  */
 public class LuminousSurfacePainter implements RadianceSurfacePainter {
-    // Scale factor for the emulated shine. We compute a smaller, "shrunk down" version of the
-    // shine and then draw it back by stretching it along both axes. The visuals don't have to
-    // be pixel perfect, and this helps with the runtime performance.
+    // Scale factor for the emulated diffusion and reflection. We compute a smaller, "shrunk down"
+    // version of it and then draw it back by stretching it along both axes. The visuals don't have
+    // to be pixel perfect, and this helps with the runtime performance.
     private static int SCALE = 2;
 
     private RadianceSurfacePainter baseSurfacePainter;
@@ -296,7 +296,10 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
                     double verticalDistanceFromTop = row;
                     if (topLeftCornerRadius > 0.0f) {
                         if ((row <= topLeftCornerRadius) && (col <= topLeftCornerRadius)) {
-                            // We are in the quarter-circle of the top left part of the shape
+                            // We are in the quarter-circle of the top left part of the shape.
+                            // Compute the vertical distance from this point upwards towards
+                            // the shape's top left curved corner. This will determine how much
+                            // diffusion we get.
                             double rowOfOutline =
                                 topLeftCornerRadius - Math.sqrt(topLeftCornerRadius * topLeftCornerRadius -
                                     (topLeftCornerRadius - col) * (topLeftCornerRadius - col));
@@ -306,6 +309,9 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
                     if (topRightCornerRadius > 0.0f) {
                         if ((row <= topRightCornerRadius) && (col >= (shineWidth - topRightCornerRadius))) {
                             // We are in the quarter-circle of the top right part of the shape
+                            // Compute the vertical distance from this point upwards towards
+                            // the shape's top right curved corner. This will determine how much
+                            // diffusion we get.
                             double rowOfOutline =
                                 topRightCornerRadius - Math.sqrt(topRightCornerRadius * topRightCornerRadius -
                                     (col - (shineWidth - 1 - topRightCornerRadius)) *
