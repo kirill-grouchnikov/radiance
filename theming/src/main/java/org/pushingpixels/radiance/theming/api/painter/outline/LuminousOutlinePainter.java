@@ -54,6 +54,11 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             ContainerColorTokens::getContainerOutline,
             ContainerColorTokens::getContainerOutline,
             ContainerColorTokens::getContainerOutlineVariant};
+    private static ContainerColorTokensSingleColorQuery[] outerVerticalColorQueriesSimplified =
+        new ContainerColorTokensSingleColorQuery[] {
+            ContainerColorTokens::getContainerOutline,
+            ContainerColorTokens::getContainerOutline,
+            ContainerColorTokens::getContainerOutline};
 
     private static float innerStrokeWidth = 2.0f;
     private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueries =
@@ -103,9 +108,11 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
                 innerStrokeWidth, innerQueries);
             g2d.translate(-outerStrokeWidth, -outerStrokeWidth);
         }
+        ContainerColorTokensSingleColorQuery[] outerQueries =
+            skipInnerOutline ? outerVerticalColorQueriesSimplified : outerVerticalColorQueries;
         paintVertical(g2d, c, width, height, /* radiusAdjustment */ 0.0f,
             scaleFactor, shapeSupplier, colorTokens, outerStrokeWidth,
-            outerVerticalFractions, outerVerticalColorQueries);
+            outerVerticalFractions, outerQueries);
         g2d.dispose();
     }
 
