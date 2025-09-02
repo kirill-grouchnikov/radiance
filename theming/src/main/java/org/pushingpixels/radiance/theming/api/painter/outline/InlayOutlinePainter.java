@@ -337,10 +337,10 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             // Ignore the inner outline, and treat surface to extend halfway into the outer outline
             return this.strokeWidth / 2.0f;
         }
-        // For content, both outlines are considered. However, to preserve the layout alignment
-        // between single outlines (from {@link FractionBasedOutlinePainter) and double outlines
-        // from this painter - at default hairline stroke width - make a special case where only
-        // the outer outline is considered for the content insets.
+        // For content, both outlines should be considered. However, to preserve the layout
+        // alignment between single outlines (from {@link FractionBasedOutlinePainter) and double
+        // outlines from this painter - at default hairline stroke width - make a special case where
+        // only the outer outline is considered for the content insets.
         if (this.strokeWidth <= 1.0f) {
             return this.strokeWidth;
         }

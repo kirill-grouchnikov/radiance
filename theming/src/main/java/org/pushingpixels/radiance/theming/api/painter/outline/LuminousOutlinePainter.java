@@ -61,18 +61,35 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             ContainerColorTokens::getContainerOutline};
 
     private static float innerStrokeWidth = 2.0f;
+    private static ContainerColorTokensSingleColorQuery innerHorizontalDarkQuery =
+        ContainerColorTokensSingleColorQuery.blend(
+            ContainerColorTokens::getContainerSurface,
+            ContainerColorTokens::getComplementaryContainerOutline,
+            0.85f);
     private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueries =
         new ContainerColorTokensSingleColorQuery[] {
             ContainerColorTokens::getContainerOutlineVariant,
-            ContainerColorTokens::getComplementaryContainerOutline,
-            ContainerColorTokens::getComplementaryContainerOutline,
+            (colorTokens) -> colorTokens.isDark()
+                ? innerHorizontalDarkQuery.query(colorTokens)
+                : colorTokens.getComplementaryContainerOutline(),
+            (colorTokens) -> colorTokens.isDark()
+                ? innerHorizontalDarkQuery.query(colorTokens)
+                : colorTokens.getComplementaryContainerOutline(),
             ContainerColorTokens::getContainerOutlineVariant};
     private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueriesSimplified =
         new ContainerColorTokensSingleColorQuery[] {
-            ContainerColorTokens::getComplementaryContainerOutline,
-            ContainerColorTokens::getComplementaryContainerOutline,
-            ContainerColorTokens::getComplementaryContainerOutline,
-            ContainerColorTokens::getComplementaryContainerOutline};
+            (colorTokens) -> colorTokens.isDark()
+                ? innerHorizontalDarkQuery.query(colorTokens)
+                : colorTokens.getComplementaryContainerOutline(),
+            (colorTokens) -> colorTokens.isDark()
+                ? innerHorizontalDarkQuery.query(colorTokens)
+                : colorTokens.getComplementaryContainerOutline(),
+            (colorTokens) -> colorTokens.isDark()
+                ? innerHorizontalDarkQuery.query(colorTokens)
+                : colorTokens.getComplementaryContainerOutline(),
+            (colorTokens) -> colorTokens.isDark()
+                ? innerHorizontalDarkQuery.query(colorTokens)
+                : colorTokens.getComplementaryContainerOutline()};
 
     public LuminousOutlinePainter() {
     }
@@ -267,13 +284,13 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
     @Override
     public float getOutlineInset(InsetKind insetKind) {
         if (insetKind == InsetKind.SURFACE) {
-            // Treat surface to extend halfway into the outer outline
-            return outerStrokeWidth + innerStrokeWidth / 2.0f;
+            // Ignore the inner outline, and treat surface to extend to outer outline
+            return outerStrokeWidth;
         }
-        // For content, both outlines are considered. However, to preserve the layout alignment
-        // between single outlines (from {@link FractionBasedOutlinePainter) and double outlines
-        // from this painter - at default hairline stroke width - make a special case where only
-        // the outer outline is considered for the content insets.
+        // For content, both outlines should be considered. However, to preserve the layout
+        // alignment between single outlines (from {@link FractionBasedOutlinePainter) and more
+        // complex outlines from this painter, make a special case where only the outer outline
+        // is considered for the content insets.
         return outerStrokeWidth;
     }
 

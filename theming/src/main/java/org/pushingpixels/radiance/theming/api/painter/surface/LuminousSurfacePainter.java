@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.surface;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 
@@ -149,11 +148,6 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
             int shineWidth = Math.min(src.getWidth(), dstIn.getWidth());
             int shineHeight = Math.min(src.getHeight(), dstIn.getHeight());
 
-            double maxGap =
-                3.0 * RadianceCommonCortex.getScaleFactor(this.bottomShine.comp) / SCALE;
-            double maxRamp =
-                8.0 * RadianceCommonCortex.getScaleFactor(this.bottomShine.comp) / SCALE;
-
             double bottomLeftCornerRadius = 0;
             double bottomRightCornerRadius = 0;
             if (this.bottomShine.outline instanceof RoundRectangle2D) {
@@ -183,10 +177,6 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
                 double yalpha = spline(0.0, 0.1, 0.9, 1.0, yfraction);
 
                 double rowFactor = (double) (shineHeight - row) / (double) shineHeight;
-                // Gap - max at the top row, zero at the bottom row
-                double gap = maxGap * rowFactor;
-                // Ramp - max at the top row, smaller at the bottom row
-                double ramp = maxRamp * 0.5f * (1.0 + rowFactor);
 
                 // For each column in this row, compute its x-based alpha
                 for (int col = 0; col < shineWidth; col++) {
@@ -194,7 +184,17 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
                     double xalpha = 1.0;
                     int invertedRow = shineHeight - row;
                     if (col <= shineWidth / 2) {
-                        // closer to the left edge
+                        // We are closer to the left edge
+
+                        // Compute max gap and ramp based on the corner radius of the bottom
+                        // left corner
+                        double maxGap = Math.floor(bottomLeftCornerRadius / (SCALE * 1.75f));
+                        double maxRamp = Math.ceil(bottomLeftCornerRadius / (SCALE * 0.6f));
+                        // Gap - max at the top row, zero at the bottom row
+                        double gap = maxGap * rowFactor;
+                        // Ramp - max at the top row, smaller at the bottom row
+                        double ramp = maxRamp * 0.5f * (1.0 + rowFactor);
+
                         double overlayXStart = gap;
                         if ((bottomLeftCornerRadius > 0.0) && (invertedRow <= (gap + bottomLeftCornerRadius))) {
                             // We are within the vertical span of the top-left corner
@@ -202,16 +202,26 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
                             double dx = Math.sqrt(bottomLeftCornerRadius * bottomLeftCornerRadius - dy * dy);
                             overlayXStart = gap + bottomLeftCornerRadius - dx;
                         }
-                        if (col <= overlayXStart) {
+                        if (col < overlayXStart) {
                             // leading horizontal gap
                             xalpha = 0.0;
-                        } else if (col <= (overlayXStart + ramp)) {
+                        } else if (col < (overlayXStart + ramp)) {
                             // ramp-up to full alpha horizontally
-                            double cfraction = (overlayXStart + ramp - col) / ramp;
-                            xalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
+                            double cfraction = (col - overlayXStart - gap) / ramp;
+                            xalpha = spline(0.0, 0.1, 0.9, 1.0, cfraction);
                         }
                     } else {
                         // closer to the right edge
+
+                        // Compute max gap and ramp based on the corner radius of the bottom
+                        // right corner
+                        double maxGap = Math.floor(bottomRightCornerRadius / (SCALE * 1.75f));
+                        double maxRamp = Math.ceil(bottomRightCornerRadius / (SCALE * 0.6f));
+                        // Gap - max at the top row, zero at the bottom row
+                        double gap = maxGap * rowFactor;
+                        // Ramp - max at the top row, smaller at the bottom row
+                        double ramp = maxRamp * 0.5f * (1.0 + rowFactor);
+
                         double overlayXEnd = shineWidth - gap - 1;
                         if ((bottomRightCornerRadius > 0.0) && (invertedRow <= (gap + bottomRightCornerRadius))) {
                             // We are within the vertical span of the top-right corner
@@ -219,12 +229,12 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
                             double dx = Math.sqrt(bottomRightCornerRadius * bottomRightCornerRadius - dy * dy);
                             overlayXEnd = shineWidth - gap - 1 - bottomRightCornerRadius + dx;
                         }
-                        if (col > overlayXEnd) {
+                        if (col >= overlayXEnd) {
                             // trailing horizontal gap
                             xalpha = 0.0;
-                        } else if (col > (overlayXEnd - ramp)) {
+                        } else if (col >= (overlayXEnd - ramp)) {
                             // ramp-down to zero alpha horizontally
-                            double cfraction = (col - (overlayXEnd - ramp)) / ramp;
+                            double cfraction = (col - (overlayXEnd - gap - ramp)) / ramp;
                             xalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
                         }
                     }
