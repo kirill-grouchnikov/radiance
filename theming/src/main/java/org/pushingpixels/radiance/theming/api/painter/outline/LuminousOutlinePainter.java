@@ -48,22 +48,26 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class LuminousOutlinePainter implements RadianceOutlinePainter {
     private static float outerStrokeWidth = 1.0f;
-    private static float[] outerVerticalFractions = new float[] {0.0f, 0.25f, 0.5f, 0.75f, 1.0f};
+    private static float[] outerVerticalFractions = new float[] {0.0f, 0.5f, 1.0f};
     private static ContainerColorTokensSingleColorQuery[] outerVerticalColorQueries =
         new ContainerColorTokensSingleColorQuery[] {
             ContainerColorTokens::getContainerOutline,
             ContainerColorTokens::getContainerOutline,
-            ContainerColorTokens::getContainerOutlineVariant,
-            ContainerColorTokens::getContainerOutline,
-            ContainerColorTokens::getContainerOutline};
+            ContainerColorTokens::getContainerOutlineVariant};
 
     private static float innerStrokeWidth = 2.0f;
     private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueries =
         new ContainerColorTokensSingleColorQuery[] {
-            ContainerColorTokens::getContainerOutline,
+            ContainerColorTokens::getContainerOutlineVariant,
             ContainerColorTokens::getComplementaryContainerOutline,
             ContainerColorTokens::getComplementaryContainerOutline,
-            ContainerColorTokens::getContainerOutline};
+            ContainerColorTokens::getContainerOutlineVariant};
+    private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueriesSimplified =
+        new ContainerColorTokensSingleColorQuery[] {
+            ContainerColorTokens::getComplementaryContainerOutline,
+            ContainerColorTokens::getComplementaryContainerOutline,
+            ContainerColorTokens::getComplementaryContainerOutline,
+            ContainerColorTokens::getComplementaryContainerOutline};
 
     public LuminousOutlinePainter() {
     }
@@ -89,9 +93,14 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             // reducing the inner outline radius by the full stroke width results in inner outline
             // corners that are too tight. This might be revisited in the future.
             float innerOutlineRadiusAdjustment = outerStrokeWidth / 2.0f;
+            // Smaller components get simpler outline visuals
+            ContainerColorTokensSingleColorQuery[] innerQueries =
+                ((width / scaleFactor <= 16) || (height / scaleFactor <= 16))
+                    ? innerHorizontalColorQueriesSimplified
+                    : innerHorizontalColorQueries;
             paintHorizontal(g2d, c, width - 2.0f * outerStrokeWidth, height - 2.0f * outerStrokeWidth,
                 innerOutlineRadiusAdjustment, scaleFactor, shapeSupplier, colorTokens,
-                innerStrokeWidth, innerHorizontalColorQueries);
+                innerStrokeWidth, innerQueries);
             g2d.translate(-outerStrokeWidth, -outerStrokeWidth);
         }
         paintVertical(g2d, c, width, height, /* radiusAdjustment */ 0.0f,
@@ -191,11 +200,11 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             // Dynamically compute the gradient fractions to follow the corner radius on left
             // and right sides
             float[] fractions = new float[] { 0.0f,
-                Math.min(0.499f, 0.5f * (float) leftCornerRadius / width),
-                Math.max(0.501f, 1.0f - 0.5f * (float) rightCornerRadius / width),
+                Math.min(0.499f, 0.5f * (float) leftCornerRadius / (width - 1.0f)),
+                Math.max(0.501f, 1.0f - 0.5f * (float) rightCornerRadius / (width - 1.0f)),
                 1.0f};
-            MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, width, 0, fractions,
-                drawColors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
+            MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, width - 1.0f, 0,
+                fractions, drawColors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
             graphics.setPaint(gradient);
 
             graphics.draw(outline);
@@ -223,10 +232,10 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             }
 
             // Handle completely square corners
-            if (leftCornerRadius == 0.0) {
+            if (leftCornerRadius <= 0.0) {
                 leftCornerRadius = 1.0f;
             }
-            if (rightCornerRadius == 0.0) {
+            if (rightCornerRadius <= 0.0) {
                 rightCornerRadius = 1.0f;
             }
 
@@ -237,11 +246,11 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             // Dynamically compute the gradient fractions to follow the corner radius on left
             // and right sides
             float[] fractions = new float[] { 0.0f,
-                Math.min(0.499f, 0.5f * (float) leftCornerRadius / width),
-                Math.max(0.501f, 1.0f - 0.5f * (float) rightCornerRadius / width),
+                Math.min(0.499f, 0.5f * (float) leftCornerRadius / (width - 1.0f)),
+                Math.max(0.501f, 1.0f - 0.5f * (float) rightCornerRadius / (width - 1.0f)),
                 1.0f};
-            MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, width, 0, fractions,
-                drawColors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
+            MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, width - 1.0f, 0,
+                fractions, drawColors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
             graphics.setPaint(gradient);
 
             graphics.fill(outlinePath);
