@@ -71,7 +71,7 @@ public class ButtonBackgroundDelegate {
 
     private void drawBackground(
         Graphics2D graphics, AbstractButton button,
-        RadianceButtonShaper shaper, RadianceSurfacePainter surfacePainter,
+        RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int width, int height) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
@@ -116,7 +116,7 @@ public class ButtonBackgroundDelegate {
                     BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                         button, modificationTimeline.getTimelinePosition());
 
-                    drawBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
+                    drawBackground(graphics, button, surfacePainter, outlinePainter, width, height,
                         mutableContainerTokens, openSides, isSurfacePainted, isOutlinePainted,
                         currState, overallAlpha);
                     return;
@@ -128,12 +128,12 @@ public class ButtonBackgroundDelegate {
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             false, false, CoreColorTokenUtils.ContainerType.MUTED);
 
-        drawBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height,
+        drawBackground(graphics, button, surfacePainter, outlinePainter, width, height,
             mutableContainerTokens, openSides, isSurfacePainted, isOutlinePainted, currState,
             overallAlpha);
     }
 
-    private void drawBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
+    private void drawBackground(Graphics2D g, AbstractButton button,
         RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter, int width,
         int height, ContainerColorTokens colorTokens,
         Set<RadianceThemingSlices.Side> openSides,
@@ -226,10 +226,9 @@ public class ButtonBackgroundDelegate {
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
         RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(button);
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(button);
 
-        drawBackground(graphics, button, shaper, surfacePainter, outlinePainter, width, height);
+        drawBackground(graphics, button, surfacePainter, outlinePainter, width, height);
 
         graphics.dispose();
     }

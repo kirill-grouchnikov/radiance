@@ -100,11 +100,6 @@ public class RadianceSynapse {
     public static final String BUTTON_OPEN_SIDE = "radiance.theming.internal.buttonOpenSide";
 
     /**
-     * Client property name for specifying the corner radius for buttons.
-     */
-    public static final String TOOLBAR_BUTTON_CORNER_RADIUS = "radiance.theming.internal.toolbarButtonCornerRadius";
-
-    /**
      * Client property name for specifying a skin to be used on the specific root pane.
      */
     public static final String ROOT_PANE_SKIN = "radiance.theming.internal.rootPaneSkin";
@@ -173,11 +168,6 @@ public class RadianceSynapse {
      * character.
      */
     public final static String PASSWORD_ECHO_PER_CHAR = "radiance.theming.internal.passwordEchoPerChar";
-
-    /**
-     * Client property name for specifying outline shaper.
-     */
-    public static final String BUTTON_SHAPER = "radiance.theming.internal.buttonShaper";
 
     /**
      * Client property name for specifying menu gutter fill alpha.

@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPai
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolver;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.SkinUtilities;
@@ -211,6 +212,8 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private final Map<RadianceThemingSlices.DecorationAreaType, List<RadianceOverlayPainter>> overlayPaintersMap;
 
+    private final Map<RadianceThemingSlices.DecorationAreaType, RadianceButtonShaper> buttonShaperMap;
+
     /**
      * The button shaper of <code>this</code> skin. Must be non-<code>null</code>.
      */
@@ -258,6 +261,10 @@ public abstract class RadianceSkin implements RadianceTrait {
         this.neutralColorTokensOverrideMap = new HashMap<>();
         this.overlayPaintersMap = new HashMap<>();
 
+        this.buttonShaperMap = new HashMap<>();
+        this.buttonShaperMap.put(RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+            new ClassicButtonShaper.ToolbarButtonShaper());
+
         this.decoratedAreaSet = new HashSet<>();
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
@@ -284,18 +291,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     public final RadianceOutlinePainter getHighlightOutlinePainter() {
         return this.highlightOutlinePainter;
-    }
-
-    /**
-     * Returns the button shaper of this skin.
-     *
-     * @return The button shaper of this skin. A valid skin cannot have a
-     * <code>null</code> value returned from this method. Call
-     * {@link #isValid()} to verify that the skin is valid.
-     * @see #isValid()
-     */
-    public final RadianceButtonShaper getButtonShaper() {
-        return this.buttonShaper;
     }
 
     /**
@@ -717,6 +712,38 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
+     * Sets the specified button shaper to be used in the specified decoration area types.
+     *
+     * @param buttonShaper Button shaper to use in the specified decoration area types.
+     * @param areaTypes    Decoration area types.
+     */
+    public void setButtonShaper(RadianceButtonShaper buttonShaper,
+        RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        if (buttonShaper == null) {
+            throw new IllegalArgumentException("Cannot pass null button shaper");
+        }
+        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
+            this.buttonShaperMap.put(areaType, buttonShaper);
+        }
+    }
+
+    /**
+     * Returns the button shaper for the specified decoration area type.
+     *
+     * @return The button shaper for the specified decoration area type. A valid skin cannot have a
+     * <code>null</code> value returned from this method. Call {@link #isValid()} to verify that
+     * the skin is valid.
+     * @see #isValid()
+     */
+    public RadianceButtonShaper getButtonShaper(RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        RadianceButtonShaper registered = buttonShaperMap.get(decorationAreaType);
+        if (registered != null) {
+            return registered;
+        }
+        return this.buttonShaper;
+    }
+
+    /**
      * Returns active container tokens for the specified visual area of a component in the specific 
      * state.
      *
@@ -828,7 +855,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         if (!this.colorTokensBundleMap.containsKey(RadianceThemingSlices.DecorationAreaType.NONE)) {
             return false;
         }
-        if (this.getButtonShaper() == null) {
+        if (this.getButtonShaper(RadianceThemingSlices.DecorationAreaType.NONE) == null) {
             return false;
         }
         if (this.getSurfacePainter() == null) {

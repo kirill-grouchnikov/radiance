@@ -31,8 +31,9 @@ package org.pushingpixels.radiance.demo.theming.extras;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.radiance.theming.extras.api.shaperpack.*;
 
@@ -40,10 +41,31 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TestButtons extends JFrame {
-    private JButton getButton(String text, RadianceButtonShaper shaper) {
+    private static RadianceThemingSlices.DecorationAreaType RHINO =
+        new RadianceThemingSlices.DecorationAreaType("Rhino");
+    private static RadianceThemingSlices.DecorationAreaType FISH =
+        new RadianceThemingSlices.DecorationAreaType("Fish");
+    private static RadianceThemingSlices.DecorationAreaType RACECAR =
+        new RadianceThemingSlices.DecorationAreaType("RaceCar");
+    private static RadianceThemingSlices.DecorationAreaType BUTTERFLY =
+        new RadianceThemingSlices.DecorationAreaType("Butterfly");
+    private static RadianceThemingSlices.DecorationAreaType FOOT =
+        new RadianceThemingSlices.DecorationAreaType("Foot");
+    private static RadianceThemingSlices.DecorationAreaType ICECREAM =
+        new RadianceThemingSlices.DecorationAreaType("IceCream");
+    private static RadianceThemingSlices.DecorationAreaType STEGOSAURUS =
+        new RadianceThemingSlices.DecorationAreaType("Stegosaurus");
+    private static RadianceThemingSlices.DecorationAreaType DOLPHIN =
+        new RadianceThemingSlices.DecorationAreaType("Dolphin");
+
+    private JPanel getButton(String text,
+        RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+
+        JPanel panel = new JPanel(new BorderLayout());
+        RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(panel, decorationAreaType);
         JButton button = new JButton(text);
-        RadianceThemingCortex.ComponentScope.setButtonShaper(button, shaper);
-        return button;
+        panel.add(button, BorderLayout.CENTER);
+        return panel;
     }
 
     public TestButtons() {
@@ -54,29 +76,29 @@ public class TestButtons extends JFrame {
                 rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
-        builder.add(this.getButton("rhino", new RhinoButtonShaper())).xy(1, 1).
-                add(this.getButton("big rhino", new RhinoButtonShaper())).xy(3, 1);
+        builder.add(this.getButton("rhino", RHINO)).xy(1, 1).
+                add(this.getButton("big rhino", RHINO)).xy(3, 1);
 
-        builder.add(this.getButton("fish", new FishButtonShaper())).xy(1, 3).
-                add(this.getButton("big fish", new FishButtonShaper())).xy(3, 3);
+        builder.add(this.getButton("fish", FISH)).xy(1, 3).
+                add(this.getButton("big fish", FISH)).xy(3, 3);
 
-        builder.add(this.getButton("racecar", new RaceCarButtonShaper())).xy(1, 5).
-                add(this.getButton("big racecar", new RaceCarButtonShaper())).xy(3, 5);
+        builder.add(this.getButton("racecar", RACECAR)).xy(1, 5).
+                add(this.getButton("big racecar", RACECAR)).xy(3, 5);
 
-        builder.add(this.getButton("butterfly", new ButterflyButtonShaper())).xy(1, 7).
-                add(this.getButton("big butterfly", new ButterflyButtonShaper())).xy(3, 7);
+        builder.add(this.getButton("butterfly", BUTTERFLY)).xy(1, 7).
+                add(this.getButton("big butterfly", BUTTERFLY)).xy(3, 7);
 
-        builder.add(this.getButton("foot", new FootButtonShaper())).xy(1, 9).
-                add(this.getButton("big foot", new FootButtonShaper())).xy(3, 9);
+        builder.add(this.getButton("foot", FOOT)).xy(1, 9).
+                add(this.getButton("big foot", FOOT)).xy(3, 9);
 
-        builder.add(this.getButton("icecream", new IceCreamButtonShaper())).xy(1, 11).
-                add(this.getButton("big icecream", new IceCreamButtonShaper())).xy(3, 11);
+        builder.add(this.getButton("icecream", ICECREAM)).xy(1, 11).
+                add(this.getButton("big icecream", ICECREAM)).xy(3, 11);
 
-        builder.add(this.getButton("stegosaurus", new StegosaurusButtonShaper())).xy(1, 13).
-                add(this.getButton("big stegosaurus", new StegosaurusButtonShaper())).xy(3, 13);
+        builder.add(this.getButton("stegosaurus", STEGOSAURUS)).xy(1, 13).
+                add(this.getButton("big stegosaurus", STEGOSAURUS)).xy(3, 13);
 
-        builder.add(this.getButton("dolphin", new DolphinButtonShaper())).xy(1, 15).
-                add(this.getButton("big dolphin", new DolphinButtonShaper())).xy(3, 15);
+        builder.add(this.getButton("dolphin", DOLPHIN)).xy(1, 15).
+                add(this.getButton("big dolphin", DOLPHIN)).xy(3, 15);
 
         this.add(builder.build(), BorderLayout.CENTER);
     }
@@ -84,7 +106,17 @@ public class TestButtons extends JFrame {
     public static void main(String... args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
-            RadianceThemingCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            RadianceSkin customSkin = new BusinessBlackSteelSkin();
+            customSkin.setButtonShaper(new RhinoButtonShaper(), RHINO);
+            customSkin.setButtonShaper(new FishButtonShaper(), FISH);
+            customSkin.setButtonShaper(new RaceCarButtonShaper(), RACECAR);
+            customSkin.setButtonShaper(new ButterflyButtonShaper(), BUTTERFLY);
+            customSkin.setButtonShaper(new FootButtonShaper(), FOOT);
+            customSkin.setButtonShaper(new IceCreamButtonShaper(), ICECREAM);
+            customSkin.setButtonShaper(new StegosaurusButtonShaper(), STEGOSAURUS);
+            customSkin.setButtonShaper(new DolphinButtonShaper(), DOLPHIN);
+
+            RadianceThemingCortex.GlobalScope.setSkin(customSkin);
             TestButtons tb = new TestButtons();
             tb.invalidate();
             System.out.println(tb.getPreferredSize());

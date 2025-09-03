@@ -33,9 +33,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import java.awt.Component
-import javax.swing.AbstractButton
 import javax.swing.JComponent
-import javax.swing.JToolBar
 import javax.swing.plaf.UIResource
 
 /**
@@ -49,18 +47,6 @@ import javax.swing.plaf.UIResource
 @RadianceComponentOrParentChainScope
 public fun JComponent.setSelectTextOnFocus(selectTextOnFocus: Boolean?) {
     RadianceThemingCortex.ComponentOrParentChainScope.setSelectTextOnFocus(this, selectTextOnFocus)
-}
-
-/**
- * Specifies corner radius for all buttons in this toolbar.
- *
- * @param toolbarButtonCornerRadius Corner radius for all buttons in the toolbar.
- * @see AbstractButton.setToolbarButtonCornerRadius
- */
-@RadianceComponentOrParentChainScope
-public fun JToolBar.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
-    RadianceThemingCortex.ComponentOrParentChainScope.setToolbarButtonCornerRadius(
-            this, toolbarButtonCornerRadius)
 }
 
 /**

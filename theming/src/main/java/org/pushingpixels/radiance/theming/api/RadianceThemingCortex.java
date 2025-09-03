@@ -1081,18 +1081,6 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Specifies corner radius for all toolbar buttons.
-         *
-         * @param toolbarButtonCornerRadius Corner radius for all toolbar buttons.
-         * @see ComponentScope#setToolbarButtonCornerRadius(AbstractButton, float)
-         * @see ComponentOrParentChainScope#setToolbarButtonCornerRadius(JToolBar, float)
-         */
-        public static void setToolbarButtonCornerRadius(float toolbarButtonCornerRadius) {
-            UIManager.put(RadianceSynapse.TOOLBAR_BUTTON_CORNER_RADIUS,
-                    Float.valueOf(toolbarButtonCornerRadius));
-        }
-
-        /**
          * Specifies that extra UI elements (such as menu items in system menu or lock borders) can
          * be shown.
          *
@@ -1652,25 +1640,6 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Specifies corner radius for the specific button. Note that this only applies when the
-         * button is in a {@link JToolBar}.
-         *
-         * @param button                    Button.
-         * @param toolbarButtonCornerRadius Corner radius for the button when it is in a
-         *                                  {@link JToolBar}.
-         * @see ComponentOrParentChainScope#setToolbarButtonCornerRadius(JToolBar, float)
-         * @see GlobalScope#setToolbarButtonCornerRadius(float)
-         */
-        public static void setToolbarButtonCornerRadius(AbstractButton button,
-                float toolbarButtonCornerRadius) {
-            if (button == null) {
-                throw new IllegalArgumentException("Component scope APIs do not accept null components");
-            }
-            button.putClientProperty(RadianceSynapse.TOOLBAR_BUTTON_CORNER_RADIUS,
-                    Float.valueOf(toolbarButtonCornerRadius));
-        }
-
-        /**
          * <p>
          * Specifies that contents of a tab component in {@link JTabbedPane} have been modified and
          * not saved. {@link #setRunModifiedAnimationOnTabCloseButton(JComponent, Boolean)},
@@ -1836,19 +1805,6 @@ public class RadianceThemingCortex {
             }
             tabbedPane.putClientProperty(RadianceSynapse.TABBED_PANE_CONTENT_BORDER_KIND,
                     tabContentPaneBorderKind);
-        }
-
-        /**
-         * Specifies the button shaper to be used for the specific component.
-         *
-         * @param comp         Component.
-         * @param buttonShaper Button shaper to be used for the component.
-         */
-        public static void setButtonShaper(JComponent comp, RadianceButtonShaper buttonShaper) {
-            if (comp == null) {
-                throw new IllegalArgumentException("Component scope APIs do not accept null components");
-            }
-            comp.putClientProperty(RadianceSynapse.BUTTON_SHAPER, buttonShaper);
         }
 
         /**
@@ -2033,20 +1989,6 @@ public class RadianceThemingCortex {
          */
         public static void setSelectTextOnFocus(JComponent comp, Boolean selectTextOnFocus) {
             comp.putClientProperty(RadianceSynapse.TEXT_SELECT_ON_FOCUS, selectTextOnFocus);
-        }
-
-        /**
-         * Specifies corner radius for all buttons in the specified toolbar.
-         *
-         * @param toolbar                   Toolbar.
-         * @param toolbarButtonCornerRadius Corner radius for all buttons in the toolbar.
-         * @see ComponentScope#setToolbarButtonCornerRadius(AbstractButton, float)
-         * @see GlobalScope#setToolbarButtonCornerRadius(float)
-         */
-        public static void setToolbarButtonCornerRadius(JToolBar toolbar,
-                float toolbarButtonCornerRadius) {
-            toolbar.putClientProperty(RadianceSynapse.TOOLBAR_BUTTON_CORNER_RADIUS,
-                    Float.valueOf(toolbarButtonCornerRadius));
         }
 
         /**

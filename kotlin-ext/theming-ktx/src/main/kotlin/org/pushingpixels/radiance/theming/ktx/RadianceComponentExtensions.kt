@@ -284,19 +284,6 @@ public fun JComponent.setButtonStraightSides(straightSides: Set<RadianceThemingS
 }
 
 /**
- * Specifies corner radius for this button. Note that this only applies when the
- * button is in a [JToolBar].
- *
- * @param toolbarButtonCornerRadius Corner radius for the button when it is in a
- * [JToolBar].
- * @see JToolBar.setToolbarButtonCornerRadius
- */
-@RadianceComponentScope
-public fun AbstractButton.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
-    RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(this, toolbarButtonCornerRadius)
-}
-
-/**
  * Specifies that contents of contents of this tab component in [JTabbedPane] have been modified and
  * not saved. [JTabbedPane.setRunModifiedAnimationOnTabCloseButton] and
  * [JTabbedPane.setRunModifiedAnimationOnTabCloseButton] APIs control whether
@@ -424,16 +411,6 @@ public fun JTabbedPane.setTabContentPaneBorderKind(
         this,
         tabContentPaneBorderKind
     )
-}
-
-/**
- * Specifies the button shaper to be used for this component.
- *
- * @param buttonShaper Button shaper to be used for this component.
- */
-@RadianceComponentScope
-public fun JComponent.setButtonShaper(buttonShaper: RadianceButtonShaper) {
-    RadianceThemingCortex.ComponentScope.setButtonShaper(this, buttonShaper)
 }
 
 /**

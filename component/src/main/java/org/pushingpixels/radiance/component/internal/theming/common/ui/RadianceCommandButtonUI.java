@@ -48,7 +48,6 @@ import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButto
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
@@ -148,9 +147,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
     @Override
     protected void installDefaults() {
         super.installDefaults();
-        RadianceThemingCortex.ComponentScope.setButtonShaper(this.commandButton,
-                ClassicButtonShaper.INSTANCE);
-
         this.commandButton.setOpaque(false);
     }
 
@@ -653,7 +649,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.commandButton);
+        RadianceButtonShaper shaper = ClassicButtonShaper.INSTANCE;
 
         Dimension superPref = super.getPreferredSize(this.commandButton);
         if (superPref == null)

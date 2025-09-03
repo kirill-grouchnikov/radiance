@@ -288,19 +288,17 @@ public class RadianceCoreUtilities {
      *
      * @param comp The button.
      * @return The button shaper of the specified button.
-     * @see RadianceThemingCortex.ComponentScope#setButtonShaper(JComponent, RadianceButtonShaper)
-     * @see RadianceSkin#getButtonShaper()
+     * @see RadianceSkin#getButtonShaper(RadianceThemingSlices.DecorationAreaType) 
+     * @see RadianceSkin#setButtonShaper(RadianceButtonShaper, RadianceThemingSlices.DecorationAreaType...) 
      */
     public static RadianceButtonShaper getButtonShaper(Component comp) {
-        if (comp instanceof JComponent) {
-            Object prop = ((JComponent) comp).getClientProperty(RadianceSynapse.BUTTON_SHAPER);
-            if (prop instanceof RadianceButtonShaper)
-                return (RadianceButtonShaper) prop;
-        }
         RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);
-        if (skin == null)
+        if (skin == null) {
             return null;
-        return skin.getButtonShaper();
+        }
+        RadianceThemingSlices.DecorationAreaType decorationAreaType =
+            DecorationPainterUtils.getDecorationType(comp);
+        return skin.getButtonShaper(decorationAreaType);
     }
 
     /**
@@ -826,49 +824,6 @@ public class RadianceCoreUtilities {
             return result;
         }
         return null;
-    }
-
-    /**
-     * Returns the corner radius of the specified toolbar button.
-     *
-     * @param button Toolbar button.
-     * @param insets Button insets.
-     * @return Corner radius of the specified toolbar button.
-     * @see RadianceThemingCortex.ComponentScope#setToolbarButtonCornerRadius(AbstractButton, float)
-     * @see RadianceThemingCortex.GlobalScope#setToolbarButtonCornerRadius(float)
-     */
-    public static float getToolbarButtonCornerRadius(JComponent button, float insets) {
-
-        JToolBar toolbar = null;
-        Component c = button.getParent();
-        while (c != null) {
-            if (c instanceof JToolBar) {
-                toolbar = (JToolBar) c;
-                break;
-            }
-            c = c.getParent();
-        }
-        if (toolbar == null)
-            return 2.0f;
-
-        float width = button.getWidth() - 2 * insets;
-        float height = button.getHeight() - 2 * insets;
-        float maxRadius = (width > height) ? (height) / 2.0f : (width) / 2.0f;
-
-        Object buttonProp = button.getClientProperty(RadianceSynapse.TOOLBAR_BUTTON_CORNER_RADIUS);
-        if (buttonProp instanceof Float)
-            return Math.min(maxRadius, ((Float) buttonProp).floatValue());
-
-        Object toolbarProp = toolbar
-                .getClientProperty(RadianceSynapse.TOOLBAR_BUTTON_CORNER_RADIUS);
-        if (toolbarProp instanceof Float)
-            return Math.min(maxRadius, ((Float) toolbarProp).floatValue());
-
-        Object globalProp = UIManager.get(RadianceSynapse.TOOLBAR_BUTTON_CORNER_RADIUS);
-        if (globalProp instanceof Float)
-            return Math.min(maxRadius, ((Float) globalProp).floatValue());
-
-        return 2.0f;
     }
 
     /**

@@ -672,7 +672,6 @@ public class Check extends JFrame {
         innerToolbar.setFloatable(false);
 
         JToggleButton buttonFormatCenter = new JToggleButton(format_justify_center.of(size, size));
-        RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonFormatCenter, 5.0f);
         configureToolbarButton(buttonFormatCenter, useMutedIcons);
         innerToolbar.add(buttonFormatCenter);
 
@@ -685,7 +684,6 @@ public class Check extends JFrame {
         innerToolbar.add(buttonFormatRight);
 
         JToggleButton buttonFormatFill = new JToggleButton(format_justify_fill.of(size, size));
-        RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonFormatFill, 0.0f);
         configureToolbarButton(buttonFormatFill, useMutedIcons);
         innerToolbar.add(buttonFormatFill);
 
@@ -699,31 +697,34 @@ public class Check extends JFrame {
             JPanel innerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
             innerToolbar2.add(innerPanel, BorderLayout.CENTER);
 
-            final JToggleButton buttonStyleBold = new JToggleButton(
-                    format_text_bold.of(size, size));
+            Set<Side> leadingSide = EnumSet.of(Side.LEADING);
             Set<Side> trailingSide = EnumSet.of(Side.TRAILING);
+            Set<Side> leadingAndTrailingSides = EnumSet.of(Side.LEADING, Side.TRAILING);
+
+            final JToggleButton buttonStyleBold = new JToggleButton(
+                format_text_bold.of(size, size));
             RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleBold, trailingSide);
-            RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleBold, 3.0f);
+            RadianceThemingCortex.ComponentScope.setButtonStraightSides(buttonStyleBold, trailingSide);
             configureToolbarButton(buttonStyleBold, useMutedIcons);
 
             final JToggleButton buttonStyleItalic = new JToggleButton(
-                    format_text_italic.of(size, size));
-            RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleItalic, 0.0f);
+                format_text_italic.of(size, size));
             RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleItalic, trailingSide);
+            RadianceThemingCortex.ComponentScope.setButtonStraightSides(buttonStyleItalic,
+                leadingAndTrailingSides);
             configureToolbarButton(buttonStyleItalic, useMutedIcons);
 
             final JToggleButton buttonStyleUnderline = new JToggleButton(
-                    format_text_underline.of(size, size));
-            RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleUnderline, 0.0f);
+                format_text_underline.of(size, size));
             RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleUnderline, trailingSide);
+            RadianceThemingCortex.ComponentScope.setButtonStraightSides(buttonStyleUnderline,
+                leadingAndTrailingSides);
             configureToolbarButton(buttonStyleUnderline, useMutedIcons);
 
             final JToggleButton buttonStyleStrikethrough = new JToggleButton(
-                    format_text_strikethrough.of(size, size));
+                format_text_strikethrough.of(size, size));
             RadianceThemingCortex.ComponentScope.setButtonStraightSides(buttonStyleStrikethrough,
-                    EnumSet.of(Side.LEADING));
-            RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleStrikethrough,
-                    3.0f);
+                leadingSide);
             configureToolbarButton(buttonStyleStrikethrough, useMutedIcons);
 
             buttonStyleBold.setSelected(true);

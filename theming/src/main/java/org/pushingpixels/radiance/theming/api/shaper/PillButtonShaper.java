@@ -225,15 +225,12 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
 
         if (isRoundCorners) {
             if (width > height) {
-                radius = (height) / 2.0f;
+                radius = height / 2.0f;
             } else {
-                radius = (width) / 2.0f;
+                radius = width / 2.0f;
             }
         }
 
-        if (RadianceCoreUtilities.isToolBarButton(button)) {
-            radius = RadianceCoreUtilities.getToolbarButtonCornerRadius(button, insets);
-        }
         return radius;
     }
 }

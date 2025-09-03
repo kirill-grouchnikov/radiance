@@ -203,10 +203,19 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
                 radius *= ((RadianceBorder) parentBorder).getRadiusScaleFactor();
             }
         }
-        if (RadianceCoreUtilities.isToolBarButton(button)) {
-            radius = RadianceCoreUtilities.getToolbarButtonCornerRadius(button, insets);
-        }
         radius -= radiusAdjustment;
         return radius;
+    }
+
+    public static class ToolbarButtonShaper extends ClassicButtonShaper {
+        @Override
+        public String getDisplayName() {
+            return "Toolbar";
+        }
+
+        @Override
+        public float getCornerRadius(AbstractButton button, float insets, float radiusAdjustment) {
+            return 2.0f - radiusAdjustment;
+        }
     }
 }
