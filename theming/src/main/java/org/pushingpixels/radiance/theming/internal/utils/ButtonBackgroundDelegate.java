@@ -180,13 +180,11 @@ public class ButtonBackgroundDelegate {
                     outlineInset, 0.0f, scaleFactor);
                 float containerSurfaceAlpha = overallAlpha *
                     (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-                //graphics1X.translate(0.5, 0.5);
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
                     overallAlpha * containerSurfaceAlpha, g));
                 surfacePainter.paintSurface(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
                         scaledHeight + deltaTop + deltaBottom, outlineSurface, colorTokens);
-                //graphics1X.translate(-0.5, -0.5);
             }
 
             if (isOutlinePainted) {

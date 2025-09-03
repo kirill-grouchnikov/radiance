@@ -54,11 +54,18 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
     private ContainerColorTokensSingleColorQuery lightSourceQuery;
 
     public LuminousSurfacePainter() {
-        this.baseSurfacePainter = new MatteSurfacePainter();
-        this.lightSourceQuery = (colorTokens) -> colorTokens.isDark()
-            ? colorTokens.getContainerSurfaceHighest()
-            : colorTokens.getContainerSurfaceLowest();
-        this.alpha = 1.0f;
+        this(new MatteSurfacePainter(),
+            (colorTokens) -> colorTokens.isDark()
+                ? colorTokens.getContainerSurfaceHighest()
+                : colorTokens.getContainerSurfaceLowest(),
+            1.0f);
+    }
+
+    public LuminousSurfacePainter(RadianceSurfacePainter baseSurfacePainter,
+        ContainerColorTokensSingleColorQuery lightSourceQuery, float alpha) {
+        this.baseSurfacePainter = baseSurfacePainter;
+        this.lightSourceQuery = lightSourceQuery;
+        this.alpha = alpha;
     }
 
     @Override
