@@ -33,7 +33,7 @@ Radiance provides a number of outline painters that can be used as a starting po
 
 * `FractionBasedOutlinePainter` enables vertical gradients with arbitrary multi-stop colors. Most core Radiance outline painters extend this class.
 * `InlayOutlinePainter` paints a double outline, with the inner one following the shape of the outer one with no gaps between them. The visuals for both outlines have configurable vertical gradients.
-
+* `LuminousOutlinePainter` paints an outline of a 3D glass object lit from straight above.
 
 ### Management API
 
