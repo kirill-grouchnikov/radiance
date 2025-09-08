@@ -192,7 +192,8 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(
 			new MatteSurfacePainter(),
 			ContainerColorTokens::getContainerSurfaceLow,

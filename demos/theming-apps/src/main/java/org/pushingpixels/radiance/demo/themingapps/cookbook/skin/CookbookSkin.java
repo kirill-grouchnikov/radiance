@@ -111,7 +111,8 @@ public class CookbookSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new CookbookSurfacePainter();
 
         this.outlinePainter = InlayOutlinePainter.builder()

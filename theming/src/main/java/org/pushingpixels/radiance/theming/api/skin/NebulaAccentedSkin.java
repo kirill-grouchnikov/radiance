@@ -138,7 +138,8 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
 		this.outlinePainter = new FlatOutlinePainter();
 

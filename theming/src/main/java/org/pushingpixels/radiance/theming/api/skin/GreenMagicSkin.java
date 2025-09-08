@@ -146,7 +146,8 @@ public class GreenMagicSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerOutlineVariant),
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Green Magic",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {

@@ -92,7 +92,8 @@ public class SeaGlassSkin extends RadianceSkin {
 				ContainerColorTokens::getContainerOutline),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
-		this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new FractionBasedSurfacePainter(
 			"Sea Glass",
 			new float[] {0.0f, 0.49999f, 0.5f, 0.8f, 1.0f},

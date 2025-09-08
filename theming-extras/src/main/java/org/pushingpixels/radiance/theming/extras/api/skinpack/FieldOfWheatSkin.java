@@ -113,7 +113,8 @@ public class FieldOfWheatSkin extends RadianceSkin {
                     ContainerColorTokens::getContainerOutline, ColorTransform.alpha(128))),
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 0.5f);
         this.decorationPainter = new ArcDecorationPainter();
         this.outlinePainter = new FlatOutlinePainter();

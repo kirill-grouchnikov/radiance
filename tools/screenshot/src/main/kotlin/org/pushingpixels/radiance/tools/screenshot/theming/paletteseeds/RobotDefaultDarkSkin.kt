@@ -73,7 +73,8 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
 
-        this.buttonShaper = ClassicButtonShaper()
+        this.registerButtonShaper(ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE)
         this.surfacePainter = SpecularRectangularSurfacePainter(ClassicSurfacePainter(), 1.0f)
         this.outlinePainter = InlayOutlinePainter.builder()
             .displayName("Robot")

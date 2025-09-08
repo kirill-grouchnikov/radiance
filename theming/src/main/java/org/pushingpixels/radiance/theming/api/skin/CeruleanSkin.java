@@ -153,7 +153,8 @@ public class CeruleanSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.FOOTER,
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-		this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
 		this.decorationPainter = new ArcDecorationPainter();
 		this.highlightSurfacePainter = new GlassSurfacePainter();

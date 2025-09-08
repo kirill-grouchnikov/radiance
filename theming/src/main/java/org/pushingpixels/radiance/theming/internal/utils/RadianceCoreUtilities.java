@@ -289,7 +289,7 @@ public class RadianceCoreUtilities {
      * @param comp The button.
      * @return The button shaper of the specified button.
      * @see RadianceSkin#getButtonShaper(RadianceThemingSlices.DecorationAreaType) 
-     * @see RadianceSkin#setButtonShaper(RadianceButtonShaper, RadianceThemingSlices.DecorationAreaType...) 
+     * @see RadianceSkin#registerButtonShaper(RadianceButtonShaper, RadianceThemingSlices.DecorationAreaType...)
      */
     public static RadianceButtonShaper getButtonShaper(Component comp) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);

@@ -254,7 +254,8 @@ public class OfficeBlack2007Skin extends RadianceSkin {
             DecorationAreaType.PRIMARY_TITLE_PANE,
             DecorationAreaType.SECONDARY_TITLE_PANE);
 
-        this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.surfacePainter = new FractionBasedSurfacePainter("Office Black 2007",
             new float[] {0.0f, 0.49999f, 0.5f, 1.0f},

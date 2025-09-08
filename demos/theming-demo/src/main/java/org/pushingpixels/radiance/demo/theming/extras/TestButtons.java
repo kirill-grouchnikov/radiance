@@ -107,14 +107,14 @@ public class TestButtons extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             RadianceSkin customSkin = new BusinessBlackSteelSkin();
-            customSkin.setButtonShaper(new RhinoButtonShaper(), RHINO);
-            customSkin.setButtonShaper(new FishButtonShaper(), FISH);
-            customSkin.setButtonShaper(new RaceCarButtonShaper(), RACECAR);
-            customSkin.setButtonShaper(new ButterflyButtonShaper(), BUTTERFLY);
-            customSkin.setButtonShaper(new FootButtonShaper(), FOOT);
-            customSkin.setButtonShaper(new IceCreamButtonShaper(), ICECREAM);
-            customSkin.setButtonShaper(new StegosaurusButtonShaper(), STEGOSAURUS);
-            customSkin.setButtonShaper(new DolphinButtonShaper(), DOLPHIN);
+            customSkin.registerButtonShaper(new RhinoButtonShaper(), RHINO);
+            customSkin.registerButtonShaper(new FishButtonShaper(), FISH);
+            customSkin.registerButtonShaper(new RaceCarButtonShaper(), RACECAR);
+            customSkin.registerButtonShaper(new ButterflyButtonShaper(), BUTTERFLY);
+            customSkin.registerButtonShaper(new FootButtonShaper(), FOOT);
+            customSkin.registerButtonShaper(new IceCreamButtonShaper(), ICECREAM);
+            customSkin.registerButtonShaper(new StegosaurusButtonShaper(), STEGOSAURUS);
+            customSkin.registerButtonShaper(new DolphinButtonShaper(), DOLPHIN);
 
             RadianceThemingCortex.GlobalScope.setSkin(customSkin);
             TestButtons tb = new TestButtons();

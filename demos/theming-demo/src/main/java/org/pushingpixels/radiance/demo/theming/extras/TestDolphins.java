@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.demo.theming.extras;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.radiance.theming.extras.api.shaperpack.DolphinButtonShaper;
 
@@ -49,7 +50,8 @@ public class TestDolphins extends JFrame {
         private DolphinSkin() {
             super();
 
-            this.buttonShaper = new DolphinButtonShaper();
+            this.registerButtonShaper(new DolphinButtonShaper(),
+                RadianceThemingSlices.DecorationAreaType.NONE);
         }
 
         @Override

@@ -93,7 +93,8 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		this.addOverlayPainter(toolbarBottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new MatteSurfacePainter(), 0.5f);
 		this.decorationPainter = new ArcDecorationPainter();
 		this.highlightSurfacePainter = new MatteSurfacePainter();

@@ -326,7 +326,8 @@ public class SampleMenuFactory {
             this.outlinePainter = flatOutlinePainter;
 
             this.surfacePainter = new GlassSurfacePainter();
-            this.buttonShaper = new ClassicButtonShaper();
+            this.registerButtonShaper(new ClassicButtonShaper(),
+                RadianceThemingSlices.DecorationAreaType.NONE);
             this.decorationPainter = new ArcDecorationPainter();
             this.highlightSurfacePainter = new GlassSurfacePainter();
         }

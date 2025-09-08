@@ -212,12 +212,10 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private final Map<RadianceThemingSlices.DecorationAreaType, List<RadianceOverlayPainter>> overlayPaintersMap;
 
-    private final Map<RadianceThemingSlices.DecorationAreaType, RadianceButtonShaper> buttonShaperMap;
-
     /**
-     * The button shaper of <code>this</code> skin. Must be non-<code>null</code>.
+     * Maps decoration area type to the button shaper to be used for all the buttons in that area.
      */
-    protected RadianceButtonShaper buttonShaper;
+    private final Map<RadianceThemingSlices.DecorationAreaType, RadianceButtonShaper> buttonShaperMap;
 
     /**
      * The surface painter of <code>this</code> skin. Must be non-<code>null</code>.
@@ -712,12 +710,12 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Sets the specified button shaper to be used in the specified decoration area types.
+     * Registers the specified button shaper to be used in the specified decoration area types.
      *
      * @param buttonShaper Button shaper to use in the specified decoration area types.
      * @param areaTypes    Decoration area types.
      */
-    public void setButtonShaper(RadianceButtonShaper buttonShaper,
+    public void registerButtonShaper(RadianceButtonShaper buttonShaper,
         RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (buttonShaper == null) {
             throw new IllegalArgumentException("Cannot pass null button shaper");
@@ -736,11 +734,11 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @see #isValid()
      */
     public RadianceButtonShaper getButtonShaper(RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        RadianceButtonShaper registered = buttonShaperMap.get(decorationAreaType);
+        RadianceButtonShaper registered = this. buttonShaperMap.get(decorationAreaType);
         if (registered != null) {
             return registered;
         }
-        return this.buttonShaper;
+        return this.buttonShaperMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
     }
 
     /**

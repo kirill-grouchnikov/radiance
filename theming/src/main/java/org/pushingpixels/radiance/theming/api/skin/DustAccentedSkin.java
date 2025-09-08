@@ -132,7 +132,8 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 		this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new MatteSurfacePainter(), 0.3f);
 		this.decorationPainter = new FlatDecorationPainter();
 		this.highlightSurfacePainter = new MatteSurfacePainter();

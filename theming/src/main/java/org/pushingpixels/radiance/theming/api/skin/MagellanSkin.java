@@ -219,7 +219,8 @@ public class MagellanSkin extends RadianceSkin {
         RadianceOverlayPainter footerTopShadowOverlayPainter = TopShadowOverlayPainter.getInstance(100);
         this.addOverlayPainter(footerTopShadowOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Magellan",
             new float[] {0.0f, 0.3f, 0.6f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {

@@ -142,7 +142,8 @@ public class RavenSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-		this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(
 			new GlassSurfacePainter(), 0.5f);
 		this.decorationPainter = new ArcDecorationPainter();

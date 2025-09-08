@@ -151,7 +151,8 @@ public class VisorSkin extends RadianceSkin {
             /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
-        this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new MatteSurfacePainter();
         this.outlinePainter = new FlatOutlinePainter();
 

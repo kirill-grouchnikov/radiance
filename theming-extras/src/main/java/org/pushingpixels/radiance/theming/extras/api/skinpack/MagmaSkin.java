@@ -104,7 +104,8 @@ public class MagmaSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-        this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 1.0f);
         this.decorationPainter = new ArcDecorationPainter();
 

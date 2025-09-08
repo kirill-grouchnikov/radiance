@@ -103,7 +103,8 @@ public class Step4ComponentStatesDarkDemo extends JFrame {
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
-            this.buttonShaper = new ClassicButtonShaper();
+            this.registerButtonShaper(new ClassicButtonShaper(),
+                RadianceThemingSlices.DecorationAreaType.NONE);
             this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 1.0f);
             this.outlinePainter = new FlatOutlinePainter();
 

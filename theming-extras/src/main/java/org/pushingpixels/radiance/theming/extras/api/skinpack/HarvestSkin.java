@@ -160,7 +160,8 @@ public class HarvestSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.buttonShaper = new ClassicButtonShaper();
+        this.registerButtonShaper(new ClassicButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new MatteSurfacePainter();
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightSurfacePainter = new MatteSurfacePainter();

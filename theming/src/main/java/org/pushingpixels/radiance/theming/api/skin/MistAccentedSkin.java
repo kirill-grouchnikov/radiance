@@ -85,7 +85,8 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-		this.buttonShaper = new PillButtonShaper();
+        this.registerButtonShaper(new PillButtonShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new LuminousSurfacePainter();
         this.outlinePainter = new LuminousOutlinePainter();
 
