@@ -109,7 +109,7 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
 
             // This part emulates the light hitting the top edge of the shape and diffusing
             // downwards into it
-            BufferedImage topShineImage = getTopShineImage(comp, outline,
+            BufferedImage topShineImage = getTopShineImage(outline,
                 this.lightSourceQuery.query(colorTokens),
                 this.alpha, shineWidth, shineHeight);
             graphics.drawImage(topShineImage, 0, 0, iw, ih / 2, 0, 0,
@@ -117,7 +117,7 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
 
             // This part emulates the light bouncing off of the bottom edge of the shape
             // and upwards back into it
-            BufferedImage bottomShineImage = getBottomShineImage(comp, outline,
+            BufferedImage bottomShineImage = getBottomShineImage(outline,
                 this.lightSourceQuery.query(colorTokens),
                 this.alpha, shineWidth, shineHeight);
             graphics.drawImage(bottomShineImage, 0, ih / 2, iw, ih, 0, 0,
@@ -366,14 +366,11 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
     }
 
     private class BottomShine implements Composite {
-        private Component comp;
         private Shape outline;
         private Color lightColor;
         private float alpha;
 
-        public BottomShine(Component comp, Shape outline, Color lightColor,
-            float alpha) {
-            this.comp = comp;
+        public BottomShine(Shape outline, Color lightColor, float alpha) {
             this.outline = outline;
             this.lightColor = lightColor;
             this.alpha = alpha;
@@ -387,14 +384,11 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
     }
 
     private class TopShine implements Composite {
-        private Component comp;
         private Shape outline;
         private Color lightColor;
         private float alpha;
 
-        public TopShine(Component comp, Shape outline, Color lightColor,
-            float alpha) {
-            this.comp = comp;
+        public TopShine(Shape outline, Color lightColor, float alpha) {
             this.outline = outline;
             this.lightColor = lightColor;
             this.alpha = alpha;
@@ -407,8 +401,7 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
         }
     }
 
-    private BufferedImage getBottomShineImage(Component comp, Shape outline,
-        Color lightColor, float alpha,
+    private BufferedImage getBottomShineImage(Shape outline, Color lightColor, float alpha,
         int shineWidth, int shineHeight) {
         // Important - do not use GraphicsConfiguration.createCompatibleImage(.., .., Transparency.TRANSLUCENT)
         // as that results in color artifacts during explicit manipulation of underlying raster
@@ -416,7 +409,7 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
         BufferedImage shineImage = new BufferedImage(shineWidth, shineHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = shineImage.createGraphics();
 
-        g2d.setComposite(new BottomShine(comp, outline, lightColor, alpha));
+        g2d.setComposite(new BottomShine(outline, lightColor, alpha));
 
         g2d.fillRect(0, 0, shineWidth, shineHeight);
         g2d.dispose();
@@ -424,8 +417,7 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
         return shineImage;
     }
 
-    private BufferedImage getTopShineImage(Component comp, Shape outline,
-        Color lightColor, float alpha,
+    private BufferedImage getTopShineImage(Shape outline, Color lightColor, float alpha,
         int shineWidth, int shineHeight) {
         // Important - do not use GraphicsConfiguration.createCompatibleImage(.., .., Transparency.TRANSLUCENT)
         // as that results in color artifacts during explicit manipulation of underlying raster
@@ -433,7 +425,7 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
         BufferedImage shineImage = new BufferedImage(shineWidth, shineHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = shineImage.createGraphics();
 
-        g2d.setComposite(new TopShine(comp, outline, lightColor, alpha));
+        g2d.setComposite(new TopShine(outline, lightColor, alpha));
 
         g2d.fillRect(0, 0, shineWidth, shineHeight);
         g2d.dispose();
