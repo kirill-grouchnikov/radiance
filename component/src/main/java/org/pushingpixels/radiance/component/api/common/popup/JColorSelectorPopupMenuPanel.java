@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.common.popup;
 
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.KeyValuePair;
 import org.pushingpixels.radiance.component.api.common.model.Command;
@@ -105,13 +106,13 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
 
         // Command presentation for menu content
         CommandButtonPresentationModel presentation =
-                CommandButtonPresentationModel.builder()
-                        .setPresentationState(this.presentationModel.getMenuPresentationState())
-                        .setPopupFireTrigger(this.presentationModel.getMenuPopupFireTrigger())
-                        .setSelectedStateHighlight(this.presentationModel.getSelectedStateHighlight())
-                        .setForceAllocateSpaceForIcon(atLeastOneButtonHasIcon)
-                        .build();
-
+            CommandButtonPresentationModel.builder()
+                .setPresentationState(this.presentationModel.getMenuPresentationState())
+                .setPopupFireTrigger(this.presentationModel.getMenuPopupFireTrigger())
+                .setSelectedStateHighlight(this.presentationModel.getSelectedStateHighlight())
+                .setHorizontalAlignment(HorizontalAlignment.LEADING)
+                .setForceAllocateSpaceForIcon(atLeastOneButtonHasIcon)
+                .build();
 
         for (int i = 0; i < menuGroups.size(); i++) {
             ColorSelectorPopupMenuGroupModel menuGroup = menuGroups.get(i);
