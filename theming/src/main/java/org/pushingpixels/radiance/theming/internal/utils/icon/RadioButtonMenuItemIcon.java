@@ -31,15 +31,12 @@ package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -82,8 +79,6 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         StateTransitionTracker.ModelStateInfo modelStateInfo =
                 stateTransitionTracker.getModelStateInfo();
 
-        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(this.menuItem);
-        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.menuItem);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
@@ -95,7 +90,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        BladeIconUtils.drawRadioButton(graphics, this.menuItem, surfacePainter, outlinePainter,
+        BladeIconUtils.drawRadioButton(graphics, this.menuItem, 
             this.size, currState, mutableContainerTokens, visibility);
         graphics.dispose();
     }

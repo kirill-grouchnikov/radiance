@@ -33,8 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
@@ -101,8 +99,6 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                 StateTransitionTracker.ModelStateInfo modelStateInfo =
                         stateTransitionTracker.getModelStateInfo();
 
-                RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(button);
-                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(button);
                 ComponentState currState = modelStateInfo.getCurrModelState();
 
                 float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
@@ -115,7 +111,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
 
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
-                BladeIconUtils.drawCheckBox(graphics, button, surfacePainter, outlinePainter,
+                BladeIconUtils.drawCheckBox(graphics, button,
                     checkMarkSize, currState, mutableContainerTokens, visibility, 0.0f,
                     isCheckMarkFadingOut);
                 graphics.dispose();

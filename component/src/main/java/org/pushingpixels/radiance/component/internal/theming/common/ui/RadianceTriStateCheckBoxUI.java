@@ -34,8 +34,6 @@ import org.pushingpixels.radiance.component.api.common.JTriStateCheckBox;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicTriStateCheckBoxUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
@@ -79,8 +77,6 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                 StateTransitionTracker.ModelStateInfo modelStateInfo =
                         stateTransitionTracker.getModelStateInfo();
 
-                RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(triStateCheckBox);
-                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(triStateCheckBox);
                 ComponentState currState = modelStateInfo.getCurrModelState();
 
                 float visibility = stateTransitionTracker.getFacetStrength(
@@ -115,8 +111,8 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
 
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
-                BladeIconUtils.drawCheckBox(graphics, triStateCheckBox, surfacePainter,
-                    outlinePainter, checkMarkSize, currState, mutableContainerTokens, visibility,
+                BladeIconUtils.drawCheckBox(graphics, triStateCheckBox,
+                    checkMarkSize, currState, mutableContainerTokens, visibility,
                     checkmarkFlatness, isCheckMarkFadingOut);
                 graphics.dispose();
             }

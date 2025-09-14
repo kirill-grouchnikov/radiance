@@ -45,6 +45,7 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMult
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.*;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -729,8 +730,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Retrieves the image of the close button.
      */
-    private void paintCloseButtonImage(Graphics2D g, JTabbedPane tabPane, int width, int height,
-        boolean toPaintBorder, ContainerColorTokens colorTokens) {
+    private void paintCloseButtonImage(Graphics2D g, JTabbedPane tabPane, ComponentState tabState,
+        int width, int height, boolean toPaintBorder, float alpha, ContainerColorTokens colorTokens) {
         RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(tabPane);
         if (surfacePainter == null) {
             return;
@@ -748,8 +749,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         tabPane.getComponentOrientation(),
                         scaledWidth, scaledHeight, 1, null);
-                    surfacePainter.paintSurface(graphics1X, tabPane,
-                        scaledWidth, scaledHeight, outline, colorTokens);
+                    SurfacePainterUtils.paintSurface(graphics1X, tabPane, tabState,
+                        scaledWidth, scaledHeight, scaleFactor, alpha, outline, colorTokens);
                     graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
                     graphics1X.draw(outline);
                 }
@@ -821,16 +822,13 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         // Check if requested to paint close buttons.
         if (RadianceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {
-            float alpha = (isSelected || isRollover) ? 1.0f : 0.0f;
+            float activeAlpha = (isSelected || isRollover) ? 1.0f : 0.0f;
             if (!isSelected) {
                 if (tabTracker != null) {
-                    alpha = tabTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
+                    activeAlpha = tabTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
                 }
             }
-            if (alpha > 0.0) {
-                graphics.setComposite(
-                        WidgetUtilities.getAlphaComposite(this.tabPane, finalAlpha * alpha, g));
-
+            if (activeAlpha > 0.0) {
                 // paint close button
                 Rectangle orig = this.getCloseButtonRectangleForDraw(tabIndex, x, y, w, h);
 
@@ -857,15 +855,15 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 if (isTabModified && isEnabled && toMarkModifiedCloseButton) {
                     BladeUtils.populateModificationAwareColorTokens(mutableColorTokens, comp,
                         this.modifiedTimelines.get(comp).getTimelinePosition());
-                    paintCloseButtonImage(graphics, this.tabPane, orig.width, orig.height,
-                        toPaintCloseBorder, mutableColorTokens);
+                    paintCloseButtonImage(graphics, this.tabPane, currState, orig.width, orig.height,
+                        toPaintCloseBorder, finalAlpha * activeAlpha, mutableColorTokens);
                 } else {
                     BladeUtils.populateColorTokens(mutableColorTokens, this.tabPane, tabIndex,
                         modelStateInfo, this.getTabState(tabIndex, true),
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB);
 
-                    paintCloseButtonImage(graphics, this.tabPane, orig.width, orig.height,
-                        toPaintCloseBorder, mutableColorTokens);
+                    paintCloseButtonImage(graphics, this.tabPane, currState, orig.width, orig.height,
+                        toPaintCloseBorder, finalAlpha * activeAlpha, mutableColorTokens);
                 }
             }
         }

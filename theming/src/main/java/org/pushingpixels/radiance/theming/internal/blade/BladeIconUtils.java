@@ -37,6 +37,8 @@ import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePai
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -55,8 +57,8 @@ public class BladeIconUtils {
             c.getComponentOrientation(), width, height, cornerRadius - radiusAdjustment, null, insets);
     };
 
-    public static void drawCheckBox(Graphics2D g, JComponent component, RadianceSurfacePainter surfacePainter,
-        RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
+    public static void drawCheckBox(Graphics2D g, JComponent component,
+        int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility,
         float checkMarkFlatness, boolean isCheckMarkFadingOut) {
 
@@ -74,22 +76,16 @@ public class BladeIconUtils {
 
                 int outlineDim = scaledWidth - 1;
 
-                float containerAlpha = currentState.isDisabled()
-                    ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-                graphics1X.setComposite(getAlphaComposite(containerAlpha));
                 Shape outlineFill = RadianceOutlineUtilities.getBaseOutline(
                     component.getComponentOrientation(),
                     outlineDim + 1, outlineDim + 1,
                     cornerRadius, null, 0.5f);
-                surfacePainter.paintSurface(graphics1X, component,
-                    outlineDim, outlineDim,
-                    outlineFill, colorTokens);
 
-                float containerOutlineAlpha = currentState.isDisabled()
-                    ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
-                graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
-                outlinePainter.paintOutline(graphics1X, component, outlineDim, outlineDim,
-                    scaleFactor, checkBoxShapeSupplier, colorTokens);
+                SurfacePainterUtils.paintSurface(graphics1X, component, currentState,
+                    outlineDim, outlineDim, scaleFactor, 1.0f, outlineFill, colorTokens);
+
+                OutlinePainterUtils.paintOutline(graphics1X, component, currentState,
+                    outlineDim, outlineDim, scaleFactor, 1.0f, checkBoxShapeSupplier, colorTokens);
 
                 float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
                     1.0f : checkMarkVisibility;
@@ -132,8 +128,8 @@ public class BladeIconUtils {
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
-    public static void drawRadioButton(Graphics2D g, AbstractButton button, RadianceSurfacePainter surfacePainter,
-        RadianceOutlinePainter outlinePainter, int dimension, ComponentState currentState,
+    public static void drawRadioButton(Graphics2D g, AbstractButton button,
+        int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -146,19 +142,12 @@ public class BladeIconUtils {
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 int outlineDim = scaledWidth;
 
-                float containerAlpha = currentState.isDisabled()
-                    ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-                graphics1X.setComposite(getAlphaComposite(containerAlpha));
-                surfacePainter.paintSurface(graphics1X, button,
-                    outlineDim, outlineDim,
-                    new Ellipse2D.Float(0.5f, 0.5f, outlineDim, outlineDim),
-                    colorTokens);
+                SurfacePainterUtils.paintSurface(graphics1X, button, currentState,
+                    outlineDim, outlineDim, scaleFactor, 1.0f,
+                    new Ellipse2D.Float(0.5f, 0.5f, outlineDim, outlineDim), colorTokens);
 
-                float containerOutlineAlpha = currentState.isDisabled()
-                    ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
-                graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha));
-                outlinePainter.paintOutline(graphics1X, button, outlineDim, outlineDim,
-                    scaleFactor, radioButtonShapeSupplier, colorTokens);
+                OutlinePainterUtils.paintOutline(graphics1X, button, currentState,
+                    outlineDim, outlineDim, scaleFactor, 1.0f, radioButtonShapeSupplier, colorTokens);
 
                 float rc = outlineDim / 2.0f + 0.5f;
                 float radius = outlineDim / 4.5f;
