@@ -120,7 +120,7 @@ public class RadianceTableCellBorder implements Border, UIResource {
 			modelStateInfo, currState,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			false, true, CoreColorTokenUtils.ContainerType.NEUTRAL);
-		BladeDrawingUtils.paintBladeBorder(c, graphics, x, y, width, height, radius,
+		BladeDrawingUtils.paintBladeBorder(graphics, c, currState, x, y, width, height, radius,
 			mutableColorTokens);
 		graphics.dispose();
 	}

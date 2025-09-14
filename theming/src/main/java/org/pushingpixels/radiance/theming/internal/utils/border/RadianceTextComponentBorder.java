@@ -38,9 +38,9 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -134,12 +134,9 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                     BladeUtils.populateColorTokens(mutableContainerTokens, c, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                         false, false, CoreColorTokenUtils.ContainerType.MUTED);
-                    if (currState.isDisabled()) {
-                        graphics1X.setComposite(WidgetUtilities.getAlphaComposite(c,
-                            mutableContainerTokens.containerOutlineDisabledAlpha, g));
-                    }
-                    outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight,
-                        scaleFactor, shapeSupplier, mutableContainerTokens);
+                    OutlinePainterUtils.paintOutline(graphics1X, c, currState,
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                        shapeSupplier, mutableContainerTokens);
 
                     return;
                 }
@@ -153,13 +150,9 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                     currState, CoreColorTokenUtils.ContainerType.MUTED);
 
-            if (currState.isDisabled()) {
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(c,
-                    mutableContainerTokens.containerOutlineDisabledAlpha, g));
-            }
-
-            outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight,
-                scaleFactor, shapeSupplier, colorTokens);
+            OutlinePainterUtils.paintOutline(graphics1X, c, currState,
+                scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                shapeSupplier, colorTokens);
         });
 
         graphics.dispose();

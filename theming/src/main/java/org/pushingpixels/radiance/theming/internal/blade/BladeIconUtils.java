@@ -615,9 +615,10 @@ public class BladeIconUtils {
                         float containerOutlineAlpha =
                             (state.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
                         graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha * 0.32f));
-                        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(divider);
-                        outlinePainter.paintOutline(graphics1X, divider, bumpDotDiameter, bumpDotDiameter,
-                            scaleFactor, splitDividerBumpShapeSupplier, colorTokens);
+
+                        OutlinePainterUtils.paintOutline(graphics1X, divider, state,
+                            bumpDotDiameter, bumpDotDiameter, scaleFactor, 0.32f,
+                            splitDividerBumpShapeSupplier, colorTokens);
 
                         graphics1X.translate(-cx, -cy);
                     }

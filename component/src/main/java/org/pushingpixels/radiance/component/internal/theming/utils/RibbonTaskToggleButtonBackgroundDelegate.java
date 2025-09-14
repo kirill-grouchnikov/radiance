@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import java.awt.*;
@@ -122,9 +123,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-            RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(button);
-
-            drawFullAlphaBackground(graphics, button, finalTokens, outlinePainter);
+            drawFullAlphaBackground(graphics, button, currState, finalTokens);
 
             graphics.dispose();
         }
@@ -146,9 +145,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         };
 
     private static void drawFullAlphaBackground(Graphics2D g,
-        JRibbonTaskToggleButton button,
-        ContainerColorTokens tokens,
-        RadianceOutlinePainter outlinePainter) {
+        JRibbonTaskToggleButton button, ComponentState currState, ContainerColorTokens tokens) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -173,8 +170,9 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                         graphics1X.fill(outline);
                     }
 
-                    outlinePainter.paintOutline(graphics1X, button, scaledWidth, scaledHeight + 3.0f,
-                        scaleFactor, outlineShapeSupplier, tokens);
+                    OutlinePainterUtils.paintOutline(graphics1X, button, currState,
+                        scaledWidth, scaledHeight + 3.0f, scaleFactor, 1.0f,
+                        outlineShapeSupplier, tokens);
                 });
         graphics.dispose();
     }

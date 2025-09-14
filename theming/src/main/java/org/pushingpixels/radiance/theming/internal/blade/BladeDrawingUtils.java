@@ -30,9 +30,10 @@
 package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 
 import java.awt.*;
@@ -41,8 +42,8 @@ import java.awt.geom.RoundRectangle2D;
 
 public class BladeDrawingUtils {
 
-    public static void paintBladeBorder(Component c, Graphics2D g, int x, int y, int width,
-        int height, float baseRadius, ContainerColorTokens colorTokens) {
+    public static void paintBladeBorder(Graphics2D g, Component c, ComponentState state,
+        int x, int y, int width, int height, float baseRadius, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -53,7 +54,6 @@ public class BladeDrawingUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(c);
                 RadianceOutlinePainter.ShapeSuppler bladeShapeSupplier =
                     (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment, shapeScaleFactor) -> {
                         float scaledRadius = (float) scaleFactor * baseRadius - shapeRadiusAdjustment;
@@ -63,8 +63,8 @@ public class BladeDrawingUtils {
                             null, shapeInsets);
                     };
 
-                outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight, scaleFactor,
-                    bladeShapeSupplier, colorTokens);
+                OutlinePainterUtils.paintOutline(graphics1X, c, state,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f, bladeShapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
