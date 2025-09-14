@@ -41,6 +41,8 @@ import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
 
@@ -210,19 +212,11 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 at.translate(-y - scaledWidth, x + hoffset * scaleFactor);
                 graphics1X.transform(at);
 
-                float containerAlpha = currState.isDisabled()
-                    ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-                graphics1X.setComposite(AlphaComposite.getInstance(
-                    AlphaComposite.SRC_OVER, containerAlpha));
-                painter.paintSurface(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    outline, mutableContainerTokens);
-
-                float containerOutlineAlpha = currState.isDisabled()
-                    ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
-                graphics1X.setComposite(AlphaComposite.getInstance(
-                    AlphaComposite.SRC_OVER, containerOutlineAlpha));
-                outlinePainter.paintOutline(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    scaleFactor, thumbVerticalShapeSupplier, mutableContainerTokens);
+                SurfacePainterUtils.paintSurface(graphics1X, this.scrollbar, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, mutableContainerTokens);
+                OutlinePainterUtils.paintOutline(graphics1X, this.scrollbar, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f, thumbVerticalShapeSupplier,
+                    mutableContainerTokens);
             });
         graphics.dispose();
     }
@@ -264,19 +258,11 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
                 graphics1X.translate(x, y + voffset * scaleFactor);
 
-                float containerAlpha = currState.isDisabled()
-                    ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
-                graphics1X.setComposite(AlphaComposite.getInstance(
-                    AlphaComposite.SRC_OVER, containerAlpha));
-                painter.paintSurface(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    outline, mutableContainerTokens);
-
-                float containerOutlineAlpha = currState.isDisabled()
-                    ? mutableContainerTokens.getContainerOutlineDisabledAlpha() : 1.0f;
-                graphics1X.setComposite(AlphaComposite.getInstance(
-                    AlphaComposite.SRC_OVER, containerOutlineAlpha));
-                outlinePainter.paintOutline(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                    scaleFactor, thumbHorizontalShapeSupplier, mutableContainerTokens);
+                SurfacePainterUtils.paintSurface(graphics1X, this.scrollbar, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, mutableContainerTokens);
+                OutlinePainterUtils.paintOutline(graphics1X, this.scrollbar, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f, thumbVerticalShapeSupplier,
+                    mutableContainerTokens);
             });
         graphics.dispose();
     }

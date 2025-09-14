@@ -42,7 +42,17 @@ public class OutlinePainterUtils {
         ComponentState componentState, int scaledWidth, int scaledHeight, double scaleFactor,
         float alpha, RadianceOutlinePainter.ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
 
-        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(component);
+        paintOutline(graphics1X, component, componentState,
+            RadianceCoreUtilities.getOutlinePainter(component),
+            scaledWidth, scaledHeight, scaleFactor,
+            alpha, shapeSupplier, colorTokens);
+    }
+
+    public static void paintOutline(Graphics2D graphics1X, Component component,
+        ComponentState componentState, RadianceOutlinePainter outlinePainter,
+        int scaledWidth, int scaledHeight, double scaleFactor,
+        float alpha, RadianceOutlinePainter.ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
+
         float containerOutlineAlpha = alpha *
             (componentState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
         Graphics2D graphics = (Graphics2D) graphics1X.create();

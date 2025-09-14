@@ -44,6 +44,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePai
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -216,13 +217,10 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     }
 
     private void drawDeterminateBackground(Graphics2D g, JProgressBar bar, int width, int height,
-        ContainerColorTokens colorTokens, RadianceSurfacePainter surfacePainter, int orientation,
+        ContainerColorTokens colorTokens, int orientation,
         ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
-        float containerSurfaceAlpha =
-            (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(bar, containerSurfaceAlpha, g));
 
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -237,8 +235,8 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, null);
-                    surfacePainter.paintSurface(graphics1X, bar, scaledWidth, scaledHeight,
-                        outline, colorTokens);
+                    SurfacePainterUtils.paintSurface(graphics1X, bar, currState,
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
                 });
         } else {
             // Flip width and height, and then apply a rotation transformation
@@ -254,21 +252,18 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, null);
-                    surfacePainter.paintSurface(graphics1X, bar, scaledWidth, scaledHeight,
-                        outline, colorTokens);
+                    SurfacePainterUtils.paintSurface(graphics1X, bar, currState,
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
                 });
         }
         graphics.dispose();
     }
 
     private void drawDeterminateProgress(Graphics2D g, JProgressBar bar, int width, int height,
-        boolean isFull, ContainerColorTokens colorTokens, RadianceSurfacePainter surfacePainter,
+        boolean isFull, ContainerColorTokens colorTokens,
         int orientation, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
-        float containerSurfaceAlpha =
-            (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(bar, containerSurfaceAlpha, g));
 
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -285,8 +280,8 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, straightSides);
-                    surfacePainter.paintSurface(graphics1X, bar, scaledWidth, scaledHeight,
-                        outline, colorTokens);
+                    SurfacePainterUtils.paintSurface(graphics1X, bar, currState, progressSurfacePainter,
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
                 });
         } else {
             // Flip width and height, and then apply a rotation transformation
@@ -305,8 +300,8 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape outline = RadianceOutlineUtilities.getBaseOutline(
                         bar.getComponentOrientation(),
                         scaledWidth, scaledHeight, radius, straightSides);
-                    surfacePainter.paintSurface(graphics1X, bar, scaledWidth, scaledHeight,
-                        outline, colorTokens);
+                    SurfacePainterUtils.paintSurface(graphics1X, bar, currState, progressSurfacePainter,
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
                 });
         }
         graphics.dispose();
@@ -329,10 +324,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         ContainerColorTokens fillColorTokens = CoreColorTokenUtils.getContainerTokens(
             progressBar, fillState, CoreColorTokenUtils.ContainerType.MUTED);
 
-        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(progressBar);
         g2d.translate(margin, margin);
         drawDeterminateBackground(g2d, progressBar, barRectWidth, barRectHeight,
-            fillColorTokens, surfacePainter, progressBar.getOrientation(), fillState);
+            fillColorTokens, progressBar.getOrientation(), fillState);
         g2d.translate(-margin, -margin);
 
         if (amountFull > 0) {
@@ -346,7 +340,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         : margin + barRectWidth - amountFull;
                     g2d.translate(dx, margin);
                     drawDeterminateProgress(g2d, progressBar, amountFull, barRectHeight,
-                        isFull, progressColorTokens, progressSurfacePainter,
+                        isFull, progressColorTokens,
                         progressBar.getOrientation(), progressState);
                     g2d.translate(-dx, -margin);
                 }
@@ -355,7 +349,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     g2d.translate(margin, margin + barRectHeight - amountFull);
                     // Vertical progress is "growing" from the bottom
                     drawDeterminateProgress(g2d, progressBar, barRectWidth, amountFull,
-                        isFull, progressColorTokens, progressSurfacePainter,
+                        isFull, progressColorTokens,
                         progressBar.getOrientation(), progressState);
                     g2d.translate(-margin, -(margin + barRectHeight - amountFull));
                 }

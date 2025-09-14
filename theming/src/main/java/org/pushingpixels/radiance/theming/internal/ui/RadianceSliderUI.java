@@ -41,7 +41,9 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.icon.SliderHorizontalIcon;
 import org.pushingpixels.radiance.theming.internal.utils.icon.SliderRoundIcon;
@@ -249,29 +251,15 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         ContainerColorTokens colorTokens, int width, int height, double scaleFactor,
         ComponentState currState) {
 
-        Graphics2D graphics1Xextra = (Graphics2D) graphics1X.create();
-
         RadianceSurfacePainter surfacePainter = new MatteSurfacePainter();
-        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(slider);
-
         Shape outline = sliderTrackShapeSupplier.getShape(slider,
             width, height, 0.0f, 0.0f, scaleFactor);
 
-        float containerSurfaceAlpha =
-            (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-        graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
-            containerSurfaceAlpha, graphics1X));
-        surfacePainter.paintSurface(graphics1Xextra, slider, width, height,
-            outline, colorTokens);
-
-        float containerOutlineAlpha =
-            (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
-        graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
-            containerOutlineAlpha, graphics1X));
-        outlinePainter.paintOutline(graphics1Xextra, slider, width, height,
-            scaleFactor, sliderTrackShapeSupplier, colorTokens);
-
-        graphics1Xextra.dispose();
+        SurfacePainterUtils.paintSurface(graphics1X, slider, currState, surfacePainter,
+            width, height, scaleFactor, 1.0f, outline, colorTokens);
+        OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
+            width, height, scaleFactor, 1.0f, sliderTrackShapeSupplier,
+            colorTokens);
     }
 
     /**
@@ -297,10 +285,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         insets.bottom /= 2;
         insets.right /= 2;
 
-        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(slider);
         RadianceOutlinePainter outlinePainter = new FlatOutlinePainter();
-        float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-            RadianceSizeUtils.getComponentFontSize(slider)) / 2.0f;
 
         // fill selected portion
         if (slider.getOrientation() == SwingConstants.HORIZONTAL) {
@@ -323,19 +308,11 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     slider, fillWidth, fillHeight, 0.0f, 0.0f, scaleFactor);
                 graphics1Xextra.translate(fillMinX, 0);
 
-                float containerSurfaceAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-                graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerSurfaceAlpha, graphics1X));
-                surfacePainter.paintSurface(graphics1Xextra, slider, fillWidth, fillHeight,
-                    outline, colorTokens);
-
-                float containerOutlineAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
-                graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerOutlineAlpha, graphics1X));
-                outlinePainter.paintOutline(graphics1Xextra, slider, fillWidth, fillHeight,
-                    scaleFactor, sliderTrackShapeSupplier, colorTokens);
+                SurfacePainterUtils.paintSurface(graphics1Xextra, slider, currState,
+                    fillWidth, fillHeight, scaleFactor, 1.0f, outline, colorTokens);
+                OutlinePainterUtils.paintOutline(graphics1Xextra, slider, currState, outlinePainter,
+                    fillWidth, fillHeight, scaleFactor, 1.0f, sliderTrackShapeSupplier,
+                    colorTokens);
             }
         } else {
             int middleOfThumb = (int) (scaleFactor * (thumbRect.y + (thumbRect.height / 2) - paintRect.y));
@@ -358,19 +335,11 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 Shape outline = sliderTrackShapeSupplier.getShape(
                     slider, fillWidth, fillHeight, 0.0f, 0.0f, scaleFactor);
 
-                float containerSurfaceAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-                graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerSurfaceAlpha, graphics1X));
-                surfacePainter.paintSurface(graphics1Xextra, slider, fillWidth, fillHeight,
-                    outline, colorTokens);
-
-                float containerOutlineAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
-                graphics1Xextra.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerOutlineAlpha, graphics1X));
-                outlinePainter.paintOutline(graphics1Xextra, slider, fillWidth, fillHeight,
-                    scaleFactor, sliderTrackShapeSupplier, colorTokens);
+                SurfacePainterUtils.paintSurface(graphics1Xextra, slider, currState,
+                    fillWidth, fillHeight, scaleFactor, 1.0f, outline, colorTokens);
+                OutlinePainterUtils.paintOutline(graphics1Xextra, slider, currState, outlinePainter,
+                    fillWidth, fillHeight, scaleFactor, 1.0f, sliderTrackShapeSupplier,
+                    colorTokens);
             }
         }
         graphics1Xextra.dispose();

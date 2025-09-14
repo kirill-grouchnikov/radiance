@@ -42,7 +42,17 @@ public class SurfacePainterUtils {
         ComponentState componentState, int scaledWidth, int scaledHeight, double scaleFactor,
         float alpha, Shape outline, ContainerColorTokens colorTokens) {
 
-        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(component);
+        paintSurface(graphics1X, component, componentState,
+            RadianceCoreUtilities.getSurfacePainter(component),
+            scaledWidth, scaledHeight, scaleFactor,
+            alpha, outline, colorTokens);
+    }
+
+    public static void paintSurface(Graphics2D graphics1X, Component component,
+        ComponentState componentState, RadianceSurfacePainter surfacePainter,
+        int scaledWidth, int scaledHeight, double scaleFactor,
+        float alpha, Shape outline, ContainerColorTokens colorTokens) {
+
         float containerSurfaceAlpha = alpha *
             (componentState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
         Graphics2D graphics = (Graphics2D) graphics1X.create();
