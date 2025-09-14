@@ -68,7 +68,7 @@ public class TreeIcon implements Icon, UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        BladeIconUtils.drawTreeIcon(graphics, this.tree, this.size, colorTokens, this.isCollapsed);
+        BladeIconUtils.drawTreeIcon(graphics, this.tree, state, this.size, colorTokens, this.isCollapsed);
         graphics.dispose();
     }
 

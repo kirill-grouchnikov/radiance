@@ -183,7 +183,7 @@ public class BladeIconUtils {
                 width, height, 2 * (float) scaleFactor, 1.0f + insets);
 
     public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
-        RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter,
+        RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -194,28 +194,17 @@ public class BladeIconUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                // Icon fill
-                float containerSurfaceAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerSurfaceAlpha, g));
-
                 float outlineInset = outlinePainter.getOutlineInset(
                     RadianceOutlinePainter.InsetKind.SURFACE);
-                surfacePainter.paintSurface(graphics1X, slider,
-                    scaledWidth, scaledHeight,
+                SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f,
                     sliderThumbHorizontalShapeSupplier.getShape(slider, scaledWidth, scaledHeight,
                         outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
-                // Icon outline
-                float containerOutlineAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerOutlineAlpha, g));
-
-                outlinePainter.paintOutline(graphics1X, slider, scaledWidth, scaledHeight,
-                    scaleFactor, sliderThumbHorizontalShapeSupplier, colorTokens);
+                OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                    sliderThumbHorizontalShapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
@@ -226,7 +215,7 @@ public class BladeIconUtils {
                 width, height, 2 * (float) scaleFactor, 1.0f + insets);
 
     public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
-        RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter,
+        RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -247,27 +236,17 @@ public class BladeIconUtils {
                     graphics1X.transform(mirror);
                 }
 
-                // Icon fill
-                float containerSurfaceAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerSurfaceAlpha, g));
-
                 float outlineInset = outlinePainter.getOutlineInset(
                     RadianceOutlinePainter.InsetKind.SURFACE);
-                surfacePainter.paintSurface(graphics1X, slider,
-                    scaledWidth, scaledHeight,
+                SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f,
                     sliderThumbVerticalShapeSupplier.getShape(slider, scaledWidth, scaledHeight,
                         outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
-                // Icon outline
-                float containerOutlineAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerOutlineAlpha, g));
-                outlinePainter.paintOutline(graphics1X, slider, scaledWidth, scaledHeight,
-                    scaleFactor, sliderThumbVerticalShapeSupplier, colorTokens);
+                OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                    sliderThumbVerticalShapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
@@ -277,7 +256,7 @@ public class BladeIconUtils {
             new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
     public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
-        RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter,
+        RadianceOutlinePainter outlinePainter,
         int dimension, ContainerColorTokens colorTokens, ComponentState currState) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -296,20 +275,15 @@ public class BladeIconUtils {
 
                 float outlineInset = outlinePainter.getOutlineInset(
                     RadianceOutlinePainter.InsetKind.SURFACE);
-                surfacePainter.paintSurface(graphics1X, slider,
-                    scaledWidth, scaledHeight,
+                SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f,
                     sliderThumbRoundShapeSupplier.getShape(slider, scaledWidth, scaledHeight,
                         outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
-                // Icon outline
-                float containerOutlineAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerOutlineAlpha, g));
-
-                outlinePainter.paintOutline(graphics1X, slider, scaledWidth, scaledHeight,
-                    scaleFactor, sliderThumbRoundShapeSupplier, colorTokens);
+                OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                    sliderThumbRoundShapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
@@ -333,9 +307,8 @@ public class BladeIconUtils {
                     RadianceSizeUtils.getComponentFontSize(c)) / 1.5f, null,
                 1.0f);
 
-    public static void drawTreeIcon(Graphics2D g, JTree tree, int size,
+    public static void drawTreeIcon(Graphics2D g, JTree tree, ComponentState state, int size,
         ContainerColorTokens colorTokens, boolean isCollapsed) {
-
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -348,11 +321,14 @@ public class BladeIconUtils {
 
                 Shape outline = treeIconShapeSupplier.getShape(tree,
                     scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
-                treeIconSurfacePainter.paintSurface(graphics1X, tree, scaledWidth, scaledHeight,
-                    outline, colorTokens);
 
-                treeIconOutlinePainter.paintOutline(graphics1X, tree, scaledWidth, scaledHeight,
-                    scaleFactor, treeIconShapeSupplier, colorTokens);
+                SurfacePainterUtils.paintSurface(graphics1X, tree, state,
+                    treeIconSurfacePainter, scaledWidth, scaledHeight, scaleFactor,
+                    1.0f, outline, colorTokens);
+
+                OutlinePainterUtils.paintOutline(graphics1X, tree, state,
+                    treeIconOutlinePainter, scaledWidth, scaledHeight, scaleFactor,
+                    1.0f, treeIconShapeSupplier, colorTokens);
 
                 Color signColor = colorTokens.getOnContainer();
                 graphics1X.setColor(signColor);

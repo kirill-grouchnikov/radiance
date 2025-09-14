@@ -37,11 +37,12 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
@@ -136,12 +137,12 @@ public class CommandButtonBackgroundDelegate {
             BladeUtils.getDefaultColorTokensDelegate(commandButton, state -> RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT),
             ignoreSelectedState);
 
-        float actionAlpha;
+        float actionAlpha = 1.0f;
         if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
-            if (currActionState == ComponentState.DISABLED_SELECTED) {
-                // Respect the alpha in disabled+selected state
-                actionAlpha = CoreColorTokenUtils.getActiveContainerTokens(
-                    commandButton, currActionState).getContainerSurfaceDisabledAlpha();
+            if (currActionState.isDisabled()) {
+                if (!currActionState.getEnabledMatch().isActive()) {
+                    actionAlpha = 0.0f;
+                }
             } else {
                 // For flat buttons, compute the combined contribution of all
                 // non-disabled states - ignoring ComponentState.ENABLED
@@ -166,17 +167,9 @@ public class CommandButtonBackgroundDelegate {
                 actionAlpha = Math.max(actionAlpha, popupTransitionTracker.getFacetStrength(
                         RadianceThemingSlices.ComponentStateFacet.ROLLOVER));
             }
-        } else {
-            if (currActionState.isDisabled()) {
-                actionAlpha = CoreColorTokenUtils.getContainerTokens(
-                    commandButton, currActionState, CoreColorTokenUtils.ContainerType.MUTED)
-                    .getContainerSurfaceDisabledAlpha();
-            } else {
-                actionAlpha = 1.0f;
-            }
         }
 
-        drawArea(g, commandButton, actionAlpha, actionArea);
+        drawArea(g, commandButton, currActionState, actionAlpha, actionArea);
 
         // Draw popup area second
         ComponentState currPopupState = popupTransitionTracker.getModelStateInfo().getCurrModelState();
@@ -187,12 +180,12 @@ public class CommandButtonBackgroundDelegate {
                 state -> RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT),
             false);
 
-        float popupAlpha;
+        float popupAlpha = 1.0f;
         if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
-            if (currPopupState == ComponentState.DISABLED_SELECTED) {
-                // Respect the alpha in disabled+selected state
-                popupAlpha = CoreColorTokenUtils.getActiveContainerTokens(
-                    commandButton, currPopupState).getContainerSurfaceDisabledAlpha();
+            if (currPopupState.isDisabled()) {
+                if (!currPopupState.getEnabledMatch().isActive()) {
+                    popupAlpha = 0.0f;
+                }
             } else {
                 // For flat buttons, compute the combined contribution of all
                 // non-disabled states - ignoring ComponentState.ENABLED
@@ -216,24 +209,17 @@ public class CommandButtonBackgroundDelegate {
                 popupAlpha = Math.max(popupAlpha, actionTransitionTracker.getFacetStrength(
                         RadianceThemingSlices.ComponentStateFacet.ROLLOVER));
             }
-        } else {
-            if (currPopupState.isDisabled()) {
-                popupAlpha = CoreColorTokenUtils.getContainerTokens(
-                    commandButton, currPopupState, CoreColorTokenUtils.ContainerType.MUTED)
-                    .getContainerSurfaceDisabledAlpha();
-            } else {
-                popupAlpha = 1.0f;
-            }
         }
 
-        drawArea(g, commandButton, popupAlpha, popupArea);
+        drawArea(g, commandButton, currPopupState, popupAlpha, popupArea);
     }
 
-    private void drawArea(Graphics2D g, JCommandButton commandButton, float alpha,
-        Rectangle clipArea) {
+    private void drawArea(Graphics2D g, JCommandButton commandButton,
+        ComponentState areaState, float areaAlpha, Rectangle clipArea) {
+
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(
-            WidgetUtilities.getAlphaComposite(commandButton, alpha, g));
+            WidgetUtilities.getAlphaComposite(commandButton, areaAlpha, g));
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
@@ -245,7 +231,6 @@ public class CommandButtonBackgroundDelegate {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0,
             commandButton.getWidth(), commandButton.getHeight(),
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(commandButton);
                 RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(commandButton);
 
                 RadianceThemingSlices.Sides sides = commandButton.getPresentationModel().getSides();
@@ -287,11 +272,10 @@ public class CommandButtonBackgroundDelegate {
                     commandButton.getComponentOrientation(),
                     scaledWidth + dw, scaledHeight + dh,
                     radius, straightSides, 0.5f);
-                surfacePainter.paintSurface(graphics1X, commandButton,
-                    scaledWidth + dw,
-                    scaledHeight + dh,
-                    outlineFill,
-                    mutableContainerTokens);
+
+                SurfacePainterUtils.paintSurface(graphics1X, commandButton, areaState,
+                    scaledWidth + dw, scaledHeight + dh, scaleFactor,
+                    areaAlpha, outlineFill, mutableContainerTokens);
 
                 // Outline
                 RadianceOutlinePainter.ShapeSuppler outlineShapeSupplier =
@@ -301,11 +285,9 @@ public class CommandButtonBackgroundDelegate {
                             outlineWidth, outlineHeight,
                             radius - outlineInsets - outlineRadiusAdjustment,
                             straightSides, outlineInsets);
-
-                outlinePainter.paintOutline(graphics1X, commandButton,
-                    scaledWidth + dw - 1,
-                    scaledHeight + dh - 1,
-                    scaleFactor, outlineShapeSupplier, mutableContainerTokens);
+                OutlinePainterUtils.paintOutline(graphics1X, commandButton, areaState,
+                    scaledWidth + dw - 1, scaledHeight + dh - 1, scaleFactor,
+                    areaAlpha, outlineShapeSupplier, mutableContainerTokens);
 
                 graphics1X.translate(-dx, -dy);
             });

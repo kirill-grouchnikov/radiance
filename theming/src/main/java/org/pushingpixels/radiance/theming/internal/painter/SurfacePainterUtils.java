@@ -39,7 +39,7 @@ import java.awt.*;
 
 public class SurfacePainterUtils {
     public static void paintSurface(Graphics2D graphics1X, Component component,
-        ComponentState componentState, int scaledWidth, int scaledHeight, double scaleFactor,
+        ComponentState componentState, float scaledWidth, float scaledHeight, double scaleFactor,
         float alpha, Shape outline, ContainerColorTokens colorTokens) {
 
         paintSurface(graphics1X, component, componentState,
@@ -50,7 +50,7 @@ public class SurfacePainterUtils {
 
     public static void paintSurface(Graphics2D graphics1X, Component component,
         ComponentState componentState, RadianceSurfacePainter surfacePainter,
-        int scaledWidth, int scaledHeight, double scaleFactor,
+        float scaledWidth, float scaledHeight, double scaleFactor,
         float alpha, Shape outline, ContainerColorTokens colorTokens) {
 
         float containerSurfaceAlpha = alpha *

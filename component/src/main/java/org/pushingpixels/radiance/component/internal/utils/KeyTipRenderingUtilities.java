@@ -36,8 +36,12 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import java.awt.*;
 import java.awt.font.LineMetrics;
@@ -67,10 +71,6 @@ public class KeyTipRenderingUtilities {
 
     public static void renderKeyTip(Graphics g, Container c, Rectangle rect, String keyTip,
             boolean toPaintEnabled) {
-        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(c);
-        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities
-                .getOutlinePainter(c);
-
         ComponentState state =
                 toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
@@ -90,19 +90,10 @@ public class KeyTipRenderingUtilities {
 
                     Shape outline = keyTipShapeSupplier.getShape(c, scaledWidth,
                         scaledHeight, 1.0f, 0.0f, scaleFactor);
-                    if (!toPaintEnabled) {
-                        graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
-                            c, tokens.getContainerSurfaceDisabledAlpha(), graphics));
-                    }
-                    surfacePainter.paintSurface(graphics1X, c, scaledWidth, scaledHeight,
-                            outline, tokens);
-
-                    if (!toPaintEnabled) {
-                        graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
-                            c, tokens.getContainerOutlineDisabledAlpha(), graphics));
-                    }
-                    outlinePainter.paintOutline(graphics1X, c, scaledWidth, scaledHeight,
-                        scaleFactor, keyTipShapeSupplier, tokens);
+                    SurfacePainterUtils.paintSurface(graphics1X, c, state,
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, tokens);
+                    OutlinePainterUtils.paintOutline(graphics1X, c, state,
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f, keyTipShapeSupplier, tokens);
                 });
 
         graphics.setColor(tokens.getOnContainer());

@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.utils.icon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -71,7 +70,6 @@ public class SliderRoundIcon implements Icon, UIResource {
         StateTransitionTracker.ModelStateInfo modelStateInfo =
                 stateTransitionTracker.getModelStateInfo();
 
-        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(this.slider);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.slider);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
@@ -85,7 +83,7 @@ public class SliderRoundIcon implements Icon, UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x + (this.size - diameter) / 2.0, y + (this.size - diameter) / 2.0);
-        BladeIconUtils.drawSliderThumbRound(graphics, this.slider, surfacePainter, outlinePainter,
+        BladeIconUtils.drawSliderThumbRound(graphics, this.slider, outlinePainter,
             diameter, mutableColorTokens, currState);
         graphics.dispose();
     }

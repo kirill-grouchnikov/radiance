@@ -36,11 +36,12 @@ import org.pushingpixels.radiance.component.internal.ui.common.BasicSwitchUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -91,17 +92,12 @@ public class RadianceSwitchUI extends BasicSwitchUI {
         StateTransitionTracker.ModelStateInfo modelStateInfo =
                 stateTransitionTracker.getModelStateInfo();
 
-        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(switchComp);
-        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(switchComp);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         // Populate color tokens based on the current transition state of the switch.
         BladeUtils.populateColorTokens(mutableContainerTokens, switchComp, modelStateInfo,
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             false, true, CoreColorTokenUtils.ContainerType.MUTED);
-
-        float alpha = currState.isDisabled()
-            ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
 
         SwitchPresentationModel presentationModel = switchComp.getProjection().getPresentationModel();
 
@@ -113,8 +109,6 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, switchComp.getWidth(), switchComp.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
-                            switchComp, alpha, graphics1X));
                     graphics1X.translate(scaleFactor * i.left, scaleFactor * i.top);
 
                     float trackWidth = presentationModel.getTrackSize().width * (float) scaleFactor;
@@ -123,11 +117,10 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     Shape outlineFill = switchShapeSupplier.getShape(switchComp,
                         trackWidth, trackHeight, 0.0f, 0.0f, scaleFactor);
 
-                    surfacePainter.paintSurface(graphics1X, switchComp, trackWidth,
-                        trackHeight, outlineFill, mutableContainerTokens);
-
-                    outlinePainter.paintOutline(graphics1X, switchComp, trackWidth, trackHeight,
-                        scaleFactor, switchShapeSupplier, mutableContainerTokens);
+                    SurfacePainterUtils.paintSurface(graphics1X, switchComp, currState,
+                        trackWidth, trackHeight, scaleFactor, 1.0f, outlineFill, mutableContainerTokens);
+                    OutlinePainterUtils.paintOutline(graphics1X, switchComp, currState,
+                        trackWidth, trackHeight, scaleFactor, 1.0f, switchShapeSupplier, mutableContainerTokens);
 
                     float thumbSelectionFactor = stateTransitionTracker.getFacetStrength(
                             RadianceThemingSlices.ComponentStateFacet.SELECTION);
@@ -152,6 +145,10 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     Shape thumbOutline = new Ellipse2D.Double(thumbXStart, thumbVerticalCenterPx - thumbRadiusPx,
                             2 * thumbRadiusPx, 2 * thumbRadiusPx);
 
+                    float alpha = currState.isDisabled()
+                        ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
+                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
+                        switchComp, alpha, graphics1X));
                     graphics1X.setColor(mutableContainerTokens.getOnContainer());
                     graphics1X.fill(thumbOutline);
 

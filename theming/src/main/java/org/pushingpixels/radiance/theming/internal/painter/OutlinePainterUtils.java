@@ -39,7 +39,7 @@ import java.awt.*;
 
 public class OutlinePainterUtils {
     public static void paintOutline(Graphics2D graphics1X, Component component,
-        ComponentState componentState, int scaledWidth, int scaledHeight, double scaleFactor,
+        ComponentState componentState, float scaledWidth, float scaledHeight, double scaleFactor,
         float alpha, RadianceOutlinePainter.ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
 
         paintOutline(graphics1X, component, componentState,
@@ -50,7 +50,7 @@ public class OutlinePainterUtils {
 
     public static void paintOutline(Graphics2D graphics1X, Component component,
         ComponentState componentState, RadianceOutlinePainter outlinePainter,
-        int scaledWidth, int scaledHeight, double scaleFactor,
+        float scaledWidth, float scaledHeight, double scaleFactor,
         float alpha, RadianceOutlinePainter.ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
 
         float containerOutlineAlpha = alpha *
