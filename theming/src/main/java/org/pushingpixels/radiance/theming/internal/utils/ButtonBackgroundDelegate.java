@@ -44,6 +44,8 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
+import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -116,7 +118,7 @@ public class ButtonBackgroundDelegate {
                     BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                         button, modificationTimeline.getTimelinePosition());
 
-                    drawBackground(graphics, button, surfacePainter, outlinePainter, width, height,
+                    drawBackground(graphics, button, currState, outlinePainter, width, height,
                         mutableContainerTokens, openSides, isSurfacePainted, isOutlinePainted,
                         currState, overallAlpha);
                     return;
@@ -128,13 +130,13 @@ public class ButtonBackgroundDelegate {
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             false, false, CoreColorTokenUtils.ContainerType.MUTED);
 
-        drawBackground(graphics, button, surfacePainter, outlinePainter, width, height,
+        drawBackground(graphics, button, currState, outlinePainter, width, height,
             mutableContainerTokens, openSides, isSurfacePainted, isOutlinePainted, currState,
             overallAlpha);
     }
 
-    private void drawBackground(Graphics2D g, AbstractButton button,
-        RadianceSurfacePainter surfacePainter, RadianceOutlinePainter outlinePainter, int width,
+    private void drawBackground(Graphics2D g, AbstractButton button, ComponentState buttonState,
+        RadianceOutlinePainter outlinePainter, int width,
         int height, ContainerColorTokens colorTokens,
         Set<RadianceThemingSlices.Side> openSides,
         boolean isSurfacePainted, boolean isOutlinePainted,
@@ -178,23 +180,16 @@ public class ButtonBackgroundDelegate {
                     button, scaledWidth + deltaLeft + deltaRight,
                     scaledHeight + deltaTop + deltaBottom,
                     outlineInset, 0.0f, scaleFactor);
-                float containerSurfaceAlpha = overallAlpha *
-                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
-                    overallAlpha * containerSurfaceAlpha, g));
-                surfacePainter.paintSurface(graphics1X, button,
-                        scaledWidth + deltaLeft + deltaRight,
-                        scaledHeight + deltaTop + deltaBottom, outlineSurface, colorTokens);
+
+                SurfacePainterUtils.paintSurface(graphics1X, button, buttonState,
+                    scaledWidth + deltaLeft + deltaRight, scaledHeight + deltaTop + deltaBottom,
+                    scaleFactor, overallAlpha, outlineSurface, colorTokens);
             }
 
             if (isOutlinePainted) {
-                float containerOutlineAlpha = overallAlpha *
-                    (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
-                    overallAlpha * containerOutlineAlpha, g));
-                outlinePainter.paintOutline(graphics1X, button, scaledWidth + deltaLeft + deltaRight,
-                    scaledHeight + deltaTop + deltaBottom, scaleFactor, buttonShapeSupplier,
-                    colorTokens);
+                OutlinePainterUtils.paintOutline(graphics1X, button, buttonState,
+                    scaledWidth + deltaLeft + deltaRight, scaledHeight + deltaTop + deltaBottom,
+                    scaleFactor, overallAlpha, buttonShapeSupplier, colorTokens);
             }
             graphics1X.translate(deltaLeft, deltaTop);
         });
