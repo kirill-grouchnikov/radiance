@@ -61,6 +61,11 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             ContainerColorTokens::getContainerOutline};
 
     private static float innerStrokeWidth = 2.0f;
+    private static ContainerColorTokensSingleColorQuery innerHorizontalLightQuery =
+        ContainerColorTokensSingleColorQuery.blend(
+            ContainerColorTokens::getContainerSurface,
+            ContainerColorTokens::getContainerOutlineVariant,
+            0.4f);
     private static ContainerColorTokensSingleColorQuery innerHorizontalDarkQuery =
         ContainerColorTokensSingleColorQuery.blend(
             ContainerColorTokens::getContainerSurface,
@@ -68,14 +73,18 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
             0.85f);
     private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueries =
         new ContainerColorTokensSingleColorQuery[] {
-            ContainerColorTokens::getContainerOutlineVariant,
+            (colorTokens) -> colorTokens.isDark()
+                ? colorTokens.getContainerOutlineVariant()
+                : innerHorizontalLightQuery.query(colorTokens),
             (colorTokens) -> colorTokens.isDark()
                 ? innerHorizontalDarkQuery.query(colorTokens)
                 : colorTokens.getComplementaryContainerOutline(),
             (colorTokens) -> colorTokens.isDark()
                 ? innerHorizontalDarkQuery.query(colorTokens)
                 : colorTokens.getComplementaryContainerOutline(),
-            ContainerColorTokens::getContainerOutlineVariant};
+            (colorTokens) -> colorTokens.isDark()
+                ? colorTokens.getContainerOutlineVariant()
+                : innerHorizontalLightQuery.query(colorTokens)};
     private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueriesSimplified =
         new ContainerColorTokensSingleColorQuery[] {
             (colorTokens) -> colorTokens.isDark()
