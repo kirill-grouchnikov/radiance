@@ -30,8 +30,10 @@
 package org.pushingpixels.radiance.theming.api.painter.surface;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -44,19 +46,68 @@ public interface RadianceSurfacePainter extends RadianceTrait {
 	/**
 	 * Fills the surface defined by the specified outline.
 	 *
-	 * @param g
-	 *            Graphics context.
-	 * @param comp
-	 *            Component to paint.
-	 * @param width
-	 *            Width of a UI component.
-	 * @param height
-	 *            Height of a UI component.
-	 * @param outline
-	 *            Outline of a UI component.
-	 * @param colorTokens
-	 *            Color tokens.
+     * @param g
+     *      Graphics context.
+     * @param comp
+     *      Component to paint.
+     * @param width
+     *      Width of the component.
+     * @param height
+     *      Height of the component.
+     * @param outline
+     *      Outline of the component.
+     * @param colorTokens
+     *      Color tokens to use for the fill.
 	 */
 	void paintSurface(Graphics g, Component comp, float width, float height,
 			Shape outline, ContainerColorTokens colorTokens);
+
+    /**
+     * Interface for specifying an overlay painted on top of the regular surface fill.
+     *
+     * @see RadianceThemingCortex.ComponentScope#setSurfacePainterOverlay(JComponent, Overlay)
+     */
+    interface Overlay {
+        /**
+         * Paints a fill overlay on the surface defined by the specified outline.
+         *
+         * @param g
+         *      Graphics context.
+         * @param comp
+         *      Component to paint.
+         * @param width
+         *      Width of the component.
+         * @param height
+         *      Height of the component.
+         * @param scaleFactor
+         *      Scale factor that matches the 1x painting of the component.
+         * @param outline
+         *      Outline of the component.
+         * @param colorTokens
+         *      Color tokens to use for the fill.
+         */
+        void paintSurfaceOverlay(Graphics g, Component comp, float width, float height,
+            double scaleFactor, Shape outline, ContainerColorTokens colorTokens);
+    }
+
+    /**
+     * A composite overlay that chains one or more surface painter overlays.
+     */
+    class CompositeOverlay implements Overlay {
+        private Overlay[] overlays;
+
+        public CompositeOverlay(Overlay... overlays) {
+            this.overlays = new Overlay[overlays.length];
+            System.arraycopy(overlays, 0, this.overlays, 0, overlays.length);
+        }
+
+        @Override
+        public void paintSurfaceOverlay(Graphics g, Component comp, float width, float height,
+            double scaleFactor, Shape outline, ContainerColorTokens colorTokens) {
+            for (Overlay overlay: this.overlays) {
+                overlay.paintSurfaceOverlay(g, comp, width, height, scaleFactor, outline,
+                    colorTokens);
+            }
+        }
+    }
 }

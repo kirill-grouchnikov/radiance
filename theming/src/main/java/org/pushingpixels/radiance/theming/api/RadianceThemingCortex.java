@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.icon.RadianceDefaultIconPack;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 import org.pushingpixels.radiance.theming.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.radiance.theming.api.painter.preview.PreviewPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper;
@@ -1911,6 +1912,22 @@ public class RadianceThemingCortex {
         public static void setSeparatorAppearance(JSeparator separator,
                 RadianceThemingSlices.SeparatorAppearance appearance) {
             separator.putClientProperty(RadianceSynapse.SEPARATOR_APPEARANCE, appearance);
+        }
+
+        /**
+         * Specifies the surface painter overlay to use on the specified component. Pass
+         * <code>null</code> to reset to no overlays.
+         *
+         * @param component Component.
+         * @param surfacePainterOverlay Surface painter overlay for the component.
+         */
+        public static void setSurfacePainterOverlay(JComponent component,
+            RadianceSurfacePainter.Overlay surfacePainterOverlay) {
+            if (component == null) {
+                throw new IllegalArgumentException("Component scope APIs do not accept null components");
+            }
+            component.putClientProperty(RadianceSynapse.SURFACE_PAINTER_OVERLAY,
+                surfacePainterOverlay);
         }
     }
 

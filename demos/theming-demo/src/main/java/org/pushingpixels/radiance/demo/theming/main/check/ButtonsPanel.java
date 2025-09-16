@@ -152,6 +152,45 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         }
     }
 
+    private static class StaticSurfacePainterOverlayCommand implements ConfigurationCommand<JComponent> {
+        @Override
+        public void configure(JComponent component) {
+            RadianceThemingCortex.ComponentScope.setSurfacePainterOverlay(component,
+                (g, comp, width, height, scaleFactor, outline, colorTokens) -> {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.clip(outline);
+
+                    Color start1 = colorTokens.getContainerSurfaceLow();
+                    Color start2 = colorTokens.getContainerSurface();
+                    Color end1 = colorTokens.getContainerSurface();
+                    Color end2 = colorTokens.getContainerSurfaceHigh();
+
+                    int cellDim = (int) (8 * scaleFactor);
+
+                    int rows = (int) Math.ceil(height / cellDim);
+                    int columns = (int) Math.ceil(width / cellDim);
+                    for (int col = 0; col <= columns; col++) {
+                        double colFactor = (double) col / (double) columns;
+                        Color alt1 = new Color(
+                            start1.getRed() + (int) (colFactor) * (end1.getRed() - start1.getRed()),
+                            start1.getGreen() + (int) (colFactor) * (end1.getGreen() - start1.getGreen()),
+                            start1.getBlue() + (int) (colFactor) * (end1.getBlue() - start1.getBlue()));
+                        Color alt2 = new Color(
+                            start2.getRed() + (int) (colFactor) * (end2.getRed() - start2.getRed()),
+                            start2.getGreen() + (int) (colFactor) * (end2.getGreen() - start2.getGreen()),
+                            start2.getBlue() + (int) (colFactor) * (end2.getBlue() - start2.getBlue()));
+
+                        for (int row = 0; row <= rows; row++) {
+                            Color cellColor = ((col + row) % 2 == 0) ? alt1 : alt2;
+                            g2d.setColor(cellColor);
+                            g2d.fillRect(col * cellDim, row * cellDim, cellDim, cellDim);
+                        }
+                    }
+                    g2d.dispose();
+                });
+        }
+    }
+
     /**
      * A configure command that sets the specified font on the specified button.
      *
@@ -308,7 +347,7 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
             "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 58).padding(Paddings.DIALOG);
+                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 64).padding(Paddings.DIALOG);
 
         builder.append("");
 
@@ -339,11 +378,6 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
             RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
             RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
             RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
-
-        // bLabel.setFont(bLabel.getFont().deriveFont(Font.BOLD));
-        // tbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
-        // cbLabel.setFont(cbLabel.getFont().deriveFont(Font.BOLD));
-        // rbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
 
         builder.append(bLabel, tbLabel);
         builder.append(cbLabel, rbLabel);
@@ -402,6 +436,12 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT));
+
+        builder.appendSeparator("Surface painter overlays");
+        this.addRow(builder, "Static mosaic", null,
+            new StaticSurfacePainterOverlayCommand());
+        this.addRow(builder, "Static mosaic on selected", null,
+            new ChainCommand<>(new StaticSurfacePainterOverlayCommand(), new SelectCommand()));
 
         builder.appendSeparator("Focus indications");
         this.addRow(builder, "No focus painted", null, new NoFocusCommand());

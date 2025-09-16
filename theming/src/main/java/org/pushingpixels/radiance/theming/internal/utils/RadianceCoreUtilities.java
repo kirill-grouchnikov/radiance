@@ -1001,6 +1001,18 @@ public class RadianceCoreUtilities {
         return RadianceThemingSlices.SeparatorAppearance.SOFT;
     }
 
+    public static RadianceSurfacePainter.Overlay getSurfacePainterOverlay(Component component) {
+        if (!(component instanceof JComponent)) {
+            return null;
+        }
+        JComponent jcomp = (JComponent) component;
+        Object componentProperty = jcomp.getClientProperty(RadianceSynapse.SURFACE_PAINTER_OVERLAY);
+        if (componentProperty instanceof RadianceSurfacePainter.Overlay) {
+            return (RadianceSurfacePainter.Overlay) componentProperty;
+        }
+        return null;
+    }
+
     /**
      * Given a component, returns the parent for computing the {@link RadianceDecorationPainter}.
      *

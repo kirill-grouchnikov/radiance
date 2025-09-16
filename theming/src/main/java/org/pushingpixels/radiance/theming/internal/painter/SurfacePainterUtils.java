@@ -53,12 +53,24 @@ public class SurfacePainterUtils {
         float scaledWidth, float scaledHeight, double scaleFactor,
         float alpha, Shape outline, ContainerColorTokens colorTokens) {
 
+        Graphics2D graphics = (Graphics2D) graphics1X.create();
+
+        // If we're in a disabled state, apply the matching alpha
         float containerSurfaceAlpha = alpha *
             (componentState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
-        Graphics2D graphics = (Graphics2D) graphics1X.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(component, containerSurfaceAlpha, graphics1X));
+
+        // Ask the surface painter to paint the surface
         surfacePainter.paintSurface(graphics, component, scaledWidth, scaledHeight,
             outline, colorTokens);
+
+        // If we have a surface painter overlay, ask it to paint the surface
+        RadianceSurfacePainter.Overlay overlay = RadianceCoreUtilities.getSurfacePainterOverlay(component);
+        if (overlay != null) {
+            overlay.paintSurfaceOverlay(graphics, component, scaledWidth, scaledHeight,
+               scaleFactor, outline, colorTokens);
+        }
+
         graphics.dispose();
     }
 }
