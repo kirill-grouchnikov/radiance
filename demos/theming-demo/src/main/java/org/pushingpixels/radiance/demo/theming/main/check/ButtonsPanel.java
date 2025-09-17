@@ -196,6 +196,7 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         }
     }
 
+    private static class AnimatedSurfacePainterOverlayCommand implements ConfigurationCommand<JComponent> {
         private float animationPosition;
 
         @Override
