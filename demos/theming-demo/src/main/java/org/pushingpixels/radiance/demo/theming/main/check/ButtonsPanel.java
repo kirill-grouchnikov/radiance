@@ -55,6 +55,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Path2D;
 import java.util.EnumSet;
 
 /**
@@ -254,6 +255,49 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         }
     }
 
+    private static class AnimatedOutlinePainterOverlayCommand implements ConfigurationCommand<JComponent> {
+        private float animationPosition;
+
+        @Override
+        public void configure(JComponent component) {
+            TimelinePropertyBuilder.PropertySetter<Float> propertySetter = (obj, fieldName, value) -> {
+                animationPosition = value;
+            };
+
+            Timeline timeline = SwingComponentTimeline.componentBuilder(component)
+                .addPropertyToInterpolate(Timeline.<Float>property("animationPosition")
+                    .from(-2.0f).to(3.0f).setWith(propertySetter))
+                .addCallback(new SwingRepaintCallback(component))
+                .setDuration(2000)
+                .build();
+            timeline.playLoop(Timeline.RepeatBehavior.LOOP);
+
+            RadianceThemingCortex.ComponentScope.setOutlinePainterOverlay(component,
+                (g, comp, width, height, scaleFactor, shapeSupplier, colorTokens) -> {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.translate(0.5f, 0.5f);
+
+                    double intensity = 2.0f * Math.abs(0.5f - animationPosition);
+                    intensity = 1.0f - Math.min(1.0, Math.max(0.0, intensity));
+                    Color accented = colorTokens.getAccentOnContainer();
+                    Color outlineColor = new Color(accented.getRed(), accented.getGreen(),
+                        accented.getBlue(), (int) (255 * intensity));
+                    g2d.setColor(outlineColor);
+
+                    Path2D outlinePath = new Path2D.Float(Path2D.WIND_EVEN_ODD);
+                    Shape outlineOuterShape = shapeSupplier.getShape(comp, width, height, -0.5f,
+                        0.0f, scaleFactor);
+                    Shape outlineInnerShape = shapeSupplier.getShape(comp, width, height, 2.0f - 0.5f,
+                        0.0f, scaleFactor);
+                    outlinePath.append(outlineOuterShape, false);
+                    outlinePath.append(outlineInnerShape, false);
+                    g2d.fill(outlinePath);
+
+                    g2d.dispose();
+                });
+        }
+    }
+
     /**
      * A configure command that sets the specified font on the specified button.
      *
@@ -410,7 +454,7 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
             "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 66).padding(Paddings.DIALOG);
+                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 68).padding(Paddings.DIALOG);
 
         builder.append("");
 
@@ -500,13 +544,15 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT));
 
-        builder.appendSeparator("Surface painter overlays");
-        this.addRow(builder, "Static mosaic", null,
+        builder.appendSeparator("Painter overlays");
+        this.addRow(builder, "Static surface mosaic", null,
             new StaticSurfacePainterOverlayCommand());
-        this.addRow(builder, "Static mosaic on selected", null,
+        this.addRow(builder, "Static surface mosaic on selected", null,
             new ChainCommand<>(new StaticSurfacePainterOverlayCommand(), new SelectCommand()));
-        this.addRow(builder, "Animated dots", null,
+        this.addRow(builder, "Animated surface dots", null,
             new AnimatedSurfacePainterOverlayCommand());
+        this.addRow(builder, "Animated outline pass", null,
+            new AnimatedOutlinePainterOverlayCommand());
 
         builder.appendSeparator("Focus indications");
         this.addRow(builder, "No focus painted", null, new NoFocusCommand());

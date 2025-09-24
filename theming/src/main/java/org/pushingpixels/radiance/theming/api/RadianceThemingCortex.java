@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.radiance.theming.api.icon.RadianceDefaultIconPack;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.radiance.theming.api.painter.preview.PreviewPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
@@ -1912,6 +1913,22 @@ public class RadianceThemingCortex {
         public static void setSeparatorAppearance(JSeparator separator,
                 RadianceThemingSlices.SeparatorAppearance appearance) {
             separator.putClientProperty(RadianceSynapse.SEPARATOR_APPEARANCE, appearance);
+        }
+
+        /**
+         * Specifies the outline painter overlay to use on the specified component. Pass
+         * <code>null</code> to reset to no overlays.
+         *
+         * @param component Component.
+         * @param outlinePainterOverlay Outline painter overlay for the component.
+         */
+        public static void setOutlinePainterOverlay(JComponent component,
+            RadianceOutlinePainter.Overlay outlinePainterOverlay) {
+            if (component == null) {
+                throw new IllegalArgumentException("Component scope APIs do not accept null components");
+            }
+            component.putClientProperty(RadianceSynapse.OUTLINE_PAINTER_OVERLAY,
+                outlinePainterOverlay);
         }
 
         /**

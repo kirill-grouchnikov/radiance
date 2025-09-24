@@ -258,6 +258,11 @@ public class RadianceSynapse {
     public final static String SEPARATOR_APPEARANCE = "radiance.theming.internal.separatorAppearance";
 
     /**
+     * Client property name for specifying the outline painter overlay.
+     */
+    public final static String OUTLINE_PAINTER_OVERLAY = "radiance.theming.internal.outlinePainterOverlay";
+
+    /**
      * Client property name for specifying the surface painter overlay.
      */
     public final static String SURFACE_PAINTER_OVERLAY = "radiance.theming.internal.surfacePainterOverlay";

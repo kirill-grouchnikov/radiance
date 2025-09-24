@@ -30,8 +30,11 @@
 package org.pushingpixels.radiance.theming.api.painter.outline;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -76,4 +79,53 @@ public interface RadianceOutlinePainter extends RadianceTrait {
         ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens);
 
     float getOutlineInset(InsetKind insetKind);
+
+    /**
+     * Interface for specifying an overlay painted on top of the regular outline.
+     *
+     * @see RadianceThemingCortex.ComponentScope#setSurfacePainterOverlay(JComponent, RadianceSurfacePainter.Overlay)
+     */
+    interface Overlay {
+        /**
+         * Paints an outline overlay defined by the specified shape supplier.
+         *
+         * @param g
+         *     Graphics.
+         * @param c
+         *     Component.
+         * @param width
+         *     Width of a UI component.
+         * @param height
+         *     Height of a UI component.
+         * @param scaleFactor
+         *     Scale factor.
+         * @param shapeSupplier
+         *     To compute the shape(s) painted by this painter.
+         * @param colorTokens
+         *     The color tokens.
+         */
+        void paintOutlineOverlay(Graphics g, Component c, float width, float height, double scaleFactor,
+            ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens);
+    }
+
+    /**
+     * A composite overlay that chains one or more outline painter overlays.
+     */
+    class CompositeOverlay implements Overlay {
+        private Overlay[] overlays;
+
+        public CompositeOverlay(Overlay... overlays) {
+            this.overlays = new Overlay[overlays.length];
+            System.arraycopy(overlays, 0, this.overlays, 0, overlays.length);
+        }
+
+        @Override
+        public void paintOutlineOverlay(Graphics g, Component c, float width, float height,
+            double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
+            for (Overlay overlay: this.overlays) {
+                overlay.paintOutlineOverlay(g, c, width, height, scaleFactor, shapeSupplier,
+                    colorTokens);
+            }
+        }
+    }
 }

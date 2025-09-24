@@ -57,8 +57,18 @@ public class OutlinePainterUtils {
             (componentState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
         Graphics2D graphics = (Graphics2D) graphics1X.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(component, containerOutlineAlpha, graphics1X));
+
+        // Ask the outline painter to paint the outline
         outlinePainter.paintOutline(graphics, component, scaledWidth, scaledHeight, scaleFactor,
             shapeSupplier, colorTokens);
+
+        // If we have an outline painter overlay, ask it to paint the outline
+        RadianceOutlinePainter.Overlay overlay = RadianceCoreUtilities.getOutlinePainterOverlay(component);
+        if (overlay != null) {
+            overlay.paintOutlineOverlay(graphics, component, scaledWidth, scaledHeight,
+                scaleFactor, shapeSupplier, colorTokens);
+        }
+
         graphics.dispose();
     }
 }

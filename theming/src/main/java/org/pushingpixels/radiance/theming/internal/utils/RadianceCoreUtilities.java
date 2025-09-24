@@ -1001,6 +1001,18 @@ public class RadianceCoreUtilities {
         return RadianceThemingSlices.SeparatorAppearance.SOFT;
     }
 
+    public static RadianceOutlinePainter.Overlay getOutlinePainterOverlay(Component component) {
+        if (!(component instanceof JComponent)) {
+            return null;
+        }
+        JComponent jcomp = (JComponent) component;
+        Object componentProperty = jcomp.getClientProperty(RadianceSynapse.OUTLINE_PAINTER_OVERLAY);
+        if (componentProperty instanceof RadianceOutlinePainter.Overlay) {
+            return (RadianceOutlinePainter.Overlay) componentProperty;
+        }
+        return null;
+    }
+
     public static RadianceSurfacePainter.Overlay getSurfacePainterOverlay(Component component) {
         if (!(component instanceof JComponent)) {
             return null;
