@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.radiance.animation.api.Timeline;
-import org.pushingpixels.radiance.animation.api.TimelinePropertyBuilder;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 import org.pushingpixels.radiance.demo.theming.main.check.command.ChainCommand;
@@ -54,6 +53,8 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.util.EnumSet;
@@ -202,13 +203,12 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
 
         @Override
         public void configure(JComponent component) {
-            TimelinePropertyBuilder.PropertySetter<Float> propertySetter = (obj, fieldName, value) -> {
-                animationPosition = value;
-            };
-
             Timeline timeline = SwingComponentTimeline.componentBuilder(component)
                 .addPropertyToInterpolate(Timeline.<Float>property("animationPosition")
-                    .from(-4.0f).to(5.0f).setWith(propertySetter))
+                    .from(-4.0f).to(5.0f)
+                    .setWith((obj, fieldName, value) -> {
+                        animationPosition = value;
+                    }))
                 .addCallback(new SwingRepaintCallback(component))
                 .setDuration(2000)
                 .build();
@@ -255,18 +255,98 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         }
     }
 
+    private static class AnimatedRolloverSurfacePainterOverlayCommand implements ConfigurationCommand<JComponent> {
+        private float animationPosition;
+        private float alpha;
+
+        @Override
+        public void configure(JComponent component) {
+            Timeline timeline = SwingComponentTimeline.componentBuilder(component)
+                .addPropertyToInterpolate(Timeline.<Float>property("animationPosition")
+                    .from(-4.0f).to(5.0f)
+                    .setWith((obj, fieldName, value) -> {
+                        animationPosition = value;
+                    }))
+                .addCallback(new SwingRepaintCallback(component))
+                .setDuration(2000)
+                .build();
+            timeline.playLoop(Timeline.RepeatBehavior.LOOP);
+
+            Timeline alphaTimeline = SwingComponentTimeline.componentBuilder(component)
+                .addPropertyToInterpolate(Timeline.<Float>property("alpha")
+                    .from(0.0f).to(1.0f)
+                    .setWith((obj, fieldName, value) -> {
+                        alpha = value;
+                    }))
+                .addCallback(new SwingRepaintCallback(component))
+                .setDuration(500)
+                .build();
+
+            component.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    alphaTimeline.play();
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    alphaTimeline.playReverse();
+                }
+            });
+
+            RadianceThemingCortex.ComponentScope.setSurfacePainterOverlay(component,
+                (g, comp, width, height, scaleFactor, outline, colorTokens) -> {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.clip(outline);
+                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+
+                    Color start = colorTokens.isDark()
+                        ? colorTokens.getContainerSurfaceHighest()
+                        : colorTokens.getContainerSurfaceLowest();
+                    Color end = colorTokens.isDark()
+                        ? colorTokens.getContainerSurfaceLowest()
+                        : colorTokens.getContainerSurfaceHighest();
+
+                    int cellDim = (int) (6.0f * scaleFactor);
+                    double dotDiameter = Math.ceil(3.0f * scaleFactor);
+
+                    int rows = (int) Math.ceil(height / cellDim);
+                    int columns = (int) Math.ceil(width / cellDim);
+                    for (int col = 0; col <= columns; col++) {
+                        double colFactor = (double) col / (double) columns;
+                        double intensity =
+                            Math.abs(colFactor - animationPosition);
+                        intensity = Math.min(1.0, Math.max(0.0, intensity));
+                        Color cellColor = new Color(
+                            start.getRed() + (int) (intensity * (end.getRed() - start.getRed())),
+                            start.getGreen() + (int) (intensity * (end.getGreen() - start.getGreen())),
+                            start.getBlue() + (int) (intensity * (end.getBlue() - start.getBlue())));
+
+                        g2d.setColor(cellColor);
+                        double dotCenterX = (col + 0.6) * cellDim;
+
+                        for (int row = 0; row <= rows; row++) {
+                            double dotCenterY = (row + ((col % 2 == 0) ? 0.5 : 0.0)) * cellDim;
+                            g2d.fill(new Ellipse2D.Double(dotCenterX - dotDiameter / 2.0,
+                                dotCenterY - dotDiameter / 2.0, dotDiameter, dotDiameter));
+                        }
+                    }
+                    g2d.dispose();
+                });
+        }
+    }
+
     private static class AnimatedOutlinePainterOverlayCommand implements ConfigurationCommand<JComponent> {
         private float animationPosition;
 
         @Override
         public void configure(JComponent component) {
-            TimelinePropertyBuilder.PropertySetter<Float> propertySetter = (obj, fieldName, value) -> {
-                animationPosition = value;
-            };
-
             Timeline timeline = SwingComponentTimeline.componentBuilder(component)
                 .addPropertyToInterpolate(Timeline.<Float>property("animationPosition")
-                    .from(-2.0f).to(3.0f).setWith(propertySetter))
+                    .from(-2.0f).to(3.0f)
+                    .setWith((obj, fieldName, value) -> {
+                        animationPosition = value;
+                    }))
                 .addCallback(new SwingRepaintCallback(component))
                 .setDuration(2000)
                 .build();
@@ -454,7 +534,7 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
             "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 68).padding(Paddings.DIALOG);
+                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 70).padding(Paddings.DIALOG);
 
         builder.append("");
 
@@ -551,6 +631,8 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
             new ChainCommand<>(new StaticSurfacePainterOverlayCommand(), new SelectCommand()));
         this.addRow(builder, "Animated surface dots", null,
             new AnimatedSurfacePainterOverlayCommand());
+        this.addRow(builder, "Animated surface dots on rollover", null,
+            new AnimatedRolloverSurfacePainterOverlayCommand());
         this.addRow(builder, "Animated outline pass", null,
             new AnimatedOutlinePainterOverlayCommand());
 
