@@ -336,6 +336,99 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         }
     }
 
+    private static class AnimatedArrowsSurfacePainterOverlayCommand implements ConfigurationCommand<JComponent> {
+        private float animationPosition;
+
+        private static final boolean[][] ARROW_MASK = {
+            { true, true, true, false, false},
+            { false, true, true, true, false},
+            { false, false, true, true, true},
+            { false, true, true, true, false},
+            { true, true, true, false, false},
+        };
+
+        private static final int ARROW_SIZE = 5;
+        private static final int ARROW_GAP = 2;
+        private static final int ROWS = 7;
+
+        @Override
+        public void configure(JComponent component) {
+            if ((component instanceof JCheckBox) || (component instanceof JRadioButton)) {
+                return;
+            }
+
+            Timeline timeline = SwingComponentTimeline.componentBuilder(component)
+                .addPropertyToInterpolate(Timeline.<Float>property("animationPosition")
+                    .from(0.0f).to(1.0f)
+                    .setWith((obj, fieldName, value) -> {
+                        animationPosition = value;
+                    }))
+                .addCallback(new SwingRepaintCallback(component))
+                .setDuration(500)
+                .build();
+            timeline.playLoop(Timeline.RepeatBehavior.LOOP);
+
+            Color[] offColors = new Color[ROWS];
+            Color[] onColors = new Color[ROWS];
+
+            RadianceThemingCortex.ComponentScope.setSurfacePainterOverlay(component,
+                (g, comp, width, height, scaleFactor, outline, colorTokens) -> {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.clip(outline);
+
+                    double dotSize = height / (double) (2 * ROWS + 1);
+                    int columns = (int) Math.floor((width - 2 * dotSize) / dotSize);
+                    double verticalMargin = dotSize;
+                    double horizontalMargin = (width - columns * dotSize) / 2.0;
+
+                    Color offTop = colorTokens.isDark()
+                        ? colorTokens.getContainerSurfaceHighest()
+                        : colorTokens.getContainerSurfaceLowest();
+                    Color offBottom = colorTokens.getContainerSurface();
+
+                    Color on = colorTokens.getOnContainerVariant();
+
+                    for (int row = 0; row < ROWS; row++) {
+                        double rowFactor = (double) row / (double) ROWS;
+                        offColors[row] = new Color(
+                            offTop.getRed() + (int) (rowFactor * (offBottom.getRed() - offTop.getRed())),
+                            offTop.getGreen() + (int) (rowFactor * (offBottom.getGreen() - offTop.getGreen())),
+                            offTop.getBlue() + (int) (rowFactor * (offBottom.getBlue() - offTop.getBlue())));
+                        onColors[row] = new Color(
+                            (2 * offColors[row].getRed() + on.getRed()) / 3,
+                            (2 * offColors[row].getGreen() + on.getGreen()) / 3,
+                            (2 * offColors[row].getBlue() + on.getBlue()) / 3);
+                    }
+
+                    int firstArrowColumn = (int) (animationPosition * (ARROW_SIZE + ARROW_GAP));
+                    for (int col = 0; col <= columns; col++) {
+                        int columnWithinArrow =
+                            (ARROW_SIZE + ARROW_GAP + col - firstArrowColumn) % (ARROW_SIZE + ARROW_GAP);
+                        boolean isInVerticalGap = (columnWithinArrow >= ARROW_SIZE);
+
+                        double dotCenterX = horizontalMargin + 2 * (col + 0.5) * dotSize;
+
+                        for (int row = 0; row < ROWS; row++) {
+                            boolean isInArrow = false;
+                            if (!isInVerticalGap) {
+                                isInArrow = (row >= 1) && (row < (ROWS - 1))
+                                    && ARROW_MASK[row - 1][columnWithinArrow];
+                            }
+
+                            Color cellColor = isInArrow ? onColors[row] : offColors[row];
+                            g2d.setColor(cellColor);
+
+                            double dotCenterY =
+                                verticalMargin + 2 * (row + 0.5) * dotSize - 0.5 * dotSize;
+                            g2d.fill(new Ellipse2D.Double(dotCenterX - dotSize / 2.0,
+                                dotCenterY - dotSize / 2.0, dotSize, dotSize));
+                        }
+                    }
+                    g2d.dispose();
+                });
+        }
+    }
+
     private static class AnimatedOutlinePainterOverlayCommand implements ConfigurationCommand<JComponent> {
         private float animationPosition;
 
@@ -534,7 +627,7 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
             "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 70).padding(Paddings.DIALOG);
+                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 72).padding(Paddings.DIALOG);
 
         builder.append("");
 
@@ -633,6 +726,8 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
             new AnimatedSurfacePainterOverlayCommand());
         this.addRow(builder, "Animated surface dots on rollover", null,
             new AnimatedRolloverSurfacePainterOverlayCommand());
+        this.addRow(builder, "Animated surface arrows", null,
+            new AnimatedArrowsSurfacePainterOverlayCommand());
         this.addRow(builder, "Animated outline pass", null,
             new AnimatedOutlinePainterOverlayCommand());
 
