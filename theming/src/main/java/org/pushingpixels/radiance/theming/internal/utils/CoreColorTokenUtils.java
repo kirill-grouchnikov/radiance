@@ -87,10 +87,14 @@ public class CoreColorTokenUtils {
 
     public static ContainerColorTokens getContainerTokens(Component component,
         ComponentState componentState, ContainerType inactiveContainerType) {
+
         Component orig = component;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        ContainerColorTokensOverlay tokensOverlay =
+            RadianceCoreUtilities.getContainerColorTokensOverlay(component);
+
         // special case - if the component is marked as flat and
-        // it is in the default state, or it is a button
+        // it is in the default state, or it is a component
         // that is never painting its background - get the color tokens of the
         // parent
         boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
@@ -98,7 +102,9 @@ public class CoreColorTokenUtils {
         if (isButtonThatIsNeverPainted
             || (!componentState.isActive()
                 && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
-            ContainerColorTokens nonColorized = skin.getNeutralContainerTokens(component);
+            ContainerColorTokens nonColorized = (tokensOverlay != null)
+                ? tokensOverlay.getNeutralContainerTokens()
+                : skin.getNeutralContainerTokens(component);
             return getBlendedTokens(orig, nonColorized, !componentState.isDisabled());
         }
 
@@ -112,12 +118,18 @@ public class CoreColorTokenUtils {
         }
         ContainerColorTokens nonColorized;
         if (componentState.isActive()) {
-            nonColorized = skin.getActiveContainerTokens(component, componentState);
+            nonColorized = (tokensOverlay != null)
+                ? tokensOverlay.getActiveContainerTokens(componentState)
+                : skin.getActiveContainerTokens(component, componentState);
         } else {
             if (inactiveContainerType == ContainerType.MUTED) {
-                nonColorized = skin.getMutedContainerTokens(component);
+                nonColorized = (tokensOverlay != null)
+                    ? tokensOverlay.getMutedContainerTokens()
+                    : skin.getMutedContainerTokens(component);
             } else {
-                nonColorized = skin.getNeutralContainerTokens(component);
+                nonColorized = (tokensOverlay != null)
+                    ? tokensOverlay.getNeutralContainerTokens()
+                    : skin.getNeutralContainerTokens(component);
             }
         }
 
@@ -151,7 +163,10 @@ public class CoreColorTokenUtils {
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
         ComponentState componentState, ContainerType inactiveContainerType,
         boolean skipFlatCheck) {
+
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        ContainerColorTokensOverlay tokensOverlay =
+            RadianceCoreUtilities.getContainerColorTokensOverlay(component);
 
         // special case - if the component is marked as flat, get the color tokens of the parent.
         // However, flat toolbars should be ignored, since they are
@@ -159,7 +174,9 @@ public class CoreColorTokenUtils {
         if (!skipFlatCheck && !(component instanceof JToolBar)
             && !componentState.isActive()
             && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
-            ContainerColorTokens nonColorized = skin.getNeutralContainerTokens(component);
+            ContainerColorTokens nonColorized = (tokensOverlay != null)
+                ? tokensOverlay.getNeutralContainerTokens()
+                : skin.getNeutralContainerTokens(component);
             return getBlendedTokens(component, nonColorized, !componentState.isDisabled());
         }
 
@@ -172,13 +189,18 @@ public class CoreColorTokenUtils {
         }
         ContainerColorTokens nonColorized;
         if (componentState.isActive()) {
-            nonColorized = skin.getActiveContainerTokens(component, associationKind,
-                componentState);
+            nonColorized = (tokensOverlay != null)
+                ? tokensOverlay.getActiveContainerTokens(componentState)
+                : skin.getActiveContainerTokens(component, associationKind, componentState);
         } else {
             if (inactiveContainerType == ContainerType.NEUTRAL) {
-                nonColorized = skin.getNeutralContainerTokens(component, associationKind);
+                nonColorized = (tokensOverlay != null)
+                    ? tokensOverlay.getNeutralContainerTokens()
+                    : skin.getNeutralContainerTokens(component, associationKind);
             } else {
-                nonColorized = skin.getMutedContainerTokens(component, associationKind);
+                nonColorized = (tokensOverlay != null)
+                    ? tokensOverlay.getMutedContainerTokens()
+                    : skin.getMutedContainerTokens(component, associationKind);
             }
         }
         return getBlendedTokens(component, nonColorized, !componentState.isDisabled());
@@ -208,8 +230,13 @@ public class CoreColorTokenUtils {
             component = component.getParent();
         }
 
-        ContainerColorTokens nonColorized = RadianceCoreUtilities.getSkin(component)
-            .getActiveContainerTokens(component, componentState);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        ContainerColorTokensOverlay tokensOverlay =
+            RadianceCoreUtilities.getContainerColorTokensOverlay(component);
+
+        ContainerColorTokens nonColorized = (tokensOverlay != null)
+            ? tokensOverlay.getActiveContainerTokens(componentState)
+            : skin.getActiveContainerTokens(component, componentState);
         return getBlendedTokens(component, nonColorized, !componentState.isDisabled());
     }
 

@@ -39,15 +39,13 @@ import java.awt.*;
 
 public class ContainerColorTokensUtils {
     public static ContainerColorTokens getContainerTokens(
-        Hct seed,
-        ContainerConfiguration containerConfiguration) {
+        Hct seed, ContainerConfiguration containerConfiguration) {
         return getContainerTokens(seed, containerConfiguration,
             TokenPaletteColorResolverUtils.getPaletteColorResolver());
     }
 
     public static ContainerColorTokens getContainerTokens(
-        Hct seed,
-        ContainerConfiguration containerConfiguration,
+        Hct seed, ContainerConfiguration containerConfiguration,
         TokenPaletteColorResolver colorResolver) {
 
         DynamicPalette dynamicPalette = new DynamicPalette(

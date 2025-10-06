@@ -329,7 +329,7 @@ public class Check extends JFrame {
         coloredMenu.add(coloredM);
         jmb.add(coloredMenu);
 
-        JMenu testMenu = SampleMenuFactory.getTestMenu();
+        JMenu testMenu = SampleMenuFactory.getTestMenu(jmb);
         jmb.add(testMenu);
 
         JMenu jm4 = new JMenu("Disabled");

@@ -83,7 +83,7 @@ public class MousePopupListener extends MouseAdapter {
 			JPopupMenu popup = new JPopupMenu();
 			int mcount = 0;
 			for (LinkedList<JMenuItem> miList : SampleMenuFactory
-					.getTestMenuItems()) {
+					.getTestMenuItems(null)) {
 				if (mcount > 0) {
 					if (mcount % 2 == 0)
 						popup.addSeparator();

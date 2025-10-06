@@ -266,4 +266,9 @@ public class RadianceSynapse {
      * Client property name for specifying the surface painter overlay.
      */
     public final static String SURFACE_PAINTER_OVERLAY = "radiance.theming.internal.surfacePainterOverlay";
+
+    /**
+     * Client property name for specifying the container color tokens overlay.
+     */
+    public final static String CONTAINER_COLOR_TOKENS_OVERLAY = "radiance.theming.internal.containerColorTokensOverlay";
 }

@@ -31,8 +31,11 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.check_24dp_outline;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.error_24dp_outline;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.info_24dp_outline;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.warning_24dp_outline;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
@@ -61,11 +64,11 @@ public class SampleMenuFactory {
      *
      * @return Sample test menu.
      */
-    public static JMenu getTestMenu() {
+    public static JMenu getTestMenu(JMenuBar menuBar) {
         JMenu testMenu = new JMenu("Test");
         testMenu.setMnemonic('1');
         int mcount = 0;
-        for (LinkedList<JMenuItem> miList : getTestMenuItems()) {
+        for (LinkedList<JMenuItem> miList : getTestMenuItems(menuBar)) {
             if (mcount > 0) {
                 if (mcount % 2 == 0)
                     testMenu.addSeparator();
@@ -81,12 +84,43 @@ public class SampleMenuFactory {
         return testMenu;
     }
 
+    private static void updateSystemTokens(JMenuBar menuBar, JMenuItem overlayInfo,
+        JMenuItem overlayWarning, JMenuItem overlayError, JMenuItem overlaySuccess) {
+
+        RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(menuBar);
+
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayInfo,
+            new ContainerColorTokensOverlay(
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.INFO),
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.INFO),
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.INFO)
+            ));
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayWarning,
+            new ContainerColorTokensOverlay(
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.WARNING),
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.WARNING),
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.WARNING)
+            ));
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayError,
+            new ContainerColorTokensOverlay(
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.ERROR),
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.ERROR),
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.ERROR)
+            ));
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlaySuccess,
+            new ContainerColorTokensOverlay(
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.SUCCESS),
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.SUCCESS),
+                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.SUCCESS)
+            ));
+    }
+
     /**
      * Returns menu items for a sample test menu.
      *
      * @return Menu items for a sample test menu.
      */
-    public static LinkedList<LinkedList<JMenuItem>> getTestMenuItems() {
+    public static LinkedList<LinkedList<JMenuItem>> getTestMenuItems(JMenuBar menuBar) {
         LinkedList<LinkedList<JMenuItem>> result = new LinkedList<>();
         LinkedList<JMenuItem> list1 = new LinkedList<>();
         final JMenuItem jmi1 = new JMenuItem("Menu item enabled", se.of(16, 16));
@@ -241,6 +275,41 @@ public class SampleMenuFactory {
         list5.add(submenu3);
 
         result.add(list5);
+
+        LinkedList<JMenuItem> list6 = new LinkedList<>();
+
+        JMenuItem overlayInfo = new JMenuItem("Themed info", info_24dp_outline.of(16, 16));
+        JMenuItem overlayWarning = new JMenuItem("Themed info", warning_24dp_outline.of(16, 16));
+        JMenuItem overlayError = new JMenuItem("Themed info", error_24dp_outline.of(16, 16));
+        JMenuItem overlaySuccess = new JMenuItem("Themed info", check_24dp_outline.of(16, 16));
+
+        updateSystemTokens(menuBar, overlayInfo, overlayWarning, overlayError, overlaySuccess);
+        RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(() -> {
+            updateSystemTokens(menuBar, overlayInfo, overlayWarning, overlayError, overlaySuccess);
+        }));
+
+        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(overlayInfo,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(overlayWarning,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(overlayError,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(overlaySuccess,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+            RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+
+        list6.add(overlayInfo);
+        list6.add(overlayWarning);
+        list6.add(overlayError);
+        list6.add(overlaySuccess);
+        result.add(list6);
 
         return result;
     }

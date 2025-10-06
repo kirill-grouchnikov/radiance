@@ -310,7 +310,7 @@ public class SampleFrame extends JFrame {
             jmb.add(SampleMenuFactory.getSkinMenu());
         }
 
-        JMenu testMenu = SampleMenuFactory.getTestMenu();
+        JMenu testMenu = SampleMenuFactory.getTestMenu(jmb);
         jmb.add(testMenu);
         this.setJMenuBar(jmb);
 

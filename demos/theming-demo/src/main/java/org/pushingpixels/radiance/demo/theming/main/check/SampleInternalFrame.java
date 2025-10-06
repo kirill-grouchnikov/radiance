@@ -115,7 +115,7 @@ public class SampleInternalFrame extends JInternalFrame {
         JMenu jm1 = new JMenu("Menu1");
         jm1.setMnemonic('1');
         int mcount = 0;
-        for (LinkedList<JMenuItem> miList : SampleMenuFactory.getTestMenuItems()) {
+        for (LinkedList<JMenuItem> miList : SampleMenuFactory.getTestMenuItems(jmb)) {
             if (mcount > 0) {
                 if (mcount % 2 == 0)
                     jm1.addSeparator();

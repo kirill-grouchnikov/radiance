@@ -356,9 +356,9 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @see #getActiveContainerTokens(Component)
      */
     public final ContainerColorTokens getNeutralContainerTokens(Component comp) {
-        RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
-            RadianceThemingSlices.DecorationAreaType.NONE :
-            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null)
+            ? RadianceThemingSlices.DecorationAreaType.NONE
+            : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
         return getNeutralContainerTokens(decorationAreaType);
     }
 
@@ -374,9 +374,9 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @see #getActiveContainerTokens(Component)
      */
     public final ContainerColorTokens getMutedContainerTokens(Component comp) {
-        RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
-            RadianceThemingSlices.DecorationAreaType.NONE :
-            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null)
+            ? RadianceThemingSlices.DecorationAreaType.NONE
+            : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
         return getMutedContainerTokens(decorationAreaType);
     }
 
@@ -393,9 +393,9 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @see #getMutedContainerTokens(Component) 
      */
     public final ContainerColorTokens getActiveContainerTokens(Component comp) {
-        RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
-            RadianceThemingSlices.DecorationAreaType.NONE :
-            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null)
+            ? RadianceThemingSlices.DecorationAreaType.NONE
+            : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
         return getActiveContainerTokens(decorationAreaType);
     }
 
@@ -419,9 +419,9 @@ public abstract class RadianceSkin implements RadianceTrait {
         // small optimization - lookup the decoration area only if there
         // are decoration-specific tokens bundles.
         if (this.colorTokensBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
-                RadianceThemingSlices.DecorationAreaType.NONE :
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null)
+                ? RadianceThemingSlices.DecorationAreaType.NONE
+                : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
                 ContainerColorTokens registered = this.colorTokensBundleMap
                     .get(decorationAreaType).getActiveContainerTokens(componentState);
@@ -767,7 +767,8 @@ public abstract class RadianceSkin implements RadianceTrait {
         // small optimization - lookup the decoration area only if there
         // are decoration-specific tokens bundles.
         if (this.colorTokensBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ? RadianceThemingSlices.DecorationAreaType.NONE
+            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null)
+                ? RadianceThemingSlices.DecorationAreaType.NONE
                 : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
                 return this.colorTokensBundleMap.get(decorationAreaType).getActiveContainerTokens(
@@ -796,7 +797,8 @@ public abstract class RadianceSkin implements RadianceTrait {
         // small optimization - lookup the decoration area only if there
         // are decoration-specific tokens bundles.
         if (this.colorTokensBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ? RadianceThemingSlices.DecorationAreaType.NONE
+            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null)
+                ? RadianceThemingSlices.DecorationAreaType.NONE
                 : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
                 return this.colorTokensBundleMap.get(decorationAreaType).getMutedContainerTokens(
@@ -824,7 +826,8 @@ public abstract class RadianceSkin implements RadianceTrait {
         // small optimization - lookup the decoration area only if there
         // are decoration-specific tokens bundles.
         if (this.colorTokensBundleMap.size() > 1) {
-            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ? RadianceThemingSlices.DecorationAreaType.NONE
+            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null)
+                ? RadianceThemingSlices.DecorationAreaType.NONE
                 : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
                 return this.colorTokensBundleMap.get(decorationAreaType).getNeutralContainerTokens(

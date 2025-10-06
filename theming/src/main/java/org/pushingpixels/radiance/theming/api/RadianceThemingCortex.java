@@ -1946,6 +1946,22 @@ public class RadianceThemingCortex {
             component.putClientProperty(RadianceSynapse.SURFACE_PAINTER_OVERLAY,
                 surfacePainterOverlay);
         }
+
+        /**
+         * Specifies the container color tokens overlay to use on the specified component. Pass
+         * <code>null</code> to reset to no overlays.
+         *
+         * @param component Component.
+         * @param containerColorTokensOverlay Container color tokens overlay for the component.
+         */
+        public static void setContainerColorTokensOverlay(JComponent component,
+            ContainerColorTokensOverlay containerColorTokensOverlay) {
+            if (component == null) {
+                throw new IllegalArgumentException("Component scope APIs do not accept null components");
+            }
+            component.putClientProperty(RadianceSynapse.CONTAINER_COLOR_TOKENS_OVERLAY,
+                containerColorTokensOverlay);
+        }
     }
 
     /**

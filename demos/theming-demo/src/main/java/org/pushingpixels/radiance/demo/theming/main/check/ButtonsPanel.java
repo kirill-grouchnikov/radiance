@@ -44,6 +44,7 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.bullseye;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.button;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.check_square_o;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.dot_circle;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -471,6 +472,44 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         }
     }
 
+    private static class SystemContainerColorTokenOverlayCommand implements ConfigurationCommand<JComponent> {
+        private RadianceThemingSlices.SystemContainerType systemContainerType;
+
+        public SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType systemContainerType) {
+            this.systemContainerType = systemContainerType;
+        }
+
+        @Override
+        public void configure(JComponent component) {
+            RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(component);
+            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(component,
+                new ContainerColorTokensOverlay(
+                    skin.getSystemContainerTokens(component, systemContainerType),
+                    skin.getSystemContainerTokens(component, systemContainerType),
+                    skin.getSystemContainerTokens(component, systemContainerType)
+                ));
+        }
+    }
+
+    private static class SystemContainerColorTokenOverlayAltCommand implements ConfigurationCommand<JComponent> {
+        private RadianceThemingSlices.SystemContainerType systemContainerType;
+
+        public SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType systemContainerType) {
+            this.systemContainerType = systemContainerType;
+        }
+
+        @Override
+        public void configure(JComponent component) {
+            RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(component);
+            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(component,
+                new ContainerColorTokensOverlay(
+                    skin.getInverseSystemContainerTokens(component, systemContainerType),
+                    skin.getSystemContainerTokens(component, systemContainerType),
+                    skin.getSystemContainerTokens(component, systemContainerType)
+                ));
+        }
+    }
+
     /**
      * A configure command that sets the specified font on the specified button.
      *
@@ -627,7 +666,7 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
             "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 72).padding(Paddings.DIALOG);
+                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 81).padding(Paddings.DIALOG);
 
         builder.append("");
 
@@ -730,6 +769,24 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
             new AnimatedArrowsSurfacePainterOverlayCommand());
         this.addRow(builder, "Animated outline pass", null,
             new AnimatedOutlinePainterOverlayCommand());
+
+        builder.appendSeparator("Container color token overlays");
+        this.addRow(builder, "Info", null,
+            new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.INFO));
+        this.addRow(builder, "Warning", null,
+            new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.WARNING));
+        this.addRow(builder, "Error", null,
+            new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.ERROR));
+        this.addRow(builder, "Success", null,
+            new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.SUCCESS));
+        this.addRow(builder, "Info alternative", null,
+            new SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType.INFO));
+        this.addRow(builder, "Warning alternative", null,
+            new SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType.WARNING));
+        this.addRow(builder, "Error alternative", null,
+            new SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType.ERROR));
+        this.addRow(builder, "Success alternative", null,
+            new SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType.SUCCESS));
 
         builder.appendSeparator("Focus indications");
         this.addRow(builder, "No focus painted", null, new NoFocusCommand());

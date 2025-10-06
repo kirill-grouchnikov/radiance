@@ -205,12 +205,13 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Checks whether the specified button never paints its background.
+     * Checks whether the specified component never paints its background.
      *
-     * @param component Button.
-     * @return <code>true</code> if the specified button never paints its background,
+     * @param component component.
+     * @return <code>true</code> if the specified component never paints its background,
      * <code>false</code> otherwise.
      * @see RadianceThemingCortex.GlobalScope#setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy)
+     * @see RadianceThemingCortex.ComponentOrParentScope#setBackgroundAppearanceStrategy(JComponent, RadianceThemingSlices.BackgroundAppearanceStrategy)
      */
     public static boolean isComponentNeverPainted(Component component) {
         // small optimizations for checkboxes and radio buttons
@@ -1021,6 +1022,18 @@ public class RadianceCoreUtilities {
         Object componentProperty = jcomp.getClientProperty(RadianceSynapse.SURFACE_PAINTER_OVERLAY);
         if (componentProperty instanceof RadianceSurfacePainter.Overlay) {
             return (RadianceSurfacePainter.Overlay) componentProperty;
+        }
+        return null;
+    }
+
+    public static ContainerColorTokensOverlay getContainerColorTokensOverlay(Component component) {
+        if (!(component instanceof JComponent)) {
+            return null;
+        }
+        JComponent jcomp = (JComponent) component;
+        Object componentProperty = jcomp.getClientProperty(RadianceSynapse.CONTAINER_COLOR_TOKENS_OVERLAY);
+        if (componentProperty instanceof ContainerColorTokensOverlay) {
+            return (ContainerColorTokensOverlay) componentProperty;
         }
         return null;
     }
