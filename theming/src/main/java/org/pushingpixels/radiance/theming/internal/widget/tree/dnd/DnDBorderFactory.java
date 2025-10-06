@@ -67,8 +67,7 @@ class DnDBorderFactory {
             int yh = y + height - 1;
             RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
             RadianceIconPack iconPack = RadianceThemingCortex.GlobalScope.getIconPack();
-            ContainerColorTokens tokens = skin.getNeutralContainerTokens(
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c));
+            ContainerColorTokens tokens = skin.getNeutralContainerTokens(c);
             RadianceIcon icon = iconPack.getAllowedIcon(12, tokens);
 
             Graphics2D g2d = (Graphics2D) g.create();

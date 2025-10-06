@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -76,7 +75,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(this.colorSelectorPanel);
                     ContainerColorTokens tokens = skin.getNeutralContainerTokens(
-                        DecorationPainterUtils.getDecorationType(this.colorSelectorPanel));
+                        this.colorSelectorPanel);
                     Color backgroundFill = tokens.isDark() ? tokens.getContainerSurfaceLow()
                         : tokens.getContainerSurfaceHigh();
 

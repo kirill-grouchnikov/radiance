@@ -482,9 +482,7 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
             JPanel signInPanel = new JPanel(new BorderLayout());
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-            RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-            ContainerColorTokens tokens = skin.getNeutralContainerTokens(decorationAreaType);
+            ContainerColorTokens tokens = skin.getNeutralContainerTokens(this);
 
             RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(signInPanel, 1.0);
             signInPanel.setBackground(tokens.getContainerSurfaceLow());
@@ -534,9 +532,7 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
         public FooterSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter footer) {
             this.setLayout(new BorderLayout());
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-            RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-            ContainerColorTokens tokens = skin.getNeutralContainerTokens(decorationAreaType);
+            ContainerColorTokens tokens = skin.getNeutralContainerTokens(this);
 
             RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this, 1.0);
             this.setBackground(tokens.getContainerSurfaceLow());

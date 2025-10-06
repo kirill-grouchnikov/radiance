@@ -87,9 +87,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                     public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
                         if (state == ComponentState.ENABLED) {
                             RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-                            RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
-                                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
-                            return skin.getNeutralContainerTokens(buttonDecorationAreaType);
+                            return skin.getNeutralContainerTokens(button);
                         }
                         return CoreColorTokenUtils.getContainerTokens(button,
                             state, CoreColorTokenUtils.ContainerType.ACTIVE);

@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -68,8 +67,7 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
 
         Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
             SwingUtilities.windowForComponent(c));
-        ContainerColorTokens titleContainerTokens =
-            skin.getNeutralContainerTokens(DecorationPainterUtils.getDecorationType(titlePaneComp));
+        ContainerColorTokens titleContainerTokens = skin.getNeutralContainerTokens(titlePaneComp);
         Graphics2D graphics = (Graphics2D) g.create();
 
         double scaleFactor = RadianceCommonCortex.getScaleFactor(c);

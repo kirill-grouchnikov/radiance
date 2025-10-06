@@ -115,9 +115,7 @@ public class RadianceCommandPopupMenuPanelUI extends BasicCommandPopupMenuPanelU
                 g2d.setComposite(WidgetUtilities.getAlphaComposite(this, fillAlpha, g));
 
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
-                ContainerColorTokens neutralTokens =
-                    skin.getNeutralContainerTokens(
-                        DecorationPainterUtils.getDecorationType(this));
+                ContainerColorTokens neutralTokens = skin.getNeutralContainerTokens(this);
                 Color gutterColor = neutralTokens.isDark()
                     ? neutralTokens.getContainerSurfaceHighest()
                     : neutralTokens.getContainerSurfaceLowest();

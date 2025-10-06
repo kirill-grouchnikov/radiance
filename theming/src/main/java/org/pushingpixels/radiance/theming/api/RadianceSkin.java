@@ -821,7 +821,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     public final ContainerColorTokens getNeutralContainerTokens(Component comp,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind) {
-
         // small optimization - lookup the decoration area only if there
         // are decoration-specific tokens bundles.
         if (this.colorTokensBundleMap.size() > 1) {

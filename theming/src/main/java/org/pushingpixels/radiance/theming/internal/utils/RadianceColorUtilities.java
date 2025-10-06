@@ -664,8 +664,7 @@ public class RadianceColorUtilities {
 
     public static Color getBackgroundFillColorScrollBar(JScrollBar scrollbar) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(scrollbar);
-        ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(
-            DecorationPainterUtils.getDecorationType(scrollbar));
+        ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(scrollbar);
         return colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
             : colorTokens.getContainerSurfaceHigh();
     }
@@ -698,8 +697,7 @@ public class RadianceColorUtilities {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        ContainerColorTokens tokens = skin.getNeutralContainerTokens(
-            DecorationPainterUtils.getDecorationType(component));
+        ContainerColorTokens tokens = skin.getNeutralContainerTokens(component);
         if (rowIndex % 2 == 0) {
             // Surface for even rows
             return tokens.getContainerSurface();

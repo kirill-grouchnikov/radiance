@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.ephemeral.chroma.blend.Blend;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -95,12 +94,11 @@ public class CoreColorTokenUtils {
         // that is never painting its background - get the color tokens of the
         // parent
         boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
-            && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
+            && RadianceCoreUtilities.isComponentNeverPainted(component));
         if (isButtonThatIsNeverPainted
             || (!componentState.isActive()
                 && (RadianceCoreUtilities.hasFlatAppearance(component, false)))) {
-            ContainerColorTokens nonColorized = skin.getNeutralContainerTokens(
-                DecorationPainterUtils.getDecorationType(component));
+            ContainerColorTokens nonColorized = skin.getNeutralContainerTokens(component);
             return getBlendedTokens(orig, nonColorized, !componentState.isDisabled());
         }
 
@@ -161,8 +159,7 @@ public class CoreColorTokenUtils {
         if (!skipFlatCheck && !(component instanceof JToolBar)
             && !componentState.isActive()
             && RadianceCoreUtilities.hasFlatAppearance(component, false)) {
-            ContainerColorTokens nonColorized = skin.getNeutralContainerTokens(
-                DecorationPainterUtils.getDecorationType(component));
+            ContainerColorTokens nonColorized = skin.getNeutralContainerTokens(component);
             return getBlendedTokens(component, nonColorized, !componentState.isDisabled());
         }
 

@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -96,9 +95,7 @@ public class RadianceMenuBackgroundDelegate {
 				graphics.setComposite(WidgetUtilities.getAlphaComposite(
 						menuItem, fillAlpha, g));
 				RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
-				ContainerColorTokens neutralTokens =
-					skin.getNeutralContainerTokens(
-						DecorationPainterUtils.getDecorationType(menuItem));
+				ContainerColorTokens neutralTokens = skin.getNeutralContainerTokens(menuItem);
 				Color gutterColor = neutralTokens.isDark()
 					? neutralTokens.getContainerSurfaceHighest()
 					: neutralTokens.getContainerSurfaceLowest();
