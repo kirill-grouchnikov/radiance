@@ -483,30 +483,8 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         public void configure(JComponent component) {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(component);
             RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(component,
-                new ContainerColorTokensOverlay(
-                    skin.getSystemContainerTokens(component, systemContainerType),
-                    skin.getSystemContainerTokens(component, systemContainerType),
-                    skin.getSystemContainerTokens(component, systemContainerType)
-                ));
-        }
-    }
-
-    private static class SystemContainerColorTokenOverlayAltCommand implements ConfigurationCommand<JComponent> {
-        private RadianceThemingSlices.SystemContainerType systemContainerType;
-
-        public SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType systemContainerType) {
-            this.systemContainerType = systemContainerType;
-        }
-
-        @Override
-        public void configure(JComponent component) {
-            RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(component);
-            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(component,
-                new ContainerColorTokensOverlay(
-                    skin.getInverseSystemContainerTokens(component, systemContainerType),
-                    skin.getSystemContainerTokens(component, systemContainerType),
-                    skin.getSystemContainerTokens(component, systemContainerType)
-                ));
+                ContainerColorTokensOverlay.defaultSystemOverlay(skin, component,
+                    systemContainerType));
         }
     }
 
@@ -779,14 +757,26 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
             new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.ERROR));
         this.addRow(builder, "Success", null,
             new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.SUCCESS));
-        this.addRow(builder, "Info alternative", null,
-            new SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType.INFO));
-        this.addRow(builder, "Warning alternative", null,
-            new SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType.WARNING));
-        this.addRow(builder, "Error alternative", null,
-            new SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType.ERROR));
-        this.addRow(builder, "Success alternative", null,
-            new SystemContainerColorTokenOverlayAltCommand(RadianceThemingSlices.SystemContainerType.SUCCESS));
+        this.addRow(builder, "Info + flat", null,
+            new ChainCommand<>(
+                new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.INFO),
+                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                    .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)));
+        this.addRow(builder, "Warning + flat", null,
+            new ChainCommand<>(
+                new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.WARNING),
+                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                    .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)));
+        this.addRow(builder, "Error + flat", null,
+            new ChainCommand<>(
+                new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.ERROR),
+                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                    .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)));
+        this.addRow(builder, "Success + flat", null,
+            new ChainCommand<>(
+                new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.SUCCESS),
+                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                    .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)));
 
         builder.appendSeparator("Focus indications");
         this.addRow(builder, "No focus painted", null, new NoFocusCommand());

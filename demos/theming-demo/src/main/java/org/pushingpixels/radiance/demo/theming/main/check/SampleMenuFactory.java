@@ -90,29 +90,17 @@ public class SampleMenuFactory {
         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(menuBar);
 
         RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayInfo,
-            new ContainerColorTokensOverlay(
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.INFO),
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.INFO),
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.INFO)
-            ));
+            ContainerColorTokensOverlay.defaultMenuSystemOverlay(skin, menuBar,
+                RadianceThemingSlices.SystemContainerType.INFO));
         RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayWarning,
-            new ContainerColorTokensOverlay(
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.WARNING),
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.WARNING),
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.WARNING)
-            ));
+            ContainerColorTokensOverlay.defaultMenuSystemOverlay(skin, menuBar,
+                RadianceThemingSlices.SystemContainerType.WARNING));
         RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayError,
-            new ContainerColorTokensOverlay(
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.ERROR),
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.ERROR),
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.ERROR)
-            ));
+            ContainerColorTokensOverlay.defaultMenuSystemOverlay(skin, menuBar,
+                RadianceThemingSlices.SystemContainerType.ERROR));
         RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlaySuccess,
-            new ContainerColorTokensOverlay(
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.SUCCESS),
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.SUCCESS),
-                skin.getSystemContainerTokens(menuBar, RadianceThemingSlices.SystemContainerType.SUCCESS)
-            ));
+            ContainerColorTokensOverlay.defaultMenuSystemOverlay(skin, menuBar,
+                RadianceThemingSlices.SystemContainerType.SUCCESS));
     }
 
     /**
