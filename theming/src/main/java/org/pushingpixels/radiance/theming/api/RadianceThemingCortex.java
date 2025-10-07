@@ -1953,6 +1953,8 @@ public class RadianceThemingCortex {
          *
          * @param component Component.
          * @param containerColorTokensOverlay Container color tokens overlay for the component.
+         * @see ContainerColorTokensOverlay#defaultSystemOverlay(RadianceSkin, Component, RadianceThemingSlices.SystemContainerType) 
+         * @see ContainerColorTokensOverlay#defaultMenuSystemOverlay(RadianceSkin, Component, RadianceThemingSlices.SystemContainerType) 
          */
         public static void setContainerColorTokensOverlay(JComponent component,
             ContainerColorTokensOverlay containerColorTokensOverlay) {

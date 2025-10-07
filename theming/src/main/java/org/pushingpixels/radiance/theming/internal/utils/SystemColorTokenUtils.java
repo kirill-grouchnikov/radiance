@@ -63,37 +63,37 @@ public class SystemColorTokenUtils {
 
             @Override
             public Color getContainerSurfaceLowest() {
-                return containerConfiguration.isDark() ? getColor(30.0, -8.0) : getColor(90.0, 8.0);
+                return containerConfiguration.isDark() ? getColor(40.0, -8.0) : getColor(85.0, 8.0);
             }
 
             @Override
             public Color getContainerSurfaceLow() {
-                return containerConfiguration.isDark() ? getColor(30.0, -2.0) : getColor(90.0, 4.0);
+                return containerConfiguration.isDark() ? getColor(40.0, -2.0) : getColor(85.0, 4.0);
             }
 
             @Override
             public Color getContainerSurface() {
-                return containerConfiguration.isDark() ? getColor(30.0, 0.0) : getColor(90.0, 0.0);
+                return containerConfiguration.isDark() ? getColor(40.0, 0.0) : getColor(85.0, 0.0);
             }
 
             @Override
             public Color getContainerSurfaceHigh() {
-                return containerConfiguration.isDark() ? getColor(30.0, 5.0) : getColor(90.0, -2.0);
+                return containerConfiguration.isDark() ? getColor(40.0, 5.0) : getColor(85.0, -2.0);
             }
 
             @Override
             public Color getContainerSurfaceHighest() {
-                return containerConfiguration.isDark() ? getColor(30.0, 10.0) : getColor(90.0, -4.0);
+                return containerConfiguration.isDark() ? getColor(40.0, 10.0) : getColor(85.0, -4.0);
             }
 
             @Override
             public Color getContainerSurfaceDim() {
-                return containerConfiguration.isDark() ? getColor(30.0, -10.0) : getColor(90.0, -6.0);
+                return containerConfiguration.isDark() ? getColor(40.0, -10.0) : getColor(85.0, -6.0);
             }
 
             @Override
             public Color getContainerSurfaceBright() {
-                return containerConfiguration.isDark() ? getColor(30.0, 12.0) : getColor(90.0, 10.0);
+                return containerConfiguration.isDark() ? getColor(40.0, 12.0) : getColor(85.0, 10.0);
             }
 
             @Override
@@ -141,12 +141,12 @@ public class SystemColorTokenUtils {
 
             @Override
             public Color getInverseContainerSurface() {
-                return containerConfiguration.isDark() ? getColor(90.0, 0.0) : getColor(30.0, 0.0);
+                return containerConfiguration.isDark() ? getColor(85.0, 0.0) : getColor(40.0, 0.0);
             }
 
             @Override
             public Color getInverseOnContainer() {
-                return containerConfiguration.isDark() ? getColor(30.0, 0.0) : getColor(90.0, 0.0);
+                return containerConfiguration.isDark() ? getColor(40.0, 0.0) : getColor(85.0, 0.0);
             }
 
             @Override

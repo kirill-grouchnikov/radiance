@@ -101,9 +101,9 @@ public class ContainerColorTokensBundle {
         }
 
         Hct systemInfoSeed = Hct.fromInt(0xFF1060D0);
-        Hct systemWarningSeed = Hct.fromInt(0xFFFCC00);
+        Hct systemWarningSeed = Hct.fromInt(0xFFFCC000);
         Hct systemErrorSeed = Hct.fromInt(0xFFC01707);
-        Hct systemSuccessSeed = Hct.fromInt(0xFF008817);
+        Hct systemSuccessSeed = Hct.fromInt(0xFF007710);
 
         ContainerColorTokens systemInfoLightTokens = SystemColorTokenUtils.getSystemTokens(
             /* seed */ systemInfoSeed,
