@@ -489,6 +489,8 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
             this.signInButton = header.getCommandSignIn().project(presentationModel.headerSignInPresentationModel).
                     buildComponent();
+            RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(
+                this.signInButton, 0.0);
             signInPanel.add(this.signInButton, BorderLayout.CENTER);
             mainSection.add(signInPanel, BorderLayout.LINE_END);
 
