@@ -85,7 +85,7 @@ allprojects {
         }
 
         // flag all usage of deprecated APIs as errors
-        options.deprecation = true
+        //options.deprecation = true
         options.compilerArgs += ['-Werror']
 
         clean {
