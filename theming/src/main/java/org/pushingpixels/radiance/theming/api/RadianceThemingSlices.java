@@ -672,7 +672,7 @@ public final class RadianceThemingSlices {
         /**
          * Animation facet display name.
          */
-        protected String displayName;
+        private String displayName;
 
         /**
          * Creates a new animation facet.
