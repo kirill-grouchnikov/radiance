@@ -539,6 +539,8 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
             this.footerButton = footer.getCommandFooter().project(presentationModel.footerPresentationModel)
                     .buildComponent();
+            RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(
+                this.footerButton, 0.0);
             this.add(this.footerButton, BorderLayout.CENTER);
         }
 
