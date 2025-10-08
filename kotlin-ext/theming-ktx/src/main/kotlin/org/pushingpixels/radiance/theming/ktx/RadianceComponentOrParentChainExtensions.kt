@@ -93,7 +93,12 @@ public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
  *
  * @param colorizationFactor Colorization factor to apply to this component and its nested
  * children.
+ * @deprecated This method will be removed in version 9.0. Use
+ *      {@link ComponentScope#setContainerColorTokensOverlay(JComponent, ContainerColorTokensOverlay)}.
  */
+@Deprecated(message = "This method will be removed in version 9.0",
+    replaceWith = ReplaceWith("RadianceComponentExtensions.setContainerColorTokensOverlay"),
+    level = DeprecationLevel.WARNING)
 @RadianceComponentOrParentChainScope
 public fun JComponent.setColorizationFactor(colorizationFactor: Double) {
     RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this, colorizationFactor)

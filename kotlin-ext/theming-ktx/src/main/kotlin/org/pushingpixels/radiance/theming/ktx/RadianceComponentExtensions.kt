@@ -29,10 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.ktx
 
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter
+import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper
@@ -486,5 +489,41 @@ public fun JComponent.setIconFilterStrategies(
     RadianceThemingCortex.ComponentScope.setIconFilterStrategies(
         this, activeIconFilterStrategy, enabledIconFilterStrategy, disabledIconFilterStrategy
     )
+}
+
+/**
+ * Specifies the outline painter overlay to use on the specified component. Pass
+ * <code>null</code> to reset to no overlays.
+ *
+ * @param outlinePainterOverlay Outline painter overlay for the component.
+ */
+@RadianceComponentScope
+public fun JComponent.setOutlinePainterOverlay(outlinePainterOverlay: RadianceOutlinePainter.Overlay?) {
+    RadianceThemingCortex.ComponentScope.setOutlinePainterOverlay(
+        this, outlinePainterOverlay)
+}
+
+/**
+ * Specifies the surface painter overlay to use on the specified component. Pass
+ * <code>null</code> to reset to no overlays.
+ *
+ * @param surfacePainterOverlay Surface painter overlay for the component.
+ */
+@RadianceComponentScope
+public fun JComponent.setSurfacePainterOverlay(surfacePainterOverlay: RadianceSurfacePainter.Overlay?) {
+    RadianceThemingCortex.ComponentScope.setSurfacePainterOverlay(
+        this, surfacePainterOverlay)
+}
+
+/**
+ * Specifies the container color tokens overlay to use on the specified component. Pass
+ * <code>null</code> to reset to no overlays.
+ *
+ * @param containerColorTokensOverlay Container color tokens overlay for the component.
+ */
+@RadianceComponentScope
+public fun JComponent.setContainerColorTokensOverlay(containerColorTokensOverlay: ContainerColorTokensOverlay?) {
+    RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(
+        this, containerColorTokensOverlay)
 }
 

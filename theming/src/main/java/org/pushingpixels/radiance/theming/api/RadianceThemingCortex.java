@@ -1137,7 +1137,10 @@ public class RadianceThemingCortex {
          * @param colorizationFactor Colorization factor to apply to the component and its nested
          *                           children.
          * @see ComponentOrParentChainScope#setColorizationFactor(JComponent, double)
+         * @deprecated This method will be removed in version 9.0. Use
+         *      {@link ComponentScope#setContainerColorTokensOverlay(JComponent, ContainerColorTokensOverlay)}.
          */
+        @Deprecated
         public static void setColorizationFactor(double colorizationFactor) {
             UIManager.put(RadianceSynapse.COLORIZATION_FACTOR, Double.valueOf(colorizationFactor));
         }
@@ -2100,7 +2103,10 @@ public class RadianceThemingCortex {
          * @param colorizationFactor Colorization factor to apply to the component and its nested
          *                           children.
          * @see GlobalScope#setColorizationFactor(double)
+         * @deprecated This method will be removed in version 9.0. Use
+         *      {@link ComponentScope#setContainerColorTokensOverlay(JComponent, ContainerColorTokensOverlay)}.
          */
+        @Deprecated
         public static void setColorizationFactor(JComponent comp, double colorizationFactor) {
             comp.putClientProperty(RadianceSynapse.COLORIZATION_FACTOR,
                     Double.valueOf(colorizationFactor));
