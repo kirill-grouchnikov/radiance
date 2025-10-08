@@ -156,6 +156,71 @@ public class ContainerColorTokensBundle {
     }
 
     /**
+     * Creates a new color tokens bundle.
+     *
+     * @param activeContainerTokens
+     *            Active color tokens of this bundle.
+     * @param mutedContainerTokens
+     *            Muted color tokens of this bundle.
+     * @param neutralContainerTokens
+     *            Neutral color tokens of this bundle.
+     * @param systemInfoContainerTokens
+     *            System info color tokens of this bundle.
+     * @param inverseSystemInfoContainerTokens
+     *            Inverse system info color tokens of this bundle.
+     * @param systemWarningContainerTokens
+     *            System warning color tokens of this bundle.
+     * @param inverseSystemWarningContainerTokens
+     *            Inverse system warning color tokens of this bundle.
+     * @param systemErrorContainerTokens
+     *            System error color tokens of this bundle.
+     * @param inverseSystemErrorContainerTokens
+     *            Inverse system error color tokens of this bundle.
+     * @param systemSuccessContainerTokens
+     *            System success color tokens of this bundle.
+     * @param inverseSystemSuccessContainerTokens
+     *            Inverse system success color tokens of this bundle.
+     */
+    public ContainerColorTokensBundle(ContainerColorTokens activeContainerTokens,
+        ContainerColorTokens mutedContainerTokens, ContainerColorTokens neutralContainerTokens,
+        ContainerColorTokens systemInfoContainerTokens, ContainerColorTokens inverseSystemInfoContainerTokens,
+        ContainerColorTokens systemWarningContainerTokens, ContainerColorTokens inverseSystemWarningContainerTokens,
+        ContainerColorTokens systemErrorContainerTokens, ContainerColorTokens inverseSystemErrorContainerTokens,
+        ContainerColorTokens systemSuccessContainerTokens, ContainerColorTokens inverseSystemSuccessContainerTokens) {
+        if ((activeContainerTokens == null) || (mutedContainerTokens == null)
+            || (neutralContainerTokens == null)
+            || (systemInfoContainerTokens == null) || (inverseSystemInfoContainerTokens == null)
+            || (systemWarningContainerTokens == null) || (inverseSystemWarningContainerTokens == null)
+            || (systemErrorContainerTokens == null) || (inverseSystemErrorContainerTokens == null)
+            || (systemSuccessContainerTokens == null) || (inverseSystemSuccessContainerTokens == null)) {
+            throw new IllegalArgumentException("Cannot pass null tokens");
+        }
+
+        this.activeContainerTokens = activeContainerTokens;
+        this.mutedContainerTokens = mutedContainerTokens;
+        this.neutralContainerTokens = neutralContainerTokens;
+
+        this.systemInfoContainerTokens = systemInfoContainerTokens;
+        this.systemWarningContainerTokens = systemWarningContainerTokens;
+        this.systemErrorContainerTokens = systemErrorContainerTokens;
+        this.systemSuccessContainerTokens = systemSuccessContainerTokens;
+
+        this.inverseSystemInfoContainerTokens = inverseSystemInfoContainerTokens;
+        this.inverseSystemWarningContainerTokens = inverseSystemWarningContainerTokens;
+        this.inverseSystemErrorContainerTokens = inverseSystemErrorContainerTokens;
+        this.inverseSystemSuccessContainerTokens = inverseSystemSuccessContainerTokens;
+
+        this.activeTokenOverrides = new HashMap<>();
+        for (RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind :
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.values()) {
+            this.activeTokenOverrides.put(associationKind, new HashMap<>());
+        }
+
+        this.mutedTokenOverrides = new HashMap<>();
+        this.neutralTokenOverrides = new HashMap<>();
+    }
+
+    /**
      * Registers container color tokens for the specific active component states.
      *
      * @param stateContainerTokens
