@@ -50,9 +50,10 @@ public class ContainerColorTokensOverlay {
         this.activeTokenOverrides = new HashMap<>();
     }
 
-    public static ContainerColorTokensOverlay defaultSystemOverlay(RadianceSkin skin,
+    public static ContainerColorTokensOverlay defaultSystemOverlay(
         Component component, RadianceThemingSlices.SystemContainerType systemContainerType) {
 
+        RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(component);
         ContainerColorTokens systemContainerTokens = skin.getSystemContainerTokens(component,
             systemContainerType);
         ContainerColorTokens neutralContainerTokens = new ContainerColorTokens() {
@@ -169,9 +170,10 @@ public class ContainerColorTokensOverlay {
             neutralContainerTokens);
     }
 
-    public static ContainerColorTokensOverlay defaultMenuSystemOverlay(RadianceSkin skin,
+    public static ContainerColorTokensOverlay defaultMenuSystemOverlay(
         Component component, RadianceThemingSlices.SystemContainerType systemContainerType) {
 
+        RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(component);
         ContainerColorTokens systemContainerTokens = skin.getSystemContainerTokens(component,
             systemContainerType);
         ContainerColorTokens neutralContainerTokens = new ContainerColorTokens() {

@@ -87,19 +87,17 @@ public class SampleMenuFactory {
     private static void updateSystemTokens(JMenuBar menuBar, JMenuItem overlayInfo,
         JMenuItem overlayWarning, JMenuItem overlayError, JMenuItem overlaySuccess) {
 
-        RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(menuBar);
-
         RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayInfo,
-            ContainerColorTokensOverlay.defaultMenuSystemOverlay(skin, menuBar,
+            ContainerColorTokensOverlay.defaultMenuSystemOverlay(menuBar,
                 RadianceThemingSlices.SystemContainerType.INFO));
         RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayWarning,
-            ContainerColorTokensOverlay.defaultMenuSystemOverlay(skin, menuBar,
+            ContainerColorTokensOverlay.defaultMenuSystemOverlay(menuBar,
                 RadianceThemingSlices.SystemContainerType.WARNING));
         RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayError,
-            ContainerColorTokensOverlay.defaultMenuSystemOverlay(skin, menuBar,
+            ContainerColorTokensOverlay.defaultMenuSystemOverlay(menuBar,
                 RadianceThemingSlices.SystemContainerType.ERROR));
         RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlaySuccess,
-            ContainerColorTokensOverlay.defaultMenuSystemOverlay(skin, menuBar,
+            ContainerColorTokensOverlay.defaultMenuSystemOverlay(menuBar,
                 RadianceThemingSlices.SystemContainerType.SUCCESS));
     }
 
