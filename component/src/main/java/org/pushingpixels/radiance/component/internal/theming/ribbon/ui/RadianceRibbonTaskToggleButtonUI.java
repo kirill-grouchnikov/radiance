@@ -29,9 +29,11 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.radiance.component.internal.theming.utils.RibbonTaskToggleButtonBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonTaskToggleButtonUI;
@@ -39,6 +41,7 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggle
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -107,8 +110,6 @@ public class RadianceRibbonTaskToggleButtonUI extends
         });
         ComponentOrParentChainScope.setDecorationType(this.commandButton,
                 DecorationAreaType.CONTROL_PANE);
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this.commandButton,
-                RibbonContextualTaskGroup.HUE_ALPHA);
     }
 
     @Override
@@ -132,8 +133,22 @@ public class RadianceRibbonTaskToggleButtonUI extends
 
         this.radiancePropertyChangeListener = propertyChangeEvent -> {
             if ("contextualGroupHueColor".equals(propertyChangeEvent.getPropertyName())) {
+                boolean isDark = RadianceCoreUtilities.getSkin(commandButton)
+                    .getNeutralContainerTokens(DecorationAreaType.CONTROL_PANE).isDark();
+
                 Color newValue = (Color) propertyChangeEvent.getNewValue();
-                commandButton.setBackground(newValue);
+                TonalPalette palette = TonalPalette.fromHct(Hct.fromInt(newValue.getRGB()));
+                Hct surface = isDark ? palette.getHct(80) : palette.getHct(45);
+
+                ContainerColorTokens containerColorTokens =
+                    ContainerColorTokensUtils.getContainerTokens(
+                        /* seed */ surface,
+                        /* containerConfiguration */ isDark
+                            ? ContainerConfiguration.defaultLight()
+                            : ContainerConfiguration.defaultDark());
+                RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(
+                    commandButton, new ContainerColorTokensOverlay(containerColorTokens,
+                        containerColorTokens, containerColorTokens));
             }
         };
         this.commandButton.addPropertyChangeListener(this.radiancePropertyChangeListener);

@@ -33,6 +33,7 @@ apply plugin: 'java'
 dependencies {
     implementation project(':animation')
     implementation project(':common')
+    implementation libs.ephemeral.chroma
     implementation project(':theming')
 }
 

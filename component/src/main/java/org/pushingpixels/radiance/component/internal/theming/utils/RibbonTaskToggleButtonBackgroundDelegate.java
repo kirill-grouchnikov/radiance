@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.component.internal.theming.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
@@ -73,34 +72,25 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         // Otherwise, we use the background color tokens as the base fill for the visual
         // continuity, and let the other active states (if any) paint the additional
         // transition visuals.
-        BladeUtils.populateColorTokens(mutableTokens,
-                modelStateInfo, currState,
-                new BladeUtils.ColorTokensDelegate() {
+        BladeUtils.populateColorTokens(mutableTokens, modelStateInfo, currState,
+            new BladeUtils.ColorTokensDelegate() {
+                @Override
+                public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
+                    return CoreColorTokenUtils.getContainerTokens(button,
+                        state, CoreColorTokenUtils.ContainerType.ACTIVE);
+                }
 
-                    @Override
-                    public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
+                @Override
+                public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
+                    if (state == ComponentState.ENABLED) {
                         return CoreColorTokenUtils.getContainerTokens(button,
-                            state, CoreColorTokenUtils.ContainerType.ACTIVE);
+                            state, CoreColorTokenUtils.ContainerType.NEUTRAL);
                     }
-
-                    @Override
-                    public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
-                        if (state == ComponentState.ENABLED) {
-                            RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-                            return skin.getNeutralContainerTokens(button);
-                        }
-                        return CoreColorTokenUtils.getContainerTokens(button,
-                            state, CoreColorTokenUtils.ContainerType.ACTIVE);
-                    }
-                },
-                true);
-
-        // Account for contextual hue color associated with the button's group
-        Color contextualGroupHueColor = button.getContextualGroupHueColor();
-        ContainerColorTokens finalTokens = (contextualGroupHueColor != null)
-            ? CoreColorTokenUtils.getBlendedTokens(mutableTokens,
-                contextualGroupHueColor, RibbonContextualTaskGroup.HUE_ALPHA, null, 0.0f)
-            : mutableTokens;
+                    return CoreColorTokenUtils.getContainerTokens(button,
+                        state, CoreColorTokenUtils.ContainerType.ACTIVE);
+                }
+            },
+            true);
 
         float alpha = 0.0f;
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
@@ -121,7 +111,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-            drawFullAlphaBackground(graphics, button, currState, finalTokens);
+            drawFullAlphaBackground(graphics, button, currState, mutableTokens);
 
             graphics.dispose();
         }
