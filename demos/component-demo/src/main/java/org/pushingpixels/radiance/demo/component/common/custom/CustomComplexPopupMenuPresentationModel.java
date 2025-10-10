@@ -92,16 +92,15 @@ public class CustomComplexPopupMenuPresentationModel extends BaseCommandPopupMen
                     .build();
     public final LabelPresentationModel headerTitlePresentationModel =
             LabelPresentationModel.builder()
-                    .setContentPadding(new Insets(10, 16, 10, 16))
+                    .setContentPadding(new Insets(0, 8, 0, 8))
                     .setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().
                             getFontSet().getControlFont().deriveFont(Font.BOLD))
                     .build();
     public final CommandButtonPresentationModel headerSignInPresentationModel =
             CommandButtonPresentationModel.builder()
                     .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                    .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)
-                    .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
-                    .setContentPadding(new Insets(10, 16, 10, 16))
+                    .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
+                    .setContentPadding(BaseCommandButtonPresentationModel.WIDE_BUTTON_CONTENT_PADDING)
                     .build();
     public final int headerSeparatorHeight = 2;
     public final CommandButtonPresentationModel footerPresentationModel =

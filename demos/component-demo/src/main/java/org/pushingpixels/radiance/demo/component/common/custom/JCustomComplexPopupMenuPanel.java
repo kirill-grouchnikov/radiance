@@ -47,6 +47,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.text.RadianceTextUtils;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -222,7 +223,7 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
                                 maxActionWidth = Math.max(maxActionWidth, signInPreferredSize.width);
 
-                                combinedHeight += (signInPreferredSize.height + presentationModel.headerSeparatorHeight);
+                                combinedHeight += (signInPreferredSize.height + presentationModel.headerSeparatorHeight + 16);
 
                                 break;
                             case FOOTER:
@@ -474,25 +475,18 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             this.setLayout(new BorderLayout());
 
             JPanel mainSection = new JPanel(new BorderLayout());
+            mainSection.setBorder(new EmptyBorder(8, 8, 8, 8));
             JExoLabel titleLabel = new LabelProjection(
                     LabelContentModel.builder().setText(header.getTitle()).build(),
                     presentationModel.headerTitlePresentationModel
             ).buildComponent();
             mainSection.add(titleLabel, BorderLayout.LINE_START);
 
-            JPanel signInPanel = new JPanel(new BorderLayout());
-            RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-            ContainerColorTokens tokens = skin.getNeutralContainerTokens(this);
-
-            RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(signInPanel, 1.0);
-            signInPanel.setBackground(tokens.getContainerSurfaceLow());
-
             this.signInButton = header.getCommandSignIn().project(presentationModel.headerSignInPresentationModel).
                     buildComponent();
             RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(
                 this.signInButton, 0.0);
-            signInPanel.add(this.signInButton, BorderLayout.CENTER);
-            mainSection.add(signInPanel, BorderLayout.LINE_END);
+            mainSection.add(this.signInButton, BorderLayout.LINE_END);
 
             this.add(mainSection, BorderLayout.CENTER);
 
