@@ -308,7 +308,11 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                 switch (sectionEntry.getKey()) {
                     case COMMAND:
                         Command command = (Command) sectionEntry.getValue();
-                        JCommandButton commandButton = command.project(presentation).buildComponent();
+                        // Do we need to apply a command-specific overlay?
+                        CommandButtonPresentationModel.Overlay overlay = this.projection.getCommandOverlays().get(command);
+                        CommandButtonPresentationModel combinedPresentationModel = (overlay != null) ?
+                            presentation.overlayWith(overlay) : presentation;
+                        JCommandButton commandButton = command.project(combinedPresentationModel).buildComponent();
                         this.addMenuButton(commandButton);
                         break;
                     case EDIT:

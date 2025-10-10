@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresen
 import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
@@ -99,6 +100,8 @@ public class CustomComplexPopupMenuPresentationModel extends BaseCommandPopupMen
     public final CommandButtonPresentationModel headerSignInPresentationModel =
             CommandButtonPresentationModel.builder()
                     .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                    .setContainerColorTokensOverlayProvider(ContainerColorTokensOverlay.defaultSystemOverlayProvider(
+                        RadianceThemingSlices.SystemContainerType.INFO))
                     .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                     .setContentPadding(BaseCommandButtonPresentationModel.WIDE_BUTTON_CONTENT_PADDING)
                     .build();

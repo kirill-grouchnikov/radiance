@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.component.api.common.projection.BaseCommandBut
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
@@ -272,6 +273,13 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
                     wasRollover = isRollover;
                 }
             });
+        }
+
+        ContainerColorTokensOverlay.Provider containerColorTokensOverlayProvider =
+            commandPresentation.getContainerColorTokensOverlayProvider();
+        if (containerColorTokensOverlayProvider != null) {
+            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(
+                this, containerColorTokensOverlayProvider);
         }
 
         // Don't remove the next line - we need to instantiate the RichTooltipManager

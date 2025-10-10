@@ -57,67 +57,68 @@ public class CommandButtonPresentationModel extends BaseCommandButtonPresentatio
         CommandButtonPresentationModel result = new CommandButtonPresentationModel();
 
         result.presentationState = (overlay.getPresentationState() != null)
-                ? overlay.getPresentationState() : this.presentationState;
+            ? overlay.getPresentationState() : this.presentationState;
+        result.containerColorTokensOverlayProvider = (overlay.getContainerColorTokensOverlayProvider() != null)
+            ? overlay.getContainerColorTokensOverlayProvider() : this.containerColorTokensOverlayProvider;
         result.backgroundAppearanceStrategy = (overlay.getBackgroundAppearanceStrategy() != null)
-                ? overlay.getBackgroundAppearanceStrategy() : this.backgroundAppearanceStrategy;
+            ? overlay.getBackgroundAppearanceStrategy() : this.backgroundAppearanceStrategy;
         result.isFocusable = (overlay.getFocusable() != null) ? overlay.getFocusable() : this.isFocusable;
         result.horizontalAlignment = (overlay.getHorizontalAlignment() != null)
-                ? overlay.getHorizontalAlignment() : this.horizontalAlignment;
+            ? overlay.getHorizontalAlignment() : this.horizontalAlignment;
         result.contentPadding = (overlay.getContentPadding() != null)
-                ? overlay.getContentPadding() : this.contentPadding;
+            ? overlay.getContentPadding() : this.contentPadding;
         result.horizontalGapScaleFactor = (overlay.getHorizontalGapScaleFactor() != null)
-                ? overlay.getHorizontalGapScaleFactor() : this.horizontalGapScaleFactor;
+            ? overlay.getHorizontalGapScaleFactor() : this.horizontalGapScaleFactor;
         result.verticalGapScaleFactor = (overlay.getVerticalGapScaleFactor() != null)
-                ? overlay.getVerticalGapScaleFactor() : this.verticalGapScaleFactor;
+            ? overlay.getVerticalGapScaleFactor() : this.verticalGapScaleFactor;
         result.iconDimension = (overlay.getIconDimension() != null)
-                ? overlay.getIconDimension() : this.iconDimension;
+            ? overlay.getIconDimension() : this.iconDimension;
         result.activeIconFilterStrategy = (overlay.getActiveIconFilterStrategy() != null)
-                ? overlay.getActiveIconFilterStrategy() : this.activeIconFilterStrategy;
+            ? overlay.getActiveIconFilterStrategy() : this.activeIconFilterStrategy;
         result.enabledIconFilterStrategy = (overlay.getEnabledIconFilterStrategy() != null)
-                ? overlay.getEnabledIconFilterStrategy() : this.enabledIconFilterStrategy;
+            ? overlay.getEnabledIconFilterStrategy() : this.enabledIconFilterStrategy;
         result.disabledIconFilterStrategy = (overlay.getDisabledIconFilterStrategy() != null)
-                ? overlay.getDisabledIconFilterStrategy() : this.disabledIconFilterStrategy;
+            ? overlay.getDisabledIconFilterStrategy() : this.disabledIconFilterStrategy;
         result.forceAllocateSpaceForIcon = (overlay.isForceAllocateSpaceForIcon() != null)
-                ? overlay.isForceAllocateSpaceForIcon() : this.forceAllocateSpaceForIcon;
+            ? overlay.isForceAllocateSpaceForIcon() : this.forceAllocateSpaceForIcon;
         result.selectedStateHighlight = (overlay.getSelectedStateHighlight() != null)
-                ? overlay.getSelectedStateHighlight() : this.selectedStateHighlight;
+            ? overlay.getSelectedStateHighlight() : this.selectedStateHighlight;
         result.font = (overlay.getFont() != null) ? overlay.getFont() : this.font;
         result.popupPlacementStrategy = (overlay.getPopupPlacementStrategy() != null)
-                ? overlay.getPopupPlacementStrategy() : this.popupPlacementStrategy;
+            ? overlay.getPopupPlacementStrategy() : this.popupPlacementStrategy;
         result.toDismissPopupsOnActivation = (overlay.getToDismissPopupsOnActivation() != null)
-                ? overlay.getToDismissPopupsOnActivation() : this.toDismissPopupsOnActivation;
+            ? overlay.getToDismissPopupsOnActivation() : this.toDismissPopupsOnActivation;
         result.showPopupIcon = (overlay.isShowPopupIcon() != null)
-                ? overlay.isShowPopupIcon() : this.showPopupIcon;
+            ? overlay.isShowPopupIcon() : this.showPopupIcon;
         result.popupIconFactory = (overlay.getPopupIconFactory() != null)
-                ? overlay.getPopupIconFactory() : this.popupIconFactory;
+            ? overlay.getPopupIconFactory() : this.popupIconFactory;
         result.popupAnchorBoundsProvider = (overlay.getPopupAnchorBoundsProvider() != null)
-                ? overlay.getPopupAnchorBoundsProvider() : this.popupAnchorBoundsProvider;
+            ? overlay.getPopupAnchorBoundsProvider() : this.popupAnchorBoundsProvider;
         result.popupMenuPresentationModel = (overlay.getPopupMenuPresentationModel() != null)
-                ? (CommandPopupMenuPresentationModel) overlay.getPopupMenuPresentationModel() : this.popupMenuPresentationModel;
+            ? (CommandPopupMenuPresentationModel) overlay.getPopupMenuPresentationModel() : this.popupMenuPresentationModel;
         result.actionKeyTip = (overlay.getActionKeyTip() != null)
-                ? overlay.getActionKeyTip() : this.actionKeyTip;
+            ? overlay.getActionKeyTip() : this.actionKeyTip;
         result.popupKeyTip = (overlay.getPopupKeyTip() != null)
-                ? overlay.getPopupKeyTip() : this.popupKeyTip;
+            ? overlay.getPopupKeyTip() : this.popupKeyTip;
         result.textClick = (overlay.getTextClick() != null)
-                ? overlay.getTextClick() : this.textClick;
+            ? overlay.getTextClick() : this.textClick;
         result.isAutoRepeatAction = (overlay.getAutoRepeatAction() != null)
-                ? overlay.getAutoRepeatAction() : this.isAutoRepeatAction;
+            ? overlay.getAutoRepeatAction() : this.isAutoRepeatAction;
         result.hasAutoRepeatIntervalsSet = (overlay.getHasAutoRepeatIntervalsSet() != null)
-                ? overlay.getHasAutoRepeatIntervalsSet() : this.hasAutoRepeatIntervalsSet;
+            ? overlay.getHasAutoRepeatIntervalsSet() : this.hasAutoRepeatIntervalsSet;
         result.autoRepeatInitialInterval = (overlay.getAutoRepeatInitialInterval() != null)
-                ? overlay.getAutoRepeatInitialInterval() : this.autoRepeatInitialInterval;
+            ? overlay.getAutoRepeatInitialInterval() : this.autoRepeatInitialInterval;
         result.autoRepeatSubsequentInterval = (overlay.getAutoRepeatSubsequentInterval() != null)
-                ? overlay.getAutoRepeatSubsequentInterval() : this.autoRepeatSubsequentInterval;
+            ? overlay.getAutoRepeatSubsequentInterval() : this.autoRepeatSubsequentInterval;
         result.actionFireTrigger = (overlay.getActionFireTrigger() != null)
-                ? overlay.getActionFireTrigger() : this.actionFireTrigger;
+            ? overlay.getActionFireTrigger() : this.actionFireTrigger;
         result.popupFireTrigger = (overlay.getPopupFireTrigger() != null)
-                ? overlay.getPopupFireTrigger() : this.popupFireTrigger;
+            ? overlay.getPopupFireTrigger() : this.popupFireTrigger;
         result.actionRichTooltipPresentationModel = (overlay.getActionRichTooltipPresentationModel() != null)
-                ? overlay.getActionRichTooltipPresentationModel() : this.actionRichTooltipPresentationModel;
+            ? overlay.getActionRichTooltipPresentationModel() : this.actionRichTooltipPresentationModel;
         result.popupRichTooltipPresentationModel = (overlay.getPopupRichTooltipPresentationModel() != null)
-                ? overlay.getPopupRichTooltipPresentationModel() : this.popupRichTooltipPresentationModel;
-        result.sides = (overlay.getSides() != null)
-                ? overlay.getSides() : this.sides;
+            ? overlay.getPopupRichTooltipPresentationModel() : this.popupRichTooltipPresentationModel;
+        result.sides = (overlay.getSides() != null) ? overlay.getSides() : this.sides;
 
         return result;
     }

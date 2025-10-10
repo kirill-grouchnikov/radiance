@@ -56,6 +56,7 @@ import org.pushingpixels.radiance.demo.component.svg.material.transcoded.menu_bl
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
@@ -372,6 +373,7 @@ public class TestCommandButtons extends JFrame {
     private static int CURR_ZOOM_LEVEL_INDEX = 5;
     private static Command ZOOM_OUT_COMMAND;
     private static Command ZOOM_IN_COMMAND;
+    private static Command DELETE_ACCOUNT_COMMAND;
     private static CustomComplexPopupMenuZoom MENU_ZOOM;
 
     private BaseCommandButtonProjection getCustomButtonProjection() {
@@ -393,6 +395,10 @@ public class TestCommandButtons extends JFrame {
                     ZOOM_IN_COMMAND.setActionEnabled(CURR_ZOOM_LEVEL_INDEX < (ZOOM_LEVELS.length - 1));
                 })
                 .build();
+        DELETE_ACCOUNT_COMMAND = Command.builder()
+            .setText(resourceBundle.getString("Menu.deleteAccount"))
+            .setAction(commandActionEvent -> System.out.println("Delete account"))
+            .build();
         MessageFormat managedByMf = new MessageFormat(resourceBundle.getString("Menu.managedBy"));
         managedByMf.setLocale(currLocale);
 
@@ -497,6 +503,7 @@ public class TestCommandButtons extends JFrame {
                                 )
                                 .build()
                         )
+                        .addCommand(DELETE_ACCOUNT_COMMAND)
                         .build());
         menuContentModel.addSection(
                 CustomComplexPopupMenuContentModel.sectionBuilder()
@@ -507,7 +514,7 @@ public class TestCommandButtons extends JFrame {
                                         .build()))
                         .build());
 
-        return new CustomComplexCommandButtonProjection(
+        CustomComplexCommandButtonProjection result = new CustomComplexCommandButtonProjection(
                 CustomComplexCommand.builder()
                         .setIconFactory(menu_black_24dp.factory())
                         .setSecondaryContentModel(menuContentModel)
@@ -524,6 +531,14 @@ public class TestCommandButtons extends JFrame {
                                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS)
                         .build());
+
+        Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays = new HashMap<>();
+        commandOverlays.put(DELETE_ACCOUNT_COMMAND,
+            CommandButtonPresentationModel.overlay().setContainerColorTokensOverlayProvider(
+                ContainerColorTokensOverlay.defaultMenuSystemOverlayProvider(
+                    RadianceThemingSlices.SystemContainerType.ERROR)));
+        result.setCommandOverlays(commandOverlays);
+        return result;
     }
 
     /**

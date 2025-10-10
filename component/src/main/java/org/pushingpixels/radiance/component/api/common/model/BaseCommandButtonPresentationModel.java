@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonPresentation
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.icon.CommandButtonDefaultPopupIcon;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import java.awt.*;
@@ -55,6 +56,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
     protected RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
     protected RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
     protected boolean forceAllocateSpaceForIcon;
+    protected ContainerColorTokensOverlay.Provider containerColorTokensOverlayProvider;
     protected RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
     protected boolean isFocusable;
     protected HorizontalAlignment horizontalAlignment;
@@ -93,6 +95,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
 
     public CommandButtonPresentationState getPresentationState() {
         return this.presentationState;
+    }
+
+    public ContainerColorTokensOverlay.Provider getContainerColorTokensOverlayProvider() {
+        return this.containerColorTokensOverlayProvider;
     }
 
     public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
@@ -274,6 +280,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
 
     public static class Overlay {
         private CommandButtonPresentationState presentationState;
+        private ContainerColorTokensOverlay.Provider containerColorTokensOverlayProvider;
         private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
         private Boolean isFocusable;
         private HorizontalAlignment horizontalAlignment;
@@ -306,8 +313,16 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private RichTooltipPresentationModel popupRichTooltipPresentationModel;
         private RadianceThemingSlices.Sides sides;
 
+        public Overlay setContainerColorTokensOverlayProvider(
+            ContainerColorTokensOverlay.Provider containerColorTokensOverlayProvider) {
+
+            this.containerColorTokensOverlayProvider = containerColorTokensOverlayProvider;
+            return this;
+        }
+
         public Overlay setBackgroundAppearanceStrategy(
-                RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+            RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+
             this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
             return this;
         }
@@ -348,9 +363,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         }
 
         public Overlay setIconFilterStrategies(
-                RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy,
-                RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy,
-                RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy) {
+            RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy,
+            RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy,
+            RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy) {
+
             this.activeIconFilterStrategy = activeIconFilterStrategy;
             this.enabledIconFilterStrategy = enabledIconFilterStrategy;
             this.disabledIconFilterStrategy = disabledIconFilterStrategy;
@@ -367,7 +383,9 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this;
         }
 
-        public Overlay setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
+        public Overlay setPopupPlacementStrategy(
+            RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
+
             this.popupPlacementStrategy = popupPlacementStrategy;
             return this;
         }
@@ -398,7 +416,8 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         }
 
         public Overlay setPopupMenuPresentationModel(
-                BaseCommandPopupMenuPresentationModel popupMenuPresentationModel) {
+            BaseCommandPopupMenuPresentationModel popupMenuPresentationModel) {
+
             this.popupMenuPresentationModel = popupMenuPresentationModel;
             return this;
         }
@@ -440,12 +459,16 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this;
         }
 
-        public Overlay setActionRichTooltipPresentationModel(RichTooltipPresentationModel actionRichTooltipPresentationModel) {
+        public Overlay setActionRichTooltipPresentationModel(
+            RichTooltipPresentationModel actionRichTooltipPresentationModel) {
+
             this.actionRichTooltipPresentationModel = actionRichTooltipPresentationModel;
             return this;
         }
 
-        public Overlay setPopupRichTooltipPresentationModel(RichTooltipPresentationModel popupRichTooltipPresentationModel) {
+        public Overlay setPopupRichTooltipPresentationModel(
+            RichTooltipPresentationModel popupRichTooltipPresentationModel) {
+
             this.popupRichTooltipPresentationModel = popupRichTooltipPresentationModel;
             return this;
         }
@@ -457,6 +480,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
 
         public CommandButtonPresentationState getPresentationState() {
             return this.presentationState;
+        }
+
+        public ContainerColorTokensOverlay.Provider getContainerColorTokensOverlayProvider() {
+            return this.containerColorTokensOverlayProvider;
         }
 
         public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
@@ -589,6 +616,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             B extends BaseBuilder<MPM, PM, B>> {
         private CommandButtonPresentationState presentationState =
                 CommandButtonPresentationState.BIG_FIT_TO_ICON;
+        private ContainerColorTokensOverlay.Provider containerColorTokensOverlayProvider = null;
         private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
                 RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT;
         private boolean isFocusable = true;
@@ -634,8 +662,17 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private RadianceThemingSlices.Sides sides = null;
 
         @SuppressWarnings("unchecked")
+        public B setContainerColorTokensOverlayProvider(
+            ContainerColorTokensOverlay.Provider containerColorTokensOverlayProvider) {
+
+            this.containerColorTokensOverlayProvider = containerColorTokensOverlayProvider;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
         public B setBackgroundAppearanceStrategy(
-                RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+            RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+
             this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
             return (B) this;
         }
@@ -827,6 +864,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             presentationModel.contentPadding = this.contentPadding;
             presentationModel.horizontalGapScaleFactor = this.horizontalGapScaleFactor;
             presentationModel.verticalGapScaleFactor = this.verticalGapScaleFactor;
+            presentationModel.containerColorTokensOverlayProvider = this.containerColorTokensOverlayProvider;
             presentationModel.backgroundAppearanceStrategy = this.backgroundAppearanceStrategy;
             presentationModel.isFocusable = this.isFocusable;
             presentationModel.iconDimension = this.iconDimension;
