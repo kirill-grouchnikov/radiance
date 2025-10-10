@@ -1026,14 +1026,14 @@ public class RadianceCoreUtilities {
         return null;
     }
 
-    public static ContainerColorTokensOverlay getContainerColorTokensOverlay(Component component) {
+    public static ContainerColorTokensOverlay.Provider getContainerColorTokensOverlayProvider(Component component) {
         if (!(component instanceof JComponent)) {
             return null;
         }
         JComponent jcomp = (JComponent) component;
-        Object componentProperty = jcomp.getClientProperty(RadianceSynapse.CONTAINER_COLOR_TOKENS_OVERLAY);
-        if (componentProperty instanceof ContainerColorTokensOverlay) {
-            return (ContainerColorTokensOverlay) componentProperty;
+        Object componentProperty = jcomp.getClientProperty(RadianceSynapse.CONTAINER_COLOR_TOKENS_OVERLAY_PROVIDER);
+        if (componentProperty instanceof ContainerColorTokensOverlay.Provider) {
+            return (ContainerColorTokensOverlay.Provider) componentProperty;
         }
         return null;
     }

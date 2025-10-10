@@ -522,8 +522,8 @@ public fun JComponent.setSurfacePainterOverlay(surfacePainterOverlay: RadianceSu
  * @param containerColorTokensOverlay Container color tokens overlay for the component.
  */
 @RadianceComponentScope
-public fun JComponent.setContainerColorTokensOverlay(containerColorTokensOverlay: ContainerColorTokensOverlay?) {
-    RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(
+public fun JComponent.setContainerColorTokensOverlayProvider(containerColorTokensOverlay: ContainerColorTokensOverlay.Provider?) {
+    RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(
         this, containerColorTokensOverlay)
 }
 

@@ -1951,21 +1951,21 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Specifies the container color tokens overlay to use on the specified component. Pass
-         * <code>null</code> to reset to no overlays.
+         * Specifies the container color tokens overlay provider to use on the specified component.
+         * Pass <code>null</code> to reset to no overlays.
          *
          * @param component Component.
-         * @param containerColorTokensOverlay Container color tokens overlay for the component.
-         * @see ContainerColorTokensOverlay#defaultSystemOverlay(Component, RadianceThemingSlices.SystemContainerType)
-         * @see ContainerColorTokensOverlay#defaultMenuSystemOverlay(Component, RadianceThemingSlices.SystemContainerType)
+         * @param containerColorTokensOverlayProvider Container color tokens overlay provider for the component.
+         * @see ContainerColorTokensOverlay#defaultSystemOverlayProvider(RadianceThemingSlices.SystemContainerType)
+         * @see ContainerColorTokensOverlay#defaultMenuSystemOverlayProvider(RadianceThemingSlices.SystemContainerType)
          */
-        public static void setContainerColorTokensOverlay(JComponent component,
-            ContainerColorTokensOverlay containerColorTokensOverlay) {
+        public static void setContainerColorTokensOverlayProvider(JComponent component,
+            ContainerColorTokensOverlay.Provider containerColorTokensOverlayProvider) {
             if (component == null) {
                 throw new IllegalArgumentException("Component scope APIs do not accept null components");
             }
-            component.putClientProperty(RadianceSynapse.CONTAINER_COLOR_TOKENS_OVERLAY,
-                containerColorTokensOverlay);
+            component.putClientProperty(RadianceSynapse.CONTAINER_COLOR_TOKENS_OVERLAY_PROVIDER,
+                containerColorTokensOverlayProvider);
         }
     }
 

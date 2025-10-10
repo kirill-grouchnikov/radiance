@@ -471,6 +471,22 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getSystemContainerTokens(systemContainerType);
     }
 
+    public final ContainerColorTokens getSystemContainerTokens(
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        RadianceThemingSlices.SystemContainerType systemContainerType) {
+        // small optimization - lookup the decoration area only if there
+        // are decoration-specific tokens bundles.
+        if (this.colorTokensBundleMap.size() > 1) {
+            if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
+                return this.colorTokensBundleMap.get(decorationAreaType)
+                    .getSystemContainerTokens(systemContainerType);
+            }
+        }
+
+        return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getSystemContainerTokens(systemContainerType);
+    }
+
     /**
      * Returns inverse system container tokens for the specified component.
      *
@@ -488,6 +504,22 @@ public abstract class RadianceSkin implements RadianceTrait {
             RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
                 RadianceThemingSlices.DecorationAreaType.NONE :
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+            if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
+                return this.colorTokensBundleMap.get(decorationAreaType)
+                    .getInverseSystemContainerTokens(systemContainerType);
+            }
+        }
+
+        return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+            .getInverseSystemContainerTokens(systemContainerType);
+    }
+
+    public final ContainerColorTokens getInverseSystemContainerTokens(
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        RadianceThemingSlices.SystemContainerType systemContainerType) {
+        // small optimization - lookup the decoration area only if there
+        // are decoration-specific tokens bundles.
+        if (this.colorTokensBundleMap.size() > 1) {
             if (this.colorTokensBundleMap.containsKey(decorationAreaType)) {
                 return this.colorTokensBundleMap.get(decorationAreaType)
                     .getInverseSystemContainerTokens(systemContainerType);

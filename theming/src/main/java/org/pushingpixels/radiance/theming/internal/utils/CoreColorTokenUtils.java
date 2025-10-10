@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.ephemeral.chroma.blend.Blend;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -90,8 +91,11 @@ public class CoreColorTokenUtils {
 
         Component orig = component;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        ContainerColorTokensOverlay tokensOverlay =
-            RadianceCoreUtilities.getContainerColorTokensOverlay(component);
+        ContainerColorTokensOverlay.Provider tokensOverlayProvider =
+            RadianceCoreUtilities.getContainerColorTokensOverlayProvider(component);
+        ContainerColorTokensOverlay tokensOverlay = (tokensOverlayProvider != null)
+            ? tokensOverlayProvider.getOverlay(skin, DecorationPainterUtils.getDecorationType(component))
+            : null;
 
         // special case - if the component is marked as flat and
         // it is in the default state, or it is a component
@@ -165,8 +169,11 @@ public class CoreColorTokenUtils {
         boolean skipFlatCheck) {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        ContainerColorTokensOverlay tokensOverlay =
-            RadianceCoreUtilities.getContainerColorTokensOverlay(component);
+        ContainerColorTokensOverlay.Provider tokensOverlayProvider =
+            RadianceCoreUtilities.getContainerColorTokensOverlayProvider(component);
+        ContainerColorTokensOverlay tokensOverlay = (tokensOverlayProvider != null)
+            ? tokensOverlayProvider.getOverlay(skin, DecorationPainterUtils.getDecorationType(component))
+            : null;
 
         // special case - if the component is marked as flat, get the color tokens of the parent.
         // However, flat toolbars should be ignored, since they are
@@ -231,8 +238,11 @@ public class CoreColorTokenUtils {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        ContainerColorTokensOverlay tokensOverlay =
-            RadianceCoreUtilities.getContainerColorTokensOverlay(component);
+        ContainerColorTokensOverlay.Provider tokensOverlayProvider =
+            RadianceCoreUtilities.getContainerColorTokensOverlayProvider(component);
+        ContainerColorTokensOverlay tokensOverlay = (tokensOverlayProvider != null)
+            ? tokensOverlayProvider.getOverlay(skin, DecorationPainterUtils.getDecorationType(component))
+            : null;
 
         ContainerColorTokens nonColorized = (tokensOverlay != null)
             ? tokensOverlay.getActiveContainerTokens(componentState)

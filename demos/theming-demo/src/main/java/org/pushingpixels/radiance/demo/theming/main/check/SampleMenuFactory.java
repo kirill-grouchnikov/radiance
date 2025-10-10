@@ -84,23 +84,6 @@ public class SampleMenuFactory {
         return testMenu;
     }
 
-    private static void updateSystemTokens(JMenuBar menuBar, JMenuItem overlayInfo,
-        JMenuItem overlayWarning, JMenuItem overlayError, JMenuItem overlaySuccess) {
-
-        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayInfo,
-            ContainerColorTokensOverlay.defaultMenuSystemOverlay(menuBar,
-                RadianceThemingSlices.SystemContainerType.INFO));
-        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayWarning,
-            ContainerColorTokensOverlay.defaultMenuSystemOverlay(menuBar,
-                RadianceThemingSlices.SystemContainerType.WARNING));
-        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlayError,
-            ContainerColorTokensOverlay.defaultMenuSystemOverlay(menuBar,
-                RadianceThemingSlices.SystemContainerType.ERROR));
-        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(overlaySuccess,
-            ContainerColorTokensOverlay.defaultMenuSystemOverlay(menuBar,
-                RadianceThemingSlices.SystemContainerType.SUCCESS));
-    }
-
     /**
      * Returns menu items for a sample test menu.
      *
@@ -269,10 +252,18 @@ public class SampleMenuFactory {
         JMenuItem overlayError = new JMenuItem("Themed info", error_24dp_outline.of(16, 16));
         JMenuItem overlaySuccess = new JMenuItem("Themed info", check_24dp_outline.of(16, 16));
 
-        updateSystemTokens(menuBar, overlayInfo, overlayWarning, overlayError, overlaySuccess);
-        RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(() -> {
-            updateSystemTokens(menuBar, overlayInfo, overlayWarning, overlayError, overlaySuccess);
-        }));
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(overlayInfo,
+            ContainerColorTokensOverlay.defaultMenuSystemOverlayProvider(
+                RadianceThemingSlices.SystemContainerType.INFO));
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(overlayWarning,
+            ContainerColorTokensOverlay.defaultMenuSystemOverlayProvider(
+                RadianceThemingSlices.SystemContainerType.WARNING));
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(overlayError,
+            ContainerColorTokensOverlay.defaultMenuSystemOverlayProvider(
+                RadianceThemingSlices.SystemContainerType.ERROR));
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(overlaySuccess,
+            ContainerColorTokensOverlay.defaultMenuSystemOverlayProvider(
+                RadianceThemingSlices.SystemContainerType.SUCCESS));
 
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(overlayInfo,
             RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,

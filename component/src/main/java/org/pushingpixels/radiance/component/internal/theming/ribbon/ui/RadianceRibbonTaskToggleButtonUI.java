@@ -146,8 +146,8 @@ public class RadianceRibbonTaskToggleButtonUI extends
                         /* containerConfiguration */ isDark
                             ? ContainerConfiguration.defaultLight()
                             : ContainerConfiguration.defaultDark());
-                RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(
-                    commandButton, new ContainerColorTokensOverlay(containerColorTokens,
+                RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(commandButton,
+                    (skin, decorationAreaType) -> new ContainerColorTokensOverlay(containerColorTokens,
                         containerColorTokens, containerColorTokens));
             }
         };

@@ -481,9 +481,8 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
 
         @Override
         public void configure(JComponent component) {
-            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlay(component,
-                ContainerColorTokensOverlay.defaultSystemOverlay(component,
-                    systemContainerType));
+            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(component,
+                ContainerColorTokensOverlay.defaultSystemOverlayProvider(systemContainerType));
         }
     }
 
