@@ -486,6 +486,20 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         }
     }
 
+    private static class ContainerColorTokenOverlayCommand implements ConfigurationCommand<JComponent> {
+        private Color seed;
+
+        public ContainerColorTokenOverlayCommand(Color seed) {
+            this.seed = seed;
+        }
+
+        @Override
+        public void configure(JComponent component) {
+            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(component,
+                ContainerColorTokensOverlay.defaultOverlayProvider(seed));
+        }
+    }
+
     /**
      * A configure command that sets the specified font on the specified button.
      *
@@ -642,7 +656,7 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
             "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 81).padding(Paddings.DIALOG);
+                "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 85).padding(Paddings.DIALOG);
 
         builder.append("");
 
@@ -755,6 +769,10 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
             new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.ERROR));
         this.addRow(builder, "Success", null,
             new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.SUCCESS));
+        this.addRow(builder, "Orange", null,
+            new ContainerColorTokenOverlayCommand(new Color(0xFFFFA53F)));
+        this.addRow(builder, "Purple", null,
+            new ContainerColorTokenOverlayCommand(new Color(0xFFD291FF)));
         this.addRow(builder, "Info + flat", null,
             new ChainCommand<>(
                 new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.INFO),
@@ -773,6 +791,16 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         this.addRow(builder, "Success + flat", null,
             new ChainCommand<>(
                 new SystemContainerColorTokenOverlayCommand(RadianceThemingSlices.SystemContainerType.SUCCESS),
+                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                    .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)));
+        this.addRow(builder, "Orange + flat", null,
+            new ChainCommand<>(
+                new ContainerColorTokenOverlayCommand(new Color(0xFFFFA53F)),
+                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                    .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)));
+        this.addRow(builder, "Purple + flat", null,
+            new ChainCommand<>(
+                new ContainerColorTokenOverlayCommand(new Color(0xFFD291FF)),
                 (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
                     .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)));
 
