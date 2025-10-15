@@ -29,12 +29,16 @@
  */
 package org.pushingpixels.radiance.demo.themingapps.mail;
 
+import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.FocusKind;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
 
 public class VisorMail extends JFrame {
     public static final RadianceThemingSlices.DecorationAreaType DESTINATIONS =
@@ -42,7 +46,75 @@ public class VisorMail extends JFrame {
     public static final RadianceThemingSlices.DecorationAreaType THREADS =
         new RadianceThemingSlices.DecorationAreaType("Visor Threads");
 
+    private static class FontSetWrapper implements FontSet {
+        private final FontUIResource controlFont;
+        private final FontUIResource menuFont;
+        private final FontUIResource titleFont;
+        private final FontUIResource messageFont;
+        private final FontUIResource smallFont;
+        private final FontUIResource windowTitleFont;
+
+        private FontSetWrapper(Font controlFont, Font menuFont, Font titleFont,
+            Font messageFont, Font smallFont, Font windowTitleFont) {
+            this.controlFont = new FontUIResource(controlFont);
+            this.menuFont = new FontUIResource(menuFont);
+            this.titleFont = new FontUIResource(titleFont);
+            this.messageFont = new FontUIResource(messageFont);
+            this.smallFont = new FontUIResource(smallFont);
+            this.windowTitleFont = new FontUIResource(windowTitleFont);
+        }
+
+        @Override
+        public FontUIResource getControlFont() {
+            return controlFont;
+        }
+
+        @Override
+        public FontUIResource getMenuFont() {
+            return menuFont;
+        }
+
+        @Override
+        public FontUIResource getTitleFont() {
+            return titleFont;
+        }
+
+        @Override
+        public FontUIResource getWindowTitleFont() {
+            return windowTitleFont;
+        }
+
+        @Override
+        public FontUIResource getSmallFont() {
+            return smallFont;
+        }
+
+        @Override
+        public FontUIResource getMessageFont() {
+            return messageFont;
+        }
+    }
+
     public VisorMail() {
+        try {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            URL baseFontURL = classLoader.getResource("fonts/CommitMono-400-Regular.otf");
+            Font baseFont = Font.createFont(Font.TRUETYPE_FONT, baseFontURL.openStream());
+            URL boldFontURL = classLoader.getResource("fonts/CommitMono-700-Regular.otf");
+            Font boldFont = Font.createFont(Font.TRUETYPE_FONT, boldFontURL.openStream());
+
+            Font controlFont = baseFont.deriveFont(13.0f);
+            Font menuFont = baseFont.deriveFont(14.0f);
+            Font titleFont = menuFont;
+            Font messageFont = controlFont;
+            Font smallFont = baseFont.deriveFont(12.0f);
+            Font windowTitleFont = boldFont.deriveFont(14.0f);
+            FontSet fontSet = new FontSetWrapper(controlFont, menuFont, titleFont,
+                messageFont, smallFont, windowTitleFont);
+
+            RadianceThemingCortex.GlobalScope.setFontPolicy(() -> fontSet);
+        } catch (IOException | FontFormatException e) {}
+
         BorderLayout mainLayout = new BorderLayout();
         Container contentPane = this.getContentPane();
         contentPane.setLayout(mainLayout);
