@@ -194,8 +194,9 @@ public class ThreadPanel extends JPanel {
         JLabel toLabel = new JLabel("To: " + to);
         toLabel.setBorder(new EmptyBorder(0, 16, 24, 16));
 
-        JEditorPane messagePane = new JEditorPane();
-        messagePane.setContentType("text/plain");
+        JTextArea messagePane = new JTextArea();
+        messagePane.setWrapStyleWord(true);
+        messagePane.setLineWrap(true);
         messagePane.setBorder(new EmptyBorder(0, 16, 0, 16));
         messagePane.setBackground(innerBackground);
         messagePane.setText(message);
