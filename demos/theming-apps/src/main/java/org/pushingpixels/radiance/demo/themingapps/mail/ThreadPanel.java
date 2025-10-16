@@ -197,6 +197,7 @@ public class ThreadPanel extends JPanel {
         JTextArea messagePane = new JTextArea();
         messagePane.setWrapStyleWord(true);
         messagePane.setLineWrap(true);
+        messagePane.setEditable(false);
         messagePane.setBorder(new EmptyBorder(0, 16, 0, 16));
         messagePane.setBackground(innerBackground);
         messagePane.setText(message);
