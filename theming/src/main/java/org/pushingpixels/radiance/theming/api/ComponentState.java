@@ -38,7 +38,7 @@ import java.util.*;
  * <p>
  * Instances of this class correspond to states of Swing core and custom
  * controls. This class provides a number of predefined static instances to
- * cover most action-based controls such as buttons, check boxes and menu items.
+ * cover most action-based controls such as buttons, checkboxes and menu items.
  * In addition, application code can define custom component states that create
  * fine grained mapping between arbitrary states of controls and specific color
  * tokens bundles in custom skins.

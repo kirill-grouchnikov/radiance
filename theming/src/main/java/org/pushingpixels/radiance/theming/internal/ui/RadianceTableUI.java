@@ -200,7 +200,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         this.installRendererIfNecessary(Date.class,
                 new RadianceDefaultTableCellRenderer.DateRenderer());
 
-        // fix for bug 56 - making default renderer for Boolean a check box.
+        // fix for bug 56 - making default renderer for Boolean a checkbox.
         this.installRendererIfNecessary(Boolean.class,
                 new RadianceDefaultTableCellRenderer.BooleanRenderer());
 

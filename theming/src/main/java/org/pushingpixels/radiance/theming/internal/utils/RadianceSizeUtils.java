@@ -253,11 +253,11 @@ public class RadianceSizeUtils {
 	}
 
 	/**
-	 * Returns the border for check boxes under the specified font size.
+	 * Returns the border for checkboxes under the specified font size.
 	 * 
 	 * @param fontSize
 	 *            Font size.
-	 * @return Border for check boxes under the specified font size.
+	 * @return Border for checkboxes under the specified font size.
 	 */
 	public static Border getCheckBoxBorder(int fontSize, boolean ltr) {
 		// The base insets are 2,3,3,5. We add one pixel for
@@ -277,12 +277,12 @@ public class RadianceSizeUtils {
 	}
 
 	/**
-	 * Returns the check mark size for check boxes under the specified font
+	 * Returns the check mark size for checkboxes under the specified font
 	 * size.
 	 * 
 	 * @param fontSize
 	 *            Font size.
-	 * @return Check mark size for check boxes under the specified font size.
+	 * @return Check mark size for checkboxes under the specified font size.
 	 */
 	public static int getCheckBoxMarkSize(int fontSize) {
 		return 2 + fontSize;
@@ -482,12 +482,12 @@ public class RadianceSizeUtils {
 	}
 
 	/**
-	 * Returns the check mark size of check box menu items and radio button menu
+	 * Returns the check mark size of checkbox menu items and radio button menu
 	 * items under the specified font size.
 	 * 
 	 * @param fontSize
 	 *            Font size.
-	 * @return Check mark size of check box menu items and radio button menu
+	 * @return Check mark size of checkbox menu items and radio button menu
 	 *         items under the specified font size.
 	 */
 	public static int getMenuCheckMarkSize(int fontSize) {

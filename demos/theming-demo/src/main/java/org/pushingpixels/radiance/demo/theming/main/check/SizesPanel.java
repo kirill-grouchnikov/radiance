@@ -88,7 +88,7 @@ public class SizesPanel extends JPanel {
             result.setFont(baseFinal.deriveFont((float) fontSize));
             return result;
         }));
-        this.model.add(new Mapping("check boxes", fontSize -> {
+        this.model.add(new Mapping("checkboxes", fontSize -> {
             JCheckBox result = new JCheckBox("size " + fontSize);
             result.setFont(baseFinal.deriveFont((float) fontSize));
             return result;

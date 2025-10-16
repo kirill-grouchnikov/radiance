@@ -43,7 +43,7 @@ import java.awt.*;
  * <br>
  *
  * An outline painter is responsible for painting outlines (borders) of controls such as
- * buttons, check boxes, tabs, scroll bars, etc.
+ * buttons, checkboxes, tabs, scroll bars, etc.
  *
  * @author Kirill Grouchnikov
  */

@@ -46,7 +46,7 @@ import javax.swing.plaf.basic.BasicButtonListener;
 import java.awt.*;
 
 /**
- * UI for check boxes in <b>Radiance</b> look and feel.
+ * UI for checkboxes in <b>Radiance</b> look and feel.
  *
  * @author Kirill Grouchnikov
  */
@@ -104,7 +104,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                 float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
                 boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
 
-                // Populate color tokens based on the current transition state of the check box.
+                // Populate color tokens based on the current transition state of the checkbox.
                 BladeUtils.populateColorTokens(mutableContainerTokens, button, modelStateInfo,
                     currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                     false, true, CoreColorTokenUtils.ContainerType.MUTED);

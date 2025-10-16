@@ -50,7 +50,7 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * UI for check box menu items in <b>Radiance</b> look and feel.
+ * UI for checkbox menu items in <b>Radiance</b> look and feel.
  *
  * @author Kirill Grouchnikov
  */

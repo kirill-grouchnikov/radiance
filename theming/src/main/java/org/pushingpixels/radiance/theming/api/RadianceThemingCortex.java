@@ -1109,8 +1109,8 @@ public class RadianceThemingCortex {
          * Calling this method installs the "smart colorization" mode which uses the colors of the
          * current color tokens and the custom background / foreground colors (when installed by
          * application) to colorize the relevant portions of the control. For example, on checkbox
-         * the custom background color will be used to colorize the check box itself, while the
-         * custom foreground color will be applied to the check box text and the check mark.
+         * the custom background color will be used to colorize the checkbox itself, while the
+         * custom foreground color will be applied to the checkbox text and the check mark.
          * </p>
          *
          * <p>
@@ -1138,7 +1138,7 @@ public class RadianceThemingCortex {
          *                           children.
          * @see ComponentOrParentChainScope#setColorizationFactor(JComponent, double)
          * @deprecated This method will be removed in version 9.0. Use
-         *      {@link ComponentScope#setContainerColorTokensOverlay(JComponent, ContainerColorTokensOverlay)}.
+         *      {@link ComponentScope#setContainerColorTokensOverlayProvider(JComponent, ContainerColorTokensOverlay.Provider)}.
          */
         @Deprecated
         public static void setColorizationFactor(double colorizationFactor) {
@@ -2075,8 +2075,8 @@ public class RadianceThemingCortex {
          * Calling this method installs the "smart colorization" mode which uses the colors of the
          * current color tokens and the custom background / foreground colors (when installed by
          * application) to colorize the relevant portions of the control. For example, on checkbox
-         * the custom background color will be used to colorize the check box itself, while the
-         * custom foreground color will be applied to the check box text and the check mark.
+         * the custom background color will be used to colorize the checkbox itself, while the
+         * custom foreground color will be applied to the checkbox text and the check mark.
          * </p>
          *
          * <p>
@@ -2104,7 +2104,7 @@ public class RadianceThemingCortex {
          *                           children.
          * @see GlobalScope#setColorizationFactor(double)
          * @deprecated This method will be removed in version 9.0. Use
-         *      {@link ComponentScope#setContainerColorTokensOverlay(JComponent, ContainerColorTokensOverlay)}.
+         *      {@link ComponentScope#setContainerColorTokensOverlayProvider(JComponent, ContainerColorTokensOverlay.Provider)}.
          */
         @Deprecated
         public static void setColorizationFactor(JComponent comp, double colorizationFactor) {

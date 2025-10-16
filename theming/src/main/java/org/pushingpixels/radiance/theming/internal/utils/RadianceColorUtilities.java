@@ -595,7 +595,7 @@ public class RadianceColorUtilities {
         Color backgr = component.getBackground();
         boolean isBackgroundUiResource = backgr instanceof UIResource;
 
-        // special case - sliders, check boxes and radio buttons. For this,
+        // special case - sliders, checkboxes and radio buttons. For this,
         // switch to component parent
         if ((component instanceof JCheckBox)
             || (component instanceof JRadioButton)

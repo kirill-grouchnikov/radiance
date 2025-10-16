@@ -178,7 +178,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
-        JLabel cbLabel = new JLabel("Check boxes");
+        JLabel cbLabel = new JLabel("Checkboxes");
         cbLabel.setIcon(check_square_o.of(12, 12));
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(cbLabel,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,

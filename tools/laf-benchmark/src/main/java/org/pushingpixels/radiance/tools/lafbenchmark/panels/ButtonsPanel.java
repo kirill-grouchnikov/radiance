@@ -238,7 +238,7 @@ public class ButtonsPanel extends JPanel {
         builder.append("");
         JLabel bLabel = new JLabel("Buttons");
         JLabel tbLabel = new JLabel("Toggle buttons");
-        JLabel cbLabel = new JLabel("Check boxes");
+        JLabel cbLabel = new JLabel("Checkboxes");
         JLabel rbLabel = new JLabel("Radio buttons");
 
         builder.append(bLabel, tbLabel);

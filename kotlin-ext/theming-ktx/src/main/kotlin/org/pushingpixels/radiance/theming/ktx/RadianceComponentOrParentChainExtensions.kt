@@ -73,8 +73,8 @@ public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
  * Calling this method installs the "smart colorization" mode which uses the colors of the
  * current color tokens and the custom background / foreground colors (when installed by
  * application) to colorize the relevant portions of the control. For example, on checkbox
- * the custom background color will be used to colorize the check box itself, while the
- * custom foreground color will be applied to the check box text and the check mark.
+ * the custom background color will be used to colorize the checkbox itself, while the
+ * custom foreground color will be applied to the checkbox text and the check mark.
  *
  * Value of 0.0 of colorization amount results in Radiance completely
  * **ignoring** the custom application background and foreground colors set on
@@ -94,10 +94,10 @@ public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
  * @param colorizationFactor Colorization factor to apply to this component and its nested
  * children.
  * @deprecated This method will be removed in version 9.0. Use
- *      {@link ComponentScope#setContainerColorTokensOverlay(JComponent, ContainerColorTokensOverlay)}.
+ *      {@link ComponentScope#setContainerColorTokensOverlayProvider(JComponent, ContainerColorTokensOverlay.Provider)}.
  */
 @Deprecated(message = "This method will be removed in version 9.0",
-    replaceWith = ReplaceWith("RadianceComponentExtensions.setContainerColorTokensOverlay"),
+    replaceWith = ReplaceWith("RadianceComponentExtensions.setContainerColorTokensOverlayProvider"),
     level = DeprecationLevel.WARNING)
 @RadianceComponentOrParentChainScope
 public fun JComponent.setColorizationFactor(colorizationFactor: Double) {
