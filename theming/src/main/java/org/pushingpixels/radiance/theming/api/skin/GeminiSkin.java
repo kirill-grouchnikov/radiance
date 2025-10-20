@@ -57,7 +57,7 @@ public class GeminiSkin extends RadianceSkin {
     }
 
     public GeminiSkin() {
-        // Same seed for primary and muted
+        // Same seed for active and muted
         ContainerColorTokens geminiDefaultActiveTokens = ContainerColorTokensUtils.getContainerTokens(
             /* seed */ Hct.fromInt(0xFFB0BBB8),
             /* containerConfiguration */ ContainerConfiguration.defaultLight());
