@@ -42,6 +42,9 @@ import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainte
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+
+import java.awt.*;
 
 /**
  * <code>Autumn</code> skin. This class is part of officially supported API.
@@ -65,6 +68,10 @@ public class AutumnSkin extends RadianceSkin {
 		TokenPaletteColorResolver resolver =
 			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 				TokenPaletteColorResolverOverlay.builder()
+                    .containerOutline((p) -> RadianceColorUtilities.getInterpolatedColor(
+                        new Color(p.getContainerOutline()),
+                        new Color(p.getContainerOutlineVariant()),
+                        0.3f).getRGB())
 					.onContainer(TokenPalette::getContainerOutline)
 					.onContainerVariant((p) -> p.getContainerOutline() & 0xC0FFFFFF)
 					.containerSurfaceDisabledAlpha((s) -> 0.4f)
