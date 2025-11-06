@@ -59,6 +59,9 @@ public class RadianceTitlePaneUtilities {
         /** Trailing child components (right on LTR and left on RTL). */
         TRAILING,
 
+        /** Child components anchored to a fixed horizontal position. */
+        ANCHORED_HORIZONTALLY,
+
         /** Child components anchored to the title. */
         WITH_TITLE
     }
@@ -240,6 +243,9 @@ public class RadianceTitlePaneUtilities {
             int maxLeadingX = 0;
             int minTrailingX = titlePane.getWidth();
             int extraWidthTaken = 0;
+            boolean hasAnchoredComponents = false;
+            int minAnchoredX = titlePane.getWidth();
+            int maxAnchoredX = 0;
 
             for (int i = 0; i < titlePane.getComponentCount(); i++) {
                 Component child = titlePane.getComponent(i);
@@ -251,18 +257,19 @@ public class RadianceTitlePaneUtilities {
                     if (kind == null) {
                         throw new IllegalStateException(
                                 "Title pane child " + child.getClass().getName()
-                                        + " is not marked as leading or trailing");
+                                        + " is not marked with extra component kind");
                     }
                     switch (kind) {
                         case LEADING:
-                            int childRight = child.getX() + child.getWidth();
-                            if (childRight > maxLeadingX)
-                                maxLeadingX = childRight;
+                            maxLeadingX = Math.max(maxLeadingX, child.getX() + child.getWidth());
                             break;
                         case TRAILING:
-                            int childLeft = child.getX();
-                            if (childLeft < minTrailingX)
-                                minTrailingX = childLeft;
+                            minTrailingX = Math.min(minTrailingX, child.getX());
+                            break;
+                        case ANCHORED_HORIZONTALLY:
+                            hasAnchoredComponents = true;
+                            minAnchoredX = Math.min(minAnchoredX, child.getX());
+                            maxAnchoredX = Math.max(maxAnchoredX, child.getX() + child.getWidth());
                             break;
                         default:
                             extraWidthTaken += child.getWidth();
@@ -270,13 +277,30 @@ public class RadianceTitlePaneUtilities {
                 }
             }
 
-            int start = maxLeadingX + horizontalPadding + extraWidthTaken;
-            int end = minTrailingX - horizontalPadding;
+            int start, end;
+            if (hasAnchoredComponents) {
+                // Which horizontal span is bigger, leading-anchored or anchored-trailing?
+                int leadingToAnchored = minAnchoredX - maxLeadingX;
+                int anchoredToTrailing = minTrailingX - maxAnchoredX;
+                if (leadingToAnchored >= anchoredToTrailing) {
+                    start = maxLeadingX + horizontalPadding + extraWidthTaken;
+                    end = minAnchoredX - horizontalPadding;
+                } else {
+                    start = maxAnchoredX + horizontalPadding + extraWidthTaken;
+                    end = minTrailingX - horizontalPadding;
+                }
+            } else {
+                start = maxLeadingX + horizontalPadding + extraWidthTaken;
+                end = minTrailingX - horizontalPadding;
+            }
             return new Rectangle(start, 0, end - start, titlePane.getHeight());
         } else {
             int minLeadingX = titlePane.getWidth();
             int maxTrailingX = 0;
             int extraWidthTaken = 0;
+            boolean hasAnchoredComponents = false;
+            int minAnchoredX = titlePane.getWidth();
+            int maxAnchoredX = 0;
 
             for (int i = 0; i < titlePane.getComponentCount(); i++) {
                 Component child = titlePane.getComponent(i);
@@ -288,18 +312,19 @@ public class RadianceTitlePaneUtilities {
                     if (kind == null) {
                         throw new IllegalStateException(
                                 "Title pane child " + child.getClass().getName()
-                                        + " is not marked as leading or trailing");
+                                        + " is not marked with extra component kind");
                     }
                     switch (kind) {
                         case LEADING:
-                            int childLeft = child.getX();
-                            if (childLeft < minLeadingX)
-                                minLeadingX = childLeft;
+                            minLeadingX = Math.min(minLeadingX, child.getX());
                             break;
                         case TRAILING:
-                            int childRight = child.getX() + child.getWidth();
-                            if (childRight > maxTrailingX)
-                                maxTrailingX = childRight;
+                            maxTrailingX = Math.max(maxTrailingX, child.getX() + child.getWidth());
+                            break;
+                        case ANCHORED_HORIZONTALLY:
+                            hasAnchoredComponents = true;
+                            minAnchoredX = Math.min(minAnchoredX, child.getX());
+                            maxAnchoredX = Math.max(maxAnchoredX, child.getX() + child.getWidth());
                             break;
                         default:
                             extraWidthTaken += child.getWidth();
@@ -307,8 +332,22 @@ public class RadianceTitlePaneUtilities {
                 }
             }
 
-            int start = maxTrailingX + horizontalPadding;
-            int end = minLeadingX - horizontalPadding - extraWidthTaken;
+            int start, end;
+            if (hasAnchoredComponents) {
+                // Which horizontal span is bigger, leading-anchored or anchored-trailing?
+                int leadingToAnchored = minLeadingX - maxAnchoredX;
+                int anchoredToTrailing = minAnchoredX - maxTrailingX;
+                if (leadingToAnchored >= anchoredToTrailing) {
+                    start = maxAnchoredX + horizontalPadding + extraWidthTaken;
+                    end = minLeadingX - horizontalPadding;
+                } else {
+                    start = maxTrailingX + horizontalPadding + extraWidthTaken;
+                    end = minAnchoredX - horizontalPadding;
+                }
+            } else {
+                start = maxTrailingX + horizontalPadding;
+                end = minLeadingX - horizontalPadding - extraWidthTaken;
+            }
             return new Rectangle(start, 0, end - start, titlePane.getHeight());
         }
     }

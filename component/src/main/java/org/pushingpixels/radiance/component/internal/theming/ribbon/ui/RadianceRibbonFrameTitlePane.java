@@ -453,7 +453,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             this.add(taskGroupComponent);
             this.taskComponentMap.put(group, taskGroupComponent);
             RadianceTitlePaneUtilities.markTitlePaneExtraComponent(taskGroupComponent,
-                    RadianceTitlePaneUtilities.ExtraComponentKind.TRAILING);
+                    RadianceTitlePaneUtilities.ExtraComponentKind.ANCHORED_HORIZONTALLY);
         }
         // Taskbar components
         this.taskbarPanel.removeAll();
