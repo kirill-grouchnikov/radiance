@@ -121,8 +121,8 @@ public class Step3ContainersDemo extends JFrame {
 
         row += 2;
         builder.addROLabel("Active container").xy(1, row)
-            .add(new ContainerPreview(lightBundle.getActiveContainerTokens(), "Tonal")).xy(3, row)
-            .add(new ContainerPreview(darkBundle.getActiveContainerTokens(), "Tonal")).xy(5, row);
+            .add(new ContainerPreview(lightBundle.getActiveContainerTokens(), "Active")).xy(3, row)
+            .add(new ContainerPreview(darkBundle.getActiveContainerTokens(), "Active")).xy(5, row);
         row += 2;
         builder.addROLabel("Muted container").xy(1, row)
             .add(new ContainerPreview(lightBundle.getMutedContainerTokens(), "Muted")).xy(3, row)
