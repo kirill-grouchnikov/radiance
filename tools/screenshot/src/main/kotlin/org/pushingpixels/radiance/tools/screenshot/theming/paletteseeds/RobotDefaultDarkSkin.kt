@@ -95,11 +95,11 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
 
         this.highlightSurfacePainter = ClassicSurfacePainter()
 
-        val defaultSchemeBundle = ContainerColorTokensBundle(
+        val defaultBundle = ContainerColorTokensBundle(
             this.defaultAreaActiveTokens,
             this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, true
         )
-        this.registerDecorationAreaTokensBundle(defaultSchemeBundle,
+        this.registerDecorationAreaTokensBundle(defaultBundle,
             RadianceThemingSlices.DecorationAreaType.NONE)
 
         this.registerAsDecorationArea(this.defaultAreaActiveTokens,

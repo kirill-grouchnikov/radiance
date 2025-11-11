@@ -76,13 +76,13 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
 
         this.highlightSurfacePainter = ClassicSurfacePainter()
 
-        val defaultSchemeBundle = ContainerColorTokensBundle(
+        val defaultBundle = ContainerColorTokensBundle(
             this.defaultAreaActiveTokens,
             this.defaultAreaMutedTokens, this.defaultAreaNeutralTokens, false
         )
-        defaultSchemeBundle.registerActiveContainerTokens(getSelectedTokens(config),
+        defaultBundle.registerActiveContainerTokens(getSelectedTokens(config),
             ComponentState.SELECTED)
-        this.registerDecorationAreaTokensBundle(defaultSchemeBundle,
+        this.registerDecorationAreaTokensBundle(defaultBundle,
                 RadianceThemingSlices.DecorationAreaType.NONE)
 
         this.registerAsDecorationArea(this.defaultAreaActiveTokens,
