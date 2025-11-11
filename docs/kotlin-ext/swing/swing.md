@@ -10,8 +10,8 @@ In your Java app, this is how you would intercept the action to close the applic
 this.addWindowListener(new WindowAdapter() {
     @Override
     public void windowClosing(WindowEvent e) {
-        // do we need to save the modified scheme list?
-        if (colorSchemeList.checkModifiedStateAndSaveIfNecessary()) {
+        // do we need to save the modified list?
+        if (list.checkModifiedStateAndSaveIfNecessary()) {
             dispose();
         }
     }
@@ -23,8 +23,8 @@ Here is how the same code can look like after initial conversion to Kotlin:
 ```kotlin
 this.addWindowListener(object : WindowAdapter() {
     override fun windowClosing(e: WindowEvent?) {
-        // do we need to save the modified scheme list?
-        if (colorSchemeList.checkModifiedStateAndSaveIfNecessary()) {
+        // do we need to save the modified list?
+        if (list.checkModifiedStateAndSaveIfNecessary()) {
             dispose()
         }
     }
@@ -48,8 +48,8 @@ Note that there is no more usage of either `WindowListener` or `WindowAdapter` J
 
 ```kotlin
 this.addDelayedWindowListener(onWindowClosing = {
-    // do we need to save the modified scheme list?
-    if (colorSchemeList.checkModifiedStateAndSaveIfNecessary()) {
+    // do we need to save the modified list?
+    if (list.checkModifiedStateAndSaveIfNecessary()) {
         dispose()
     }
 })
@@ -62,7 +62,7 @@ Note that since we are not inspecting the `WindowEvent` that is passed to `onWin
 `Component.firePropertyChange` allows reporting bound property changes in a decoupled way. Here is how a custom Swing component might use it to track changes to a property:
 
 ```java
-public class JColorSchemeList extends JComponent {
+public class JCustomList extends JComponent {
   private boolean isModified;
 
   public boolean isModified() {
@@ -83,15 +83,15 @@ public class JColorSchemeList extends JComponent {
 Now, elsewhere in the app there's code that gets notified whenever this property is modified:
 
 ```java
-// track modification changes on the scheme list and any scheme in it
-this.colorSchemeList.addPropertyChangeListener("modified", propertyChangeEvent -> {
+// track modification changes on the list and any element in it
+this.list.addPropertyChangeListener("modified", propertyChangeEvent -> {
     boolean isModified = (Boolean) propertyChangeEvent.getNewValue();
     RadianceThemingCortex.RootPaneScope.setContentsModified(getRootPane(), isModified);
 
     // update the main frame title
     updateMainWindowTitle(isModified);
 
-    File currFile = colorSchemeList.getCurrentFile();
+    File currFile = list.getCurrentFile();
     saveButton.setEnabled(currFile != null);
 });
 ```
@@ -106,7 +106,7 @@ Here we have boilerplate familiar to any Swing developer:
 What can we do to remove most, if not all, of this boilerplate? Let's start with the property itself and use Kotlin's observables:
 
 ```kotlin
-class JColorSchemeList : JComponent() {
+class JCustomList : JComponent() {
   var isModified: Boolean by Delegates.observable(false) {
       prop, old, new -> this.firePropertyChange(prop.name, old, new)
   }
@@ -115,9 +115,9 @@ class JColorSchemeList : JComponent() {
 This is all we need to wire property change to integrate with the existing Swing mechanism for notifying observers on property change with `firePropertyChange`. What about the observer side?
 
 ```kotlin
-// track modification changes on the scheme list and any scheme in it
-this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean>(
-        this.colorSchemeList::isModified) { evt ->
+// track modification changes on the list and any element in it
+this.list.addTypedDelayedPropertyChangeListener<Boolean>(
+        this.list::isModified) { evt ->
     val isModified = evt.newValue ?: false
 
     // update the close / X button of the main frame
@@ -127,7 +127,7 @@ this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean>(
     updateMainWindowTitle(isModified)
 
     // update the enabled state of the "save" button
-    saveButton.isEnabled = (colorSchemeList.currentFile != null)
+    saveButton.isEnabled = (list.currentFile != null)
 }
 ```
 

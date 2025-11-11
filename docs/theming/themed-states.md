@@ -40,7 +40,7 @@ These APIs apply for components / icons in three states:
  Three icon filtering strategies are supported:
  * `ORIGINAL` - leave the icon as supplied by the application with no filtering applied
  * `THEMED_FOLLOW_TEXT` - filter the icon to use the text color that matches the current component state
- * `THEMED_FOLLOW_COLOR_TOKENS` - filter the icon to use the Radiance color scheme from the currently set skin that matches the component in its current state
+ * `THEMED_FOLLOW_COLOR_TOKENS` - filter the icon to use the Radiance color tokens from the currently set skin that matches the component in its current state
 
 `THEMED_FOLLOW_COLOR_TOKENS` which works best for multi-color / multi-tone icons and Radiance skins with multi-color color tokens. Here is the same UI with this icon filter strategy applied on enabled and disabled component states:
 
