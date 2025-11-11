@@ -78,24 +78,24 @@ The [SVG Transcoder library](../tools/svg-transcoder/svg-transcoder.md) provides
 
 [VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps/mail) demo app illustrates the usage of colorized icons in [complex list renderers](../theming/renderers.md). Note the visuals of the selected elements in the destinations list on the left and the threads list in the middle - the icon is colorized with the same foreground color as the associated texts.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/complex-list-renderer.png" width="946" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/complex-list-renderer.png" width="1046" border=0>
 
 In the screenshot above, the first two icons in the middle panel (the one next to the search box and the one right below it next to the "Inbox" label) are colorized like this:
 
 ```java
-RadianceIcon editIcon = ic_mode_edit_black_24px.of(14, 14);
+RadianceIcon editIcon = mode_edit_black_24dp.of(14, 14);
 Color filterColor = new Color(mainSelectorIconColor.getRed(),
                 mainSelectorIconColor.getGreen(),
                 mainSelectorIconColor.getBlue(),
                 204);
 editIcon.setColorFilter(color -> filterColor);
 
-RadianceIcon mailIcon = ic_refresh_black_24px.of(12, 12);
+RadianceIcon mailIcon = refresh_black_24dp.of(12, 12);
 mailIcon.setColorFilter(color -> mainSelectorIconColor);
 ```
 The first block uses an alpha-derived filter color on a 14x14 icon. The second block does not use alpha (so that the icon's perceived darkness is consistent since it is displayed next to a visually heavier, bold label) on a 12x12 icon. Both icons were transcoded by [SVG Transcoder](../tools/svg-transcoder/svg-transcoder.md) from the [Material icon set](https://material.io/tools/icons/).
 
-The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your transcoded icon is a bit more colorful, you can use `RadianceIcon.setColorFilter` together with the `RadianceColorScheme.getColorFilter`.
+The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your transcoded icon is a bit more colorful, you can use `RadianceIcon.setColorFilter` together with the `ContainerColorTokens.getColorFilter`.
 
 How does color filtering work? There is a "fast" way, and there is a "slow" way.
 
@@ -107,6 +107,6 @@ This class implements color filtering by using offscreen images and a custom `Bu
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/common/icon-color-filtering.png" width="446" height="196" border=0 align="center">
 
-Here, the colors of Sunfire, Lime Green and Steel Blue color schemes from Radiance are used to filter the original visuals of an icon from the Tango icon set (second row), preserving its overall visual feel, while at the same time making it blend more with the specific Radiance visuals.
+Here, the colors of error, success and info system color tokens from Radiance are used to filter the original visuals of an icon from the Tango icon set (second row), preserving its overall visual feel, while at the same time making it blend more with the specific Radiance visuals.
 
 Note that in this particular example, the original SVG icon is not transcoded by SVG Transcoder (which would have resulted in a `RadianceIcon` class that uses the fast path), but rather using Apache Batik at runtime to asynchronously load the original SVG, and then colorizing the icon visuals rendered by Batik.

@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.radiance.demo.component;
 
-import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
-import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.ImageBackedFilterableRadianceIcon;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
@@ -40,10 +38,9 @@ import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresen
 import org.pushingpixels.radiance.demo.component.svg.SvgBatikRadianceIcon;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.palette.TonalPaletteSeeds;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
@@ -52,7 +49,8 @@ import java.awt.*;
 public class IconFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
+            RadianceSkin skin = new MarinerSkin();
+            RadianceThemingCortex.GlobalScope.setSkin(skin);
             JFrame.setDefaultLookAndFeelDecorated(true);
 
             JFrame frame = new JFrame("Icons");
@@ -80,26 +78,33 @@ public class IconFrame {
                     .build();
             frame.add(originalCommand.project(presentationModel).buildComponent());
 
-            Command redCommand = Command.builder()
-                    .setText("Red")
-                    .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(radianceFactory,
-                            color -> Color.red))
-                    .build();
-            frame.add(redCommand.project(presentationModel).buildComponent());
+            ContainerColorTokens errorTokens = skin.getSystemContainerTokens(
+                RadianceThemingSlices.DecorationAreaType.NONE, RadianceThemingSlices.SystemContainerType.ERROR);
+            ContainerColorTokens successTokens = skin.getSystemContainerTokens(
+                RadianceThemingSlices.DecorationAreaType.NONE, RadianceThemingSlices.SystemContainerType.SUCCESS);
+            ContainerColorTokens infoTokens = skin.getSystemContainerTokens(
+                RadianceThemingSlices.DecorationAreaType.NONE, RadianceThemingSlices.SystemContainerType.INFO);
 
-            Command greenCommand = Command.builder()
-                    .setText("Green")
+            Command errorCommand = Command.builder()
+                    .setText("Error")
                     .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(radianceFactory,
-                            color -> new Color(0, 128, 0)))
+                            color -> errorTokens.getAccentOnContainer()))
                     .build();
-            frame.add(greenCommand.project(presentationModel).buildComponent());
+            frame.add(errorCommand.project(presentationModel).buildComponent());
 
-            Command blueCommand = Command.builder()
-                    .setText("Blue")
+            Command successCommand = Command.builder()
+                    .setText("Success")
                     .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(radianceFactory,
-                            color -> Color.blue))
+                            color -> successTokens.getAccentOnContainer()))
                     .build();
-            frame.add(blueCommand.project(presentationModel).buildComponent());
+            frame.add(successCommand.project(presentationModel).buildComponent());
+
+            Command infoCommand = Command.builder()
+                    .setText("Info")
+                    .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(radianceFactory,
+                            color -> infoTokens.getAccentOnContainer()))
+                    .build();
+            frame.add(infoCommand.project(presentationModel).buildComponent());
 
             RadianceIcon.Factory tangoFactory = () -> SvgBatikRadianceIcon.getSvgIcon(
                     IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
@@ -112,35 +117,26 @@ public class IconFrame {
                     .build();
             frame.add(originalTangoCommand.project(presentationModel).buildComponent());
 
-            ContainerColorTokens redTokens = ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(TonalPaletteSeeds.SUNFIRE_RED.getRGB()),
-                /* containerConfiguration */ ContainerConfiguration.defaultLight());
-            Command redTangoCommand = Command.builder()
-                    .setText("Red")
+            Command errorTangoCommand = Command.builder()
+                    .setText("Error")
                     .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(tangoFactory,
-                        redTokens.getColorFilter(1.0f, 1.0f)))
+                        errorTokens.getColorFilter(1.0f, 1.0f)))
                     .build();
-            frame.add(redTangoCommand.project(presentationModel).buildComponent());
+            frame.add(errorTangoCommand.project(presentationModel).buildComponent());
 
-            ContainerColorTokens greenTokens = ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(TonalPaletteSeeds.LIME_GREEN.getRGB()),
-                /* containerConfiguration */ ContainerConfiguration.defaultLight());
-            Command greenTangoCommand = Command.builder()
-                    .setText("Green")
+            Command successTangoCommand = Command.builder()
+                    .setText("Success")
                     .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(tangoFactory,
-                        greenTokens.getColorFilter(1.0f, 1.0f)))
+                        successTokens.getColorFilter(1.0f, 1.0f)))
                     .build();
-            frame.add(greenTangoCommand.project(presentationModel).buildComponent());
+            frame.add(successTangoCommand.project(presentationModel).buildComponent());
 
-            ContainerColorTokens blueTokens = ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(TonalPaletteSeeds.STEEL_BLUE.getRGB()),
-                /* containerConfiguration */ ContainerConfiguration.defaultLight());
-            Command blueTangoCommand = Command.builder()
-                    .setText("Blue")
+            Command infoTangoCommand = Command.builder()
+                    .setText("Info")
                     .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(tangoFactory,
-                        blueTokens.getColorFilter(1.0f, 1.0f)))
+                        infoTokens.getColorFilter(1.0f, 1.0f)))
                     .build();
-            frame.add(blueTangoCommand.project(presentationModel).buildComponent());
+            frame.add(infoTangoCommand.project(presentationModel).buildComponent());
 
             frame.setVisible(true);
         });
