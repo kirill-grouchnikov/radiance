@@ -152,7 +152,7 @@ clipboardBand.addRibbonCommand(
 
 Each one of these is added with `PresentationPriority.MEDIUM`. When there is enough horizontal space, each one is displayed at `MEDIUM` presentation state. But if the ribbon is resized to be more narrow, those projections will be in the `SMALL` presentation state instead (displaying only their icon):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/bands/bands-resize4.png" width="1020" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/bands/bands-resize4.png" width="1015" border=0/>
 
 This is controlled at the level of the band in this particular demo:
 
