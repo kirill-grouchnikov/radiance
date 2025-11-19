@@ -70,16 +70,10 @@ public class BladeIconUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                float cornerRadius = (float) scaleFactor *
-                    RadianceSizeUtils.getClassicButtonCornerRadius(
-                        RadianceSizeUtils.getComponentFontSize(component));
-
                 int outlineDim = scaledWidth - 1;
 
-                Shape outlineFill = RadianceOutlineUtilities.getBaseOutline(
-                    component.getComponentOrientation(),
-                    outlineDim + 1, outlineDim + 1,
-                    cornerRadius, null, 0.5f);
+                Shape outlineFill = checkBoxShapeSupplier.getShape(component,
+                    outlineDim + 1, outlineDim + 1, 0.5f, 0.0f, scaleFactor);
 
                 SurfacePainterUtils.paintSurface(graphics1X, component, currentState,
                     outlineDim, outlineDim, scaleFactor, 1.0f, outlineFill, colorTokens);
