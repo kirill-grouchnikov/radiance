@@ -162,4 +162,4 @@ With our `RibbonGalleryContentModel` as the content model and `RibbonGalleryPres
 
 ### Next
 
-Continue to the [keytips](RibbonKeyTips.md).
+Continue to the [keytips](RibbonKeytips.md).
