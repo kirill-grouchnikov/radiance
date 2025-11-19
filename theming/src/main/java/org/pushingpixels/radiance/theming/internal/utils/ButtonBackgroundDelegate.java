@@ -61,7 +61,7 @@ import java.util.Set;
 public class ButtonBackgroundDelegate {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
-    private static RadianceOutlinePainter.ShapeSuppler buttonShapeSupplier =
+    private static RadianceOutlinePainter.ShapeSupplier buttonShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
         AbstractButton button = (AbstractButton) c;

@@ -146,7 +146,7 @@ public class FakeAccordion extends JPanel {
                                 RadianceOutlinePainter outlinePainter = skin.getOutlinePainter();
 
                                 float radiusOuter = (float) scaleFactor * 5.0f;
-                                RadianceOutlinePainter.ShapeSuppler outlineShapeSupplier =
+                                RadianceOutlinePainter.ShapeSupplier outlineShapeSupplier =
                                     (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment,shapeScaleFactor) ->
                                         getOutline(0, 0, (int) shapeWidth, (int) shapeHeight,
                                             1.0f, shapeInsets,

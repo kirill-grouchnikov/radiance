@@ -105,7 +105,7 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
 
     @Override
     public void paintOutline(Graphics g, Component c, float width, float height,
-        double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
+        double scaleFactor, ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         // Skip inner outline in text components, scrollbars, and in renderer-hosted components in
         // the file chooser container
@@ -143,7 +143,7 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
     }
 
     private static void paintVertical(Graphics2D graphics, Component c, float width, float height,
-        float radiusAdjustment, double scaleFactor, ShapeSuppler shapeSupplier,
+        float radiusAdjustment, double scaleFactor, ShapeSupplier shapeSupplier,
         ContainerColorTokens colorTokens, float strokeWidth, float[] fractions,
         ContainerColorTokensSingleColorQuery[] colorQueries) {
 
@@ -182,7 +182,7 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
     }
 
     private static void paintHorizontal(Graphics2D graphics, Component c, float width, float height,
-        float radiusAdjustment, double scaleFactor, ShapeSuppler shapeSupplier,
+        float radiusAdjustment, double scaleFactor, ShapeSupplier shapeSupplier,
         ContainerColorTokens colorTokens, float strokeWidth,
         ContainerColorTokensSingleColorQuery[] colorQueries) {
 

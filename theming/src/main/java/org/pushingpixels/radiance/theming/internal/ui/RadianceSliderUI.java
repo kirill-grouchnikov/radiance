@@ -236,7 +236,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         g2d.dispose();
     }
 
-    private static RadianceOutlinePainter.ShapeSuppler sliderTrackShapeSupplier =
+    private static RadianceOutlinePainter.ShapeSupplier sliderTrackShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
             float radius = (float) scaleFactor *

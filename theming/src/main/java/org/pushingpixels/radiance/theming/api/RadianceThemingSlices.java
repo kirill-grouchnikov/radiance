@@ -51,7 +51,7 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public final class RadianceThemingSlices {
-    private static RadianceOutlinePainter.ShapeSuppler buttonShapeSupplier =
+    private static RadianceOutlinePainter.ShapeSupplier buttonShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
             AbstractButton button = (AbstractButton) c;

@@ -62,7 +62,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
 
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
-    private RadianceOutlinePainter.ShapeSuppler switchShapeSupplier =
+    private RadianceOutlinePainter.ShapeSupplier switchShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
                 width, height, height * 0.5f, null, insets);

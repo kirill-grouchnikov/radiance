@@ -54,7 +54,7 @@ public class BladeDrawingUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                RadianceOutlinePainter.ShapeSuppler bladeShapeSupplier =
+                RadianceOutlinePainter.ShapeSupplier bladeShapeSupplier =
                     (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment, shapeScaleFactor) -> {
                         float scaledRadius = (float) scaleFactor * baseRadius - shapeRadiusAdjustment;
                         return RadianceOutlineUtilities.getBaseOutline(

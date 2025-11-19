@@ -24,7 +24,7 @@ The `RadianceOutlinePainter` interface defines the following painting method:
  *     The color tokens.
  */
 void paintOutline(Graphics g, Component c, float width, float height, double scaleFactor,
-    ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens);
+    ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens);
 ```
 
 The `shapeSupplier` parameter is used to compute the shape(s) to paint, while the `colorTokens` specifies the color tokens to be used to compute the outline colors. The internal implementation of a specific outline painter may decide to draw multiple shapes, such as a darker outer outline and a lighter inner outline, depending on the target visuals.

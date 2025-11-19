@@ -654,7 +654,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             : colorTokens.getContainerOutline();
     }
 
-    private static RadianceOutlinePainter.ShapeSuppler tabOutlineShapeSupplier =
+    private static RadianceOutlinePainter.ShapeSupplier tabOutlineShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
             // Always use slightly rounded corners on tabs

@@ -96,7 +96,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
     private static int THUMB_DELTA = 2;
 
-    private RadianceOutlinePainter.ShapeSuppler thumbVerticalShapeSupplier =
+    private RadianceOutlinePainter.ShapeSupplier thumbVerticalShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             // Adaptive corner radius, either half the height (which will be width after
             // rotation) for larger thumbs, or quarter the height for smaller thumbs
@@ -108,7 +108,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
         };
 
-    private RadianceOutlinePainter.ShapeSuppler thumbHorizontalShapeSupplier =
+    private RadianceOutlinePainter.ShapeSupplier thumbHorizontalShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             // Adaptive corner radius, either half the height for larger thumbs, or quarter the
             // height for smaller thumbs

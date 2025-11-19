@@ -40,7 +40,7 @@ import java.awt.*;
 public class OutlinePainterUtils {
     public static void paintOutline(Graphics2D graphics1X, Component component,
         ComponentState componentState, float scaledWidth, float scaledHeight, double scaleFactor,
-        float alpha, RadianceOutlinePainter.ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
+        float alpha, RadianceOutlinePainter.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         paintOutline(graphics1X, component, componentState,
             RadianceCoreUtilities.getOutlinePainter(component),
@@ -51,7 +51,7 @@ public class OutlinePainterUtils {
     public static void paintOutline(Graphics2D graphics1X, Component component,
         ComponentState componentState, RadianceOutlinePainter outlinePainter,
         float scaledWidth, float scaledHeight, double scaleFactor,
-        float alpha, RadianceOutlinePainter.ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
+        float alpha, RadianceOutlinePainter.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         float containerOutlineAlpha = alpha *
             (componentState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);

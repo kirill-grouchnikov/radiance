@@ -48,7 +48,7 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public interface RadianceOutlinePainter extends RadianceTrait {
-    interface ShapeSuppler {
+    interface ShapeSupplier {
         Shape getShape(Component c, float width, float height, float insets,
             float radiusAdjustment, double scaleFactor);
     }
@@ -76,7 +76,7 @@ public interface RadianceOutlinePainter extends RadianceTrait {
      *     The color tokens.
      */
     void paintOutline(Graphics g, Component c, float width, float height, double scaleFactor,
-        ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens);
+        ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens);
 
     float getOutlineInset(InsetKind insetKind);
 
@@ -105,7 +105,7 @@ public interface RadianceOutlinePainter extends RadianceTrait {
          *     The color tokens.
          */
         void paintOutlineOverlay(Graphics g, Component c, float width, float height, double scaleFactor,
-            ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens);
+            ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens);
     }
 
     /**
@@ -121,7 +121,7 @@ public interface RadianceOutlinePainter extends RadianceTrait {
 
         @Override
         public void paintOutlineOverlay(Graphics g, Component c, float width, float height,
-            double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
+            double scaleFactor, ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
             for (Overlay overlay: this.overlays) {
                 overlay.paintOutlineOverlay(g, c, width, height, scaleFactor, shapeSupplier,
                     colorTokens);

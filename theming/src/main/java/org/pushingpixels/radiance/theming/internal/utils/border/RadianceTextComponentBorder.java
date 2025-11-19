@@ -63,7 +63,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
     private BladeContainerColorTokens mutableContainerTokens =
         new BladeContainerColorTokens();
 
-    RadianceOutlinePainter.ShapeSuppler shapeSupplier =
+    RadianceOutlinePainter.ShapeSupplier shapeSupplier =
         (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment, shapeScaleFactor) ->
             new Rectangle2D.Float(shapeInsets, shapeInsets, shapeWidth - 1 - 2.0f * shapeInsets,
                 shapeHeight - 1 - 2.0f * shapeInsets);

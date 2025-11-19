@@ -332,7 +332,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             graphics.translate(iconRect.x, iconRect.y);
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, iconRect.width, iconRect.height,
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                        RadianceOutlinePainter.ShapeSuppler iconContainerShapeSupplier =
+                        RadianceOutlinePainter.ShapeSupplier iconContainerShapeSupplier =
                             (c, iconContainerWidth, iconContainerHeight, iconContainerInsets,
                                 iconRadiusAdjustment, iconContainerScaleFactor) ->
                                 new Rectangle2D.Float(0.0f, 0.0f,

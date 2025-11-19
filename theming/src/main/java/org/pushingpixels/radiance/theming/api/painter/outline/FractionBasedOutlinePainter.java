@@ -97,7 +97,7 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
 
     @Override
     public void paintOutline(Graphics g, Component c, float width, float height,
-        double scaleFactor, ShapeSuppler shapeSupplier, ContainerColorTokens colorTokens) {
+        double scaleFactor, ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(0.5f, 0.5f);

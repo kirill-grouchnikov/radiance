@@ -60,7 +60,7 @@ public class KeyTipRenderingUtilities {
         return new Dimension(prefWidth, prefHeight);
     }
 
-    private static RadianceOutlinePainter.ShapeSuppler keyTipShapeSupplier =
+    private static RadianceOutlinePainter.ShapeSupplier keyTipShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             float radius = (float) scaleFactor *
                 RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));

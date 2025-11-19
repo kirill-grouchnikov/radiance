@@ -58,7 +58,7 @@ import java.util.Map;
 public class ComboBoxBackgroundDelegate {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
-    private RadianceOutlinePainter.ShapeSuppler shapeSupplier =
+    private RadianceOutlinePainter.ShapeSupplier shapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int fontSize = RadianceSizeUtils.getComponentFontSize(c);
             float radius = (float) scaleFactor *
