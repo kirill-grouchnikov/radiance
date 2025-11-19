@@ -109,7 +109,7 @@ How does it work instead? First, let's take a look at the following screenshot:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/taskbar/taskbar-keytips-initial.png" width="1181" border=0/>
 
-When the [root keytip level] is shown, the ribbon displays keytips for all visible taskbar components, and for the overflow button if it is shown. Where do these keytips come from? They come from the taskbar key policy.
+When the [root keytip level](RibbonKeytips.md) is shown, the ribbon displays keytips for all visible taskbar components, and for the overflow button if it is shown. Where do these keytips come from? They come from the taskbar key policy.
 
 The `RibbonTaskbarKeyTipPolicy` defines the keytip policy. It has the following methods:
 
