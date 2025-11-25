@@ -219,10 +219,10 @@ public class RichTooltipManager {
                 .getAncestorOfClass(AbstractRibbonBand.class, currentActiveTrackableComponent);
         boolean ltr = tip.getComponentOrientation().isLeftToRight();
         boolean isInRibbonBand = (ribbonBand != null);
+        location.x = ltr ? screenLocation.x : screenLocation.x
+                + currentActiveTrackableComponent.getWidth() - size.width;
         if (isInRibbonBand) {
             // display directly below or above ribbon band
-            location.x = ltr ? screenLocation.x : screenLocation.x
-                    + currentActiveTrackableComponent.getWidth() - size.width;
             Point bandLocationOnScreen = ribbonBand.getLocationOnScreen();
             location.y = bandLocationOnScreen.y + ribbonBand.getHeight() + 4;
             if ((location.y + size.height) > (sBounds.y + sBounds.height)) {
@@ -230,8 +230,6 @@ public class RichTooltipManager {
             }
         } else {
             // display directly below or above it
-            location.x = ltr ? screenLocation.x : screenLocation.x
-                    + currentActiveTrackableComponent.getWidth() - size.width;
             location.y = screenLocation.y + currentActiveTrackableComponent.getHeight();
             if ((location.y + size.height) > (sBounds.y + sBounds.height)) {
                 location.y = screenLocation.y - size.height;
