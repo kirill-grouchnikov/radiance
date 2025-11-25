@@ -155,7 +155,7 @@ What do we have here?
 - Our `ColorActivationListener` updates the class-level `backgroundColor` field. It then calls `JPanel.setBackground()` on our main panel - with will cause a repaint pass. It also calls `Command.setIconFactory()` with a new variant of the above-shown `ColorIcon`. Remember that updating a command attribute will [automatically propagate](ModelProjectionOverview.md) to all the projected components.
 - Our `ColorPreviewListener` calls `JPanel.setBackground()` in `onColorPreviewActivated`, causing a repaint pass. Then, in `onColorPreviewCanceled` it calls the same `JPanel.setBackground()` with the color tracked by the `backgroundColor` field, effectively resetting the panel fill preview to the previous color selection.
 
-No we are ready to configure the color selector popup menu.
+Now we are ready to configure the color selector popup menu.
 
 #### Adding the "automatic" color command
 
