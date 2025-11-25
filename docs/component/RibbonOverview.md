@@ -65,11 +65,11 @@ Here is the gallery in "Quick Styles" band expanded to show more of its content 
 
 Here is a [color selector command](ColorSelectorCommand.md) configured with a variety of sections:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/ribbon-popupmenu.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/ribbon-colorselectorpopupmenu.png" width="1181" border=0/>
 
 Here is a [command](Command.md) configured with complex [popup content](CommandPopupMenu.md):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/ribbon-colorselectorpopupmenu.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/ribbon-popupmenu.png" width="1181" border=0/>
 
 Ribbon bands display their title below the main content. In addition, a band can have an associated "expander" action that is accessible via the small icon in its bottom-right corner (see the "Clipboard", "Font" and "Document" bands in the screenshot above):
 
