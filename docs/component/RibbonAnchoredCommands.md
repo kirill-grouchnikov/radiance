@@ -37,7 +37,7 @@ this.getRibbon().addAnchoredCommand(Command.builder()
 
 The associated keytips are shown at the root level:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/bands/ribbon-keytips.png" width="1400" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/ribbon-keytips.png" width="1181" border=0/>
 
 Rich tooltips associated with the commands are shown right below the anchored command area:
 

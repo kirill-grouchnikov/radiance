@@ -8,7 +8,7 @@ If we start from this content in our ribbon:
 
 and then activate keytips by pressing the "Alt" key on the keyboard, the ribbon will show the first level of keytips:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/bands/ribbon-keytips.png" width="1400" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/ribbon-keytips.png" width="1181" border=0/>
 
 This first level shows keytips for:
 - Application menu button
