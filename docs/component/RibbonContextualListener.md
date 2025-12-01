@@ -4,7 +4,7 @@
 
 The `JRibbon.setOnShowContextualMenuListener()` API allows configuring the global contextual menu listener that will be used to populate content of a menu displayed on any mouse event that is a popup trigger (aka right-click).
 
-The application is in charge of implementing the methods in `OnShowContextualMenuListener` listener to return a [`CommandMenuContentModel`](CommandPopupMenu) content model that will be used to project the contextual menu.
+The application is in charge of implementing the methods in `OnShowContextualMenuListener` listener to return a [`CommandMenuContentModel`](CommandPopupMenu.md) content model that will be used to project the contextual menu.
 
 In the screenshot above the user right-clicked on the "font size" combobox in the "Font" ribbon band. The menu shows commands for adding that combobox to [taskbar](RibbonTaskbar.md), minimizing the ribbon and general ribbon configuration.
 
