@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 /*
  * Copyright (c) 2005-2025 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
@@ -69,7 +72,7 @@ allprojects {
     defaultTasks 'build', 'jar'
 
     // Configure Java compilation for all the projects
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         // enforce Java 9 as the source + target + compile time level
         javaCompiler = javaToolchains.compilerFor {
             languageVersion = JavaLanguageVersion.of(9)
@@ -91,18 +94,14 @@ allprojects {
         clean {
             delete 'out'     // interpreted relative to the project directory
         }
-
-        disableAutoTargetJvm()
     }
 
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-        kotlinOptions {
-            jvmTarget = "9"
-        }
+    tasks.withType(KotlinCompile).configureEach {
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_9)
     }
 
     // Configure the jar task for all the projects
-    tasks.withType(Jar) {
+    tasks.withType(Jar).configureEach {
         // create reproducible builds by removing timestamps and doing cross-platform file order
         preserveFileTimestamps = false
         reproducibleFileOrder = true
@@ -110,16 +109,18 @@ allprojects {
 
         manifest {
             // add radiance version, build JDK and build JDK vendor into the manifest file
-            attributes("Radiance-Version": "${findProperty('VERSION_NAME')} [${findProperty('CODENAME')}]",    \
-                 "Build-JDK": System.getProperty('java.version'),    \
-                 "Build-JDK-Vendor": System.getProperty('java.vendor'), \
-                 "Automatic-Module-Name": "org.pushingpixels." + "${findProperty('POM_ARTIFACT_ID')}".replace("-", "."))
+            attributes("Radiance-Version": "${findProperty('VERSION_NAME')} [${findProperty('CODENAME')}]",     \
+                  "Build-JDK": System.getProperty('java.version'),     \
+                  "Build-JDK-Vendor": System.getProperty('java.vendor'),  \
+                  "Automatic-Module-Name": "org.pushingpixels." + "${findProperty('POM_ARTIFACT_ID')}".replace("-", "."))
         }
     }
 
     gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked"
+        tasks.withType(JavaCompile).tap {
+            configureEach {
+                options.compilerArgs << "-Xlint:unchecked"
+            }
         }
     }
 }
@@ -136,63 +137,85 @@ apply plugin: "com.github.ben-manes.versions"
 // jars are grouped into three folders: 'core' for app-facing modules (such as Animation,
 // Common, Theming, Component), 'demo' for modules that have demos and 'tools' for
 // modules with various tools.
-task copyJars(type: Copy) {
-    delete "drop/${project.version}"
+tasks.register("copyJars") {
+    delete "${rootProject.projectDir}/drop/${project.version}"
     subprojects {
         project ->
-            project.afterEvaluate {
-                copy {
-                    def projectName = project.name
-                    if (projectName.startsWith("demos/") || projectName.startsWith("tools/")) {
-                        projectName = projectName.substring(6)
-                    }
-                    from file("${project.buildDir}/libs/${rootProject.name}-${projectName}-${project.version}.jar")
-                    into file("drop/${project.version}/${project.designation}")
+            copy {
+                def projectName = project.name
+                if (projectName.startsWith("demos/") || projectName.startsWith("tools/")) {
+                    projectName = projectName.substring(6)
                 }
+                from file("${project.layout.buildDirectory.asFile.get().absolutePath}/libs/${rootProject.name}-${projectName}-${project.version}.jar")
+                into file("${rootProject.projectDir}/drop/${project.version}/${project.designation}")
             }
     }
 }
 
 // Collects all the dependencies of the core modules in build/libs-core
-task getCoreDependencies(type: Copy) {
-    into 'build/libs-core'
-    from {
-        subprojects.findAll { it.designation == "core" && it.name != "kotlin-ext" }.collect { it.configurations.compileClasspath }
-    }
-    doLast {
-        println("Copied all core dependencies to build/libs-core")
-    }
-}
-
-// Collects all the dependencies of the demo modules in build/libs-demo
-task getDemoDependencies(type: Copy) {
-    into 'build/libs-demo'
-    from {
-        subprojects.findAll { it.designation == "demo" && it.name != "demos" }.collect { it.configurations.compileClasspath }
-    }
-    doLast {
-        println("Copied all demo dependencies to build/libs-demo")
+tasks.register("getCoreDependencies") {
+    Set<Project> matchingSubprojects = subprojects.findAll { it.designation == "core" && it.name != "kotlin-ext" }
+    matchingSubprojects.forEach {
+        subproject -> subproject.configurations.matching { it.name == "compileClasspath"}.forEach {
+            configuration -> configuration.getFiles().forEach {
+                file ->
+                    {
+                        project.copy {
+                            from(file.absoluteFile)
+                            into("${rootProject.projectDir}/build/libs-core")
+                        }
+                    }
+            }
+        }
     }
 }
 
 // Collects all the dependencies of the demo modules in build/libs-demo
-task getToolsDependencies(type: Copy) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    into 'build/libs-tools'
-    from {
-        subprojects.findAll { it.designation == "tools" && it.name != "tools" }.collect { it.configurations.compileClasspath }
-    }
-    doLast {
-        println("Copied all tools dependencies to build/libs-tools")
+tasks.register("getDemoDependencies") {
+    Set<Project> matchingSubprojects = subprojects.findAll { it.designation == "demo" && it.name != "demos" }
+    matchingSubprojects.forEach {
+        subproject -> subproject.configurations.matching { it.name == "compileClasspath"}.forEach {
+            configuration -> configuration.getFiles().forEach {
+                file ->
+                    {
+                        project.copy {
+                            from(file.absoluteFile)
+                            into("${rootProject.projectDir}/build/libs-demo")
+                        }
+                    }
+            }
+        }
     }
 }
 
-task getAllDependencies(type: Copy, dependsOn: [getCoreDependencies, getDemoDependencies, getToolsDependencies])
+// Collects all the dependencies of the demo modules in build/libs-demo
+tasks.register("getToolsDependencies") {
+    Set<Project> matchingSubprojects = subprojects.findAll { it.designation == "tools" && it.name != "tools" }
+    matchingSubprojects.forEach {
+        subproject -> subproject.configurations.matching { it.name == "compileClasspath"}.forEach {
+            configuration -> configuration.getFiles().forEach {
+                file ->
+                    {
+                        project.copy {
+                            from(file.absoluteFile)
+                            into("${rootProject.projectDir}/build/libs-tools")
+                        }
+                    }
+            }
+        }
+    }
+}
 
-task printRuntimeDependencies {
+tasks.register("getAllDependencies") {
+    dependsOn "getCoreDependencies"
+    dependsOn "getDemoDependencies"
+    dependsOn "getToolsDependencies"
+}
+
+tasks.register("printRuntimeDependencies") {
     doLast {
         println "Project runtime dependencies:"
-        allprojects.each { p ->
+        subprojects.each { p ->
             println()
             println " $p.name ".center(45, '-')
             p.configurations.findAll { it.name == "runtimeClasspath" }.findAll { !it.allDependencies.empty }.each { c ->
