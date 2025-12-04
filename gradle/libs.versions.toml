@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.2.20"
 coroutines = "1.10.2"
-dokka = "2.0.0"
+dokka = "2.1.0"
 
 batik = "1.19"
 retrofit = "3.0.0"
@@ -11,8 +11,8 @@ jhlabs = "2.0.235"
 
 ephemeral_chroma = "1.5-SNAPSHOT"
 
-versionchecker = "0.52.0"
-mavenpublish = "0.34.0"
+versionchecker = "0.53.0"
+mavenpublish = "0.35.0"
 
 [libraries]
 
