@@ -50,6 +50,7 @@ import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryP
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonFrameTitlePane;
+import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonRootPaneUI;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
@@ -163,6 +164,13 @@ public class JRibbonFrame extends JFrame {
     public JRibbonFrame() throws HeadlessException {
         super();
         this.initRibbon();
+        JRootPane rootPane = getRootPane();
+        if (rootPane.getWindowDecorationStyle() == JRootPane.NONE) {
+            RadianceRibbonRootPaneUI ui = (RadianceRibbonRootPaneUI) rootPane.getUI();
+            ui.installLayout(rootPane);
+            rootPane.revalidate();
+            rootPane.repaint();
+        }
     }
 
     /**

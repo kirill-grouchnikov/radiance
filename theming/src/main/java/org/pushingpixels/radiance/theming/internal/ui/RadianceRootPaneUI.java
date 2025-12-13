@@ -346,7 +346,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      *
      * @param root Root pane.
      */
-    private void installLayout(JRootPane root) {
+    public void installLayout(JRootPane root) {
         if (this.layoutManager == null) {
             this.layoutManager = this.createLayoutManager();
         }
