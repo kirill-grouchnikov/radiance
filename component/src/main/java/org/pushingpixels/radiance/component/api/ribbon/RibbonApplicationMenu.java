@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.api.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
@@ -57,7 +58,8 @@ import java.util.List;
  * <p>
  * The entries in the primary area are always visible. The secondary area entries are shown based on
  * the currently active element in the primary area. The secondary entries are {@link Command}s
- * configured with the {@link Command.Builder#setSecondaryContentModel(CommandMenuContentModel)}
+ * configured with the
+ * {@link org.pushingpixels.radiance.component.api.common.model.BaseCommand.BaseBuilder#setSecondaryContentModel(BaseCommandMenuContentModel)}
  * API. When this entry is armed (with mouse rollover or via keyboard navigation), the secondary
  * area shows menu buttons for the registered secondary menu entries. The <code>Save As</code> menu
  * item is an example of such a primary menu item, showing a list of default save formats.

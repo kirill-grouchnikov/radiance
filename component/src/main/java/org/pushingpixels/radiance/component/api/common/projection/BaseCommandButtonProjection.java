@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuCont
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 
+import javax.swing.*;
 import java.util.function.Function;
 
 public abstract class BaseCommandButtonProjection<
@@ -49,7 +50,7 @@ public abstract class BaseCommandButtonProjection<
     /**
      * This interface can be used as part of
      * {@link #setComponentSupplier(CommandButtonComponentSupplier)} to return your own supplier of
-     * {@link TC} to be used before the {@link #configureComponent(JCommandButton)} call.
+     * {@link TC} to be used before the configureComponent() call.
      */
     @FunctionalInterface
     public interface CommandButtonComponentSupplier<TC extends JCommandButton,
@@ -64,7 +65,7 @@ public abstract class BaseCommandButtonProjection<
          * @return A supplier of the target component. It should be a reference to a function that
          * gets one parameter - projection, and returns an instance of the matching
          * {@link JCommandButton} subclass that represents the Swing component to be
-         * used to configure the projected component in {@link #configureComponent(JCommandButton)}
+         * used to configure the projected component in the configureComponent() call.
          * call.
          */
         Function<BaseCommandButtonProjection<M, MCM, P, MPM>, TC> getComponentSupplier(
