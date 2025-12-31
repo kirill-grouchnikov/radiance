@@ -1096,56 +1096,6 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * <p>
-         * Specifies colorization amount applied to the background and foreground of the current
-         * color tokens and all control. By default, when the application does not use any custom
-         * colors, all the controls are painted with the colors of the current color tokens / skin.
-         * The colors coming from the look-and-feel implement the marker {@link UIResource}
-         * interface which allows the UI delegates to differentiate between application-specific
-         * colors which are not changed, and the LAF-provide colors that are changed on LAF switch.
-         * </p>
-         *
-         * <p>
-         * Calling this method installs the "smart colorization" mode which uses the colors of the
-         * current color tokens and the custom background / foreground colors (when installed by
-         * application) to colorize the relevant portions of the control. For example, on checkbox
-         * the custom background color will be used to colorize the checkbox itself, while the
-         * custom foreground color will be applied to the checkbox text and the check mark.
-         * </p>
-         *
-         * <p>
-         * Value of 0.0 of colorization amount results in Radiance completely
-         * <strong>ignoring</strong> the custom application background and foreground colors set on
-         * the components - no colorization. Values closer to 1.0 result in almost full usage of the
-         * custom application background and foreground colors set on the components. Note that in
-         * order to maintain the gradients (fill, border, etc), even value of 1.0 does not result in
-         * full custom color being applied to the relevant visuals of the control.
-         * </p>
-         *
-         * <p>
-         * Calling this method applies colorization amount to all components that do not specify a
-         * custom value with
-         * {@link ComponentOrParentChainScope#setColorizationFactor(JComponent, double)} calls.
-         * </p>
-         *
-         * <p>
-         * The default colorization amount (when this method is not called at all) is 0.5. This
-         * means that applications that install custom background / foreground colors on their UI
-         * controls will see them colorized with 50% "strength", even without calling this method.
-         * </p>
-         *
-         * @param colorizationFactor Colorization factor to apply to the component and its nested
-         *                           children.
-         * @see ComponentOrParentChainScope#setColorizationFactor(JComponent, double)
-         * @deprecated This method will be removed in version 9.0. Use
-         *      {@link ComponentScope#setContainerColorTokensOverlayProvider(JComponent, ContainerColorTokensOverlay.Provider)}.
-         */
-        @Deprecated
-        public static void setColorizationFactor(double colorizationFactor) {
-            UIManager.put(RadianceSynapse.COLORIZATION_FACTOR, Double.valueOf(colorizationFactor));
-        }
-
-        /**
          * Configures visibility of close buttons on tabbed pane tabs.
          *
          * @param tabCloseButtonsVisible If <code>true</code>, tabs in tabbed panes will show
@@ -2059,57 +2009,6 @@ public class RadianceThemingCortex {
          */
         public static void setExtraWidgetsPresence(JComponent comp, Boolean extraWidgetsPresence) {
             comp.putClientProperty(RadianceSynapse.SHOW_EXTRA_WIDGETS, extraWidgetsPresence);
-        }
-
-        /**
-         * <p>
-         * Specifies colorization amount applied to the background and foreground of the current
-         * color tokens and the specific control. By default, when the application does not use any
-         * custom colors, all the controls are painted with the colors of the current color tokens /
-         * skin. The colors coming from the look-and-feel implement the marker {@link UIResource}
-         * interface which allows the UI delegates to differentiate between application-specific
-         * colors which are not changed, and the LAF-provide colors that are changed on LAF switch.
-         * </p>
-         *
-         * <p>
-         * Calling this method installs the "smart colorization" mode which uses the colors of the
-         * current color tokens and the custom background / foreground colors (when installed by
-         * application) to colorize the relevant portions of the control. For example, on checkbox
-         * the custom background color will be used to colorize the checkbox itself, while the
-         * custom foreground color will be applied to the checkbox text and the check mark.
-         * </p>
-         *
-         * <p>
-         * Value of 0.0 of colorization amount results in Radiance completely
-         * <strong>ignoring</strong> the custom application background and foreground colors set on
-         * the components - no colorization. Values closer to 1.0 result in almost full usage of the
-         * custom application background and foreground colors set on the components. Note that in
-         * order to maintain the gradients (fill, border, etc), even value of 1.0 does not result in
-         * full custom color being applied to the relevant visuals of the control.
-         * </p>
-         *
-         * <p>
-         * Calling this method applies colorization amount to the component / container itself and
-         * all its children that do not call this method.
-         * </p>
-         *
-         * <p>
-         * The default colorization amount (when this method is not called at all) is 0.5. This
-         * means that applications that install custom background / foreground colors on their UI
-         * controls will see them colorized with 50% "strength", even without calling this method.
-         * </p>
-         *
-         * @param comp               Component.
-         * @param colorizationFactor Colorization factor to apply to the component and its nested
-         *                           children.
-         * @see GlobalScope#setColorizationFactor(double)
-         * @deprecated This method will be removed in version 9.0. Use
-         *      {@link ComponentScope#setContainerColorTokensOverlayProvider(JComponent, ContainerColorTokensOverlay.Provider)}.
-         */
-        @Deprecated
-        public static void setColorizationFactor(JComponent comp, double colorizationFactor) {
-            comp.putClientProperty(RadianceSynapse.COLORIZATION_FACTOR,
-                    Double.valueOf(colorizationFactor));
         }
 
         /**

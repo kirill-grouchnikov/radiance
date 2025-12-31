@@ -327,7 +327,6 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         builder.nextLine();
 
         JPanel everything = builder.build();
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(everything, 1.0);
 
         JPanel scrollablePanel = new ScrollablePanel();
         scrollablePanel.setLayout(new BorderLayout());

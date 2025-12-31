@@ -1395,43 +1395,6 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Returns the colorization factor for the specified component.
-     *
-     * @param c Component.
-     * @return The colorization factor for the specified component.
-     * @see RadianceThemingCortex.ComponentOrParentChainScope#setColorizationFactor(JComponent, double)
-     * @see RadianceThemingCortex.GlobalScope#setColorizationFactor(double)
-     */
-    public static double getColorizationFactor(Component c) {
-        JPopupMenu popupMenu = null;
-        while (c != null) {
-            if (c instanceof JComponent) {
-                JComponent jcomp = (JComponent) c;
-                Object compProp = jcomp.getClientProperty(RadianceSynapse.COLORIZATION_FACTOR);
-                if (compProp instanceof Double)
-                    return (Double) compProp;
-            }
-            if (c instanceof JPopupMenu) {
-                popupMenu = (JPopupMenu) c;
-            }
-            c = c.getParent();
-        }
-
-        if (popupMenu != null) {
-            Component invoker = popupMenu.getInvoker();
-            if (popupMenu != invoker)
-                return getColorizationFactor(popupMenu.getInvoker());
-        }
-
-        Object globalProp = UIManager.get(RadianceSynapse.COLORIZATION_FACTOR);
-        if (globalProp instanceof Double) {
-            return (Double) globalProp;
-        }
-
-        return 0.5;
-    }
-
-    /**
      * Returns the skin of the specified component.
      *
      * @param c Component.

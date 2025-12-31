@@ -569,8 +569,6 @@ public class ControlPanelFactory {
                     dialog.add(tabs, BorderLayout.CENTER);
 
                     JLabel instructional = new JLabel("Press Esc to close dialog");
-                    RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(instructional,
-                            1.0);
                     dialog.add(instructional, BorderLayout.NORTH);
 
                     // create a looping animation to change the label foreground to draw some attention.
@@ -613,8 +611,6 @@ public class ControlPanelFactory {
                     dialog.setContentPane(myContentPane);
 
                     JLabel instructional = new JLabel("Press Esc to close dialog");
-                    RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(instructional,
-                            1.0);
                     dialog.add(instructional, BorderLayout.NORTH);
 
                     // create a looping animation to change the label foreground to draw some attention.

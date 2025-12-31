@@ -620,10 +620,7 @@ public class RadianceColorUtilities {
             component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
             inactiveContainerType);
         if (!isBackgroundUiResource) {
-            // special case for issue 386 - if the colorization
-            // is 1.0, return the component background
-            if ((RadianceCoreUtilities.getColorizationFactor(component) == 1.0f)
-                && component.isEnabled()) {
+            if (component.isEnabled()) {
                 return backgr;
             }
             backgr = colorTokens.getContainerSurface();

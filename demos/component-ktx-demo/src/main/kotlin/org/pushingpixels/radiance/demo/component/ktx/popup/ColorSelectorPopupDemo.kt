@@ -49,7 +49,6 @@ import org.pushingpixels.radiance.swing.ktx.util.get
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
-import org.pushingpixels.radiance.theming.ktx.setColorizationFactor
 import java.awt.*
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
@@ -125,7 +124,6 @@ fun main() {
 
         val centerPanel = JPanel()
         centerPanel.background = defaultPanelColor
-        centerPanel.setColorizationFactor(1.0)
         var backgroundColor = centerPanel.background
         frame.add(centerPanel, BorderLayout.CENTER)
 

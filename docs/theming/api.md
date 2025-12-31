@@ -278,10 +278,6 @@ Specifies when components should paint their background.
 
 Specifies corner radius for all toolbar buttons.
 
-`public static void setColorizationFactor(double colorizationFactor)`
-
-Specifies colorization amount applied to the background and foreground of the current color tokens and all controls.
-
 `public static void setTabContentPaneBorderKind(TabContentPaneBorderKind tabContentPaneBorderKind)`
 
 Specifies the content pane border kind for tabbed panes.
@@ -525,10 +521,6 @@ Specifies corner radius for all buttons in the specified toolbar.
 `public static void setExtraWidgetsPresence(JComponent comp, Boolean extraWidgetsPresence)`
 
 Specifies that extra UI elements (such as menu items in system menu or lock borders) should be shown in the specified component.
-
-`public static void setColorizationFactor(JComponent comp, double colorizationFactor)`
-
-Specifies colorization amount applied to the background and foreground of the current color tokens and the specific control.
 
 `public static void setFocusKind(JComponent comp, FocusKind focusKind)`
 

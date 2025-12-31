@@ -466,13 +466,8 @@ public class CoreColorTokenUtils {
                 fgColor = null;
             }
             if ((bgColor != null) || (fgColor != null)) {
-                double colorization = RadianceCoreUtilities.getColorizationFactor(component);
-                if (!isEnabled) {
-                    colorization /= 2.0;
-                }
-                if (colorization > 0.0) {
-                    return getBlendedTokens(tokens, bgColor, colorization, fgColor, colorization);
-                }
+                double colorization = isEnabled ? 1.0f : 0.5f;
+                return getBlendedTokens(tokens, bgColor, colorization, fgColor, colorization);
             }
         }
         return tokens;

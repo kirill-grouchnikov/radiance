@@ -74,7 +74,6 @@ public class TestColorSelector extends JFrame {
                 "org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
 
         final JPanel centerPanel = new JPanel();
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(centerPanel, 1.0);
         backgroundColor = centerPanel.getBackground();
 
         this.add(top, BorderLayout.NORTH);

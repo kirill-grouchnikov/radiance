@@ -186,7 +186,6 @@ public class SurfaceTokensPanel extends JPanel implements Deferrable, SkinDepend
         makeActive(this, builder);
 
         JPanel everything = builder.build();
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(everything, 1.0);
 
         JPanel scrollablePanel = new ScrollablePanel();
         scrollablePanel.setLayout(new BorderLayout());

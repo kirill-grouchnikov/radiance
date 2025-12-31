@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.renderer;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -65,7 +64,6 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     public RadiancePanelListCellRenderer() {
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this, 1.0);
     }
 
     @Override

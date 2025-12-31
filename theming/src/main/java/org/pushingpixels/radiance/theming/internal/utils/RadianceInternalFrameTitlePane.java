@@ -277,9 +277,8 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
             Color background = hostFrame.getBackground();
             if (!(background instanceof UIResource)) {
-                double colorization = RadianceCoreUtilities.getColorizationFactor(hostForColorization);
                 colorTokens = CoreColorTokenUtils.getBlendedTokens(colorTokens, background,
-                    colorization, null, 0.0);
+                    1.0f, null, 0.0);
             }
             RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
                 colorTokens, displayTitle, width, height, xOffset, yOffset);

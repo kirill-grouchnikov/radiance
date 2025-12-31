@@ -779,15 +779,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         this.add(tabbed, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        final JSlider colorizationSlider = new JSlider(0, 100, 50);
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this, 0.5);
-        colorizationSlider.addChangeListener(changeEvent -> {
-            double val = colorizationSlider.getValue() / 100.0;
-            RadianceThemingCortex.ComponentOrParentChainScope
-                    .setColorizationFactor(ColorizedControlsPanel.this, val);
-            tabbed.repaint();
-        });
-        controls.add(colorizationSlider);
         this.add(controls, BorderLayout.NORTH);
 
         this.isInitialized = true;

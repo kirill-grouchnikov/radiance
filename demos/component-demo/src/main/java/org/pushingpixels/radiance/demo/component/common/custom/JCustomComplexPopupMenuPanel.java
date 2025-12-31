@@ -488,8 +488,6 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
             this.signInButton = header.getCommandSignIn().project(presentationModel.headerSignInPresentationModel).
                     buildComponent();
-            RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(
-                this.signInButton, 0.0);
             mainSection.add(this.signInButton, BorderLayout.LINE_END);
 
             this.add(mainSection, BorderLayout.CENTER);
@@ -534,13 +532,10 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
             ContainerColorTokens tokens = skin.getNeutralContainerTokens(this);
 
-            RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this, 1.0);
             this.setBackground(tokens.getContainerSurfaceLow());
 
             this.footerButton = footer.getCommandFooter().project(presentationModel.footerPresentationModel)
                     .buildComponent();
-            RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(
-                this.footerButton, 0.0);
             this.add(this.footerButton, BorderLayout.CENTER);
         }
 

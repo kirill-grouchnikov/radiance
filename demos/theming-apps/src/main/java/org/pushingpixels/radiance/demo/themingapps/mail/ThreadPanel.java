@@ -208,7 +208,6 @@ public class ThreadPanel extends JPanel {
         JLabel historyLabel = new JLabel("Show History", historyIcon, JLabel.LEADING);
         historyLabel.setBorder(new EmptyBorder(24, 16, 16, 16));
         historyLabel.setForeground(accentedColor);
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(historyLabel, 1.0);
 
         JPanel result = new JPanel(new BorderLayout());
         result.setBorder(new EmptyBorder(2, 8, 2, 8));

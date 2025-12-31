@@ -349,7 +349,6 @@ public class TablePanel extends ControllablePanel implements Deferrable, SkinDep
         this.add(tableScrollpane, BorderLayout.CENTER);
 
         JLabel instructional = new JLabel("Every odd row is editable");
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(instructional, 1.0);
         this.add(instructional, BorderLayout.NORTH);
 
         // create a looping animation to change the label foreground to draw some attention.

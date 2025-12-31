@@ -111,12 +111,6 @@ public class RadianceSynapse {
     public final static String SHOW_EXTRA_WIDGETS = "radiance.theming.internal.showExtraWidgets";
 
     /**
-     * Client property name for specifying the colorization amount applied to the background and
-     * foreground of the current color tokens and the application controls.
-     */
-    public final static String COLORIZATION_FACTOR = "radiance.theming.internal.colorizationFactor";
-
-    /**
      * Client property name for specifying how icons in active states are filtered.
      */
     public final static String ICON_FILTER_STRATEGY_ACTIVE = "radiance.theming.internal.iconFilterStrategyActive";
