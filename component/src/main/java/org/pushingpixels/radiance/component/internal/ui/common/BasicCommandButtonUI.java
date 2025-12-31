@@ -177,6 +177,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.horizontalAlignment = this.commandButton.getPresentationModel().getHorizontalAlignment();
         this.backgroundAppearanceStrategy = this.commandButton.getPresentationModel().getBackgroundAppearanceStrategy();
 
+        this.syncLayoutManager();
         this.syncIconDimension();
 
         // Support for focus traversal inside command buttons that have action area
@@ -315,6 +316,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 }
             }
             if ("presentationState".equals(propertyChangeEvent.getPropertyName())) {
+                syncLayoutManager();
                 syncIconDimension();
 
                 commandButton.invalidate();
@@ -723,15 +725,17 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         }
     }
 
+    private void syncLayoutManager() {
+        CommandButtonPresentationState commandButtonState =
+                this.commandButton.getPresentationState();
+        this.layoutManager = commandButtonState.createLayoutManager();
+    }
+
     private void syncIconDimension() {
         if (this.icon == null) {
             return;
         }
 
-        CommandButtonPresentationState commandButtonState =
-                this.commandButton.getPresentationState();
-
-        this.layoutManager = commandButtonState.createLayoutManager();
 
         Dimension preferredIconSize = layoutManager.getPreferredIconSize(
                 this.commandButton.getContentModel(),

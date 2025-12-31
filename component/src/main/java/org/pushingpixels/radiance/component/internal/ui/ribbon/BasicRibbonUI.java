@@ -460,9 +460,10 @@ public abstract class BasicRibbonUI extends RibbonUI {
         private int getAnchoredButtonsWidth(CommandButtonPresentationState state) {
             int result = 0;
 
+            CommandButtonLayoutManager layoutManager = state.createLayoutManager();
             for (Component comp : anchoredButtons.getComponents()) {
                 JCommandButton anchoredButton = (JCommandButton) comp;
-                result += state.createLayoutManager().getPreferredSize(
+                result += layoutManager.getPreferredSize(
                         anchoredButton.getContentModel(),
                         anchoredButton.getPresentationModel()
                 ).width;

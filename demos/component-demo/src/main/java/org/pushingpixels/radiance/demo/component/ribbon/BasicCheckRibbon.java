@@ -1617,7 +1617,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.anchoredShareCommand = Command.builder()
                 .setText(resourceBundle.getString("Share.title"))
-                .setIconFactory(Internet_mail.factory())
+                //.setIconFactory(Internet_mail.factory())
                 .setSecondaryContentModel(new CommandMenuContentModel(new CommandGroup(
                         shareEntrySendMail, shareEntrySendHtml, shareEntrySendDoc)))
                 .build();
