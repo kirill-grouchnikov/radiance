@@ -1,6 +1,6 @@
 ## Kotlin extensions for Radiance look-and-feel APIs
 
-[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-theming-ktx/badge.svg?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming-ktx) `radiance-theming-ktx` for build instructions of the latest stable release.
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-theming-ktx/badge.svg?style=plastic&version=8.5.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming-ktx) `radiance-theming-ktx` for build instructions of the latest stable release.
 
 In your Java app, this is how you would mark a `BreadcrumbBarSelector` to use the `HEADER` [decoration area type](/painters/decoration.md):
 

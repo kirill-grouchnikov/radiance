@@ -2,7 +2,7 @@
 
 Radiance provides a powerful and flexible set of APIs that can be used to skin Swing applications to address the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a comprehensive API set for consistent rendering of third-party / application components.
 
-[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-common/badge.svg?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming) `radiance-theming` for build instructions of the latest stable release.
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-common/badge.svg?style=plastic&version=8.5.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming) `radiance-theming` for build instructions of the latest stable release.
 
 ### Overview
 

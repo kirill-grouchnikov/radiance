@@ -2,7 +2,7 @@
 
 The goal of this project is to provide a powerful and extensible animation library for Java applications.
 
-[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-animation/badge.svg?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-animation) `radiance-animation` for build instructions of the latest stable release.
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-animation/badge.svg?style=plastic&version=8.5.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-animation) `radiance-animation` for build instructions of the latest stable release.
 
 ### Animation basic concepts
 

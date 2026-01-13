@@ -4,7 +4,7 @@
 
 The goal of this project is to enable usage of vector-based icons in Swing applications.
 
-[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-svg-transcoder/badge.svg?style=plastic&version=8.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-svg-transcoder) `radiance-svg-transcoder` for build instructions of the latest stable release.
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-svg-transcoder/badge.svg?style=plastic&version=8.5.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-svg-transcoder) `radiance-svg-transcoder` for build instructions of the latest stable release.
 
 The original icon format supported by the transcoder is SVG, and you need the [matching version](#dependency-versions-for-the-radiance-svg-transcoder) of [Apache Batik](https://xmlgraphics.apache.org/batik/) and its dependencies.
 
