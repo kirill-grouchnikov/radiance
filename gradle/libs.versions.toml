@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.2.20"
+kotlin = "2.3.0"
 coroutines = "1.10.2"
 dokka = "2.1.0"
 
@@ -12,7 +12,7 @@ jhlabs = "2.0.235"
 ephemeral_chroma = "1.5.0"
 
 versionchecker = "0.53.0"
-mavenpublish = "0.35.0"
+mavenpublish = "0.36.0"
 
 [libraries]
 
