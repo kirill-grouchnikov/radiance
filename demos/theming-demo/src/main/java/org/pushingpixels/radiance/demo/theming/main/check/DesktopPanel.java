@@ -72,7 +72,7 @@ public class DesktopPanel extends ControllablePanel {
         jdp = new JDesktopPane();
         this.add(jdp, BorderLayout.CENTER);
 
-        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow", 2, 16);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow", 2, 18);
         builder.appendSeparator("New sample frame");
 
         JButton sample = new JButton("Add");
@@ -108,6 +108,10 @@ public class DesktopPanel extends ControllablePanel {
         final JCheckBox hasCustomTitlePaneButtons = new JCheckBox("Custom title pane buttons");
         hasCustomTitlePaneButtons.setSelected(false);
         builder.append("", hasCustomTitlePaneButtons);
+
+        final JCheckBox hasCustomTitlePaneTitleTexts = new JCheckBox("Custom title pane title text");
+        hasCustomTitlePaneTitleTexts.setSelected(false);
+        builder.append("", hasCustomTitlePaneTitleTexts);
 
         JButton bt = new JButton("Add");
         bt.addActionListener(actionEvent -> {
@@ -174,6 +178,11 @@ public class DesktopPanel extends ControllablePanel {
                 RadianceThemingCortex.RootPaneScope
                         .setTitlePaneButtonsProvider(jif.getRootPane(),
                                 new CustomTitlePaneButtonsProvider());
+            }
+            if (hasCustomTitlePaneTitleTexts.isSelected()) {
+                RadianceThemingCortex.RootPaneScope
+                        .setTitlePaneTitleTextPainter(jif.getRootPane(),
+                                new CustomTitlePaneTitleTextPainter());
             }
 
             JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
