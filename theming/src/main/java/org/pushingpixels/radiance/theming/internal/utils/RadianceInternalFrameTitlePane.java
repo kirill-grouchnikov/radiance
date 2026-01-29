@@ -361,21 +361,35 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         if (this.frame.isIcon()) {
             this.iconButton.setIcon(restoreIcon);
             this.iconButton.setToolTipText(restoreButtonProvider.getText(this.frame.getRootPane()));
+            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.iconButton,
+                    restoreButtonProvider.getContainerColorTokensOverlayProvider());
+
             this.maxButton.setIcon(maximizeIcon);
             this.maxButton.setToolTipText(maximizeButtonProvider.getText(this.frame.getRootPane()));
+            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.maxButton,
+                    maximizeButtonProvider.getContainerColorTokensOverlayProvider());
         } else {
             this.iconButton.setIcon(iconifyIcon);
             this.iconButton.setToolTipText(iconifyButtonProvider.getText(this.frame.getRootPane()));
+            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.iconButton,
+                    iconifyButtonProvider.getContainerColorTokensOverlayProvider());
+
             if (this.frame.isMaximum()) {
                 this.maxButton.setIcon(restoreIcon);
                 this.maxButton.setToolTipText(restoreButtonProvider.getText(this.frame.getRootPane()));
+                RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.maxButton,
+                        restoreButtonProvider.getContainerColorTokensOverlayProvider());
             } else {
                 this.maxButton.setIcon(maximizeIcon);
                 this.maxButton.setToolTipText(maximizeButtonProvider.getText(this.frame.getRootPane()));
+                RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.maxButton,
+                        maximizeButtonProvider.getContainerColorTokensOverlayProvider());
             }
         }
         this.closeButton.setIcon(closeIcon);
         this.closeButton.setToolTipText(closeButtonProvider.getText(this.frame.getRootPane()));
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.closeButton,
+                closeButtonProvider.getContainerColorTokensOverlayProvider());
     }
 
     /**

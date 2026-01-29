@@ -481,8 +481,9 @@ public class RadianceTitlePane extends JComponent {
                         return new Dimension(size, size);
                     }
                 });
-
         this.closeButton.setIcon(closeIcon);
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.closeButton,
+                closeButtonProvider.getContainerColorTokensOverlayProvider());
 
         this.closeButton.setFocusable(false);
         this.syncCloseButtonTooltip();
@@ -514,6 +515,8 @@ public class RadianceTitlePane extends JComponent {
                         }
                     });
             this.minimizeButton.setIcon(minIcon);
+            RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.minimizeButton,
+                    minimizeButtonProvider.getContainerColorTokensOverlayProvider());
 
             this.minimizeButton.setFocusable(false);
             RadianceThemingCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(
@@ -546,6 +549,8 @@ public class RadianceTitlePane extends JComponent {
 
                 this.updateToggleButton(this.restoreAction, restoreIcon,
                         restoreButtonProvider.getText(this.rootPane));
+                RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.toggleButton,
+                        restoreButtonProvider.getContainerColorTokensOverlayProvider());
             } else {
                 TitlePaneButtonProvider maximizeButtonProvider =
                         this.titlePaneButtonsProvider.getMaximizeButtonProvider();
@@ -568,6 +573,8 @@ public class RadianceTitlePane extends JComponent {
 
                 this.updateToggleButton(this.maximizeAction, maxIcon,
                         maximizeButtonProvider.getText(this.rootPane));
+                RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(this.toggleButton,
+                        maximizeButtonProvider.getContainerColorTokensOverlayProvider());
             }
 
             this.toggleButton.setFocusable(false);

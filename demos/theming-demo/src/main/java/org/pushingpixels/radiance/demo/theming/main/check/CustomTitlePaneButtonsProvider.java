@@ -30,6 +30,8 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 
@@ -39,7 +41,6 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
     @Override
     public TitlePaneButtonProvider getCloseButtonProvider() {
         return new DefaultCloseButtonProvider() {
-
             @Override
             public void drawIcon(Graphics2D g, ContainerColorTokens colorTokens,
                     float alpha, int iconSize) {
@@ -65,6 +66,12 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 graphics.drawLine(end, end, start, start);
 
                 graphics.dispose();
+            }
+
+            @Override
+            public ContainerColorTokensOverlay.Provider getContainerColorTokensOverlayProvider() {
+                return ContainerColorTokensOverlay.defaultSystemOverlayProvider(
+                        RadianceThemingSlices.SystemContainerType.ERROR);
             }
         };
     }
@@ -98,6 +105,12 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
 
                 graphics.dispose();
             }
+
+            @Override
+            public ContainerColorTokensOverlay.Provider getContainerColorTokensOverlayProvider() {
+                return ContainerColorTokensOverlay.defaultSystemOverlayProvider(
+                        RadianceThemingSlices.SystemContainerType.SUCCESS);
+            }
         };
     }
 
@@ -130,6 +143,12 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
 
                 graphics.dispose();
             }
+
+            @Override
+            public ContainerColorTokensOverlay.Provider getContainerColorTokensOverlayProvider() {
+                return ContainerColorTokensOverlay.defaultSystemOverlayProvider(
+                        RadianceThemingSlices.SystemContainerType.SUCCESS);
+            }
         };
     }
 
@@ -161,6 +180,12 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 graphics.drawLine(start, end, end, end);
 
                 graphics.dispose();
+            }
+
+            @Override
+            public ContainerColorTokensOverlay.Provider getContainerColorTokensOverlayProvider() {
+                return ContainerColorTokensOverlay.defaultSystemOverlayProvider(
+                        RadianceThemingSlices.SystemContainerType.WARNING);
             }
         };
     }

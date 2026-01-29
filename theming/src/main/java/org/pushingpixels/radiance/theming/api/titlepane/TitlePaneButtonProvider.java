@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.titlepane;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,4 +47,8 @@ public interface TitlePaneButtonProvider {
      * Draws the icon for this button.
      */
     void drawIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha, int iconSize);
+
+    default ContainerColorTokensOverlay.Provider getContainerColorTokensOverlayProvider() {
+        return null;
+    }
 }
