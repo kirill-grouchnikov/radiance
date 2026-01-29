@@ -70,14 +70,14 @@ public class RadianceTextUtilities {
      * @param xOffset         Text rectangle X offset.
      * @param yOffset         Text rectangle Y offset.
      */
-    public static void paintTextWithDropShadow(JComponent c, Graphics g,
+    public static void paintTextWithDropShadow(Graphics g, double scaleFactor,
         ContainerColorTokens tokens, String text, int width, int height, int xOffset, int yOffset) {
         Graphics2D graphics = (Graphics2D) g.create();
-        RadianceCommonCortex.installDesktopHints(graphics, c.getFont());
+        RadianceCommonCortex.installDesktopHints(graphics, g.getFont());
 
         // blur the text shadow in a separate offscreen image
         BufferedImage blurred = RadianceCoreUtilities.getBlankImage(
-                RadianceCommonCortex.getScaleFactor(c), width, height);
+                scaleFactor, width, height);
         Graphics2D gBlurred = (Graphics2D) blurred.getGraphics();
         gBlurred.setFont(graphics.getFont());
         gBlurred.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -91,7 +91,6 @@ public class RadianceTextUtilities {
         gBlurred.drawString(text, xOffset, yOffset);
         blurred = convolve.filter(blurred, null);
 
-        double scaleFactor = RadianceCommonCortex.getScaleFactor(c);
         graphics.drawImage(blurred, 0, 0, (int) (blurred.getWidth() / scaleFactor),
                 (int) (blurred.getHeight() / scaleFactor), null);
 

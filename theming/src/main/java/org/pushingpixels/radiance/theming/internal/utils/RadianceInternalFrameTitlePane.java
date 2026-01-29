@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
+import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneTitleTextPainter;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -280,8 +281,11 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 colorTokens = CoreColorTokenUtils.getBlendedTokens(colorTokens, background,
                     1.0f, null, 0.0);
             }
-            RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                colorTokens, displayTitle, width, height, xOffset, yOffset);
+            TitlePaneTitleTextPainter titleTextPainter =
+                    RadianceCoreUtilities.getTitlePaneTitleTextPainter(hostFrame.getRootPane());
+            titleTextPainter.paintTitleText(graphics,
+                    RadianceCommonCortex.getScaleFactor(this),
+                    colorTokens, displayTitle, new Rectangle(xOffset, yOffset, width, height));
         }
 
         graphics.dispose();

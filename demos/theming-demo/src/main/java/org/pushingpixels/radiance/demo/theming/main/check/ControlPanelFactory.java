@@ -88,7 +88,7 @@ public class ControlPanelFactory {
             final JTabbedPane mainTabbedPane, final MyMainTabPreviewPainter mainTabPreviewPainter,
             final JToolBar toolbar) {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 4dlu, fill:pref:grow", 2, 24).padding(new EmptyBorder(8, 0, 4, 0));
+                "right:pref, 4dlu, fill:pref:grow", 2, 26).padding(new EmptyBorder(8, 0, 4, 0));
 
         builder.appendSeparator("Title pane settings");
 
@@ -119,6 +119,14 @@ public class ControlPanelFactory {
                         useCustomTitlePaneButtonsProvider.isSelected() ?
                                 new CustomTitlePaneButtonsProvider() : null));
         builder.append("Buttons provider", useCustomTitlePaneButtonsProvider);
+
+        final JCheckBox useCustomTitlePaneTitleTextPainter = new JCheckBox("Use custom");
+        useCustomTitlePaneTitleTextPainter.setSelected(false);
+        useCustomTitlePaneTitleTextPainter.addActionListener(actionEvent -> RadianceThemingCortex.RootPaneScope
+                .setTitlePaneTitleTextPainter(mainFrame.getRootPane(),
+                        useCustomTitlePaneTitleTextPainter.isSelected() ?
+                                new CustomTitlePaneTitleTextPainter() : null));
+        builder.append("Title text painter", useCustomTitlePaneTitleTextPainter);
 
         builder.appendSeparator("Miscellaneous");
 

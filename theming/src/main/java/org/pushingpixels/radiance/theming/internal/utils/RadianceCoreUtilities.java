@@ -41,7 +41,9 @@ import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePai
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
+import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneTitleTextPainter;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
+import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneTitleTextPainter;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -348,7 +350,17 @@ public class RadianceCoreUtilities {
                 return (TitlePaneButtonsProvider) attached;
             }
         }
-        return new DefaultTitlePaneButtonsProvider();
+        return DefaultTitlePaneButtonsProvider.getInstance();
+    }
+
+    public static TitlePaneTitleTextPainter getTitlePaneTitleTextPainter(JRootPane rootPane) {
+        if (rootPane != null) {
+            Object attached = rootPane.getClientProperty(RadianceSynapse.TITLE_PANE_BUTTONS_TITLE_TEXT_PAINTER);
+            if (attached instanceof TitlePaneTitleTextPainter) {
+                return (TitlePaneTitleTextPainter) attached;
+            }
+        }
+        return DefaultTitlePaneTitleTextPainter.getInstance();
     }
 
     public static boolean isMenuSearchWidgetVisible(JRootPane rootPane) {

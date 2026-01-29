@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
+import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneTitleTextPainter;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -860,8 +861,11 @@ public class RadianceTitlePane extends JComponent {
 
             ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
-            RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                colorTokens, displayTitle, width, height, xOffset, yOffset);
+            TitlePaneTitleTextPainter titleTextPainter =
+                    RadianceCoreUtilities.getTitlePaneTitleTextPainter(rootPane);
+            titleTextPainter.paintTitleText(graphics,
+                    RadianceCommonCortex.getScaleFactor(this),
+                    colorTokens, displayTitle, new Rectangle(xOffset, yOffset, width, height));
         }
 
         GhostPaintingUtils.paintGhostImages(this, graphics);

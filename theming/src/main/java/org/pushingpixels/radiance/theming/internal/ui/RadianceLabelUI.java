@@ -146,7 +146,8 @@ public class RadianceLabelUI extends BasicLabelUI {
                 int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
                         + fm.getAscent();
                 g2d.translate(paintTextR.x + 3, 0);
-                RadianceTextUtilities.paintTextWithDropShadow(label, g2d,
+                RadianceTextUtilities.paintTextWithDropShadow(g2d,
+                        RadianceCommonCortex.getScaleFactor(label),
                         colorTokens, clippedText,
                         paintTextR.width + 6, paintTextR.height, 0, yOffset);
                 g2d.translate(-paintTextR.x - 3, 0);

@@ -63,6 +63,7 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.*;
 import org.pushingpixels.radiance.demo.component.common.QuickStylesPanel;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
 import org.pushingpixels.radiance.demo.theming.main.check.CustomTitlePaneButtonsProvider;
+import org.pushingpixels.radiance.demo.theming.main.check.CustomTitlePaneTitleTextPainter;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceFontScaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
@@ -2311,7 +2312,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JPanel getControlPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 8dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(new EmptyBorder(20, 4, 0, 4));
         int row = 1;
 
@@ -2392,6 +2393,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 useCustomTitlePaneButtonsProvider.isSelected() ?
                     new CustomTitlePaneButtonsProvider() : null));
         builder.add("Title buttons").xy(1, row).add(useCustomTitlePaneButtonsProvider).xy(3, row);
+        row += 2;
+
+        final JCheckBox useCustomTitlePaneTitleTextPainter = new JCheckBox("use custom");
+        useCustomTitlePaneTitleTextPainter.setSelected(false);
+        useCustomTitlePaneTitleTextPainter.addActionListener(actionEvent -> RadianceThemingCortex.RootPaneScope
+                .setTitlePaneTitleTextPainter(this.getRootPane(),
+                        useCustomTitlePaneTitleTextPainter.isSelected() ?
+                                new CustomTitlePaneTitleTextPainter() : null));
+        builder.add("Title text painter").xy(1, row).add(useCustomTitlePaneTitleTextPainter).xy(3, row);
         row += 2;
 
         final JCheckBox taskbarFull = new JCheckBox("full");

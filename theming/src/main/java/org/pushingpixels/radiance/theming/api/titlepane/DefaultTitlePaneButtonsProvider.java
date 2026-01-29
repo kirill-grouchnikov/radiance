@@ -39,6 +39,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider {
+    private static DefaultTitlePaneButtonsProvider INSTANCE = new DefaultTitlePaneButtonsProvider();
+
+    public static DefaultTitlePaneButtonsProvider getInstance() {
+        return INSTANCE;
+    }
+
     public static class DefaultCloseButtonProvider implements TitlePaneButtonProvider {
         @Override
         public String getText(JRootPane rootPane) {
