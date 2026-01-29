@@ -246,8 +246,8 @@ public class RadianceRibbonTaskToggleButtonUI extends
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     // Use foreground color for consistency - since non-active task toggle buttons use parent's
                     // decoration background fill.
-                    float radius = (float) scaleFactor * RibbonTaskToggleButtonBackgroundDelegate.getTaskToggleButtonCornerRadius(
-                            (JRibbonTaskToggleButton) this.commandButton);
+                    float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
+                            RadianceSizeUtils.getComponentFontSize(this.commandButton));
                     float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(this.commandButton,
                             RadianceSizeUtils.getComponentFontSize(this.commandButton));
                     Shape outline = RadianceOutlineUtilities.getBaseOutline(

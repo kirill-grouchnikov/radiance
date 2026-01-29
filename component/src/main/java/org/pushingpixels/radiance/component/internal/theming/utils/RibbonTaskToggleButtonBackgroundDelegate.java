@@ -117,15 +117,10 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         }
     }
 
-    public static float getTaskToggleButtonCornerRadius(JRibbonTaskToggleButton button) {
-        return RadianceSizeUtils.getAdjustedSize(
-                RadianceSizeUtils.getComponentFontSize(button), 3.0f, 6, 1.0f);
-    }
-
     private static RadianceOutlinePainter.ShapeSupplier outlineShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-            float radius = (float) scaleFactor *
-                getTaskToggleButtonCornerRadius((JRibbonTaskToggleButton) c);
+            float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
+                    RadianceSizeUtils.getComponentFontSize(c));
 
             return RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(), width, height + insets, radius - radiusAdjustment,
