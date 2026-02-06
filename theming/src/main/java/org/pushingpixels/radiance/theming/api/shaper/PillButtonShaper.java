@@ -80,8 +80,8 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
     }
 
     @Override
-    public Dimension getPreferredSize(AbstractButton button, Dimension uiPreferredSize) {
-        Dimension result;
+    public Dimension getPreferredSize(AbstractButton button) {
+        Dimension result = RadianceMetricsUtilities.getPreferredButtonSize(button);
         boolean toTweakWidth = false;
         boolean toTweakHeight = false;
 
@@ -90,14 +90,11 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
         boolean hasText = RadianceCoreUtilities.hasText(button);
         Insets margin = button.getMargin();
 
-        result = uiPreferredSize;
-
         boolean hasNoMinSizeProperty = RadianceCoreUtilities.hasNoMinSizeProperty(button);
         if ((!hasNoMinSizeProperty) && hasText) {
-            int baseWidth = uiPreferredSize.width;
-            baseWidth = Math.max(baseWidth + uiPreferredSize.height, RadianceSizeUtils
-                    .getMinButtonWidth(RadianceSizeUtils.getComponentFontSize(button)));
-            result = new Dimension(baseWidth, uiPreferredSize.height);
+            result = new Dimension(Math.max(result.width + result.height,
+                RadianceSizeUtils.getMinButtonWidth(RadianceSizeUtils.getComponentFontSize(button))),
+                result.height);
         } else {
             if (hasNoMinSizeProperty) {
                 if (margin != null) {

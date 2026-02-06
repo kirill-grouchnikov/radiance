@@ -53,8 +53,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFac
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
@@ -649,14 +647,9 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        RadianceButtonShaper shaper = ClassicButtonShaper.INSTANCE;
-
-        Dimension superPref = super.getPreferredSize(this.commandButton);
-        if (superPref == null)
-            return null;
-
-        if (shaper == null)
-            return superPref;
+        JCommandButton button = (JCommandButton) c;
+        Dimension preferredSize = this.layoutManager.getPreferredSize(button.getContentModel(),
+            button.getPresentationModel());
 
         // Do not enforce min size on buttons in the ribbon
         // Additional fix - buttons with popup action should
@@ -667,14 +660,14 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 && (SwingUtilities.getAncestorOfClass(JRibbon.class, this.commandButton) == null)
                 && (SwingUtilities.getAncestorOfClass(JBreadcrumbBar.class, this.commandButton) == null)
                 && (SwingUtilities.getAncestorOfClass(AbstractPopupMenuPanel.class, this.commandButton) == null)) {
-            JButton forSizing = new JButton(this.commandButton.getContentModel().getText(), this.icon);
-            Dimension result = shaper.getPreferredSize(forSizing, superPref);
-            if (this.commandButton.getContentModel().hasSecondaryContent()) {
-                result.width = superPref.width;
+            int minButtonWidth =
+                RadianceSizeUtils.getMinButtonWidth(RadianceSizeUtils.getComponentFontSize(button));
+            if (!this.commandButton.getContentModel().hasSecondaryContent()) {
+                return new Dimension(Math.max(preferredSize.width, minButtonWidth),
+                    preferredSize.height);
             }
-            return result;
         }
-        return superPref;
+        return preferredSize;
     }
 
     /**

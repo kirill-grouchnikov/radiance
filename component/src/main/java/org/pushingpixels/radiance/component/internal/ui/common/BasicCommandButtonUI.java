@@ -580,13 +580,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     @Override
-    public Dimension getPreferredSize(JComponent c) {
-        JCommandButton button = (JCommandButton) c;
-        return this.layoutManager.getPreferredSize(button.getContentModel(),
-                button.getPresentationModel());
-    }
-
-    @Override
     public CommandButtonLayoutInfo getLayoutInfo() {
         if (this.layoutInfo != null) {
             return this.layoutInfo;

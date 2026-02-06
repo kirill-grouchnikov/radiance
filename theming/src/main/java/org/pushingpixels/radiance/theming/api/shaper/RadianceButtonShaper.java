@@ -58,10 +58,7 @@ public interface RadianceButtonShaper extends RadianceTrait {
      * Returns the preferred size for the specified button.
      *
      * @param button          A button.
-     * @param uiPreferredSize Preferred size of the button under the regular conditions
-     *                        (plain rectangular button).
      * @return The preferred size for the specified button.
      */
-    Dimension getPreferredSize(AbstractButton button,
-            Dimension uiPreferredSize);
+    Dimension getPreferredSize(AbstractButton button);
 }

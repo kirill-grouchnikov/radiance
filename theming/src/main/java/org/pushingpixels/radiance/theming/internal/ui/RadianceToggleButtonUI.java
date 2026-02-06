@@ -272,20 +272,8 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
     @Override
     public Dimension getPreferredSize(JComponent c) {
         AbstractButton button = (AbstractButton) c;
-        RadianceButtonShaper shaper = RadianceCoreUtilities
-                .getButtonShaper(button);
-
-        // fix for defect 263
-        Dimension superPref = RadianceMetricsUtilities.getPreferredButtonSize(button);
-        if (superPref == null) {
-            return null;
-        }
-
-        if (shaper == null) {
-            return superPref;
-        }
-
-        return shaper.getPreferredSize(button, superPref);
+        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+        return shaper.getPreferredSize(button);
     }
 
     @Override
