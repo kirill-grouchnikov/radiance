@@ -129,15 +129,15 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
                 .getButtonShaper(b);
 
         if (b.getClientProperty(RadianceButtonUI.BORDER_COMPUTED) == null) {
-            b.setBorder(shaper.getButtonBorder(b));
+            b.setBorder(RadianceCoreUtilities.getButtonBorder(b, shaper));
         } else {
             Border currBorder = b.getBorder();
             if (!(currBorder instanceof RadianceButtonBorder)) {
-                b.setBorder(shaper.getButtonBorder(b));
+                b.setBorder(RadianceCoreUtilities.getButtonBorder(b, shaper));
             } else {
                 RadianceButtonBorder sbCurrBorder = (RadianceButtonBorder) currBorder;
                 if (shaper.getClass() != sbCurrBorder.getButtonShaperClass())
-                    b.setBorder(shaper.getButtonBorder(b));
+                    b.setBorder(RadianceCoreUtilities.getButtonBorder(b, shaper));
             }
         }
         b.putClientProperty(RadianceButtonUI.OPACITY_ORIGINAL, b.isOpaque());

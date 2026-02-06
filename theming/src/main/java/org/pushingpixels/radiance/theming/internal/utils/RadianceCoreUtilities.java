@@ -52,11 +52,13 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
+import org.pushingpixels.radiance.theming.internal.utils.border.RadianceButtonBorder;
 import org.pushingpixels.radiance.theming.internal.utils.combo.RadianceComboPopup;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 import org.pushingpixels.radiance.theming.internal.utils.menu.RadianceMenu;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.plaf.ButtonUI;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
@@ -1870,5 +1872,40 @@ public class RadianceCoreUtilities {
         return CoreColorTokenUtils.getContainerTokens(component,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT, componentState,
             CoreColorTokenUtils.ContainerType.MUTED).getOnContainer();
+    }
+
+    public static Border getButtonBorder(final AbstractButton button, RadianceButtonShaper shaper) {
+        return new RadianceButtonBorder(shaper.getClass()) {
+            public Insets getBorderInsets(Component c) {
+                int fontSize = RadianceSizeUtils.getComponentFontSize(button);
+                Insets buttonInsets = RadianceSizeUtils.getButtonInsets(button);
+                float focusPadding = RadianceSizeUtils.getFocusRingPadding(button, fontSize);
+                int lrPadding = RadianceCoreUtilities.hasText(button)
+                        ? RadianceSizeUtils.getTextButtonLRPadding(fontSize)
+                        : 0;
+
+                ComponentOrientation orientation = c.getComponentOrientation();
+                RadianceThemingSlices.Side leftSide =
+                        orientation.isLeftToRight()
+                                ? RadianceThemingSlices.Side.LEADING
+                                : RadianceThemingSlices.Side.TRAILING;
+                RadianceThemingSlices.Side rightSide =
+                        orientation.isLeftToRight()
+                                ? RadianceThemingSlices.Side.TRAILING
+                                : RadianceThemingSlices.Side.LEADING;
+
+                Set<RadianceThemingSlices.Side> openSides = RadianceCoreUtilities.getSides(button,
+                        RadianceSynapse.BUTTON_OPEN_SIDE);
+                int left = lrPadding + buttonInsets.left + (int) focusPadding
+                        + ((openSides != null) && openSides.contains(leftSide) ? -1 : 0);
+                int right = lrPadding + buttonInsets.right + (int) focusPadding
+                        + ((openSides != null) && openSides.contains(rightSide) ? -1 : 0);
+                int top = buttonInsets.top
+                        + ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP) ? -1 : 0);
+                int bottom = buttonInsets.bottom
+                        + ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM) ? -1 : 0);
+                return new Insets(top, left, bottom, right);
+            }
+        };
     }
 }

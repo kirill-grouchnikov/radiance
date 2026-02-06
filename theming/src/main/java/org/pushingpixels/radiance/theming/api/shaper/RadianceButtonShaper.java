@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.shaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 /**
@@ -54,14 +53,6 @@ public interface RadianceButtonShaper extends RadianceTrait {
      */
     Shape getButtonOutline(AbstractButton button,
         float width, float height, float insets, float radiusAdjustment, double scaleFactor);
-
-    /**
-     * Returns the border for the specified button.
-     *
-     * @param button A button.
-     * @return The border for the specified button.
-     */
-    Border getButtonBorder(AbstractButton button);
 
     /**
      * Returns the preferred size for the specified button.

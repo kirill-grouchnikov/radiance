@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
-import org.pushingpixels.radiance.theming.internal.utils.border.RadianceButtonBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -78,45 +77,6 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
             width - 1, height - 1, radius, straightSides, insets);
         outlines.put(key, result);
         return result;
-    }
-
-    @Override
-    public Border getButtonBorder(final AbstractButton button) {
-        return new RadianceButtonBorder(PillButtonShaper.class) {
-            public Insets getBorderInsets(Component c) {
-                int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-                Insets buttonInsets = RadianceSizeUtils.getButtonInsets(button);
-                float focusPadding = RadianceSizeUtils.getFocusRingPadding(button, fontSize);
-                int lrPadding = RadianceCoreUtilities.hasText(button)
-                        ? RadianceSizeUtils.getTextButtonLRPadding(fontSize)
-                        : 0;
-
-                ComponentOrientation orientation = c.getComponentOrientation();
-                RadianceThemingSlices.Side leftSide =
-                        orientation.isLeftToRight()
-                                ? RadianceThemingSlices.Side.LEADING
-                                : RadianceThemingSlices.Side.TRAILING;
-                RadianceThemingSlices.Side rightSide =
-                        orientation.isLeftToRight()
-                                ? RadianceThemingSlices.Side.TRAILING
-                                : RadianceThemingSlices.Side.LEADING;
-
-                Set<RadianceThemingSlices.Side> openSides = RadianceCoreUtilities.getSides(button,
-                        RadianceSynapse.BUTTON_OPEN_SIDE);
-                int left = lrPadding + buttonInsets.left + (int) focusPadding
-                        + ((openSides != null) && openSides.contains(leftSide) ? -1 : 0);
-                int right = lrPadding + buttonInsets.right + (int) focusPadding
-                        + ((openSides != null) && openSides.contains(rightSide) ? -1 : 0);
-                int top = buttonInsets.top
-                        + ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP) ? -1
-                                : 0);
-                int bottom = buttonInsets.bottom
-                        + ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)
-                                ? -1
-                                : 0);
-                return new Insets(top, left, bottom, right);
-            }
-        };
     }
 
     @Override
