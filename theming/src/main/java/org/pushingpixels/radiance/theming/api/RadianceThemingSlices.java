@@ -299,18 +299,16 @@ public final class RadianceThemingSlices {
                         return;
                     }
 
-                    if (shaper.isProportionate()) {
-                        graphics1X.setStroke(new BasicStroke(
-                            1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[]{dashLength, dashGap}, dashPhase));
-                        float insetsPix = extraPadding;
+                    graphics1X.setStroke(new BasicStroke(
+                        1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
+                        new float[]{dashLength, dashGap}, dashPhase));
+                    float insetsPix = extraPadding;
 
-                        Shape outline = buttonShapeSupplier.getShape(mainComp,
-                            (float) scaleFactor * mainComp.getWidth(),
-                            (float) scaleFactor * mainComp.getHeight(),
-                            insetsPix, 0.0f, scaleFactor);
-                        graphics1X.draw(outline);
-                    }
+                    Shape outline = buttonShapeSupplier.getShape(mainComp,
+                        (float) scaleFactor * mainComp.getWidth(),
+                        (float) scaleFactor * mainComp.getHeight(),
+                        insetsPix, 0.0f, scaleFactor);
+                    graphics1X.draw(outline);
                 } else {
                     graphics1X.translate(extraPadding / 2, extraPadding / 2);
                     Shape outline = (focusShape != null) ? focusShape
@@ -355,13 +353,11 @@ public final class RadianceThemingSlices {
                         return;
                     }
 
-                    if (shaper.isProportionate()) {
-                        Shape outline = buttonShapeSupplier.getShape(mainComp,
-                            (float) scaleFactor * mainComp.getWidth(),
-                            (float) scaleFactor * mainComp.getHeight(),
-                            1.0f, 0.0f, scaleFactor);
-                        graphics1X.draw(outline);
-                    }
+                    Shape outline = buttonShapeSupplier.getShape(mainComp,
+                        (float) scaleFactor * mainComp.getWidth(),
+                        (float) scaleFactor * mainComp.getHeight(),
+                        1.0f, 0.0f, scaleFactor);
+                    graphics1X.draw(outline);
                 } else {
                     graphics1X.translate(extraPadding / 2, extraPadding / 2);
                     Shape outline = (focusShape != null) ? focusShape

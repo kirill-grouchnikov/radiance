@@ -138,8 +138,6 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
             baseWidth = Math.max(baseWidth, RadianceSizeUtils
                     .getMinButtonWidth(RadianceSizeUtils.getComponentFontSize(button)));
             result = new Dimension(baseWidth, uiPreferredSize.height);
-            int baseHeight = result.height;
-            result = new Dimension(result.width, baseHeight);
         } else {
             if (hasNoMinSizeProperty) {
                 if (margin != null) {
@@ -185,11 +183,6 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
         }
 
         return result;
-    }
-
-    @Override
-    public boolean isProportionate() {
-        return true;
     }
 
     @Override

@@ -138,8 +138,6 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
             baseWidth = Math.max(baseWidth + uiPreferredSize.height, RadianceSizeUtils
                     .getMinButtonWidth(RadianceSizeUtils.getComponentFontSize(button)));
             result = new Dimension(baseWidth, uiPreferredSize.height);
-            int baseHeight = result.height;
-            result = new Dimension(result.width, baseHeight);
         } else {
             if (hasNoMinSizeProperty) {
                 if (margin != null) {
@@ -149,9 +147,10 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
             }
         }
 
-        int extraPadding = RadianceSizeUtils
-                .getExtraPadding(RadianceSizeUtils.getComponentFontSize(button));
-        int iconPaddingWidth = 6 + 2 * extraPadding;
+        int fontSize = RadianceSizeUtils.getComponentFontSize(button);
+        int extraPadding = RadianceSizeUtils.getExtraPadding(fontSize);
+        float focusPadding = RadianceSizeUtils.getFocusRingPadding(button, fontSize);
+        int iconPaddingWidth = 6 + 2 * extraPadding + (int) (2 * focusPadding);
         int iconPaddingHeight = 6 + 2 * extraPadding;
         if (margin != null) {
             iconPaddingWidth = Math.max(iconPaddingWidth, margin.left + margin.right);
@@ -201,11 +200,6 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
     public static boolean isRoundButton(AbstractButton button) {
         return !RadianceCoreUtilities.isComboBoxButton(button)
                 && RadianceCoreUtilities.hasText(button);
-    }
-
-    @Override
-    public boolean isProportionate() {
-        return true;
     }
 
     @Override

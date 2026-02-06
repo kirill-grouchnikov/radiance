@@ -73,14 +73,4 @@ public interface RadianceButtonShaper extends RadianceTrait {
      */
     Dimension getPreferredSize(AbstractButton button,
             Dimension uiPreferredSize);
-
-    /**
-     * Returns the boolean indication whether the shaper should maintain button
-     * proportions on the resize. This may be relevant for vector-based shapers
-     * (such as animals / other objects).
-     *
-     * @return <code>true</code> if <code>this</code> shaper should maintain
-     * button proportions on the resize, <code>false</code> otherwise.
-     */
-    boolean isProportionate();
 }
