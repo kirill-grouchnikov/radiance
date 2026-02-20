@@ -35,12 +35,12 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Button shaper interface for <b>Radiance</b> look and feel. This class is
+ * Component shaper interface for <b>Radiance</b> look and feel. This class is
  * part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */
-public interface RadianceButtonShaper extends RadianceTrait {
+public interface RadianceComponentShaper extends RadianceTrait {
     /**
      * Returns the outline path for the specified button.
      *

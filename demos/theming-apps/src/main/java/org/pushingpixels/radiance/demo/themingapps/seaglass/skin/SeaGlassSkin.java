@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfa
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 public class SeaGlassSkin extends RadianceSkin {
 	/**
@@ -92,7 +92,7 @@ public class SeaGlassSkin extends RadianceSkin {
 				ContainerColorTokens::getContainerOutline),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new FractionBasedSurfacePainter(
 			"Sea Glass",

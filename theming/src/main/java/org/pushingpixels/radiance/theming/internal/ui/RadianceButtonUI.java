@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
@@ -70,14 +70,9 @@ import java.util.Set;
 public class RadianceButtonUI extends BasicButtonUI implements
         TransitionAwareUI, ModificationAwareUI {
     /**
-     * Property used during the button shaper switch.
+     * Property used during the component shaper switch.
      */
     public static final String BORDER_COMPUTED = "radiance.theming.internal.buttonbordercomputed";
-
-    /**
-     * Property used during the button shaper switch.
-     */
-    public static final String BORDER_COMPUTING = "radiance.theming.internal.buttonbordercomputing";
 
     /**
      * Property used to store the original (pre-<b>Radiance</b>) button border.
@@ -180,7 +175,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
             b.putClientProperty(RadianceButtonUI.BORDER_ORIGINAL, b.getBorder());
         }
 
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(b);
+        RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(b);
 
         if (b.getClientProperty(RadianceButtonUI.BORDER_COMPUTED) == null) {
             b.setBorder(RadianceCoreUtilities.getButtonBorder(b, shaper));
@@ -190,7 +185,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
                 b.setBorder(RadianceCoreUtilities.getButtonBorder(b, shaper));
             } else {
                 RadianceButtonBorder sbCurrBorder = (RadianceButtonBorder) currBorder;
-                if (shaper.getClass() != sbCurrBorder.getButtonShaperClass()) {
+                if (shaper.getClass() != sbCurrBorder.getComponentShaperClass()) {
                     b.setBorder(RadianceCoreUtilities.getButtonBorder(b, shaper));
                 }
             }
@@ -372,7 +367,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
     @Override
     public Dimension getPreferredSize(JComponent c) {
         AbstractButton button = (AbstractButton) c;
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+        RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(button);
         return shaper.getButtonPreferredSize(button);
     }
 

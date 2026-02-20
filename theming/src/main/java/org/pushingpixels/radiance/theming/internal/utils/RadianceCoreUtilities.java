@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneTitleTextPainter;
@@ -289,21 +289,21 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Returns the button shaper of the specified button.
+     * Returns the component shaper of the specified button.
      *
-     * @param comp The button.
-     * @return The button shaper of the specified button.
-     * @see RadianceSkin#getButtonShaper(RadianceThemingSlices.DecorationAreaType) 
-     * @see RadianceSkin#registerButtonShaper(RadianceButtonShaper, RadianceThemingSlices.DecorationAreaType...)
+     * @param comp The component.
+     * @return The component shaper of the specified button.
+     * @see RadianceSkin#getComponentShaper(RadianceThemingSlices.DecorationAreaType)
+     * @see RadianceSkin#registerComponentShaper(RadianceComponentShaper, RadianceThemingSlices.DecorationAreaType...)
      */
-    public static RadianceButtonShaper getButtonShaper(Component comp) {
+    public static RadianceComponentShaper getComponentShaper(Component comp) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);
         if (skin == null) {
             return null;
         }
         RadianceThemingSlices.DecorationAreaType decorationAreaType =
             DecorationPainterUtils.getDecorationType(comp);
-        return skin.getButtonShaper(decorationAreaType);
+        return skin.getComponentShaper(decorationAreaType);
     }
 
     /**
@@ -1874,7 +1874,7 @@ public class RadianceCoreUtilities {
             CoreColorTokenUtils.ContainerType.MUTED).getOnContainer();
     }
 
-    public static Border getButtonBorder(final AbstractButton button, RadianceButtonShaper shaper) {
+    public static Border getButtonBorder(final AbstractButton button, RadianceComponentShaper shaper) {
         return new RadianceButtonBorder(shaper.getClass()) {
             public Insets getBorderInsets(Component c) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(button);

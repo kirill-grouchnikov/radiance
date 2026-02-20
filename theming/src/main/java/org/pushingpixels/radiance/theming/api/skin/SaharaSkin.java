@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPa
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Sahara</code> skin. This class is part of officially supported API.
@@ -115,7 +115,7 @@ public class SaharaSkin extends RadianceSkin {
 			ContainerColorTokens::getContainerOutline);
 		this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
 		this.outlinePainter = new FlatOutlinePainter();

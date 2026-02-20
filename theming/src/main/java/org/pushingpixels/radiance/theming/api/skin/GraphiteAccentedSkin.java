@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfa
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * Base class for accented <code>Graphite</code> skins. This class is part of officially supported API.
@@ -92,7 +92,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 		this.registerDecorationAreaTokensBundle(this.graphiteDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.outlinePainter = InlayOutlinePainter.builder()
             .displayName("Graphite")

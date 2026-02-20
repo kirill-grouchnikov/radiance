@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * Base class for accented <code>Business</code> skins. This class is part of officially supported API.
@@ -89,7 +89,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			ContainerColorTokens::getContainerOutline);
 		this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
 		this.outlinePainter = new FlatOutlinePainter();

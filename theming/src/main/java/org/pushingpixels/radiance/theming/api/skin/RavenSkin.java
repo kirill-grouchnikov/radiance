@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangula
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Raven</code> skin. This class is part of officially supported API.
@@ -142,7 +142,7 @@ public class RavenSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
 			RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(
 			new GlassSurfacePainter(), 0.5f);

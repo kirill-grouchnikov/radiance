@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 public class VisorSkin extends RadianceSkin {
     /**
@@ -151,7 +151,7 @@ public class VisorSkin extends RadianceSkin {
             /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new MatteSurfacePainter();
         this.outlinePainter = new FlatOutlinePainter();

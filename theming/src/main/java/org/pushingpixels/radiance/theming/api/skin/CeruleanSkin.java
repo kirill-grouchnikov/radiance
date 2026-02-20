@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePain
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Cerulean</code> skin. This class is part of officially supported API.
@@ -153,7 +153,7 @@ public class CeruleanSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.FOOTER,
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
 		this.decorationPainter = new ArcDecorationPainter();

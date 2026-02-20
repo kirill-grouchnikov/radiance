@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainte
 import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Gemini</code> skin. This class is part of officially supported API.
@@ -197,7 +197,7 @@ public class GeminiSkin extends RadianceSkin {
             ContainerColorTokens::getContainerOutline);
         this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Gemini",
             new float[] {0.0f, 0.6f, 1.0f},

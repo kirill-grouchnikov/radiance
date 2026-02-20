@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPai
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Mariner</code> skin. This class is part of officially supported API.
@@ -175,7 +175,7 @@ public class MarinerSkin extends RadianceSkin {
         this.addOverlayPainter(toolbarBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {

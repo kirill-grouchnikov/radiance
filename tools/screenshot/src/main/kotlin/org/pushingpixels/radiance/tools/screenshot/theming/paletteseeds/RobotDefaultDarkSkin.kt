@@ -43,7 +43,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePain
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper
 import java.awt.Color
 
 /**
@@ -73,7 +73,8 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
 
-        this.registerButtonShaper(ClassicButtonShaper(),
+        this.registerComponentShaper(
+            ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE)
         this.surfacePainter = SpecularRectangularSurfacePainter(ClassicSurfacePainter(), 1.0f)
         this.outlinePainter = InlayOutlinePainter.builder()

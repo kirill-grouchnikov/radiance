@@ -39,7 +39,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.Set;
 
 /**
- * Provides common functionality that can be used by button shapers. This class
+ * Provides common functionality that can be used by component shapers. This class
  * is <b>for internal use only</b>.
  * 
  * @author Kirill Grouchnikov

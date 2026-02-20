@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingle
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Streelights</code> skin. This class is part of officially supported
@@ -119,7 +119,7 @@ public class StreetlightsSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 0.5f);
         this.decorationPainter = new ArcDecorationPainter();

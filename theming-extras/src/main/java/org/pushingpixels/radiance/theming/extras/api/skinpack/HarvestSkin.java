@@ -44,7 +44,7 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingle
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Harvest</code> skin. This class is part of officially supported API.
@@ -160,7 +160,7 @@ public class HarvestSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new MatteSurfacePainter();
         this.decorationPainter = new FlatDecorationPainter();

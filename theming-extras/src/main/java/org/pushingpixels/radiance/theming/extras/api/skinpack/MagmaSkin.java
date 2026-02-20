@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainte
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Magma</code> skin. This class is part of officially supported API.
@@ -104,7 +104,7 @@ public class MagmaSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 1.0f);
         this.decorationPainter = new ArcDecorationPainter();

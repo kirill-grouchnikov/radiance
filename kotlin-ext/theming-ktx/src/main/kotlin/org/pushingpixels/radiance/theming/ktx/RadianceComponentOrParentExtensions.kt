@@ -33,9 +33,9 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.painter.preview.DefaultPreviewPainter
 import org.pushingpixels.radiance.theming.api.painter.preview.PreviewPainter
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
-import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper
+import org.pushingpixels.radiance.theming.api.shaper.PillComponentShaper
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper
 import javax.swing.JComponent
 
 /**
@@ -52,9 +52,9 @@ public fun JComponent.setComponentPreviewPainter(previewPainter: PreviewPainter)
 
 /**
  * Specifies whether this component or its immediate children should ignore the
- * default (minimum) dimension for buttons. Note that [RadianceButtonShaper]
+ * default (minimum) dimension for buttons. Note that [RadianceComponentShaper]
  * implementations are not required to respect this call. The current implementations of the
- * default [PillButtonShaper] and [ClassicButtonShaper] respect this
+ * default [PillComponentShaper] and [ClassicComponentShaper] respect this
  * setting.
  *
  * @param buttonIgnoreMinimumSize If `true`, the component or its immediate

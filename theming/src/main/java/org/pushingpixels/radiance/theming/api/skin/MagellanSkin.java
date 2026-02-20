@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 /**
@@ -219,7 +219,7 @@ public class MagellanSkin extends RadianceSkin {
         RadianceOverlayPainter footerTopShadowOverlayPainter = TopShadowOverlayPainter.getInstance(100);
         this.addOverlayPainter(footerTopShadowOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Magellan",
             new float[] {0.0f, 0.3f, 0.6f, 1.0f},

@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -65,7 +65,7 @@ public class ButtonBackgroundDelegate {
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
         AbstractButton button = (AbstractButton) c;
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+        RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(button);
 
         return shaper.getButtonOutline(button, width, height, insets,
             radiusAdjustment, scaleFactor);
@@ -244,7 +244,7 @@ public class ButtonBackgroundDelegate {
         if (!RadianceCoreUtilities.isCurrentLookAndFeel()) {
             return false;
         }
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+        RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(button);
         if (shaper == null) {
             return false;
         }

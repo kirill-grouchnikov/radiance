@@ -55,8 +55,6 @@ the [Ephemeral](https://github.com/kirill-grouchnikov/ephemeral) design system. 
 
 * [Screenshot](docs/tools/screenshot/screenshot.md) has utilities for taking screenshots for Radiance documentation.
 
-* [Shaper Editor](docs/tools/shape-editor/shape-editor.md) can be used creating and editing files that define custom button shapers.
-
 * [SVG Transcoder](docs/tools/svg-transcoder/svg-transcoder.md) enables usage of vector-based icons in Swing applications. SVG content is transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
 
 * [SVG Transcoder Plugin](docs/tools/svg-transcoder/svg-transcoder-gradle-plugin.md) is a Gradle plugin that wraps the SVG Transcoder library to allow build-time transcoding of SVG content into Java / Kotlin classes.

@@ -43,7 +43,7 @@ import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainte
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
@@ -372,7 +372,7 @@ public class SampleMenuFactory {
             this.outlinePainter = flatOutlinePainter;
 
             this.surfacePainter = new GlassSurfacePainter();
-            this.registerButtonShaper(new ClassicButtonShaper(),
+            this.registerComponentShaper(new ClassicComponentShaper(),
                 RadianceThemingSlices.DecorationAreaType.NONE);
             this.decorationPainter = new ArcDecorationPainter();
             this.highlightSurfacePainter = new GlassSurfacePainter();

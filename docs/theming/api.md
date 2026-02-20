@@ -446,9 +446,9 @@ Specifies the straight sides for the specific button component.
 
 Specifies corner radius for the specific button.
 
-`public static void setButtonShaper(JComponent comp, RadianceButtonShaper buttonShaper)`
+`public static void setComponentShaper(JComponent comp, RadianceComponentShaper componentShaper)`
 
-Specifies the button shaper to be used for the specific component.
+Specifies the component shaper to be used for the specific component.
 
 #### Working with comboboxes
 

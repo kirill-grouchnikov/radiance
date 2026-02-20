@@ -41,18 +41,18 @@ import java.awt.*;
  */
 public abstract class RadianceButtonBorder implements Border, UIResource {
 	/**
-	 * The associated button shaper class.
+	 * The associated component shaper class.
 	 */
-	private Class<?> buttonShaperClass;
+	private Class<?> componentShaperClass;
 
 	/**
 	 * Simple constructor.
 	 * 
-	 * @param buttonShaperClass
-	 *            The associated button shaper class.
+	 * @param componentShaperClass
+	 *            The associated component shaper class.
 	 */
-	public RadianceButtonBorder(Class<?> buttonShaperClass) {
-		this.buttonShaperClass = buttonShaperClass;
+	public RadianceButtonBorder(Class<?> componentShaperClass) {
+		this.componentShaperClass = componentShaperClass;
 	}
 
 	@Override
@@ -66,11 +66,11 @@ public abstract class RadianceButtonBorder implements Border, UIResource {
 	}
 
 	/**
-	 * Returns the associated button shaper class.
+	 * Returns the associated component shaper class.
 	 * 
-	 * @return The associated button shaper class.
+	 * @return The associated component shaper class.
 	 */
-	public Class<?> getButtonShaperClass() {
-		return this.buttonShaperClass;
+	public Class<?> getComponentShaperClass() {
+		return this.componentShaperClass;
 	}
 }

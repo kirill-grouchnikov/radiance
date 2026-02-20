@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.internal.ui;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -125,8 +125,8 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
             b.putClientProperty(RadianceButtonUI.BORDER_ORIGINAL, b
                     .getBorder());
 
-        RadianceButtonShaper shaper = RadianceCoreUtilities
-                .getButtonShaper(b);
+        RadianceComponentShaper shaper = RadianceCoreUtilities
+                .getComponentShaper(b);
 
         if (b.getClientProperty(RadianceButtonUI.BORDER_COMPUTED) == null) {
             b.setBorder(RadianceCoreUtilities.getButtonBorder(b, shaper));
@@ -136,7 +136,7 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
                 b.setBorder(RadianceCoreUtilities.getButtonBorder(b, shaper));
             } else {
                 RadianceButtonBorder sbCurrBorder = (RadianceButtonBorder) currBorder;
-                if (shaper.getClass() != sbCurrBorder.getButtonShaperClass())
+                if (shaper.getClass() != sbCurrBorder.getComponentShaperClass())
                     b.setBorder(RadianceCoreUtilities.getButtonBorder(b, shaper));
             }
         }
@@ -272,7 +272,7 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
     @Override
     public Dimension getPreferredSize(JComponent c) {
         AbstractButton button = (AbstractButton) c;
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+        RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(button);
         return shaper.getButtonPreferredSize(button);
     }
 

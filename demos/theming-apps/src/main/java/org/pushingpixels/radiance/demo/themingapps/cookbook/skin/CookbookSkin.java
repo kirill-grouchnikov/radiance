@@ -44,7 +44,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainte
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 public class CookbookSkin extends RadianceSkin {
 
@@ -111,7 +111,7 @@ public class CookbookSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new CookbookSurfacePainter();
 

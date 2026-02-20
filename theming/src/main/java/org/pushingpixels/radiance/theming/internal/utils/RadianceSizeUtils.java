@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 import javax.swing.border.Border;
 import javax.swing.plaf.BorderUIResource;
@@ -289,12 +289,12 @@ public class RadianceSizeUtils {
 	}
 
 	/**
-	 * Returns the corner radius for {@link ClassicButtonShaper} under the
+	 * Returns the corner radius for {@link ClassicComponentShaper} under the
 	 * specified font size.
 	 * 
 	 * @param fontSize
 	 *            Font size.
-	 * @return Corner radius for {@link ClassicButtonShaper} under the specified
+	 * @return Corner radius for {@link ClassicComponentShaper} under the specified
 	 *         font size.
 	 */
 	public static float getClassicButtonCornerRadius(int fontSize) {

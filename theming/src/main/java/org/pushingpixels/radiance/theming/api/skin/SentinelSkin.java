@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainte
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Sentinel</code> skin. This class is part of officially supported API.
@@ -207,7 +207,7 @@ public class SentinelSkin extends RadianceSkin {
             new TopLineOverlayPainter(ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new MatteSurfacePainter();
         this.decorationPainter = new FlatDecorationPainter();

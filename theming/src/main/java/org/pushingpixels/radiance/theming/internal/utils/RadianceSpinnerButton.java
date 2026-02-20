@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceButtonBorder;
 
@@ -56,8 +56,8 @@ public class RadianceSpinnerButton extends JButton {
     }
 
     private abstract static class SpinnerButtonBorder extends RadianceButtonBorder {
-        public SpinnerButtonBorder(Class<?> buttonShaperClass) {
-            super(buttonShaperClass);
+        public SpinnerButtonBorder(Class<?> componentShaperClass) {
+            super(componentShaperClass);
         }
     }
 
@@ -73,7 +73,7 @@ public class RadianceSpinnerButton extends JButton {
         this.setEnabled(spinner.isEnabled());
         this.setFocusable(false);
         this.setRequestFocusEnabled(false);
-        super.setBorder(new SpinnerButtonBorder(ClassicButtonShaper.class) {
+        super.setBorder(new SpinnerButtonBorder(ClassicComponentShaper.class) {
             public Insets getBorderInsets(Component c) {
                 int extraPadding = RadianceSizeUtils
                         .getExtraPadding(RadianceSizeUtils.getComponentFontSize(c));

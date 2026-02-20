@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainte
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * Base class for accented <code>Creme</code> skins. This class is part of officially supported API.
@@ -93,7 +93,7 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		this.addOverlayPainter(toolbarBottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new MatteSurfacePainter(), 0.5f);
 		this.decorationPainter = new ArcDecorationPainter();

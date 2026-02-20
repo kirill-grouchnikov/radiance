@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.*;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Twilight</code> skin. This class is part of officially supported API.
@@ -214,7 +214,7 @@ public class TwilightSkin extends RadianceSkin {
                 ColorTransform.alpha(72)));
         this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Twilight",
             new float[] {0.0f, 0.5f, 1.0f},

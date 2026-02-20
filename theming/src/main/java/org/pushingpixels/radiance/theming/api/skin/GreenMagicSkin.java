@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfa
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Green Magic</code> skin. This class is part of officially supported
@@ -146,7 +146,7 @@ public class GreenMagicSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerOutlineVariant),
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Green Magic",
             new float[] {0.0f, 0.5f, 1.0f},

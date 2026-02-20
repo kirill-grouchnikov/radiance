@@ -35,8 +35,8 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPai
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolver;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.SkinUtilities;
 
@@ -213,9 +213,9 @@ public abstract class RadianceSkin implements RadianceTrait {
     private final Map<RadianceThemingSlices.DecorationAreaType, List<RadianceOverlayPainter>> overlayPaintersMap;
 
     /**
-     * Maps decoration area type to the button shaper to be used for all the buttons in that area.
+     * Maps decoration area type to the component shaper to be used for all the components in that area.
      */
-    private final Map<RadianceThemingSlices.DecorationAreaType, RadianceButtonShaper> buttonShaperMap;
+    private final Map<RadianceThemingSlices.DecorationAreaType, RadianceComponentShaper> componentShaperMap;
 
     /**
      * The surface painter of <code>this</code> skin. Must be non-<code>null</code>.
@@ -259,9 +259,9 @@ public abstract class RadianceSkin implements RadianceTrait {
         this.neutralColorTokensOverrideMap = new HashMap<>();
         this.overlayPaintersMap = new HashMap<>();
 
-        this.buttonShaperMap = new HashMap<>();
-        this.buttonShaperMap.put(RadianceThemingSlices.DecorationAreaType.TOOLBAR,
-            new ClassicButtonShaper.ToolbarButtonShaper());
+        this.componentShaperMap = new HashMap<>();
+        this.componentShaperMap.put(RadianceThemingSlices.DecorationAreaType.TOOLBAR,
+            new ClassicComponentShaper.ToolbarComponentShaper());
 
         this.decoratedAreaSet = new HashSet<>();
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
@@ -742,35 +742,35 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Registers the specified button shaper to be used in the specified decoration area types.
+     * Registers the specified component shaper to be used in the specified decoration area types.
      *
-     * @param buttonShaper Button shaper to use in the specified decoration area types.
+     * @param componentShaper Component shaper to use in the specified decoration area types.
      * @param areaTypes    Decoration area types.
      */
-    public void registerButtonShaper(RadianceButtonShaper buttonShaper,
+    public void registerComponentShaper(RadianceComponentShaper componentShaper,
         RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        if (buttonShaper == null) {
-            throw new IllegalArgumentException("Cannot pass null button shaper");
+        if (componentShaper == null) {
+            throw new IllegalArgumentException("Cannot pass null component shaper");
         }
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
-            this.buttonShaperMap.put(areaType, buttonShaper);
+            this.componentShaperMap.put(areaType, componentShaper);
         }
     }
 
     /**
-     * Returns the button shaper for the specified decoration area type.
+     * Returns the component shaper for the specified decoration area type.
      *
-     * @return The button shaper for the specified decoration area type. A valid skin cannot have a
+     * @return The component shaper for the specified decoration area type. A valid skin cannot have a
      * <code>null</code> value returned from this method. Call {@link #isValid()} to verify that
      * the skin is valid.
      * @see #isValid()
      */
-    public RadianceButtonShaper getButtonShaper(RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        RadianceButtonShaper registered = this. buttonShaperMap.get(decorationAreaType);
+    public RadianceComponentShaper getComponentShaper(RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        RadianceComponentShaper registered = this.componentShaperMap.get(decorationAreaType);
         if (registered != null) {
             return registered;
         }
-        return this.buttonShaperMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
+        return this.componentShaperMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
     }
 
     /**
@@ -873,7 +873,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     /**
      * Checks whether this skin is valid. A skin is considered valid if it has a color tokens
      * bundle for {@link RadianceThemingSlices.DecorationAreaType#NONE}, as well as
-     * non-<code>null</code> button shaper, surface painter, outline painter, highlight surface
+     * non-<code>null</code> component shaper, surface painter, outline painter, highlight surface
      * painter and decoration painter. If calling
      * {@link RadianceThemingCortex.GlobalScope#setSkin(String)} or
      * {@link RadianceThemingCortex.GlobalScope#setSkin(RadianceSkin)} does not seem to have
@@ -887,7 +887,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         if (!this.colorTokensBundleMap.containsKey(RadianceThemingSlices.DecorationAreaType.NONE)) {
             return false;
         }
-        if (this.getButtonShaper(RadianceThemingSlices.DecorationAreaType.NONE) == null) {
+        if (this.getComponentShaper(RadianceThemingSlices.DecorationAreaType.NONE) == null) {
             return false;
         }
         if (this.getSurfacePainter() == null) {

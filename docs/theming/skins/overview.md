@@ -34,10 +34,10 @@ The skin definition consists of the following:
   * [Highlight painters](../painters/highlight.md).
   * [Decoration painter](../painters/decoration.md).
 * Miscellaneous:
-  * [Button shaper](../../hyperion/hyperion.md).
+  * Component shaper.
   * Optional [overlay painters](../painters/overlay.md) for some decoration areas.
 
-In order to define a valid skin, you need to specify all its mandatory parameters. A valid skin must have a color tokens bundle for `DecorationAreaType.NONE`, a button shaper, a surface painter, a decoration painter, a highlight surface painter and an outline painter. All other parts are optional.
+In order to define a valid skin, you need to specify all its mandatory parameters. A valid skin must have a color tokens bundle for `DecorationAreaType.NONE`, a component shaper, a surface painter, a decoration painter, a highlight surface painter and an outline painter. All other parts are optional.
 
 ### Decoration areas
 

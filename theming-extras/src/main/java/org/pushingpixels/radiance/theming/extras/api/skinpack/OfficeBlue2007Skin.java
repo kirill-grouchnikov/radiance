@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
  * <code>Office Blue 2007</code> skin. This class is part of officially
@@ -269,7 +269,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             DecorationAreaType.PRIMARY_TITLE_PANE,
             DecorationAreaType.SECONDARY_TITLE_PANE);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.surfacePainter = new FractionBasedSurfacePainter("Office Blue 2007",

@@ -40,9 +40,9 @@ import org.pushingpixels.radiance.theming.api.painter.preview.DefaultPreviewPain
 import org.pushingpixels.radiance.theming.api.painter.preview.PreviewPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
+import org.pushingpixels.radiance.theming.api.shaper.PillComponentShaper;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.api.skin.SkinChangeListener;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.tabbed.BaseTabCloseListener;
@@ -58,7 +58,6 @@ import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
-import javax.swing.plaf.UIResource;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -1057,12 +1056,12 @@ public class RadianceThemingCortex {
 
         /**
          * Specifies whether buttons should ignore the default (minimum) dimension. Note that
-         * {@link RadianceButtonShaper} implementations are not required to respect this call. The
-         * current implementations of the default {@link PillButtonShaper} and
-         * {@link ClassicButtonShaper} respect this setting.
+         * {@link RadianceComponentShaper} implementations are not required to respect this call. The
+         * current implementations of the default {@link PillComponentShaper} and
+         * {@link ClassicComponentShaper} respect this setting.
          *
          * @param buttonIgnoreMinimumSize If <code>true</code>, buttons will ignore the default
-         *                                (minimum) size under button shapers that respect this setting. Pass
+         *                                (minimum) size under component shapers that respect this setting. Pass
          *                                <code>null</code> to reset to the default behavior.
          * @see ComponentOrParentScope#setButtonIgnoreMinimumSize(JComponent, Boolean)
          */
@@ -1527,8 +1526,8 @@ public class RadianceThemingCortex {
 
         /**
          * Specifies the open side for the specific button component. Note that the
-         * {@link RadianceButtonShaper} implementations are not required to respect this call. The
-         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this call.
+         * {@link RadianceComponentShaper} implementations are not required to respect this call. The
+         * default {@link PillComponentShaper} and {@link ClassicComponentShaper} respect this call.
          *
          * @param comp     Component.
          * @param openSide Open side.
@@ -1545,8 +1544,8 @@ public class RadianceThemingCortex {
 
         /**
          * Specifies the open sides for the specific button component. Note that the
-         * {@link RadianceButtonShaper} implementations are not required to respect this call. The
-         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this call.
+         * {@link RadianceComponentShaper} implementations are not required to respect this call. The
+         * default {@link PillComponentShaper} and {@link ClassicComponentShaper} respect this call.
          *
          * @param comp      Component.
          * @param openSides Open sides.
@@ -1562,8 +1561,8 @@ public class RadianceThemingCortex {
 
         /**
          * Specifies the straight side for the specific button component. Note that the
-         * {@link RadianceButtonShaper} implementations are not required to respect this call. The
-         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this call.
+         * {@link RadianceComponentShaper} implementations are not required to respect this call. The
+         * default {@link PillComponentShaper} and {@link ClassicComponentShaper} respect this call.
          *
          * @param comp         Component.
          * @param straightSide Straight side.
@@ -1579,8 +1578,8 @@ public class RadianceThemingCortex {
 
         /**
          * Specifies the straight sides for the specific button component. Note that the
-         * {@link RadianceButtonShaper} implementations are not required to respect this call. The
-         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this call.
+         * {@link RadianceComponentShaper} implementations are not required to respect this call. The
+         * default {@link PillComponentShaper} and {@link ClassicComponentShaper} respect this call.
          *
          * @param comp          Component.
          * @param straightSides Straight sides.
@@ -1941,9 +1940,9 @@ public class RadianceThemingCortex {
 
         /**
          * Specifies whether the specific component or its immediate children should ignore the
-         * default (minimum) dimension for buttons. Note that {@link RadianceButtonShaper}
+         * default (minimum) dimension for buttons. Note that {@link RadianceComponentShaper}
          * implementations are not required to respect this call. The current implementations of the
-         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this
+         * default {@link PillComponentShaper} and {@link ClassicComponentShaper} respect this
          * setting.
          *
          * @param comp                    Component.

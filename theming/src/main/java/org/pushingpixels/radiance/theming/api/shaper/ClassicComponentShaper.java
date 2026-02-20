@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2026 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.radiance.theming.api.shaper;
 
@@ -40,21 +40,19 @@ import java.awt.*;
 import java.util.Set;
 
 /**
- * Button shaper that returns buttons with completely rounded corners (ala Mac 10.4). This class is
- * part of officially supported API.
- * 
+ * Component shaper that returns rectangular buttons with slightly rounded corners (ala Windows XP).
+ * This class is part of officially supported API.
+ *
  * @author Kirill Grouchnikov
  */
-public class PillButtonShaper implements RadianceButtonShaper, RectangularButtonShaper {
-    /**
-     * Cache of already computed outlines.
-     */
+public class ClassicComponentShaper implements RadianceComponentShaper {
+    /** Cache of already computed outlines. */
     private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
-        "PillButtonShaperNew");
+        "ClassicComponentShaper");
 
     @Override
     public String getDisplayName() {
-        return "Pill";
+        return "Classic";
     }
 
     @Override
@@ -92,7 +90,7 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
 
         boolean hasNoMinSizeProperty = RadianceCoreUtilities.hasNoMinSizeProperty(button);
         if ((!hasNoMinSizeProperty) && hasText) {
-            result = new Dimension(Math.max(result.width + result.height,
+            result = new Dimension(Math.max(result.width,
                 RadianceSizeUtils.getMinButtonWidth(RadianceSizeUtils.getComponentFontSize(button))),
                 result.height);
         } else {
@@ -139,49 +137,32 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
             result = new Dimension(result.width, result.height + iconPaddingHeight);
         }
 
-        if (result.height % 2 != 0)
-            result.height++;
-
         return result;
     }
 
-    /**
-     * Returns indication whether the specified button should be drawn with completely round
-     * corners.
-     * 
-     * @param button
-     *            A button.
-     * @return <code>true</code> if the specified button should be drawn with completely round
-     *         corners, <code>false</code> otherwise.
-     */
-    public static boolean isRoundButton(AbstractButton button) {
-        return !RadianceCoreUtilities.isComboBoxButton(button)
-                && RadianceCoreUtilities.hasText(button);
-    }
-
-    @Override
-    public float getCornerRadius(AbstractButton button, float insets, float radiusAdjustment) {
-        float width = button.getWidth() - 2 * insets;
-        float height = button.getHeight() - 2 * insets;
-
-        boolean isRoundCorners = isRoundButton(button);
+    float getCornerRadius(AbstractButton button, float insets, float radiusAdjustment) {
         float radius = RadianceSizeUtils
                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
-        if (button.getClass().isAnnotationPresent(RadianceInternalArrowButton.class)) {
+        if ((button != null)
+                && button.getClass().isAnnotationPresent(RadianceInternalArrowButton.class)) {
             Border parentBorder = ((JComponent) button.getParent()).getBorder();
             if (parentBorder instanceof RadianceBorder) {
                 radius *= ((RadianceBorder) parentBorder).getRadiusScaleFactor();
             }
         }
+        radius -= radiusAdjustment;
+        return radius;
+    }
 
-        if (isRoundCorners) {
-            if (width > height) {
-                radius = height / 2.0f;
-            } else {
-                radius = width / 2.0f;
-            }
+    public static class ToolbarComponentShaper extends ClassicComponentShaper {
+        @Override
+        public String getDisplayName() {
+            return "Toolbar";
         }
 
-        return radius;
+        @Override
+        float getCornerRadius(AbstractButton button, float insets, float radiusAdjustment) {
+            return 2.0f - radiusAdjustment;
+        }
     }
 }

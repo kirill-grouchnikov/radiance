@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.common.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -55,7 +55,7 @@ public final class RadianceThemingSlices {
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
             AbstractButton button = (AbstractButton) c;
-            RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+            RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(button);
 
             return shaper.getButtonOutline(button, width, height, insets,
                 radiusAdjustment, scaleFactor);
@@ -240,7 +240,7 @@ public final class RadianceThemingSlices {
                 if ((focusShape == null)
                     && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
                     && !(mainComp instanceof JRadioButton))) {
-                    RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(mainComp);
+                    RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(mainComp);
                     if (shaper == null) {
                         return;
                     }
@@ -294,7 +294,7 @@ public final class RadianceThemingSlices {
                 if ((focusShape == null)
                     && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
                     && !(mainComp instanceof JRadioButton))) {
-                    RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(mainComp);
+                    RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(mainComp);
                     if (shaper == null) {
                         return;
                     }
@@ -348,7 +348,7 @@ public final class RadianceThemingSlices {
                     && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
                     && !(mainComp instanceof JRadioButton))) {
 
-                    RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(mainComp);
+                    RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(mainComp);
                     if (shaper == null) {
                         return;
                     }

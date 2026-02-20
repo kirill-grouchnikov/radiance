@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfa
 import org.pushingpixels.radiance.theming.api.painter.surface.LuminousSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.PillComponentShaper;
 
 /**
  * Base class for accented <code>Mist</code> skins. This class is part of officially supported API.
@@ -85,7 +85,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight()),
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        this.registerButtonShaper(new PillButtonShaper(),
+        this.registerComponentShaper(new PillComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new LuminousSurfacePainter();
         this.outlinePainter = new LuminousOutlinePainter();

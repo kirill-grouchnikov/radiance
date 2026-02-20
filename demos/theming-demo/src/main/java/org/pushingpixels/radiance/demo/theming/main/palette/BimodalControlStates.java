@@ -46,7 +46,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainte
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,7 +111,7 @@ public class BimodalControlStates extends JFrame {
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
-            this.registerButtonShaper(new ClassicButtonShaper(),
+            this.registerComponentShaper(new ClassicComponentShaper(),
                 RadianceThemingSlices.DecorationAreaType.NONE);
             this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 1.0f);
             this.outlinePainter = new FlatOutlinePainter();

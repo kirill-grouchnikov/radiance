@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfa
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
@@ -199,7 +199,7 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        this.registerButtonShaper(new ClassicButtonShaper(),
+        this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(
 			new MatteSurfacePainter(),

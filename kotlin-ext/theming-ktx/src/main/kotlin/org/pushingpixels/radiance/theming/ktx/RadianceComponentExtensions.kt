@@ -37,9 +37,9 @@ import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
-import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper
+import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper
+import org.pushingpixels.radiance.theming.api.shaper.PillComponentShaper
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper
 import org.pushingpixels.radiance.theming.api.tabbed.BaseTabCloseListener
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback
 import java.awt.Component
@@ -232,8 +232,8 @@ public fun JScrollPane.setAutomaticScrollPresence(hasAutomaticScroll: Boolean?) 
 
 /**
  * Specifies the open side for this component. Note that the
- * [RadianceButtonShaper] implementations are not required to respect this call. The
- * default [PillButtonShaper] and [ClassicButtonShaper] respect this call.
+ * [RadianceComponentShaper] implementations are not required to respect this call. The
+ * default [PillComponentShaper] and [ClassicComponentShaper] respect this call.
  *
  * @param openSide Open side.
  * @see JComponent.setButtonOpenSides
@@ -246,8 +246,8 @@ public fun JComponent.setButtonOpenSide(openSide: RadianceThemingSlices.Side) {
 
 /**
  * Specifies the open sides for this component. Note that the
- * [RadianceButtonShaper] implementations are not required to respect this call. The
- * default [PillButtonShaper] and [ClassicButtonShaper] respect this call.
+ * [RadianceComponentShaper] implementations are not required to respect this call. The
+ * default [PillComponentShaper] and [ClassicComponentShaper] respect this call.
  *
  * @param openSides Open sides.
  * @see JComponent.setButtonOpenSide
@@ -260,8 +260,8 @@ public fun JComponent.setButtonOpenSides(openSides: Set<RadianceThemingSlices.Si
 
 /**
  * Specifies the straight side for this component. Note that the
- * [RadianceButtonShaper] implementations are not required to respect this call. The
- * default [PillButtonShaper] and [ClassicButtonShaper] respect this call.
+ * [RadianceComponentShaper] implementations are not required to respect this call. The
+ * default [PillComponentShaper] and [ClassicComponentShaper] respect this call.
  *
  * @param straightSide Straight side.
  * @see JComponent.setButtonOpenSide
@@ -274,8 +274,8 @@ public fun JComponent.setButtonStraightSide(straightSide: RadianceThemingSlices.
 
 /**
  * Specifies the straight sides for this component. Note that the
- * [RadianceButtonShaper] implementations are not required to respect this call. The
- * default [PillButtonShaper] and [ClassicButtonShaper] respect this call.
+ * [RadianceComponentShaper] implementations are not required to respect this call. The
+ * default [PillComponentShaper] and [ClassicComponentShaper] respect this call.
  *
  * @param straightSides Straight sides.
  * @see JComponent.setButtonStraightSide
