@@ -83,7 +83,7 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
     }
 
     @Override
-    public Dimension getPreferredSize(AbstractButton button) {
+    public Dimension getButtonPreferredSize(AbstractButton button) {
         Dimension result = RadianceMetricsUtilities.getPreferredButtonSize(button);
         boolean toTweakWidth = false;
         boolean toTweakHeight = false;

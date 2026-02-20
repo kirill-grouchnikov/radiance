@@ -80,7 +80,7 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
     }
 
     @Override
-    public Dimension getPreferredSize(AbstractButton button) {
+    public Dimension getButtonPreferredSize(AbstractButton button) {
         Dimension result = RadianceMetricsUtilities.getPreferredButtonSize(button);
         boolean toTweakWidth = false;
         boolean toTweakHeight = false;

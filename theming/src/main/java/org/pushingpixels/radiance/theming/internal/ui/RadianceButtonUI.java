@@ -373,7 +373,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
     public Dimension getPreferredSize(JComponent c) {
         AbstractButton button = (AbstractButton) c;
         RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
-        return shaper.getPreferredSize(button);
+        return shaper.getButtonPreferredSize(button);
     }
 
     @Override

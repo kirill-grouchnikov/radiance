@@ -60,5 +60,5 @@ public interface RadianceButtonShaper extends RadianceTrait {
      * @param button          A button.
      * @return The preferred size for the specified button.
      */
-    Dimension getPreferredSize(AbstractButton button);
+    Dimension getButtonPreferredSize(AbstractButton button);
 }
