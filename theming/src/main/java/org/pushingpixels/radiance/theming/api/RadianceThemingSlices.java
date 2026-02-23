@@ -51,16 +51,6 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public final class RadianceThemingSlices {
-    private static RadianceOutlinePainter.ShapeSupplier buttonShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-
-            AbstractButton button = (AbstractButton) c;
-            RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(button);
-
-            return shaper.getButtonOutline(button, width, height, insets,
-                radiusAdjustment, scaleFactor);
-        };
-
     /**
      * Listener for the locale changes.
      *
@@ -249,7 +239,8 @@ public final class RadianceThemingSlices {
                         1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                         new float[]{dashLength, dashGap}, dashPhase));
 
-                    Shape outline = buttonShapeSupplier.getShape(mainComp,
+                    RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
+                    Shape outline = componentShaper.getButtonShapeSupplier().getShape(mainComp,
                         (float) scaleFactor * mainComp.getWidth(),
                         (float) scaleFactor * mainComp.getHeight(),
                         1.0f, 0.0f, scaleFactor);
@@ -304,7 +295,8 @@ public final class RadianceThemingSlices {
                         new float[]{dashLength, dashGap}, dashPhase));
                     float insetsPix = extraPadding;
 
-                    Shape outline = buttonShapeSupplier.getShape(mainComp,
+                    RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
+                    Shape outline = componentShaper.getButtonShapeSupplier().getShape(mainComp,
                         (float) scaleFactor * mainComp.getWidth(),
                         (float) scaleFactor * mainComp.getHeight(),
                         insetsPix, 0.0f, scaleFactor);
@@ -353,7 +345,8 @@ public final class RadianceThemingSlices {
                         return;
                     }
 
-                    Shape outline = buttonShapeSupplier.getShape(mainComp,
+                    RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
+                    Shape outline = componentShaper.getButtonShapeSupplier().getShape(mainComp,
                         (float) scaleFactor * mainComp.getWidth(),
                         (float) scaleFactor * mainComp.getHeight(),
                         1.0f, 0.0f, scaleFactor);

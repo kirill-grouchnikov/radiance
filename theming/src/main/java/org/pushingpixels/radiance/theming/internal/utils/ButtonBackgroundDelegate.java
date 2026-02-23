@@ -61,19 +61,8 @@ import java.util.Set;
 public class ButtonBackgroundDelegate {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
-    private static RadianceOutlinePainter.ShapeSupplier buttonShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-
-        AbstractButton button = (AbstractButton) c;
-        RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(button);
-
-        return shaper.getButtonOutline(button, width, height, insets,
-            radiusAdjustment, scaleFactor);
-    };
-
     private void drawBackground(
         Graphics2D graphics, AbstractButton button,
-        RadianceSurfacePainter surfacePainter,
         RadianceOutlinePainter outlinePainter, int width, int height) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
@@ -141,6 +130,9 @@ public class ButtonBackgroundDelegate {
         Set<RadianceThemingSlices.Side> openSides,
         boolean isSurfacePainted, boolean isOutlinePainted,
         ComponentState currState, float overallAlpha) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
+        RadianceOutlinePainter.ShapeSupplier buttonShapeSupplier = componentShaper.getButtonShapeSupplier();
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -220,10 +212,9 @@ public class ButtonBackgroundDelegate {
         graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        RadianceSurfacePainter surfacePainter = RadianceCoreUtilities.getSurfacePainter(button);
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(button);
 
-        drawBackground(graphics, button, surfacePainter, outlinePainter, width, height);
+        drawBackground(graphics, button, outlinePainter, width, height);
 
         graphics.dispose();
     }
@@ -244,10 +235,11 @@ public class ButtonBackgroundDelegate {
         if (!RadianceCoreUtilities.isCurrentLookAndFeel()) {
             return false;
         }
-        RadianceComponentShaper shaper = RadianceCoreUtilities.getComponentShaper(button);
-        if (shaper == null) {
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
+        if (componentShaper == null) {
             return false;
         }
+        RadianceOutlinePainter.ShapeSupplier buttonShapeSupplier = componentShaper.getButtonShapeSupplier();
         Shape outline = buttonShapeSupplier.getShape(button, button.getWidth(), button.getHeight(),
             0.0f, 0.0f, RadianceCommonCortex.getScaleFactor(button));
         return outline.contains(x, y);

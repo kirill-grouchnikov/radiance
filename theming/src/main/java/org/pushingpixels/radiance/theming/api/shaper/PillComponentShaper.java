@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.shaper;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
@@ -52,31 +53,66 @@ public class PillComponentShaper implements RadianceComponentShaper {
     private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
         "PillComponentShaper");
 
+    private final static RadianceOutlinePainter.ShapeSupplier PILL_BUTTON_SHAPE_SUPPLIER =
+        new PillButtonShapeSupplier();
+
+    private static class PillButtonShapeSupplier implements RadianceOutlinePainter.ShapeSupplier {
+        @Override
+        public Shape getShape(Component c, float width, float height, float insets, float radiusAdjustment, double scaleFactor) {
+            AbstractButton button = (AbstractButton) c;
+            Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(button,
+                RadianceSynapse.BUTTON_STRAIGHT_SIDE);
+
+            float radius = (float) scaleFactor * this.getCornerRadius(button, insets, radiusAdjustment);
+
+            HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius, insets);
+
+            Shape result = outlines.get(key);
+            if (result != null) {
+                return result;
+            }
+
+            result = RadianceOutlineUtilities.getBaseOutline(
+                button.getComponentOrientation(),
+                width - 1, height - 1, radius, straightSides, insets);
+            outlines.put(key, result);
+            return result;
+        }
+
+        private float getCornerRadius(AbstractButton button, float insets, float radiusAdjustment) {
+            float width = button.getWidth() - 2 * insets;
+            float height = button.getHeight() - 2 * insets;
+
+            boolean isRoundCorners = isRoundButton(button);
+            float radius = RadianceSizeUtils
+                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
+            if (button.getClass().isAnnotationPresent(RadianceInternalArrowButton.class)) {
+                Border parentBorder = ((JComponent) button.getParent()).getBorder();
+                if (parentBorder instanceof RadianceBorder) {
+                    radius *= ((RadianceBorder) parentBorder).getRadiusScaleFactor();
+                }
+            }
+
+            if (isRoundCorners) {
+                if (width > height) {
+                    radius = height / 2.0f;
+                } else {
+                    radius = width / 2.0f;
+                }
+            }
+
+            return radius;
+        }
+    }
+
     @Override
     public String getDisplayName() {
         return "Pill";
     }
 
     @Override
-    public Shape getButtonOutline(AbstractButton button, float width, float height, float insets,
-        float radiusAdjustment, double scaleFactor) {
-        Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(button,
-            RadianceSynapse.BUTTON_STRAIGHT_SIDE);
-
-        float radius = (float) scaleFactor * this.getCornerRadius(button, insets, radiusAdjustment);
-
-        HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius, insets);
-
-        Shape result = outlines.get(key);
-        if (result != null) {
-            return result;
-        }
-
-        result = RadianceOutlineUtilities.getBaseOutline(
-            button.getComponentOrientation(),
-            width - 1, height - 1, radius, straightSides, insets);
-        outlines.put(key, result);
-        return result;
+    public RadianceOutlinePainter.ShapeSupplier getButtonShapeSupplier() {
+        return PILL_BUTTON_SHAPE_SUPPLIER;
     }
 
     @Override
@@ -157,30 +193,5 @@ public class PillComponentShaper implements RadianceComponentShaper {
     public static boolean isRoundButton(AbstractButton button) {
         return !RadianceCoreUtilities.isComboBoxButton(button)
                 && RadianceCoreUtilities.hasText(button);
-    }
-
-    private float getCornerRadius(AbstractButton button, float insets, float radiusAdjustment) {
-        float width = button.getWidth() - 2 * insets;
-        float height = button.getHeight() - 2 * insets;
-
-        boolean isRoundCorners = isRoundButton(button);
-        float radius = RadianceSizeUtils
-                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
-        if (button.getClass().isAnnotationPresent(RadianceInternalArrowButton.class)) {
-            Border parentBorder = ((JComponent) button.getParent()).getBorder();
-            if (parentBorder instanceof RadianceBorder) {
-                radius *= ((RadianceBorder) parentBorder).getRadiusScaleFactor();
-            }
-        }
-
-        if (isRoundCorners) {
-            if (width > height) {
-                radius = height / 2.0f;
-            } else {
-                radius = width / 2.0f;
-            }
-        }
-
-        return radius;
     }
 }

@@ -29,7 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.api.shaper;
 
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,17 +44,9 @@ import java.awt.*;
  */
 public interface RadianceComponentShaper extends RadianceTrait {
     /**
-     * Returns the outline path for the specified button.
-     *
-     * @param button      A button.
-     * @param width       Button width.
-     * @param height      Button height.
-     * @param insets Button insets.
-     * @param scaleFactor Scale factor.
-     * @return The outline path for the specified button.
+     * Returns the shape supplier for buttons.
      */
-    Shape getButtonOutline(AbstractButton button,
-        float width, float height, float insets, float radiusAdjustment, double scaleFactor);
+    RadianceOutlinePainter.ShapeSupplier getButtonShapeSupplier();
 
     /**
      * Returns the preferred size for the specified button.
