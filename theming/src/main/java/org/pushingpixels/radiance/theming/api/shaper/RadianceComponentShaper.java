@@ -71,6 +71,9 @@ public interface RadianceComponentShaper extends RadianceTrait {
     /** Returns the shape supplier for radio buttons. */
     RadianceOutlinePainter.ShapeSupplier getRadioButtonShapeSupplier();
 
+    /** Returns the shape supplier for scrollbar thumbs. */
+    RadianceOutlinePainter.ShapeSupplier getScrollBarThumbShapeSupplier();
+
     /** Returns the shape supplier for slider tracks. */
     RadianceOutlinePainter.ShapeSupplier getSliderTrackShapeSupplier();
 

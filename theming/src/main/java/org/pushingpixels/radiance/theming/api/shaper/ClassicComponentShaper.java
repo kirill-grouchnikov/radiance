@@ -95,6 +95,18 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         }
     }
 
+    private RadianceOutlinePainter.ShapeSupplier SCROLLBAR_THUMB_SHAPE_SUPPLIER =
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
+            // Adaptive corner radius, either half the height for larger thumbs, or quarter the
+            // height for smaller thumbs
+            float adjustedInsets = insets + 1.0f;
+            float radius = (width >= 1.5 * height)
+                ? (height - 2.0f * adjustedInsets) / 2.0f
+                : (height - 2.0f * adjustedInsets) / 4.0f;
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
+        };
+
     private static RadianceOutlinePainter.ShapeSupplier TAB_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
@@ -242,6 +254,11 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     @Override
     public RadianceOutlinePainter.ShapeSupplier getRadioButtonShapeSupplier() {
         return ROUND_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getScrollBarThumbShapeSupplier() {
+        return SCROLLBAR_THUMB_SHAPE_SUPPLIER;
     }
 
     @Override

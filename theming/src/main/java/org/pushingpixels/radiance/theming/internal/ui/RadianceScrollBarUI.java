@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -95,30 +96,6 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
     private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     private static int THUMB_DELTA = 2;
-
-    private RadianceOutlinePainter.ShapeSupplier thumbVerticalShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-            // Adaptive corner radius, either half the height (which will be width after
-            // rotation) for larger thumbs, or quarter the height for smaller thumbs
-            float adjustedInsets = insets + 1.0f;
-            float radius = (width >= 1.5 * height)
-                ? (height - 2.0f * adjustedInsets) / 2.0f
-                : (height - 2.0f * adjustedInsets) / 4.0f;
-            return RadianceOutlineUtilities.getBaseOutline(
-                c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
-        };
-
-    private RadianceOutlinePainter.ShapeSupplier thumbHorizontalShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-            // Adaptive corner radius, either half the height for larger thumbs, or quarter the
-            // height for smaller thumbs
-            float adjustedInsets = insets + 1.0f;
-            float radius = (width >= 1.5 * height)
-                ? (height - 2.0f * adjustedInsets) / 2.0f
-                : (height - 2.0f * adjustedInsets) / 4.0f;
-            return RadianceOutlineUtilities.getBaseOutline(
-                c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
-        };
 
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -192,6 +169,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             true, false, CoreColorTokenUtils.ContainerType.MUTED);
 
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(scrollbar);
+
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -201,21 +180,18 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         // with a 90 degree rotation transformation
         RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, height,
             width, (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceSurfacePainter painter = RadianceCoreUtilities.getSurfacePainter(this.scrollbar);
-                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
-
-                Shape outline = thumbVerticalShapeSupplier.getShape(this.scrollbar,
-                    scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
-
                 // Rotate the graphics context for correct "orientation" of the visuals
                 AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
                 at.translate(-y - scaledWidth, x + hoffset * scaleFactor);
                 graphics1X.transform(at);
 
+                Shape outline = componentShaper.getScrollBarThumbShapeSupplier().getShape(this.scrollbar,
+                    scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
                 SurfacePainterUtils.paintSurface(graphics1X, this.scrollbar, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, mutableContainerTokens);
                 OutlinePainterUtils.paintOutline(graphics1X, this.scrollbar, currState,
-                    scaledWidth, scaledHeight, scaleFactor, 1.0f, thumbVerticalShapeSupplier,
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                    componentShaper.getScrollBarThumbShapeSupplier(),
                     mutableContainerTokens);
             });
         graphics.dispose();
@@ -243,6 +219,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
             true, false, CoreColorTokenUtils.ContainerType.MUTED);
 
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(scrollbar);
+
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -250,19 +228,15 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, thumbBounds.x, thumbBounds.y, width, height,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                RadianceSurfacePainter painter = RadianceCoreUtilities.getSurfacePainter(this.scrollbar);
-                RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.scrollbar);
-
-                Shape outline = thumbHorizontalShapeSupplier.getShape(this.scrollbar,
-                    scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
-
                 graphics1X.translate(x, y + voffset * scaleFactor);
 
+                Shape outline = componentShaper.getScrollBarThumbShapeSupplier().getShape(this.scrollbar,
+                    scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
                 SurfacePainterUtils.paintSurface(graphics1X, this.scrollbar, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, mutableContainerTokens);
                 OutlinePainterUtils.paintOutline(graphics1X, this.scrollbar, currState,
-                    scaledWidth, scaledHeight, scaleFactor, 1.0f, thumbVerticalShapeSupplier,
-                    mutableContainerTokens);
+                    scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                    componentShaper.getScrollBarThumbShapeSupplier(), mutableContainerTokens);
             });
         graphics.dispose();
     }
