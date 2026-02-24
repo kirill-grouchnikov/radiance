@@ -39,6 +39,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.util.Set;
 
 /**
@@ -118,6 +119,10 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     private RadianceOutlinePainter.ShapeSupplier ROUND_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
+
+    private RadianceOutlinePainter.ShapeSupplier RECTANGLE_SHAPE_SUPPLIER =
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
+            new Rectangle2D.Float(insets, insets, width - 1 - 2.0f * insets, height - 1 - 2.0f * insets);
 
     @Override
     public String getDisplayName() {
@@ -233,6 +238,11 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     @Override
     public RadianceOutlinePainter.ShapeSupplier getSplitDividerBumpShapeSupplier() {
         return ROUND_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getTextComponentShapeSupplier() {
+        return RECTANGLE_SHAPE_SUPPLIER;
     }
 
     @Override

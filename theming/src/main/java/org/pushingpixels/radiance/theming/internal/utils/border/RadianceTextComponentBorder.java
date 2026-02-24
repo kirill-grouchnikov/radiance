@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -56,17 +57,9 @@ import java.awt.geom.Rectangle2D;
  * @author Kirill Grouchnikov
  */
 public class RadianceTextComponentBorder implements Border, UIResource {
-    /**
-     * Insets of <code>this</code> border.
-     */
-    protected Insets myInsets;
-    private BladeContainerColorTokens mutableContainerTokens =
-        new BladeContainerColorTokens();
-
-    RadianceOutlinePainter.ShapeSupplier shapeSupplier =
-        (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment, shapeScaleFactor) ->
-            new Rectangle2D.Float(shapeInsets, shapeInsets, shapeWidth - 1 - 2.0f * shapeInsets,
-                shapeHeight - 1 - 2.0f * shapeInsets);
+    /** Insets of <code>this</code> border. */
+    private Insets myInsets;
+    private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     /**
      * Creates a new border with the specified insets.
@@ -106,7 +99,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
         if ((width <= 0) || (height <= 0))
             return;
 
-        RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(c);
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(c);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(xOffset, yOffset);
@@ -136,7 +129,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                         false, false, CoreColorTokenUtils.ContainerType.MUTED);
                     OutlinePainterUtils.paintOutline(graphics1X, c, currState,
                         scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                        shapeSupplier, mutableContainerTokens);
+                        componentShaper.getTextComponentShapeSupplier(), mutableContainerTokens);
 
                     return;
                 }
@@ -152,7 +145,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
 
             OutlinePainterUtils.paintOutline(graphics1X, c, currState,
                 scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                shapeSupplier, colorTokens);
+                componentShaper.getTextComponentShapeSupplier(), colorTokens);
         });
 
         graphics.dispose();
