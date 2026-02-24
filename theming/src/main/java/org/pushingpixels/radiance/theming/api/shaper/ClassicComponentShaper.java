@@ -40,6 +40,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.EnumSet;
 import java.util.Set;
 
 /**
@@ -93,6 +94,19 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
             return radius;
         }
     }
+
+    private static RadianceOutlinePainter.ShapeSupplier TAB_SHAPE_SUPPLIER =
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
+
+            float cornerRadius = (float) scaleFactor * RadianceSizeUtils
+                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c)) -
+                radiusAdjustment;
+
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(),
+                width, height, cornerRadius - insets,
+                EnumSet.of(RadianceThemingSlices.Side.BOTTOM), 1.0f + insets);
+        };
 
     private RadianceOutlinePainter.ShapeSupplier DEFAULT_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
@@ -238,6 +252,11 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     @Override
     public RadianceOutlinePainter.ShapeSupplier getSplitDividerBumpShapeSupplier() {
         return ROUND_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getTabShapeSupplier() {
+        return TAB_SHAPE_SUPPLIER;
     }
 
     @Override

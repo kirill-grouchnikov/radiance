@@ -35,8 +35,8 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.*;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -654,21 +654,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             : colorTokens.getContainerOutline();
     }
 
-    private static RadianceOutlinePainter.ShapeSupplier tabOutlineShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-
-            // Always use slightly rounded corners on tabs
-            float cornerRadius = (float) scaleFactor * RadianceSizeUtils
-                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c)) -
-                radiusAdjustment;
-
-            return RadianceOutlineUtilities.getBaseOutline(
-                c.getComponentOrientation(),
-                width, height, cornerRadius - insets,
-                EnumSet.of(RadianceThemingSlices.Side.BOTTOM), 1.0f + insets);
-        };
-
-
     private static void paintTabBackgroundAt1X(Graphics2D graphics1X,
         JTabbedPane tabPane, int tabIndex, double scaleFactor, int width, int height,
         ContainerColorTokens colorTokens, Color tabColor) {
@@ -676,7 +661,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         int dy = 3;
         width -= 1;
 
-        Shape outline = tabOutlineShapeSupplier.getShape(tabPane, width, height + dy,
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(tabPane);
+        Shape outline = componentShaper.getTabShapeSupplier().getShape(tabPane, width, height + dy,
             0.0f, 0.0f, scaleFactor);
 
         graphics1X.setColor(tabColor);

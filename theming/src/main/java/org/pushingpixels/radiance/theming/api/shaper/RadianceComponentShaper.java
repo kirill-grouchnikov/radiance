@@ -77,6 +77,9 @@ public interface RadianceComponentShaper extends RadianceTrait {
     /** Returns the shape supplier for split divider bumps. */
     RadianceOutlinePainter.ShapeSupplier getSplitDividerBumpShapeSupplier();
 
+    /** Returns the shape supplier for tabs. */
+    RadianceOutlinePainter.ShapeSupplier getTabShapeSupplier();
+
     /** Returns the shape supplier for text components. */
     RadianceOutlinePainter.ShapeSupplier getTextComponentShapeSupplier();
 
