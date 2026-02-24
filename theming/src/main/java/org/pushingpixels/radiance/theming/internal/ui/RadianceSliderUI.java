@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -236,29 +237,19 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         g2d.dispose();
     }
 
-    private static RadianceOutlinePainter.ShapeSupplier sliderTrackShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-            int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
-            float radius = (float) scaleFactor *
-                RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f - radiusAdjustment;
-
-            return RadianceOutlineUtilities.getBaseOutline(
-                c.getComponentOrientation(),
-                width, height, radius - insets, null, insets + 1.0f);
-        };
-
     private static void paintSliderTrack1X(JSlider slider, Graphics2D graphics1X,
         ContainerColorTokens colorTokens, int width, int height, double scaleFactor,
         ComponentState currState) {
 
         RadianceSurfacePainter surfacePainter = new MatteSurfacePainter();
-        Shape outline = sliderTrackShapeSupplier.getShape(slider,
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(slider);
+        Shape outline = componentShaper.getSliderTrackShapeSupplier().getShape(slider,
             width, height, 0.0f, 0.0f, scaleFactor);
 
         SurfacePainterUtils.paintSurface(graphics1X, slider, currState, surfacePainter,
             width, height, scaleFactor, 1.0f, outline, colorTokens);
         OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
-            width, height, scaleFactor, 1.0f, sliderTrackShapeSupplier,
+            width, height, scaleFactor, 1.0f, componentShaper.getSliderTrackShapeSupplier(),
             colorTokens);
     }
 
@@ -286,6 +277,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         insets.right /= 2;
 
         RadianceOutlinePainter outlinePainter = new FlatOutlinePainter();
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(slider);
 
         // fill selected portion
         if (slider.getOrientation() == SwingConstants.HORIZONTAL) {
@@ -304,14 +296,14 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             int fillWidth = fillMaxX - fillMinX;
             int fillHeight = height;
             if ((fillWidth > 0) && (fillHeight > 0)) {
-                Shape outline = sliderTrackShapeSupplier.getShape(
+                Shape outline = componentShaper.getSliderTrackShapeSupplier().getShape(
                     slider, fillWidth, fillHeight, 0.0f, 0.0f, scaleFactor);
                 graphics1Xextra.translate(fillMinX, 0);
 
                 SurfacePainterUtils.paintSurface(graphics1Xextra, slider, currState,
                     fillWidth, fillHeight, scaleFactor, 1.0f, outline, colorTokens);
                 OutlinePainterUtils.paintOutline(graphics1Xextra, slider, currState, outlinePainter,
-                    fillWidth, fillHeight, scaleFactor, 1.0f, sliderTrackShapeSupplier,
+                    fillWidth, fillHeight, scaleFactor, 1.0f, componentShaper.getSliderTrackShapeSupplier(),
                     colorTokens);
             }
         } else {
@@ -332,13 +324,13 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             int fillWidth = fillMax - fillMin;
             int fillHeight = height;
             if ((fillWidth > 0) && (fillHeight > 0)) {
-                Shape outline = sliderTrackShapeSupplier.getShape(
+                Shape outline = componentShaper.getSliderTrackShapeSupplier().getShape(
                     slider, fillWidth, fillHeight, 0.0f, 0.0f, scaleFactor);
 
                 SurfacePainterUtils.paintSurface(graphics1Xextra, slider, currState,
                     fillWidth, fillHeight, scaleFactor, 1.0f, outline, colorTokens);
                 OutlinePainterUtils.paintOutline(graphics1Xextra, slider, currState, outlinePainter,
-                    fillWidth, fillHeight, scaleFactor, 1.0f, sliderTrackShapeSupplier,
+                    fillWidth, fillHeight, scaleFactor, 1.0f, componentShaper.getSliderTrackShapeSupplier(),
                     colorTokens);
             }
         }

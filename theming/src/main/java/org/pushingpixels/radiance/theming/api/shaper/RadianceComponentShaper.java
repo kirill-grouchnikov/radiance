@@ -29,12 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.api.shaper;
 
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Set;
 
 /**
  * Component shaper interface for <b>Radiance</b> look and feel. This class is
@@ -54,9 +55,25 @@ public interface RadianceComponentShaper extends RadianceTrait {
      */
     Dimension getButtonPreferredSize(AbstractButton button);
 
+    /** Returns the shape supplier for checkboxes. */
+    RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier();
+
     /** Returns the shape supplier for comboboxes. */
     RadianceOutlinePainter.ShapeSupplier getComboBoxShapeSupplier();
 
-    /** Returns the shape supplier for checkboxes. */
-    RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier();
+    /** Returns the shape supplier for progress bar progress. */
+    RadianceOutlinePainter.ShapeSupplier getProgressBarProgressShapeSupplier(
+        Set<RadianceThemingSlices.Side> straightSides);
+
+    /** Returns the shape supplier for progress bar tracks. */
+    RadianceOutlinePainter.ShapeSupplier getProgressBarTrackShapeSupplier();
+
+    /** Returns the shape supplier for radio buttons. */
+    RadianceOutlinePainter.ShapeSupplier getRadioButtonShapeSupplier();
+
+    /** Returns the shape supplier for slider tracks. */
+    RadianceOutlinePainter.ShapeSupplier getSliderTrackShapeSupplier();
+
+    /** Returns the shape supplier for split divider bumps. */
+    RadianceOutlinePainter.ShapeSupplier getSplitDividerBumpShapeSupplier();
 }

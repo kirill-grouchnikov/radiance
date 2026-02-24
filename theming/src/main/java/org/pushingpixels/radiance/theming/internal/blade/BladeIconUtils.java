@@ -110,13 +110,11 @@ public class BladeIconUtils {
         graphics1X.draw(path);
     }
 
-    private static RadianceOutlinePainter.ShapeSupplier radioButtonShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
-            new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
-
     public static void drawRadioButton(Graphics2D g, AbstractButton button,
         int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -133,7 +131,8 @@ public class BladeIconUtils {
                     new Ellipse2D.Float(0.5f, 0.5f, outlineDim, outlineDim), colorTokens);
 
                 OutlinePainterUtils.paintOutline(graphics1X, button, currentState,
-                    outlineDim, outlineDim, scaleFactor, 1.0f, radioButtonShapeSupplier, colorTokens);
+                    outlineDim, outlineDim, scaleFactor, 1.0f,
+                    componentShaper.getRadioButtonShapeSupplier(), colorTokens);
 
                 float rc = outlineDim / 2.0f + 0.5f;
                 float radius = outlineDim / 4.5f;
@@ -558,13 +557,12 @@ public class BladeIconUtils {
     }
 
 
-    private static RadianceOutlinePainter.ShapeSupplier splitDividerBumpShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
-            new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
-
     public static void drawSplitDividerBumpImage(Graphics g, RadianceSplitPaneDivider divider,
         int x, int y, int width, int height, boolean isHorizontal,
         ContainerColorTokens colorTokens, ComponentState state) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(divider);
+
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
 
@@ -604,7 +602,7 @@ public class BladeIconUtils {
 
                         OutlinePainterUtils.paintOutline(graphics1X, divider, state,
                             bumpDotDiameter, bumpDotDiameter, scaleFactor, 0.32f,
-                            splitDividerBumpShapeSupplier, colorTokens);
+                            componentShaper.getSplitDividerBumpShapeSupplier(), colorTokens);
 
                         graphics1X.translate(-cx, -cy);
                     }

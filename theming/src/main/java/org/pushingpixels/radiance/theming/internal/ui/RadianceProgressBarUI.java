@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
@@ -217,8 +218,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     }
 
     private void drawDeterminateBackground(Graphics2D g, JProgressBar bar, int width, int height,
-        ContainerColorTokens colorTokens, int orientation,
-        ComponentState currState) {
+        ContainerColorTokens colorTokens, int orientation, ComponentState currState) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(bar);
 
         Graphics2D graphics = (Graphics2D) g.create();
 
@@ -230,11 +232,8 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         if (orientation == SwingConstants.HORIZONTAL) {
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
-                        .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
-                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                        bar.getComponentOrientation(),
-                        scaledWidth, scaledHeight, radius, null);
+                    Shape outline = componentShaper.getProgressBarTrackShapeSupplier().getShape(
+                        bar, scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
                     SurfacePainterUtils.paintSurface(graphics1X, bar, currState,
                         scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
                 });
@@ -247,11 +246,8 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     at.translate(x - scaledWidth, y);
                     graphics1X.transform(at);
 
-                    float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
-                        .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
-                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                        bar.getComponentOrientation(),
-                        scaledWidth, scaledHeight, radius, null);
+                    Shape outline = componentShaper.getProgressBarTrackShapeSupplier().getShape(
+                        bar, scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
                     SurfacePainterUtils.paintSurface(graphics1X, bar, currState,
                         scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
                 });
@@ -260,8 +256,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     }
 
     private void drawDeterminateProgress(Graphics2D g, JProgressBar bar, int width, int height,
-        boolean isFull, ContainerColorTokens colorTokens,
-        int orientation, ComponentState currState) {
+        boolean isFull, ContainerColorTokens colorTokens, int orientation, ComponentState currState) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(bar);
 
         Graphics2D graphics = (Graphics2D) g.create();
 
@@ -273,13 +270,10 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         if (orientation == SwingConstants.HORIZONTAL) {
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
-                        .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
                     RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.TRAILING;
                     Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
-                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                        bar.getComponentOrientation(),
-                        scaledWidth, scaledHeight, radius, straightSides);
+                    Shape outline = componentShaper.getProgressBarProgressShapeSupplier(straightSides).getShape(
+                        bar, scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
                     SurfacePainterUtils.paintSurface(graphics1X, bar, currState, progressSurfacePainter,
                         scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
                 });
@@ -292,14 +286,10 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     at.translate(x - scaledWidth, y);
                     graphics1X.transform(at);
 
-                    float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
-                        .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
                     RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.TRAILING;
                     Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
-
-                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                        bar.getComponentOrientation(),
-                        scaledWidth, scaledHeight, radius, straightSides);
+                    Shape outline = componentShaper.getProgressBarProgressShapeSupplier(straightSides).getShape(
+                        bar, scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
                     SurfacePainterUtils.paintSurface(graphics1X, bar, currState, progressSurfacePainter,
                         scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
                 });

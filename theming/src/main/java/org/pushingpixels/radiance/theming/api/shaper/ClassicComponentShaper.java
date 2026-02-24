@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.util.Set;
 
 /**
@@ -102,6 +103,21 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
                 c.getComponentOrientation(),
                 width, height, radius, null, insets);
         };
+
+    private RadianceOutlinePainter.ShapeSupplier DEFAULT_HALF_SHAPE_SUPPLIER =
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
+            int fontSize = RadianceSizeUtils.getComponentFontSize(c);
+            float radius = 0.5f * (float) scaleFactor *
+                RadianceSizeUtils.getClassicButtonCornerRadius(fontSize) - insets - radiusAdjustment;
+
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(),
+                width, height, radius, null, insets);
+        };
+
+    private RadianceOutlinePainter.ShapeSupplier ROUND_SHAPE_SUPPLIER =
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
+            new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
     @Override
     public String getDisplayName() {
@@ -177,13 +193,46 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     }
 
     @Override
+    public RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier() {
+        return DEFAULT_SHAPE_SUPPLIER;
+    }
+
+    @Override
     public RadianceOutlinePainter.ShapeSupplier getComboBoxShapeSupplier() {
         return DEFAULT_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier() {
-        return DEFAULT_SHAPE_SUPPLIER;
+    public RadianceOutlinePainter.ShapeSupplier getProgressBarProgressShapeSupplier(
+        Set<RadianceThemingSlices.Side> straightSides) {
+        return (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
+            int fontSize = RadianceSizeUtils.getComponentFontSize(c);
+            float radius = 0.5f * (float) scaleFactor *
+                RadianceSizeUtils.getClassicButtonCornerRadius(fontSize) - insets - radiusAdjustment;
+
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(), width, height, radius, straightSides, insets);
+        };
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getProgressBarTrackShapeSupplier() {
+        return DEFAULT_HALF_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getRadioButtonShapeSupplier() {
+        return ROUND_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getSliderTrackShapeSupplier() {
+        return DEFAULT_HALF_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getSplitDividerBumpShapeSupplier() {
+        return ROUND_SHAPE_SUPPLIER;
     }
 
     public static class ToolbarComponentShaper extends ClassicComponentShaper {
