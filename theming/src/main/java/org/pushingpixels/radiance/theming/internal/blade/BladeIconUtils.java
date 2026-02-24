@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePai
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -46,21 +47,12 @@ import java.awt.*;
 import java.awt.geom.*;
 
 public class BladeIconUtils {
-    private static RadianceOutlinePainter.ShapeSupplier checkBoxShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-
-        float cornerRadius = (float) scaleFactor *
-            RadianceSizeUtils.getClassicButtonCornerRadius(
-                RadianceSizeUtils.getComponentFontSize(c));
-
-        return RadianceOutlineUtilities.getBaseOutline(
-            c.getComponentOrientation(), width, height, cornerRadius - radiusAdjustment, null, insets);
-    };
-
     public static void drawCheckBox(Graphics2D g, JComponent component,
         int dimension, ComponentState currentState,
         ContainerColorTokens colorTokens, float checkMarkVisibility,
         float checkMarkFlatness, boolean isCheckMarkFadingOut) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -72,14 +64,14 @@ public class BladeIconUtils {
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 int outlineDim = scaledWidth - 1;
 
-                Shape outlineFill = checkBoxShapeSupplier.getShape(component,
+                Shape outlineFill = componentShaper.getCheckBoxShapeSupplier().getShape(component,
                     outlineDim + 1, outlineDim + 1, 0.5f, 0.0f, scaleFactor);
 
                 SurfacePainterUtils.paintSurface(graphics1X, component, currentState,
                     outlineDim, outlineDim, scaleFactor, 1.0f, outlineFill, colorTokens);
 
                 OutlinePainterUtils.paintOutline(graphics1X, component, currentState,
-                    outlineDim, outlineDim, scaleFactor, 1.0f, checkBoxShapeSupplier, colorTokens);
+                    outlineDim, outlineDim, scaleFactor, 1.0f, componentShaper.getCheckBoxShapeSupplier(), colorTokens);
 
                 float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
                     1.0f : checkMarkVisibility;

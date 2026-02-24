@@ -46,7 +46,7 @@ import java.util.Set;
  * 
  * @author Kirill Grouchnikov
  */
-public class PillComponentShaper implements RadianceComponentShaper {
+public class PillComponentShaper extends ClassicComponentShaper {
     /**
      * Cache of already computed outlines.
      */

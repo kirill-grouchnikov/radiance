@@ -43,9 +43,7 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public interface RadianceComponentShaper extends RadianceTrait {
-    /**
-     * Returns the shape supplier for buttons.
-     */
+    /** Returns the shape supplier for buttons. */
     RadianceOutlinePainter.ShapeSupplier getButtonShapeSupplier();
 
     /**
@@ -55,4 +53,10 @@ public interface RadianceComponentShaper extends RadianceTrait {
      * @return The preferred size for the specified button.
      */
     Dimension getButtonPreferredSize(AbstractButton button);
+
+    /** Returns the shape supplier for comboboxes. */
+    RadianceOutlinePainter.ShapeSupplier getComboBoxShapeSupplier();
+
+    /** Returns the shape supplier for checkboxes. */
+    RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier();
 }

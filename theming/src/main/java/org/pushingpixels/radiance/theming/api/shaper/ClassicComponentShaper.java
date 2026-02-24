@@ -92,6 +92,17 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         }
     }
 
+    private RadianceOutlinePainter.ShapeSupplier DEFAULT_SHAPE_SUPPLIER =
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
+            int fontSize = RadianceSizeUtils.getComponentFontSize(c);
+            float radius = (float) scaleFactor *
+                RadianceSizeUtils.getClassicButtonCornerRadius(fontSize) - insets - radiusAdjustment;
+
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(),
+                width, height, radius, null, insets);
+        };
+
     @Override
     public String getDisplayName() {
         return "Classic";
@@ -163,6 +174,16 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         }
 
         return result;
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getComboBoxShapeSupplier() {
+        return DEFAULT_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier() {
+        return DEFAULT_SHAPE_SUPPLIER;
     }
 
     public static class ToolbarComponentShaper extends ClassicComponentShaper {
