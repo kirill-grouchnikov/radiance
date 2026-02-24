@@ -283,17 +283,11 @@ public class BladeIconUtils {
             (tokens) -> tokens.isDark() ? tokens.getContainerSurfaceHigh()
                 : tokens.getContainerSurfaceLow(),
             ContainerColorTokens::getContainerSurface});
-    private static RadianceOutlinePainter.ShapeSupplier treeIconShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
-            RadianceOutlineUtilities.getBaseOutline(
-                c.getComponentOrientation(),
-                width, height,
-                (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                    RadianceSizeUtils.getComponentFontSize(c)) / 1.5f, null,
-                1.0f);
 
     public static void drawTreeIcon(Graphics2D g, JTree tree, ComponentState state, int size,
         ContainerColorTokens colorTokens, boolean isCollapsed) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(tree);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -304,7 +298,7 @@ public class BladeIconUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, size, size,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                Shape outline = treeIconShapeSupplier.getShape(tree,
+                Shape outline = componentShaper.getTreeIconShapeSupplier().getShape(tree,
                     scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
 
                 SurfacePainterUtils.paintSurface(graphics1X, tree, state,
@@ -313,7 +307,7 @@ public class BladeIconUtils {
 
                 OutlinePainterUtils.paintOutline(graphics1X, tree, state,
                     treeIconOutlinePainter, scaledWidth, scaledHeight, scaleFactor,
-                    1.0f, treeIconShapeSupplier, colorTokens);
+                    1.0f, componentShaper.getTreeIconShapeSupplier(), colorTokens);
 
                 Color signColor = colorTokens.getOnContainer();
                 graphics1X.setColor(signColor);

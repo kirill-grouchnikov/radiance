@@ -76,4 +76,7 @@ public interface RadianceComponentShaper extends RadianceTrait {
 
     /** Returns the shape supplier for split divider bumps. */
     RadianceOutlinePainter.ShapeSupplier getSplitDividerBumpShapeSupplier();
+
+    /** Returns the shape supplier for split tree icons. */
+    RadianceOutlinePainter.ShapeSupplier getTreeIconShapeSupplier();
 }

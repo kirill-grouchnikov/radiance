@@ -235,6 +235,11 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         return ROUND_SHAPE_SUPPLIER;
     }
 
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getTreeIconShapeSupplier() {
+        return DEFAULT_HALF_SHAPE_SUPPLIER;
+    }
+
     public static class ToolbarComponentShaper extends ClassicComponentShaper {
         private final static RadianceOutlinePainter.ShapeSupplier TOOLBAR_BUTTON_SHAPE_SUPPLIER =
             new ToolbarButtonShapeSupplier();
