@@ -39,6 +39,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -376,10 +377,17 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     private void paintRectangularStripedBackground(Graphics g,
         int startX, int startY, int width, int height, ContainerColorTokens colorTokens,
         final int stripeOffset, float borderAlpha, ComponentState currState, boolean isVertical) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(this.progressBar);
+        RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getProgressBarTrackShapeSupplier();
+
         Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
         if (!isVertical) {
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    graphics1X.clip(shapeSupplier.getShape(progressBar,
+                        scaledWidth - 1, scaledHeight - 1, 0.0f, 0.0f, scaleFactor));
+
                     float containerSurfaceAlpha =
                         (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
                     graphics1X.setComposite(WidgetUtilities.getAlphaComposite(progressBar,
@@ -410,6 +418,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         } else {
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    graphics1X.clip(shapeSupplier.getShape(progressBar,
+                        scaledWidth - 1, scaledHeight - 1, 0.0f, 0.0f, scaleFactor));
+
                     // Rotate the graphics context for correct "orientation" of the visuals
                     AffineTransform at = AffineTransform.getRotateInstance(Math.PI / 2);
                     at.translate(x, y - scaledHeight);
@@ -452,9 +463,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null,
                 borderAlpha * containerOutlineAlpha, graphics));
 
-            BladeDrawingUtils.paintBladeSimpleBorder(this.progressBar, g2d, width, height,
-                RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(this.progressBar)),
-                colorTokens);
+            BladeDrawingUtils.paintBladeSimpleBorder(this.progressBar, g2d, width, height, shapeSupplier, colorTokens);
             g2d.dispose();
         }
         graphics.dispose();
@@ -475,10 +484,6 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         }
 
         Graphics2D g2d = (Graphics2D) g.create();
-        float radius = 0.5f * RadianceSizeUtils.getClassicButtonCornerRadius(
-            RadianceSizeUtils.getComponentFontSize(progressBar));
-        g2d.clip(new RoundRectangle2D.Float(margin, margin, barRectWidth, barRectHeight, radius, radius));
-
         ContainerColorTokens progressColorTokens = CoreColorTokenUtils.getActiveContainerTokens(
             progressBar, progressState);
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {

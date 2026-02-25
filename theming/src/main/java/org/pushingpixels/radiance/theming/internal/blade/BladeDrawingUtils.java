@@ -116,4 +116,24 @@ public class BladeDrawingUtils {
             });
         graphics.dispose();
     }
+
+    public static void paintBladeSimpleBorder(Component c, Graphics2D g, int width, int height,
+        RadianceOutlinePainter.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                Color borderColor = colorTokens.getContainerOutline();
+                graphics1X.setColor(borderColor);
+                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+                graphics1X.draw(shapeSupplier.getShape(c,
+                    scaledWidth - 1.0f, scaledHeight - 1.0f, 0.0f, 0.0f, scaleFactor));
+            });
+        graphics.dispose();
+    }
 }
