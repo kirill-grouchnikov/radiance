@@ -224,6 +224,23 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     }
 
     @Override
+    public RadianceOutlinePainter.ShapeSupplier getBaselineShapeSupplier() {
+        return DEFAULT_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public RadianceOutlinePainter.ShapeSupplier getBaselineShapeSupplier(Set<RadianceThemingSlices.Side> straightSides) {
+        return (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
+            float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
+                RadianceSizeUtils.getComponentFontSize(c));
+
+            return RadianceOutlineUtilities.getBaseOutline(
+                c.getComponentOrientation(), width, height, radius - radiusAdjustment,
+                straightSides, insets);
+        };
+    }
+
+    @Override
     public RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier() {
         return DEFAULT_SHAPE_SUPPLIER;
     }

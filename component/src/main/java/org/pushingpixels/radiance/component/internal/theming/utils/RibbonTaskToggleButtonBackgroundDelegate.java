@@ -34,13 +34,16 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggle
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import java.awt.*;
 import java.util.EnumSet;
@@ -117,18 +120,13 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         }
     }
 
-    private static RadianceOutlinePainter.ShapeSupplier outlineShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-            float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                    RadianceSizeUtils.getComponentFontSize(c));
-
-            return RadianceOutlineUtilities.getBaseOutline(
-                c.getComponentOrientation(), width, height, radius - radiusAdjustment,
-                EnumSet.of(Side.BOTTOM), insets);
-        };
-
     private static void drawFullAlphaBackground(Graphics2D g,
         JRibbonTaskToggleButton button, ComponentState currState, ContainerColorTokens tokens) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
+        RadianceOutlinePainter.ShapeSupplier baselineShapeSupplier =
+            componentShaper.getBaselineShapeSupplier(EnumSet.of(Side.BOTTOM));
+
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -139,7 +137,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 0, 0, button.getWidth(), button.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    Shape outline = outlineShapeSupplier.getShape(button,
+                    Shape outline = baselineShapeSupplier.getShape(button,
                         scaledWidth, scaledHeight + 3.0f, 0.0f, 0.0f, scaleFactor);
 
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
@@ -155,7 +153,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
 
                     OutlinePainterUtils.paintOutline(graphics1X, button, currState,
                         scaledWidth, scaledHeight + 3.0f, scaleFactor, 1.0f,
-                        outlineShapeSupplier, tokens);
+                        baselineShapeSupplier, tokens);
                 });
         graphics.dispose();
     }

@@ -55,6 +55,13 @@ public interface RadianceComponentShaper extends RadianceTrait {
      */
     Dimension getButtonPreferredSize(AbstractButton button);
 
+    /** Returns the baseline (generic) shape supplier. */
+    RadianceOutlinePainter.ShapeSupplier getBaselineShapeSupplier();
+
+    /** Returns the baseline (generic) shape supplier. */
+    RadianceOutlinePainter.ShapeSupplier getBaselineShapeSupplier(
+        Set<RadianceThemingSlices.Side> straightSides);
+
     /** Returns the shape supplier for checkboxes. */
     RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier();
 
