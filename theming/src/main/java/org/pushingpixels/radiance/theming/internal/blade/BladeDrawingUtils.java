@@ -33,7 +33,9 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 
 import java.awt.*;
@@ -65,6 +67,27 @@ public class BladeDrawingUtils {
 
                 OutlinePainterUtils.paintOutline(graphics1X, c, state,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f, bladeShapeSupplier, colorTokens);
+            });
+        graphics.dispose();
+    }
+
+    public static void paintBladeBorder(Graphics2D g, Component c, ComponentState state,
+        int x, int y, int width, int height, ContainerColorTokens colorTokens) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(c);
+        RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(x, y);
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                OutlinePainterUtils.paintOutline(graphics1X, c, state,
+                    scaledWidth - 1.0f, scaledHeight - 1.0f, scaleFactor, 1.0f, shapeSupplier, colorTokens);
             });
         graphics.dispose();
     }

@@ -106,7 +106,6 @@ public class RadianceTableCellBorder implements Border, UIResource {
 
 		Graphics2D graphics = (Graphics2D) g.create();
 
-		float radius = 0.0f;
 		StateTransitionTracker stateTransitionTracker = ui.getStateTransitionTracker(cellId);
 		StateTransitionTracker.ModelStateInfo modelStateInfo =
 				(stateTransitionTracker == null) ? null : stateTransitionTracker.getModelStateInfo();
@@ -120,7 +119,7 @@ public class RadianceTableCellBorder implements Border, UIResource {
 			modelStateInfo, currState,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			false, true, CoreColorTokenUtils.ContainerType.NEUTRAL);
-		BladeDrawingUtils.paintBladeBorder(graphics, c, currState, x, y, width, height, radius,
+		BladeDrawingUtils.paintBladeBorder(graphics, c, currState, x, y, width, height, 0.0f,
 			mutableColorTokens);
 		graphics.dispose();
 	}

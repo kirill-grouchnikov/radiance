@@ -69,8 +69,6 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
             this.margin.left, this.margin.top,
             this.ribbonGallery.getWidth() - this.margin.left - this.margin.right,
             this.ribbonGallery.getHeight() - this.margin.top - this.margin.bottom,
-            RadianceSizeUtils.getClassicButtonCornerRadius(
-                RadianceSizeUtils.getComponentFontSize(this.ribbonGallery)),
             tokens);
         g2d.dispose();
     }
