@@ -41,7 +41,9 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggle
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -233,6 +235,10 @@ public class RadianceRibbonTaskToggleButtonUI extends
 
         RadianceTextUtilities.paintText(g, textRect, toPaint, -1, this.commandButton.getFont(), fgColor, null);
 
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(this.commandButton);
+        RadianceOutlinePainter.ShapeSupplier baselineShapeSupplier =
+            componentShaper.getBaselineShapeSupplier(EnumSet.of(RadianceThemingSlices.Side.BOTTOM));
+
         Color focusColor = RadianceColorUtilities.getAlphaColor(fgColor, 192);
         Graphics2D g2d = (Graphics2D) g.create();
 
@@ -242,23 +248,17 @@ public class RadianceRibbonTaskToggleButtonUI extends
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(g2d, 0, 0,
-                this.commandButton.getWidth(), this.commandButton.getWidth(),
+                this.commandButton.getWidth(), this.commandButton.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     // Use foreground color for consistency - since non-active task toggle buttons use parent's
                     // decoration background fill.
-                    float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                            RadianceSizeUtils.getComponentFontSize(this.commandButton));
                     float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(this.commandButton,
                             RadianceSizeUtils.getComponentFontSize(this.commandButton));
-                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                            this.commandButton.getComponentOrientation(),
-                            scaledWidth, scaledHeight,
-                            radius, EnumSet.of(RadianceThemingSlices.Side.BOTTOM),
-                            focusRingPadding);
-
+                    Shape focusOutline = baselineShapeSupplier.getShape(this.commandButton,
+                        scaledWidth, scaledHeight, focusRingPadding, 0.0f, scaleFactor);
                     RadianceCoreUtilities.paintFocus1X(graphics1X,
                             this.commandButton, this.commandButton, this,
-                            scaleFactor, outline, textRect, focusColor, 0);
+                            scaleFactor, focusOutline, textRect, focusColor, 0);
                 }
         );
 
