@@ -42,12 +42,14 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 /**
  * UI for {@link JSwitch} components in <b>Radiance</b> look and feel.
@@ -61,11 +63,6 @@ public class RadianceSwitchUI extends BasicSwitchUI {
     }
 
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
-
-    private RadianceComponentShaper.ShapeSupplier switchShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
-            RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
-                width, height, height * 0.5f, null, insets);
 
     private RadianceSwitchUI(JSwitch switchComp) {
         super(switchComp);
@@ -84,7 +81,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
             BackgroundPaintingUtils.update(g, switchComp, false);
         }
 
-        Insets i = switchComp.getInsets();
+        Insets insets = switchComp.getInsets();
         boolean ltr = switchComp.getComponentOrientation().isLeftToRight();
 
         Graphics2D g2d = (Graphics2D) g.create();
@@ -101,6 +98,10 @@ public class RadianceSwitchUI extends BasicSwitchUI {
 
         SwitchPresentationModel presentationModel = switchComp.getProjection().getPresentationModel();
 
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(switchComp);
+        RadianceComponentShaper.ShapeSupplier trackShapeSupplier = componentShaper.getSwitchTrackShapeSupplier();
+        RadianceComponentShaper.ShapeSupplier thumbShapeSupplier = componentShaper.getSwitchThumbShapeSupplier();
+
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -109,18 +110,18 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, switchComp.getWidth(), switchComp.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    graphics1X.translate(scaleFactor * i.left, scaleFactor * i.top);
+                    graphics1X.translate(scaleFactor * insets.left, scaleFactor * insets.top);
 
                     float trackWidth = presentationModel.getTrackSize().width * (float) scaleFactor;
                     float trackHeight = presentationModel.getTrackSize().height * (float) scaleFactor;
 
-                    Shape outlineFill = switchShapeSupplier.getShape(switchComp,
+                    Shape outlineFill = trackShapeSupplier.getShape(switchComp,
                         trackWidth, trackHeight, 0.0f, 0.0f, scaleFactor);
 
                     SurfacePainterUtils.paintSurface(graphics1X, switchComp, currState,
                         trackWidth, trackHeight, scaleFactor, 1.0f, outlineFill, mutableContainerTokens);
                     OutlinePainterUtils.paintOutline(graphics1X, switchComp, currState,
-                        trackWidth, trackHeight, scaleFactor, 1.0f, switchShapeSupplier, mutableContainerTokens);
+                        trackWidth, trackHeight, scaleFactor, 1.0f, trackShapeSupplier, mutableContainerTokens);
 
                     float thumbSelectionFactor = stateTransitionTracker.getFacetStrength(
                             RadianceThemingSlices.ComponentStateFacet.SELECTION);
@@ -142,8 +143,10 @@ public class RadianceSwitchUI extends BasicSwitchUI {
 
                     float thumbRadiusPx = thumbSize / 2.0f;
                     float thumbVerticalCenterPx = trackHeight / 2.0f;
-                    Shape thumbOutline = new Ellipse2D.Double(thumbXStart, thumbVerticalCenterPx - thumbRadiusPx,
-                            2 * thumbRadiusPx, 2 * thumbRadiusPx);
+                    Shape thumbOutline = thumbShapeSupplier.getShape(switchComp,
+                        2 * thumbRadiusPx, 2 * thumbRadiusPx, 0.0f, 0.0f, scaleFactor);
+
+                    graphics1X.translate(thumbXStart, thumbVerticalCenterPx - thumbRadiusPx);
 
                     float alpha = currState.isDisabled()
                         ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
@@ -152,7 +155,9 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     graphics1X.setColor(mutableContainerTokens.getOnContainer());
                     graphics1X.fill(thumbOutline);
 
-                    graphics1X.translate(-scaleFactor * i.left, -scaleFactor * i.top);
+                    graphics1X.translate(-thumbXStart, -(thumbVerticalCenterPx - thumbRadiusPx));
+
+                    graphics1X.translate(-scaleFactor * insets.left, -scaleFactor * insets.top);
 
                     if (switchComp.isFocusPainted()) {
                         // make sure that the focus ring is not clipped

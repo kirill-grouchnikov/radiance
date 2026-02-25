@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import java.awt.*;
 
 public class SwitchPresentationModel implements ImmutablePresentationModel {
-    public static final Insets DEFAULT_SWITCH_CONTENT_PADDING = new Insets(4, 6, 4, 4);
+    public static final Insets DEFAULT_SWITCH_CONTENT_PADDING = new Insets(4, 5, 5, 5);
     public static final int SWITCH_TRACK_WIDTH = 36;
     public static final int SWITCH_TRACK_HEIGHT = 18;
     public static final int SWITCH_THUMB_SIZE_ON = 12;

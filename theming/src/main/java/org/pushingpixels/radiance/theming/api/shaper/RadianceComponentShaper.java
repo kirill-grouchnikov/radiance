@@ -88,6 +88,12 @@ public interface RadianceComponentShaper extends RadianceTrait {
     /** Returns the shape supplier for slider tracks. */
     ShapeSupplier getSliderTrackShapeSupplier();
 
+    /** Returns the shape supplier for switch thumbs. */
+    ShapeSupplier getSwitchThumbShapeSupplier();
+
+    /** Returns the shape supplier for switch tracks. */
+    ShapeSupplier getSwitchTrackShapeSupplier();
+
     /** Returns the shape supplier for split divider bumps. */
     ShapeSupplier getSplitDividerBumpShapeSupplier();
 

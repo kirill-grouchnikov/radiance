@@ -106,6 +106,11 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
                 c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
         };
 
+    private ShapeSupplier SWITCH_TRACK_SHAPE_SUPPLIER =
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
+            RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
+                width, height, height * 0.5f, null, insets);
+
     private static ShapeSupplier TAB_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
@@ -285,6 +290,16 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     @Override
     public ShapeSupplier getSplitDividerBumpShapeSupplier() {
         return ROUND_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public ShapeSupplier getSwitchThumbShapeSupplier() {
+        return ROUND_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public ShapeSupplier getSwitchTrackShapeSupplier() {
+        return SWITCH_TRACK_SHAPE_SUPPLIER;
     }
 
     @Override
