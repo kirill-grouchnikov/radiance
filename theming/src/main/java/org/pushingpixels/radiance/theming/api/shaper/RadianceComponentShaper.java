@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.shaper;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import javax.swing.*;
@@ -44,8 +43,13 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public interface RadianceComponentShaper extends RadianceTrait {
+    interface ShapeSupplier {
+        Shape getShape(Component c, float width, float height, float insets,
+            float radiusAdjustment, double scaleFactor);
+    }
+
     /** Returns the shape supplier for buttons. */
-    RadianceOutlinePainter.ShapeSupplier getButtonShapeSupplier();
+    ShapeSupplier getButtonShapeSupplier();
 
     /**
      * Returns the preferred size for the specified button.
@@ -56,43 +60,43 @@ public interface RadianceComponentShaper extends RadianceTrait {
     Dimension getButtonPreferredSize(AbstractButton button);
 
     /** Returns the baseline (generic) shape supplier. */
-    RadianceOutlinePainter.ShapeSupplier getBaselineShapeSupplier();
+    ShapeSupplier getBaselineShapeSupplier();
 
     /** Returns the baseline (generic) shape supplier. */
-    RadianceOutlinePainter.ShapeSupplier getBaselineShapeSupplier(
+    ShapeSupplier getBaselineShapeSupplier(
         Set<RadianceThemingSlices.Side> straightSides);
 
     /** Returns the shape supplier for checkboxes. */
-    RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier();
+    ShapeSupplier getCheckBoxShapeSupplier();
 
     /** Returns the shape supplier for comboboxes. */
-    RadianceOutlinePainter.ShapeSupplier getComboBoxShapeSupplier();
+    ShapeSupplier getComboBoxShapeSupplier();
 
     /** Returns the shape supplier for progress bar progress. */
-    RadianceOutlinePainter.ShapeSupplier getProgressBarProgressShapeSupplier(
+    ShapeSupplier getProgressBarProgressShapeSupplier(
         Set<RadianceThemingSlices.Side> straightSides);
 
     /** Returns the shape supplier for progress bar tracks. */
-    RadianceOutlinePainter.ShapeSupplier getProgressBarTrackShapeSupplier();
+    ShapeSupplier getProgressBarTrackShapeSupplier();
 
     /** Returns the shape supplier for radio buttons. */
-    RadianceOutlinePainter.ShapeSupplier getRadioButtonShapeSupplier();
+    ShapeSupplier getRadioButtonShapeSupplier();
 
     /** Returns the shape supplier for scrollbar thumbs. */
-    RadianceOutlinePainter.ShapeSupplier getScrollBarThumbShapeSupplier();
+    ShapeSupplier getScrollBarThumbShapeSupplier();
 
     /** Returns the shape supplier for slider tracks. */
-    RadianceOutlinePainter.ShapeSupplier getSliderTrackShapeSupplier();
+    ShapeSupplier getSliderTrackShapeSupplier();
 
     /** Returns the shape supplier for split divider bumps. */
-    RadianceOutlinePainter.ShapeSupplier getSplitDividerBumpShapeSupplier();
+    ShapeSupplier getSplitDividerBumpShapeSupplier();
 
     /** Returns the shape supplier for tabs. */
-    RadianceOutlinePainter.ShapeSupplier getTabShapeSupplier();
+    ShapeSupplier getTabShapeSupplier();
 
     /** Returns the shape supplier for text components. */
-    RadianceOutlinePainter.ShapeSupplier getTextComponentShapeSupplier();
+    ShapeSupplier getTextComponentShapeSupplier();
 
     /** Returns the shape supplier for split tree icons. */
-    RadianceOutlinePainter.ShapeSupplier getTreeIconShapeSupplier();
+    ShapeSupplier getTreeIconShapeSupplier();
 }

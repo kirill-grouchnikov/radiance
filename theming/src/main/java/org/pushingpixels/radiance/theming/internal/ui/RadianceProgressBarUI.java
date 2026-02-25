@@ -39,7 +39,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -56,7 +55,6 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.RoundRectangle2D;
 import java.beans.PropertyChangeListener;
 import java.util.EnumSet;
 import java.util.Set;
@@ -379,7 +377,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         final int stripeOffset, float borderAlpha, ComponentState currState, boolean isVertical) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(this.progressBar);
-        RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getProgressBarTrackShapeSupplier();
+        RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getProgressBarTrackShapeSupplier();
 
         Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
         if (!isVertical) {

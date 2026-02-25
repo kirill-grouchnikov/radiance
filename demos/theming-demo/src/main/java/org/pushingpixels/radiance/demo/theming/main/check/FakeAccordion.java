@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -146,7 +147,7 @@ public class FakeAccordion extends JPanel {
                                 RadianceOutlinePainter outlinePainter = skin.getOutlinePainter();
 
                                 float radiusOuter = (float) scaleFactor * 5.0f;
-                                RadianceOutlinePainter.ShapeSupplier outlineShapeSupplier =
+                                RadianceComponentShaper.ShapeSupplier outlineShapeSupplier =
                                     (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment,shapeScaleFactor) ->
                                         getOutline(0, 0, (int) shapeWidth, (int) shapeHeight,
                                             1.0f, shapeInsets,

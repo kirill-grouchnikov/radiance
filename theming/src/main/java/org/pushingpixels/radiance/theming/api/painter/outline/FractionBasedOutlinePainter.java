@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.outline;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowButton;
 
@@ -97,7 +98,7 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
 
     @Override
     public void paintOutline(Graphics g, Component c, float width, float height,
-        double scaleFactor, ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
+        double scaleFactor, RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(0.5f, 0.5f);

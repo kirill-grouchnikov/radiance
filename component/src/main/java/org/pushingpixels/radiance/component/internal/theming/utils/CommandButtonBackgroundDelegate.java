@@ -240,7 +240,7 @@ public class CommandButtonBackgroundDelegate {
                 Set<RadianceThemingSlices.Side> straightSides = (sides != null) ? sides.getStraightSides() : null;
 
                 RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(commandButton);
-                RadianceOutlinePainter.ShapeSupplier outlineShapeSupplier =
+                RadianceComponentShaper.ShapeSupplier outlineShapeSupplier =
                     (commandButton.getPresentationModel().getSelectedStateHighlight()
                         == CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY)
                         ? componentShaper.getBaselineShapeSupplier(EnumSet.allOf(RadianceThemingSlices.Side.class))

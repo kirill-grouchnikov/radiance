@@ -162,7 +162,7 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    private static RadianceOutlinePainter.ShapeSupplier sliderThumbHorizontalShapeSupplier =
+    private static RadianceComponentShaper.ShapeSupplier sliderThumbHorizontalShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             RadianceOutlineUtilities.getTriangleButtonOutline(
                 width, height, 2 * (float) scaleFactor, 1.0f + insets);
@@ -194,7 +194,7 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    private static RadianceOutlinePainter.ShapeSupplier sliderThumbVerticalShapeSupplier =
+    private static RadianceComponentShaper.ShapeSupplier sliderThumbVerticalShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             RadianceOutlineUtilities.getTriangleButtonOutline(
                 width, height, 2 * (float) scaleFactor, 1.0f + insets);
@@ -236,7 +236,7 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    private static RadianceOutlinePainter.ShapeSupplier sliderThumbRoundShapeSupplier =
+    private static RadianceComponentShaper.ShapeSupplier sliderThumbRoundShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 

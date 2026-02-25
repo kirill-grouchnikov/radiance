@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.shaper;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
@@ -53,10 +52,10 @@ public class PillComponentShaper extends ClassicComponentShaper {
     private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
         "PillComponentShaper");
 
-    private final static RadianceOutlinePainter.ShapeSupplier PILL_BUTTON_SHAPE_SUPPLIER =
+    private final static ShapeSupplier PILL_BUTTON_SHAPE_SUPPLIER =
         new PillButtonShapeSupplier();
 
-    private static class PillButtonShapeSupplier implements RadianceOutlinePainter.ShapeSupplier {
+    private static class PillButtonShapeSupplier implements ShapeSupplier {
         @Override
         public Shape getShape(Component c, float width, float height, float insets, float radiusAdjustment, double scaleFactor) {
             AbstractButton button = (AbstractButton) c;
@@ -111,7 +110,7 @@ public class PillComponentShaper extends ClassicComponentShaper {
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getButtonShapeSupplier() {
+    public ShapeSupplier getButtonShapeSupplier() {
         return PILL_BUTTON_SHAPE_SUPPLIER;
     }
 

@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -124,7 +123,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         JRibbonTaskToggleButton button, ComponentState currState, ContainerColorTokens tokens) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
-        RadianceOutlinePainter.ShapeSupplier baselineShapeSupplier =
+        RadianceComponentShaper.ShapeSupplier baselineShapeSupplier =
             componentShaper.getBaselineShapeSupplier(EnumSet.of(Side.BOTTOM));
 
         Graphics2D graphics = (Graphics2D) g.create();

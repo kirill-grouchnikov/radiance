@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -150,7 +151,7 @@ public class HighlightPainterUtils {
                 int deltaTop = openSides.contains(RadianceThemingSlices.Side.TOP) ? openDelta : 0;
                 int deltaBottom = openSides.contains(RadianceThemingSlices.Side.BOTTOM) ? openDelta : 0;
 
-                RadianceOutlinePainter.ShapeSupplier outlineShapeSupplier =
+                RadianceComponentShaper.ShapeSupplier outlineShapeSupplier =
                     (c, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment, shapeScaleFactor) ->
                         getBorderPath(c.getComponentOrientation(), shapeWidth, shapeHeight,
                             shapeInsets, openSides);

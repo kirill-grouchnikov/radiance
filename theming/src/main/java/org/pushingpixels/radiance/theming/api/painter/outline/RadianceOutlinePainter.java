@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.outline;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import javax.swing.*;
@@ -48,11 +49,6 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public interface RadianceOutlinePainter extends RadianceTrait {
-    interface ShapeSupplier {
-        Shape getShape(Component c, float width, float height, float insets,
-            float radiusAdjustment, double scaleFactor);
-    }
-
     enum InsetKind {
         SURFACE, CONTENT
     }
@@ -76,7 +72,7 @@ public interface RadianceOutlinePainter extends RadianceTrait {
      *     The color tokens.
      */
     void paintOutline(Graphics g, Component c, float width, float height, double scaleFactor,
-        ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens);
+        RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens);
 
     float getOutlineInset(InsetKind insetKind);
 
@@ -105,7 +101,7 @@ public interface RadianceOutlinePainter extends RadianceTrait {
          *     The color tokens.
          */
         void paintOutlineOverlay(Graphics g, Component c, float width, float height, double scaleFactor,
-            ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens);
+            RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens);
     }
 
     /**
@@ -121,7 +117,7 @@ public interface RadianceOutlinePainter extends RadianceTrait {
 
         @Override
         public void paintOutlineOverlay(Graphics g, Component c, float width, float height,
-            double scaleFactor, ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
+            double scaleFactor, RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
             for (Overlay overlay: this.overlays) {
                 overlay.paintOutlineOverlay(g, c, width, height, scaleFactor, shapeSupplier,
                     colorTokens);

@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
@@ -132,7 +131,7 @@ public class ButtonBackgroundDelegate {
         ComponentState currState, float overallAlpha) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
-        RadianceOutlinePainter.ShapeSupplier buttonShapeSupplier = componentShaper.getButtonShapeSupplier();
+        RadianceComponentShaper.ShapeSupplier buttonShapeSupplier = componentShaper.getButtonShapeSupplier();
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -239,7 +238,7 @@ public class ButtonBackgroundDelegate {
         if (componentShaper == null) {
             return false;
         }
-        RadianceOutlinePainter.ShapeSupplier buttonShapeSupplier = componentShaper.getButtonShapeSupplier();
+        RadianceComponentShaper.ShapeSupplier buttonShapeSupplier = componentShaper.getButtonShapeSupplier();
         Shape outline = buttonShapeSupplier.getShape(button, button.getWidth(), button.getHeight(),
             0.0f, 0.0f, RadianceCommonCortex.getScaleFactor(button));
         return outline.contains(x, y);

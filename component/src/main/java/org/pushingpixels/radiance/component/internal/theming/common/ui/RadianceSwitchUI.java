@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.component.api.common.model.SwitchPresentationM
 import org.pushingpixels.radiance.component.internal.ui.common.BasicSwitchUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
@@ -62,7 +62,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
 
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
-    private RadianceOutlinePainter.ShapeSupplier switchShapeSupplier =
+    private RadianceComponentShaper.ShapeSupplier switchShapeSupplier =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
                 width, height, height * 0.5f, null, insets);

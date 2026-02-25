@@ -41,7 +41,6 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggle
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -236,7 +235,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
         RadianceTextUtilities.paintText(g, textRect, toPaint, -1, this.commandButton.getFont(), fgColor, null);
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(this.commandButton);
-        RadianceOutlinePainter.ShapeSupplier baselineShapeSupplier =
+        RadianceComponentShaper.ShapeSupplier baselineShapeSupplier =
             componentShaper.getBaselineShapeSupplier(EnumSet.of(RadianceThemingSlices.Side.BOTTOM));
 
         Color focusColor = RadianceColorUtilities.getAlphaColor(fgColor, 192);

@@ -52,7 +52,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
@@ -330,7 +330,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             graphics.translate(iconRect.x, iconRect.y);
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, iconRect.width, iconRect.height,
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                        RadianceOutlinePainter.ShapeSupplier iconContainerShapeSupplier =
+                        RadianceComponentShaper.ShapeSupplier iconContainerShapeSupplier =
                             (c, iconContainerWidth, iconContainerHeight, iconContainerInsets,
                                 iconRadiusAdjustment, iconContainerScaleFactor) ->
                                 new Rectangle2D.Float(0.0f, 0.0f,

@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.internal.painter;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -40,7 +41,7 @@ import java.awt.*;
 public class OutlinePainterUtils {
     public static void paintOutline(Graphics2D graphics1X, Component component,
         ComponentState componentState, float scaledWidth, float scaledHeight, double scaleFactor,
-        float alpha, RadianceOutlinePainter.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
+        float alpha, RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         paintOutline(graphics1X, component, componentState,
             RadianceCoreUtilities.getOutlinePainter(component),
@@ -51,7 +52,7 @@ public class OutlinePainterUtils {
     public static void paintOutline(Graphics2D graphics1X, Component component,
         ComponentState componentState, RadianceOutlinePainter outlinePainter,
         float scaledWidth, float scaledHeight, double scaleFactor,
-        float alpha, RadianceOutlinePainter.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
+        float alpha, RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         float containerOutlineAlpha = alpha *
             (componentState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);

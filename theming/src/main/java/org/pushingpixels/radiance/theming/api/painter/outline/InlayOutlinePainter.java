@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.api.painter.outline;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowButton;
 
@@ -258,7 +259,7 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
 
     @Override
     public void paintOutline(Graphics g, Component c, float width, float height,
-        double scaleFactor, ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
+        double scaleFactor, RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         // Skip inner outline in text components, scrollbars, and in renderer-hosted components in
         // the file chooser container
@@ -289,7 +290,7 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
     }
 
     private static void paint(Graphics2D graphics, Component c, float width, float height,
-        float radiusAdjustment, double scaleFactor, ShapeSupplier shapeSupplier,
+        float radiusAdjustment, double scaleFactor, RadianceComponentShaper.ShapeSupplier shapeSupplier,
         ContainerColorTokens colorTokens, float strokeWidth, float[] fractions, int[] alphas,
         ContainerColorTokensSingleColorQuery[] colorQueries) {
 

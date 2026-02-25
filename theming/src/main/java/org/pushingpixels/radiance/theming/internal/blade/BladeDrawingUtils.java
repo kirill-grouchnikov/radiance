@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.blade;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -56,7 +55,7 @@ public class BladeDrawingUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                RadianceOutlinePainter.ShapeSupplier bladeShapeSupplier =
+                RadianceComponentShaper.ShapeSupplier bladeShapeSupplier =
                     (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment, shapeScaleFactor) -> {
                         float scaledRadius = (float) scaleFactor * baseRadius - shapeRadiusAdjustment;
                         return RadianceOutlineUtilities.getBaseOutline(
@@ -75,7 +74,7 @@ public class BladeDrawingUtils {
         int x, int y, int width, int height, ContainerColorTokens colorTokens) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(c);
-        RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
+        RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
@@ -118,7 +117,7 @@ public class BladeDrawingUtils {
     }
 
     public static void paintBladeSimpleBorder(Component c, Graphics2D g, int width, int height,
-        RadianceOutlinePainter.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
+        RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT

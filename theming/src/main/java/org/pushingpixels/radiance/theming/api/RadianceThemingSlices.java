@@ -30,12 +30,10 @@
 package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.common.internal.contrib.jgoodies.looks.LookUtils;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
@@ -195,7 +193,7 @@ public final class RadianceThemingSlices {
 
                 int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner)) ? 0 : 1;
                 RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
-                RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
+                RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
                 Shape outline = shapeSupplier.getShape(mainComp,
                     (float) scaleFactor * textRect.width + 2 * delta,
                     (float) scaleFactor * textRect.height,
@@ -245,7 +243,7 @@ public final class RadianceThemingSlices {
                     graphics1X.draw(outline);
                 } else {
                     RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
-                    RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
+                    RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
                     Shape outline = (focusShape != null) ? focusShape
                         : shapeSupplier.getShape(
                             mainComp,
@@ -302,7 +300,7 @@ public final class RadianceThemingSlices {
                 } else {
                     graphics1X.translate(extraPadding / 2, extraPadding / 2);
                     RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
-                    RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
+                    RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
                     Shape outline = (focusShape != null) ? focusShape
                         : shapeSupplier.getShape(mainComp,
                             (float) scaleFactor * mainComp.getWidth() - extraPadding,
@@ -350,7 +348,7 @@ public final class RadianceThemingSlices {
                 } else {
                     graphics1X.translate(extraPadding / 2, extraPadding / 2);
                     RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
-                    RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
+                    RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
                     Shape outline = (focusShape != null) ? focusShape
                         : shapeSupplier.getShape(mainComp,
                             (float) scaleFactor * mainComp.getWidth() - extraPadding,

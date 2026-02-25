@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.shaper;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
@@ -54,10 +53,10 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
         "ClassicComponentShaper");
 
-    private final static RadianceOutlinePainter.ShapeSupplier CLASSIC_BUTTON_SHAPE_SUPPLIER =
+    private final static ShapeSupplier CLASSIC_BUTTON_SHAPE_SUPPLIER =
         new ClassicButtonShapeSupplier();
 
-    private static class ClassicButtonShapeSupplier implements RadianceOutlinePainter.ShapeSupplier {
+    private static class ClassicButtonShapeSupplier implements ShapeSupplier {
         @Override
         public Shape getShape(Component c, float width, float height, float insets, float radiusAdjustment, double scaleFactor) {
             AbstractButton button = (AbstractButton) c;
@@ -95,7 +94,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         }
     }
 
-    private RadianceOutlinePainter.ShapeSupplier SCROLLBAR_THUMB_SHAPE_SUPPLIER =
+    private ShapeSupplier SCROLLBAR_THUMB_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             // Adaptive corner radius, either half the height for larger thumbs, or quarter the
             // height for smaller thumbs
@@ -107,7 +106,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
                 c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
         };
 
-    private static RadianceOutlinePainter.ShapeSupplier TAB_SHAPE_SUPPLIER =
+    private static ShapeSupplier TAB_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
             float cornerRadius = (float) scaleFactor * RadianceSizeUtils
@@ -120,7 +119,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
                 EnumSet.of(RadianceThemingSlices.Side.BOTTOM), 1.0f + insets);
         };
 
-    private RadianceOutlinePainter.ShapeSupplier DEFAULT_SHAPE_SUPPLIER =
+    private ShapeSupplier DEFAULT_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int fontSize = RadianceSizeUtils.getComponentFontSize(c);
             float radius = (float) scaleFactor *
@@ -131,7 +130,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
                 width, height, radius, null, insets);
         };
 
-    private RadianceOutlinePainter.ShapeSupplier DEFAULT_HALF_SHAPE_SUPPLIER =
+    private ShapeSupplier DEFAULT_HALF_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int fontSize = RadianceSizeUtils.getComponentFontSize(c);
             float radius = 0.5f * (float) scaleFactor *
@@ -142,11 +141,11 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
                 width, height, radius, null, insets);
         };
 
-    private RadianceOutlinePainter.ShapeSupplier ROUND_SHAPE_SUPPLIER =
+    private ShapeSupplier ROUND_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
-    private RadianceOutlinePainter.ShapeSupplier RECTANGLE_SHAPE_SUPPLIER =
+    private ShapeSupplier RECTANGLE_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Rectangle2D.Float(insets, insets, width - 1 - 2.0f * insets, height - 1 - 2.0f * insets);
 
@@ -156,7 +155,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getButtonShapeSupplier() {
+    public ShapeSupplier getButtonShapeSupplier() {
         return CLASSIC_BUTTON_SHAPE_SUPPLIER;
     }
 
@@ -224,12 +223,12 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getBaselineShapeSupplier() {
+    public ShapeSupplier getBaselineShapeSupplier() {
         return DEFAULT_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getBaselineShapeSupplier(Set<RadianceThemingSlices.Side> straightSides) {
+    public ShapeSupplier getBaselineShapeSupplier(Set<RadianceThemingSlices.Side> straightSides) {
         return (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
                 RadianceSizeUtils.getComponentFontSize(c));
@@ -241,17 +240,17 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getCheckBoxShapeSupplier() {
+    public ShapeSupplier getCheckBoxShapeSupplier() {
         return DEFAULT_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getComboBoxShapeSupplier() {
+    public ShapeSupplier getComboBoxShapeSupplier() {
         return DEFAULT_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getProgressBarProgressShapeSupplier(
+    public ShapeSupplier getProgressBarProgressShapeSupplier(
         Set<RadianceThemingSlices.Side> straightSides) {
         return (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int fontSize = RadianceSizeUtils.getComponentFontSize(c);
@@ -264,47 +263,47 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getProgressBarTrackShapeSupplier() {
+    public ShapeSupplier getProgressBarTrackShapeSupplier() {
         return DEFAULT_HALF_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getRadioButtonShapeSupplier() {
+    public ShapeSupplier getRadioButtonShapeSupplier() {
         return ROUND_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getScrollBarThumbShapeSupplier() {
+    public ShapeSupplier getScrollBarThumbShapeSupplier() {
         return SCROLLBAR_THUMB_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getSliderTrackShapeSupplier() {
+    public ShapeSupplier getSliderTrackShapeSupplier() {
         return DEFAULT_HALF_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getSplitDividerBumpShapeSupplier() {
+    public ShapeSupplier getSplitDividerBumpShapeSupplier() {
         return ROUND_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getTabShapeSupplier() {
+    public ShapeSupplier getTabShapeSupplier() {
         return TAB_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getTextComponentShapeSupplier() {
+    public ShapeSupplier getTextComponentShapeSupplier() {
         return RECTANGLE_SHAPE_SUPPLIER;
     }
 
     @Override
-    public RadianceOutlinePainter.ShapeSupplier getTreeIconShapeSupplier() {
+    public ShapeSupplier getTreeIconShapeSupplier() {
         return DEFAULT_HALF_SHAPE_SUPPLIER;
     }
 
     public static class ToolbarComponentShaper extends ClassicComponentShaper {
-        private final static RadianceOutlinePainter.ShapeSupplier TOOLBAR_BUTTON_SHAPE_SUPPLIER =
+        private final static ShapeSupplier TOOLBAR_BUTTON_SHAPE_SUPPLIER =
             new ToolbarButtonShapeSupplier();
 
         private static class ToolbarButtonShapeSupplier extends ClassicButtonShapeSupplier {
@@ -315,7 +314,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         }
 
         @Override
-        public RadianceOutlinePainter.ShapeSupplier getButtonShapeSupplier() {
+        public ShapeSupplier getButtonShapeSupplier() {
             return TOOLBAR_BUTTON_SHAPE_SUPPLIER;
         }
 

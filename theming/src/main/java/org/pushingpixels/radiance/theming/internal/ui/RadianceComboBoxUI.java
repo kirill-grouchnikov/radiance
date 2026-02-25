@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRenderer;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -463,7 +462,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
      */
     private void paintFocus(Graphics g, Rectangle bounds) {
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(this.comboBox);
-        RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getComboBoxShapeSupplier();
+        RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getComboBoxShapeSupplier();
 
         Graphics2D g2d = (Graphics2D) g.create();
 
@@ -562,7 +561,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
         if (componentShaper == null) {
             return false;
         }
-        RadianceOutlinePainter.ShapeSupplier comboBoxShapeSupplier = componentShaper.getComboBoxShapeSupplier();
+        RadianceComponentShaper.ShapeSupplier comboBoxShapeSupplier = componentShaper.getComboBoxShapeSupplier();
         Shape outline = comboBoxShapeSupplier.getShape(this.comboBox,
             this.comboBox.getWidth(), this.comboBox.getHeight(),
             0.0f, 0.0f, RadianceCommonCortex.getScaleFactor(this.comboBox));
