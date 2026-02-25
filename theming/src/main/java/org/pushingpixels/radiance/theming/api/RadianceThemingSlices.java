@@ -193,15 +193,13 @@ public final class RadianceThemingSlices {
                     BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                     new float[]{dashLength, dashGap}, dashPhase));
 
-                int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner))
-                    ? 0 : 1;
-                Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                    mainComp.getComponentOrientation(),
+                int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner)) ? 0 : 1;
+                RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
+                RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
+                Shape outline = shapeSupplier.getShape(mainComp,
                     (float) scaleFactor * textRect.width + 2 * delta,
                     (float) scaleFactor * textRect.height,
-                    (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(fontSize),
-                    null);
-
+                    0.0f, 0.0f, scaleFactor);
                 graphics1X.translate((float) scaleFactor * textRect.x - delta,
                     (float) scaleFactor * textRect.y);
                 graphics1X.draw(outline);
@@ -246,14 +244,14 @@ public final class RadianceThemingSlices {
                         1.0f, 0.0f, scaleFactor);
                     graphics1X.draw(outline);
                 } else {
+                    RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
+                    RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
                     Shape outline = (focusShape != null) ? focusShape
-                        : RadianceOutlineUtilities.getBaseOutline(
-                            mainComp.getComponentOrientation(),
+                        : shapeSupplier.getShape(
+                            mainComp,
                             (float) scaleFactor * mainComp.getWidth() - 2,
                             (float) scaleFactor * mainComp.getHeight() - 2,
-                            (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                                RadianceSizeUtils.getComponentFontSize(mainComp)),
-                            null);
+                            0.0f, 0.0f, scaleFactor);
 
                     graphics1X.setStroke(new BasicStroke(
                     1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
@@ -303,15 +301,13 @@ public final class RadianceThemingSlices {
                     graphics1X.draw(outline);
                 } else {
                     graphics1X.translate(extraPadding / 2, extraPadding / 2);
+                    RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
+                    RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
                     Shape outline = (focusShape != null) ? focusShape
-                            : RadianceOutlineUtilities.getBaseOutline(
-                            mainComp.getComponentOrientation(),
+                        : shapeSupplier.getShape(mainComp,
                             (float) scaleFactor * mainComp.getWidth() - extraPadding,
                             (float) scaleFactor * mainComp.getHeight() - extraPadding,
-                            (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(fontSize)
-                                    - extraPadding,
-                            null);
-
+                            0.0f, 0.0f, scaleFactor);
                     graphics1X.setStroke(new BasicStroke(
                         1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                         new float[]{dashLength, dashGap}, dashPhase));
@@ -353,15 +349,13 @@ public final class RadianceThemingSlices {
                     graphics1X.draw(outline);
                 } else {
                     graphics1X.translate(extraPadding / 2, extraPadding / 2);
+                    RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(mainComp);
+                    RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getBaselineShapeSupplier();
                     Shape outline = (focusShape != null) ? focusShape
-                        : RadianceOutlineUtilities.getBaseOutline(
-                            mainComp.getComponentOrientation(),
+                        : shapeSupplier.getShape(mainComp,
                             (float) scaleFactor * mainComp.getWidth() - extraPadding,
                             (float) scaleFactor * mainComp.getHeight() - extraPadding,
-                            (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(fontSize)
-                                - extraPadding,
-                            null);
-
+                            0.0f, 0.0f, scaleFactor);
                     graphics1X.draw(outline);
                 }
             }

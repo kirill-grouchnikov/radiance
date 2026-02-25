@@ -30,7 +30,9 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRenderer;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -460,6 +462,9 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
      * @param bounds Bounds for text.
      */
     private void paintFocus(Graphics g, Rectangle bounds) {
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(this.comboBox);
+        RadianceOutlinePainter.ShapeSupplier shapeSupplier = componentShaper.getComboBoxShapeSupplier();
+
         Graphics2D g2d = (Graphics2D) g.create();
 
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -470,12 +475,8 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
         RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, bounds.width, bounds.height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     graphics1X.translate(bounds.x, bounds.y);
-                    int comboFontSize = RadianceSizeUtils.getComponentFontSize(this.comboBox);
-                    float radius = (float) scaleFactor *
-                            RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
-                    Shape outline = RadianceOutlineUtilities.getBaseOutline(
-                            this.comboBox.getComponentOrientation(),
-                            scaledWidth - 1, scaledHeight - 1, radius, null, 0);
+                    Shape outline = shapeSupplier.getShape(this.comboBox,
+                        scaledWidth - 1, scaledHeight - 1, 0.0f, 0.0f, scaleFactor);
                     RadianceCoreUtilities.paintFocus1X(graphics1X, this.comboBox, this.comboBox,
                             this, scaleFactor, outline, bounds,
                             (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(
@@ -556,10 +557,15 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
         if (!RadianceCoreUtilities.isCurrentLookAndFeel()) {
             return false;
         }
-        Shape outline = RadianceOutlineUtilities.getBaseOutline(this.comboBox,
-                RadianceSizeUtils.getClassicButtonCornerRadius(
-                        RadianceSizeUtils.getComponentFontSize(this.comboBox)),
-                null);
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(this.comboBox);
+        if (componentShaper == null) {
+            return false;
+        }
+        RadianceOutlinePainter.ShapeSupplier comboBoxShapeSupplier = componentShaper.getComboBoxShapeSupplier();
+        Shape outline = comboBoxShapeSupplier.getShape(this.comboBox,
+            this.comboBox.getWidth(), this.comboBox.getHeight(),
+            0.0f, 0.0f, RadianceCommonCortex.getScaleFactor(this.comboBox));
         return outline.contains(me.getPoint());
     }
 
