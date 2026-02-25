@@ -35,11 +35,11 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -60,21 +60,14 @@ public class KeyTipRenderingUtilities {
         return new Dimension(prefWidth, prefHeight);
     }
 
-    private static RadianceOutlinePainter.ShapeSupplier keyTipShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-            float radius = (float) scaleFactor *
-                RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
-            return RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
-                width, height, radius, null, insets + 1.0f);
-        };
-
-
     public static void renderKeyTip(Graphics g, Container c, Rectangle rect, String keyTip,
             boolean toPaintEnabled) {
         ComponentState state =
                 toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             c, state, CoreColorTokenUtils.ContainerType.MUTED);
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(c);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -88,12 +81,13 @@ public class KeyTipRenderingUtilities {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, rect.width, rect.height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    Shape outline = keyTipShapeSupplier.getShape(c, scaledWidth,
+                    Shape outline = componentShaper.getBaselineShapeSupplier().getShape(c, scaledWidth,
                         scaledHeight, 1.0f, 0.0f, scaleFactor);
                     SurfacePainterUtils.paintSurface(graphics1X, c, state,
                         scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, tokens);
                     OutlinePainterUtils.paintOutline(graphics1X, c, state,
-                        scaledWidth, scaledHeight, scaleFactor, 1.0f, keyTipShapeSupplier, tokens);
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                        componentShaper.getBaselineShapeSupplier(), tokens);
                 });
 
         graphics.setColor(tokens.getOnContainer());

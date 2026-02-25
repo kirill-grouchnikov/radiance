@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
@@ -48,6 +49,7 @@ import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -237,6 +239,13 @@ public class CommandButtonBackgroundDelegate {
                 Set<RadianceThemingSlices.Side> openSides = (sides != null) ? sides.getOpenSides() : null;
                 Set<RadianceThemingSlices.Side> straightSides = (sides != null) ? sides.getStraightSides() : null;
 
+                RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(commandButton);
+                RadianceOutlinePainter.ShapeSupplier outlineShapeSupplier =
+                    (commandButton.getPresentationModel().getSelectedStateHighlight()
+                        == CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY)
+                        ? componentShaper.getBaselineShapeSupplier(EnumSet.allOf(RadianceThemingSlices.Side.class))
+                        : componentShaper.getBaselineShapeSupplier(straightSides);
+
                 ComponentOrientation orientation = commandButton.getComponentOrientation();
                 RadianceThemingSlices.Side leftSide =
                     orientation.isLeftToRight()
@@ -259,32 +268,18 @@ public class CommandButtonBackgroundDelegate {
                 int dy = -deltaTop;
                 int dh = deltaTop + deltaBottom;
 
-                float radius = (commandButton.getPresentationModel().getSelectedStateHighlight()
-                    == CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) ? 0 :
-                    (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
-                        RadianceSizeUtils.getComponentFontSize(commandButton));
-
                 graphics1X.translate(dx, dy);
                 // Compute a separate outline for the fill.
                 // Otherwise pixels on the edge can "spill" outside
                 // the outline. Those pixels will be drawn by the outline painter.
-                Shape outlineFill = RadianceOutlineUtilities.getBaseOutline(
-                    commandButton.getComponentOrientation(),
-                    scaledWidth + dw, scaledHeight + dh,
-                    radius, straightSides, 0.5f);
+                Shape outlineFill = outlineShapeSupplier.getShape(
+                    commandButton, scaledWidth + dw, scaledHeight + dh, 0.5f, 0.0f, 1.0f);
 
                 SurfacePainterUtils.paintSurface(graphics1X, commandButton, areaState,
                     scaledWidth + dw, scaledHeight + dh, scaleFactor,
                     areaAlpha, outlineFill, mutableContainerTokens);
 
                 // Outline
-                RadianceOutlinePainter.ShapeSupplier outlineShapeSupplier =
-                    (c, outlineWidth, outlineHeight, outlineInsets, outlineRadiusAdjustment, outlineScaleFactor) ->
-                        RadianceOutlineUtilities.getBaseOutline(
-                            c.getComponentOrientation(),
-                            outlineWidth, outlineHeight,
-                            radius - outlineInsets - outlineRadiusAdjustment,
-                            straightSides, outlineInsets);
                 OutlinePainterUtils.paintOutline(graphics1X, commandButton, areaState,
                     scaledWidth + dw - 1, scaledHeight + dh - 1, scaleFactor,
                     areaAlpha, outlineShapeSupplier, mutableContainerTokens);
