@@ -115,6 +115,7 @@ public class BladeIconUtils {
         ContainerColorTokens colorTokens, float checkMarkVisibility) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
+        RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getRadioButtonShapeSupplier();
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -126,38 +127,41 @@ public class BladeIconUtils {
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 int outlineDim = scaledWidth;
 
+                Shape outlineFill = shapeSupplier.getShape(button,
+                    outlineDim + 1, outlineDim + 1, 0.5f, 0.0f, scaleFactor);
                 SurfacePainterUtils.paintSurface(graphics1X, button, currentState,
-                    outlineDim, outlineDim, scaleFactor, 1.0f,
-                    new Ellipse2D.Float(0.5f, 0.5f, outlineDim, outlineDim), colorTokens);
+                    outlineDim, outlineDim, scaleFactor, 1.0f, outlineFill, colorTokens);
 
                 OutlinePainterUtils.paintOutline(graphics1X, button, currentState,
                     outlineDim, outlineDim, scaleFactor, 1.0f,
-                    componentShaper.getRadioButtonShapeSupplier(), colorTokens);
+                    shapeSupplier, colorTokens);
 
                 float rc = outlineDim / 2.0f + 0.5f;
                 float radius = outlineDim / 4.5f;
-                Shape markOval = new Ellipse2D.Double(rc - radius, rc - radius, 2 * radius, 2 * radius);
-                Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
+                Shape markShape = shapeSupplier.getShape(button, 2 * radius, 2 * radius, 0.0f, 0.0f, scaleFactor);
+
+                Graphics2D graphicsForMark = (Graphics2D) graphics1X.create();
 
                 float onContainerOutlineAlpha = currentState.isDisabled()
                     ? colorTokens.getOnContainerDisabledAlpha() : 1.0f;
                 if (checkMarkVisibility > 0.0) {
                     // mark
-                    graphicsForCheckMark.setComposite(getAlphaComposite(
+                    graphicsForMark.setComposite(getAlphaComposite(
                         onContainerOutlineAlpha * checkMarkVisibility));
-                    graphicsForCheckMark.setColor(colorTokens.getOnContainer());
+                    graphicsForMark.setColor(colorTokens.getOnContainer());
                 } else {
                     // draw ghost mark holder
-                    graphicsForCheckMark.setComposite(getAlphaComposite(onContainerOutlineAlpha * 0.3f));
-                    graphicsForCheckMark.setPaint(
+                    graphicsForMark.setComposite(getAlphaComposite(onContainerOutlineAlpha * 0.3f));
+                    graphicsForMark.setPaint(
                         new GradientPaint(
                             rc + radius, rc - radius,
                             colorTokens.getContainerSurfaceHigh(),
                             rc - radius, rc + radius,
                             colorTokens.getContainerSurfaceLow()));
                 }
-                graphicsForCheckMark.fill(markOval);
-                graphicsForCheckMark.dispose();
+                graphicsForMark.translate(rc - radius, rc - radius);
+                graphicsForMark.fill(markShape);
+                graphicsForMark.dispose();
             });
         graphics.dispose();
     }
