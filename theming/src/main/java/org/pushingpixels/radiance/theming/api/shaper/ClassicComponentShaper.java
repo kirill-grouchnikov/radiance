@@ -106,6 +106,11 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
                 c.getComponentOrientation(), width, height, radius, null, insets + 1.0f);
         };
 
+    private ShapeSupplier SLIDER_THUMB_DIRECTIONAL_SHAPE_SUPPLIER =
+        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
+            RadianceOutlineUtilities.getTriangleButtonOutline(
+                width, height, 2 * (float) scaleFactor, 1.0f + insets);
+
     private ShapeSupplier SWITCH_TRACK_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             RadianceOutlineUtilities.getBaseOutline(c.getComponentOrientation(),
@@ -280,6 +285,16 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     @Override
     public ShapeSupplier getScrollBarThumbShapeSupplier() {
         return SCROLLBAR_THUMB_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public ShapeSupplier getSliderThumbDirectionalShapeSupplier() {
+        return SLIDER_THUMB_DIRECTIONAL_SHAPE_SUPPLIER;
+    }
+
+    @Override
+    public ShapeSupplier getSliderThumbUniformShapeSupplier() {
+        return ROUND_SHAPE_SUPPLIER;
     }
 
     @Override

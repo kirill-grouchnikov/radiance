@@ -162,14 +162,12 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    private static RadianceComponentShaper.ShapeSupplier sliderThumbHorizontalShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
-            RadianceOutlineUtilities.getTriangleButtonOutline(
-                width, height, 2 * (float) scaleFactor, 1.0f + insets);
-
     public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
         RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(slider);
+        RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getSliderThumbDirectionalShapeSupplier();
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -183,25 +181,23 @@ public class BladeIconUtils {
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    sliderThumbHorizontalShapeSupplier.getShape(slider, scaledWidth, scaledHeight,
+                    shapeSupplier.getShape(slider, scaledWidth, scaledHeight,
                         outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
                 OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    sliderThumbHorizontalShapeSupplier, colorTokens);
+                    shapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
 
-    private static RadianceComponentShaper.ShapeSupplier sliderThumbVerticalShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
-            RadianceOutlineUtilities.getTriangleButtonOutline(
-                width, height, 2 * (float) scaleFactor, 1.0f + insets);
-
     public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
         RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(slider);
+        RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getSliderThumbDirectionalShapeSupplier();
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -225,24 +221,23 @@ public class BladeIconUtils {
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    sliderThumbVerticalShapeSupplier.getShape(slider, scaledWidth, scaledHeight,
+                    shapeSupplier.getShape(slider, scaledWidth, scaledHeight,
                         outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
                 OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    sliderThumbVerticalShapeSupplier, colorTokens);
+                    shapeSupplier, colorTokens);
             });
         graphics.dispose();
     }
 
-    private static RadianceComponentShaper.ShapeSupplier sliderThumbRoundShapeSupplier =
-        (c, width, height, insets, radiusAdjustment, scaleFactor) ->
-            new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
-
     public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
         RadianceOutlinePainter outlinePainter,
         int dimension, ContainerColorTokens colorTokens, ComponentState currState) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(slider);
+        RadianceComponentShaper.ShapeSupplier shapeSupplier = componentShaper.getSliderThumbUniformShapeSupplier();
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -262,13 +257,13 @@ public class BladeIconUtils {
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    sliderThumbRoundShapeSupplier.getShape(slider, scaledWidth, scaledHeight,
+                    shapeSupplier.getShape(slider, scaledWidth, scaledHeight,
                         outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
                 OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    sliderThumbRoundShapeSupplier, colorTokens);
+                    shapeSupplier, colorTokens);
             });
         graphics.dispose();
     }

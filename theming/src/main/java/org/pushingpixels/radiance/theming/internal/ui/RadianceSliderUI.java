@@ -99,8 +99,6 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
      */
     private Icon verticalIcon;
 
-    private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
-
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new RadianceSliderUI((JSlider) comp);

@@ -85,6 +85,12 @@ public interface RadianceComponentShaper extends RadianceTrait {
     /** Returns the shape supplier for scrollbar thumbs. */
     ShapeSupplier getScrollBarThumbShapeSupplier();
 
+    /** Returns the shape supplier for directional slider thumbs. */
+    ShapeSupplier getSliderThumbDirectionalShapeSupplier();
+
+    /** Returns the shape supplier for uniform slider thumbs. */
+    ShapeSupplier getSliderThumbUniformShapeSupplier();
+
     /** Returns the shape supplier for slider tracks. */
     ShapeSupplier getSliderTrackShapeSupplier();
 
