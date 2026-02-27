@@ -137,17 +137,13 @@ public class RadianceBorder implements Border, UIResource {
 		float finalAlpha = isEnabled ? alpha : alpha * colorTokens.getContainerOutlineDisabledAlpha();
 		graphics.setComposite(WidgetUtilities.getAlphaComposite(c, finalAlpha, g));
 
-		float baseRadius = this.radiusScaleFactor *
-			RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
-		BladeDrawingUtils.paintBladeBorder(graphics, c, state, x, y, width, height, baseRadius,
-			colorTokens);
+		BladeDrawingUtils.paintBladeBorder(graphics, c, state, x, y, width, height, colorTokens);
 
 		graphics.dispose();
 	}
 
 	@Override
-	public void paintBorder(Component c, Graphics g, int x, int y, int width,
-			int height) {
+	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
 		paintBorder(c, g, x, y, width, height, c.isEnabled(), this.alpha);
 	}
 
