@@ -100,13 +100,13 @@ open class Stage0Base : JComponent() {
                             e.y + source.locationOnScreen.y)
                 }
 
-                val dx = eventLocationOnScreen!!.x - lastX
-                val dy = eventLocationOnScreen!!.y - lastY
+                val dx = eventLocationOnScreen.x - lastX
+                val dy = eventLocationOnScreen.y - lastY
                 val win = SwingUtilities.getWindowAncestor(this@Stage0Base)
                 val loc = win.location
                 win.setLocation(loc.x + dx, loc.y + dy)
-                lastX = eventLocationOnScreen!!.x
-                lastY = eventLocationOnScreen!!.y
+                lastX = eventLocationOnScreen.x
+                lastY = eventLocationOnScreen.y
             }
         }
         this.addMouseListener(adapter)

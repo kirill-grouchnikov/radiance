@@ -152,9 +152,7 @@ fun main() {
 
         val runTimeline = JButton("run")
         runTimeline.addActionListener {
-            if (timelineBallFalling != null) {
-                timelineBallFalling!!.cancel()
-            }
+            timelineBallFalling?.cancel()
 
             timelineBallFalling = ballPanel.componentTimeline {
                 property(ballPanel::ballY from BallPanel.RADIUS to ballPanel.height - BallPanel.RADIUS)
@@ -173,31 +171,25 @@ fun main() {
 
             val toSkip = java.lang.Long.parseLong(msToSkip.text)
             if (toSkip > 0) {
-                timelineBallFalling!!.playLoopSkipping(RepeatBehavior.REVERSE, toSkip)
+                timelineBallFalling.playLoopSkipping(RepeatBehavior.REVERSE, toSkip)
             } else {
-                timelineBallFalling!!.playLoop(RepeatBehavior.REVERSE)
+                timelineBallFalling.playLoop(RepeatBehavior.REVERSE)
             }
         }
 
         val cancelTimeline = JButton("cancel")
         cancelTimeline.addActionListener {
-            if (timelineBallFalling != null) {
-                timelineBallFalling!!.cancelAtCycleBreak()
-            }
+            timelineBallFalling?.cancelAtCycleBreak()
         }
 
         val suspendTimeline = JButton("suspend")
         suspendTimeline.addActionListener {
-            if (timelineBallFalling != null) {
-                timelineBallFalling!!.suspend()
-            }
+            timelineBallFalling?.suspend()
         }
 
         val resumeTimeline = JButton("resume")
         resumeTimeline.addActionListener {
-            if (timelineBallFalling != null) {
-                timelineBallFalling!!.resume()
-            }
+            timelineBallFalling?.resume()
         }
 
         controls.add(runTimeline)
