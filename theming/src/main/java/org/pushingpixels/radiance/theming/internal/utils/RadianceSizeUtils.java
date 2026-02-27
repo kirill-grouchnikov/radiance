@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 import javax.swing.border.Border;
 import javax.swing.plaf.BorderUIResource;
@@ -286,19 +285,6 @@ public class RadianceSizeUtils {
 	 */
 	public static int getCheckBoxMarkSize(int fontSize) {
 		return 2 + fontSize;
-	}
-
-	/**
-	 * Returns the corner radius for {@link ClassicComponentShaper} under the
-	 * specified font size.
-	 * 
-	 * @param fontSize
-	 *            Font size.
-	 * @return Corner radius for {@link ClassicComponentShaper} under the specified
-	 *         font size.
-	 */
-	public static float getClassicButtonCornerRadius(int fontSize) {
-		return getAdjustedSize(fontSize, 3, 6, 1, false);
 	}
 
 	/**

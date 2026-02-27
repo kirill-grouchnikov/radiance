@@ -62,6 +62,8 @@ public interface RadianceComponentShaper extends RadianceTrait {
     /** Returns the baseline (generic) shape supplier. */
     ShapeSupplier getBaselineShapeSupplier();
 
+    Insets getBaselineInsets(Component c);
+
     /** Returns the baseline (generic) shape supplier. */
     ShapeSupplier getBaselineShapeSupplier(
         Set<RadianceThemingSlices.Side> straightSides);

@@ -80,8 +80,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         }
 
         float getCornerRadius(AbstractButton button, float insets, float radiusAdjustment) {
-            float radius = RadianceSizeUtils
-                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
+            float radius = getClassicCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
             if ((button != null)
                 && button.getClass().isAnnotationPresent(RadianceInternalArrowButton.class)) {
                 Border parentBorder = ((JComponent) button.getParent()).getBorder();
@@ -119,8 +118,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     private static ShapeSupplier TAB_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 
-            float cornerRadius = (float) scaleFactor * RadianceSizeUtils
-                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c)) -
+            float cornerRadius = (float) scaleFactor * getClassicCornerRadius(RadianceSizeUtils.getComponentFontSize(c)) -
                 radiusAdjustment;
 
             return RadianceOutlineUtilities.getBaseOutline(
@@ -133,7 +131,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int fontSize = RadianceSizeUtils.getComponentFontSize(c);
             float radius = (float) scaleFactor *
-                RadianceSizeUtils.getClassicButtonCornerRadius(fontSize) - insets - radiusAdjustment;
+                getClassicCornerRadius(fontSize) - insets - radiusAdjustment;
 
             return RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(),
@@ -144,7 +142,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int fontSize = RadianceSizeUtils.getComponentFontSize(c);
             float radius = 0.5f * (float) scaleFactor *
-                RadianceSizeUtils.getClassicButtonCornerRadius(fontSize) - insets - radiusAdjustment;
+                getClassicCornerRadius(fontSize) - insets - radiusAdjustment;
 
             return RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(),
@@ -233,6 +231,12 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     }
 
     @Override
+    public Insets getBaselineInsets(Component c) {
+        int extra = (int) getClassicCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
+        return new Insets(extra, extra, extra, extra);
+    }
+
+    @Override
     public ShapeSupplier getBaselineShapeSupplier() {
         return DEFAULT_SHAPE_SUPPLIER;
     }
@@ -240,7 +244,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     @Override
     public ShapeSupplier getBaselineShapeSupplier(Set<RadianceThemingSlices.Side> straightSides) {
         return (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
-            float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
+            float radius = (float) scaleFactor * getClassicCornerRadius(
                 RadianceSizeUtils.getComponentFontSize(c));
 
             return RadianceOutlineUtilities.getBaseOutline(
@@ -265,7 +269,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         return (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
             int fontSize = RadianceSizeUtils.getComponentFontSize(c);
             float radius = 0.5f * (float) scaleFactor *
-                RadianceSizeUtils.getClassicButtonCornerRadius(fontSize) - insets - radiusAdjustment;
+                getClassicCornerRadius(fontSize) - insets - radiusAdjustment;
 
             return RadianceOutlineUtilities.getBaseOutline(
                 c.getComponentOrientation(), width, height, radius, straightSides, insets);
@@ -330,6 +334,10 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
     @Override
     public ShapeSupplier getTreeIconShapeSupplier() {
         return DEFAULT_HALF_SHAPE_SUPPLIER;
+    }
+
+    protected static float getClassicCornerRadius(int fontSize) {
+        return RadianceSizeUtils.getAdjustedSize(fontSize, 3, 6, 1, false);
     }
 
     public static class ToolbarComponentShaper extends ClassicComponentShaper {

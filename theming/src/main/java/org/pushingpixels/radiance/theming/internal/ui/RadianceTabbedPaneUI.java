@@ -1348,8 +1348,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
      * @return Extra width for the specified tab.
      */
     protected int getTabExtraWidth(int tabIndex) {
-        int extraWidth = (int) (2.0 * RadianceSizeUtils.getClassicButtonCornerRadius(
-                RadianceSizeUtils.getComponentFontSize(this.tabPane)));
+        Insets insets = RadianceCoreUtilities.getComponentShaper(this.tabPane).getBaselineInsets(this.tabPane);
+        int extraWidth = insets.left + insets.right;
 
         if (RadianceCoreUtilities.hasCloseButton(this.tabPane, tabIndex)
                 && this.tabPane.isEnabledAt(tabIndex)) {

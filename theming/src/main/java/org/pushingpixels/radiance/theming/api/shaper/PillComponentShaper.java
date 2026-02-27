@@ -83,8 +83,7 @@ public class PillComponentShaper extends ClassicComponentShaper {
             float height = button.getHeight() - 2 * insets;
 
             boolean isRoundCorners = isRoundButton(button);
-            float radius = RadianceSizeUtils
-                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
+            float radius = getClassicCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
             if (button.getClass().isAnnotationPresent(RadianceInternalArrowButton.class)) {
                 Border parentBorder = ((JComponent) button.getParent()).getBorder();
                 if (parentBorder instanceof RadianceBorder) {
