@@ -326,6 +326,14 @@ public class SampleMenuFactory {
             RadianceThemingCortex.GlobalScope.setSkin(geminiWithThickOutlineSkin));
         jmSkin.add(jmiGeminiWithThickOutlineSkin);
 
+        final GeminiWithRectangularShapesSkin geminiWithRectangularShapesSkin =
+            new GeminiWithRectangularShapesSkin();
+        JMenuItem jmiGeminiWithRectangularShapesSkin = new JMenuItem(
+            geminiWithRectangularShapesSkin.getDisplayName());
+        jmiGeminiWithRectangularShapesSkin.addActionListener(actionEvent ->
+            RadianceThemingCortex.GlobalScope.setSkin(geminiWithRectangularShapesSkin));
+        jmSkin.add(jmiGeminiWithRectangularShapesSkin);
+
         return jmSkin;
     }
 
@@ -379,7 +387,7 @@ public class SampleMenuFactory {
         }
     }
 
-    protected static class GeminiWithThickOutlineSkin extends GeminiSkin {
+    private static class GeminiWithThickOutlineSkin extends GeminiSkin {
         @Override
         public String getDisplayName() {
             return "Gemini Thick Outline";
@@ -406,6 +414,20 @@ public class SampleMenuFactory {
             customHighlightOutlinePainter.setStrokeWidth(2.0f);
             this.highlightOutlinePainter = customHighlightOutlinePainter;
 
+        }
+    }
+
+    private static class GeminiWithRectangularShapesSkin extends GeminiSkin {
+        @Override
+        public String getDisplayName() {
+            return "Gemini Rectangular Shapes";
+        }
+
+        public GeminiWithRectangularShapesSkin() {
+            super();
+
+            this.registerComponentShaper(new RectangularComponentShaper(),
+                RadianceThemingSlices.DecorationAreaType.NONE);
         }
     }
 
