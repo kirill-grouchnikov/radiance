@@ -274,10 +274,6 @@ Specifies whether buttons should ignore the default (minimum) dimension.
 
 Specifies when components should paint their background.
 
-`public static void setToolbarButtonCornerRadius(float toolbarButtonCornerRadius)`
-
-Specifies corner radius for all toolbar buttons.
-
 `public static void setTabContentPaneBorderKind(TabContentPaneBorderKind tabContentPaneBorderKind)`
 
 Specifies the content pane border kind for tabbed panes.
@@ -442,10 +438,6 @@ Specifies the straight side for the specific button component.
 
 Specifies the straight sides for the specific button component.
 
-`public static void setToolbarButtonCornerRadius(AbstractButton button, float toolbarButtonCornerRadius)`
-
-Specifies corner radius for the specific button.
-
 `public static void setComponentShaper(JComponent comp, RadianceComponentShaper componentShaper)`
 
 Specifies the component shaper to be used for the specific component.
@@ -513,10 +505,6 @@ Specifies when the specific component or its immediate children should paint the
 `public static void setSelectTextOnFocus(JComponent comp, Boolean selectTextOnFocus)`
 
 Specifies whether the contents of the specified text component or its nested children should be selected on focus gain.
-
-`public static void setToolbarButtonCornerRadius(JToolBar toolbar, float toolbarButtonCornerRadius)`
-
-Specifies corner radius for all buttons in the specified toolbar.
 
 `public static void setExtraWidgetsPresence(JComponent comp, Boolean extraWidgetsPresence)`
 
