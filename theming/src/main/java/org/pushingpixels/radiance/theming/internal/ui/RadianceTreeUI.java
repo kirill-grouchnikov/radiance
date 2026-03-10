@@ -222,12 +222,15 @@ public class RadianceTreeUI extends BasicTreeUI {
 				(renderer instanceof RadianceDefaultTreeCellRenderer) ||
 						(renderer instanceof RadiancePanelTreeCellRenderer);
 		if (!isRadianceRenderer) {
-			// if it's not Radiance renderer - ask the Basic delegate to paint
-			// it.
-			super.paintRow(g, clipBounds, insets, bounds, path, row, isExpanded, hasBeenExpanded,
-					isLeaf);
+			// if it's not Radiance renderer - ask the Basic delegate to paint it, expanding the bounds
+			// to full row
+			int availableWidth = Math.max(this.tree.getWidth() - this.tree.getInsets().right
+				- this.tree.getInsets().left - bounds.x, bounds.width);
+			Rectangle tweakedBounds = new Rectangle(bounds.x, bounds.y, availableWidth, bounds.height);
+			super.paintRow(g, clipBounds, insets, tweakedBounds, path, row, isExpanded, hasBeenExpanded,
+				isLeaf);
 			if (shouldPaintExpandControl(path, row, isExpanded, hasBeenExpanded, isLeaf)) {
-				paintExpandControlEnforce(g, clipBounds, insets, bounds, path, row, isExpanded,
+				paintExpandControlEnforce(g, clipBounds, insets, tweakedBounds, path, row, isExpanded,
 						hasBeenExpanded, isLeaf);
 			}
 			return;
@@ -328,6 +331,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 		Map<Component, Boolean> opacity = new HashMap<>();
 		if (!newOpaque)
 			RadianceCoreUtilities.makeNonOpaque(jRenderer, opacity);
+		System.out.println("Row " + row + ", bounds " + bounds);
 		this.rendererPane.paintComponent(g2d, renderer, this.tree, bounds.x, bounds.y,
 				Math.max(this.tree.getWidth() - this.tree.getInsets().right
 						- this.tree.getInsets().left - bounds.x, bounds.width),
