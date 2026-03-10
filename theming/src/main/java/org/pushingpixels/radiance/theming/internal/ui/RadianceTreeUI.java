@@ -331,7 +331,6 @@ public class RadianceTreeUI extends BasicTreeUI {
 		Map<Component, Boolean> opacity = new HashMap<>();
 		if (!newOpaque)
 			RadianceCoreUtilities.makeNonOpaque(jRenderer, opacity);
-		System.out.println("Row " + row + ", bounds " + bounds);
 		this.rendererPane.paintComponent(g2d, renderer, this.tree, bounds.x, bounds.y,
 				Math.max(this.tree.getWidth() - this.tree.getInsets().right
 						- this.tree.getInsets().left - bounds.x, bounds.width),
