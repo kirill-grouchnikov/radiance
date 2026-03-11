@@ -91,8 +91,8 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
 
     @Override
     protected void updateIcon() {
-        int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-        int checkMarkSize = RadianceSizeUtils.getCheckBoxMarkSize(fontSize);
+        this.fontSizeForRadianceIcon = RadianceSizeUtils.getComponentFontSize(button);
+        int checkMarkSize = RadianceSizeUtils.getCheckBoxMarkSize(this.fontSizeForRadianceIcon);
         this.radianceIcon = new Icon() {
             @Override
             public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -137,8 +137,16 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
     @Override
     public Dimension getPreferredSize(JComponent c) {
         JCheckBox checkBox = (JCheckBox) c;
+        RadianceCheckBoxUI ui = (RadianceCheckBoxUI) checkBox.getUI();
+        if (this == ui) {
+            // Force update the icon if the font size has changed. This can happen for more complex cases
+            // like using a checkbox as a cell renderer.
+            if (this.fontSizeForRadianceIcon != RadianceSizeUtils.getComponentFontSize(checkBox)) {
+                this.updateIcon();
+            }
+        }
         return RadianceMetricsUtilities.getPreferredCheckButtonSize(checkBox,
-                ((RadianceCheckBoxUI) checkBox.getUI()).getDefaultIcon());
+            ui.getDefaultIcon());
     }
 
     @Override

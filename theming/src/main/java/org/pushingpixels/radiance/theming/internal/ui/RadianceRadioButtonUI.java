@@ -79,6 +79,8 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
 
     protected Icon radianceIcon;
 
+    protected int fontSizeForRadianceIcon = -1;
+
     protected BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     @Override
@@ -118,8 +120,8 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
     }
 
     protected void updateIcon() {
-        int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-        int checkMarkSize = RadianceSizeUtils.getRadioButtonMarkSize(fontSize);
+        this.fontSizeForRadianceIcon = RadianceSizeUtils.getComponentFontSize(button);
+        int checkMarkSize = RadianceSizeUtils.getRadioButtonMarkSize(this.fontSizeForRadianceIcon);
         this.radianceIcon = new Icon() {
             @Override
             public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -304,8 +306,16 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
     @Override
     public Dimension getPreferredSize(JComponent c) {
         JRadioButton radioButton = (JRadioButton) c;
+        RadianceRadioButtonUI ui = (RadianceRadioButtonUI) radioButton.getUI();
+        if (this == ui) {
+            // Force update the icon if the font size has changed. This can happen for more complex cases
+            // like using a radio button as a cell renderer.
+            if (this.fontSizeForRadianceIcon != RadianceSizeUtils.getComponentFontSize(radioButton)) {
+                this.updateIcon();
+            }
+        }
         return RadianceMetricsUtilities.getPreferredCheckButtonSize(radioButton,
-                ((RadianceRadioButtonUI) radioButton.getUI()).getDefaultIcon());
+            ui.getDefaultIcon());
     }
 
     @Override
