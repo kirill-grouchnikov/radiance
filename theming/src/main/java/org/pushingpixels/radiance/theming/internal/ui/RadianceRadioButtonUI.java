@@ -311,7 +311,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
             // Force update the icon if the font size has changed. This can happen for more complex cases
             // like using a radio button as a cell renderer.
             if (this.fontSizeForRadianceIcon != RadianceSizeUtils.getComponentFontSize(radioButton)) {
-                this.updateIcon();
+                this.installDefaults(radioButton);
             }
         }
         return RadianceMetricsUtilities.getPreferredCheckButtonSize(radioButton,

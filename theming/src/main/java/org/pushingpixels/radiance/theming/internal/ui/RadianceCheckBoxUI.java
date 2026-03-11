@@ -142,7 +142,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
             // Force update the icon if the font size has changed. This can happen for more complex cases
             // like using a checkbox as a cell renderer.
             if (this.fontSizeForRadianceIcon != RadianceSizeUtils.getComponentFontSize(checkBox)) {
-                this.updateIcon();
+                this.installDefaults(checkBox);
             }
         }
         return RadianceMetricsUtilities.getPreferredCheckButtonSize(checkBox,
