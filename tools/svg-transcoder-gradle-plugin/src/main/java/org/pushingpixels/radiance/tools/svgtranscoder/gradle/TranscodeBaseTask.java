@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.tools.svgtranscoder.gradle;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.logging.Logger;
+import org.gradle.api.tasks.CacheableTask;
 import org.pushingpixels.radiance.tools.svgtranscoder.api.*;
 
 import java.io.File;
@@ -40,6 +41,7 @@ import java.io.Writer;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+@CacheableTask
 public abstract class TranscodeBaseTask extends DefaultTask {
     protected void transcodeAllFilesInFolder(File inputFolder, File outputFolder,
             String outputClassNamePrefix, String outputFileNameExtension,

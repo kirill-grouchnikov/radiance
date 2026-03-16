@@ -30,10 +30,7 @@
 package org.pushingpixels.radiance.tools.svgtranscoder.gradle;
 
 import org.gradle.api.logging.Logger;
-import org.gradle.api.tasks.Input;
-import org.gradle.api.tasks.InputDirectory;
-import org.gradle.api.tasks.OutputDirectory;
-import org.gradle.api.tasks.TaskAction;
+import org.gradle.api.tasks.*;
 import org.gradle.api.tasks.options.Option;
 import org.pushingpixels.radiance.tools.svgtranscoder.api.LanguageRenderer;
 import org.pushingpixels.radiance.tools.svgtranscoder.api.java.JavaLanguageRenderer;
@@ -41,6 +38,7 @@ import org.pushingpixels.radiance.tools.svgtranscoder.api.kotlin.KotlinLanguageR
 
 import java.io.File;
 
+@CacheableTask
 public class TranscodeDeepTask extends TranscodeBaseTask {
     private String outputRootPackageName;
 
@@ -83,6 +81,7 @@ public class TranscodeDeepTask extends TranscodeBaseTask {
     }
 
     @InputDirectory
+    @PathSensitive(PathSensitivity.ABSOLUTE)
     public File getInputRootDirectory() {
         return inputRootDirectory;
     }
