@@ -125,6 +125,21 @@ public class SystemColorTokenUtils {
             }
 
             @Override
+            public float getContainerSurfaceEnabledAlpha() {
+                return 1.0f;
+            }
+
+            @Override
+            public float getOnContainerEnabledAlpha() {
+                return 1.0f;
+            }
+
+            @Override
+            public float getContainerOutlineEnabledAlpha() {
+                return 1.0f;
+            }
+
+            @Override
             public float getContainerSurfaceDisabledAlpha() {
                 return 0.3f;
             }

@@ -104,6 +104,16 @@ public class BladeUtils {
             errorColorTokens.getContainerOutlineVariant(),
             modificationCyclePosition);
 
+        bladeContainerTokens.containerSurfaceEnabledAlpha =
+            (1.0f - modificationCyclePosition) * warningColorTokens.getContainerSurfaceEnabledAlpha() +
+                modificationCyclePosition * errorColorTokens.getContainerSurfaceEnabledAlpha();
+        bladeContainerTokens.onContainerEnabledAlpha =
+            (1.0f - modificationCyclePosition) * warningColorTokens.getOnContainerEnabledAlpha() +
+                modificationCyclePosition * errorColorTokens.getOnContainerEnabledAlpha();
+        bladeContainerTokens.containerOutlineEnabledAlpha =
+            (1.0f - modificationCyclePosition) * warningColorTokens.getContainerOutlineEnabledAlpha() +
+                modificationCyclePosition * errorColorTokens.getContainerOutlineEnabledAlpha();
+
         bladeContainerTokens.containerSurfaceDisabledAlpha =
             (1.0f - modificationCyclePosition) * warningColorTokens.getContainerSurfaceDisabledAlpha() +
                 modificationCyclePosition * errorColorTokens.getContainerSurfaceDisabledAlpha();
@@ -173,6 +183,9 @@ public class BladeUtils {
         Color onContainerVariant = currColorTokens.getOnContainerVariant();
         Color containerOutline = currColorTokens.getContainerOutline();
         Color containerOutlineVariant = currColorTokens.getContainerOutlineVariant();
+        float containerSurfaceEnabledAlpha = currColorTokens.getContainerSurfaceEnabledAlpha();
+        float onContainerEnabledAlpha = currColorTokens.getOnContainerEnabledAlpha();
+        float containerOutlineEnabledAlpha = currColorTokens.getContainerOutlineEnabledAlpha();
         float containerSurfaceDisabledAlpha = currColorTokens.getContainerSurfaceDisabledAlpha();
         float onContainerDisabledAlpha = currColorTokens.getOnContainerDisabledAlpha();
         float containerOutlineDisabledAlpha = currColorTokens.getContainerOutlineDisabledAlpha();
@@ -230,6 +243,12 @@ public class BladeUtils {
                         contributionColorTokens.getContainerOutline(), 1.0f - amount);
                 containerOutlineVariant = RadianceColorUtilities.getInterpolatedColor(containerOutlineVariant,
                         contributionColorTokens.getContainerOutlineVariant(), 1.0f - amount);
+                containerSurfaceEnabledAlpha = (1.0f - amount) * containerSurfaceEnabledAlpha +
+                    amount * contributionColorTokens.getContainerSurfaceEnabledAlpha();
+                onContainerEnabledAlpha = (1.0f - amount) * onContainerEnabledAlpha +
+                    amount * contributionColorTokens.getOnContainerEnabledAlpha();
+                containerOutlineEnabledAlpha = (1.0f - amount) * containerOutlineEnabledAlpha +
+                    amount * contributionColorTokens.getContainerOutlineEnabledAlpha();
                 containerSurfaceDisabledAlpha = (1.0f - amount) * containerSurfaceDisabledAlpha +
                     amount * contributionColorTokens.getContainerSurfaceDisabledAlpha();
                 onContainerDisabledAlpha = (1.0f - amount) * onContainerDisabledAlpha +
@@ -267,6 +286,9 @@ public class BladeUtils {
         bladeContainerTokens.onContainerVariant = onContainerVariant;
         bladeContainerTokens.containerOutline = containerOutline;
         bladeContainerTokens.containerOutlineVariant = containerOutlineVariant;
+        bladeContainerTokens.containerSurfaceEnabledAlpha = containerSurfaceEnabledAlpha;
+        bladeContainerTokens.onContainerEnabledAlpha = onContainerEnabledAlpha;
+        bladeContainerTokens.containerOutlineEnabledAlpha = containerOutlineEnabledAlpha;
         bladeContainerTokens.containerSurfaceDisabledAlpha = containerSurfaceDisabledAlpha;
         bladeContainerTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
         bladeContainerTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
@@ -336,6 +358,9 @@ public class BladeUtils {
         Color onContainerVariant = currColorTokens.getOnContainerVariant();
         Color containerOutline = currColorTokens.getContainerOutline();
         Color containerOutlineVariant = currColorTokens.getContainerOutlineVariant();
+        float containerSurfaceEnabledAlpha = currColorTokens.getContainerSurfaceEnabledAlpha();
+        float onContainerEnabledAlpha = currColorTokens.getOnContainerEnabledAlpha();
+        float containerOutlineEnabledAlpha = currColorTokens.getContainerOutlineEnabledAlpha();
         float containerSurfaceDisabledAlpha = currColorTokens.getContainerSurfaceDisabledAlpha();
         float onContainerDisabledAlpha = currColorTokens.getOnContainerDisabledAlpha();
         float containerOutlineDisabledAlpha = currColorTokens.getContainerOutlineDisabledAlpha();
@@ -393,6 +418,12 @@ public class BladeUtils {
                         contributionColorTokens.getContainerOutline(), 1.0f - amount);
                 containerOutlineVariant = RadianceColorUtilities.getInterpolatedColor(containerOutlineVariant,
                         contributionColorTokens.getContainerOutlineVariant(), 1.0f - amount);
+                containerSurfaceEnabledAlpha = (1.0f - amount) * containerSurfaceEnabledAlpha +
+                    amount * contributionColorTokens.getContainerSurfaceEnabledAlpha();
+                onContainerEnabledAlpha = (1.0f - amount) * onContainerEnabledAlpha +
+                    amount * contributionColorTokens.getOnContainerEnabledAlpha();
+                containerOutlineEnabledAlpha = (1.0f - amount) * containerOutlineEnabledAlpha +
+                    amount * contributionColorTokens.getContainerOutlineEnabledAlpha();
                 containerSurfaceDisabledAlpha = (1.0f - amount) * containerSurfaceDisabledAlpha +
                     amount * contributionColorTokens.getContainerSurfaceDisabledAlpha();
                 onContainerDisabledAlpha = (1.0f - amount) * onContainerDisabledAlpha +
@@ -430,6 +461,9 @@ public class BladeUtils {
         bladeContainerTokens.onContainerVariant = onContainerVariant;
         bladeContainerTokens.containerOutline = containerOutline;
         bladeContainerTokens.containerOutlineVariant = containerOutlineVariant;
+        bladeContainerTokens.containerSurfaceEnabledAlpha = containerSurfaceEnabledAlpha;
+        bladeContainerTokens.onContainerEnabledAlpha = onContainerEnabledAlpha;
+        bladeContainerTokens.containerOutlineEnabledAlpha = containerOutlineEnabledAlpha;
         bladeContainerTokens.containerSurfaceDisabledAlpha = containerSurfaceDisabledAlpha;
         bladeContainerTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
         bladeContainerTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
@@ -469,6 +503,9 @@ public class BladeUtils {
         Color onContainerVariant = currColorTokens.getOnContainerVariant();
         Color containerOutline = currColorTokens.getContainerOutline();
         Color containerOutlineVariant = currColorTokens.getContainerOutlineVariant();
+        float containerSurfaceEnabledAlpha = currColorTokens.getContainerSurfaceEnabledAlpha();
+        float onContainerEnabledAlpha = currColorTokens.getOnContainerEnabledAlpha();
+        float containerOutlineEnabledAlpha = currColorTokens.getContainerOutlineEnabledAlpha();
         float containerSurfaceDisabledAlpha = currColorTokens.getContainerSurfaceDisabledAlpha();
         float onContainerDisabledAlpha = currColorTokens.getOnContainerDisabledAlpha();
         float containerOutlineDisabledAlpha = currColorTokens.getContainerOutlineDisabledAlpha();
@@ -526,6 +563,12 @@ public class BladeUtils {
                     contributionColorTokens.getContainerOutline(), 1.0f - amount);
                 containerOutlineVariant = RadianceColorUtilities.getInterpolatedColor(containerOutlineVariant,
                     contributionColorTokens.getContainerOutlineVariant(), 1.0f - amount);
+                containerSurfaceEnabledAlpha = (1.0f - amount) * containerSurfaceEnabledAlpha +
+                    amount * contributionColorTokens.getContainerSurfaceEnabledAlpha();
+                onContainerEnabledAlpha = (1.0f - amount) * onContainerEnabledAlpha +
+                    amount * contributionColorTokens.getOnContainerEnabledAlpha();
+                containerOutlineEnabledAlpha = (1.0f - amount) * containerOutlineEnabledAlpha +
+                    amount * contributionColorTokens.getContainerOutlineEnabledAlpha();
                 containerSurfaceDisabledAlpha = (1.0f - amount) * containerSurfaceDisabledAlpha +
                     amount * contributionColorTokens.getContainerSurfaceDisabledAlpha();
                 onContainerDisabledAlpha = (1.0f - amount) * onContainerDisabledAlpha +
@@ -563,6 +606,9 @@ public class BladeUtils {
         bladeContainerTokens.onContainerVariant = onContainerVariant;
         bladeContainerTokens.containerOutline = containerOutline;
         bladeContainerTokens.containerOutlineVariant = containerOutlineVariant;
+        bladeContainerTokens.containerSurfaceEnabledAlpha = containerSurfaceEnabledAlpha;
+        bladeContainerTokens.onContainerEnabledAlpha = onContainerEnabledAlpha;
+        bladeContainerTokens.containerOutlineEnabledAlpha = containerOutlineEnabledAlpha;
         bladeContainerTokens.containerSurfaceDisabledAlpha = containerSurfaceDisabledAlpha;
         bladeContainerTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
         bladeContainerTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;

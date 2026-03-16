@@ -142,6 +142,21 @@ public class ContainerColorTokensOverlay {
                     }
 
                     @Override
+                    public float getContainerSurfaceEnabledAlpha() {
+                        return systemContainerTokens.getContainerSurfaceEnabledAlpha();
+                    }
+
+                    @Override
+                    public float getContainerOutlineEnabledAlpha() {
+                        return systemContainerTokens.getContainerOutlineEnabledAlpha();
+                    }
+
+                    @Override
+                    public float getOnContainerEnabledAlpha() {
+                        return systemContainerTokens.getOnContainerEnabledAlpha();
+                    }
+
+                    @Override
                     public float getContainerSurfaceDisabledAlpha() {
                         return systemContainerTokens.getContainerSurfaceDisabledAlpha();
                     }
@@ -319,6 +334,21 @@ public class ContainerColorTokensOverlay {
                     @Override
                     public Color getContainerOutlineVariant() {
                         return systemContainerTokens.getContainerOutlineVariant();
+                    }
+
+                    @Override
+                    public float getContainerSurfaceEnabledAlpha() {
+                        return systemContainerTokens.getContainerSurfaceEnabledAlpha();
+                    }
+
+                    @Override
+                    public float getContainerOutlineEnabledAlpha() {
+                        return systemContainerTokens.getContainerOutlineEnabledAlpha();
+                    }
+
+                    @Override
+                    public float getOnContainerEnabledAlpha() {
+                        return systemContainerTokens.getOnContainerEnabledAlpha();
                     }
 
                     @Override

@@ -45,6 +45,9 @@ public class TokenPaletteColorResolverOverlay {
     private Function<TokenPalette, Integer> onContainerVariant;
     private Function<TokenPalette, Integer> containerOutline;
     private Function<TokenPalette, Integer> containerOutlineVariant;
+    private Function<TokenPalette, Float> containerSurfaceEnabledAlpha;
+    private Function<TokenPalette, Float> onContainerEnabledAlpha;
+    private Function<TokenPalette, Float> containerOutlineEnabledAlpha;
     private Function<TokenPalette, Float> containerSurfaceDisabledAlpha;
     private Function<TokenPalette, Float> onContainerDisabledAlpha;
     private Function<TokenPalette, Float> containerOutlineDisabledAlpha;
@@ -105,6 +108,18 @@ public class TokenPaletteColorResolverOverlay {
         return this.containerOutlineVariant;
     }
 
+    public Function<TokenPalette, Float> getContainerSurfaceEnabledAlpha() {
+        return this.containerSurfaceEnabledAlpha;
+    }
+
+    public Function<TokenPalette, Float> getOnContainerEnabledAlpha() {
+        return this.onContainerEnabledAlpha;
+    }
+
+    public Function<TokenPalette, Float> getContainerOutlineEnabledAlpha() {
+        return this.containerOutlineEnabledAlpha;
+    }
+
     public Function<TokenPalette, Float> getContainerSurfaceDisabledAlpha() {
         return this.containerSurfaceDisabledAlpha;
     }
@@ -153,6 +168,9 @@ public class TokenPaletteColorResolverOverlay {
         private Function<TokenPalette, Integer> onContainerVariant;
         private Function<TokenPalette, Integer> containerOutline;
         private Function<TokenPalette, Integer> containerOutlineVariant;
+        private Function<TokenPalette, Float> containerSurfaceEnabledAlpha;
+        private Function<TokenPalette, Float> onContainerEnabledAlpha;
+        private Function<TokenPalette, Float> containerOutlineEnabledAlpha;
         private Function<TokenPalette, Float> containerSurfaceDisabledAlpha;
         private Function<TokenPalette, Float> onContainerDisabledAlpha;
         private Function<TokenPalette, Float> containerOutlineDisabledAlpha;
@@ -217,6 +235,24 @@ public class TokenPaletteColorResolverOverlay {
 
         public Builder containerOutlineVariant(Function<TokenPalette, Integer> containerOutlineVariant) {
             this.containerOutlineVariant = containerOutlineVariant;
+            return this;
+        }
+
+        public Builder containerSurfaceEnabledAlpha(
+            Function<TokenPalette, Float> containerSurfaceEnabledAlpha) {
+            this.containerSurfaceEnabledAlpha = containerSurfaceEnabledAlpha;
+            return this;
+        }
+
+        public Builder onContainerEnabledAlpha(
+            Function<TokenPalette, Float> onContainerEnabledAlpha) {
+            this.onContainerEnabledAlpha = onContainerEnabledAlpha;
+            return this;
+        }
+
+        public Builder containerOutlineEnabledAlpha(
+            Function<TokenPalette, Float> containerOutlineEnabledAlpha) {
+            this.containerOutlineEnabledAlpha = containerOutlineEnabledAlpha;
             return this;
         }
 
@@ -286,6 +322,9 @@ public class TokenPaletteColorResolverOverlay {
             result.onContainerVariant = this.onContainerVariant;
             result.containerOutline = this.containerOutline;
             result.containerOutlineVariant = this.containerOutlineVariant;
+            result.containerSurfaceEnabledAlpha = this.containerSurfaceEnabledAlpha;
+            result.onContainerEnabledAlpha = this.onContainerEnabledAlpha;
+            result.containerOutlineEnabledAlpha = this.containerOutlineEnabledAlpha;
             result.containerSurfaceDisabledAlpha = this.containerSurfaceDisabledAlpha;
             result.onContainerDisabledAlpha = this.onContainerDisabledAlpha;
             result.containerOutlineDisabledAlpha = this.containerOutlineDisabledAlpha;

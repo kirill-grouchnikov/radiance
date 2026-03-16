@@ -388,6 +388,21 @@ public class CoreColorTokenUtils {
             }
 
             @Override
+            public float getContainerSurfaceEnabledAlpha() {
+                return original.getContainerSurfaceEnabledAlpha();
+            }
+
+            @Override
+            public float getOnContainerEnabledAlpha() {
+                return original.getOnContainerEnabledAlpha();
+            }
+
+            @Override
+            public float getContainerOutlineEnabledAlpha() {
+                return original.getContainerOutlineEnabledAlpha();
+            }
+
+            @Override
             public float getContainerSurfaceDisabledAlpha() {
                 return original.getContainerSurfaceDisabledAlpha();
             }
@@ -622,6 +637,21 @@ public class CoreColorTokenUtils {
             @Override
             public Color getContainerOutlineVariant() {
                 return containerOutlineVariant;
+            }
+
+            @Override
+            public float getContainerSurfaceEnabledAlpha() {
+                return original.getContainerSurfaceEnabledAlpha();
+            }
+
+            @Override
+            public float getOnContainerEnabledAlpha() {
+                return original.getOnContainerEnabledAlpha();
+            }
+
+            @Override
+            public float getContainerOutlineEnabledAlpha() {
+                return original.getContainerOutlineEnabledAlpha();
             }
 
             @Override

@@ -49,6 +49,10 @@ public interface TokenPaletteColorResolver {
     Color getContainerOutline(TokenPalette tokenPalette);
     Color getContainerOutlineVariant(TokenPalette tokenPalette);
 
+    float getContainerSurfaceEnabledAlpha(TokenPalette tokenPalette);
+    float getOnContainerEnabledAlpha(TokenPalette tokenPalette);
+    float getContainerOutlineEnabledAlpha(TokenPalette tokenPalette);
+
     float getContainerSurfaceDisabledAlpha(TokenPalette tokenPalette);
     float getOnContainerDisabledAlpha(TokenPalette tokenPalette);
     float getContainerOutlineDisabledAlpha(TokenPalette tokenPalette);

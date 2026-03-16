@@ -114,6 +114,21 @@ public class ContainerColorTokensUtils {
             }
 
             @Override
+            public float getContainerSurfaceEnabledAlpha() {
+                return colorResolver.getContainerSurfaceEnabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public float getOnContainerEnabledAlpha() {
+                return colorResolver.getOnContainerEnabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public float getContainerOutlineEnabledAlpha() {
+                return colorResolver.getContainerOutlineEnabledAlpha(dynamicPalette);
+            }
+
+            @Override
             public float getContainerSurfaceDisabledAlpha() {
                 return colorResolver.getContainerSurfaceDisabledAlpha(dynamicPalette);
             }
@@ -234,6 +249,21 @@ public class ContainerColorTokensUtils {
             @Override
             public Color getContainerOutlineVariant() {
                 return colorResolver.getContainerOutlineVariant(dynamicPalette);
+            }
+
+            @Override
+            public float getContainerSurfaceEnabledAlpha() {
+                return colorResolver.getContainerSurfaceEnabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public float getOnContainerEnabledAlpha() {
+                return colorResolver.getOnContainerEnabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public float getContainerOutlineEnabledAlpha() {
+                return colorResolver.getContainerOutlineEnabledAlpha(dynamicPalette);
             }
 
             @Override

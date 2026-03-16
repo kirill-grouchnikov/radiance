@@ -93,6 +93,21 @@ public class TokenPaletteColorResolverUtils {
             }
 
             @Override
+            public float getContainerSurfaceEnabledAlpha(TokenPalette tokenPalette) {
+                return 1.0f;
+            }
+
+            @Override
+            public float getContainerOutlineEnabledAlpha(TokenPalette tokenPalette) {
+                return 1.0f;
+            }
+
+            @Override
+            public float getOnContainerEnabledAlpha(TokenPalette tokenPalette) {
+                return 1.0f;
+            }
+
+            @Override
             public float getContainerSurfaceDisabledAlpha(TokenPalette tokenPalette) {
                 return 0.3f;
             }
@@ -249,6 +264,36 @@ public class TokenPaletteColorResolverUtils {
                     return original.getContainerOutlineVariant(tokenPalette);
                 } else {
                     return new Color(spec.apply(tokenPalette), true);
+                }
+            }
+
+            @Override
+            public float getContainerSurfaceEnabledAlpha(TokenPalette tokenPalette) {
+                Function<TokenPalette, Float> spec = overlay.getContainerSurfaceEnabledAlpha();
+                if (spec == null) {
+                    return original.getContainerSurfaceEnabledAlpha(tokenPalette);
+                } else {
+                    return spec.apply(tokenPalette);
+                }
+            }
+
+            @Override
+            public float getOnContainerEnabledAlpha(TokenPalette tokenPalette) {
+                Function<TokenPalette, Float> spec = overlay.getOnContainerEnabledAlpha();
+                if (spec == null) {
+                    return original.getOnContainerEnabledAlpha(tokenPalette);
+                } else {
+                    return spec.apply(tokenPalette);
+                }
+            }
+
+            @Override
+            public float getContainerOutlineEnabledAlpha(TokenPalette tokenPalette) {
+                Function<TokenPalette, Float> spec = overlay.getContainerOutlineEnabledAlpha();
+                if (spec == null) {
+                    return original.getContainerOutlineEnabledAlpha(tokenPalette);
+                } else {
+                    return spec.apply(tokenPalette);
                 }
             }
 

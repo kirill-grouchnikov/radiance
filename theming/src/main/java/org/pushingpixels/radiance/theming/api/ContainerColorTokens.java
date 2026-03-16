@@ -53,6 +53,10 @@ public interface ContainerColorTokens {
     Color getContainerOutline();
     Color getContainerOutlineVariant();
 
+    float getContainerSurfaceEnabledAlpha();
+    float getOnContainerEnabledAlpha();
+    float getContainerOutlineEnabledAlpha();
+
     float getContainerSurfaceDisabledAlpha();
     float getOnContainerDisabledAlpha();
     float getContainerOutlineDisabledAlpha();
