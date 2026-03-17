@@ -149,7 +149,8 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     graphics1X.translate(thumbXStart, thumbVerticalCenterPx - thumbRadiusPx);
 
                     float alpha = currState.isDisabled()
-                        ? mutableContainerTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
+                        ? mutableContainerTokens.getContainerSurfaceDisabledAlpha()
+                        : mutableContainerTokens.getContainerSurfaceEnabledAlpha();
                     graphics1X.setComposite(WidgetUtilities.getAlphaComposite(
                         switchComp, alpha, graphics1X));
                     graphics1X.setColor(mutableContainerTokens.getOnContainer());

@@ -134,7 +134,8 @@ public class RadianceBorder implements Border, UIResource {
 			c, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
 			CoreColorTokenUtils.ContainerType.MUTED);
 
-		float finalAlpha = isEnabled ? alpha : alpha * colorTokens.getContainerOutlineDisabledAlpha();
+		float finalAlpha = isEnabled ? alpha * colorTokens.getContainerOutlineEnabledAlpha()
+			: alpha * colorTokens.getContainerOutlineDisabledAlpha();
 		graphics.setComposite(WidgetUtilities.getAlphaComposite(c, finalAlpha, g));
 
 		BladeDrawingUtils.paintBladeBorder(graphics, c, state, x, y, width, height, colorTokens);

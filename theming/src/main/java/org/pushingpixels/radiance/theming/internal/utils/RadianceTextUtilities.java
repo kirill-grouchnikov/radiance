@@ -274,7 +274,8 @@ public class RadianceTextUtilities {
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(component, state,
             inactiveContainerType);
         Color fgColor = tokens.getOnContainer();
-        float fgAlpha = state.isDisabled() ? tokens.getOnContainerDisabledAlpha() : 1.0f;
+        float fgAlpha = state.isDisabled() ? tokens.getOnContainerDisabledAlpha()
+            : tokens.getOnContainerEnabledAlpha();
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (fgColor.getAlpha() * fgAlpha));
     }
 
@@ -518,8 +519,9 @@ public class RadianceTextUtilities {
         // paint emulated drop shadow along the top edge of the component.
         if (hasRadianceTextBorder(comp)) {
             int shadowHeight = 6;
-            int topAlpha = state.isDisabled()
-                ? (int) (32 * baseColorTokens.getContainerOutlineDisabledAlpha()) : 32;
+            int topAlpha = (int) (32 * (state.isDisabled()
+                ? baseColorTokens.getContainerOutlineDisabledAlpha()
+                : baseColorTokens.getContainerOutlineEnabledAlpha()));
             g2d.setPaint(new GradientPaint(0, 0,
                 RadianceColorUtilities.getAlphaColor(borderColor, topAlpha), 0, shadowHeight,
                 RadianceColorUtilities.getAlphaColor(borderColor, 0)));

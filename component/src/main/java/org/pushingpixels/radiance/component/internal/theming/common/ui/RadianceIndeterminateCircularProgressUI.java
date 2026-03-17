@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.internal.theming.common.ui;
 import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicIndeterminateCircularProgressUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -59,16 +60,15 @@ public class RadianceIndeterminateCircularProgressUI extends BasicIndeterminateC
         boolean isEnabled = this.indeterminateCircularProgress.getProjection().getContentModel().isEnabled();
         ComponentState state = isEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
 
-        Color result = CoreColorTokenUtils.getContainerTokens(
+        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
             this.indeterminateCircularProgress, state,
-            CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainer();
-        if (!isEnabled) {
-            float fgAlpha = CoreColorTokenUtils.getContainerTokens(
-                this.indeterminateCircularProgress, state,
-                CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
-            result = RadianceColorUtilities.getAlphaColor(result,
-                (int) (result.getAlpha() * fgAlpha));
-        }
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
+        Color result = colorTokens.getOnContainer();
+        float alpha = isEnabled ? colorTokens.getOnContainerEnabledAlpha()
+            : colorTokens.getOnContainerDisabledAlpha();
+        result = RadianceColorUtilities.getAlphaColor(result,
+            (int) (result.getAlpha() * alpha));
+
         return result;
     }
 }

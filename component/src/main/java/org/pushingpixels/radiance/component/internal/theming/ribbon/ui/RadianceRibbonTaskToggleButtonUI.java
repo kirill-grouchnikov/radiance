@@ -224,13 +224,12 @@ public class RadianceRibbonTaskToggleButtonUI extends
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
 
         Color fgColor = getForegroundColor(this.commandButton, modelStateInfo);
-        if (currState.isDisabled()) {
-            float alpha = CoreColorTokenUtils.getContainerTokens(
-                    this.commandButton, currState, CoreColorTokenUtils.ContainerType.NEUTRAL)
-                .getOnContainerDisabledAlpha();
-            fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
-                (int) (fgColor.getAlpha() * alpha));
-        }
+        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
+            this.commandButton, currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
+        float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+            : colorTokens.getOnContainerEnabledAlpha();
+        fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
+            (int) (fgColor.getAlpha() * alpha));
 
         RadianceTextUtilities.paintText(g, textRect, toPaint, -1, this.commandButton.getFont(), fgColor, null);
 

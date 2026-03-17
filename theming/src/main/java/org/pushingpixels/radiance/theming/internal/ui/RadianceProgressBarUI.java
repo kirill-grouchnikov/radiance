@@ -386,8 +386,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     graphics1X.clip(shapeSupplier.getShape(progressBar,
                         scaledWidth - 1, scaledHeight - 1, 0.0f, 0.0f, scaleFactor));
 
-                    float containerSurfaceAlpha =
-                        (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                    float containerSurfaceAlpha = currState.isDisabled()
+                        ? colorTokens.getContainerSurfaceDisabledAlpha()
+                        : colorTokens.getContainerSurfaceEnabledAlpha();
                     graphics1X.setComposite(WidgetUtilities.getAlphaComposite(progressBar,
                         containerSurfaceAlpha, g));
 
@@ -424,8 +425,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     at.translate(x, y - scaledHeight);
                     graphics1X.transform(at);
 
-                    float containerSurfaceAlpha =
-                        (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                    float containerSurfaceAlpha = currState.isDisabled()
+                        ? colorTokens.getContainerSurfaceDisabledAlpha()
+                        : colorTokens.getContainerSurfaceEnabledAlpha();
                     graphics1X.setComposite(WidgetUtilities.getAlphaComposite(progressBar,
                         containerSurfaceAlpha, g));
 
@@ -456,8 +458,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         if (borderAlpha > 0.0f) {
             Graphics2D g2d = (Graphics2D) graphics.create();
 
-            float containerOutlineAlpha =
-                (currState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+            float containerOutlineAlpha = currState.isDisabled()
+                ? colorTokens.getContainerOutlineDisabledAlpha()
+                : colorTokens.getContainerOutlineEnabledAlpha();
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null,
                 borderAlpha * containerOutlineAlpha, graphics));
 

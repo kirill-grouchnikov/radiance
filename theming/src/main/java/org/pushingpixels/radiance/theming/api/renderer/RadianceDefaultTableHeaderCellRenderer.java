@@ -94,16 +94,15 @@ public class RadianceDefaultTableHeaderCellRenderer extends
             if (modelStateInfo != null) {
                 Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                     modelStateInfo.getStateContributionMap();
-                ContainerColorTokens tokens = getTokensForState(tableHeader, currState);
+                ContainerColorTokens colorTokens = getTokensForState(tableHeader, currState);
                 if (currState.isDisabled() || (activeStates == null)
                     || (activeStates.size() == 1)) {
-                    Color foreground = tokens.getOnContainer();
-                    if (currState.isDisabled()) {
-                        float alpha = tokens.getOnContainerDisabledAlpha();
-                        if (alpha < 1.0f) {
-                            foreground = RadianceColorUtilities.getAlphaColor(foreground,
-                                (int) (foreground.getAlpha() * alpha));
-                        }
+                    Color foreground = colorTokens.getOnContainer();
+                    float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                        : colorTokens.getOnContainerEnabledAlpha();
+                    if (alpha < 1.0f) {
+                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                            (int) (foreground.getAlpha() * alpha));
                     }
                     super.setForeground(new ColorUIResource(foreground));
                 } else {
@@ -125,14 +124,13 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                         (int) aggrRed, (int) aggrGreen, (int) aggrBlue)));
                 }
             } else {
-                ContainerColorTokens tokens = getTokensForState(tableHeader, currState);
-                Color foreground = tokens.getOnContainer();
-                if (currState.isDisabled()) {
-                    float alpha = tokens.getOnContainerDisabledAlpha();
-                    if (alpha < 1.0f) {
-                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
-                            (int) (foreground.getAlpha() * alpha));
-                    }
+                ContainerColorTokens colorTokens = getTokensForState(tableHeader, currState);
+                Color foreground = colorTokens.getOnContainer();
+                float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                    : colorTokens.getOnContainerEnabledAlpha();
+                if (alpha < 1.0f) {
+                    foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                        (int) (foreground.getAlpha() * alpha));
                 }
                 super.setForeground(new ColorUIResource(foreground));
             }

@@ -183,6 +183,15 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel
         bladeContainerTokens.containerOutlineVariant =
             RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerOutlineVariant,
                 contributionColorTokens.getContainerOutlineVariant(), 1.0f - amount);
+        bladeContainerTokens.containerSurfaceEnabledAlpha =
+            (1.0f - amount) * bladeContainerTokens.containerSurfaceEnabledAlpha +
+                amount * contributionColorTokens.getContainerSurfaceEnabledAlpha();
+        bladeContainerTokens.onContainerEnabledAlpha =
+            (1.0f - amount) * bladeContainerTokens.onContainerEnabledAlpha +
+                amount * contributionColorTokens.getOnContainerEnabledAlpha();
+        bladeContainerTokens.containerOutlineEnabledAlpha =
+            (1.0f - amount) * bladeContainerTokens.containerOutlineEnabledAlpha +
+                amount * contributionColorTokens.getContainerOutlineEnabledAlpha();
         bladeContainerTokens.containerSurfaceDisabledAlpha =
             (1.0f - amount) * bladeContainerTokens.containerSurfaceDisabledAlpha +
                 amount * contributionColorTokens.getContainerSurfaceDisabledAlpha();

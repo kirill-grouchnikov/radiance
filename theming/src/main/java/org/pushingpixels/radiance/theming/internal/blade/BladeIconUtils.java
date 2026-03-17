@@ -76,7 +76,8 @@ public class BladeIconUtils {
                 float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
                     1.0f : checkMarkVisibility;
                 float onContainerOutlineAlpha = currentState.isDisabled()
-                    ? colorTokens.getOnContainerDisabledAlpha() : 1.0f;
+                    ? colorTokens.getOnContainerDisabledAlpha()
+                    : colorTokens.getOnContainerEnabledAlpha();
                 if (finalCheckMarkVisibility > 0.0) {
                     Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
                     if (isCheckMarkFadingOut) {
@@ -143,7 +144,8 @@ public class BladeIconUtils {
                 Graphics2D graphicsForMark = (Graphics2D) graphics1X.create();
 
                 float onContainerOutlineAlpha = currentState.isDisabled()
-                    ? colorTokens.getOnContainerDisabledAlpha() : 1.0f;
+                    ? colorTokens.getOnContainerDisabledAlpha()
+                    : colorTokens.getOnContainerEnabledAlpha();
                 if (checkMarkVisibility > 0.0) {
                     // mark
                     graphicsForMark.setComposite(getAlphaComposite(
@@ -252,8 +254,9 @@ public class BladeIconUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 // Icon fill
-                float containerSurfaceAlpha =
-                    (currState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                float containerSurfaceAlpha = currState.isDisabled()
+                    ? colorTokens.getContainerSurfaceDisabledAlpha()
+                    : colorTokens.getContainerSurfaceEnabledAlpha();
                 graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
                     containerSurfaceAlpha, g));
 
@@ -583,14 +586,16 @@ public class BladeIconUtils {
 
                         graphics1X.translate(cx, cy);
 
-                        float containerSurfaceAlpha =
-                            (state.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+                        float containerSurfaceAlpha = state.isDisabled()
+                            ? colorTokens.getContainerSurfaceDisabledAlpha()
+                            : colorTokens.getContainerSurfaceEnabledAlpha();
                         graphics1X.setComposite(getAlphaComposite(containerSurfaceAlpha * 0.8f));
                         graphics1X.setColor(colorTokens.getOnContainer());
                         graphics1X.fillOval(0, 0, bumpDotDiameter, bumpDotDiameter);
 
-                        float containerOutlineAlpha =
-                            (state.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+                        float containerOutlineAlpha = state.isDisabled()
+                            ? colorTokens.getContainerOutlineDisabledAlpha()
+                            : colorTokens.getContainerOutlineEnabledAlpha();
                         graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha * 0.32f));
 
                         OutlinePainterUtils.paintOutline(graphics1X, divider, state,

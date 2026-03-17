@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
@@ -100,10 +101,11 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
+        ContainerColorTokens currColorTokens = CoreColorTokenUtils.getContainerTokens(
+            commandButton, currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
         float iconAlpha = modelStateInfo.getCurrModelState().isDisabled()
-            ? CoreColorTokenUtils.getContainerTokens(commandButton, currState,
-                CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainerDisabledAlpha()
-            : 1.0f;
+            ? currColorTokens.getOnContainerDisabledAlpha()
+            : currColorTokens.getOnContainerEnabledAlpha();
 
         BladeUtils.populateColorTokens(mutableColorTokens, c, modelStateInfo, currState,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,

@@ -489,10 +489,6 @@ public class RadianceColorUtilities {
             }
         }
 
-        if (!currState.isDisabled()) {
-            return 1.0f;
-        }
-
         // special case for modification aware buttons
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (component instanceof AbstractButton) {
@@ -504,21 +500,25 @@ public class RadianceColorUtilities {
                     if (modificationTimeline.getState() != Timeline.TimelineState.IDLE) {
                         BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                             button, modificationTimeline.getTimelinePosition());
-                        return mutableContainerTokens.getOnContainerDisabledAlpha();
+                        return currState.isDisabled()
+                            ? mutableContainerTokens.getOnContainerDisabledAlpha()
+                            : mutableContainerTokens.getOnContainerEnabledAlpha();
                     }
                 }
             }
         }
 
-        ComponentState enabledState = currState.getEnabledMatch();
-        if (enabledState.isActive()) {
-            return skin.getActiveContainerTokens(component, enabledState).getOnContainerDisabledAlpha();
-        }
-        if (inactiveContainerType == CoreColorTokenUtils.ContainerType.MUTED) {
-            return skin.getMutedContainerTokens(component).getOnContainerDisabledAlpha();
+        ContainerColorTokens tokens;
+        if (currState.isActive()) {
+            tokens = skin.getActiveContainerTokens(component, currState);
+        } else if (inactiveContainerType == CoreColorTokenUtils.ContainerType.MUTED) {
+            tokens = skin.getMutedContainerTokens(component);
         } else {
-            return skin.getNeutralContainerTokens(component).getOnContainerDisabledAlpha();
+            tokens = skin.getNeutralContainerTokens(component);
         }
+
+        return currState.isDisabled() ? tokens.getOnContainerDisabledAlpha()
+            : tokens.getOnContainerEnabledAlpha();
     }
 
     /**
@@ -581,7 +581,8 @@ public class RadianceColorUtilities {
         ContainerColorTokens colorTokens =
             CoreColorTokenUtils.getContainerTokens(
                 menuComponent, currAssocKind, currState, inactiveContainerType);
-        return currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha() : 1.0f;
+        return currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+            : colorTokens.getOnContainerEnabledAlpha();
     }
 
     /**
@@ -648,7 +649,9 @@ public class RadianceColorUtilities {
             }
 
             backgr = RadianceColorUtilities.getDefaultBackgroundColor(component, state);
-            float alpha = state.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
+            float alpha = state.isDisabled()
+                ? colorTokens.getContainerSurfaceDisabledAlpha()
+                : colorTokens.getContainerSurfaceEnabledAlpha();
             if (alpha < 1.0f) {
                 Color defaultColor = RadianceColorUtilities
                     .getDefaultBackgroundColor(component, ComponentState.ENABLED);

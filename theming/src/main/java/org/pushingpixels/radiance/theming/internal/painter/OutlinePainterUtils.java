@@ -55,7 +55,8 @@ public class OutlinePainterUtils {
         float alpha, RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
 
         float containerOutlineAlpha = alpha *
-            (componentState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+            (componentState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha()
+                : colorTokens.getContainerOutlineEnabledAlpha());
         Graphics2D graphics = (Graphics2D) graphics1X.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(component, containerOutlineAlpha, graphics1X));
 

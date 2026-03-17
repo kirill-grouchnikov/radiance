@@ -100,10 +100,9 @@ public class KeyTipRenderingUtilities {
         LineMetrics lineMetrics = graphics.getFontMetrics().getLineMetrics(keyTip, graphics);
         int strHeight = (int) lineMetrics.getHeight();
         RadianceCommonCortex.installDesktopHints(graphics, font);
-        if (!toPaintEnabled) {
-            graphics.setComposite(WidgetUtilities.getAlphaComposite(
-                c, tokens.getOnContainerDisabledAlpha(), g));
-        }
+        float alpha = toPaintEnabled ? tokens.getOnContainerEnabledAlpha()
+            : tokens.getOnContainerDisabledAlpha();
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
         graphics.drawString(keyTip, (rect.width - strWidth) / 2,
                 (rect.height + strHeight) / 2 - graphics.getFontMetrics().getDescent());
 

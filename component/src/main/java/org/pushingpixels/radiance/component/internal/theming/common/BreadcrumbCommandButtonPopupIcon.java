@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
@@ -101,10 +102,11 @@ public class BreadcrumbCommandButtonPopupIcon implements RadianceIcon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
+        ContainerColorTokens currTokens = CoreColorTokenUtils.getContainerTokens(
+            commandButton, currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
         float iconAlpha = modelStateInfo.getCurrModelState().isDisabled()
-            ? CoreColorTokenUtils.getContainerTokens(commandButton, currState,
-                CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainerDisabledAlpha()
-            : 1.0f;
+            ? currTokens.getOnContainerDisabledAlpha()
+            : currTokens.getOnContainerEnabledAlpha();
 
         BladeUtils.populateColorTokens(mutableColorTokens, c, modelStateInfo, currState,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,

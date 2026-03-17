@@ -179,12 +179,11 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
                 if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
                     ContainerColorTokens colorTokens = getContainerTokensForState(tree, ui, currState);
                     Color foreground = colorTokens.getOnContainer();
-                    if (currState.isDisabled()) {
-                        float alpha = colorTokens.getOnContainerDisabledAlpha();
-                        if (alpha < 1.0f) {
-                            foreground = RadianceColorUtilities.getAlphaColor(foreground,
-                                (int) (foreground.getAlpha() * alpha));
-                        }
+                    float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                        : colorTokens.getOnContainerEnabledAlpha();
+                    if (alpha < 1.0f) {
+                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                            (int) (foreground.getAlpha() * alpha));
                     }
                     super.setForeground(new ColorUIResource(foreground));
                 } else {
@@ -219,12 +218,11 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
                         currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 }
                 Color foreground = colorTokens.getOnContainer();
-                if (currState.isDisabled()) {
-                    float alpha = colorTokens.getOnContainerDisabledAlpha();
-                    if (alpha < 1.0f) {
-                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
-                            (int) (foreground.getAlpha() * alpha));
-                    }
+                float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                    : colorTokens.getOnContainerEnabledAlpha();
+                if (alpha < 1.0f) {
+                    foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                        (int) (foreground.getAlpha() * alpha));
                 }
                 super.setForeground(new ColorUIResource(foreground));
                 boolean isActive = currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)

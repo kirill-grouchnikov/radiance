@@ -98,20 +98,17 @@ public class HighlightPainterUtils {
         Graphics2D g2d = (Graphics2D) g.create();
 
         // Fill
-        float fillAlpha = alpha;
-        if (state.isDisabled()) {
-            fillAlpha *= colorTokens.getContainerSurfaceDisabledAlpha();
-        }
+        float fillAlpha = alpha * (state.isDisabled()
+            ? colorTokens.getContainerSurfaceDisabledAlpha()
+            : colorTokens.getContainerSurfaceEnabledAlpha());
         g2d.setComposite(WidgetUtilities.getAlphaComposite(c, fillAlpha, g));
         highlightPainter.paintSurface(g2d, c, rect.width, rect.height, rect, colorTokens);
 
         // Border
         if (paintHighlightBorders) {
             g2d.translate(rect.x, rect.y);
-            float borderAlpha = alpha;
-            if (state.isDisabled()) {
-                borderAlpha *= colorTokens.getContainerOutlineDisabledAlpha();
-            }
+            float borderAlpha = alpha * (state.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha()
+                : colorTokens.getContainerOutlineEnabledAlpha());
             g2d.setComposite(WidgetUtilities.getAlphaComposite(c, borderAlpha, g));
             paintHighlightBorder1X(g2d, c, rect.width, rect.height, 1.0f, openSides,
                 highlightOutlinePainter, colorTokens);

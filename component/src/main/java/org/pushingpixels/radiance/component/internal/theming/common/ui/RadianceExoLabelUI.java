@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.component.api.common.JExoLabel;
 import org.pushingpixels.radiance.component.api.common.model.LabelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -312,14 +313,13 @@ public class RadianceExoLabelUI extends ComponentUI {
             ComponentState state = contentModel.isEnabled() ?
                 ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
 
-            Color textColor = CoreColorTokenUtils.getContainerTokens(label, state,
-                CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainer();
-            if (!contentModel.isEnabled()) {
-                float fgAlpha = CoreColorTokenUtils.getContainerTokens(label, state,
-                    CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainerDisabledAlpha();
-                textColor = RadianceColorUtilities.getAlphaColor(textColor,
-                    (int) (textColor.getAlpha() * fgAlpha));
-            }
+            ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(label, state,
+                CoreColorTokenUtils.ContainerType.NEUTRAL);
+            Color textColor = colorTokens.getOnContainer();
+            float alpha = contentModel.isEnabled() ? colorTokens.getOnContainerEnabledAlpha()
+                : colorTokens.getOnContainerDisabledAlpha();
+            textColor = RadianceColorUtilities.getAlphaColor(textColor,
+                (int) (textColor.getAlpha() * alpha));
 
             Icon filteredIcon = RadianceCoreUtilities.getFilteredIcon(label,
                 this.icon, state, textColor, CoreColorTokenUtils.ContainerType.NEUTRAL);

@@ -189,6 +189,15 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
         bladeContainerTokens.containerOutlineVariant =
             RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.containerOutlineVariant,
                 contributionColorTokens.getContainerOutlineVariant(), 1.0f - amount);
+        bladeContainerTokens.containerSurfaceEnabledAlpha =
+            (1.0f - amount) * bladeContainerTokens.containerSurfaceEnabledAlpha +
+                amount * contributionColorTokens.getContainerSurfaceEnabledAlpha();
+        bladeContainerTokens.onContainerEnabledAlpha =
+            (1.0f - amount) * bladeContainerTokens.onContainerEnabledAlpha +
+                amount * contributionColorTokens.getOnContainerEnabledAlpha();
+        bladeContainerTokens.containerOutlineEnabledAlpha =
+            (1.0f - amount) * bladeContainerTokens.containerOutlineEnabledAlpha +
+                amount * contributionColorTokens.getContainerOutlineEnabledAlpha();
         bladeContainerTokens.containerSurfaceDisabledAlpha =
             (1.0f - amount) * bladeContainerTokens.containerSurfaceDisabledAlpha +
                 amount * contributionColorTokens.getContainerSurfaceDisabledAlpha();
@@ -197,7 +206,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
                 amount * contributionColorTokens.getOnContainerDisabledAlpha();
         bladeContainerTokens.containerOutlineDisabledAlpha =
             (1.0f - amount) * bladeContainerTokens.containerOutlineDisabledAlpha +
-            amount * contributionColorTokens.getContainerOutlineDisabledAlpha();
+                amount * contributionColorTokens.getContainerOutlineDisabledAlpha();
         bladeContainerTokens.inverseContainerSurface =
             RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.inverseContainerSurface,
                 contributionColorTokens.getInverseContainerSurface(), 1.0f - amount);

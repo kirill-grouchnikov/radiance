@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonComponentUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -58,15 +59,13 @@ public class RadianceRibbonComponentUI extends BasicRibbonComponentUI {
         ComponentState state = ribbonComp.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
 
-        Color textColor = CoreColorTokenUtils.getContainerTokens(ribbonComp, state,
-                CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainer();
-        if (state.isDisabled()) {
-            float alpha = CoreColorTokenUtils.getContainerTokens(
-                ribbonComp, state, CoreColorTokenUtils.ContainerType.NEUTRAL)
-                .getOnContainerDisabledAlpha();
-            textColor = RadianceColorUtilities.getAlphaColor(textColor,
-                (int) (textColor.getAlpha() * alpha));
-        }
+        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(ribbonComp, state,
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
+        Color textColor = colorTokens.getOnContainer();
+        float alpha = state.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+            : colorTokens.getOnContainerEnabledAlpha();
+        textColor = RadianceColorUtilities.getAlphaColor(textColor,
+            (int) (textColor.getAlpha() * alpha));
         icon = RadianceCoreUtilities.getFilteredIcon(ribbonComp, icon, state, textColor,
             CoreColorTokenUtils.ContainerType.NEUTRAL);
 

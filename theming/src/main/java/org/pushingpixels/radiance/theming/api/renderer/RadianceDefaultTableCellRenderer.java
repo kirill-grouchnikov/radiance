@@ -296,16 +296,15 @@ public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
             if (ui.hasRolloverAnimations() || ui.hasSelectionAnimations()) {
                 Map<ComponentState, StateContributionInfo> activeStates =
                     modelStateInfo.getStateContributionMap();
-                ContainerColorTokens tokens = getColorTokensForState(table, ui, currState);
+                ContainerColorTokens colorTokens = getColorTokensForState(table, ui, currState);
                 if (currState.isDisabled() || (activeStates == null)
                     || (activeStates.size() == 1)) {
-                    Color foreground = tokens.getOnContainer();
-                    if (currState.isDisabled()) {
-                        float alpha = tokens.getOnContainerDisabledAlpha();
-                        if (alpha < 1.0f) {
-                            foreground = RadianceColorUtilities.getAlphaColor(foreground,
-                                (int) (foreground.getAlpha() * alpha));
-                        }
+                    Color foreground = colorTokens.getOnContainer();
+                    float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                        : colorTokens.getOnContainerEnabledAlpha();
+                    if (alpha < 1.0f) {
+                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                            (int) (foreground.getAlpha() * alpha));
                     }
                     super.setForeground(new ColorUIResource(foreground));
                 } else {
@@ -336,9 +335,9 @@ public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
                 super.setForeground(new ColorUIResource(tokens.getOnContainer()));
             }
         } else {
-            ContainerColorTokens tokens = getColorTokensForState(table, ui, currState);
+            ContainerColorTokens colorTokens = getColorTokensForState(table, ui, currState);
             if (isDropLocation) {
-                tokens = CoreColorTokenUtils.getContainerTokens(table,
+                colorTokens = CoreColorTokenUtils.getContainerTokens(table,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, currState,
                     CoreColorTokenUtils.ContainerType.NEUTRAL);
             }
@@ -348,13 +347,12 @@ public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
                 currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ARM);
             this.activeContributions.put(currState, isActive ? 1.0f : 0.0f);
 
-            Color foreground = tokens.getOnContainer();
-            if (currState.isDisabled()) {
-                float alpha = tokens.getOnContainerDisabledAlpha();
-                if (alpha < 1.0f) {
-                    foreground = RadianceColorUtilities.getAlphaColor(foreground,
-                        (int) (foreground.getAlpha() * alpha));
-                }
+            Color foreground = colorTokens.getOnContainer();
+            float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                : colorTokens.getOnContainerEnabledAlpha();
+            if (alpha < 1.0f) {
+                foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                    (int) (foreground.getAlpha() * alpha));
             }
             super.setForeground(new ColorUIResource(foreground));
         }

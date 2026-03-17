@@ -57,7 +57,8 @@ public class SurfacePainterUtils {
 
         // If we're in a disabled state, apply the matching alpha
         float containerSurfaceAlpha = alpha *
-            (componentState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f);
+            (componentState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha()
+                : colorTokens.getContainerSurfaceEnabledAlpha());
         graphics.setComposite(WidgetUtilities.getAlphaComposite(component, containerSurfaceAlpha, graphics1X));
 
         // Ask the surface painter to paint the surface

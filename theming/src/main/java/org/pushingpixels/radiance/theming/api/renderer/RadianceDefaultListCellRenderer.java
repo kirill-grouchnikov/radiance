@@ -90,12 +90,11 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                 if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
                     ContainerColorTokens colorTokens = getContainerTokensForState(list, ui, currState);
                     Color foreground = colorTokens.getOnContainer();
-                    if (currState.isDisabled()) {
-                        float alpha = colorTokens.getOnContainerDisabledAlpha();
-                        if (alpha < 1.0f) {
-                            foreground = RadianceColorUtilities.getAlphaColor(foreground,
-                                (int) (foreground.getAlpha() * alpha));
-                        }
+                    float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                        : colorTokens.getOnContainerEnabledAlpha();
+                    if (alpha < 1.0f) {
+                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                            (int) (foreground.getAlpha() * alpha));
                     }
                     super.setForeground(new ColorUIResource(foreground));
                     this.rolloverArmAmount = 0.0f;
@@ -139,12 +138,11 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                         currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
                 }
                 Color foreground = colorTokens.getOnContainer();
-                if (currState.isDisabled()) {
-                    float alpha = colorTokens.getOnContainerDisabledAlpha();
-                    if (alpha < 1.0f) {
-                        foreground = RadianceColorUtilities.getAlphaColor(foreground,
-                            (int) (foreground.getAlpha() * alpha));
-                    }
+                float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                    : colorTokens.getOnContainerEnabledAlpha();
+                if (alpha < 1.0f) {
+                    foreground = RadianceColorUtilities.getAlphaColor(foreground,
+                        (int) (foreground.getAlpha() * alpha));
                 }
                 super.setForeground(new ColorUIResource(foreground));
             }

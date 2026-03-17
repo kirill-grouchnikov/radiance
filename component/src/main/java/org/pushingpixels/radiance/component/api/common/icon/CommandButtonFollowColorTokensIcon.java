@@ -139,9 +139,10 @@ public class CommandButtonFollowColorTokensIcon implements RadianceIcon {
 
             BladeUtils.populateColorTokens(mutableTokens, commandButton, modelStateInfo, currState,
                     this.colorTokensAssociationKind, false, false, CoreColorTokenUtils.ContainerType.MUTED);
-            alpha = currState.isDisabled() ? CoreColorTokenUtils.getContainerTokens(
-                c, currState, CoreColorTokenUtils.ContainerType.MUTED).getOnContainerDisabledAlpha()
-                : 1.0f;
+            ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
+                c, currState, CoreColorTokenUtils.ContainerType.MUTED);
+            alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                : colorTokens.getOnContainerEnabledAlpha();
         }
 
         Graphics2D graphics = (Graphics2D) g.create();

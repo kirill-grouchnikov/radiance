@@ -777,11 +777,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             }
         }
 
-        if (!this.tabPane.isEnabledAt(tabIndex)) {
-            finalAlpha *= CoreColorTokenUtils.getContainerTokens(
-                this.tabPane, tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
-                currState).getContainerSurfaceDisabledAlpha();
-        }
+        ContainerColorTokens tabColorTokens = CoreColorTokenUtils.getContainerTokens(
+            this.tabPane, tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
+            currState);
+        finalAlpha *= (this.tabPane.isEnabledAt(tabIndex)
+            ? tabColorTokens.getContainerSurfaceEnabledAlpha()
+            : tabColorTokens.getContainerSurfaceDisabledAlpha());
 
         // check if tab has its content marked as modified
         Component comp = this.tabPane.getComponentAt(tabIndex);
@@ -1796,11 +1797,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(tabPane,
                 tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB, currState);
             Color fg = colorTokens.getOnContainer();
-            if (currState.isDisabled()) {
-                float fgAlpha = colorTokens.getOnContainerDisabledAlpha();
-                if (fgAlpha < 1.0f) {
-                    fg = RadianceColorUtilities.getAlphaColor(fg, (int) (fg.getAlpha() * fgAlpha));
-                }
+            float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
+                : colorTokens.getOnContainerEnabledAlpha();
+            if (alpha < 1.0f) {
+                fg = RadianceColorUtilities.getAlphaColor(fg, (int) (fg.getAlpha() * alpha));
             }
 
             Graphics2D graphics = (Graphics2D) g.create();
