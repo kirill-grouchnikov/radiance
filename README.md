@@ -15,7 +15,7 @@ the [Ephemeral](https://github.com/kirill-grouchnikov/ephemeral) design system. 
 
 ## General questions
 
-[This document](docs/faq.md) is where you may find answers to some of the general questions on Radiance. If there's anything missing there, [let me know](https://github.com/kirill-grouchnikov/radiance/issues).
+[This document](docs/faq.md) is where you may find answers to some of the general questions on Radiance. If there's anything missing there, [let me know](https://github.com/kirill-grouchnikov/radiance/discussions/).
 
 ## Core Java libraries
 

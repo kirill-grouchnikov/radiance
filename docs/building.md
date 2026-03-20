@@ -36,8 +36,8 @@ To locally copy these dependencies (in case you do not want to pull them at buil
 For a more detailed tree of dependencies, run `./gradlew tools:svg-transcoder:dependencies` - substituting the relevant module name.
 
 Third-party dependencies of core Radiance libraries are kept to a minimum:
-* **Common**, **Animation**, and **Component** are self-contained within Radiance.
-* **Theming** requires [Ephemeral Chroma](https://github.com/kirill-grouchnikov/ephemeral) for its color token APIs.
+* **Common** and **Animation** are self-contained within Radiance.
+* **Theming** and **Component** require [Ephemeral Chroma](https://github.com/kirill-grouchnikov/ephemeral) for the color token APIs.
 * Kotlin libraries (**Swing-ktx**, **Animation-ktx**, **Theming-ktx**, **Component-ktx**) require Kotlin [standard library](https://kotlinlang.org/api/latest/jvm/stdlib/) and [coroutines library](https://github.com/Kotlin/kotlinx.coroutines).
 
 Radiance demos and tools rely on a number of third-party libraries, mainly [FormLayout](http://www.jgoodies.com/freeware/libraries/forms/) from [JGoodies](http://www.jgoodies.com/), and [Retrofit2](https://square.github.io/retrofit/) from Square, as well as [Apache Batik](https://xmlgraphics.apache.org/batik/) for SVG Transcoder. Those dependencies can be seen in the relevant `build.gradle` files.
