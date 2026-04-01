@@ -39,7 +39,7 @@ import java.util.*;
 import java.util.List;
 
 /**
- * Decoration painter interface for <b>Radiance</b> look and feel. This class
+ * Decoration painter for <b>Radiance</b> look and feel. This class
  * is part of officially supported API.
  *
  * @author Kirill Grouchnikov
