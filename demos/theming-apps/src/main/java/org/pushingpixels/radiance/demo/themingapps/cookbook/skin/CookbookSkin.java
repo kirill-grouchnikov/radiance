@@ -36,10 +36,10 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -137,9 +137,9 @@ public class CookbookSkin extends RadianceSkin {
                 })
             .build();
 
-        this.decorationPainter = new CookbookDecorationPainter();
         this.highlightSurfacePainter = new MatteSurfacePainter();
 
+        this.decorationPainter = new CookbookDecorationPainter();
         // Add an overlay painter to paint a bezel line along the top edge of the footer area
         RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
@@ -148,19 +148,19 @@ public class CookbookSkin extends RadianceSkin {
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getComplementaryContainerOutline,
                 ColorTransform.alpha(96)));
-        this.addOverlayPainter(footerTopBezelOverlayPainter,
+        this.decorationPainter.addOverlayPainter(footerTopBezelOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         // Add overlay painter to paint drop shadows along the bottom
         // edges of the title pane
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(64),
+        this.decorationPainter.addOverlayPainter(BottomShadowOverlayPainter.getInstance(64),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
         // Add an overlay painter to paint a dark line along the bottom
         // edge of the title pane
         RadianceOverlayPainter titlePaneBottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutline);
-        this.addOverlayPainter(titlePaneBottomLineOverlayPainter,
+        this.decorationPainter.addOverlayPainter(titlePaneBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
     }
 }

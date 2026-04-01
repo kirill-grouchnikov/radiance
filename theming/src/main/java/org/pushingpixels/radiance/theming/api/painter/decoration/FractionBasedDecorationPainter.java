@@ -51,9 +51,46 @@ import java.util.Set;
  * 
  * @author Kirill Grouchnikov
  */
-public class FractionBasedDecorationPainter extends FractionBasedPainter
-		implements RadianceDecorationPainter {
+public class FractionBasedDecorationPainter extends RadianceDecorationPainter {
+	/**
+	 * The display name of this painter.
+	 */
+	private String displayName;
+
+	/**
+	 * The fractions of this painter. If the constructor has not thrown an
+	 * {@link IllegalArgumentException}, the entries in this array are strictly
+	 * increasing, starting from 0.0 and ending at 1.0.
+	 */
+	protected float[] fractions;
+
+	/**
+	 * The alphas of this painter. Each entry in this array corresponds to the matching entry in
+	 * {@link #fractions} and {@link #colorQueries}. Each entry is applied to the matching
+	 * {@link #colorQueries} entry to determine the final color at the {@link #fractions} entry.
+	 */
+	protected int[] alphas;
+
+	/**
+	 * The color queries of this painter. Each entry in this array corresponds
+	 * to the matching index in the {@link #fractions}, specifying which color
+	 * will be used at the relevant gradient control point. If the constructor
+	 * has not thrown an {@link IllegalArgumentException}, the size of this
+	 * array is identical to the size of {@link #fractions}, and there are no
+	 * <code>null</code> entries in this array. Note that the application code
+	 * can still cause an exception at runtime by throwing it in the
+	 * implementation of the
+	 * {@link ContainerColorTokensSingleColorQuery#query(ContainerColorTokens)} method.
+	 */
+	protected ContainerColorTokensSingleColorQuery[] colorQueries;
+
 	private Set<RadianceThemingSlices.DecorationAreaType> decoratedAreas;
+
+	private static int[] makeDefaultAlphas(int count) {
+		int[] result = new int[count];
+		Arrays.fill(result, 255);
+		return result;
+	}
 
 	/**
 	 * Creates a new fraction-based decoration painter.
@@ -70,7 +107,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	 */
 	public FractionBasedDecorationPainter(String displayName,
 			float[] fractions, ContainerColorTokensSingleColorQuery[] colorQueries) {
-		this(displayName, fractions, colorQueries,
+		this(displayName, fractions, makeDefaultAlphas(fractions.length), colorQueries,
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
 	}
@@ -92,14 +129,48 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	 *            queries. All the rest will be filled with a solid color from
 	 *            the background color tokens of the matching decoration area.
 	 */
-	public FractionBasedDecorationPainter(String displayName,
-			float[] fractions, ContainerColorTokensSingleColorQuery[] colorQueries,
-			RadianceThemingSlices.DecorationAreaType... decorationAreas) {
-		super(displayName, fractions, colorQueries);
+	public FractionBasedDecorationPainter(String displayName, float[] fractions,
+		int[] alphas, ContainerColorTokensSingleColorQuery[] colorQueries,
+		RadianceThemingSlices.DecorationAreaType... decorationAreas) {
+		this.displayName = displayName;
+		if ((fractions == null) || (alphas == null) || (colorQueries == null)) {
+			throw new IllegalArgumentException("Cannot pass null arguments");
+		}
+		if ((fractions.length != alphas.length) || (fractions.length != colorQueries.length)) {
+			throw new IllegalArgumentException("Argument length does not match");
+		}
+		int length = fractions.length;
+		if ((fractions[0] != 0.0f) || (fractions[length - 1] != 1.0f)) {
+			throw new IllegalArgumentException(
+				"End fractions must be 0.0 and 1.0");
+		}
+		for (int i = 0; i < length - 1; i++) {
+			if (fractions[i + 1] <= fractions[i]) {
+				throw new IllegalArgumentException(
+					"Fractions must be strictly increasing");
+			}
+		}
+		for (int i = 0; i < length; i++) {
+			if (colorQueries[i] == null) {
+				throw new IllegalArgumentException("Cannot pass null query");
+			}
+		}
+		this.fractions = new float[length];
+		System.arraycopy(fractions, 0, this.fractions, 0, length);
+		this.alphas = new int[length];
+		System.arraycopy(alphas, 0, this.alphas, 0, length);
+		this.colorQueries = new ContainerColorTokensSingleColorQuery[length];
+		System.arraycopy(colorQueries, 0, this.colorQueries, 0, length);
+
 		this.decoratedAreas = new HashSet<>();
 		if (decorationAreas != null) {
             this.decoratedAreas.addAll(Arrays.asList(decorationAreas));
 		}
+	}
+
+	@Override
+	public String getDisplayName() {
+		return this.displayName;
 	}
 
 	@Override

@@ -34,10 +34,10 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
@@ -191,26 +191,27 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
+        this.registerComponentShaper(new ClassicComponentShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
+        this.surfacePainter = new MatteSurfacePainter();
+
+        this.decorationPainter = new FlatDecorationPainter();
         // Add overlay painters to paint drop shadow and a dark line along the bottom
         // edges of toolbars
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+        this.decorationPainter.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-        this.addOverlayPainter(
+        this.decorationPainter.addOverlayPainter(
             new BottomLineOverlayPainter(ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // Add overlay painters to paint drop shadow and a dark line along the top
         // edges of footers
-        this.addOverlayPainter(TopShadowOverlayPainter.getInstance(15),
+        this.decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(15),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
-        this.addOverlayPainter(
+        this.decorationPainter.addOverlayPainter(
             new TopLineOverlayPainter(ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.registerComponentShaper(new ClassicComponentShaper(),
-            RadianceThemingSlices.DecorationAreaType.NONE);
-        this.surfacePainter = new MatteSurfacePainter();
-        this.decorationPainter = new FlatDecorationPainter();
         this.highlightSurfacePainter = new MatteSurfacePainter();
         this.outlinePainter = new FlatOutlinePainter();
         this.highlightOutlinePainter = new FlatOutlinePainter();

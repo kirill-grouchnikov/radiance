@@ -34,10 +34,10 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
@@ -119,25 +119,6 @@ public class NightShadeSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        // Add overlay painters to paint drop shadows along the bottom edges of toolbars
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
-            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add an overlay painter to paint a dark line along the bottom
-        // edge of toolbars
-        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-            ContainerColorTokens::getContainerOutlineVariant);
-        this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add an overlay painter to paint a bezel line along the top
-        // edge of footer
-        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-            ContainerColorTokens::getContainerOutlineVariant,
-            ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getInverseContainerOutline,
-                ColorTransform.alpha(72)));
-        this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
-
         this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Night Shade",
@@ -148,6 +129,27 @@ public class NightShadeSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface});
 
         this.decorationPainter = new FlatDecorationPainter();
+        // Add overlay painters to paint drop shadows along the bottom edges of toolbars
+        this.decorationPainter.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // add an overlay painter to paint a dark line along the bottom
+        // edge of toolbars
+        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+            ContainerColorTokens::getContainerOutlineVariant);
+        this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // add an overlay painter to paint a bezel line along the top
+        // edge of footer
+        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+            ContainerColorTokens::getContainerOutlineVariant,
+            ContainerColorTokensSingleColorQuery.composite(
+                ContainerColorTokens::getInverseContainerOutline,
+                ColorTransform.alpha(72)));
+        this.decorationPainter.addOverlayPainter(footerTopBezelOverlayPainter,
+            RadianceThemingSlices.DecorationAreaType.FOOTER);
+
         this.highlightSurfacePainter = new MatteSurfacePainter();
 
         this.outlinePainter = InlayOutlinePainter.builder()

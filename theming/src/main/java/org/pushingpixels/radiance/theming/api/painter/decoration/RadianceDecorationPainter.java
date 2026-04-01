@@ -32,9 +32,12 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 /**
  * Decoration painter interface for <b>Radiance</b> look and feel. This class
@@ -42,7 +45,86 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public interface RadianceDecorationPainter extends RadianceTrait {
+public abstract class RadianceDecorationPainter implements RadianceTrait {
+    /**
+     * Maps decoration area type to the registered overlay painters. Each
+     * decoration area type can have more than one overlay painter.
+     */
+    private final Map<RadianceThemingSlices.DecorationAreaType, List<RadianceOverlayPainter>> overlayPaintersMap;
+
+    protected RadianceDecorationPainter() {
+        this.overlayPaintersMap = new HashMap<>();
+    }
+
+    /**
+     * Adds the specified overlay painter to the end of the list of overlay
+     * painters associated with the specified decoration area types.
+     *
+     * @param overlayPainter Overlay painter to add to the end of the list of overlay
+     *                       painters associated with the specified decoration area types.
+     * @param areaTypes      Decoration area types.
+     */
+    public void addOverlayPainter(RadianceOverlayPainter overlayPainter,
+        RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
+            if (!this.overlayPaintersMap.containsKey(areaType)) {
+                this.overlayPaintersMap.put(areaType, new ArrayList<>());
+            }
+            this.overlayPaintersMap.get(areaType).add(overlayPainter);
+        }
+    }
+
+    /**
+     * Removes the specified overlay painter from the list of overlay painters
+     * associated with the specified decoration area types.
+     *
+     * @param overlayPainter Overlay painter to remove from the list of overlay painters
+     *                       associated with the specified decoration area types.
+     * @param areaTypes      Decoration area types.
+     */
+    public void removeOverlayPainter(RadianceOverlayPainter overlayPainter,
+        RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
+            if (!this.overlayPaintersMap.containsKey(areaType)) {
+                return;
+            }
+            this.overlayPaintersMap.get(areaType).remove(overlayPainter);
+            if (this.overlayPaintersMap.get(areaType).isEmpty()) {
+                this.overlayPaintersMap.remove(areaType);
+            }
+        }
+    }
+
+    /**
+     * Removes all overlay painters associated with the specified decoration area types.
+     *
+     * @param areaTypes Decoration area types.
+     */
+    public void clearOverlayPainters(RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
+            if (!this.overlayPaintersMap.containsKey(areaType)) {
+                return;
+            }
+            this.overlayPaintersMap.get(areaType).clear();
+            this.overlayPaintersMap.remove(areaType);
+        }
+    }
+
+    /**
+     * Returns a non-null, non-modifiable list of overlay painters associated
+     * with the specified decoration area type.
+     *
+     * @param decorationAreaType Decoration area type.
+     * @return A non-null, non-modifiable list of overlay painters associated
+     * with the specified decoration area type.
+     */
+    public List<RadianceOverlayPainter> getOverlayPainters(RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        if (!this.overlayPaintersMap.containsKey(decorationAreaType)) {
+            return Collections.emptyList();
+        }
+        return Collections.unmodifiableList(this.overlayPaintersMap.get(decorationAreaType));
+    }
+
     /**
      * Paints the decoration area as a fully filled rectangle.
      *
@@ -53,7 +135,7 @@ public interface RadianceDecorationPainter extends RadianceTrait {
      * @param height             Height.
      * @param skin               Skin for painting the decoration area.
      */
-    void paintDecorationArea(Graphics2D graphics, Component comp,
+    public abstract void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
         RadianceSkin skin);
 
@@ -66,7 +148,7 @@ public interface RadianceDecorationPainter extends RadianceTrait {
      * @param outline            Outline to paint.
      * @param colorTokens        Color tokens for painting the outline.
      */
-    void paintDecorationArea(Graphics2D graphics, Component comp,
+    public abstract void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
         ContainerColorTokens colorTokens);
 }

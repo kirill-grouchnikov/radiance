@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
@@ -63,13 +63,6 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
                 NeutralSeed, ContainerConfiguration.defaultLight()))) {
 
     init {
-        val bottomLineOverlayPainter =
-            BottomLineOverlayPainter(ContainerColorTokens::getContainerOutline)
-        this.addOverlayPainter(bottomLineOverlayPainter,
-                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                RadianceThemingSlices.DecorationAreaType.HEADER)
-
         this.registerComponentShaper(
             ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE)
@@ -79,6 +72,12 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
         val decorationPainter = MarbleNoiseDecorationPainter()
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())
         decorationPainter.setTextureAlpha(0.3f)
+        val bottomLineOverlayPainter =
+            BottomLineOverlayPainter(ContainerColorTokens::getContainerOutline)
+        decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
+            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+            RadianceThemingSlices.DecorationAreaType.HEADER)
         this.decorationPainter = decorationPainter
 
         this.highlightSurfacePainter = ClassicSurfacePainter()

@@ -42,7 +42,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public class Glass3DDecorationPainter implements RadianceDecorationPainter {
+public class Glass3DDecorationPainter extends RadianceDecorationPainter {
     /**
      * The display name for the decoration painters of this class.
      */

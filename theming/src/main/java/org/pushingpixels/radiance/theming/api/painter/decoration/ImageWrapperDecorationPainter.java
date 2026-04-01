@@ -48,7 +48,7 @@ import java.util.Map.Entry;
  * 
  * @author Kirill Grouchnikov
  */
-public abstract class ImageWrapperDecorationPainter implements RadianceDecorationPainter {
+public abstract class ImageWrapperDecorationPainter extends RadianceDecorationPainter {
     /**
      * Contains the original (not colorized) image of this painter.
      */

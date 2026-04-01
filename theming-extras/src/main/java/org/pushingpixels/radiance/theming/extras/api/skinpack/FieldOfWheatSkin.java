@@ -34,8 +34,8 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
@@ -104,19 +104,20 @@ public class FieldOfWheatSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
+        this.registerComponentShaper(new ClassicComponentShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
+        this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 0.5f);
+
+        this.decorationPainter = new ArcDecorationPainter();
         // Add overlay painters to paint drop shadow and a dark line along the bottom
         // edges of headers
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
+        this.decorationPainter.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
             RadianceThemingSlices.DecorationAreaType.HEADER);
-        this.addOverlayPainter(new BottomLineOverlayPainter(
+        this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
                     ContainerColorTokens::getContainerOutline, ColorTransform.alpha(128))),
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        this.registerComponentShaper(new ClassicComponentShaper(),
-            RadianceThemingSlices.DecorationAreaType.NONE);
-        this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 0.5f);
-        this.decorationPainter = new ArcDecorationPainter();
         this.outlinePainter = new FlatOutlinePainter();
         this.highlightSurfacePainter = new MatteSurfacePainter();
         this.highlightOutlinePainter = new FlatOutlinePainter();

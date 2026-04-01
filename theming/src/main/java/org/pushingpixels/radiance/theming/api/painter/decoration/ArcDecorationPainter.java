@@ -45,7 +45,7 @@ import java.awt.geom.GeneralPath;
  * 
  * @author Kirill Grouchnikov
  */
-public class ArcDecorationPainter implements RadianceDecorationPainter {
+public class ArcDecorationPainter extends RadianceDecorationPainter {
     /**
      * The display name for the decoration painters of this class.
      */

@@ -44,7 +44,7 @@ import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 
-class CookbookDecorationPainter implements RadianceDecorationPainter {
+class CookbookDecorationPainter extends RadianceDecorationPainter {
     private BufferedImage brushedMetalImage;
 
     private BufferedImage woodImage;

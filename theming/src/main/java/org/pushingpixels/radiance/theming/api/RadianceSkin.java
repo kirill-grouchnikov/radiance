@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.api;
 
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolver;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
@@ -207,12 +207,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     private final Map<RadianceThemingSlices.DecorationAreaType, ContainerColorTokens> neutralColorTokensOverrideMap;
 
     /**
-     * Maps decoration area type to the registered overlay painters. Each
-     * decoration area type can have more than one overlay painter.
-     */
-    private final Map<RadianceThemingSlices.DecorationAreaType, List<RadianceOverlayPainter>> overlayPaintersMap;
-
-    /**
      * Maps decoration area type to the component shaper to be used for all the components in that area.
      */
     private final Map<RadianceThemingSlices.DecorationAreaType, RadianceComponentShaper> componentShaperMap;
@@ -257,7 +251,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     protected RadianceSkin() {
         this.colorTokensBundleMap = new HashMap<>();
         this.neutralColorTokensOverrideMap = new HashMap<>();
-        this.overlayPaintersMap = new HashMap<>();
 
         this.componentShaperMap = new HashMap<>();
         this.componentShaperMap.put(RadianceThemingSlices.DecorationAreaType.TOOLBAR,
@@ -670,75 +663,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
         return this.colorTokensBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
             .getActiveContainerTokens();
-    }
-
-    /**
-     * Adds the specified overlay painter to the end of the list of overlay
-     * painters associated with the specified decoration area types.
-     *
-     * @param overlayPainter Overlay painter to add to the end of the list of overlay
-     *                       painters associated with the specified decoration area types.
-     * @param areaTypes      Decoration area types.
-     */
-    public void addOverlayPainter(RadianceOverlayPainter overlayPainter,
-            RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
-            if (!this.overlayPaintersMap.containsKey(areaType)) {
-                this.overlayPaintersMap.put(areaType, new ArrayList<>());
-            }
-            this.overlayPaintersMap.get(areaType).add(overlayPainter);
-        }
-    }
-
-    /**
-     * Removes the specified overlay painter from the list of overlay painters
-     * associated with the specified decoration area types.
-     *
-     * @param overlayPainter Overlay painter to remove from the list of overlay painters
-     *                       associated with the specified decoration area types.
-     * @param areaTypes      Decoration area types.
-     */
-    public void removeOverlayPainter(RadianceOverlayPainter overlayPainter,
-            RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
-            if (!this.overlayPaintersMap.containsKey(areaType)) {
-                return;
-            }
-            this.overlayPaintersMap.get(areaType).remove(overlayPainter);
-            if (this.overlayPaintersMap.get(areaType).isEmpty()) {
-                this.overlayPaintersMap.remove(areaType);
-            }
-        }
-    }
-
-    /**
-     * Removes all overlay painters associated with the specified decoration area types.
-     *
-     * @param areaTypes Decoration area types.
-     */
-    public void clearOverlayPainters(RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
-            if (!this.overlayPaintersMap.containsKey(areaType)) {
-                return;
-            }
-            this.overlayPaintersMap.get(areaType).clear();
-            this.overlayPaintersMap.remove(areaType);
-        }
-    }
-
-    /**
-     * Returns a non-null, non-modifiable list of overlay painters associated
-     * with the specified decoration area type.
-     *
-     * @param decorationAreaType Decoration area type.
-     * @return A non-null, non-modifiable list of overlay painters associated
-     * with the specified decoration area type.
-     */
-    public List<RadianceOverlayPainter> getOverlayPainters(RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-        if (!this.overlayPaintersMap.containsKey(decorationAreaType)) {
-            return Collections.emptyList();
-        }
-        return Collections.unmodifiableList(this.overlayPaintersMap.get(decorationAreaType));
     }
 
     /**

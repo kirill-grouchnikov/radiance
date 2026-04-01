@@ -42,7 +42,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public class MatteDecorationPainter implements RadianceDecorationPainter {
+public class MatteDecorationPainter extends RadianceDecorationPainter {
     /**
      * The display name for the decoration painters of this class.
      */

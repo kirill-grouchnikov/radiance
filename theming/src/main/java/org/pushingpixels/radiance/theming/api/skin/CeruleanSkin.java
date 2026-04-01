@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
@@ -141,11 +141,6 @@ public class CeruleanSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		// add an overlay painter to paint a drop shadow along the top
-		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
-			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
 		this.registerAsDecorationArea(
 			ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFCBD1D7),
@@ -156,7 +151,13 @@ public class CeruleanSkin extends RadianceSkin {
         this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
+
 		this.decorationPainter = new ArcDecorationPainter();
+		// add an overlay painter to paint a drop shadow along the top
+		// edge of toolbars
+		this.decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
 		this.highlightSurfacePainter = new GlassSurfacePainter();
 		this.outlinePainter = new FlatOutlinePainter();
 		this.highlightOutlinePainter = new FlatOutlinePainter();

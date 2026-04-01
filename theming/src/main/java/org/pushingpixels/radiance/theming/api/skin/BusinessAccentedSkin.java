@@ -33,8 +33,8 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
@@ -79,16 +79,6 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		// add an overlay painter to paint a drop shadow along the top edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(80),
-			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-		// add an overlay painter to paint separator lines along the bottom
-		// edges of title panes and menu bars
-		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
-			ContainerColorTokens::getContainerOutline);
-		this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
-
         this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new ClassicSurfacePainter(), 1.0f);
@@ -97,6 +87,17 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 		BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
 		decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());
 		decorationPainter.setTextureAlpha(0.2f);
+
+		// add an overlay painter to paint a drop shadow along the top edge of toolbars
+		decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(80),
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+		// add an overlay painter to paint separator lines along the bottom
+		// edges of title panes and menu bars
+		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
+			ContainerColorTokens::getContainerOutline);
+		decorationPainter.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+
 		this.decorationPainter = decorationPainter;
 
 		this.highlightSurfacePainter = new ClassicSurfacePainter();

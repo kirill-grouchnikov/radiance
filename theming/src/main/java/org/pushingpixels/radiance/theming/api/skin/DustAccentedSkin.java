@@ -34,9 +34,9 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
@@ -122,6 +122,11 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.registerDecorationAreaTokensBundle(dustToolbarBundle,
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
+        this.registerComponentShaper(new ClassicComponentShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
+		this.surfacePainter = new SpecularRectangularSurfacePainter(new MatteSurfacePainter(), 0.3f);
+
+		this.decorationPainter = new FlatDecorationPainter();
 		// add two overlay painters to create a bezel line between menu bar and toolbars
 		BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokens::getContainerOutline);
@@ -129,13 +134,9 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 			ContainerColorTokensSingleColorQuery.composite(
 				ContainerColorTokens::getInverseContainerOutline,
 				ColorTransform.alpha(96)));
-		this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
-		this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+		this.decorationPainter.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+		this.decorationPainter.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-        this.registerComponentShaper(new ClassicComponentShaper(),
-            RadianceThemingSlices.DecorationAreaType.NONE);
-		this.surfacePainter = new SpecularRectangularSurfacePainter(new MatteSurfacePainter(), 0.3f);
-		this.decorationPainter = new FlatDecorationPainter();
 		this.highlightSurfacePainter = new MatteSurfacePainter();
 		this.outlinePainter = InlayOutlinePainter.builder()
             .displayName("Dust")

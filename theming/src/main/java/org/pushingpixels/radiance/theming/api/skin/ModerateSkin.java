@@ -34,8 +34,8 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
@@ -121,22 +121,24 @@ public class ModerateSkin extends RadianceSkin {
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
+        this.registerComponentShaper(new ClassicComponentShaper(),
+            RadianceThemingSlices.DecorationAreaType.NONE);
+        this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 1.0f);
+        this.outlinePainter = new FlatOutlinePainter();
+
+        this.decorationPainter = new MatteDecorationPainter();
         // add an overlay painter to paint a drop shadow along the top
         // edge of toolbars
-        this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
+        this.decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint separator lines along the bottom
         // edges of title panes and menu bars
         BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutline);
-        this.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+        this.decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
+            RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        this.registerComponentShaper(new ClassicComponentShaper(),
-            RadianceThemingSlices.DecorationAreaType.NONE);
-        this.surfacePainter = new SpecularRectangularSurfacePainter(new GlassSurfacePainter(), 1.0f);
-        this.outlinePainter = new FlatOutlinePainter();
-        this.decorationPainter = new MatteDecorationPainter();
         this.highlightSurfacePainter = new ClassicSurfacePainter();
     }
 }

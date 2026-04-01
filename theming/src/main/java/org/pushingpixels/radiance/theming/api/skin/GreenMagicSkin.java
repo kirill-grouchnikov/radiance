@@ -35,8 +35,8 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -138,14 +138,6 @@ public class GreenMagicSkin extends RadianceSkin {
                 /* containerConfiguration */ ContainerConfiguration.defaultLight()),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        // Add overlay painters to paint drop shadow and a dark line along the bottom
-        // edges of headers
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
-            RadianceThemingSlices.DecorationAreaType.HEADER);
-        this.addOverlayPainter(new BottomLineOverlayPainter(
-                ContainerColorTokens::getContainerOutlineVariant),
-            RadianceThemingSlices.DecorationAreaType.HEADER);
-
         this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Green Magic",
@@ -155,7 +147,16 @@ public class GreenMagicSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurface,
                 ContainerColorTokens::getContainerSurface});
         this.outlinePainter = new FlatOutlinePainter();
+
         this.decorationPainter = new ArcDecorationPainter();
+        // Add overlay painters to paint drop shadow and a dark line along the bottom
+        // edges of headers
+        this.decorationPainter.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
+            RadianceThemingSlices.DecorationAreaType.HEADER);
+        this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
+                ContainerColorTokens::getContainerOutlineVariant),
+            RadianceThemingSlices.DecorationAreaType.HEADER);
+
         this.highlightSurfacePainter = new ClassicSurfacePainter();
     }
 }

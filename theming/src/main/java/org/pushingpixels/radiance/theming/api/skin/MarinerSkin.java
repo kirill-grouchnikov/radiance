@@ -36,10 +36,10 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
@@ -144,37 +144,6 @@ public class MarinerSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR,
             RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        // add an overlay painter to paint a bezel line along the top
-        // edge of footer
-        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-            ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getContainerOutline,
-                ColorTransform.alpha(80)),
-            ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getInverseContainerOutline,
-                ColorTransform.alpha(48)));
-        this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
-
-        // add an overlay painter to create a line between
-        // menu bar and toolbars
-        RadianceOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
-            ContainerColorTokens::getContainerSurfaceHighest);
-        this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
-
-        // add overlay painter to paint drop shadows along the bottom
-        // edges of toolbars
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
-            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-        // add overlay painter to paint a dark line along the bottom
-        // edge of toolbars
-        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-            ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getContainerOutline,
-                ColorTransform.alpha(128)));
-        this.addOverlayPainter(toolbarBottomLineOverlayPainter,
-            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
         this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
         this.surfacePainter = new FractionBasedSurfacePainter("Mariner", new float[] {0.0f, 0.5f, 1.0f},
@@ -187,6 +156,38 @@ public class MarinerSkin extends RadianceSkin {
         });
 
         this.decorationPainter = new MatteDecorationPainter();
+        // add an overlay painter to paint a bezel line along the top
+        // edge of footer
+        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+            ContainerColorTokensSingleColorQuery.composite(
+                ContainerColorTokens::getContainerOutline,
+                ColorTransform.alpha(80)),
+            ContainerColorTokensSingleColorQuery.composite(
+                ContainerColorTokens::getInverseContainerOutline,
+                ColorTransform.alpha(48)));
+        this.decorationPainter.addOverlayPainter(footerTopBezelOverlayPainter,
+            RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+        // add an overlay painter to create a line between
+        // menu bar and toolbars
+        RadianceOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
+            ContainerColorTokens::getContainerSurfaceHighest);
+        this.decorationPainter.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+
+        // add overlay painter to paint drop shadows along the bottom
+        // edges of toolbars
+        this.decorationPainter.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+        // add overlay painter to paint a dark line along the bottom
+        // edge of toolbars
+        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+            ContainerColorTokensSingleColorQuery.composite(
+                ContainerColorTokens::getContainerOutline,
+                ColorTransform.alpha(128)));
+        this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
+            RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
         this.highlightSurfacePainter = new FractionBasedSurfacePainter("Mariner",
             new float[] {0.0f, 0.5f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {

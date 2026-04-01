@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.internal.painter;
 
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
 
 import java.awt.*;
 import java.util.List;
@@ -44,9 +44,8 @@ import java.util.List;
  */
 public class OverlayPainterUtils {
 	/**
-	 * Paints all registered overlays on the specified component. Overlay
-	 * painters are registered with
-	 * {@link RadianceSkin#addOverlayPainter(RadianceOverlayPainter, RadianceThemingSlices.DecorationAreaType...)}
+	 * Paints all registered overlays on the specified component. Overlay painters are registered with the
+	 * {@link org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter#addOverlayPainter(RadianceOverlayPainter, RadianceThemingSlices.DecorationAreaType...)}
 	 * API.
 	 * 
 	 * @param g
@@ -60,7 +59,7 @@ public class OverlayPainterUtils {
 	 */
 	public static void paintOverlays(Graphics g, Component c, RadianceSkin skin,
 			RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-		List<RadianceOverlayPainter> overlayPainters = skin.getOverlayPainters(decorationAreaType);
+		List<RadianceOverlayPainter> overlayPainters = skin.getDecorationPainter().getOverlayPainters(decorationAreaType);
 		if (overlayPainters.isEmpty()) {
 			return;
 		}

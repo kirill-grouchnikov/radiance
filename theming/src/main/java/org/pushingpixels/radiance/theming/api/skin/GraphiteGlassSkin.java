@@ -34,9 +34,9 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
@@ -72,17 +72,6 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		// add two overlay painters to create a bezel line between
-		// menu bar and toolbars
-		RadianceOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
-			ContainerColorTokens::getContainerOutline);
-		RadianceOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
-			ContainerColorTokensSingleColorQuery.composite(
-				ContainerColorTokens::getInverseContainerOutline,
-				ColorTransform.alpha(96)));
-		this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
-		this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
 		this.surfacePainter = new SpecularRectangularSurfacePainter(new FractionBasedSurfacePainter(
 			"Graphite Glass",
 			new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
@@ -95,7 +84,19 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 				ContainerColorTokens::getContainerSurface,
 				ContainerColorTokens::getContainerSurface
 			}), 1.0f);
+
 		this.decorationPainter = new ArcDecorationPainter();
+		// add two overlay painters to create a bezel line between
+		// menu bar and toolbars
+		RadianceOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
+			ContainerColorTokens::getContainerOutline);
+		RadianceOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
+			ContainerColorTokensSingleColorQuery.composite(
+				ContainerColorTokens::getInverseContainerOutline,
+				ColorTransform.alpha(96)));
+		this.decorationPainter.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
+		this.decorationPainter.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
 		this.highlightSurfacePainter = new GlassSurfacePainter();
 	}
 }

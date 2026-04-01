@@ -33,7 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 /**
@@ -83,9 +83,10 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// And configure toolbar overlay painters
-		this.clearOverlayPainters(RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
+		this.decorationPainter.clearOverlayPainters(RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+		this.decorationPainter.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-		this.addOverlayPainter(this.bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+		this.decorationPainter.addOverlayPainter(this.bottomLineOverlayPainter,
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 	}
 }

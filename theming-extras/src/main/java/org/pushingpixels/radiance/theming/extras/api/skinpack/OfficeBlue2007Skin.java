@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
@@ -263,12 +263,6 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                 /* colorResolver */ officeBluePaletteColorResolver),
             DecorationAreaType.CONTROL_PANE);
 
-        this.addOverlayPainter(new BottomLineOverlayPainter(
-                ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokens::getContainerOutline, ColorTransform.alpha(72))),
-            DecorationAreaType.PRIMARY_TITLE_PANE,
-            DecorationAreaType.SECONDARY_TITLE_PANE);
-
         this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 
@@ -308,6 +302,11 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     ContainerColorTokens::getContainerSurfaceLow,
                     ContainerColorTokens::getContainerSurfaceLowest,
                     0.8f)});
+        this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokens::getContainerOutline, ColorTransform.alpha(72))),
+            DecorationAreaType.PRIMARY_TITLE_PANE,
+            DecorationAreaType.SECONDARY_TITLE_PANE);
 
         this.highlightSurfacePainter = new ClassicSurfacePainter();
     }

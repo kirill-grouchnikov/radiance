@@ -35,8 +35,8 @@ import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
@@ -185,20 +185,6 @@ public class AutumnSkin extends RadianceSkin {
 		this.registerDecorationAreaTokensBundle(autumnControlPaneBundle,
 			RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-		// add an overlay painter to paint a drop shadow along the top
-		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(50),
-			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
-
-		// add an overlay painter to paint separator lines along the bottom
-		// edges of title panes and menu bars
-		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
-			ContainerColorTokens::getContainerOutlineVariant);
-				this.addOverlayPainter(bottomLineOverlayPainter,
-			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-			RadianceThemingSlices.DecorationAreaType.HEADER);
-
         this.registerComponentShaper(new ClassicComponentShaper(),
             RadianceThemingSlices.DecorationAreaType.NONE);
 		this.surfacePainter = new SpecularRectangularSurfacePainter(
@@ -228,6 +214,20 @@ public class AutumnSkin extends RadianceSkin {
 
 		MarbleNoiseDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
 		decorationPainter.setTextureAlpha(0.7f);
+
+		// add an overlay painter to paint a drop shadow along the top
+		// edge of toolbars
+		decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(50),
+			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
+
+		// add an overlay painter to paint separator lines along the bottom
+		// edges of title panes and menu bars
+		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
+			ContainerColorTokens::getContainerOutlineVariant);
+		decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
+			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+			RadianceThemingSlices.DecorationAreaType.HEADER);
 		this.decorationPainter = decorationPainter;
 	}
 }
