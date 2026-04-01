@@ -35,10 +35,10 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
@@ -141,7 +141,7 @@ public class CookbookSkin extends RadianceSkin {
 
         this.decorationPainter = new CookbookDecorationPainter();
         // Add an overlay painter to paint a bezel line along the top edge of the footer area
-        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+        RadianceDecorationPainter.OverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getContainerOutlineVariant,
                 ColorTransform.alpha(192)),
@@ -158,7 +158,7 @@ public class CookbookSkin extends RadianceSkin {
 
         // Add an overlay painter to paint a dark line along the bottom
         // edge of the title pane
-        RadianceOverlayPainter titlePaneBottomLineOverlayPainter = new BottomLineOverlayPainter(
+        RadianceDecorationPainter.OverlayPainter titlePaneBottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutline);
         this.decorationPainter.addOverlayPainter(titlePaneBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);

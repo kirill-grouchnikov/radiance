@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -45,7 +46,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public final class TopLineOverlayPainter implements RadianceOverlayPainter {
+public final class TopLineOverlayPainter implements RadianceDecorationPainter.OverlayPainter {
     /**
      * Used to compute the color of the line painted by this overlay painter.
      */

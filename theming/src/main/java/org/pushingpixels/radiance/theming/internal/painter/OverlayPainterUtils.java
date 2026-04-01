@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.theming.internal.painter;
 
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 
 import java.awt.*;
 import java.util.List;
@@ -45,7 +45,7 @@ import java.util.List;
 public class OverlayPainterUtils {
 	/**
 	 * Paints all registered overlays on the specified component. Overlay painters are registered with the
-	 * {@link org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter#addOverlayPainter(RadianceOverlayPainter, RadianceThemingSlices.DecorationAreaType...)}
+	 * {@link org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter#addOverlayPainter(RadianceDecorationPainter.OverlayPainter, RadianceThemingSlices.DecorationAreaType...)}
 	 * API.
 	 * 
 	 * @param g
@@ -59,12 +59,12 @@ public class OverlayPainterUtils {
 	 */
 	public static void paintOverlays(Graphics g, Component c, RadianceSkin skin,
 			RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-		List<RadianceOverlayPainter> overlayPainters = skin.getDecorationPainter().getOverlayPainters(decorationAreaType);
+		List<RadianceDecorationPainter.OverlayPainter> overlayPainters = skin.getDecorationPainter().getOverlayPainters(decorationAreaType);
 		if (overlayPainters.isEmpty()) {
 			return;
 		}
 
-		for (RadianceOverlayPainter overlayPainter : overlayPainters) {
+		for (RadianceDecorationPainter.OverlayPainter overlayPainter : overlayPainters) {
 			Graphics2D g2d = (Graphics2D) g.create();
 			overlayPainter.paintOverlay(g2d, c, decorationAreaType, c.getWidth(), c.getHeight(), skin);
 			g2d.dispose();

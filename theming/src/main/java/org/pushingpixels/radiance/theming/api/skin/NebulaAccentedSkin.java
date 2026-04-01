@@ -34,9 +34,9 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
@@ -53,7 +53,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Overlay painter to paint separator lines on some decoration areas.
 	 */
-	protected RadianceOverlayPainter bottomLineOverlayPainter;
+	protected RadianceDecorationPainter.OverlayPainter bottomLineOverlayPainter;
 
 	/**
 	 * Creates a new accented <code>Nebula</code> skin.

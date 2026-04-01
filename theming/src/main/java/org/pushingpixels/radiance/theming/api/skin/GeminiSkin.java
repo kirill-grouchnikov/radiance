@@ -33,6 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.*;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
@@ -180,7 +181,7 @@ public class GeminiSkin extends RadianceSkin {
         this.decorationPainter = new MatteDecorationPainter();
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
-        RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+        RadianceDecorationPainter.OverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
             ContainerColorTokens::getContainerOutlineVariant,
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getInverseContainerOutline,
@@ -190,9 +191,9 @@ public class GeminiSkin extends RadianceSkin {
 
         // add two overlay painters to create a bezel line between
         // menu bar and toolbars
-        RadianceOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
+        RadianceDecorationPainter.OverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutline);
-        RadianceOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
+        RadianceDecorationPainter.OverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
                 ContainerColorTokens::getComplementaryContainerOutline,
                 ColorTransform.alpha(48)));
@@ -206,7 +207,7 @@ public class GeminiSkin extends RadianceSkin {
 
         // add overlay painter to paint a dark line along the bottom
         // edge of toolbars
-        RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+        RadianceDecorationPainter.OverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
             ContainerColorTokens::getContainerOutline);
         this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);

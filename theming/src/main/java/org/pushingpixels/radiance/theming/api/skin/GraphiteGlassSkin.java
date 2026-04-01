@@ -34,8 +34,8 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
@@ -88,9 +88,9 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		this.decorationPainter = new ArcDecorationPainter();
 		// add two overlay painters to create a bezel line between
 		// menu bar and toolbars
-		RadianceOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
+		RadianceDecorationPainter.OverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokens::getContainerOutline);
-		RadianceOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
+		RadianceDecorationPainter.OverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
 				ContainerColorTokens::getInverseContainerOutline,
 				ColorTransform.alpha(96)));

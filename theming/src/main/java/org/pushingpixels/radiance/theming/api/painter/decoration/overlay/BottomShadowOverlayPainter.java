@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.decoration.overlay;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -48,7 +49,7 @@ import java.util.Map;
  * 
  * @author Kirill Grouchnikov
  */
-public final class BottomShadowOverlayPainter implements RadianceOverlayPainter {
+public final class BottomShadowOverlayPainter implements RadianceDecorationPainter.OverlayPainter {
 	private static final Map<Integer, BottomShadowOverlayPainter> MAP = new HashMap<>();
 
 	private static final int DEFAULT_SHADOW_END_ALPHA = 128;

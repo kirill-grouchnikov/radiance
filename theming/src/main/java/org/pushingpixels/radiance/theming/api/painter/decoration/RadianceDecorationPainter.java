@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import java.awt.*;
@@ -47,10 +46,38 @@ import java.util.List;
  */
 public abstract class RadianceDecorationPainter implements RadianceTrait {
     /**
+     * Overlay painter interface for <b>Radiance</b> look and feel. This class is
+     * part of officially supported API.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public interface OverlayPainter extends RadianceTrait {
+        /**
+         * Paints the overlay.
+         *
+         * @param graphics
+         *     Graphics context.
+         * @param comp
+         *     Component.
+         * @param decorationAreaType
+         *     Decoration area type. Must not be <code>null</code>.
+         * @param width
+         *     Width.
+         * @param height
+         *     Height.
+         * @param skin
+         *     Skin for painting the overlay.
+         */
+        void paintOverlay(Graphics2D graphics, Component comp,
+            RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+            RadianceSkin skin);
+    }
+
+    /**
      * Maps decoration area type to the registered overlay painters. Each
      * decoration area type can have more than one overlay painter.
      */
-    private final Map<RadianceThemingSlices.DecorationAreaType, List<RadianceOverlayPainter>> overlayPaintersMap;
+    private final Map<RadianceThemingSlices.DecorationAreaType, List<OverlayPainter>> overlayPaintersMap;
 
     protected RadianceDecorationPainter() {
         this.overlayPaintersMap = new HashMap<>();
@@ -64,7 +91,7 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
      *                       painters associated with the specified decoration area types.
      * @param areaTypes      Decoration area types.
      */
-    public void addOverlayPainter(RadianceOverlayPainter overlayPainter,
+    public void addOverlayPainter(OverlayPainter overlayPainter,
         RadianceThemingSlices.DecorationAreaType... areaTypes) {
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
             if (!this.overlayPaintersMap.containsKey(areaType)) {
@@ -82,7 +109,7 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
      *                       associated with the specified decoration area types.
      * @param areaTypes      Decoration area types.
      */
-    public void removeOverlayPainter(RadianceOverlayPainter overlayPainter,
+    public void removeOverlayPainter(OverlayPainter overlayPainter,
         RadianceThemingSlices.DecorationAreaType... areaTypes) {
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
             if (!this.overlayPaintersMap.containsKey(areaType)) {
@@ -118,7 +145,7 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
      * @return A non-null, non-modifiable list of overlay painters associated
      * with the specified decoration area type.
      */
-    public List<RadianceOverlayPainter> getOverlayPainters(RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+    public List<OverlayPainter> getOverlayPainters(RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         if (!this.overlayPaintersMap.containsKey(decorationAreaType)) {
             return Collections.emptyList();
         }
