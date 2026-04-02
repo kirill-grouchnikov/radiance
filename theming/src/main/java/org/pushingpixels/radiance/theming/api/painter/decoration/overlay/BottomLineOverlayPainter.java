@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.decoration.overlay;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
@@ -64,29 +63,17 @@ public final class BottomLineOverlayPainter implements RadianceDecorationPainter
 
     @Override
     public void paintOverlay(Graphics2D g, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        ContainerColorTokens colorTokens) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
         Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
                 .getTopMostParentWithDecorationAreaType(comp, decorationAreaType);
 
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        Color lineColor = this.containerTokensQuery.query(colorTokens);
+        g.setColor(RadianceColorUtilities.getAlphaColor(lineColor, 128));
 
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height, (graphics1X, x, y,
-            scaledWidth, scaledHeight, scaleFactor) -> {
-            Color lineColor = this.containerTokensQuery.query(colorTokens);
-            graphics1X.setColor(RadianceColorUtilities.getAlphaColor(lineColor, 128));
-
-            int bottomY = (int) (scaleFactor * topMostWithSameDecorationAreaType.getHeight() - 1);
-            graphics1X.drawLine(0, bottomY, scaledWidth, bottomY);
-        });
-
-        graphics.dispose();
+        int bottomY = (int) (scaleFactor * topMostWithSameDecorationAreaType.getHeight() - 1);
+        g.drawLine(0, bottomY, width, bottomY);
     }
 
     @Override

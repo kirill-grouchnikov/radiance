@@ -43,6 +43,7 @@ import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -74,95 +75,100 @@ public class HighlightPainterUtils {
             return;
         }
 
+        if (openSides == null) {
+            openSides = EnumSet.noneOf(RadianceThemingSlices.Side.class);
+        }
+
         Component compForQuerying = (rendererPane != null) ? rendererPane : c;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(compForQuerying);
         RadianceSurfacePainter highlightPainter = skin.getHighlightSurfacePainter();
         RadianceOutlinePainter highlightOutlinePainter = RadianceCoreUtilities
             .getHighlightOutlinePainter(compForQuerying);
-        Graphics2D g2d = (Graphics2D) g.create();
 
-        if (openSides == null) {
-            openSides = EnumSet.noneOf(RadianceThemingSlices.Side.class);
-        }
-        paintHighlight(g2d, c, rect, state, alpha, paintHighlightBorders, openSides, colorTokens,
-            highlightPainter, highlightOutlinePainter);
+        Graphics2D g2d = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.translate(rect.x, rect.y);
+        Set<RadianceThemingSlices.Side> finalOpenSides = openSides;
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, rect.width, rect.height,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) ->
+                paintHighlight1X(g2d, c, scaledWidth, scaledHeight, scaleFactor,
+                    state, alpha, paintHighlightBorders, finalOpenSides, colorTokens,
+                    highlightPainter, highlightOutlinePainter));
         g2d.dispose();
     }
 
-    private static void paintHighlight(Graphics g, Component c, Rectangle rect,
+    private static void paintHighlight1X(Graphics graphics1X, Component c,
+        int scaledWidth, int scaledHeight, double scaleFactor,
         ComponentState state, float alpha, boolean paintHighlightBorders,
-        Set<RadianceThemingSlices.Side> openSides,
-        ContainerColorTokens colorTokens, RadianceSurfacePainter highlightPainter,
-        RadianceOutlinePainter highlightOutlinePainter) {
+        Set<RadianceThemingSlices.Side> openSides, ContainerColorTokens colorTokens,
+        RadianceSurfacePainter highlightPainter, RadianceOutlinePainter highlightOutlinePainter) {
 
-        Graphics2D g2d = (Graphics2D) g.create();
+        Graphics2D g2d = (Graphics2D) graphics1X.create();
 
         // Fill
         float fillAlpha = alpha * (state.isDisabled()
             ? colorTokens.getContainerSurfaceDisabledAlpha()
             : colorTokens.getContainerSurfaceEnabledAlpha());
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(c, fillAlpha, g));
-        highlightPainter.paintSurface(g2d, c, rect.width, rect.height, rect, colorTokens);
+        g2d.setComposite(WidgetUtilities.getAlphaComposite(c, fillAlpha, graphics1X));
+        highlightPainter.paintSurface(g2d, c, scaledWidth, scaledHeight, scaleFactor,
+            new Rectangle2D.Double(0, 0, scaledWidth, scaledHeight), colorTokens);
 
         // Border
         if (paintHighlightBorders) {
-            g2d.translate(rect.x, rect.y);
             float borderAlpha = alpha * (state.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha()
                 : colorTokens.getContainerOutlineEnabledAlpha());
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(c, borderAlpha, g));
-            paintHighlightBorder1X(g2d, c, rect.width, rect.height, 1.0f, openSides,
+            g2d.setComposite(WidgetUtilities.getAlphaComposite(c, borderAlpha, graphics1X));
+            paintHighlightBorder1X(g2d, c, scaledWidth, scaledHeight, scaleFactor, 1.0f, openSides,
                 highlightOutlinePainter, colorTokens);
         }
 
         g2d.dispose();
     }
 
-    public static void paintHighlightBorder1X(Graphics2D g, Component comp, int width,
-        int height, float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
-        RadianceOutlinePainter highlightOutlinePainter, ContainerColorTokens colorTokens) {
+    public static void paintHighlightBorder1X(Graphics2D graphics1X, Component comp,
+        int scaledWidth, int scaledHeight, double scaleFactor, float borderAlpha,
+        Set<RadianceThemingSlices.Side> openSides, RadianceOutlinePainter highlightOutlinePainter,
+        ContainerColorTokens colorTokens) {
+
         if (borderAlpha <= 0.0f) {
             return;
         }
 
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                ComponentOrientation orientation = comp.getComponentOrientation();
-                RadianceThemingSlices.Side leftSide =
-                    orientation.isLeftToRight()
-                        ? RadianceThemingSlices.Side.LEADING
-                        : RadianceThemingSlices.Side.TRAILING;
-                RadianceThemingSlices.Side rightSide =
-                    orientation.isLeftToRight()
-                        ? RadianceThemingSlices.Side.TRAILING
-                        : RadianceThemingSlices.Side.LEADING;
+        ComponentOrientation orientation = comp.getComponentOrientation();
+        RadianceThemingSlices.Side leftSide =
+            orientation.isLeftToRight()
+                ? RadianceThemingSlices.Side.LEADING
+                : RadianceThemingSlices.Side.TRAILING;
+        RadianceThemingSlices.Side rightSide =
+            orientation.isLeftToRight()
+                ? RadianceThemingSlices.Side.TRAILING
+                : RadianceThemingSlices.Side.LEADING;
 
-                int openDelta = (int) (scaleFactor * 6.0);
-                int deltaLeft = openSides.contains(leftSide) ? openDelta : 0;
-                int deltaRight = openSides.contains(rightSide) ? openDelta : 0;
-                int deltaTop = openSides.contains(RadianceThemingSlices.Side.TOP) ? openDelta : 0;
-                int deltaBottom = openSides.contains(RadianceThemingSlices.Side.BOTTOM) ? openDelta : 0;
+        int openDelta = (int) (scaleFactor * 6.0);
+        int deltaLeft = openSides.contains(leftSide) ? openDelta : 0;
+        int deltaRight = openSides.contains(rightSide) ? openDelta : 0;
+        int deltaTop = openSides.contains(RadianceThemingSlices.Side.TOP) ? openDelta : 0;
+        int deltaBottom = openSides.contains(RadianceThemingSlices.Side.BOTTOM) ? openDelta : 0;
 
-                RadianceComponentShaper.ShapeSupplier outlineShapeSupplier =
-                    (c, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment, shapeScaleFactor) ->
-                        getBorderPath(c.getComponentOrientation(), shapeWidth, shapeHeight,
-                            shapeInsets, openSides);
+        RadianceComponentShaper.ShapeSupplier outlineShapeSupplier =
+            (c, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment, shapeScaleFactor) ->
+                getBorderPath(c.getComponentOrientation(), shapeWidth, shapeHeight,
+                    shapeInsets, openSides);
 
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(comp, borderAlpha, graphics1X));
+        graphics1X.setComposite(WidgetUtilities.getAlphaComposite(comp, borderAlpha, graphics1X));
 
-                highlightOutlinePainter.paintOutline(graphics1X, comp,
-                    scaledWidth + deltaLeft + deltaRight,
-                    scaledHeight + deltaTop + deltaBottom,
-                    scaleFactor, outlineShapeSupplier, colorTokens);
+        graphics1X.translate(-deltaLeft, -deltaTop);
 
-                graphics1X.translate(deltaLeft, deltaTop);
-            });
-        graphics.dispose();
+        highlightOutlinePainter.paintOutline(graphics1X, comp,
+            scaledWidth + deltaLeft + deltaRight,
+            scaledHeight + deltaTop + deltaBottom,
+            scaleFactor, outlineShapeSupplier, colorTokens);
+
+        graphics1X.translate(deltaLeft, deltaTop);
     }
 
     private static Path2D getBorderPath(ComponentOrientation orientation,

@@ -31,14 +31,15 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.LuminousOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.LuminousSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.PillComponentShaper;
 
@@ -93,17 +94,8 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
         this.decorationPainter = new MatteDecorationPainter();
 
         this.highlightOutlinePainter = new FlatOutlinePainter();
-        this.highlightSurfacePainter = new LuminousSurfacePainter(
-            new FractionBasedSurfacePainter(
-                "Mist Highlight Surface Base",
-                new float[] {0.0f, 1.0f},
-                new ContainerColorTokensSingleColorQuery[] {
-                    ContainerColorTokens::getContainerSurface,
-                    ContainerColorTokens::getContainerSurface}),
-            (colorTokens) -> colorTokens.isDark()
-                ? colorTokens.getContainerSurfaceHigh()
-                : colorTokens.getContainerSurfaceLow(),
-            1.0f);
-		this.highlightSurfacePainter = new ClassicSurfacePainter();
+		this.highlightSurfacePainter = new FlatSurfacePainter("Mist",
+			(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+				: colorTokens.getContainerSurfaceLowest());
 	}
 }

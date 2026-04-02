@@ -61,7 +61,7 @@ public class FractionBasedSurfacePainter extends FractionBasedPainter implements
     }
 
     @Override
-    public void paintSurface(Graphics g, Component comp, float width, float height,
+    public void paintSurface(Graphics g, Component comp, float width, float height, double scaleFactor,
             Shape outline, ContainerColorTokens colorTokens) {
         Graphics2D graphics = (Graphics2D) g.create();
 

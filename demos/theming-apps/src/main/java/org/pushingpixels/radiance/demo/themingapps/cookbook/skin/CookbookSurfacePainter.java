@@ -66,14 +66,14 @@ public class CookbookSurfacePainter implements RadianceSurfacePainter {
     }
 
     @Override
-    public void paintSurface(Graphics g, Component comp, float width, float height,
+    public void paintSurface(Graphics g, Component comp, float width, float height, double scaleFactor,
         Shape outline, ContainerColorTokens colorTokens) {
         if (comp instanceof JScrollBar) {
-            this.flatDelegate.paintSurface(g, comp, width, height, outline, colorTokens);
+            this.flatDelegate.paintSurface(g, comp, width, height, scaleFactor, outline, colorTokens);
             return;
         }
 
-        this.delegate.paintSurface(g, comp, width, height, outline, colorTokens);
+        this.delegate.paintSurface(g, comp, width, height, scaleFactor, outline, colorTokens);
 
         if (comp instanceof JCommandButton) {
             // special case - overlay the buttons with the watermark image

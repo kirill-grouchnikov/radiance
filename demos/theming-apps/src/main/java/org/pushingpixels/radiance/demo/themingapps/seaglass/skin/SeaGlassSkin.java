@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationP
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -112,7 +113,7 @@ public class SeaGlassSkin extends RadianceSkin {
 				ContainerColorTokens::getContainerOutline),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
-		this.highlightSurfacePainter = new MatteSurfacePainter();
+		this.highlightSurfacePainter = new FlatSurfacePainter("Sea Glass", ContainerColorTokens::getContainerSurface);
 
 		this.outlinePainter = new FractionBasedOutlinePainter("Sea Glass",
 			new float[] {0.0f, 1.0f},

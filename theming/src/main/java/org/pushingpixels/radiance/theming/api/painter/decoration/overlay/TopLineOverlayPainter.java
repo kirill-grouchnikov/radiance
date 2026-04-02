@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.decoration.overlay;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
@@ -64,32 +63,20 @@ public final class TopLineOverlayPainter implements RadianceDecorationPainter.Ov
 
     @Override
     public void paintOverlay(Graphics2D g, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        ContainerColorTokens colorTokens) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
         Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
                 .getTopMostParentWithDecorationAreaType(comp, decorationAreaType);
         Point inTopMost = SwingUtilities.convertPoint(comp, new Point(0, 0),
                 topMostWithSameDecorationAreaType);
-        int dy = inTopMost.y;
+        int dy = (int) (inTopMost.y * scaleFactor);
 
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        Color lineColor = this.containerTokensQuery.query(colorTokens);
+        g.setColor(lineColor);
 
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                Color lineColor = this.containerTokensQuery.query(colorTokens);
-                graphics1X.setColor(lineColor);
-
-                int topY = 1 - (int) (scaleFactor * dy);
-                graphics1X.drawLine(0, topY, scaledWidth, topY);
-            });
-
-        graphics.dispose();
+        int topY = 1 - dy;
+        g.drawLine(0, topY, width, topY);
     }
 
     @Override

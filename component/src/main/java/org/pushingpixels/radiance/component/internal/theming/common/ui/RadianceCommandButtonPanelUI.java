@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonPanelUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -101,13 +102,20 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
         Color backgroundFill = tokens.isDark() ? tokens.getContainerSurfaceLow()
             : tokens.getContainerSurfaceHigh();
 
-        Graphics2D g2d = (Graphics2D) g.create(x, y, width, height);
-        g2d.setColor(backgroundFill);
-        g2d.fillRect(0, 0, width, height);
-        HighlightPainterUtils.paintHighlightBorder1X(g2d, this.buttonPanel, width, height, 1.0f,
-            openSides, RadianceCoreUtilities.getOutlinePainter(this.buttonPanel),
-            CoreColorTokenUtils.getContainerTokens(this.buttonPanel,
-                ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL));
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.translate(x, y);
+
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, width, height,
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                graphics1X.setColor(backgroundFill);
+                graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+                HighlightPainterUtils.paintHighlightBorder1X(graphics1X, this.buttonPanel,
+                    scaledWidth, scaledHeight, scaledHeight, 1.0f,
+                    openSides, RadianceCoreUtilities.getOutlinePainter(this.buttonPanel),
+                    CoreColorTokenUtils.getContainerTokens(this.buttonPanel,
+                        ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL));
+            });
+
         g2d.dispose();
     }
 

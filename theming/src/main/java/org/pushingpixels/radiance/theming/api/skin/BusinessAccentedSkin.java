@@ -32,10 +32,11 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
@@ -100,7 +101,9 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 
 		this.decorationPainter = decorationPainter;
 
-		this.highlightSurfacePainter = new ClassicSurfacePainter();
+		this.highlightSurfacePainter = new FlatSurfacePainter("Business",
+			(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+				: colorTokens.getContainerSurfaceLowest());
 	}
 
 	protected abstract boolean isHeaderDark();

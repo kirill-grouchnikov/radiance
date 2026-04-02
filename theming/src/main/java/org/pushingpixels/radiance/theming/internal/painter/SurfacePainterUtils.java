@@ -62,7 +62,7 @@ public class SurfacePainterUtils {
         graphics.setComposite(WidgetUtilities.getAlphaComposite(component, containerSurfaceAlpha, graphics1X));
 
         // Ask the surface painter to paint the surface
-        surfacePainter.paintSurface(graphics, component, scaledWidth, scaledHeight,
+        surfacePainter.paintSurface(graphics, component, scaledWidth, scaledHeight, scaleFactor,
             outline, colorTokens);
 
         // If we have a surface painter overlay, ask it to paint the surface

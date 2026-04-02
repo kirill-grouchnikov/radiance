@@ -34,12 +34,12 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
@@ -150,7 +150,7 @@ public class NightShadeSkin extends RadianceSkin {
         this.decorationPainter.addOverlayPainter(footerTopBezelOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.highlightSurfacePainter = new MatteSurfacePainter();
+        this.highlightSurfacePainter = new FlatSurfacePainter("Night Shade", ContainerColorTokens::getContainerSurface);
 
         this.outlinePainter = InlayOutlinePainter.builder()
             .displayName("Night Shade")

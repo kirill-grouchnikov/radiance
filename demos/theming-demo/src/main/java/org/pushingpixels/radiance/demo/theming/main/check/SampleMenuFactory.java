@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
@@ -383,7 +384,9 @@ public class SampleMenuFactory {
             this.registerComponentShaper(new ClassicComponentShaper(),
                 RadianceThemingSlices.DecorationAreaType.NONE);
             this.decorationPainter = new ArcDecorationPainter();
-            this.highlightSurfacePainter = new GlassSurfacePainter();
+            this.highlightSurfacePainter = new FlatSurfacePainter("Sample",
+                (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
+                    : colorTokens.getContainerSurfaceHigh());
         }
     }
 

@@ -27,48 +27,54 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.extras.api.painterpack.decoration;
+package org.pushingpixels.radiance.theming.api.painter.surface;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.FractionBasedPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
+import java.awt.MultipleGradientPaint.CycleMethod;
 
 /**
- * Decoration painter that paints a 3D glass gradient. This class is part of
- * officially supported API.
+ * Surface painter with flat full based on the provided color query.
  *
  * @author Kirill Grouchnikov
  */
-public class Glass3DDecorationPainter extends RadianceDecorationPainter {
+public class FlatSurfacePainter implements RadianceSurfacePainter {
+    private String displayName;
+
+    private ContainerColorTokensSingleColorQuery colorQuery;
+
     /**
-     * The display name for the decoration painters of this class.
+     * Creates a new flat surface painter.
+     *
+     * @param displayName  The display name of this painter.
+     * @param colorQuery   The color query of this painter. Must be non-<code>null</code>.
      */
-    private static final String DISPLAY_NAME = "Glass 3D";
+    public FlatSurfacePainter(String displayName, ContainerColorTokensSingleColorQuery colorQuery) {
+        if (colorQuery == null) {
+            throw new IllegalArgumentException("Cannot pass null arguments");
+        }
+        this.displayName = displayName;
+        this.colorQuery = colorQuery;
+    }
 
     @Override
     public String getDisplayName() {
-        return DISPLAY_NAME;
+        return this.displayName;
     }
 
     @Override
-    public void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType,
-        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
+    public void paintSurface(Graphics g, Component comp, float width, float height, double scaleFactor,
+            Shape outline, ContainerColorTokens colorTokens) {
+        Graphics2D graphics = (Graphics2D) g.create();
 
-        LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
-            new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
-            new Color[] {
-                colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
-                    : colorTokens.getContainerSurfaceLowest(),
-                colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
-                    : colorTokens.getContainerSurfaceLow(),
-                colorTokens.getContainerSurface(),
-                colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
-                    : colorTokens.getContainerSurfaceLowest() },
-            MultipleGradientPaint.CycleMethod.REPEAT);
-        graphics.setPaint(paint);
-        graphics.fillRect(0, 0, width, height);
+        Color color = this.colorQuery.query(colorTokens);
+        graphics.setPaint(color);
+        graphics.fill(outline);
+        graphics.dispose();
     }
+
 }

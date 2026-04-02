@@ -112,8 +112,9 @@ class CookbookDecorationPainter extends RadianceDecorationPainter {
     }
 
     @Override
-    public void paintDecorationArea(Graphics2D graphics, Component comp,
-            DecorationAreaType decorationAreaType, int width, int height, ContainerColorTokens colorTokens) {
+    public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
+
         BufferedImage toOverlay = this.getWatermarkImage(decorationAreaType);
         Component farthestOfTheSameAreaType = this.getFarthest(comp, decorationAreaType);
         if ((decorationAreaType == DecorationAreaType.PRIMARY_TITLE_PANE)
@@ -121,9 +122,9 @@ class CookbookDecorationPainter extends RadianceDecorationPainter {
                 || (decorationAreaType == DecorationAreaType.HEADER)
                 || (decorationAreaType == DecorationAreaType.TOOLBAR)
         ) {
-            int dy = comp.getLocationOnScreen().y
-                    - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().y;
-            int headerHeight = farthestOfTheSameAreaType.getHeight();
+            int dy = (int) ((comp.getLocationOnScreen().y
+                    - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().y) * scaleFactor);
+            int headerHeight = (int) (farthestOfTheSameAreaType.getHeight() * scaleFactor);
             // header background gradient, slightly lighter colors
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + headerHeight,
                 new float[] { 0.0f, 0.33f, 0.67f, 1.0f },
@@ -134,9 +135,9 @@ class CookbookDecorationPainter extends RadianceDecorationPainter {
                     colorTokens.getContainerSurface()}));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.FOOTER) {
-            int dy = comp.getLocationOnScreen().y
-                    - farthestOfTheSameAreaType.getLocationOnScreen().y;
-            int footerHeight = farthestOfTheSameAreaType.getHeight();
+            int dy = (int) ((comp.getLocationOnScreen().y
+                    - farthestOfTheSameAreaType.getLocationOnScreen().y) * scaleFactor);
+            int footerHeight = (int) (farthestOfTheSameAreaType.getHeight() * scaleFactor);
             // footer background gradient, slightly darker colors
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + footerHeight,
                 new float[] { 0.0f, 0.35f, 0.55f, 0.7f, 0.85f, 1.0f },
@@ -160,10 +161,10 @@ class CookbookDecorationPainter extends RadianceDecorationPainter {
             graphics.fillRect(0, 0, width, height);
         }
 
-        int dy = comp.getLocationOnScreen().y
-                - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().y;
-        int dx = comp.getLocationOnScreen().x
-                - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().x;
+        int dy = (int) ((comp.getLocationOnScreen().y
+                - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().y) * scaleFactor);
+        int dx = (int) ((comp.getLocationOnScreen().x
+                - SwingUtilities.getWindowAncestor(comp).getLocationOnScreen().x) * scaleFactor);
         graphics.setComposite(AlphaComposite.SrcOver.derive(0.35f));
         graphics.drawImage(toOverlay, 0, 0, width, height, dx, dy, dx + width, dy + height, null);
         graphics.setComposite(AlphaComposite.SrcOver);
@@ -175,7 +176,6 @@ class CookbookDecorationPainter extends RadianceDecorationPainter {
             int offsetY = comp.getLocationOnScreen().y
                     - farthestOfTheSameAreaType.getLocationOnScreen().y;
 
-            final double scaleFactor = RadianceCommonCortex.getScaleFactor(comp);
             int lightImageScaledWidth = (int) (this.lightImage.getWidth() / scaleFactor);
 
             int currTileX = -offsetX;
@@ -188,11 +188,6 @@ class CookbookDecorationPainter extends RadianceDecorationPainter {
                 graphics.translate(lightImageScaledWidth, 0);
             }
         }
-    }
-
-    @Override
-    public void paintDecorationArea(Graphics2D graphics, Component comp,
-        DecorationAreaType decorationAreaType, Shape outline, ContainerColorTokens colorTokens) {
     }
 
     private Component getFarthest(Component comp, DecorationAreaType type) {

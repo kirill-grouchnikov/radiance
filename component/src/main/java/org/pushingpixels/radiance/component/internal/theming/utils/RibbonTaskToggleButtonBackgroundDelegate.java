@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -136,18 +137,23 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 0, 0, button.getWidth(), button.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    Shape outline = baselineShapeSupplier.getShape(button,
+                    Shape scaledOutline = baselineShapeSupplier.getShape(button,
                         scaledWidth, scaledHeight + 3.0f, 0.0f, 0.0f, scaleFactor);
 
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
                     RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
                             RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
                     if (skin.isRegisteredAsDecorationArea(buttonDecorationAreaType)) {
-                        DecorationPainterUtils.paintDecorationArea(graphics1X, button, outline,
-                                buttonDecorationAreaType, tokens, false);
+                        RadianceDecorationPainter decorationPainter = skin.getDecorationPainter();
+                        Graphics2D clipped = (Graphics2D) graphics1X.create();
+                        clipped.clip(scaledOutline);
+                        DecorationPainterUtils.paintDecorationBackground(clipped, button,
+                            scaledWidth, scaledHeight, scaleFactor, decorationPainter,
+                            buttonDecorationAreaType, tokens, false);
+                        clipped.dispose();
                     } else {
                         graphics1X.setColor(tokens.getContainerSurface());
-                        graphics1X.fill(outline);
+                        graphics1X.fill(scaledOutline);
                     }
 
                     OutlinePainterUtils.paintOutline(graphics1X, button, currState,

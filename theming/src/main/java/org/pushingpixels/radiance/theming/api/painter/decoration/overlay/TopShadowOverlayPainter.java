@@ -82,8 +82,8 @@ public final class TopShadowOverlayPainter implements RadianceDecorationPainter.
 
     @Override
     public void paintOverlay(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        ContainerColorTokens colorTokens) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
         Color shadowColor = colorTokens.getContainerOutline();
 
@@ -92,14 +92,16 @@ public final class TopShadowOverlayPainter implements RadianceDecorationPainter.
                 .getTopMostParentWithDecorationAreaType(comp, decorationAreaType);
         Point inTopMost = SwingUtilities.convertPoint(comp, new Point(0, 0),
                 topMostWithSameDecorationAreaType);
-        int dy = inTopMost.y;
+        int dy = (int) (inTopMost.y * scaleFactor);
+
+        int shadowHeight = (int) (4 * scaleFactor);
 
         Graphics2D g2d = (Graphics2D) graphics.create();
         g2d.translate(0, -dy);
         g2d.setPaint(new GradientPaint(
                 0, 0, RadianceColorUtilities.getAlphaColor(shadowColor, this.startAlpha),
-                0, 4, RadianceColorUtilities.getAlphaColor(shadowColor, 16)));
-        g2d.fillRect(0, 0, comp.getWidth(), 4);
+                0, shadowHeight, RadianceColorUtilities.getAlphaColor(shadowColor, 16)));
+        g2d.fillRect(0, 0, width, shadowHeight);
         g2d.dispose();
     }
 

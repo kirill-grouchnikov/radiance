@@ -35,11 +35,12 @@ import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
@@ -188,15 +189,9 @@ public class MarinerSkin extends RadianceSkin {
         this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-        this.highlightSurfacePainter = new FractionBasedSurfacePainter("Mariner",
-            new float[] {0.0f, 0.5f, 1.0f},
-            new ContainerColorTokensSingleColorQuery[] {
-                (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLow()
-                    : colorTokens.getContainerSurfaceHigh(),
-                ContainerColorTokens::getContainerSurface,
-                (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
-                    : colorTokens.getContainerSurfaceLow(),
-            });
+        this.highlightSurfacePainter = new FlatSurfacePainter("Mariner",
+            (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                : colorTokens.getContainerSurfaceLow());
 
         this.outlinePainter = InlayOutlinePainter.builder()
             .displayName("Mariner")

@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPa
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -132,7 +133,9 @@ public class StreetlightsSkin extends RadianceSkin {
                 ContainerColorTokens::getComplementaryContainerOutline,
             });
 
-        this.highlightSurfacePainter = new ClassicSurfacePainter();
+        this.highlightSurfacePainter = new FlatSurfacePainter("Streetlights",
+            (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+                : colorTokens.getContainerSurfaceLowest());
         this.highlightOutlinePainter = new FlatOutlinePainter();
     }
 }

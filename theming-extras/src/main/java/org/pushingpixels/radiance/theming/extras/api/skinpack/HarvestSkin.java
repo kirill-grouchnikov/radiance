@@ -39,6 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomL
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
@@ -165,7 +166,8 @@ public class HarvestSkin extends RadianceSkin {
                 ContainerColorTokens::getContainerOutline),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.highlightSurfacePainter = new MatteSurfacePainter();
+        this.highlightSurfacePainter = new FlatSurfacePainter("Harvest",
+            ContainerColorTokens::getContainerSurface);
         this.outlinePainter = new FractionBasedOutlinePainter("Harvest",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {

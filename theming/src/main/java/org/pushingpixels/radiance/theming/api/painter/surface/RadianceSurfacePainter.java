@@ -54,13 +54,15 @@ public interface RadianceSurfacePainter extends RadianceTrait {
      *      Width of the component.
      * @param height
      *      Height of the component.
+     * @param scaleFactor
+     *      Scale factor that matches the 1x painting of the component.
      * @param outline
      *      Outline of the component.
      * @param colorTokens
      *      Color tokens to use for the fill.
 	 */
-	void paintSurface(Graphics g, Component comp, float width, float height,
-			Shape outline, ContainerColorTokens colorTokens);
+	void paintSurface(Graphics g, Component comp, float width, float height, double scaleFactor,
+        Shape outline, ContainerColorTokens colorTokens);
 
     /**
      * Interface for specifying an overlay painted on top of the regular surface fill.

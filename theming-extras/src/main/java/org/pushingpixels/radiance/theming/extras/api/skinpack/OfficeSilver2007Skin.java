@@ -39,6 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDe
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
@@ -241,6 +242,8 @@ public class OfficeSilver2007Skin extends RadianceSkin {
             DecorationAreaType.SECONDARY_TITLE_PANE);
 
 
-        this.highlightSurfacePainter = new ClassicSurfacePainter();
+        this.highlightSurfacePainter = new FlatSurfacePainter("Office Silver 2007",
+            (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+                : colorTokens.getContainerSurfaceLowest());
     }
 }

@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
@@ -147,7 +147,9 @@ public class RavenSkin extends RadianceSkin {
 		this.surfacePainter = new SpecularRectangularSurfacePainter(
 			new GlassSurfacePainter(), 0.5f);
 		this.decorationPainter = new ArcDecorationPainter();
-		this.highlightSurfacePainter = new ClassicSurfacePainter();
+		this.highlightSurfacePainter = new FlatSurfacePainter("Raven",
+			(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+				: colorTokens.getContainerSurfaceLowest());
 		this.outlinePainter = new FlatOutlinePainter();
 	}
 }

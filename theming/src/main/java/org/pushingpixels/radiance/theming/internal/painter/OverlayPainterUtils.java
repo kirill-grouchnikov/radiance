@@ -58,9 +58,11 @@ public class OverlayPainterUtils {
 	 * @param decorationAreaType
 	 *            Component decoration area type.
 	 */
-	public static void paintOverlays(Graphics g, Component c, RadianceSkin skin,
-			RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-		List<RadianceDecorationPainter.OverlayPainter> overlayPainters = skin.getDecorationPainter().getOverlayPainters(decorationAreaType);
+	public static void paintOverlays(Graphics g, Component c,
+		int scaledWidth, int scaledHeight, double scaleFactor,
+		RadianceSkin skin, RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+		List<RadianceDecorationPainter.OverlayPainter> overlayPainters =
+			skin.getDecorationPainter().getOverlayPainters(decorationAreaType);
 		if (overlayPainters.isEmpty()) {
 			return;
 		}
@@ -68,7 +70,8 @@ public class OverlayPainterUtils {
 		ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(decorationAreaType);
 		for (RadianceDecorationPainter.OverlayPainter overlayPainter : overlayPainters) {
 			Graphics2D g2d = (Graphics2D) g.create();
-			overlayPainter.paintOverlay(g2d, c, decorationAreaType, c.getWidth(), c.getHeight(), colorTokens);
+			overlayPainter.paintOverlay(g2d, c, decorationAreaType,
+				scaledWidth, scaledHeight, scaleFactor, colorTokens);
 			g2d.dispose();
 		}
 	}

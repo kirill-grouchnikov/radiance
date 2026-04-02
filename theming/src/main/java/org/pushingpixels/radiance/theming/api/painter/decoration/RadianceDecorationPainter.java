@@ -68,8 +68,8 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
          *     Color tokens for painting the overlay.
          */
         void paintOverlay(Graphics2D graphics, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-            ContainerColorTokens colorTokens);
+            RadianceThemingSlices.DecorationAreaType decorationAreaType,
+            int width, int height, double scaleFactor, ContainerColorTokens colorTokens);
     }
 
     /**
@@ -162,19 +162,6 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
      * @param colorTokens        Color tokens for painting the decoration area.
      */
     public abstract void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        ContainerColorTokens colorTokens);
-
-    /**
-     * Paints the decoration area as a specified shape.
-     *
-     * @param graphics           Graphics context.
-     * @param comp               Component.
-     * @param decorationAreaType Decoration area type. Must not be <code>null</code>.
-     * @param outline            Outline to paint.
-     * @param colorTokens        Color tokens for painting the outline.
-     */
-    public abstract void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
-        ContainerColorTokens colorTokens);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens);
 }

@@ -89,10 +89,10 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
     }
 
     @Override
-    public void paintSurface(Graphics g, Component comp, float width, float height,
+    public void paintSurface(Graphics g, Component comp, float width, float height, double scaleFactor,
         Shape outline, ContainerColorTokens colorTokens) {
 
-        this.baseSurfacePainter.paintSurface(g, comp, width, height, outline, colorTokens);
+        this.baseSurfacePainter.paintSurface(g, comp, width, height, scaleFactor, outline, colorTokens);
 
         int iw = (int) width;
         int ih = (int) height;

@@ -173,32 +173,20 @@ public class FractionBasedDecorationPainter extends RadianceDecorationPainter {
 
 	@Override
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-		ContainerColorTokens colorTokens) {
+		RadianceThemingSlices.DecorationAreaType decorationAreaType,
+		int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
 		if (this.decoratedAreas.contains(decorationAreaType)) {
 			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
-				width, height, colorTokens);
+				width, height, scaleFactor, colorTokens);
 		} else {
-			this.paintSolidBackground(graphics, width, height, colorTokens);
-		}
-	}
-
-    @Override
-	public void paintDecorationArea(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
-		ContainerColorTokens colorTokens) {
-
-		if (this.decoratedAreas.contains(decorationAreaType)) {
-			this.paintDecoratedBackground(graphics, comp, decorationAreaType, outline, colorTokens);
-		} else {
-			this.paintSolidBackground(graphics, outline, colorTokens);
+			this.paintSolidBackground(graphics, width, height, scaleFactor, colorTokens);
 		}
 	}
 
 	private void paintDecoratedBackground(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-		ContainerColorTokens colorTokens) {
+		RadianceThemingSlices.DecorationAreaType decorationAreaType,
+		int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
 		Graphics2D g2d = (Graphics2D) graphics.create();
 		Color[] drawColors = new Color[this.fractions.length];
@@ -219,58 +207,20 @@ public class FractionBasedDecorationPainter extends RadianceDecorationPainter {
 		int dy = inTopMost.y;
 
 		MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0,
-			topMostWithSameDecorationAreaType.getHeight(), this.fractions,
+			(int) (topMostWithSameDecorationAreaType.getHeight() * scaleFactor), this.fractions,
 			drawColors, CycleMethod.NO_CYCLE);
 		g2d.setPaint(gradient);
 		g2d.translate(0, -dy);
-		g2d.fillRect(0, 0, width, topMostWithSameDecorationAreaType.getHeight());
+		g2d.fillRect(0, 0, width, (int) (topMostWithSameDecorationAreaType.getHeight() * scaleFactor));
 
 		g2d.dispose();
 	}
 
-	private void paintDecoratedBackground(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
-		ContainerColorTokens colorTokens) {
 
-		Graphics2D g2d = (Graphics2D) graphics.create();
-		Color[] drawColors = new Color[this.fractions.length];
-		for (int i = 0; i < this.fractions.length; i++) {
-			ContainerColorTokensSingleColorQuery colorQuery = this.colorQueries[i];
-			Color fromQuery = colorQuery.query(colorTokens);
-			int alpha = this.alphas[i];
-			int finalAlpha = fromQuery.getAlpha() * alpha / 255;
-			Color finalColor = RadianceColorUtilities.getAlphaColor(fromQuery, finalAlpha);
-			drawColors[i] = finalColor;
-		}
-
-		Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
-				.getTopMostParentWithDecorationAreaType(comp,
-						decorationAreaType);
-		Point inTopMost = SwingUtilities.convertPoint(comp, new Point(0, 0),
-				topMostWithSameDecorationAreaType);
-		int dy = inTopMost.y;
-
-		MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0,
-			topMostWithSameDecorationAreaType.getHeight(), this.fractions,
-			drawColors, CycleMethod.NO_CYCLE);
-		g2d.setPaint(gradient);
-		g2d.translate(0, -dy);
-		g2d.fill(outline);
-
-		g2d.dispose();
-	}
-
-	private void paintSolidBackground(Graphics2D graphics, int width, int height,
-		ContainerColorTokens colorTokens) {
+	private void paintSolidBackground(Graphics2D graphics,
+		int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
 		graphics.setColor(colorTokens.getContainerSurface());
 		graphics.fillRect(0, 0, width, height);
-	}
-
-	private void paintSolidBackground(Graphics2D graphics, Shape outline,
-		ContainerColorTokens colorTokens) {
-
-		graphics.setColor(colorTokens.getContainerSurface());
-		graphics.fill(outline);
 	}
 }

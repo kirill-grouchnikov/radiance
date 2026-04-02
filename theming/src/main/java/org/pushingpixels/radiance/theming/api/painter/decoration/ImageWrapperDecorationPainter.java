@@ -86,13 +86,13 @@ public abstract class ImageWrapperDecorationPainter extends RadianceDecorationPa
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        ContainerColorTokens colorTokens) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
         if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
                 || (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
-            this.paintTitleBackground(graphics, comp, decorationAreaType, width, height, colorTokens);
+            this.paintTitleBackground(graphics, comp, decorationAreaType, width, height, scaleFactor, colorTokens);
         } else {
-            this.paintExtraBackground(graphics, comp, decorationAreaType, width, height, colorTokens);
+            this.paintExtraBackground(graphics, comp, decorationAreaType, width, height, scaleFactor, colorTokens);
         }
     }
 
@@ -113,19 +113,19 @@ public abstract class ImageWrapperDecorationPainter extends RadianceDecorationPa
      *            Color tokens for painting the title background.
      */
     private void paintTitleBackground(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        ContainerColorTokens colorTokens) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
         if (this.baseDecorationPainter == null) {
             graphics.setColor(colorTokens.getContainerSurface());
             graphics.fillRect(0, 0, width, height);
         } else {
             this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
-                width, height, colorTokens);
+                width, height, scaleFactor, colorTokens);
         }
 
         Graphics2D temp = (Graphics2D) graphics.create();
-        this.tileArea(temp, comp, colorTokens, 0, 0, width, height);
+        this.tileArea(temp, comp, colorTokens, 0, 0, width, height, scaleFactor);
         temp.dispose();
     }
 
@@ -146,52 +146,31 @@ public abstract class ImageWrapperDecorationPainter extends RadianceDecorationPa
      *            Color tokens for painting the background of non-title decoration areas.
      */
     private void paintExtraBackground(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        ContainerColorTokens colorTokens) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
 
         if (this.baseDecorationPainter != null) {
-            this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, width, height, colorTokens);
+            this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
+                width, height, scaleFactor, colorTokens);
         } else {
             graphics.setColor(colorTokens.getContainerSurface());
             graphics.fillRect(0, 0, width, height);
         }
         Graphics2D temp = (Graphics2D) graphics.create();
-        this.tileArea(temp, comp, colorTokens, offset.x, offset.y, width, height);
-        temp.dispose();
-    }
-
-    @Override
-    public void paintDecorationArea(Graphics2D graphics, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
-        ContainerColorTokens colorTokens) {
-        Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
-        if (this.baseDecorationPainter != null) {
-            this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, outline, colorTokens);
-        } else {
-            graphics.setColor(colorTokens.getContainerSurface());
-            graphics.fill(outline);
-        }
-        Graphics2D temp = (Graphics2D) graphics.create();
-        // Clip the area for tiling with the image. Ideally this would be done
-        // with soft clipping (in RadianceCoreUtilities), but that creates an
-        // additional image. For now do hard clipping instead.
-        temp.setClip(outline);
-        this.tileArea(temp, comp, colorTokens, offset.x, offset.y, comp.getWidth(),
-                comp.getHeight());
+        this.tileArea(temp, comp, colorTokens, offset.x, offset.y, width, height, scaleFactor);
         temp.dispose();
     }
 
     private void tileArea(Graphics2D g, Component comp, ContainerColorTokens tileContainerTokens,
-            int offsetTextureX, int offsetTextureY, int width, int height) {
+            int offsetTextureX, int offsetTextureY, int width, int height, double scaleFactor) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(comp, this.textureAlpha, g));
 
-        double scale = RadianceCommonCortex.getScaleFactor(comp);
-        Image colorizedTile = this.getColorizedTile(scale, tileContainerTokens);
-        int tileWidth = (int) (colorizedTile.getWidth(null) / scale);
-        int tileHeight = (int) (colorizedTile.getHeight(null) / scale);
+        Image colorizedTile = this.getColorizedTile(scaleFactor, tileContainerTokens);
+        int tileWidth = (int) (colorizedTile.getWidth(null) / scaleFactor);
+        int tileHeight = (int) (colorizedTile.getHeight(null) / scaleFactor);
 
         offsetTextureX = offsetTextureX % tileWidth;
         offsetTextureY = offsetTextureY % tileHeight;

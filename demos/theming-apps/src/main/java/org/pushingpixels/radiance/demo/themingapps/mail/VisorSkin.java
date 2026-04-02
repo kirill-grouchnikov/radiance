@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
@@ -161,11 +162,7 @@ public class VisorSkin extends RadianceSkin {
         decorationPainter.setTextureAlpha(0.3f);
         this.decorationPainter = decorationPainter;
 
-        this.highlightSurfacePainter = new FractionBasedSurfacePainter("Visor Highlight",
-            new float[] {0.0f, 1.0f},
-            new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokens::getContainerSurface,
-                ContainerColorTokens::getContainerSurface,
-            });
+        this.highlightSurfacePainter = new FlatSurfacePainter("Visor Highlight",
+            ContainerColorTokens::getContainerSurface);
     }
 }

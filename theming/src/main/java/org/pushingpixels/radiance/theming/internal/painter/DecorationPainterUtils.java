@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
@@ -167,17 +166,22 @@ public class DecorationPainterUtils {
      * @param force
      *            If <code>true</code>, the painting of decoration background is enforced.
      */
-    public static void paintDecorationBackground(Graphics g, Component c, RadianceSkin skin, boolean force) {
+    public static void paintDecorationBackground(Graphics g, Component c,
+        float scaledWidth, float scaledHeight, double scaleFactor,
+        RadianceSkin skin, boolean force) {
         RadianceThemingSlices.DecorationAreaType decorationType =
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
-        paintDecorationBackground(g, c, skin, decorationType, force);
+        RadianceDecorationPainter decorationPainter = skin.getDecorationPainter();
+        ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(decorationType);
+        paintDecorationBackground(g, c, scaledWidth, scaledHeight, scaleFactor,
+            decorationPainter, decorationType, colorTokens, force);
     }
 
     /**
      * Paints the decoration background on the specified component. See comments on
-     * {@link #paintDecorationBackground(Graphics, Component, RadianceSkin, RadianceThemingSlices.DecorationAreaType, boolean)} 
+     * {@link #paintDecorationBackground(Graphics, Component, float, float, double, RadianceSkin, boolean)}
      * for the cases when the decoration background painting is skipped.
-     * 
+     *
      * @param g
      *            Graphics context.
      * @param c
@@ -186,41 +190,15 @@ public class DecorationPainterUtils {
      *            Decoration area type of the component.
      * @param force
      *            If <code>true</code>, the painting of decoration background is enforced. #see
-     *            {@link #paintDecorationBackground(Graphics, Component, RadianceSkin, RadianceThemingSlices.DecorationAreaType, boolean)}
+     *            {@link #paintDecorationBackground(Graphics, Component, float, float, double, RadianceSkin, boolean)}
      */
-    private static void paintDecorationBackground(Graphics g, Component c,
-        RadianceSkin skin, RadianceThemingSlices.DecorationAreaType decorationType, boolean force) {
+    public static void paintDecorationBackground(Graphics g, Component c, float scaledWidth,
+        float scaledHeight, double scaleFactor, RadianceDecorationPainter decorationPainter,
+        RadianceThemingSlices.DecorationAreaType decorationType, ContainerColorTokens colorTokens,
+        boolean force) {
         // System.out.println("Painting " + c.getClass().getSimpleName());
         boolean isInCellRenderer =
-                (SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null);
-        boolean isPreviewMode = false;
-        if (c instanceof JComponent) {
-            isPreviewMode = (Boolean.TRUE
-                    .equals(((JComponent) c).getClientProperty(WidgetUtilities.PREVIEW_MODE)));
-        }
-
-        if (!force && !isPreviewMode && !c.isShowing() && !isInCellRenderer) {
-            return;
-        }
-
-        if ((c.getHeight() == 0) || (c.getWidth() == 0)) {
-            return;
-        }
-
-        RadianceDecorationPainter painter = skin.getDecorationPainter();
-
-        Graphics2D g2d = (Graphics2D) g.create();
-        painter.paintDecorationArea(g2d, c, decorationType, c.getWidth(), c.getHeight(),
-            skin.getNeutralContainerTokens(decorationType));
-        g2d.dispose();
-    }
-
-    public static void paintDecorationArea(Graphics g, Component c,
-        Shape outline, RadianceThemingSlices.DecorationAreaType decorationType,
-        ContainerColorTokens tokens, boolean force) {
-        // System.out.println("Painting " + c.getClass().getSimpleName());
-        boolean isInCellRenderer = (SwingUtilities.getAncestorOfClass(CellRendererPane.class,
-            c) != null);
+            (SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null);
         boolean isPreviewMode = false;
         if (c instanceof JComponent) {
             isPreviewMode = (Boolean.TRUE
@@ -231,16 +209,13 @@ public class DecorationPainterUtils {
             return;
         }
 
-        if ((c.getHeight() == 0) || (c.getWidth() == 0)) {
+        if ((scaledWidth == 0) || (scaledHeight == 0)) {
             return;
         }
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-        RadianceDecorationPainter painter = skin.getDecorationPainter();
-
         Graphics2D g2d = (Graphics2D) g.create();
-        painter.paintDecorationArea(g2d, c, decorationType, outline, tokens);
-
+        decorationPainter.paintDecorationArea(g2d, c, decorationType, (int) scaledWidth, (int) scaledHeight,
+            scaleFactor, colorTokens);
         g2d.dispose();
     }
 }

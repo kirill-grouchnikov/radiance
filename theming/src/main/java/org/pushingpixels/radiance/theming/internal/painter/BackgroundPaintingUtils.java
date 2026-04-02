@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.painter;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -106,30 +107,36 @@ public class BackgroundPaintingUtils {
                 showOverlays = true;
             }
         }
+        boolean finalShowOverlays = showOverlays;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, c.getWidth(), c.getHeight(),
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                if (isShowing && (decorationType != RadianceThemingSlices.DecorationAreaType.NONE)
+                    && (skin.isRegisteredAsDecorationArea(decorationType))) {
+                    // use the decoration painter
+                    DecorationPainterUtils.paintDecorationBackground(graphics, c,
+                        scaledWidth, scaledHeight, scaleFactor, skin, force);
+                    if (finalShowOverlays) {
+                        OverlayPainterUtils.paintOverlays(graphics, c, scaledWidth, scaledHeight, scaleFactor,
+                            skin, decorationType);
+                    }
+                } else {
+                    // fill the area with solid color
+                    Component compForBackgroundFill =
+                        ((c instanceof JTextComponent) || (c instanceof JSpinner)) ? c.getParent() : c;
+                    Color background = RadianceColorUtilities.getBackgroundFillColor(compForBackgroundFill,
+                        CoreColorTokenUtils.ContainerType.NEUTRAL);
+                    graphics.setColor(background);
+                    graphics.fillRect(0, 0, scaledWidth, scaledHeight);
 
-        if (isShowing && (decorationType != RadianceThemingSlices.DecorationAreaType.NONE)
-                && (skin.isRegisteredAsDecorationArea(decorationType))) {
-            // use the decoration painter
-            DecorationPainterUtils.paintDecorationBackground(graphics, c, skin, force);
-            if (showOverlays) {
-                OverlayPainterUtils.paintOverlays(graphics, c, skin, decorationType);
-			}
-        } else {
-            // fill the area with solid color
-            Component compForBackgroundFill =
-                ((c instanceof JTextComponent) || (c instanceof JSpinner)) ? c.getParent() : c;
-            Color background = RadianceColorUtilities.getBackgroundFillColor(compForBackgroundFill,
-                CoreColorTokenUtils.ContainerType.NEUTRAL);
-            graphics.setColor(background);
-            graphics.fillRect(0, 0, c.getWidth(), c.getHeight());
-
-            if (isShowing) {
-                if (showOverlays) {
-                    // add overlays
-                    OverlayPainterUtils.paintOverlays(graphics, c, skin, decorationType);
+                    if (isShowing) {
+                        if (finalShowOverlays) {
+                            // add overlays
+                            OverlayPainterUtils.paintOverlays(graphics, c, scaledWidth, scaledHeight, scaleFactor,
+                                skin, decorationType);
+                        }
+                    }
                 }
-            }
-        }
+        });
 
         graphics.dispose();
     }

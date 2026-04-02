@@ -37,8 +37,8 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPa
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -97,6 +97,8 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		this.decorationPainter.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 		this.decorationPainter.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.highlightSurfacePainter = new GlassSurfacePainter();
+		this.highlightSurfacePainter = new FlatSurfacePainter("Graphite Glass",
+			(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
+				: colorTokens.getContainerSurfaceHigh());
 	}
 }

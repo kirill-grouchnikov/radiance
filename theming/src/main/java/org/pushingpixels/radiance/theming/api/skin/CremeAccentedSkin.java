@@ -34,9 +34,10 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -98,7 +99,7 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 		this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.highlightSurfacePainter = new MatteSurfacePainter();
+		this.highlightSurfacePainter = new FlatSurfacePainter("Creme", ContainerColorTokens::getContainerSurface);
 		this.outlinePainter = InlayOutlinePainter.builder()
             .displayName("Creme")
             .outer(ContainerColorTokens::getContainerOutline)

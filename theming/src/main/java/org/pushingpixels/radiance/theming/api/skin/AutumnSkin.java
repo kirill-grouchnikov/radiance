@@ -34,10 +34,10 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
@@ -204,13 +204,8 @@ public class AutumnSkin extends RadianceSkin {
 				})
             .build();
 
-		this.highlightSurfacePainter = new FractionBasedSurfacePainter("Autumn",
-			new float[] {0.0f, 0.5f, 1.0f},
-			new ContainerColorTokensSingleColorQuery[] {
-				ContainerColorTokens::getContainerSurfaceHigh,
-				ContainerColorTokens::getContainerSurface,
-				ContainerColorTokens::getContainerSurfaceLow
-			});
+		this.highlightSurfacePainter = new FlatSurfacePainter("Autumn",
+			ContainerColorTokens::getContainerSurfaceLow);
 
 		MarbleNoiseDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
 		decorationPainter.setTextureAlpha(0.7f);

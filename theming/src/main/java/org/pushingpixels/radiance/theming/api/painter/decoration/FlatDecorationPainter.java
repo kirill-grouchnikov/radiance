@@ -53,19 +53,10 @@ public class FlatDecorationPainter extends RadianceDecorationPainter {
 
     @Override
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-		ContainerColorTokens colorTokens) {
+		RadianceThemingSlices.DecorationAreaType decorationAreaType,
+		int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
 		graphics.setColor(colorTokens.getContainerSurface());
 		graphics.fillRect(0, 0, width, height);
-	}
-
-    @Override
-	public void paintDecorationArea(Graphics2D graphics, Component comp,
-		RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
-		ContainerColorTokens colorTokens) {
-
-		graphics.setColor(colorTokens.getContainerSurface());
-		graphics.fill(outline);
 	}
 }

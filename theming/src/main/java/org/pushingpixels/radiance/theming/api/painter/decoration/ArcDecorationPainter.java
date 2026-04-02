@@ -57,19 +57,20 @@ public class ArcDecorationPainter extends RadianceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        ContainerColorTokens colorTokens) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
         if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
                 (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
-            this.paintTitleBackground(graphics, comp, width, height, colorTokens);
+            this.paintTitleBackground(graphics, comp, width, height, scaleFactor, colorTokens);
         } else {
             this.paintExtraBackground(graphics, RadianceCoreUtilities.getHeaderParent(comp),
-                    comp, width, height, colorTokens);
+                    comp, width, height, scaleFactor, colorTokens);
         }
     }
 
-    private void paintTitleBackground(Graphics2D original, Component comp, int width, int height,
-        ContainerColorTokens colorTokens) {
+    private void paintTitleBackground(Graphics2D original, Component comp,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
+
         boolean isDark = colorTokens.isDark();
 
         // Create a new Graphics2D object so that we can apply clipping to it without having
@@ -127,7 +128,7 @@ public class ArcDecorationPainter extends RadianceDecorationPainter {
     }
 
     private void paintExtraBackground(Graphics2D graphics, Container parent, Component comp,
-            int width, int height, ContainerColorTokens colorTokens) {
+            int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
         boolean isDark = colorTokens.isDark();
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
@@ -136,56 +137,24 @@ public class ArcDecorationPainter extends RadianceDecorationPainter {
         JLayeredPane layeredPane = rootPane.getLayeredPane();
         Insets layeredPaneInsets = (layeredPane != null) ? layeredPane.getInsets() : null;
 
-        int pWidth = (layeredPane == null) ? parent.getWidth()
+        int paneWidth = (layeredPane == null) ? parent.getWidth()
                 : layeredPane.getWidth() - layeredPaneInsets.left - layeredPaneInsets.right;
+        int scaledPaneWidth = (int) (paneWidth * scaleFactor);
 
-        if (pWidth != 0) {
+        if (scaledPaneWidth != 0) {
+            int offsetX = (int) (offset.x * scaleFactor);
             Color edgeBottomColor = isDark
                 ? colorTokens.getContainerSurfaceLowest()
                 : colorTokens.getContainerSurfaceHighest();
             Color centerBottomColor = colorTokens.getContainerSurface();
             LinearGradientPaint gradientBottom = new LinearGradientPaint(
-                -offset.x, 0, -offset.x + pWidth, 0,
+                -offsetX, 0, -offsetX + scaledPaneWidth, 0,
                 new float[] { 0.0f, 0.5f, 1.0f },
                 new Color[] { edgeBottomColor, centerBottomColor, edgeBottomColor },
                 CycleMethod.REPEAT);
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setPaint(gradientBottom);
-            g2d.fillRect(-offset.x, 0, pWidth, height);
-            g2d.dispose();
-        }
-    }
-
-    @Override
-    public void paintDecorationArea(Graphics2D graphics, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape outline,
-        ContainerColorTokens colorTokens) {
-
-        boolean isDark = colorTokens.isDark();
-
-        Component parent = RadianceCoreUtilities.getHeaderParent(comp);
-        Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
-        JRootPane rootPane = SwingUtilities.getRootPane(parent);
-        // fix for bug 234 - Window doesn't have a root pane.
-        JLayeredPane layeredPane = rootPane.getLayeredPane();
-        Insets layeredPaneInsets = (layeredPane != null) ? layeredPane.getInsets() : null;
-
-        int pWidth = (layeredPane == null) ? parent.getWidth()
-                : layeredPane.getWidth() - layeredPaneInsets.left - layeredPaneInsets.right;
-
-        if (pWidth != 0) {
-            LinearGradientPaint gradientBottom = new LinearGradientPaint(
-                -offset.x, 0, -offset.x + pWidth, 0,
-                new float[] { 0.0f, 0.5f, 1.0f },
-                new Color[] {
-                    isDark ? colorTokens.getContainerSurfaceLowest() : colorTokens.getContainerSurfaceHighest(),
-                    colorTokens.getContainerSurface(),
-                    isDark ? colorTokens.getContainerSurfaceLowest() : colorTokens.getContainerSurfaceHighest()
-                },
-                CycleMethod.REPEAT);
-            Graphics2D g2d = (Graphics2D) graphics.create();
-            g2d.setPaint(gradientBottom);
-            g2d.fill(outline);
+            g2d.fillRect(-offsetX, 0, scaledPaneWidth, height);
             g2d.dispose();
         }
     }

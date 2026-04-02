@@ -33,10 +33,10 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
@@ -158,7 +158,9 @@ public class CeruleanSkin extends RadianceSkin {
 		this.decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.highlightSurfacePainter = new GlassSurfacePainter();
+		this.highlightSurfacePainter = new FlatSurfacePainter("Cerulean",
+			(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
+				: colorTokens.getContainerSurfaceHigh());
 		this.outlinePainter = new FlatOutlinePainter();
 		this.highlightOutlinePainter = new FlatOutlinePainter();
 	}

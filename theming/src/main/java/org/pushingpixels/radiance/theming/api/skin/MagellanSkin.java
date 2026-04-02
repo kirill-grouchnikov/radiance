@@ -34,9 +34,12 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
@@ -244,7 +247,9 @@ public class MagellanSkin extends RadianceSkin {
         this.decorationPainter.addOverlayPainter(footerTopShadowOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.highlightSurfacePainter = new ClassicSurfacePainter();
+        this.highlightSurfacePainter = new FlatSurfacePainter("Magellan",
+            (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+                : colorTokens.getContainerSurfaceLowest());
 
         this.outlinePainter = InlayOutlinePainter.builder()
             .displayName("Magellan")

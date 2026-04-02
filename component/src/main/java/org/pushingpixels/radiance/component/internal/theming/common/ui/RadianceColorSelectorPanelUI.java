@@ -85,7 +85,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                     graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
 
                     HighlightPainterUtils.paintHighlightBorder1X(graphics1X,
-                        this.colorSelectorPanel, scaledWidth, scaledHeight, 1.0f, openSides,
+                        this.colorSelectorPanel, scaledWidth, scaledHeight, scaleFactor, 1.0f, openSides,
                         RadianceCoreUtilities.getOutlinePainter(this.colorSelectorPanel),
                         CoreColorTokenUtils.getContainerTokens(this.colorSelectorPanel,
                             ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL));

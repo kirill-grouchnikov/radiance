@@ -77,8 +77,8 @@ public final class TopBezelOverlayPainter implements RadianceDecorationPainter.O
 
     @Override
     public void paintOverlay(Graphics2D g, Component comp,
-        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        ContainerColorTokens colorTokens) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType,
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
         Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
                 .getTopMostParentWithDecorationAreaType(comp,
@@ -86,29 +86,17 @@ public final class TopBezelOverlayPainter implements RadianceDecorationPainter.O
 
         Point inTopMost = SwingUtilities.convertPoint(comp, new Point(0, 0),
                 topMostWithSameDecorationAreaType);
-        int dy = inTopMost.y;
+        int dy = (int) (inTopMost.y * scaleFactor);
 
-        Graphics2D graphics = (Graphics2D) g.create();
-        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-        // to not normalize coordinates to paint at full pixels, and will result in blurry
-        // outlines.
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setColor(this.colorTokensQueryTop.query(colorTokens));
 
-        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    graphics1X.setColor(this.colorTokensQueryTop.query(colorTokens));
+        int topY = -(int) (scaleFactor * dy);
+        g.drawLine(0, topY, width, topY);
 
-                    int topY = -(int) (scaleFactor * dy);
-                    graphics1X.drawLine(0, topY, scaledWidth, topY);
+        g.setColor(this.colorTokensQueryBottom.query(colorTokens));
 
-                    graphics1X.setColor(this.colorTokensQueryBottom.query(colorTokens));
-
-                    int bezelY = 1 - (int) (scaleFactor * dy);
-                    graphics1X.drawLine(0, bezelY, scaledWidth, bezelY);
-                });
-
-        graphics.dispose();
+        int bezelY = 1 - dy;
+        g.drawLine(0, bezelY, width, bezelY);
     }
 
     @Override
