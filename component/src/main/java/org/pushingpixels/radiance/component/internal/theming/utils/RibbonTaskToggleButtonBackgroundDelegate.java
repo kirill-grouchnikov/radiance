@@ -157,7 +157,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                     }
 
                     OutlinePainterUtils.paintOutline(graphics1X, button, currState,
-                        scaledWidth, scaledHeight + 3.0f, scaleFactor, 1.0f,
+                        scaledWidth - 1, scaledHeight + 3.0f, scaleFactor, 1.0f,
                         baselineShapeSupplier, tokens);
                 });
         graphics.dispose();
