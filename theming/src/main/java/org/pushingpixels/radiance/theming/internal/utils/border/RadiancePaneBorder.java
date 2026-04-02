@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -68,28 +69,51 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
         Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
             SwingUtilities.windowForComponent(c));
         ContainerColorTokens titleContainerTokens = skin.getNeutralContainerTokens(titlePaneComp);
+
         Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(x, y);
 
-        double scaleFactor = RadianceCommonCortex.getScaleFactor(c);
-        float strokeWidth = (scaleFactor <= 2.0f) ? 0.5f + (float) scaleFactor / 2.0f : (float) scaleFactor;
-        graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
+            (graphics1X, scaleX, scaleY, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        // bottom and right border as outline
-        graphics.setColor(titleContainerTokens.getContainerOutline());
-        graphics.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
-        graphics.drawLine(x + w - 1, y, x + w - 1, y + h - 1);
+                int insideThickness = (int) (BORDER_THICKNESS * scaleFactor);
 
-        // top and left border as outline variant
-        graphics.setColor(titleContainerTokens.getContainerOutlineVariant());
-        graphics.drawLine(x, y, x + w - 2, y);
-        graphics.drawLine(x, y, x, y + h - 2);
+                // Inner part, as surface
+                graphics1X.setColor(titleContainerTokens.getContainerSurface());
+                // Left edge
+                graphics1X.fillRect(0, 0, insideThickness, scaledHeight);
+                // Right edge
+                graphics1X.fillRect(scaledWidth - 1 - insideThickness, 0, insideThickness, scaledHeight);
+                // Top edge
+                graphics1X.fillRect(0, 0, scaledWidth, insideThickness);
+                // Bottom edge
+                graphics1X.fillRect(0, scaledHeight - 1 - insideThickness, scaledWidth, insideThickness);
 
-        // inner thicker outline as surface
-        graphics.setColor(titleContainerTokens.getContainerSurface());
-        graphics.drawRect(x + 1, y + 1, w - 3, h - 3);
-        graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
-        graphics.drawRect(x + 3, y + 3, w - 7, h - 7);
-        graphics.drawRect(x + 4, y + 4, w - 9, h - 9);
+                // top and left border as 40% mix of outline variant and outline
+                graphics1X.setColor(RadianceColorUtilities.getInterpolatedColor(
+                    titleContainerTokens.getContainerOutlineVariant(),
+                    titleContainerTokens.getContainerOutline(), 0.4f));
+                // Top edge
+                graphics1X.drawLine(0, 0, scaledWidth, 0);
+                graphics1X.drawLine(0, 1, scaledWidth, 1);
+                // Left edge
+                graphics1X.drawLine(0, 0, 0, scaledHeight);
+                graphics1X.drawLine(1, 0, 1, scaledHeight);
+
+                // bottom and right border as outline
+                graphics1X.setColor(titleContainerTokens.getContainerOutline());
+                // Bottom edge
+                graphics1X.drawLine(0, scaledHeight - 1, scaledWidth, scaledHeight - 1);
+                graphics1X.drawLine(0, scaledHeight - 2, scaledWidth, scaledHeight - 2);
+                // Right edge
+                graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight);
+                graphics1X.drawLine(scaledWidth - 2, 0, scaledWidth - 2, scaledHeight);
+        });
 
         graphics.dispose();
     }
