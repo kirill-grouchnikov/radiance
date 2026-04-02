@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.painter.decoration.overlay;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -66,7 +65,7 @@ public final class BottomLineOverlayPainter implements RadianceDecorationPainter
     @Override
     public void paintOverlay(Graphics2D g, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        RadianceSkin skin) {
+        ContainerColorTokens colorTokens) {
 
         Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
                 .getTopMostParentWithDecorationAreaType(comp, decorationAreaType);
@@ -80,9 +79,7 @@ public final class BottomLineOverlayPainter implements RadianceDecorationPainter
 
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height, (graphics1X, x, y,
             scaledWidth, scaledHeight, scaleFactor) -> {
-            ContainerColorTokens surfaceTokens =
-                skin.getNeutralContainerTokens(decorationAreaType);
-            Color lineColor = this.containerTokensQuery.query(surfaceTokens);
+            Color lineColor = this.containerTokensQuery.query(colorTokens);
             graphics1X.setColor(RadianceColorUtilities.getAlphaColor(lineColor, 128));
 
             int bottomY = (int) (scaleFactor * topMostWithSameDecorationAreaType.getHeight() - 1);

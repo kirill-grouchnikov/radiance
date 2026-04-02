@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.painter.decoration;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -59,9 +58,7 @@ public class ArcDecorationPainter extends RadianceDecorationPainter {
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        RadianceSkin skin) {
-        ContainerColorTokens colorTokens =
-            skin.getNeutralContainerTokens(decorationAreaType);
+        ContainerColorTokens colorTokens) {
         if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE) ||
                 (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
             this.paintTitleBackground(graphics, comp, width, height, colorTokens);

@@ -29,11 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.decoration.overlay;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -85,11 +83,9 @@ public final class TopShadowOverlayPainter implements RadianceDecorationPainter.
     @Override
     public void paintOverlay(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        RadianceSkin skin) {
+        ContainerColorTokens colorTokens) {
 
-        Color shadowColor = CoreColorTokenUtils.getContainerTokens(comp,
-            ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL)
-                .getContainerOutline();
+        Color shadowColor = colorTokens.getContainerOutline();
 
         // need to handle components "embedded" in other components
         Component topMostWithSameDecorationAreaType = RadianceCoreUtilities

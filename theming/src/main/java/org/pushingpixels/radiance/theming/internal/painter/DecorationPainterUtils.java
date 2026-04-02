@@ -167,16 +167,16 @@ public class DecorationPainterUtils {
      * @param force
      *            If <code>true</code>, the painting of decoration background is enforced.
      */
-    public static void paintDecorationBackground(Graphics g, Component c, boolean force) {
+    public static void paintDecorationBackground(Graphics g, Component c, RadianceSkin skin, boolean force) {
         RadianceThemingSlices.DecorationAreaType decorationType =
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
-        paintDecorationBackground(g, c, decorationType, force);
+        paintDecorationBackground(g, c, skin, decorationType, force);
     }
 
     /**
      * Paints the decoration background on the specified component. See comments on
-     * {@link #paintDecorationBackground(Graphics, Component, boolean)} for the cases when the
-     * decoration background painting is skipped.
+     * {@link #paintDecorationBackground(Graphics, Component, RadianceSkin, RadianceThemingSlices.DecorationAreaType, boolean)} 
+     * for the cases when the decoration background painting is skipped.
      * 
      * @param g
      *            Graphics context.
@@ -186,10 +186,10 @@ public class DecorationPainterUtils {
      *            Decoration area type of the component.
      * @param force
      *            If <code>true</code>, the painting of decoration background is enforced. #see
-     *            {@link #paintDecorationBackground(Graphics, Component, boolean)}
+     *            {@link #paintDecorationBackground(Graphics, Component, RadianceSkin, RadianceThemingSlices.DecorationAreaType, boolean)}
      */
     private static void paintDecorationBackground(Graphics g, Component c,
-          RadianceThemingSlices.DecorationAreaType decorationType, boolean force) {
+        RadianceSkin skin, RadianceThemingSlices.DecorationAreaType decorationType, boolean force) {
         // System.out.println("Painting " + c.getClass().getSimpleName());
         boolean isInCellRenderer =
                 (SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null);
@@ -207,11 +207,11 @@ public class DecorationPainterUtils {
             return;
         }
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
         RadianceDecorationPainter painter = skin.getDecorationPainter();
 
         Graphics2D g2d = (Graphics2D) g.create();
-        painter.paintDecorationArea(g2d, c, decorationType, c.getWidth(), c.getHeight(), skin);
+        painter.paintDecorationArea(g2d, c, decorationType, c.getWidth(), c.getHeight(),
+            skin.getNeutralContainerTokens(decorationType));
         g2d.dispose();
     }
 

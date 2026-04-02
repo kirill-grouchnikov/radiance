@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.painter;
 
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
@@ -64,9 +65,10 @@ public class OverlayPainterUtils {
 			return;
 		}
 
+		ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(decorationAreaType);
 		for (RadianceDecorationPainter.OverlayPainter overlayPainter : overlayPainters) {
 			Graphics2D g2d = (Graphics2D) g.create();
-			overlayPainter.paintOverlay(g2d, c, decorationAreaType, c.getWidth(), c.getHeight(), skin);
+			overlayPainter.paintOverlay(g2d, c, decorationAreaType, c.getWidth(), c.getHeight(), colorTokens);
 			g2d.dispose();
 		}
 	}

@@ -110,7 +110,7 @@ public class BackgroundPaintingUtils {
         if (isShowing && (decorationType != RadianceThemingSlices.DecorationAreaType.NONE)
                 && (skin.isRegisteredAsDecorationArea(decorationType))) {
             // use the decoration painter
-            DecorationPainterUtils.paintDecorationBackground(graphics, c, force);
+            DecorationPainterUtils.paintDecorationBackground(graphics, c, skin, force);
             if (showOverlays) {
                 OverlayPainterUtils.paintOverlays(graphics, c, skin, decorationType);
 			}

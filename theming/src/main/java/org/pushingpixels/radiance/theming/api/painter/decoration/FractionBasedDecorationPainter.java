@@ -30,9 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.decoration;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.painter.FractionBasedPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -175,13 +173,12 @@ public class FractionBasedDecorationPainter extends RadianceDecorationPainter {
 
 	@Override
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
-			RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-			RadianceSkin skin) {
-		ContainerColorTokens colorTokens =
-			skin.getNeutralContainerTokens(decorationAreaType);
+		RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+		ContainerColorTokens colorTokens) {
+
 		if (this.decoratedAreas.contains(decorationAreaType)) {
 			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
-					width, height, colorTokens);
+				width, height, colorTokens);
 		} else {
 			this.paintSolidBackground(graphics, width, height, colorTokens);
 		}

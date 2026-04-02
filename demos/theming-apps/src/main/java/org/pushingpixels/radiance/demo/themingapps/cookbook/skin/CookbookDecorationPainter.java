@@ -113,9 +113,7 @@ class CookbookDecorationPainter extends RadianceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-            DecorationAreaType decorationAreaType, int width, int height, RadianceSkin skin) {
-        ContainerColorTokens tokens =
-            skin.getNeutralContainerTokens(decorationAreaType);
+            DecorationAreaType decorationAreaType, int width, int height, ContainerColorTokens colorTokens) {
         BufferedImage toOverlay = this.getWatermarkImage(decorationAreaType);
         Component farthestOfTheSameAreaType = this.getFarthest(comp, decorationAreaType);
         if ((decorationAreaType == DecorationAreaType.PRIMARY_TITLE_PANE)
@@ -130,10 +128,10 @@ class CookbookDecorationPainter extends RadianceDecorationPainter {
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + headerHeight,
                 new float[] { 0.0f, 0.33f, 0.67f, 1.0f },
                 new Color[] {
-                    tokens.getContainerSurfaceBright(),
-                    tokens.getContainerSurfaceHighest(),
-                    tokens.getContainerSurfaceHigh(),
-                    tokens.getContainerSurface()}));
+                    colorTokens.getContainerSurfaceBright(),
+                    colorTokens.getContainerSurfaceHighest(),
+                    colorTokens.getContainerSurfaceHigh(),
+                    colorTokens.getContainerSurface()}));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.FOOTER) {
             int dy = comp.getLocationOnScreen().y
@@ -143,22 +141,22 @@ class CookbookDecorationPainter extends RadianceDecorationPainter {
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + footerHeight,
                 new float[] { 0.0f, 0.35f, 0.55f, 0.7f, 0.85f, 1.0f },
                 new Color[] {
-                    tokens.getContainerSurfaceHighest(),
-                    tokens.getContainerSurfaceHigh(),
-                    tokens.getContainerSurface(),
-                    tokens.getContainerSurfaceLow(),
-                    tokens.getContainerSurfaceLowest(),
-                    tokens.getContainerSurfaceDim()}));
+                    colorTokens.getContainerSurfaceHighest(),
+                    colorTokens.getContainerSurfaceHigh(),
+                    colorTokens.getContainerSurface(),
+                    colorTokens.getContainerSurfaceLow(),
+                    colorTokens.getContainerSurfaceLowest(),
+                    colorTokens.getContainerSurfaceDim()}));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.CONTROL_PANE) {
             // general background gradient
-            graphics.setPaint(new GradientPaint(0, 0, tokens.getContainerSurfaceHigh(),
-                0, height, tokens.getContainerSurface()));
+            graphics.setPaint(new GradientPaint(0, 0, colorTokens.getContainerSurfaceHigh(),
+                0, height, colorTokens.getContainerSurface()));
             graphics.fillRect(0, 0, width, height);
         } else {
             // main background gradient
-            graphics.setPaint(new GradientPaint(0, 0, tokens.getContainerSurfaceHighest(),
-                0, height, tokens.getContainerSurface()));
+            graphics.setPaint(new GradientPaint(0, 0, colorTokens.getContainerSurfaceHighest(),
+                0, height, colorTokens.getContainerSurface()));
             graphics.fillRect(0, 0, width, height);
         }
 

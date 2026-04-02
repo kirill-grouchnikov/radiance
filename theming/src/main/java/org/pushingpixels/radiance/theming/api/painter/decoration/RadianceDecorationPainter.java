@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.painter.decoration;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
@@ -65,12 +64,12 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
          *     Width.
          * @param height
          *     Height.
-         * @param skin
-         *     Skin for painting the overlay.
+         * @param colorTokens
+         *     Color tokens for painting the overlay.
          */
         void paintOverlay(Graphics2D graphics, Component comp,
             RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-            RadianceSkin skin);
+            ContainerColorTokens colorTokens);
     }
 
     /**
@@ -160,11 +159,11 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
      * @param decorationAreaType Decoration area type. Must not be <code>null</code>.
      * @param width              Width.
      * @param height             Height.
-     * @param skin               Skin for painting the decoration area.
+     * @param colorTokens        Color tokens for painting the decoration area.
      */
     public abstract void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        RadianceSkin skin);
+        ContainerColorTokens colorTokens);
 
     /**
      * Paints the decoration area as a specified shape.

@@ -56,19 +56,18 @@ public class Glass3DDecorationPainter extends RadianceDecorationPainter {
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
         RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-        RadianceSkin skin) {
+        ContainerColorTokens colorTokens) {
 
-        ContainerColorTokens baseTokens = skin.getNeutralContainerTokens(decorationAreaType);
         LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, comp.getHeight(),
             new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
             new Color[] {
-                baseTokens.isDark() ? baseTokens.getContainerSurfaceHighest()
-                    : baseTokens.getContainerSurfaceLowest(),
-                baseTokens.isDark() ? baseTokens.getContainerSurfaceHigh()
-                    : baseTokens.getContainerSurfaceLow(),
-                baseTokens.getContainerSurface(),
-                baseTokens.isDark() ? baseTokens.getContainerSurfaceHighest()
-                    : baseTokens.getContainerSurfaceLowest() },
+                colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+                    : colorTokens.getContainerSurfaceLowest(),
+                colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
+                    : colorTokens.getContainerSurfaceLow(),
+                colorTokens.getContainerSurface(),
+                colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
+                    : colorTokens.getContainerSurfaceLowest() },
             MultipleGradientPaint.CycleMethod.REPEAT);
         graphics.setPaint(paint);
         graphics.fillRect(0, 0, width, height);

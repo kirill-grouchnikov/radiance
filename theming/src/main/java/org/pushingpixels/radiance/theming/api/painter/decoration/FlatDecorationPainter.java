@@ -30,9 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.decoration;
 
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import java.awt.*;
 
@@ -55,10 +53,10 @@ public class FlatDecorationPainter extends RadianceDecorationPainter {
 
     @Override
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
-			RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-			RadianceSkin skin) {
+		RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+		ContainerColorTokens colorTokens) {
 
-		graphics.setColor(RadianceCoreUtilities.getBackgroundFill(skin, decorationAreaType));
+		graphics.setColor(colorTokens.getContainerSurface());
 		graphics.fillRect(0, 0, width, height);
 	}
 

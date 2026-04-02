@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
@@ -87,12 +86,13 @@ public abstract class ImageWrapperDecorationPainter extends RadianceDecorationPa
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height, RadianceSkin skin) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+        ContainerColorTokens colorTokens) {
         if ((decorationAreaType == RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)
                 || (decorationAreaType == RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE)) {
-            this.paintTitleBackground(graphics, comp, decorationAreaType, width, height, skin);
+            this.paintTitleBackground(graphics, comp, decorationAreaType, width, height, colorTokens);
         } else {
-            this.paintExtraBackground(graphics, comp, decorationAreaType, width, height, skin);
+            this.paintExtraBackground(graphics, comp, decorationAreaType, width, height, colorTokens);
         }
     }
 
@@ -109,24 +109,23 @@ public abstract class ImageWrapperDecorationPainter extends RadianceDecorationPa
      *            Width.
      * @param height
      *            Height.
-     * @param skin
-     *            Skin for painting the title background.
+     * @param colorTokens
+     *            Color tokens for painting the title background.
      */
     private void paintTitleBackground(Graphics2D graphics, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-            RadianceSkin skin) {
-        ContainerColorTokens tileContainerTokens =
-                skin.getNeutralContainerTokens(decorationAreaType);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+        ContainerColorTokens colorTokens) {
+
         if (this.baseDecorationPainter == null) {
-            graphics.setColor(tileContainerTokens.getContainerSurface());
+            graphics.setColor(colorTokens.getContainerSurface());
             graphics.fillRect(0, 0, width, height);
         } else {
             this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
-                    width, height, skin);
+                width, height, colorTokens);
         }
 
         Graphics2D temp = (Graphics2D) graphics.create();
-        this.tileArea(temp, comp, tileContainerTokens, 0, 0, width, height);
+        this.tileArea(temp, comp, colorTokens, 0, 0, width, height);
         temp.dispose();
     }
 
@@ -143,24 +142,23 @@ public abstract class ImageWrapperDecorationPainter extends RadianceDecorationPa
      *            Width.
      * @param height
      *            Height.
-     * @param skin
-     *            Skin for painting the background of non-title decoration areas.
+     * @param colorTokens
+     *            Color tokens for painting the background of non-title decoration areas.
      */
     private void paintExtraBackground(Graphics2D graphics, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-            RadianceSkin skin) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+        ContainerColorTokens colorTokens) {
+
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
 
-        ContainerColorTokens tileContainerTokens =
-            skin.getNeutralContainerTokens(decorationAreaType);
         if (this.baseDecorationPainter != null) {
-            this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, width, height, skin);
+            this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType, width, height, colorTokens);
         } else {
-            graphics.setColor(tileContainerTokens.getContainerSurface());
+            graphics.setColor(colorTokens.getContainerSurface());
             graphics.fillRect(0, 0, width, height);
         }
         Graphics2D temp = (Graphics2D) graphics.create();
-        this.tileArea(temp, comp, tileContainerTokens, offset.x, offset.y, width, height);
+        this.tileArea(temp, comp, colorTokens, offset.x, offset.y, width, height);
         temp.dispose();
     }
 

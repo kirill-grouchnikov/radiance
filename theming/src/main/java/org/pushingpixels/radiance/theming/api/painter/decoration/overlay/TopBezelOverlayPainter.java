@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.api.painter.decoration.overlay;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -78,8 +77,9 @@ public final class TopBezelOverlayPainter implements RadianceDecorationPainter.O
 
     @Override
     public void paintOverlay(Graphics2D g, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
-            RadianceSkin skin) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, int width, int height,
+        ContainerColorTokens colorTokens) {
+
         Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
                 .getTopMostParentWithDecorationAreaType(comp,
                         decorationAreaType);
@@ -97,15 +97,12 @@ public final class TopBezelOverlayPainter implements RadianceDecorationPainter.O
 
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    ContainerColorTokens surfaceTokens =
-                        skin.getNeutralContainerTokens(decorationAreaType);
-
-                    graphics1X.setColor(this.colorTokensQueryTop.query(surfaceTokens));
+                    graphics1X.setColor(this.colorTokensQueryTop.query(colorTokens));
 
                     int topY = -(int) (scaleFactor * dy);
                     graphics1X.drawLine(0, topY, scaledWidth, topY);
 
-                    graphics1X.setColor(this.colorTokensQueryBottom.query(surfaceTokens));
+                    graphics1X.setColor(this.colorTokensQueryBottom.query(colorTokens));
 
                     int bezelY = 1 - (int) (scaleFactor * dy);
                     graphics1X.drawLine(0, bezelY, scaledWidth, bezelY);
