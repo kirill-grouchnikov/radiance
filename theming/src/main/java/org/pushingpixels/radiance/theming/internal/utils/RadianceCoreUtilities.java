@@ -289,10 +289,10 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Returns the component shaper of the specified button.
+     * Returns the component shaper of the specified component.
      *
      * @param comp The component.
-     * @return The component shaper of the specified button.
+     * @return The component shaper of the specified component.
      * @see RadianceSkin#getComponentShaper(RadianceThemingSlices.DecorationAreaType)
      * @see RadianceSkin#registerComponentShaper(RadianceComponentShaper, RadianceThemingSlices.DecorationAreaType...)
      */

@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -248,8 +249,23 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         } else {
             graphics.translate(trackBounds.x - THUMB_DELTA, trackBounds.y);
         }
+
         graphics.setColor(RadianceColorUtilities.getBackgroundFillColorScrollBar(this.scrollbar));
         graphics.fillRect(0, 0, this.scrollbar.getWidth(), this.scrollbar.getHeight());
+
+        Graphics2D g2d = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.scrollbar.getWidth(), this.scrollbar.getHeight(),
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                DecorationPainterUtils.paintInlay(graphics1X, scrollbar,
+                    scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor,
+                    RadianceCoreUtilities.getSkin(scrollbar),
+                    DecorationPainterUtils.getDecorationType(scrollbar));
+            });
 
         GhostPaintingUtils.paintGhostImages(this.scrollbar, graphics);
 

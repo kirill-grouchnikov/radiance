@@ -109,14 +109,17 @@ public class BackgroundPaintingUtils {
         }
         boolean finalShowOverlays = showOverlays;
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, c.getWidth(), c.getHeight(),
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 if (isShowing && (decorationType != RadianceThemingSlices.DecorationAreaType.NONE)
                     && (skin.isRegisteredAsDecorationArea(decorationType))) {
                     // use the decoration painter
                     DecorationPainterUtils.paintDecorationBackground(graphics, c,
                         scaledWidth, scaledHeight, scaleFactor, skin, force);
+                    DecorationPainterUtils.paintInlay(graphics, c,
+                        scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor,
+                        skin, decorationType);
                     if (finalShowOverlays) {
-                        OverlayPainterUtils.paintOverlays(graphics, c, scaledWidth, scaledHeight, scaleFactor,
+                        DecorationPainterUtils.paintOverlays(graphics, c, scaledWidth, scaledHeight, scaleFactor,
                             skin, decorationType);
                     }
                 } else {
@@ -126,12 +129,16 @@ public class BackgroundPaintingUtils {
                     Color background = RadianceColorUtilities.getBackgroundFillColor(compForBackgroundFill,
                         CoreColorTokenUtils.ContainerType.NEUTRAL);
                     graphics.setColor(background);
-                    graphics.fillRect(0, 0, scaledWidth, scaledHeight);
+                    graphics.fillRect(scaledX, scaledY, scaledWidth, scaledHeight);
 
                     if (isShowing) {
+                        DecorationPainterUtils.paintInlay(graphics, c,
+                            scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor,
+                            skin, decorationType);
+
                         if (finalShowOverlays) {
                             // add overlays
-                            OverlayPainterUtils.paintOverlays(graphics, c, scaledWidth, scaledHeight, scaleFactor,
+                            DecorationPainterUtils.paintOverlays(graphics, c, scaledWidth, scaledHeight, scaleFactor,
                                 skin, decorationType);
                         }
                     }

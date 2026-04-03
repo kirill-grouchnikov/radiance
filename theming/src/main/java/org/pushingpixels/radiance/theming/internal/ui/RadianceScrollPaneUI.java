@@ -32,11 +32,13 @@ package org.pushingpixels.radiance.theming.internal.ui;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -263,44 +265,85 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
 
         if (scrollLm != null) {
             Set<Component> corners = new HashSet<>();
-            if (scrollLm.getCorner(ScrollPaneLayout.LOWER_LEFT_CORNER) != null) {
-                corners.add(scrollLm.getCorner(ScrollPaneLayout.LOWER_LEFT_CORNER));
+            Component lowerLeftCorner = scrollLm.getCorner(ScrollPaneLayout.LOWER_LEFT_CORNER);
+            Component lowerRightCorner = scrollLm.getCorner(ScrollPaneLayout.LOWER_RIGHT_CORNER);
+            Component upperLeftCorner = scrollLm.getCorner(ScrollPaneLayout.UPPER_LEFT_CORNER);
+            Component upperRightCorner = scrollLm.getCorner(ScrollPaneLayout.UPPER_RIGHT_CORNER);
+            if (lowerLeftCorner != null) {
+                corners.add(lowerLeftCorner);
             }
-            if (scrollLm.getCorner(ScrollPaneLayout.LOWER_RIGHT_CORNER) != null) {
-                corners.add(scrollLm.getCorner(ScrollPaneLayout.LOWER_RIGHT_CORNER));
+            if (lowerRightCorner != null) {
+                corners.add(lowerRightCorner);
             }
-            if (scrollLm.getCorner(ScrollPaneLayout.UPPER_LEFT_CORNER) != null) {
-                corners.add(scrollLm.getCorner(ScrollPaneLayout.UPPER_LEFT_CORNER));
+            if (upperLeftCorner != null) {
+                corners.add(upperLeftCorner);
             }
-            if (scrollLm.getCorner(ScrollPaneLayout.UPPER_RIGHT_CORNER) != null) {
-                corners.add(scrollLm.getCorner(ScrollPaneLayout.UPPER_RIGHT_CORNER));
+            if (upperRightCorner != null) {
+                corners.add(upperRightCorner);
             }
 
             if (RadianceCoreUtilities.isOpaque(c)) {
                 Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(RadianceColorUtilities.getBackgroundFillColorScrollBar(
-                    this.scrollpane.getVerticalScrollBar()));
-                for (Component corner : corners) {
-                    g2d.fill(corner.getBounds());
-                }
 
-                JScrollBar horizontal = this.scrollpane.getHorizontalScrollBar();
-                JScrollBar vertical = this.scrollpane.getVerticalScrollBar();
-                if ((horizontal != null) && (vertical != null)) {
-                    if (this.scrollpane.getComponentOrientation().isLeftToRight()) {
-                        // Bottom right corner
-                        if (scrollLm.getCorner(ScrollPaneLayout.LOWER_RIGHT_CORNER) == null) {
-                            g2d.fillRect(horizontal.getX() + horizontal.getWidth(),
-                                    horizontal.getY(), vertical.getWidth(), horizontal.getHeight());
+                Color fillColor = RadianceColorUtilities.getBackgroundFillColorScrollBar(
+                    this.scrollpane.getVerticalScrollBar());
+
+                // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+                // to not normalize coordinates to paint at full pixels, and will result in blurry
+                // outlines.
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+                RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.scrollpane.getWidth(), this.scrollpane.getHeight(),
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+
+                        graphics1X.setColor(fillColor);
+
+                        for (Component corner : corners) {
+                            Rectangle cornerBounds = corner.getBounds();
+                            int cornerX = (int) (cornerBounds.x * scaleFactor);
+                            int cornerY = (int) (cornerBounds.y * scaleFactor);
+                            int cornerWidth = (int) (cornerBounds.width * scaleFactor);
+                            int cornerHeight = (int) (cornerBounds.height * scaleFactor);
+                            graphics1X.fillRect(cornerX, cornerY, cornerWidth, cornerHeight);
+                            DecorationPainterUtils.paintInlay(graphics1X, scrollpane,
+                                cornerX, cornerY, cornerWidth, cornerHeight, scaleFactor,
+                                RadianceCoreUtilities.getSkin(scrollpane),
+                                DecorationPainterUtils.getDecorationType(scrollpane));
                         }
-                    } else {
-                        // Bottom left corner
-                        if (scrollLm.getCorner(ScrollPaneLayout.LOWER_LEFT_CORNER) == null) {
-                            g2d.fillRect(0, horizontal.getY(), vertical.getWidth(),
-                                    horizontal.getHeight());
+
+                        JScrollBar horizontal = this.scrollpane.getHorizontalScrollBar();
+                        JScrollBar vertical = this.scrollpane.getVerticalScrollBar();
+                        if ((horizontal != null) && (vertical != null)) {
+                            if (this.scrollpane.getComponentOrientation().isLeftToRight()) {
+                                // Bottom right corner
+                                if (lowerRightCorner == null) {
+                                    int cornerX = (int) ((horizontal.getX() + horizontal.getWidth()) * scaleFactor);
+                                    int cornerY = (int) (horizontal.getY() * scaleFactor);
+                                    int cornerWidth = (int) (vertical.getWidth() * scaleFactor);
+                                    int cornerHeight = (int) (horizontal.getHeight() * scaleFactor);
+                                    graphics1X.fillRect(cornerX, cornerY, cornerWidth, cornerHeight);
+                                    DecorationPainterUtils.paintInlay(graphics1X, scrollpane,
+                                        cornerX, cornerY, cornerWidth, cornerHeight, scaleFactor,
+                                        RadianceCoreUtilities.getSkin(scrollpane),
+                                        DecorationPainterUtils.getDecorationType(scrollpane));
+                                }
+                            } else {
+                                // Bottom left corner
+                                if (lowerLeftCorner == null) {
+                                    int cornerX = 0;
+                                    int cornerY = (int) (horizontal.getY() * scaleFactor);
+                                    int cornerWidth = (int) (vertical.getWidth() * scaleFactor);
+                                    int cornerHeight = (int) (horizontal.getHeight() * scaleFactor);
+                                    graphics1X.fillRect(cornerX, cornerY, cornerWidth, cornerHeight);
+                                    DecorationPainterUtils.paintInlay(graphics1X, scrollpane,
+                                        cornerX, cornerY, cornerWidth, cornerHeight, scaleFactor,
+                                        RadianceCoreUtilities.getSkin(scrollpane),
+                                        DecorationPainterUtils.getDecorationType(scrollpane));
+                                }
+                            }
                         }
-                    }
-                }
+                    });
+                g2d.dispose();
             }
         }
 

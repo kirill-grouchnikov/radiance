@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -41,6 +42,8 @@ public class UpdateOptimizationInfo {
     private Map<ComponentState, ContainerColorTokens> highlightContainerTokens;
 
     private ContainerColorTokens defaultColorTokens;
+
+    public RadianceDecorationPainter decorationPainter;
 
     public RadianceThemingSlices.DecorationAreaType decorationAreaType;
 
@@ -55,6 +58,7 @@ public class UpdateOptimizationInfo {
             ComponentState.ENABLED, inactiveContainerType);
         this.decorationAreaType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(
             this.component);
+        this.decorationPainter = skin.getDecorationPainter();
 
         this.isInDecorationArea = (this.decorationAreaType != null)
                 && skin.isRegisteredAsDecorationArea(this.decorationAreaType)

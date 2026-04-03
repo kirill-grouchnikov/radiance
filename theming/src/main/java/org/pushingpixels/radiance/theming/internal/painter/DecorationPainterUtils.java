@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
  * Contains utility methods related to decoration painters. This class is for internal use only.
@@ -182,15 +183,11 @@ public class DecorationPainterUtils {
      * {@link #paintDecorationBackground(Graphics, Component, float, float, double, RadianceSkin, boolean)}
      * for the cases when the decoration background painting is skipped.
      *
-     * @param g
-     *            Graphics context.
-     * @param c
-     *            Component.
-     * @param decorationType
-     *            Decoration area type of the component.
-     * @param force
-     *            If <code>true</code>, the painting of decoration background is enforced. #see
-     *            {@link #paintDecorationBackground(Graphics, Component, float, float, double, RadianceSkin, boolean)}
+     * @param g              Graphics context.
+     * @param c              Component.
+     * @param decorationType Decoration area type of the component.
+     * @param force          If <code>true</code>, the painting of decoration background is enforced. #see
+     *                       {@link #paintDecorationBackground(Graphics, Component, float, float, double, RadianceSkin, boolean)}
      */
     public static void paintDecorationBackground(Graphics g, Component c, float scaledWidth,
         float scaledHeight, double scaleFactor, RadianceDecorationPainter decorationPainter,
@@ -216,6 +213,59 @@ public class DecorationPainterUtils {
         Graphics2D g2d = (Graphics2D) g.create();
         decorationPainter.paintDecorationArea(g2d, c, decorationType, (int) scaledWidth, (int) scaledHeight,
             scaleFactor, colorTokens);
+        g2d.dispose();
+    }
+
+    /**
+     * Paints all registered overlays on the specified component. Overlay painters are registered with the
+     * {@link RadianceDecorationPainter#addOverlayPainter(RadianceDecorationPainter.OverlayPainter, RadianceThemingSlices.DecorationAreaType...)}
+     * API.
+     *
+     * @param g                  Graphics context.
+     * @param c                  Component.
+     * @param skin               Component skin.
+     * @param decorationAreaType Component decoration area type.
+     */
+    public static void paintOverlays(Graphics g, Component c,
+        int scaledWidth, int scaledHeight, double scaleFactor,
+        RadianceSkin skin, RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        List<RadianceDecorationPainter.OverlayPainter> overlayPainters =
+            skin.getDecorationPainter().getOverlayPainters(decorationAreaType);
+        if (overlayPainters.isEmpty()) {
+            return;
+        }
+
+        ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(decorationAreaType);
+        for (RadianceDecorationPainter.OverlayPainter overlayPainter : overlayPainters) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            overlayPainter.paintOverlay(g2d, c, decorationAreaType,
+                scaledWidth, scaledHeight, scaleFactor, colorTokens);
+            g2d.dispose();
+        }
+    }
+
+    /**
+     * Paints the registered inlay on the specified component. Inlay painter is registered with the
+     * {@link RadianceDecorationPainter#setInlayPainter(RadianceDecorationPainter.InlayPainter)}
+     * API.
+     *
+     * @param g                  Graphics context.
+     * @param c                  Component.
+     * @param skin               Component skin.
+     * @param decorationAreaType Component decoration area type.
+     */
+    public static void paintInlay(Graphics g, Component c,
+        int scaledX, int scaledY, int scaledWidth, int scaledHeight, double scaleFactor,
+        RadianceSkin skin, RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+        if (inlayPainter == null) {
+            return;
+        }
+
+        ContainerColorTokens colorTokens = skin.getNeutralContainerTokens(decorationAreaType);
+        Graphics2D g2d = (Graphics2D) g.create();
+        inlayPainter.paintInlay(g2d, c, decorationAreaType, scaledX, scaledY,
+            scaledWidth, scaledHeight, scaleFactor, colorTokens);
         g2d.dispose();
     }
 }

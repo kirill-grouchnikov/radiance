@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.*;
@@ -45,6 +46,7 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMult
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.*;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -655,11 +657,17 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private static void paintTabBackgroundAt1X(Graphics2D graphics1X,
-        JTabbedPane tabPane, int tabIndex, double scaleFactor, int width, int height,
+        JTabbedPane tabPane, int tabIndex, double scaleFactor,
+        int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
         ContainerColorTokens colorTokens, Color tabColor) {
 
         int dy = 3;
         width -= 1;
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(tabPane);
+        RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+        RadianceThemingSlices.DecorationAreaType decorationAreaType =
+            DecorationPainterUtils.getDecorationType(tabPane);
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(tabPane);
         Shape outline = componentShaper.getTabShapeSupplier().getShape(tabPane, width, height + dy,
@@ -667,6 +675,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         graphics1X.setColor(tabColor);
         graphics1X.fill(outline);
+
+        graphics1X.translate(-originalScaledOffsetX, -originalScaledOffsetY);
+        inlayPainter.paintInlay(graphics1X, tabPane, decorationAreaType,
+            originalScaledOffsetX, originalScaledOffsetY, width, height, scaleFactor, colorTokens);
+        graphics1X.translate(originalScaledOffsetX, originalScaledOffsetY);
+
         Graphics2D clipped = (Graphics2D) graphics1X.create();
         clipped.clipRect(0, 0, width, (int) (0.2f * height));
         clipped.setColor(colorTokens.isDark()
@@ -680,7 +694,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane, int tabIndex,
-        int width, int height, int tabPlacement, ContainerColorTokens colorTokens) {
+        int x, int y, int width, int height, int tabPlacement, ContainerColorTokens colorTokens) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -688,8 +702,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.translate(x, y);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 Component compForBackground = tabPane.getTabComponentAt(tabIndex);
                 if (compForBackground == null)
                     compForBackground = tabPane.getComponentAt(tabIndex);
@@ -708,9 +723,13 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     graphics1X.transform(transform);
                 }
 
+                int originalScaledOffsetX = (int) (x * scaleFactor);
+                int originalScaledOffsetY = (int) (y * scaleFactor);
                 paintTabBackgroundAt1X(graphics1X, tabPane, tabIndex, scaleFactor,
-                    scaledWidth, scaledHeight, colorTokens, tabColor);
+                    originalScaledOffsetX, originalScaledOffsetY, scaledWidth, scaledHeight,
+                    colorTokens, tabColor);
             });
+        graphics.dispose();
     }
 
     /**
@@ -790,22 +809,20 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         boolean toMarkModifiedCloseButton = RadianceCoreUtilities
                 .toAnimateCloseIconOfModifiedTab(this.tabPane, tabIndex);
 
-        graphics.translate(x, y);
         if (isTabModified && isEnabled && !toMarkModifiedCloseButton) {
             BladeUtils.populateModificationAwareColorTokens(mutableColorTokens, comp,
                 this.modifiedTimelines.get(comp).getTimelinePosition());
-            paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex, w, h, tabPlacement,
-                mutableColorTokens);
+            paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex,
+                x, y, w, h, tabPlacement, mutableColorTokens);
         } else {
             // Populate color tokens based on the current transition state of the tab.
             // Important - don't do it on pulsating tabs (such as modified tabs).
             BladeUtils.populateColorTokens(mutableColorTokens, this.tabPane, tabIndex,
                 modelStateInfo, currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB);
 
-            paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex, w, h, tabPlacement,
-                mutableColorTokens);
+            paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex,
+                x, y, w, h, tabPlacement, mutableColorTokens);
         }
-        graphics.translate(-x, -y);
 
         // Check if requested to paint close buttons.
         if (RadianceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {

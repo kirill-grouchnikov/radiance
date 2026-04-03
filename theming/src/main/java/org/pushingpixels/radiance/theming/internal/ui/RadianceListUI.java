@@ -34,14 +34,17 @@ import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelin
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -518,6 +521,28 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
                         || this.updateInfo.isInDecorationArea))) {
             g2d.setColor(background);
             g2d.fillRect(cx, cy, cw, ch);
+
+            RadianceDecorationPainter.InlayPainter inlayPainter =
+                this.updateInfo.decorationPainter.getInlayPainter();
+
+            if (inlayPainter != null) {
+                // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+                // to not normalize coordinates to paint at full pixels, and will result in blurry
+                // outlines.
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.translate(cx, cy);
+                RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, cw, ch,
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        int scaledOffsetX = (int) (cx * scaleFactor);
+                        int scaledOffsetY = (int) (cy * scaleFactor);
+                        graphics1X.translate(-scaledOffsetX, -scaledOffsetY);
+                        inlayPainter.paintInlay(graphics1X, list, updateInfo.decorationAreaType,
+                            scaledOffsetX, scaledOffsetY, scaledWidth, scaledHeight, scaleFactor,
+                            updateInfo.getDefaultColorTokens());
+                    });
+                g2d.translate(-cx, -cy);
+            }
         }
 
         StateTransitionTracker tracker = this.stateTransitionMultiTracker.getTracker(row);

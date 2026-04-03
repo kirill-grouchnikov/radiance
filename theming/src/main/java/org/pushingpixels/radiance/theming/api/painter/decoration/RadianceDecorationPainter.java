@@ -45,7 +45,7 @@ import java.util.List;
  */
 public abstract class RadianceDecorationPainter implements RadianceTrait {
     /**
-     * Overlay painter interface for <b>Radiance</b> look and feel. This class is
+     * Overlay decoration painter interface for <b>Radiance</b> look and feel. This class is
      * part of officially supported API.
      *
      * @author Kirill Grouchnikov
@@ -54,18 +54,13 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
         /**
          * Paints the overlay.
          *
-         * @param graphics
-         *     Graphics context.
-         * @param comp
-         *     Component.
-         * @param decorationAreaType
-         *     Decoration area type. Must not be <code>null</code>.
-         * @param width
-         *     Width.
-         * @param height
-         *     Height.
-         * @param colorTokens
-         *     Color tokens for painting the overlay.
+         * @param graphics           Graphics context.
+         * @param comp               Component.
+         * @param decorationAreaType Decoration area type.
+         * @param width              Width.
+         * @param height             Height.
+         * @param scaleFactor        Scale factor.
+         * @param colorTokens        Color tokens for painting the overlay.
          */
         void paintOverlay(Graphics2D graphics, Component comp,
             RadianceThemingSlices.DecorationAreaType decorationAreaType,
@@ -73,10 +68,37 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
     }
 
     /**
+     * Inlay decoration painter interface for <b>Radiance</b> look and feel. This class is
+     * part of officially supported API.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public interface InlayPainter extends RadianceTrait {
+        /**
+         * Paints the inlay.
+         *
+         * @param graphics           Graphics context.
+         * @param comp               Component.
+         * @param decorationAreaType Decoration area type.
+         * @param width              Width.
+         * @param height             Height.
+         * @param scaleFactor        Scale factor.
+         * @param colorTokens        Color tokens for painting the inlay.
+         */
+        void paintInlay(Graphics2D graphics, Component comp,
+            RadianceThemingSlices.DecorationAreaType decorationAreaType,
+            int x, int y, int width, int height, double scaleFactor,
+            ContainerColorTokens colorTokens);
+    }
+
+    /**
      * Maps decoration area type to the registered overlay painters. Each
      * decoration area type can have more than one overlay painter.
      */
     private final Map<RadianceThemingSlices.DecorationAreaType, List<OverlayPainter>> overlayPaintersMap;
+
+    /** Can be null. */
+    private InlayPainter inlayPainter;
 
     protected RadianceDecorationPainter() {
         this.overlayPaintersMap = new HashMap<>();
@@ -149,6 +171,20 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
             return Collections.emptyList();
         }
         return Collections.unmodifiableList(this.overlayPaintersMap.get(decorationAreaType));
+    }
+
+    /**
+     * Sets the inlay painter.
+     */
+    public void setInlayPainter(InlayPainter inlayPainter) {
+        this.inlayPainter = inlayPainter;
+    }
+
+    /**
+     * Returns the inlay painter. The result can be <code>null</code>.
+     */
+    public InlayPainter getInlayPainter() {
+        return this.inlayPainter;
     }
 
     /**
