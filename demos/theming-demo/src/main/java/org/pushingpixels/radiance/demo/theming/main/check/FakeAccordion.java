@@ -149,8 +149,8 @@ public class FakeAccordion extends JPanel {
                                 float radiusOuter = (float) scaleFactor * 5.0f;
                                 RadianceComponentShaper.ShapeSupplier outlineShapeSupplier =
                                     (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment,shapeScaleFactor) ->
-                                        getOutline(0, 0, (int) shapeWidth, (int) shapeHeight,
-                                            1.0f, shapeInsets,
+                                        getOutline(0, 0, (int) shapeWidth - 1, (int) shapeHeight - 1,
+                                            0.0f, shapeInsets,
                                             radiusOuter - shapeInsets - shapeRadiusAdjustment);
 
                                 ContainerColorTokens containerTokens =
