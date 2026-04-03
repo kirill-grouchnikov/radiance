@@ -676,10 +676,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         graphics1X.setColor(tabColor);
         graphics1X.fill(outline);
 
-        graphics1X.translate(-originalScaledOffsetX, -originalScaledOffsetY);
-        inlayPainter.paintInlay(graphics1X, tabPane, decorationAreaType,
-            originalScaledOffsetX, originalScaledOffsetY, width, height, scaleFactor, colorTokens);
-        graphics1X.translate(originalScaledOffsetX, originalScaledOffsetY);
+        if (inlayPainter != null) {
+            graphics1X.translate(-originalScaledOffsetX, -originalScaledOffsetY);
+            inlayPainter.paintInlay(graphics1X, tabPane, decorationAreaType,
+                originalScaledOffsetX, originalScaledOffsetY, width, height, scaleFactor, colorTokens);
+            graphics1X.translate(originalScaledOffsetX, originalScaledOffsetY);
+        }
 
         Graphics2D clipped = (Graphics2D) graphics1X.create();
         clipped.clipRect(0, 0, width, (int) (0.2f * height));
