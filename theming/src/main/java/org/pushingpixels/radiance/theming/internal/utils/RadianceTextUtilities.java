@@ -32,10 +32,13 @@ package org.pushingpixels.radiance.theming.internal.utils;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceTextComponentBorder;
 
 import javax.swing.*;
@@ -464,6 +467,25 @@ public class RadianceTextUtilities {
         float borderStrokeWidth = RadianceSizeUtils.getBorderStrokeWidth(comp);
         g2d.fill(new Rectangle2D.Float(borderStrokeWidth / 2.0f, borderStrokeWidth / 2.0f,
             comp.getWidth() - borderStrokeWidth, comp.getHeight() - borderStrokeWidth));
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);
+        RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+        if (inlayPainter != null) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                DecorationPainterUtils.getDecorationType(comp);
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+            RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, comp.getWidth(), comp.getHeight(),
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    int scaledOffset = (int) (scaleFactor * borderStrokeWidth / 2);
+                    inlayPainter.paintInlay(graphics1X, comp, decorationAreaType,
+                        scaledOffset, scaledOffset, scaledWidth - 2 * scaledOffset, scaledHeight - 2 * scaledOffset,
+                        scaleFactor, skin.getNeutralContainerTokens(decorationAreaType));
+                });
+        }
 
         ComponentState state = comp.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = null;
