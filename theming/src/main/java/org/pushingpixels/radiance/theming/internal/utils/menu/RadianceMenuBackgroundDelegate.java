@@ -29,10 +29,9 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils.menu;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -104,7 +103,32 @@ public class RadianceMenuBackgroundDelegate {
 					graphics.fillRect(0, 0, textOffset - 2, menuHeight);
 				} else {
 					// fix for defect 125 - support of RTL menus
-					graphics.fillRect(textOffset - 2, 0, menuWidth, menuHeight);
+					graphics.fillRect(textOffset - 2, 0, menuWidth - (textOffset - 2), menuHeight);
+				}
+
+				RadianceThemingSlices.DecorationAreaType decorationAreaType =
+					RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(menuItem);
+				RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+				if (inlayPainter != null) {
+					// Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+					// to not normalize coordinates to paint at full pixels, and will result in blurry
+					// outlines.
+					graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
+					RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, menuWidth, menuHeight,
+						(graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+
+							int scaledOffsetX = (int) ((textOffset - 2) * scaleFactor);
+							if (menuItem.getComponentOrientation().isLeftToRight()) {
+								inlayPainter.paintInlay(graphics1X, menuItem, decorationAreaType,
+									0, 0, scaledOffsetX, scaledHeight, scaleFactor,
+									neutralTokens);
+							} else {
+								inlayPainter.paintInlay(graphics1X, menuItem, decorationAreaType,
+									scaledOffsetX, 0, scaledWidth - scaledOffsetX, scaledHeight, scaleFactor,
+									neutralTokens);
+							}
+						});
 				}
 			}
 		}

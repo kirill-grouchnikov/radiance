@@ -99,6 +99,11 @@ public class FakeAccordion extends JPanel {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(accentedFill);
 
+                        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+                        // to not normalize coordinates to paint at full pixels, and will result in blurry
+                        // outlines.
+                        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
                         RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.getWidth(), this.getHeight(),
                             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                                 int radiusOuter = (int) (scaleFactor * 7);
