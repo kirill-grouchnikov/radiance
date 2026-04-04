@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableCellRenderer;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableHeaderCellRenderer;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
@@ -1071,6 +1072,28 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                     g2d.setColor(background);
                     g2d.fillRect(highlightCellRect.x, highlightCellRect.y,
                             highlightCellRect.width, highlightCellRect.height);
+
+                    RadianceDecorationPainter.InlayPainter inlayPainter =
+                        this.updateInfo.decorationPainter.getInlayPainter();
+
+                    if (inlayPainter != null) {
+                        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+                        // to not normalize coordinates to paint at full pixels, and will result in blurry
+                        // outlines.
+                        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
+                        g2d.translate(highlightCellRect.x, highlightCellRect.y);
+                        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, highlightCellRect.width, highlightCellRect.height,
+                            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                                int scaledOffsetX = (int) (highlightCellRect.x * scaleFactor);
+                                int scaledOffsetY = (int) (highlightCellRect.y * scaleFactor);
+                                graphics1X.translate(-scaledOffsetX, -scaledOffsetY);
+                                inlayPainter.paintInlay(graphics1X, table, updateInfo.decorationAreaType,
+                                    scaledOffsetX, scaledOffsetY, scaledWidth, scaledHeight, scaleFactor,
+                                    updateInfo.getDefaultColorTokens());
+                            });
+                        g2d.translate(-highlightCellRect.x, -highlightCellRect.y);
+                    }
                 }
             }
 

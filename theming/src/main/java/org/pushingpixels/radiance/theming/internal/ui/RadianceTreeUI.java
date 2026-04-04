@@ -32,10 +32,8 @@ package org.pushingpixels.radiance.theming.internal.ui;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
+import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTreeCellRenderer;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelTreeCellRenderer;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
@@ -898,8 +896,12 @@ public class RadianceTreeUI extends BasicTreeUI {
 		}
 
 		// compute the default color tokens - to optimize the performance
+		RadianceSkin skin = RadianceCoreUtilities.getSkin(this.tree);
 		this.currDefaultColorTokens = CoreColorTokenUtils.getContainerTokens(tree,
 			ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
+		RadianceThemingSlices.DecorationAreaType decorationAreaType =
+			RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.tree);
+		RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
 
 		Rectangle paintBounds = g.getClipBounds();
 		Insets insets = tree.getInsets();
@@ -946,6 +948,27 @@ public class RadianceTreeUI extends BasicTreeUI {
 								new Rectangle(paintBounds.x, bounds.y, paintBounds.width,
 										bounds.height));
 					}
+
+					if (inlayPainter != null) {
+						// Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+						// to not normalize coordinates to paint at full pixels, and will result in blurry
+						// outlines.
+						g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+							RenderingHints.VALUE_ANTIALIAS_ON);
+						g2d.translate(paintBounds.x, bounds.y);
+						Rectangle finalBounds = bounds;
+						RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, paintBounds.width, bounds.height,
+							(graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+								int scaledOffsetX = (int) (paintBounds.x * scaleFactor);
+								int scaledOffsetY = (int) (finalBounds.y * scaleFactor);
+								graphics1X.translate(-scaledOffsetX, -scaledOffsetY);
+								inlayPainter.paintInlay(graphics1X, tree, decorationAreaType,
+									scaledOffsetX, scaledOffsetY, scaledWidth, scaledHeight, scaleFactor,
+									currDefaultColorTokens);
+							});
+						g2d.translate(-paintBounds.x, -bounds.y);
+					}
+
 					if ((bounds.y + bounds.height) >= endY)
 						done = true;
 				} else {

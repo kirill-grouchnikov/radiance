@@ -31,14 +31,18 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -79,6 +83,7 @@ public class FakeAccordion extends JPanel {
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
+                    JPanel thisPanel = this;
                     if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
                         // Use surface low to delineate the content
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
@@ -86,13 +91,32 @@ public class FakeAccordion extends JPanel {
                         Color accentedFill = neutralTokens.isDark()
                             ? neutralTokens.getContainerSurfaceHigh()
                             : neutralTokens.getContainerSurfaceLow();
+                        RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
+                        RadianceDecorationPainter.InlayPainter inlayPainter =
+                            skin.getDecorationPainter().getInlayPainter();
 
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(accentedFill);
-                        int radiusOuter = 7;
-                        g2d.fillRoundRect(0, -radiusOuter, this.getWidth(),
-                                this.getHeight() + radiusOuter - 1,
-                                2 * radiusOuter, 2 * radiusOuter);
+
+                        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.getWidth(), this.getHeight(),
+                            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                                int radiusOuter = (int) (scaleFactor * 7);
+
+                                Shape roundRect = new RoundRectangle2D.Double(0, -radiusOuter,
+                                    scaledWidth, scaledHeight + radiusOuter - 1,
+                                    2 * radiusOuter, 2 * radiusOuter);
+
+                                graphics1X.fill(roundRect);
+
+                                if (inlayPainter != null) {
+                                    graphics1X.clip(roundRect);
+                                    inlayPainter.paintInlay(graphics1X, thisPanel, decorationAreaType,
+                                        0, -radiusOuter, scaledWidth, scaledHeight, scaleFactor,
+                                        neutralTokens);
+                                }
+                            });
+
                         g2d.dispose();
                     }
                 }
