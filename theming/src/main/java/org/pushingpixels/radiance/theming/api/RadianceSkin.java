@@ -238,7 +238,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Set of all decoration area types that are not explicitly registered in
      * {@link #colorTokensBundleMap} but still are considered as decoration
      * areas in this skin. Controls in such areas will have their background painted by
-     * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
+     * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, double, ContainerColorTokens)}
      * instead of a simple background fill.
      */
     private final Set<RadianceThemingSlices.DecorationAreaType> decoratedAreaSet;
@@ -553,7 +553,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @param neutralContainerTokens The neutral tokens to use in specified decoration areas.
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      *                              Each decoration area type will be painted by
-     *                              {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
+     *                              {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, double, ContainerColorTokens)}
      */
     public void registerAsDecorationArea(ContainerColorTokens neutralContainerTokens,
             RadianceThemingSlices.DecorationAreaType... areaTypes) {
@@ -578,13 +578,13 @@ public abstract class RadianceSkin implements RadianceTrait {
     /**
      * Returns indication whether the specified decoration area type should have
      * their background painted by
-     * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
+     * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, double, ContainerColorTokens)}
      * instead of a simple background fill.
      *
      * @param decorationType Decoration area type.
      * @return <code>true</code> if specified decoration area type should have
      * their background painted by
-     * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, RadianceSkin)}
+     * {@link RadianceDecorationPainter#paintDecorationArea(Graphics2D, Component, RadianceThemingSlices.DecorationAreaType, int, int, double, ContainerColorTokens)}
      * , <code>false</code> otherwise.
      */
     public boolean isRegisteredAsDecorationArea(RadianceThemingSlices.DecorationAreaType decorationType) {
