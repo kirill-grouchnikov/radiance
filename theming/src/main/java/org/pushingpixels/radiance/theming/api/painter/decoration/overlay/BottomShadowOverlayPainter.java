@@ -50,8 +50,8 @@ import java.util.Map;
 public final class BottomShadowOverlayPainter implements RadianceDecorationPainter.OverlayPainter {
 	private static final Map<Integer, BottomShadowOverlayPainter> MAP = new HashMap<>();
 
-	private static final int DEFAULT_SHADOW_END_ALPHA = 128;
-	private static final int MIN_SHADOW_END_ALPHA = 32;
+	private static final int DEFAULT_SHADOW_END_ALPHA = 96;
+	private static final int MIN_SHADOW_END_ALPHA = 24;
 
 	private int endAlpha = DEFAULT_SHADOW_END_ALPHA;
 
@@ -95,7 +95,7 @@ public final class BottomShadowOverlayPainter implements RadianceDecorationPaint
 	 	RadianceThemingSlices.DecorationAreaType decorationAreaType,
 		int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
-		Color shadowColor = colorTokens.getContainerOutline();
+		Color shadowColor = colorTokens.getContainerShadow();
 
 		Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
 				.getTopMostParentWithDecorationAreaType(comp,

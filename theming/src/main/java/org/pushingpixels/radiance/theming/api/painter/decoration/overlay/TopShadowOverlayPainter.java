@@ -49,8 +49,8 @@ import java.util.Map;
 public final class TopShadowOverlayPainter implements RadianceDecorationPainter.OverlayPainter {
     private static final Map<Integer, TopShadowOverlayPainter> MAP = new HashMap<>();
 
-    private static final int DEFAULT_SHADOW_START_ALPHA = 160;
-    private static final int MIN_SHADOW_START_ALPHA = 32;
+    private static final int DEFAULT_SHADOW_START_ALPHA = 120;
+    private static final int MIN_SHADOW_START_ALPHA = 24;
 
     private int startAlpha = DEFAULT_SHADOW_START_ALPHA;
 
@@ -85,7 +85,7 @@ public final class TopShadowOverlayPainter implements RadianceDecorationPainter.
         RadianceThemingSlices.DecorationAreaType decorationAreaType,
         int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
-        Color shadowColor = colorTokens.getContainerOutline();
+        Color shadowColor = colorTokens.getContainerShadow();
 
         // need to handle components "embedded" in other components
         Component topMostWithSameDecorationAreaType = RadianceCoreUtilities
@@ -100,7 +100,7 @@ public final class TopShadowOverlayPainter implements RadianceDecorationPainter.
         g2d.translate(0, -dy);
         g2d.setPaint(new GradientPaint(
                 0, 0, RadianceColorUtilities.getAlphaColor(shadowColor, this.startAlpha),
-                0, shadowHeight, RadianceColorUtilities.getAlphaColor(shadowColor, 16)));
+                0, shadowHeight, RadianceColorUtilities.getAlphaColor(shadowColor, 0)));
         g2d.fillRect(0, 0, width, shadowHeight);
         g2d.dispose();
     }

@@ -74,6 +74,7 @@ public class AutumnSkin extends RadianceSkin {
                         0.3f).getRGB())
 					.onContainer(TokenPalette::getContainerOutline)
 					.onContainerVariant((p) -> p.getContainerOutline() & 0xC0FFFFFF)
+					.containerShadow(TokenPalette::getContainerOutline)
 					.containerSurfaceDisabledAlpha((s) -> 0.4f)
 					.onContainerDisabledAlpha((s) -> 0.6f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
@@ -92,6 +93,7 @@ public class AutumnSkin extends RadianceSkin {
 					.containerOutline((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
 					.complementaryContainerOutline((p) -> autumnDefaultActiveTokens.getComplementaryContainerOutline().getRGB())
+					.containerShadow((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.onContainer((p) -> autumnDefaultActiveTokens.getOnContainer().getRGB())
 					.onContainerVariant((p) -> autumnDefaultActiveTokens.getOnContainerVariant().getRGB())
 					.containerSurfaceDisabledAlpha((s) -> 0.5f)
@@ -110,6 +112,7 @@ public class AutumnSkin extends RadianceSkin {
 				TokenPaletteColorResolverOverlay.builder()
 					.containerOutline((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
+					.containerShadow((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.complementaryContainerOutline((p) -> autumnDefaultActiveTokens.getComplementaryContainerOutline().getRGB())
 					.onContainer((p) -> autumnDefaultActiveTokens.getOnContainer().getRGB())
 					.onContainerVariant((p) -> autumnDefaultActiveTokens.getOnContainerVariant().getRGB())
@@ -212,7 +215,7 @@ public class AutumnSkin extends RadianceSkin {
 
 		// add an overlay painter to paint a drop shadow along the top
 		// edge of toolbars
-		decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(50),
+		decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(70),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint separator lines along the bottom
