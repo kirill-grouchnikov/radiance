@@ -64,7 +64,6 @@ public class RadianceTextUtilities {
     /**
      * Paints text with drop shadow.
      *
-     * @param c               Component.
      * @param g               Graphics context.
      * @param tokens          Color tokens.
      * @param text            Text to paint.
@@ -508,11 +507,11 @@ public class RadianceTextUtilities {
             return;
         }
 
-        // Get the base border color
+        // Get the base shadow color
         ContainerColorTokens baseColorTokens = CoreColorTokenUtils.getContainerTokens(comp,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, state,
             CoreColorTokenUtils.ContainerType.NEUTRAL);
-        Color borderColor = baseColorTokens.getContainerOutline();
+        Color shadowColor = baseColorTokens.getContainerShadow();
 
         if (!state.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
             // If we have more than one active state, compute the composite color from all
@@ -532,21 +531,20 @@ public class RadianceTextUtilities {
                 ContainerColorTokens activeColorTokens = CoreColorTokenUtils.getContainerTokens(comp,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, activeState,
                     CoreColorTokenUtils.ContainerType.NEUTRAL);
-                Color activeBorderColor = activeColorTokens.getContainerOutline();
-                borderColor = RadianceColorUtilities.getInterpolatedColor(borderColor,
-                    activeBorderColor, 1.0f - contribution);
+                Color activeShadowColor = activeColorTokens.getContainerShadow();
+                shadowColor = RadianceColorUtilities.getInterpolatedColor(shadowColor,
+                    activeShadowColor, 1.0f - contribution);
             }
         }
-        // At this point we should have the color that matches the border color. Use that to
-        // paint emulated drop shadow along the top edge of the component.
+        // Paint emulated drop shadow along the top edge of the component.
         if (hasRadianceTextBorder(comp)) {
             int shadowHeight = 6;
-            int topAlpha = (int) (32 * (state.isDisabled()
+            int topAlpha = (int) (24 * (state.isDisabled()
                 ? baseColorTokens.getContainerOutlineDisabledAlpha()
                 : baseColorTokens.getContainerOutlineEnabledAlpha()));
             g2d.setPaint(new GradientPaint(0, 0,
-                RadianceColorUtilities.getAlphaColor(borderColor, topAlpha), 0, shadowHeight,
-                RadianceColorUtilities.getAlphaColor(borderColor, 0)));
+                RadianceColorUtilities.getAlphaColor(shadowColor, topAlpha), 0, shadowHeight,
+                RadianceColorUtilities.getAlphaColor(shadowColor, 0)));
             float yTop = RadianceSizeUtils.getBorderStrokeWidth(comp);
             g2d.fill(new Rectangle2D.Float(borderStrokeWidth, yTop,
                 comp.getWidth() - 2 * borderStrokeWidth, shadowHeight));
