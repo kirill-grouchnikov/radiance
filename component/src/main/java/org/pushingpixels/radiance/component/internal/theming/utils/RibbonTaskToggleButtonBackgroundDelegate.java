@@ -154,6 +154,14 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                     } else {
                         graphics1X.setColor(tokens.getContainerSurface());
                         graphics1X.fill(scaledOutline);
+                        RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+                        if (inlayPainter != null) {
+                            Shape clip = graphics1X.getClip();
+                            graphics1X.clip(scaledOutline);
+                            inlayPainter.paintInlay(graphics1X, button, buttonDecorationAreaType,
+                                0, 0, scaledWidth, scaledHeight, scaleFactor, tokens);
+                            graphics1X.setClip(clip);
+                        }
                     }
 
                     OutlinePainterUtils.paintOutline(graphics1X, button, currState,

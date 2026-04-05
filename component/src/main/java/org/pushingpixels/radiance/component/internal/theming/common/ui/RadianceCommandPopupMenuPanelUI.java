@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
@@ -36,6 +37,8 @@ import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayo
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicCommandPopupMenuPanelUI;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -93,6 +96,8 @@ public class RadianceCommandPopupMenuPanelUI extends BasicCommandPopupMenuPanelU
     protected class RadianceMenuPanel extends MenuPanel {
         @Override
         protected void paintIconGutterBackground(Graphics g) {
+            MenuPanel thisPanel = this;
+
             // Only paint the gutter background when the layout manager for the menu command
             // buttons is CommandButtonLayoutManagerMedium. Otherwise there's no guarantee where
             // the icons are, and what the overall layout is
@@ -122,10 +127,35 @@ public class RadianceCommandPopupMenuPanelUI extends BasicCommandPopupMenuPanelU
                 g2d.setColor(gutterColor);
 
                 int sepX = this.getSeparatorX();
-                if (this.getComponentOrientation().isLeftToRight()) {
+                boolean ltr = this.getComponentOrientation().isLeftToRight();
+                if (ltr) {
                     g2d.fillRect(0, 0, sepX, this.getHeight());
                 } else {
                     g2d.fillRect(sepX + 2, 0, this.getWidth() - sepX, this.getHeight());
+                }
+
+                RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+                if (inlayPainter != null) {
+                    RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                        DecorationPainterUtils.getDecorationType(this);
+                    // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+                    // to not normalize coordinates to paint at full pixels, and will result in blurry
+                    // outlines.
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                    RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.getWidth(), this.getHeight(),
+                        (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                            if (ltr) {
+                                inlayPainter.paintInlay(graphics1X, thisPanel, decorationAreaType,
+                                    0, 0, (int) (scaleFactor * sepX), scaledHeight, scaleFactor,
+                                    neutralTokens);
+                            } else {
+                                inlayPainter.paintInlay(graphics1X, thisPanel, decorationAreaType,
+                                    (int) (scaleFactor * (sepX + 2)), 0,
+                                        scaledWidth - (int) (scaleFactor * sepX), scaledHeight, scaleFactor,
+                                    neutralTokens);
+                            }
+                        });
                 }
             }
             g2d.dispose();

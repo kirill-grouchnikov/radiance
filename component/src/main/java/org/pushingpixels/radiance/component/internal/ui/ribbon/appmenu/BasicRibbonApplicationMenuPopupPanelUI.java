@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.*;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
@@ -44,6 +45,8 @@ import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilit
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -250,6 +253,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         this.footerPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING)) {
             @Override
             protected void paintComponent(Graphics g) {
+                JPanel thisPanel = this;
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
                 ContainerColorTokens tokens = skin.getNeutralContainerTokens(this);
                 Color backgroundFill = tokens.getContainerSurfaceLow();
@@ -257,6 +261,22 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 Graphics2D g2d = (Graphics2D) g.create();
                 g2d.setColor(backgroundFill);
                 g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+                RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+                if (inlayPainter != null) {
+                    RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                        DecorationPainterUtils.getDecorationType(this);
+                    // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+                    // to not normalize coordinates to paint at full pixels, and will result in blurry
+                    // outlines.
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                    RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, getWidth(), getHeight(),
+                        (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) ->
+                            inlayPainter.paintInlay(graphics1X, thisPanel, decorationAreaType,
+                                0, 0, scaledWidth, scaledHeight, scaleFactor, tokens));
+                }
+
                 g2d.dispose();
             }
 

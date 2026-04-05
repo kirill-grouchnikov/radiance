@@ -37,7 +37,9 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -87,6 +89,24 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
 
         BackgroundPaintingUtils.fillBackground(g, this.buttonPanel,
                 background, new Rectangle(x, y, width, height));
+        RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+        if (inlayPainter != null) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                DecorationPainterUtils.getDecorationType(this.buttonPanel);
+            Graphics2D g2d = (Graphics2D) g.create();
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+            RadianceCommonCortex.paintAtScale1x(g2d, x, y, width, height,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    inlayPainter.paintInlay(graphics1X, buttonPanel, decorationAreaType,
+                        scaledX, scaledY, scaledWidth, scaledHeight,
+                        scaleFactor, skin.getNeutralContainerTokens(decorationAreaType));
+                });
+            g2d.dispose();
+        }
     }
 
     @Override
@@ -109,11 +129,21 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 graphics1X.setColor(backgroundFill);
                 graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+
+                RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+                if (inlayPainter != null) {
+                    RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                        DecorationPainterUtils.getDecorationType(this.buttonPanel);
+                    inlayPainter.paintInlay(graphics1X, buttonPanel, decorationAreaType,
+                        (int) (scaleFactor * x), (int) (scaleFactor * y), scaledWidth, scaledHeight,
+                        scaleFactor, tokens);
+                }
+
                 HighlightPainterUtils.paintHighlightBorder1X(graphics1X, this.buttonPanel,
-                    scaledWidth, scaledHeight, scaledHeight, 1.0f,
-                    openSides, RadianceCoreUtilities.getOutlinePainter(this.buttonPanel),
-                    CoreColorTokenUtils.getContainerTokens(this.buttonPanel,
-                        ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL));
+                scaledWidth, scaledHeight, scaledHeight, 1.0f,
+                openSides, RadianceCoreUtilities.getOutlinePainter(this.buttonPanel),
+                CoreColorTokenUtils.getContainerTokens(this.buttonPanel,
+                    ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL));
             });
 
         g2d.dispose();
