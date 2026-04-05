@@ -73,6 +73,11 @@ public class TokenPaletteColorResolverUtils {
             }
 
             @Override
+            public Color getContainerShadow(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerShadow());
+            }
+
+            @Override
             public Color getOnContainer(TokenPalette tokenPalette) {
                 return new Color(tokenPalette.getOnContainer());
             }
@@ -222,6 +227,16 @@ public class TokenPaletteColorResolverUtils {
                 Function<TokenPalette, Integer> spec = overlay.getContainerSurfaceBright();
                 if (spec == null) {
                     return original.getContainerSurfaceBright(tokenPalette);
+                } else {
+                    return new Color(spec.apply(tokenPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerShadow(TokenPalette tokenPalette) {
+                Function<TokenPalette, Integer> spec = overlay.getContainerShadow();
+                if (spec == null) {
+                    return original.getContainerShadow(tokenPalette);
                 } else {
                     return new Color(spec.apply(tokenPalette), true);
                 }

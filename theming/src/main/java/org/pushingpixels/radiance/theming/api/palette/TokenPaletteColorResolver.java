@@ -43,6 +43,8 @@ public interface TokenPaletteColorResolver {
     Color getContainerSurfaceDim(TokenPalette tokenPalette);
     Color getContainerSurfaceBright(TokenPalette tokenPalette);
 
+    Color getContainerShadow(TokenPalette tokenPalette);
+
     Color getOnContainer(TokenPalette tokenPalette);
     Color getOnContainerVariant(TokenPalette tokenPalette);
 

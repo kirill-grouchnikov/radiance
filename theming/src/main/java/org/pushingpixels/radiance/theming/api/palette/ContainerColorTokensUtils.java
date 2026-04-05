@@ -94,6 +94,11 @@ public class ContainerColorTokensUtils {
             }
 
             @Override
+            public Color getContainerShadow() {
+                return colorResolver.getContainerShadow(dynamicPalette);
+            }
+
+            @Override
             public Color getOnContainer() {
                 return colorResolver.getOnContainer(dynamicPalette);
             }
@@ -229,6 +234,11 @@ public class ContainerColorTokensUtils {
             @Override
             public Color getContainerSurfaceBright() {
                 return colorResolver.getContainerSurfaceBright(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerShadow() {
+                return colorResolver.getContainerShadow(dynamicPalette);
             }
 
             @Override

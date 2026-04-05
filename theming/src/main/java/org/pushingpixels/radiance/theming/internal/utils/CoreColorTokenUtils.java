@@ -314,7 +314,9 @@ public class CoreColorTokenUtils {
         Color containerSurfaceBright = RadianceColorUtilities.overlayColor(
             original.getContainerSurfaceBright(), overlayWithAlpha);
 
-        // Leave on container and container outline tokens as they are
+        // Leave shadow, on container and container outline tokens as they are
+        Color containerShadow = original.getContainerShadow();
+
         Color onContainer = original.getOnContainer();
         Color onContainerVariant = original.getOnContainerVariant();
         Color containerOutline = original.getContainerOutline();
@@ -365,6 +367,11 @@ public class CoreColorTokenUtils {
             @Override
             public Color getContainerSurfaceBright() {
                 return containerSurfaceBright;
+            }
+
+            @Override
+            public Color getContainerShadow() {
+                return containerShadow;
             }
 
             @Override
@@ -537,6 +544,7 @@ public class CoreColorTokenUtils {
             ? original.getContainerSurfaceBright()
             : new Color(Blend.harmonizeAll(original.getContainerSurfaceBright().getRGB(),
             backgroundShiftColor.getRGB(), backgroundShiftFactor));
+        Color containerShadow = original.getContainerShadow();
         Color onContainer = (foregroundShiftColor == null)
             ? original.getOnContainer()
             : new Color(Blend.harmonizeAll(original.getOnContainer().getRGB(),
@@ -617,6 +625,11 @@ public class CoreColorTokenUtils {
             @Override
             public Color getContainerSurfaceBright() {
                 return containerSurfaceBright;
+            }
+
+            @Override
+            public Color getContainerShadow() {
+                return containerShadow;
             }
 
             @Override

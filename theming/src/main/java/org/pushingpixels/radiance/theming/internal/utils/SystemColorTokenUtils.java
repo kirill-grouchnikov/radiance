@@ -97,6 +97,11 @@ public class SystemColorTokenUtils {
             }
 
             @Override
+            public Color getContainerShadow() {
+                return new Color(palette.getHct(0.0).toInt());
+            }
+
+            @Override
             public Color getOnContainer() {
                 return containerConfiguration.isDark()
                     ? getColor(new ContrastCurve(80.0, 90.0, 95.0, 100.0))

@@ -41,6 +41,7 @@ public class TokenPaletteColorResolverOverlay {
     private Function<TokenPalette, Integer> containerSurfaceHighest;
     private Function<TokenPalette, Integer> containerSurfaceDim;
     private Function<TokenPalette, Integer> containerSurfaceBright;
+    private Function<TokenPalette, Integer> containerShadow;
     private Function<TokenPalette, Integer> onContainer;
     private Function<TokenPalette, Integer> onContainerVariant;
     private Function<TokenPalette, Integer> containerOutline;
@@ -90,6 +91,10 @@ public class TokenPaletteColorResolverOverlay {
 
     public Function<TokenPalette, Integer> getContainerSurfaceBright() {
         return this.containerSurfaceBright;
+    }
+
+    public Function<TokenPalette, Integer> getContainerShadow() {
+        return this.containerShadow;
     }
 
     public Function<TokenPalette, Integer> getOnContainer() {
@@ -164,6 +169,7 @@ public class TokenPaletteColorResolverOverlay {
         private Function<TokenPalette, Integer> containerSurfaceHighest;
         private Function<TokenPalette, Integer> containerSurfaceDim;
         private Function<TokenPalette, Integer> containerSurfaceBright;
+        private Function<TokenPalette, Integer> containerShadow;
         private Function<TokenPalette, Integer> onContainer;
         private Function<TokenPalette, Integer> onContainerVariant;
         private Function<TokenPalette, Integer> containerOutline;
@@ -215,6 +221,11 @@ public class TokenPaletteColorResolverOverlay {
 
         public Builder containerSurfaceBright(Function<TokenPalette, Integer> containerSurfaceBright) {
             this.containerSurfaceBright = containerSurfaceBright;
+            return this;
+        }
+
+        public Builder containerShadow(Function<TokenPalette, Integer> containerShadow) {
+            this.containerShadow = containerShadow;
             return this;
         }
 
@@ -318,6 +329,7 @@ public class TokenPaletteColorResolverOverlay {
             result.containerSurfaceHighest = this.containerSurfaceHighest;
             result.containerSurfaceDim = this.containerSurfaceDim;
             result.containerSurfaceBright = this.containerSurfaceBright;
+            result.containerShadow = this.containerShadow;
             result.onContainer = this.onContainer;
             result.onContainerVariant = this.onContainerVariant;
             result.containerOutline = this.containerOutline;

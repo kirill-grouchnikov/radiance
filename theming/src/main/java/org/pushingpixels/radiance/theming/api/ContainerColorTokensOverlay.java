@@ -121,6 +121,11 @@ public class ContainerColorTokensOverlay {
                     }
 
                     @Override
+                    public Color getContainerShadow() {
+                        return systemContainerTokens.getContainerShadow();
+                    }
+
+                    @Override
                     public Color getOnContainer() {
                         return systemContainerTokens.getAccentOnContainer();
                     }
@@ -313,6 +318,11 @@ public class ContainerColorTokensOverlay {
                     @Override
                     public Color getContainerSurfaceBright() {
                         return systemContainerTokens.getContainerSurfaceBright();
+                    }
+
+                    @Override
+                    public Color getContainerShadow() {
+                        return systemContainerTokens.getContainerShadow();
                     }
 
                     @Override

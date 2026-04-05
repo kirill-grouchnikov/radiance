@@ -47,6 +47,8 @@ public interface ContainerColorTokens {
     Color getContainerSurfaceDim();
     Color getContainerSurfaceBright();
 
+    Color getContainerShadow();
+
     Color getOnContainer();
     Color getOnContainerVariant();
 
