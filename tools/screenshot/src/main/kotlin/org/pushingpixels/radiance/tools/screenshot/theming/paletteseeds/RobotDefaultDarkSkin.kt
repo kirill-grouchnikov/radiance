@@ -37,14 +37,16 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
-import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper
 import java.awt.Color
+
 
 /**
  * The default dark skin for the skin screenshot scripts.
@@ -93,7 +95,8 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
             RadianceThemingSlices.DecorationAreaType.HEADER)
         this.decorationPainter = decorationPainter
 
-        this.highlightSurfacePainter = ClassicSurfacePainter()
+        this.highlightSurfacePainter = FlatSurfacePainter(
+            "Robot Dark", { if (it.isDark()) it.getContainerSurfaceHighest() else it.getContainerSurfaceLowest() })
 
         val defaultBundle = ContainerColorTokensBundle(
             this.defaultAreaActiveTokens,

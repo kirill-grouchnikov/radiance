@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDeco
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
+import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper
@@ -80,7 +81,8 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
             RadianceThemingSlices.DecorationAreaType.HEADER)
         this.decorationPainter = decorationPainter
 
-        this.highlightSurfacePainter = ClassicSurfacePainter()
+        this.highlightSurfacePainter = FlatSurfacePainter(
+            "Robot Light", { if (it.isDark()) it.getContainerSurfaceHighest() else it.getContainerSurfaceLowest() })
 
         val defaultBundle = ContainerColorTokensBundle(
             this.defaultAreaActiveTokens,
