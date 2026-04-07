@@ -29,13 +29,19 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicRichTooltipPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.JRichTooltipPanel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -73,6 +79,25 @@ public class RadianceRichTooltipPanelUI extends BasicRichTooltipPanelUI {
 		g2d.setPaint(new GradientPaint(0, 0, topColor, 0,
 			this.richTooltipPanel.getHeight(), bottomColor));
 		g2d.fillRect(0, 0, this.richTooltipPanel.getWidth(), this.richTooltipPanel.getHeight());
+
+		RadianceSkin skin = RadianceCoreUtilities.getSkin(this.richTooltipPanel);
+		RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+		if (inlayPainter != null) {
+			RadianceThemingSlices.DecorationAreaType decorationAreaType =
+				DecorationPainterUtils.getDecorationType(this.richTooltipPanel);
+			// Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+			// to not normalize coordinates to paint at full pixels, and will result in blurry
+			// outlines.
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+			RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.richTooltipPanel.getWidth(), this.richTooltipPanel.getHeight(),
+				(graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+					inlayPainter.paintInlay(graphics1X, richTooltipPanel, decorationAreaType,
+						scaledX, scaledY, scaledWidth, scaledHeight,
+						scaleFactor, skin.getNeutralContainerTokens(decorationAreaType));
+				});
+			g2d.dispose();
+		}
 
 		g2d.dispose();
 	}
