@@ -126,8 +126,6 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
         BladeUtils.populateColorTokens(mutableContainerTokens, modelStateInfo, currState,

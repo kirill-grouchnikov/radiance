@@ -52,6 +52,10 @@ public class BladeArrowIconUtils {
             (direction == SwingConstants.EAST || direction == SwingConstants.WEST);
         float dx = (boundingBox.width - (flipDimensions ? height : width)) / 2.0f;
         float dy = (boundingBox.height - (flipDimensions ? width : height)) / 2.0f;
+        if (flipDimensions) {
+            // Tweak the vertical offset for flipped icons (east and west) for better vertical alignment with text
+            dy =- 0.5f;
+        }
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(dx, dy);
@@ -64,8 +68,7 @@ public class BladeArrowIconUtils {
         if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
             float tmp = width;
             width = height;
-            // Reduce the height (originally width) by 1 for better vertical alignment with text
-            height = tmp - 1;
+            height = tmp;
         }
 
         // get graphics and set hints
