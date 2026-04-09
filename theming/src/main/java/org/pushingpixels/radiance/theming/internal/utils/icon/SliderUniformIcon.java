@@ -30,13 +30,11 @@
 package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
-import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -49,16 +47,14 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class SliderRoundIcon implements Icon, UIResource {
+public class SliderUniformIcon implements Icon, UIResource {
     /** The size of <code>this</code> icon. */
     private int size;
 
     /** The associated slider. */
     private JSlider slider;
 
-    private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
-
-    public SliderRoundIcon(JSlider slider, int size) {
+    public SliderUniformIcon(JSlider slider, int size) {
         this.slider = slider;
         this.size = size;
     }
@@ -73,18 +69,19 @@ public class SliderRoundIcon implements Icon, UIResource {
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.slider);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        // Populate color tokens based on the current transition state of the slider.
-        BladeUtils.populateColorTokens(mutableColorTokens, this.slider, modelStateInfo,
-            currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-            false, false, CoreColorTokenUtils.ContainerType.MUTED);
+        // Treat the slider icon the same as the active / selected part of the slider track
+        ContainerColorTokens progressColorTokens =
+            CoreColorTokenUtils.getActiveContainerTokens(slider,
+                currState.isDisabled() ? ComponentState.DISABLED_DETERMINATE
+                    : ComponentState.DETERMINATE);
 
         float activeStrength = stateTransitionTracker.getActiveStrength();
         int diameter = (int) (this.size * (2.0f + activeStrength) / 3.0f);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x + (this.size - diameter) / 2.0, y + (this.size - diameter) / 2.0);
-        BladeIconUtils.drawSliderThumbRound(graphics, this.slider, outlinePainter,
-            diameter, mutableColorTokens, currState);
+        BladeIconUtils.drawSliderThumbUniform(graphics, this.slider, outlinePainter,
+            diameter, progressColorTokens, currState);
         graphics.dispose();
     }
 

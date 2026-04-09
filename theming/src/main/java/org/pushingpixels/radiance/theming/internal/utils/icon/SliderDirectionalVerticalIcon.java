@@ -30,13 +30,11 @@
 package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
-import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -45,20 +43,18 @@ import javax.swing.plaf.UIResource;
 import java.awt.*;
 
 /**
- * Thumb icon for the horizontal {@link JSlider}s that paint ticks and / or labels.
+ * Thumb icon for the vertical {@link JSlider}s that paint ticks and / or labels.
  * 
  * @author Kirill Grouchnikov
  */
-public class SliderHorizontalIcon implements Icon, UIResource {
+public class SliderDirectionalVerticalIcon implements Icon, UIResource {
     /** The size of <code>this</code> icon. */
     private int size;
 
     /** The associated slider. */
     private JSlider slider;
 
-    private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
-
-    public SliderHorizontalIcon(JSlider slider, int size) {
+    public SliderDirectionalVerticalIcon(JSlider slider, int size) {
         this.slider = slider;
         this.size = size;
     }
@@ -73,18 +69,19 @@ public class SliderHorizontalIcon implements Icon, UIResource {
         RadianceOutlinePainter outlinePainter = RadianceCoreUtilities.getOutlinePainter(this.slider);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        // Populate color tokens based on the current transition state of the slider.
-        BladeUtils.populateColorTokens(mutableColorTokens, this.slider, modelStateInfo,
-            currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-            false, false, CoreColorTokenUtils.ContainerType.MUTED);
+        // Treat the slider icon the same as the active / selected part of the slider track
+        ContainerColorTokens progressColorTokens =
+            CoreColorTokenUtils.getActiveContainerTokens(slider,
+                currState.isDisabled() ? ComponentState.DISABLED_DETERMINATE
+                    : ComponentState.DETERMINATE);
 
         float activeStrength = stateTransitionTracker.getActiveStrength();
-        int width = (int) (this.size * (2.0f + activeStrength) / 3.0f);
+        int height = (int) (this.size * (2.0f + activeStrength) / 3.0f);
 
         Graphics2D graphics = (Graphics2D) g.create();
-        graphics.translate(x + (this.size - width) / 2.0, y);
-        BladeIconUtils.drawSliderThumbHorizontal(graphics, this.slider, outlinePainter,
-            width, this.size, mutableColorTokens, currState);
+        graphics.translate(x, y - (this.size - height) / 2.0);
+        BladeIconUtils.drawSliderThumbDirectionalVertical(graphics, this.slider, outlinePainter,
+            this.size, height, progressColorTokens, currState);
         graphics.dispose();
     }
 

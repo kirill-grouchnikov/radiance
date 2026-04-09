@@ -44,7 +44,10 @@ import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
 
 public class BladeIconUtils {
     public static void drawCheckBox(Graphics2D g, JComponent component,
@@ -168,7 +171,7 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
+    public static void drawSliderThumbDirectionalHorizontal(Graphics2D g, JSlider slider,
         RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
 
@@ -198,7 +201,7 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
+    public static void drawSliderThumbDirectionalVertical(Graphics2D g, JSlider slider,
         RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
 
@@ -238,7 +241,7 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
+    public static void drawSliderThumbUniform(Graphics2D g, JSlider slider,
         RadianceOutlinePainter outlinePainter,
         int dimension, ContainerColorTokens colorTokens, ComponentState currState) {
 

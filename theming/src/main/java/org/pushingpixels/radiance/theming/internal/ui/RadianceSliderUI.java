@@ -45,9 +45,9 @@ import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
-import org.pushingpixels.radiance.theming.internal.utils.icon.SliderHorizontalIcon;
-import org.pushingpixels.radiance.theming.internal.utils.icon.SliderRoundIcon;
-import org.pushingpixels.radiance.theming.internal.utils.icon.SliderVerticalIcon;
+import org.pushingpixels.radiance.theming.internal.utils.icon.SliderDirectionalHorizontalIcon;
+import org.pushingpixels.radiance.theming.internal.utils.icon.SliderUniformIcon;
+import org.pushingpixels.radiance.theming.internal.utils.icon.SliderDirectionalVerticalIcon;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -444,9 +444,9 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         }
         int size = RadianceSizeUtils.getSliderIconSize(
                 RadianceSizeUtils.getComponentFontSize(slider));
-        this.horizontalIcon = new SliderHorizontalIcon(slider, size);
-        this.roundIcon = new SliderRoundIcon(slider, size);
-        this.verticalIcon = new SliderVerticalIcon(slider, size);
+        this.horizontalIcon = new SliderDirectionalHorizontalIcon(slider, size);
+        this.roundIcon = new SliderUniformIcon(slider, size);
+        this.verticalIcon = new SliderDirectionalVerticalIcon(slider, size);
 
         int focusIns = (int) Math.ceil(2.0 * RadianceSizeUtils.getFocusStrokeWidth(slider));
         this.focusInsets = new Insets(focusIns, focusIns, focusIns, focusIns);
