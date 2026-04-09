@@ -135,13 +135,17 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
             if (field instanceof RadiancePasswordField) {
                 graphics.setColor(field.getSelectedTextColor());
             } else {
-                ComponentState state = field.isEnabled() ? ComponentState.ENABLED
-                    : ComponentState.DISABLED_UNSELECTED;
-                ContainerColorTokens colorTokens =
-                    CoreColorTokenUtils.getContainerTokens(field, state,
-                        CoreColorTokenUtils.ContainerType.NEUTRAL);
-                Color color = RadianceColorUtilities.getForegroundColor(colorTokens);
-                graphics.setColor(color);
+                if (isSelected) {
+                    graphics.setColor(field.getSelectedTextColor());
+                } else {
+                    ComponentState state = field.isEnabled() ? ComponentState.ENABLED
+                        : ComponentState.DISABLED_UNSELECTED;
+                    ContainerColorTokens colorTokens =
+                        CoreColorTokenUtils.getContainerTokens(field, state,
+                            CoreColorTokenUtils.ContainerType.NEUTRAL);
+                    Color color = colorTokens.getOnContainer();
+                    graphics.setColor(color);
+                }
             }
             int echoPerChar = RadianceCoreUtilities.getEchoPerChar(field);
             for (int i = 0; i < echoPerChar; i++) {
