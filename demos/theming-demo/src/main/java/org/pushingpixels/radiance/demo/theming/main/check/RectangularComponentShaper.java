@@ -39,14 +39,11 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Set;
 
 public class RectangularComponentShaper extends ClassicComponentShaper {
-    /** Cache of already computed outlines. */
-    private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
-        "RectangularComponentShaper");
-
     private ShapeSupplier RECTANGLE_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Rectangle2D.Float(insets, insets, width - 1 - 2.0f * insets, height - 1 - 2.0f * insets);
@@ -55,10 +52,26 @@ public class RectangularComponentShaper extends ClassicComponentShaper {
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
             new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
+    private ShapeSupplier DIAMOND_SHAPE_SUPPLIER =
+        (c, width, height, insets, radiusAdjustment, scaleFactor) -> {
+            float dimension = Math.min(width, height) - 1.0f;
+            float midX = width / 2.0f - 1.0f;
+            float midY = height / 2.0f - 1.0f;
+            float halfSize = dimension / 2.0f - insets;
+
+            Path2D.Float result = new Path2D.Float();
+            // Starting from top, clockwise
+            result.moveTo(midX, midY - halfSize);
+            result.lineTo(midX + halfSize, midY);
+            result.lineTo(midX, midY + halfSize);
+            result.lineTo(midX - halfSize, midY);
+            result.closePath();
+            return result;
+        };
 
     @Override
     public String getDisplayName() {
-        return "Classic";
+        return "Rectangular Demo";
     }
 
     @Override
@@ -177,12 +190,12 @@ public class RectangularComponentShaper extends ClassicComponentShaper {
 
     @Override
     public ShapeSupplier getSliderThumbDirectionalShapeSupplier() {
-        return RECTANGLE_SHAPE_SUPPLIER;
+        return DIAMOND_SHAPE_SUPPLIER;
     }
 
     @Override
     public ShapeSupplier getSliderThumbUniformShapeSupplier() {
-        return ROUND_SHAPE_SUPPLIER;
+        return DIAMOND_SHAPE_SUPPLIER;
     }
 
     @Override

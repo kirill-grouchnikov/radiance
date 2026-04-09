@@ -190,7 +190,7 @@ public class BladeIconUtils {
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    shapeSupplier.getShape(slider, scaledWidth, scaledHeight,
+                    shapeSupplier.getShape(slider, scaledWidth + 1.0f, scaledHeight + 1.0f,
                         outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
@@ -230,7 +230,7 @@ public class BladeIconUtils {
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    shapeSupplier.getShape(slider, scaledWidth, scaledHeight,
+                    shapeSupplier.getShape(slider, scaledWidth + 1.0f, scaledHeight + 1.0f,
                         outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
@@ -267,7 +267,7 @@ public class BladeIconUtils {
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    shapeSupplier.getShape(slider, scaledWidth, scaledHeight,
+                    shapeSupplier.getShape(slider, scaledWidth + 1.0f, scaledHeight + 1.0f,
                         outlineInset, 0.0f, scaleFactor),
                     colorTokens);
 
