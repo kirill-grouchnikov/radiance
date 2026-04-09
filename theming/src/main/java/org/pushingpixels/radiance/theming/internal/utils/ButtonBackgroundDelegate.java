@@ -168,8 +168,8 @@ public class ButtonBackgroundDelegate {
                     ? outlinePainter.getOutlineInset(RadianceOutlinePainter.InsetKind.SURFACE)
                     : 0.0f;
                 Shape outlineSurface = buttonShapeSupplier.getShape(
-                    button, scaledWidth + deltaLeft + deltaRight,
-                    scaledHeight + deltaTop + deltaBottom,
+                    button, scaledWidth + deltaLeft + deltaRight + 1.0f,
+                    scaledHeight + deltaTop + deltaBottom + 1.0f,
                     outlineInset, 0.0f, scaleFactor);
 
                 SurfacePainterUtils.paintSurface(graphics1X, button, buttonState,
