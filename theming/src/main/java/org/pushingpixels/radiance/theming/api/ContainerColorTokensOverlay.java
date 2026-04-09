@@ -58,7 +58,7 @@ public class ContainerColorTokensOverlay {
         this.activeTokenOverrides = new HashMap<>();
     }
 
-    protected static abstract class DefaultOverlayProvider implements Provider {
+    public static abstract class DefaultOverlayProvider implements Provider {
         private LazyResettableHashMap<ContainerColorTokensOverlay> overlays =
             new LazyResettableHashMap<>("ContainerColorTokensOverlay.DefaultOverlayProvider");
 
@@ -70,146 +70,146 @@ public class ContainerColorTokensOverlay {
         @Override
         public ContainerColorTokensOverlay getOverlay(RadianceSkin skin,
             RadianceThemingSlices.DecorationAreaType decorationAreaType) {
-            ContainerColorTokens systemContainerTokens = this.getContainerTokens(skin,
+            ContainerColorTokens containerTokens = this.getContainerTokens(skin,
                 decorationAreaType);
-            ContainerColorTokens inverseSystemContainerTokens =
+            ContainerColorTokens inverseContainerTokens =
                 this.getInverseContainerTokens(skin, decorationAreaType);
-            HashMapKey key = RadianceCoreUtilities.getHashKey(systemContainerTokens,
-                inverseSystemContainerTokens);
+            HashMapKey key = RadianceCoreUtilities.getHashKey(containerTokens,
+                inverseContainerTokens);
 
             ContainerColorTokensOverlay result = this.overlays.get(key);
             if (result == null) {
                 ContainerColorTokens neutralContainerTokens = new ContainerColorTokens() {
                     @Override
                     public boolean isDark() {
-                        return systemContainerTokens.isDark();
+                        return containerTokens.isDark();
                     }
 
                     @Override
                     public Color getContainerSurfaceLowest() {
-                        return systemContainerTokens.getContainerSurfaceLowest();
+                        return containerTokens.getContainerSurfaceLowest();
                     }
 
                     @Override
                     public Color getContainerSurfaceLow() {
-                        return systemContainerTokens.getContainerSurfaceLow();
+                        return containerTokens.getContainerSurfaceLow();
                     }
 
                     @Override
                     public Color getContainerSurface() {
-                        return systemContainerTokens.getContainerSurface();
+                        return containerTokens.getContainerSurface();
                     }
 
                     @Override
                     public Color getContainerSurfaceHigh() {
-                        return systemContainerTokens.getContainerSurfaceHigh();
+                        return containerTokens.getContainerSurfaceHigh();
                     }
 
                     @Override
                     public Color getContainerSurfaceHighest() {
-                        return systemContainerTokens.getContainerSurfaceHighest();
+                        return containerTokens.getContainerSurfaceHighest();
                     }
 
                     @Override
                     public Color getContainerSurfaceDim() {
-                        return systemContainerTokens.getContainerSurfaceDim();
+                        return containerTokens.getContainerSurfaceDim();
                     }
 
                     @Override
                     public Color getContainerSurfaceBright() {
-                        return systemContainerTokens.getContainerSurfaceBright();
+                        return containerTokens.getContainerSurfaceBright();
                     }
 
                     @Override
                     public Color getContainerShadow() {
-                        return systemContainerTokens.getContainerShadow();
+                        return containerTokens.getContainerShadow();
                     }
 
                     @Override
                     public Color getOnContainer() {
-                        return systemContainerTokens.getAccentOnContainer();
+                        return containerTokens.getAccentOnContainer();
                     }
 
                     @Override
                     public Color getOnContainerVariant() {
                         return RadianceColorUtilities.getAlphaColor(
-                            systemContainerTokens.getAccentOnContainer(), 240);
+                            containerTokens.getAccentOnContainer(), 240);
                     }
 
                     @Override
                     public Color getContainerOutline() {
-                        return systemContainerTokens.getContainerOutline();
+                        return containerTokens.getContainerOutline();
                     }
 
                     @Override
                     public Color getContainerOutlineVariant() {
-                        return systemContainerTokens.getContainerOutlineVariant();
+                        return containerTokens.getContainerOutlineVariant();
                     }
 
                     @Override
                     public float getContainerSurfaceEnabledAlpha() {
-                        return systemContainerTokens.getContainerSurfaceEnabledAlpha();
+                        return containerTokens.getContainerSurfaceEnabledAlpha();
                     }
 
                     @Override
                     public float getContainerOutlineEnabledAlpha() {
-                        return systemContainerTokens.getContainerOutlineEnabledAlpha();
+                        return containerTokens.getContainerOutlineEnabledAlpha();
                     }
 
                     @Override
                     public float getOnContainerEnabledAlpha() {
-                        return systemContainerTokens.getOnContainerEnabledAlpha();
+                        return containerTokens.getOnContainerEnabledAlpha();
                     }
 
                     @Override
                     public float getContainerSurfaceDisabledAlpha() {
-                        return systemContainerTokens.getContainerSurfaceDisabledAlpha();
+                        return containerTokens.getContainerSurfaceDisabledAlpha();
                     }
 
                     @Override
                     public float getOnContainerDisabledAlpha() {
-                        return systemContainerTokens.getOnContainerDisabledAlpha();
+                        return containerTokens.getOnContainerDisabledAlpha();
                     }
 
                     @Override
                     public float getContainerOutlineDisabledAlpha() {
-                        return systemContainerTokens.getContainerOutlineDisabledAlpha();
+                        return containerTokens.getContainerOutlineDisabledAlpha();
                     }
 
                     @Override
                     public Color getInverseContainerSurface() {
-                        return systemContainerTokens.getInverseContainerSurface();
+                        return containerTokens.getInverseContainerSurface();
                     }
 
                     @Override
                     public Color getInverseOnContainer() {
-                        return systemContainerTokens.getInverseOnContainer();
+                        return containerTokens.getInverseOnContainer();
                     }
 
                     @Override
                     public Color getInverseContainerOutline() {
-                        return systemContainerTokens.getInverseContainerOutline();
+                        return containerTokens.getInverseContainerOutline();
                     }
 
                     @Override
                     public Color getComplementaryOnContainer() {
-                        return systemContainerTokens.getComplementaryOnContainer();
+                        return containerTokens.getComplementaryOnContainer();
                     }
 
                     @Override
                     public Color getComplementaryContainerOutline() {
-                        return systemContainerTokens.getComplementaryContainerOutline();
+                        return containerTokens.getComplementaryContainerOutline();
                     }
 
                     @Override
                     public Color getAccentOnContainer() {
-                        return systemContainerTokens.getAccentOnContainer();
+                        return containerTokens.getAccentOnContainer();
                     }
                 };
 
                 result = new ContainerColorTokensOverlay(
-                    inverseSystemContainerTokens,
-                    systemContainerTokens,
+                    inverseContainerTokens,
+                    containerTokens,
                     neutralContainerTokens);
                 this.overlays.put(key, result);
             }

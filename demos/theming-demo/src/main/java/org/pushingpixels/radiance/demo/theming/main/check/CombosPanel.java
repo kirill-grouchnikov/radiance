@@ -30,13 +30,16 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
+import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.check.command.ConfigurationCommand;
 import org.pushingpixels.radiance.demo.theming.main.check.command.DisableCommand;
 import org.pushingpixels.radiance.demo.theming.main.check.command.EnableCommand;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.il;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -212,8 +215,29 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         JComboBox<String> comboColored = new JComboBox<>(new String[] { "entry31", "entry32", "entry33",
                         "entry34", "entry35", "entry36", "aaa", "abb", "abc" });
         comboColored.setName("Colored combo");
-        comboColored.setBackground(new Color(255, 128, 128));
-        comboColored.setForeground(new Color(0, 0, 128));
+        RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(
+            comboColored, new ContainerColorTokensOverlay.DefaultOverlayProvider() {
+                private Hct originalSeed = Hct.fromInt(0xFFFF8080);
+
+                private ContainerColorTokens originalTokens = ContainerColorTokensUtils.getContainerTokens(
+                    /* seed */ originalSeed,
+                    /* containerConfiguration */ ContainerConfiguration.defaultLight());
+                private ContainerColorTokens darkTokens = ContainerColorTokensUtils.getContainerTokens(
+                    /* seed */ TonalPalette.fromHct(originalSeed).getHct(40),
+                    /* containerConfiguration */ ContainerConfiguration.defaultDark());
+
+                @Override
+                protected ContainerColorTokens getContainerTokens(RadianceSkin skin,
+                    RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+                    return originalTokens;
+                }
+
+                @Override
+                protected ContainerColorTokens getInverseContainerTokens(RadianceSkin skin,
+                    RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+                    return darkTokens;
+                }
+            });
         builder.append("Pink background", comboColored);
 
         JComboBox<String> comboEditable = new JComboBox<>(
