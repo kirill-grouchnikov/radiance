@@ -52,10 +52,16 @@ public class TreeIcon implements Icon, UIResource {
 
     private boolean isCollapsed;
 
+    private ContainerColorTokens currentColorTokens;
+
     public TreeIcon(JTree tree, int size, boolean isCollapsed) {
         this.tree = tree;
         this.size = size;
         this.isCollapsed = isCollapsed;
+    }
+
+    public void setCurrentColorTokens(ContainerColorTokens currentColorTokens) {
+        this.currentColorTokens = currentColorTokens;
     }
 
     @Override
@@ -63,8 +69,8 @@ public class TreeIcon implements Icon, UIResource {
         ComponentState state = ((tree == null) || tree.isEnabled()) ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
 
-        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
-            this.tree, state, CoreColorTokenUtils.ContainerType.MUTED);
+        ContainerColorTokens colorTokens = (this.currentColorTokens != null) ? this.currentColorTokens
+            : CoreColorTokenUtils.getContainerTokens(this.tree, state, CoreColorTokenUtils.ContainerType.MUTED);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);

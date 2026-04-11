@@ -58,11 +58,61 @@ import java.util.Map;
  * in this class is marked as final and can not be overriden in the application code.
  */
 @RadianceRenderer
-public abstract class RadiancePanelTreeCellRenderer extends JPanel
-        implements TreeCellRenderer {
+public abstract class RadiancePanelTreeCellRenderer extends JPanel implements RadianceTreeCellRenderer {
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     public RadiancePanelTreeCellRenderer() {
+    }
+
+    @Override
+    public ContainerColorTokens getColorTokens(JTree tree, Object value, int row) {
+        TreeUI treeUI = tree.getUI();
+        if (treeUI instanceof RadianceTreeUI) {
+            RadianceTreeUI ui = (RadianceTreeUI) treeUI;
+
+            RadianceTreeUI.TreePathId pathId = new RadianceTreeUI.TreePathId(tree.getPathForRow(row));
+
+            StateTransitionTracker.ModelStateInfo modelStateInfo = ui.getModelStateInfo(pathId);
+            ComponentState currState = ui.getPathState(pathId);
+
+            // special case for drop location
+            JTree.DropLocation dropLocation = tree.getDropLocation();
+            boolean isDropLocation = (dropLocation != null)
+                && (dropLocation.getChildIndex() == -1)
+                && (tree.getRowForPath(dropLocation.getPath()) == row);
+
+            if (!isDropLocation && (modelStateInfo != null)) {
+                Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
+                    .getStateContributionMap();
+                if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+                    return getContainerTokensForState(tree, ui, currState);
+                } else {
+                    mergeIntoMutableColorTokens(mutableContainerTokens,
+                        getContainerTokensForState(tree, ui, currState), 1.0f);
+                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                        modelStateInfo.getStateContributionMap().entrySet()) {
+                        ComponentState activeState = activeEntry.getKey();
+                        if (activeState == currState) {
+                            continue;
+                        }
+                        float contribution = activeEntry.getValue().getContribution();
+                        mergeIntoMutableColorTokens(mutableContainerTokens,
+                            getContainerTokensForState(tree, ui, activeState), contribution);
+                    }
+                    return this.mutableContainerTokens;
+                }
+            } else {
+                if (isDropLocation) {
+                    return CoreColorTokenUtils.getContainerTokens(tree,
+                        RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+                        currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
+                } else {
+                    return getContainerTokensForState(tree, ui, currState);
+                }
+            }
+        } else {
+            return null;
+        }
     }
 
     @Override

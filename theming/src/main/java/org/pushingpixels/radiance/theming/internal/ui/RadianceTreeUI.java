@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTreeCellRenderer;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelTreeCellRenderer;
+import org.pushingpixels.radiance.theming.api.renderer.RadianceTreeCellRenderer;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -116,6 +117,10 @@ public class RadianceTreeUI extends BasicTreeUI {
 
 	private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
+	private TreeIcon expandedIcon;
+
+	private TreeIcon collapsedIcon;
+
 	public static ComponentUI createUI(JComponent comp) {
 		RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new RadianceTreeUI();
@@ -162,10 +167,10 @@ public class RadianceTreeUI extends BasicTreeUI {
 
 		int fontSize = RadianceSizeUtils.getComponentFontSize(this.tree);
 		int size = RadianceSizeUtils.getTreeIconSize(fontSize);
-		Icon expandedIcon = new TreeIcon(this.tree, size, false);
-		Icon collapsedIcon = new TreeIcon(this.tree, size, true);
-		setExpandedIcon(new IconUIResource(expandedIcon));
-		setCollapsedIcon(new IconUIResource(collapsedIcon));
+		this.expandedIcon = new TreeIcon(this.tree, size, false);
+		this.collapsedIcon = new TreeIcon(this.tree, size, true);
+		setExpandedIcon(new IconUIResource(this.expandedIcon));
+		setCollapsedIcon(new IconUIResource(this.collapsedIcon));
 
 		// instead of computing the cell renderer insets on
 		// every cell rendering, compute it once and expose to the
@@ -199,7 +204,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 			// on the editing row
 			if (shouldPaintExpandControl(path, row, isExpanded, hasBeenExpanded, isLeaf)) {
 				paintExpandControlEnforce(g, clipBounds, insets, bounds, path, row, isExpanded,
-						hasBeenExpanded, isLeaf);
+						hasBeenExpanded, isLeaf, null);
 			}
 		}
 
@@ -216,9 +221,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 				path.getLastPathComponent(), this.tree.isRowSelected(row), isExpanded, isLeaf, row,
 				(leadIndex == row));
 
-		boolean isRadianceRenderer =
-				(renderer instanceof RadianceDefaultTreeCellRenderer) ||
-						(renderer instanceof RadiancePanelTreeCellRenderer);
+		boolean isRadianceRenderer = (renderer instanceof RadianceTreeCellRenderer);
 		if (!isRadianceRenderer) {
 			// if it's not Radiance renderer - ask the Basic delegate to paint it, expanding the bounds
 			// to full row
@@ -229,7 +232,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 				isLeaf);
 			if (shouldPaintExpandControl(path, row, isExpanded, hasBeenExpanded, isLeaf)) {
 				paintExpandControlEnforce(g, clipBounds, insets, tweakedBounds, path, row, isExpanded,
-						hasBeenExpanded, isLeaf);
+						hasBeenExpanded, isLeaf, null);
 			}
 			return;
 		}
@@ -340,8 +343,10 @@ public class RadianceTreeUI extends BasicTreeUI {
 		// overlayed by the highlight background on selected and rolled over
 		// rows. See comments on paintExpandControl().
 		if (shouldPaintExpandControl(path, row, isExpanded, hasBeenExpanded, isLeaf)) {
+			ContainerColorTokens colorTokens = ((RadianceTreeCellRenderer) renderer).getColorTokens(
+				tree, path.getLastPathComponent(), row);
 			paintExpandControlEnforce(g2d, clipBounds, insets, bounds, path, row, isExpanded,
-					hasBeenExpanded, isLeaf);
+					hasBeenExpanded, isLeaf, colorTokens);
 		}
 
 		g2d.dispose();
@@ -387,17 +392,34 @@ public class RadianceTreeUI extends BasicTreeUI {
 	 */
 	private void paintExpandControlEnforce(Graphics g, Rectangle clipBounds, Insets insets,
 			Rectangle bounds, TreePath path, int row, boolean isExpanded, boolean hasBeenExpanded,
-			boolean isLeaf) {
+			boolean isLeaf, ContainerColorTokens colorTokens) {
 
-		ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(this.tree,
-			ComponentState.DISABLED_UNSELECTED, CoreColorTokenUtils.ContainerType.MUTED);
-		float alpha = this.tree.isEnabled() ? colorTokens.getContainerOutlineEnabledAlpha()
-			: colorTokens.getContainerOutlineDisabledAlpha();
+		if (colorTokens == null) {
+			colorTokens = CoreColorTokenUtils.getContainerTokens(this.tree,
+				ComponentState.DISABLED_UNSELECTED, CoreColorTokenUtils.ContainerType.MUTED);
+		}
+		float alpha = this.tree.isEnabled() ? colorTokens.getOnContainerEnabledAlpha()
+			: colorTokens.getOnContainerDisabledAlpha();
 
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tree, alpha, g));
-		super.paintExpandControl(graphics, clipBounds, insets, bounds, path, row, isExpanded,
-				hasBeenExpanded, isLeaf);
+
+		Object value = path.getLastPathComponent();
+		int childCount = this.treeModel.getChildCount(value);
+
+		if (!isLeaf && (!hasBeenExpanded || (childCount > 0))) {
+			int middleXOfKnob = this.tree.getComponentOrientation().isLeftToRight()
+				? bounds.x - getRightChildIndent() + 1
+				: bounds.x + bounds.width + getRightChildIndent() - 1;
+			int middleYOfKnob = bounds.y + (bounds.height / 2);
+
+			TreeIcon icon = isExpanded ? this.expandedIcon : this.collapsedIcon;
+			icon.setCurrentColorTokens(colorTokens);
+			icon.paintIcon(this.tree, graphics,
+				middleXOfKnob - icon.getIconWidth() / 2,
+				middleYOfKnob - icon.getIconHeight() / 2);
+		}
+
 		graphics.dispose();
 	}
 

@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
@@ -278,7 +279,12 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    private static RadianceOutlinePainter treeIconOutlinePainter = new FlatOutlinePainter();
+    private static RadianceOutlinePainter treeIconOutlinePainter = new FractionBasedOutlinePainter(
+        "Tree icon",
+        new float[] {0.0f, 1.0f},
+        new ContainerColorTokensSingleColorQuery[]{
+            ContainerColorTokens::getOnContainer,
+            ContainerColorTokens::getOnContainer});
     private static RadianceSurfacePainter treeIconSurfacePainter = new FractionBasedSurfacePainter(
         "Tree icon",
         new float[] {0.0f, 0.5f, 1.0f},
@@ -304,26 +310,27 @@ public class BladeIconUtils {
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
                 Shape outline = componentShaper.getTreeIconShapeSupplier().getShape(tree,
-                    scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
+                    scaledWidth - 1, scaledHeight - 1, 0.0f, 0.0f, scaleFactor);
 
                 SurfacePainterUtils.paintSurface(graphics1X, tree, state,
-                    treeIconSurfacePainter, scaledWidth, scaledHeight, scaleFactor,
+                    treeIconSurfacePainter, scaledWidth - 1, scaledHeight - 1, scaleFactor,
                     1.0f, outline, colorTokens);
 
                 OutlinePainterUtils.paintOutline(graphics1X, tree, state,
-                    treeIconOutlinePainter, scaledWidth, scaledHeight, scaleFactor,
+                    treeIconOutlinePainter, scaledWidth - 2, scaledHeight - 2, scaleFactor,
                     1.0f, componentShaper.getTreeIconShapeSupplier(), colorTokens);
 
                 Color signColor = colorTokens.getOnContainer();
                 graphics1X.setColor(signColor);
-                float gap = 5.0f * scaledWidth / 24.0f;
-                float mid = scaledWidth / 2.0f;
+                float halfLength = scaledWidth * 0.3f;
+                float mid = scaledWidth / 2.0f - 0.5f;
+
                 // Horizontal stroke
-                graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
-                graphics1X.draw(new Line2D.Float(gap, mid, scaledWidth - gap + 1, mid));
+                graphics1X.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                graphics1X.draw(new Line2D.Float(mid - halfLength, mid, mid + halfLength, mid));
                 if (isCollapsed) {
                     // Vertical stroke
-                    graphics1X.draw(new Line2D.Float(mid, gap, mid, scaledHeight - gap + 1));
+                    graphics1X.draw(new Line2D.Float(mid, mid - halfLength, mid, mid + halfLength));
                 }
             });
         graphics.dispose();

@@ -930,7 +930,7 @@ public class RadianceSizeUtils {
 	public static int getTreeIconSize(int fontSize) {
 		int extraPadding = RadianceSizeUtils.getExtraPadding(fontSize);
 		int extraPadding2 = 2 * extraPadding;
-		return 10 + extraPadding2;
+		return 11 + extraPadding2;
 	}
 
 	public static int getTreeLeftIndent(int fontSize) {
