@@ -155,7 +155,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
 
     private ShapeSupplier RECTANGLE_SHAPE_SUPPLIER =
         (c, width, height, insets, radiusAdjustment, scaleFactor) ->
-            new Rectangle2D.Float(insets, insets, width - 1 - 2.0f * insets, height - 1 - 2.0f * insets);
+            new Rectangle2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
     @Override
     public String getDisplayName() {

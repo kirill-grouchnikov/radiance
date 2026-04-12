@@ -128,7 +128,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                         false, false, CoreColorTokenUtils.ContainerType.MUTED);
                     OutlinePainterUtils.paintOutline(graphics1X, c, currState,
-                        scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                        scaledWidth - 1.0f, scaledHeight - 1.0f, scaleFactor, 1.0f,
                         componentShaper.getTextComponentShapeSupplier(), mutableContainerTokens);
 
                     return;
@@ -144,7 +144,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                     currState, CoreColorTokenUtils.ContainerType.MUTED);
 
             OutlinePainterUtils.paintOutline(graphics1X, c, currState,
-                scaledWidth, scaledHeight, scaleFactor, 1.0f,
+                scaledWidth - 1.0f, scaledHeight - 1.0f, scaleFactor, 1.0f,
                 componentShaper.getTextComponentShapeSupplier(), colorTokens);
         });
 
