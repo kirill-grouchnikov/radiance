@@ -168,8 +168,8 @@ public class ButtonBackgroundDelegate {
                     ? outlinePainter.getOutlineInset(RadianceOutlinePainter.InsetKind.SURFACE)
                     : 0.0f;
                 Shape outlineSurface = buttonShapeSupplier.getShape(
-                    button, scaledWidth + deltaLeft + deltaRight + 1.0f,
-                    scaledHeight + deltaTop + deltaBottom + 1.0f,
+                    button, scaledWidth + deltaLeft + deltaRight,
+                    scaledHeight + deltaTop + deltaBottom,
                     outlineInset, 0.0f, scaleFactor);
 
                 SurfacePainterUtils.paintSurface(graphics1X, button, buttonState,
@@ -179,7 +179,8 @@ public class ButtonBackgroundDelegate {
 
             if (isOutlinePainted) {
                 OutlinePainterUtils.paintOutline(graphics1X, button, buttonState,
-                    scaledWidth + deltaLeft + deltaRight, scaledHeight + deltaTop + deltaBottom,
+                    scaledWidth + deltaLeft + deltaRight - 1.0f,
+                    scaledHeight + deltaTop + deltaBottom - 1.0f,
                     scaleFactor, overallAlpha, buttonShapeSupplier, colorTokens);
             }
             graphics1X.translate(deltaLeft, deltaTop);

@@ -74,7 +74,7 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
 
             result = RadianceOutlineUtilities.getBaseOutline(
                 button.getComponentOrientation(),
-                width - 1, height - 1, radius, straightSides, insets);
+                width, height, radius, straightSides, insets);
             outlines.put(key, result);
             return result;
         }
