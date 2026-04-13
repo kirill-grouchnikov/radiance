@@ -229,7 +229,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
             Insets insets = layoutInsets;
             int buttonWidth = comboBox.isEditable()
                 ? RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils.getComponentFontSize(comboBox))
-                    + 2 * (int) RadianceSizeUtils.getOutlineWidthForContent(comboBox) + 1
+                    + 2 * (int) RadianceSizeUtils.getOutlineWidthForContent(comboBox) + 3
                 : uneditableArrowIcon.getIconWidth();
 
             if (arrowButton != null) {

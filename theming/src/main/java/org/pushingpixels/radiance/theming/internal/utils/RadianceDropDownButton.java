@@ -74,7 +74,7 @@ public final class RadianceDropDownButton extends JButton {
 
         int fontSize = RadianceSizeUtils.getComponentFontSize(parent);
         int tbInset = RadianceSizeUtils.getAdjustedSize(fontSize, 1, 2, 1, false);
-        setBorder(new EmptyBorder(tbInset + 1, 0, tbInset - 1, 0));
+        setBorder(new EmptyBorder(tbInset + 1, 1, tbInset - 1, 1));
 
         RadianceCoreUtilities.markButtonAsFlat(this);
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(this, EnumSet.allOf(RadianceThemingSlices.Side.class));

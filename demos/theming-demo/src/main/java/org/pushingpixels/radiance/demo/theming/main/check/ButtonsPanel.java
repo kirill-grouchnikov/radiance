@@ -691,6 +691,9 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
         builder.append(bLabel, tbLabel);
         builder.append(cbLabel, rbLabel);
 
+        Color errorColor = skin.getSystemContainerTokens(RadianceThemingSlices.DecorationAreaType.NONE,
+            RadianceThemingSlices.SystemContainerType.ERROR).getOnContainer();
+
         builder.appendSeparator("Regular settings");
         this.addRow(builder, "Enabled", null, null);
         this.addRow(builder, "Disabled", null, new DisableCommand());
@@ -699,7 +702,8 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
             new ChainCommand<>(new DisableCommand(), new SelectCommand()));
         this.addRow(builder, "HTML text", null,
             new TextCommand("<html><font color='" + RadianceColorUtilities.encode(textColor) +
-                "'>text <b>text</b></font> <font color='red'>text</font>"));
+                "'>text <b>text</b></font> <font color='" + RadianceColorUtilities.encode(errorColor) +
+                "'>text</font>"));
         this.addRow(builder, "Long text", null, new TextCommand("Some long long text"));
         this.addRow(builder, "With tooltip", null, new TooltipTextCommand("Sample tooltip"));
         this.addRow(builder, "Disabled with tooltip", null,

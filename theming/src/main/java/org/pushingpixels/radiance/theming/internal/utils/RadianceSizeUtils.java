@@ -294,14 +294,20 @@ public class RadianceSizeUtils {
 	 * @return Combo box border insets under the specified font size.
 	 */
 	public static Insets getComboBorderInsets(Component c) {
-		// The base insets are 1,2,1,2. We add one pixel for
+		// The base insets are 1,2,1,3. We add one pixel for
 		// each 3 extra points in base control size.
         int fontSize = RadianceSizeUtils.getComponentFontSize(c);
 		int tbInset = getAdjustedSize(fontSize, 1, 3, 1, false);
-		int lrInset = getAdjustedSize(fontSize, 2, 3, 1, false);
+
+		int leadingInset = getAdjustedSize(fontSize, 2, 3, 1, false);
+		int trailingInset = getAdjustedSize(fontSize, 3, 3, 1, false);
+		boolean ltr = (c == null) || c.getComponentOrientation().isLeftToRight();
+		int leftInset = ltr ? leadingInset : trailingInset;
+		int rightInset = ltr ? trailingInset : leadingInset;
+
         int extraOutlineInset = Math.max((int) getOutlineWidthForContent(c), 0);
-		return new Insets(tbInset, lrInset + extraOutlineInset,
-            tbInset, lrInset + extraOutlineInset);
+		return new Insets(tbInset, leftInset + extraOutlineInset,
+            tbInset, rightInset + extraOutlineInset);
 	}
 
 	/**
