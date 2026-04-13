@@ -66,8 +66,9 @@ public class NoiseFactory {
 	public static BufferedImage getNoiseImage(ContainerColorTokens tokens, int width,
 			int height, double xFactor, double yFactor, boolean hasConstantZ,
 			boolean toBlur) {
-		Color c1 = RadianceColorUtilities.getAlphaColor(tokens.getContainerSurfaceBright(), 255);
-		Color c3 = RadianceColorUtilities.getAlphaColor(tokens.getContainerSurfaceDim(), 255);
+		Color c1 = tokens.getContainerSurfaceHighest();
+		Color c3 = RadianceColorUtilities.getAlphaColor(tokens.getOnContainer(),
+			(int) (255 * tokens.getOnContainerDisabledAlpha()));
 
 		// Note that we are starting with non-hi DPI aware image for creating the
 		// source for the noise

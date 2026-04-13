@@ -54,6 +54,7 @@ import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtil
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceButtonBorder;
 import org.pushingpixels.radiance.theming.internal.utils.combo.RadianceComboPopup;
+import org.pushingpixels.radiance.theming.internal.utils.filters.ContainerTokensFilter;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 import org.pushingpixels.radiance.theming.internal.utils.menu.RadianceMenu;
 
@@ -918,10 +919,11 @@ public class RadianceCoreUtilities {
             case THEMED_FOLLOW_TEXT:
                 Color foreground = (textColor != null) ? textColor : colorTokens.getOnContainer();
                 return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
-                    comp, orig, foreground, 1.0f), scale);
+                    comp, orig, foreground), scale);
             case THEMED_FOLLOW_COLOR_TOKENS:
                 return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getContainerTokensImage(
-                    comp, orig, colorTokens, 0.4f), scale);
+                    comp, orig, colorTokens, ContainerTokensFilter.FilterRange.FULL_SPAN,
+                    ContainerTokensFilter.BrightnessFidelity.ORIGINAL), scale);
         }
         return null;
     }
@@ -940,10 +942,11 @@ public class RadianceCoreUtilities {
             case THEMED_FOLLOW_TEXT:
                 Color foreground = (textColor != null) ? textColor : colorTokens.getOnContainer();
                 return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
-                    tab, orig, foreground, 1.0f), scale);
+                    tab, orig, foreground), scale);
             case THEMED_FOLLOW_COLOR_TOKENS:
                 return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getContainerTokensImage(
-                    tab, orig, colorTokens, 0.4f), scale);
+                    tab, orig, colorTokens, ContainerTokensFilter.FilterRange.FULL_SPAN,
+                    ContainerTokensFilter.BrightnessFidelity.ORIGINAL), scale);
         }
         return null;
     }

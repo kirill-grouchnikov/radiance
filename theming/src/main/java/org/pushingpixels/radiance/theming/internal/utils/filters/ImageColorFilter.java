@@ -39,11 +39,9 @@ import java.awt.image.BufferedImage;
  */
 public class ImageColorFilter extends RadianceAbstractFilter {
 	private int color;
-	private float alpha;
 
-	public ImageColorFilter(Color color, float alpha) {
+	public ImageColorFilter(Color color) {
 		this.color = color.getRGB();
-		this.alpha = alpha;
 	}
 
 	@Override
@@ -64,7 +62,7 @@ public class ImageColorFilter extends RadianceAbstractFilter {
 		int colorBlue = this.color & 0xFF;
 		for (int i = 0; i < pixels.length; i++) {
 			// Multiply source alpha by the alpha in our target color
-			int alpha = (int) (this.alpha * ((pixels[i] >>> 24) & 0xFF) * colorAlpha / 256);
+			int alpha = ((pixels[i] >>> 24) & 0xFF) * colorAlpha / 256;
 			// and use R/G/B from our target color
 			pixels[i] = alpha << 24 | colorRed << 16 | colorGreen << 8 | colorBlue;
 		}

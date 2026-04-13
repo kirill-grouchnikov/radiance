@@ -73,7 +73,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				/* seed */ Hct.fromInt(0xFF606060),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()))
 			.withHeaderAreaNeutralTokens(ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFF555555),
+				/* seed */ Hct.fromInt(0xFF525252),
 				/* containerConfiguration */ ContainerConfiguration.defaultDark()))
 			.withHeaderAreaHighlightTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFF85A3B5),

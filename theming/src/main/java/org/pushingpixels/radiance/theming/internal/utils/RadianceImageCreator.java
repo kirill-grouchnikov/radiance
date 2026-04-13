@@ -313,7 +313,8 @@ public final class RadianceImageCreator {
      * @return Tokens-based version of the original icon.
      */
     public static BufferedImage getContainerTokensImage(Component comp, Icon original,
-        ContainerColorTokens colorTokens, float originalBrightnessFactor) {
+        ContainerColorTokens colorTokens, ContainerTokensFilter.FilterRange filterRange,
+        ContainerTokensFilter.BrightnessFidelity brightnessFidelity) {
         int w = original.getIconWidth();
         int h = original.getIconHeight();
         if ((w == 0) || (h == 0)) {
@@ -327,9 +328,7 @@ public final class RadianceImageCreator {
         original.paintIcon(comp, origImage.getGraphics(), 0, 0);
         g2d.dispose();
 
-        BufferedImage result = getContainerTokensImage(origImage, colorTokens,
-            originalBrightnessFactor, 1.0f);
-        return result;
+        return getContainerTokensImage(origImage, colorTokens, filterRange, brightnessFidelity);
     }
 
     /**
@@ -338,18 +337,16 @@ public final class RadianceImageCreator {
      *
      * @param original                 The original image.
      * @param colorTokens              Color tokens.
-     * @param originalBrightnessFactor The original brightness factor.
      * @return Tokens-based version of the original icon.
      */
     public static BufferedImage getContainerTokensImage(BufferedImage original,
-            ContainerColorTokens colorTokens, float originalBrightnessFactor,
-            float alpha) {
-        return ContainerTokensFilter.getContainerTokensFilter(colorTokens, originalBrightnessFactor, alpha)
+        ContainerColorTokens colorTokens, ContainerTokensFilter.FilterRange filterRange,
+        ContainerTokensFilter.BrightnessFidelity brightnessFidelity) {
+        return ContainerTokensFilter.getContainerTokensFilter(colorTokens, filterRange, brightnessFidelity)
                 .filter(original, null);
     }
 
-    public static BufferedImage getColorImage(Component comp, Icon original,
-            Color color, float alpha) {
+    public static BufferedImage getColorImage(Component comp, Icon original, Color color) {
         int w = original.getIconWidth();
         int h = original.getIconHeight();
         if ((w == 0) || (h == 0)) {
@@ -363,6 +360,6 @@ public final class RadianceImageCreator {
         original.paintIcon(comp, origImage.getGraphics(), 0, 0);
         g2d.dispose();
 
-        return new ImageColorFilter(color, alpha).filter(origImage, null);
+        return new ImageColorFilter(color).filter(origImage, null);
     }
 }

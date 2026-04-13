@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.decoration;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.filters.ContainerTokensFilter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -228,8 +228,9 @@ public abstract class ImageWrapperDecorationPainter extends RadianceDecorationPa
             tile2D.drawImage(this.originalTile, 0, 0, (int) (tileWidth / scale),
                     (int) ( tileHeight / scale), null);
             tile2D.dispose();
-            result = RadianceImageCreator.getContainerTokensImage(tileBi,
-                colorTokens, 0.0f, 1.0f);
+            result = RadianceImageCreator.getContainerTokensImage(
+                tileBi, colorTokens, ContainerTokensFilter.FilterRange.TONAL_CONTAINER_SURFACES,
+                ContainerTokensFilter.BrightnessFidelity.TONAL);
             this.colorizedTileMap.put(key, result);
         }
         return result;

@@ -290,17 +290,21 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
 
         Icon originalIcon = RadianceCoreUtilities.getOriginalIcon(b, b.getIcon());
 
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(b, g));
-        graphics.translate(iconRect.x, iconRect.y);
         StateTransitionTracker stateTracker = this.radianceVisualStateTracker
-                .getStateTransitionTracker();
+            .getStateTransitionTracker();
+        StateTransitionTracker.ModelStateInfo stateInfo = stateTracker.getModelStateInfo();
+        ComponentState currentState = stateInfo.getCurrModelState();
+
+        float extraAlpha = stateInfo.getCurrModelState().isDisabled() ?
+            CoreColorTokenUtils.getContainerTokens(b, currentState, CoreColorTokenUtils.ContainerType.NEUTRAL).getOnContainerDisabledAlpha() : 1.0f;
+
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(b, extraAlpha, g));
+        graphics.translate(iconRect.x, iconRect.y);
         if (AnimationConfigurationManager.getInstance().isAnimationAllowed(
                 RadianceThemingSlices.AnimationFacet.ICON_GLOW, b)
                 && stateTracker.getIconGlowTracker().isPlaying()) {
             this.glowingIcon.paintIcon(b, graphics, 0, 0);
         } else {
-            StateTransitionTracker.ModelStateInfo stateInfo = stateTracker.getModelStateInfo();
-            ComponentState currentState = stateInfo.getCurrModelState();
             if (currentState.isDisabled()) {
                 // No support yet for transitions between disabled and enabled / active
                 // states

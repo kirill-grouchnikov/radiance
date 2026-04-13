@@ -75,7 +75,8 @@ public interface ContainerColorTokens {
     default RadianceIcon.ColorFilter getColorFilter(float brightnessFactor, float alpha) {
         ContainerColorTokens origin = this;
         return color -> {
-            int[] interpolated = ContainerTokensFilter.getInterpolatedColors(origin);
+            int[] interpolated = ContainerTokensFilter.getInterpolatedColors(origin,
+                ContainerTokensFilter.FilterRange.FULL_SPAN);
             int steps = interpolated.length;
 
             int brightness = RadianceColorUtilities.getColorBrightness(color.getRGB());
