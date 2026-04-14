@@ -16,6 +16,8 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceStripingUtils;
@@ -80,10 +82,17 @@ public class PaletteEntryCellRenderer extends RadianceDefaultListCellRenderer {
 		icon = new ColorIcon();
 		setIcon(icon);
 		setOpaque(false);
+
+		RadianceThemingCortex.ComponentScope.setIconFilterStrategies(this,
+			RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
+			RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
+			RadianceThemingSlices.IconFilterStrategy.ORIGINAL);
 	}
 
 	public Component getListCellRendererComponent(JList list, Object value, int index,
 			boolean isSelected, boolean cellHasFocus) {
+		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
 		setComponentOrientation(list.getComponentOrientation());
 
 		setEnabled(list.isEnabled());
@@ -92,6 +101,7 @@ public class PaletteEntryCellRenderer extends RadianceDefaultListCellRenderer {
 
 		PaletteEntry entry = (PaletteEntry) value;
 		icon.setColor(entry.getColor());
+		setIcon(icon);
 		setText(entry.getName());
 
 		return this;
