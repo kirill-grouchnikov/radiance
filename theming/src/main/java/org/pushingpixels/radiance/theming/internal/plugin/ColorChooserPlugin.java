@@ -94,9 +94,7 @@ public class ColorChooserPlugin implements RadianceThemingComponentPlugin {
                     "ColorChooser.resetMnemonic",
                     Integer.valueOf(-1),
                     "ColorChooser.crayonsImage",
-                    (UIDefaults.LazyValue) ((UIDefaults table) -> RadianceImageCreator.getCrayonsImage(
-                            RadianceCoreUtilities.getBackgroundFill(skin, RadianceThemingSlices.DecorationAreaType.NONE)
-                    )),
+                    (UIDefaults.LazyValue) ((UIDefaults table) -> RadianceImageCreator.getCrayonsImage()),
                     "ColorChooser.textSliderGap",
                     Integer.valueOf(0),
             };

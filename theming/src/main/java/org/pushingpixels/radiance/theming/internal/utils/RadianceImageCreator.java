@@ -253,7 +253,7 @@ public final class RadianceImageCreator {
      *
      * @return Crayons image.
      */
-    public static Image getCrayonsImage(Color fillColor) {
+    public static Image getCrayonsImage() {
         int iw = 195;
         int ih = 208;
         double scale = RadianceCommonCortex.getScaleFactor(null);
@@ -263,9 +263,6 @@ public final class RadianceImageCreator {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-        graphics.setColor(fillColor);
-        graphics.fillRect(0, 0, iw, ih);
 
         for (int i = 0; i < RadianceImageCreator.crayonColors.length; i++) {
             Color crayonColor = new Color(0xff000000 | RadianceImageCreator.crayonColors[i]);

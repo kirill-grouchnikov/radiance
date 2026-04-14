@@ -16,6 +16,7 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 
 import javax.swing.*;
@@ -167,6 +168,8 @@ public class Crayons extends javax.swing.JPanel {
     public void paintComponent(Graphics gr) {
         Graphics2D g2d = (Graphics2D) gr.create();
         RadianceCommonCortex.installDesktopHints(g2d, getFont());
+
+        BackgroundPaintingUtils.update(g2d, this, false);
 
         // The crayons image is created once at Radiance initialization based on the scale
         // max scale factor of all connected screens. Use that same scale factor to draw
