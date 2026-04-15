@@ -89,7 +89,9 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		// add two overlay painters to create a bezel line between
 		// menu bar and toolbars
 		RadianceDecorationPainter.OverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
-			ContainerColorTokens::getContainerOutline);
+			ContainerColorTokensSingleColorQuery.composite(
+				ContainerColorTokens::getContainerOutline,
+				ColorTransform.alpha(128)));
 		RadianceDecorationPainter.OverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
 				ContainerColorTokens::getInverseContainerOutline,

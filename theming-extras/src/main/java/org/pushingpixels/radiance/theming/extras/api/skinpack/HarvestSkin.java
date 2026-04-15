@@ -41,10 +41,7 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLine
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
-import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
-import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
+import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
@@ -155,7 +152,8 @@ public class HarvestSkin extends RadianceSkin {
         this.decorationPainter.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
         this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
-                ContainerColorTokens::getContainerOutline),
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokens::getContainerOutline, ColorTransform.alpha(128))),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // Add overlay painters to paint drop shadow and a dark line along the top

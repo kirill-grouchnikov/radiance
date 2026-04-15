@@ -95,7 +95,7 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 
 		// add an overlay painter to paint a dark line along the bottom edge of toolbars
 		RadianceDecorationPainter.OverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-			ContainerColorTokens::getContainerOutline);
+			ContainerColorTokens::getContainerOutlineVariant);
 		this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 

@@ -221,7 +221,9 @@ public class AutumnSkin extends RadianceSkin {
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
 		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
-			ContainerColorTokens::getContainerOutlineVariant);
+			ContainerColorTokensSingleColorQuery.composite(
+				ContainerColorTokens::getContainerOutlineVariant,
+				ColorTransform.alpha(128)));
 		decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

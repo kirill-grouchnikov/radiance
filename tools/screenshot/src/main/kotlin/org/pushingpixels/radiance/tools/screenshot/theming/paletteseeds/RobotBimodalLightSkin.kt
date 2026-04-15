@@ -36,10 +36,12 @@ import org.pushingpixels.ephemeral.chroma.utils.MathUtils
 import org.pushingpixels.radiance.theming.api.*
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
+import org.pushingpixels.radiance.theming.api.palette.ColorTransform
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper
@@ -67,7 +69,11 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())
         decorationPainter.setTextureAlpha(config.headerTextureAlpha)
         val bottomLineOverlayPainter =
-            BottomLineOverlayPainter(ContainerColorTokens::getContainerOutline)
+            BottomLineOverlayPainter(
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokens::getContainerOutline,
+                    ColorTransform.alpha(128)
+                ))
         decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

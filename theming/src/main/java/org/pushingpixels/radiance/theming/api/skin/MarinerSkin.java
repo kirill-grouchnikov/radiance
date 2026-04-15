@@ -172,7 +172,7 @@ public class MarinerSkin extends RadianceSkin {
         // add an overlay painter to create a line between
         // menu bar and toolbars
         RadianceDecorationPainter.OverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
-            ContainerColorTokens::getContainerSurfaceHighest);
+            ContainerColorTokens::getContainerSurfaceHigh);
         this.decorationPainter.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 
         // add overlay painter to paint drop shadows along the bottom

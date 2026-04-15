@@ -136,7 +136,9 @@ public class NightShadeSkin extends RadianceSkin {
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
         RadianceDecorationPainter.OverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-            ContainerColorTokens::getContainerOutlineVariant);
+            ContainerColorTokensSingleColorQuery.composite(
+                ContainerColorTokens::getContainerOutlineVariant,
+                ColorTransform.alpha(128)));
         this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 

@@ -48,17 +48,24 @@ public final class TopLineOverlayPainter implements RadianceDecorationPainter.Ov
     /**
      * Used to compute the color of the line painted by this overlay painter.
      */
-    ContainerColorTokensSingleColorQuery containerTokensQuery;
+    private final ContainerColorTokensSingleColorQuery containerTokensQuery;
+
+    private final float strokeWidth;
 
     /**
      * Creates a new overlay painter that paints a single line at the top edge
      * of the relevant decoration area
      *
-     * @param containerTokensQuery Used to compute the color of the line painted by this overlay
-     *                         painter.
+     * @param containerTokensQuery Used to compute the color of the line painted by this overlay painter.
      */
     public TopLineOverlayPainter(ContainerColorTokensSingleColorQuery containerTokensQuery) {
+        this(containerTokensQuery, 1.0f);
+    }
+
+    public TopLineOverlayPainter(ContainerColorTokensSingleColorQuery containerTokensQuery,
+        float strokeWidth) {
         this.containerTokensQuery = containerTokensQuery;
+        this.strokeWidth = strokeWidth;
     }
 
     @Override
@@ -75,7 +82,8 @@ public final class TopLineOverlayPainter implements RadianceDecorationPainter.Ov
         Color lineColor = this.containerTokensQuery.query(colorTokens);
         g.setColor(lineColor);
 
-        int topY = 1 - dy;
+        int topY = (int) (Math.ceil(this.strokeWidth / 2.0f)) - dy;
+        g.setStroke(new BasicStroke(strokeWidth));
         g.drawLine(0, topY, width, topY);
     }
 

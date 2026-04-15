@@ -130,7 +130,9 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.decorationPainter = new FlatDecorationPainter();
 		// add two overlay painters to create a bezel line between menu bar and toolbars
 		BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
-			ContainerColorTokens::getContainerOutline);
+			ContainerColorTokensSingleColorQuery.composite(
+				ContainerColorTokens::getContainerOutline,
+				ColorTransform.alpha(128)));
 		RadianceDecorationPainter.OverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
 				ContainerColorTokens::getInverseContainerOutline,

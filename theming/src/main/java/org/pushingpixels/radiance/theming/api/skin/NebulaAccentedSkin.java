@@ -41,6 +41,8 @@ import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
+import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
@@ -140,7 +142,9 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
 		this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-			ContainerColorTokens::getContainerOutline);
+			ContainerColorTokensSingleColorQuery.composite(
+				ContainerColorTokens::getContainerOutline,
+				ColorTransform.alpha(128)));
 		decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

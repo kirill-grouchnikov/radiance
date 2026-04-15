@@ -48,7 +48,9 @@ public final class BottomLineOverlayPainter implements RadianceDecorationPainter
     /**
      * Used to compute the color of the line painted by this overlay painter.
      */
-    ContainerColorTokensSingleColorQuery containerTokensQuery;
+    private final ContainerColorTokensSingleColorQuery containerTokensQuery;
+
+    private final float strokeWidth;
 
     /**
      * Creates a new overlay painter that paints a single line at the bottom
@@ -58,7 +60,13 @@ public final class BottomLineOverlayPainter implements RadianceDecorationPainter
      *                         painter.
      */
     public BottomLineOverlayPainter(ContainerColorTokensSingleColorQuery containerTokensQuery) {
+        this(containerTokensQuery, 1.0f);
+    }
+
+    public BottomLineOverlayPainter(ContainerColorTokensSingleColorQuery containerTokensQuery,
+        float strokeWidth) {
         this.containerTokensQuery = containerTokensQuery;
+        this.strokeWidth = strokeWidth;
     }
 
     @Override
@@ -70,9 +78,10 @@ public final class BottomLineOverlayPainter implements RadianceDecorationPainter
                 .getTopMostParentWithDecorationAreaType(comp, decorationAreaType);
 
         Color lineColor = this.containerTokensQuery.query(colorTokens);
-        g.setColor(RadianceColorUtilities.getAlphaColor(lineColor, 128));
+        g.setColor(lineColor);
 
-        int bottomY = (int) (scaleFactor * topMostWithSameDecorationAreaType.getHeight() - 1);
+        int bottomY = (int) (scaleFactor * topMostWithSameDecorationAreaType.getHeight() - this.strokeWidth / 2.0f);
+        g.setStroke(new BasicStroke(strokeWidth));
         g.drawLine(0, bottomY, width, bottomY);
     }
 

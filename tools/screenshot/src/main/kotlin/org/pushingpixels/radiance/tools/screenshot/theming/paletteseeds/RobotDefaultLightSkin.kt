@@ -42,6 +42,8 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomL
 import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter
+import org.pushingpixels.radiance.theming.api.palette.ColorTransform
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper
 import java.awt.Color
@@ -74,7 +76,11 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())
         decorationPainter.setTextureAlpha(0.3f)
         val bottomLineOverlayPainter =
-            BottomLineOverlayPainter(ContainerColorTokens::getContainerOutline)
+            BottomLineOverlayPainter(
+                ContainerColorTokensSingleColorQuery.composite(
+                    ContainerColorTokens::getContainerOutline,
+                    ColorTransform.alpha(128)
+                ))
         decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
