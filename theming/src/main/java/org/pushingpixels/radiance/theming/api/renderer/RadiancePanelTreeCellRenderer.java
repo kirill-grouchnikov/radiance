@@ -40,7 +40,6 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.TreeUI;
-import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
 import java.util.Map;
 
@@ -119,54 +118,7 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel implements Ra
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
         this.setComponentOrientation(tree.getComponentOrientation());
 
-        ContainerColorTokens colorTokensForRenderer;
-        TreeUI treeUI = tree.getUI();
-        if (treeUI instanceof RadianceTreeUI) {
-            RadianceTreeUI ui = (RadianceTreeUI) treeUI;
-
-            RadianceTreeUI.TreePathId pathId = new RadianceTreeUI.TreePathId(tree.getPathForRow(row));
-
-            StateTransitionTracker.ModelStateInfo modelStateInfo = ui.getModelStateInfo(pathId);
-            ComponentState currState = ui.getPathState(pathId);
-
-            // special case for drop location
-            JTree.DropLocation dropLocation = tree.getDropLocation();
-            boolean isDropLocation = (dropLocation != null)
-                    && (dropLocation.getChildIndex() == -1)
-                    && (tree.getRowForPath(dropLocation.getPath()) == row);
-
-            if (!isDropLocation && (modelStateInfo != null)) {
-                Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                        modelStateInfo.getStateContributionMap();
-                if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-                    colorTokensForRenderer = getContainerTokensForState(tree, ui, currState);
-                } else {
-                    mergeIntoMutableColorTokens(mutableContainerTokens,
-                        getContainerTokensForState(tree, ui, currState), 1.0f);
-                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                        modelStateInfo.getStateContributionMap().entrySet()) {
-                        ComponentState activeState = activeEntry.getKey();
-                        if (activeState == currState) {
-                            continue;
-                        }
-                        float contribution = activeEntry.getValue().getContribution();
-                        mergeIntoMutableColorTokens(mutableContainerTokens,
-                            getContainerTokensForState(tree, ui, activeState), contribution);
-                    }
-
-                    colorTokensForRenderer = mutableContainerTokens;
-                }
-            } else {
-                colorTokensForRenderer = getContainerTokensForState(tree, ui, currState);
-                if (isDropLocation) {
-                    colorTokensForRenderer = CoreColorTokenUtils.getContainerTokens(tree,
-                        RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                        currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
-                }
-            }
-        } else {
-            colorTokensForRenderer = null;
-        }
+        ContainerColorTokens colorTokensForRenderer = getColorTokens(tree, value, row);
 
         this.setEnabled(tree.isEnabled());
         this.setFont(tree.getFont());
