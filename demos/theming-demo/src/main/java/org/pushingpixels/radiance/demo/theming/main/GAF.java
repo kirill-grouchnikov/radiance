@@ -33,7 +33,7 @@ import java.awt.*;
 
 public class GAF {
 
- public static void main(String args[]) {
+ public static void main(String[] args) {
    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
    Font[] fonts = ge.getAllFonts();
    for (int i=0;i<fonts.length;i++) {
