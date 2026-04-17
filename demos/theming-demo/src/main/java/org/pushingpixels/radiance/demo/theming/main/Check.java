@@ -669,6 +669,7 @@ public class Check extends JFrame {
         // add an inner toolbar to check the painting of toolbar
         // gradient and drop shadows under different skins.
         JToolBar innerToolbar = new JToolBar(JToolBar.HORIZONTAL);
+        innerToolbar.setBorder(new EmptyBorder(0, 2, 0, 2));
         innerToolbar.setFloatable(false);
 
         JToggleButton buttonFormatCenter = new JToggleButton(format_justify_center.of(size, size));
@@ -692,10 +693,11 @@ public class Check extends JFrame {
 
         if (size > 20) {
             JToolBar innerToolbar2 = new JToolBar(JToolBar.HORIZONTAL);
+            innerToolbar2.setBorder(new EmptyBorder(0, 2, 0, 2));
             innerToolbar2.setFloatable(false);
 
-            JPanel innerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-            innerToolbar2.add(innerPanel, BorderLayout.CENTER);
+            JPanel innerPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
+            innerToolbar2.add(innerPanel);
 
             Set<Side> leadingSide = EnumSet.of(Side.LEADING);
             Set<Side> trailingSide = EnumSet.of(Side.TRAILING);

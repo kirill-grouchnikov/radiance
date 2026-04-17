@@ -893,9 +893,9 @@ public class RadianceSizeUtils {
 	 * @return Tool bar insets under the specified font size.
 	 */
 	public static Insets getToolBarInsets(int fontSize) {
-		int lbrInset = getAdjustedSize(fontSize, 2, 3, 1, false);
-		int tInset = getAdjustedSize(fontSize, 1, 3, 1, false);
-		return new Insets(tInset, lbrInset, lbrInset, lbrInset);
+		int hInset = getAdjustedSize(fontSize, 2, 3, 1, false);
+		int vInset = getAdjustedSize(fontSize, 3, 3, 1, false);
+		return new Insets(vInset, hInset, vInset, hInset);
 	}
 
 	/**
