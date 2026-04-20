@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils;
 
+import org.pushingpixels.ephemeral.chroma.blend.Blend;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
@@ -67,66 +68,8 @@ public class RadianceColorUtilities {
                     "Color likeness should be in 0.0-1.0 range [is "
                             + color1Likeness + "]");
         }
-        int alpha1 = color1.getAlpha();
-        int alpha2 = color2.getAlpha();
 
-        int r = getInterpolatedChannelValue(color1.getRed(), color2.getRed(), color1Likeness);
-        int g = getInterpolatedChannelValue(color1.getGreen(), color2.getGreen(), color1Likeness);
-        int b = getInterpolatedChannelValue(color1.getBlue(), color2.getBlue(), color1Likeness);
-        int a = (alpha1 == alpha2) ? alpha1 : (int) Math.round(color1Likeness * alpha1
-                + (1.0 - color1Likeness) * alpha2);
-
-        return (a << 24) | (r << 16) | (g << 8) | b;
-    }
-
-    private static int getInterpolatedChannelValue(int value1, int value2, double value1Likeness) {
-        if (value1 == value2) {
-            return value1;
-        }
-        if (value1Likeness == 1.0f) {
-            return value1;
-        }
-        if (value1Likeness == 0.0f) {
-            return value2;
-        }
-
-        // Step 1 - convert channel from electro to optical
-        double optical1 = EOCF_sRGB(value1 / 255.0f);
-        double optical2 = EOCF_sRGB(value2 / 255.0f);
-
-        // Step 2 - interpolate
-        double interpolatedOptical = value1Likeness * optical1 +
-                (1.0f - value1Likeness) * optical2;
-
-        // Step 3 - convert interpolated from optical to electro
-        double interpolatedElectro = OECF_sRGB(interpolatedOptical);
-
-        // Step 4 - convert to 0..255 range
-        // using some interpolation values (such as 0.29 from issue 401)
-        // results in an incorrect final value without Math.round.
-        int result = (int) Math.round(interpolatedElectro * 255.0f);
-        if (result < 0) {
-            result = 0;
-        }
-        if (result > 255) {
-            result = 255;
-        }
-        return result;
-    }
-
-    // Opto-electronic conversion function for the sRGB color space
-    // Takes a gamma-encoded sRGB value and converts it to a linear sRGB value
-    private static double OECF_sRGB(double linear) {
-        // IEC 61966-2-1:1999
-        return linear <= 0.0031308f ? linear * 12.92f
-                : (Math.pow(linear, 1.0f / 2.4f) * 1.055f) - 0.055f;
-    }
-
-    // Electro-optical conversion function for the sRGB color space
-    // Takes a linear sRGB value and converts it to a gamma-encoded sRGB value
-    private static double EOCF_sRGB(double srgb) {
-        // IEC 61966-2-1:1999
-        return srgb <= 0.04045f ? srgb / 12.92f : Math.pow((srgb + 0.055f) / 1.055f, 2.4f);
+        return Blend.harmonizeAll(color1.getRGB(), color2.getRGB(), 1.0f - color1Likeness);
     }
 
     /**
