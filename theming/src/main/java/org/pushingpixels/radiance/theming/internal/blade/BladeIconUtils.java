@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePai
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.StateAlpha;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -172,6 +173,12 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
+    private static StateAlpha sliderIconSurfaceStateAlpha = (componentState, colorTokens) ->
+        componentState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha() : 1.0f;
+
+    private static StateAlpha sliderIconOutlineStateAlpha = (componentState, colorTokens) ->
+        componentState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha() : 1.0f;
+
     public static void drawSliderThumbDirectionalHorizontal(Graphics2D g, JSlider slider,
         RadianceOutlinePainter outlinePainter,
         int width, int height, ContainerColorTokens colorTokens, ComponentState currState) {
@@ -190,14 +197,16 @@ public class BladeIconUtils {
                 float outlineInset = outlinePainter.getOutlineInset(
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
+                    RadianceCoreUtilities.getSurfacePainter(slider),
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
                     shapeSupplier.getShape(slider, scaledWidth + 1.0f, scaledHeight + 1.0f,
                         outlineInset, 0.0f, scaleFactor),
-                    colorTokens);
+                    colorTokens, sliderIconSurfaceStateAlpha);
 
                 OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
+                    RadianceCoreUtilities.getOutlinePainter(slider),
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    shapeSupplier, colorTokens);
+                    shapeSupplier, colorTokens, sliderIconOutlineStateAlpha);
             });
         graphics.dispose();
     }
@@ -230,14 +239,16 @@ public class BladeIconUtils {
                 float outlineInset = outlinePainter.getOutlineInset(
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
+                    RadianceCoreUtilities.getSurfacePainter(slider),
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
                     shapeSupplier.getShape(slider, scaledWidth + 1.0f, scaledHeight + 1.0f,
                         outlineInset, 0.0f, scaleFactor),
-                    colorTokens);
+                    colorTokens, sliderIconSurfaceStateAlpha);
 
                 OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
+                    RadianceCoreUtilities.getOutlinePainter(slider),
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    shapeSupplier, colorTokens);
+                    shapeSupplier, colorTokens, sliderIconOutlineStateAlpha);
             });
         graphics.dispose();
     }
@@ -257,24 +268,19 @@ public class BladeIconUtils {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                // Icon fill
-                float containerSurfaceAlpha = currState.isDisabled()
-                    ? colorTokens.getContainerSurfaceDisabledAlpha()
-                    : colorTokens.getContainerSurfaceEnabledAlpha();
-                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(slider,
-                    containerSurfaceAlpha, g));
-
                 float outlineInset = outlinePainter.getOutlineInset(
                     RadianceOutlinePainter.InsetKind.SURFACE);
                 SurfacePainterUtils.paintSurface(graphics1X, slider, currState,
+                    RadianceCoreUtilities.getSurfacePainter(slider),
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
                     shapeSupplier.getShape(slider, scaledWidth + 1.0f, scaledHeight + 1.0f,
                         outlineInset, 0.0f, scaleFactor),
-                    colorTokens);
+                    colorTokens, sliderIconSurfaceStateAlpha);
 
                 OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
+                    RadianceCoreUtilities.getOutlinePainter(slider),
                     scaledWidth, scaledHeight, scaleFactor, 1.0f,
-                    shapeSupplier, colorTokens);
+                    shapeSupplier, colorTokens, sliderIconOutlineStateAlpha);
             });
         graphics.dispose();
     }
@@ -314,11 +320,11 @@ public class BladeIconUtils {
 
                 SurfacePainterUtils.paintSurface(graphics1X, tree, state,
                     treeIconSurfacePainter, scaledWidth - 1, scaledHeight - 1, scaleFactor,
-                    1.0f, outline, colorTokens);
+                    1.0f, outline, colorTokens, null);
 
                 OutlinePainterUtils.paintOutline(graphics1X, tree, state,
                     treeIconOutlinePainter, scaledWidth - 2, scaledHeight - 2, scaleFactor,
-                    1.0f, componentShaper.getTreeIconShapeSupplier(), colorTokens);
+                    1.0f, componentShaper.getTreeIconShapeSupplier(), colorTokens, null);
 
                 Color signColor = colorTokens.getOnContainer();
                 graphics1X.setColor(signColor);

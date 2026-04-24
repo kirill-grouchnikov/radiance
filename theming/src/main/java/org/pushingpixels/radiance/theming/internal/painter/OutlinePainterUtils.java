@@ -46,18 +46,23 @@ public class OutlinePainterUtils {
         paintOutline(graphics1X, component, componentState,
             RadianceCoreUtilities.getOutlinePainter(component),
             scaledWidth, scaledHeight, scaleFactor,
-            alpha, shapeSupplier, colorTokens);
+            alpha, shapeSupplier, colorTokens, null);
     }
 
     public static void paintOutline(Graphics2D graphics1X, Component component,
         ComponentState componentState, RadianceOutlinePainter outlinePainter,
         float scaledWidth, float scaledHeight, double scaleFactor,
-        float alpha, RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens) {
+        float alpha, RadianceComponentShaper.ShapeSupplier shapeSupplier,
+        ContainerColorTokens colorTokens, StateAlpha stateAlpha) {
 
-        float containerOutlineAlpha = alpha *
-            (componentState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha()
-                : colorTokens.getContainerOutlineEnabledAlpha());
         Graphics2D graphics = (Graphics2D) graphics1X.create();
+
+        // Apply the matching alpha
+        float stateBasedAlpha = (stateAlpha != null)
+            ? stateAlpha.getStateAlpha(componentState, colorTokens)
+            : (componentState.isDisabled() ? colorTokens.getContainerOutlineDisabledAlpha()
+               : colorTokens.getContainerOutlineEnabledAlpha());
+        float containerOutlineAlpha = alpha * stateBasedAlpha;
         graphics.setComposite(WidgetUtilities.getAlphaComposite(component, containerOutlineAlpha, graphics1X));
 
         // Ask the outline painter to paint the outline

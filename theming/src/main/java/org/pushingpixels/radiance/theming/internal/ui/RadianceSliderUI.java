@@ -244,7 +244,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             width, height, 0.0f, 0.0f, scaleFactor);
 
         SurfacePainterUtils.paintSurface(graphics1X, slider, currState, surfacePainter,
-            width, height, scaleFactor, 1.0f, outline, colorTokens);
+            width, height, scaleFactor, 1.0f, outline, colorTokens, null);
         OutlinePainterUtils.paintOutline(graphics1X, slider, currState,
             width, height, scaleFactor, 1.0f, componentShaper.getSliderTrackShapeSupplier(),
             colorTokens);
@@ -301,7 +301,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     fillWidth, fillHeight, scaleFactor, 1.0f, outline, colorTokens);
                 OutlinePainterUtils.paintOutline(graphics1Xextra, slider, currState, outlinePainter,
                     fillWidth, fillHeight, scaleFactor, 1.0f, componentShaper.getSliderTrackShapeSupplier(),
-                    colorTokens);
+                    colorTokens, null);
             }
         } else {
             int middleOfThumb = (int) (scaleFactor * (thumbRect.y + (thumbRect.height / 2) - paintRect.y));
@@ -328,7 +328,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     fillWidth, fillHeight, scaleFactor, 1.0f, outline, colorTokens);
                 OutlinePainterUtils.paintOutline(graphics1Xextra, slider, currState, outlinePainter,
                     fillWidth, fillHeight, scaleFactor, 1.0f, componentShaper.getSliderTrackShapeSupplier(),
-                    colorTokens);
+                    colorTokens, null);
             }
         }
         graphics1Xextra.dispose();

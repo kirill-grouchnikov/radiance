@@ -356,7 +356,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                         OutlinePainterUtils.paintOutline(graphics1X, this.commandButton, currState,
                             new FlatOutlinePainter(),
                             extended.x + extended.width, extended.y + extended.height, scaleFactor,
-                            1.0f, iconContainerShapeSupplier, tokens);
+                            1.0f, iconContainerShapeSupplier, tokens, null);
                     });
             graphics.dispose();
         }

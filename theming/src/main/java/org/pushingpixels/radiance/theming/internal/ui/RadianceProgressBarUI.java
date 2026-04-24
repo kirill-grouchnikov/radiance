@@ -274,7 +274,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape outline = componentShaper.getProgressBarProgressShapeSupplier(straightSides).getShape(
                         bar, scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
                     SurfacePainterUtils.paintSurface(graphics1X, bar, currState, progressSurfacePainter,
-                        scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens, null);
                 });
         } else {
             // Flip width and height, and then apply a rotation transformation
@@ -290,7 +290,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     Shape outline = componentShaper.getProgressBarProgressShapeSupplier(straightSides).getShape(
                         bar, scaledWidth, scaledHeight, 0.0f, 0.0f, scaleFactor);
                     SurfacePainterUtils.paintSurface(graphics1X, bar, currState, progressSurfacePainter,
-                        scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens);
+                        scaledWidth, scaledHeight, scaleFactor, 1.0f, outline, colorTokens, null);
                 });
         }
         graphics.dispose();

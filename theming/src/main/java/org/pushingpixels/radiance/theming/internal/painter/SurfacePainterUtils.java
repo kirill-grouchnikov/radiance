@@ -45,20 +45,22 @@ public class SurfacePainterUtils {
         paintSurface(graphics1X, component, componentState,
             RadianceCoreUtilities.getSurfacePainter(component),
             scaledWidth, scaledHeight, scaleFactor,
-            alpha, outline, colorTokens);
+            alpha, outline, colorTokens, null);
     }
 
     public static void paintSurface(Graphics2D graphics1X, Component component,
         ComponentState componentState, RadianceSurfacePainter surfacePainter,
         float scaledWidth, float scaledHeight, double scaleFactor,
-        float alpha, Shape outline, ContainerColorTokens colorTokens) {
+        float alpha, Shape outline, ContainerColorTokens colorTokens, StateAlpha stateAlpha) {
 
         Graphics2D graphics = (Graphics2D) graphics1X.create();
 
-        // If we're in a disabled state, apply the matching alpha
-        float containerSurfaceAlpha = alpha *
-            (componentState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha()
-                : colorTokens.getContainerSurfaceEnabledAlpha());
+        // Apply the matching alpha
+        float stateBasedAlpha = (stateAlpha != null)
+            ? stateAlpha.getStateAlpha(componentState, colorTokens)
+            : (componentState.isDisabled() ? colorTokens.getContainerSurfaceDisabledAlpha()
+               : colorTokens.getContainerSurfaceEnabledAlpha());
+        float containerSurfaceAlpha = alpha * stateBasedAlpha;
         graphics.setComposite(WidgetUtilities.getAlphaComposite(component, containerSurfaceAlpha, graphics1X));
 
         // Ask the surface painter to paint the surface
