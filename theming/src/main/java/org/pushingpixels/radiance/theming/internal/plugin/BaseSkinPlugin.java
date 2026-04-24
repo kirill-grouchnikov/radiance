@@ -110,6 +110,8 @@ public class BaseSkinPlugin implements RadianceThemingSkinPlugin {
                 RadianceNebulaAmethystLookAndFeel.class::getName));
         result.add(new SkinInfo(SentinelSkin.NAME, SentinelSkin.class::getName,
                 RadianceSentinelLookAndFeel.class::getName));
+        result.add(new SkinInfo(BlueprintSkin.NAME, BlueprintSkin.class::getName,
+            RadianceBlueprintLookAndFeel.class::getName));
 
         return result;
     }
