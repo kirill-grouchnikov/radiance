@@ -403,7 +403,7 @@ public class BlueprintSkin extends RadianceSkin {
 
 			int iHeight = (int) Math.ceil(height);
 
-			g2d.setColor(colorTokens.getContainerSurfaceLow());
+			g2d.setColor(RadianceColorUtilities.getAlphaColor(colorTokens.getContainerSurfaceLow(), 128));
 			g2d.setStroke(new BasicStroke(stripeWidth));
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 			for (int x = 0; x <= (width + height); x += stepWidth) {
