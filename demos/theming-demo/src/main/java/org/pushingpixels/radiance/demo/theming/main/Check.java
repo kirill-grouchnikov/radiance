@@ -309,25 +309,6 @@ public class Check extends JFrame {
         if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
             jmb.add(SampleMenuFactory.getSkinMenu());
         }
-        JMenu coloredMenu = new JMenu("Colors");
-        coloredMenu.setMnemonic('0');
-        JMenuItem coloredMI = new JMenuItem("Italic red");
-        coloredMI.setFont(coloredMI.getFont().deriveFont(Font.ITALIC));
-        coloredMI.setForeground(Color.red);
-        coloredMenu.add(coloredMI);
-        JRadioButtonMenuItem coloredRBMI = new JRadioButtonMenuItem("Bold green");
-        coloredRBMI.setFont(coloredRBMI.getFont().deriveFont(Font.BOLD));
-        coloredRBMI.setForeground(Color.green);
-        coloredMenu.add(coloredRBMI);
-        JCheckBoxMenuItem coloredCBMI = new JCheckBoxMenuItem("Big blue");
-        coloredCBMI.setFont(coloredCBMI.getFont().deriveFont(32f));
-        coloredCBMI.setForeground(Color.blue);
-        coloredMenu.add(coloredCBMI);
-        JMenu coloredM = new JMenu("Always big magenta");
-        coloredM.setForeground(Color.magenta);
-        coloredM.setFont(coloredM.getFont().deriveFont(24f));
-        coloredMenu.add(coloredM);
-        jmb.add(coloredMenu);
 
         JMenu testMenu = SampleMenuFactory.getTestMenu(jmb);
         jmb.add(testMenu);
