@@ -36,20 +36,16 @@ import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Set;
@@ -71,15 +67,15 @@ public class BlueprintSkin extends RadianceSkin {
 	}
 
 	private static class RectangularComponentShaper extends ClassicComponentShaper {
-		private ShapeSupplier RECTANGLE_SHAPE_SUPPLIER =
+		private static final ShapeSupplier RECTANGLE_SHAPE_SUPPLIER =
 			(c, width, height, insets, radiusAdjustment, scaleFactor) ->
 				new Rectangle2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
-		private ShapeSupplier ROUND_SHAPE_SUPPLIER =
+		private static final ShapeSupplier ROUND_SHAPE_SUPPLIER =
 			(c, width, height, insets, radiusAdjustment, scaleFactor) ->
 				new Ellipse2D.Float(insets, insets, width - 2.0f * insets, height - 2.0f * insets);
 
-		private ShapeSupplier DIAMOND_SHAPE_SUPPLIER =
+		private static final ShapeSupplier DIAMOND_SHAPE_SUPPLIER =
 			(c, width, height, insets, radiusAdjustment, scaleFactor) -> {
 				float dimension = Math.min(width, height) - 1.0f;
 				float midX = width / 2.0f - 1.0f;
@@ -98,75 +94,12 @@ public class BlueprintSkin extends RadianceSkin {
 
 		@Override
 		public String getDisplayName() {
-			return "Classic";
+			return "Blueprint";
 		}
 
 		@Override
 		public ShapeSupplier getButtonShapeSupplier() {
 			return RECTANGLE_SHAPE_SUPPLIER;
-		}
-
-		@Override
-		public Dimension getButtonPreferredSize(AbstractButton button) {
-			Dimension result = RadianceMetricsUtilities.getPreferredButtonSize(button);
-			boolean toTweakWidth = false;
-			boolean toTweakHeight = false;
-
-			Icon icon = button.getIcon();
-			boolean hasIcon = RadianceCoreUtilities.hasIcon(button);
-			boolean hasText = RadianceCoreUtilities.hasText(button);
-			Insets margin = button.getMargin();
-
-			boolean hasNoMinSizeProperty = RadianceCoreUtilities.hasNoMinSizeProperty(button);
-			if ((!hasNoMinSizeProperty) && hasText) {
-				result = new Dimension(Math.max(result.width,
-					RadianceSizeUtils.getMinButtonWidth(RadianceSizeUtils.getComponentFontSize(button))),
-					result.height);
-			} else {
-				if (hasNoMinSizeProperty) {
-					if (margin != null) {
-						result = new Dimension(result.width + margin.left + margin.right,
-							result.height + margin.top + margin.bottom);
-					}
-				}
-			}
-
-			int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-			int extraPadding = RadianceSizeUtils.getExtraPadding(fontSize);
-			float focusPadding = RadianceSizeUtils.getFocusRingPadding(button, fontSize);
-			int iconPaddingWidth = 6 + 2 * extraPadding + (int) (2 * focusPadding);
-			int iconPaddingHeight = 6 + 2 * extraPadding;
-			if (margin != null) {
-				iconPaddingWidth = Math.max(iconPaddingWidth, margin.left + margin.right);
-				iconPaddingHeight = Math.max(iconPaddingHeight, margin.top + margin.bottom);
-			}
-			if (hasIcon) {
-				// check the icon height
-				int iconHeight = icon.getIconHeight();
-				if (iconHeight > (result.getHeight() - iconPaddingHeight)) {
-					result = new Dimension(result.width, iconHeight);
-					toTweakHeight = true;
-				}
-				int iconWidth = icon.getIconWidth();
-				if (iconWidth > (result.getWidth() - iconPaddingWidth)) {
-					result = new Dimension(iconWidth, result.height);
-					toTweakWidth = true;
-				}
-			}
-
-			if (RadianceCoreUtilities.isScrollBarButton(button)) {
-				toTweakWidth = false;
-				toTweakHeight = false;
-			}
-
-			if (toTweakWidth) {
-				result = new Dimension(result.width + iconPaddingWidth, result.height);
-			}
-			if (toTweakHeight) {
-				result = new Dimension(result.width, result.height + iconPaddingHeight);
-			}
-
-			return result;
 		}
 
 		@Override
