@@ -81,8 +81,8 @@ public class RadianceSpinnerButton extends JButton {
                 // having them centered in the spinner buttons
                 int delta = RadianceSizeUtils.getAdjustedSize(
                         RadianceSizeUtils.getComponentFontSize(c), 3, 3, 1, false);
-                int deltaTop = (orientation == SwingConstants.NORTH) ? delta : 0;
-                int deltaBottom = (orientation == SwingConstants.NORTH) ? 0 : delta;
+                int deltaTop = (orientation == SwingConstants.NORTH) ? delta + 1 : 2;
+                int deltaBottom = (orientation == SwingConstants.NORTH) ? 0 : delta - 1;
                 return new Insets(extraPadding + deltaTop, extraPadding, extraPadding + deltaBottom,
                         extraPadding);
             }
