@@ -57,6 +57,8 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class BlueprintSkin extends RadianceSkin {
+	private static final int GRID_SIZE = 8;
+
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -277,8 +279,6 @@ public class BlueprintSkin extends RadianceSkin {
 	private static class BlueprintDecorationInlayPainter implements RadianceDecorationPainter.InlayPainter {
 		private static final String DISPLAY_NAME = "Blueprint";
 
-		private static final int GRID_SIZE = 8;
-
 		@Override
 		public String getDisplayName() {
 			return DISPLAY_NAME;
@@ -345,6 +345,91 @@ public class BlueprintSkin extends RadianceSkin {
 			}
 
 			g2d.dispose();
+		}
+	}
+
+	private static class BlueprintRootPaneDecorator extends DefaultRootPaneDecorator {
+		@Override
+		public void paintRootPaneBorder(Graphics2D graphics, Component comp,
+			int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
+
+			int insideThickness = (int) (BORDER_THICKNESS * scaleFactor);
+
+			// Inner part, as surface
+			graphics.setColor(colorTokens.getContainerSurface());
+			// Left edge
+			graphics.fillRect(0, 0, insideThickness, height);
+			// Right edge
+			graphics.fillRect(width - 1 - insideThickness, 0, insideThickness, height);
+			// Top edge
+			graphics.fillRect(0, 0, width, insideThickness);
+			// Bottom edge
+			graphics.fillRect(0, height - 1 - insideThickness, width, insideThickness);
+
+			// Paint grid dashes first, and then the outer rectangle
+
+			int scaledGridSize = (int) (scaleFactor * GRID_SIZE);
+			int fullGridDashLength = (int) (BORDER_THICKNESS * scaleFactor);
+			int partialGridDashLength = (int) (BORDER_THICKNESS * scaleFactor * 0.7f);
+
+			Color gridColor = RadianceColorUtilities.getAlphaColor(colorTokens.getContainerOutlineVariant(), 51);
+
+			// Top and bottom dashes
+			int dashIndex = 1;
+			for (int dashX = insideThickness; dashX <= (width - insideThickness); dashX += scaledGridSize) {
+				boolean isFullDash = (dashIndex % 4 == 0);
+
+				if (!isFullDash) {
+					graphics.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+					graphics.setColor(gridColor);
+					graphics.drawLine(dashX, 0, dashX, insideThickness);
+					graphics.drawLine(dashX, height - insideThickness - 1, dashX, height - 1);
+				}
+
+				int gridDashLength = isFullDash ? fullGridDashLength : partialGridDashLength;
+				graphics.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+				graphics.setColor(colorTokens.getContainerOutline());
+				graphics.drawLine(dashX, 0, dashX, gridDashLength);
+				graphics.drawLine(dashX, height - gridDashLength - 1, dashX, height - 1);
+				dashIndex++;
+			}
+
+			// Left and right dashes
+			dashIndex = 1;
+			for (int dashY = insideThickness; dashY <= (height - insideThickness); dashY += scaledGridSize) {
+				boolean isFullDash = (dashIndex % 4 == 0);
+
+				if (!isFullDash) {
+					graphics.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+					graphics.setColor(gridColor);
+					graphics.drawLine(0, dashY, insideThickness, dashY);
+					graphics.drawLine(width - insideThickness - 1, dashY, width - 1, dashY);
+				}
+
+				int gridDashLength = isFullDash ? fullGridDashLength : partialGridDashLength;
+				graphics.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+				graphics.setColor(colorTokens.getContainerOutline());
+				graphics.drawLine(0, dashY, gridDashLength, dashY);
+				graphics.drawLine(width - gridDashLength - 1, dashY, width - 1, dashY);
+				dashIndex++;
+			}
+
+			graphics.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+			graphics.setColor(colorTokens.getContainerOutline());
+
+			// Top edge
+			graphics.drawLine(0, 0, width, 0);
+			graphics.drawLine(0, 1, width, 1);
+			// Left edge
+			graphics.drawLine(0, 0, 0, height);
+			graphics.drawLine(1, 0, 1, height);
+
+			// Bottom edge
+			graphics.drawLine(0, height - 1, width, height - 1);
+			graphics.drawLine(0, height - 2, width, height - 2);
+			// Right edge
+			graphics.drawLine(width - 1, 0, width - 1, height);
+			graphics.drawLine(width - 2, 0, width - 2, height);
 		}
 	}
 
@@ -433,6 +518,6 @@ public class BlueprintSkin extends RadianceSkin {
 		this.registerComponentShaper(new RectangularComponentShaper(),
 			RadianceThemingSlices.DecorationAreaType.NONE, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.rootPaneDecorator = new DefaultRootPaneDecorator();
+		this.rootPaneDecorator = new BlueprintRootPaneDecorator();
 	}
 }

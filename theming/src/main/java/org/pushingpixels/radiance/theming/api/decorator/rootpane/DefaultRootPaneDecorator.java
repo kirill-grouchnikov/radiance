@@ -36,7 +36,7 @@ import java.awt.*;
 
 public class DefaultRootPaneDecorator implements RadianceRootPaneDecorator {
     // Default border thickness in unscaled pixels.
-    private static final int BORDER_THICKNESS = 4;
+    protected static final int BORDER_THICKNESS = 4;
 
     // Default insets in unscaled pixels.
     private static final Insets INSETS = new Insets(BORDER_THICKNESS, BORDER_THICKNESS,
