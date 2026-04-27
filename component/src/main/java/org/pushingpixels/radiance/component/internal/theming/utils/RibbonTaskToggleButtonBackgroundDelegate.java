@@ -124,8 +124,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         JRibbonTaskToggleButton button, ComponentState currState, ContainerColorTokens tokens) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
-        RadianceComponentShaper.ShapeSupplier baselineShapeSupplier =
-            componentShaper.getBaselineShapeSupplier(EnumSet.of(Side.BOTTOM));
+        RadianceComponentShaper.ShapeSupplier tabShapeSupplier = componentShaper.getTabShapeSupplier();
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -137,7 +136,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 0, 0, button.getWidth(), button.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    Shape scaledOutline = baselineShapeSupplier.getShape(button,
+                    Shape scaledOutline = tabShapeSupplier.getShape(button,
                         scaledWidth, scaledHeight + 3.0f, 0.0f, 0.0f, scaleFactor);
 
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
@@ -166,7 +165,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
 
                     OutlinePainterUtils.paintOutline(graphics1X, button, currState,
                         scaledWidth - 1, scaledHeight + 3.0f, scaleFactor, 1.0f,
-                        baselineShapeSupplier, tokens);
+                        tabShapeSupplier, tokens);
                 });
         graphics.dispose();
     }

@@ -234,8 +234,8 @@ public class RadianceRibbonTaskToggleButtonUI extends
         RadianceTextUtilities.paintText(g, textRect, toPaint, -1, this.commandButton.getFont(), fgColor, null);
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(this.commandButton);
-        RadianceComponentShaper.ShapeSupplier baselineShapeSupplier =
-            componentShaper.getBaselineShapeSupplier(EnumSet.of(RadianceThemingSlices.Side.BOTTOM));
+        RadianceComponentShaper.ShapeSupplier tabShapeSupplier =
+            componentShaper.getTabShapeSupplier();
 
         Color focusColor = RadianceColorUtilities.getAlphaColor(fgColor, 192);
         Graphics2D g2d = (Graphics2D) g.create();
@@ -252,7 +252,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
                     // decoration background fill.
                     float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(this.commandButton,
                             RadianceSizeUtils.getComponentFontSize(this.commandButton));
-                    Shape focusOutline = baselineShapeSupplier.getShape(this.commandButton,
+                    Shape focusOutline = tabShapeSupplier.getShape(this.commandButton,
                         scaledWidth, scaledHeight, focusRingPadding, 0.0f, scaleFactor);
                     RadianceCoreUtilities.paintFocus1X(graphics1X,
                             this.commandButton, this.commandButton, this,
