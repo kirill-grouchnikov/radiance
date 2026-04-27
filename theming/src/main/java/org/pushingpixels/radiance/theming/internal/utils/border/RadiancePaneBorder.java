@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
@@ -47,14 +46,10 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class RadiancePaneBorder extends AbstractBorder implements UIResource {
-    /**
-     * Default border thickness.
-     */
+    // Default border thickness.
     private static final int BORDER_THICKNESS = 4;
 
-    /**
-     * Default insets.
-     */
+    // Default insets.
     private static final Insets INSETS = new Insets(RadiancePaneBorder.BORDER_THICKNESS,
             RadiancePaneBorder.BORDER_THICKNESS, RadiancePaneBorder.BORDER_THICKNESS,
             RadiancePaneBorder.BORDER_THICKNESS);
@@ -80,39 +75,8 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
             (graphics1X, scaleX, scaleY, scaledWidth, scaledHeight, scaleFactor) -> {
-
-                int insideThickness = (int) (BORDER_THICKNESS * scaleFactor);
-
-                // Inner part, as surface
-                graphics1X.setColor(titleContainerTokens.getContainerSurface());
-                // Left edge
-                graphics1X.fillRect(0, 0, insideThickness, scaledHeight);
-                // Right edge
-                graphics1X.fillRect(scaledWidth - 1 - insideThickness, 0, insideThickness, scaledHeight);
-                // Top edge
-                graphics1X.fillRect(0, 0, scaledWidth, insideThickness);
-                // Bottom edge
-                graphics1X.fillRect(0, scaledHeight - 1 - insideThickness, scaledWidth, insideThickness);
-
-                // top and left border as 40% mix of outline variant and outline
-                graphics1X.setColor(RadianceColorUtilities.getInterpolatedColor(
-                    titleContainerTokens.getContainerOutlineVariant(),
-                    titleContainerTokens.getContainerOutline(), 0.4f));
-                // Top edge
-                graphics1X.drawLine(0, 0, scaledWidth, 0);
-                graphics1X.drawLine(0, 1, scaledWidth, 1);
-                // Left edge
-                graphics1X.drawLine(0, 0, 0, scaledHeight);
-                graphics1X.drawLine(1, 0, 1, scaledHeight);
-
-                // bottom and right border as outline
-                graphics1X.setColor(titleContainerTokens.getContainerOutline());
-                // Bottom edge
-                graphics1X.drawLine(0, scaledHeight - 1, scaledWidth, scaledHeight - 1);
-                graphics1X.drawLine(0, scaledHeight - 2, scaledWidth, scaledHeight - 2);
-                // Right edge
-                graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight);
-                graphics1X.drawLine(scaledWidth - 2, 0, scaledWidth - 2, scaledHeight);
+                skin.getRootPaneDecorator().paintRootPaneBorder(graphics1X, c,
+                    scaledWidth, scaledHeight, scaleFactor, titleContainerTokens);
         });
 
         graphics.dispose();
@@ -120,20 +84,28 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
 
     @Override
     public Insets getBorderInsets(Component c) {
-        return RadiancePaneBorder.INSETS;
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+        if (skin == null) {
+            return INSETS;
+        }
+
+        return skin.getRootPaneDecorator().getRootPaneBorderInsets();
     }
 
     @Override
     public Insets getBorderInsets(Component c, Insets newInsets) {
-        newInsets.top = RadiancePaneBorder.INSETS.top;
-        newInsets.left = RadiancePaneBorder.INSETS.left;
-        newInsets.bottom = RadiancePaneBorder.INSETS.bottom;
-        newInsets.right = RadiancePaneBorder.INSETS.right;
+        Insets insets = getBorderInsets(c);
+
+        newInsets.left = insets.left;
+        newInsets.top = insets.top;
+        newInsets.right = insets.right;
+        newInsets.bottom = insets.bottom;
+
         return newInsets;
     }
 
     @Override
     public boolean isBorderOpaque() {
-        return false;
+        return true;
     }
 }

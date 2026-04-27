@@ -35,6 +35,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
@@ -245,5 +246,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
         this.highlightSurfacePainter = new FlatSurfacePainter("Office Silver 2007",
             (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
                 : colorTokens.getContainerSurfaceLowest());
+
+        this.rootPaneDecorator = new DefaultRootPaneDecorator();
     }
 }

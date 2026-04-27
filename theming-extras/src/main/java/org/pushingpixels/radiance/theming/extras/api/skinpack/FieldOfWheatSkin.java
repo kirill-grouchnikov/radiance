@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
@@ -123,5 +124,7 @@ public class FieldOfWheatSkin extends RadianceSkin {
         this.highlightSurfacePainter = new FlatSurfacePainter("Field of Wheat",
             ContainerColorTokens::getContainerSurface);
         this.highlightOutlinePainter = new FlatOutlinePainter();
+
+        this.rootPaneDecorator = new DefaultRootPaneDecorator();
     }
 }

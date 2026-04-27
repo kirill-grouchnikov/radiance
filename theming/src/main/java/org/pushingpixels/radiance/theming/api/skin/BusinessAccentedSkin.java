@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
@@ -108,6 +109,8 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 		this.highlightSurfacePainter = new FlatSurfacePainter("Business",
 			(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
 				: colorTokens.getContainerSurfaceLowest());
+
+		this.rootPaneDecorator = new DefaultRootPaneDecorator();
 	}
 
 	protected abstract boolean isHeaderDark();

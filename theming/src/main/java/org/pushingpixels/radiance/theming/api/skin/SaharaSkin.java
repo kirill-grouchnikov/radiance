@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
@@ -130,5 +131,7 @@ public class SaharaSkin extends RadianceSkin {
 		this.highlightSurfacePainter = new FlatSurfacePainter("Sahara",
 			(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
 				: colorTokens.getContainerSurfaceLowest());
+
+		this.rootPaneDecorator = new DefaultRootPaneDecorator();
 	}
 }

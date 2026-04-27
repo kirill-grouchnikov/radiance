@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
@@ -163,5 +164,7 @@ public class CeruleanSkin extends RadianceSkin {
 				: colorTokens.getContainerSurfaceHigh());
 		this.outlinePainter = new FlatOutlinePainter();
 		this.highlightOutlinePainter = new FlatOutlinePainter();
+
+		this.rootPaneDecorator = new DefaultRootPaneDecorator();
 	}
 }

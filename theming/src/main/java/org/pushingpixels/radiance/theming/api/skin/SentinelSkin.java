@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
@@ -216,5 +217,7 @@ public class SentinelSkin extends RadianceSkin {
         this.highlightSurfacePainter = new FlatSurfacePainter("Sentinel", ContainerColorTokens::getContainerSurface);
         this.outlinePainter = new FlatOutlinePainter();
         this.highlightOutlinePainter = new FlatOutlinePainter();
+
+		this.rootPaneDecorator = new DefaultRootPaneDecorator();
     }
 }

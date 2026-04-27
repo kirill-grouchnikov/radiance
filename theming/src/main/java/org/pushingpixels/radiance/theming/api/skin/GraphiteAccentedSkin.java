@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
@@ -116,5 +117,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 			});
 		this.decorationPainter = new FlatDecorationPainter();
 		this.highlightSurfacePainter = new FlatSurfacePainter("Graphite", ContainerColorTokens::getContainerSurface);
+
+		this.rootPaneDecorator = new DefaultRootPaneDecorator();
 	}
 }

@@ -33,6 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
@@ -160,5 +161,7 @@ public class GreenMagicSkin extends RadianceSkin {
         this.highlightSurfacePainter = new FlatSurfacePainter("Green Magic",
             (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
                 : colorTokens.getContainerSurfaceLowest());
+
+		this.rootPaneDecorator = new DefaultRootPaneDecorator();
     }
 }

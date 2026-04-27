@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.demo.themingapps.seaglass.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
@@ -126,5 +127,7 @@ public class SeaGlassSkin extends RadianceSkin {
 			});
 
 		this.highlightOutlinePainter = new FlatOutlinePainter();
+
+        this.rootPaneDecorator = new DefaultRootPaneDecorator();
 	}
 }

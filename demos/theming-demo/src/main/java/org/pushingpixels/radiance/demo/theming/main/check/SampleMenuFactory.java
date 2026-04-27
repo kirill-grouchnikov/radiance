@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.info_24dp_outline;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.warning_24dp_outline;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
@@ -387,6 +388,8 @@ public class SampleMenuFactory {
             this.highlightSurfacePainter = new FlatSurfacePainter("Sample",
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceLowest()
                     : colorTokens.getContainerSurfaceHigh());
+
+            this.rootPaneDecorator = new DefaultRootPaneDecorator();
         }
     }
 
