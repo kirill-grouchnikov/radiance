@@ -812,19 +812,16 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 .toAnimateCloseIconOfModifiedTab(this.tabPane, tabIndex);
 
         if (isTabModified && isEnabled && !toMarkModifiedCloseButton) {
+            // Tab contents are marked as modified
             BladeUtils.populateModificationAwareColorTokens(mutableColorTokens, comp,
                 this.modifiedTimelines.get(comp).getTimelinePosition());
-            paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex,
-                x, y, w, h, tabPlacement, mutableColorTokens);
         } else {
             // Populate color tokens based on the current transition state of the tab.
-            // Important - don't do it on pulsating tabs (such as modified tabs).
             BladeUtils.populateColorTokens(mutableColorTokens, this.tabPane, tabIndex,
                 modelStateInfo, currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB);
-
-            paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex,
-                x, y, w, h, tabPlacement, mutableColorTokens);
         }
+        paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex,
+            x, y, w, h, tabPlacement, mutableColorTokens);
 
         // Check if requested to paint close buttons.
         if (RadianceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {
@@ -1808,7 +1805,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         } else {
             // plain text
             int mnemIndex = this.tabPane.getDisplayedMnemonicIndexAt(tabIndex);
-            // Special handling of tabs under skins that show partial visuals
+            // See the logic in paintTabBackgroundAt1X - tab backgrounds are "partial". Only the top
+            // part of the tab is drawn, and the rest of the tab is using the neutral fill of its container.
+            // As such, we do not account for the tab state here to compute the tab text color, but
+            // only for its enabled bit.
             ComponentState currState = this.tabPane.isEnabledAt(tabIndex) ? ComponentState.ENABLED
                     : ComponentState.DISABLED_UNSELECTED;
 
