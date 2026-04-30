@@ -35,9 +35,7 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.*;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -46,7 +44,6 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMult
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.*;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -650,53 +647,17 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         super.uninstallComponents();
     }
 
-    private static Color getContentBorderEdgeColor(ContainerColorTokens colorTokens) {
-        return colorTokens.isDark()
-            ? colorTokens.getComplementaryContainerOutline()
-            : colorTokens.getContainerOutline();
-    }
-
-    private static void paintTabBackgroundAt1X(Graphics2D graphics1X,
-        JTabbedPane tabPane, int tabIndex, double scaleFactor,
-        int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
-        ContainerColorTokens colorTokens, Color tabColor) {
-
-        int dy = 3;
-        width -= 1;
-
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(tabPane);
-        RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
-        RadianceThemingSlices.DecorationAreaType decorationAreaType =
-            DecorationPainterUtils.getDecorationType(tabPane);
-
-        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(tabPane);
-        Shape outline = componentShaper.getTabShapeSupplier().getShape(tabPane, width, height + dy,
-            0.0f, 0.0f, scaleFactor);
-
-        graphics1X.setColor(tabColor);
-        graphics1X.fill(outline);
-
-        if (inlayPainter != null) {
-            graphics1X.translate(-originalScaledOffsetX, -originalScaledOffsetY);
-            inlayPainter.paintInlay(graphics1X, tabPane, decorationAreaType,
-                originalScaledOffsetX, originalScaledOffsetY, width, height, scaleFactor, colorTokens);
-            graphics1X.translate(originalScaledOffsetX, originalScaledOffsetY);
-        }
-
-        Graphics2D clipped = (Graphics2D) graphics1X.create();
-        clipped.clipRect(0, 0, width, (int) (0.2f * height));
-        clipped.setColor(colorTokens.isDark()
-            ? colorTokens.getContainerSurfaceHigh()
-            : colorTokens.getContainerSurfaceLow());
-        clipped.fill(outline);
-        clipped.dispose();
-
-        graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
-        graphics1X.draw(outline);
+    private Color getContentBorderEdgeColor() {
+        ContainerColorTokens outlineColorTokens = CoreColorTokenUtils.getContainerTokens(
+            this.tabPane, this.tabPane.getSelectedIndex(),
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
+            ComponentState.SELECTED);
+        return RadianceTabUtils.getContentBorderEdgeColor(outlineColorTokens);
     }
 
     private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane, int tabIndex,
-        int x, int y, int width, int height, int tabPlacement, ContainerColorTokens colorTokens) {
+        int x, int y, int width, int height, int tabPlacement, ContainerColorTokens surfaceColorTokens,
+        ContainerColorTokens outlineColorTokens) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -727,9 +688,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
                 int originalScaledOffsetX = (int) (x * scaleFactor);
                 int originalScaledOffsetY = (int) (y * scaleFactor);
-                paintTabBackgroundAt1X(graphics1X, tabPane, tabIndex, scaleFactor,
-                    originalScaledOffsetX, originalScaledOffsetY, scaledWidth, scaledHeight,
-                    colorTokens, tabColor);
+                RadianceTabUtils.paintTabBackgroundAt1X(graphics1X, tabPane, scaleFactor,
+                    originalScaledOffsetX, originalScaledOffsetY, scaledWidth - 1, scaledHeight,
+                    surfaceColorTokens, tabColor, outlineColorTokens);
             });
         graphics.dispose();
     }
@@ -758,7 +719,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         scaledWidth, scaledHeight, 1, null);
                     SurfacePainterUtils.paintSurface(graphics1X, tabPane, tabState,
                         scaledWidth, scaledHeight, scaleFactor, alpha, outline, colorTokens);
-                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
+                    graphics1X.setColor(RadianceTabUtils.getContentBorderEdgeColor(colorTokens));
                     graphics1X.draw(outline);
                 }
 
@@ -811,6 +772,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         boolean toMarkModifiedCloseButton = RadianceCoreUtilities
                 .toAnimateCloseIconOfModifiedTab(this.tabPane, tabIndex);
 
+        ContainerColorTokens outlineColorTokens = CoreColorTokenUtils.getContainerTokens(
+            this.tabPane, this.tabPane.getSelectedIndex(),
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
+            ComponentState.SELECTED);
         if (isTabModified && isEnabled && !toMarkModifiedCloseButton) {
             // Tab contents are marked as modified
             BladeUtils.populateModificationAwareColorTokens(mutableColorTokens, comp,
@@ -821,7 +786,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 modelStateInfo, currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB);
         }
         paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex,
-            x, y, w, h, tabPlacement, mutableColorTokens);
+            x, y, w, h, tabPlacement, mutableColorTokens, outlineColorTokens);
 
         // Check if requested to paint close buttons.
         if (RadianceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {
@@ -1526,11 +1491,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     // Draw unbroken line if tabs are not on BOTTOM, OR
                     // selected tab is not in run adjacent to content, OR
                     // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
-                        this.tabPane, selectedIndex,
-                        RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
-                        ComponentState.SELECTED);
-                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
+                    graphics1X.setColor(getContentBorderEdgeColor());
                     if (isUnbroken) {
                         graphics1X.drawLine(0, scaledHeight - 1, scaledWidth - 1, scaledHeight - 1);
                     } else {
@@ -1591,11 +1552,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     // Draw unbroken line if tabs are not on LEFT, OR
                     // selected tab is not in run adjacent to content, OR
                     // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
-                        this.tabPane, selectedIndex,
-                        RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
-                        ComponentState.SELECTED);
-                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
+                    graphics1X.setColor(getContentBorderEdgeColor());
                     if (isUnbroken) {
                         graphics1X.drawLine(0, 0, 0, scaledHeight);
                     } else {
@@ -1654,11 +1611,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     // Draw unbroken line if tabs are not on RIGHT, OR
                     // selected tab is not in run adjacent to content, OR
                     // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
-                        this.tabPane, selectedIndex,
-                        RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
-                        ComponentState.SELECTED);
-                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
+                    graphics1X.setColor(getContentBorderEdgeColor());
                     if (isUnbroken) {
                         graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight);
                     } else {
@@ -1719,11 +1672,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     // Draw unbroken line if tabs are not on TOP, OR
                     // selected tab is not in run adjacent to content, OR
                     // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
-                        this.tabPane, selectedIndex,
-                        RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
-                        ComponentState.SELECTED);
-                    graphics1X.setColor(getContentBorderEdgeColor(colorTokens));
+                    graphics1X.setColor(getContentBorderEdgeColor());
                     if (isUnbroken) {
                         graphics1X.drawLine(0, 0, scaledWidth, 0);
                     } else {
@@ -1804,23 +1753,15 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             v.paint(g, textRect);
         } else {
             // plain text
-            int mnemIndex = this.tabPane.getDisplayedMnemonicIndexAt(tabIndex);
-            // See the logic in paintTabBackgroundAt1X - tab backgrounds are "partial". Only the top
-            // part of the tab is drawn, and the rest of the tab is using the neutral fill of its container.
-            // As such, we do not account for the tab state here to compute the tab text color, but
-            // only for its enabled bit.
-            ComponentState currState = this.tabPane.isEnabledAt(tabIndex) ? ComponentState.ENABLED
-                    : ComponentState.DISABLED_UNSELECTED;
-
-            // System.out.println("Tab " + title + ":" + currState);
-            ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(tabPane,
-                tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB, currState);
+            ContainerColorTokens colorTokens = RadianceTabUtils.getTabTextColorTokens(this.tabPane, tabIndex);
             Color fg = colorTokens.getOnContainer();
-            float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
-                : colorTokens.getOnContainerEnabledAlpha();
+            float alpha = this.tabPane.isEnabledAt(tabIndex) ? colorTokens.getOnContainerEnabledAlpha()
+                : colorTokens.getOnContainerDisabledAlpha();
             if (alpha < 1.0f) {
                 fg = RadianceColorUtilities.getAlphaColor(fg, (int) (fg.getAlpha() * alpha));
             }
+
+            int mnemIndex = this.tabPane.getDisplayedMnemonicIndexAt(tabIndex);
 
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.clip(getTabRectangle(tabIndex));
