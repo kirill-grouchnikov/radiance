@@ -804,19 +804,16 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 }
 
                 graphics.translate(orig.x, orig.y);
-                if (isTabModified && isEnabled && toMarkModifiedCloseButton) {
+                if (isTabModified && toMarkModifiedCloseButton) {
                     BladeUtils.populateModificationAwareColorTokens(mutableColorTokens, comp,
                         this.modifiedTimelines.get(comp).getTimelinePosition());
-                    paintCloseButtonImage(graphics, this.tabPane, currState, orig.width, orig.height,
-                        toPaintCloseBorder, finalAlpha * activeAlpha, mutableColorTokens);
                 } else {
                     BladeUtils.populateColorTokens(mutableColorTokens, this.tabPane, tabIndex,
                         modelStateInfo, this.getTabState(tabIndex, true),
                         RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB);
-
-                    paintCloseButtonImage(graphics, this.tabPane, currState, orig.width, orig.height,
-                        toPaintCloseBorder, finalAlpha * activeAlpha, mutableColorTokens);
                 }
+                paintCloseButtonImage(graphics, this.tabPane, currState, orig.width, orig.height,
+                    toPaintCloseBorder, finalAlpha * activeAlpha, mutableColorTokens);
             }
         }
 
