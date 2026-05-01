@@ -69,7 +69,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
 
         BladeUtils.populateColorTokens(mutableTokens, button, modelStateInfo, currState,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
-            false, false, CoreColorTokenUtils.ContainerType.NEUTRAL);
+            true, false, CoreColorTokenUtils.ContainerType.NEUTRAL);
 
         float alpha = 0.0f;
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
