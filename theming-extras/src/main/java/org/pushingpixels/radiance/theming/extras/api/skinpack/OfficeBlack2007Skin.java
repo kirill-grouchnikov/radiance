@@ -35,6 +35,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
@@ -281,5 +282,7 @@ public class OfficeBlack2007Skin extends RadianceSkin {
 
         this.highlightSurfacePainter = new FlatSurfacePainter("Office Black 2007",
             ContainerColorTokens::getContainerSurface);
+
+        this.rootPaneDecorator = new DefaultRootPaneDecorator();
     }
 }
