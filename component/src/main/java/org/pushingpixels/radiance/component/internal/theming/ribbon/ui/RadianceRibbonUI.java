@@ -43,6 +43,7 @@ import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTabUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -127,9 +128,12 @@ public class RadianceRibbonUI extends BasicRibbonUI {
                     RenderingHints.VALUE_ANTIALIAS_ON);
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, this.getWidth(), this.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-                        this, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-                    graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
+                    ContainerColorTokens outlineColorTokens = RadianceTabUtils.getTabOutlineColorTokens(ribbon);
+                    Color tabOutlineColor = RadianceTabUtils.getTabOutlineColor(outlineColorTokens);
+//                    ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
+//                        this, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
+//                    graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
+                    graphics1X.setColor(tabOutlineColor);
                     int separatorY = scaledHeight - 1;
                     graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
                 });
@@ -183,9 +187,13 @@ public class RadianceRibbonUI extends BasicRibbonUI {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0,
             this.ribbon.getWidth(), this.ribbon.getHeight(),
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-                    this.ribbon, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-                graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
+                ContainerColorTokens outlineColorTokens =
+                    RadianceTabUtils.getTabOutlineColorTokens(ribbon);
+                Color tabOutlineColor = RadianceTabUtils.getTabOutlineColor(outlineColorTokens);
+//                ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
+//                    this.ribbon, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
+//                graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
+                graphics1X.setColor(tabOutlineColor);
                 int separatorY = (int) (scaleFactor * (this.taskToggleButtonsScrollablePanel.getY() +
                     this.taskToggleButtonsScrollablePanel.getHeight())) - 1;
                 graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);

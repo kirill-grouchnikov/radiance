@@ -263,56 +263,50 @@ public class RadianceRibbonTaskToggleButtonUI extends
         g2d.dispose();
     }
 
-    private static Color getForegroundColor(JCommandButton button,
-        StateTransitionTracker.ModelStateInfo modelStateInfo) {
-        ComponentState currStateIgnoreSelection =
-            ComponentState.getState(button.getActionModel(), button, true);
+    private static Color getForegroundColor(JCommandButton button, StateTransitionTracker.ModelStateInfo modelStateInfo) {
         ComponentState currState = ComponentState.getState(button.getActionModel(), button, false);
+
+        // The final color is a composition of two contributions:
+        // 1. On container color that corresponds to the enabled state / neutral container type that
+        //    matches the overall surface fill of the non-active button
+        // 2. On container color that corresponds to the enabled state / neutral container type that
+        //    matches the overall surface fill of the parent
+
+        ContainerColorTokens parentSurfaceTokens = CoreColorTokenUtils.getContainerTokens(
+            button.getParent(),
+            ComponentState.ENABLED,
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
+
+        float activeStateTotalContribution = currState.isActive() ? 1.0f : 0.0f;
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
             modelStateInfo.getStateNoSelectionContributionMap();
+        if (activeStates.size() > 1) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                if (activeState != currState) {
+                    float alpha = activeEntry.getValue().getContribution();
+                    if (activeState != ComponentState.ENABLED) {
+                        activeStateTotalContribution += alpha;
+                    }
+                }
+            }
+        }
+        activeStateTotalContribution = Math.min(1.0f, activeStateTotalContribution);
 
-        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-            button, currStateIgnoreSelection, CoreColorTokenUtils.ContainerType.MUTED);
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-        RadianceThemingSlices.DecorationAreaType parentDecorationAreaType =
-            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button.getParent());
-        ContainerColorTokens parentTokens =
-            skin.getNeutralContainerTokens(parentDecorationAreaType);
-
-        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            ContainerColorTokens tokensForCurrState = (currState == ComponentState.ENABLED)
-                ? parentTokens : tokens;
-//            System.out.println("For " + button.getText() + " state is " + currState +
-//                    " and scheme is " + schemeForCurrState.getDisplayName() +
-//                    " -> " + schemeForCurrState.getForegroundColor());
-            return tokensForCurrState.getOnContainer();
+        if (activeStateTotalContribution == 0.0f) {
+            return parentSurfaceTokens.getOnContainer();
         }
 
-        float aggrRed = 0;
-        float aggrGreen = 0;
-        float aggrBlue = 0;
-//        System.out.println(
-//                "For " + button.getText() + " in " + currState + ":" + currStateIgnoreSelection);
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-            activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            float alpha = activeEntry.getValue().getContribution();
+        ContainerColorTokens surfaceTokens = CoreColorTokenUtils.getContainerTokens(
+            button,
+            ComponentState.ENABLED,
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
 
-            boolean correspondsToParentFill = (activeState == ComponentState.ENABLED) &&
-                !button.getActionModel().isSelected();
-            ContainerColorTokens activeTokens =
-                CoreColorTokenUtils.getContainerTokens(button,
-                    activeState, CoreColorTokenUtils.ContainerType.MUTED);
-            //System.out.println("\t" + activeState + " : " + currState);
-            Color activeForeground = correspondsToParentFill
-                ? parentTokens.getOnContainer()
-                : activeTokens.getOnContainer();
-
-            aggrRed += alpha * activeForeground.getRed();
-            aggrGreen += alpha * activeForeground.getGreen();
-            aggrBlue += alpha * activeForeground.getBlue();
-        }
-        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
+        return RadianceColorUtilities.getInterpolatedColor(
+            parentSurfaceTokens.getOnContainer(),
+            surfaceTokens.getOnContainer(),
+            1.0f - activeStateTotalContribution);
     }
 
     @Override
