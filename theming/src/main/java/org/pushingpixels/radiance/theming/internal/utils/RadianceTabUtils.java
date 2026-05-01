@@ -38,16 +38,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RadianceTabUtils {
-    public static Color getContentBorderEdgeColor(ContainerColorTokens colorTokens) {
-        return colorTokens.isDark()
-            ? colorTokens.getComplementaryContainerOutline()
-            : colorTokens.getContainerOutline();
-    }
+    private static final int DELTA_Y = 3;
 
     public static ContainerColorTokens getTabTextColorTokens(JTabbedPane tabbedPane, int tabIndex) {
-        // See the logic in paintTabBackgroundAt1X - tab backgrounds are "partial". Only the top
-        // part of the tab is drawn, and the rest of the tab is using the neutral fill of its container.
-        // As such, we do not account for the tab state here to compute the tab text color, but
+        // See the logic in paintTabSurfaceAt1X - tab backgrounds are "partial". Only the top
+        // part of the tab is drawn, and the rest of the tab is transparent, showing the visuals drawn by
+        // its parent. As such, we do not account for the tab state here to compute the tab text color, but
         // only for its enabled bit.
         ComponentState currState = tabbedPane.isEnabledAt(tabIndex) ? ComponentState.ENABLED
             : ComponentState.DISABLED_UNSELECTED;
@@ -56,15 +52,27 @@ public class RadianceTabUtils {
             tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB, currState);
     }
 
+    public static ContainerColorTokens getTabOutlineColorTokens(JComponent component) {
+        return CoreColorTokenUtils.getContainerTokens(
+            component,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
+            ComponentState.ENABLED,
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
+    }
+
+    public static Color getTabOutlineColor(ContainerColorTokens colorTokens) {
+        return colorTokens.isDark()
+            ? colorTokens.getComplementaryContainerOutline()
+            : colorTokens.getContainerOutline();
+    }
+
     public static void paintTabSurfaceAt1X(Graphics2D graphics1X,
         JComponent component, double scaleFactor,
         int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
         ContainerColorTokens surfaceColorTokens) {
 
-        int dy = 3;
-
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
-        Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + dy,
+        Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + DELTA_Y,
             0.0f, 0.0f, scaleFactor);
 
         Graphics2D clipped = (Graphics2D) graphics1X.create();
@@ -80,13 +88,11 @@ public class RadianceTabUtils {
         JComponent component, double scaleFactor, int width, int height,
         ContainerColorTokens outlineColorTokens) {
 
-        int dy = 3;
-
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
-        Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + dy,
+        Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + DELTA_Y,
             0.0f, 0.0f, scaleFactor);
 
-        graphics1X.setColor(getContentBorderEdgeColor(outlineColorTokens));
+        graphics1X.setColor(getTabOutlineColor(outlineColorTokens));
         graphics1X.draw(outline);
     }
 }

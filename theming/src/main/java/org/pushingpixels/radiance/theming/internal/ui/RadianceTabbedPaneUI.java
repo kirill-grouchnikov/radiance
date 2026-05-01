@@ -648,12 +648,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private Color getContentBorderEdgeColor() {
-        ContainerColorTokens outlineColorTokens = CoreColorTokenUtils.getContainerTokens(
-            this.tabPane,
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-            ComponentState.ENABLED,
-            CoreColorTokenUtils.ContainerType.NEUTRAL);
-        return RadianceTabUtils.getContentBorderEdgeColor(outlineColorTokens);
+        ContainerColorTokens outlineColorTokens = RadianceTabUtils.getTabOutlineColorTokens(this.tabPane);
+        return RadianceTabUtils.getTabOutlineColor(outlineColorTokens);
     }
 
     private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane, int tabIndex,
@@ -713,7 +709,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         scaledWidth, scaledHeight, 1, null);
                     SurfacePainterUtils.paintSurface(graphics1X, tabPane, tabState,
                         scaledWidth, scaledHeight, scaleFactor, alpha, outline, colorTokens);
-                    graphics1X.setColor(RadianceTabUtils.getContentBorderEdgeColor(colorTokens));
+                    graphics1X.setColor(RadianceTabUtils.getTabOutlineColor(colorTokens));
                     graphics1X.draw(outline);
                 }
 
@@ -753,24 +749,13 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             }
         }
 
-        ContainerColorTokens tabColorTokens = CoreColorTokenUtils.getContainerTokens(
-            this.tabPane, tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
-            currState);
-        finalAlpha *= (this.tabPane.isEnabledAt(tabIndex)
-            ? tabColorTokens.getContainerSurfaceEnabledAlpha()
-            : tabColorTokens.getContainerSurfaceDisabledAlpha());
-
         // check if tab has its content marked as modified
         Component comp = this.tabPane.getComponentAt(tabIndex);
         boolean isTabModified = RadianceCoreUtilities.isTabModified(comp);
         boolean toMarkModifiedCloseButton = RadianceCoreUtilities
                 .toAnimateCloseIconOfModifiedTab(this.tabPane, tabIndex);
 
-        ContainerColorTokens outlineColorTokens = CoreColorTokenUtils.getContainerTokens(
-            this.tabPane,
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-            ComponentState.ENABLED,
-            CoreColorTokenUtils.ContainerType.NEUTRAL);
+        ContainerColorTokens outlineColorTokens = RadianceTabUtils.getTabOutlineColorTokens(this.tabPane);
         if (isTabModified && isEnabled && !toMarkModifiedCloseButton) {
             // Tab contents are marked as modified
             BladeUtils.populateModificationAwareColorTokens(mutableColorTokens, comp,
@@ -780,6 +765,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             BladeUtils.populateColorTokens(mutableColorTokens, this.tabPane, tabIndex,
                 modelStateInfo, currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB);
         }
+        finalAlpha *= (this.tabPane.isEnabledAt(tabIndex)
+            ? mutableColorTokens.getContainerSurfaceEnabledAlpha()
+            : mutableColorTokens.getContainerSurfaceDisabledAlpha());
+
         paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex,
             x, y, w, h, tabPlacement, mutableColorTokens, outlineColorTokens);
 
