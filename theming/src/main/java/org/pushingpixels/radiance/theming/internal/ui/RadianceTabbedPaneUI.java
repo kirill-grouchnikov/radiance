@@ -668,18 +668,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         graphics.translate(x, y);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                Component compForBackground = tabPane.getTabComponentAt(tabIndex);
-                if (compForBackground == null)
-                    compForBackground = tabPane.getComponentAt(tabIndex);
-                if (compForBackground == null)
-                    compForBackground = tabPane;
-                Color tabColor = compForBackground.getBackground();
-                if (tabColor instanceof UIResource) {
-                    // special handling of tabs placed in decoration areas
-                    tabColor = RadianceColorUtilities.getBackgroundFillColor(
-                        compForBackground, CoreColorTokenUtils.ContainerType.NEUTRAL);
-                }
-
                 if (tabPlacement == BOTTOM) {
                     AffineTransform transform = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
                     transform.rotate(Math.PI);
@@ -691,7 +679,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
                 RadianceTabUtils.paintTabSurfaceAt1X(graphics1X, tabPane, scaleFactor,
                     originalScaledOffsetX, originalScaledOffsetY, scaledWidth - 1, scaledHeight,
-                    surfaceColorTokens, tabColor);
+                    surfaceColorTokens);
 
                 RadianceTabUtils.paintTabOutlineAt1X(graphics1X, tabPane, scaleFactor,
                     scaledWidth - 1, scaledHeight, outlineColorTokens);

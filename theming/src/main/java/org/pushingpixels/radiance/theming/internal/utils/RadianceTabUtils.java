@@ -62,28 +62,13 @@ public class RadianceTabUtils {
     public static void paintTabSurfaceAt1X(Graphics2D graphics1X,
         JComponent component, double scaleFactor,
         int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
-        ContainerColorTokens surfaceColorTokens, Color surfaceColor) {
+        ContainerColorTokens surfaceColorTokens) {
 
         int dy = 3;
-
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
-        RadianceThemingSlices.DecorationAreaType decorationAreaType =
-            DecorationPainterUtils.getDecorationType(component);
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
         Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + dy,
             0.0f, 0.0f, scaleFactor);
-
-        graphics1X.setColor(surfaceColor);
-        graphics1X.fill(outline);
-
-        if (inlayPainter != null) {
-            graphics1X.translate(-originalScaledOffsetX, -originalScaledOffsetY);
-            inlayPainter.paintInlay(graphics1X, component, decorationAreaType,
-                originalScaledOffsetX, originalScaledOffsetY, width, height, scaleFactor, surfaceColorTokens);
-            graphics1X.translate(originalScaledOffsetX, originalScaledOffsetY);
-        }
 
         Graphics2D clipped = (Graphics2D) graphics1X.create();
         clipped.clipRect(0, 0, width, (int) (0.2f * height));
@@ -100,7 +85,6 @@ public class RadianceTabUtils {
 
         int dy = 3;
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
         Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + dy,
             0.0f, 0.0f, scaleFactor);
