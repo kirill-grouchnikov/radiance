@@ -59,11 +59,10 @@ public class RadianceTabUtils {
             tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB, currState);
     }
 
-    public static void paintTabBackgroundAt1X(Graphics2D graphics1X,
+    public static void paintTabSurfaceAt1X(Graphics2D graphics1X,
         JComponent component, double scaleFactor,
         int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
-        ContainerColorTokens surfaceColorTokens, Color surfaceColor,
-        ContainerColorTokens outlineColorTokens) {
+        ContainerColorTokens surfaceColorTokens, Color surfaceColor) {
 
         int dy = 3;
 
@@ -93,6 +92,18 @@ public class RadianceTabUtils {
             : surfaceColorTokens.getContainerSurfaceLow());
         clipped.fill(outline);
         clipped.dispose();
+    }
+
+    public static void paintTabOutlineAt1X(Graphics2D graphics1X,
+        JComponent component, double scaleFactor, int width, int height,
+        ContainerColorTokens outlineColorTokens) {
+
+        int dy = 3;
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
+        Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + dy,
+            0.0f, 0.0f, scaleFactor);
 
         graphics1X.setColor(getContentBorderEdgeColor(outlineColorTokens));
         graphics1X.draw(outline);

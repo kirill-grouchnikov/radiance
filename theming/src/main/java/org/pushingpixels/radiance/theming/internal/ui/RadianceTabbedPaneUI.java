@@ -688,9 +688,14 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
                 int originalScaledOffsetX = (int) (x * scaleFactor);
                 int originalScaledOffsetY = (int) (y * scaleFactor);
-                RadianceTabUtils.paintTabBackgroundAt1X(graphics1X, tabPane, scaleFactor,
+
+                RadianceTabUtils.paintTabSurfaceAt1X(graphics1X, tabPane, scaleFactor,
                     originalScaledOffsetX, originalScaledOffsetY, scaledWidth - 1, scaledHeight,
-                    surfaceColorTokens, tabColor, outlineColorTokens);
+                    surfaceColorTokens, tabColor);
+
+                RadianceTabUtils.paintTabOutlineAt1X(graphics1X, tabPane, scaleFactor,
+                    scaledWidth - 1, scaledHeight, outlineColorTokens);
+
             });
         graphics.dispose();
     }
