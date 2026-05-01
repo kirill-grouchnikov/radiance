@@ -649,9 +649,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     private Color getContentBorderEdgeColor() {
         ContainerColorTokens outlineColorTokens = CoreColorTokenUtils.getContainerTokens(
-            this.tabPane, this.tabPane.getSelectedIndex(),
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
-            ComponentState.SELECTED);
+            this.tabPane,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
+            ComponentState.ENABLED,
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
         return RadianceTabUtils.getContentBorderEdgeColor(outlineColorTokens);
     }
 
@@ -766,9 +767,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 .toAnimateCloseIconOfModifiedTab(this.tabPane, tabIndex);
 
         ContainerColorTokens outlineColorTokens = CoreColorTokenUtils.getContainerTokens(
-            this.tabPane, this.tabPane.getSelectedIndex(),
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
-            ComponentState.SELECTED);
+            this.tabPane,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
+            ComponentState.ENABLED,
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
         if (isTabModified && isEnabled && !toMarkModifiedCloseButton) {
             // Tab contents are marked as modified
             BladeUtils.populateModificationAwareColorTokens(mutableColorTokens, comp,

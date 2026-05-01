@@ -489,6 +489,11 @@ public class BlueprintSkin extends RadianceSkin {
 		blueprintDefaultBundle.registerActiveContainerTokens(blueprintHighlightContainerTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
+
+		blueprintDefaultBundle.registerNeutralContainerTokens(
+			blueprintHighlightContainerTokens,
+			RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
+
 		this.registerDecorationAreaTokensBundle(blueprintDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE, RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,
 			RadianceThemingSlices.DecorationAreaType.FOOTER, RadianceThemingSlices.DecorationAreaType.TOOLBAR,
