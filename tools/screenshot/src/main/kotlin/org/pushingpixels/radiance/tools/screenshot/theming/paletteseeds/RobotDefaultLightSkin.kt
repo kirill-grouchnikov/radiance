@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter
@@ -101,6 +102,8 @@ class RobotDefaultLightSkin(accentColor: Color, val name: String) :
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
+
+        this.rootPaneDecorator = DefaultRootPaneDecorator()
     }
 
     override fun getDisplayName(): String {
