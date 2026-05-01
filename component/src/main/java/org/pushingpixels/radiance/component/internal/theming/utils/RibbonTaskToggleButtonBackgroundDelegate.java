@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.internal.theming.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
@@ -43,8 +44,10 @@ import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtil
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTabUtils;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.EnumSet;
 import java.util.Map;
@@ -64,36 +67,9 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                 .getModelStateInfo();
 
-        // Populate color tokens based on the current transition state of the button.
-        // To create visual continuity between the background of the selected task
-        // and its toggle button, we use the decoration painter and not surface painter.
-        // We also ignore the selected state of the toggle button to compute the
-        // color tokens to use.
-        // If we have one active state which is *not* enabled, this means that we have
-        // fully transitioned / animated to a state like rollover or pressed (no selection
-        // as mentioned before). For such a state, we use the matching FILL color tokens.
-        // Otherwise, we use the background color tokens as the base fill for the visual
-        // continuity, and let the other active states (if any) paint the additional
-        // transition visuals.
-        BladeUtils.populateColorTokens(mutableTokens, modelStateInfo, currState,
-            new BladeUtils.ColorTokensDelegate() {
-                @Override
-                public ContainerColorTokens getContainerTokensForActiveState(ComponentState state) {
-                    return CoreColorTokenUtils.getContainerTokens(button,
-                        state, CoreColorTokenUtils.ContainerType.ACTIVE);
-                }
-
-                @Override
-                public ContainerColorTokens getContainerTokensForCurrentState(ComponentState state) {
-                    if (state == ComponentState.ENABLED) {
-                        return CoreColorTokenUtils.getContainerTokens(button,
-                            state, CoreColorTokenUtils.ContainerType.NEUTRAL);
-                    }
-                    return CoreColorTokenUtils.getContainerTokens(button,
-                        state, CoreColorTokenUtils.ContainerType.ACTIVE);
-                }
-            },
-            true);
+        BladeUtils.populateColorTokens(mutableTokens, button, modelStateInfo, currState,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB,
+            false, false, CoreColorTokenUtils.ContainerType.NEUTRAL);
 
         float alpha = 0.0f;
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
@@ -109,19 +85,29 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         }
 
         if (alpha > 0.0f) {
+            ContainerColorTokens neutralSurfaceTokens = CoreColorTokenUtils.getContainerTokens(
+                button,
+                ComponentState.ENABLED,
+                CoreColorTokenUtils.ContainerType.NEUTRAL);
+            JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(JRibbon.class, button);
+            ContainerColorTokens outlineColorTokens = RadianceTabUtils.getTabOutlineColorTokens(ribbon);
+
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, alpha, g));
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-            drawFullAlphaBackground(graphics, button, currState, mutableTokens);
+            drawFullAlphaBackground(graphics, button, neutralSurfaceTokens, mutableTokens, outlineColorTokens);
 
             graphics.dispose();
         }
     }
 
     private static void drawFullAlphaBackground(Graphics2D g,
-        JRibbonTaskToggleButton button, ComponentState currState, ContainerColorTokens tokens) {
+        JRibbonTaskToggleButton button,
+        ContainerColorTokens neutralSurfaceColorTokens,
+        ContainerColorTokens surfaceColorTokens,
+        ContainerColorTokens outlineColorTokens) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
         RadianceComponentShaper.ShapeSupplier tabShapeSupplier = componentShaper.getTabShapeSupplier();
@@ -141,31 +127,31 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
 
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
                     RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
-                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
                     if (skin.isRegisteredAsDecorationArea(buttonDecorationAreaType)) {
                         RadianceDecorationPainter decorationPainter = skin.getDecorationPainter();
                         Graphics2D clipped = (Graphics2D) graphics1X.create();
                         clipped.clip(scaledOutline);
                         DecorationPainterUtils.paintDecorationBackground(clipped, button,
                             scaledWidth, scaledHeight, scaleFactor, decorationPainter,
-                            buttonDecorationAreaType, tokens, false);
+                            buttonDecorationAreaType, neutralSurfaceColorTokens, false);
+
+                        RadianceThemingSlices.DecorationAreaType decorationType =
+                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
+                        DecorationPainterUtils.paintInlay(graphics, button,
+                            0, 0, scaledWidth, scaledHeight, scaleFactor,
+                            skin, decorationType);
                         clipped.dispose();
                     } else {
-                        graphics1X.setColor(tokens.getContainerSurface());
+                        graphics1X.setColor(neutralSurfaceColorTokens.getContainerSurface());
                         graphics1X.fill(scaledOutline);
-                        RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
-                        if (inlayPainter != null) {
-                            Shape clip = graphics1X.getClip();
-                            graphics1X.clip(scaledOutline);
-                            inlayPainter.paintInlay(graphics1X, button, buttonDecorationAreaType,
-                                0, 0, scaledWidth, scaledHeight, scaleFactor, tokens);
-                            graphics1X.setClip(clip);
-                        }
                     }
+                    RadianceTabUtils.paintTabSurfaceAt1X(graphics1X, button, scaleFactor,
+                        0, 0, scaledWidth - 1, scaledHeight,
+                        surfaceColorTokens);
 
-                    OutlinePainterUtils.paintOutline(graphics1X, button, currState,
-                        scaledWidth - 1, scaledHeight + 3.0f, scaleFactor, 1.0f,
-                        tabShapeSupplier, tokens);
+                    RadianceTabUtils.paintTabOutlineAt1X(graphics1X, button, scaleFactor,
+                        scaledWidth - 1, scaledHeight, outlineColorTokens);
                 });
         graphics.dispose();
     }
