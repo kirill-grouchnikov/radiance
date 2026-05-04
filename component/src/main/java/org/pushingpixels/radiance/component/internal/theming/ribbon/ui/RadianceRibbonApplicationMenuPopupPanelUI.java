@@ -29,21 +29,15 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.BasicRibbonApplicationMenuPopupPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 
@@ -67,40 +61,6 @@ public class RadianceRibbonApplicationMenuPopupPanelUI
         super.installComponents();
         Border newBorder = new RadianceBorder(0, new Insets(2, 2, 2, 2));
         this.applicationMenuPopupPanel.setBorder(newBorder);
-
-        this.panelScrollerLevel2.setBorder(new BorderUIResource(new Border() {
-            @Override
-            public Insets getBorderInsets(Component c) {
-                boolean ltr = c.getComponentOrientation().isLeftToRight();
-                return new Insets(0, ltr ? 1 : 0, 0, ltr ? 0 : 1);
-            }
-
-            @Override
-            public boolean isBorderOpaque() {
-                return true;
-            }
-
-            @Override
-            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                Graphics2D graphics = (Graphics2D) g.create();
-                // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
-                // to not normalize coordinates to paint at full pixels, and will result in blurry
-                // outlines.
-                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                        RenderingHints.VALUE_ANTIALIAS_ON);
-                RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, c.getWidth(), c.getHeight(),
-                    (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-                            applicationMenuPopupPanel, ComponentState.ENABLED,
-                            CoreColorTokenUtils.ContainerType.NEUTRAL);
-                        graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
-                        boolean ltr = applicationMenuPopupPanel.getComponentOrientation().isLeftToRight();
-                        int lineX = ltr ? 1 : scaledWidth - 2;
-                        graphics1X.drawLine(lineX, 1, lineX, scaledHeight - 2);
-                    });
-                graphics.dispose();
-            }
-        }));
         this.panelLevel2.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.mainPanel.setBorder(new RadianceBorder());
     }

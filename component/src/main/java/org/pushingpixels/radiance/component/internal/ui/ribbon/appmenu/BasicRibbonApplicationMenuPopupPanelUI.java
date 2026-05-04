@@ -113,6 +113,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
         this.mainPanel = new JPanel(new BorderLayout());
 
+        JPanel wrapperPanel = new JPanel(new BorderLayout());
+
         this.panelLevel1 = new JPanel();
         this.panelLevel1.setLayout(new LayoutManager() {
             @Override
@@ -238,7 +240,10 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             }
         }
 
-        mainPanel.add(this.panelLevel1, BorderLayout.LINE_START);
+        wrapperPanel.add(this.panelLevel1, BorderLayout.CENTER);
+        wrapperPanel.add(new JSeparator(JSeparator.VERTICAL), BorderLayout.LINE_END);
+
+        mainPanel.add(wrapperPanel, BorderLayout.LINE_START);
 
         this.panelLevel2 = new JPanel();
         this.panelScrollerLevel2 = new JScrollablePanel<>(this.panelLevel2,
