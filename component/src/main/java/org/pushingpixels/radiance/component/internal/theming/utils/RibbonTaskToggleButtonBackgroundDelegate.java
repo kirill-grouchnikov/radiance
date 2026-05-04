@@ -63,7 +63,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
     public void updateTaskToggleButtonBackground(Graphics2D g, JRibbonTaskToggleButton button) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
-        ComponentState currState = ComponentState.getState(button.getActionModel(), button, true);
+        ComponentState currState = ComponentState.getState(button.getActionModel(), button, false);
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                 .getModelStateInfo();
 
