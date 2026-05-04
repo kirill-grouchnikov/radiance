@@ -652,8 +652,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         return RadianceTabUtils.getTabOutlineColor(outlineColorTokens);
     }
 
-    private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane, int tabIndex,
-        int x, int y, int width, int height, int tabPlacement, ContainerColorTokens surfaceColorTokens,
+    private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane,
+        int x, int y, int width, int height, int tabPlacement,
+        ContainerColorTokens surfaceColorTokens,
         ContainerColorTokens outlineColorTokens) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -671,12 +672,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     graphics1X.transform(transform);
                 }
 
-                int originalScaledOffsetX = (int) (x * scaleFactor);
-                int originalScaledOffsetY = (int) (y * scaleFactor);
+                // Not painting the tab surface, as the tab area of the tabbed pane is a part of the
+                // tabbed pane, and cannot be in a different decoration area. It is already painted as
+                // part of the overall tabbed pane.
 
-                RadianceTabUtils.paintTabSurfaceAt1X(graphics1X, tabPane, scaleFactor,
-                    originalScaledOffsetX, originalScaledOffsetY, scaledWidth - 1, scaledHeight,
-                    surfaceColorTokens);
+                RadianceTabUtils.paintTabSurfaceHighlightAt1X(graphics1X, tabPane, scaleFactor,
+                    scaledWidth - 1, scaledHeight, surfaceColorTokens);
 
                 RadianceTabUtils.paintTabOutlineAt1X(graphics1X, tabPane, scaleFactor,
                     scaledWidth - 1, scaledHeight, outlineColorTokens);
@@ -769,7 +770,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             ? mutableColorTokens.getContainerSurfaceEnabledAlpha()
             : mutableColorTokens.getContainerSurfaceDisabledAlpha());
 
-        paintRotationAwareTabBackground(graphics, this.tabPane, tabIndex,
+        paintRotationAwareTabBackground(graphics, this.tabPane,
             x, y, w, h, tabPlacement, mutableColorTokens, outlineColorTokens);
 
         // Check if requested to paint close buttons.

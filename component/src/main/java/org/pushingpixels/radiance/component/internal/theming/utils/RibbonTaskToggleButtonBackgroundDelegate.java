@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -41,7 +40,6 @@ import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTabUtils;
@@ -49,7 +47,6 @@ import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.EnumSet;
 import java.util.Map;
 
 /**
@@ -109,9 +106,6 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         ContainerColorTokens surfaceColorTokens,
         ContainerColorTokens outlineColorTokens) {
 
-        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
-        RadianceComponentShaper.ShapeSupplier tabShapeSupplier = componentShaper.getTabShapeSupplier();
-
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -122,33 +116,19 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 0, 0, button.getWidth(), button.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
+                    RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(button);
+                    RadianceComponentShaper.ShapeSupplier tabShapeSupplier = componentShaper.getTabShapeSupplier();
+
                     Shape scaledOutline = tabShapeSupplier.getShape(button,
                         scaledWidth, scaledHeight + 3.0f, 0.0f, 0.0f, scaleFactor);
+                    Graphics2D clipped = (Graphics2D) graphics1X.create();
+                    clipped.clip(scaledOutline);
+                    RadianceTabUtils.paintTabSurfaceAt1X(clipped, button, scaleFactor,
+                        0, 0, scaledWidth - 1, scaledHeight, neutralSurfaceColorTokens);
+                    clipped.dispose();
 
-                    RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-                    RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
-                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
-                    if (skin.isRegisteredAsDecorationArea(buttonDecorationAreaType)) {
-                        RadianceDecorationPainter decorationPainter = skin.getDecorationPainter();
-                        Graphics2D clipped = (Graphics2D) graphics1X.create();
-                        clipped.clip(scaledOutline);
-                        DecorationPainterUtils.paintDecorationBackground(clipped, button,
-                            scaledWidth, scaledHeight, scaleFactor, decorationPainter,
-                            buttonDecorationAreaType, neutralSurfaceColorTokens, false);
-
-                        RadianceThemingSlices.DecorationAreaType decorationType =
-                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
-                        DecorationPainterUtils.paintInlay(graphics, button,
-                            0, 0, scaledWidth, scaledHeight, scaleFactor,
-                            skin, decorationType);
-                        clipped.dispose();
-                    } else {
-                        graphics1X.setColor(neutralSurfaceColorTokens.getContainerSurface());
-                        graphics1X.fill(scaledOutline);
-                    }
-                    RadianceTabUtils.paintTabSurfaceAt1X(graphics1X, button, scaleFactor,
-                        0, 0, scaledWidth - 1, scaledHeight,
-                        surfaceColorTokens);
+                    RadianceTabUtils.paintTabSurfaceHighlightAt1X(graphics1X, button, scaleFactor,
+                        scaledWidth - 1, scaledHeight, surfaceColorTokens);
 
                     RadianceTabUtils.paintTabOutlineAt1X(graphics1X, button, scaleFactor,
                         scaledWidth - 1, scaledHeight, outlineColorTokens);

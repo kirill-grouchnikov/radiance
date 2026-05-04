@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils;
 
-import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,6 +69,34 @@ public class RadianceTabUtils {
     public static void paintTabSurfaceAt1X(Graphics2D graphics1X,
         JComponent component, double scaleFactor,
         int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
+        ContainerColorTokens surfaceColorTokens) {
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType =
+            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component);
+        if (skin.isRegisteredAsDecorationArea(decorationAreaType)) {
+            RadianceDecorationPainter decorationPainter = skin.getDecorationPainter();
+            Graphics2D clipped = (Graphics2D) graphics1X.create();
+            DecorationPainterUtils.paintDecorationBackground(clipped, component,
+                width, height, scaleFactor, decorationPainter,
+                decorationAreaType, surfaceColorTokens, false);
+
+            DecorationPainterUtils.paintInlay(graphics1X, component,
+                originalScaledOffsetX, originalScaledOffsetY, width, height, scaleFactor,
+                skin, decorationAreaType);
+            clipped.dispose();
+        } else {
+            graphics1X.setColor(surfaceColorTokens.getContainerSurface());
+            graphics1X.fillRect(0, 0, width, height);
+
+            DecorationPainterUtils.paintInlay(graphics1X, component,
+                originalScaledOffsetX, originalScaledOffsetY, width, height, scaleFactor,
+                skin, decorationAreaType);
+        }
+    }
+
+    public static void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X,
+        JComponent component, double scaleFactor, int width, int height,
         ContainerColorTokens surfaceColorTokens) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
