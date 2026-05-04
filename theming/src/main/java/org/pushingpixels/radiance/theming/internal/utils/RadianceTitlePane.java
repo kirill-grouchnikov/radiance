@@ -410,28 +410,29 @@ public class RadianceTitlePane extends JComponent {
      *         Menu.
      */
     private void addMenuItems(JMenu menu) {
-        menu.add(this.restoreAction);
-
-        menu.add(this.iconifyAction);
-
-        if (Toolkit.getDefaultToolkit().isFrameStateSupported(Frame.MAXIMIZED_BOTH)) {
-            menu.add(this.maximizeAction);
-        }
-
         if (RadianceCoreUtilities.toShowExtraWidgets(rootPane)) {
-            menu.addSeparator();
             JMenu skinMenu = new JMenu(
-                    RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.skins"));
+                RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.skins"));
             Map<String, SkinInfo> allSkins = RadianceThemingCortex.GlobalScope.getAllSkins();
             for (Map.Entry<String, SkinInfo> skinEntry : allSkins.entrySet()) {
                 final String skinClassName = skinEntry.getValue().getClassName();
                 JMenuItem jmiSkin = new JMenuItem(skinEntry.getKey());
                 jmiSkin.addActionListener(actionEvent -> SwingUtilities
-                        .invokeLater(() -> RadianceThemingCortex.GlobalScope.setSkin(skinClassName)));
+                    .invokeLater(() -> RadianceThemingCortex.GlobalScope.setSkin(skinClassName)));
 
                 skinMenu.add(jmiSkin);
             }
             menu.add(skinMenu);
+
+            menu.addSeparator();
+        }
+
+        menu.add(this.iconifyAction);
+
+        menu.add(this.restoreAction);
+
+        if (Toolkit.getDefaultToolkit().isFrameStateSupported(Frame.MAXIMIZED_BOTH)) {
+            menu.add(this.maximizeAction);
         }
 
         menu.addSeparator();
@@ -722,6 +723,12 @@ public class RadianceTitlePane extends JComponent {
                 this.revalidate();
                 this.repaint();
             }
+
+            if (this.menuBar != null) {
+                this.menuBar.removeAll();
+                this.menuBar.add(this.createMenu());
+            }
+
             this.closeAction.setEnabled(true);
             this.state = state;
         }
