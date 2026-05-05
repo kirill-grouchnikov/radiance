@@ -654,7 +654,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane,
         int x, int y, int width, int height, int tabPlacement,
-        ContainerColorTokens surfaceColorTokens,
+        ContainerColorTokens surfaceHighlightColorTokens,
         ContainerColorTokens outlineColorTokens) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -677,7 +677,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 // part of the overall tabbed pane.
 
                 RadianceTabUtils.paintTabSurfaceHighlightAt1X(graphics1X, tabPane, scaleFactor,
-                    scaledWidth - 1, scaledHeight, surfaceColorTokens);
+                    scaledWidth - 1, scaledHeight, surfaceHighlightColorTokens);
 
                 RadianceTabUtils.paintTabOutlineAt1X(graphics1X, tabPane, scaleFactor,
                     scaledWidth - 1, scaledHeight, outlineColorTokens);

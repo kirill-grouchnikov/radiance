@@ -103,7 +103,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
     private static void drawFullAlphaBackground(Graphics2D g,
         JRibbonTaskToggleButton button,
         ContainerColorTokens neutralSurfaceColorTokens,
-        ContainerColorTokens surfaceColorTokens,
+        ContainerColorTokens surfaceHighlightColorTokens,
         ContainerColorTokens outlineColorTokens) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -128,7 +128,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                     clipped.dispose();
 
                     RadianceTabUtils.paintTabSurfaceHighlightAt1X(graphics1X, button, scaleFactor,
-                        scaledWidth - 1, scaledHeight, surfaceColorTokens);
+                        scaledWidth - 1, scaledHeight, surfaceHighlightColorTokens);
 
                     RadianceTabUtils.paintTabOutlineAt1X(graphics1X, button, scaleFactor,
                         scaledWidth - 1, scaledHeight, outlineColorTokens);

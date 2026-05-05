@@ -97,7 +97,7 @@ public class RadianceTabUtils {
 
     public static void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X,
         JComponent component, double scaleFactor, int width, int height,
-        ContainerColorTokens surfaceColorTokens) {
+        ContainerColorTokens surfaceHighlightColorTokens) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
         Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + DELTA_Y,
@@ -105,9 +105,9 @@ public class RadianceTabUtils {
 
         Graphics2D clipped = (Graphics2D) graphics1X.create();
         clipped.clipRect(0, 0, width, (int) (0.2f * height));
-        clipped.setColor(surfaceColorTokens.isDark()
-            ? surfaceColorTokens.getContainerSurfaceHigh()
-            : surfaceColorTokens.getContainerSurfaceLow());
+        clipped.setColor(surfaceHighlightColorTokens.isDark()
+            ? surfaceHighlightColorTokens.getContainerSurfaceHigh()
+            : surfaceHighlightColorTokens.getContainerSurfaceLow());
         clipped.fill(outline);
         clipped.dispose();
     }
