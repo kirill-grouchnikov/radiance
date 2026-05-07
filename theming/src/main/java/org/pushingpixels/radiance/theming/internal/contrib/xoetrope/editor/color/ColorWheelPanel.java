@@ -528,11 +528,11 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 		baseColorLabel.setBackground(new Color(chooserColor.R, chooserColor.G,
 				chooserColor.B));
 
-		if (RadianceColorUtilities.getColorBrightness(
-				baseColorLabel.getBackground().getRGB()) < 128)
+		if (Hct.fromInt(baseColorLabel.getBackground().getRGB()).getTone() < 50) {
 			baseColorLabel.setForeground(Color.white);
-		else
+		} else {
 			baseColorLabel.setForeground(Color.black);
+		}
 
 		String colorStr;
 		if (decimalRGB.isSelected()) {
