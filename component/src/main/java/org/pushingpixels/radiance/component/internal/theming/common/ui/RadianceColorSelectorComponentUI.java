@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorSelectorComponentUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelectorComponent;
@@ -98,10 +99,9 @@ public class RadianceColorSelectorComponentUI extends BasicColorSelectorComponen
         int h = this.colorSelectorComponent.getHeight();
 
         Color fillColor = this.colorSelectorComponent.getColor();
-        float[] hsb = new float[3];
-        Color.RGBtoHSB(fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue(), hsb);
-        float brightness = hsb[2] * 0.7f;
-        Color borderColor = new Color(brightness, brightness, brightness);
+        Hct fillHct = Hct.fromInt(fillColor.getRGB());
+        Hct borderHct = Hct.from(fillHct.getHue(), 0.0f, 0.7f * fillHct.getTone());
+        Color borderColor = new Color(borderHct.toInt());
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common.popup;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 
@@ -56,22 +57,13 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
             comps[i][0].addColorActivationListener(JColorSelectorPopupMenuPanel::addColorToRecentlyUsed);
             this.add(comps[i][0]);
 
-            float[] primaryHsb = new float[3];
-            Color.RGBtoHSB(primary.getRed(), primary.getGreen(), primary.getBlue(), primaryHsb);
+            Hct primaryHct = Hct.fromInt(primary.getRGB());
 
             for (int row = 1; row <= derivedCount; row++) {
-                float bFactor = (float) (row - 1) / (float) (derivedCount);
-                bFactor = (float) Math.pow(bFactor, 1.4f);
-                float brightness = 1.0f - bFactor;
+                float tone = 1.0f - (float) row / (float) (derivedCount + 1);
 
-                if (primaryHsb[1] == 0.0f) {
-                    // special handling for gray scale
-                    float max = 0.5f + 0.5f * primaryHsb[2];
-                    brightness = max * (derivedCount - row + 1) / derivedCount;
-                }
-
-                Color secondary = new Color(Color.HSBtoRGB(primaryHsb[0],
-                        primaryHsb[1] * (row + 1) / (derivedCount + 1), brightness));
+                Hct secondaryHct = Hct.from(primaryHct.getHue(), primaryHct.getChroma(), 100.0f * tone);
+                Color secondary = new Color(secondaryHct.toInt());
 
                 comps[i][row] = new JColorSelectorComponent(secondary,
                         contentModel.getColorPreviewListener(),
