@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -50,6 +51,18 @@ import java.awt.image.BufferedImage;
  * @author Kirill Grouchnikov
  */
 public final class RadianceImageCreator {
+    /**
+     * Returns saturated version of the specified color.
+     *
+     * @param color  Color.
+     * @param factor Saturation factor.
+     * @return Saturated color.
+     */
+    private static Color getDesaturatedColor(Color color, double factor) {
+        Hct hct = Hct.fromInt(color.getRGB());
+        return new Color(Hct.from(hct.getHue(), hct.getChroma() * (1.0 - factor), hct.getTone()).toInt());
+    }
+
     /**
      * Retrieves a single crayon of the specified color and dimensions for the crayon panel in color
      * chooser.
@@ -78,12 +91,8 @@ public final class RadianceImageCreator {
 
         Color lightColor = RadianceColorUtilities.getLighterColor(mainColor, 0.6);
         Color darkColor = RadianceColorUtilities.getDarkerColor(mainColor, 0.2);
-        Color desaturatedLight = RadianceColorUtilities.getSaturatedColor(
-                RadianceColorUtilities.getLighterColor(mainColor, 0.3), -0.4f);
-        Color desaturatedDark = RadianceColorUtilities.getSaturatedColor(
-                RadianceColorUtilities.getInterpolatedColor(
-                        RadianceColorUtilities.getDarkerColor(mainColor, 0.2),
-                        Color.lightGray, 0.6), -0.4f);
+        Color desaturatedLight = getDesaturatedColor(lightColor, 0.6);
+        Color desaturatedDark = getDesaturatedColor(darkColor, 0.4);
 
         LinearGradientPaint capFillPaint = new LinearGradientPaint(0, 0, width, 0,
                 new float[]{0.0f, 0.45f, 1.0f},
@@ -103,8 +112,8 @@ public final class RadianceImageCreator {
 
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 
-        Color sideStripeColor = RadianceColorUtilities.getSaturatedColor(lightColor, -0.1f);
-        Color midStripeColor = RadianceColorUtilities.getSaturatedColor(lightColor, -0.25f);
+        Color sideStripeColor = getDesaturatedColor(lightColor, 0.1f);
+        Color midStripeColor = getDesaturatedColor(lightColor, 0.25f);
         int stripeTop = (int) (0.25 * height);
         int stripeHeight = (int) (0.04 * height);
         LinearGradientPaint stripeFillPaint = new LinearGradientPaint(0, 0, width, 0,
@@ -115,8 +124,7 @@ public final class RadianceImageCreator {
         graphics.fillRect(0, stripeTop, width, stripeHeight);
 
         // Stripe outline
-        graphics.setColor(RadianceColorUtilities.getInterpolatedColor(sideStripeColor,
-                Color.gray, 0.3));
+        graphics.setColor(getDesaturatedColor(mainColor, 0.7));
         graphics.drawLine(0, stripeTop, 0, stripeTop + stripeHeight);
         graphics.drawLine(width - 1, stripeTop, width - 1, stripeTop + stripeHeight);
 
@@ -132,8 +140,7 @@ public final class RadianceImageCreator {
         graphics.drawRect(0, stripeTop + stripeHeight, width - 1, capBase - stripeTop - stripeHeight);
 
         // Base side outlines
-        graphics.setColor(RadianceColorUtilities.getInterpolatedColor(mainColor,
-                Color.gray, 0.6));
+        graphics.setColor(getDesaturatedColor(mainColor, 0.4));
         graphics.drawLine(0, capBase, 0, height);
         graphics.drawLine(width - 1, capBase, width - 1, height);
 

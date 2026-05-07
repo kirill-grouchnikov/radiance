@@ -52,8 +52,4 @@ public interface ColorTransform {
 	static ColorTransform alpha(int alpha) {
 		return (color) -> RadianceColorUtilities.getAlphaColor(color, alpha);
 	}
-
-	static ColorTransform brightness(float brightnessFactor) {
-		return (color) -> RadianceColorUtilities.deriveByBrightness(color, brightnessFactor);
-	}
 }

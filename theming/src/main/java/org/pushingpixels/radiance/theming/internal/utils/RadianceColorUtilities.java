@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
@@ -192,45 +193,6 @@ public class RadianceColorUtilities {
     }
 
     /**
-     * Returns saturated version of the specified color.
-     *
-     * @param color  Color.
-     * @param factor Saturation factor.
-     * @return Saturated color.
-     */
-    public static Color getSaturatedColor(Color color, double factor) {
-        int red = color.getRed();
-        int green = color.getGreen();
-        int blue = color.getBlue();
-        if ((red == green) || (green == blue)) {
-            // monochrome
-            return color;
-        }
-
-        float[] hsbvals = new float[3];
-        Color.RGBtoHSB(red, green, blue, hsbvals);
-        float sat = hsbvals[1];
-        if (factor > 0.0) {
-            sat = sat + (float) factor * (1.0f - sat);
-        } else {
-            sat = sat + (float) factor * sat;
-        }
-        return new Color(Color.HSBtoRGB(hsbvals[0], sat, hsbvals[2]));
-    }
-
-    public static Color deriveByBrightness(Color original, float brightnessFactor) {
-        float[] hsbvalsOrig = new float[3];
-        Color.RGBtoHSB(original.getRed(), original.getGreen(), original.getBlue(), hsbvalsOrig);
-
-        // Brightness factor is in -1.0...1.0 range. Negative values are treated as darkening
-        // and positive values are treated as brightening - leaving the hue and saturation intact
-        float newBrightness = (brightnessFactor > 0.0f)
-                ? hsbvalsOrig[2] + (1.0f - hsbvalsOrig[2]) * brightnessFactor
-                : hsbvalsOrig[2] + hsbvalsOrig[2] * brightnessFactor;
-        return new Color(Color.HSBtoRGB(hsbvalsOrig[0], hsbvalsOrig[1], newBrightness));
-    }
-
-    /**
      * Returns the foreground color of the specified color tokens.
      *
      * @param colorTokens Color tokens.
@@ -249,7 +211,9 @@ public class RadianceColorUtilities {
      * @return Lighter version of the specified color.
      */
     public static Color getLighterColor(Color color, double diff) {
-        return RadianceColorUtilities.getInterpolatedColor(color, Color.white, 1.0 - diff);
+        Hct hct = Hct.fromInt(color.getRGB());
+        return new Color(Hct.from(hct.getHue(), hct.getChroma(),
+            100.0 - (100.0 - hct.getTone()) * (1.0 - diff)).toInt());
     }
 
     /**
@@ -261,7 +225,8 @@ public class RadianceColorUtilities {
      * @return Darker version of the specified color.
      */
     public static Color getDarkerColor(Color color, double diff) {
-        return RadianceColorUtilities.getInterpolatedColor(color, Color.black, 1.0 - diff);
+        Hct hct = Hct.fromInt(color.getRGB());
+        return new Color(Hct.from(hct.getHue(), hct.getChroma(), hct.getTone() * (1.0 - diff)).toInt());
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.pushingpixels.radiance.theming.internal.contrib.xoetrope.editor.color;
 
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -833,12 +834,13 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 						rolloverColor = new Color(modelColor.getRed(),
 								modelColor.getGreen(), modelColor.getBlue());
+						Hct rolloverHct = Hct.fromInt(rolloverColor.getRGB());
 						if (ring < 4) {
-							rolloverColor = RadianceColorUtilities.deriveByBrightness(
-									rolloverColor, -0.5f);
+							rolloverColor = new Color(Hct.from(rolloverHct.getHue(), rolloverHct.getChroma(),
+								rolloverHct.getTone() * 0.5).toInt());
 						} else {
-							rolloverColor = RadianceColorUtilities.deriveByBrightness(
-									rolloverColor, 0.8f);
+							rolloverColor = new Color(Hct.from(rolloverHct.getHue(), rolloverHct.getChroma(),
+								100 - (100 - rolloverHct.getTone()) * 0.2).toInt());
 						}
 						break;
 					}
