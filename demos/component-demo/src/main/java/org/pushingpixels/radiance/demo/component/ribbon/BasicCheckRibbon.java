@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.demo.component.ribbon;
 
 import com.jgoodies.forms.builder.FormBuilder;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.*;
@@ -2857,9 +2858,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         private void setBackgroundFill(Color backgroundFill) {
             this.backgroundFill = backgroundFill;
-            float brightness = Color.RGBtoHSB(this.backgroundFill.getRed(),
-                    this.backgroundFill.getGreen(), this.backgroundFill.getBlue(), null)[2];
-            this.line = (brightness > 0.7f) ? Color.darkGray : Color.lightGray;
+            double tone = Hct.fromInt(this.backgroundFill.getRGB()).getTone();
+            this.line = (tone > 70) ? Color.darkGray : Color.lightGray;
             this.content.setForeground(this.line);
             this.invalidate();
             this.repaint();
