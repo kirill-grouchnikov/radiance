@@ -123,27 +123,27 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
             : tokens.getContainerSurfaceHigh();
 
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.translate(x, y);
 
-        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, width, height,
+        RadianceCommonCortex.paintAtScale1x(g2d, x, y, width, height,
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 graphics1X.setColor(backgroundFill);
-                graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+                graphics1X.fillRect(scaledX, scaledY, scaledWidth, scaledHeight);
 
                 RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
                 if (inlayPainter != null) {
                     RadianceThemingSlices.DecorationAreaType decorationAreaType =
                         DecorationPainterUtils.getDecorationType(this.buttonPanel);
                     inlayPainter.paintInlay(graphics1X, buttonPanel, decorationAreaType,
-                        (int) (scaleFactor * x), (int) (scaleFactor * y), scaledWidth, scaledHeight,
+                        scaledX, scaledY, scaledWidth, scaledHeight,
                         scaleFactor, tokens);
                 }
 
+                graphics1X.translate(scaledX, scaledY);
                 HighlightPainterUtils.paintHighlightBorder1X(graphics1X, this.buttonPanel,
-                scaledWidth, scaledHeight, scaledHeight, 1.0f,
-                openSides, RadianceCoreUtilities.getOutlinePainter(this.buttonPanel),
-                CoreColorTokenUtils.getContainerTokens(this.buttonPanel,
-                    ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL));
+                    scaledWidth, scaledHeight, scaledHeight, 1.0f,
+                    openSides, RadianceCoreUtilities.getOutlinePainter(this.buttonPanel),
+                    CoreColorTokenUtils.getContainerTokens(this.buttonPanel,
+                        ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL));
             });
 
         g2d.dispose();
