@@ -311,12 +311,12 @@ public class RadianceRibbonTaskToggleButtonUI extends
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        JButton forSizing = new JButton(this.text, this.icon);
-        Dimension result = forSizing.getUI().getPreferredSize(forSizing);
-        Insets borderInsets = this.commandButton.getBorder().getBorderInsets(this.commandButton);
-        result.width += (borderInsets.left + borderInsets.right);
-        result.height += (borderInsets.top + borderInsets.bottom);
-        return result;
+        JCommandButton button = (JCommandButton) c;
+        Dimension preferred = this.layoutManager.getPreferredSize(button.getContentModel(),
+            button.getPresentationModel());
+        int minButtonWidth =
+            RadianceSizeUtils.getMinButtonWidth(RadianceSizeUtils.getComponentFontSize(button));
+        return new Dimension(Math.max(preferred.width, minButtonWidth), preferred.height);
     }
 
     @Override
