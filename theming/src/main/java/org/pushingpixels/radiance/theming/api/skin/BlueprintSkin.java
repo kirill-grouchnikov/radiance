@@ -448,8 +448,6 @@ public class BlueprintSkin extends RadianceSkin {
 					.containerSurfaceDisabledAlpha((s) -> 0.35f)
 					.containerOutlineDisabledAlpha((s) -> 0.35f)
 					.onContainerDisabledAlpha((s) -> 0.85f)
-					.onContainer((s) -> primaryBlue.toInt())
-					.onContainerVariant((s) -> primaryBlue.toInt() & 0xC0FFFFFF)
 					.inverseContainerSurface((s) -> primaryBlue.toInt())
 					.inverseContainerOutline((s) -> darkPrimaryBlue.toInt())
 					.build());
@@ -467,8 +465,9 @@ public class BlueprintSkin extends RadianceSkin {
 					.build());
 
 		ContainerColorTokensBundle blueprintDefaultBundle = new ContainerColorTokensBundle(
-			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFFFFFFF),
+			/* activeContainerTokens */ ContainerColorTokensUtils.getDuotoneContainerTokens(
+				/* seedContainer */ Hct.fromInt(0xFFFFFFFF),
+				/* seedOnContainer */ primaryBlue,
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 				/* colorResolver */ activeResolver),
 			/* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
@@ -481,17 +480,12 @@ public class BlueprintSkin extends RadianceSkin {
 				/* colorResolver */ mutedResolver),
 			/* isSystemDark */ true);
 
-		ContainerColorTokens blueprintHighlightContainerTokens =
-			ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFFFFFFF),
-				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
-				/* colorResolver */ activeResolver);
-		blueprintDefaultBundle.registerActiveContainerTokens(blueprintHighlightContainerTokens,
+		blueprintDefaultBundle.registerActiveContainerTokens(blueprintDefaultBundle.getActiveContainerTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
 
 		blueprintDefaultBundle.registerNeutralContainerTokens(
-			blueprintHighlightContainerTokens,
+			blueprintDefaultBundle.getActiveContainerTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
 
 		this.registerDecorationAreaTokensBundle(blueprintDefaultBundle,
