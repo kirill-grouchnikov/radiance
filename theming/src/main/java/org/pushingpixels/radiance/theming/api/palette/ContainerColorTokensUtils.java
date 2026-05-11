@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.palette;
 
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DuotonePalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicPalette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
@@ -193,6 +194,145 @@ public class ContainerColorTokensUtils {
             /* seedTwo */ seedTwo,
             /* transitionRange */ transitionRange,
             /* fidelityTone */ fidelityTone,
+            /* containerConfiguration */ containerConfiguration);
+
+        return new ContainerColorTokens() {
+            @Override
+            public boolean isDark() {
+                return dynamicPalette.containerConfiguration.isDark();
+            }
+
+            @Override
+            public Color getContainerSurfaceLowest() {
+                return colorResolver.getContainerSurfaceLowest(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceLow() {
+                return colorResolver.getContainerSurfaceLow(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurface() {
+                return colorResolver.getContainerSurface(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceHigh() {
+                return colorResolver.getContainerSurfaceHigh(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceHighest() {
+                return colorResolver.getContainerSurfaceHighest(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceDim() {
+                return colorResolver.getContainerSurfaceDim(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerSurfaceBright() {
+                return colorResolver.getContainerSurfaceBright(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerShadow() {
+                return colorResolver.getContainerShadow(dynamicPalette);
+            }
+
+            @Override
+            public Color getOnContainer() {
+                return colorResolver.getOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getOnContainerVariant() {
+                return colorResolver.getOnContainerVariant(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerOutline() {
+                return colorResolver.getContainerOutline(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerOutlineVariant() {
+                return colorResolver.getContainerOutlineVariant(dynamicPalette);
+            }
+
+            @Override
+            public float getContainerSurfaceEnabledAlpha() {
+                return colorResolver.getContainerSurfaceEnabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public float getOnContainerEnabledAlpha() {
+                return colorResolver.getOnContainerEnabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public float getContainerOutlineEnabledAlpha() {
+                return colorResolver.getContainerOutlineEnabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public float getContainerSurfaceDisabledAlpha() {
+                return colorResolver.getContainerSurfaceDisabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public float getOnContainerDisabledAlpha() {
+                return colorResolver.getOnContainerDisabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public float getContainerOutlineDisabledAlpha() {
+                return colorResolver.getContainerOutlineDisabledAlpha(dynamicPalette);
+            }
+
+            @Override
+            public Color getInverseContainerSurface() {
+                return colorResolver.getInverseContainerSurface(dynamicPalette);
+            }
+
+            @Override
+            public Color getInverseOnContainer() {
+                return colorResolver.getInverseOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getInverseContainerOutline() {
+                return colorResolver.getInverseContainerOutline(dynamicPalette);
+            }
+
+            @Override
+            public Color getComplementaryOnContainer() {
+                return colorResolver.getComplementaryOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getComplementaryContainerOutline() {
+                return colorResolver.getComplementaryContainerOutline(dynamicPalette);
+            }
+
+            @Override
+            public Color getAccentOnContainer() {
+                return colorResolver.getAccentOnContainer(dynamicPalette);
+            }
+        };
+    }
+
+    public static ContainerColorTokens getDuotoneContainerTokens(
+        Hct seedContainer,
+        Hct seedOnContainer,
+        ContainerConfiguration containerConfiguration,
+        TokenPaletteColorResolver colorResolver) {
+
+        DuotonePalette dynamicPalette = new DuotonePalette(
+            /* seedContainer */ seedContainer,
+            /* seedOnContainer */ seedOnContainer,
             /* containerConfiguration */ containerConfiguration);
 
         return new ContainerColorTokens() {
