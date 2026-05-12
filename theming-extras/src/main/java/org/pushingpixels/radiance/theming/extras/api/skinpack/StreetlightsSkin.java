@@ -36,13 +36,11 @@ import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPane
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
-import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
@@ -64,22 +62,21 @@ public class StreetlightsSkin extends RadianceSkin {
     }
 
     public StreetlightsSkin() {
-        ContainerColorTokens streetlightsDefaultMutedTokens = ContainerColorTokensUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFF052914),
-            /* containerConfiguration */ new ContainerConfiguration(
-                /* isDark */ true,
-                /* contrastLevel */ 1.0));
-
-        ContainerColorTokens streetlightsDefaultNeutralTokens = ContainerColorTokensUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFF252A26),
+        ContainerColorTokens streetlightsDefaultMutedTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+            /* seedContainer */ Hct.fromInt(0xFF052914),
+            /* seedOnContainer */ Hct.fromInt(0xFFC4ECCB),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ 1.0),
-            /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                TokenPaletteColorResolverOverlay.builder()
-                    .onContainer((p) -> streetlightsDefaultMutedTokens.getOnContainer().getRGB())
-                    .onContainerVariant((p) -> streetlightsDefaultMutedTokens.getOnContainerVariant().getRGB())
-                    .build()));
+            /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
+
+        ContainerColorTokens streetlightsDefaultNeutralTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+            /* seedContainer */ Hct.fromInt(0xFF252A26),
+            /* seedOnContainer */ Hct.fromInt(0xFFC4ECCB),
+            /* containerConfiguration */ new ContainerConfiguration(
+                /* isDark */ true,
+                /* contrastLevel */ 1.0),
+            /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
 
         ContainerColorTokensBundle streetlightsDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
@@ -106,17 +103,13 @@ public class StreetlightsSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.NONE);
 
         this.registerAsDecorationArea(
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF2E332F),
+            ContainerColorTokensUtils.getDuotoneContainerTokens(
+                /* seedContainer */ Hct.fromInt(0xFF2E332F),
+                /* seedOnContainer */ Hct.fromInt(0xFFC4ECCB),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 1.0),
-                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                    TokenPaletteColorResolverOverlay.builder()
-                        .onContainer((p) -> streetlightsDefaultMutedTokens.getOnContainer().getRGB())
-                        .onContainerVariant((p) -> streetlightsDefaultMutedTokens.getOnContainerVariant().getRGB())
-                        .build()
-                )),
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver()),
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.HEADER);

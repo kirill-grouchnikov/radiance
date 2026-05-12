@@ -37,9 +37,8 @@ import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FractionBasedDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.palette.*;
@@ -77,15 +76,14 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     .containerOutlineDisabledAlpha((s) -> 0.65f)
                     .build()));
 
-        // For muted containers (enabled controls), use the same on container colors, and the same
+        // For muted containers (enabled controls), use the same
         // outline colors as active containers with extra alpha.
-        ContainerColorTokens officeBlueDefaultMutedTokens = ContainerColorTokensUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFB8D2EB),
+        ContainerColorTokens officeBlueDefaultMutedTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+            /* seedContainer */ Hct.fromInt(0xFFB8D2EB),
+            /* seedOnContainer */ Hct.fromInt(0xFF004A7B),
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
-                    .onContainer((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB())
-                    .onContainerVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB())
                     .containerOutline((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB() & 0x70FFFFFF)
                     .containerOutlineVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB() & 0x70FFFFFF)
                     .containerOutlineDisabledAlpha((p) -> 0.65f)
@@ -93,13 +91,12 @@ public class OfficeBlue2007Skin extends RadianceSkin {
 
         // For neutral containers, use the same on container colors, and the same
         // outline colors as active containers with extra alpha.
-        ContainerColorTokens officeBlueDefaultNeutralTokens = ContainerColorTokensUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFFC3DCF0),
+        ContainerColorTokens officeBlueDefaultNeutralTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+            /* seedContainer */ Hct.fromInt(0xFFC3DCF0),
+            /* seedOnContainer */ Hct.fromInt(0xFF004A7B),
             /* containerConfiguration */ ContainerConfiguration.defaultLight(),
             /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
-                    .onContainer((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB())
-                    .onContainerVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB())
                     .containerOutline((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB() & 0x70FFFFFF)
                     .containerOutlineVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB() & 0x70FFFFFF)
                     .containerOutlineDisabledAlpha((p) -> 0.65f)
@@ -231,15 +228,14 @@ public class OfficeBlue2007Skin extends RadianceSkin {
         TokenPaletteColorResolver officeBluePaletteColorResolver =
             defaultPaletteColorResolver.overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
-                    .onContainer((p) -> officeBlueDefaultNeutralTokens.getOnContainer().getRGB())
-                    .onContainerVariant((p) -> officeBlueDefaultNeutralTokens.getOnContainerVariant().getRGB())
                     .containerOutline((p) -> officeBlueDefaultNeutralTokens.getContainerOutline().getRGB())
                     .containerOutlineVariant((p) -> officeBlueDefaultNeutralTokens.getContainerOutlineVariant().getRGB())
                     .build());
 
         this.registerAsDecorationArea(
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFB6D9FF),
+            ContainerColorTokensUtils.getDuotoneContainerTokens(
+                /* seedContainer */ Hct.fromInt(0xFFB6D9FF),
+                /* seedOnContainer */ Hct.fromInt(0xFF004A7B),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.4),
@@ -247,8 +243,9 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         this.registerAsDecorationArea(
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFD3E7FC),
+            ContainerColorTokensUtils.getDuotoneContainerTokens(
+                /* seedContainer */ Hct.fromInt(0xFFD3E7FC),
+                /* seedOnContainer */ Hct.fromInt(0xFF004A7B),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.4),
@@ -257,8 +254,9 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             DecorationAreaType.SECONDARY_TITLE_PANE);
 
         this.registerAsDecorationArea(
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFFCFE5FB),
+            ContainerColorTokensUtils.getDuotoneContainerTokens(
+                /* seedContainer */ Hct.fromInt(0xFFCFE5FB),
+                /* seedOnContainer */ Hct.fromInt(0xFF004A7B),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ false,
                     /* contrastLevel */ 0.4),

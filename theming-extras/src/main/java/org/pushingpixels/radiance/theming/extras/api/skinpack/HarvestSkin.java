@@ -34,15 +34,18 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.*;
+import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 /**
@@ -104,26 +107,18 @@ public class HarvestSkin extends RadianceSkin {
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFFF12B37),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark()),
-            /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF5B5B54),
+            /* mutedContainerTokens */ ContainerColorTokensUtils.getDuotoneContainerTokens(
+                /* seedContainer */ Hct.fromInt(0xFF5B5B54),
+                /* seedOnContainer */ Hct.fromInt(0xFFFCFAD6),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                    // Take the default neutral container surface fill to be the on container roles.
-                    TokenPaletteColorResolverOverlay.builder()
-                        .onContainer((p) -> harvestDefaultBundle.getNeutralContainerTokens().getContainerSurface().getRGB())
-                        .onContainerVariant((p) -> harvestDefaultBundle.getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
-                        .build())),
-            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF3A3A39),
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver()),
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getDuotoneContainerTokens(
+                /* seedContainer */ Hct.fromInt(0xFF3A3A39),
+                /* seedOnContainer */ Hct.fromInt(0xFFFCFAD6),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.6),
-                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                    // Take the default neutral container surface fill to be the on container roles.
-                    TokenPaletteColorResolverOverlay.builder()
-                        .onContainer((p) -> harvestDefaultBundle.getNeutralContainerTokens().getContainerSurface().getRGB())
-                        .onContainerVariant((p) -> harvestDefaultBundle.getNeutralContainerTokens().getContainerSurfaceHigh().getRGB())
-                        .build())),
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver()),
             /* isSystemDark */ false);
 
         harvestHeaderBundle.registerActiveContainerTokens(
