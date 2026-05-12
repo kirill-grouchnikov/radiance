@@ -71,8 +71,9 @@ public class TwilightSkin extends RadianceSkin {
                     .onContainerDisabledAlpha((s) -> 0.6f)
                     .containerOutlineDisabledAlpha((s) -> 0.55f)
                     .build());
-        ContainerColorTokens twilightDefaultMutedTokens = ContainerColorTokensUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFF3B3A32),
+        ContainerColorTokens twilightDefaultMutedTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+            /* seedContainer */ Hct.fromInt(0xFF3B3A32),
+            /* seedOnContainer */ Hct.fromInt(0xFFCCC9BE),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ -0.1),
@@ -81,7 +82,7 @@ public class TwilightSkin extends RadianceSkin {
         // For active containers, use higher alpha values for disabled
         // controls for better contrast. Also use muted outlines for border consistency
         // with enabled controls.
-        TokenPaletteColorResolver resolver =
+        TokenPaletteColorResolver activeResolver =
             TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
                     .containerOutline((p) -> twilightDefaultMutedTokens.getContainerOutline().getRGB())
@@ -95,22 +96,15 @@ public class TwilightSkin extends RadianceSkin {
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ false,
                 /* contrastLevel */ 0.2),
-            /* colorResolver */ resolver);
+            /* colorResolver */ activeResolver);
 
-        // For neutral containers, use the text / icon colors from the muted containers
-        // for better visual consistency
-        TokenPaletteColorResolver neutralResolver =
-            TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                TokenPaletteColorResolverOverlay.builder()
-                    .onContainer((p) -> twilightDefaultMutedTokens.getOnContainer().getRGB())
-                    .onContainerVariant((p) -> twilightDefaultMutedTokens.getOnContainerVariant().getRGB())
-                    .build());
-        ContainerColorTokens twilightDefaultNeutralTokens = ContainerColorTokensUtils.getContainerTokens(
-            /* seed */ Hct.fromInt(0xFF48443B),
+        ContainerColorTokens twilightDefaultNeutralTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+            /* seedContainer */ Hct.fromInt(0xFF48443B),
+            /* seedOnContainer */ Hct.fromInt(0xFFCCC9BE),
             /* containerConfiguration */ new ContainerConfiguration(
                 /* isDark */ true,
                 /* contrastLevel */ -0.1),
-            /* colorResolver */ neutralResolver);
+            /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
 
         TokenPaletteColorResolver defaultPaletteContainerColorResolver =
             TokenPaletteColorResolverUtils.getPaletteColorResolver();
