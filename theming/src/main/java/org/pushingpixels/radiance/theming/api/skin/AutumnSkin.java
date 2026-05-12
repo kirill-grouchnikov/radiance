@@ -123,10 +123,11 @@ public class AutumnSkin extends RadianceSkin {
 				autumnDefaultNeutralTokens, false);
 
 		// Custom visuals for controls in selected state:
-		// 1. Deeper container surfaces (more saturated seed in fidelity mode)
+		// 1. Deeper container surfaces (more saturated seed)
 		// 2. Softer on container
 		// 3. Higher alpha values for disabled controls for better contrast
-		autumnDefaultBundle.registerActiveContainerTokens(ContainerColorTokensUtils.getDuotoneContainerTokens(
+		autumnDefaultBundle.registerActiveContainerTokens(
+			ContainerColorTokensUtils.getDuotoneContainerTokens(
 				/* seedContainer */ Hct.fromInt(0xFFFDBD72),
 				/* seedOnContainer */ Hct.fromInt(0xFFA06C29),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
