@@ -64,30 +64,28 @@ public class AutumnSkin extends RadianceSkin {
 	}
 
 	public AutumnSkin() {
-		// For active containers, use softer text / icon colors.
+		// For active containers, use softer outlines and shadows.
 		// Also use higher alpha values for disabled controls for better contrast.
 		TokenPaletteColorResolver resolver =
 			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 				TokenPaletteColorResolverOverlay.builder()
-                    .containerOutline((p) -> RadianceColorUtilities.getInterpolatedColor(
-                        new Color(p.getContainerOutline()),
-                        new Color(p.getContainerOutlineVariant()),
-                        0.3f).getRGB())
-					.onContainer(TokenPalette::getContainerOutline)
-					.onContainerVariant((p) -> p.getContainerOutline() & 0xC0FFFFFF)
+					.containerOutline((p) -> RadianceColorUtilities.getInterpolatedColor(
+						new Color(p.getContainerOutline()),
+						new Color(p.getContainerOutlineVariant()),
+						0.3f).getRGB())
 					.containerShadow(TokenPalette::getContainerOutline)
 					.containerSurfaceDisabledAlpha((s) -> 0.4f)
 					.onContainerDisabledAlpha((s) -> 0.6f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
 					.build());
-		ContainerColorTokens autumnDefaultActiveTokens = ContainerColorTokensUtils.getContainerTokens(
-			/* seed */ Hct.fromInt(0xFFFFCB90),
+		ContainerColorTokens autumnDefaultActiveTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+			/* seedContainer */ Hct.fromInt(0xFFFFCB90),
+			/* seedOnContainer */ Hct.fromInt(0xFF996F3C),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ resolver);
 
-		// For muted containers (enabled controls), use tonal on container and container outline
-		// values for consistency with active controls. Also use higher alpha values for disabled
-		// controls for better contrast.
+		// For muted containers (enabled controls), use outlines and shadows consistent with active controls.
+		// Also use higher alpha values for disabled controls for better contrast.
 		TokenPaletteColorResolver mutedResolver =
 			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 				TokenPaletteColorResolverOverlay.builder()
@@ -95,19 +93,17 @@ public class AutumnSkin extends RadianceSkin {
 					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
 					.complementaryContainerOutline((p) -> autumnDefaultActiveTokens.getComplementaryContainerOutline().getRGB())
 					.containerShadow((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
-					.onContainer((p) -> autumnDefaultActiveTokens.getOnContainer().getRGB())
-					.onContainerVariant((p) -> autumnDefaultActiveTokens.getOnContainerVariant().getRGB())
 					.containerSurfaceDisabledAlpha((s) -> 0.5f)
 					.onContainerDisabledAlpha((s) -> 0.6f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
 					.build());
-		ContainerColorTokens autumnDefaultMutedTokens = ContainerColorTokensUtils.getContainerTokens(
-			/* seed */ Hct.fromInt(0xFFFEDCB6),
+		ContainerColorTokens autumnDefaultMutedTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+			/* seedContainer */ Hct.fromInt(0xFFFEDCB6),
+			/* seedOnContainer */ Hct.fromInt(0xFF996F3C),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ mutedResolver);
 
-		// For neutral containers, use active on container and container outline
-		// values for consistency with active controls.
+		// For neutral containers, use outlines and shadows consistent with active controls.
 		TokenPaletteColorResolver neutralResolver =
 			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 				TokenPaletteColorResolverOverlay.builder()
@@ -115,11 +111,10 @@ public class AutumnSkin extends RadianceSkin {
 					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
 					.containerShadow((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.complementaryContainerOutline((p) -> autumnDefaultActiveTokens.getComplementaryContainerOutline().getRGB())
-					.onContainer((p) -> autumnDefaultActiveTokens.getOnContainer().getRGB())
-					.onContainerVariant((p) -> autumnDefaultActiveTokens.getOnContainerVariant().getRGB())
 					.build());
-		ContainerColorTokens autumnDefaultNeutralTokens = ContainerColorTokensUtils.getContainerTokens(
-			/* seed */ Hct.fromInt(0xFFFFE2C1),
+		ContainerColorTokens autumnDefaultNeutralTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+			/* seedContainer */ Hct.fromInt(0xFFFFE2C1),
+			/* seedOnContainer */ Hct.fromInt(0xFF996F3C),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ neutralResolver);
 
@@ -129,22 +124,26 @@ public class AutumnSkin extends RadianceSkin {
 
 		// Custom visuals for controls in selected state:
 		// 1. Deeper container surfaces (more saturated seed in fidelity mode)
-		// 2. Softer on container, mapped to container outline (used for texts and icons)
+		// 2. Softer on container
 		// 3. Higher alpha values for disabled controls for better contrast
-		autumnDefaultBundle.registerActiveContainerTokens(ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFFDBD72),
+		autumnDefaultBundle.registerActiveContainerTokens(ContainerColorTokensUtils.getDuotoneContainerTokens(
+				/* seedContainer */ Hct.fromInt(0xFFFDBD72),
+				/* seedOnContainer */ Hct.fromInt(0xFFA06C29),
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 				/* colorResolver */ resolver),
 			ComponentState.SELECTED);
+
 		autumnDefaultBundle.registerActiveContainerTokens(
-			ContainerColorTokensUtils.getContainerTokens(
-				/* seed */ Hct.fromInt(0xFFFCEF9F),
+			ContainerColorTokensUtils.getDuotoneContainerTokens(
+				/* seedContainer */ Hct.fromInt(0xFFFCEF9F),
+				/* seedOnContainer */ Hct.fromInt(0xFF776E2C),
 				/* containerConfiguration */ new ContainerConfiguration(
 					/* isDark */ false,
 					/* contrastLevel */ 0.2),
 				/* colorResolver */ resolver),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
 			ComponentState.getActiveStates());
+
 		this.registerDecorationAreaTokensBundle(autumnDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE);
 
@@ -162,12 +161,14 @@ public class AutumnSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.HEADER);
 
-		ContainerColorTokens autumnControlPaneActiveTokens = ContainerColorTokensUtils.getContainerTokens(
-			/* seed */ Hct.fromInt(0xFFFDBD72),
+		ContainerColorTokens autumnControlPaneActiveTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+			/* seedContainer */ Hct.fromInt(0xFFFDBD72),
+			/* seedOnContainer */ Hct.fromInt(0xFFA06C29),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ resolver);
-		ContainerColorTokens autumnControlPaneMutedTokens = ContainerColorTokensUtils.getContainerTokens(
-			/* seed */ Hct.fromInt(0xFFFEDCB6),
+		ContainerColorTokens autumnControlPaneMutedTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
+			/* seedContainer */ Hct.fromInt(0xFFFEDCB6),
+			/* seedOnContainer */ Hct.fromInt(0xFF996F3C),
 			/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 			/* colorResolver */ mutedResolver);
 		ContainerColorTokens autumnControlPaneNeutralTokens = ContainerColorTokensUtils.getContainerTokens(
