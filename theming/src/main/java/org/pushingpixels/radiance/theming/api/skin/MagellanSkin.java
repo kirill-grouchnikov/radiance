@@ -64,44 +64,33 @@ public class MagellanSkin extends RadianceSkin {
 
     public MagellanSkin() {
         ContainerColorTokensBundle magellanDefaultBundle = new ContainerColorTokensBundle(
-            /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF0070DF),
+            /* activeContainerTokens */ ContainerColorTokensUtils.getDuotoneContainerTokens(
+                /* seedContainer */ Hct.fromInt(0xFF0070DF),
+                /* seedOnContainer */ Hct.fromInt(0xFFCCDDF5),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ -0.1),
-                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                    // For active containers, use softer text / icon colors.
-                    TokenPaletteColorResolverOverlay.builder()
-                        .onContainer((p) -> p.getOnContainer() & 0xE0FFFFFF)
-                        .onContainerVariant((p) -> p.getOnContainerVariant() & 0xE0FFFFFF)
-                        .build())),
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver()),
             /* mutedContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
                 /* seed */ Hct.fromInt(0xFF004C92),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ 0.1)),
-            /* neutralContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF005CB7),
+            /* neutralContainerTokens */ ContainerColorTokensUtils.getDuotoneContainerTokens(
+                /* seedContainer */ Hct.fromInt(0xFF005CB7),
+                /* seedOnContainer */ Hct.fromInt(0xFFCCDDF5),
                 /* containerConfiguration */ new ContainerConfiguration(
                     /* isDark */ true,
                     /* contrastLevel */ -0.2),
-                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                    // For neutral containers, use softer text / icon colors
-                    TokenPaletteColorResolverOverlay.builder()
-                        .onContainer((p) -> p.getOnContainer() & 0xD0FFFFFF)
-                        .onContainerVariant((p) -> p.getOnContainerVariant() & 0xD0FFFFFF)
-                        .build())),
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver()),
             /* isSystemDark */ true);
 
         ContainerColorTokens magellanSelectedContainerTokens =
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF006FDB),
+            ContainerColorTokensUtils.getDuotoneContainerTokens(
+                /* seedContainer */ Hct.fromInt(0xFF006FDB),
+                /* seedOnContainer */ Hct.fromInt(0xFFE0EDFA),
                 /* containerConfiguration */ ContainerConfiguration.defaultDark(),
-                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
-                    TokenPaletteColorResolverOverlay.builder()
-                        .onContainer((p) -> p.getOnContainer() & 0xE0FFFFFF)
-                        .onContainerVariant((p) -> p.getOnContainerVariant() & 0xE0FFFFFF)
-                        .build()));
+                /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
 
         ContainerColorTokens magellanPressedContainerTokens =
             ContainerColorTokensUtils.getContainerTokens(
