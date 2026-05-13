@@ -29,9 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
+import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
 import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 
@@ -59,8 +63,15 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 				.complementaryContainerOutline(TokenPalette::getContainerOutline)
 				.build()));
 
-		this.graphiteDefaultBundle.registerNeutralContainerTokens(
-			this.getDefaultAreaHighlightTokens(),
+		ContainerColorTokens separatorTokens  = ContainerColorTokensUtils.getContainerTokens(
+			/* seed */ Hct.fromInt(0xFF424242),
+			/* containerConfiguration */ new ContainerConfiguration(
+				/* isDark */ true,
+				/* contrastLevel */ 0.1,
+				/* surfaceRangeAmplitudeFactor */ 1.0),
+			/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver());
+
+		this.graphiteDefaultBundle.registerNeutralContainerTokens(separatorTokens,
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
 
 		this.outlinePainter = new FlatOutlinePainter();

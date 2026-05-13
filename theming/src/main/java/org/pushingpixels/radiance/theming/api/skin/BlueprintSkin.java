@@ -443,7 +443,7 @@ public class BlueprintSkin extends RadianceSkin {
 					.containerOutline(TokenPalette::getComplementaryContainerOutline)
 					.containerOutlineVariant((p) -> Blend.harmonize(
 						p.getComplementaryContainerOutline(), p.getContainerSurface(), 0.2))
-					.complementaryContainerOutline(TokenPalette::getContainerOutline)
+					.complementaryContainerOutline((s) -> darkPrimaryBlue.toInt())
 					.containerSurfaceEnabledAlpha((s) -> 0.6f)
 					.containerSurfaceDisabledAlpha((s) -> 0.35f)
 					.containerOutlineDisabledAlpha((s) -> 0.35f)
