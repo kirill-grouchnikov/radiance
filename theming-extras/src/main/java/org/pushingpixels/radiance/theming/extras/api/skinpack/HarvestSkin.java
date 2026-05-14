@@ -149,7 +149,7 @@ public class HarvestSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
         this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokens::getContainerOutline, ColorTransform.alpha(128))),
+                    ContainerColorTokens::getMarkerOnContainer, ColorTransform.alpha(128))),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // Add overlay painters to paint drop shadow and a dark line along the top
@@ -157,7 +157,7 @@ public class HarvestSkin extends RadianceSkin {
         this.decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(15),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
         this.decorationPainter.addOverlayPainter(new TopLineOverlayPainter(
-                ContainerColorTokens::getContainerOutline),
+                ContainerColorTokens::getComplementaryMarkerOnContainer),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.highlightSurfacePainter = new FlatSurfacePainter("Harvest",

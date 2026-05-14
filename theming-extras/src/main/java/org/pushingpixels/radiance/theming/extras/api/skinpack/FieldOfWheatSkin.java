@@ -117,7 +117,7 @@ public class FieldOfWheatSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.HEADER);
         this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokens::getContainerOutline, ColorTransform.alpha(64))),
+                    ContainerColorTokens::getMarkerOnContainer, ColorTransform.alpha(128))),
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.outlinePainter = new FlatOutlinePainter();

@@ -155,7 +155,7 @@ public class GreenMagicSkin extends RadianceSkin {
         this.decorationPainter.addOverlayPainter(BottomShadowOverlayPainter.getInstance(50),
             RadianceThemingSlices.DecorationAreaType.HEADER);
         this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
-                ContainerColorTokens::getContainerOutlineVariant),
+                ContainerColorTokens::getMarkerOnContainer),
             RadianceThemingSlices.DecorationAreaType.HEADER);
 
         this.highlightSurfacePainter = new FlatSurfacePainter("Green Magic",

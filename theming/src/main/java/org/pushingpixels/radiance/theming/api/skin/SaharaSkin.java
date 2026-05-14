@@ -120,10 +120,10 @@ public class SaharaSkin extends RadianceSkin {
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint separator lines along the bottom
-		// edges of title panes and menu bars
+		// edges of menu bars
 		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
-				ContainerColorTokens::getContainerOutline,
+				ContainerColorTokens::getMarkerOnContainer,
 				ColorTransform.alpha(128)));
 		this.decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.HEADER);

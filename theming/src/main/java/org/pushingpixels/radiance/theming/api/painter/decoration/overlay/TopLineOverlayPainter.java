@@ -82,7 +82,7 @@ public final class TopLineOverlayPainter implements RadianceDecorationPainter.Ov
         Color lineColor = this.containerTokensQuery.query(colorTokens);
         g.setColor(lineColor);
 
-        int topY = (int) (Math.ceil(this.strokeWidth / 2.0f)) - dy;
+        int topY = (int) (Math.ceil(this.strokeWidth / 2.0f)) - dy - 1;
         g.setStroke(new BasicStroke(strokeWidth));
         g.drawLine(0, topY, width, topY);
     }

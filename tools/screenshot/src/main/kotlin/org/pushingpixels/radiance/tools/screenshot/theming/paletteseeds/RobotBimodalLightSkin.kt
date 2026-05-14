@@ -72,7 +72,7 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
         val bottomLineOverlayPainter =
             BottomLineOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokens::getContainerOutline,
+                    ContainerColorTokens::getMarkerOnContainer,
                     ColorTransform.alpha(128)
                 ))
         decorationPainter.addOverlayPainter(bottomLineOverlayPainter,

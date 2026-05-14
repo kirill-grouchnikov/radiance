@@ -218,7 +218,9 @@ public class MagellanSkin extends RadianceSkin {
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
         RadianceDecorationPainter.OverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-            ContainerColorTokens::getContainerOutlineVariant);
+            ContainerColorTokensSingleColorQuery.composite(
+                ContainerColorTokens::getComplementaryMarkerOnContainer,
+                ColorTransform.alpha(128)));
         this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
@@ -226,8 +228,8 @@ public class MagellanSkin extends RadianceSkin {
         // edge of toolbars
         RadianceDecorationPainter.OverlayPainter toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getInverseContainerOutline,
-                ColorTransform.alpha(96)));
+                ContainerColorTokens::getMarkerOnContainer,
+                ColorTransform.alpha(64)));
         this.decorationPainter.addOverlayPainter(toolbarTopLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 

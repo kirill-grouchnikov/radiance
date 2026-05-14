@@ -303,8 +303,7 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     ContainerColorTokens::getContainerSurfaceLowest,
                     0.8f)});
         this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
-                ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokens::getContainerOutline, ColorTransform.alpha(128))),
+                ContainerColorTokens::getMarkerOnContainer),
             DecorationAreaType.PRIMARY_TITLE_PANE,
             DecorationAreaType.SECONDARY_TITLE_PANE);
 

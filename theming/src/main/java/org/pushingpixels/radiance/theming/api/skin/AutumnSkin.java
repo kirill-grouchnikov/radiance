@@ -234,8 +234,8 @@ public class AutumnSkin extends RadianceSkin {
 		// edges of title panes and menu bars
 		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
-				ContainerColorTokens::getContainerOutlineVariant,
-				ColorTransform.alpha(128)));
+				ContainerColorTokens::getMarkerOnContainer,
+				ColorTransform.alpha(64)));
 		decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
 			RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

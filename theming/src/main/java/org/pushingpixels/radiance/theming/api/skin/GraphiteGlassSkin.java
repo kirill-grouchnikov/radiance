@@ -88,14 +88,12 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		this.decorationPainter = new ArcDecorationPainter();
 		// add two overlay painters to create a bezel line between
 		// menu bar and toolbars
-		RadianceDecorationPainter.OverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
-			ContainerColorTokensSingleColorQuery.composite(
-				ContainerColorTokens::getContainerOutline,
-				ColorTransform.alpha(128)));
+		BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
+			ContainerColorTokens::getComplementaryMarkerOnContainer);
 		RadianceDecorationPainter.OverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
-				ContainerColorTokens::getInverseContainerOutline,
-				ColorTransform.alpha(96)));
+				ContainerColorTokens::getMarkerOnContainer,
+				ColorTransform.alpha(128)));
 		this.decorationPainter.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 		this.decorationPainter.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 

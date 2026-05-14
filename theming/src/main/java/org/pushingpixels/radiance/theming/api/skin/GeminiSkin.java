@@ -187,21 +187,19 @@ public class GeminiSkin extends RadianceSkin {
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
         RadianceDecorationPainter.OverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-            ContainerColorTokens::getContainerOutlineVariant,
-            ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getInverseContainerOutline,
-                ColorTransform.alpha(72)));
+            ContainerColorTokens::getComplementaryMarkerOnContainer,
+            ContainerColorTokens::getMarkerOnContainer);
         this.decorationPainter.addOverlayPainter(footerTopBezelOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         // add two overlay painters to create a bezel line between
         // menu bar and toolbars
-        RadianceDecorationPainter.OverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
-            ContainerColorTokens::getContainerOutlineVariant);
+        BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
+            ContainerColorTokens::getComplementaryMarkerOnContainer);
         RadianceDecorationPainter.OverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getComplementaryContainerOutline,
-                ColorTransform.alpha(48)));
+                ContainerColorTokens::getMarkerOnContainer,
+                ColorTransform.alpha(128)));
         this.decorationPainter.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
         this.decorationPainter.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
@@ -213,9 +211,7 @@ public class GeminiSkin extends RadianceSkin {
         // add overlay painter to paint a dark line along the bottom
         // edge of toolbars
         RadianceDecorationPainter.OverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-            ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getContainerOutline,
-                ColorTransform.alpha(128)));
+            ContainerColorTokens::getComplementaryMarkerOnContainer);
         this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 

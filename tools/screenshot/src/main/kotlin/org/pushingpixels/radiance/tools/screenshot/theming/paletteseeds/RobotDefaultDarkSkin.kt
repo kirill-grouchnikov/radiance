@@ -92,7 +92,7 @@ class RobotDefaultDarkSkin(accentColor: Color, val name: String) :
         val bottomLineOverlayPainter =
             BottomLineOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokens::getContainerOutline,
+                    ContainerColorTokens::getComplementaryMarkerOnContainer,
                     ColorTransform.alpha(128)
                 ))
         decorationPainter.addOverlayPainter(bottomLineOverlayPainter,

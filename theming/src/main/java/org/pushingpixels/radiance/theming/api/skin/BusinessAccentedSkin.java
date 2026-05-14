@@ -43,6 +43,8 @@ import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
+import java.awt.*;
+
 /**
  * Base class for accented <code>Business</code> skins. This class is part of officially supported API.
  *
@@ -100,7 +102,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 		// edges of title panes and menu bars
 		BottomLineOverlayPainter bottomLineOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
-				ContainerColorTokens::getContainerOutline,
+                colorTokens -> colorTokens.isDark() ? colorTokens.getComplementaryMarkerOnContainer() : colorTokens.getMarkerOnContainer(),
 				ColorTransform.alpha(128)));
 		decorationPainter.addOverlayPainter(bottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 

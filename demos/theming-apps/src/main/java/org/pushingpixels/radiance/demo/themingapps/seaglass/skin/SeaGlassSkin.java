@@ -111,7 +111,7 @@ public class SeaGlassSkin extends RadianceSkin {
 
 		this.decorationPainter = new FlatDecorationPainter();
 		this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
-				ContainerColorTokens::getContainerOutline),
+				ContainerColorTokens::getMarkerOnContainer),
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
 		this.highlightSurfacePainter = new FlatSurfacePainter("Sea Glass", ContainerColorTokens::getContainerSurface);

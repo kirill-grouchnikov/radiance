@@ -238,7 +238,7 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 ContainerColorTokens::getContainerSurfaceLowest});
         this.decorationPainter.addOverlayPainter(new BottomLineOverlayPainter(
                 ContainerColorTokensSingleColorQuery.composite(
-                    ContainerColorTokens::getContainerOutline, ColorTransform.alpha(128))),
+                    ContainerColorTokens::getMarkerOnContainer, ColorTransform.alpha(128))),
             DecorationAreaType.PRIMARY_TITLE_PANE,
             DecorationAreaType.SECONDARY_TITLE_PANE);
 

@@ -34,6 +34,7 @@ import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.TopLineOverlayPainter;
@@ -202,7 +203,7 @@ public class SentinelSkin extends RadianceSkin {
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
         this.decorationPainter.addOverlayPainter(
             new BottomLineOverlayPainter(ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getContainerOutline,
+                ContainerColorTokens::getComplementaryMarkerOnContainer,
                 ColorTransform.alpha(128))),
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
@@ -211,7 +212,7 @@ public class SentinelSkin extends RadianceSkin {
         this.decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(15),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
         this.decorationPainter.addOverlayPainter(
-            new TopLineOverlayPainter(ContainerColorTokens::getContainerOutline),
+            new TopLineOverlayPainter(ContainerColorTokens::getComplementaryMarkerOnContainer),
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.highlightSurfacePainter = new FlatSurfacePainter("Sentinel", ContainerColorTokens::getContainerSurface);

@@ -214,18 +214,16 @@ public class TwilightSkin extends RadianceSkin {
         // edge of toolbars
         RadianceDecorationPainter.OverlayPainter toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
             ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getInverseContainerOutline,
-                ColorTransform.alpha(32)));
+                ContainerColorTokens::getComplementaryMarkerOnContainer,
+                ColorTransform.alpha(128)));
         this.decorationPainter.addOverlayPainter(toolbarTopLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
         RadianceDecorationPainter.OverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-            ContainerColorTokens::getContainerOutlineVariant,
-            ContainerColorTokensSingleColorQuery.composite(
-                ContainerColorTokens::getInverseContainerOutline,
-                ColorTransform.alpha(72)));
+            ContainerColorTokens::getMarkerOnContainer,
+            ContainerColorTokens::getComplementaryMarkerOnContainer);
         this.decorationPainter.addOverlayPainter(footerTopBezelOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.FOOTER);
 

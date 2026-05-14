@@ -144,7 +144,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		// edges of title panes and menu bars
 		this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
 			ContainerColorTokensSingleColorQuery.composite(
-				ContainerColorTokens::getContainerOutline,
+				ContainerColorTokens::getMarkerOnContainer,
 				ColorTransform.alpha(128)));
 		decorationPainter.addOverlayPainter(bottomLineOverlayPainter,
 			RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,

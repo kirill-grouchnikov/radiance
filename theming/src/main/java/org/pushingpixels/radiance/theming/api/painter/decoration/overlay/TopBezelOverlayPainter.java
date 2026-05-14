@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.decoration.overlay;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
