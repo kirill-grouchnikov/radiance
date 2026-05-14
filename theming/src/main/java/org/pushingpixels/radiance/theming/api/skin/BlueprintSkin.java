@@ -458,6 +458,8 @@ public class BlueprintSkin extends RadianceSkin {
 					.containerOutlineVariant((p) -> Blend.harmonize(
 						p.getComplementaryContainerOutline(), p.getContainerSurface(), 0.2))
 					.complementaryContainerOutline(TokenPalette::getContainerOutline)
+					.markerOnContainer((p) -> p.getComplementaryContainerOutline() & 0xC0FFFFFF)
+					.complementaryMarkerOnContainer(TokenPalette::getContainerOutlineVariant)
 					.containerSurfaceEnabledAlpha((s) -> 0.0f)
 					.containerSurfaceDisabledAlpha((s) -> 0.0f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
@@ -483,10 +485,6 @@ public class BlueprintSkin extends RadianceSkin {
 		blueprintDefaultBundle.registerActiveContainerTokens(blueprintDefaultBundle.getActiveContainerTokens(),
 			RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
 			ComponentState.getActiveStates());
-
-		blueprintDefaultBundle.registerNeutralContainerTokens(
-			blueprintDefaultBundle.getActiveContainerTokens(),
-			RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
 
 		this.registerDecorationAreaTokensBundle(blueprintDefaultBundle,
 			RadianceThemingSlices.DecorationAreaType.NONE, RadianceThemingSlices.DecorationAreaType.CONTROL_PANE,

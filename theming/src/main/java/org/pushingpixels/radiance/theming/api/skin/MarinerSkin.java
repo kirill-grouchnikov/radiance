@@ -116,14 +116,6 @@ public class MarinerSkin extends RadianceSkin {
             marinerSelectedContainerTokens,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
             ComponentState.getActiveStates());
-        // More muted separators
-        marinerHeaderBundle.registerNeutralContainerTokens(
-            ContainerColorTokensUtils.getContainerTokens(
-                /* seed */ Hct.fromInt(0xFF261D1E),
-                /* containerConfiguration */ new ContainerConfiguration(
-                    /* isDark */ true,
-                    /* contrastLevel */ 0.7)),
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR);
         this.registerDecorationAreaTokensBundle(marinerHeaderBundle,
             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
             RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,

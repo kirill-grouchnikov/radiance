@@ -64,10 +64,7 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 			int dragBumpsWidth = (int) (0.75 * RadianceSizeUtils.getToolBarDragInset(
 				RadianceSizeUtils.getComponentFontSize(toolbar)));
 
-			ContainerColorTokens colorTokens =
-				CoreColorTokenUtils.getContainerTokens(toolbar,
-					RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-					ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
+			ContainerColorTokens colorTokens = RadianceCoreUtilities.getSkin(c).getNeutralContainerTokens(c);
 
 			if (orientation == SwingConstants.HORIZONTAL) {
 				// fix for defect 3 on NB module
@@ -100,8 +97,8 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			RenderingHints.VALUE_ANTIALIAS_ON);
 
-		Color primary = SeparatorPainterUtils.getPrimarySeparatorColor(colorTokens);
-		Color secondary = SeparatorPainterUtils.getSecondarySeparatorColor(colorTokens);
+		Color primary = colorTokens.getMarkerOnContainer();
+		Color secondary = colorTokens.getComplementaryMarkerOnContainer();
 
 		int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
 		int bumpDotDiameter = RadianceSizeUtils.getDragBumpDiameter(componentFontSize);

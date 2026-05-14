@@ -90,8 +90,7 @@ public class SkinUtilities {
         Color lineColor = new ColorUIResource(mainActiveTokens.getContainerOutline());
         Color lineColorDefault = new ColorUIResource(mainMutedTokens.getContainerOutline());
 
-        Color separatorColor = new ColorUIResource(SeparatorPainterUtils.getPrimarySeparatorColor(
-            mainNeutralTokens));
+        Color separatorColor = new ColorUIResource(mainNeutralTokens.getMarkerOnContainer());
 
         ContainerColorTokens textHighlightColorTokens = skin.getActiveContainerTokens(null,
             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT_TEXT,
@@ -884,7 +883,7 @@ public class SkinUtilities {
             new ColorUIResource(mainActiveTokens.getContainerSurfaceLow()),
 
             "TabbedPane.light",
-            new ColorUIResource(SeparatorPainterUtils.getSecondarySeparatorColor(mainMutedTokens)),
+            new ColorUIResource(mainMutedTokens.getComplementaryMarkerOnContainer()),
 
             "TabbedPane.selected",
             new ColorUIResource(mainActiveTokens.getContainerSurfaceLowest()),

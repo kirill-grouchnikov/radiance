@@ -1006,12 +1006,6 @@ public final class RadianceThemingSlices {
             new ContainerColorTokensAssociationKind("highlight_text", HIGHLIGHT);
 
         /**
-         * Visual area of {@link JSeparator}s.
-         */
-        public static final ContainerColorTokensAssociationKind SEPARATOR =
-            new ContainerColorTokensAssociationKind("separator", DEFAULT);
-
-        /**
          * Returns all available association kinds.
          *
          * @return All available association kinds.

@@ -54,7 +54,7 @@ public class RadianceEtchedBorder implements Border {
     private Color getHighlightColor(Component c) {
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             c, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-        return SeparatorPainterUtils.getPrimarySeparatorColor(tokens);
+        return tokens.getMarkerOnContainer();
     }
 
     /**
@@ -66,7 +66,7 @@ public class RadianceEtchedBorder implements Border {
     private Color getShadowColor(Component c) {
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
             c, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-        return SeparatorPainterUtils.getSecondarySeparatorColor(tokens);
+        return tokens.getComplementaryMarkerOnContainer();
     }
 
     public boolean isBorderOpaque() {

@@ -124,46 +124,9 @@ public class SeparatorPainterUtils {
     public static void paintSeparator(Component c, Graphics g, int width, int height,
             int orientation, boolean hasShadow, int maxGradLengthStart, int maxGradLengthEnd,
             boolean toEnforceAlphaColors) {
-        ContainerColorTokens colorTokens = null;
-        Component parent = c.getParent();
-        boolean isParentAPopup = (parent instanceof JPopupMenu) ||
-            ((parent instanceof JComponent) && ((JComponent) parent).getClientProperty(
-                DecorationPainterUtils.POPUP_ORIGINATOR_LINK) != null);
-        if (isParentAPopup) {
-            // For separators in popups, first see if we have color
-            // tokens explicitly registered for the SEPARATOR association kind.
-            colorTokens = CoreColorTokenUtils.getContainerTokens(c,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-                ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-            if (colorTokens == null) {
-                // Then get a background color tokens associated with the
-                // decoration type of that separator
-                colorTokens = RadianceCoreUtilities.getSkin(c).getNeutralContainerTokens(c);
-            }
-        }
-        if (colorTokens == null) {
-            // And finally, get the separator's color tokens via the regular
-            // route that includes fall back in case there is no explicitly registered
-            // color tokens for the SEPARATOR association kind.
-            colorTokens = CoreColorTokenUtils.getContainerTokens(c,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-                ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-        }
-
+        ContainerColorTokens colorTokens = RadianceCoreUtilities.getSkin(c).getNeutralContainerTokens(c);
         paintSeparator(c, g, colorTokens, width, height, orientation, hasShadow,
             maxGradLengthStart, maxGradLengthEnd, toEnforceAlphaColors);
-    }
-
-    public static Color getPrimarySeparatorColor(ContainerColorTokens tokens) {
-        return tokens.isDark()
-            ? RadianceColorUtilities.getAlphaColor(tokens.getComplementaryContainerOutline(), 96)
-            : RadianceColorUtilities.getAlphaColor(tokens.getContainerOutline(), 112);
-    }
-
-    public static Color getSecondarySeparatorColor(ContainerColorTokens tokens) {
-        return tokens.isDark()
-            ? RadianceColorUtilities.getAlphaColor(tokens.getContainerOutline(), 192)
-            : RadianceColorUtilities.getAlphaColor(tokens.getComplementaryContainerOutline(), 240);
     }
 
     public static void paintSeparator(Component c, Graphics g,
@@ -205,8 +168,8 @@ public class SeparatorPainterUtils {
                 Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(
                     c, CoreColorTokenUtils.ContainerType.NEUTRAL);
 
-                Color primary = getPrimarySeparatorColor(colorTokens);
-                Color secondary = getSecondarySeparatorColor(colorTokens);
+                Color primary = colorTokens.getMarkerOnContainer();
+                Color secondary = colorTokens.getComplementaryMarkerOnContainer();
 
                 Color primaryZero = toUseAlphaColors
                     ? RadianceColorUtilities.getAlphaColor(primary, 0)
@@ -384,8 +347,8 @@ public class SeparatorPainterUtils {
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(
                     c, CoreColorTokenUtils.ContainerType.NEUTRAL);
-                Color primary = getPrimarySeparatorColor(tokens);
-                Color secondary = getSecondarySeparatorColor(tokens);
+                Color primary = tokens.getMarkerOnContainer();
+                Color secondary = tokens.getComplementaryMarkerOnContainer();
                 Color primaryZero = RadianceColorUtilities.getInterpolatedColor(
                     primary, backgroundFill, 0.0f);
                 Color secondaryZero = RadianceColorUtilities.getInterpolatedColor(
@@ -433,8 +396,8 @@ public class SeparatorPainterUtils {
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(
                     c, CoreColorTokenUtils.ContainerType.NEUTRAL);
-                Color primary = getPrimarySeparatorColor(tokens);
-                Color secondary = getSecondarySeparatorColor(tokens);
+                Color primary = tokens.getMarkerOnContainer();
+                Color secondary = tokens.getComplementaryMarkerOnContainer();
                 Color primaryZero = RadianceColorUtilities.getInterpolatedColor(
                     primary, backgroundFill, 0.0f);
                 Color secondaryZero = RadianceColorUtilities.getInterpolatedColor(

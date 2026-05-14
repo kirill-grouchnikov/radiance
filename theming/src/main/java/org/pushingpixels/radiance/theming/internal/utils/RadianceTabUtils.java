@@ -55,15 +55,12 @@ public class RadianceTabUtils {
     public static ContainerColorTokens getTabOutlineColorTokens(JComponent component) {
         return CoreColorTokenUtils.getContainerTokens(
             component,
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
             ComponentState.ENABLED,
             CoreColorTokenUtils.ContainerType.NEUTRAL);
     }
 
     public static Color getTabOutlineColor(ContainerColorTokens colorTokens) {
-        return colorTokens.isDark()
-            ? colorTokens.getComplementaryContainerOutline()
-            : colorTokens.getContainerOutline();
+        return colorTokens.getMarkerOnContainer();
     }
 
     public static void paintTabSurfaceAt1X(Graphics2D graphics1X,
