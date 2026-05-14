@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.internal.blade;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
-import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
@@ -42,7 +41,10 @@ import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.OutlinePainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.StateAlpha;
 import org.pushingpixels.radiance.theming.internal.painter.SurfacePainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSplitPaneDivider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -573,8 +575,6 @@ public class BladeIconUtils {
         int x, int y, int width, int height, boolean isHorizontal,
         ContainerColorTokens colorTokens, ComponentState state) {
 
-        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(divider);
-
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
 
@@ -595,6 +595,16 @@ public class BladeIconUtils {
                 int bumpRowOffset = (scaledHeight - bumpCellSize * bumpRows) / 2;
                 int bumpColOffset = 1 + (scaledWidth - bumpCellSize * bumpColumns) / 2;
 
+                float onContainerSurfaceAlpha = state.isDisabled()
+                    ? colorTokens.getOnContainerDisabledAlpha()
+                    : colorTokens.getOnContainerEnabledAlpha();
+                float containerOutlineAlpha = state.isDisabled()
+                    ? colorTokens.getContainerOutlineDisabledAlpha()
+                    : colorTokens.getContainerOutlineEnabledAlpha();
+
+                AlphaComposite onContainerComposite = getAlphaComposite(onContainerSurfaceAlpha);
+                AlphaComposite containerOutlineComposite = getAlphaComposite(containerOutlineAlpha);
+
                 for (int col = 0; col < bumpColumns; col++) {
                     int cx = bumpColOffset + col * bumpCellSize;
                     for (int row = 0; row < bumpRows; row++) {
@@ -602,21 +612,13 @@ public class BladeIconUtils {
 
                         graphics1X.translate(cx, cy);
 
-                        float containerSurfaceAlpha = state.isDisabled()
-                            ? colorTokens.getContainerSurfaceDisabledAlpha()
-                            : colorTokens.getContainerSurfaceEnabledAlpha();
-                        graphics1X.setComposite(getAlphaComposite(containerSurfaceAlpha * 0.8f));
-                        graphics1X.setColor(colorTokens.getOnContainer());
-                        graphics1X.fillOval(0, 0, bumpDotDiameter, bumpDotDiameter);
+                        graphics1X.setComposite(onContainerComposite);
+                        graphics1X.setColor(colorTokens.getMarkerOnContainer());
+                        graphics1X.fillOval(1, 1, bumpDotDiameter - 1, bumpDotDiameter - 1);
 
-                        float containerOutlineAlpha = state.isDisabled()
-                            ? colorTokens.getContainerOutlineDisabledAlpha()
-                            : colorTokens.getContainerOutlineEnabledAlpha();
-                        graphics1X.setComposite(getAlphaComposite(containerOutlineAlpha * 0.32f));
-
-                        OutlinePainterUtils.paintOutline(graphics1X, divider, state,
-                            bumpDotDiameter, bumpDotDiameter, scaleFactor, 0.32f,
-                            componentShaper.getSplitDividerBumpShapeSupplier(), colorTokens);
+                        graphics1X.setComposite(containerOutlineComposite);
+                        graphics1X.setColor(colorTokens.getComplementaryMarkerOnContainer());
+                        graphics1X.drawOval(0, 0, bumpDotDiameter, bumpDotDiameter);
 
                         graphics1X.translate(-cx, -cy);
                     }
