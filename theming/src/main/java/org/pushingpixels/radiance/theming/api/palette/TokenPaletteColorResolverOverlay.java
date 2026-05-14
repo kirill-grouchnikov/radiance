@@ -58,6 +58,8 @@ public class TokenPaletteColorResolverOverlay {
     private Function<TokenPalette, Integer> complementaryOnContainer;
     private Function<TokenPalette, Integer> complementaryContainerOutline;
     private Function<TokenPalette, Integer> accentOnContainer;
+    private Function<TokenPalette, Integer> markerOnContainer;
+    private Function<TokenPalette, Integer> complementaryMarkerOnContainer;
 
     public static Builder builder() {
         return new Builder();
@@ -161,6 +163,14 @@ public class TokenPaletteColorResolverOverlay {
         return this.accentOnContainer;
     }
 
+    public Function<TokenPalette, Integer> getMarkerOnContainer() {
+        return this.markerOnContainer;
+    }
+
+    public Function<TokenPalette, Integer> getComplementaryMarkerOnContainer() {
+        return this.complementaryMarkerOnContainer;
+    }
+
     public final static class Builder {
         private Function<TokenPalette, Integer> containerSurfaceLowest;
         private Function<TokenPalette, Integer> containerSurfaceLow;
@@ -186,6 +196,8 @@ public class TokenPaletteColorResolverOverlay {
         private Function<TokenPalette, Integer> complementaryOnContainer;
         private Function<TokenPalette, Integer> complementaryContainerOutline;
         private Function<TokenPalette, Integer> accentOnContainer;
+        private Function<TokenPalette, Integer> markerOnContainer;
+        private Function<TokenPalette, Integer> complementaryMarkerOnContainer;
 
         private Builder() {}
 
@@ -320,6 +332,18 @@ public class TokenPaletteColorResolverOverlay {
             return this;
         }
 
+        public Builder markerOnContainer(
+            Function<TokenPalette, Integer> markerOnContainer) {
+            this.markerOnContainer = markerOnContainer;
+            return this;
+        }
+
+        public Builder complementaryMarkerOnContainer(
+            Function<TokenPalette, Integer> complementaryMarkerOnContainer) {
+            this.complementaryMarkerOnContainer = complementaryMarkerOnContainer;
+            return this;
+        }
+
         public TokenPaletteColorResolverOverlay build() {
             TokenPaletteColorResolverOverlay result = new TokenPaletteColorResolverOverlay();
             result.containerSurfaceLowest = this.containerSurfaceLowest;
@@ -346,6 +370,8 @@ public class TokenPaletteColorResolverOverlay {
             result.complementaryOnContainer = this.complementaryOnContainer;
             result.complementaryContainerOutline = this.complementaryContainerOutline;
             result.accentOnContainer = this.accentOnContainer;
+            result.markerOnContainer = this.markerOnContainer;
+            result.complementaryMarkerOnContainer = this.complementaryMarkerOnContainer;
             return result;
         }
     }

@@ -67,6 +67,8 @@ public interface TokenPaletteColorResolver {
     Color getComplementaryContainerOutline(TokenPalette tokenPalette);
 
     Color getAccentOnContainer(TokenPalette tokenPalette);
+    Color getMarkerOnContainer(TokenPalette tokenPalette);
+    Color getComplementaryMarkerOnContainer(TokenPalette tokenPalette);
 
     default TokenPaletteColorResolver overlayWith(TokenPaletteColorResolverOverlay overlay) {
         return TokenPaletteColorResolverUtils.overlayWith(this, overlay);

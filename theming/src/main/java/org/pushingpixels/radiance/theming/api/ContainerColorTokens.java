@@ -71,6 +71,8 @@ public interface ContainerColorTokens {
     Color getComplementaryContainerOutline();
 
     Color getAccentOnContainer();
+    Color getMarkerOnContainer();
+    Color getComplementaryMarkerOnContainer();
 
     default RadianceIcon.ColorFilter getColorFilter(float brightnessFactor, float alpha) {
         ContainerColorTokens origin = this;

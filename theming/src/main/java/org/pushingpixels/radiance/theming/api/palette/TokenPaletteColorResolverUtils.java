@@ -156,6 +156,16 @@ public class TokenPaletteColorResolverUtils {
             public Color getAccentOnContainer(TokenPalette tokenPalette) {
                 return new Color(tokenPalette.getAccentOnContainer());
             }
+
+            @Override
+            public Color getMarkerOnContainer(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getMarkerOnContainer());
+            }
+
+            @Override
+            public Color getComplementaryMarkerOnContainer(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getComplementaryMarkerOnContainer());
+            }
         };
     }
     
@@ -397,6 +407,26 @@ public class TokenPaletteColorResolverUtils {
                 Function<TokenPalette, Integer> spec = overlay.getAccentOnContainer();
                 if (spec == null) {
                     return original.getAccentOnContainer(tokenPalette);
+                } else {
+                    return new Color(spec.apply(tokenPalette), true);
+                }
+            }
+
+            @Override
+            public Color getMarkerOnContainer(TokenPalette tokenPalette) {
+                Function<TokenPalette, Integer> spec = overlay.getMarkerOnContainer();
+                if (spec == null) {
+                    return original.getMarkerOnContainer(tokenPalette);
+                } else {
+                    return new Color(spec.apply(tokenPalette), true);
+                }
+            }
+
+            @Override
+            public Color getComplementaryMarkerOnContainer(TokenPalette tokenPalette) {
+                Function<TokenPalette, Integer> spec = overlay.getComplementaryMarkerOnContainer();
+                if (spec == null) {
+                    return original.getComplementaryMarkerOnContainer(tokenPalette);
                 } else {
                     return new Color(spec.apply(tokenPalette), true);
                 }

@@ -327,6 +327,8 @@ public class CoreColorTokenUtils {
         Color complementaryOnContainer = original.getComplementaryOnContainer();
         Color complementaryContainerOutline = original.getComplementaryContainerOutline();
         Color accentOnContainer = original.getAccentOnContainer();
+        Color markerOnContainer = original.getMarkerOnContainer();
+        Color complementaryMarkerOnContainer = original.getComplementaryMarkerOnContainer();
 
         return new ContainerColorTokens() {
             @Override
@@ -452,6 +454,16 @@ public class CoreColorTokenUtils {
             @Override
             public Color getAccentOnContainer() {
                 return accentOnContainer;
+            }
+
+            @Override
+            public Color getMarkerOnContainer() {
+                return markerOnContainer;
+            }
+
+            @Override
+            public Color getComplementaryMarkerOnContainer() {
+                return complementaryMarkerOnContainer;
             }
         };
     }
@@ -585,6 +597,14 @@ public class CoreColorTokenUtils {
             ? original.getAccentOnContainer()
             : new Color(Blend.harmonizeAll(original.getAccentOnContainer().getRGB(),
             foregroundShiftColor.getRGB(), foregroundShiftFactor));
+        Color markerOnContainer = (foregroundShiftColor == null)
+            ? original.getMarkerOnContainer()
+            : new Color(Blend.harmonizeAll(original.getMarkerOnContainer().getRGB(),
+            foregroundShiftColor.getRGB(), foregroundShiftFactor));
+        Color complementaryMarkerOnContainer = (foregroundShiftColor == null)
+            ? original.getComplementaryMarkerOnContainer()
+            : new Color(Blend.harmonizeAll(original.getComplementaryMarkerOnContainer().getRGB(),
+            foregroundShiftColor.getRGB(), foregroundShiftFactor));
 
         return new ContainerColorTokens() {
             @Override
@@ -710,6 +730,16 @@ public class CoreColorTokenUtils {
             @Override
             public Color getAccentOnContainer() {
                 return accentOnContainer;
+            }
+
+            @Override
+            public Color getMarkerOnContainer() {
+                return markerOnContainer;
+            }
+
+            @Override
+            public Color getComplementaryMarkerOnContainer() {
+                return complementaryMarkerOnContainer;
             }
         };
     }

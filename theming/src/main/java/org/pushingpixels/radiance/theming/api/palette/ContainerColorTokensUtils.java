@@ -178,6 +178,16 @@ public class ContainerColorTokensUtils {
             public Color getAccentOnContainer() {
                 return colorResolver.getAccentOnContainer(dynamicPalette);
             }
+
+            @Override
+            public Color getMarkerOnContainer() {
+                return colorResolver.getMarkerOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getComplementaryMarkerOnContainer() {
+                return colorResolver.getComplementaryMarkerOnContainer(dynamicPalette);
+            }
         };
     }
 
@@ -321,6 +331,16 @@ public class ContainerColorTokensUtils {
             public Color getAccentOnContainer() {
                 return colorResolver.getAccentOnContainer(dynamicPalette);
             }
+
+            @Override
+            public Color getMarkerOnContainer() {
+                return colorResolver.getMarkerOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getComplementaryMarkerOnContainer() {
+                return colorResolver.getComplementaryMarkerOnContainer(dynamicPalette);
+            }
         };
     }
 
@@ -459,6 +479,16 @@ public class ContainerColorTokensUtils {
             @Override
             public Color getAccentOnContainer() {
                 return colorResolver.getAccentOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getMarkerOnContainer() {
+                return colorResolver.getMarkerOnContainer(dynamicPalette);
+            }
+
+            @Override
+            public Color getComplementaryMarkerOnContainer() {
+                return colorResolver.getComplementaryMarkerOnContainer(dynamicPalette);
             }
         };
     }

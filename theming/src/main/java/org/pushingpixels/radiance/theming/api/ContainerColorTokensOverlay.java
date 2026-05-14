@@ -205,6 +205,16 @@ public class ContainerColorTokensOverlay {
                     public Color getAccentOnContainer() {
                         return containerTokens.getAccentOnContainer();
                     }
+
+                    @Override
+                    public Color getMarkerOnContainer() {
+                        return containerTokens.getMarkerOnContainer();
+                    }
+
+                    @Override
+                    public Color getComplementaryMarkerOnContainer() {
+                        return containerTokens.getComplementaryMarkerOnContainer();
+                    }
                 };
 
                 result = new ContainerColorTokensOverlay(
@@ -404,6 +414,16 @@ public class ContainerColorTokensOverlay {
                     @Override
                     public Color getAccentOnContainer() {
                         return systemContainerTokens.getAccentOnContainer();
+                    }
+
+                    @Override
+                    public Color getMarkerOnContainer() {
+                        return systemContainerTokens.getMarkerOnContainer();
+                    }
+
+                    @Override
+                    public Color getComplementaryMarkerOnContainer() {
+                        return systemContainerTokens.getComplementaryMarkerOnContainer();
                     }
                 };
 

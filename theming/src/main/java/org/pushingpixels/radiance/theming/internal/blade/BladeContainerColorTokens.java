@@ -59,6 +59,8 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     public Color complementaryContainerOutline = Color.white;
     public Color complementaryOnContainer = Color.white;
     public Color accentOnContainer = Color.white;
+    public Color markerOnContainer = Color.white;
+    public Color complementaryMarkerOnContainer = Color.white;
     public String combinedName = "";
 
     public BladeContainerColorTokens() {
@@ -182,6 +184,16 @@ public class BladeContainerColorTokens implements ContainerColorTokens {
     @Override
     public Color getAccentOnContainer() {
         return this.accentOnContainer;
+    }
+
+    @Override
+    public Color getMarkerOnContainer() {
+        return this.markerOnContainer;
+    }
+
+    @Override
+    public Color getComplementaryMarkerOnContainer() {
+        return this.complementaryMarkerOnContainer;
     }
 
     @Override

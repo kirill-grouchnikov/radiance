@@ -192,6 +192,16 @@ public class SystemColorTokenUtils {
             public Color getAccentOnContainer() {
                 return containerConfiguration.isDark() ? getColor(80.0, 0.0) : getColor(40.0, 0.0);
             }
+
+            @Override
+            public Color getMarkerOnContainer() {
+                return containerConfiguration.isDark() ? getColor(70.0, 0.0) : getColor(10.0, 0.0);
+            }
+
+            @Override
+            public Color getComplementaryMarkerOnContainer() {
+                return containerConfiguration.isDark() ? getColor(25.0, 0.0) : getColor(55.0, 0.0);
+            }
         };
     }
 }

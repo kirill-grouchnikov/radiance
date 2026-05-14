@@ -153,6 +153,14 @@ public class BladeUtils {
             warningColorTokens.getAccentOnContainer(),
             errorColorTokens.getAccentOnContainer(),
             modificationCyclePosition);
+        bladeContainerTokens.markerOnContainer = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getMarkerOnContainer(),
+            errorColorTokens.getMarkerOnContainer(),
+            modificationCyclePosition);
+        bladeContainerTokens.complementaryMarkerOnContainer = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getComplementaryMarkerOnContainer(),
+            errorColorTokens.getComplementaryMarkerOnContainer(),
+            modificationCyclePosition);
 
         bladeContainerTokens.combinedName = "[" + warningColorTokens.hashCode() + ":" + modificationCyclePosition
             + "], [" + errorColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
@@ -201,6 +209,8 @@ public class BladeUtils {
         Color complementaryOnContainer = currColorTokens.getComplementaryOnContainer();
         Color complementaryContainerOutline = currColorTokens.getComplementaryContainerOutline();
         Color accentOnContainer = currColorTokens.getAccentOnContainer();
+        Color markerOnContainer = currColorTokens.getMarkerOnContainer();
+        Color complementaryMarkerOnContainer = currColorTokens.getComplementaryMarkerOnContainer();
 
         nameBuilder.append(currColorTokens.hashCode());
 
@@ -275,6 +285,10 @@ public class BladeUtils {
                     contributionColorTokens.getComplementaryContainerOutline(), 1.0f - amount);
                 accentOnContainer = RadianceColorUtilities.getInterpolatedColor(accentOnContainer,
                     contributionColorTokens.getAccentOnContainer(), 1.0f - amount);
+                markerOnContainer = RadianceColorUtilities.getInterpolatedColor(markerOnContainer,
+                    contributionColorTokens.getMarkerOnContainer(), 1.0f - amount);
+                complementaryMarkerOnContainer = RadianceColorUtilities.getInterpolatedColor(complementaryMarkerOnContainer,
+                    contributionColorTokens.getComplementaryMarkerOnContainer(), 1.0f - amount);
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                         .append(amount).append("]");
@@ -307,6 +321,8 @@ public class BladeUtils {
         bladeContainerTokens.complementaryOnContainer = complementaryOnContainer;
         bladeContainerTokens.complementaryContainerOutline = complementaryContainerOutline;
         bladeContainerTokens.accentOnContainer = accentOnContainer;
+        bladeContainerTokens.markerOnContainer = markerOnContainer;
+        bladeContainerTokens.complementaryMarkerOnContainer = complementaryMarkerOnContainer;
 
         bladeContainerTokens.combinedName = nameBuilder.toString();
         bladeContainerTokens.isDark = isDark;
@@ -380,6 +396,8 @@ public class BladeUtils {
         Color complementaryOnContainer = currColorTokens.getComplementaryOnContainer();
         Color complementaryContainerOutline = currColorTokens.getComplementaryContainerOutline();
         Color accentOnContainer = currColorTokens.getAccentOnContainer();
+        Color markerOnContainer = currColorTokens.getMarkerOnContainer();
+        Color complementaryMarkerOnContainer = currColorTokens.getComplementaryMarkerOnContainer();
 
         nameBuilder.append(currColorTokens.hashCode());
 
@@ -454,6 +472,10 @@ public class BladeUtils {
                     contributionColorTokens.getComplementaryContainerOutline(), 1.0f - amount);
                 accentOnContainer = RadianceColorUtilities.getInterpolatedColor(accentOnContainer,
                     contributionColorTokens.getAccentOnContainer(), 1.0f - amount);
+                markerOnContainer = RadianceColorUtilities.getInterpolatedColor(markerOnContainer,
+                    contributionColorTokens.getMarkerOnContainer(), 1.0f - amount);
+                complementaryMarkerOnContainer = RadianceColorUtilities.getInterpolatedColor(complementaryMarkerOnContainer,
+                    contributionColorTokens.getComplementaryMarkerOnContainer(), 1.0f - amount);
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                         .append(amount).append("]");
@@ -486,6 +508,8 @@ public class BladeUtils {
         bladeContainerTokens.complementaryOnContainer = complementaryOnContainer;
         bladeContainerTokens.complementaryContainerOutline = complementaryContainerOutline;
         bladeContainerTokens.accentOnContainer = accentOnContainer;
+        bladeContainerTokens.markerOnContainer = markerOnContainer;
+        bladeContainerTokens.complementaryMarkerOnContainer = complementaryMarkerOnContainer;
 
         bladeContainerTokens.combinedName = nameBuilder.toString();
         bladeContainerTokens.isDark = isDark;
@@ -529,6 +553,8 @@ public class BladeUtils {
         Color complementaryOnContainer = currColorTokens.getComplementaryOnContainer();
         Color complementaryContainerOutline = currColorTokens.getComplementaryContainerOutline();
         Color accentOnContainer = currColorTokens.getAccentOnContainer();
+        Color markerOnContainer = currColorTokens.getMarkerOnContainer();
+        Color complementaryMarkerOnContainer = currColorTokens.getComplementaryMarkerOnContainer();
 
         nameBuilder.append(currColorTokens.hashCode());
 
@@ -603,6 +629,10 @@ public class BladeUtils {
                     contributionColorTokens.getComplementaryContainerOutline(), 1.0f - amount);
                 accentOnContainer = RadianceColorUtilities.getInterpolatedColor(accentOnContainer,
                     contributionColorTokens.getAccentOnContainer(), 1.0f - amount);
+                markerOnContainer = RadianceColorUtilities.getInterpolatedColor(markerOnContainer,
+                    contributionColorTokens.getMarkerOnContainer(), 1.0f - amount);
+                complementaryMarkerOnContainer = RadianceColorUtilities.getInterpolatedColor(complementaryMarkerOnContainer,
+                    contributionColorTokens.getComplementaryMarkerOnContainer(), 1.0f - amount);
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                     .append(amount).append("]");
@@ -635,6 +665,8 @@ public class BladeUtils {
         bladeContainerTokens.complementaryOnContainer = complementaryOnContainer;
         bladeContainerTokens.complementaryContainerOutline = complementaryContainerOutline;
         bladeContainerTokens.accentOnContainer = accentOnContainer;
+        bladeContainerTokens.markerOnContainer = markerOnContainer;
+        bladeContainerTokens.complementaryMarkerOnContainer = complementaryMarkerOnContainer;
 
         bladeContainerTokens.combinedName = nameBuilder.toString();
         bladeContainerTokens.isDark = isDark;

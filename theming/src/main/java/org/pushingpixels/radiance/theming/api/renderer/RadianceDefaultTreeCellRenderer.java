@@ -220,6 +220,12 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements RadianceT
         bladeContainerTokens.accentOnContainer =
             RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.accentOnContainer,
                 contributionColorTokens.getAccentOnContainer(), 1.0f - amount);
+        bladeContainerTokens.markerOnContainer =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.markerOnContainer,
+                contributionColorTokens.getMarkerOnContainer(), 1.0f - amount);
+        bladeContainerTokens.complementaryMarkerOnContainer =
+            RadianceColorUtilities.getInterpolatedColor(bladeContainerTokens.complementaryMarkerOnContainer,
+                contributionColorTokens.getComplementaryMarkerOnContainer(), 1.0f - amount);
 
         bladeContainerTokens.combinedName = bladeContainerTokens.hashCode() + ", [" +
             contributionColorTokens.hashCode() + ":" + amount + "]";
