@@ -417,13 +417,14 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         } else {
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    graphics1X.clip(shapeSupplier.getShape(progressBar,
-                        scaledWidth - 1, scaledHeight - 1, 0.0f, 0.0f, scaleFactor));
 
                     // Rotate the graphics context for correct "orientation" of the visuals
                     AffineTransform at = AffineTransform.getRotateInstance(Math.PI / 2);
                     at.translate(x, y - scaledHeight);
                     graphics1X.transform(at);
+
+                    graphics1X.clip(shapeSupplier.getShape(progressBar,
+                        scaledWidth - 1, scaledHeight - 1, 0.0f, 0.0f, scaleFactor));
 
                     float containerSurfaceAlpha = currState.isDisabled()
                         ? colorTokens.getContainerSurfaceDisabledAlpha()
