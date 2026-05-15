@@ -34,11 +34,14 @@ import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelin
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableHeaderCellRenderer;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -677,12 +680,35 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
         if (clip == null)
             clip = c.getBounds();
 
-        // do not use the highlight tokens for painting the
-        // table header background
-        ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(c,
-            backgroundState, CoreColorTokenUtils.ContainerType.MUTED);
-        HighlightPainterUtils.paintHighlight(g, null, c, clip, backgroundState, 1.0f, false,
-            null, tokens);
+        if (c.getBackground() instanceof UIResource) {
+            ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(c,
+                backgroundState, CoreColorTokenUtils.ContainerType.NEUTRAL);
+            g.setColor(tokens.isDark() ? tokens.getContainerSurfaceLow() : tokens.getContainerSurfaceHighest());
+        } else {
+            g.setColor(c.getBackground());
+        }
+        g.fillRect(0, 0, c.getWidth(), c.getHeight());
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+        RadianceDecorationPainter.InlayPainter inlayPainter = skin.getDecorationPainter().getInlayPainter();
+        if (inlayPainter != null) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                DecorationPainterUtils.getDecorationType(c);
+            Graphics2D g2d = (Graphics2D) g.create();
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+            RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, c.getWidth(), c.getHeight(),
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    inlayPainter.paintInlay(graphics1X, c, decorationAreaType,
+                        scaledX, scaledY, scaledWidth, scaledHeight,
+                        scaleFactor, skin.getNeutralContainerTokens(decorationAreaType));
+                });
+            g2d.dispose();
+        }
+
         Graphics2D g2d = (Graphics2D) g.create();
         RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
         paint(g2d, c);
