@@ -250,9 +250,9 @@ public class SampleMenuFactory {
         LinkedList<JMenuItem> list6 = new LinkedList<>();
 
         JMenuItem overlayInfo = new JMenuItem("Themed info", info_24dp_outline.of(16, 16));
-        JMenuItem overlayWarning = new JMenuItem("Themed info", warning_24dp_outline.of(16, 16));
-        JMenuItem overlayError = new JMenuItem("Themed info", error_24dp_outline.of(16, 16));
-        JMenuItem overlaySuccess = new JMenuItem("Themed info", check_24dp_outline.of(16, 16));
+        JMenuItem overlayWarning = new JMenuItem("Themed warning", warning_24dp_outline.of(16, 16));
+        JMenuItem overlayError = new JMenuItem("Themed error", error_24dp_outline.of(16, 16));
+        JMenuItem overlaySuccess = new JMenuItem("Themed success", check_24dp_outline.of(16, 16));
 
         RadianceThemingCortex.ComponentScope.setContainerColorTokensOverlayProvider(overlayInfo,
             ContainerColorTokensOverlay.defaultMenuSystemOverlayProvider(
