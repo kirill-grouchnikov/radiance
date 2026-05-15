@@ -43,7 +43,6 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.EventListener;
 
@@ -54,21 +53,6 @@ import java.util.EventListener;
  * @author Kirill Grouchnikov
  */
 public class TreeDragAndDropWidget extends RadianceThemingWidget<JTree> {
-	/**
-	 * This to avoid excesive creation of objects in invocation.
-	 */
-	private static Class[] EMPTY_CLASS_ARRAY = new Class[0];
-
-	/**
-	 * This to avoid excessive reflection to find the "getTransferable" method.
-	 */
-	private static Method getTransferableMethod = null;
-
-	/**
-	 * This to avoid excesive creation of objects in invocation.
-	 */
-	private static Object[] EMPTY_OBJECT_ARRAY = new Object[0];
-
 	private DnDCellRendererProxy rendererProxy;
 
 	private DragSource dragSource;
@@ -498,25 +482,6 @@ public class TreeDragAndDropWidget extends RadianceThemingWidget<JTree> {
 		public void dropActionChanged(DropTargetDragEvent dtde) {
 		}
 
-		private Transferable getTransferable(DropTargetDragEvent dtde) {
-			try {
-				DropTargetContext context = dtde.getDropTargetContext();
-				if (TreeDragAndDropWidget.getTransferableMethod == null) {
-					TreeDragAndDropWidget.getTransferableMethod = context
-							.getClass().getDeclaredMethod("getTransferable",
-									TreeDragAndDropWidget.EMPTY_CLASS_ARRAY);
-					TreeDragAndDropWidget.getTransferableMethod
-							.setAccessible(true);
-				}
-				return (Transferable) TreeDragAndDropWidget.getTransferableMethod
-						.invoke(context,
-								TreeDragAndDropWidget.EMPTY_OBJECT_ARRAY);
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-				return null;
-			}
-		}
-
 		/** This node to avoid too many invocations to dragOver */
 		private TreeNode lastDragOverNode = null;
 
@@ -541,7 +506,7 @@ public class TreeDragAndDropWidget extends RadianceThemingWidget<JTree> {
 				this.lastDragOverNode = currentDropNode;
 			}
 
-			Transferable transferable = this.getTransferable(dtde); // dtde.getTransferable();
+			Transferable transferable = dtde.getTransferable();
 
 			boolean mayDropHere = false;
 
