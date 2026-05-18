@@ -75,11 +75,6 @@ public class RectangularComponentShaper extends ClassicComponentShaper {
     }
 
     @Override
-    public Insets getBaselineInsets(Component c) {
-        return new Insets(0, 0, 0, 0);
-    }
-
-    @Override
     public ShapeSupplier getBaselineShapeSupplier() {
         return RECTANGLE_SHAPE_SUPPLIER;
     }
