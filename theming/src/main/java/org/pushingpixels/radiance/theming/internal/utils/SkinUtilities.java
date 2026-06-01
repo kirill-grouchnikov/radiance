@@ -394,7 +394,7 @@ public class SkinUtilities {
 
                         int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
                         BladeIconUtils.drawCloseIcon(graphics, iconSize,
-                            RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), titlePaneTokens);
+                            RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), titlePaneTokens, 1.0f);
 
                         graphics.dispose();
                     }
@@ -419,7 +419,7 @@ public class SkinUtilities {
                         graphics.translate(x, y);
 
                         int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                        BladeIconUtils.drawIconifyIcon(graphics, iconSize, titlePaneTokens);
+                        BladeIconUtils.drawIconifyIcon(graphics, iconSize, titlePaneTokens, 1.0f);
 
                         graphics.dispose();
                     }
@@ -444,7 +444,7 @@ public class SkinUtilities {
                         graphics.translate(x, y);
 
                         int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                        BladeIconUtils.drawMaximizeIcon(graphics, iconSize, titlePaneTokens);
+                        BladeIconUtils.drawMaximizeIcon(graphics, iconSize, titlePaneTokens, 1.0f);
 
                         graphics.dispose();
                     }
@@ -469,7 +469,7 @@ public class SkinUtilities {
                         graphics.translate(x, y);
 
                         int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                        BladeIconUtils.drawRestoreIcon(graphics, iconSize, titlePaneTokens);
+                        BladeIconUtils.drawRestoreIcon(graphics, iconSize, titlePaneTokens, 1.0f);
 
                         graphics.dispose();
                     }
@@ -496,7 +496,7 @@ public class SkinUtilities {
                         int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
                         BladeIconUtils.drawCloseIcon(graphics, iconSize,
                             RadianceSizeUtils.getCloseIconStrokeWidth(iconSize),
-                            titlePaneTokens);
+                            titlePaneTokens, 1.0f);
 
                         graphics.dispose();
                     }

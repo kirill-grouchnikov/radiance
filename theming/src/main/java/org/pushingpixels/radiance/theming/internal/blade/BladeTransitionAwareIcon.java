@@ -121,15 +121,11 @@ public class BladeTransitionAwareIcon implements Icon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
         StateTransitionTracker stateTransitionTracker;
         StateTransitionTracker.ModelStateInfo modelStateInfo;
-        float iconAlpha = 0.0f;
 
         if (this.transitionAwareUIDelegate != null) {
             stateTransitionTracker = this.transitionAwareUIDelegate.getTransitionAwareUI().
                     getTransitionTracker();
             modelStateInfo = stateTransitionTracker.getModelStateInfo();
-            iconAlpha = CoreColorTokenUtils.getContainerTokens(c,
-                    modelStateInfo.getCurrModelState(), CoreColorTokenUtils.ContainerType.MUTED)
-                .getOnContainerDisabledAlpha();
         } else if (c instanceof AbstractButton) {
             // This is for icons set on buttons via actions, such as the menu bar on
             // undecorated title panes
@@ -137,9 +133,6 @@ public class BladeTransitionAwareIcon implements Icon {
             TransitionAwareUI transitionAwareUI = (TransitionAwareUI) ab.getUI();
             stateTransitionTracker = transitionAwareUI.getTransitionTracker();
             modelStateInfo = stateTransitionTracker.getModelStateInfo();
-            iconAlpha = CoreColorTokenUtils.getContainerTokens(c,
-                    modelStateInfo.getCurrModelState(), CoreColorTokenUtils.ContainerType.MUTED)
-                .getOnContainerDisabledAlpha();
         } else {
             // No support for this icon set on a non-button component
             return;
@@ -158,6 +151,8 @@ public class BladeTransitionAwareIcon implements Icon {
                 BladeUtils.getDefaultColorTokensDelegate(c,
                         this.colorTokensAssociationKindDelegate),
                 false);
+        float iconAlpha = currState.isDisabled() ? mutableContainerTokens.getOnContainerDisabledAlpha()
+            : mutableContainerTokens.getOnContainerEnabledAlpha();
 
         this.delegate.drawColorTokensIcon(graphics, mutableContainerTokens, iconAlpha);
         graphics.dispose();

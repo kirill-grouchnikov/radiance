@@ -345,7 +345,7 @@ public class BladeIconUtils {
     }
 
     public static void drawCloseIcon(Graphics2D g, int iconSize,
-            float primaryStrokeWidth, ContainerColorTokens colorTokens) {
+            float primaryStrokeWidth, ContainerColorTokens colorTokens, float alpha) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -360,7 +360,7 @@ public class BladeIconUtils {
 
         Stroke secondaryStroke = new BasicStroke(2.5f * primaryStrokeWidth,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f * alpha));
         graphics.setStroke(secondaryStroke);
         graphics.setColor(secondaryColor);
         graphics.drawLine(start, start, end, end);
@@ -368,7 +368,7 @@ public class BladeIconUtils {
 
         Stroke primaryStroke = new BasicStroke(primaryStrokeWidth,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
         graphics.setStroke(primaryStroke);
         graphics.setColor(primaryColor);
         graphics.drawLine(start, start, end, end);
@@ -378,7 +378,7 @@ public class BladeIconUtils {
     }
 
     public static void drawIconifyIcon(Graphics2D g, int iconSize,
-            ContainerColorTokens colorTokens) {
+            ContainerColorTokens colorTokens, float alpha) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -392,18 +392,18 @@ public class BladeIconUtils {
         Color primaryColor = colorTokens.getOnContainer();
         Color secondaryColor = colorTokens.getComplementaryOnContainer();
 
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f * alpha));
         graphics.setColor(secondaryColor);
         graphics.fillRect(start + 1, end - 2, size + 2, 5);
 
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
         graphics.setColor(primaryColor);
         graphics.fillRect(start + 2, end - 1, size, 3);
         graphics.dispose();
     }
 
     public static void drawMaximizeIcon(Graphics2D g, int iconSize,
-            ContainerColorTokens colorTokens) {
+            ContainerColorTokens colorTokens, float alpha) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -419,7 +419,7 @@ public class BladeIconUtils {
         double offset = 1.0 / RadianceCommonCortex.getScaleFactor(null);
         Stroke secondaryStroke = new BasicStroke(3.0f,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f * alpha));
         graphics.setStroke(secondaryStroke);
         graphics.setColor(secondaryColor);
         Path2D secondary = new Path2D.Double();
@@ -437,7 +437,7 @@ public class BladeIconUtils {
         secondary.lineTo(end - offset, start + 1);
         graphics.draw(secondary);
 
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
         graphics.setColor(primaryColor);
         // top (thicker)
         graphics.fillRect(start, start, end - start, 2);
@@ -451,7 +451,7 @@ public class BladeIconUtils {
     }
 
     public static void drawRestoreIcon(Graphics2D g, int iconSize,
-            ContainerColorTokens colorTokens) {
+            ContainerColorTokens colorTokens, float alpha) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -480,7 +480,7 @@ public class BladeIconUtils {
         double offset = 1.0 / RadianceCommonCortex.getScaleFactor(null);
         Stroke secondaryStroke = new BasicStroke(3.0f,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f * alpha));
         graphics.setStroke(secondaryStroke);
         graphics.setColor(secondaryColor);
         Path2D secondary = new Path2D.Double();
@@ -509,7 +509,7 @@ public class BladeIconUtils {
 
         graphics.draw(secondary);
 
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
         graphics.setColor(primaryColor);
 
         // top (thicker)

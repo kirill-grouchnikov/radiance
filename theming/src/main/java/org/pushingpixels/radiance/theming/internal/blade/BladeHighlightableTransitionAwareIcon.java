@@ -92,9 +92,6 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
-        float iconAlpha = CoreColorTokenUtils.getContainerTokens(c,
-                modelStateInfo.getCurrModelState(), CoreColorTokenUtils.ContainerType.MUTED)
-            .getOnContainerDisabledAlpha();
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
@@ -102,6 +99,8 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
                 BladeUtils.getDefaultColorTokensDelegate(c,
                         this.colorTokensAssociationKindDelegate),
                 false);
+        float iconAlpha = currState.isDisabled() ? mutableContainerTokens.getOnContainerDisabledAlpha()
+            : mutableContainerTokens.getOnContainerEnabledAlpha();
 
         this.delegate.drawColorTokensIcon(graphics, mutableContainerTokens, iconAlpha);
         graphics.dispose();

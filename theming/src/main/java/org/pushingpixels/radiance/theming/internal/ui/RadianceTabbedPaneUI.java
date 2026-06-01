@@ -715,7 +715,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 }
 
                 BladeIconUtils.drawCloseIcon(graphics1X, scaledWidth,
-                    RadianceSizeUtils.getTabCloseButtonStrokeWidth(tabPane), colorTokens);
+                    RadianceSizeUtils.getTabCloseButtonStrokeWidth(tabPane), colorTokens, alpha);
             });
     }
 

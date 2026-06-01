@@ -50,6 +50,8 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                         RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
+                graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+
                 int start = iconSize / 4;
                 int end = iconSize - start;
 
@@ -87,6 +89,8 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                     RenderingHints.VALUE_ANTIALIAS_ON);
                 graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 
                 int start = iconSize / 4;
                 int end = iconSize - start;
@@ -126,6 +130,8 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
+                graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+
                 int start = iconSize / 4;
                 int end = iconSize - start;
 
@@ -163,6 +169,8 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                     RenderingHints.VALUE_ANTIALIAS_ON);
                 graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 
                 int start = iconSize / 4;
                 int end = iconSize - start;

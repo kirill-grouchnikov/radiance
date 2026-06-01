@@ -62,7 +62,7 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         @Override
         public void drawIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha, int iconSize) {
             BladeIconUtils.drawCloseIcon(g, iconSize,
-                    RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), colorTokens);
+                    RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), colorTokens, alpha);
         }
     }
 
@@ -79,7 +79,7 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
 
         @Override
         public void drawIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha, int iconSize) {
-            BladeIconUtils.drawRestoreIcon(g, iconSize, colorTokens);
+            BladeIconUtils.drawRestoreIcon(g, iconSize, colorTokens, alpha);
         }
     }
 
@@ -96,7 +96,7 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
 
         @Override
         public void drawIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha, int iconSize) {
-            BladeIconUtils.drawIconifyIcon(g, iconSize, colorTokens);
+            BladeIconUtils.drawIconifyIcon(g, iconSize, colorTokens, alpha);
         }
     }
 
@@ -113,7 +113,7 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
 
         @Override
         public void drawIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha, int iconSize) {
-            BladeIconUtils.drawMaximizeIcon(g, iconSize, colorTokens);
+            BladeIconUtils.drawMaximizeIcon(g, iconSize, colorTokens, alpha);
         }
     }
 

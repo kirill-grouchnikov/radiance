@@ -133,7 +133,8 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
                         this.colorTokensAssociationKindDelegate),
                 false);
         float iconAlpha = currState.isDisabled()
-            ? mutableContainerTokens.onContainerDisabledAlpha : 1.0f;
+            ? mutableContainerTokens.getOnContainerDisabledAlpha()
+            : mutableContainerTokens.getOnContainerEnabledAlpha();
         this.delegate.drawColorTokensIcon(graphics, mutableContainerTokens, iconAlpha);
         graphics.dispose();
     }
