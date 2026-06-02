@@ -17,7 +17,6 @@ The following Radiance APIs are most suited for painting custom components:
 * [Outline painters](outline.md)
 * [Highlight painters](highlight.md)
 * [Decoration painters](decoration.md)
-* [Overlay painters](overlay.md)
 
 Most of the Radiance UI delegates use a combination of the above APIs. And even as the exact combinations in the existing UI delegates is subject to change in between releases, the main combination patterns in Radiance codebase can be reduced down to a few recurring patterns.
 

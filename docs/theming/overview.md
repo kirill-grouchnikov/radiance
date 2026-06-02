@@ -42,7 +42,6 @@ Radiance provides a powerful and flexible set of APIs that can be used to skin S
 * [Outline painters](painters/outline.md)
 * [Highlight painters](painters/highlight.md)
 * [Decoration painters](painters/decoration.md)
-* [Overlay painters](painters/overlay.md)
 * [Custom skinning](painters/custom-skinning.md)
 
 ### Code samples

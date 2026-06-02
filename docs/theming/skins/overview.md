@@ -35,7 +35,7 @@ The skin definition consists of the following:
   * [Decoration painter](../painters/decoration.md).
 * Miscellaneous:
   * Component shaper.
-  * Optional [overlay painters](../painters/overlay.md) for some decoration areas.
+  * Root pane decorator.
 
 In order to define a valid skin, you need to specify all its mandatory parameters. A valid skin must have a color tokens bundle for `DecorationAreaType.NONE`, a component shaper, a surface painter, a decoration painter, a highlight surface painter and an outline painter. All other parts are optional.
 
@@ -142,7 +142,7 @@ ContainerColorTokensBundle marinerHeaderBundle = new ContainerColorTokensBundle(
 
 ...
 
-this.registerDecorationAreaTokensBundle(marinerHeaderBundle, 
+this.registerDecorationAreaTokensBundle(marinerHeaderBundle,
     RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
     RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
     RadianceThemingSlices.DecorationAreaType.HEADER)
@@ -159,7 +159,7 @@ And here is an example of specifying a number of decoration area types to have t
 ```
 
 ### Overlays        
-To add polishing touches to the specific decoration areas, use [overlay painters](../painters/overlay.md) with the following API:
+To add polishing touches to the specific decoration areas, use [overlay painters](../painters/decoration.md#overlay-painters) with the following API on `RadianceDecorationPainter`:
 
 ```java
   /**
@@ -181,14 +181,16 @@ Here is how the [Nebula skin](light-skins.md#nebula) is configured to paint drop
 ```java
 // add an overlay painter to paint a drop shadow along the top
 // edge of toolbars
-this.addOverlayPainter(TopShadowOverlayPainter.getInstance(60),
+decorationPainter.addOverlayPainter(TopShadowOverlayPainter.getInstance(60),
     DecorationAreaType.TOOLBAR);
 
 // add an overlay painter to paint separator lines along the bottom
 // edges of title panes and menu bars
 this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-    ContainerColorTokens::getContainerOutline);
-this.addOverlayPainter(this.bottomLineOverlayPainter,
+  ContainerColorTokensSingleColorQuery.composite(
+    ContainerColorTokens::getMarkerOnContainer,
+    ColorTransform.alpha(128)));
+decorationPainter.addOverlayPainter(this.bottomLineOverlayPainter,
     DecorationAreaType.PRIMARY_TITLE_PANE,
     DecorationAreaType.SECONDARY_TITLE_PANE,
     DecorationAreaType.HEADER);
@@ -269,10 +271,9 @@ public class RadianceSkinComboSelector extends JComboBox {
       }
     });
     // add an action listener to change skin based on user selection
-    this.addActionListener(
-            actionEvent -> SwingUtilities.invokeLater(() -> RadianceThemingCortex.GlobalScope
-                    .setSkin(((SkinInfo) RadianceSkinComboSelector.this.getSelectedItem())
-                            .getClassName())));
+    this.addActionListener(actionEvent -> SwingUtilities.invokeLater(() ->
+        RadianceThemingCortex.GlobalScope.setSkin(
+          ((SkinInfo)RadianceSkinComboSelector.this.getSelectedItem()).getClassName())));
   }
 }
 ```
