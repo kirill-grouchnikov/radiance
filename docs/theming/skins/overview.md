@@ -172,7 +172,7 @@ To add polishing touches to the specific decoration areas, use [overlay painters
    * @param areaTypes
    *            Decoration area types.
    */
-  public void addOverlayPainter(RadianceOverlayPainter overlayPainter,
+  public void addOverlayPainter(OverlayPainter overlayPainter,
       DecorationAreaType... areaTypes)
 ```
 

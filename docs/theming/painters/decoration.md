@@ -113,7 +113,7 @@ this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
 
 // add overlay painter to paint a dark line along the bottom
 // edge of toolbars
-RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+RadianceDecorationPainter.OverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
     ContainerColorTokens::getComplementaryMarkerOnContainer);
 this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 ```
@@ -140,13 +140,13 @@ this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
 
 // add an overlay painter to paint a dark line along the bottom
 // edge of toolbars
-RadianceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+RadianceDecorationPainter.OverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
     ContainerColorTokens::getContainerOutlineVariant);
 this.addOverlayPainter(toolbarBottomLineOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 // add an overlay painter to paint a dark line along the bottom
 // edge of toolbars
-RadianceOverlayPainter toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
+RadianceDecorationPainter.OverlayPainter toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
     ContainerColorTokensSingleColorQuery.composite(
       ContainerColorTokens::getComplementaryMarkerOnContainer,
       ColorTransform.alpha(128)));
@@ -154,7 +154,7 @@ this.addOverlayPainter(toolbarTopLineOverlayPainter, RadianceThemingSlices.Decor
 
 // add an overlay painter to paint a bezel line along the top
 // edge of footer
-RadianceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+RadianceDecorationPainter.OverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
     ContainerColorTokens::getMarkerOnContainer,
     ContainerColorTokens::getComplementaryMarkerOnContainer);
 this.addOverlayPainter(footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
@@ -170,7 +170,7 @@ The overlay painters used in the Twilight skin are:
 
 ### Application-facing APIs
 
-To use the current decoration painter in custom painting routines of your application, call the following published Radiance APIs:
+To use the current **decoration painter** in custom painting routines of your application, call the following published Radiance APIs:
 
 * `RadianceThemingCortex.GlobalScope.getCurrentSkin()` to retrieve the component skin.
 * `RadianceSkin.getDecorationPainter()` to retrieve the decoration painter of the component skin.
@@ -180,37 +180,44 @@ To use the current decoration painter in custom painting routines of your applic
 The base class for Radiance decoration painters is `RadianceDecorationPainter`. It has a single painting methods:
 
 ```java
-  public void paintDecorationArea(Graphics2D graphics, Component comp,
-      DecorationAreaType decorationAreaType, int width, int height,
-      double scaleFactor, ContainerColorTokens colorTokens);
+public void paintDecorationArea(Graphics2D graphics, Component comp,
+    DecorationAreaType decorationAreaType, int width, int height,
+    double scaleFactor, ContainerColorTokens colorTokens);
 ```
 
 The `width` and `height` parameters specify the rectangle to paint (the decoration painters can only paint rectangular areas), the `colorTokens` specifies the tokens to be used to paint the area, while `decorationAreaType` indicates the decoration area type.
 
-To use the current overlay painters in custom painting routines of your application, call the following published Radiance APIs:
+To use the current **inlay painter** in custom painting routines of your application, call the following published Radiance APIs:
 
 * `RadianceThemingCortex.GlobalScope.getCurrentSkin()` to retrieve the component skin.
 * `RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType()` to retrieve the decoration area type of the component.
-* `RadianceSkin.getOverlayPainters()` to retrieve the overlay painters registered for the specific decoration area type.
-* Loop over the overlay painters and use the `RadianceOverlayPainter.paintOverlay()` (see below) to paint the overlays on the specific graphics context.
+* `RadianceSkin.getDecorationPainter()` to retrieve the decoration painter of the component skin, followed by `RadianceDecorationPainter.getInlayPainter()` to get the inlay painter.
+* If the inlay painter is no null, use the `RadianceDecorationPainter.InlayPainter.paintInlay()` (see below) to paint the inlay on the specific graphics context.
 
 The base interface for inlay painters is `RadianceDecorationPainter.InlayPainter`. The only painting method in this class is:
 
 ```java
-  public void paintInlay(Graphics2D graphics, Component comp,
-      DecorationAreaType decorationAreaType,
-      int x, int y, int width, int height, double scaleFactor,
-      ContainerColorTokens colorTokens);
+public void paintInlay(Graphics2D graphics, Component comp,
+    DecorationAreaType decorationAreaType,
+    int x, int y, int width, int height, double scaleFactor,
+    ContainerColorTokens colorTokens);
 ```
 
 The `x`, `y`, `width` and `height` parameters specify the rectangle for the inlay (the inlay painters can only paint on rectangular areas), the `colorTokens` specifies the tokens to be used to paint the overlay, while `decorationAreaType` indicates the decoration area type.
 
+To use the current **overlay painters** in custom painting routines of your application, call the following published Radiance APIs:
+
+* `RadianceThemingCortex.GlobalScope.getCurrentSkin()` to retrieve the component skin.
+* `RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType()` to retrieve the decoration area type of the component.
+* `RadianceSkin.getDecorationPainter()` to retrieve the decoration painter of the component skin, followed by `RadianceDecorationPainter.getOverlayPainters(DecorationAreaType)` to get the list of overlay painters.
+* Loop over the overlay painters and use the `RadianceDecorationPainter.OverlayPainter.paintOverlay()` (see below) to paint the overlays on the specific graphics context.
+
 The base interface for overlay painters is `RadianceDecorationPainter.OverlayPainter`. The only painting method in this class is:
 
 ```java
-  public void paintOverlay(Graphics2D graphics, Component comp,
-      DecorationAreaType decorationAreaType, int width, int height,
-      double scaleFactor, ContainerColorTokens colorTokens);
+public void paintOverlay(Graphics2D graphics, Component comp,
+    DecorationAreaType decorationAreaType, int width, int height,
+    double scaleFactor, ContainerColorTokens colorTokens);
 ```
 
 The `width` and `height` parameters specify the rectangle for the overlays (the overlay painters can only paint on rectangular areas), the `colorTokens` specifies the tokens to be used to paint the overlay, while `decorationAreaType` indicates the decoration area type.
