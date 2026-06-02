@@ -192,7 +192,7 @@ To use the current **inlay painter** in custom painting routines of your applica
 * `RadianceThemingCortex.GlobalScope.getCurrentSkin()` to retrieve the component skin.
 * `RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType()` to retrieve the decoration area type of the component.
 * `RadianceSkin.getDecorationPainter()` to retrieve the decoration painter of the component skin, followed by `RadianceDecorationPainter.getInlayPainter()` to get the inlay painter.
-* If the inlay painter is no null, use the `RadianceDecorationPainter.InlayPainter.paintInlay()` (see below) to paint the inlay on the specific graphics context.
+* If the inlay painter is not null, use the `RadianceDecorationPainter.InlayPainter.paintInlay()` (see below) to paint the inlay on the specific graphics context.
 
 The base interface for inlay painters is `RadianceDecorationPainter.InlayPainter`. The only painting method in this class is:
 
@@ -203,7 +203,7 @@ public void paintInlay(Graphics2D graphics, Component comp,
     ContainerColorTokens colorTokens);
 ```
 
-The `x`, `y`, `width` and `height` parameters specify the rectangle for the inlay (the inlay painters can only paint on rectangular areas), the `colorTokens` specifies the tokens to be used to paint the overlay, while `decorationAreaType` indicates the decoration area type.
+The `x`, `y`, `width` and `height` parameters specify the rectangle for the inlay (the inlay painters can only paint on rectangular areas), the `colorTokens` specifies the tokens to be used to paint the inlay, while `decorationAreaType` indicates the decoration area type.
 
 To use the current **overlay painters** in custom painting routines of your application, call the following published Radiance APIs:
 
