@@ -52,7 +52,7 @@ In order to run the same frame under **Radiance** look and feel, you first need 
 
 * Start your VM with `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceBusinessLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceBusinessLookAndFeel())`
-* `UIManager.setLookAndFeel("RadianceBusinessLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceBusinessLookAndFeel");`
 * `RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());`
 
 The first option doesn't require any code changes in the application above. Run the following script:
@@ -97,7 +97,7 @@ The recommended way to add Radiance to your project is to declare dependency on 
 
 Alternatively, for a more manual process:
 * Download a local copy of the latest Radiance.
-* [Build](../building.md) Radiance locally with *gradlew* command.
+* [Build](../building.md) Radiance locally with *gradlew build* command.
 * Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-theming-X.Y.ZZ.jar*, *radiance-animation-X.Y.ZZ.jar* and *radiance-common-X.Y.ZZ.jar* from the `drop/X.Y.ZZ` folder to the place that has your local dependencies.
 * Copy the Ephemeral Chroma dependency with *gradlew getAllDependencies* command, and then add *ephemeral-chroma-java-N.MM.jar* jar from `build/libs-core` folder to the place that has your local dependencies.
 
