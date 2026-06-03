@@ -50,20 +50,20 @@ You will see the following frame under the default Ocean look and feel:
 
 In order to run the same frame under **Radiance** look and feel, you first need to choose the Radiance skin that you would like to use (see the links at the end of this document). Suppose that you choose the Business skin. Now you have the following options:
 
-* Start your VM with `-Dswing.defaultlaf=RadianceBusinessLookAndFeel`
+* Start your VM with `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceBusinessLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceBusinessLookAndFeel())`
 * `UIManager.setLookAndFeel("RadianceBusinessLookAndFeel");`
 * `RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());`
 
 The first option doesn't require any code changes in the application above. Run the following script:
 
-`java -Dswing.defaultlaf=RadianceBusinessLookAndFeel -cp . Walkthrough`
+`java -Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceBusinessLookAndFeel -cp . Walkthrough`
 
 You will see the following exception:
 
-<pre>
+```
 Exception in thread "AWT-EventQueue-0" java.lang.Error:
-        Cannot load RadianceBusinessLookAndFeel
+        Cannot load org.pushingpixels.radiance.theming.api.skin.RadianceBusinessLookAndFeel
     at javax.swing.UIManager.initializeDefaultLAF(UIManager.java:1345)
     at javax.swing.UIManager.initialize(UIManager.java:1432)
     at javax.swing.UIManager.maybeInitialize(UIManager.java:1420)
@@ -87,7 +87,7 @@ Exception in thread "AWT-EventQueue-0" java.lang.Error:
     at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)
     at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)
     at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
-</pre>
+```
 
 This means that the **RadianceBusinessLookAndFeel** class in not found in the classpath. How do you get that dependency into your project?
 
@@ -98,13 +98,14 @@ The recommended way to add Radiance to your project is to declare dependency on 
 Alternatively, for a more manual process:
 * Download a local copy of the latest Radiance.
 * [Build](../building.md) Radiance locally with *gradlew* command.
-* Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-theming-X.Y.ZZ.jar*, *radiance-animation-X.Y.ZZ.jar* and *radiance-common-X.Y.ZZ.jar* to the place that has your local dependencies.
+* Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-theming-X.Y.ZZ.jar*, *radiance-animation-X.Y.ZZ.jar* and *radiance-common-X.Y.ZZ.jar* from the `drop/X.Y.ZZ` folder to the place that has your local dependencies.
+* Copy the Ephemeral Chroma dependency with *gradlew getAllDependencies* command, and then add *ephemeral-chroma-java-N.MM.jar* jar from `build/libs-core` folder to the place that has your local dependencies.
 
 For earlier versions of Radiance, see [this page](../archive/older-releases.md) for the list of binaries to take for the specific pre-Radiance versions.
 
-Assuming that you have saved *radiance-theming.jar*, *radiance-animation.jar* and *radiance-common.jar* to the *C:/temp* folder, use the following script in order to run the frame under Radiance:
+Assuming that you have saved all the jar files listed above to the *C:/temp* folder, use the following script in order to run the frame under Radiance:
 
-`java -Dswing.defaultlaf=RadianceBusinessLookAndFeel -cp .;C:/temp/radiance-theming.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar Walkthrough`
+`java -Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceBusinessLookAndFeel -cp .;C:/temp/radiance-theming.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar;C:/temp/ephemeral-chroma-java.jar Walkthrough`
 
 The result is the same frame under Radiance Business look and feel:
 
@@ -126,13 +127,13 @@ The other two options for setting Radiance require changing the code. Go back to
     });
   }
 ```
-Note that here we are using another Radiance skin, Graphite. In order to compile the new `Walkthrough.java`, you need to add the **radiance-theming.jar**, **radiance-animation.jar** and **radiance-common.jar** to the build path. Consult your IDE help if you're using IDE. For command-prompt compilation, use the additional `-cp` flag:
+Note that here we are using another Radiance skin, Graphite. In order to compile the new `Walkthrough.java`, you need to add the **radiance-theming.jar**, **radiance-animation.jar**, **radiance-common.jar** and **ephemeral-chroma-java.jar** to the build path. Consult your IDE help if you're using IDE. For command-prompt compilation, use the additional `-cp` flag:
 
-`javac -cp C:/temp/radiance-theming.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar Walkthrough.java`
+`javac -cp C:/temp/radiance-theming.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar;C:/temp/ephemeral-chroma-java.jar Walkthrough.java`
 
-Now you can run your application without the `-Dswing.defaultlaf` JVM flag, but you still need to specify the location of **radiance-theming.jar**, **radiance-animation.jar** and **radiance-common.jar** as before:
+Now you can run your application without the `-Dswing.defaultlaf` JVM flag, but you still need to specify the location of **radiance-theming.jar**, **radiance-animation.jar**, **radiance-common.jar** and **ephemeral-chroma-java.jar** as before:
 
-`java -cp .;C:/temp/radiance-theming.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar Walkthrough`
+`java -cp .;C:/temp/radiance-theming.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar;C:/temp/ephemeral-chroma-java.jar Walkthrough`
 
 If you don't want to create an explicit dependency on the Radiance classes in your code, change your `main()` method to:
 
@@ -141,7 +142,7 @@ If you don't want to create an explicit dependency on the Radiance classes in yo
     JFrame.setDefaultLookAndFeelDecorated(true);
     SwingUtilities.invokeLater(() -> {
         try {
-          UIManager.setLookAndFeel("RadianceGraphiteLookAndFeel");
+          UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteLookAndFeel");
         } catch (Exception e) {
           System.out.println("Radiance Graphite failed to initialize");
         }
