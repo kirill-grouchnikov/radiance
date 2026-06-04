@@ -21,7 +21,7 @@ Radiance provides a default implementation of this interface in `DefaultRootPane
 
 The core Blueprint skin is an example of a custom root pane decorator:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/decorators/rootpane-blueprint.png"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/decorators/rootpane-blueprint.png" width="340"/>
 
 ### Management API
 
