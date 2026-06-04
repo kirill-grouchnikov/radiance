@@ -19,7 +19,7 @@ The `width` and `height` parameters define the size of the decorated root pane, 
 
 Radiance provides a default implementation of this interface in `DefaultRootPaneDecorator`. Skins that target more custom visuals can either implement the `RadianceRootPaneDecorator` interface from scratch, or extend the `DefaultRootPaneDecorator` class.
 
-The core Blueprint skin is an example of a custom root pane decorator:
+The core Blueprint skin is an example of a custom root pane decorator that paints grid hashmarks along the border edges:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/decorators/rootpane-blueprint.png" width="340"/>
 
