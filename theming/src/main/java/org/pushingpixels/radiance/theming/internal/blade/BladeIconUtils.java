@@ -573,6 +573,7 @@ public class BladeIconUtils {
 
     public static void drawSplitDividerBumpImage(Graphics g, RadianceSplitPaneDivider divider,
         int x, int y, int width, int height, boolean isHorizontal,
+        RadianceComponentShaper.ShapeSupplier splitDividerBumpShapeSupplier,
         ContainerColorTokens colorTokens, ComponentState state) {
 
         Graphics2D graphics = (Graphics2D) g.create();
@@ -605,6 +606,10 @@ public class BladeIconUtils {
                 AlphaComposite onContainerComposite = getAlphaComposite(onContainerSurfaceAlpha);
                 AlphaComposite containerOutlineComposite = getAlphaComposite(containerOutlineAlpha);
 
+                Shape inner = splitDividerBumpShapeSupplier.getShape(divider,
+                    bumpDotDiameter, bumpDotDiameter, 1.0f, 0.0f, scaleFactor);
+                Shape outer = splitDividerBumpShapeSupplier.getShape(divider,
+                    bumpDotDiameter, bumpDotDiameter, 0.0f, 0.0f, scaleFactor);
                 for (int col = 0; col < bumpColumns; col++) {
                     int cx = bumpColOffset + col * bumpCellSize;
                     for (int row = 0; row < bumpRows; row++) {
@@ -614,11 +619,11 @@ public class BladeIconUtils {
 
                         graphics1X.setComposite(onContainerComposite);
                         graphics1X.setColor(colorTokens.getMarkerOnContainer());
-                        graphics1X.fillOval(1, 1, bumpDotDiameter - 1, bumpDotDiameter - 1);
+                        graphics1X.fill(inner);
 
                         graphics1X.setComposite(containerOutlineComposite);
                         graphics1X.setColor(colorTokens.getComplementaryMarkerOnContainer());
-                        graphics1X.drawOval(0, 0, bumpDotDiameter, bumpDotDiameter);
+                        graphics1X.draw(outer);
 
                         graphics1X.translate(-cx, -cy);
                     }

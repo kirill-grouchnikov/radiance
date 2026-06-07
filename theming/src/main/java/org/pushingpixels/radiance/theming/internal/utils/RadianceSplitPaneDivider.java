@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
@@ -189,7 +190,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
         Graphics2D graphics = (Graphics2D) g.create();
 
         StateTransitionTracker.ModelStateInfo modelStateInfo = this.stateTransitionTracker.getModelStateInfo();
-        ComponentState currState = modelStateInfo.getCurrModelState();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
                 .getStateContributionMap();
 
@@ -198,6 +198,8 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                 .getAdjustedSize(RadianceSizeUtils.getComponentFontSize(this), 30, 1, 2, false);
         int maxGripSize = RadianceSizeUtils
                 .getAdjustedSize(RadianceSizeUtils.getComponentFontSize(this), 40, 1, 3, false);
+        RadianceComponentShaper.ShapeSupplier splitDividerBumpShapeSupplier =
+            RadianceCoreUtilities.getComponentShaper(this.splitPane).getSplitDividerBumpShapeSupplier();
         if (this.splitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT) {
             int thumbHeight = this.getHeight();
             if (thumbHeight >= minSizeForGripPresence) {
@@ -222,7 +224,8 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
                     graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane,
                         contribution, g));
                     BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
-                        thumbWidth, gripHeight, false, CoreColorTokenUtils.getContainerTokens(
+                        thumbWidth, gripHeight, false, splitDividerBumpShapeSupplier,
+                        CoreColorTokenUtils.getContainerTokens(
                             this,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK, activeState,
                             CoreColorTokenUtils.ContainerType.MUTED),
@@ -253,7 +256,8 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
                     graphics.setComposite(WidgetUtilities.getAlphaComposite(this.splitPane, contribution, g));
                     BladeIconUtils.drawSplitDividerBumpImage(graphics, this, gripX, gripY,
-                        gripWidth, thumbHeight, true, CoreColorTokenUtils.getContainerTokens(
+                        gripWidth, thumbHeight, true, splitDividerBumpShapeSupplier,
+                        CoreColorTokenUtils.getContainerTokens(
                             this, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
                             activeState, CoreColorTokenUtils.ContainerType.MUTED),
                         activeState);
