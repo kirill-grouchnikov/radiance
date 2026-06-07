@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.tab.RadianceTabDecorator;
 import org.pushingpixels.radiance.theming.api.painter.surface.RadianceSurfacePainter;
 import org.pushingpixels.radiance.theming.api.tabbed.*;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
@@ -677,10 +678,13 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 // tabbed pane, and cannot be in a different decoration area. It is already painted as
                 // part of the overall tabbed pane.
 
-                RadianceTabUtils.paintTabSurfaceHighlightAt1X(graphics1X, tabPane, scaleFactor,
+                RadianceTabDecorator tabDecorator = RadianceCoreUtilities.getSkin(tabPane)
+                    .getDecorators().getTabDecorator();
+
+                tabDecorator.paintTabSurfaceHighlightAt1X(graphics1X, tabPane, scaleFactor,
                     scaledWidth - 1, scaledHeight, surfaceHighlightColorTokens);
 
-                RadianceTabUtils.paintTabOutlineAt1X(graphics1X, tabPane, scaleFactor,
+                tabDecorator.paintTabOutlineAt1X(graphics1X, tabPane, scaleFactor,
                     scaledWidth - 1, scaledHeight, outlineColorTokens);
 
             });

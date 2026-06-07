@@ -43,7 +43,6 @@ import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceTabUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

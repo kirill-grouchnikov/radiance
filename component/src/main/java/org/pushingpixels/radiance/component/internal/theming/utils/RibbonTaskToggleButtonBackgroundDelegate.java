@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggle
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.decorator.tab.RadianceTabDecorator;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -42,7 +43,6 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeContainerColorToke
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceTabUtils;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
@@ -124,14 +124,17 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                         scaledWidth, scaledHeight + 3.0f, 0.0f, 0.0f, scaleFactor);
                     Graphics2D clipped = (Graphics2D) graphics1X.create();
                     clipped.clip(scaledOutline);
-                    RadianceTabUtils.paintTabSurfaceAt1X(clipped, button, scaleFactor,
+
+                    RadianceTabDecorator tabDecorator = RadianceCoreUtilities.getSkin(button)
+                        .getDecorators().getTabDecorator();
+                    tabDecorator.paintTabSurfaceAt1X(clipped, button, scaleFactor,
                         0, 0, scaledWidth - 1, scaledHeight, neutralSurfaceColorTokens);
                     clipped.dispose();
 
-                    RadianceTabUtils.paintTabSurfaceHighlightAt1X(graphics1X, button, scaleFactor,
+                    tabDecorator.paintTabSurfaceHighlightAt1X(graphics1X, button, scaleFactor,
                         scaledWidth - 1, scaledHeight, surfaceHighlightColorTokens);
 
-                    RadianceTabUtils.paintTabOutlineAt1X(graphics1X, button, scaleFactor,
+                    tabDecorator.paintTabOutlineAt1X(graphics1X, button, scaleFactor,
                         scaledWidth - 1, scaledHeight, outlineColorTokens);
                 });
         graphics.dispose();
