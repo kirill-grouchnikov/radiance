@@ -163,6 +163,8 @@ public class SkinUtilities {
                 }
             });
 
+        Insets tabInsets = RadianceTabUtils.getTabInsets();
+
         Object[] defaults = new Object[] {
             "control",
             controlText,
@@ -881,6 +883,9 @@ public class SkinUtilities {
 
             "TabbedPane.highlight",
             new ColorUIResource(mainActiveTokens.getContainerSurfaceLow()),
+
+            "TabbedPane.tabInsets", new InsetsUIResource(tabInsets.top, tabInsets.left,
+                tabInsets.bottom, tabInsets.right),
 
             "TabbedPane.light",
             new ColorUIResource(mainMutedTokens.getComplementaryMarkerOnContainer()),

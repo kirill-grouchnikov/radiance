@@ -35,10 +35,15 @@ import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
+import javax.swing.plaf.InsetsUIResource;
 import java.awt.*;
 
 public class RadianceTabUtils {
     private static final int DELTA_Y = 3;
+
+    public static Insets getTabInsets() {
+        return new Insets(0, 4, 1, 4);
+    }
 
     public static ContainerColorTokens getTabTextColorTokens(JTabbedPane tabbedPane, int tabIndex) {
         // See the logic in paintTabSurfaceAt1X - tab backgrounds are "partial". Only the top

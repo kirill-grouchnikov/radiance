@@ -606,6 +606,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     protected void installDefaults() {
         super.installDefaults();
 
+        this.tabInsets = RadianceTabUtils.getTabInsets();
+
         this.radianceContentOpaque = UIManager.getBoolean("TabbedPane.contentOpaque");
 
         this.modifiedTimelines = new HashMap<>();

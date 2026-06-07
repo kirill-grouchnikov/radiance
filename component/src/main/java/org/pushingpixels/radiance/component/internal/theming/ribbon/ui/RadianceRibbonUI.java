@@ -203,6 +203,13 @@ public class RadianceRibbonUI extends BasicRibbonUI {
     }
 
     @Override
+    protected Insets getTabButtonContentPadding() {
+        Insets insetsFromSkin = RadianceTabUtils.getTabInsets();
+        return new Insets(insetsFromSkin.top + 1, insetsFromSkin.left + 18,
+            insetsFromSkin.bottom, insetsFromSkin.right + 18);
+    }
+
+    @Override
     protected void paintMinimizedRibbonSeparator(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(0, this.ribbon.getHeight() - 1);

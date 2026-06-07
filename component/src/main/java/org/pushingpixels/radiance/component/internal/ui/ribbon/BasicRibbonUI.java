@@ -376,6 +376,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
         return ComponentUtilities.getScaledSize(6, this.ribbon.getFont().getSize(), 0.25, 1);
     }
 
+    protected abstract Insets getTabButtonContentPadding();
+
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
      * {@link JRibbon}.
@@ -1127,7 +1129,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             CommandButtonProjection<Command> taskToggleCommandProjection = taskToggleCommand.project(
                 CommandButtonPresentationModel.builder()
                     .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                    .setContentPadding(new Insets(1, 22, 1, 22))
+                    .setContentPadding(getTabButtonContentPadding())
                     .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)
                     .setActionKeyTip(task.getKeyTip())
                     .setToDismissPopupsOnActivation(false)

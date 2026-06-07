@@ -96,19 +96,6 @@ public class RadianceRibbonTaskToggleButtonUI extends
     protected void installDefaults() {
         super.installDefaults();
         this.commandButton.setOpaque(false);
-        this.commandButton.setBorder(new Border() {
-            public Insets getBorderInsets(Component c) {
-                return new Insets(0, 12, 0, 12);
-            }
-
-            public boolean isBorderOpaque() {
-                return false;
-            }
-
-            public void paintBorder(Component c, Graphics g, int x, int y,
-                    int width, int height) {
-            }
-        });
         ComponentOrParentChainScope.setDecorationType(this.commandButton,
                 DecorationAreaType.CONTROL_PANE);
     }
