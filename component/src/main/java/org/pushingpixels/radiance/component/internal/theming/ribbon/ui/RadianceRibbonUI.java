@@ -130,9 +130,6 @@ public class RadianceRibbonUI extends BasicRibbonUI {
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     ContainerColorTokens outlineColorTokens = RadianceTabUtils.getTabOutlineColorTokens(ribbon);
                     Color tabOutlineColor = RadianceTabUtils.getTabOutlineColor(outlineColorTokens);
-//                    ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-//                        this, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-//                    graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
                     graphics1X.setColor(tabOutlineColor);
                     int separatorY = scaledHeight - 1;
                     graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
@@ -190,9 +187,6 @@ public class RadianceRibbonUI extends BasicRibbonUI {
                 ContainerColorTokens outlineColorTokens =
                     RadianceTabUtils.getTabOutlineColorTokens(ribbon);
                 Color tabOutlineColor = RadianceTabUtils.getTabOutlineColor(outlineColorTokens);
-//                ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(
-//                    this.ribbon, ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-//                graphics1X.setColor(SeparatorPainterUtils.getPrimarySeparatorColor(tokens));
                 graphics1X.setColor(tabOutlineColor);
                 int separatorY = (int) (scaleFactor * (this.taskToggleButtonsScrollablePanel.getY() +
                     this.taskToggleButtonsScrollablePanel.getHeight())) - 1;
