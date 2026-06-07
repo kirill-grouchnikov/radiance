@@ -38,6 +38,8 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.info_24dp_outline;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.warning_24dp_outline;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.tab.DefaultTabDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
@@ -50,6 +52,7 @@ import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
@@ -336,6 +339,14 @@ public class SampleMenuFactory {
             RadianceThemingCortex.GlobalScope.setSkin(geminiWithRectangularShapesSkin));
         jmSkin.add(jmiGeminiWithRectangularShapesSkin);
 
+        final GeminiWithUnderlineTabsSkin geminiWithUnderlineTabsSkin =
+            new GeminiWithUnderlineTabsSkin();
+        JMenuItem jmiGeminiWithUnderlineTabsSkin = new JMenuItem(
+            geminiWithUnderlineTabsSkin.getDisplayName());
+        jmiGeminiWithUnderlineTabsSkin.addActionListener(actionEvent ->
+            RadianceThemingCortex.GlobalScope.setSkin(geminiWithUnderlineTabsSkin));
+        jmSkin.add(jmiGeminiWithUnderlineTabsSkin);
+
         return jmSkin;
     }
 
@@ -434,6 +445,39 @@ public class SampleMenuFactory {
 
             this.registerComponentShaper(new RectangularComponentShaper(),
                 RadianceThemingSlices.DecorationAreaType.NONE);
+        }
+    }
+
+    private static class GeminiWithUnderlineTabsSkin extends GeminiSkin {
+        @Override
+        public String getDisplayName() {
+            return "Gemini Underline Tabs";
+        }
+
+        public GeminiWithUnderlineTabsSkin() {
+            super();
+
+            this.decorators = RadianceDecorators.builder()
+                .withRootPaneDecorator(new DefaultRootPaneDecorator())
+                .withTabDecorator(new DefaultTabDecorator() {
+                    @Override
+                    public Insets getTabInsets() {
+                        return new Insets(0, 4, 5, 4);
+                    }
+
+                    @Override
+                    public void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X, JComponent component,
+                        double scaleFactor, int width, int height, ContainerColorTokens surfaceHighlightColorTokens) {
+
+                        graphics1X.setColor(surfaceHighlightColorTokens.getContainerSurfaceHighest());
+                        graphics1X.fillRect(0, height - 6, width, 7);
+                    }
+
+                    @Override
+                    public void paintTabOutlineAt1X(Graphics2D graphics1X, JComponent component,
+                        double scaleFactor, int width, int height, ContainerColorTokens outlineColorTokens) {
+                    }
+                }).build();
         }
     }
 

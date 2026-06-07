@@ -1030,10 +1030,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         int xs = this.tabPane.getComponentOrientation().isLeftToRight()
                 ? x + width - dimension - borderDelta
                 : x + borderDelta;
-        int ys = y + (height - dimension) / 2 + 1;
-        if (this.tabPane.getTabPlacement() == SwingUtilities.BOTTOM) {
-            ys -= 2;
-        }
+        int ys = y + (height - dimension) / 2;
+        ys += getTabLabelShiftY(this.tabPane.getTabPlacement(), tabIndex,
+            this.tabPane.getSelectedIndex() == tabIndex);
         return new Rectangle(xs, ys, dimension, dimension);
     }
 
@@ -1307,7 +1306,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected int getTabLabelShiftY(int tabPlacement, int tabIndex, boolean isSelected) {
-        return (tabPlacement == SwingConstants.BOTTOM) ? -1 : 1;
+        RadianceTabDecorator tabDecorator = RadianceCoreUtilities.getSkin(this.tabPane)
+            .getDecorators().getTabDecorator();
+        Insets insets = tabDecorator.getTabInsets();
+        return (tabPlacement == SwingConstants.BOTTOM) ? insets.bottom - 2 : 2 - insets.bottom;
     }
 
     /**

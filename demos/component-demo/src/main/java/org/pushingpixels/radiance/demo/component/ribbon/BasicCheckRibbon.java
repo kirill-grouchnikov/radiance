@@ -72,6 +72,9 @@ import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinS
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
+import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.tab.DefaultTabDecorator;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
@@ -2314,7 +2317,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JPanel getControlPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 8dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(new EmptyBorder(20, 4, 0, 4));
         int row = 1;
 
@@ -2401,6 +2404,51 @@ public class BasicCheckRibbon extends JRibbonFrame {
             }));
         builder.addLabel("Skin with rectangular shapes").xy(1, row).add(geminiRectangularShapesSkin).xy(3, row);
         row += 2;
+
+        JButton geminiUnderlineTabsSkin = new JButton("apply");
+        geminiUnderlineTabsSkin.addActionListener(
+            actionEvent -> SwingUtilities.invokeLater(new Runnable() {
+                class GeminiWithUnderlineTabsSkin extends GeminiSkin {
+                    @Override
+                    public String getDisplayName() {
+                        return "Gemini Underline Tabs";
+                    }
+
+                    public GeminiWithUnderlineTabsSkin() {
+                        super();
+
+                        this.decorators = RadianceDecorators.builder()
+                            .withRootPaneDecorator(new DefaultRootPaneDecorator())
+                            .withTabDecorator(new DefaultTabDecorator() {
+                                @Override
+                                public Insets getTabInsets() {
+                                    return new Insets(0, 4, 5, 4);
+                                }
+
+                                @Override
+                                public void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X, JComponent component,
+                                    double scaleFactor, int width, int height, ContainerColorTokens surfaceHighlightColorTokens) {
+
+                                    graphics1X.setColor(surfaceHighlightColorTokens.getContainerSurfaceHighest());
+                                    graphics1X.fillRect(0, height - 6, width, 7);
+                                }
+
+                                @Override
+                                public void paintTabOutlineAt1X(Graphics2D graphics1X, JComponent component,
+                                    double scaleFactor, int width, int height, ContainerColorTokens outlineColorTokens) {
+                                }
+                            }).build();
+                    }
+                }
+
+                @Override
+                public void run() {
+                    RadianceThemingCortex.GlobalScope.setSkin(new GeminiWithUnderlineTabsSkin());
+                }
+            }));
+        builder.addLabel("Skin with underline tabs").xy(1, row).add(geminiUnderlineTabsSkin).xy(3, row);
+        row += 2;
+
 
         final JCheckBox appMenuVisible = new JCheckBox("visible");
         appMenuVisible.setSelected(true);
