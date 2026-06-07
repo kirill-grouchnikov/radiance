@@ -128,8 +128,10 @@ public class RadianceRibbonUI extends BasicRibbonUI {
                     RenderingHints.VALUE_ANTIALIAS_ON);
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, this.getWidth(), this.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    ContainerColorTokens outlineColorTokens = RadianceTabUtils.getTabOutlineColorTokens(ribbon);
-                    Color tabOutlineColor = RadianceTabUtils.getTabOutlineColor(outlineColorTokens);
+                    ContainerColorTokens outlineColorTokens =
+                        RadianceCoreUtilities.getSkin(ribbon).getDecorators()
+                            .getTabDecorator().getTabOutlineColorTokens(ribbon);
+                    Color tabOutlineColor = outlineColorTokens.getMarkerOnContainer();
                     graphics1X.setColor(tabOutlineColor);
                     int separatorY = scaledHeight - 1;
                     graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
@@ -185,8 +187,9 @@ public class RadianceRibbonUI extends BasicRibbonUI {
             this.ribbon.getWidth(), this.ribbon.getHeight(),
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                 ContainerColorTokens outlineColorTokens =
-                    RadianceTabUtils.getTabOutlineColorTokens(ribbon);
-                Color tabOutlineColor = RadianceTabUtils.getTabOutlineColor(outlineColorTokens);
+                    RadianceCoreUtilities.getSkin(this.ribbon).getDecorators()
+                            .getTabDecorator().getTabOutlineColorTokens(ribbon);
+                Color tabOutlineColor = outlineColorTokens.getMarkerOnContainer();
                 graphics1X.setColor(tabOutlineColor);
                 int separatorY = (int) (scaleFactor * (this.taskToggleButtonsScrollablePanel.getY() +
                     this.taskToggleButtonsScrollablePanel.getHeight())) - 1;
@@ -204,7 +207,8 @@ public class RadianceRibbonUI extends BasicRibbonUI {
 
     @Override
     protected Insets getTabButtonContentPadding() {
-        Insets insetsFromSkin = RadianceTabUtils.getTabInsets();
+        Insets insetsFromSkin = RadianceCoreUtilities.getSkin(this.ribbon)
+                .getDecorators().getTabDecorator().getTabInsets();
         return new Insets(insetsFromSkin.top + 1, insetsFromSkin.left + 18,
             insetsFromSkin.bottom, insetsFromSkin.right + 18);
     }

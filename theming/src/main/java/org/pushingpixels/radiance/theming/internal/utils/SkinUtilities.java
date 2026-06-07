@@ -163,7 +163,7 @@ public class SkinUtilities {
                 }
             });
 
-        Insets tabInsets = RadianceTabUtils.getTabInsets();
+        Insets tabInsets = skin.getDecorators().getTabDecorator().getTabInsets();
 
         Object[] defaults = new Object[] {
             "control",

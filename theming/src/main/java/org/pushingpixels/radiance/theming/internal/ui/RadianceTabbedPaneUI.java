@@ -606,8 +606,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     protected void installDefaults() {
         super.installDefaults();
 
-        this.tabInsets = RadianceTabUtils.getTabInsets();
-
         this.radianceContentOpaque = UIManager.getBoolean("TabbedPane.contentOpaque");
 
         this.modifiedTimelines = new HashMap<>();
@@ -650,8 +648,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private Color getContentBorderEdgeColor() {
-        ContainerColorTokens outlineColorTokens = RadianceTabUtils.getTabOutlineColorTokens(this.tabPane);
-        return RadianceTabUtils.getTabOutlineColor(outlineColorTokens);
+        ContainerColorTokens outlineColorTokens = RadianceCoreUtilities.getSkin(this.tabPane)
+            .getDecorators().getTabDecorator().getTabOutlineColorTokens(this.tabPane);
+        return outlineColorTokens.getMarkerOnContainer();
     }
 
     private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane,
@@ -712,7 +711,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         scaledWidth, scaledHeight, 1, null);
                     SurfacePainterUtils.paintSurface(graphics1X, tabPane, tabState,
                         scaledWidth, scaledHeight, scaleFactor, alpha, outline, colorTokens);
-                    graphics1X.setColor(RadianceTabUtils.getTabOutlineColor(colorTokens));
+                    graphics1X.setColor(colorTokens.getMarkerOnContainer());
                     graphics1X.draw(outline);
                 }
 
@@ -758,7 +757,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         boolean toMarkModifiedCloseButton = RadianceCoreUtilities
                 .toAnimateCloseIconOfModifiedTab(this.tabPane, tabIndex);
 
-        ContainerColorTokens outlineColorTokens = RadianceTabUtils.getTabOutlineColorTokens(this.tabPane);
+        ContainerColorTokens outlineColorTokens = RadianceCoreUtilities.getSkin(this.tabPane)
+            .getDecorators().getTabDecorator().getTabOutlineColorTokens(this.tabPane);
         if (isTabModified && isEnabled && !toMarkModifiedCloseButton) {
             // Tab contents are marked as modified
             BladeUtils.populateModificationAwareColorTokens(mutableColorTokens, comp,
@@ -1737,7 +1737,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             v.paint(g, textRect);
         } else {
             // plain text
-            ContainerColorTokens colorTokens = RadianceTabUtils.getTabTextColorTokens(this.tabPane, tabIndex);
+            ContainerColorTokens colorTokens = RadianceCoreUtilities.getSkin(this.tabPane)
+                .getDecorators().getTabDecorator().getTabTextColorTokens(this.tabPane, tabIndex);
             Color fg = colorTokens.getOnContainer();
             float alpha = this.tabPane.isEnabledAt(tabIndex) ? colorTokens.getOnContainerEnabledAlpha()
                 : colorTokens.getOnContainerDisabledAlpha();

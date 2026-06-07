@@ -31,14 +31,22 @@ package org.pushingpixels.radiance.theming.api.decorator;
 
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.RadianceRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.tab.DefaultTabDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.tab.RadianceTabDecorator;
 
 public class RadianceDecorators {
     private RadianceRootPaneDecorator rootPaneDecorator;
+
+    private RadianceTabDecorator tabDecorator;
 
     private RadianceDecorators() {}
 
     public RadianceRootPaneDecorator getRootPaneDecorator() {
         return this.rootPaneDecorator;
+    }
+
+    public RadianceTabDecorator getTabDecorator() {
+        return this.tabDecorator;
     }
 
     public static Builder builder() {
@@ -48,11 +56,13 @@ public class RadianceDecorators {
     public static RadianceDecorators buildDefault() {
         RadianceDecorators result = new RadianceDecorators();
         result.rootPaneDecorator = new DefaultRootPaneDecorator();
+        result.tabDecorator = new DefaultTabDecorator();
         return result;
     }
 
     public static final class Builder {
         private RadianceRootPaneDecorator rootPaneDecorator;
+        private RadianceTabDecorator tabDecorator;
 
         private Builder() {}
 
@@ -64,9 +74,18 @@ public class RadianceDecorators {
             return this;
         }
 
+        public Builder withTabDecorator(RadianceTabDecorator tabDecorator) {
+            if (tabDecorator == null) {
+                throw new IllegalArgumentException("Cannot have a null tab decorator");
+            }
+            this.tabDecorator = tabDecorator;
+            return this;
+        }
+
         public RadianceDecorators build() {
             RadianceDecorators result = new RadianceDecorators();
             result.rootPaneDecorator = this.rootPaneDecorator;
+            result.tabDecorator = this.tabDecorator;
             return result;
         }
     }

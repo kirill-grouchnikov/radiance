@@ -27,25 +27,49 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.internal.utils;
+package org.pushingpixels.radiance.theming.api.decorator.tab;
 
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
-import javax.swing.plaf.InsetsUIResource;
 import java.awt.*;
 
-public class RadianceTabUtils {
+public class DefaultTabDecorator implements RadianceTabDecorator {
     private static final int DELTA_Y = 3;
 
-    public static void paintTabSurfaceAt1X(Graphics2D graphics1X,
-        JComponent component, double scaleFactor,
-        int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
-        ContainerColorTokens surfaceColorTokens) {
+    @Override
+    public Insets getTabInsets() {
+        return new Insets(0, 4, 1, 4);
+    }
 
+    @Override
+    public ContainerColorTokens getTabTextColorTokens(JTabbedPane tabbedPane, int tabIndex) {
+        // See the logic in paintTabSurfaceAt1X - tab backgrounds are "partial". Only the top
+        // part of the tab is drawn, and the rest of the tab is transparent, showing the visuals drawn by
+        // its parent. As such, we do not account for the tab state here to compute the tab text color, but
+        // only for its enabled bit.
+        ComponentState currState = tabbedPane.isEnabledAt(tabIndex) ? ComponentState.ENABLED
+            : ComponentState.DISABLED_UNSELECTED;
+
+        return CoreColorTokenUtils.getContainerTokens(tabbedPane,
+            tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB, currState);
+    }
+
+    @Override
+    public ContainerColorTokens getTabOutlineColorTokens(Component tabComponent) {
+        return CoreColorTokenUtils.getContainerTokens(
+            tabComponent,
+            ComponentState.ENABLED,
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
+    }
+
+    @Override
+    public void paintTabSurfaceAt1X(Graphics2D graphics1X, JComponent component, double scaleFactor, int originalScaledOffsetX, int originalScaledOffsetY, int width, int height, ContainerColorTokens surfaceColorTokens) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         RadianceThemingSlices.DecorationAreaType decorationAreaType =
             RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component);
@@ -70,10 +94,8 @@ public class RadianceTabUtils {
         }
     }
 
-    public static void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X,
-        JComponent component, double scaleFactor, int width, int height,
-        ContainerColorTokens surfaceHighlightColorTokens) {
-
+    @Override
+    public void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X, JComponent component, double scaleFactor, int width, int height, ContainerColorTokens surfaceHighlightColorTokens) {
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
         Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + DELTA_Y,
             0.0f, 0.0f, scaleFactor);
@@ -87,10 +109,8 @@ public class RadianceTabUtils {
         clipped.dispose();
     }
 
-    public static void paintTabOutlineAt1X(Graphics2D graphics1X,
-        JComponent component, double scaleFactor, int width, int height,
-        ContainerColorTokens outlineColorTokens) {
-
+    @Override
+    public void paintTabOutlineAt1X(Graphics2D graphics1X, JComponent component, double scaleFactor, int width, int height, ContainerColorTokens outlineColorTokens) {
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
         Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + DELTA_Y,
             0.0f, 0.0f, scaleFactor);
