@@ -38,12 +38,11 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
@@ -119,7 +118,7 @@ public class Step4ComponentStatesDemo extends JFrame {
                 (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
                     : colorTokens.getContainerSurfaceLowest());
 
-            this.rootPaneDecorator = new DefaultRootPaneDecorator();
+            this.decorators = RadianceDecorators.buildDefault();
         }
 
         @Override

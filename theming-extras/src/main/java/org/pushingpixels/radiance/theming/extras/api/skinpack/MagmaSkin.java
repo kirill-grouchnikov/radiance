@@ -32,11 +32,10 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FractionBasedOutlinePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.ClassicSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.GlassSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangularSurfacePainter;
@@ -124,6 +123,6 @@ public class MagmaSkin extends RadianceSkin {
                 : colorTokens.getContainerSurfaceLowest());
         this.highlightOutlinePainter = new FlatOutlinePainter();
 
-        this.rootPaneDecorator = new DefaultRootPaneDecorator();
+        this.decorators = RadianceDecorators.buildDefault();
     }
 }

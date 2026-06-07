@@ -33,6 +33,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
@@ -243,6 +244,6 @@ public class TwilightSkin extends RadianceSkin {
                 })
             .build();
 
-		this.rootPaneDecorator = new DefaultRootPaneDecorator();
+		this.decorators = RadianceDecorators.buildDefault();
     }
 }

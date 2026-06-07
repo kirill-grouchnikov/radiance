@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.LuminousOutlinePainter;
@@ -99,6 +99,6 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 			(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
 				: colorTokens.getContainerSurfaceLowest());
 
-		this.rootPaneDecorator = new DefaultRootPaneDecorator();
+		this.decorators = RadianceDecorators.buildDefault();
 	}
 }

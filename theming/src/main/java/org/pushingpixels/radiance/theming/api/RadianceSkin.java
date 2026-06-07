@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.RadianceRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.RadianceOutlinePainter;
@@ -244,7 +245,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private final Set<RadianceThemingSlices.DecorationAreaType> decoratedAreaSet;
 
-    protected RadianceRootPaneDecorator rootPaneDecorator;
+    protected RadianceDecorators decorators;
 
     /**
      * Constructs the basic data structures for a skin.
@@ -322,15 +323,15 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the root pane decorator of this skin.
+     * Returns the decorators of this skin.
      *
-     * @return The root pane decorator of this skin. A valid skin cannot have a
+     * @return The decorators of this skin. A valid skin cannot have a
      * <code>null</code> value returned from this method. Call
      * {@link #isValid()} to verify that the skin is valid.
      * @see #isValid()
      */
-    public RadianceRootPaneDecorator getRootPaneDecorator() {
-        return this.rootPaneDecorator;
+    public RadianceDecorators getDecorators() {
+        return this.decorators;
     }
 
     /**
@@ -839,7 +840,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         if (this.getDecorationPainter() == null) {
             return false;
         }
-        if (this.getRootPaneDecorator() == null) {
+        if (this.getDecorators() == null) {
             return false;
         }
         return true;

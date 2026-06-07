@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
@@ -155,6 +155,6 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 
 		this.highlightSurfacePainter = new FlatSurfacePainter("Nebula", ContainerColorTokens::getContainerSurface);
 
-		this.rootPaneDecorator = new DefaultRootPaneDecorator();
+		this.decorators = RadianceDecorators.buildDefault();
 	}
 }

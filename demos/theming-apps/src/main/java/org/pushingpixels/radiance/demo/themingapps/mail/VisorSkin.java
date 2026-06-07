@@ -33,14 +33,16 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
-import org.pushingpixels.radiance.theming.api.painter.surface.FractionBasedSurfacePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.MatteSurfacePainter;
-import org.pushingpixels.radiance.theming.api.palette.*;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolver;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverOverlay;
+import org.pushingpixels.radiance.theming.api.palette.TokenPaletteColorResolverUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 
 public class VisorSkin extends RadianceSkin {
@@ -166,6 +168,6 @@ public class VisorSkin extends RadianceSkin {
         this.highlightSurfacePainter = new FlatSurfacePainter("Visor Highlight",
             ContainerColorTokens::getContainerSurface);
 
-        this.rootPaneDecorator = new DefaultRootPaneDecorator();
+        this.decorators = RadianceDecorators.buildDefault();
     }
 }

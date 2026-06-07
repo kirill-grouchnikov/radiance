@@ -29,8 +29,11 @@
  */
 package org.pushingpixels.radiance.theming.api.skin;
 
-import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensBundle;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter;
@@ -42,8 +45,6 @@ import org.pushingpixels.radiance.theming.api.painter.surface.SpecularRectangula
 import org.pushingpixels.radiance.theming.api.palette.ColorTransform;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
-
-import java.awt.*;
 
 /**
  * Base class for accented <code>Business</code> skins. This class is part of officially supported API.
@@ -112,7 +113,7 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 			(colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
 				: colorTokens.getContainerSurfaceLowest());
 
-		this.rootPaneDecorator = new DefaultRootPaneDecorator();
+		this.decorators = RadianceDecorators.buildDefault();
 	}
 
 	protected abstract boolean isHeaderDark();

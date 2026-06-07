@@ -34,7 +34,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette
 import org.pushingpixels.ephemeral.chroma.hct.Hct
 import org.pushingpixels.ephemeral.chroma.utils.MathUtils
 import org.pushingpixels.radiance.theming.api.*
-import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.overlay.BottomLineOverlayPainter
@@ -97,7 +97,7 @@ class RobotBimodalLightSkin(val config: RobotConfig) :
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
 
-        this.rootPaneDecorator = DefaultRootPaneDecorator()
+        this.decorators = RadianceDecorators.buildDefault()
     }
 
     override fun getDisplayName(): String {

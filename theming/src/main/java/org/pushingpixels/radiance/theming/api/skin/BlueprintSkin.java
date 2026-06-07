@@ -34,6 +34,7 @@ import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
@@ -510,6 +511,7 @@ public class BlueprintSkin extends RadianceSkin {
 		this.registerComponentShaper(new RectangularComponentShaper(),
 			RadianceThemingSlices.DecorationAreaType.NONE, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.rootPaneDecorator = new BlueprintRootPaneDecorator();
+		this.decorators = RadianceDecorators.builder()
+			.withRootPaneDecorator(new BlueprintRootPaneDecorator()).build();
 	}
 }

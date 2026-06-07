@@ -75,7 +75,7 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
             (graphics1X, scaleX, scaleY, scaledWidth, scaledHeight, scaleFactor) -> {
-                skin.getRootPaneDecorator().paintRootPaneBorder(graphics1X, c,
+                skin.getDecorators().getRootPaneDecorator().paintRootPaneBorder(graphics1X, c,
                     scaledWidth, scaledHeight, scaleFactor, titleContainerTokens);
         });
 
@@ -89,7 +89,7 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
             return INSETS;
         }
 
-        return skin.getRootPaneDecorator().getRootPaneBorderInsets();
+        return skin.getDecorators().getRootPaneDecorator().getRootPaneBorderInsets();
     }
 
     @Override

@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.theming.api.skin;
 import org.pushingpixels.ephemeral.chroma.dynamiccolor.ContainerConfiguration;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.theming.api.*;
-import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
+import org.pushingpixels.radiance.theming.api.decorator.RadianceDecorators;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.outline.FlatOutlinePainter;
 import org.pushingpixels.radiance.theming.api.painter.surface.FlatSurfacePainter;
@@ -153,6 +153,6 @@ public class RavenSkin extends RadianceSkin {
 				: colorTokens.getContainerSurfaceLowest());
 		this.outlinePainter = new FlatOutlinePainter();
 
-		this.rootPaneDecorator = new DefaultRootPaneDecorator();
+		this.decorators = RadianceDecorators.buildDefault();
 	}
 }
