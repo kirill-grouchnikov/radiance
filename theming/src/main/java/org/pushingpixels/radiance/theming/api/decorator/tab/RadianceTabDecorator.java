@@ -34,26 +34,29 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public interface RadianceTabDecorator {
     Insets getTabInsets();
 
-    ContainerColorTokens getTabTextColorTokens(JTabbedPane tabbedPane, int tabIndex);
+    Color getTabContentColor(JTabbedPane tabbedPane, int tabIndex);
+    
+    Color getDecoratedTabContentColor(JComponent tabComponent, ComponentState currState,
+        Map<ComponentState, Float> activeStates);
 
-    ContainerColorTokens getTabOutlineColorTokens(Component tabComponent);
+    Color getTabOutlineColor(Component tabComponent);
 
     boolean shouldDrawUnbrokenContentEdge();
 
     void paintTabSurfaceAt1X(Graphics2D graphics1X,
-        JComponent component, double scaleFactor,
+        JComponent tabComponent, double scaleFactor,
         int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
         ContainerColorTokens surfaceColorTokens);
 
     void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X,
-        JComponent component, double scaleFactor, int width, int height,
+        JComponent tabComponent, double scaleFactor, int width, int height,
         ContainerColorTokens surfaceHighlightColorTokens);
 
     void paintTabOutlineAt1X(Graphics2D graphics1X,
-        JComponent component, double scaleFactor, int width, int height,
-        ContainerColorTokens outlineColorTokens);
+        JComponent tabComponent, double scaleFactor, int width, int height, Color outlineColor);
 }

@@ -127,10 +127,9 @@ public class RadianceRibbonUI extends BasicRibbonUI {
                     RenderingHints.VALUE_ANTIALIAS_ON);
             RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, this.getWidth(), this.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    ContainerColorTokens outlineColorTokens =
+                    Color tabOutlineColor =
                         RadianceCoreUtilities.getSkin(ribbon).getDecorators()
-                            .getTabDecorator().getTabOutlineColorTokens(ribbon);
-                    Color tabOutlineColor = outlineColorTokens.getMarkerOnContainer();
+                            .getTabDecorator().getTabOutlineColor(ribbon);
                     graphics1X.setColor(tabOutlineColor);
                     int separatorY = scaledHeight - 1;
                     graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
@@ -185,10 +184,9 @@ public class RadianceRibbonUI extends BasicRibbonUI {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0,
             this.ribbon.getWidth(), this.ribbon.getHeight(),
             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                ContainerColorTokens outlineColorTokens =
+                Color tabOutlineColor =
                     RadianceCoreUtilities.getSkin(this.ribbon).getDecorators()
-                            .getTabDecorator().getTabOutlineColorTokens(ribbon);
-                Color tabOutlineColor = outlineColorTokens.getMarkerOnContainer();
+                            .getTabDecorator().getTabOutlineColor(ribbon);
                 graphics1X.setColor(tabOutlineColor);
                 int separatorY = (int) (scaleFactor * (this.taskToggleButtonsScrollablePanel.getY() +
                     this.taskToggleButtonsScrollablePanel.getHeight())) - 1;

@@ -38,23 +38,29 @@ import org.pushingpixels.radiance.component.internal.theming.utils.CommandButton
 import org.pushingpixels.radiance.component.internal.theming.utils.RibbonTaskToggleButtonBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonTaskToggleButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.decorator.tab.RadianceTabDecorator;
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
-import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -83,13 +89,13 @@ public class RadianceRibbonTaskToggleButtonUI extends
     /**
      * Painting delegate.
      */
-    private RibbonTaskToggleButtonBackgroundDelegate tonalDelegate;
+    private RibbonTaskToggleButtonBackgroundDelegate backgroundDelegate;
 
     /**
      * Simple constructor.
      */
     private RadianceRibbonTaskToggleButtonUI() {
-        this.tonalDelegate = new RibbonTaskToggleButtonBackgroundDelegate();
+        this.backgroundDelegate = new RibbonTaskToggleButtonBackgroundDelegate();
     }
 
     @Override
@@ -159,7 +165,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
         this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        this.tonalDelegate.updateTaskToggleButtonBackground(g2d,
+        this.backgroundDelegate.updateTaskToggleButtonBackground(g2d,
             (JRibbonTaskToggleButton) this.commandButton);
         this.paintTextAndFocus(g2d);
         g2d.dispose();
@@ -208,15 +214,17 @@ public class RadianceRibbonTaskToggleButtonUI extends
 
         StateTransitionTracker.ModelStateInfo modelStateInfo = this.radianceVisualStateTracker
                 .getActionStateTransitionTracker().getModelStateInfo();
-        ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
 
-        Color fgColor = getForegroundColor(this.commandButton, modelStateInfo);
-        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(
-            this.commandButton, currState, CoreColorTokenUtils.ContainerType.NEUTRAL);
-        float alpha = currState.isDisabled() ? colorTokens.getOnContainerDisabledAlpha()
-            : colorTokens.getOnContainerEnabledAlpha();
-        fgColor = RadianceColorUtilities.getAlphaColor(fgColor,
-            (int) (fgColor.getAlpha() * alpha));
+        RadianceTabDecorator tabDecorator = RadianceCoreUtilities.getSkin(this.commandButton)
+            .getDecorators().getTabDecorator();
+        Map<ComponentState, Float> activeStates = new HashMap<>();
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+            modelStateInfo.getStateNoSelectionContributionMap().entrySet()) {
+            activeStates.put(activeEntry.getKey(), activeEntry.getValue().getContribution());
+        }
+        Color fgColor = tabDecorator.getDecoratedTabContentColor(this.commandButton,
+            ComponentState.getState(this.commandButton.getActionModel(), this.commandButton, false),
+            activeStates);
 
         RadianceTextUtilities.paintText(g, textRect, toPaint, -1, this.commandButton.getFont(), fgColor, null);
 
@@ -248,52 +256,6 @@ public class RadianceRibbonTaskToggleButtonUI extends
         );
 
         g2d.dispose();
-    }
-
-    private static Color getForegroundColor(JCommandButton button, StateTransitionTracker.ModelStateInfo modelStateInfo) {
-        ComponentState currState = ComponentState.getState(button.getActionModel(), button, false);
-
-        // The final color is a composition of two contributions:
-        // 1. On container color that corresponds to the enabled state / neutral container type that
-        //    matches the overall surface fill of the non-active button
-        // 2. On container color that corresponds to the enabled state / neutral container type that
-        //    matches the overall surface fill of the parent
-
-        ContainerColorTokens parentSurfaceTokens = CoreColorTokenUtils.getContainerTokens(
-            button.getParent(),
-            ComponentState.ENABLED,
-            CoreColorTokenUtils.ContainerType.NEUTRAL);
-
-        float activeStateTotalContribution = currState.isActive() ? 1.0f : 0.0f;
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-            modelStateInfo.getStateNoSelectionContributionMap();
-        if (activeStates.size() > 1) {
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
-                ComponentState activeState = activeEntry.getKey();
-                if (activeState != currState) {
-                    float alpha = activeEntry.getValue().getContribution();
-                    if (activeState != ComponentState.ENABLED) {
-                        activeStateTotalContribution += alpha;
-                    }
-                }
-            }
-        }
-        activeStateTotalContribution = Math.min(1.0f, activeStateTotalContribution);
-
-        if (activeStateTotalContribution == 0.0f) {
-            return parentSurfaceTokens.getOnContainer();
-        }
-
-        ContainerColorTokens surfaceTokens = CoreColorTokenUtils.getContainerTokens(
-            button,
-            ComponentState.ENABLED,
-            CoreColorTokenUtils.ContainerType.NEUTRAL);
-
-        return RadianceColorUtilities.getInterpolatedColor(
-            parentSurfaceTokens.getOnContainer(),
-            surfaceTokens.getOnContainer(),
-            1.0f - activeStateTotalContribution);
     }
 
     @Override

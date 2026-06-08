@@ -466,7 +466,7 @@ public class SampleMenuFactory {
                     }
 
                     @Override
-                    public void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X, JComponent component,
+                    public void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X, JComponent tabComponent,
                         double scaleFactor, int width, int height, ContainerColorTokens surfaceHighlightColorTokens) {
 
                         graphics1X.setColor(surfaceHighlightColorTokens.getContainerSurfaceHighest());
@@ -479,8 +479,8 @@ public class SampleMenuFactory {
                     }
 
                     @Override
-                    public void paintTabOutlineAt1X(Graphics2D graphics1X, JComponent component,
-                        double scaleFactor, int width, int height, ContainerColorTokens outlineColorTokens) {
+                    public void paintTabOutlineAt1X(Graphics2D graphics1X, JComponent tabComponent,
+                        double scaleFactor, int width, int height, Color outlineColor) {
                     }
                 }).build();
         }

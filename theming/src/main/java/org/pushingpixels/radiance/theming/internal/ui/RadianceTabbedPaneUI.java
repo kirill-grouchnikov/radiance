@@ -57,7 +57,6 @@ import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.beans.PropertyChangeListener;
 import java.util.*;
@@ -650,8 +649,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane,
         int x, int y, int width, int height, int tabPlacement,
-        ContainerColorTokens surfaceHighlightColorTokens,
-        ContainerColorTokens outlineColorTokens) {
+        ContainerColorTokens surfaceHighlightColorTokens, Color outlineColor) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -679,7 +677,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     scaledWidth - 1, scaledHeight, surfaceHighlightColorTokens);
 
                 tabDecorator.paintTabOutlineAt1X(graphics1X, tabPane, scaleFactor,
-                    scaledWidth - 1, scaledHeight, outlineColorTokens);
+                    scaledWidth - 1, scaledHeight, outlineColor);
 
             });
         graphics.dispose();
@@ -755,8 +753,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         boolean toMarkModifiedCloseButton = RadianceCoreUtilities
                 .toAnimateCloseIconOfModifiedTab(this.tabPane, tabIndex);
 
-        ContainerColorTokens outlineColorTokens = RadianceCoreUtilities.getSkin(this.tabPane)
-            .getDecorators().getTabDecorator().getTabOutlineColorTokens(this.tabPane);
+        Color outlineColor = RadianceCoreUtilities.getSkin(this.tabPane)
+            .getDecorators().getTabDecorator().getTabOutlineColor(this.tabPane);
         if (isTabModified && isEnabled && !toMarkModifiedCloseButton) {
             // Tab contents are marked as modified
             BladeUtils.populateModificationAwareColorTokens(mutableColorTokens, comp,
@@ -771,7 +769,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             : mutableColorTokens.getContainerSurfaceDisabledAlpha());
 
         paintRotationAwareTabBackground(graphics, this.tabPane,
-            x, y, w, h, tabPlacement, mutableColorTokens, outlineColorTokens);
+            x, y, w, h, tabPlacement, mutableColorTokens, outlineColor);
 
         // Check if requested to paint close buttons.
         if (RadianceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {
@@ -1478,7 +1476,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 // Draw unbroken line if tabs are not on BOTTOM, OR
                 // selected tab is not in run adjacent to content, OR
                 // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                graphics1X.setColor(tabDecorator.getTabOutlineColorTokens(this.tabPane).getMarkerOnContainer());
+                graphics1X.setColor(tabDecorator.getTabOutlineColor(this.tabPane));
                 if (isUnbroken) {
                     graphics1X.drawLine(0, scaledHeight - 1, scaledWidth - 1, scaledHeight - 1);
                 } else {
@@ -1538,7 +1536,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 // Draw unbroken line if tabs are not on LEFT, OR
                 // selected tab is not in run adjacent to content, OR
                 // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                graphics1X.setColor(tabDecorator.getTabOutlineColorTokens(this.tabPane).getMarkerOnContainer());
+                graphics1X.setColor(tabDecorator.getTabOutlineColor(this.tabPane));
                 if (isUnbroken) {
                     graphics1X.drawLine(0, 0, 0, scaledHeight);
                 } else {
@@ -1595,7 +1593,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 // Draw unbroken line if tabs are not on RIGHT, OR
                 // selected tab is not in run adjacent to content, OR
                 // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                graphics1X.setColor(tabDecorator.getTabOutlineColorTokens(this.tabPane).getMarkerOnContainer());
+                graphics1X.setColor(tabDecorator.getTabOutlineColor(this.tabPane));
                 if (isUnbroken) {
                     graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight);
                 } else {
@@ -1654,7 +1652,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 // Draw unbroken line if tabs are not on TOP, OR
                 // selected tab is not in run adjacent to content, OR
                 // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                graphics1X.setColor(tabDecorator.getTabOutlineColorTokens(this.tabPane).getMarkerOnContainer());
+                graphics1X.setColor(tabDecorator.getTabOutlineColor(this.tabPane));
                 if (isUnbroken) {
                     graphics1X.drawLine(0, 0, scaledWidth, 0);
                 } else {
@@ -1731,24 +1729,18 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             v.paint(g, textRect);
         } else {
             // plain text
-            ContainerColorTokens colorTokens = RadianceCoreUtilities.getSkin(this.tabPane)
-                .getDecorators().getTabDecorator().getTabTextColorTokens(this.tabPane, tabIndex);
-            Color fg = colorTokens.getOnContainer();
-            float alpha = this.tabPane.isEnabledAt(tabIndex) ? colorTokens.getOnContainerEnabledAlpha()
-                : colorTokens.getOnContainerDisabledAlpha();
-            if (alpha < 1.0f) {
-                fg = RadianceColorUtilities.getAlphaColor(fg, (int) (fg.getAlpha() * alpha));
-            }
+            Color textColor = RadianceCoreUtilities.getSkin(this.tabPane)
+                .getDecorators().getTabDecorator().getTabContentColor(this.tabPane, tabIndex);
 
             int mnemIndex = this.tabPane.getDisplayedMnemonicIndexAt(tabIndex);
 
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.clip(getTabRectangle(tabIndex));
             RadianceTextUtilities.paintText(graphics, textRect, title, mnemIndex,
-                    graphics.getFont(), fg, null);
+                    graphics.getFont(), textColor, null);
             graphics.dispose();
 
-            this.tabTextColorMap.put(tabIndex, fg);
+            this.tabTextColorMap.put(tabIndex, textColor);
         }
     }
 

@@ -87,15 +87,15 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 ComponentState.ENABLED,
                 CoreColorTokenUtils.ContainerType.NEUTRAL);
             JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(JRibbon.class, button);
-            ContainerColorTokens outlineColorTokens = RadianceCoreUtilities.getSkin(button).getDecorators()
-                .getTabDecorator().getTabOutlineColorTokens(ribbon);
+            Color outlineColor = RadianceCoreUtilities.getSkin(button).getDecorators()
+                .getTabDecorator().getTabOutlineColor(ribbon);
 
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, alpha, g));
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-            drawFullAlphaBackground(graphics, button, neutralSurfaceTokens, mutableTokens, outlineColorTokens);
+            drawFullAlphaBackground(graphics, button, neutralSurfaceTokens, mutableTokens, outlineColor);
 
             graphics.dispose();
         }
@@ -105,7 +105,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         JRibbonTaskToggleButton button,
         ContainerColorTokens neutralSurfaceColorTokens,
         ContainerColorTokens surfaceHighlightColorTokens,
-        ContainerColorTokens outlineColorTokens) {
+        Color outlineColor) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -135,7 +135,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                         scaledWidth - 1, scaledHeight, surfaceHighlightColorTokens);
 
                     tabDecorator.paintTabOutlineAt1X(graphics1X, button, scaleFactor,
-                        scaledWidth - 1, scaledHeight, outlineColorTokens);
+                        scaledWidth - 1, scaledHeight, outlineColor);
                 });
         graphics.dispose();
     }

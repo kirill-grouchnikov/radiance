@@ -34,10 +34,12 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorat
 import org.pushingpixels.radiance.theming.api.shaper.RadianceComponentShaper;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class DefaultTabDecorator implements RadianceTabDecorator {
     private static final int DELTA_Y = 3;
@@ -48,7 +50,7 @@ public class DefaultTabDecorator implements RadianceTabDecorator {
     }
 
     @Override
-    public ContainerColorTokens getTabTextColorTokens(JTabbedPane tabbedPane, int tabIndex) {
+    public Color getTabContentColor(JTabbedPane tabbedPane, int tabIndex) {
         // See the logic in paintTabSurfaceAt1X - tab backgrounds are "partial". Only the top
         // part of the tab is drawn, and the rest of the tab is transparent, showing the visuals drawn by
         // its parent. As such, we do not account for the tab state here to compute the tab text color, but
@@ -56,16 +58,78 @@ public class DefaultTabDecorator implements RadianceTabDecorator {
         ComponentState currState = tabbedPane.isEnabledAt(tabIndex) ? ComponentState.ENABLED
             : ComponentState.DISABLED_UNSELECTED;
 
-        return CoreColorTokenUtils.getContainerTokens(tabbedPane,
+        ContainerColorTokens colorTokens = CoreColorTokenUtils.getContainerTokens(tabbedPane,
             tabIndex, RadianceThemingSlices.ContainerColorTokensAssociationKind.TAB, currState);
+
+        Color contentColor = colorTokens.getOnContainer();
+        float alpha = tabbedPane.isEnabledAt(tabIndex) ? colorTokens.getOnContainerEnabledAlpha()
+            : colorTokens.getOnContainerDisabledAlpha();
+        if (alpha < 1.0f) {
+            contentColor = RadianceColorUtilities.getAlphaColor(contentColor,
+                (int) (contentColor.getAlpha() * alpha));
+        }
+        return contentColor;
     }
 
     @Override
-    public ContainerColorTokens getTabOutlineColorTokens(Component tabComponent) {
-        return CoreColorTokenUtils.getContainerTokens(
+    public Color getDecoratedTabContentColor(JComponent tabComponent, ComponentState currState,
+        Map<ComponentState, Float> activeStates) {
+
+        // The final color is a composition of two contributions:
+        // 1. On container color that corresponds to the enabled state / neutral container type that
+        //    matches the overall surface fill of the non-active button
+        // 2. On container color that corresponds to the enabled state / neutral container type that
+        //    matches the overall surface fill of the parent
+
+        ContainerColorTokens parentSurfaceTokens = CoreColorTokenUtils.getContainerTokens(
+            tabComponent.getParent(),
+            ComponentState.ENABLED,
+            CoreColorTokenUtils.ContainerType.NEUTRAL);
+
+        float activeStateTotalContribution = currState.isActive() ? 1.0f : 0.0f;
+        if (activeStates.size() > 1) {
+            for (Map.Entry<ComponentState, Float> activeEntry : activeStates.entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                if (activeState != currState) {
+                    float alpha = activeEntry.getValue();
+                    if (activeState != ComponentState.ENABLED) {
+                        activeStateTotalContribution += alpha;
+                    }
+                }
+            }
+        }
+        activeStateTotalContribution = Math.min(1.0f, activeStateTotalContribution);
+
+        if (activeStateTotalContribution == 0.0f) {
+            return parentSurfaceTokens.getOnContainer();
+        }
+
+        ContainerColorTokens surfaceTokens = CoreColorTokenUtils.getContainerTokens(
             tabComponent,
             ComponentState.ENABLED,
             CoreColorTokenUtils.ContainerType.NEUTRAL);
+
+        Color contentColor = RadianceColorUtilities.getInterpolatedColor(
+            parentSurfaceTokens.getOnContainer(),
+            surfaceTokens.getOnContainer(),
+            1.0f - activeStateTotalContribution);
+
+        float alpha = currState.isDisabled()
+            ? (1.0f - activeStateTotalContribution) * parentSurfaceTokens.getOnContainerDisabledAlpha()
+              + activeStateTotalContribution * surfaceTokens.getOnContainerDisabledAlpha()
+            : (1.0f - activeStateTotalContribution) * parentSurfaceTokens.getOnContainerEnabledAlpha()
+              + activeStateTotalContribution * surfaceTokens.getOnContainerEnabledAlpha();
+        contentColor = RadianceColorUtilities.getAlphaColor(contentColor,
+            (int) (contentColor.getAlpha() * alpha));
+        return contentColor;
+    }
+
+    @Override
+    public Color getTabOutlineColor(Component tabComponent) {
+        return CoreColorTokenUtils.getContainerTokens(
+            tabComponent,
+            ComponentState.ENABLED,
+            CoreColorTokenUtils.ContainerType.NEUTRAL).getMarkerOnContainer();
     }
 
     @Override
@@ -74,18 +138,18 @@ public class DefaultTabDecorator implements RadianceTabDecorator {
     }
 
     @Override
-    public void paintTabSurfaceAt1X(Graphics2D graphics1X, JComponent component, double scaleFactor, int originalScaledOffsetX, int originalScaledOffsetY, int width, int height, ContainerColorTokens surfaceColorTokens) {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+    public void paintTabSurfaceAt1X(Graphics2D graphics1X, JComponent tabComponent, double scaleFactor, int originalScaledOffsetX, int originalScaledOffsetY, int width, int height, ContainerColorTokens surfaceColorTokens) {
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(tabComponent);
         RadianceThemingSlices.DecorationAreaType decorationAreaType =
-            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(component);
+            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(tabComponent);
         if (skin.isRegisteredAsDecorationArea(decorationAreaType)) {
             RadianceDecorationPainter decorationPainter = skin.getDecorationPainter();
             Graphics2D clipped = (Graphics2D) graphics1X.create();
-            DecorationPainterUtils.paintDecorationBackground(clipped, component,
+            DecorationPainterUtils.paintDecorationBackground(clipped, tabComponent,
                 width, height, scaleFactor, decorationPainter,
                 decorationAreaType, surfaceColorTokens, false);
 
-            DecorationPainterUtils.paintInlay(graphics1X, component,
+            DecorationPainterUtils.paintInlay(graphics1X, tabComponent,
                 originalScaledOffsetX, originalScaledOffsetY, width, height, scaleFactor,
                 skin, decorationAreaType);
             clipped.dispose();
@@ -93,16 +157,18 @@ public class DefaultTabDecorator implements RadianceTabDecorator {
             graphics1X.setColor(surfaceColorTokens.getContainerSurface());
             graphics1X.fillRect(0, 0, width, height);
 
-            DecorationPainterUtils.paintInlay(graphics1X, component,
+            DecorationPainterUtils.paintInlay(graphics1X, tabComponent,
                 originalScaledOffsetX, originalScaledOffsetY, width, height, scaleFactor,
                 skin, decorationAreaType);
         }
     }
 
     @Override
-    public void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X, JComponent component, double scaleFactor, int width, int height, ContainerColorTokens surfaceHighlightColorTokens) {
-        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
-        Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + DELTA_Y,
+    public void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X, JComponent tabComponent, double scaleFactor,
+        int width, int height, ContainerColorTokens surfaceHighlightColorTokens) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(tabComponent);
+        Shape outline = componentShaper.getTabShapeSupplier().getShape(tabComponent, width, height + DELTA_Y,
             0.0f, 0.0f, scaleFactor);
 
         Graphics2D clipped = (Graphics2D) graphics1X.create();
@@ -115,12 +181,14 @@ public class DefaultTabDecorator implements RadianceTabDecorator {
     }
 
     @Override
-    public void paintTabOutlineAt1X(Graphics2D graphics1X, JComponent component, double scaleFactor, int width, int height, ContainerColorTokens outlineColorTokens) {
-        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(component);
-        Shape outline = componentShaper.getTabShapeSupplier().getShape(component, width, height + DELTA_Y,
+    public void paintTabOutlineAt1X(Graphics2D graphics1X, JComponent tabComponent, double scaleFactor,
+        int width, int height, Color outlineColor) {
+
+        RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(tabComponent);
+        Shape outline = componentShaper.getTabShapeSupplier().getShape(tabComponent, width, height + DELTA_Y,
             0.0f, 0.0f, scaleFactor);
 
-        graphics1X.setColor(outlineColorTokens.getMarkerOnContainer());
+        graphics1X.setColor(outlineColor);
         graphics1X.draw(outline);
     }
 }
