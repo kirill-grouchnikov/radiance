@@ -69,6 +69,11 @@ public class DefaultTabDecorator implements RadianceTabDecorator {
     }
 
     @Override
+    public boolean shouldDrawUnbrokenContentEdge() {
+        return false;
+    }
+
+    @Override
     public void paintTabSurfaceAt1X(Graphics2D graphics1X, JComponent component, double scaleFactor, int originalScaledOffsetX, int originalScaledOffsetY, int width, int height, ContainerColorTokens surfaceColorTokens) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         RadianceThemingSlices.DecorationAreaType decorationAreaType =

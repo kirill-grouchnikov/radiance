@@ -42,6 +42,8 @@ public interface RadianceTabDecorator {
 
     ContainerColorTokens getTabOutlineColorTokens(Component tabComponent);
 
+    boolean shouldDrawUnbrokenContentEdge();
+
     void paintTabSurfaceAt1X(Graphics2D graphics1X,
         JComponent component, double scaleFactor,
         int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,

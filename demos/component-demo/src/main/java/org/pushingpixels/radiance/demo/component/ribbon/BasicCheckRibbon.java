@@ -2434,6 +2434,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 }
 
                                 @Override
+                                public boolean shouldDrawUnbrokenContentEdge() {
+                                    return true;
+                                }
+
+                                @Override
                                 public void paintTabOutlineAt1X(Graphics2D graphics1X, JComponent component,
                                     double scaleFactor, int width, int height, ContainerColorTokens outlineColorTokens) {
                                 }

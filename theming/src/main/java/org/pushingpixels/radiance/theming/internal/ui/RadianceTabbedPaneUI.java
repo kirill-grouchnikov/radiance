@@ -648,12 +648,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         super.uninstallComponents();
     }
 
-    private Color getContentBorderEdgeColor() {
-        ContainerColorTokens outlineColorTokens = RadianceCoreUtilities.getSkin(this.tabPane)
-            .getDecorators().getTabDecorator().getTabOutlineColorTokens(this.tabPane);
-        return outlineColorTokens.getMarkerOnContainer();
-    }
-
     private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane,
         int x, int y, int width, int height, int tabPlacement,
         ContainerColorTokens surfaceHighlightColorTokens,
@@ -1464,45 +1458,44 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+                RenderingHints.VALUE_ANTIALIAS_OFF);
         graphics.translate(x, y);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
-                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                    graphics1X.translate(1, 1);
-                    int joinKind = BasicStroke.JOIN_ROUND;
-                    int capKind = BasicStroke.CAP_BUTT;
-                    graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                RadianceTabDecorator tabDecorator = RadianceCoreUtilities.getSkin(this.tabPane)
+                    .getDecorators().getTabDecorator();
 
-                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
+                graphics1X.translate(1, 1);
+                int joinKind = BasicStroke.JOIN_ROUND;
+                int capKind = BasicStroke.CAP_BUTT;
+                graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-                    boolean isUnbroken = (selectedIndex < 0 || (selRect.y - 1 > h)
-                            || (selRect.x < x || selRect.x > x + w));
+                int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
 
-                    // Draw unbroken line if tabs are not on BOTTOM, OR
-                    // selected tab is not in run adjacent to content, OR
-                    // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    graphics1X.setColor(getContentBorderEdgeColor());
-                    if (isUnbroken) {
-                        graphics1X.drawLine(0, scaledHeight - 1, scaledWidth - 1, scaledHeight - 1);
-                    } else {
-                        // Break line to show visual connection to selected tab
-                        int delta = 1;
-                        GeneralPath bottomOutline = new GeneralPath();
-                        bottomOutline.moveTo(0, scaledHeight - 1);
-                        bottomOutline.lineTo((float) scaleFactor * selRect.x + 2.0f, scaledHeight - 1);
-                        if (selRect.x + selRect.width < x + w) {
-                            float selectionEndX = (float) scaleFactor * (selRect.x + selRect.width - delta) - 1.0f;
-                            bottomOutline.moveTo(selectionEndX, scaledHeight - 1);
-                            bottomOutline.lineTo(scaledWidth - 1, scaledHeight - 1);
-                        }
-                        graphics1X.draw(bottomOutline);
+                boolean isUnbroken = tabDecorator.shouldDrawUnbrokenContentEdge() ||
+                    (selectedIndex < 0 || (selRect.y - 1 > h) || (selRect.x < x || selRect.x > x + w));
+
+                // Draw unbroken line if tabs are not on BOTTOM, OR
+                // selected tab is not in run adjacent to content, OR
+                // selected tab is not visible (SCROLL_TAB_LAYOUT)
+                graphics1X.setColor(tabDecorator.getTabOutlineColorTokens(this.tabPane).getMarkerOnContainer());
+                if (isUnbroken) {
+                    graphics1X.drawLine(0, scaledHeight - 1, scaledWidth - 1, scaledHeight - 1);
+                } else {
+                    // Break line to show visual connection to selected tab
+                    int delta = 1;
+                    graphics1X.drawLine(0, scaledHeight - 1, (int) (scaleFactor * selRect.x) + 1, scaledHeight - 1);
+                    if (selRect.x + selRect.width < x + w) {
+                        float selectionEndX = (float) scaleFactor * (selRect.x + selRect.width - delta) - 1.0f;
+                        graphics1X.drawLine((int) selectionEndX, scaledHeight - 1, scaledWidth - 1, scaledHeight - 1);
                     }
+                }
 
-                    if (isDouble) {
-                        graphics1X.drawLine(0, scaledHeight - 1 - ribbonDelta,
-                            scaledWidth - 1, scaledHeight - 1 - ribbonDelta);
-                    }
-                });
+                if (isDouble) {
+                    graphics1X.drawLine(0, scaledHeight - 1 - ribbonDelta,
+                        scaledWidth - 1, scaledHeight - 1 - ribbonDelta);
+                }
+            });
         graphics.dispose();
     }
 
@@ -1524,46 +1517,44 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_OFF);
         graphics.translate(x, y);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
-                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                    graphics1X.translate(0, 1);
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                RadianceTabDecorator tabDecorator = RadianceCoreUtilities.getSkin(this.tabPane)
+                    .getDecorators().getTabDecorator();
 
-                    int joinKind = BasicStroke.JOIN_ROUND;
-                    int capKind = BasicStroke.CAP_BUTT;
-                    graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
+                graphics1X.translate(0, 1);
 
-                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
+                int joinKind = BasicStroke.JOIN_ROUND;
+                int capKind = BasicStroke.CAP_BUTT;
+                graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-                    boolean isUnbroken = (selectedIndex < 0
-                            || (selRect.x + selRect.width + 1 < x) || (selRect.y < y || selRect.y > y + h));
+                int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
 
-                    // Draw unbroken line if tabs are not on LEFT, OR
-                    // selected tab is not in run adjacent to content, OR
-                    // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    graphics1X.setColor(getContentBorderEdgeColor());
-                    if (isUnbroken) {
-                        graphics1X.drawLine(0, 0, 0, scaledHeight);
-                    } else {
-                        // Break line to show visual connection to selected tab
-                        int delta = 1;
+                boolean isUnbroken = tabDecorator.shouldDrawUnbrokenContentEdge() ||
+                    (selectedIndex < 0 || (selRect.x + selRect.width + 1 < x) || (selRect.y < y || selRect.y > y + h));
 
-                        GeneralPath leftOutline = new GeneralPath();
-                        leftOutline.moveTo(0, 0);
-                        leftOutline.lineTo(0, (float) scaleFactor * selRect.y + delta + 2.0f);
-                        if (selRect.y + selRect.height < y + h) {
-                            float selectionEndY = (float) scaleFactor * (selRect.y + selRect.height) - 2.0f;
-                            leftOutline.moveTo(0, selectionEndY);
-                            leftOutline.lineTo(0, scaledHeight);
-                        }
-                        graphics1X.draw(leftOutline);
+                // Draw unbroken line if tabs are not on LEFT, OR
+                // selected tab is not in run adjacent to content, OR
+                // selected tab is not visible (SCROLL_TAB_LAYOUT)
+                graphics1X.setColor(tabDecorator.getTabOutlineColorTokens(this.tabPane).getMarkerOnContainer());
+                if (isUnbroken) {
+                    graphics1X.drawLine(0, 0, 0, scaledHeight);
+                } else {
+                    // Break line to show visual connection to selected tab
+                    int delta = 1;
+                    graphics1X.drawLine(0, 0, 0, (int) (scaleFactor * selRect.y + delta) + 2);
+                    if (selRect.y + selRect.height < y + h) {
+                        float selectionEndY = (float) scaleFactor * (selRect.y + selRect.height) - 2.0f;
+                        graphics1X.drawLine(0, (int) selectionEndY, 0, scaledHeight);
                     }
+                }
 
-                    if (isDouble) {
-                        graphics1X.drawLine(ribbonDelta, 0, ribbonDelta, scaledHeight);
-                    }
-                });
+                if (isDouble) {
+                    graphics1X.drawLine(ribbonDelta, 0, ribbonDelta, scaledHeight);
+                }
+            });
         graphics.dispose();
     }
 
@@ -1585,45 +1576,44 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_OFF);
         graphics.translate(x, y);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
-                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                    int joinKind = BasicStroke.JOIN_ROUND;
-                    int capKind = BasicStroke.CAP_BUTT;
-                    graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                RadianceTabDecorator tabDecorator = RadianceCoreUtilities.getSkin(this.tabPane)
+                    .getDecorators().getTabDecorator();
 
-                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
+                int joinKind = BasicStroke.JOIN_ROUND;
+                int capKind = BasicStroke.CAP_BUTT;
+                graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-                    boolean isUnbroken = (selectedIndex < 0 || (selRect.x - 1 > w)
-                            || (selRect.y < y || selRect.y > y + h));
+                int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
 
-                    // Draw unbroken line if tabs are not on RIGHT, OR
-                    // selected tab is not in run adjacent to content, OR
-                    // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    graphics1X.setColor(getContentBorderEdgeColor());
-                    if (isUnbroken) {
-                        graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight);
-                    } else {
-                        // Break line to show visual connection to selected tab
-                        int delta = 1;
+                boolean isUnbroken = tabDecorator.shouldDrawUnbrokenContentEdge() ||
+                    (selectedIndex < 0 || (selRect.x - 1 > w) || (selRect.y < y || selRect.y > y + h));
 
-                        GeneralPath rightOutline = new GeneralPath();
-                        rightOutline.moveTo(scaledWidth - 1, 0);
-                        rightOutline.lineTo(scaledWidth - 1, (float) scaleFactor * selRect.y + 1.0f);
-                        if (selRect.y + selRect.height < y + h) {
-                            float selectionEndY = (float) scaleFactor * (selRect.y + selRect.height) - delta - 3.0f;
-                            rightOutline.moveTo(scaledWidth - 1, selectionEndY);
-                            rightOutline.lineTo(scaledWidth - 1, scaledHeight);
-                        }
-                        graphics1X.draw(rightOutline);
+                // Draw unbroken line if tabs are not on RIGHT, OR
+                // selected tab is not in run adjacent to content, OR
+                // selected tab is not visible (SCROLL_TAB_LAYOUT)
+                graphics1X.setColor(tabDecorator.getTabOutlineColorTokens(this.tabPane).getMarkerOnContainer());
+                if (isUnbroken) {
+                    graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight);
+                } else {
+                    // Break line to show visual connection to selected tab
+                    int delta = 1;
+
+                    graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, (int) (scaleFactor * selRect.y) + 1);
+                    if (selRect.y + selRect.height < y + h) {
+                        float selectionEndY = (float) scaleFactor * (selRect.y + selRect.height) - delta - 3.0f;
+                        graphics1X.drawLine(scaledWidth - 1, (int) selectionEndY, scaledWidth - 1, scaledHeight);
                     }
+                }
 
-                    if (isDouble) {
-                        graphics1X.drawLine(scaledWidth - 1 - ribbonDelta, 0,
-                            scaledWidth - 1 - ribbonDelta, scaledHeight);
-                    }
-                });
+                if (isDouble) {
+                    graphics1X.drawLine(scaledWidth - 1 - ribbonDelta, 0,
+                        scaledWidth - 1 - ribbonDelta, scaledHeight);
+                }
+            });
         graphics.dispose();
     }
 
@@ -1645,44 +1635,42 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+                RenderingHints.VALUE_ANTIALIAS_OFF);
         graphics.translate(x, y);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
-                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                RadianceTabDecorator tabDecorator = RadianceCoreUtilities.getSkin(this.tabPane)
+                    .getDecorators().getTabDecorator();
 
-                    int joinKind = BasicStroke.JOIN_ROUND;
-                    int capKind = BasicStroke.CAP_BUTT;
-                    graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
+                int joinKind = BasicStroke.JOIN_ROUND;
+                int capKind = BasicStroke.CAP_BUTT;
+                graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
+                int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
 
-                    boolean isUnbroken = (selectedIndex < 0
-                            || (selRect.y + selRect.height + 1 < y) || (selRect.x < x || selRect.x > x + w));
+                boolean isUnbroken = tabDecorator.shouldDrawUnbrokenContentEdge() ||
+                    (selectedIndex < 0 || (selRect.y + selRect.height + 1 < y) || (selRect.x < x || selRect.x > x + w));
 
-                    // Draw unbroken line if tabs are not on TOP, OR
-                    // selected tab is not in run adjacent to content, OR
-                    // selected tab is not visible (SCROLL_TAB_LAYOUT)
-                    graphics1X.setColor(getContentBorderEdgeColor());
-                    if (isUnbroken) {
-                        graphics1X.drawLine(0, 0, scaledWidth, 0);
-                    } else {
-                        // Break line to show visual connection to selected tab
-                        int delta = 1;
-                        GeneralPath topOutline = new GeneralPath();
-                        topOutline.moveTo(0, 0);
-                        topOutline.lineTo((float) scaleFactor * selRect.x + 1.0f, 0);
-                        if (selRect.x + selRect.width < x + w) {
-                            float selectionEndX = (float) scaleFactor * (selRect.x + selRect.width - delta) - 2.0f;
-                            topOutline.moveTo(selectionEndX, 0);
-                            topOutline.lineTo(scaledWidth, 0);
-                        }
-                        graphics1X.draw(topOutline);
+                // Draw unbroken line if tabs are not on TOP, OR
+                // selected tab is not in run adjacent to content, OR
+                // selected tab is not visible (SCROLL_TAB_LAYOUT)
+                graphics1X.setColor(tabDecorator.getTabOutlineColorTokens(this.tabPane).getMarkerOnContainer());
+                if (isUnbroken) {
+                    graphics1X.drawLine(0, 0, scaledWidth, 0);
+                } else {
+                    // Break line to show visual connection to selected tab
+                    int delta = 1;
+                    graphics1X.drawLine(0, 0, (int) (scaleFactor * selRect.x) + 1, 0);
+                    if (selRect.x + selRect.width < x + w) {
+                        float selectionEndX = (float) scaleFactor * (selRect.x + selRect.width - delta) - 2.0f;
+                        graphics1X.drawLine((int) selectionEndX, 0, scaledWidth, 0);
                     }
+                }
 
-                    if (isDouble) {
-                        graphics1X.drawLine(0, ribbonDelta, scaledWidth, ribbonDelta);
-                    }
-                });
+                if (isDouble) {
+                    graphics1X.drawLine(0, ribbonDelta, scaledWidth, ribbonDelta);
+                }
+            });
         graphics.dispose();
     }
 
