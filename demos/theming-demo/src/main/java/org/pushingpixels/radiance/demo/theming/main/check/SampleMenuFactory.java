@@ -50,6 +50,8 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensUtils;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -463,6 +465,27 @@ public class SampleMenuFactory {
                     @Override
                     public Insets getTabInsets() {
                         return new Insets(0, 4, 5, 4);
+                    }
+
+                    @Override
+                    public Color getDecoratedTabContentColor(JComponent tabComponent, ComponentState currState, Map<ComponentState, Float> activeStates) {
+                        ContainerColorTokens parentSurfaceTokens = CoreColorTokenUtils.getContainerTokens(
+                            tabComponent.getParent(),
+                            ComponentState.ENABLED,
+                            CoreColorTokenUtils.ContainerType.NEUTRAL);
+
+                        Color contentColor = parentSurfaceTokens.getOnContainer();
+                        float alpha = currState.isDisabled() ? parentSurfaceTokens.getOnContainerDisabledAlpha()
+                            : parentSurfaceTokens.getOnContainerEnabledAlpha();
+                        if (alpha < 1.0f) {
+                            contentColor = RadianceColorUtilities.getAlphaColor(contentColor,
+                                (int) (contentColor.getAlpha() * alpha));
+                        }
+                        return contentColor;
+                    }
+
+                    @Override
+                    public void paintTabSurfaceAt1X(Graphics2D graphics1X, JComponent tabComponent, double scaleFactor, int originalScaledOffsetX, int originalScaledOffsetY, int width, int height, ContainerColorTokens surfaceColorTokens) {
                     }
 
                     @Override

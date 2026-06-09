@@ -69,6 +69,7 @@ import org.pushingpixels.radiance.demo.theming.main.check.RectangularComponentSh
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceFontScaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
+import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -80,6 +81,8 @@ import org.pushingpixels.radiance.theming.api.painter.outline.InlayOutlinePainte
 import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
+import org.pushingpixels.radiance.theming.internal.utils.CoreColorTokenUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -2423,6 +2426,27 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 @Override
                                 public Insets getTabInsets() {
                                     return new Insets(0, 4, 5, 4);
+                                }
+
+                                @Override
+                                public Color getDecoratedTabContentColor(JComponent tabComponent, ComponentState currState, Map<ComponentState, Float> activeStates) {
+                                    ContainerColorTokens parentSurfaceTokens = CoreColorTokenUtils.getContainerTokens(
+                                        tabComponent.getParent(),
+                                        ComponentState.ENABLED,
+                                        CoreColorTokenUtils.ContainerType.NEUTRAL);
+
+                                    Color contentColor = parentSurfaceTokens.getOnContainer();
+                                    float alpha = currState.isDisabled() ? parentSurfaceTokens.getOnContainerDisabledAlpha()
+                                        : parentSurfaceTokens.getOnContainerEnabledAlpha();
+                                    if (alpha < 1.0f) {
+                                        contentColor = RadianceColorUtilities.getAlphaColor(contentColor,
+                                            (int) (contentColor.getAlpha() * alpha));
+                                    }
+                                    return contentColor;
+                                }
+
+                                @Override
+                                public void paintTabSurfaceAt1X(Graphics2D graphics1X, JComponent tabComponent, double scaleFactor, int originalScaledOffsetX, int originalScaledOffsetY, int width, int height, ContainerColorTokens surfaceColorTokens) {
                                 }
 
                                 @Override
