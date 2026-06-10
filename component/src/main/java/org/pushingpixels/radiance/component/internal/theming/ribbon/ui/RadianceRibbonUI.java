@@ -206,8 +206,8 @@ public class RadianceRibbonUI extends BasicRibbonUI {
     protected Insets getTabButtonContentPadding() {
         Insets insetsFromSkin = RadianceCoreUtilities.getSkin(this.ribbon)
                 .getDecorators().getTabDecorator().getTabInsets();
-        return new Insets(insetsFromSkin.top + 1, insetsFromSkin.left + 18,
-            insetsFromSkin.bottom, insetsFromSkin.right + 18);
+        return new Insets(insetsFromSkin.top + 4, insetsFromSkin.left + 18,
+            insetsFromSkin.bottom + 3, insetsFromSkin.right + 18);
     }
 
     @Override

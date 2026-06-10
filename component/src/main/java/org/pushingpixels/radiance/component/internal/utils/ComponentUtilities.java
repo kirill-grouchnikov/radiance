@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.component.internal.utils;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
@@ -43,8 +42,6 @@ import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePo
 import org.pushingpixels.radiance.component.internal.ui.ribbon.AbstractBandControlPanel;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -188,25 +185,6 @@ public class ComponentUtilities {
 
     public static int getCommandButtonSmallIconSize(int fontSize) {
         return ComponentUtilities.getScaledSize(16, fontSize, 1.0, 4);
-    }
-
-    public static int getCommandButtonPopupIconWidth(int fontSize) {
-        return ComponentUtilities.getScaledSize(12, fontSize, 1.0, 4);
-    }
-
-    public static int getTaskToggleButtonHeight(JRibbon ribbon) {
-        Font titleFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
-                .getWindowTitleFont();
-        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                RadianceCommonCortex.getScaleFactor(ribbon), titleFont);
-        int fontHeight = fm.getHeight();
-        fontHeight += 7;
-        int iconHeight = 0;
-        if (ribbon.getRootPane().getWindowDecorationStyle() == JRootPane.FRAME) {
-            iconHeight = RadianceSizeUtils.getTitlePaneIconSize();
-        }
-
-        return Math.max(fontHeight, iconHeight) - 2;
     }
 
     public static boolean existsInMenu(Command command, CommandMenuContentModel menuContentModel) {

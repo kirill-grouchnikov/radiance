@@ -419,8 +419,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 }
             }
 
-            int extraHeight = ComponentUtilities.getTaskToggleButtonHeight(ribbon);
-            int prefHeight = maxPrefBandHeight + extraHeight + ins.top + ins.bottom;
+            int taskToggleButtonPanelHeight =
+                taskToggleButtonsScrollablePanel.getView().getPreferredSize().height;
+            int prefHeight = maxPrefBandHeight + taskToggleButtonPanelHeight + ins.top + ins.bottom;
             // System.out.println("Ribbon pref = " + prefHeight);
             return new Dimension(c.getWidth(), prefHeight);
         }
@@ -434,7 +435,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int maxMinBandHeight = 0;
             int gap = getBandGap();
 
-            int extraHeight = ComponentUtilities.getTaskToggleButtonHeight(ribbon);
+            int taskToggleButtonPanelHeight =
+                taskToggleButtonsScrollablePanel.getView().getMinimumSize().height;
 
             if (ribbon.getTaskCount() > 0) {
                 boolean isRibbonMinimized = ribbon.isMinimized();
@@ -456,7 +458,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 // fix for issue 44 (empty ribbon)
                 width = 50;
             }
-            return new Dimension(width, maxMinBandHeight + extraHeight + ins.top + ins.bottom);
+            return new Dimension(width, maxMinBandHeight + taskToggleButtonPanelHeight + ins.top + ins.bottom);
         }
 
         private int getAnchoredButtonsWidth(CommandButtonPresentationState state) {
@@ -487,7 +489,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int width = c.getWidth();
             int y = ins.top;
 
-            int taskToggleButtonHeight = ComponentUtilities.getTaskToggleButtonHeight(ribbon);
+            int taskToggleButtonHeight =
+                taskToggleButtonsScrollablePanel.getView().getPreferredSize().height;
 
             int x = ltr ? ins.left : width - ins.right;
 
@@ -908,17 +911,18 @@ public abstract class BasicRibbonUI extends RibbonUI {
         @Override
         public Dimension preferredLayoutSize(Container c) {
             int tabButtonGap = getTabButtonGap();
-            int taskToggleButtonHeight = ComponentUtilities.getTaskToggleButtonHeight(ribbon);
 
             int totalTaskButtonsWidth = 0;
+            int maxTaskButtonsHeight = 0;
             List<RibbonTask> visibleTasks = getCurrentlyShownRibbonTasks();
             for (RibbonTask task : visibleTasks) {
                 JCommandButton tabButton = taskToggleButtons.get(task);
-                int pw = tabButton.getPreferredSize().width;
-                totalTaskButtonsWidth += (pw + tabButtonGap);
+                Dimension preferredSize = tabButton.getPreferredSize();
+                totalTaskButtonsWidth += (preferredSize.width + tabButtonGap);
+                maxTaskButtonsHeight = Math.max(preferredSize.height, maxTaskButtonsHeight);
             }
 
-            return new Dimension(totalTaskButtonsWidth, taskToggleButtonHeight);
+            return new Dimension(totalTaskButtonsWidth, maxTaskButtonsHeight);
         }
 
         @Override
@@ -930,7 +934,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
         public void layoutContainer(Container c) {
             int y = 0;
             int tabButtonGap = getTabButtonGap();
-            int taskToggleButtonHeight = ComponentUtilities.getTaskToggleButtonHeight(ribbon);
 
             int totalPrefWidth = 0;
             int totalMinWidth = 0;
@@ -959,10 +962,10 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     JCommandButton tabButton = taskToggleButtons.get(task);
                     int pw = tabButton.getPreferredSize().width;
                     if (ltr) {
-                        tabButton.setBounds(x, y + 1, pw, taskToggleButtonHeight - 1);
+                        tabButton.setBounds(x, y + 1, pw, c.getHeight());
                         x += (pw + tabButtonGap);
                     } else {
-                        tabButton.setBounds(x - pw, y + 1, pw, taskToggleButtonHeight - 1);
+                        tabButton.setBounds(x - pw, y + 1, pw, c.getHeight());
                         x -= (pw + tabButtonGap);
                     }
                 }
@@ -981,11 +984,10 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     int delta = (toDistribute * diffMap.get(tabButton) / totalDiff);
                     int finalWidth = pw - delta;
                     if (ltr) {
-                        tabButton.setBounds(x, y + 1, finalWidth, taskToggleButtonHeight - 1);
+                        tabButton.setBounds(x, y + 1, finalWidth, c.getHeight());
                         x += (finalWidth + tabButtonGap);
                     } else {
-                        tabButton.setBounds(x - finalWidth, y + 1, finalWidth,
-                                taskToggleButtonHeight - 1);
+                        tabButton.setBounds(x - finalWidth, y + 1, finalWidth, c.getHeight());
                         x -= (finalWidth + tabButtonGap);
                     }
                 }
@@ -1006,20 +1008,19 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         @Override
         public Dimension minimumLayoutSize(Container parent) {
-            int minWidth = 0;
-            for (Component comp : parent.getComponents()) {
-                minWidth += comp.getMinimumSize().width;
-            }
-            return new Dimension(minWidth, ComponentUtilities.getTaskToggleButtonHeight(ribbon));
+            return preferredLayoutSize(parent);
         }
 
         @Override
         public Dimension preferredLayoutSize(Container parent) {
             int prefWidth = 0;
+            int maxHeight = 0;
             for (Component comp : parent.getComponents()) {
-                prefWidth += comp.getPreferredSize().width;
+                Dimension preferredSize = comp.getPreferredSize();
+                prefWidth += preferredSize.width;
+                maxHeight = Math.max(preferredSize.height, maxHeight);
             }
-            return new Dimension(prefWidth, ComponentUtilities.getTaskToggleButtonHeight(ribbon));
+            return new Dimension(prefWidth, maxHeight);
         }
 
         @Override
