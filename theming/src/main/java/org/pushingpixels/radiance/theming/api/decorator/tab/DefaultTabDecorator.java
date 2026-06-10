@@ -138,7 +138,10 @@ public class DefaultTabDecorator implements RadianceTabDecorator {
     }
 
     @Override
-    public void paintTabSurfaceAt1X(Graphics2D graphics1X, JComponent tabComponent, double scaleFactor, int originalScaledOffsetX, int originalScaledOffsetY, int width, int height, ContainerColorTokens surfaceColorTokens) {
+    public void paintTabSurfaceAt1X(Graphics2D graphics1X, JComponent tabComponent, double scaleFactor,
+        int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
+        ContainerColorTokens surfaceColorTokens) {
+
         RadianceSkin skin = RadianceCoreUtilities.getSkin(tabComponent);
         RadianceThemingSlices.DecorationAreaType decorationAreaType =
             RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(tabComponent);
@@ -164,12 +167,12 @@ public class DefaultTabDecorator implements RadianceTabDecorator {
     }
 
     @Override
-    public void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X, JComponent tabComponent, double scaleFactor,
-        int width, int height, ContainerColorTokens surfaceHighlightColorTokens) {
+    public void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X, JComponent tabComponent,
+        double scaleFactor, int width, int height, ContainerColorTokens surfaceHighlightColorTokens) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(tabComponent);
-        Shape outline = componentShaper.getTabShapeSupplier().getShape(tabComponent, width, height + DELTA_Y,
-            0.0f, 0.0f, scaleFactor);
+        Shape outline = componentShaper.getTabShapeSupplier().getShape(tabComponent,
+            width, height + DELTA_Y, 0.0f, 0.0f, scaleFactor);
 
         Graphics2D clipped = (Graphics2D) graphics1X.create();
         clipped.clipRect(0, 0, width, (int) (0.2f * height));
@@ -185,8 +188,8 @@ public class DefaultTabDecorator implements RadianceTabDecorator {
         int width, int height, Color outlineColor) {
 
         RadianceComponentShaper componentShaper = RadianceCoreUtilities.getComponentShaper(tabComponent);
-        Shape outline = componentShaper.getTabShapeSupplier().getShape(tabComponent, width, height + DELTA_Y,
-            0.0f, 0.0f, scaleFactor);
+        Shape outline = componentShaper.getTabShapeSupplier().getShape(tabComponent,
+            width, height + DELTA_Y, 0.0f, 0.0f, scaleFactor);
 
         graphics1X.setColor(outlineColor);
         graphics1X.draw(outline);

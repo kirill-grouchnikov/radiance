@@ -75,7 +75,7 @@ public class MatteDecorationPainter extends RadianceDecorationPainter {
     }
 
     private void paintExtraBackground(Graphics2D graphics, Component comp,
-        int width, int height,double scaleFactor, ContainerColorTokens colorTokens) {
+        int width, int height, double scaleFactor, ContainerColorTokens colorTokens) {
 
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
         Graphics2D g2d = (Graphics2D) graphics.create();
@@ -85,21 +85,40 @@ public class MatteDecorationPainter extends RadianceDecorationPainter {
 
     private void fill(Graphics2D graphics, ContainerColorTokens colorTokens,
         int offsetY, int x, int y, int width, int height, double scaleFactor) {
-        // 0 - flex : gradient
-        // flex - : fill
+        // 0 - flex point : gradient
+        // flex point - : flat fill
 
         Color startColor = colorTokens.isDark() ? colorTokens.getContainerSurfaceHigh()
             : colorTokens.getContainerSurfaceLowest();
         Color endColor = colorTokens.getContainerSurface();
 
         int scaledFlexPoint = (int) (FLEX_POINT * scaleFactor);
-        int gradientHeight = Math.max(scaledFlexPoint, height + offsetY);
-        Paint paint = (gradientHeight == scaledFlexPoint) ?
-            new GradientPaint(0, y - offsetY, startColor, 0, y + gradientHeight - offsetY,
-                endColor) :
+
+        // Three cases:
+        // A: The area is fully within the gradient
+        // B: The area is fully within the flat fill
+        // C: The area is partially within the gradient and partially with the flat fill
+
+        // Case A
+        if ((y + height) <= scaledFlexPoint) {
+            graphics.setPaint(new GradientPaint(0, y - offsetY, startColor,
+                0, y - offsetY + scaledFlexPoint, endColor));
+            graphics.fillRect(x, y, width, height);
+            return;
+        }
+
+        // Case B
+        if (y >= scaledFlexPoint) {
+            graphics.setColor(endColor);
+            graphics.fillRect(x, y, width, height);
+            return;
+        }
+
+        // Case C
+        Paint paint =
             new LinearGradientPaint(
-                0, y - offsetY, 0, y + height - offsetY,
-                new float[] { 0.0f, (float) scaledFlexPoint / (float) gradientHeight, 1.0f },
+                0, y - offsetY, 0, y + height,
+                new float[] { 0.0f, (float) scaledFlexPoint / (float) (height + offsetY), 1.0f },
                 new Color[] { startColor, endColor, endColor },
                 MultipleGradientPaint.CycleMethod.NO_CYCLE);
 
