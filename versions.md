@@ -15,7 +15,7 @@
 | 7.0 | **Karat** | January 20, 2024 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2024/01/20/radiance-7-0-0.html) |
 | 7.5 | **Larimar** | June 24, 2024 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2024/06/25/radiance-7-5-0.html) |
 | 8.0 | **Marble** | May 30, 2025 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2025/06/02/celebrating-20-years-with-radiance-8-0-0.html)  |
-| 8.0 | **Nickel** | December 15, 2025 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2025/12/16/radiance-8-5-0.html)  |
+| 8.5 | **Nickel** | December 15, 2025 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2025/12/16/radiance-8-5-0.html)  |
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
