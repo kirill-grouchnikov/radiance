@@ -812,7 +812,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      * Checks whether this skin is valid. A skin is considered valid if it has a color tokens
      * bundle for {@link RadianceThemingSlices.DecorationAreaType#NONE}, as well as
      * non-<code>null</code> component shaper, surface painter, outline painter, highlight surface
-     * painter and decoration painter. If calling
+     * painter, decoration painter and decorators. If calling
      * {@link RadianceThemingCortex.GlobalScope#setSkin(String)} or
      * {@link RadianceThemingCortex.GlobalScope#setSkin(RadianceSkin)} does not seem to have
      * any visible effect (returning <code>false</code>), call this method to

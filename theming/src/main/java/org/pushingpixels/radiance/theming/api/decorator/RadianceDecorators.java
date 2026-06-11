@@ -29,11 +29,20 @@
  */
 package org.pushingpixels.radiance.theming.api.decorator;
 
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.DefaultRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.decorator.rootpane.RadianceRootPaneDecorator;
 import org.pushingpixels.radiance.theming.api.decorator.tab.DefaultTabDecorator;
 import org.pushingpixels.radiance.theming.api.decorator.tab.RadianceTabDecorator;
 
+/**
+ * Skin-level decorators.
+ *
+ * Use {@link #builder()} and its methods to configure custom decorators, or {@link #buildDefault()}
+ * to get the default decorators.
+ *
+ * @see RadianceSkin#getDecorators()
+ */
 public class RadianceDecorators {
     private RadianceRootPaneDecorator rootPaneDecorator;
 
