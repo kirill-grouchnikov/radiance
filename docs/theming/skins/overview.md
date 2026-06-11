@@ -24,18 +24,20 @@ The core Radiance skins are in the `org.pushingpixels.radiance.theming.api.skin`
 
 The skin definition consists of the following:
 
-* Decoration areas and color tokens bundles:
-  * List of supported [decoration areas](../painters/decoration.md).
-  * [Color tokens bundles](colortokensbundles.md) for the supported decoration areas.
-  * Optional background [color tokens](colortokens.md) for the supported decoration areas.
-* Painters:
-  * [Surface painter](../painters/surface.md).
-  * [Outline painter](../painters/outline.md).
-  * [Highlight painters](../painters/highlight.md).
-  * [Decoration painter](../painters/decoration.md).
-* Miscellaneous:
-  * Component shaper.
-  * [Root pane decorator](../decorators/rootpane.md).
+* Decoration areas and color tokens bundles
+  * List of supported [decoration areas](../painters/decoration.md)
+  * [Color tokens bundles](colortokensbundles.md) for the supported decoration areas
+  * Optional background [color tokens](colortokens.md) for the supported decoration areas
+* Painters
+  * [Surface painter](../painters/surface.md)
+  * [Outline painter](../painters/outline.md)
+  * [Highlight painters](../painters/highlight.md)
+  * [Decoration painter](../painters/decoration.md)
+* Decorators
+  * [Root pane decorator](../decorators/rootpane.md)
+  * [Tab decorator](../decorators/tab.md)
+* Miscellaneous
+  * Component shaper
 
 In order to define a valid skin, you need to specify all its mandatory parameters. A valid skin must have a color tokens bundle for `DecorationAreaType.NONE`, a component shaper, a surface painter, a decoration painter, a highlight surface painter and an outline painter. All other parts are optional.
 

@@ -44,6 +44,11 @@ Radiance provides a powerful and flexible set of APIs that can be used to skin S
 * [Decoration painters](painters/decoration.md)
 * [Custom skinning](painters/custom-skinning.md)
 
+### Decorators
+
+* [Root pane decorators](decorators/rootpane.md)
+* [Tab decorators](decorators/tab.md)
+
 ### Code samples
 
 * [Main Radiance demo](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/theming-demo/src/main/java/org/pushingpixels/radiance/demo/theming/main)

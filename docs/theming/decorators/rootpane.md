@@ -28,5 +28,5 @@ The core Blueprint skin is an example of a custom root pane decorator that paint
 If you wish to use the root pane decorator of the current skin to provide additional custom painting in your application, call:
 
 * `RadianceThemingCortex.GlobalScope.getCurrentSkin()`	to retrieve the current skin.
-* `RadianceSkin.getRootPaneDecorator()` to retrieve the outline painter of the current skin.
+* `RadianceSkin.getDecorators().getRootPaneDecorator()` to retrieve the root pane decorator of the current skin.
 * Call the relevant method(s) on the `RadianceRootPaneDecorator`.
