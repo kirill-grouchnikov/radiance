@@ -60,11 +60,20 @@ Each one of these three parts has multiple color tokens available to render them
   * `inverseOnContainer`
   * `complementaryOnContainer`
   * `accentOnContainer`
+  * `markerOnContainer`
+  * `complementaryMarkerOnContainer`
+* Additional
+  * `containerShadow`
 
-In addition, a container has the following alpha tokens for rendering disabled elements:
+In addition, a container has the following alpha tokens for rendering disabled elements
 * `containerSurfaceDisabledAlpha`
 * `containerOutlineDisabledAlpha`
 * `onContainerDisabledAlpha`
+
+as well as enabled elements
+* `containerSurfaceEnabledAlpha`
+* `containerOutlineEnabledAlpha`
+* `onContainerEnabledAlpha`
 
 Let's take a look at how these are defined:
 
