@@ -12,7 +12,7 @@ jhlabs = "2.0.235"
 ephemeral_chroma = "1.6-SNAPSHOT"
 
 versionchecker = "0.54.0"
-mavenpublish = "0.36.0"
+mavenpublish = "0.37.0"
 
 [libraries]
 
