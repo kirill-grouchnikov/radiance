@@ -45,6 +45,21 @@ Available in the `MagellanSkin` and the `RadianceMagellanLookAndFeel` APIs, can 
 <img alt="Magellan" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/magellan2.png" width="340" height="258">
 </p>
 
+### Blueprint
+
+Available in the `BlueprintSkin` and the `RadianceBlueprintLookAndFeel` APIs, can be used with one of the following options:
+
+* `RadianceThemingCortex.GlobalScope.setSkin(new BlueprintSkin())`
+* `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.BlueprintSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceBlueprintLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceBlueprintLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceBlueprintLookAndFeel");`
+
+<p align="left">
+<img alt="Blueprint" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/blueprint1.png" width="340" height="258">
+<img alt="Blueprint" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/blueprint2.png" width="340" height="258">
+</p>
+
 ### Graphite
 
 Available in the `GraphiteSkin` and the `RadianceGraphiteLookAndFeel` APIs, can be used with one of the following options:
