@@ -85,8 +85,10 @@ public class FakeAccordion extends JPanel {
 
                     JPanel thisPanel = this;
                     if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
-                        // Use surface low to delineate the content
+                        // Use surface low / high to delineate the content
                         RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
+                        RadianceOutlinePainter outlinePainter = skin.getOutlinePainter();
+
                         ContainerColorTokens neutralTokens = skin.getNeutralContainerTokens(this);
                         Color accentedFill = neutralTokens.isDark()
                             ? neutralTokens.getContainerSurfaceHigh()
@@ -106,10 +108,13 @@ public class FakeAccordion extends JPanel {
                             RenderingHints.VALUE_ANTIALIAS_ON);
                         RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.getWidth(), this.getHeight(),
                             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                                int radiusOuter = (int) (scaleFactor * 7);
+                                // Account for outline insets of the current skin's outline painter
+                                float extraInset = outlinePainter.getOutlineInset(RadianceOutlinePainter.InsetKind.SURFACE);
+                                int radiusOuter = (int) (scaleFactor * (5 + extraInset));
 
-                                Shape roundRect = new RoundRectangle2D.Double(0, -radiusOuter,
-                                    scaledWidth, scaledHeight + radiusOuter - 1,
+                                Shape roundRect = new RoundRectangle2D.Float(
+                                    extraInset, -radiusOuter,
+                                    scaledWidth - 2.0f * extraInset, scaledHeight + radiusOuter - 1,
                                     2 * radiusOuter, 2 * radiusOuter);
 
                                 graphics1X.fill(roundRect);
