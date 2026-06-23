@@ -34,20 +34,14 @@ Here is another example of this pattern, this time on a status bar component. As
 
 ### Outline tracing
 
-Components that require consistent painting of borders or outlines can use the outline painter with the matching outline. Here is an example of outline tracing in the `JRibbon` component from the component library:
+Components that require consistent painting of borders or outlines can use the outline painter with the matching outline. Here is an example of outline tracing in the main demo app:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/jribbon.png" width="586" height="202"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/outline-tracing.jpg" width="1313"/>
 
-The UI delegates for the main `JRibbon` components and inner parts use the outline painter extensively to create the required visuals. Note the outer outline of the ribbon that also includes the selected tab button, and the inner outlines of the ribbon tasks.
-
-Here is another example of this pattern, this time on the `JCommandButton` component from the Components library. The custom UI delegate uses the outline painter to paint the button border (a simpler outline in this case):
-
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/jcommandbutton.png" width="586" height="202"/>
+The border set on the demo `FakeAccordionPanel` component configures a `RadianceComponentShaper.ShapeSupplier` that computes a `GeneralPath` with the target visuals (open top edge, rounded bottom corners), and then uses the `RadianceOutlinePainter` from the current skin to paint the outline of each accordion panel.
 
 ### Inner fills
 
-This pattern is used to paint the inner fill of custom components (along with the border tracing pattern to paint the component outline). This pattern uses the surface painter with the matching outline. Here is an example of the `JCommandButton` component from the component library:
+The same `FakeAccordionPanel` from the main demo overrides its `paintComponent` method. There, it gets the `RadianceDecorationPainter.InlayPainter` of the current skin and calls its `paintInlay` method after the flat color fill of the full area.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/jtoggletabbutton.png" width="586" height="202"/>
-
-In this example, the `Style 1` command button has its inner fill painted by the current surface painter.
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/surface-fill.jpg" width="871"/>
