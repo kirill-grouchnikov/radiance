@@ -54,6 +54,8 @@ import java.util.List;
  */
 public class FakeAccordion extends JPanel {
     public static class FakeAccordionPanel extends JPanel {
+        private static final float CORNER_RADIUS = 5.0f;
+
         private JPanel contentWrapper;
 
         private FakeAccordionPanel(String title, Icon icon, JPanel content) {
@@ -110,7 +112,7 @@ public class FakeAccordion extends JPanel {
                             (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                                 // Account for outline insets of the current skin's outline painter
                                 float extraInset = outlinePainter.getOutlineInset(RadianceOutlinePainter.InsetKind.SURFACE);
-                                int radiusOuter = (int) (scaleFactor * (5 + extraInset));
+                                int radiusOuter = (int) (scaleFactor * (CORNER_RADIUS + extraInset));
 
                                 Shape roundRect = new RoundRectangle2D.Float(
                                     extraInset, -radiusOuter,
@@ -180,7 +182,7 @@ public class FakeAccordion extends JPanel {
                                 RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(contentWrapper);
                                 RadianceOutlinePainter outlinePainter = skin.getOutlinePainter();
 
-                                float radiusOuter = (float) scaleFactor * 5.0f;
+                                float radiusOuter = (float) scaleFactor * CORNER_RADIUS;
                                 RadianceComponentShaper.ShapeSupplier outlineShapeSupplier =
                                     (shapeComponent, shapeWidth, shapeHeight, shapeInsets, shapeRadiusAdjustment,shapeScaleFactor) ->
                                         getOutline(0, 0, (int) shapeWidth - 1, (int) shapeHeight - 1,
