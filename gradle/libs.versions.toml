@@ -9,7 +9,7 @@ jgoodies_common = "1.8.1"
 jgoodies_forms = "1.9.0"
 jhlabs = "2.0.235"
 
-ephemeral_chroma = "1.6-SNAPSHOT"
+ephemeral_chroma = "2.0.0"
 
 versionchecker = "0.54.0"
 mavenpublish = "0.37.0"
