@@ -93,7 +93,7 @@ This means that the **RadianceBusinessLookAndFeel** class in not found in the cl
 
 The recommended way to add Radiance to your project is to declare dependency on its Maven artifact:
 
-[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-common/badge.svg?style=plastic&version=8.5.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming) `radiance-theming`
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-common/badge.svg?style=plastic&version=9.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-theming) `radiance-theming`
 
 Alternatively, for a more manual process:
 * Download a local copy of the latest Radiance.

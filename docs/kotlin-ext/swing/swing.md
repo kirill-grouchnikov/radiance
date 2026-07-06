@@ -1,6 +1,6 @@
 ## Kotlin extensions for core Swing APIs
 
-[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-swing-ktx/badge.svg?style=plastic&version=8.5.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-swing-ktx) `radiance-swing-ktx` for build instructions of the latest stable release.
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/org.pushing-pixels/radiance-swing-ktx/badge.svg?style=plastic&version=9.0.0)](https://central.sonatype.com/artifact/org.pushing-pixels/radiance-swing-ktx) `radiance-swing-ktx` for build instructions of the latest stable release.
 
 ### Working with listeners
 
