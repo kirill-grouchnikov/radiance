@@ -62,11 +62,12 @@ public class RadianceTonalColorUtilities {
     }
 
     /**
-     * Returns saturated version of the specified color.
+     * Returns a desaturated version of the specified color.
      *
      * @param color  Color.
-     * @param factor Saturation factor.
-     * @return Saturated color.
+     * @param factor Desaturation factor (values closer to 1.0 will produce results closer to
+     *               fully monochromatic color).
+     * @return Desaturated version of the specified color.
      */
     public static Color getDesaturatedColor(Color color, double factor) {
         Hct hct = Hct.fromInt(color.getRGB());
