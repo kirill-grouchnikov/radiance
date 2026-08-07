@@ -177,7 +177,7 @@ public class MemoryAnalyzer extends TrackableThread {
 		// Need to run on EDT - issue 392
 		try {
 			SwingUtilities.invokeAndWait(() -> {
-				try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File(filename), true))) {
+				try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
 					bw.write(sdf.format(new Date()) + "\n");
 
 					UIDefaults uidefs = UIManager.getLookAndFeel().getDefaults();
@@ -231,7 +231,7 @@ public class MemoryAnalyzer extends TrackableThread {
 		}
 		while (!hasStopRequest()) {
 			// gather statistics and print them to file
-			try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File(this.filename), true))) {
+			try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.filename, true))) {
 				bw.write(sdf.format(new Date()) + "\n");
 				java.util.List<String> stats = LazyResettableHashMap.getStats();
 				if (stats != null) {

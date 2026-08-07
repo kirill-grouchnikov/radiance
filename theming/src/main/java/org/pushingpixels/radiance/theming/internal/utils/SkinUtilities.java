@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.theming.api.inputmap.InputMapSet;
 import org.pushingpixels.radiance.theming.api.inputmap.RadianceInputMapUtilities;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
-import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.border.*;
 import org.pushingpixels.radiance.theming.internal.utils.icon.CheckBoxMenuItemIcon;
 import org.pushingpixels.radiance.theming.internal.utils.icon.MenuArrowIcon;

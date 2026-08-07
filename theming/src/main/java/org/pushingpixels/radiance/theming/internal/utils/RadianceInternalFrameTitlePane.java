@@ -221,14 +221,12 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
 
         JInternalFrame hostFrame = (JInternalFrame) SwingUtilities
                 .getAncestorOfClass(JInternalFrame.class, this);
-        JComponent hostForColorization = hostFrame;
         if (hostFrame == null) {
             // try desktop icon
             JDesktopIcon desktopIcon = (JDesktopIcon) SwingUtilities
                     .getAncestorOfClass(JDesktopIcon.class, this);
             if (desktopIcon != null)
                 hostFrame = desktopIcon.getInternalFrame();
-            hostForColorization = desktopIcon;
         }
 
         BackgroundPaintingUtils.update(graphics, RadianceInternalFrameTitlePane.this, false);
@@ -398,7 +396,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
 
     /**
      * Click correction listener that resets models of minimize and restore buttons on click (so
-     * that the rollover behaviour will be preserved correctly).
+     * that the rollover behavior will be preserved correctly).
      *
      * @author Kirill Grouchnikov.
      */

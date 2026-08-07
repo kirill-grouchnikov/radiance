@@ -46,27 +46,6 @@ import java.util.Set;
  */
 public class RadianceOutlineUtilities {
 	/**
-	 * Returns basic outline for the specified component. The basic outline is a
-	 * rectangle with rounded corners. Some corners may not be rounded based on
-	 * the contents of <code>straightSide</code> parameter.
-	 * 
-	 * @param comp
-	 *            Component.
-	 * @param radius
-	 *            Corner radius.
-	 * @param straightSides
-	 *            Contains all sides which are straight.
-	 * @return The basic outline for the specified parameters.
-	 */
-	public static Shape getBaseOutline(Component comp, float radius,
-			Set<RadianceThemingSlices.Side> straightSides) {
-		int width = comp.getWidth();
-		int height = comp.getHeight();
-
-		return getBaseOutline(comp.getComponentOrientation(), width, height, radius, straightSides);
-	}
-
-	/**
 	 * Returns basic outline for the specified parameters. The basic outline is
 	 * a rectangle with rounded corners. Some corners may not be rounded based
 	 * on the contents of <code>straightSide</code> parameter.
