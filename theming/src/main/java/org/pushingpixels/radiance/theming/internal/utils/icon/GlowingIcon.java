@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.internal.animation.IconGlowTracker;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTonalColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.ScaleAwareImageWrapperIcon;
 
 import javax.swing.*;
@@ -92,9 +92,9 @@ public class GlowingIcon implements Icon {
 					int rgba = image.getRGB(i, j);
 					int transp = (rgba >>> 24) & 0xFF;
 					double coef = Math.sin(2.0 * Math.PI * fadePos / 2.0) / glowDampeningFactor;
-					Color newColor = (coef >= 0.0) ? RadianceColorUtilities
+					Color newColor = (coef >= 0.0) ? RadianceTonalColorUtilities
 							.getLighterColor(new Color(rgba), coef)
-							: RadianceColorUtilities.getDarkerColor(new Color(
+							: RadianceTonalColorUtilities.getDarkerColor(new Color(
 									rgba), -coef);
 					image.setRGB(i, j, (transp << 24)
 							| (newColor.getRed() << 16)

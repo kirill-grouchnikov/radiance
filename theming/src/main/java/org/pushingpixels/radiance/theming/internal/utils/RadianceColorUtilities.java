@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils;
 
-import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
@@ -200,33 +199,6 @@ public class RadianceColorUtilities {
      */
     public static ColorUIResource getForegroundColor(ContainerColorTokens colorTokens) {
         return new ColorUIResource(colorTokens.getOnContainer());
-    }
-
-    /**
-     * Returns lighter version of the specified color.
-     *
-     * @param color Color.
-     * @param diff  Difference factor (values closer to 1.0 will produce results
-     *              closer to white color).
-     * @return Lighter version of the specified color.
-     */
-    public static Color getLighterColor(Color color, double diff) {
-        Hct hct = Hct.fromInt(color.getRGB());
-        return new Color(Hct.from(hct.getHue(), hct.getChroma(),
-            100.0 - (100.0 - hct.getTone()) * (1.0 - diff)).toInt());
-    }
-
-    /**
-     * Returns darker version of the specified color.
-     *
-     * @param color Color.
-     * @param diff  Difference factor (values closer to 1.0 will produce results
-     *              closer to black color).
-     * @return Darker version of the specified color.
-     */
-    public static Color getDarkerColor(Color color, double diff) {
-        Hct hct = Hct.fromInt(color.getRGB());
-        return new Color(Hct.from(hct.getHue(), hct.getChroma(), hct.getTone() * (1.0 - diff)).toInt());
     }
 
     /**

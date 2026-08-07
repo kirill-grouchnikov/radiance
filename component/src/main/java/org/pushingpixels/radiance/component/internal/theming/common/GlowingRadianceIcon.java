@@ -33,8 +33,8 @@ import org.pushingpixels.radiance.common.api.AsynchronousLoading;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.internal.animation.IconGlowTracker;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTonalColorUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -120,8 +120,8 @@ public class GlowingRadianceIcon implements RadianceIcon {
                     int transp = (rgba >>> 24) & 0xFF;
                     double coef = Math.sin(2.0 * Math.PI * fadePos / 2.0) / 3.0;
                     Color newColor = (coef >= 0.0)
-                            ? RadianceColorUtilities.getLighterColor(new Color(rgba), coef)
-                            : RadianceColorUtilities.getDarkerColor(new Color(rgba), -coef);
+                            ? RadianceTonalColorUtilities.getLighterColor(new Color(rgba), coef)
+                            : RadianceTonalColorUtilities.getDarkerColor(new Color(rgba), -coef);
                     offscreen.setRGB(i, j, (transp << 24)
                             | (newColor.getRed() << 16)
                             | (newColor.getGreen() << 8) | newColor.getBlue());
