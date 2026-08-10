@@ -770,7 +770,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(menuButton,
             currAssocKind, currState, CoreColorTokenUtils.ContainerType.MUTED);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            return tokens.getOnContainerVariant();
+            return tokens.getOnContainerLow();
         }
 
         float aggrRed = 0;

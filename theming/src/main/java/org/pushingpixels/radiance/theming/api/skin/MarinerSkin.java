@@ -104,7 +104,7 @@ public class MarinerSkin extends RadianceSkin {
                     /* contrastLevel */ 1.0),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                     TokenPaletteColorResolverOverlay.builder()
-                        .containerOutline(TokenPalette::getContainerOutlineVariant)
+                        .containerOutline(TokenPalette::getContainerOutlineLow)
                         .build())),
             /* isSystemDark */ true);
 

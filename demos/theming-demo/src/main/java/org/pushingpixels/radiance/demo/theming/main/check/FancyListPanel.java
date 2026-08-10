@@ -143,7 +143,7 @@ public class FancyListPanel extends ControllablePanel {
 
         public void setContainerColorTokens(ContainerColorTokens containerColorTokens) {
             this.containerColorTokens = containerColorTokens;
-            this.label.setForeground(containerColorTokens.getOnContainerVariant());
+            this.label.setForeground(containerColorTokens.getOnContainerLow());
             this.repaint();
         }
 
@@ -173,7 +173,7 @@ public class FancyListPanel extends ControllablePanel {
                         scaledHeight - 2.0f, scaledHeight - 2.0f));
 
                     // Outline
-                    graphics1X.setColor(this.containerColorTokens.getContainerOutlineVariant());
+                    graphics1X.setColor(this.containerColorTokens.getContainerOutlineLow());
                     graphics1X.draw(new RoundRectangle2D.Float(0.0f, 0.0f,
                         scaledWidth - 1.0f, scaledHeight - 1.0f,
                         scaledHeight - 2.0f, scaledHeight - 2.0f));

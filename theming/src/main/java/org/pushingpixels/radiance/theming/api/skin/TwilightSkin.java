@@ -87,7 +87,8 @@ public class TwilightSkin extends RadianceSkin {
             TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
                     .containerOutline((p) -> twilightDefaultMutedTokens.getContainerOutline().getRGB())
-                    .containerOutlineVariant((p) -> twilightDefaultMutedTokens.getContainerOutlineVariant().getRGB())
+                    .containerOutlineLow((p) -> twilightDefaultMutedTokens.getContainerOutlineLow().getRGB())
+                    .containerOutlineHigh((p) -> twilightDefaultMutedTokens.getContainerOutlineHigh().getRGB())
                     .containerSurfaceDisabledAlpha((p) -> 0.4f)
                     .onContainerDisabledAlpha((p) -> 0.6f)
                     .containerOutlineDisabledAlpha((p) -> 0.55f)
@@ -113,7 +114,8 @@ public class TwilightSkin extends RadianceSkin {
             defaultPaletteContainerColorResolver.overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
                     .containerOutline(TokenPalette::getOnContainer)
-                    .containerOutlineVariant(TokenPalette::getOnContainerVariant)
+                    .containerOutlineLow(TokenPalette::getContainerOutlineLow)
+                    .containerOutlineHigh(TokenPalette::getContainerOutlineHigh)
                     .build());
 
         ContainerColorTokens twilightSelectedContainerTokens =
@@ -207,7 +209,7 @@ public class TwilightSkin extends RadianceSkin {
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
         RadianceDecorationPainter.OverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-            ContainerColorTokens::getContainerOutlineVariant);
+            ContainerColorTokens::getContainerOutlineLow);
         this.decorationPainter.addOverlayPainter(toolbarBottomLineOverlayPainter,
             RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 

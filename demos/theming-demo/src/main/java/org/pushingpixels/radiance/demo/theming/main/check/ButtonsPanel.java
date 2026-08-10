@@ -387,7 +387,7 @@ public class ButtonsPanel extends JPanel implements SkinDependent {
                         : colorTokens.getContainerSurfaceLowest();
                     Color offBottom = colorTokens.getContainerSurface();
 
-                    Color on = colorTokens.getOnContainerVariant();
+                    Color on = colorTokens.getOnContainerLow();
 
                     for (int row = 0; row < ROWS; row++) {
                         double rowFactor = (double) row / (double) ROWS;

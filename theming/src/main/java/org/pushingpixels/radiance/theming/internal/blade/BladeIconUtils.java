@@ -536,7 +536,7 @@ public class BladeIconUtils {
     public static void drawHexaMarker(Graphics2D g, int value, ContainerColorTokens colorTokens) {
         value %= 16;
         Color offColor = RadianceColorUtilities.getAlphaColor(
-            colorTokens.getOnContainerVariant(), 160);
+            colorTokens.getOnContainerLow(), 160);
         Color onColor = colorTokens.getOnContainer();
 
         boolean bit1 = ((value & 0x1) != 0);

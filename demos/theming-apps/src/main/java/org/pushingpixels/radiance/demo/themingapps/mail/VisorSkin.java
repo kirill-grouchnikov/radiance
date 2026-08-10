@@ -78,7 +78,8 @@ public class VisorSkin extends RadianceSkin {
             TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
                     .containerOutline(TokenPalette::getContainerSurface)
-                    .containerOutlineVariant(TokenPalette::getContainerSurfaceHigh)
+                    .containerOutlineLow(TokenPalette::getContainerSurfaceHigh)
+                    .containerOutlineHigh(TokenPalette::getContainerSurfaceLow)
                     .build()
             );
         ContainerColorTokensBundle visorThreadsBundle = new ContainerColorTokensBundle(
@@ -114,8 +115,9 @@ public class VisorSkin extends RadianceSkin {
         TokenPaletteColorResolver destinationsHighlightsPaletteResolver =
             TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
-                    .containerOutline(TokenPalette::getContainerOutlineVariant)
-                    .containerOutlineVariant(TokenPalette::getContainerOutlineVariant)
+                    .containerOutline(TokenPalette::getContainerOutlineLow)
+                    .containerOutlineLow(TokenPalette::getContainerOutlineLow)
+                    .containerOutlineHigh(TokenPalette::getContainerOutline)
                     .build()
             );
         ContainerColorTokensBundle visorDestinationsBundle = new ContainerColorTokensBundle(

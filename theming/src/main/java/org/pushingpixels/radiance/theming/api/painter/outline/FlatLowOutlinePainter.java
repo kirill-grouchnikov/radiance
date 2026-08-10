@@ -34,18 +34,18 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingle
 
 /**
  * Outline painter that draws visuals with flat appearance using the container outline
- * variant token. This class is part of officially supported API.
+ * low token. This class is part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */
-public class FlatVariantOutlinePainter extends FractionBasedOutlinePainter {
-    public FlatVariantOutlinePainter() {
+public class FlatLowOutlinePainter extends FractionBasedOutlinePainter {
+    public FlatLowOutlinePainter() {
         super(
-            "Flat Variant",
+            "Flat Low",
             new float[]{0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[]{
-                ContainerColorTokens::getContainerOutlineVariant,
-                ContainerColorTokens::getContainerOutlineVariant
+                ContainerColorTokens::getContainerOutlineLow,
+                ContainerColorTokens::getContainerOutlineLow
             }
         );
     }

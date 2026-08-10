@@ -64,9 +64,9 @@ public class DefaultRootPaneDecorator implements RadianceRootPaneDecorator {
         // Bottom edge
         graphics.fillRect(0, height - 1 - insideThickness, width, insideThickness);
 
-        // top and left border as 40% mix of outline variant and outline
+        // top and left border as 40% mix of outline low and outline
         graphics.setColor(RadianceColorUtilities.getInterpolatedColor(
-            colorTokens.getContainerOutlineVariant(),
+            colorTokens.getContainerOutlineLow(),
             colorTokens.getContainerOutline(), 0.4f));
         // Top edge
         graphics.drawLine(0, 0, width, 0);

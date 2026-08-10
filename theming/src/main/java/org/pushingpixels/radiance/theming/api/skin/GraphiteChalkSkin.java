@@ -54,7 +54,8 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 		super(TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 			TokenPaletteColorResolverOverlay.builder()
 				.containerOutline((p) -> p.getComplementaryContainerOutline() & 0xA0FFFFFF)
-				.containerOutlineVariant((p) -> p.getComplementaryContainerOutline() & 0x80FFFFFF)
+				.containerOutlineLow((p) -> p.getComplementaryContainerOutline() & 0x80FFFFFF)
+				.containerOutlineHigh((p) -> p.getComplementaryContainerOutline() & 0xC0FFFFFF)
 				.complementaryContainerOutline(TokenPalette::getContainerOutline)
 				.markerOnContainer((p) -> p.getComplementaryContainerOutline() & 0xA0FFFFFF)
 				.complementaryMarkerOnContainer(TokenPalette::getContainerOutline)

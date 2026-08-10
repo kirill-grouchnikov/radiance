@@ -53,7 +53,7 @@ public class ContainerPalettePreview extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(300, showLegend ? 40: 20);
+        return new Dimension(350, showLegend ? 40: 20);
     }
 
     @Override
@@ -104,9 +104,11 @@ public class ContainerPalettePreview extends JComponent {
         sectionXStart = xOffset;
 
         // On container colors
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getOnContainerLow());
+        xOffset += (squareSize + smallGap);
         paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getOnContainer());
         xOffset += (squareSize + smallGap);
-        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getOnContainerVariant());
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getOnContainerHigh());
 
         sectionXEnd = xOffset + squareSize;
 
@@ -123,9 +125,11 @@ public class ContainerPalettePreview extends JComponent {
         sectionXStart = xOffset;
 
         // Container outline colors
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerOutlineLow());
+        xOffset += (squareSize + smallGap);
         paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerOutline());
         xOffset += (squareSize + smallGap);
-        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerOutlineVariant());
+        paintSquare(g2d, xOffset, squareYOffset, squareSize, colorTokens.getContainerOutlineHigh());
 
         sectionXEnd = xOffset + squareSize;
 

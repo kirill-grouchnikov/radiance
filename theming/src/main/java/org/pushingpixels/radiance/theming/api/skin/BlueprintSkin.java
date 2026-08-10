@@ -297,7 +297,7 @@ public class BlueprintSkin extends RadianceSkin {
 			int startGridY = y + scaledOffsetY % scaledGridSize;
 			int endGridY = (startGridY + height + scaledGridSize);
 
-			g2d.setColor(colorTokens.getContainerOutlineVariant());
+			g2d.setColor(colorTokens.getContainerOutlineLow());
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
 
 			// Vertical lines
@@ -369,7 +369,7 @@ public class BlueprintSkin extends RadianceSkin {
 			int fullGridDashLength = (int) (BORDER_THICKNESS * scaleFactor);
 			int partialGridDashLength = (int) (BORDER_THICKNESS * scaleFactor * 0.7f);
 
-			Color gridColor = RadianceColorUtilities.getAlphaColor(colorTokens.getContainerOutlineVariant(), 51);
+			Color gridColor = RadianceColorUtilities.getAlphaColor(colorTokens.getContainerOutlineLow(), 51);
 
 			// Top and bottom dashes
 			int dashIndex = 1;
@@ -438,8 +438,9 @@ public class BlueprintSkin extends RadianceSkin {
 			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 				TokenPaletteColorResolverOverlay.builder()
 					.containerOutline(TokenPalette::getComplementaryContainerOutline)
-					.containerOutlineVariant((p) -> Blend.harmonize(
+					.containerOutlineLow((p) -> Blend.harmonize(
 						p.getComplementaryContainerOutline(), p.getContainerSurface(), 0.2))
+					.containerOutlineHigh(TokenPalette::getComplementaryContainerOutline)
 					.complementaryContainerOutline((s) -> darkPrimaryBlue.toInt())
 					.containerSurfaceEnabledAlpha((s) -> 0.6f)
 					.containerSurfaceDisabledAlpha((s) -> 0.35f)
@@ -452,11 +453,12 @@ public class BlueprintSkin extends RadianceSkin {
 			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 				TokenPaletteColorResolverOverlay.builder()
 					.containerOutline(TokenPalette::getComplementaryContainerOutline)
-					.containerOutlineVariant((p) -> Blend.harmonize(
+					.containerOutlineLow((p) -> Blend.harmonize(
 						p.getComplementaryContainerOutline(), p.getContainerSurface(), 0.2))
+					.containerOutlineHigh(TokenPalette::getComplementaryContainerOutline)
 					.complementaryContainerOutline(TokenPalette::getContainerOutline)
 					.markerOnContainer((p) -> p.getComplementaryContainerOutline() & 0xC0FFFFFF)
-					.complementaryMarkerOnContainer(TokenPalette::getContainerOutlineVariant)
+					.complementaryMarkerOnContainer(TokenPalette::getContainerOutlineLow)
 					.containerSurfaceEnabledAlpha((s) -> 0.0f)
 					.containerSurfaceDisabledAlpha((s) -> 0.0f)
 					.containerOutlineDisabledAlpha((s) -> 0.55f)
@@ -498,12 +500,12 @@ public class BlueprintSkin extends RadianceSkin {
 
 		this.decorationPainter.addOverlayPainter(
 			new BlueprintDecorationOverlayPainter(
-				ContainerColorTokens::getContainerOutlineVariant, 1.0f,
+				ContainerColorTokens::getContainerOutlineLow, 1.0f,
 				BlueprintDecorationOverlayPainter.Alignment.BOTTOM),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 		this.decorationPainter.addOverlayPainter(
 			new BlueprintDecorationOverlayPainter(
-				ContainerColorTokens::getContainerOutlineVariant, 1.0f,
+				ContainerColorTokens::getContainerOutlineLow, 1.0f,
 				BlueprintDecorationOverlayPainter.Alignment.TOP),
 			RadianceThemingSlices.DecorationAreaType.TOOLBAR,
 			RadianceThemingSlices.DecorationAreaType.FOOTER);

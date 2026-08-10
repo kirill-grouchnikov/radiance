@@ -69,7 +69,8 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         TokenPaletteColorResolver officeBlackPaletteResolver = TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
             TokenPaletteColorResolverOverlay.builder()
                 .containerOutline((p) -> p.getContainerOutline() & 0xA0FFFFFF)
-                .containerOutlineVariant((p) -> p.getContainerOutlineVariant() & 0xA0FFFFFF)
+                .containerOutlineLow((p) -> p.getContainerOutlineLow() & 0xA0FFFFFF)
+                .containerOutlineHigh((p) -> p.getContainerOutlineHigh() & 0xA0FFFFFF)
                 .containerOutlineDisabledAlpha((s) -> 0.75f)
                 .build());
 

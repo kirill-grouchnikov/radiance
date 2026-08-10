@@ -1184,7 +1184,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
 
         ContainerColorTokens tokens = CoreColorTokenUtils.getContainerTokens(this.table,
             ComponentState.ENABLED, CoreColorTokenUtils.ContainerType.NEUTRAL);
-        Color color = tokens.getContainerOutlineVariant();
+        Color color = tokens.getContainerOutlineLow();
         Color shortColor = tokens.getContainerOutline();
 
         Rectangle rect;

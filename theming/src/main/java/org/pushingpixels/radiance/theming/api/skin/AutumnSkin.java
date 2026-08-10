@@ -71,7 +71,7 @@ public class AutumnSkin extends RadianceSkin {
 				TokenPaletteColorResolverOverlay.builder()
 					.containerOutline((p) -> RadianceColorUtilities.getInterpolatedColor(
 						new Color(p.getContainerOutline()),
-						new Color(p.getContainerOutlineVariant()),
+						new Color(p.getContainerOutlineLow()),
 						0.3f).getRGB())
 					.markerOnContainer(TokenPalette::getContainerOutline)
 					.complementaryMarkerOnContainer((p) -> p.getComplementaryMarkerOnContainer() & 0xC0FFFFFF)
@@ -92,7 +92,8 @@ public class AutumnSkin extends RadianceSkin {
 			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 				TokenPaletteColorResolverOverlay.builder()
 					.containerOutline((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
-					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
+					.containerOutlineLow((p) -> autumnDefaultActiveTokens.getContainerOutlineLow().getRGB())
+					.containerOutlineHigh((p) -> autumnDefaultActiveTokens.getContainerOutlineHigh().getRGB())
 					.complementaryContainerOutline((p) -> autumnDefaultActiveTokens.getComplementaryContainerOutline().getRGB())
 					.containerShadow((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.markerOnContainer((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
@@ -112,7 +113,8 @@ public class AutumnSkin extends RadianceSkin {
 			TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 				TokenPaletteColorResolverOverlay.builder()
 					.containerOutline((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
-					.containerOutlineVariant((p) -> autumnDefaultActiveTokens.getContainerOutlineVariant().getRGB())
+					.containerOutlineLow((p) -> autumnDefaultActiveTokens.getContainerOutlineLow().getRGB())
+					.containerOutlineHigh((p) -> autumnDefaultActiveTokens.getContainerOutlineHigh().getRGB())
 					.containerShadow((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 					.complementaryContainerOutline((p) -> autumnDefaultActiveTokens.getComplementaryContainerOutline().getRGB())
 					.markerOnContainer((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
@@ -162,7 +164,7 @@ public class AutumnSkin extends RadianceSkin {
 				/* containerConfiguration */ ContainerConfiguration.defaultLight(),
 				/* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 					TokenPaletteColorResolverOverlay.builder()
-						.onContainer(TokenPalette::getOnContainerVariant)
+						.onContainer(TokenPalette::getOnContainerLow)
 						.markerOnContainer((p) -> autumnDefaultActiveTokens.getContainerOutline().getRGB())
 						.complementaryMarkerOnContainer((p) -> autumnDefaultActiveTokens.getComplementaryContainerOutline().getRGB())
 						.build())),
@@ -209,7 +211,7 @@ public class AutumnSkin extends RadianceSkin {
 			1.0f);
 		this.outlinePainter = InlayOutlinePainter.builder()
             .displayName("Autumn")
-            .outer(ContainerColorTokens::getContainerOutlineVariant)
+            .outer(ContainerColorTokens::getContainerOutlineLow)
             .inner(
 				new float[] {0.0f, 1.0f},
 				new int[] {240, 240},

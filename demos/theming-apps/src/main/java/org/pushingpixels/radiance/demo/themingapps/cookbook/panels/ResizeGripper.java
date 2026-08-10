@@ -57,7 +57,7 @@ public class ResizeGripper extends JComponent {
             (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                 graphics1X.setStroke(new BasicStroke(2.0f));
 
-                Color primary = tokens.getContainerOutlineVariant();
+                Color primary = tokens.getContainerOutlineLow();
                 Color secondary = tokens.getComplementaryContainerOutline();
 
                 int x = scaledWidth - 3;

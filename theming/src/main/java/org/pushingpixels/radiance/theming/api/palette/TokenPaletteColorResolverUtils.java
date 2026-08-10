@@ -78,13 +78,23 @@ public class TokenPaletteColorResolverUtils {
             }
 
             @Override
+            public Color getOnContainerLow(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getOnContainerLow());
+            }
+
+            @Override
             public Color getOnContainer(TokenPalette tokenPalette) {
                 return new Color(tokenPalette.getOnContainer());
             }
 
             @Override
-            public Color getOnContainerVariant(TokenPalette tokenPalette) {
-                return new Color(tokenPalette.getOnContainerVariant());
+            public Color getOnContainerHigh(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getOnContainerHigh());
+            }
+
+            @Override
+            public Color getContainerOutlineLow(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerOutlineLow());
             }
 
             @Override
@@ -93,8 +103,8 @@ public class TokenPaletteColorResolverUtils {
             }
 
             @Override
-            public Color getContainerOutlineVariant(TokenPalette tokenPalette) {
-                return new Color(tokenPalette.getContainerOutlineVariant());
+            public Color getContainerOutlineHigh(TokenPalette tokenPalette) {
+                return new Color(tokenPalette.getContainerOutlineHigh());
             }
 
             @Override
@@ -253,6 +263,16 @@ public class TokenPaletteColorResolverUtils {
             }
 
             @Override
+            public Color getOnContainerLow(TokenPalette tokenPalette) {
+                Function<TokenPalette, Integer> spec = overlay.getOnContainerLow();
+                if (spec == null) {
+                    return original.getOnContainerLow(tokenPalette);
+                } else {
+                    return new Color(spec.apply(tokenPalette), true);
+                }
+            }
+
+            @Override
             public Color getOnContainer(TokenPalette tokenPalette) {
                 Function<TokenPalette, Integer> spec = overlay.getOnContainer();
                 if (spec == null) {
@@ -263,10 +283,20 @@ public class TokenPaletteColorResolverUtils {
             }
 
             @Override
-            public Color getOnContainerVariant(TokenPalette tokenPalette) {
-                Function<TokenPalette, Integer> spec = overlay.getOnContainerVariant();
+            public Color getOnContainerHigh(TokenPalette tokenPalette) {
+                Function<TokenPalette, Integer> spec = overlay.getOnContainerHigh();
                 if (spec == null) {
-                    return original.getOnContainerVariant(tokenPalette);
+                    return original.getOnContainerHigh(tokenPalette);
+                } else {
+                    return new Color(spec.apply(tokenPalette), true);
+                }
+            }
+
+            @Override
+            public Color getContainerOutlineLow(TokenPalette tokenPalette) {
+                Function<TokenPalette, Integer> spec = overlay.getContainerOutlineLow();
+                if (spec == null) {
+                    return original.getContainerOutlineLow(tokenPalette);
                 } else {
                     return new Color(spec.apply(tokenPalette), true);
                 }
@@ -283,10 +313,10 @@ public class TokenPaletteColorResolverUtils {
             }
 
             @Override
-            public Color getContainerOutlineVariant(TokenPalette tokenPalette) {
-                Function<TokenPalette, Integer> spec = overlay.getContainerOutlineVariant();
+            public Color getContainerOutlineHigh(TokenPalette tokenPalette) {
+                Function<TokenPalette, Integer> spec = overlay.getContainerOutlineHigh();
                 if (spec == null) {
-                    return original.getContainerOutlineVariant(tokenPalette);
+                    return original.getContainerOutlineHigh(tokenPalette);
                 } else {
                     return new Color(spec.apply(tokenPalette), true);
                 }

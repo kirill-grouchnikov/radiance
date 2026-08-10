@@ -72,7 +72,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
                     .containerOutline((p) -> p.getOnContainer() & 0x70FFFFFF)
-                    .containerOutlineVariant((p) -> p.getOnContainerVariant() & 0x70FFFFFF)
+                    .containerOutlineLow((p) -> p.getOnContainerLow() & 0x70FFFFFF)
+                    .containerOutlineHigh((p) -> p.getContainerOutlineHigh() & 0x70FFFFFF)
                     .containerOutlineDisabledAlpha((s) -> 0.65f)
                     .build()));
 
@@ -85,7 +86,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
                     .containerOutline((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB() & 0x70FFFFFF)
-                    .containerOutlineVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB() & 0x70FFFFFF)
+                    .containerOutlineLow((p) -> officeBlueDefaultActiveTokens.getOnContainerLow().getRGB() & 0x70FFFFFF)
+                    .containerOutlineHigh((p) -> officeBlueDefaultActiveTokens.getOnContainerHigh().getRGB() & 0x70FFFFFF)
                     .containerOutlineDisabledAlpha((p) -> 0.65f)
                     .build()));
 
@@ -98,7 +100,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
                     .containerOutline((p) -> officeBlueDefaultActiveTokens.getOnContainer().getRGB() & 0x70FFFFFF)
-                    .containerOutlineVariant((p) -> officeBlueDefaultActiveTokens.getOnContainerVariant().getRGB() & 0x70FFFFFF)
+                    .containerOutlineLow((p) -> officeBlueDefaultActiveTokens.getOnContainerLow().getRGB() & 0x70FFFFFF)
+                    .containerOutlineHigh((p) -> officeBlueDefaultActiveTokens.getOnContainerHigh().getRGB() & 0x70FFFFFF)
                     .containerOutlineDisabledAlpha((p) -> 0.65f)
                     .build()));
 
@@ -116,8 +119,9 @@ public class OfficeBlue2007Skin extends RadianceSkin {
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                     TokenPaletteColorResolverOverlay.builder()
-                        .containerOutline(TokenPalette::getContainerOutlineVariant)
-                        .containerOutlineVariant(TokenPalette::getContainerOutlineVariant)
+                        .containerOutline(TokenPalette::getContainerOutlineLow)
+                        .containerOutlineLow(TokenPalette::getContainerOutlineLow)
+                        .containerOutlineHigh(TokenPalette::getContainerOutline)
                         .build()
                 ));
         ContainerColorTokens selectedContainerTokens =
@@ -229,7 +233,8 @@ public class OfficeBlue2007Skin extends RadianceSkin {
             defaultPaletteColorResolver.overlayWith(
                 TokenPaletteColorResolverOverlay.builder()
                     .containerOutline((p) -> officeBlueDefaultNeutralTokens.getContainerOutline().getRGB())
-                    .containerOutlineVariant((p) -> officeBlueDefaultNeutralTokens.getContainerOutlineVariant().getRGB())
+                    .containerOutlineLow((p) -> officeBlueDefaultNeutralTokens.getContainerOutlineLow().getRGB())
+                    .containerOutlineHigh((p) -> officeBlueDefaultNeutralTokens.getContainerOutlineHigh().getRGB())
                     .build());
 
         this.registerAsDecorationArea(

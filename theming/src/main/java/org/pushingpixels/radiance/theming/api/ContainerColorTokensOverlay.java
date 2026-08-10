@@ -126,14 +126,24 @@ public class ContainerColorTokensOverlay {
                     }
 
                     @Override
+                    public Color getOnContainerLow() {
+                        return RadianceColorUtilities.getAlphaColor(
+                            containerTokens.getAccentOnContainer(), 240);
+                    }
+
+                    @Override
                     public Color getOnContainer() {
                         return containerTokens.getAccentOnContainer();
                     }
 
                     @Override
-                    public Color getOnContainerVariant() {
-                        return RadianceColorUtilities.getAlphaColor(
-                            containerTokens.getAccentOnContainer(), 240);
+                    public Color getOnContainerHigh() {
+                        return containerTokens.getAccentOnContainer();
+                    }
+
+                    @Override
+                    public Color getContainerOutlineLow() {
+                        return containerTokens.getContainerOutlineLow();
                     }
 
                     @Override
@@ -142,8 +152,8 @@ public class ContainerColorTokensOverlay {
                     }
 
                     @Override
-                    public Color getContainerOutlineVariant() {
-                        return containerTokens.getContainerOutlineVariant();
+                    public Color getContainerOutlineHigh() {
+                        return containerTokens.getContainerOutlineHigh();
                     }
 
                     @Override
@@ -336,14 +346,24 @@ public class ContainerColorTokensOverlay {
                     }
 
                     @Override
+                    public Color getOnContainerLow() {
+                        return RadianceColorUtilities.getAlphaColor(
+                            systemContainerTokens.getAccentOnContainer(), 240);
+                    }
+
+                    @Override
                     public Color getOnContainer() {
                         return systemContainerTokens.getAccentOnContainer();
                     }
 
                     @Override
-                    public Color getOnContainerVariant() {
-                        return RadianceColorUtilities.getAlphaColor(
-                            systemContainerTokens.getAccentOnContainer(), 240);
+                    public Color getOnContainerHigh() {
+                        return systemContainerTokens.getAccentOnContainer();
+                    }
+
+                    @Override
+                    public Color getContainerOutlineLow() {
+                        return systemContainerTokens.getContainerOutlineLow();
                     }
 
                     @Override
@@ -352,8 +372,8 @@ public class ContainerColorTokensOverlay {
                     }
 
                     @Override
-                    public Color getContainerOutlineVariant() {
-                        return systemContainerTokens.getContainerOutlineVariant();
+                    public Color getContainerOutlineHigh() {
+                        return systemContainerTokens.getContainerOutlineHigh();
                     }
 
                     @Override

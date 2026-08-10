@@ -54,7 +54,7 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
         new ContainerColorTokensSingleColorQuery[] {
             ContainerColorTokens::getContainerOutline,
             ContainerColorTokens::getContainerOutline,
-            ContainerColorTokens::getContainerOutlineVariant};
+            ContainerColorTokens::getContainerOutlineLow};
     private static ContainerColorTokensSingleColorQuery[] outerVerticalColorQueriesSimplified =
         new ContainerColorTokensSingleColorQuery[] {
             ContainerColorTokens::getContainerOutline,
@@ -65,7 +65,7 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
     private static ContainerColorTokensSingleColorQuery innerHorizontalLightQuery =
         ContainerColorTokensSingleColorQuery.blend(
             ContainerColorTokens::getContainerSurface,
-            ContainerColorTokens::getContainerOutlineVariant,
+            ContainerColorTokens::getContainerOutlineLow,
             0.4f);
     private static ContainerColorTokensSingleColorQuery innerHorizontalDarkQuery =
         ContainerColorTokensSingleColorQuery.blend(
@@ -75,7 +75,7 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
     private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueries =
         new ContainerColorTokensSingleColorQuery[] {
             (colorTokens) -> colorTokens.isDark()
-                ? colorTokens.getContainerOutlineVariant()
+                ? colorTokens.getContainerOutlineLow()
                 : innerHorizontalLightQuery.query(colorTokens),
             (colorTokens) -> colorTokens.isDark()
                 ? innerHorizontalDarkQuery.query(colorTokens)
@@ -84,7 +84,7 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
                 ? innerHorizontalDarkQuery.query(colorTokens)
                 : colorTokens.getComplementaryContainerOutline(),
             (colorTokens) -> colorTokens.isDark()
-                ? colorTokens.getContainerOutlineVariant()
+                ? colorTokens.getContainerOutlineLow()
                 : innerHorizontalLightQuery.query(colorTokens)};
     private static ContainerColorTokensSingleColorQuery[] innerHorizontalColorQueriesSimplified =
         new ContainerColorTokensSingleColorQuery[] {

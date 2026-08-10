@@ -317,10 +317,12 @@ public class CoreColorTokenUtils {
         // Leave shadow, on container and container outline tokens as they are
         Color containerShadow = original.getContainerShadow();
 
+        Color onContainerLow = original.getOnContainerLow();
         Color onContainer = original.getOnContainer();
-        Color onContainerVariant = original.getOnContainerVariant();
+        Color onContainerHigh = original.getOnContainerHigh();
+        Color containerOutlineLow = original.getContainerOutlineLow();
         Color containerOutline = original.getContainerOutline();
-        Color containerOutlineVariant = original.getContainerOutlineVariant();
+        Color containerOutlineHigh = original.getContainerOutlineHigh();
 
         Color inverseOnContainer = original.getInverseOnContainer();
         Color inverseContainerOutline = original.getInverseContainerOutline();
@@ -377,13 +379,23 @@ public class CoreColorTokenUtils {
             }
 
             @Override
+            public Color getOnContainerLow() {
+                return onContainerLow;
+            }
+
+            @Override
             public Color getOnContainer() {
                 return onContainer;
             }
 
             @Override
-            public Color getOnContainerVariant() {
-                return onContainerVariant;
+            public Color getOnContainerHigh() {
+                return onContainerHigh;
+            }
+
+            @Override
+            public Color getContainerOutlineLow() {
+                return containerOutlineLow;
             }
 
             @Override
@@ -392,8 +404,8 @@ public class CoreColorTokenUtils {
             }
 
             @Override
-            public Color getContainerOutlineVariant() {
-                return containerOutlineVariant;
+            public Color getContainerOutlineHigh() {
+                return containerOutlineHigh;
             }
 
             @Override
@@ -557,22 +569,33 @@ public class CoreColorTokenUtils {
             : new Color(Blend.harmonizeAll(original.getContainerSurfaceBright().getRGB(),
             backgroundShiftColor.getRGB(), backgroundShiftFactor));
         Color containerShadow = original.getContainerShadow();
+
+        Color onContainerLow = (foregroundShiftColor == null)
+            ? original.getOnContainerLow()
+            : new Color(Blend.harmonizeAll(original.getOnContainerLow().getRGB(),
+            foregroundShiftColor.getRGB(), foregroundShiftFactor));
         Color onContainer = (foregroundShiftColor == null)
             ? original.getOnContainer()
             : new Color(Blend.harmonizeAll(original.getOnContainer().getRGB(),
             foregroundShiftColor.getRGB(), foregroundShiftFactor));
-        Color onContainerVariant = (foregroundShiftColor == null)
-            ? original.getOnContainerVariant()
-            : new Color(Blend.harmonizeAll(original.getOnContainerVariant().getRGB(),
+        Color onContainerHigh = (foregroundShiftColor == null)
+            ? original.getOnContainerHigh()
+            : new Color(Blend.harmonizeAll(original.getOnContainerHigh().getRGB(),
             foregroundShiftColor.getRGB(), foregroundShiftFactor));
+
+        Color containerOutlineLow = (backgroundShiftColor == null)
+            ? original.getContainerOutlineLow()
+            : new Color(Blend.harmonizeAll(original.getContainerOutlineLow().getRGB(),
+            backgroundShiftColor.getRGB(), backgroundShiftFactor));
         Color containerOutline = (backgroundShiftColor == null)
             ? original.getContainerOutline()
             : new Color(Blend.harmonizeAll(original.getContainerOutline().getRGB(),
             backgroundShiftColor.getRGB(), backgroundShiftFactor));
-        Color containerOutlineVariant = (backgroundShiftColor == null)
-            ? original.getContainerOutlineVariant()
-            : new Color(Blend.harmonizeAll(original.getContainerOutlineVariant().getRGB(),
+        Color containerOutlineHigh = (backgroundShiftColor == null)
+            ? original.getContainerOutlineHigh()
+            : new Color(Blend.harmonizeAll(original.getContainerOutlineHigh().getRGB(),
             backgroundShiftColor.getRGB(), backgroundShiftFactor));
+
         Color inverseContainerSurface = (backgroundShiftColor == null)
             ? original.getInverseContainerSurface()
             : new Color(Blend.harmonizeAll(original.getInverseContainerSurface().getRGB(),
@@ -653,13 +676,23 @@ public class CoreColorTokenUtils {
             }
 
             @Override
+            public Color getOnContainerLow() {
+                return onContainerLow;
+            }
+
+            @Override
             public Color getOnContainer() {
                 return onContainer;
             }
 
             @Override
-            public Color getOnContainerVariant() {
-                return onContainerVariant;
+            public Color getOnContainerHigh() {
+                return onContainerHigh;
+            }
+
+            @Override
+            public Color getContainerOutlineLow() {
+                return containerOutlineLow;
             }
 
             @Override
@@ -668,8 +701,8 @@ public class CoreColorTokenUtils {
             }
 
             @Override
-            public Color getContainerOutlineVariant() {
-                return containerOutlineVariant;
+            public Color getContainerOutlineHigh() {
+                return containerOutlineHigh;
             }
 
             @Override

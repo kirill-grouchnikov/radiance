@@ -122,13 +122,17 @@ public class ContainerTokensFilter extends RadianceAbstractFilter {
         tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(containerBright.getRGB()), containerBright);
 
         if (filterRange == FilterRange.FULL_SPAN) {
-            Color containerOutlineVariant = getColor(colorTokens.getContainerOutlineVariant(),
+            Color containerOutlineLow = getColor(colorTokens.getContainerOutlineLow(),
                 colorTokens.getContainerOutlineEnabledAlpha(), container);
             Color containerOutline = getColor(colorTokens.getContainerOutline(),
                 colorTokens.getContainerOutlineEnabledAlpha(), container);
-            Color onContainerVariant = getColor(colorTokens.getOnContainerVariant(),
+            Color containerOutlineHigh = getColor(colorTokens.getContainerOutlineHigh(),
+                colorTokens.getContainerOutlineEnabledAlpha(), container);
+            Color onContainerLow = getColor(colorTokens.getOnContainerLow(),
                 colorTokens.getOnContainerEnabledAlpha(), container);
             Color onContainer = getColor(colorTokens.getOnContainer(),
+                colorTokens.getOnContainerEnabledAlpha(), container);
+            Color onContainerHigh = getColor(colorTokens.getOnContainerHigh(),
                 colorTokens.getOnContainerEnabledAlpha(), container);
             Color inverseContainerSurface = colorTokens.getInverseContainerSurface();
             Color inverseOnContainer = getColor(colorTokens.getInverseOnContainer(),
@@ -140,10 +144,12 @@ public class ContainerTokensFilter extends RadianceAbstractFilter {
             Color complementaryContainerOutline = getColor(colorTokens.getComplementaryContainerOutline(),
                 colorTokens.getContainerOutlineEnabledAlpha(), container);
 
-            tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(containerOutlineVariant.getRGB()), containerOutlineVariant);
+            tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(containerOutlineLow.getRGB()), containerOutlineLow);
             tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(containerOutline.getRGB()), containerOutline);
-            tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(onContainerVariant.getRGB()), onContainerVariant);
+            tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(containerOutlineHigh.getRGB()), containerOutlineHigh);
+            tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(onContainerLow.getRGB()), onContainerLow);
             tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(onContainer.getRGB()), onContainer);
+            tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(onContainerHigh.getRGB()), onContainerHigh);
             tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(inverseContainerSurface.getRGB()), inverseContainerSurface);
             tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(inverseOnContainer.getRGB()), inverseOnContainer);
             tokenColorMapping.put(RadianceColorUtilities.getColorBrightness(inverseContainerOutline.getRGB()), inverseContainerOutline);

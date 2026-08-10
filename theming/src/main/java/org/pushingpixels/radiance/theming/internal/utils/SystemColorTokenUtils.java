@@ -102,6 +102,13 @@ public class SystemColorTokenUtils {
             }
 
             @Override
+            public Color getOnContainerLow() {
+                return containerConfiguration.isDark()
+                    ? getColor(new ContrastCurve(70.0, 80.0, 85.0, 90.0))
+                    : getColor(new ContrastCurve(45.0, 40.0, 30.0, 20.0));
+            }
+
+            @Override
             public Color getOnContainer() {
                 return containerConfiguration.isDark()
                     ? getColor(new ContrastCurve(80.0, 90.0, 95.0, 100.0))
@@ -109,10 +116,17 @@ public class SystemColorTokenUtils {
             }
 
             @Override
-            public Color getOnContainerVariant() {
+            public Color getOnContainerHigh() {
                 return containerConfiguration.isDark()
-                    ? getColor(new ContrastCurve(70.0, 80.0, 85.0, 90.0))
-                    : getColor(new ContrastCurve(45.0, 40.0, 30.0, 20.0));
+                    ? getColor(new ContrastCurve(85.0, 92.0, 97.0, 100.0))
+                    : getColor(new ContrastCurve(35.0, 25.0, 15.0, 5.0));
+            }
+
+            @Override
+            public Color getContainerOutlineLow() {
+                return containerConfiguration.isDark()
+                    ? getColor(new ContrastCurve(35.0, 30.0, 20.0, 10.0))
+                    : getColor(new ContrastCurve(85.0, 80.0, 70.0, 50.0));
             }
 
             @Override
@@ -123,10 +137,10 @@ public class SystemColorTokenUtils {
             }
 
             @Override
-            public Color getContainerOutlineVariant() {
+            public Color getContainerOutlineHigh() {
                 return containerConfiguration.isDark()
-                    ? getColor(new ContrastCurve(35.0, 30.0, 20.0, 10.0))
-                    : getColor(new ContrastCurve(85.0, 80.0, 70.0, 50.0));
+                    ? getColor(new ContrastCurve(10.0, 5.0, 2.0, 0.0))
+                    : getColor(new ContrastCurve(40.0, 35.0, 30.0, 20.0));
             }
 
             @Override

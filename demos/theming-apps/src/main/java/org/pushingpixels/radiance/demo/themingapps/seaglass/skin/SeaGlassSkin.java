@@ -119,7 +119,7 @@ public class SeaGlassSkin extends RadianceSkin {
 			new float[] {0.0f, 1.0f},
 			new ContainerColorTokensSingleColorQuery[] {
 				ContainerColorTokensSingleColorQuery.blend(
-					ContainerColorTokens::getContainerOutlineVariant,
+					ContainerColorTokens::getContainerOutlineLow,
 					ContainerColorTokens::getContainerOutline,
 					0.5f),
 				ContainerColorTokens::getContainerOutline

@@ -107,7 +107,7 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
             g2d.fillRoundRect(strokeThickness, strokeThickness,
                 width - 2 * strokeThickness + 1, height - 2 * strokeThickness + 1, arc, arc);
 
-            g2d.setColor(containerTokens.getContainerOutlineVariant());
+            g2d.setColor(containerTokens.getContainerOutlineLow());
             g2d.setStroke(new BasicStroke(strokeThickness));
             g2d.drawRoundRect(1, 1, width - 2, height - 2, arc, arc);
 
@@ -137,13 +137,13 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         textPrimaryLabel.setFont(controlFont.deriveFont(controlFont.getSize2D() + 2f));
 
         JLabel textSecondaryLabel = new JLabel(textSecondary);
-        textSecondaryLabel.setForeground(containerTokens.getOnContainerVariant());
+        textSecondaryLabel.setForeground(containerTokens.getOnContainerLow());
         textSecondaryLabel.setFont(controlFont.deriveFont(controlFont.getSize2D() + 1f));
 
         iconPrimary.setColorFilter(color -> systemTokens.getAccentOnContainer());
 
         RadianceIcon iconSecondary = close_16dp.of(12, 12);
-        iconSecondary.setColorFilter(color -> containerTokens.getOnContainerVariant());
+        iconSecondary.setColorFilter(color -> containerTokens.getOnContainerLow());
 
         JPanel neutral = new SamplePanel(textPrimaryLabel, textSecondaryLabel, iconPrimary,
             iconSecondary, containerTokens);
@@ -163,7 +163,7 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         textPrimaryLabel.setFont(controlFont.deriveFont(controlFont.getSize2D() + 2f));
 
         JLabel textSecondaryLabel = new JLabel(textSecondary);
-        textSecondaryLabel.setForeground(systemTokens.getOnContainerVariant());
+        textSecondaryLabel.setForeground(systemTokens.getOnContainerLow());
         textSecondaryLabel.setFont(controlFont.deriveFont(controlFont.getSize2D() + 1f));
 
         iconPrimary.setColorFilter(color -> systemTokens.getOnContainer());
@@ -189,7 +189,7 @@ public class SystemTokensPanel extends JPanel implements Deferrable, SkinDepende
         textPrimaryLabel.setFont(controlFont.deriveFont(controlFont.getSize2D() + 2f));
 
         JLabel textSecondaryLabel = new JLabel(textSecondary);
-        textSecondaryLabel.setForeground(systemTokens.getOnContainerVariant());
+        textSecondaryLabel.setForeground(systemTokens.getOnContainerLow());
         textSecondaryLabel.setFont(controlFont.deriveFont(controlFont.getSize2D() + 1f));
 
         iconPrimary.setColorFilter(color -> systemTokens.getOnContainer());

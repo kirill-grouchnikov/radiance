@@ -374,7 +374,7 @@ public class RadianceColorUtilities {
                     if (modificationTimeline.getState() != Timeline.TimelineState.IDLE) {
                         BladeUtils.populateModificationAwareColorTokens(mutableContainerTokens,
                             button, modificationTimeline.getTimelinePosition());
-                        return mutableContainerTokens.getOnContainerVariant();
+                        return mutableContainerTokens.getOnContainerLow();
                     }
                 }
             }
@@ -383,7 +383,7 @@ public class RadianceColorUtilities {
         ContainerColorTokens colorTokens =
             CoreColorTokenUtils.getContainerTokens(component, currState, inactiveContainerType);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-            return colorTokens.getOnContainerVariant();
+            return colorTokens.getOnContainerLow();
         }
 
         float aggrRed = 0;
@@ -397,7 +397,7 @@ public class RadianceColorUtilities {
             ContainerColorTokens activeColorTokens =
                 CoreColorTokenUtils.getContainerTokens(component, activeState,
                     inactiveContainerType);
-            Color activeForeground = activeColorTokens.getOnContainerVariant();
+            Color activeForeground = activeColorTokens.getOnContainerLow();
             aggrRed += alpha * activeForeground.getRed();
             aggrGreen += alpha * activeForeground.getGreen();
             aggrBlue += alpha * activeForeground.getBlue();

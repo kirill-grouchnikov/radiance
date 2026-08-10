@@ -58,7 +58,7 @@ public class ThreadPanel extends JPanel {
             onContainer.getGreen(), onContainer.getBlue(), 204);
         Color backgroundColor = neutralColorTokens.getContainerSurface();
         Color innerBackgroundColor = neutralColorTokens.getContainerSurfaceHighest();
-        Color innerBorderColor = neutralColorTokens.getContainerOutlineVariant();
+        Color innerBorderColor = neutralColorTokens.getContainerOutlineLow();
 
         ContainerColorTokens activeColorTokens = currentSkin.getActiveContainerTokens(this);
         Color accentedColor = activeColorTokens.getAccentOnContainer();

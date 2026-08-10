@@ -49,11 +49,13 @@ public interface ContainerColorTokens {
 
     Color getContainerShadow();
 
+    Color getOnContainerLow();
     Color getOnContainer();
-    Color getOnContainerVariant();
+    Color getOnContainerHigh();
 
+    Color getContainerOutlineLow();
     Color getContainerOutline();
-    Color getContainerOutlineVariant();
+    Color getContainerOutlineHigh();
 
     float getContainerSurfaceEnabledAlpha();
     float getOnContainerEnabledAlpha();

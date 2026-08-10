@@ -165,8 +165,8 @@ public class HarvestSkin extends RadianceSkin {
         this.outlinePainter = new FractionBasedOutlinePainter("Harvest",
             new float[] {0.0f, 1.0f},
             new ContainerColorTokensSingleColorQuery[] {
-                ContainerColorTokens::getContainerOutlineVariant,
-                ContainerColorTokens::getContainerOutlineVariant});
+                ContainerColorTokens::getContainerOutlineLow,
+                ContainerColorTokens::getContainerOutlineLow});
 
         this.highlightOutlinePainter = new FlatOutlinePainter();
 

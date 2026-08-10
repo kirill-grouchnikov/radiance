@@ -100,13 +100,23 @@ public class ContainerColorTokensUtils {
             }
 
             @Override
+            public Color getOnContainerLow() {
+                return colorResolver.getOnContainerLow(dynamicPalette);
+            }
+
+            @Override
             public Color getOnContainer() {
                 return colorResolver.getOnContainer(dynamicPalette);
             }
 
             @Override
-            public Color getOnContainerVariant() {
-                return colorResolver.getOnContainerVariant(dynamicPalette);
+            public Color getOnContainerHigh() {
+                return colorResolver.getOnContainerHigh(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerOutlineLow() {
+                return colorResolver.getContainerOutlineLow(dynamicPalette);
             }
 
             @Override
@@ -115,8 +125,8 @@ public class ContainerColorTokensUtils {
             }
 
             @Override
-            public Color getContainerOutlineVariant() {
-                return colorResolver.getContainerOutlineVariant(dynamicPalette);
+            public Color getContainerOutlineHigh() {
+                return colorResolver.getContainerOutlineHigh(dynamicPalette);
             }
 
             @Override
@@ -253,13 +263,23 @@ public class ContainerColorTokensUtils {
             }
 
             @Override
+            public Color getOnContainerLow() {
+                return colorResolver.getOnContainerLow(dynamicPalette);
+            }
+
+            @Override
             public Color getOnContainer() {
                 return colorResolver.getOnContainer(dynamicPalette);
             }
 
             @Override
-            public Color getOnContainerVariant() {
-                return colorResolver.getOnContainerVariant(dynamicPalette);
+            public Color getOnContainerHigh() {
+                return colorResolver.getOnContainerHigh(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerOutlineLow() {
+                return colorResolver.getContainerOutlineLow(dynamicPalette);
             }
 
             @Override
@@ -268,8 +288,8 @@ public class ContainerColorTokensUtils {
             }
 
             @Override
-            public Color getContainerOutlineVariant() {
-                return colorResolver.getContainerOutlineVariant(dynamicPalette);
+            public Color getContainerOutlineHigh() {
+                return colorResolver.getContainerOutlineHigh(dynamicPalette);
             }
 
             @Override
@@ -402,13 +422,23 @@ public class ContainerColorTokensUtils {
             }
 
             @Override
+            public Color getOnContainerLow() {
+                return colorResolver.getOnContainerLow(dynamicPalette);
+            }
+
+            @Override
             public Color getOnContainer() {
                 return colorResolver.getOnContainer(dynamicPalette);
             }
 
             @Override
-            public Color getOnContainerVariant() {
-                return colorResolver.getOnContainerVariant(dynamicPalette);
+            public Color getOnContainerHigh() {
+                return colorResolver.getOnContainerHigh(dynamicPalette);
+            }
+
+            @Override
+            public Color getContainerOutlineLow() {
+                return colorResolver.getContainerOutlineLow(dynamicPalette);
             }
 
             @Override
@@ -417,8 +447,8 @@ public class ContainerColorTokensUtils {
             }
 
             @Override
-            public Color getContainerOutlineVariant() {
-                return colorResolver.getContainerOutlineVariant(dynamicPalette);
+            public Color getContainerOutlineHigh() {
+                return colorResolver.getContainerOutlineHigh(dynamicPalette);
             }
 
             @Override

@@ -121,7 +121,7 @@ public class CookbookSkin extends RadianceSkin {
                 new float[] {0.0f, 0.5f, 1.0f},
                 new ContainerColorTokensSingleColorQuery[] {
                     ContainerColorTokensSingleColorQuery.blend(
-                        ContainerColorTokens::getContainerOutlineVariant,
+                        ContainerColorTokens::getContainerOutlineLow,
                         ContainerColorTokens::getContainerOutline,
                         0.8f),
                     ContainerColorTokens::getContainerOutline,

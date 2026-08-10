@@ -90,7 +90,7 @@ public class ContainerPreview extends JPanel {
                 g2d.drawString(text, (width - textVariantWidth) / 2, textY);
                 textY += lineHeight;
 
-                g2d.setColor(colorTokens.getOnContainerVariant());
+                g2d.setColor(colorTokens.getOnContainerLow());
                 g2d.drawString(textVariant, (width - textVariantWidth) / 2, textY);
 
                 g2d.dispose();

@@ -82,8 +82,9 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                     /* contrastLevel */ 0.6),
                 /* colorResolver */ TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
                     TokenPaletteColorResolverOverlay.builder()
-                        .containerOutline(TokenPalette::getContainerOutlineVariant)
-                        .containerOutlineVariant(TokenPalette::getContainerOutlineVariant)
+                        .containerOutline(TokenPalette::getContainerOutlineLow)
+                        .containerOutlineLow(TokenPalette::getContainerOutlineLow)
+                        .containerOutlineHigh(TokenPalette::getContainerOutline)
                         .build()
                 ));
         ContainerColorTokens selectedContainerTokens =

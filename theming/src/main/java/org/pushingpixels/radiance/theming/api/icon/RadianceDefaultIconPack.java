@@ -168,7 +168,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     public RadianceIcon getInspectIcon(int preferredSize, ContainerColorTokens preferredIconColorTokens) {
         RadianceIcon result = mode_standby_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color ->
-            preferredIconColorTokens.getOnContainerVariant());
+            preferredIconColorTokens.getOnContainerLow());
         return result;
     }
 
