@@ -27,9 +27,10 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.demo.theming.main.palette;
+package org.pushingpixels.radiance.demo.theming.main.palette.component;
 
-import org.pushingpixels.ephemeral.chroma.palettes.BaseTonalPalette;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPalette;
+import org.pushingpixels.ephemeral.chroma.dynamiccolor.DynamicBimodalPaletteColor;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
@@ -37,15 +38,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class TonalPaletteRangePreview extends JComponent {
-    private BaseTonalPalette tonalPalette;
+public class BimodalPaletteRangePreview extends JComponent {
+    private DynamicBimodalPalette bimodalPalette;
     private int startTone;
     private int endTone;
     private int toneJump;
 
-    public TonalPaletteRangePreview(BaseTonalPalette tonalPalette,
+    public BimodalPaletteRangePreview(DynamicBimodalPalette bimodalPalette,
         int startTone, int endTone, int toneJump) {
-        this.tonalPalette = tonalPalette;
+        this.bimodalPalette = bimodalPalette;
         this.startTone = startTone;
         this.endTone = endTone;
         this.toneJump = toneJump;
@@ -64,12 +65,19 @@ public class TonalPaletteRangePreview extends JComponent {
         int xOffset = 10;
 
         for (int tone = this.startTone; tone <= this.endTone; tone += this.toneJump) {
-            int toneRgb = this.tonalPalette.tone(tone);
+            final int finalTone = tone;
+            DynamicBimodalPaletteColor dynamicColor = new DynamicBimodalPaletteColor(
+                /* name= */ "",
+                /* tone= */ (p) -> (double) finalTone,
+                /* isBackground= */ true,
+                /* isInverse= */ false,
+                /* background= */ null,
+                /* contrastCurve= */ null);
+            int toneRgb = this.bimodalPalette.getArgb(dynamicColor);
             Color toneColor = new Color(toneRgb);
             paintSquare(g2d, xOffset, 20, 20, toneColor);
             g2d.setColor(RadianceThemingCortex.ComponentScope.getCurrentSkin(this)
-                .getNeutralContainerTokens(this)
-                .getOnContainer());
+                .getNeutralContainerTokens(this).getOnContainer());
             String toneLabel = "" + tone;
             int toneLabelWidth = fm.stringWidth(toneLabel);
             g2d.drawString(toneLabel, xOffset + (20 - toneLabelWidth) / 2, 15);

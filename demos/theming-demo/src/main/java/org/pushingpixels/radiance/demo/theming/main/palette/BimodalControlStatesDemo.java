@@ -52,8 +52,8 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 import javax.swing.*;
 import java.awt.*;
 
-public class BimodalControlStates extends JFrame {
-    public BimodalControlStates() {
+public class BimodalControlStatesDemo extends JFrame {
+    public BimodalControlStatesDemo() {
         super("Control states");
 
         this.setLayout(new FlowLayout());
@@ -142,7 +142,7 @@ public class BimodalControlStates extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setFocusKind(RadianceThemingSlices.FocusKind.NONE);
             RadianceThemingCortex.GlobalScope.setSkin(tonalSkin);
-            new BimodalControlStates().setVisible(true);
+            new BimodalControlStatesDemo().setVisible(true);
         });
     }
 
