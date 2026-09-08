@@ -35,6 +35,8 @@ dependencies {
     implementation libs.kotlin.coroutines.core
     implementation libs.kotlin.coroutines.swing
     implementation libs.batik
+    implementation libs.jgoodies.common
+    implementation libs.jgoodies.forms
     implementation project(':common')
     implementation project(':theming')
     implementation project(':component')
@@ -42,8 +44,6 @@ dependencies {
     implementation project(':kotlin-ext:theming-ktx')
     implementation project(':kotlin-ext:component-ktx')
     implementation project(':demos:component-demo')
-    implementation libs.jgoodies.common
-    implementation libs.jgoodies.forms
 }
 
 configurations.implementation {
