@@ -38,7 +38,7 @@ For example, to run Screenshot to create screenshots for all Radiance core skins
 
 `EPHEMERAL_VERSION=2.5-SNAPSHOT`
 
-`KOTLIN_VERSION=2.4.0`
+`KOTLIN_VERSION=2.4.20`
 
 `KOTLIN_COROUTINES_VERSION=1.11.0`
 
