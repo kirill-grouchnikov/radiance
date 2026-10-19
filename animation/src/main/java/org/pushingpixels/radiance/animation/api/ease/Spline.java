@@ -66,15 +66,8 @@ public class Spline implements TimelineEase {
      * @param y1 Y coordinate of the first control point
      * @param x2 X coordinate of the second control point
      * @param y2 Y coordinate of the second control point
-     * @throws IllegalArgumentException This exception is thrown when values beyond the allowed [0,1]
-     *                                  range are passed in
      */
     public Spline(float x1, float y1, float x2, float y2) {
-        if (x1 < 0 || x1 > 1.0f || y1 < 0 || y1 > 1.0f || x2 < 0 || x2 > 1.0f || y2 < 0
-                || y2 > 1.0f) {
-            throw new IllegalArgumentException("Control points must be in " + "the range [0, 1]:");
-        }
-
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;

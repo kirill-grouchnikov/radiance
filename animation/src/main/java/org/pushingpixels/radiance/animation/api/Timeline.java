@@ -82,6 +82,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
     private RepeatBehavior repeatBehavior;
 
+    private boolean allowsOvershoot;
+
     private boolean mainObjectIsUiComponent;
 
     Chain callbackChain;
@@ -592,6 +594,10 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         return this.repeatBehavior;
     }
 
+    public boolean allowsOvershoot() {
+        return this.allowsOvershoot;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -616,6 +622,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         protected long cycleDelay;
         protected int repeatCount;
         protected RepeatBehavior repeatBehavior;
+        protected boolean allowsOvershoot;
         protected List<TimelineCallback> callbacks = new ArrayList<>();
         protected String name;
         protected List<TimelinePropertyBuilder.AbstractFieldInfo<?>> propertiesToInterpolate = new ArrayList<>();
@@ -636,6 +643,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             timeline.cycleDelay = this.cycleDelay;
             timeline.repeatCount = this.repeatCount;
             timeline.repeatBehavior = this.repeatBehavior;
+            timeline.allowsOvershoot = this.allowsOvershoot;
             timeline.name = this.name;
             timeline.ease = this.ease;
 
@@ -683,6 +691,12 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         @SuppressWarnings("unchecked")
         public B setRepeatBehavior(RepeatBehavior repeatBehavior) {
             this.repeatBehavior = repeatBehavior;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public B setAllowsOvershoot(boolean allowsOvershoot) {
+            this.allowsOvershoot = allowsOvershoot;
             return (B) this;
         }
 

@@ -881,9 +881,10 @@ class TimelineEngine {
         // Update timeline position
         timeline.timelinePosition = timeline.getEase().map(durationFraction);
 
-        // And check that the timeline position is in [0.0-1.0] range
+        // And check that the timeline position is in [0.0-1.0] range if the timeline doesn't
+        // allow overshooting.
         float position = timeline.timelinePosition;
-        if ((position < 0.0f) || (position > 1.0f)) {
+        if (!timeline.allowsOvershoot() && ((position < 0.0f) || (position > 1.0f))) {
             throw new IllegalStateException("Timeline position is " + position +
                     " but should be in the [0.0-1.0] range. Duration fraction is " +
                     timeline.durationFraction + " and the ease function is " +

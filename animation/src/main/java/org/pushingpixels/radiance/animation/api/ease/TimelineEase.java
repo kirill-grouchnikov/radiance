@@ -32,15 +32,17 @@ package org.pushingpixels.radiance.animation.api.ease;
 public interface TimelineEase {
     /**
      * Maps the [0.0-1.0] range which is the fraction of the associated timeline
-     * progression in time (duration fraction) to the [0.0-1.0] range which is
+     * progression in time (duration fraction) to the range which is
      * used to interpolate the value(s) of the underlying property(s) between
      * their <code>from</code> and <code>to</code> values.
      *
      * @param durationFraction Fraction of the timeline progression in time. For example,
      *                         if the timeline is running for 1000 milliseconds and 600
      *                         milliseconds have passed, this fraction is 0.6
-     * @return Value in the [0.0-1.0] range for interpolating the underlying property
-     * or properties.
+     * @return Value for interpolating the underlying property
+     * or properties. This value can be outside the [0.0-1.0] range if the associated
+     * timeline it configured with {@link org.pushingpixels.radiance.animation.api.Timeline.Builder#setAllowsOvershoot(boolean)}
+     * and <code>true</code>.
      */
     float map(float durationFraction);
 }
