@@ -84,8 +84,6 @@ public class LeapSpinner extends BaseSpinner {
             0f, 180f, 180f
     };
 
-    private long startTime;
-
     private float[] translateValues;
 
     private SwingRepaintTimeline[] translateTimelines;
@@ -145,7 +143,6 @@ public class LeapSpinner extends BaseSpinner {
 
         for (int i = 0; i < 3; i++) {
             final int index = i;
-            long initialDelay = (long) (i * (double) this.duration / 3.0f);
 
             SwingRepaintTimeline.Builder builder = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
