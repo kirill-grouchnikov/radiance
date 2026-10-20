@@ -42,7 +42,8 @@ import java.awt.*;
  * A Swing component that renders an animated trace spinner.
  *
  * <p>This is a migration of the {@code Trace} composable from the Aurora loading
- * module. It draws a rotating arc that leaves a fading trail behind it.</p>
+ * module. It draws a dashed round rectangle border whose dash phase rotates
+ * continuously, creating a tracing effect around the perimeter.</p>
  *
  * <p>This is a modified version of the original source code by Jakub Krehel
  * available under the MIT license.</p>
@@ -51,7 +52,7 @@ import java.awt.*;
  */
 public class TraceSpinner extends BaseSpinner {
 
-    private static final int DEFAULT_DURATION = 1000;
+    private static final int DEFAULT_DURATION = 1200;
     private static final float DEFAULT_STROKE_WIDTH = 2.5f;
 
     private int cap;
@@ -130,40 +131,225 @@ public class TraceSpinner extends BaseSpinner {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
+                    float dim = Math.min(scaledWidth, scaledHeight);
+
                     float strokeWidth = (float) (DEFAULT_STROKE_WIDTH * scaleFactor);
-                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 2;
-                    int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
-                    int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
+                    int halfStroke = (int) (strokeWidth / 2.0f);
+                    float side = dim - strokeWidth;
+                    float cornerRadius = 0.2f * dim;
 
-                    float center = dx + dim / 2f;
-                    float centerY = dy + dim / 2f;
-                    float radius = dim / 2f;
+                    // Perimeter of the round rectangle border
+                    float perimeter = 4f * (side - 2 * cornerRadius) + 2f * (float) Math.PI * cornerRadius;
+                    float dash = 0.8f * dim;
 
-                    // Draw a fading trail arc
-                    Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    // Dash phase driven by the animated angle (0→360)
+                    float phase = -(angleValues[0] / 360.0f) * perimeter;
 
-                    // Draw the trail as multiple segments with decreasing alpha
-                    int segments = 30;
-                    float arcAngle = 180f; // half circle trail
-                    float anglePerSegment = arcAngle / segments;
+                    // Draw the faint background border (alpha 0.2)
+                    int bgAlpha = (int) Math.round(0.2f * 255);
+                    Color bgColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), bgAlpha);
+                    graphics1X.setColor(bgColor);
+                    graphics1X.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND));
+                    drawRoundRectBorder(graphics1X, halfStroke, halfStroke, side, side, cornerRadius);
 
-                    for (int i = 0; i < segments; i++) {
-                        float t = i / (float) segments;
-                        float alpha = 1f - t; // fade from full to transparent
-                        int a = (int) Math.round(alpha * 255);
-
-                        rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
-                        rotated.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND));
-                        rotated.drawArc(
-                                (int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                                (int) Math.round(radius * 2), (int) Math.round(radius * 2),
-                                (int) Math.round(i * anglePerSegment), (int) Math.round(anglePerSegment));
-                    }
-
-                    rotated.dispose();
+                    // Draw the animated dashed border
+                    graphics1X.setColor(color);
+                    drawDashedRoundRectBorder(graphics1X, halfStroke, halfStroke, side, side,
+                        cornerRadius, strokeWidth, dash, perimeter - dash, phase);
                 });
 
         graphics.dispose();
+    }
+
+    /**
+     * Draws the border of a round rectangle using a solid stroke.
+     */
+    private void drawRoundRectBorder(Graphics2D g, int x0, int y0, float w, float h, float r) {
+        g.drawRoundRect(
+                (int) Math.round(x0), (int) Math.round(y0),
+                (int) Math.round(w), (int) Math.round(h),
+                (int) Math.round(r * 2), (int) Math.round(r * 2));
+    }
+
+    /**
+     * Draws the border of a round rectangle with a dash pattern.
+     * Simulates Compose's PathEffect.dashPathEffect by stepping along the
+     * round rectangle perimeter and alternating between dash and gap segments.
+     */
+    private void drawDashedRoundRectBorder(Graphics2D g, int x0, int y0, float w, float h,
+            float r, float strokeWidth, float dash, float gap, float phase) {
+
+        // Build the round rectangle path as a series of line and arc segments
+        // The perimeter consists of 4 straight edges and 4 corner arcs
+        // Top edge: (r, 0) → (w-r, 0), length = w - 2r
+        // Top-right corner arc: 90 degrees, length = π/2 * r
+        // Right edge: (w, r) → (w, h-r), length = h - 2r
+        // Bottom-right corner arc: 90 degrees, length = π/2 * r
+        // Bottom edge: (w-r, h) → (r, h), length = w - 2r
+        // Bottom-left corner arc: 90 degrees, length = π/2 * r
+        // Left edge: (0, h-r) → (0, r), length = h - 2r
+        // Top-left corner arc: 90 degrees, length = π/2 * r
+
+        float topLen = w - 2 * r;
+        float rightLen = h - 2 * r;
+        float arcLen = (float) (Math.PI / 2.0) * r;
+
+        // Total perimeter check
+        // float perimeter = 2 * topLen + 2 * rightLen + 4 * arcLen;
+
+        // Normalize phase to [0, perimeter)
+        float perimeter = dash + gap;
+        float p = phase % perimeter;
+        if (p < 0) p += perimeter;
+
+        // Collect segment boundaries along the perimeter
+        // Each segment is either a straight line or an arc
+        // We'll walk the perimeter and draw small line segments where we're in a "dash" region
+
+        // Build a list of (startDistance, endDistance, type, params) for each edge
+        // Type: 0 = horizontal line, 1 = vertical line, 2 = arc
+        // We store segments as: startDist, endDist, then type-specific params
+
+        // For simplicity, we'll sample the perimeter at small intervals and draw connected segments
+        // This is the most reliable approach for dashed round rectangles in AWT
+
+        // Determine which parts of the perimeter are "dash" vs "gap"
+        // Walk the perimeter in small steps, tracking whether we're in a dash or gap
+
+        float step = Math.max(1f, strokeWidth / 4f); // small step size for smooth rendering
+
+        // Normalize phase: the dash starts at position -phase along the perimeter
+        float normPhase = -phase;
+        while (normPhase < 0) normPhase += perimeter;
+        while (normPhase >= perimeter) normPhase -= perimeter;
+
+        // Collect dash intervals along the perimeter [0, perimeter)
+        // A dash starts at normPhase and lasts for 'dash' distance, then gap for 'gap' distance
+        java.util.List<float[]> dashIntervals = new java.util.ArrayList<>();
+        float pos = normPhase;
+        while (pos < perimeter) {
+            float dashEnd = Math.min(pos + dash, perimeter);
+            dashIntervals.add(new float[]{(float) Math.round(pos), (float) Math.round(dashEnd)});
+            pos = dashEnd + gap;
+        }
+        // Handle wrap-around: if the last dash extends past perimeter, wrap to start
+        if (normPhase + dash > perimeter) {
+            float wrapEnd = (normPhase + dash) - perimeter;
+            dashIntervals.add(new float[]{0f, (float) Math.round(wrapEnd)});
+        }
+
+        // For each dash interval, draw the corresponding portion of the round rectangle border
+        for (float[] interval : dashIntervals) {
+            float startDist = interval[0];
+            float endDist = interval[1];
+
+            // Walk from startDist to endDist along the perimeter and draw small segments
+            float d = startDist;
+            float prevX = 0, prevY = 0;
+            boolean first = true;
+
+            while (d < endDist) {
+                float dd = Math.min(d + step, endDist);
+                float[] pos1 = distanceToPosition(dd, x0, y0, w, h, r, topLen, rightLen, arcLen);
+                if (first) {
+                    prevX = pos1[0];
+                    prevY = pos1[1];
+                    first = false;
+                } else {
+                    g.setColor(color);
+                    g.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND));
+                    g.drawLine((int) Math.round(prevX), (int) Math.round(prevY),
+                            (int) Math.round(pos1[0]), (int) Math.round(pos1[1]));
+                    prevX = pos1[0];
+                    prevY = pos1[1];
+                }
+                d = dd;
+            }
+        }
+    }
+
+    /**
+     * Converts a distance along the round rectangle perimeter to an (x, y) position.
+     * The perimeter starts at the top-left corner and goes clockwise.
+     */
+    private float[] distanceToPosition(float dist, int x0, int y0, float w, float h, float r,
+            float topLen, float rightLen, float arcLen) {
+
+        float perimeter = 2 * topLen + 2 * rightLen + 4 * arcLen;
+        // Normalize distance
+        while (dist < 0) dist += perimeter;
+        while (dist >= perimeter) dist -= perimeter;
+
+        float d = dist;
+
+        // Top edge: from (x0 + r, y0) to (x0 + w - r, y0)
+        if (d <= topLen) {
+            float t = d / topLen;
+            return new float[]{x0 + r + t * topLen, (float) y0};
+        }
+        d -= topLen;
+
+        // Top-right corner arc: from angle -π/2 to 0 (centered at (x0 + w - r, y0 + r))
+        if (d <= arcLen) {
+            float t = d / arcLen;
+            float angle = (float) (-Math.PI / 2.0 + t * Math.PI / 2.0);
+            float cx = x0 + w - r;
+            float cy = y0 + r;
+            return new float[]{cx + r * (float) Math.cos(angle), cy + r * (float) Math.sin(angle)};
+        }
+        d -= arcLen;
+
+        // Right edge: from (x0 + w, y0 + r) to (x0 + w, y0 + h - r)
+        if (d <= rightLen) {
+            float t = d / rightLen;
+            return new float[]{(float) (x0 + w), y0 + r + t * rightLen};
+        }
+        d -= rightLen;
+
+        // Bottom-right corner arc: from angle 0 to π/2 (centered at (x0 + w - r, y0 + h - r))
+        if (d <= arcLen) {
+            float t = d / arcLen;
+            float angle = (float) (t * Math.PI / 2.0f);
+            float cx = x0 + w - r;
+            float cy = y0 + h - r;
+            return new float[]{cx + r * (float) Math.cos(angle), cy + r * (float) Math.sin(angle)};
+        }
+        d -= arcLen;
+
+        // Bottom edge: from (x0 + w - r, y0 + h) to (x0 + r, y0 + h)
+        if (d <= topLen) {
+            float t = d / topLen;
+            return new float[]{x0 + w - r - t * topLen, (float) (y0 + h)};
+        }
+        d -= topLen;
+
+        // Bottom-left corner arc: from angle π/2 to π (centered at (x0 + r, y0 + h - r))
+        if (d <= arcLen) {
+            float t = d / arcLen;
+            float angle = (float) (Math.PI / 2.0 + t * Math.PI / 2.0);
+            float cx = x0 + r;
+            float cy = y0 + h - r;
+            return new float[]{cx + r * (float) Math.cos(angle), cy + r * (float) Math.sin(angle)};
+        }
+        d -= arcLen;
+
+        // Left edge: from (x0, y0 + h - r) to (x0, y0 + r)
+        if (d <= rightLen) {
+            float t = d / rightLen;
+            return new float[]{(float) x0, y0 + h - r - t * rightLen};
+        }
+        d -= rightLen;
+
+        // Top-left corner arc: from angle π to 3π/2 (centered at (x0 + r, y0 + r))
+        if (d <= arcLen) {
+            float t = d / arcLen;
+            float angle = (float) (Math.PI + t * Math.PI / 2.0);
+            float cx = x0 + r;
+            float cy = y0 + r;
+            return new float[]{cx + r * (float) Math.cos(angle), cy + r * (float) Math.sin(angle)};
+        }
+
+        // Fallback
+        return new float[]{(float) x0, (float) y0};
     }
 }
