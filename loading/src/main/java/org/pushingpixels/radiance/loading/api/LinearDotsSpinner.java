@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyValues;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -131,27 +132,31 @@ public class LinearDotsSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = (width - dim) / 2;
-        int dy = (height - dim) / 2;
-        graphics.translate(dx, dy);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float dotDiameter = dim * 0.24f;
-        float gap = (dim - 3 * dotDiameter) / 2f;
-        float centerY = dim / 2f;
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
+                    graphics1X.translate(dx, dy);
 
-        for (int index = 0; index < DOT_COUNT; index++) {
-            float alpha = Math.max(0f, Math.min(1f, fadeValues[index]));
-            int a = (int) Math.round(alpha * 255);
-            graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                    float dotDiameter = dim * 0.24f;
+                    float gap = (dim - 3 * dotDiameter) / 2f;
+                    float centerY = dim / 2f;
 
-            float cx = index * (dotDiameter + gap) + dotDiameter / 2f;
-            graphics.fillOval(
-                    (int) Math.round(cx - dotDiameter / 2f),
-                    (int) Math.round(centerY - dotDiameter / 2f),
-                    (int) Math.round(dotDiameter),
-                    (int) Math.round(dotDiameter));
-        }
+                    for (int index = 0; index < DOT_COUNT; index++) {
+                        float alpha = Math.max(0f, Math.min(1f, fadeValues[index]));
+                        int a = (int) Math.round(alpha * 255);
+                        graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+
+                        float cx = index * (dotDiameter + gap) + dotDiameter / 2f;
+                        graphics1X.fillOval(
+                                (int) Math.round(cx - dotDiameter / 2f),
+                                (int) Math.round(centerY - dotDiameter / 2f),
+                                (int) Math.round(dotDiameter),
+                                (int) Math.round(dotDiameter));
+                    }
+                });
 
         graphics.dispose();
     }

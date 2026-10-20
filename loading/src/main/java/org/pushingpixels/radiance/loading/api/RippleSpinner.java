@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -124,26 +125,30 @@ public class RippleSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        float strokeWidth = 1f;
-        int dim = Math.min(width, height) - (int) strokeWidth - 1;
-        int dx = (width - dim) / 2 + (int) strokeWidth / 2;
-        int dy = (height - dim) / 2 + (int) strokeWidth / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float center = dx + dim / 2f;
-        float centerY = dy + dim / 2f;
+                    float strokeWidth = (float) (1f * scaleFactor);
+                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 1;
+                    int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
+                    int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
 
-        for (int index = 0; index < RIPPLE_COUNT; index++) {
-            float position = rippleValues[index];
-            float alpha = 0.4f * (1f - position);
-            float sc = 0.25f + position * 0.75f;
+                    float center = dx + dim / 2f;
+                    float centerY = dy + dim / 2f;
 
-            int a = (int) Math.round(Math.max(0f, Math.min(1f, alpha)) * 255);
-            graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                    for (int index = 0; index < RIPPLE_COUNT; index++) {
+                        float position = rippleValues[index];
+                        float alpha = 0.4f * (1f - position);
+                        float sc = 0.25f + position * 0.75f;
 
-            float r = dim / 2f * sc;
-            graphics.drawOval((int) Math.round(center - r), (int) Math.round(centerY - r),
-                    (int) Math.round(r * 2), (int) Math.round(r * 2));
-        }
+                        int a = (int) Math.round(Math.max(0f, Math.min(1f, alpha)) * 255);
+                        graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+
+                        float r = dim / 2f * sc;
+                        graphics1X.drawOval((int) Math.round(center - r), (int) Math.round(centerY - r),
+                                (int) Math.round(r * 2), (int) Math.round(r * 2));
+                    }
+                });
 
         graphics.dispose();
     }

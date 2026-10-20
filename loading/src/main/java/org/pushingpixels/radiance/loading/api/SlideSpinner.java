@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,24 +112,28 @@ public class SlideSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = (width - dim) / 2;
-        int dy = (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        graphics.translate(dx, dy);
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        float position = positionValues[0];
-        float sq = dim * 0.2f;
-        float br = dim * 0.05f;
+                    graphics1X.translate(dx, dy);
 
-        // Slide from left to right
-        float x = position * (dim - sq);
-        float y = (dim - sq) / 2f;
+                    float position = positionValues[0];
+                    float sq = dim * 0.2f;
+                    float br = dim * 0.05f;
 
-        int arc = (int) Math.round(br * 2);
-        graphics.setColor(color);
-        graphics.fillRoundRect((int) Math.round(x), (int) Math.round(y),
-                (int) Math.round(sq), (int) Math.round(sq), arc, arc);
+                    // Slide from left to right
+                    float xPos = position * (dim - sq);
+                    float yPos = (dim - sq) / 2f;
+
+                    int arc = (int) Math.round(br * 2);
+                    graphics1X.setColor(color);
+                    graphics1X.fillRoundRect((int) Math.round(xPos), (int) Math.round(yPos),
+                            (int) Math.round(sq), (int) Math.round(sq), arc, arc);
+                });
 
         graphics.dispose();
     }

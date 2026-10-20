@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.EasingFunctions;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -112,29 +113,33 @@ public class PulseSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = (width - dim) / 2;
-        int dy = (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float center = dx + dim / 2f;
-        float centerY = dy + dim / 2f;
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        float position = positionValues[0];
-        float alpha = 0.4f * (1f - position);
-        float sc = 0.25f + position * 0.75f;
-        float dotR = dim / 8f;
+                    float center = dx + dim / 2f;
+                    float centerY = dy + dim / 2f;
 
-        // Expanding circle
-        int a = (int) Math.round(Math.max(0f, Math.min(1f, alpha)) * 255);
-        graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
-        float pulseR = dim / 2f * sc;
-        graphics.fillOval((int) Math.round(center - pulseR), (int) Math.round(centerY - pulseR),
-                (int) Math.round(pulseR * 2), (int) Math.round(pulseR * 2));
+                    float position = positionValues[0];
+                    float alpha = 0.4f * (1f - position);
+                    float sc = 0.25f + position * 0.75f;
+                    float dotR = dim / 8f;
 
-        // Central dot
-        graphics.setColor(color);
-        graphics.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
-                (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
+                    // Expanding circle
+                    int a = (int) Math.round(Math.max(0f, Math.min(1f, alpha)) * 255);
+                    graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                    float pulseR = dim / 2f * sc;
+                    graphics1X.fillOval((int) Math.round(center - pulseR), (int) Math.round(centerY - pulseR),
+                            (int) Math.round(pulseR * 2), (int) Math.round(pulseR * 2));
+
+                    // Central dot
+                    graphics1X.setColor(color);
+                    graphics1X.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
+                            (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
+                });
 
         graphics.dispose();
     }

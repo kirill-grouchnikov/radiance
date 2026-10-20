@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -113,59 +114,63 @@ public class RadarSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        float strokeWidth = 2.5f;
-        int dim = Math.min(width, height) - (int) strokeWidth - 1;
-        int dx = (width - dim) / 2 + (int) strokeWidth / 2;
-        int dy = (height - dim) / 2 + (int) strokeWidth / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float center = dx + dim / 2f;
-        float centerY = dy + dim / 2f;
-        float beamStart = dim / 5f;
+                    float strokeWidth = (float) (2.5f * scaleFactor);
+                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 1;
+                    int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
+                    int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
 
-        // Background circles
-        int a20 = (int) (0.2f * 255);
-        graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a20));
-        graphics.fillOval((int) Math.round(center - dim / 2f), (int) Math.round(centerY - dim / 2f), dim, dim);
+                    float center = dx + dim / 2f;
+                    float centerY = dy + dim / 2f;
+                    float beamStart = dim / 5f;
 
-        graphics.setStroke(new BasicStroke(2.5f));
-        graphics.drawOval((int) Math.round(center - dim / 3f), (int) Math.round(centerY - dim / 3f),
-                (int) Math.round(dim / 3f * 2), (int) Math.round(dim / 3f * 2));
+                    // Background circles
+                    int a20 = (int) (0.2f * 255);
+                    graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a20));
+                    graphics1X.fillOval((int) Math.round(center - dim / 2f), (int) Math.round(centerY - dim / 2f), dim, dim);
 
-        // Rotating beam (wedge shape with gradient)
-        Graphics2D rotated = (Graphics2D) graphics.create();
-        rotated.rotate(Math.toRadians(beamAngleValues[0]), center, centerY);
+                    graphics1X.setStroke(new BasicStroke(strokeWidth));
+                    graphics1X.drawOval((int) Math.round(center - dim / 3f), (int) Math.round(centerY - dim / 3f),
+                            (int) Math.round(dim / 3f * 2), (int) Math.round(dim / 3f * 2));
 
-        // Draw the beam as a filled wedge using an arc
-        // The beam is a 90-degree wedge from the center
-        for (int i = 0; i < 10; i++) {
-            float t = i / 10f;
-            float alpha = 1f - t;
-            int a = (int) Math.round(alpha * 255);
-            rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                    // Rotating beam (wedge shape with gradient)
+                    Graphics2D rotated = (Graphics2D) graphics1X.create();
+                    rotated.rotate(Math.toRadians(beamAngleValues[0]), center, centerY);
 
-            float innerR = beamStart + (dim / 2f - beamStart) * t;
-            Arc2D.Float arc = new Arc2D.Float(
-                    center - dim / 2f, centerY - dim / 2f,
-                    dim, dim,
-                    0, -90, Arc2D.PIE);
-            // Clip to only show the outer ring portion
-            Graphics2D clipped = (Graphics2D) rotated.create();
-            // Draw a filled arc segment
-            Arc2D.Float outerArc = new Arc2D.Float(
-                    center - dim / 2f, centerY - dim / 2f,
-                    dim, dim,
-                    0, -90, Arc2D.PIE);
-            clipped.fill(outerArc);
-            clipped.dispose();
-        }
+                    // Draw the beam as a filled wedge using an arc
+                    // The beam is a 90-degree wedge from the center
+                    for (int i = 0; i < 10; i++) {
+                        float t = i / 10f;
+                        float alpha = 1f - t;
+                        int a = (int) Math.round(alpha * 255);
+                        rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
 
-        rotated.dispose();
+                        float innerR = beamStart + (dim / 2f - beamStart) * t;
+                        Arc2D.Float arc = new Arc2D.Float(
+                                center - dim / 2f, centerY - dim / 2f,
+                                dim, dim,
+                                0, -90, Arc2D.PIE);
+                        // Clip to only show the outer ring portion
+                        Graphics2D clipped = (Graphics2D) rotated.create();
+                        // Draw a filled arc segment
+                        Arc2D.Float outerArc = new Arc2D.Float(
+                                center - dim / 2f, centerY - dim / 2f,
+                                dim, dim,
+                                0, -90, Arc2D.PIE);
+                        clipped.fill(outerArc);
+                        clipped.dispose();
+                    }
 
-        // Central dot
-        float dotR = dim / 8f;
-        graphics.setColor(color);
-        graphics.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
-                (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
+                    rotated.dispose();
+
+                    // Central dot
+                    float dotR = dim / 8f;
+                    graphics1X.setColor(color);
+                    graphics1X.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
+                            (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
+                });
 
         graphics.dispose();
     }

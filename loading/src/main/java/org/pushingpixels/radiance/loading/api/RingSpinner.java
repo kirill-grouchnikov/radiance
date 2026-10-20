@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -128,33 +129,37 @@ public class RingSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        float strokeWidth = DEFAULT_STROKE_WIDTH;
-        int dim = Math.min(width, height) - (int) strokeWidth - 1;
-        int dx = (width - dim) / 2 + (int) strokeWidth / 2;
-        int dy = (height - dim) / 2 + (int) strokeWidth / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float center = dx + dim / 2f;
-        float centerY = dy + dim / 2f;
-        float radius = dim / 2f;
-        float circumference = 2f * (float) Math.PI * radius;
-        float dash = DASH_RATIO_NUMERATOR * circumference / DASH_RATIO_DENOMINATOR;
+                    float strokeWidth = (float) (DEFAULT_STROKE_WIDTH * scaleFactor);
+                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 1;
+                    int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
+                    int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
 
-        // Background circle
-        int a20 = (int) (0.2f * 255);
-        graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a20));
-        graphics.setStroke(new BasicStroke(DEFAULT_STROKE_WIDTH));
-        graphics.drawOval((int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                (int) Math.round(radius * 2), (int) Math.round(radius * 2));
+                    float center = dx + dim / 2f;
+                    float centerY = dy + dim / 2f;
+                    float radius = dim / 2f;
+                    float circumference = 2f * (float) Math.PI * radius;
+                    float dash = DASH_RATIO_NUMERATOR * circumference / DASH_RATIO_DENOMINATOR;
 
-        // Rotating dashed arc
-        Graphics2D rotated = (Graphics2D) graphics.create();
-        rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
-        rotated.setColor(color);
-        rotated.setStroke(new BasicStroke(DEFAULT_STROKE_WIDTH, this.cap, BasicStroke.JOIN_ROUND,
-                0, new float[]{dash, circumference - dash}, 0));
-        rotated.drawOval((int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                (int) Math.round(radius * 2), (int) Math.round(radius * 2));
-        rotated.dispose();
+                    // Background circle
+                    int a20 = (int) (0.2f * 255);
+                    graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a20));
+                    graphics1X.setStroke(new BasicStroke(strokeWidth));
+                    graphics1X.drawOval((int) Math.round(center - radius), (int) Math.round(centerY - radius),
+                            (int) Math.round(radius * 2), (int) Math.round(radius * 2));
+
+                    // Rotating dashed arc
+                    Graphics2D rotated = (Graphics2D) graphics1X.create();
+                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    rotated.setColor(color);
+                    rotated.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND,
+                            0, new float[]{dash, circumference - dash}, 0));
+                    rotated.drawOval((int) Math.round(center - radius), (int) Math.round(centerY - radius),
+                            (int) Math.round(radius * 2), (int) Math.round(radius * 2));
+                    rotated.dispose();
+                });
 
         graphics.dispose();
     }

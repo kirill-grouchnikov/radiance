@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyValues;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -148,27 +149,32 @@ public class MorphSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = (width - dim) / 2;
-        int dy = (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float center = dx + dim / 2f;
-        float centerY = dy + dim / 2f;
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        float sq = dim * 0.64f;
-        float cornerRadius = cornerRadiusValues[0] * sq;
+                    float center = dx + dim / 2f;
+                    float centerY = dy + dim / 2f;
 
-        Graphics2D rotated = (Graphics2D) graphics.create();
-        rotated.rotate(Math.toRadians(rotateValues[0]), center, centerY);
+                    float sq = dim * 0.64f;
+                    float cornerRadius = cornerRadiusValues[0] * sq;
 
-        int arc = (int) Math.round(cornerRadius * 2);
-        rotated.setColor(color);
-        rotated.fillRoundRect(
-                (int) Math.round(center - sq / 2f), (int) Math.round(centerY - sq / 2f),
-                (int) Math.round(sq), (int) Math.round(sq),
-                arc, arc);
+                    Graphics2D rotated = (Graphics2D) graphics1X.create();
+                    rotated.rotate(Math.toRadians(rotateValues[0]), center, centerY);
 
-        rotated.dispose();
+                    int arc = (int) Math.round(cornerRadius * 2);
+                    rotated.setColor(color);
+                    rotated.fillRoundRect(
+                            (int) Math.round(center - sq / 2f), (int) Math.round(centerY - sq / 2f),
+                            (int) Math.round(sq), (int) Math.round(sq),
+                            arc, arc);
+
+                    rotated.dispose();
+                });
+
         graphics.dispose();
     }
 }

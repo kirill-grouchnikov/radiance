@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -112,43 +113,48 @@ public class OrbitSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        float strokeWidth = DEFAULT_STROKE_WIDTH;
-        int dim = Math.min(width, height) - (int) strokeWidth - 1;
-        int dx = (width - dim) / 2 + (int) strokeWidth / 2;
-        int dy = (height - dim) / 2 + (int) strokeWidth / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float center = dx + dim / 2f;
-        float centerY = dy + dim / 2f;
-        float dotR = dim / 8f;
+                    float strokeWidth = (float) (DEFAULT_STROKE_WIDTH * scaleFactor);
+                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 1;
+                    int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
+                    int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
 
-        // Central dot
-        graphics.setColor(color);
-        graphics.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
-                (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
+                    float center = dx + dim / 2f;
+                    float centerY = dy + dim / 2f;
+                    float dotR = dim / 8f;
 
-        // Rotating arc with gradient
-        float radius = dim / 2f - DEFAULT_STROKE_WIDTH / 2f;
-        Graphics2D rotated = (Graphics2D) graphics.create();
-        rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    // Central dot
+                    graphics1X.setColor(color);
+                    graphics1X.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
+                            (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
 
-        int segments = 60;
-        float anglePerSegment = 360f / segments;
-        for (int i = 0; i < segments; i++) {
-            float t = i / (float) segments;
-            // Gradient: 0→0.5 transparent, 0.5→1.0 goes from 0 to full alpha
-            float alpha = t < 0.5f ? 0f : (t - 0.5f) * 2f;
-            if (alpha <= 0f) continue;
+                    // Rotating arc with gradient
+                    float radius = dim / 2f - strokeWidth / 2f;
+                    Graphics2D rotated = (Graphics2D) graphics1X.create();
+                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
 
-            int a = (int) Math.round(alpha * 255);
-            rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
-            rotated.setStroke(new BasicStroke(DEFAULT_STROKE_WIDTH, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            rotated.drawArc(
-                    (int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                    (int) Math.round(radius * 2), (int) Math.round(radius * 2),
-                    (int) Math.round(i * anglePerSegment), (int) Math.round(anglePerSegment));
-        }
+                    int segments = 60;
+                    float anglePerSegment = 360f / segments;
+                    for (int i = 0; i < segments; i++) {
+                        float t = i / (float) segments;
+                        // Gradient: 0→0.5 transparent, 0.5→1.0 goes from 0 to full alpha
+                        float alpha = t < 0.5f ? 0f : (t - 0.5f) * 2f;
+                        if (alpha <= 0f) continue;
 
-        rotated.dispose();
+                        int a = (int) Math.round(alpha * 255);
+                        rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                        rotated.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                        rotated.drawArc(
+                                (int) Math.round(center - radius), (int) Math.round(centerY - radius),
+                                (int) Math.round(radius * 2), (int) Math.round(radius * 2),
+                                (int) Math.round(i * anglePerSegment), (int) Math.round(anglePerSegment));
+                    }
+
+                    rotated.dispose();
+                });
+
         graphics.dispose();
     }
 }

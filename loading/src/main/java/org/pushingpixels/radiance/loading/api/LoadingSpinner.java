@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -116,32 +117,36 @@ public class LoadingSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = (width - dim) / 2;
-        int dy = (height - dim) / 2;
-        graphics.translate(dx, dy);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float cellSize = dim / 15f;
-        float highlight = highlightValues[0];
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
+                    graphics1X.translate(dx, dy);
 
-        for (int index = 0; index < SEGMENT_COUNT; index++) {
-            float distanceFromHighlight = ((highlight + index / 8f) % 1f);
-            float alpha = 1f - distanceFromHighlight * 0.8f;
-            alpha = Math.max(0f, Math.min(1f, alpha));
+                    float cellSize = dim / 15f;
+                    float highlight = highlightValues[0];
 
-            int a = (int) Math.round(alpha * 255);
-            graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                    for (int index = 0; index < SEGMENT_COUNT; index++) {
+                        float distanceFromHighlight = ((highlight + index / 8f) % 1f);
+                        float alpha = 1f - distanceFromHighlight * 0.8f;
+                        alpha = Math.max(0f, Math.min(1f, alpha));
 
-            int x = SEGMENT_X[index];
-            int y = SEGMENT_Y[index];
-            int cs = (int) Math.round(cellSize);
+                        int a = (int) Math.round(alpha * 255);
+                        graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
 
-            // Draw 4 rectangles per segment
-            graphics.fillRect(x * cs, y * cs, cs, cs);
-            graphics.fillRect((x + 2) * cs, y * cs, cs, cs);
-            graphics.fillRect(x * cs, (y + 2) * cs, cs, cs);
-            graphics.fillRect((x + 2) * cs, (y + 2) * cs, cs, cs);
-        }
+                        int xPos = SEGMENT_X[index];
+                        int yPos = SEGMENT_Y[index];
+                        int cs = (int) Math.round(cellSize);
+
+                        // Draw 4 rectangles per segment
+                        graphics1X.fillRect(xPos * cs, yPos * cs, cs, cs);
+                        graphics1X.fillRect((xPos + 2) * cs, yPos * cs, cs, cs);
+                        graphics1X.fillRect(xPos * cs, (yPos + 2) * cs, cs, cs);
+                        graphics1X.fillRect((xPos + 2) * cs, (yPos + 2) * cs, cs, cs);
+                    }
+                });
 
         graphics.dispose();
     }

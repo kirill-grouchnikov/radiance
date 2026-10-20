@@ -197,11 +197,11 @@ public class GatherSpinner extends BaseSpinner {
                     float[] dys = {1f, 1f, -1f, -1f};
 
                     for (int i = 0; i < 4; i++) {
-                        float x = dxs[i] * (blockSize / 2f + defaultBlockGap / 2f - pullA / 2f) - blockSize / 2f;
-                        float y = dys[i] * (blockSize / 2f + defaultBlockGap / 2f - pullA / 2f) - blockSize / 2f;
+                        float xPos = dxs[i] * (blockSize / 2f + defaultBlockGap / 2f - pullA / 2f) - blockSize / 2f;
+                        float yPos = dys[i] * (blockSize / 2f + defaultBlockGap / 2f - pullA / 2f) - blockSize / 2f;
 
                         rotated.fillRoundRect(
-                                (int) Math.round(center + x), (int) Math.round(centerY + y),
+                                (int) Math.round(center + xPos), (int) Math.round(centerY + yPos),
                                 (int) Math.round(blockSize), (int) Math.round(blockSize),
                                 arc, arc);
                     }
