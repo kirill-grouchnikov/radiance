@@ -86,9 +86,6 @@ public class MorphSpinner extends BaseSpinner {
         int d30 = duration * 3 / 10;
         int halfDuration = duration / 2;
 
-        TimelineEase easeIn = EasingFunctions.EASE_IN;
-        TimelineEase easeOut = EasingFunctions.EASE_OUT;
-
         // Corner radius: 0.08 → 0.5 at 30%, → 0.08 at 100%
         float[] crTimes = {0f, (float) d30 / duration, 1f};
         Float[] crVals = {0.08f, 0.5f, 0.08f};
@@ -101,6 +98,7 @@ public class MorphSpinner extends BaseSpinner {
                                 .getWith((obj, fieldName) -> cornerRadiusValues[0])
                                 .setWith((obj, fieldName, value) -> cornerRadiusValues[0] = value)
                                 .goingThrough(crKF))
+                .setEase(EasingFunctions.EASE_IN_OUT)
                 .setDuration(this.duration)
                 .build();
 
@@ -115,6 +113,7 @@ public class MorphSpinner extends BaseSpinner {
                                 .getWith((obj, fieldName) -> rotateValues[0])
                                 .setWith((obj, fieldName, value) -> rotateValues[0] = value)
                                 .goingThrough(rotKF))
+                .setEase(EasingFunctions.EASE_IN_OUT)
                 .setDuration(this.duration)
                 .build();
 
