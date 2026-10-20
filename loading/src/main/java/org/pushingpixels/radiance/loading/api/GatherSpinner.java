@@ -101,10 +101,10 @@ public class GatherSpinner extends BaseSpinner {
         }
 
         int d30 = duration * 3 / 10;
-        int d60 = duration * 6 / 10;
+        int d50 = duration * 5 / 10;
 
-        // Pull: 0→1 at 30%, stays at 1 until 60%, then 1→0
-        float[] pullTimes = {0f, (float) d30 / duration, (float) d60 / duration, 1f};
+        // Pull: 0→1 at 30%, stays at 1 until 50%, then 1→0
+        float[] pullTimes = {0f, (float) d30 / duration, (float) d50 / duration, 1f};
         Float[] pullVals = {0f, 1f, 1f, 0f};
         KeyFrames<Float> pullKF = new KeyFrames<>(KeyValues.create(pullVals), new KeyTimes(pullTimes), new Linear());
 
@@ -118,7 +118,7 @@ public class GatherSpinner extends BaseSpinner {
                 .build();
 
         // Turn: 0→0 at 30%, 0→90 at 60%, stays at 90
-        float[] turnTimes = {0f, (float) d30 / duration, (float) d60 / duration, 1f};
+        float[] turnTimes = {0f, (float) d30 / duration, (float) d50 / duration, 1f};
         Float[] turnVals = {0f, 0f, 90f, 90f};
         KeyFrames<Float> turnKF = new KeyFrames<>(KeyValues.create(turnVals), new KeyTimes(turnTimes), new Linear());
 
@@ -182,7 +182,7 @@ public class GatherSpinner extends BaseSpinner {
                     float center = dx + dim / 2f;
                     float centerY = dy + dim / 2f;
 
-                    float defaultBlockGap = dim * 0.24f;
+                    float defaultBlockGap = dim * 0.22f;
                     float blockSize = (dim - defaultBlockGap) / 2f;
                     float blockCornerRadius = dim * 0.14f;
                     float pullA = pullValues[0] * blockSize / 3.0f;

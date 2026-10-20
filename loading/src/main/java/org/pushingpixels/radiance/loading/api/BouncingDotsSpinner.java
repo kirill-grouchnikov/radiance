@@ -163,8 +163,8 @@ public class BouncingDotsSpinner extends BaseSpinner {
 
                     graphics1X.translate(dx, dy);
 
-                    float dotSize = dim * 0.25f;
-                    float gap = dim * 0.2f;
+                    float dotSize = dim * 0.2f;
+                    float gap = dim * 0.15f;
                     float totalWidth = 3 * dotSize + 2 * gap;
                     float startX = (dim - totalWidth) / 2f;
 

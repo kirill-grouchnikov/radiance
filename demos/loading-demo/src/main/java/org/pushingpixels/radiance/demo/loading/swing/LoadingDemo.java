@@ -32,42 +32,66 @@ package org.pushingpixels.radiance.demo.loading.swing;
 import org.pushingpixels.radiance.loading.api.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class LoadingDemo extends JFrame {
+    private static class DemoTile extends JComponent {
+        public DemoTile(BaseSpinner spinner, String name) {
+            this.setLayout(new BorderLayout());
+            this.setBorder(new EmptyBorder(16, 16, 16, 16));
+
+            JPanel spinnerPanel = new JPanel(new FlowLayout());
+            spinnerPanel.add(spinner);
+            this.add(spinnerPanel, BorderLayout.CENTER);
+
+            JPanel labelPanel = new JPanel(new FlowLayout());
+            labelPanel.setBorder(new EmptyBorder(12, 0, 0, 0));
+            labelPanel.add(new JLabel(name));
+
+            this.add(labelPanel, BorderLayout.SOUTH);
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            Dimension dim = super.getPreferredSize();
+            return new Dimension(Math.max((int) dim.getWidth(), 120), (int) dim.getHeight());
+        }
+    }
+
     private LoadingDemo() {
         this.setLayout(new FlowLayout());
-        this.add(new ArcSpinner());
-        this.add(new AtomSpinner());
-        this.add(new BlocksSpinner());
-        this.add(new BouncingDotsSpinner());
-        this.add(new CascadeSpinner());
-        this.add(new CircularDotsSpinner());
-        this.add(new ClassicSpinner());
-        this.add(new ClassicV2Spinner());
-        this.add(new ClockSpinner());
-        this.add(new CometSpinner());
-        this.add(new CompassSpinner());
-        this.add(new DualSpinner());
-        this.add(new EclipseSpinner());
-        this.add(new FlipSpinner());
-        this.add(new GatherSpinner());
-        this.add(new LeapSpinner());
-        this.add(new LinearDotsSpinner());
-        this.add(new LoadingSpinner());
-        this.add(new MorphSpinner());
-        this.add(new OrbitSpinner());
-        this.add(new PulseSpinner());
-        this.add(new RadarSpinner());
-        this.add(new RingSpinner());
-        this.add(new RippleSpinner());
-        this.add(new SlideSpinner());
-        this.add(new SnakeSpinner());
-        this.add(new SwirlSpinner());
-        this.add(new TraceSpinner());
-        this.add(new WaveSpinner());
+        this.add(new DemoTile(new ArcSpinner(), "Arc"));
+        this.add(new DemoTile(new AtomSpinner(), "Atom"));
+        this.add(new DemoTile(new BlocksSpinner(), "Blocks"));
+        this.add(new DemoTile(new BouncingDotsSpinner(), "Bouncing Dots"));
+        this.add(new DemoTile(new CascadeSpinner(), "Cascade"));
+        this.add(new DemoTile(new CircularDotsSpinner(), "Circular Dots"));
+        this.add(new DemoTile(new ClassicSpinner(), "Classic"));
+        this.add(new DemoTile(new ClassicV2Spinner(), "Classic V2"));
+        this.add(new DemoTile(new ClockSpinner(), "Clock"));
+        this.add(new DemoTile(new CometSpinner(), "Comet"));
+        this.add(new DemoTile(new CompassSpinner(), "Compass"));
+        this.add(new DemoTile(new DualSpinner(), "Dual"));
+        this.add(new DemoTile(new EclipseSpinner(), "Eclipse"));
+        this.add(new DemoTile(new FlipSpinner(), "Flip"));
+        this.add(new DemoTile(new GatherSpinner(), "Gather"));
+        this.add(new DemoTile(new LeapSpinner(), "Leap"));
+        this.add(new DemoTile(new LinearDotsSpinner(), "Linear Dots"));
+        this.add(new DemoTile(new LoadingSpinner(), "Loading"));
+        this.add(new DemoTile(new MorphSpinner(), "Morph"));
+        this.add(new DemoTile(new OrbitSpinner(), "Orbit"));
+        this.add(new DemoTile(new PulseSpinner(), "Pulse"));
+        this.add(new DemoTile(new RadarSpinner(), "Radar"));
+        this.add(new DemoTile(new RingSpinner(), "Ring"));
+        this.add(new DemoTile(new RippleSpinner(), "Ripple"));
+        this.add(new DemoTile(new SlideSpinner(), "Slide"));
+        this.add(new DemoTile(new SnakeSpinner(), "Snake"));
+        this.add(new DemoTile(new SwirlSpinner(), "Swirl"));
+        this.add(new DemoTile(new TraceSpinner(), "Trace"));
+        this.add(new DemoTile(new WaveSpinner(), "Wave"));
 
-        this.setSize(600, 600);
+        this.setSize(700, 680);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }

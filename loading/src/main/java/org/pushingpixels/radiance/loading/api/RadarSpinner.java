@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Arc2D;
+import java.awt.geom.GeneralPath;
 
 /**
  * A Swing component that renders an animated radar spinner.
@@ -122,53 +123,55 @@ public class RadarSpinner extends BaseSpinner {
                     int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
                     int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
 
-                    float center = dx + dim / 2f;
+                    float centerX = dx + dim / 2f;
                     float centerY = dy + dim / 2f;
+                    float minX = centerX - dim / 2f;
+                    float maxX = centerX + dim / 2f;
+                    float minY = centerY - dim / 2f;
+                    float maxY = centerY + dim / 2f;
                     float beamStart = dim / 5f;
 
                     // Background circles
                     int a20 = (int) (0.2f * 255);
                     graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a20));
-                    graphics1X.fillOval((int) Math.round(center - dim / 2f), (int) Math.round(centerY - dim / 2f), dim, dim);
+                    graphics1X.fillOval((int) Math.round(centerX - dim / 2f), (int) Math.round(centerY - dim / 2f), dim, dim);
 
                     graphics1X.setStroke(new BasicStroke(strokeWidth));
-                    graphics1X.drawOval((int) Math.round(center - dim / 3f), (int) Math.round(centerY - dim / 3f),
+                    graphics1X.drawOval((int) Math.round(centerX - dim / 3f), (int) Math.round(centerY - dim / 3f),
                             (int) Math.round(dim / 3f * 2), (int) Math.round(dim / 3f * 2));
 
                     // Rotating beam (wedge shape with gradient)
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(beamAngleValues[0]), center, centerY);
+                    rotated.rotate(Math.toRadians(beamAngleValues[0]), centerX, centerY);
 
-                    // Draw the beam as a filled wedge using an arc
-                    // The beam is a 90-degree wedge from the center
-                    for (int i = 0; i < 10; i++) {
-                        float t = i / 10f;
-                        float alpha = 1f - t;
-                        int a = (int) Math.round(alpha * 255);
-                        rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                    rotated.setPaint(new RadialGradientPaint(
+                        centerX, centerY, dim / 2,
+                        new float[] { 0.0f, 0.4f, 1.0f },
+                        new Color[] { this.color, this.color,
+                            new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), 0.0f)}));
 
-                        float innerR = beamStart + (dim / 2f - beamStart) * t;
-                        Arc2D.Float arc = new Arc2D.Float(
-                                center - dim / 2f, centerY - dim / 2f,
-                                dim, dim,
-                                0, -90, Arc2D.PIE);
-                        // Clip to only show the outer ring portion
-                        Graphics2D clipped = (Graphics2D) rotated.create();
-                        // Draw a filled arc segment
-                        Arc2D.Float outerArc = new Arc2D.Float(
-                                center - dim / 2f, centerY - dim / 2f,
-                                dim, dim,
-                                0, -90, Arc2D.PIE);
-                        clipped.fill(outerArc);
-                        clipped.dispose();
-                    }
+                    GeneralPath beam = new GeneralPath();
+                    beam.moveTo(minX, centerY);
+                    beam.lineTo(maxX, centerY);
+
+                    // outer arc
+                    beam.quadTo(maxX, maxY, centerX, maxY);
+
+                    beam.lineTo(centerX, centerY + beamStart);
+
+                    // inner arc
+                    beam.quadTo(centerX + beamStart, centerY + beamStart, centerX + beamStart, centerY);
+
+                    beam.closePath();
+
+                    rotated.fill(beam);
 
                     rotated.dispose();
 
                     // Central dot
                     float dotR = dim / 8f;
                     graphics1X.setColor(color);
-                    graphics1X.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
+                    graphics1X.fillOval((int) Math.round(centerX - dotR), (int) Math.round(centerY - dotR),
                             (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
                 });
 

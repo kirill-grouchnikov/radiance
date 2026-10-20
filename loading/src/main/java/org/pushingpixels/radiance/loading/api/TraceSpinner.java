@@ -131,7 +131,7 @@ public class TraceSpinner extends BaseSpinner {
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
                     float strokeWidth = (float) (DEFAULT_STROKE_WIDTH * scaleFactor);
-                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 1;
+                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 2;
                     int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
                     int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
 
