@@ -154,26 +154,30 @@ public class FlipSpinner extends BaseSpinner {
                     // First half (0-0.5): X flip from 180° to 0°
                     // Second half (0.5-1.0): Y flip from 0° to 180°
                     float scaleX;
+                    float scaleY;
                     if (position <= 0.5f) {
                         // X flip: cos of rotation angle
                         float rotX = -position * 360f;
                         scaleX = (float) Math.abs(Math.cos(Math.toRadians(rotX)));
+                        scaleY = 1.0f;
                     } else {
                         // Y flip: cos of rotation angle
                         float rotY = -(position - 0.5f) * 360f;
-                        scaleX = (float) Math.abs(Math.cos(Math.toRadians(rotY)));
+                        scaleY = (float) Math.abs(Math.cos(Math.toRadians(rotY)));
+                        scaleX = 1.0f;
                     }
 
                     float sq = dim * 0.64f;
                     float br = dim * 0.1f;
 
                     float w = sq * scaleX;
-                    int arc = (int) Math.round(br * 2);
+                    float h = sq * scaleY;
+                    int arc = Math.round(br * 2);
 
                     graphics1X.setColor(color);
                     graphics1X.fillRoundRect(
-                            (int) Math.round(-w / 2f), (int) Math.round(-sq / 2f),
-                            (int) Math.round(w), (int) Math.round(sq),
+                            Math.round(-w / 2f), Math.round(-h / 2f),
+                            Math.round(w), Math.round(h),
                             arc, arc);
                 });
 
