@@ -55,7 +55,7 @@ public class CometSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 700;
     private static final float DEFAULT_STROKE_WIDTH = 2.5f;
 
-    private float[] angleValues;
+    private float angle;
 
     private SwingRepaintTimeline timeline;
 
@@ -85,7 +85,7 @@ public class CometSpinner extends BaseSpinner {
      */
     public CometSpinner(Color color, int duration) {
         super(color, duration);
-        this.angleValues = new float[]{0f};
+        this.angle = 0f;
     }
 
     // ─── Lifecycle ────────────────────────────────────────────────────────
@@ -99,8 +99,8 @@ public class CometSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("angle")
-                                .getWith((obj, fieldName) -> angleValues[0])
-                                .setWith((obj, fieldName, value) -> angleValues[0] = value)
+                                .getWith((obj, fieldName) -> angle)
+                                .setWith((obj, fieldName, value) -> angle = value)
                                 .from(0f).to(360f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -154,7 +154,7 @@ public class CometSpinner extends BaseSpinner {
 
                     // Apply rotation
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    rotated.rotate(Math.toRadians(angle), center, centerY);
 
                     // Draw the arc with gradient effect using multiple segments
                     float circumference = 2f * (float) Math.PI * radius;

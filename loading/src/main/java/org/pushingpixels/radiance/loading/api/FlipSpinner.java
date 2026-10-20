@@ -54,7 +54,7 @@ public class FlipSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1200;
 
-    private float[] positionValues;
+    private float position;
 
     private SwingRepaintTimeline timeline;
 
@@ -84,7 +84,7 @@ public class FlipSpinner extends BaseSpinner {
      */
     public FlipSpinner(Color color, int duration) {
         super(color, duration);
-        this.positionValues = new float[]{0f};
+        this.position = 0f;
     }
 
     // ─── Lifecycle ────────────────────────────────────────────────────────
@@ -98,8 +98,8 @@ public class FlipSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("position")
-                                .getWith((obj, fieldName) -> positionValues[0])
-                                .setWith((obj, fieldName, value) -> positionValues[0] = value)
+                                .getWith((obj, fieldName) -> position)
+                                .setWith((obj, fieldName, value) -> position = value)
                                 .from(0f).to(1f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -148,7 +148,7 @@ public class FlipSpinner extends BaseSpinner {
 
                     graphics1X.translate(dx + dim / 2f, dy + dim / 2f);
 
-                    float position = positionValues[0];
+                    float position = this.position;
 
                     // Simulate 3D flip by scaling width
                     // First half (0-0.5): X flip from 180° to 0°

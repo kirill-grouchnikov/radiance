@@ -64,7 +64,7 @@ public class SwirlSpinner extends BaseSpinner {
     private static final Integer[] RING = {0, 1, 2, 7, null, 3, 6, 5, 4};
     private static final int CELL_COUNT = 8;
 
-    private float[] highlight;
+    private float highlight;
 
     private SwingRepaintTimeline timeline;
 
@@ -78,7 +78,7 @@ public class SwirlSpinner extends BaseSpinner {
 
     public SwirlSpinner(Color color, int duration) {
         super(color, duration);
-        this.highlight = new float[]{0f};
+        this.highlight = 0f;
     }
 
     @Override
@@ -88,8 +88,8 @@ public class SwirlSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("highlight")
-                                .getWith((obj, fieldName) -> highlight[0])
-                                .setWith((obj, fieldName, value) -> highlight[0] = value)
+                                .getWith((obj, fieldName) -> highlight)
+                                .setWith((obj, fieldName, value) -> highlight = value)
                                 .from(0f).to(1f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -132,7 +132,7 @@ public class SwirlSpinner extends BaseSpinner {
                     float cellSize = (dim - 2 * padding - 2 * gap) / 3f;
                     float cornerRadius = dim / 16.0f;
 
-                    float hl = highlight[0];
+                    float hl = this.highlight;
 
                     for (int index = 0; index < RING.length; index++) {
                         Integer gridPosition = RING[index];

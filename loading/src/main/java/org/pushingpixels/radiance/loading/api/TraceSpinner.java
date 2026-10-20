@@ -57,7 +57,7 @@ public class TraceSpinner extends BaseSpinner {
 
     private int cap;
 
-    private float[] angleValues;
+    private float angle;
 
     private SwingRepaintTimeline timeline;
 
@@ -72,7 +72,7 @@ public class TraceSpinner extends BaseSpinner {
     public TraceSpinner(Color color, int duration, int cap) {
         super(color, duration);
         this.cap = cap;
-        this.angleValues = new float[]{0f};
+        this.angle = 0f;
     }
 
     public int getCap() {
@@ -93,8 +93,8 @@ public class TraceSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("angle")
-                                .getWith((obj, fieldName) -> angleValues[0])
-                                .setWith((obj, fieldName, value) -> angleValues[0] = value)
+                                .getWith((obj, fieldName) -> angle)
+                                .setWith((obj, fieldName, value) -> angle = value)
                                 .from(0f).to(360f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -143,7 +143,7 @@ public class TraceSpinner extends BaseSpinner {
                     float dash = 0.8f * dim;
 
                     // Dash phase driven by the animated angle (0→360)
-                    float phase = -(angleValues[0] / 360.0f) * perimeter;
+                    float phase = -(angle / 360.0f) * perimeter;
 
                     // Draw the faint background border (alpha 0.2)
                     int bgAlpha = (int) Math.round(0.2f * 255);

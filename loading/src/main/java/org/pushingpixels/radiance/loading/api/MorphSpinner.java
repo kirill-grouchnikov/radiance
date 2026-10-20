@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.loading.api;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.EasingFunctions;
-import org.pushingpixels.radiance.animation.api.ease.TimelineEase;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyValues;
@@ -58,8 +57,8 @@ public class MorphSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1200;
 
-    private float[] cornerRadiusValues;
-    private float[] rotateValues;
+    private float cornerRadiusFactor;
+    private float rotate;
 
     private SwingRepaintTimeline[] timelines;
 
@@ -73,8 +72,6 @@ public class MorphSpinner extends BaseSpinner {
 
     public MorphSpinner(Color color, int duration) {
         super(color, duration);
-        this.cornerRadiusValues = new float[]{0.08f};
-        this.rotateValues = new float[]{0f};
     }
 
     @Override
@@ -95,8 +92,8 @@ public class MorphSpinner extends BaseSpinner {
         this.timelines[0] = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("cornerRadius")
-                                .getWith((obj, fieldName) -> cornerRadiusValues[0])
-                                .setWith((obj, fieldName, value) -> cornerRadiusValues[0] = value)
+                                .getWith((obj, fieldName) -> cornerRadiusFactor)
+                                .setWith((obj, fieldName, value) -> cornerRadiusFactor = value)
                                 .goingThrough(crKF))
                 .setEase(EasingFunctions.EASE_IN_OUT)
                 .setDuration(this.duration)
@@ -110,8 +107,8 @@ public class MorphSpinner extends BaseSpinner {
         this.timelines[1] = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("rotate")
-                                .getWith((obj, fieldName) -> rotateValues[0])
-                                .setWith((obj, fieldName, value) -> rotateValues[0] = value)
+                                .getWith((obj, fieldName) -> rotate)
+                                .setWith((obj, fieldName, value) -> rotate = value)
                                 .goingThrough(rotKF))
                 .setEase(EasingFunctions.EASE_IN_OUT)
                 .setDuration(this.duration)
@@ -159,16 +156,16 @@ public class MorphSpinner extends BaseSpinner {
                     float centerY = dy + dim / 2f;
 
                     float sq = dim * 0.64f;
-                    float cornerRadius = cornerRadiusValues[0] * sq;
+                    float cornerRadius = cornerRadiusFactor * sq;
 
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(rotateValues[0]), center, centerY);
+                    rotated.rotate(Math.toRadians(rotate), center, centerY);
 
-                    int arc = (int) Math.round(cornerRadius * 2);
+                    int arc = Math.round(cornerRadius * 2);
                     rotated.setColor(color);
                     rotated.fillRoundRect(
-                            (int) Math.round(center - sq / 2f), (int) Math.round(centerY - sq / 2f),
-                            (int) Math.round(sq), (int) Math.round(sq),
+                            Math.round(center - sq / 2f), Math.round(centerY - sq / 2f),
+                            Math.round(sq), Math.round(sq),
                             arc, arc);
 
                     rotated.dispose();

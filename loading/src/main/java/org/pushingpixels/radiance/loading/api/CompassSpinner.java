@@ -55,7 +55,7 @@ public class CompassSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 500;
     private static final int BAR_COUNT = 4;
 
-    private float[] angleValues;
+    private float angle;
 
     private SwingRepaintTimeline timeline;
 
@@ -85,7 +85,7 @@ public class CompassSpinner extends BaseSpinner {
      */
     public CompassSpinner(Color color, int duration) {
         super(color, duration);
-        this.angleValues = new float[]{0f};
+        this.angle = 0f;
     }
 
     // ─── Lifecycle ────────────────────────────────────────────────────────
@@ -99,8 +99,8 @@ public class CompassSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("angle")
-                                .getWith((obj, fieldName) -> angleValues[0])
-                                .setWith((obj, fieldName, value) -> angleValues[0] = value)
+                                .getWith((obj, fieldName) -> angle)
+                                .setWith((obj, fieldName, value) -> angle = value)
                                 .from(0f).to(90f))
                 .setEase(EasingFunctions.EASE_IN_OUT)
                 .setDuration(this.duration)
@@ -158,7 +158,7 @@ public class CompassSpinner extends BaseSpinner {
                     float barLength = 0.22f * adjustedDim;
                     float offsetFromCenter = 0.28f * adjustedDim;
 
-                    float angleRad = angleValues[0] * (float) Math.PI / 180f;
+                    float angleRad = angle * (float) Math.PI / 180f;
 
                     graphics1X.setStroke(new BasicStroke(barThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
                     graphics1X.setColor(color);

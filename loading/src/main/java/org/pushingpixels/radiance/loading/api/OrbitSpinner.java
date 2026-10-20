@@ -54,7 +54,7 @@ public class OrbitSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 750;
     private static final float DEFAULT_STROKE_WIDTH = 2f;
 
-    private float[] angleValues;
+    private float angle;
 
     private SwingRepaintTimeline timeline;
 
@@ -68,7 +68,7 @@ public class OrbitSpinner extends BaseSpinner {
 
     public OrbitSpinner(Color color, int duration) {
         super(color, duration);
-        this.angleValues = new float[]{0f};
+        this.angle = 0f;
     }
 
     @Override
@@ -78,8 +78,8 @@ public class OrbitSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("angle")
-                                .getWith((obj, fieldName) -> angleValues[0])
-                                .setWith((obj, fieldName, value) -> angleValues[0] = value)
+                                .getWith((obj, fieldName) -> angle)
+                                .setWith((obj, fieldName, value) -> angle = value)
                                 .from(0f).to(360f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -133,7 +133,7 @@ public class OrbitSpinner extends BaseSpinner {
                     // Rotating arc with gradient
                     float radius = dim / 2f - strokeWidth / 2f;
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    rotated.rotate(Math.toRadians(angle), center, centerY);
 
                     int segments = 60;
                     float anglePerSegment = 360f / segments;

@@ -57,7 +57,7 @@ public class SnakeSpinner extends BaseSpinner {
 
     private int cap;
 
-    private float[] angleValues;
+    private float angle;
 
     private SwingRepaintTimeline timeline;
 
@@ -72,7 +72,7 @@ public class SnakeSpinner extends BaseSpinner {
     public SnakeSpinner(Color color, int duration, int cap) {
         super(color, duration);
         this.cap = cap;
-        this.angleValues = new float[]{0f};
+        this.angle = 0f;
     }
 
     public int getCap() {
@@ -93,8 +93,8 @@ public class SnakeSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("angle")
-                                .getWith((obj, fieldName) -> angleValues[0])
-                                .setWith((obj, fieldName, value) -> angleValues[0] = value)
+                                .getWith((obj, fieldName) -> angle)
+                                .setWith((obj, fieldName, value) -> angle = value)
                                 .from(0f).to(360f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -145,7 +145,7 @@ public class SnakeSpinner extends BaseSpinner {
                     float dash = circumference / 12f;
 
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    rotated.rotate(Math.toRadians(angle), center, centerY);
                     rotated.setColor(color);
                     rotated.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND,
                             0, new float[]{dash, dash}, 0));

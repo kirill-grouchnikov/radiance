@@ -57,8 +57,8 @@ public class GatherSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1600;
 
-    private float[] pullValues;
-    private float[] turnValues;
+    private float pull;
+    private float turn;
 
     private SwingRepaintTimeline[] timelines;
 
@@ -88,8 +88,6 @@ public class GatherSpinner extends BaseSpinner {
      */
     public GatherSpinner(Color color, int duration) {
         super(color, duration);
-        this.pullValues = new float[]{0f};
-        this.turnValues = new float[]{0f};
     }
 
     // ─── Lifecycle ────────────────────────────────────────────────────────
@@ -111,8 +109,8 @@ public class GatherSpinner extends BaseSpinner {
         this.timelines[0] = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("pull")
-                                .getWith((obj, fieldName) -> pullValues[0])
-                                .setWith((obj, fieldName, value) -> pullValues[0] = value)
+                                .getWith((obj, fieldName) -> pull)
+                                .setWith((obj, fieldName, value) -> pull = value)
                                 .goingThrough(pullKF))
                 .setDuration(this.duration)
                 .build();
@@ -125,8 +123,8 @@ public class GatherSpinner extends BaseSpinner {
         this.timelines[1] = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("turn")
-                                .getWith((obj, fieldName) -> turnValues[0])
-                                .setWith((obj, fieldName, value) -> turnValues[0] = value)
+                                .getWith((obj, fieldName) -> turn)
+                                .setWith((obj, fieldName, value) -> turn = value)
                                 .goingThrough(turnKF))
                 .setDuration(this.duration)
                 .build();
@@ -185,10 +183,10 @@ public class GatherSpinner extends BaseSpinner {
                     float defaultBlockGap = dim * 0.22f;
                     float blockSize = (dim - defaultBlockGap) / 2f;
                     float blockCornerRadius = dim * 0.14f;
-                    float pullA = pullValues[0] * blockSize / 3.0f;
+                    float pullA = pull * blockSize / 3.0f;
 
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(turnValues[0]), center, centerY);
+                    rotated.rotate(Math.toRadians(turn), center, centerY);
 
                     int arc = (int) Math.round(blockCornerRadius * 2);
                     rotated.setColor(color);

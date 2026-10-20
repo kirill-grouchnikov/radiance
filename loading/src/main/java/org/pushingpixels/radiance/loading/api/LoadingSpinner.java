@@ -58,7 +58,7 @@ public class LoadingSpinner extends BaseSpinner {
     private static final int[] SEGMENT_X = {10, 6, 2, 0, 2, 6, 10, 12};
     private static final int[] SEGMENT_Y = {2, 0, 2, 6, 10, 12, 10, 6};
 
-    private float[] highlightValues;
+    private float highlight;
 
     private SwingRepaintTimeline timeline;
 
@@ -72,7 +72,7 @@ public class LoadingSpinner extends BaseSpinner {
 
     public LoadingSpinner(Color color, int duration) {
         super(color, duration);
-        this.highlightValues = new float[]{0f};
+        this.highlight = 0f;
     }
 
     @Override
@@ -82,8 +82,8 @@ public class LoadingSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("highlight")
-                                .getWith((obj, fieldName) -> highlightValues[0])
-                                .setWith((obj, fieldName, value) -> highlightValues[0] = value)
+                                .getWith((obj, fieldName) -> highlight)
+                                .setWith((obj, fieldName, value) -> highlight = value)
                                 .from(0f).to(1f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -126,7 +126,7 @@ public class LoadingSpinner extends BaseSpinner {
                     graphics1X.translate(dx, dy);
 
                     float cellSize = dim / 15f;
-                    float highlight = highlightValues[0];
+                    float highlight = this.highlight;
 
                     for (int index = 0; index < SEGMENT_COUNT; index++) {
                         float distanceFromHighlight = ((highlight + index / 8f) % 1f);

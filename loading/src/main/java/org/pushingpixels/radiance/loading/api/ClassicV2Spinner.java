@@ -56,7 +56,7 @@ public class ClassicV2Spinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 800;
     private static final int BAR_COUNT = 8;
 
-    private float[] highlightValues;
+    private float highlight;
 
     private SwingRepaintTimeline timeline;
 
@@ -86,7 +86,7 @@ public class ClassicV2Spinner extends BaseSpinner {
      */
     public ClassicV2Spinner(Color color, int duration) {
         super(color, duration);
-        this.highlightValues = new float[]{0f};
+        this.highlight = 0f;
     }
 
     // ─── Lifecycle ────────────────────────────────────────────────────────
@@ -100,8 +100,8 @@ public class ClassicV2Spinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("highlight")
-                                .getWith((obj, fieldName) -> highlightValues[0])
-                                .setWith((obj, fieldName, value) -> highlightValues[0] = value)
+                                .getWith((obj, fieldName) -> highlight)
+                                .setWith((obj, fieldName, value) -> highlight = value)
                                 .from(0f).to(1f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -159,7 +159,7 @@ public class ClassicV2Spinner extends BaseSpinner {
                     float barLength = 0.22f * adjustedDim;
                     float offsetFromCenter = 0.28f * adjustedDim;
 
-                    float highlight = highlightValues[0];
+                    float highlight = this.highlight;
 
                     graphics1X.setStroke(new BasicStroke(barThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 

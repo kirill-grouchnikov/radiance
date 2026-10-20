@@ -56,7 +56,7 @@ public class CircularDotsSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 800;
     private static final int DOT_COUNT = 8;
 
-    private float[] highlightValues;
+    private float highlight;
 
     private SwingRepaintTimeline timeline;
 
@@ -86,7 +86,7 @@ public class CircularDotsSpinner extends BaseSpinner {
      */
     public CircularDotsSpinner(Color color, int duration) {
         super(color, duration);
-        this.highlightValues = new float[]{0f};
+        this.highlight = 0f;
     }
 
     // ─── Lifecycle ────────────────────────────────────────────────────────
@@ -100,8 +100,8 @@ public class CircularDotsSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("highlight")
-                                .getWith((obj, fieldName) -> highlightValues[0])
-                                .setWith((obj, fieldName, value) -> highlightValues[0] = value)
+                                .getWith((obj, fieldName) -> highlight)
+                                .setWith((obj, fieldName, value) -> highlight = value)
                                 .from(0f).to(1f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -153,7 +153,7 @@ public class CircularDotsSpinner extends BaseSpinner {
                     float scale = dim / 16f;
                     float dotR = 1.5f * scale;
 
-                    float highlight = highlightValues[0];
+                    float highlight = this.highlight;
 
                     for (int index = 0; index < DOT_COUNT; index++) {
                         float angle = index * (float) Math.PI / 4;

@@ -56,7 +56,7 @@ public class RadarSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1500;
 
-    private float[] beamAngleValues;
+    private float beamAngle;
 
     private SwingRepaintTimeline timeline;
 
@@ -70,7 +70,7 @@ public class RadarSpinner extends BaseSpinner {
 
     public RadarSpinner(Color color, int duration) {
         super(color, duration);
-        this.beamAngleValues = new float[]{0f};
+        this.beamAngle = 0f;
     }
 
     @Override
@@ -80,8 +80,8 @@ public class RadarSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("beamAngle")
-                                .getWith((obj, fieldName) -> beamAngleValues[0])
-                                .setWith((obj, fieldName, value) -> beamAngleValues[0] = value)
+                                .getWith((obj, fieldName) -> beamAngle)
+                                .setWith((obj, fieldName, value) -> beamAngle = value)
                                 .from(0f).to(360f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -142,7 +142,7 @@ public class RadarSpinner extends BaseSpinner {
 
                     // Rotating beam (wedge shape with gradient)
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(beamAngleValues[0]), centerX, centerY);
+                    rotated.rotate(Math.toRadians(beamAngle), centerX, centerY);
 
                     rotated.setPaint(new RadialGradientPaint(
                         centerX, centerY, dim / 2,

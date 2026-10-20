@@ -54,7 +54,7 @@ public class PulseSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1200;
 
-    private float[] positionValues;
+    private float position;
 
     private SwingRepaintTimeline timeline;
 
@@ -68,7 +68,7 @@ public class PulseSpinner extends BaseSpinner {
 
     public PulseSpinner(Color color, int duration) {
         super(color, duration);
-        this.positionValues = new float[]{0f};
+        this.position = 0f;
     }
 
     @Override
@@ -78,8 +78,8 @@ public class PulseSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("position")
-                                .getWith((obj, fieldName) -> positionValues[0])
-                                .setWith((obj, fieldName, value) -> positionValues[0] = value)
+                                .getWith((obj, fieldName) -> position)
+                                .setWith((obj, fieldName, value) -> position = value)
                                 .from(0f).to(1f))
                 .setEase(EasingFunctions.EASE_OUT)
                 .setDuration(this.duration)
@@ -123,7 +123,7 @@ public class PulseSpinner extends BaseSpinner {
                     float center = dx + dim / 2f;
                     float centerY = dy + dim / 2f;
 
-                    float position = positionValues[0];
+                    float position = this.position;
                     float alpha = 0.4f * (1f - position);
                     float sc = 0.25f + position * 0.75f;
                     float dotR = dim / 8f;
