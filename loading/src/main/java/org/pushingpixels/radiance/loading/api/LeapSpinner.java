@@ -45,8 +45,8 @@ import java.awt.*;
  * A Swing component that renders an animated leap spinner.
  *
  * <p>This is a migration of the {@code Leap} composable from the Aurora loading
- * module. It draws three dots that leap past each other in a staggered sequence,
- * each rotating 180° as it moves.</p>
+ * module. It draws three dots that translate horizontally and rotate, with
+ * keyframe-based animations staggered by duration/3 for each dot.</p>
  *
  * <p>This is a modified version of the original source code by Jakub Krehel
  * available under the MIT license.</p>
@@ -56,92 +56,124 @@ import java.awt.*;
 public class LeapSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1800;
+
+    /** Number of animated dots */
     private static final int DOT_COUNT = 3;
 
-    private float[] translateValues;
-    private float[] rotateValues;
-
-    private SwingRepaintTimeline[] timelines;
+    /**
+     * Translate-axis keyframe positions for one cycle (value 0→-2 maps to horizontal offset).
+     * The original animates from 0.0f to -2.0f, so keyframe values 0→0→1→2 map to 0→0→-1→-2,
+     * moving dots from right to left.
+     * Keyframes: 0.0 at 0%, 0.0 at 33%, -1.0 at 66%, -2.0 at 100%
+     */
+    private static final float[] TRANSLATE_KEY_TIMES = {
+            0f, 1f / 3f, 2f / 3f, 1f
+    };
+    private static final float[] TRANSLATE_KEY_VALUES = {
+            0f, 0f, -1f, -2f
+    };
 
     /**
-     * Creates a new {@code LeapSpinner} with default color (black) and
-     * default duration (1800 ms).
+     * Rotate-axis keyframe positions for one cycle (value 0→180 degrees).
+     * Keyframes: 0.0 at 0%, 180.0 at 33%, 180.0 at 100%
      */
+    private static final float[] ROTATE_KEY_TIMES = {
+            0f, 1f / 3f, 1f
+    };
+    private static final float[] ROTATE_KEY_VALUES = {
+            0f, 180f, 180f
+    };
+
+    private long startTime;
+
+    private float[] translateValues;
+
+    private SwingRepaintTimeline[] translateTimelines;
+
+    private float[] rotateValues;
+
+    private SwingRepaintTimeline[] rotateTimelines;
+
     public LeapSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
-    /**
-     * Creates a new {@code LeapSpinner} with the specified color.
-     *
-     * @param color the color of the dots
-     */
     public LeapSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
-    /**
-     * Creates a new {@code LeapSpinner} with the specified color and
-     * animation duration.
-     *
-     * @param color    the color of the dots
-     * @param duration the animation cycle duration in milliseconds
-     */
     public LeapSpinner(Color color, int duration) {
         super(color, duration);
-        this.translateValues = new float[DOT_COUNT];
-        this.rotateValues = new float[DOT_COUNT];
+        this.translateValues = new float[]{0f, 0f, 0f};
+        this.rotateValues = new float[]{0f, 0f, 0f};
     }
-
-    // ─── Lifecycle ────────────────────────────────────────────────────────
 
     @Override
     protected void startAnimations() {
-        if (this.timelines == null) {
-            this.timelines = new SwingRepaintTimeline[DOT_COUNT * 2];
+        if (this.translateTimelines == null) {
+            this.translateTimelines = new SwingRepaintTimeline[3];
+        }
+        if (this.rotateTimelines == null) {
+            this.rotateTimelines = new SwingRepaintTimeline[3];
         }
 
-        int thirdDuration = duration / 3;
-        int twoThirdsDuration = duration * 2 / 3;
+        KeyTimes translateKeyTimes = new KeyTimes(
+            0f, 1.0f / 3.0f, 2.0f / 3.0f, 1.0f);
+        KeyValues<Float> translateKeyValues = KeyValues.create(
+            0.0f, 0.0f, 1.0f, 2.0f);
+        KeyFrames<Float> translateKeyFrames = new KeyFrames<>(translateKeyValues, translateKeyTimes, new Linear());
 
-        float[] translateTimes = {0f, (float) thirdDuration / duration, (float) twoThirdsDuration / duration, 1f};
-        Float[] translateVals = {0f, 0f, -1f, -2f};
-        KeyFrames<Float> translateKF = new KeyFrames<>(KeyValues.create(translateVals), new KeyTimes(translateTimes), new Linear());
-
-        float[] rotateTimes = {0f, (float) thirdDuration / duration, 1f};
-        Float[] rotateVals = {0f, 180f, 180f};
-        KeyFrames<Float> rotateKF = new KeyFrames<>(KeyValues.create(rotateVals), new KeyTimes(rotateTimes), new Linear());
-
-        for (int i = 0; i < DOT_COUNT; i++) {
+        for (int i = 0; i < 3; i++) {
             final int index = i;
-            long initialDelay = index * (long) duration / 3;
 
-            this.timelines[index * 2] = SwingRepaintTimeline.repaintBuilder(this)
-                    .addPropertyToInterpolate(
-                            Timeline.<Float>property("translate" + index)
-                                    .getWith((obj, fieldName) -> translateValues[index])
-                                    .setWith((obj, fieldName, value) -> translateValues[index] = value)
-                                    .goingThrough(translateKF))
-                    .setDuration(this.duration)
-                    .setInitialDelay(initialDelay)
-                    .build();
+            SwingRepaintTimeline.Builder builder = SwingRepaintTimeline.repaintBuilder(this)
+                .addPropertyToInterpolate(
+                    Timeline.<Float>property("translate" + index)
+                        .getWith((obj, fieldName) -> translateValues[index])
+                        .setWith((obj, fieldName, value) -> translateValues[index] = value)
+                        .goingThrough(translateKeyFrames))
+                .setDuration(this.duration);
 
-            this.timelines[index * 2 + 1] = SwingRepaintTimeline.repaintBuilder(this)
-                    .addPropertyToInterpolate(
-                            Timeline.<Float>property("rotate" + index)
-                                    .getWith((obj, fieldName) -> rotateValues[index])
-                                    .setWith((obj, fieldName, value) -> rotateValues[index] = value)
-                                    .goingThrough(rotateKF))
-                    .setDuration(this.duration)
-                    .setInitialDelay(initialDelay)
-                    .build();
+            this.translateTimelines[index] = builder.build();
+        }
+
+        KeyTimes rotateKeyTimes = new KeyTimes(
+            0f, 1.0f / 3.0f, 1.0f);
+        KeyValues<Float> rotateKeyValues = KeyValues.create(
+            0.0f, 180.0f, 180.0f);
+        KeyFrames<Float> rotateKeyFrames = new KeyFrames<>(rotateKeyValues, rotateKeyTimes, new Linear());
+
+        for (int i = 0; i < 3; i++) {
+            final int index = i;
+            long initialDelay = (long) (i * (double) this.duration / 3.0f);
+
+            SwingRepaintTimeline.Builder builder = SwingRepaintTimeline.repaintBuilder(this)
+                .addPropertyToInterpolate(
+                    Timeline.<Float>property("rotate" + index)
+                        .getWith((obj, fieldName) -> rotateValues[index])
+                        .setWith((obj, fieldName, value) -> rotateValues[index] = value)
+                        .goingThrough(rotateKeyFrames))
+                .setDuration(this.duration);
+
+            this.rotateTimelines[index] = builder.build();
         }
 
         SwingUtilities.invokeLater(() -> {
             if (LeapSpinner.this.isDisplayable()) {
-                for (SwingRepaintTimeline tl : timelines) {
+                for (int i = 0; i < translateTimelines.length; i++) {
+                    SwingRepaintTimeline tl = translateTimelines[i];
                     if (tl != null) {
-                        tl.playLoop(RepeatBehavior.LOOP);
+                        tl.playLoopSkipping(RepeatBehavior.LOOP, i * duration / 3);
+                    }
+                }
+            }
+        });
+        SwingUtilities.invokeLater(() -> {
+            if (LeapSpinner.this.isDisplayable()) {
+                for (int i = 0; i < rotateTimelines.length; i++) {
+                    SwingRepaintTimeline tl = rotateTimelines[i];
+                    if (tl != null) {
+                        tl.playLoopSkipping(RepeatBehavior.LOOP, i * duration / 3);
                     }
                 }
             }
@@ -150,8 +182,15 @@ public class LeapSpinner extends BaseSpinner {
 
     @Override
     protected void stopAnimations() {
-        if (this.timelines != null) {
-            for (SwingRepaintTimeline tl : this.timelines) {
+        if (this.translateTimelines != null) {
+            for (SwingRepaintTimeline tl : this.translateTimelines) {
+                if (tl != null) {
+                    tl.abort();
+                }
+            }
+        }
+        if (this.rotateTimelines != null) {
+            for (SwingRepaintTimeline tl : this.rotateTimelines) {
                 if (tl != null) {
                     tl.abort();
                 }
@@ -159,52 +198,44 @@ public class LeapSpinner extends BaseSpinner {
         }
     }
 
-    // ─── Painting ─────────────────────────────────────────────────────────
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         int width = getWidth();
         int height = getHeight();
-
-        if (width <= 0 || height <= 0) {
-            return;
-        }
+        if (width <= 0 || height <= 0) return;
 
         Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    int dim = Math.min(scaledWidth, scaledHeight);
-                    int dx = (scaledWidth - dim) / 2;
-                    int dy = (scaledHeight - dim) / 2;
-
-                    graphics1X.translate(dx, dy);
-
+                    float dim = Math.min(scaledWidth, scaledHeight);
                     float dotDiameter = dim * 0.24f;
                     float gap = (dim - 3 * dotDiameter) / 2f;
-                    float centerY = dim / 2f;
 
                     graphics1X.setColor(color);
 
                     for (int index = 0; index < DOT_COUNT; index++) {
-                        float offsetX = translateValues[index];
-                        float rotAngle = rotateValues[index];
+                        float translateValue = translateValues[index];
+                        float rotateValue = rotateValues[index];
 
+                        float cx = dim / 2f;
+                        float cy = dim / 2f;
+
+                        // Rotate around the dot's own center, matching original withTransform({ rotate(...) })
                         Graphics2D dotGraphics = (Graphics2D) graphics1X.create();
-                        float cx = offsetX * (dotDiameter + gap) + dotDiameter / 2f;
-                        dotGraphics.rotate(Math.toRadians(rotAngle), cx, centerY);
+                        dotGraphics.rotate(Math.toRadians(rotateValue), cx, cy);
+                        float offsetX = translateValue;
                         dotGraphics.fillOval(
-                                (int) Math.round(cx - dotDiameter / 2f),
-                                (int) Math.round(centerY - dotDiameter / 2f),
-                                (int) Math.round(dotDiameter),
-                                (int) Math.round(dotDiameter));
+                                Math.round(offsetX * (dotDiameter + gap)),
+                                Math.round(cy - dotDiameter / 2f),
+                                Math.round(dotDiameter),
+                                Math.round(dotDiameter));
                         dotGraphics.dispose();
                     }
                 });
