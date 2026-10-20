@@ -563,7 +563,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
 
     @Override
     protected void stopAnimationTimer() {
-        this.indeterminateLoopTimeline.abort();
+        if (this.indeterminateLoopTimeline != null) {
+            this.indeterminateLoopTimeline.abort();
+        }
     }
 
     @Override
