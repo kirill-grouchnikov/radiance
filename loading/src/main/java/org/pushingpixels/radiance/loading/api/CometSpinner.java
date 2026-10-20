@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -126,9 +127,8 @@ public class CometSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -137,53 +137,60 @@ public class CometSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        float strokeWidth = DEFAULT_STROKE_WIDTH;
-        int dim = Math.min(width, height) - (int) strokeWidth - 1;
-        int dx = insets.left + (width - dim) / 2 + (int) strokeWidth / 2;
-        int dy = insets.top + (height - dim) / 2 + (int) strokeWidth / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float center = dx + dim / 2f;
-        float centerY = dy + dim / 2f;
-        float radius = dim / 2f;
+                    float strokeWidth = (float) (DEFAULT_STROKE_WIDTH * scaleFactor);
+                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 1;
+                    int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
+                    int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
 
-        // Apply rotation
-        Graphics2D rotated = (Graphics2D) graphics.create();
-        rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    float center = dx + dim / 2f;
+                    float centerY = dy + dim / 2f;
+                    float radius = dim / 2f;
 
-        // Draw the arc with gradient effect using multiple segments
-        float circumference = 2f * (float) Math.PI * radius;
-        // Account for rounded stroke cap
-        float strokeAngle = DEFAULT_STROKE_WIDTH / circumference * 180f;
+                    // Apply rotation
+                    Graphics2D rotated = (Graphics2D) graphics1X.create();
+                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
 
-        int segments = 60;
-        float arcAngle = 360f - strokeAngle * 2f;
-        float anglePerSegment = arcAngle / segments;
+                    // Draw the arc with gradient effect using multiple segments
+                    float circumference = 2f * (float) Math.PI * radius;
+                    // Account for rounded stroke cap
+                    float strokeAngle = strokeWidth / circumference * 180f;
 
-        for (int i = 0; i < segments; i++) {
-            float t = i / (float) segments;
-            // Gradient: 0→0.5 is transparent, 0.5→1.0 goes from 0.5 to 1.0 alpha
-            float alpha;
-            if (t < 0.5f) {
-                alpha = 0f;
-            } else {
-                alpha = 0.5f + (t - 0.5f) * 1.0f; // 0.5 to 1.0
-            }
+                    int segments = 60;
+                    float arcAngle = 360f - strokeAngle * 2f;
+                    float anglePerSegment = arcAngle / segments;
 
-            if (alpha <= 0f) continue;
+                    for (int i = 0; i < segments; i++) {
+                        float t = i / (float) segments;
+                        // Gradient: 0→0.5 is transparent, 0.5→1.0 goes from 0.5 to 1.0 alpha
+                        float alpha;
+                        if (t < 0.5f) {
+                            alpha = 0f;
+                        } else {
+                            alpha = 0.5f + (t - 0.5f) * 1.0f; // 0.5 to 1.0
+                        }
 
-            int a = (int) Math.round(alpha * 255);
-            rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                        if (alpha <= 0f) continue;
 
-            float startAngle = strokeAngle + i * anglePerSegment;
-            rotated.setStroke(new BasicStroke(DEFAULT_STROKE_WIDTH, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            rotated.drawArc(
-                    (int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                    (int) Math.round(radius * 2), (int) Math.round(radius * 2),
-                    (int) Math.round(startAngle), (int) Math.round(anglePerSegment));
-        }
+                        int a = (int) Math.round(alpha * 255);
+                        rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
 
-        rotated.dispose();
+                        float startAngle = strokeAngle + i * anglePerSegment;
+                        rotated.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                        rotated.drawArc(
+                                (int) Math.round(center - radius), (int) Math.round(centerY - radius),
+                                (int) Math.round(radius * 2), (int) Math.round(radius * 2),
+                                (int) Math.round(startAngle), (int) Math.round(anglePerSegment));
+                    }
+
+                    rotated.dispose();
+                });
+
         graphics.dispose();
     }
 }

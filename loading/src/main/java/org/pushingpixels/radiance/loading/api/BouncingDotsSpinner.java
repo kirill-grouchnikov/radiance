@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -140,9 +141,8 @@ public class BouncingDotsSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -151,31 +151,37 @@ public class BouncingDotsSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        graphics.translate(dx, dy);
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        float dotSize = dim * 0.25f;
-        float gap = dim * 0.2f;
-        float totalWidth = 3 * dotSize + 2 * gap;
-        float startX = (dim - totalWidth) / 2f;
+                    graphics1X.translate(dx, dy);
 
-        graphics.setColor(color);
+                    float dotSize = dim * 0.25f;
+                    float gap = dim * 0.2f;
+                    float totalWidth = 3 * dotSize + 2 * gap;
+                    float startX = (dim - totalWidth) / 2f;
 
-        for (int i = 0; i < DOT_COUNT; i++) {
-            float dotValue = dotValues[i];
-            float yOff = (0.28f - dotValue) * dotSize;
-            float cx = startX + i * (dotSize + gap) + dotSize / 2f;
-            float cy = dim / 2f + yOff;
+                    graphics1X.setColor(color);
 
-            graphics.fillOval((int) Math.round(cx - dotSize / 2f),
-                    (int) Math.round(cy - dotSize / 2f),
-                    (int) Math.round(dotSize),
-                    (int) Math.round(dotSize));
-        }
+                    for (int i = 0; i < DOT_COUNT; i++) {
+                        float dotValue = dotValues[i];
+                        float yOff = (0.28f - dotValue) * dotSize;
+                        float cx = startX + i * (dotSize + gap) + dotSize / 2f;
+                        float cy = dim / 2f + yOff;
+
+                        graphics1X.fillOval((int) Math.round(cx - dotSize / 2f),
+                                (int) Math.round(cy - dotSize / 2f),
+                                (int) Math.round(dotSize),
+                                (int) Math.round(dotSize));
+                    }
+                });
 
         graphics.dispose();
     }

@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -168,9 +169,8 @@ public class ArcSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -182,27 +182,32 @@ public class ArcSpinner extends BaseSpinner {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        float strokeWidth = DEFAULT_STROKE_WIDTH;
-        int diameter = Math.min(width, height) - (int) strokeWidth - 1;
-        int dx = insets.left + (width - diameter) / 2 + (int) strokeWidth / 2;
-        int dy = insets.top + (height - diameter) / 2 + (int) strokeWidth / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float radius = diameter / 2f;
-        float circumference = 2f * (float) Math.PI * radius;
-        float dash = DASH_RATIO_NUMERATOR * circumference / DASH_RATIO_DENOMINATOR;
+                    float strokeWidth = (float) (DEFAULT_STROKE_WIDTH * scaleFactor);
+                    int diameter = Math.min(scaledWidth, scaledHeight) -
+                        (int) strokeWidth - 2;
+                    int dx = (scaledWidth - diameter) / 2 + (int) strokeWidth / 2;
+                    int dy = (scaledHeight - diameter) / 2 + (int) strokeWidth / 2;
 
-        // Apply rotation transform
-        float centerX = dx + radius;
-        float centerY = dy + radius;
-        graphics.rotate(Math.toRadians(this.angle), centerX, centerY);
+                    float radius = diameter / 2f;
+                    float circumference = 2f * (float) Math.PI * radius;
+                    float dash = DASH_RATIO_NUMERATOR * circumference / DASH_RATIO_DENOMINATOR;
 
-        // Draw the dashed arc
-        graphics.setColor(this.color);
-        graphics.setStroke(new BasicStroke(strokeWidth, this.cap,
-                BasicStroke.JOIN_ROUND, 0, new float[]{dash, circumference - dash}, 0));
+                    // Apply rotation transform
+                    float centerX = dx + radius;
+                    float centerY = dy + radius;
+                    graphics1X.rotate(Math.toRadians(this.angle), centerX, centerY);
 
-        // Draw a full 360° arc (circle) — the dash pattern creates the visible segment
-        graphics.drawArc(dx, dy, diameter, diameter, 0, 360);
+                    // Draw the dashed arc
+                    graphics1X.setColor(this.color);
+                    graphics1X.setStroke(new BasicStroke(strokeWidth, this.cap,
+                        BasicStroke.JOIN_ROUND, 0, new float[]{dash, circumference - dash}, 0));
+
+                    // Draw a full 360° arc (circle) — the dash pattern creates the visible segment
+                    graphics1X.drawArc(dx, dy, diameter, diameter, 0, 360);
+                });
 
         graphics.dispose();
     }

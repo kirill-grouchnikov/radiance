@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -127,9 +128,8 @@ public class ClassicV2Spinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -138,43 +138,49 @@ public class ClassicV2Spinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float barThickness = 0.1f * dim;
-        float strokeWidth = barThickness;
-        int adjustedDim = dim - (int) strokeWidth - 1;
-        int adjDx = dx + (dim - adjustedDim) / 2;
-        int adjDy = dy + (dim - adjustedDim) / 2;
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        graphics.translate(adjDx + adjustedDim / 2f, adjDy + adjustedDim / 2f);
+                    float barThickness = 0.1f * dim;
+                    float strokeWidth = barThickness;
+                    int adjustedDim = dim - (int) strokeWidth - 1;
+                    int adjDx = dx + (dim - adjustedDim) / 2;
+                    int adjDy = dy + (dim - adjustedDim) / 2;
 
-        float barLength = 0.22f * adjustedDim;
-        float offsetFromCenter = 0.28f * adjustedDim;
+                    graphics1X.translate(adjDx + adjustedDim / 2f, adjDy + adjustedDim / 2f);
 
-        float highlight = highlightValues[0];
+                    float barLength = 0.22f * adjustedDim;
+                    float offsetFromCenter = 0.28f * adjustedDim;
 
-        graphics.setStroke(new BasicStroke(barThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                    float highlight = highlightValues[0];
 
-        for (int index = 0; index < BAR_COUNT; index++) {
-            float distanceFromHighlight = ((highlight + index / (float) BAR_COUNT) % 1f);
-            float alpha = 1f - distanceFromHighlight * 0.8f;
-            alpha = Math.max(0f, Math.min(1f, alpha));
+                    graphics1X.setStroke(new BasicStroke(barThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
-            float angle = index * (float) Math.PI / 4f;
+                    for (int index = 0; index < BAR_COUNT; index++) {
+                        float distanceFromHighlight = ((highlight + index / (float) BAR_COUNT) % 1f);
+                        float alpha = 1f - distanceFromHighlight * 0.8f;
+                        alpha = Math.max(0f, Math.min(1f, alpha));
 
-            float sx = offsetFromCenter * (float) Math.sin(angle);
-            float sy = offsetFromCenter * (float) Math.cos(angle);
-            float ex = (offsetFromCenter + barLength) * (float) Math.sin(angle);
-            float ey = (offsetFromCenter + barLength) * (float) Math.cos(angle);
+                        float angle = index * (float) Math.PI / 4f;
 
-            int a = (int) Math.round(alpha * 255);
-            graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
-            graphics.drawLine((int) Math.round(sx), (int) Math.round(sy),
-                    (int) Math.round(ex), (int) Math.round(ey));
-        }
+                        float sx = offsetFromCenter * (float) Math.sin(angle);
+                        float sy = offsetFromCenter * (float) Math.cos(angle);
+                        float ex = (offsetFromCenter + barLength) * (float) Math.sin(angle);
+                        float ey = (offsetFromCenter + barLength) * (float) Math.cos(angle);
+
+                        int a = (int) Math.round(alpha * 255);
+                        graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                        graphics1X.drawLine((int) Math.round(sx), (int) Math.round(sy),
+                                (int) Math.round(ex), (int) Math.round(ey));
+                    }
+                });
 
         graphics.dispose();
     }

@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyValues;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -182,9 +183,8 @@ public class AtomSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -193,54 +193,60 @@ public class AtomSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        float outerStroke = OUTER_STROKE_WIDTH;
-        int diameter = Math.min(width, height) - (int) outerStroke - 1;
-        int dx = insets.left + (width - diameter) / 2 + (int) outerStroke / 2;
-        int dy = insets.top + (height - diameter) / 2 + (int) outerStroke / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float radius = diameter / 2f;
-        float centerX = dx + radius;
-        float centerY = dy + radius;
+                    float outerStroke = (float) (OUTER_STROKE_WIDTH * scaleFactor);
+                    int diameter = Math.min(scaledWidth, scaledHeight) - (int) outerStroke - 1;
+                    int dx = (scaledWidth - diameter) / 2 + (int) outerStroke / 2;
+                    int dy = (scaledHeight - diameter) / 2 + (int) outerStroke / 2;
 
-        graphics.setColor(color);
+                    float radius = diameter / 2f;
+                    float centerX = dx + radius;
+                    float centerY = dy + radius;
 
-        // Draw the outer circle
-        graphics.setStroke(new BasicStroke(OUTER_STROKE_WIDTH));
-        graphics.drawOval(dx, dy, diameter, diameter);
+                    graphics1X.setColor(color);
 
-        // Draw the three inner orbits
-        for (int i = 0; i < 3; i++) {
-            float orbitValue = orbitValues[i];
+                    // Draw the outer circle
+                    graphics1X.setStroke(new BasicStroke(outerStroke));
+                    graphics1X.drawOval(dx, dy, diameter, diameter);
 
-            // Skip drawing when fully collapsed (orbitValue == 1.0 means stroke width is 0)
-            if (orbitValue >= 1.0f) {
-                continue;
-            }
+                    // Draw the three inner orbits
+                    for (int i = 0; i < 3; i++) {
+                        float orbitValue = orbitValues[i];
 
-            // Rotate by index * 120 degrees
-            graphics.rotate(Math.toRadians(i * 120.0), centerX, centerY);
+                        // Skip drawing when fully collapsed (orbitValue == 1.0 means stroke width is 0)
+                        if (orbitValue >= 1.0f) {
+                            continue;
+                        }
 
-            // Calculate ellipse bounds based on orbitValue
-            // When orbitValue=0: topLeft=(centerX, dy), size=(diameter, diameter) — full ellipse
-            // When orbitValue=1: topLeft=(centerX+radius, dy), size=(0, diameter) — collapsed
-            float topLeftX = dx + radius * orbitValue;
-            float ellipseWidth = diameter * (1.0f - orbitValue);
+                        // Rotate by index * 120 degrees
+                        graphics1X.rotate(Math.toRadians(i * 120.0), centerX, centerY);
 
-            // Stroke width decreases as orbit collapses
-            float strokeWidth = INNER_STROKE_WIDTH * (1.0f - orbitValue * orbitValue);
-            graphics.setStroke(new BasicStroke(strokeWidth));
+                        // Calculate ellipse bounds based on orbitValue
+                        // When orbitValue=0: topLeft=(centerX, dy), size=(diameter, diameter) — full ellipse
+                        // When orbitValue=1: topLeft=(centerX+radius, dy), size=(0, diameter) — collapsed
+                        float topLeftX = dx + radius * orbitValue;
+                        float ellipseWidth = diameter * (1.0f - orbitValue);
 
-            graphics.drawOval(
-                    (int) Math.round(topLeftX),
-                    dy,
-                    (int) Math.round(ellipseWidth),
-                    diameter
-            );
+                        // Stroke width decreases as orbit collapses
+                        float strokeWidth = (float) (INNER_STROKE_WIDTH * scaleFactor * (1.0f - orbitValue * orbitValue));
+                        graphics1X.setStroke(new BasicStroke(strokeWidth));
 
-            // Undo the rotation for the next orbit
-            graphics.rotate(Math.toRadians(-i * 120.0), centerX, centerY);
-        }
+                        graphics1X.drawOval(
+                                (int) Math.round(topLeftX),
+                                dy,
+                                (int) Math.round(ellipseWidth),
+                                diameter
+                        );
+
+                        // Undo the rotation for the next orbit
+                        graphics1X.rotate(Math.toRadians(-i * 120.0), centerX, centerY);
+                    }
+                });
 
         graphics.dispose();
     }

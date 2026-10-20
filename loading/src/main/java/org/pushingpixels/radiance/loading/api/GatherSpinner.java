@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyValues;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -158,9 +159,8 @@ public class GatherSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -169,39 +169,46 @@ public class GatherSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float center = dx + dim / 2f;
-        float centerY = dy + dim / 2f;
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        float defaultBlockGap = dim * 0.24f;
-        float blockSize = (dim - defaultBlockGap) / 2f;
-        float blockCornerRadius = dim * 0.14f;
-        float pullA = pullValues[0] * blockSize / 3.0f;
+                    float center = dx + dim / 2f;
+                    float centerY = dy + dim / 2f;
 
-        Graphics2D rotated = (Graphics2D) graphics.create();
-        rotated.rotate(Math.toRadians(turnValues[0]), center, centerY);
+                    float defaultBlockGap = dim * 0.24f;
+                    float blockSize = (dim - defaultBlockGap) / 2f;
+                    float blockCornerRadius = dim * 0.14f;
+                    float pullA = pullValues[0] * blockSize / 3.0f;
 
-        int arc = (int) Math.round(blockCornerRadius * 2);
-        rotated.setColor(color);
+                    Graphics2D rotated = (Graphics2D) graphics1X.create();
+                    rotated.rotate(Math.toRadians(turnValues[0]), center, centerY);
 
-        float[] dxs = {1f, -1f, 1f, -1f};
-        float[] dys = {1f, 1f, -1f, -1f};
+                    int arc = (int) Math.round(blockCornerRadius * 2);
+                    rotated.setColor(color);
 
-        for (int i = 0; i < 4; i++) {
-            float x = dxs[i] * (blockSize / 2f + defaultBlockGap / 2f - pullA / 2f) - blockSize / 2f;
-            float y = dys[i] * (blockSize / 2f + defaultBlockGap / 2f - pullA / 2f) - blockSize / 2f;
+                    float[] dxs = {1f, -1f, 1f, -1f};
+                    float[] dys = {1f, 1f, -1f, -1f};
 
-            rotated.fillRoundRect(
-                    (int) Math.round(center + x), (int) Math.round(centerY + y),
-                    (int) Math.round(blockSize), (int) Math.round(blockSize),
-                    arc, arc);
-        }
+                    for (int i = 0; i < 4; i++) {
+                        float x = dxs[i] * (blockSize / 2f + defaultBlockGap / 2f - pullA / 2f) - blockSize / 2f;
+                        float y = dys[i] * (blockSize / 2f + defaultBlockGap / 2f - pullA / 2f) - blockSize / 2f;
 
-        rotated.dispose();
+                        rotated.fillRoundRect(
+                                (int) Math.round(center + x), (int) Math.round(centerY + y),
+                                (int) Math.round(blockSize), (int) Math.round(blockSize),
+                                arc, arc);
+                    }
+
+                    rotated.dispose();
+                });
+
         graphics.dispose();
     }
 }

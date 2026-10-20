@@ -122,17 +122,18 @@ public class LinearDotsSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
         if (width <= 0 || height <= 0) return;
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
         int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        int dx = (width - dim) / 2;
+        int dy = (height - dim) / 2;
         graphics.translate(dx, dy);
 
         float dotDiameter = dim * 0.24f;

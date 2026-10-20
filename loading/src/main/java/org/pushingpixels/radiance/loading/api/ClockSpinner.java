@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -134,9 +135,8 @@ public class ClockSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -145,36 +145,43 @@ public class ClockSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float center = dx + dim / 2f;
-        float centerY = dy + dim / 2f;
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        // Background semi-transparent circle
-        int a = (int) (0.1f * 255);
-        graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
-        graphics.fillOval((int) Math.round(center - dim / 2f), (int) Math.round(centerY - dim / 2f),
-                dim, dim);
+                    float center = dx + dim / 2f;
+                    float centerY = dy + dim / 2f;
 
-        // Rotated polygon
-        Graphics2D rotated = (Graphics2D) graphics.create();
-        rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    // Background semi-transparent circle
+                    int a = (int) (0.1f * 255);
+                    graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                    graphics1X.fillOval((int) Math.round(center - dim / 2f), (int) Math.round(centerY - dim / 2f),
+                            dim, dim);
 
-        float scale = dim * 0.5f;
-        Path2D.Float path = new Path2D.Float();
-        path.moveTo(VERTICES[0] * scale + center, VERTICES[1] * scale + centerY);
-        path.lineTo(VERTICES[2] * scale + center, VERTICES[3] * scale + centerY);
-        path.lineTo(VERTICES[4] * scale + center, VERTICES[5] * scale + centerY);
-        path.lineTo(VERTICES[6] * scale + center, VERTICES[7] * scale + centerY);
-        path.closePath();
+                    // Rotated polygon
+                    Graphics2D rotated = (Graphics2D) graphics1X.create();
+                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
 
-        rotated.setColor(color);
-        rotated.fill(path);
+                    float scale = dim * 0.5f;
+                    Path2D.Float path = new Path2D.Float();
+                    path.moveTo(VERTICES[0] * scale + center, VERTICES[1] * scale + centerY);
+                    path.lineTo(VERTICES[2] * scale + center, VERTICES[3] * scale + centerY);
+                    path.lineTo(VERTICES[4] * scale + center, VERTICES[5] * scale + centerY);
+                    path.lineTo(VERTICES[6] * scale + center, VERTICES[7] * scale + centerY);
+                    path.closePath();
 
-        rotated.dispose();
+                    rotated.setColor(color);
+                    rotated.fill(path);
+
+                    rotated.dispose();
+                });
+
         graphics.dispose();
     }
 }

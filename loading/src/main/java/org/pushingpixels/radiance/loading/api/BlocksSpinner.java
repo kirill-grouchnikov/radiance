@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -172,9 +173,8 @@ public class BlocksSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -183,57 +183,63 @@ public class BlocksSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        graphics.translate(dx, dy);
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        float gap = dim * 0.1f;
-        float cellSize = (dim - gap * 2) / GRID_SIZE;
-        float br = dim * 0.0625f;
+                    graphics1X.translate(dx, dy);
 
-        graphics.setColor(color);
+                    float gap = dim * 0.1f;
+                    float cellSize = (dim - gap * 2) / GRID_SIZE;
+                    float br = dim * 0.0625f;
 
-        for (int index = 0; index < GRID_SIZE * GRID_SIZE; index++) {
-            int column = index % GRID_SIZE;
-            int row = index / GRID_SIZE;
-            int step;
-            switch (sweep) {
-                case COLUMNS: step = column; break;
-                case DIAGONAL: step = row + column; break;
-                case ROWS: step = row; break;
-                default: step = row + column;
-            }
+                    graphics1X.setColor(color);
 
-            float sweepValue = (step < sweepValues.length) ? sweepValues[step] : 0f;
+                    for (int index = 0; index < GRID_SIZE * GRID_SIZE; index++) {
+                        int column = index % GRID_SIZE;
+                        int row = index / GRID_SIZE;
+                        int step;
+                        switch (sweep) {
+                            case COLUMNS: step = column; break;
+                            case DIAGONAL: step = row + column; break;
+                            case ROWS: step = row; break;
+                            default: step = row + column;
+                        }
 
-            // Scale: 0% -> 0.0, 33% -> 1.0, 66% -> 1.0, 100% -> 0.0
-            float scale;
-            if (sweepValue < 1.0f / 3.0f) {
-                scale = 3.0f * sweepValue;
-            } else if (sweepValue < 2.0f / 3.0f) {
-                scale = 1.0f;
-            } else {
-                scale = 3.0f * (1.0f - sweepValue);
-            }
+                        float sweepValue = (step < sweepValues.length) ? sweepValues[step] : 0f;
 
-            float scaledSize = cellSize * scale;
-            float x = column * (cellSize + gap) + (cellSize - scaledSize) / 2f;
-            float y = row * (cellSize + gap) + (cellSize - scaledSize) / 2f;
+                        // Scale: 0% -> 0.0, 33% -> 1.0, 66% -> 1.0, 100% -> 0.0
+                        float scale;
+                        if (sweepValue < 1.0f / 3.0f) {
+                            scale = 3.0f * sweepValue;
+                        } else if (sweepValue < 2.0f / 3.0f) {
+                            scale = 1.0f;
+                        } else {
+                            scale = 3.0f * (1.0f - sweepValue);
+                        }
 
-            float actualBr = Math.max(0, br * scale);
-            int arc = (int) Math.round(actualBr * 2);
-            if (arc <= 0 || scaledSize <= 0) {
-                graphics.fillRect((int) Math.round(x), (int) Math.round(y),
-                        (int) Math.round(scaledSize), (int) Math.round(scaledSize));
-            } else {
-                graphics.fillRoundRect((int) Math.round(x), (int) Math.round(y),
-                        (int) Math.round(scaledSize), (int) Math.round(scaledSize),
-                        arc, arc);
-            }
-        }
+                        float scaledSize = cellSize * scale;
+                        float x = column * (cellSize + gap) + (cellSize - scaledSize) / 2f;
+                        float y = row * (cellSize + gap) + (cellSize - scaledSize) / 2f;
+
+                        float actualBr = Math.max(0, br * scale);
+                        int arc = (int) Math.round(actualBr * 2);
+                        if (arc <= 0 || scaledSize <= 0) {
+                            graphics1X.fillRect((int) Math.round(x), (int) Math.round(y),
+                                    (int) Math.round(scaledSize), (int) Math.round(scaledSize));
+                        } else {
+                            graphics1X.fillRoundRect((int) Math.round(x), (int) Math.round(y),
+                                    (int) Math.round(scaledSize), (int) Math.round(scaledSize),
+                                    arc, arc);
+                        }
+                    }
+                });
 
         graphics.dispose();
     }

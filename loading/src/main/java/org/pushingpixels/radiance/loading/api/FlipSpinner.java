@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -125,9 +126,8 @@ public class FlipSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -136,40 +136,46 @@ public class FlipSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        graphics.translate(dx + dim / 2f, dy + dim / 2f);
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        float position = positionValues[0];
+                    graphics1X.translate(dx + dim / 2f, dy + dim / 2f);
 
-        // Simulate 3D flip by scaling width
-        // First half (0-0.5): X flip from 180° to 0°
-        // Second half (0.5-1.0): Y flip from 0° to 180°
-        float scaleX;
-        if (position <= 0.5f) {
-            // X flip: cos of rotation angle
-            float rotX = -position * 360f;
-            scaleX = (float) Math.abs(Math.cos(Math.toRadians(rotX)));
-        } else {
-            // Y flip: cos of rotation angle
-            float rotY = -(position - 0.5f) * 360f;
-            scaleX = (float) Math.abs(Math.cos(Math.toRadians(rotY)));
-        }
+                    float position = positionValues[0];
 
-        float sq = dim * 0.64f;
-        float br = dim * 0.1f;
+                    // Simulate 3D flip by scaling width
+                    // First half (0-0.5): X flip from 180° to 0°
+                    // Second half (0.5-1.0): Y flip from 0° to 180°
+                    float scaleX;
+                    if (position <= 0.5f) {
+                        // X flip: cos of rotation angle
+                        float rotX = -position * 360f;
+                        scaleX = (float) Math.abs(Math.cos(Math.toRadians(rotX)));
+                    } else {
+                        // Y flip: cos of rotation angle
+                        float rotY = -(position - 0.5f) * 360f;
+                        scaleX = (float) Math.abs(Math.cos(Math.toRadians(rotY)));
+                    }
 
-        float w = sq * scaleX;
-        int arc = (int) Math.round(br * 2);
+                    float sq = dim * 0.64f;
+                    float br = dim * 0.1f;
 
-        graphics.setColor(color);
-        graphics.fillRoundRect(
-                (int) Math.round(-w / 2f), (int) Math.round(-sq / 2f),
-                (int) Math.round(w), (int) Math.round(sq),
-                arc, arc);
+                    float w = sq * scaleX;
+                    int arc = (int) Math.round(br * 2);
+
+                    graphics1X.setColor(color);
+                    graphics1X.fillRoundRect(
+                            (int) Math.round(-w / 2f), (int) Math.round(-sq / 2f),
+                            (int) Math.round(w), (int) Math.round(sq),
+                            arc, arc);
+                });
 
         graphics.dispose();
     }

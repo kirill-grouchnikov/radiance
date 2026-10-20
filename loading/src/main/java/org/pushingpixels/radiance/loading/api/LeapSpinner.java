@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyValues;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -164,9 +165,8 @@ public class LeapSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -175,33 +175,39 @@ public class LeapSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        graphics.translate(dx, dy);
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        float dotDiameter = dim * 0.24f;
-        float gap = (dim - 3 * dotDiameter) / 2f;
-        float centerY = dim / 2f;
+                    graphics1X.translate(dx, dy);
 
-        graphics.setColor(color);
+                    float dotDiameter = dim * 0.24f;
+                    float gap = (dim - 3 * dotDiameter) / 2f;
+                    float centerY = dim / 2f;
 
-        for (int index = 0; index < DOT_COUNT; index++) {
-            float offsetX = translateValues[index];
-            float rotAngle = rotateValues[index];
+                    graphics1X.setColor(color);
 
-            Graphics2D dotGraphics = (Graphics2D) graphics.create();
-            float cx = offsetX * (dotDiameter + gap) + dotDiameter / 2f;
-            dotGraphics.rotate(Math.toRadians(rotAngle), cx, centerY);
-            dotGraphics.fillOval(
-                    (int) Math.round(cx - dotDiameter / 2f),
-                    (int) Math.round(centerY - dotDiameter / 2f),
-                    (int) Math.round(dotDiameter),
-                    (int) Math.round(dotDiameter));
-            dotGraphics.dispose();
-        }
+                    for (int index = 0; index < DOT_COUNT; index++) {
+                        float offsetX = translateValues[index];
+                        float rotAngle = rotateValues[index];
+
+                        Graphics2D dotGraphics = (Graphics2D) graphics1X.create();
+                        float cx = offsetX * (dotDiameter + gap) + dotDiameter / 2f;
+                        dotGraphics.rotate(Math.toRadians(rotAngle), cx, centerY);
+                        dotGraphics.fillOval(
+                                (int) Math.round(cx - dotDiameter / 2f),
+                                (int) Math.round(centerY - dotDiameter / 2f),
+                                (int) Math.round(dotDiameter),
+                                (int) Math.round(dotDiameter));
+                        dotGraphics.dispose();
+                    }
+                });
 
         graphics.dispose();
     }

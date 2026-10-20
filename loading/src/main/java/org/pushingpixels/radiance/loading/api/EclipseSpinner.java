@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyValues;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -191,9 +192,8 @@ public class EclipseSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -202,30 +202,36 @@ public class EclipseSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        graphics.translate(dx, dy);
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        float dotSize = dim * 0.4f;
-        float centerY = dim / 2f;
+                    graphics1X.translate(dx, dy);
 
-        for (int index = 0; index < DOT_COUNT; index++) {
-            float offset = slideValues[index];
-            float alpha = Math.max(0f, Math.min(1f, alphaValues[index]));
-            float scale = scaleValues[index];
+                    float dotSize = dim * 0.4f;
+                    float centerY = dim / 2f;
 
-            int a = (int) Math.round(alpha * 255);
-            graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                    for (int index = 0; index < DOT_COUNT; index++) {
+                        float offset = slideValues[index];
+                        float alpha = Math.max(0f, Math.min(1f, alphaValues[index]));
+                        float scale = scaleValues[index];
 
-            float r = dotSize * scale / 2f;
-            float cx = dim / 2f + offset * dim * 0.6f;
+                        int a = (int) Math.round(alpha * 255);
+                        graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
 
-            graphics.fillOval((int) Math.round(cx - r), (int) Math.round(centerY - r),
-                    (int) Math.round(r * 2), (int) Math.round(r * 2));
-        }
+                        float r = dotSize * scale / 2f;
+                        float cx = dim / 2f + offset * dim * 0.6f;
+
+                        graphics1X.fillOval((int) Math.round(cx - r), (int) Math.round(centerY - r),
+                                (int) Math.round(r * 2), (int) Math.round(r * 2));
+                    }
+                });
 
         graphics.dispose();
     }

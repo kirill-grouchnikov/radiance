@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.EasingFunctions;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -126,9 +127,8 @@ public class CompassSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -137,38 +137,44 @@ public class CompassSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        int dim = Math.min(width, height);
-        int dx = insets.left + (width - dim) / 2;
-        int dy = insets.top + (height - dim) / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        float barThickness = 0.1f * dim;
-        float strokeWidth = barThickness;
-        int adjustedDim = dim - (int) strokeWidth - 1;
-        int adjDx = dx + (dim - adjustedDim) / 2;
-        int adjDy = dy + (dim - adjustedDim) / 2;
+                    int dim = Math.min(scaledWidth, scaledHeight);
+                    int dx = (scaledWidth - dim) / 2;
+                    int dy = (scaledHeight - dim) / 2;
 
-        graphics.translate(adjDx + adjustedDim / 2f, adjDy + adjustedDim / 2f);
+                    float barThickness = 0.1f * dim;
+                    float strokeWidth = barThickness;
+                    int adjustedDim = dim - (int) strokeWidth - 1;
+                    int adjDx = dx + (dim - adjustedDim) / 2;
+                    int adjDy = dy + (dim - adjustedDim) / 2;
 
-        float barLength = 0.22f * adjustedDim;
-        float offsetFromCenter = 0.28f * adjustedDim;
+                    graphics1X.translate(adjDx + adjustedDim / 2f, adjDy + adjustedDim / 2f);
 
-        float angleRad = angleValues[0] * (float) Math.PI / 180f;
+                    float barLength = 0.22f * adjustedDim;
+                    float offsetFromCenter = 0.28f * adjustedDim;
 
-        graphics.setStroke(new BasicStroke(barThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        graphics.setColor(color);
+                    float angleRad = angleValues[0] * (float) Math.PI / 180f;
 
-        for (int index = 0; index < BAR_COUNT; index++) {
-            float barAngle = index * (float) Math.PI / 2f - angleRad;
+                    graphics1X.setStroke(new BasicStroke(barThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                    graphics1X.setColor(color);
 
-            float sx = offsetFromCenter * (float) Math.sin(barAngle);
-            float sy = offsetFromCenter * (float) Math.cos(barAngle);
-            float ex = (offsetFromCenter + barLength) * (float) Math.sin(barAngle);
-            float ey = (offsetFromCenter + barLength) * (float) Math.cos(barAngle);
+                    for (int index = 0; index < BAR_COUNT; index++) {
+                        float barAngle = index * (float) Math.PI / 2f - angleRad;
 
-            graphics.drawLine((int) Math.round(sx), (int) Math.round(sy),
-                    (int) Math.round(ex), (int) Math.round(ey));
-        }
+                        float sx = offsetFromCenter * (float) Math.sin(barAngle);
+                        float sy = offsetFromCenter * (float) Math.cos(barAngle);
+                        float ex = (offsetFromCenter + barLength) * (float) Math.sin(barAngle);
+                        float ey = (offsetFromCenter + barLength) * (float) Math.cos(barAngle);
+
+                        graphics1X.drawLine((int) Math.round(sx), (int) Math.round(sy),
+                                (int) Math.round(ex), (int) Math.round(ey));
+                    }
+                });
 
         graphics.dispose();
     }

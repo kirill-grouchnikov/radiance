@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.Spline;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -159,9 +160,8 @@ public class CascadeSpinner extends BaseSpinner {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Insets insets = getInsets();
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth();
+        int height = getHeight();
 
         if (width <= 0 || height <= 0) {
             return;
@@ -170,36 +170,42 @@ public class CascadeSpinner extends BaseSpinner {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
 
-        float strokeWidth = DEFAULT_STROKE_WIDTH;
-        int dim = Math.min(width, height) - (int) strokeWidth - 1;
-        int dx = insets.left + (width - dim) / 2 + (int) strokeWidth / 2;
-        int dy = insets.top + (height - dim) / 2 + (int) strokeWidth / 2;
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        graphics.translate(dx, dy);
+                    float strokeWidth = (float) (DEFAULT_STROKE_WIDTH * scaleFactor);
+                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 1;
+                    int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
+                    int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
 
-        float center = dim / 2f;
-        graphics.setColor(color);
+                    graphics1X.translate(dx, dy);
 
-        for (int i = 0; i < CASCADE_COUNT; i++) {
-            float scaledRadius = 0.5f * dim * CASCADE_SCALES[i];
-            float circumference = 2f * (float) Math.PI * scaledRadius;
-            float dash = 0.25f * circumference;
+                    float center = dim / 2f;
+                    graphics1X.setColor(color);
 
-            float arcDiameter = 2f * scaledRadius;
-            float arcX = center - scaledRadius;
-            float arcY = center - scaledRadius;
+                    for (int i = 0; i < CASCADE_COUNT; i++) {
+                        float scaledRadius = 0.5f * dim * CASCADE_SCALES[i];
+                        float circumference = 2f * (float) Math.PI * scaledRadius;
+                        float dash = 0.25f * circumference;
 
-            // Save and apply rotation
-            Graphics2D rotated = (Graphics2D) graphics.create();
-            rotated.rotate(Math.toRadians(90.0f + angles[i]), center, center);
-            rotated.setColor(color);
-            rotated.setStroke(new BasicStroke(DEFAULT_STROKE_WIDTH, this.cap,
-                    BasicStroke.JOIN_ROUND, 0, new float[]{dash, circumference - dash}, 0));
-            rotated.drawArc((int) Math.round(arcX), (int) Math.round(arcY),
-                    (int) Math.round(arcDiameter), (int) Math.round(arcDiameter), 0, 360);
-            rotated.dispose();
-        }
+                        float arcDiameter = 2f * scaledRadius;
+                        float arcX = center - scaledRadius;
+                        float arcY = center - scaledRadius;
+
+                        // Save and apply rotation
+                        Graphics2D rotated = (Graphics2D) graphics1X.create();
+                        rotated.rotate(Math.toRadians(90.0f + angles[i]), center, center);
+                        rotated.setColor(color);
+                        rotated.setStroke(new BasicStroke(strokeWidth, this.cap,
+                                BasicStroke.JOIN_ROUND, 0, new float[]{dash, circumference - dash}, 0));
+                        rotated.drawArc((int) Math.round(arcX), (int) Math.round(arcY),
+                                (int) Math.round(arcDiameter), (int) Math.round(arcDiameter), 0, 360);
+                        rotated.dispose();
+                    }
+                });
 
         graphics.dispose();
     }
