@@ -1,0 +1,171 @@
+/*
+ * Copyright (c) 2005-2026 Radiance Kirill Grouchnikov. All Rights Reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of the copyright holder nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package org.pushingpixels.radiance.loading.api;
+
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
+import org.pushingpixels.radiance.animation.api.ease.Linear;
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Arc2D;
+
+/**
+ * A Swing component that renders an animated radar spinner.
+ *
+ * <p>This is a migration of the {@code Radar} composable from the Aurora loading
+ * module. It draws concentric circles with a rotating radar beam that sweeps
+ * 360°.</p>
+ *
+ * <p>This is a modified version of the original source code by Jakub Krehel
+ * available under the MIT license.</p>
+ *
+ * @author Kirill Grouchnikov
+ */
+public class RadarSpinner extends BaseSpinner {
+
+    private static final int DEFAULT_DURATION = 1500;
+
+    private float[] beamAngleValues;
+
+    private SwingRepaintTimeline timeline;
+
+    public RadarSpinner() {
+        this(Color.BLACK, DEFAULT_DURATION);
+    }
+
+    public RadarSpinner(Color color) {
+        this(color, DEFAULT_DURATION);
+    }
+
+    public RadarSpinner(Color color, int duration) {
+        super(color, duration);
+        this.beamAngleValues = new float[]{0f};
+    }
+
+    @Override
+    protected void startAnimations() {
+        if (this.timeline != null && !this.timeline.isDone()) return;
+
+        this.timeline = SwingRepaintTimeline.repaintBuilder(this)
+                .addPropertyToInterpolate(
+                        Timeline.<Float>property("beamAngle")
+                                .getWith((obj, fieldName) -> beamAngleValues[0])
+                                .setWith((obj, fieldName, value) -> beamAngleValues[0] = value)
+                                .from(0f).to(360f))
+                .setEase(new Linear())
+                .setDuration(this.duration)
+                .build();
+
+        SwingUtilities.invokeLater(() -> {
+            if (RadarSpinner.this.isDisplayable()) {
+                timeline.playLoop(RepeatBehavior.LOOP);
+            }
+        });
+    }
+
+    @Override
+    protected void stopAnimations() {
+        if (this.timeline != null) {
+            this.timeline.abort();
+            this.timeline = null;
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Insets insets = getInsets();
+        int width = getWidth() - insets.left - insets.right;
+        int height = getHeight() - insets.top - insets.bottom;
+        if (width <= 0 || height <= 0) return;
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        float strokeWidth = 2.5f;
+        int dim = Math.min(width, height) - (int) strokeWidth - 1;
+        int dx = insets.left + (width - dim) / 2 + (int) strokeWidth / 2;
+        int dy = insets.top + (height - dim) / 2 + (int) strokeWidth / 2;
+
+        float center = dx + dim / 2f;
+        float centerY = dy + dim / 2f;
+        float beamStart = dim / 5f;
+
+        // Background circles
+        int a20 = (int) (0.2f * 255);
+        graphics.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a20));
+        graphics.fillOval((int) Math.round(center - dim / 2f), (int) Math.round(centerY - dim / 2f), dim, dim);
+
+        graphics.setStroke(new BasicStroke(2.5f));
+        graphics.drawOval((int) Math.round(center - dim / 3f), (int) Math.round(centerY - dim / 3f),
+                (int) Math.round(dim / 3f * 2), (int) Math.round(dim / 3f * 2));
+
+        // Rotating beam (wedge shape with gradient)
+        Graphics2D rotated = (Graphics2D) graphics.create();
+        rotated.rotate(Math.toRadians(beamAngleValues[0]), center, centerY);
+
+        // Draw the beam as a filled wedge using an arc
+        // The beam is a 90-degree wedge from the center
+        for (int i = 0; i < 10; i++) {
+            float t = i / 10f;
+            float alpha = 1f - t;
+            int a = (int) Math.round(alpha * 255);
+            rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+
+            float innerR = beamStart + (dim / 2f - beamStart) * t;
+            Arc2D.Float arc = new Arc2D.Float(
+                    center - dim / 2f, centerY - dim / 2f,
+                    dim, dim,
+                    0, -90, Arc2D.PIE);
+            // Clip to only show the outer ring portion
+            Graphics2D clipped = (Graphics2D) rotated.create();
+            // Draw a filled arc segment
+            Arc2D.Float outerArc = new Arc2D.Float(
+                    center - dim / 2f, centerY - dim / 2f,
+                    dim, dim,
+                    0, -90, Arc2D.PIE);
+            clipped.fill(outerArc);
+            clipped.dispose();
+        }
+
+        rotated.dispose();
+
+        // Central dot
+        float dotR = dim / 8f;
+        graphics.setColor(color);
+        graphics.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
+                (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
+
+        graphics.dispose();
+    }
+}
