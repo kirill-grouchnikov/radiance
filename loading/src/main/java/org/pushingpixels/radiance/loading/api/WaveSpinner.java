@@ -32,7 +32,9 @@ package org.pushingpixels.radiance.loading.api;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.EasingFunctions;
-import org.pushingpixels.radiance.animation.api.ease.Linear;
+import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
+import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes;
+import org.pushingpixels.radiance.animation.api.interpolator.KeyValues;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
@@ -43,8 +45,9 @@ import java.awt.*;
  * A Swing component that renders an animated wave spinner.
  *
  * <p>This is a migration of the {@code Wave} composable from the Aurora loading
- * module. It draws five vertical bars that oscillate in height, creating a
- * wave-like pattern.</p>
+ * module. It draws five vertical bars whose heights animate in a wave pattern
+ * using keyframes (0.3→1.0→0.3) with EaseIn/EaseOut easing, staggered by
+ * a delay of duration/5 for each bar.</p>
  *
  * <p>This is a modified version of the original source code by Jakub Krehel
  * available under the MIT license.</p>
@@ -56,9 +59,23 @@ public class WaveSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 900;
     private static final int BAR_COUNT = 5;
 
+    /**
+     * The vertical origin for bar placement.
+     * <p>{@link Center} centers bars vertically (default, matching original default).
+     * {@link Bottom} anchors bars at the bottom.</p>
+     */
+    public enum WaveOrigin {
+        /** Bars are centered vertically. */
+        Center,
+        /** Bars are anchored at the bottom. */
+        Bottom
+    }
+
     private float[] waveValues;
 
     private SwingRepaintTimeline[] timelines;
+
+    private WaveOrigin origin;
 
     public WaveSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
@@ -69,8 +86,41 @@ public class WaveSpinner extends BaseSpinner {
     }
 
     public WaveSpinner(Color color, int duration) {
+        this(color, duration, WaveOrigin.Center);
+    }
+
+    /**
+     * Creates a new {@code WaveSpinner} with the specified color, duration, and origin.
+     *
+     * @param color   the color of the bars
+     * @param duration the animation cycle duration in milliseconds
+     * @param origin  the vertical origin for bar placement
+     */
+    public WaveSpinner(Color color, int duration, WaveOrigin origin) {
         super(color, duration);
         this.waveValues = new float[BAR_COUNT];
+        this.origin = origin;
+    }
+
+    /**
+     * Returns the vertical origin for bar placement.
+     *
+     * @return the current origin
+     */
+    public WaveOrigin getOrigin() {
+        return origin;
+    }
+
+    /**
+     * Sets the vertical origin for bar placement.
+     *
+     * @param origin the new origin
+     */
+    public void setOrigin(WaveOrigin origin) {
+        WaveOrigin old = this.origin;
+        this.origin = origin;
+        firePropertyChange("origin", old, origin);
+        repaint();
     }
 
     @Override
@@ -78,6 +128,13 @@ public class WaveSpinner extends BaseSpinner {
         if (this.timelines == null) {
             this.timelines = new SwingRepaintTimeline[BAR_COUNT];
         }
+
+        // Keyframes: 0.3f at 0%, 1.0f at 50%, 0.3f at 100%
+        // with EaseIn for the first half and EaseOut for the second half
+        KeyTimes keyTimes = new KeyTimes(0f, 0.5f, 1f);
+        KeyValues<Float> keyValues = KeyValues.create(0.3f, 1.0f, 0.3f);
+        KeyFrames<Float> keyFrames = new KeyFrames<>(keyValues, keyTimes,
+                EasingFunctions.EASE_IN, EasingFunctions.EASE_OUT);
 
         for (int i = 0; i < BAR_COUNT; i++) {
             final int index = i;
@@ -88,7 +145,7 @@ public class WaveSpinner extends BaseSpinner {
                             Timeline.<Float>property("wave" + index)
                                     .getWith((obj, fieldName) -> waveValues[index])
                                     .setWith((obj, fieldName, value) -> waveValues[index] = value)
-                                    .from(0f).to(1f))
+                                    .goingThrough(keyFrames))
                     .setEase(EasingFunctions.EASE_IN_OUT)
                     .setDuration(this.duration)
                     .setInitialDelay(initialDelay)
@@ -98,7 +155,7 @@ public class WaveSpinner extends BaseSpinner {
         SwingUtilities.invokeLater(() -> {
             if (WaveSpinner.this.isDisplayable()) {
                 for (SwingRepaintTimeline tl : timelines) {
-                    if (tl != null) tl.playLoop(RepeatBehavior.REVERSE);
+                    if (tl != null) tl.playLoop(RepeatBehavior.LOOP);
                 }
             }
         });
@@ -129,27 +186,26 @@ public class WaveSpinner extends BaseSpinner {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    int dim = Math.min(scaledWidth, scaledHeight);
-                    int dx = (scaledWidth - dim) / 2;
-                    int dy = (scaledHeight - dim) / 2;
-
-                    graphics1X.translate(dx, dy);
-
-                    float barWidth = dim * 0.1f;
-                    float gap = (dim - BAR_COUNT * barWidth) / (BAR_COUNT + 1);
-                    float maxBarHeight = dim * 0.8f;
+                    float dim = Math.min(scaledWidth, scaledHeight);
+                    float barWidth = dim * 0.12f;
+                    float gap = (dim - BAR_COUNT * barWidth) / 6f;
 
                     graphics1X.setColor(color);
 
                     for (int index = 0; index < BAR_COUNT; index++) {
                         float waveValue = waveValues[index];
-                        float barHeight = maxBarHeight * waveValue;
+                        float barHeight = dim * waveValue;
 
                         float xPos = gap + index * (barWidth + gap);
-                        float yPos = (dim - barHeight) / 2f;
+                        float yPos;
+                        if (this.origin == WaveOrigin.Bottom) {
+                            yPos = dim - barHeight;
+                        } else {
+                            yPos = (dim - barHeight) / 2f;
+                        }
 
-                        float br = barWidth / 2f;
-                        int arc = (int) Math.round(br * 2);
+                        float cornerRadius = barWidth / 2f;
+                        int arc = (int) Math.round(cornerRadius * 2);
                         graphics1X.fillRoundRect((int) Math.round(xPos), (int) Math.round(yPos),
                                 (int) Math.round(barWidth), (int) Math.round(barHeight),
                                 arc, arc);
