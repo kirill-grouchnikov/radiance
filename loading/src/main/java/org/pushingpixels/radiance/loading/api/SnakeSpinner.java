@@ -52,7 +52,7 @@ import java.awt.*;
  */
 public class SnakeSpinner extends BaseSpinner {
 
-    private static final int DEFAULT_DURATION = 1000;
+    private static final int DEFAULT_DURATION = 1400;
     private static final float DEFAULT_STROKE_WIDTH = 2.5f;
 
     private int cap;

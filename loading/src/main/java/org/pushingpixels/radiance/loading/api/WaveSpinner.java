@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.loading.api;
 
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
+import org.pushingpixels.radiance.animation.api.ease.EasingFunctions;
 import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
@@ -52,7 +53,7 @@ import java.awt.*;
  */
 public class WaveSpinner extends BaseSpinner {
 
-    private static final int DEFAULT_DURATION = 1500;
+    private static final int DEFAULT_DURATION = 900;
     private static final int BAR_COUNT = 5;
 
     private float[] waveValues;
@@ -88,7 +89,7 @@ public class WaveSpinner extends BaseSpinner {
                                     .getWith((obj, fieldName) -> waveValues[index])
                                     .setWith((obj, fieldName, value) -> waveValues[index] = value)
                                     .from(0f).to(1f))
-                    .setEase(new Linear())
+                    .setEase(EasingFunctions.EASE_IN_OUT)
                     .setDuration(this.duration)
                     .setInitialDelay(initialDelay)
                     .build();
