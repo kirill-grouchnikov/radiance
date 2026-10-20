@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.loading.api;
 
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
-import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
@@ -42,7 +41,8 @@ import java.awt.*;
  * A Swing component that renders an animated slide spinner.
  *
  * <p>This is a migration of the {@code Slide} composable from the Aurora loading
- * module. It draws a rounded rectangle that slides back and forth horizontally.</p>
+ * module. It draws three dots that slide in both X and Y directions with
+ * keyframe-based animations, staggered by duration/3 for each dot.</p>
  *
  * <p>This is a modified version of the original source code by Jakub Krehel
  * available under the MIT license.</p>
@@ -51,9 +51,39 @@ import java.awt.*;
  */
 public class SlideSpinner extends BaseSpinner {
 
-    private static final int DEFAULT_DURATION = 1200;
+    private static final int DEFAULT_DURATION = 2400;
 
-    private float[] positionValues;
+    /** Number of animated dots */
+    private static final int DOT_COUNT = 3;
+
+    /**
+     * X-axis keyframe positions for one cycle (value 0→1 maps to animation progress).
+     * Keyframes: 1.0 at 0%, 1.0 at 25%, 0.0 at 33%, 0.0 at 75%, 1.0 at 83%, 1.0 at 100%
+     */
+    private static final float[] SLIDE_X_KEY_TIMES = {
+            0f, 0.25f, 1f / 3f, 0.75f, 5f / 6f, 1f
+    };
+    private static final float[] SLIDE_X_KEY_VALUES = {
+            1f, 1f, 0f, 0f, 1f, 1f
+    };
+
+    /**
+     * Y-axis keyframe positions for one cycle.
+     * Keyframes: 0.0 at 0%, 1.0 at 8.33%, 1.0 at 50%, 0.0 at 58.33%, 0.0 at 100%
+     */
+    private static final float[] SLIDE_Y_KEY_TIMES = {
+            0f, 1f / 12f, 0.5f, 7f / 12f, 1f
+    };
+    private static final float[] SLIDE_Y_KEY_VALUES = {
+            0f, 1f, 1f, 0f, 0f
+    };
+
+    /** Per-dot X positions, indexed [dotIndex] */
+    private float[] slideX;
+    /** Per-dot Y positions, indexed [dotIndex] */
+    private float[] slideY;
+
+    private long startTime;
 
     private SwingRepaintTimeline timeline;
 
@@ -67,26 +97,31 @@ public class SlideSpinner extends BaseSpinner {
 
     public SlideSpinner(Color color, int duration) {
         super(color, duration);
-        this.positionValues = new float[]{0f};
+        this.slideX = new float[DOT_COUNT];
+        this.slideY = new float[DOT_COUNT];
     }
 
     @Override
     protected void startAnimations() {
         if (this.timeline != null && !this.timeline.isDone()) return;
 
+        // We use a single timeline that drives elapsed time; the keyframe evaluation
+        // is done manually in paintComponent to support staggered start offsets.
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
-                        Timeline.<Float>property("position")
-                                .getWith((obj, fieldName) -> positionValues[0])
-                                .setWith((obj, fieldName, value) -> positionValues[0] = value)
+                        Timeline.<Float>property("elapsed")
+                                .getWith((obj, fieldName) -> 0f)
+                                .setWith((obj, fieldName, value) -> {
+                                    // no-op; we track time manually
+                                })
                                 .from(0f).to(1f))
-                .setEase(new Linear())
                 .setDuration(this.duration)
                 .build();
 
         SwingUtilities.invokeLater(() -> {
             if (SlideSpinner.this.isDisplayable()) {
-                timeline.playLoop(RepeatBehavior.REVERSE);
+                this.startTime = System.currentTimeMillis();
+                timeline.playLoop(RepeatBehavior.LOOP);
             }
         });
     }
@@ -115,26 +150,64 @@ public class SlideSpinner extends BaseSpinner {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    int dim = Math.min(scaledWidth, scaledHeight);
-                    int dx = (scaledWidth - dim) / 2;
-                    int dy = (scaledHeight - dim) / 2;
+                    float dim = Math.min(scaledWidth, scaledHeight);
+                    float dotSize = dim * 0.34f;
+                    float gap = dim * 0.2f;
+                    float padding = (dim - 2.0f * dotSize - gap) / 2.0f;
 
-                    graphics1X.translate(dx, dy);
+                    // Calculate elapsed progress for this cycle
+                    long elapsed;
+                    if (this.startTime > 0) {
+                        elapsed = System.currentTimeMillis() - this.startTime;
+                    } else {
+                        elapsed = 0;
+                    }
+                    float cycleProgress = (elapsed % this.duration) / (float) this.duration;
 
-                    float position = positionValues[0];
-                    float sq = dim * 0.2f;
-                    float br = dim * 0.05f;
-
-                    // Slide from left to right
-                    float xPos = position * (dim - sq);
-                    float yPos = (dim - sq) / 2f;
-
-                    int arc = (int) Math.round(br * 2);
                     graphics1X.setColor(color);
-                    graphics1X.fillRoundRect((int) Math.round(xPos), (int) Math.round(yPos),
-                            (int) Math.round(sq), (int) Math.round(sq), arc, arc);
+
+                    for (int index = 0; index < DOT_COUNT; index++) {
+                        // Staggered start offset: each dot starts index * duration / 3 later
+                        float offset = index * (1f / 3f);
+                        float adjustedProgress = (cycleProgress + offset) % 1f;
+
+                        float offsetX = evaluateKeyframes(SLIDE_X_KEY_TIMES, SLIDE_X_KEY_VALUES, adjustedProgress);
+                        float offsetY = evaluateKeyframes(SLIDE_Y_KEY_TIMES, SLIDE_Y_KEY_VALUES, adjustedProgress);
+
+                        float cx = padding + offsetX * (dotSize + gap) + dotSize / 2.0f;
+                        float cy = padding + offsetY * (dotSize + gap) + dotSize / 2.0f;
+
+                        graphics1X.fillOval(
+                                (int) Math.round(cx - dotSize / 2f),
+                                (int) Math.round(cy - dotSize / 2f),
+                                (int) Math.round(dotSize),
+                                (int) Math.round(dotSize)
+                        );
+                    }
                 });
 
         graphics.dispose();
+    }
+
+    /**
+     * Evaluates a value at {@code t} given parallel arrays of keyframe times and values.
+     * Times are normalized to [0, 1]. Linear interpolation is used between keyframes.
+     */
+    private float evaluateKeyframes(float[] times, float[] values, float t) {
+        // Clamp t to [0, 1]
+        if (t <= 0f) return values[0];
+        if (t >= 1f) return values[values.length - 1];
+
+        // Find the surrounding keyframes
+        for (int i = 0; i < times.length - 1; i++) {
+            if (t >= times[i] && t <= times[i + 1]) {
+                if (times[i + 1] == times[i]) {
+                    return values[i];
+                }
+                float localT = (t - times[i]) / (times[i + 1] - times[i]);
+                return values[i] + localT * (values[i + 1] - values[i]);
+            }
+        }
+        return values[values.length - 1];
     }
 }
