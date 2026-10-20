@@ -219,7 +219,7 @@ public class ClockSpinner extends BaseSpinner {
                     // Background semi-transparent circle
                     int a = (int) (0.1f * 255);
                     graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
-                    graphics1X.fillOval((int) Math.round(centerX - dim / 2f), (int) Math.round(centerY - dim / 2f),
+                    graphics1X.fillOval(Math.round(centerX - dim / 2f), Math.round(centerY - dim / 2f),
                             dim, dim);
 
                     // Rotated polygon

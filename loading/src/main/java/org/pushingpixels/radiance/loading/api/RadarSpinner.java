@@ -134,11 +134,11 @@ public class RadarSpinner extends BaseSpinner {
                     // Background circles
                     int a20 = (int) (0.2f * 255);
                     graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a20));
-                    graphics1X.fillOval((int) Math.round(centerX - dim / 2f), (int) Math.round(centerY - dim / 2f), dim, dim);
+                    graphics1X.fillOval(Math.round(centerX - dim / 2f), Math.round(centerY - dim / 2f), dim, dim);
 
                     graphics1X.setStroke(new BasicStroke(strokeWidth));
-                    graphics1X.drawOval((int) Math.round(centerX - dim / 3f), (int) Math.round(centerY - dim / 3f),
-                            (int) Math.round(dim / 3f * 2), (int) Math.round(dim / 3f * 2));
+                    graphics1X.drawOval(Math.round(centerX - dim / 3f), Math.round(centerY - dim / 3f),
+                            Math.round(dim / 3f * 2), Math.round(dim / 3f * 2));
 
                     // Rotating beam (wedge shape with gradient)
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
@@ -171,8 +171,8 @@ public class RadarSpinner extends BaseSpinner {
                     // Central dot
                     float dotR = dim / 8f;
                     graphics1X.setColor(color);
-                    graphics1X.fillOval((int) Math.round(centerX - dotR), (int) Math.round(centerY - dotR),
-                            (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
+                    graphics1X.fillOval(Math.round(centerX - dotR), Math.round(centerY - dotR),
+                            Math.round(dotR * 2), Math.round(dotR * 2));
                 });
 
         graphics.dispose();

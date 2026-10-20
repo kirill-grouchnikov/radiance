@@ -146,7 +146,7 @@ public class TraceSpinner extends BaseSpinner {
                     float phase = -(angle / 360.0f) * perimeter;
 
                     // Draw the faint background border (alpha 0.2)
-                    int bgAlpha = (int) Math.round(0.2f * 255);
+                    int bgAlpha = Math.round(0.2f * 255);
                     Color bgColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), bgAlpha);
                     graphics1X.setColor(bgColor);
                     graphics1X.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND));
@@ -166,9 +166,9 @@ public class TraceSpinner extends BaseSpinner {
      */
     private void drawRoundRectBorder(Graphics2D g, int x0, int y0, float w, float h, float r) {
         g.drawRoundRect(
-                (int) Math.round(x0), (int) Math.round(y0),
-                (int) Math.round(w), (int) Math.round(h),
-                (int) Math.round(r * 2), (int) Math.round(r * 2));
+                x0, y0,
+                Math.round(w), Math.round(h),
+                Math.round(r * 2), Math.round(r * 2));
     }
 
     /**
@@ -258,8 +258,8 @@ public class TraceSpinner extends BaseSpinner {
                 } else {
                     g.setColor(color);
                     g.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND));
-                    g.drawLine((int) Math.round(prevX), (int) Math.round(prevY),
-                            (int) Math.round(pos1[0]), (int) Math.round(pos1[1]));
+                    g.drawLine(Math.round(prevX), Math.round(prevY),
+                            Math.round(pos1[0]), Math.round(pos1[1]));
                     prevX = pos1[0];
                     prevY = pos1[1];
                 }

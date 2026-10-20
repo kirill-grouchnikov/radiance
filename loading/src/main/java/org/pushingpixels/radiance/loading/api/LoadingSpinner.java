@@ -133,12 +133,12 @@ public class LoadingSpinner extends BaseSpinner {
                         float alpha = 1f - distanceFromHighlight * 0.8f;
                         alpha = Math.max(0f, Math.min(1f, alpha));
 
-                        int a = (int) Math.round(alpha * 255);
+                        int a = Math.round(alpha * 255);
                         graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
 
                         int xPos = SEGMENT_X[index];
                         int yPos = SEGMENT_Y[index];
-                        int cs = (int) Math.round(cellSize);
+                        int cs = Math.round(cellSize);
 
                         // Draw 4 rectangles per segment
                         graphics1X.fillRect(xPos * cs, yPos * cs, cs, cs);

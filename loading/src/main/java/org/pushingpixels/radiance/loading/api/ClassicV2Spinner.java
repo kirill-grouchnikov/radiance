@@ -175,10 +175,10 @@ public class ClassicV2Spinner extends BaseSpinner {
                         float ex = (offsetFromCenter + barLength) * (float) Math.sin(angle);
                         float ey = (offsetFromCenter + barLength) * (float) Math.cos(angle);
 
-                        int a = (int) Math.round(alpha * 255);
+                        int a = Math.round(alpha * 255);
                         graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
-                        graphics1X.drawLine((int) Math.round(sx), (int) Math.round(sy),
-                                (int) Math.round(ex), (int) Math.round(ey));
+                        graphics1X.drawLine(Math.round(sx), Math.round(sy),
+                                Math.round(ex), Math.round(ey));
                     }
                 });
 

@@ -151,12 +151,12 @@ public class SwirlSpinner extends BaseSpinner {
 
                         graphics1X.setColor(cellColor);
                         graphics1X.fillRoundRect(
-                                (int) Math.round(cellX),
-                                (int) Math.round(cellY),
-                                (int) Math.round(cellSize),
-                                (int) Math.round(cellSize),
-                                (int) Math.round(cornerRadius * 2),
-                                (int) Math.round(cornerRadius * 2)
+                                Math.round(cellX),
+                                Math.round(cellY),
+                                Math.round(cellSize),
+                                Math.round(cellSize),
+                                Math.round(cornerRadius * 2),
+                                Math.round(cornerRadius * 2)
                         );
                     }
                 });

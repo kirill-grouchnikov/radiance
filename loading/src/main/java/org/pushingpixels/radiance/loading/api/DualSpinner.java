@@ -199,8 +199,8 @@ public class DualSpinner extends BaseSpinner {
                     rotatedOuter.setStroke(new BasicStroke(strokeWidth, this.cap,
                             BasicStroke.JOIN_ROUND, 0, new float[]{dashOuter, circumferenceOuter - dashOuter}, 0));
                     float arcDiameterOuter = 2f * radiusOuter;
-                    rotatedOuter.drawArc((int) Math.round(center - radiusOuter), (int) Math.round(centerY - radiusOuter),
-                            (int) Math.round(arcDiameterOuter), (int) Math.round(arcDiameterOuter), 0, 360);
+                    rotatedOuter.drawArc(Math.round(center - radiusOuter), Math.round(centerY - radiusOuter),
+                            Math.round(arcDiameterOuter), Math.round(arcDiameterOuter), 0, 360);
                     rotatedOuter.dispose();
 
                     // Inner arc
@@ -214,8 +214,8 @@ public class DualSpinner extends BaseSpinner {
                     rotatedInner.setStroke(new BasicStroke(strokeWidth, this.cap,
                             BasicStroke.JOIN_ROUND, 0, new float[]{dashInner, circumferenceInner - dashInner}, 0));
                     float arcDiameterInner = 2f * radiusInner;
-                    rotatedInner.drawArc((int) Math.round(center - radiusInner), (int) Math.round(centerY - radiusInner),
-                            (int) Math.round(arcDiameterInner), (int) Math.round(arcDiameterInner), 0, 360);
+                    rotatedInner.drawArc(Math.round(center - radiusInner), Math.round(centerY - radiusInner),
+                            Math.round(arcDiameterInner), Math.round(arcDiameterInner), 0, 360);
                     rotatedInner.dispose();
                 });
 

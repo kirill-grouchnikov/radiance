@@ -171,8 +171,8 @@ public class CompassSpinner extends BaseSpinner {
                         float ex = (offsetFromCenter + barLength) * (float) Math.sin(barAngle);
                         float ey = (offsetFromCenter + barLength) * (float) Math.cos(barAngle);
 
-                        graphics1X.drawLine((int) Math.round(sx), (int) Math.round(sy),
-                                (int) Math.round(ex), (int) Math.round(ey));
+                        graphics1X.drawLine(Math.round(sx), Math.round(sy),
+                                Math.round(ex), Math.round(ey));
                     }
                 });
 

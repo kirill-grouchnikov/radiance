@@ -146,15 +146,15 @@ public class LinearDotsSpinner extends BaseSpinner {
 
                     for (int index = 0; index < DOT_COUNT; index++) {
                         float alpha = Math.max(0f, Math.min(1f, fadeValues[index]));
-                        int a = (int) Math.round(alpha * 255);
+                        int a = Math.round(alpha * 255);
                         graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
 
                         float cx = index * (dotDiameter + gap) + dotDiameter / 2f;
                         graphics1X.fillOval(
-                                (int) Math.round(cx - dotDiameter / 2f),
-                                (int) Math.round(centerY - dotDiameter / 2f),
-                                (int) Math.round(dotDiameter),
-                                (int) Math.round(dotDiameter));
+                                Math.round(cx - dotDiameter / 2f),
+                                Math.round(centerY - dotDiameter / 2f),
+                                Math.round(dotDiameter),
+                                Math.round(dotDiameter));
                     }
                 });
 

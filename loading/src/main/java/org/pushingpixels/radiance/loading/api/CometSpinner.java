@@ -177,15 +177,15 @@ public class CometSpinner extends BaseSpinner {
 
                         if (alpha <= 0f) continue;
 
-                        int a = (int) Math.round(alpha * 255);
+                        int a = Math.round(alpha * 255);
                         rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
 
                         float startAngle = strokeAngle + i * anglePerSegment;
                         rotated.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
                         rotated.drawArc(
-                                (int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                                (int) Math.round(radius * 2), (int) Math.round(radius * 2),
-                                (int) Math.round(startAngle), (int) Math.round(anglePerSegment));
+                                Math.round(center - radius), Math.round(centerY - radius),
+                                Math.round(radius * 2), Math.round(radius * 2),
+                                Math.round(startAngle), Math.round(anglePerSegment));
                     }
 
                     rotated.dispose();

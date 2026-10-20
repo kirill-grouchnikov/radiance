@@ -129,16 +129,16 @@ public class PulseSpinner extends BaseSpinner {
                     float dotR = dim / 8f;
 
                     // Expanding circle
-                    int a = (int) Math.round(Math.max(0f, Math.min(1f, alpha)) * 255);
+                    int a = Math.round(Math.max(0f, Math.min(1f, alpha)) * 255);
                     graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
                     float pulseR = dim / 2f * sc;
-                    graphics1X.fillOval((int) Math.round(center - pulseR), (int) Math.round(centerY - pulseR),
-                            (int) Math.round(pulseR * 2), (int) Math.round(pulseR * 2));
+                    graphics1X.fillOval(Math.round(center - pulseR), Math.round(centerY - pulseR),
+                            Math.round(pulseR * 2), Math.round(pulseR * 2));
 
                     // Central dot
                     graphics1X.setColor(color);
-                    graphics1X.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
-                            (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
+                    graphics1X.fillOval(Math.round(center - dotR), Math.round(centerY - dotR),
+                            Math.round(dotR * 2), Math.round(dotR * 2));
                 });
 
         graphics.dispose();

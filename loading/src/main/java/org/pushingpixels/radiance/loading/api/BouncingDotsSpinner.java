@@ -176,10 +176,10 @@ public class BouncingDotsSpinner extends BaseSpinner {
                         float cx = startX + i * (dotSize + gap) + dotSize / 2f;
                         float cy = dim / 2f + yOff;
 
-                        graphics1X.fillOval((int) Math.round(cx - dotSize / 2f),
-                                (int) Math.round(cy - dotSize / 2f),
-                                (int) Math.round(dotSize),
-                                (int) Math.round(dotSize));
+                        graphics1X.fillOval(Math.round(cx - dotSize / 2f),
+                                Math.round(cy - dotSize / 2f),
+                                Math.round(dotSize),
+                                Math.round(dotSize));
                     }
                 });
 

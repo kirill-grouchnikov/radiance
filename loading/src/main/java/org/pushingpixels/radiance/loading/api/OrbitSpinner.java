@@ -127,8 +127,8 @@ public class OrbitSpinner extends BaseSpinner {
 
                     // Central dot
                     graphics1X.setColor(color);
-                    graphics1X.fillOval((int) Math.round(center - dotR), (int) Math.round(centerY - dotR),
-                            (int) Math.round(dotR * 2), (int) Math.round(dotR * 2));
+                    graphics1X.fillOval(Math.round(center - dotR), Math.round(centerY - dotR),
+                            Math.round(dotR * 2), Math.round(dotR * 2));
 
                     // Rotating arc with gradient
                     float radius = dim / 2f - strokeWidth / 2f;
@@ -143,13 +143,13 @@ public class OrbitSpinner extends BaseSpinner {
                         float alpha = t < 0.5f ? 0f : (t - 0.5f) * 2f;
                         if (alpha <= 0f) continue;
 
-                        int a = (int) Math.round(alpha * 255);
+                        int a = Math.round(alpha * 255);
                         rotated.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
                         rotated.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
                         rotated.drawArc(
-                                (int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                                (int) Math.round(radius * 2), (int) Math.round(radius * 2),
-                                (int) Math.round(i * anglePerSegment), (int) Math.round(anglePerSegment));
+                                Math.round(center - radius), Math.round(centerY - radius),
+                                Math.round(radius * 2), Math.round(radius * 2),
+                                Math.round(i * anglePerSegment), Math.round(anglePerSegment));
                     }
 
                     rotated.dispose();

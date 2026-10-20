@@ -201,8 +201,8 @@ public class CascadeSpinner extends BaseSpinner {
                         rotated.setColor(color);
                         rotated.setStroke(new BasicStroke(strokeWidth, this.cap,
                                 BasicStroke.JOIN_ROUND, 0, new float[]{dash, circumference - dash}, 0));
-                        rotated.drawArc((int) Math.round(arcX), (int) Math.round(arcY),
-                                (int) Math.round(arcDiameter), (int) Math.round(arcDiameter), 0, 360);
+                        rotated.drawArc(Math.round(arcX), Math.round(arcY),
+                                Math.round(arcDiameter), Math.round(arcDiameter), 0, 360);
                         rotated.dispose();
                     }
                 });

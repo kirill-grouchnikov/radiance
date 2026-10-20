@@ -147,8 +147,8 @@ public class RingSpinner extends BaseSpinner {
                     int a20 = (int) (0.2f * 255);
                     graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a20));
                     graphics1X.setStroke(new BasicStroke(strokeWidth));
-                    graphics1X.drawOval((int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                            (int) Math.round(radius * 2), (int) Math.round(radius * 2));
+                    graphics1X.drawOval(Math.round(center - radius), Math.round(centerY - radius),
+                            Math.round(radius * 2), Math.round(radius * 2));
 
                     // Rotating dashed arc
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
@@ -156,8 +156,8 @@ public class RingSpinner extends BaseSpinner {
                     rotated.setColor(color);
                     rotated.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND,
                             0, new float[]{dash, circumference - dash}, 0));
-                    rotated.drawOval((int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                            (int) Math.round(radius * 2), (int) Math.round(radius * 2));
+                    rotated.drawOval(Math.round(center - radius), Math.round(centerY - radius),
+                            Math.round(radius * 2), Math.round(radius * 2));
                     rotated.dispose();
                 });
 

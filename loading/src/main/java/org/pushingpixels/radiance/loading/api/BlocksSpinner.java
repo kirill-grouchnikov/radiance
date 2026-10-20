@@ -229,13 +229,13 @@ public class BlocksSpinner extends BaseSpinner {
                         float y = row * (cellSize + gap) + (cellSize - scaledSize) / 2f;
 
                         float actualBr = Math.max(0, br * scale);
-                        int arc = (int) Math.round(actualBr * 2);
+                        int arc = Math.round(actualBr * 2);
                         if (arc <= 0 || scaledSize <= 0) {
-                            graphics1X.fillRect((int) Math.round(x), (int) Math.round(y),
-                                    (int) Math.round(scaledSize), (int) Math.round(scaledSize));
+                            graphics1X.fillRect(Math.round(x), Math.round(y),
+                                    Math.round(scaledSize), Math.round(scaledSize));
                         } else {
-                            graphics1X.fillRoundRect((int) Math.round(x), (int) Math.round(y),
-                                    (int) Math.round(scaledSize), (int) Math.round(scaledSize),
+                            graphics1X.fillRoundRect(Math.round(x), Math.round(y),
+                                    Math.round(scaledSize), Math.round(scaledSize),
                                     arc, arc);
                         }
                     }

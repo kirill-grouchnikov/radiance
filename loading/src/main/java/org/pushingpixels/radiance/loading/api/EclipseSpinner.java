@@ -222,14 +222,14 @@ public class EclipseSpinner extends BaseSpinner {
                         float alpha = Math.max(0f, Math.min(1f, alphaValues[index]));
                         float scale = scaleValues[index];
 
-                        int a = (int) Math.round(alpha * 255);
+                        int a = Math.round(alpha * 255);
                         graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
 
                         float r = dotSize * scale / 2f;
                         float cx = dim / 2f + offset * dim * 0.6f;
 
-                        graphics1X.fillOval((int) Math.round(cx - r), (int) Math.round(centerY - r),
-                                (int) Math.round(r * 2), (int) Math.round(r * 2));
+                        graphics1X.fillOval(Math.round(cx - r), Math.round(centerY - r),
+                                Math.round(r * 2), Math.round(r * 2));
                     }
                 });
 

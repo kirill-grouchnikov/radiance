@@ -164,12 +164,12 @@ public class CircularDotsSpinner extends BaseSpinner {
                         float cx = (8f + 6.5f * (float) Math.sin(angle)) * scale;
                         float cy = (8f + 6.5f * (float) Math.cos(angle)) * scale;
 
-                        int a = (int) Math.round(alpha * 255);
+                        int a = Math.round(alpha * 255);
                         graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
 
                         float r = dotR;
-                        graphics1X.fillOval((int) Math.round(cx - r), (int) Math.round(cy - r),
-                                (int) Math.round(r * 2), (int) Math.round(r * 2));
+                        graphics1X.fillOval(Math.round(cx - r), Math.round(cy - r),
+                                Math.round(r * 2), Math.round(r * 2));
                     }
                 });
 

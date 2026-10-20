@@ -237,9 +237,9 @@ public class AtomSpinner extends BaseSpinner {
                         graphics1X.setStroke(new BasicStroke(strokeWidth));
 
                         graphics1X.drawOval(
-                                (int) Math.round(topLeftX),
+                                Math.round(topLeftX),
                                 dy,
-                                (int) Math.round(ellipseWidth),
+                                Math.round(ellipseWidth),
                                 diameter
                         );
 

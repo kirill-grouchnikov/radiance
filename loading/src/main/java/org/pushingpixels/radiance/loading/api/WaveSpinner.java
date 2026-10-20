@@ -205,9 +205,9 @@ public class WaveSpinner extends BaseSpinner {
                         }
 
                         float cornerRadius = barWidth / 2f;
-                        int arc = (int) Math.round(cornerRadius * 2);
-                        graphics1X.fillRoundRect((int) Math.round(xPos), (int) Math.round(yPos),
-                                (int) Math.round(barWidth), (int) Math.round(barHeight),
+                        int arc = Math.round(cornerRadius * 2);
+                        graphics1X.fillRoundRect(Math.round(xPos), Math.round(yPos),
+                                Math.round(barWidth), Math.round(barHeight),
                                 arc, arc);
                     }
                 });

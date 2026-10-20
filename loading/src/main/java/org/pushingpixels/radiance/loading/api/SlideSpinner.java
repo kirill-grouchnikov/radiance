@@ -200,10 +200,10 @@ public class SlideSpinner extends BaseSpinner {
                         float cy = padding + offsetY * (dotSize + gap) + dotSize / 2.0f;
 
                         graphics1X.fillOval(
-                                (int) Math.round(cx - dotSize / 2f),
-                                (int) Math.round(cy - dotSize / 2f),
-                                (int) Math.round(dotSize),
-                                (int) Math.round(dotSize)
+                                Math.round(cx - dotSize / 2f),
+                                Math.round(cy - dotSize / 2f),
+                                Math.round(dotSize),
+                                Math.round(dotSize)
                         );
                     }
                 });

@@ -149,8 +149,8 @@ public class SnakeSpinner extends BaseSpinner {
                     rotated.setColor(color);
                     rotated.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND,
                             0, new float[]{dash, dash}, 0));
-                    rotated.drawOval((int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                            (int) Math.round(radius * 2), (int) Math.round(radius * 2));
+                    rotated.drawOval(Math.round(center - radius), Math.round(centerY - radius),
+                            Math.round(radius * 2), Math.round(radius * 2));
                     rotated.dispose();
                 });
 

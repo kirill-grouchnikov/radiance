@@ -188,7 +188,7 @@ public class GatherSpinner extends BaseSpinner {
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
                     rotated.rotate(Math.toRadians(turn), center, centerY);
 
-                    int arc = (int) Math.round(blockCornerRadius * 2);
+                    int arc = Math.round(blockCornerRadius * 2);
                     rotated.setColor(color);
 
                     float[] dxs = {1f, -1f, 1f, -1f};
@@ -199,8 +199,8 @@ public class GatherSpinner extends BaseSpinner {
                         float yPos = dys[i] * (blockSize / 2f + defaultBlockGap / 2f - pullA / 2f) - blockSize / 2f;
 
                         rotated.fillRoundRect(
-                                (int) Math.round(center + xPos), (int) Math.round(centerY + yPos),
-                                (int) Math.round(blockSize), (int) Math.round(blockSize),
+                                Math.round(center + xPos), Math.round(centerY + yPos),
+                                Math.round(blockSize), Math.round(blockSize),
                                 arc, arc);
                     }
 
