@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.loading.api;
 
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
-import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
@@ -42,8 +41,10 @@ import java.awt.*;
  * A Swing component that renders an animated ripple spinner.
  *
  * <p>This is a migration of the {@code Ripple} composable from the Aurora loading
- * module. It draws three concentric circles that expand outward while fading,
- * creating a ripple effect.</p>
+ * module. It draws three concentric circles whose radius and alpha animate
+ * continuously, creating a ripple effect. The direction can be {@link RippleDirection#Out}
+ * (default, circles expand outward while fading) or {@link RippleDirection#In}
+ * (circles contract inward while appearing).</p>
  *
  * <p>This is a modified version of the original source code by Jakub Krehel
  * available under the MIT license.</p>
@@ -53,11 +54,27 @@ import java.awt.*;
 public class RippleSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1200;
+
+    /** Number of concentric ripple rings */
     private static final int RIPPLE_COUNT = 3;
 
-    private float[] rippleValues;
+    /**
+     * The direction of the ripple animation.
+     * <p>{@link Out} expands circles outward while fading (default, matching original default).
+     * {@link In} contracts circles inward while appearing.</p>
+     */
+    public enum RippleDirection {
+        /** Circles expand outward while fading. */
+        Out,
+        /** Circles contract inward while appearing. */
+        In
+    }
 
-    private SwingRepaintTimeline[] timelines;
+    private float position;
+
+    private SwingRepaintTimeline timeline;
+
+    private RippleDirection direction;
 
     public RippleSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
@@ -68,47 +85,72 @@ public class RippleSpinner extends BaseSpinner {
     }
 
     public RippleSpinner(Color color, int duration) {
+        this(color, duration, RippleDirection.Out);
+    }
+
+    /**
+     * Creates a new {@code RippleSpinner} with the specified color, duration, and direction.
+     *
+     * @param color     the color of the ripples
+     * @param duration  the animation cycle duration in milliseconds
+     * @param direction the ripple direction (Out or In)
+     */
+    public RippleSpinner(Color color, int duration, RippleDirection direction) {
         super(color, duration);
-        this.rippleValues = new float[RIPPLE_COUNT];
+        this.direction = direction;
+    }
+
+    /**
+     * Returns the ripple direction.
+     *
+     * @return the current direction
+     */
+    public RippleDirection getDirection() {
+        return direction;
+    }
+
+    /**
+     * Sets the ripple direction.
+     *
+     * @param direction the new direction
+     */
+    public void setDirection(RippleDirection direction) {
+        RippleDirection old = this.direction;
+        this.direction = direction;
+        firePropertyChange("direction", old, direction);
+        repaint();
     }
 
     @Override
     protected void startAnimations() {
-        if (this.timelines == null) {
-            this.timelines = new SwingRepaintTimeline[RIPPLE_COUNT];
-        }
+        if (this.timeline != null && !this.timeline.isDone()) return;
 
-        for (int i = 0; i < RIPPLE_COUNT; i++) {
-            final int index = i;
-            long initialDelay = index * (long) duration / RIPPLE_COUNT;
-
-            this.timelines[index] = SwingRepaintTimeline.repaintBuilder(this)
-                    .addPropertyToInterpolate(
-                            Timeline.<Float>property("ripple" + index)
-                                    .getWith((obj, fieldName) -> rippleValues[index])
-                                    .setWith((obj, fieldName, value) -> rippleValues[index] = value)
-                                    .from(0f).to(1f))
-                    .setEase(new Linear())
-                    .setDuration(this.duration)
-                    .setInitialDelay(initialDelay)
-                    .build();
-        }
+        // We use a single timeline; the staggered ripple
+        // positions are computed manually in paintComponent via modulo arithmetic,
+        // matching the original: sp = ((position + i/3f) % 1f)
+        this.timeline = SwingRepaintTimeline.repaintBuilder(this)
+                .addPropertyToInterpolate(
+                        Timeline.<Float>property("position")
+                                .getWith((obj, fieldName) -> position)
+                                .setWith((obj, fieldName, value) -> {
+                                    position = value;
+                                })
+                                .from(0f).to(1f))
+                .setDuration(this.duration)
+                .build();
 
         SwingUtilities.invokeLater(() -> {
             if (RippleSpinner.this.isDisplayable()) {
-                for (SwingRepaintTimeline tl : timelines) {
-                    if (tl != null) tl.playLoop(RepeatBehavior.LOOP);
-                }
+                timeline.playLoop(RepeatBehavior.LOOP);
             }
         });
     }
 
     @Override
     protected void stopAnimations() {
-        if (this.timelines != null) {
-            for (SwingRepaintTimeline tl : this.timelines) {
-                if (tl != null) tl.abort();
-            }
+        if (this.timeline != null) {
+            this.timeline.abort();
+            this.timeline = null;
         }
     }
 
@@ -128,25 +170,42 @@ public class RippleSpinner extends BaseSpinner {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    float strokeWidth = (float) (1f * scaleFactor);
-                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 1;
-                    int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
-                    int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
+                    float dim = Math.min(scaledWidth, scaledHeight);
+                    float center = dim / 2f;
 
-                    float center = dx + dim / 2f;
-                    float centerY = dy + dim / 2f;
+                    for (int i = 0; i < RIPPLE_COUNT; i++) {
+                        // Staggered position: sp = ((position + i/3f) % 1f)
+                        float sp = (position + i / 3f) % 1f;
 
-                    for (int index = 0; index < RIPPLE_COUNT; index++) {
-                        float position = rippleValues[index];
-                        float alpha = 0.4f * (1f - position);
-                        float sc = 0.25f + position * 0.75f;
+                        // Scale and alpha depend on direction, matching original logic:
+                        // Out: sc = sp, alpha = 1f - sp
+                        // In:  sc = 1f - sp, alpha = sp
+                        float sc, alpha;
+                        if (this.direction == RippleDirection.Out) {
+                            sc = sp;
+                            alpha = 1f - sp;
+                        } else {
+                            sc = 1f - sp;
+                            alpha = sp;
+                        }
 
-                        int a = (int) Math.round(Math.max(0f, Math.min(1f, alpha)) * 255);
-                        graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                        // Stroke width varies with scale: strokeWidth = (1.0.dp + sc.dp).toPx()
+                        float strokeWidth = (float) ((1f + sc) * scaleFactor);
 
+                        // Alpha clamped to [0, 1], matching color.copy(alpha = alpha.coerceIn(0f, 1f))
+                        alpha = Math.max(0f, Math.min(1f, alpha));
+                        int a = Math.round(alpha * 255);
+                        graphics1X.setColor(new Color(
+                                this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
+                        graphics1X.setStroke(new BasicStroke(strokeWidth));
+
+                        // radius = dim / 2f * sc
                         float r = dim / 2f * sc;
-                        graphics1X.drawOval((int) Math.round(center - r), (int) Math.round(centerY - r),
-                                (int) Math.round(r * 2), (int) Math.round(r * 2));
+                        graphics1X.drawOval(
+                                Math.round(center - r),
+                                Math.round(center - r),
+                                Math.round(r * 2),
+                                Math.round(r * 2));
                     }
                 });
 
