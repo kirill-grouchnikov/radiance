@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 
 /**
@@ -55,17 +56,9 @@ public class ClockSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1200;
 
-    private float[] angleValues;
+    private float angle;
 
     private SwingRepaintTimeline timeline;
-
-    // Pre-computed polygon vertices (normalized to unit space)
-    private static final float[] VERTICES = {
-        (float) (Math.cos(Math.toRadians(330)) * 0.75), (float) (Math.sin(Math.toRadians(330)) * 0.75),
-        0f, 0f,
-        (float) (Math.cos(Math.toRadians(210)) * 0.75), (float) (Math.sin(Math.toRadians(210)) * 0.75),
-        0f, (float) (-1.05)
-    };
 
     /**
      * Creates a new {@code ClockSpinner} with default color (black) and
@@ -93,7 +86,6 @@ public class ClockSpinner extends BaseSpinner {
      */
     public ClockSpinner(Color color, int duration) {
         super(color, duration);
-        this.angleValues = new float[]{0f};
     }
 
     // ─── Lifecycle ────────────────────────────────────────────────────────
@@ -107,8 +99,8 @@ public class ClockSpinner extends BaseSpinner {
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
                         Timeline.<Float>property("angle")
-                                .getWith((obj, fieldName) -> angleValues[0])
-                                .setWith((obj, fieldName, value) -> angleValues[0] = value)
+                                .getWith((obj, fieldName) -> angle)
+                                .setWith((obj, fieldName, value) -> angle = value)
                                 .from(0f).to(360f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
@@ -130,6 +122,72 @@ public class ClockSpinner extends BaseSpinner {
     }
 
     // ─── Painting ─────────────────────────────────────────────────────────
+
+    private Path2D.Double createRoundedTriangleArc(double cx, double cy, double r, double startDeg, double sweepDeg, double k) {
+        Path2D.Double path = new Path2D.Double();
+
+        // Calculate angles in radians (Java Math functions expect radians)
+        double a1 = Math.toRadians(startDeg);
+        double a2 = Math.toRadians(startDeg + sweepDeg);
+        double midAngle = Math.toRadians(startDeg + sweepDeg / 2.0);
+
+        // 1. Calculate the three sharp ideal vertices of the triangular slice
+        double xCenter = cx;
+        double yCenter = cy;
+        double xTip1 = cx + r * Math.cos(a1);
+        double yTip1 = cy - r * Math.sin(a1); // Subtracted because Y extends downwards in Java2D
+        double xTip2 = cx + r * Math.cos(a2);
+        double yTip2 = cy - r * Math.sin(a2);
+
+        // 2. Linearly interpolate offset points slightly away from vertices to start/end curves
+        // Center vertex offsets
+        double c_to_t1_x = xCenter + k * Math.cos(a1);
+        double c_to_t1_y = yCenter - k * Math.sin(a1);
+        double c_to_t2_x = xCenter + k * Math.cos(a2);
+        double c_to_t2_y = yCenter - k * Math.sin(a2);
+
+        // Tip 1 vertex offsets
+        double t1_to_c_x = xTip1 - k * Math.cos(a1);
+        double t1_to_c_y = yTip1 + k * Math.sin(a1);
+        // Offset along the outer arc arc curvature facing Tip 2
+        double t1_to_t2_x = xTip1 + k * Math.cos(a1 + Math.PI/2);
+        double t1_to_t2_y = yTip1 - k * Math.sin(a1 + Math.PI/2);
+
+        // Tip 2 vertex offsets
+        double t2_to_c_x = xTip2 - k * Math.cos(a2);
+        double t2_to_c_y = yTip2 + k * Math.sin(a2);
+        // Offset along the outer arc curvature facing Tip 1
+        double t2_to_t1_x = xTip2 - k * Math.cos(a2 - Math.PI/2);
+        double t2_to_t1_y = yTip2 - k * Math.sin(a2 - Math.PI/2);
+
+        // 3. Assemble the shape path using line segments and quadratic control points
+        path.moveTo(c_to_t1_x, c_to_t1_y);
+
+        // Straight line up the right leg toward Tip 1
+        path.lineTo(t1_to_c_x, t1_to_c_y);
+
+        // Round the corner at Tip 1 using the sharp tip point as the Bézier control anchor
+        path.quadTo(xTip1, yTip1, t1_to_t2_x, t1_to_t2_y);
+
+        // Large outer sweep arc connecting Tip 1's curve to Tip 2's curve
+        // Using Arc2D append or an intermediate curve point provides a natural circle sweep
+        double arcStart = startDeg + Math.toDegrees(k / r);
+        double arcExtent = sweepDeg - 2 * Math.toDegrees(k / r);
+        Arc2D.Double outerArc = new Arc2D.Double(cx - r, cy - r, r * 2, r * 2, arcStart, arcExtent, Arc2D.OPEN);
+        path.append(outerArc, true);
+
+        // Round the corner at Tip 2
+        path.quadTo(xTip2, yTip2, t2_to_c_x, t2_to_c_y);
+
+        // Straight line down the left leg returning toward the Center
+        path.lineTo(c_to_t2_x, c_to_t2_y);
+
+        // Round the back center pivot point to close the segment smoothly
+        path.quadTo(xCenter, yCenter, c_to_t1_x, c_to_t1_y);
+
+        path.closePath(); // Formally close the shape
+        return path;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -155,26 +213,21 @@ public class ClockSpinner extends BaseSpinner {
                     int dx = (scaledWidth - dim) / 2;
                     int dy = (scaledHeight - dim) / 2;
 
-                    float center = dx + dim / 2f;
+                    float centerX = dx + dim / 2f;
                     float centerY = dy + dim / 2f;
 
                     // Background semi-transparent circle
                     int a = (int) (0.1f * 255);
                     graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), a));
-                    graphics1X.fillOval((int) Math.round(center - dim / 2f), (int) Math.round(centerY - dim / 2f),
+                    graphics1X.fillOval((int) Math.round(centerX - dim / 2f), (int) Math.round(centerY - dim / 2f),
                             dim, dim);
 
                     // Rotated polygon
                     Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    rotated.rotate(Math.toRadians(angle), centerX, centerY);
 
-                    float scale = dim * 0.5f;
-                    Path2D.Float path = new Path2D.Float();
-                    path.moveTo(VERTICES[0] * scale + center, VERTICES[1] * scale + centerY);
-                    path.lineTo(VERTICES[2] * scale + center, VERTICES[3] * scale + centerY);
-                    path.lineTo(VERTICES[4] * scale + center, VERTICES[5] * scale + centerY);
-                    path.lineTo(VERTICES[6] * scale + center, VERTICES[7] * scale + centerY);
-                    path.closePath();
+                    Path2D.Double path = createRoundedTriangleArc(centerX, centerY, dim / 2.8f,
+                        0f, 120f, dim / 10.0f);
 
                     rotated.setColor(color);
                     rotated.fill(path);
