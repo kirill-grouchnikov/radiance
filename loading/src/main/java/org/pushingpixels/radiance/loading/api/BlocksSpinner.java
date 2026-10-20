@@ -53,6 +53,18 @@ import java.awt.*;
  */
 public class BlocksSpinner extends BaseSpinner {
 
+    /**
+     * Sweep direction for the blocks animation.
+     */
+    public enum BlocksSweep {
+        /** Sweep by columns (left to right) */
+        COLUMNS,
+        /** Sweep diagonally */
+        DIAGONAL,
+        /** Sweep by rows (top to bottom) */
+        ROWS
+    }
+
     private static final int DEFAULT_DURATION = 1300;
     private static final int GRID_SIZE = 3;
 

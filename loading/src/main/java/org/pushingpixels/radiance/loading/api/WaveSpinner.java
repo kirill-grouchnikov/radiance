@@ -61,14 +61,14 @@ public class WaveSpinner extends BaseSpinner {
 
     /**
      * The vertical origin for bar placement.
-     * <p>{@link Center} centers bars vertically (default, matching original default).
-     * {@link Bottom} anchors bars at the bottom.</p>
+     * <p>{@link CENTER} centers bars vertically (default, matching original default).
+     * {@link BOTTOM} anchors bars at the bottom.</p>
      */
     public enum WaveOrigin {
         /** Bars are centered vertically. */
-        Center,
+        CENTER,
         /** Bars are anchored at the bottom. */
-        Bottom
+        BOTTOM
     }
 
     private float[] waveValues;
@@ -86,7 +86,7 @@ public class WaveSpinner extends BaseSpinner {
     }
 
     public WaveSpinner(Color color, int duration) {
-        this(color, duration, WaveOrigin.Center);
+        this(color, duration, WaveOrigin.CENTER);
     }
 
     /**
@@ -198,7 +198,7 @@ public class WaveSpinner extends BaseSpinner {
 
                         float xPos = gap + index * (barWidth + gap);
                         float yPos;
-                        if (this.origin == WaveOrigin.Bottom) {
+                        if (this.origin == WaveOrigin.BOTTOM) {
                             yPos = dim - barHeight;
                         } else {
                             yPos = (dim - barHeight) / 2f;

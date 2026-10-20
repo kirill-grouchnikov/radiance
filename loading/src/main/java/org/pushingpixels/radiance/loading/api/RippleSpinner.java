@@ -60,14 +60,14 @@ public class RippleSpinner extends BaseSpinner {
 
     /**
      * The direction of the ripple animation.
-     * <p>{@link Out} expands circles outward while fading (default, matching original default).
-     * {@link In} contracts circles inward while appearing.</p>
+     * <p>{@link OUT} expands circles outward while fading (default, matching original default).
+     * {@link IN} contracts circles inward while appearing.</p>
      */
     public enum RippleDirection {
         /** Circles expand outward while fading. */
-        Out,
+        OUT,
         /** Circles contract inward while appearing. */
-        In
+        IN
     }
 
     private float position;
@@ -85,7 +85,7 @@ public class RippleSpinner extends BaseSpinner {
     }
 
     public RippleSpinner(Color color, int duration) {
-        this(color, duration, RippleDirection.Out);
+        this(color, duration, RippleDirection.OUT);
     }
 
     /**
@@ -181,7 +181,7 @@ public class RippleSpinner extends BaseSpinner {
                         // Out: sc = sp, alpha = 1f - sp
                         // In:  sc = 1f - sp, alpha = sp
                         float sc, alpha;
-                        if (this.direction == RippleDirection.Out) {
+                        if (this.direction == RippleDirection.OUT) {
                             sc = sp;
                             alpha = 1f - sp;
                         } else {
