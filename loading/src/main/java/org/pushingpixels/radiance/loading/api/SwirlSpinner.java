@@ -42,7 +42,8 @@ import java.awt.*;
  * A Swing component that renders an animated swirl spinner.
  *
  * <p>This is a migration of the {@code Swirl} composable from the Aurora loading
- * module. It draws a spiral-like shape that rotates continuously.</p>
+ * module. It draws a 3×3 grid of rounded rectangles whose alpha values animate
+ * in a swirl pattern around the center cell.</p>
  *
  * <p>This is a modified version of the original source code by Jakub Krehel
  * available under the MIT license.</p>
@@ -51,38 +52,33 @@ import java.awt.*;
  */
 public class SwirlSpinner extends BaseSpinner {
 
-    private static final int DEFAULT_DURATION = 1000;
-    private static final float DEFAULT_STROKE_WIDTH = 2.5f;
+    private static final int DEFAULT_DURATION = 1200;
 
-    private int cap;
+    /**
+     * Ring sequence that defines the swirl order through the 3×3 grid.
+     * Index 4 (center) is null — the center cell is left empty.
+     * Sequence: top-left(0) → top-center(1) → top-right(2) → bottom-left(7)
+     *           → [center skipped] → middle-right(3) → bottom-center(6)
+     *           → bottom-right(5) → middle-left(4)
+     */
+    private static final Integer[] RING = {0, 1, 2, 7, null, 3, 6, 5, 4};
+    private static final int CELL_COUNT = 8;
 
-    private float[] angleValues;
+    private float[] highlight;
 
     private SwingRepaintTimeline timeline;
 
     public SwirlSpinner() {
-        this(Color.BLACK, DEFAULT_DURATION, BasicStroke.CAP_ROUND);
+        this(Color.BLACK, DEFAULT_DURATION);
     }
 
     public SwirlSpinner(Color color) {
-        this(color, DEFAULT_DURATION, BasicStroke.CAP_ROUND);
+        this(color, DEFAULT_DURATION);
     }
 
-    public SwirlSpinner(Color color, int duration, int cap) {
+    public SwirlSpinner(Color color, int duration) {
         super(color, duration);
-        this.cap = cap;
-        this.angleValues = new float[]{0f};
-    }
-
-    public int getCap() {
-        return cap;
-    }
-
-    public void setCap(int cap) {
-        int old = this.cap;
-        this.cap = cap;
-        firePropertyChange("cap", old, cap);
-        repaint();
+        this.highlight = new float[]{0f};
     }
 
     @Override
@@ -91,10 +87,10 @@ public class SwirlSpinner extends BaseSpinner {
 
         this.timeline = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
-                        Timeline.<Float>property("angle")
-                                .getWith((obj, fieldName) -> angleValues[0])
-                                .setWith((obj, fieldName, value) -> angleValues[0] = value)
-                                .from(0f).to(360f))
+                        Timeline.<Float>property("highlight")
+                                .getWith((obj, fieldName) -> highlight[0])
+                                .setWith((obj, fieldName, value) -> highlight[0] = value)
+                                .from(0f).to(1f))
                 .setEase(new Linear())
                 .setDuration(this.duration)
                 .build();
@@ -130,33 +126,39 @@ public class SwirlSpinner extends BaseSpinner {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-                    float strokeWidth = (float) (DEFAULT_STROKE_WIDTH * scaleFactor);
-                    int dim = Math.min(scaledWidth, scaledHeight) - (int) strokeWidth - 1;
-                    int dx = (scaledWidth - dim) / 2 + (int) strokeWidth / 2;
-                    int dy = (scaledHeight - dim) / 2 + (int) strokeWidth / 2;
+                    float dim = Math.min(scaledWidth, scaledHeight);
+                    float gap = dim * 5.0f / 32.0f;
+                    float padding = dim / 16.0f;
+                    float cellSize = (dim - 2 * padding - 2 * gap) / 3f;
+                    float cornerRadius = dim / 16.0f;
 
-                    float center = dx + dim / 2f;
-                    float centerY = dy + dim / 2f;
+                    float hl = highlight[0];
 
-                    // Draw a swirl pattern using multiple arcs at different radii
-                    Graphics2D rotated = (Graphics2D) graphics1X.create();
-                    rotated.rotate(Math.toRadians(angleValues[0]), center, centerY);
-                    rotated.setColor(color);
-                    rotated.setStroke(new BasicStroke(strokeWidth, this.cap, BasicStroke.JOIN_ROUND));
+                    for (int index = 0; index < RING.length; index++) {
+                        Integer gridPosition = RING[index];
+                        if (gridPosition == null) continue;
 
-                    // Draw 3 concentric arcs offset by 120 degrees
-                    for (int i = 0; i < 3; i++) {
-                        float radius = dim * (0.15f + i * 0.1f);
-                        float arcAngle = 240f;
-                        float startAngle = i * 120f;
+                        int adjustedGridPosition = CELL_COUNT - gridPosition - 1;
+                        float cellX = padding + (index % 3) * (cellSize + gap);
+                        float cellY = padding + (index / 3) * (cellSize + gap);
 
-                        rotated.drawArc(
-                                (int) Math.round(center - radius), (int) Math.round(centerY - radius),
-                                (int) Math.round(radius * 2), (int) Math.round(radius * 2),
-                                (int) Math.round(startAngle), (int) Math.round(arcAngle));
+                        float distanceFromHighlight = (hl + adjustedGridPosition / (float) CELL_COUNT) % 1f;
+                        float alpha = 1f - distanceFromHighlight * 0.8f;
+                        alpha = Math.max(0f, Math.min(1f, alpha));
+
+                        int alphaInt = (int) (alpha * 255);
+                        Color cellColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), alphaInt);
+
+                        graphics1X.setColor(cellColor);
+                        graphics1X.fillRoundRect(
+                                (int) Math.round(cellX),
+                                (int) Math.round(cellY),
+                                (int) Math.round(cellSize),
+                                (int) Math.round(cellSize),
+                                (int) Math.round(cornerRadius * 2),
+                                (int) Math.round(cornerRadius * 2)
+                        );
                     }
-
-                    rotated.dispose();
                 });
 
         graphics.dispose();
