@@ -109,6 +109,10 @@ public class RingSpinner extends BaseSpinner {
      * @param cap the new cap style
      */
     public void setCap(int cap) {
+        if (cap != BasicStroke.CAP_BUTT && cap != BasicStroke.CAP_ROUND && cap != BasicStroke.CAP_SQUARE) {
+            throw new IllegalArgumentException(
+                "Invalid cap style: " + cap + ". Must be one of BasicStroke.CAP_BUTT, BasicStroke.CAP_ROUND, or BasicStroke.CAP_SQUARE");
+        }
         int old = this.cap;
         this.cap = cap;
         firePropertyChange("cap", old, cap);
