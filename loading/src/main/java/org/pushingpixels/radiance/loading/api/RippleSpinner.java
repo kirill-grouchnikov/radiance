@@ -42,8 +42,8 @@ import java.awt.*;
  *
  * <p>This is a migration of the {@code Ripple} composable from the Aurora loading
  * module. It draws three concentric circles whose radius and alpha animate
- * continuously, creating a ripple effect. The direction can be {@link RippleDirection#Out}
- * (default, circles expand outward while fading) or {@link RippleDirection#In}
+ * continuously, creating a ripple effect. The direction can be {@link RippleDirection#OUT}
+ * (default, circles expand outward while fading) or {@link RippleDirection#IN}
  * (circles contract inward while appearing).</p>
  *
  * <p>This is a modified version of the original source code by Jakub Krehel
