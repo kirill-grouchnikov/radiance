@@ -56,18 +56,34 @@ public class RadarSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1500;
 
+    /** Current beam angle in degrees. */
     private float beamAngle;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
+    /**
+     * Creates a new {@code RadarSpinner} with default color and duration.
+     */
     public RadarSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code RadarSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public RadarSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code RadarSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public RadarSpinner(Color color, int duration) {
         super(color, duration);
         this.beamAngle = 0f;

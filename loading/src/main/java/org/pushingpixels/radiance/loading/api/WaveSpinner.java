@@ -71,20 +71,37 @@ public class WaveSpinner extends BaseSpinner {
         BOTTOM
     }
 
+    /** Per-bar wave animation values. */
     private float[] waveValues;
 
+    /** Animation timelines for each bar. */
     private SwingRepaintTimeline[] timelines;
 
+    /** Vertical origin for bar placement. */
     private WaveOrigin origin;
 
+    /**
+     * Creates a new {@code WaveSpinner} with default color and duration.
+     */
     public WaveSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code WaveSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public WaveSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code WaveSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public WaveSpinner(Color color, int duration) {
         this(color, duration, WaveOrigin.CENTER);
     }

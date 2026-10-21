@@ -54,18 +54,34 @@ public class OrbitSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 750;
     private static final float DEFAULT_STROKE_WIDTH = 2f;
 
+    /** Current rotation angle in degrees. */
     private float angle;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
+    /**
+     * Creates a new {@code OrbitSpinner} with default color and duration.
+     */
     public OrbitSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code OrbitSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public OrbitSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code OrbitSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public OrbitSpinner(Color color, int duration) {
         super(color, duration);
         this.angle = 0f;

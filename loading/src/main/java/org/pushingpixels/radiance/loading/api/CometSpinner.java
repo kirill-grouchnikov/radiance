@@ -55,8 +55,10 @@ public class CometSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 700;
     private static final float DEFAULT_STROKE_WIDTH = 2.5f;
 
+    /** Current rotation angle in degrees. */
     private float angle;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
     /**

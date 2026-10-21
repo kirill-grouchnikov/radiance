@@ -54,8 +54,10 @@ public class FlipSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1200;
 
+    /** Animation position (0-1). */
     private float position;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
     /**

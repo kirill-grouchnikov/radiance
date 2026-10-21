@@ -58,18 +58,34 @@ public class LoadingSpinner extends BaseSpinner {
     private static final int[] SEGMENT_X = {10, 6, 2, 0, 2, 6, 10, 12};
     private static final int[] SEGMENT_Y = {2, 0, 2, 6, 10, 12, 10, 6};
 
+    /** Highlight animation value (0-1). */
     private float highlight;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
+    /**
+     * Creates a new {@code LoadingSpinner} with default color and duration.
+     */
     public LoadingSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code LoadingSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public LoadingSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code LoadingSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public LoadingSpinner(Color color, int duration) {
         super(color, duration);
         this.highlight = 0f;

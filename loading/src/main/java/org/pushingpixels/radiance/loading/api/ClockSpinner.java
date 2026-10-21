@@ -56,8 +56,10 @@ public class ClockSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1200;
 
+    /** Current rotation angle in degrees. */
     private float angle;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
     /**

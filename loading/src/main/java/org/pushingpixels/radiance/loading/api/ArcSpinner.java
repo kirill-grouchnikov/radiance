@@ -61,10 +61,13 @@ public class ArcSpinner extends BaseSpinner {
     private static final float DASH_RATIO_NUMERATOR = 18.0f;
     private static final float DASH_RATIO_DENOMINATOR = 18.0f + 44.8f;
 
+    /** Stroke cap style. */
     private int cap;
 
+    /** Current rotation angle in degrees. */
     private float angle;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
     /**

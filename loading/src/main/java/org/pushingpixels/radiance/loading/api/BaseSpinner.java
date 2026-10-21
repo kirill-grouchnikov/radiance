@@ -43,11 +43,20 @@ import java.beans.PropertyChangeListener;
  * @author Kirill Grouchnikov
  */
 public abstract class BaseSpinner extends JComponent {
+
+    /** The color of the spinner. */
     protected Color color;
+
+    /** The animation duration in milliseconds. */
     protected int duration;
+
+    /** The size of the spinner. */
     protected int size = 24;
 
+    /** Property change listener for visibility changes. */
     private PropertyChangeListener propertyChangeListener;
+
+    /** Hierarchy listener for displayability changes. */
     private HierarchyListener hierarchyListener;
 
     /**
@@ -164,8 +173,14 @@ public abstract class BaseSpinner extends JComponent {
         }
     }
 
+    /**
+     * Starts the spinner animations.
+     */
     protected abstract void startAnimations();
 
+    /**
+     * Stops the spinner animations.
+     */
     protected abstract void stopAnimations();
 
     @Override

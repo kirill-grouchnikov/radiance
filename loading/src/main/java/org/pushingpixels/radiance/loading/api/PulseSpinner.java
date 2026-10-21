@@ -54,18 +54,34 @@ public class PulseSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1200;
 
+    /** Animation position (0-1). */
     private float position;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
+    /**
+     * Creates a new {@code PulseSpinner} with default color and duration.
+     */
     public PulseSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code PulseSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public PulseSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code PulseSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public PulseSpinner(Color color, int duration) {
         super(color, duration);
         this.position = 0f;

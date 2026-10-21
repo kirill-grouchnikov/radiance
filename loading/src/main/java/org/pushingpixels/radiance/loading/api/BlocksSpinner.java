@@ -68,10 +68,13 @@ public class BlocksSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 1300;
     private static final int GRID_SIZE = 3;
 
+    /** Sweep direction for the animation. */
     private BlocksSweep sweep;
 
+    /** Per-step animation values. */
     private float[] sweepValues;
 
+    /** Animation timelines for each step. */
     private SwingRepaintTimeline[] timelines;
 
     /**
@@ -106,10 +109,20 @@ public class BlocksSpinner extends BaseSpinner {
         this.sweepValues = new float[maxStep];
     }
 
+    /**
+     * Returns the sweep direction.
+     *
+     * @return the sweep direction
+     */
     public BlocksSweep getSweep() {
         return sweep;
     }
 
+    /**
+     * Sets the sweep direction.
+     *
+     * @param sweep the new sweep direction
+     */
     public void setSweep(BlocksSweep sweep) {
         BlocksSweep old = this.sweep;
         this.sweep = sweep;

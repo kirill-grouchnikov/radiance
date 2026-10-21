@@ -56,8 +56,10 @@ public class ClassicSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 1200;
     private static final int BAR_COUNT = 12;
 
+    /** Highlight position traveling around the circle. */
     private float highlight;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
     /**

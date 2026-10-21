@@ -57,9 +57,13 @@ public class GatherSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1600;
 
+    /** Pull animation value (0-1). */
     private float pull;
+
+    /** Turn animation value in degrees. */
     private float turn;
 
+    /** Animation timelines for pull and turn. */
     private SwingRepaintTimeline[] timelines;
 
     /**

@@ -56,10 +56,13 @@ public class DualSpinner extends BaseSpinner {
     private static final float DASH_RATIO_NUMERATOR = 18.0f;
     private static final float DASH_RATIO_DENOMINATOR = 18.0f + 44.8f;
 
+    /** Stroke cap style. */
     private int cap;
 
+    /** Rotation angles for outer and inner arcs. */
     private float[] angleValues;
 
+    /** Animation timelines for each arc. */
     private SwingRepaintTimeline[] timelines;
 
     /**
@@ -93,10 +96,20 @@ public class DualSpinner extends BaseSpinner {
         this.angleValues = new float[]{0f, 0f};
     }
 
+    /**
+     * Returns the stroke cap style.
+     *
+     * @return the cap style
+     */
     public int getCap() {
         return cap;
     }
 
+    /**
+     * Sets the stroke cap style.
+     *
+     * @param cap the new cap style
+     */
     public void setCap(int cap) {
         int old = this.cap;
         this.cap = cap;

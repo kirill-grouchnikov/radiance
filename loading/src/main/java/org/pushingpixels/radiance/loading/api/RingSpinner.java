@@ -56,30 +56,58 @@ public class RingSpinner extends BaseSpinner {
     private static final float DASH_RATIO_NUMERATOR = 18.0f;
     private static final float DASH_RATIO_DENOMINATOR = 18.0f + 44.8f;
 
+    /** Line cap style for the stroke. */
     private int cap;
 
+    /** Current rotation angle in degrees. */
     private float angle;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
+    /**
+     * Creates a new {@code RingSpinner} with default color, duration, and cap style.
+     */
     public RingSpinner() {
         this(Color.BLACK, DEFAULT_DURATION, BasicStroke.CAP_ROUND);
     }
 
+    /**
+     * Creates a new {@code RingSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public RingSpinner(Color color) {
         this(color, DEFAULT_DURATION, BasicStroke.CAP_ROUND);
     }
 
+    /**
+     * Creates a new {@code RingSpinner} with the specified color, duration, and cap style.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     * @param cap the line cap style for the stroke
+     */
     public RingSpinner(Color color, int duration, int cap) {
         super(color, duration);
         this.cap = cap;
         this.angle = 0f;
     }
 
+    /**
+     * Returns the line cap style for the stroke.
+     *
+     * @return the cap style
+     */
     public int getCap() {
         return cap;
     }
 
+    /**
+     * Sets the line cap style for the stroke.
+     *
+     * @param cap the new cap style
+     */
     public void setCap(int cap) {
         int old = this.cap;
         this.cap = cap;

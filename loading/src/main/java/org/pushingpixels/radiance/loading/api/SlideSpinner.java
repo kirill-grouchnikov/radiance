@@ -66,17 +66,34 @@ public class SlideSpinner extends BaseSpinner {
     /** Per-dot Y positions, indexed [dotIndex] */
     private float[] slideY;
 
+    /** Animation timelines for X-axis slide. */
     private SwingRepaintTimeline[] slideXTimelines;
+
+    /** Animation timelines for Y-axis slide. */
     private SwingRepaintTimeline[] slideYTimelines;
 
+    /**
+     * Creates a new {@code SlideSpinner} with default color and duration.
+     */
     public SlideSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code SlideSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public SlideSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code SlideSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public SlideSpinner(Color color, int duration) {
         super(color, duration);
         this.slideX = new float[DOT_COUNT];

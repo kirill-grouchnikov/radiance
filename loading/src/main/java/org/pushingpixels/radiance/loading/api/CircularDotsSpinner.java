@@ -56,8 +56,10 @@ public class CircularDotsSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 800;
     private static final int DOT_COUNT = 8;
 
+    /** Highlight position traveling around the circle. */
     private float highlight;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
     /**

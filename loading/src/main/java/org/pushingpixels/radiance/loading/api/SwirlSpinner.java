@@ -64,18 +64,34 @@ public class SwirlSpinner extends BaseSpinner {
     private static final Integer[] RING = {0, 1, 2, 7, null, 3, 6, 5, 4};
     private static final int CELL_COUNT = 8;
 
+    /** Highlight animation value (0-1). */
     private float highlight;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
+    /**
+     * Creates a new {@code SwirlSpinner} with default color and duration.
+     */
     public SwirlSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code SwirlSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public SwirlSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code SwirlSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public SwirlSpinner(Color color, int duration) {
         super(color, duration);
         this.highlight = 0f;

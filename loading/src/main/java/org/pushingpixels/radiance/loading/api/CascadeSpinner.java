@@ -57,10 +57,13 @@ public class CascadeSpinner extends BaseSpinner {
     private static final int CASCADE_COUNT = 3;
     private static final float[] CASCADE_SCALES = {0.875f, 0.58f, 0.3f};
 
+    /** Stroke cap style. */
     private int cap;
 
+    /** Per-cascade rotation angles. */
     private float[] angles;
 
+    /** Animation timelines for each cascade. */
     private SwingRepaintTimeline[] timelines;
 
     /**
@@ -94,10 +97,20 @@ public class CascadeSpinner extends BaseSpinner {
         this.angles = new float[CASCADE_COUNT];
     }
 
+    /**
+     * Returns the stroke cap style.
+     *
+     * @return the cap style
+     */
     public int getCap() {
         return cap;
     }
 
+    /**
+     * Sets the stroke cap style.
+     *
+     * @param cap the new cap style
+     */
     public void setCap(int cap) {
         int old = this.cap;
         this.cap = cap;

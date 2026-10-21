@@ -55,8 +55,10 @@ public class CompassSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 500;
     private static final int BAR_COUNT = 4;
 
+    /** Current rotation angle in degrees. */
     private float angle;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
     /**

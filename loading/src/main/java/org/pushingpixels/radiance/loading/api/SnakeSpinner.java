@@ -55,30 +55,58 @@ public class SnakeSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 1400;
     private static final float DEFAULT_STROKE_WIDTH = 2.5f;
 
+    /** Line cap style for the stroke. */
     private int cap;
 
+    /** Current rotation angle in degrees. */
     private float angle;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
+    /**
+     * Creates a new {@code SnakeSpinner} with default color, duration, and cap style.
+     */
     public SnakeSpinner() {
         this(Color.BLACK, DEFAULT_DURATION, BasicStroke.CAP_ROUND);
     }
 
+    /**
+     * Creates a new {@code SnakeSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public SnakeSpinner(Color color) {
         this(color, DEFAULT_DURATION, BasicStroke.CAP_ROUND);
     }
 
+    /**
+     * Creates a new {@code SnakeSpinner} with the specified color, duration, and cap style.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     * @param cap the line cap style for the stroke
+     */
     public SnakeSpinner(Color color, int duration, int cap) {
         super(color, duration);
         this.cap = cap;
         this.angle = 0f;
     }
 
+    /**
+     * Returns the line cap style for the stroke.
+     *
+     * @return the cap style
+     */
     public int getCap() {
         return cap;
     }
 
+    /**
+     * Sets the line cap style for the stroke.
+     *
+     * @param cap the new cap style
+     */
     public void setCap(int cap) {
         int old = this.cap;
         this.cap = cap;

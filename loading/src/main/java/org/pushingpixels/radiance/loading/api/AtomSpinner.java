@@ -64,12 +64,13 @@ public class AtomSpinner extends BaseSpinner {
     private static final float OUTER_STROKE_WIDTH = 1.5f;
     private static final float INNER_STROKE_WIDTH = 0.8f;
 
-    /*
+    /**
      * Each orbit's animated value: 0.0 = fully expanded, 1.0 = fully collapsed.
      * Three orbits at 120° intervals, staggered in time.
      */
     private float[] orbitValues;
 
+    /** Animation timelines for each orbit. */
     private SwingRepaintTimeline[] timelines;
 
     /**

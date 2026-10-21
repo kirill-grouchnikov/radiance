@@ -58,10 +58,16 @@ public class EclipseSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 1200;
     private static final int DOT_COUNT = 2;
 
+    /** Per-circle slide animation values. */
     private float[] slideValues;
+
+    /** Per-circle alpha animation values. */
     private float[] alphaValues;
+
+    /** Per-circle scale animation values. */
     private float[] scaleValues;
 
+    /** Animation timelines for all properties. */
     private SwingRepaintTimeline[] timelines;
 
     /**

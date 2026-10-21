@@ -84,22 +84,40 @@ public class LeapSpinner extends BaseSpinner {
             0f, 180f, 180f
     };
 
+    /** Per-dot translate animation values. */
     private float[] translateValues;
 
+    /** Animation timelines for translate axis. */
     private SwingRepaintTimeline[] translateTimelines;
 
+    /** Per-dot rotate animation values. */
     private float[] rotateValues;
 
+    /** Animation timelines for rotate axis. */
     private SwingRepaintTimeline[] rotateTimelines;
 
+    /**
+     * Creates a new {@code LeapSpinner} with default color and duration.
+     */
     public LeapSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code LeapSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public LeapSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code LeapSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public LeapSpinner(Color color, int duration) {
         super(color, duration);
         this.translateValues = new float[]{0f, 0f, 0f};

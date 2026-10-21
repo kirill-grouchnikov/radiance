@@ -70,20 +70,37 @@ public class RippleSpinner extends BaseSpinner {
         IN
     }
 
+    /** Animation position (0-1). */
     private float position;
 
+    /** Animation timeline. */
     private SwingRepaintTimeline timeline;
 
+    /** Ripple direction. */
     private RippleDirection direction;
 
+    /**
+     * Creates a new {@code RippleSpinner} with default color and duration.
+     */
     public RippleSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code RippleSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public RippleSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code RippleSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public RippleSpinner(Color color, int duration) {
         this(color, duration, RippleDirection.OUT);
     }

@@ -58,19 +58,37 @@ public class MorphSpinner extends BaseSpinner {
 
     private static final int DEFAULT_DURATION = 1200;
 
+    /** Corner radius animation factor. */
     private float cornerRadiusFactor;
+
+    /** Rotation animation value in degrees. */
     private float rotate;
 
+    /** Animation timelines for corner radius and rotation. */
     private SwingRepaintTimeline[] timelines;
 
+    /**
+     * Creates a new {@code MorphSpinner} with default color and duration.
+     */
     public MorphSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code MorphSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public MorphSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code MorphSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public MorphSpinner(Color color, int duration) {
         super(color, duration);
     }

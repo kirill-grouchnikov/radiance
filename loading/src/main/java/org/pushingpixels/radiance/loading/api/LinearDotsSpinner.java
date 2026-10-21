@@ -58,18 +58,34 @@ public class LinearDotsSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 900;
     private static final int DOT_COUNT = 3;
 
+    /** Per-dot fade animation values. */
     private float[] fadeValues;
 
+    /** Animation timelines for each dot. */
     private SwingRepaintTimeline[] timelines;
 
+    /**
+     * Creates a new {@code LinearDotsSpinner} with default color and duration.
+     */
     public LinearDotsSpinner() {
         this(Color.BLACK, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code LinearDotsSpinner} with the specified color and default duration.
+     *
+     * @param color the color of the spinner
+     */
     public LinearDotsSpinner(Color color) {
         this(color, DEFAULT_DURATION);
     }
 
+    /**
+     * Creates a new {@code LinearDotsSpinner} with the specified color and duration.
+     *
+     * @param color the color of the spinner
+     * @param duration the duration of one full animation cycle in milliseconds
+     */
     public LinearDotsSpinner(Color color, int duration) {
         super(color, duration);
         this.fadeValues = new float[DOT_COUNT];

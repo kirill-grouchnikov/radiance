@@ -55,8 +55,10 @@ public class BouncingDotsSpinner extends BaseSpinner {
     private static final int DEFAULT_DURATION = 500;
     private static final int DOT_COUNT = 3;
 
+    /** Per-dot bounce animation values. */
     private float[] dotValues;
 
+    /** Animation timelines for each dot. */
     private SwingRepaintTimeline[] timelines;
 
     /**
