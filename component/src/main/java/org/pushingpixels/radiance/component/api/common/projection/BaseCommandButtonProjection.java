@@ -39,6 +39,14 @@ import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPo
 import javax.swing.*;
 import java.util.function.Function;
 
+/**
+ * Base projection for command buttons.
+ *
+ * @param <M>   The type of the BaseCommand.
+ * @param <MCM> The type of the menu content model.
+ * @param <P>   The type of the presentation model.
+ * @param <MPM> The type of the popup menu presentation model.
+ */
 public abstract class BaseCommandButtonProjection<
         M extends BaseCommand<MCM>,
         MCM extends BaseCommandMenuContentModel,
@@ -48,9 +56,16 @@ public abstract class BaseCommandButtonProjection<
     private CommandButtonComponentSupplier<JCommandButton, M, MCM, P, MPM> componentSupplier;
 
     /**
+     * Supplier interface for creating command button components.
      * This interface can be used as part of
      * {@link #setComponentSupplier(CommandButtonComponentSupplier)} to return your own supplier of
      * {@link TC} to be used before the configureComponent() call.
+     *
+     * @param <TC>  The type of the JCommandButton component.
+     * @param <M>   The type of the BaseCommand.
+     * @param <MCM> The type of the menu content model.
+     * @param <P>   The type of the presentation model.
+     * @param <MPM> The type of the popup menu presentation model.
      */
     @FunctionalInterface
     public interface CommandButtonComponentSupplier<TC extends JCommandButton,

@@ -34,6 +34,8 @@ package org.pushingpixels.radiance.component.api.bcb;
 
 /**
  * Event on the breadcrumb bar path.
+ *
+ * @param <T> The type of the breadcrumb item data.
  */
 public class BreadcrumbPathEvent<T> {
     /**

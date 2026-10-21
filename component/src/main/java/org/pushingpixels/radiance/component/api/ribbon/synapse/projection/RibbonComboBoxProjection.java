@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRe
 /**
  * Projection that allows using a {@link javax.swing.JComboBox} as a ribbon component.
  *
+ * @param <E> The type of the combo box items.
  * @see JRibbonBand#addRibbonComponent(ComponentProjection)
  * @see JFlowRibbonBand#addFlowComponent(ComponentProjection)
  * @see JRibbon#addTaskbarComponent(ComponentProjection)

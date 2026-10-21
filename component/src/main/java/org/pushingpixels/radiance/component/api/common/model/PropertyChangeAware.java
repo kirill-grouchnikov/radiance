@@ -31,8 +31,19 @@ package org.pushingpixels.radiance.component.api.common.model;
 
 import java.beans.PropertyChangeListener;
 
+/**
+ * Interface for objects that support property change listeners.
+ */
 public interface PropertyChangeAware {
+    /**
+     * Adds a property change listener.
+     * @param l The listener to add.
+     */
     void addPropertyChangeListener(PropertyChangeListener l);
 
+    /**
+     * Removes a property change listener.
+     * @param l The listener to remove.
+     */
     void removePropertyChangeListener(PropertyChangeListener l);
 }

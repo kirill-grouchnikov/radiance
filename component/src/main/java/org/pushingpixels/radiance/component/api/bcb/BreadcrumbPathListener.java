@@ -36,6 +36,8 @@ import java.util.EventListener;
 
 /**
  * The application listener on breadcrumb path events.
+ *
+ * @param <T> The type of the breadcrumb item data.
  */
 public interface BreadcrumbPathListener<T> extends EventListener {
     /**

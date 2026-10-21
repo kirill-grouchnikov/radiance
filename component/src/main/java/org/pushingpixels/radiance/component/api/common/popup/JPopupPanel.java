@@ -42,6 +42,8 @@ import javax.swing.*;
  */
 public abstract class JPopupPanel extends JPanel {
 	/**
+	 * The UI class ID for popup panels.
+	 *
 	 * @see #getUIClassID
 	 */
 	public static final String uiClassID = "PopupPanelUI";

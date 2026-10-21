@@ -39,6 +39,12 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import java.awt.*;
 
+/**
+ * Base presentation model for command buttons.
+ *
+ * @param <MPM> The type of the popup menu presentation model.
+ * @param <PM>  The self-referential presentation model type.
+ */
 public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommandPopupMenuPresentationModel,
         PM extends BaseCommandButtonPresentationModel<MPM, PM>> implements ImmutablePresentationModel {
     public static final HorizontalAlignment DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.CENTER;
@@ -225,6 +231,9 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         return this.sides;
     }
 
+    /**
+     * Trigger for firing the command action.
+     */
     public enum ActionFireTrigger {
         /**
          * Fire action on rollover.
@@ -278,6 +287,9 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         Rectangle getPopupAnchorBoundsOnScreen();
     }
 
+    /**
+     * Overlay configuration for customizing presentation model properties.
+     */
     public static class Overlay {
         private CommandButtonPresentationState presentationState;
         private ContainerColorTokensOverlay.Provider containerColorTokensOverlayProvider;
@@ -611,6 +623,13 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         }
     }
 
+    /**
+     * Abstract builder for constructing BaseCommandButtonPresentationModel instances.
+     *
+     * @param <MPM> The type of the popup menu presentation model.
+     * @param <PM>  The presentation model type.
+     * @param <B>   The self-referential builder type.
+     */
     public abstract static class BaseBuilder<MPM extends BaseCommandPopupMenuPresentationModel,
             PM extends BaseCommandButtonPresentationModel<MPM, PM>,
             B extends BaseBuilder<MPM, PM, B>> {

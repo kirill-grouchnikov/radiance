@@ -35,14 +35,23 @@ import org.pushingpixels.radiance.component.api.common.model.PresentationModel;
 import javax.swing.*;
 import java.util.function.Function;
 
+/**
+ * Abstract projection that maps a content model and presentation model to a Swing component.
+ *
+ * @param <T> The type of the JComponent.
+ * @param <C> The type of the ContentModel.
+ * @param <P> The type of the PresentationModel.
+ */
 public abstract class Projection<T extends JComponent, C extends ContentModel,
         P extends PresentationModel> extends BaseProjection<T, C, P> {
     private ComponentSupplier<T, C, P> componentSupplier;
 
     /**
-     * This interface can be used as part of {@link #setComponentSupplier(ComponentSupplier)}
-     * to return your own supplier of {@link TC} to be used before the
-     * {@link #configureComponent(JComponent)} call.
+     * Supplier interface for creating components from projections.
+     *
+     * @param <TC> The type of the JComponent.
+     * @param <CC> The type of the ContentModel.
+     * @param <PC> The type of the PresentationModel.
      */
     @FunctionalInterface
     public interface ComponentSupplier<TC extends JComponent, CC extends ContentModel,

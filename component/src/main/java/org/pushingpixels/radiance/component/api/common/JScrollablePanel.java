@@ -38,6 +38,8 @@ import javax.swing.event.ChangeListener;
 
 /**
  * ScrollablePanel allows to have scrolling buttons on each side.
+ *
+ * @param <T> The type of the contained component.
  */
 public class JScrollablePanel<T extends JComponent> extends JPanel {
 	/**

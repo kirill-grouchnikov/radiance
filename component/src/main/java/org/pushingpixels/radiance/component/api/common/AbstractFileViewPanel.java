@@ -159,10 +159,18 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
         this.loadedSet = new HashSet<>();
     }
 
+    /**
+     * Sets the progress listener for this panel.
+     * @param progressListener The progress listener.
+     */
     public void setProgressListener(ProgressListener progressListener) {
         this.progressListener = progressListener;
     }
 
+    /**
+     * Returns the progress listener for this panel.
+     * @return The progress listener.
+     */
     public ProgressListener getProgressListener() {
         return this.progressListener;
     }

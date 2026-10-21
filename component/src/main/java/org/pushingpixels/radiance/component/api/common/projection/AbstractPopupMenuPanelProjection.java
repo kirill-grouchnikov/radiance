@@ -33,9 +33,22 @@ import org.pushingpixels.radiance.component.api.common.model.ContentModel;
 import org.pushingpixels.radiance.component.api.common.model.PresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 
+/**
+ * Projection for popup menu panels.
+ *
+ * @param <M> The type of the AbstractPopupMenuPanel.
+ * @param <C> The type of the ContentModel.
+ * @param <P> The type of the PresentationModel.
+ */
 public abstract class AbstractPopupMenuPanelProjection<M extends AbstractPopupMenuPanel,
         C extends ContentModel, P extends PresentationModel> extends Projection<M, C, P> {
 
+    /**
+     * Constructs a new AbstractPopupMenuPanelProjection.
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     * @param componentSupplier2 The component supplier.
+     */
     protected AbstractPopupMenuPanelProjection(C contentModel, P presentationModel,
             ComponentSupplier<M, C, P> componentSupplier2) {
         super(contentModel, presentationModel, componentSupplier2);

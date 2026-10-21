@@ -55,12 +55,14 @@ import java.util.List;
  * to wrap an existing tree model.</li>
  * </ul>
  *
+ * @param <T> The type of the tree node data.
  * @author Kirill Grouchnikov
  */
 public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
     /**
      * Tree adapter that allows plugging a custom rendering logic.
      *
+     * @param <T> The type of the tree node data.
      * @author Kirill Grouchnikov
      */
     public interface TreeAdapter<T> {

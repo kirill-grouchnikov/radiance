@@ -115,6 +115,8 @@ import java.awt.*;
  */
 public class JCommandButtonPanel extends JComponent implements Scrollable {
     /**
+     * The UI class ID for command button panels.
+     *
      * @see #getUIClassID
      */
     public static final String uiClassID = "CommandButtonPanelUI";
