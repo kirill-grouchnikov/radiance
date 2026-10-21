@@ -36,9 +36,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Provides property interpolators for core Java types.
+ */
 public class CorePropertyInterpolators implements PropertyInterpolatorSource {
     private Set<PropertyInterpolator<?>> interpolators;
 
+    /**
+     * Default constructor.
+     */
     public CorePropertyInterpolators() {
         this.interpolators = new HashSet<>();
         this.interpolators.add(new IntegerPropertyInterpolator());

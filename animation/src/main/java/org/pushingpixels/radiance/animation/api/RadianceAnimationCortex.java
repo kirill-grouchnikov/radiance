@@ -55,13 +55,27 @@ public class RadianceAnimationCortex {
         propertyInterpolators.addAll(new AWTPropertyInterpolators().getPropertyInterpolators());
     }
 
+    /**
+     * Defines a source of animation pulses.
+     */
     public interface PulseSource {
+        /**
+         * Waits until the next animation pulse.
+         */
         void waitUntilNextPulse();
     }
 
+    /**
+     * A pulse source that fires at a fixed rate.
+     */
     public static class FixedRatePulseSource implements RadianceAnimationCortex.PulseSource {
         private int msDelay;
 
+        /**
+         * Creates a fixed rate pulse source with the specified delay.
+         *
+         * @param msDelay The delay between pulses in milliseconds.
+         */
         public FixedRatePulseSource(int msDelay) {
             this.msDelay = msDelay;
         }
@@ -79,10 +93,22 @@ public class RadianceAnimationCortex {
     // No-op private constructor to prevent application code from directly creating instances
     private RadianceAnimationCortex() {}
 
+    /**
+     * Returns the collection of registered property interpolators.
+     *
+     * @return An unmodifiable collection of property interpolators.
+     */
     public static Collection<PropertyInterpolator<?>> getPropertyInterpolators() {
         return Collections.unmodifiableSet(propertyInterpolators);
     }
 
+    /**
+     * Finds a property interpolator that can handle the given values.
+     *
+     * @param <T> The type of the property values.
+     * @param values The collection of values to find an interpolator for.
+     * @return A matching property interpolator, or {@code null} if none found.
+     */
     @SuppressWarnings("unchecked")
     public static <T> PropertyInterpolator<T> getPropertyInterpolator(Collection<T> values) {
         for (PropertyInterpolator<?> interpolator : propertyInterpolators) {
@@ -103,18 +129,39 @@ public class RadianceAnimationCortex {
         return null;
     }
 
+    /**
+     * Adds a property interpolator to the registry.
+     *
+     * @param pInterpolator The interpolator to add.
+     */
     public static void addPropertyInterpolator(PropertyInterpolator<?> pInterpolator) {
         propertyInterpolators.add(pInterpolator);
     }
 
+    /**
+     * Adds all property interpolators from the given source to the registry.
+     *
+     * @param pInterpolatorSource The source of interpolators to add.
+     */
     public static void addPropertyInterpolatorSource(PropertyInterpolatorSource pInterpolatorSource) {
         propertyInterpolators.addAll(pInterpolatorSource.getPropertyInterpolators());
     }
 
+    /**
+     * Removes a property interpolator from the registry.
+     *
+     * @param pInterpolator The interpolator to remove.
+     */
     public static void removePropertyInterpolator(PropertyInterpolator<?> pInterpolator) {
         propertyInterpolators.remove(pInterpolator);
     }
 
+    /**
+     * Sets the pulse source for the animation thread.
+     *
+     * @param pulseSource The new pulse source.
+     * @throws IllegalStateException if the animation thread is already running.
+     */
     public static void setPulseSource(PulseSource pulseSource) {
         TimelineEngine.RadianceAnimationThread current = TimelineEngine.getInstance().animatorThread;
         if ((current != null) && current.isAlive()) {
@@ -124,6 +171,11 @@ public class RadianceAnimationCortex {
         currPulseSource = pulseSource;
     }
 
+    /**
+     * Returns the current pulse source.
+     *
+     * @return The current pulse source.
+     */
     public static RadianceAnimationCortex.PulseSource getPulseSource() {
         return currPulseSource;
     }

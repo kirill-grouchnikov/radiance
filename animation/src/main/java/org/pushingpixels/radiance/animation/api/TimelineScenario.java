@@ -33,6 +33,9 @@ import org.pushingpixels.radiance.animation.api.callback.TimelineScenarioCallbac
 
 import java.util.*;
 
+/**
+ * Manages a scenario of multiple timeline actors with dependencies.
+ */
 public class TimelineScenario {
     private Set<TimelineScenarioActor> waitingActors;
 
@@ -50,8 +53,18 @@ public class TimelineScenario {
 
     boolean isLooping;
 
+    /**
+     * Represents the state of a timeline scenario.
+     */
     public enum TimelineScenarioState {
-        DONE, PLAYING, IDLE, SUSPENDED
+        /** Scenario has finished. */
+        DONE,
+        /** Scenario is playing. */
+        PLAYING,
+        /** Scenario is idle. */
+        IDLE,
+        /** Scenario is suspended. */
+        SUSPENDED
     }
 
     static class Chain implements TimelineScenarioCallback {
@@ -73,16 +86,38 @@ public class TimelineScenario {
         }
     }
 
+    /**
+     * Represents an actor in a timeline scenario.
+     */
     public interface TimelineScenarioActor {
+        /**
+         * Returns whether this actor has finished.
+         *
+         * @return {@code true} if done.
+         */
         boolean isDone();
 
+        /**
+         * Returns whether this actor supports replay.
+         *
+         * @return {@code true} if replay is supported.
+         */
         boolean supportsReplay();
 
+        /**
+         * Resets the done flag so the actor can be replayed.
+         */
         void resetDoneFlag();
 
+        /**
+         * Starts playing this actor.
+         */
         void play();
     }
 
+    /**
+     * Default constructor.
+     */
     public TimelineScenario() {
         this.waitingActors = new HashSet<>();
         this.runningActors = new HashSet<>();
@@ -93,6 +128,12 @@ public class TimelineScenario {
         this.state = TimelineScenarioState.IDLE;
     }
 
+    /**
+     * Adds an actor to this scenario.
+     *
+     * @param actor The actor to add.
+     * @throws IllegalArgumentException if the actor has already finished.
+     */
     public void addScenarioActor(TimelineScenarioActor actor) {
         if (actor.isDone()) {
             throw new IllegalArgumentException("Already finished");
@@ -100,6 +141,12 @@ public class TimelineScenario {
         this.waitingActors.add(actor);
     }
 
+    /**
+     * Adds a callback to be notified when the scenario is done.
+     *
+     * @param callback The callback.
+     * @throws IllegalArgumentException if the scenario is not idle.
+     */
     public void addCallback(TimelineScenarioCallback callback) {
         if (!this.doneActors.isEmpty()) {
             throw new IllegalArgumentException("Cannot change state of non-idle timeline scenario");
@@ -113,6 +160,12 @@ public class TimelineScenario {
         }
     }
 
+    /**
+     * Adds a dependency between actors.
+     *
+     * @param actor The dependent actor.
+     * @param waitFor The actors to wait for.
+     */
     public void addDependency(TimelineScenarioActor actor, TimelineScenarioActor... waitFor) {
         // check params
         this.checkDependencyParam(actor);
@@ -183,6 +236,9 @@ public class TimelineScenario {
         }
     }
 
+    /**
+     * Cancels this scenario.
+     */
     public void cancel() {
         synchronized (TimelineEngine.LOCK) {
             TimelineScenarioState oldState = this.state;
@@ -203,6 +259,9 @@ public class TimelineScenario {
         }
     }
 
+    /**
+     * Suspends this scenario.
+     */
     public void suspend() {
         synchronized (TimelineEngine.LOCK) {
             TimelineScenarioState oldState = this.state;
@@ -219,6 +278,9 @@ public class TimelineScenario {
         }
     }
 
+    /**
+     * Resumes a suspended scenario.
+     */
     public void resume() {
         synchronized (TimelineEngine.LOCK) {
             TimelineScenarioState oldState = this.state;
@@ -234,6 +296,9 @@ public class TimelineScenario {
         }
     }
 
+    /**
+     * Starts playing this scenario.
+     */
     public void play() {
         this.isLooping = false;
         this.state = TimelineScenarioState.PLAYING;
@@ -242,6 +307,9 @@ public class TimelineScenario {
                 () -> TimelineEngine.getInstance().playScenario(TimelineScenario.this));
     }
 
+    /**
+     * Starts playing this scenario in a loop.
+     */
     public void playLoop() {
         for (TimelineScenarioActor actor : this.waitingActors) {
             if (!actor.supportsReplay())
@@ -254,15 +322,32 @@ public class TimelineScenario {
                 () -> TimelineEngine.getInstance().playScenario(TimelineScenario.this));
     }
 
+    /**
+     * Runs all actors in parallel without dependencies.
+     */
     public static class Parallel extends TimelineScenario {
+        /**
+         * Default constructor.
+         */
+        public Parallel() {
+        }
         @Override
         public void addDependency(TimelineScenarioActor actor, TimelineScenarioActor... waitFor) {
             throw new UnsupportedOperationException("Explicit dependencies not supported");
         }
     }
 
+    /**
+     * Runs actors sequentially, one after another.
+     */
     public static class Sequence extends TimelineScenario {
         private TimelineScenarioActor lastActor;
+
+        /**
+         * Default constructor.
+         */
+        public Sequence() {
+        }
 
         @Override
         public void addDependency(TimelineScenarioActor actor, TimelineScenarioActor... waitFor) {
@@ -279,11 +364,17 @@ public class TimelineScenario {
         }
     }
 
+    /**
+     * Runs actors in groups with rendezvous points.
+     */
     public static class RendezvousSequence extends TimelineScenario {
         private Set<TimelineScenarioActor> addedSinceLastRendezvous;
 
         private Set<TimelineScenarioActor> addedPriorToLastRendezvous;
 
+        /**
+         * Default constructor.
+         */
         public RendezvousSequence() {
             this.addedSinceLastRendezvous = new HashSet<>();
             this.addedPriorToLastRendezvous = new HashSet<>();
@@ -300,6 +391,10 @@ public class TimelineScenario {
             this.addedSinceLastRendezvous.add(actor);
         }
 
+        /**
+         * Creates a rendezvous point. All actors added since the last rendezvous
+         * will wait for all actors added prior to it.
+         */
         public void rendezvous() {
             // make all actors added since last rendezvous to wait for
             // all actors added prior to last rendezvous
@@ -331,6 +426,11 @@ public class TimelineScenario {
         }
     }
 
+    /**
+     * Returns the current state of this scenario.
+     *
+     * @return The current state.
+     */
     public final TimelineScenarioState getState() {
         return this.state;
     }

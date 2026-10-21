@@ -61,7 +61,14 @@ import java.util.function.Supplier;
  * can be used to work with properties that are not exposed via public setters or getters.
  */
 public class Timeline implements TimelineScenario.TimelineScenarioActor {
+    /**
+     * Default animation duration in milliseconds.
+     */
     public static final long DEFAULT_DURATION = 500;
+
+    /**
+     * Default easing function.
+     */
     public static final TimelineEase DEFAULT_EASE = new Linear();
 
     private Object mainObject;
@@ -126,17 +133,33 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
     private int doneCount;
 
+    /**
+     * Defines how a looping timeline should behave at cycle boundaries.
+     */
     public enum RepeatBehavior {
-        LOOP, REVERSE
+        /** Loop forward continuously. */
+        LOOP,
+        /** Reverse direction at each cycle boundary. */
+        REVERSE
     }
 
+    /**
+     * Represents the current state of a timeline.
+     */
     public enum TimelineState {
+        /** Timeline is idle and not running. */
         IDLE(false),
+        /** Timeline is ready to start. */
         READY(false),
+        /** Timeline is playing forward. */
         PLAYING_FORWARD(true),
+        /** Timeline is playing in reverse. */
         PLAYING_REVERSE(true),
+        /** Timeline is suspended. */
         SUSPENDED(false),
+        /** Timeline has been cancelled. */
         CANCELLED(false),
+        /** Timeline has finished. */
         DONE(false);
 
         private boolean isActive;
@@ -319,14 +342,30 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         }
     }
 
+    /**
+     * Creates a builder for a timeline without a main object.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Creates a builder for a timeline with the specified main object.
+     *
+     * @param mainTimelineObject The main object whose properties will be animated.
+     * @return A new builder.
+     */
     public static Builder builder(Object mainTimelineObject) {
         return new Builder(mainTimelineObject);
     }
 
+    /**
+     * Constructs a new timeline for the specified main object.
+     *
+     * @param mainTimelineObject The main object whose properties will be animated.
+     */
     protected Timeline(Object mainTimelineObject) {
         this.mainObject = mainTimelineObject;
         this.mainObjectIsUiComponent = SwingUtils.isUiComponent(this.mainObject);
@@ -349,6 +388,12 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         this.ease = DEFAULT_EASE;
     }
 
+    /**
+     * Adds a callback to this timeline. Only valid when the timeline is in the IDLE state.
+     *
+     * @param callback The callback to add.
+     * @throws IllegalArgumentException if the timeline is not in the IDLE state.
+     */
     protected final void addCallback(TimelineCallback callback) {
         if (this.getState() != TimelineState.IDLE) {
             throw new IllegalArgumentException(
@@ -357,18 +402,39 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         this.callbackChain.addCallback(callback);
     }
 
+    /**
+     * Creates a property builder for the specified property name.
+     *
+     * @param <T> The type of the property value.
+     * @param propertyName The name of the property.
+     * @return A new property builder.
+     */
     public static <T> TimelinePropertyBuilder<T> property(String propertyName) {
         return new TimelinePropertyBuilder<>(propertyName);
     }
 
+    /**
+     * Returns whether UI updates should be forced even when the component is not in a ready state.
+     *
+     * @return {@code true} if UI updates should be forced.
+     */
     protected boolean shouldForceUiUpdate() {
         return false;
     }
 
+    /**
+     * Starts playing this timeline from the beginning.
+     */
     public void play() {
         this.playSkipping(0);
     }
 
+    /**
+     * Starts playing this timeline, skipping the specified number of milliseconds.
+     *
+     * @param msToSkip The number of milliseconds to skip from the beginning.
+     * @throws IllegalArgumentException if the skip amount exceeds initial delay + duration.
+     */
     public void playSkipping(final long msToSkip) {
         if ((this.initialDelay + this.duration) < msToSkip) {
             throw new IllegalArgumentException(
@@ -380,10 +446,19 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         });
     }
 
+    /**
+     * Starts playing this timeline in reverse from the end.
+     */
     public void playReverse() {
         playReverseSkipping(0);
     }
 
+    /**
+     * Starts playing this timeline in reverse, skipping the specified number of milliseconds.
+     *
+     * @param msToSkip The number of milliseconds to skip from the end.
+     * @throws IllegalArgumentException if the skip amount exceeds initial delay + duration.
+     */
     public void playReverseSkipping(final long msToSkip) {
         if ((this.initialDelay + this.duration) < msToSkip) {
             throw new IllegalArgumentException(
@@ -395,6 +470,9 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         });
     }
 
+    /**
+     * Replays this timeline from the beginning, resetting to the initial state first.
+     */
     public void replay() {
         TimelineEngine.getInstance().runTimelineOperation(this, TimelineEngine.TimelineOperationKind.PLAY, () -> {
             Timeline.this.isLooping = false;
@@ -402,6 +480,9 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         });
     }
 
+    /**
+     * Replays this timeline in reverse from the end, resetting to the initial state first.
+     */
     public void replayReverse() {
         TimelineEngine.getInstance().runTimelineOperation(this, TimelineEngine.TimelineOperationKind.PLAY, () -> {
             Timeline.this.isLooping = false;
@@ -409,18 +490,46 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         });
     }
 
+    /**
+     * Starts playing this timeline in a loop with the specified repeat behavior.
+     * The loop runs indefinitely.
+     *
+     * @param repeatBehavior The behavior at cycle boundaries (LOOP or REVERSE).
+     */
     public void playLoop(RepeatBehavior repeatBehavior) {
         this.playLoop(-1, repeatBehavior);
     }
 
+    /**
+     * Starts playing this timeline in a loop, skipping the specified number of milliseconds.
+     * The loop runs indefinitely.
+     *
+     * @param repeatBehavior The behavior at cycle boundaries (LOOP or REVERSE).
+     * @param msToSkip The number of milliseconds to skip from the beginning.
+     */
     public void playLoopSkipping(RepeatBehavior repeatBehavior, final long msToSkip) {
         this.playLoopSkipping(-1, repeatBehavior, msToSkip);
     }
 
+    /**
+     * Starts playing this timeline in a loop with the specified repeat behavior and loop count.
+     *
+     * @param loopCount The number of loops (-1 for infinite).
+     * @param repeatBehavior The behavior at cycle boundaries (LOOP or REVERSE).
+     */
     public void playLoop(int loopCount, RepeatBehavior repeatBehavior) {
         this.playLoopSkipping(loopCount, repeatBehavior, 0);
     }
 
+    /**
+     * Starts playing this timeline in a loop with the specified repeat behavior, loop count, and skip amount.
+     *
+     * @param loopCount The number of loops (-1 for infinite).
+     * @param repeatBehavior The behavior at cycle boundaries (LOOP or REVERSE).
+     * @param msToSkip The number of milliseconds to skip from the beginning.
+     * @throws IllegalArgumentException if the skip amount exceeds initial delay + duration.
+     * @throws IllegalArgumentException if any property uses {@code fromCurrent()}.
+     */
     public void playLoopSkipping(final int loopCount, final RepeatBehavior repeatBehavior,
             final long msToSkip) {
         if ((this.initialDelay + this.duration) < msToSkip) {
@@ -480,11 +589,17 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         TimelineEngine.getInstance().runTimelineOperation(this, TimelineEngine.TimelineOperationKind.ABORT, null);
     }
 
+    /**
+     * Suspends this timeline, pausing execution while preserving its current state.
+     */
     public void suspend() {
         TimelineEngine.getInstance().runTimelineOperation(this, TimelineEngine.TimelineOperationKind.SUSPEND,
                 null);
     }
 
+    /**
+     * Resumes a previously suspended timeline.
+     */
     public void resume() {
         TimelineEngine.getInstance().runTimelineOperation(this, TimelineEngine.TimelineOperationKind.RESUME, null);
     }
@@ -509,14 +624,29 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         return counter++;
     }
 
+    /**
+     * Returns the current timeline position as a value between 0.0 and 1.0.
+     *
+     * @return The current timeline position.
+     */
     public final float getTimelinePosition() {
         return this.timelinePosition;
     }
 
+    /**
+     * Returns the current duration fraction as a value between 0.0 and 1.0.
+     *
+     * @return The current duration fraction.
+     */
     public final float getDurationFraction() {
         return this.durationFraction;
     }
 
+    /**
+     * Returns the current state of this timeline.
+     *
+     * @return The current timeline state.
+     */
     public final TimelineState getState() {
         return this.stateStack.peek();
     }
@@ -578,64 +708,141 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         return this.stateStack.pop();
     }
 
+    /**
+     * Returns the duration of this timeline in milliseconds.
+     *
+     * @return The duration in milliseconds.
+     */
     public final long getDuration() {
         return this.duration;
     }
 
+    /**
+     * Returns the initial delay before the timeline starts in milliseconds.
+     *
+     * @return The initial delay in milliseconds.
+     */
     public long getInitialDelay() {
         return this.initialDelay;
     }
 
+    /**
+     * Returns the delay between cycles for looping timelines in milliseconds.
+     *
+     * @return The cycle delay in milliseconds.
+     */
     public long getCycleDelay() {
         return this.cycleDelay;
     }
 
+    /**
+     * Returns the repeat behavior for looping timelines.
+     *
+     * @return The repeat behavior, or {@code null} if not set.
+     */
     public RepeatBehavior getRepeatBehavior() {
         return this.repeatBehavior;
     }
 
+    /**
+     * Returns whether this timeline allows overshoot in easing functions.
+     *
+     * @return {@code true} if overshoot is allowed.
+     */
     public boolean allowsOvershoot() {
         return this.allowsOvershoot;
     }
 
+    /**
+     * Returns the name of this timeline.
+     *
+     * @return The timeline name, or {@code null} if not set.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Returns the easing function for this timeline.
+     *
+     * @return The easing function.
+     */
     public TimelineEase getEase() {
         return this.ease;
     }
 
+    /**
+     * Returns the main object being animated by this timeline.
+     *
+     * @return The main object.
+     */
     public Object getMainObject() {
         return this.mainObject;
     }
 
+    /**
+     * Returns the secondary identifier for this timeline.
+     *
+     * @return The secondary ID, or {@code null} if not set.
+     */
     public Comparable<?> getSecondaryId() {
         return this.secondaryId;
     }
 
+    /**
+     * Abstract builder for configuring and building timeline instances.
+     *
+     * @param <T> The type of the timeline being built.
+     * @param <B> The type of the builder.
+     * @param <M> The type of the main object.
+     */
     public abstract static class BaseBuilder<T extends Timeline, B extends BaseBuilder<?, ?, ?>, M> {
+        /** The main object being animated. */
         protected M mainObject;
+        /** Secondary identifier for the timeline. */
         protected Comparable<?> secondaryId;
+        /** Duration in milliseconds. */
         protected long duration = Timeline.DEFAULT_DURATION;
+        /** Initial delay in milliseconds. */
         protected long initialDelay;
+        /** Delay between cycles in milliseconds. */
         protected long cycleDelay;
+        /** Number of repeats. */
         protected int repeatCount;
+        /** Repeat behavior for looping. */
         protected RepeatBehavior repeatBehavior;
+        /** Whether overshoot is allowed. */
         protected boolean allowsOvershoot;
+        /** Callbacks registered with the timeline. */
         protected List<TimelineCallback> callbacks = new ArrayList<>();
+        /** Timeline name. */
         protected String name;
+        /** Properties to interpolate. */
         protected List<TimelinePropertyBuilder.AbstractFieldInfo<?>> propertiesToInterpolate = new ArrayList<>();
+        /** Easing function. */
         protected TimelineEase ease = Timeline.DEFAULT_EASE;
 
+        /**
+         * Default constructor.
+         */
         public BaseBuilder() {
             this(null);
         }
 
+        /**
+         * Constructs a builder with the specified main object.
+         *
+         * @param mainObject The main object.
+         */
         public BaseBuilder(M mainObject) {
             this.mainObject = mainObject;
         }
 
+        /**
+         * Configures the base timeline with the builder's settings.
+         *
+         * @param timeline The timeline to configure.
+         */
         protected void configureBaseTimeline(Timeline timeline) {
             timeline.secondaryId = this.secondaryId;
             timeline.duration = this.duration;
@@ -654,90 +861,193 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             timeline.propertiesToInterpolate.addAll(this.propertiesToInterpolate);
         }
 
+        /**
+         * Sets the secondary identifier.
+         *
+         * @param secondaryId The secondary ID.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B setSecondaryId(Comparable<?> secondaryId) {
             this.secondaryId = secondaryId;
             return (B) this;
         }
 
+        /**
+         * Sets the duration in milliseconds.
+         *
+         * @param duration The duration.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B setDuration(long duration) {
             this.duration = duration;
             return (B) this;
         }
 
+        /**
+         * Returns the duration in milliseconds.
+         *
+         * @return The duration.
+         */
         public long getDuration() {
             return this.duration;
         }
 
+        /**
+         * Sets the initial delay in milliseconds.
+         *
+         * @param initialDelay The initial delay.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B setInitialDelay(long initialDelay) {
             this.initialDelay = initialDelay;
             return (B) this;
         }
 
+        /**
+         * Sets the cycle delay in milliseconds.
+         *
+         * @param cycleDelay The cycle delay.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B setCycleDelay(long cycleDelay) {
             this.cycleDelay = cycleDelay;
             return (B) this;
         }
 
+        /**
+         * Sets the repeat count.
+         *
+         * @param repeatCount The repeat count.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B setRepeatCount(int repeatCount) {
             this.repeatCount = repeatCount;
             return (B) this;
         }
 
+        /**
+         * Sets the repeat behavior.
+         *
+         * @param repeatBehavior The repeat behavior.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B setRepeatBehavior(RepeatBehavior repeatBehavior) {
             this.repeatBehavior = repeatBehavior;
             return (B) this;
         }
 
+        /**
+         * Sets whether overshoot is allowed.
+         *
+         * @param allowsOvershoot Whether overshoot is allowed.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B setAllowsOvershoot(boolean allowsOvershoot) {
             this.allowsOvershoot = allowsOvershoot;
             return (B) this;
         }
 
+        /**
+         * Sets the timeline name.
+         *
+         * @param name The name.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B setName(String name) {
             this.name = name;
             return (B) this;
         }
 
+        /**
+         * Sets the easing function.
+         *
+         * @param ease The easing function.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B setEase(TimelineEase ease) {
             this.ease = ease;
             return (B) this;
         }
 
+        /**
+         * Adds a property to interpolate using the given property builder.
+         *
+         * @param <P> The property type.
+         * @param propertyBuilder The property builder.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public <P> B addPropertyToInterpolate(TimelinePropertyBuilder<P> propertyBuilder) {
             this.propertiesToInterpolate.add(propertyBuilder.getFieldInfo(this.mainObject));
             return (B) this;
         }
 
+        /**
+         * Adds a property to interpolate using the given key frames.
+         *
+         * @param <P> The property type.
+         * @param propName The property name.
+         * @param keyFrames The key frames.
+         * @return This builder.
+         */
         public <P> B addPropertyToInterpolate(String propName, KeyFrames<P> keyFrames) {
             return this.addPropertyToInterpolate(
                     Timeline.<P>property(propName).goingThrough(keyFrames));
         }
 
+        /**
+         * Adds a property to interpolate from one value to another.
+         *
+         * @param <P> The property type.
+         * @param propName The property name.
+         * @param from The start value.
+         * @param to The end value.
+         * @return This builder.
+         */
         public <P> B addPropertyToInterpolate(String propName, P from, P to) {
             return this.addPropertyToInterpolate(Timeline.<P>property(propName).from(from).to(to));
         }
 
+        /**
+         * Adds a property to interpolate using supplier functions for start and end values.
+         *
+         * @param <P> The property type.
+         * @param propName The property name.
+         * @param fromSupplier The supplier for the start value.
+         * @param toSupplier The supplier for the end value.
+         * @return This builder.
+         */
         public <P> B addPropertyToInterpolate(String propName, Supplier<P> fromSupplier, Supplier<P> toSupplier) {
             return this.addPropertyToInterpolate(Timeline.<P>property(propName).fromSupplier(fromSupplier).
                     toSupplier(toSupplier));
         }
 
+        /**
+         * Adds a callback to the timeline.
+         *
+         * @param callback The callback to add.
+         * @return This builder.
+         */
         @SuppressWarnings("unchecked")
         public B addCallback(TimelineCallback callback) {
             this.callbacks.add(callback);
             return (B) this;
         }
 
+        /**
+         * Builds and returns the configured timeline instance.
+         *
+         * @return The built timeline.
+         */
         public abstract T build();
 
         /**
@@ -749,6 +1059,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         /**
          * A shortcut for {@link #build()} chained with {@link Timeline#playSkipping(long)}
+         *
+         * @param msToSkip The number of milliseconds to skip from the beginning.
          */
         public void playSkipping(final long msToSkip) {
             build().playSkipping(msToSkip);
@@ -763,6 +1075,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         /**
          * A shortcut for {@link #build()} chained with {@link Timeline#playReverseSkipping(long)}
+         *
+         * @param msToSkip The number of milliseconds to skip from the end.
          */
         public void playReverseSkipping(final long msToSkip) {
             build().playReverseSkipping(msToSkip);
@@ -770,6 +1084,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         /**
          * A shortcut for {@link #build()} chained with {@link Timeline#playLoop(RepeatBehavior)}
+         *
+         * @param repeatBehavior The behavior at cycle boundaries (LOOP or REVERSE).
          */
         public void playLoop(RepeatBehavior repeatBehavior) {
             build().playLoop(repeatBehavior);
@@ -778,6 +1094,9 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         /**
          * A shortcut for {@link #build()} chained with
          * {@link Timeline#playLoopSkipping(RepeatBehavior, long)}
+         *
+         * @param repeatBehavior The behavior at cycle boundaries (LOOP or REVERSE).
+         * @param msToSkip The number of milliseconds to skip from the beginning.
          */
         public void playLoopSkipping(RepeatBehavior repeatBehavior, final long msToSkip) {
             build().playLoopSkipping(repeatBehavior, msToSkip);
@@ -786,6 +1105,9 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         /**
          * A shortcut for {@link #build()} chained with
          * {@link Timeline#playLoop(int, RepeatBehavior)}
+         *
+         * @param loopCount The number of loops (-1 for infinite).
+         * @param repeatBehavior The behavior at cycle boundaries (LOOP or REVERSE).
          */
         public void playLoop(int loopCount, RepeatBehavior repeatBehavior) {
             build().playLoop(loopCount, repeatBehavior);
@@ -794,6 +1116,10 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         /**
          * A shortcut for {@link #build()} chained with
          * {@link Timeline#playLoopSkipping(int, RepeatBehavior, long)}
+         *
+         * @param loopCount The number of loops (-1 for infinite).
+         * @param repeatBehavior The behavior at cycle boundaries (LOOP or REVERSE).
+         * @param msToSkip The number of milliseconds to skip from the beginning.
          */
         public void playLoopSkipping(final int loopCount, final RepeatBehavior repeatBehavior,
                 final long msToSkip) {
@@ -801,10 +1127,21 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         }
     }
 
+    /**
+     * Builder for creating {@link Timeline} instances.
+     */
     public static class Builder extends BaseBuilder<Timeline, Builder, Object> {
+        /**
+         * Default constructor.
+         */
         public Builder() {
         }
 
+        /**
+         * Constructs a builder with the specified main object.
+         *
+         * @param mainObject The main object.
+         */
         public Builder(Object mainObject) {
             super(mainObject);
         }

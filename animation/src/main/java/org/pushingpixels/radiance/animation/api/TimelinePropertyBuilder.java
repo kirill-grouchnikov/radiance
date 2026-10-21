@@ -38,40 +38,80 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Supplier;
 
+/**
+ * Builder for configuring a property to be interpolated in a timeline.
+ *
+ * @param <T> The type of the property value.
+ */
 public class TimelinePropertyBuilder<T> {
 
     /**
      * Defines how to set a property.
+     *
+     * @param <T> The type of the property value.
      */
     @FunctionalInterface
     public interface PropertySetter<T> {
+        /**
+         * Sets the property value on the target object.
+         *
+         * @param obj       The target object.
+         * @param fieldName The field name.
+         * @param value     The value to set.
+         */
         void set(Object obj, String fieldName, T value);
     }
 
     /**
      * Defines how to get a property.
+     *
+     * @param <T> The type of the property value.
      */
     @FunctionalInterface
     public interface PropertyGetter<T> {
+        /**
+         * Gets the property value from the target object.
+         *
+         * @param obj       The target object.
+         * @param fieldName The field name.
+         * @return The property value.
+         */
         T get(Object obj, String fieldName);
     }
 
     /**
      * Defines how to access a property.
+     *
+     * @param <T> The type of the property value.
      */
     public interface PropertyAccessor<T> extends PropertyGetter<T>, PropertySetter<T> {
     }
 
     /**
      * Default property setter.
+     *
+     * @param <T> The type of the property value.
      */
     public static class DefaultPropertySetter<T> implements PropertySetter<T> {
         private Method setterMethod;
 
+        /**
+         * Creates a default property setter.
+         *
+         * @param obj The target object.
+         * @param fieldName The field name.
+         */
         public DefaultPropertySetter(Object obj, String fieldName) {
             setterMethod = getSetter(obj, fieldName);
         }
 
+        /**
+         * Sets the property value on the target object.
+         *
+         * @param obj The target object.
+         * @param fieldName The field name.
+         * @param value The value to set.
+         */
         public void set(Object obj, String fieldName, T value) {
             try {
                 setterMethod.invoke(obj, value);
@@ -84,14 +124,29 @@ public class TimelinePropertyBuilder<T> {
 
     /**
      * Default property getter.
+     *
+     * @param <T> The type of the property value.
      */
     public static class DefaultPropertyGetter<T> implements PropertyGetter<T> {
         private Method getterMethod;
 
+        /**
+         * Creates a default property getter.
+         *
+         * @param obj The target object.
+         * @param fieldName The field name.
+         */
         public DefaultPropertyGetter(Object obj, String fieldName) {
             getterMethod = getGetter(obj, fieldName);
         }
 
+        /**
+         * Gets the property value from the target object.
+         *
+         * @param obj The target object.
+         * @param fieldName The field name.
+         * @return The property value.
+         */
         @SuppressWarnings("unchecked")
         public T get(Object obj, String fieldName) {
             try {
@@ -120,6 +175,12 @@ public class TimelinePropertyBuilder<T> {
         this.isFromCurrent = false;
     }
 
+    /**
+     * Sets the start value for interpolation.
+     *
+     * @param startValue The start value.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> from(T startValue) {
         if (this.from != null) {
             throw new IllegalArgumentException("from() can only be called once");
@@ -137,6 +198,12 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
+    /**
+     * Sets a supplier for the start value.
+     *
+     * @param supplier The supplier.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> fromSupplier(Supplier<T> supplier) {
         if (this.fromSupplier != null) {
             throw new IllegalArgumentException("fromSupplier() can only be called once");
@@ -154,6 +221,11 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
+    /**
+     * Uses the current value as the start value.
+     *
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> fromCurrent() {
         if (this.isFromCurrent) {
             throw new IllegalArgumentException("fromCurrent() can only be called once");
@@ -172,6 +244,12 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
+    /**
+     * Sets the end value for interpolation.
+     *
+     * @param endValue The end value.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> to(T endValue) {
         if (this.to != null) {
             throw new IllegalArgumentException("to() can only be called once");
@@ -186,6 +264,12 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
+    /**
+     * Sets a supplier for the end value.
+     *
+     * @param supplier The supplier.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> toSupplier(Supplier<T> supplier) {
         if (this.toSupplier != null) {
             throw new IllegalArgumentException("toSupplier() can only be called once");
@@ -200,11 +284,23 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
+    /**
+     * Sets the target object for this property.
+     *
+     * @param object The target object.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> on(Object object) {
         this.target = object;
         return this;
     }
 
+    /**
+     * Sets a custom interpolator for this property.
+     *
+     * @param pInterpolator The interpolator.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> interpolatedWith(PropertyInterpolator<T> pInterpolator) {
         if (this.interpolator != null) {
             throw new IllegalArgumentException("interpolatedWith() can only be called once");
@@ -213,6 +309,12 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
+    /**
+     * Sets a custom setter for this property.
+     *
+     * @param pSetter The setter.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> setWith(PropertySetter<T> pSetter) {
         if (this.setter != null) {
             throw new IllegalArgumentException("setWith() can only be called once");
@@ -221,6 +323,12 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
+    /**
+     * Sets a custom getter for this property.
+     *
+     * @param pGetter The getter.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> getWith(PropertyGetter<T> pGetter) {
         if (this.getter != null) {
             throw new IllegalArgumentException("getWith() can only be called once");
@@ -229,6 +337,12 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
+    /**
+     * Sets both custom getter and setter for this property.
+     *
+     * @param pAccessor The accessor.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> accessWith(PropertyAccessor<T> pAccessor) {
         if (this.setter != null || this.getter != null) {
             throw new IllegalArgumentException("accessWith() can only be called once");
@@ -238,6 +352,12 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
+    /**
+     * Sets key frames for interpolation.
+     *
+     * @param keyFrames The key frames.
+     * @return This builder.
+     */
     public TimelinePropertyBuilder<T> goingThrough(KeyFrames<? extends T> keyFrames) {
         if (this.keyFrames != null) {
             throw new IllegalArgumentException("goingThrough() can only be called once");

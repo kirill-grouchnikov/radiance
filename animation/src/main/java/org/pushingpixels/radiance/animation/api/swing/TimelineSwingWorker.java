@@ -33,8 +33,19 @@ import org.pushingpixels.radiance.animation.api.TimelineScenario;
 
 import javax.swing.*;
 
+/**
+ * Abstract SwingWorker that can be used as a timeline scenario actor.
+ *
+ * @param <T> The result type.
+ * @param <V> The progress type.
+ */
 public abstract class TimelineSwingWorker<T, V> extends SwingWorker<T, V>
         implements TimelineScenario.TimelineScenarioActor {
+    /**
+     * Default constructor.
+     */
+    public TimelineSwingWorker() {
+    }
     @Override
     public void play() {
         this.execute();

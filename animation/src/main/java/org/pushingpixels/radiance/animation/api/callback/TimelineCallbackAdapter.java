@@ -37,6 +37,11 @@ import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
  * @author Kirill Grouchnikov
  */
 public class TimelineCallbackAdapter implements TimelineCallback {
+    /**
+     * Default constructor.
+     */
+    public TimelineCallbackAdapter() {
+    }
     @Override
     public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
             float durationFraction, float timelinePosition) {

@@ -29,7 +29,15 @@
  */
 package org.pushingpixels.radiance.animation.api.ease;
 
+/**
+ * Sine easing function — smooth acceleration.
+ */
 public class Sine implements TimelineEase {
+    /**
+     * Default constructor.
+     */
+    public Sine() {
+    }
     @Override
     public float map(float durationFraction) {
         return (float) Math.sin(durationFraction * Math.PI / 2.0);

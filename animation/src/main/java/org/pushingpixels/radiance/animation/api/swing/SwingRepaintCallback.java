@@ -35,6 +35,9 @@ import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * A callback that triggers component repaint during animation.
+ */
 public class SwingRepaintCallback extends TimelineCallbackAdapter {
     private Component comp;
 
@@ -42,10 +45,22 @@ public class SwingRepaintCallback extends TimelineCallbackAdapter {
 
     private AtomicBoolean repaintGuard;
 
+    /**
+     * Creates a callback that repaints the entire component.
+     *
+     * @param comp The component to repaint.
+     */
     public SwingRepaintCallback(Component comp) {
         this(comp, null);
     }
 
+    /**
+     * Creates a callback that repaints the specified rectangle of the component.
+     *
+     * @param comp The component to repaint.
+     * @param rect The rectangle to repaint, or {@code null} to repaint the entire component.
+     * @throws NullPointerException if comp is null.
+     */
     public SwingRepaintCallback(Component comp, Rectangle rect) {
         if (comp == null) {
             throw new NullPointerException("Component must be non-null");
@@ -56,6 +71,11 @@ public class SwingRepaintCallback extends TimelineCallbackAdapter {
         }
     }
 
+    /**
+     * Sets whether auto repaint mode is enabled.
+     *
+     * @param autoRepaintMode {@code true} to enable auto repaint on every pulse.
+     */
     public synchronized void setAutoRepaintMode(boolean autoRepaintMode) {
         if (autoRepaintMode) {
             this.repaintGuard = null;
@@ -64,6 +84,11 @@ public class SwingRepaintCallback extends TimelineCallbackAdapter {
         }
     }
 
+    /**
+     * Forces a repaint on the next pulse. Only works when auto repaint mode is disabled.
+     *
+     * @throws IllegalArgumentException if auto repaint mode is enabled.
+     */
     public synchronized void forceRepaintOnNextPulse() {
         if (this.repaintGuard == null) {
             throw new IllegalArgumentException(
@@ -72,6 +97,11 @@ public class SwingRepaintCallback extends TimelineCallbackAdapter {
         this.repaintGuard.set(true);
     }
 
+    /**
+     * Sets the rectangle to repaint.
+     *
+     * @param rect The rectangle to repaint, or {@code null} to repaint the entire component.
+     */
     public synchronized void setRepaintRectangle(Rectangle rect) {
         if (rect == null) {
             this.rect = null;

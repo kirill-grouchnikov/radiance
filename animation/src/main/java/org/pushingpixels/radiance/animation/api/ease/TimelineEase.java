@@ -29,6 +29,9 @@
  */
 package org.pushingpixels.radiance.animation.api.ease;
 
+/**
+ * Defines an easing function for timeline animation.
+ */
 public interface TimelineEase {
     /**
      * Maps the [0.0-1.0] range which is the fraction of the associated timeline

@@ -39,6 +39,11 @@ import java.util.ArrayList;
  * @author Kirill Grouchnikov
  */
 public class Spline implements TimelineEase {
+    /**
+     * Creates a spline with the given ease amount.
+     *
+     * @param easeAmount The ease amount.
+     */
     public Spline(float easeAmount) {
         this(easeAmount, 0, 1 - easeAmount, 1);
     }

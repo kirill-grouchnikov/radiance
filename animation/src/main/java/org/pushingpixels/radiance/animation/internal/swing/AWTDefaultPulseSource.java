@@ -46,6 +46,9 @@ public class AWTDefaultPulseSource extends RadianceAnimationCortex.FixedRatePuls
      */
     private static final int REFRESH_RATE_FALLBACK = 60;
 
+    /**
+     * Default constructor.
+     */
     public AWTDefaultPulseSource() {
         super(1000 / getHighestDisplayRefreshRate());
     }

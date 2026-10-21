@@ -32,15 +32,43 @@ package org.pushingpixels.radiance.animation.internal.swing;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Utility methods for Swing component handling in animations.
+ */
 public class SwingUtils {
+
+    /**
+     * Default constructor.
+     */
+    public SwingUtils() {
+    }
+
+    /**
+     * Checks whether the given object is a UI component.
+     *
+     * @param mainTimelineObject The object to check.
+     * @return {@code true} if the object is a {@link Component}.
+     */
     public static boolean isUiComponent(Object mainTimelineObject) {
         return (mainTimelineObject instanceof Component);
     }
 
+    /**
+     * Checks whether the given component is in a ready state (displayable).
+     *
+     * @param mainTimelineObject The component to check.
+     * @return {@code true} if the component is displayable.
+     */
     public static boolean isComponentInReadyState(Object mainTimelineObject) {
         return ((Component) mainTimelineObject).isDisplayable();
     }
 
+    /**
+     * Runs the given runnable on the event dispatch thread.
+     * If already on the EDT, runs immediately; otherwise schedules via {@link SwingUtilities#invokeLater(Runnable)}.
+     *
+     * @param runnable The runnable to execute.
+     */
     public static void runOnEventDispatchThread(Runnable runnable) {
         if (SwingUtilities.isEventDispatchThread()) {
             runnable.run();

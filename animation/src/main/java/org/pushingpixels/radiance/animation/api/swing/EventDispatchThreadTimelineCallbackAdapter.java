@@ -40,4 +40,9 @@ import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter
  */
 @RunOnEventDispatchThread
 public class EventDispatchThreadTimelineCallbackAdapter extends TimelineCallbackAdapter {
+    /**
+     * Default constructor.
+     */
+    public EventDispatchThreadTimelineCallbackAdapter() {
+    }
 }

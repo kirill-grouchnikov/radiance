@@ -173,14 +173,29 @@ public class KeyFrames<T> {
         this.interpolators = new KeyInterpolators(numFrames - 1, interpolators);
     }
 
+    /**
+     * Returns the type of the key frame values.
+     *
+     * @return The value type.
+     */
     public Class getType() {
         return keyValues.getType();
     }
 
+    /**
+     * Returns the key values for this key frame.
+     *
+     * @return The key values.
+     */
     KeyValues getKeyValues() {
         return keyValues;
     }
 
+    /**
+     * Returns the key times for this key frame.
+     *
+     * @return The key times.
+     */
     KeyTimes getKeyTimes() {
         return keyTimes;
     }

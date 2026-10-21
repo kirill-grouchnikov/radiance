@@ -31,7 +31,15 @@ package org.pushingpixels.radiance.animation.api;
 
 import java.util.concurrent.*;
 
+/**
+ * Abstract runnable that can be used as a timeline scenario actor.
+ */
 public abstract class TimelineRunnable implements Runnable, TimelineScenario.TimelineScenarioActor {
+    /**
+     * Default constructor.
+     */
+    public TimelineRunnable() {
+    }
     private final static ExecutorService service = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 10L,
             TimeUnit.SECONDS, new SynchronousQueue<>());
 

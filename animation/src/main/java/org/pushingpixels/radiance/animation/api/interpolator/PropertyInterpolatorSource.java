@@ -31,6 +31,14 @@ package org.pushingpixels.radiance.animation.api.interpolator;
 
 import java.util.Set;
 
+/**
+ * Source of property interpolators.
+ */
 public interface PropertyInterpolatorSource {
+    /**
+     * Returns the set of property interpolators provided by this source.
+     *
+     * @return The set of property interpolators.
+     */
     Set<PropertyInterpolator<?>> getPropertyInterpolators();
 }

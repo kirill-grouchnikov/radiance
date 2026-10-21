@@ -33,12 +33,21 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 
 import java.awt.*;
 
+/**
+ * A timeline that automatically triggers component repaint during animation.
+ */
 public class SwingRepaintTimeline extends Timeline {
     private static final String ERROR_PLAY_MESSAGE =
             "Only infinite looping is supported on SwingRepaintTimeline";
 
     private SwingRepaintCallback repaintCallback;
 
+    /**
+     * Creates a builder for a {@link SwingRepaintTimeline} for the given component.
+     *
+     * @param component The component to animate.
+     * @return A new builder.
+     */
     public static SwingRepaintTimeline.Builder repaintBuilder(Component component) {
         return new SwingRepaintTimeline.Builder(component);
     }
@@ -49,6 +58,9 @@ public class SwingRepaintTimeline extends Timeline {
         this.addCallback(this.repaintCallback);
     }
 
+    /**
+     * Forces a repaint on the next animation pulse.
+     */
     public void forceRepaintOnNextPulse() {
         this.repaintCallback.forceRepaintOnNextPulse();
     }
@@ -81,25 +93,50 @@ public class SwingRepaintTimeline extends Timeline {
         super.playLoop(loopCount, repeatBehavior);
     }
 
+    /**
+     * Builder for creating {@link SwingRepaintTimeline} instances.
+     */
     public static class Builder extends BaseBuilder<SwingRepaintTimeline,
             SwingRepaintTimeline.Builder, Component> {
         private Rectangle toRepaint;
         private boolean autoRepaintMode = true;
 
+        /**
+         * Constructs a builder with the specified main component.
+         *
+         * @param mainObject The main component.
+         */
         public Builder(Component mainObject) {
             super(mainObject);
         }
 
+        /**
+         * Sets the rectangle to repaint on each pulse.
+         *
+         * @param toRepaint The rectangle to repaint, or {@code null} to repaint the entire component.
+         * @return This builder.
+         */
         public SwingRepaintTimeline.Builder setRepaintRectangle(Rectangle toRepaint) {
             this.toRepaint = toRepaint;
             return this;
         }
 
+        /**
+         * Sets whether auto repaint mode is enabled.
+         *
+         * @param autoRepaintMode {@code true} to enable auto repaint.
+         * @return This builder.
+         */
         public SwingRepaintTimeline.Builder setAutoRepaintMode(boolean autoRepaintMode) {
             this.autoRepaintMode = autoRepaintMode;
             return this;
         }
 
+        /**
+         * Builds and returns the configured {@link SwingRepaintTimeline}.
+         *
+         * @return The built timeline.
+         */
         public SwingRepaintTimeline build() {
             SwingRepaintTimeline timeline = new SwingRepaintTimeline(this.mainObject,
                     this.toRepaint);

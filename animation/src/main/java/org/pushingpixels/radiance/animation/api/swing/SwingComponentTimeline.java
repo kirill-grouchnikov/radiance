@@ -33,9 +33,18 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 
 import java.awt.*;
 
+/**
+ * A timeline associated with a Swing component.
+ */
 public class SwingComponentTimeline extends Timeline {
     private boolean forceUiUpdate;
 
+    /**
+     * Creates a builder for a {@link SwingComponentTimeline} for the given component.
+     *
+     * @param component The component to animate.
+     * @return A new builder.
+     */
     public static SwingComponentTimeline.Builder componentBuilder(Component component) {
         return new SwingComponentTimeline.Builder(component);
     }
@@ -62,14 +71,28 @@ public class SwingComponentTimeline extends Timeline {
         return this.forceUiUpdate;
     }
 
+    /**
+     * Builder for creating {@link SwingComponentTimeline} instances.
+     */
     public static class Builder extends BaseBuilder<SwingComponentTimeline,
             SwingComponentTimeline.Builder, Component> {
         private boolean forceUiUpdate;
 
+        /**
+         * Constructs a builder with the specified main component.
+         *
+         * @param mainObject The main component.
+         */
         public Builder(Component mainObject) {
             super(mainObject);
         }
 
+        /**
+         * Sets whether UI updates should be forced even when the component is not displayable.
+         *
+         * @param forceUiUpdate {@code true} to force UI updates.
+         * @return This builder.
+         */
         public Builder setForceUiUpdate(boolean forceUiUpdate) {
             this.forceUiUpdate = forceUiUpdate;
             return this;

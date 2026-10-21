@@ -29,7 +29,15 @@
  */
 package org.pushingpixels.radiance.animation.api.ease;
 
+/**
+ * Linear easing function — no acceleration or deceleration.
+ */
 public class Linear implements TimelineEase {
+    /**
+     * Default constructor.
+     */
+    public Linear() {
+    }
     @Override
     public float map(float durationFraction) {
         return durationFraction;

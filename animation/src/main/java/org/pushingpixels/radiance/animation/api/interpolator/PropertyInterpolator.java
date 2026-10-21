@@ -29,8 +29,29 @@
  */
 package org.pushingpixels.radiance.animation.api.interpolator;
 
+/**
+ * Interpolates between two property values.
+ *
+ * @param <T> The type of the property being interpolated.
+ */
 public interface PropertyInterpolator<T> {
+    /**
+     * Returns the base property class for this interpolator.
+     *
+     * @return The base property class.
+     */
     Class<T> getBasePropertyClass();
 
+    /**
+     * Interpolates between two values at the given timeline position.
+     *
+     * @param from The start value.
+     * @param to The end value.
+     * @param timelinePosition The position in the timeline. By default, this position is in the [0.0-1.0]
+     *     range. However, if the timeline is configured with
+     *     {@link org.pushingpixels.radiance.animation.api.Timeline.Builder#setAllowsOvershoot(boolean)}
+     *     to allow overshooting, the timeline position can be outside of this range.
+     * @return The interpolated value.
+     */
     T interpolate(T from, T to, float timelinePosition);
 }

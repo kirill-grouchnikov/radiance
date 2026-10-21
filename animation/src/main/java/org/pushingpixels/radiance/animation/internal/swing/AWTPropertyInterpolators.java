@@ -45,6 +45,9 @@ import java.util.Set;
 public class AWTPropertyInterpolators implements PropertyInterpolatorSource {
     private Set<PropertyInterpolator<?>> interpolators;
 
+    /**
+     * Default constructor.
+     */
     public AWTPropertyInterpolators() {
         this.interpolators = new HashSet<>();
         this.interpolators.add(new ColorInterpolator());
