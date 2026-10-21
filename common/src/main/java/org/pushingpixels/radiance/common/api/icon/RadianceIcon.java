@@ -50,6 +50,12 @@ public interface RadianceIcon extends Icon {
 	 */
 	void setDimension(Dimension newDimension);
 
+	/**
+	 * Renders this icon to a {@link BufferedImage} at the given scale.
+	 *
+	 * @param scale The scale factor for the output image.
+	 * @return The rendered image.
+	 */
 	default BufferedImage toImage(double scale) {
 		BufferedImage result = RadianceCommonCortex.getBlankScaledImage(scale,
 				this.getIconWidth(), this.getIconHeight());
@@ -57,8 +63,18 @@ public interface RadianceIcon extends Icon {
 		return result;
 	}
 
+	/**
+	 * Returns whether this icon supports color filtering.
+	 *
+	 * @return {@code true} if color filtering is supported.
+	 */
 	boolean supportsColorFilter();
 
+	/**
+	 * Sets the color filter applied to this icon.
+	 *
+	 * @param colorFilter The color filter to apply.
+	 */
 	void setColorFilter(ColorFilter colorFilter);
 
     /**
@@ -75,7 +91,16 @@ public interface RadianceIcon extends Icon {
 		RadianceIcon createNewIcon();
     }
 
+    /**
+     * Defines a color filter that transforms colors in an icon.
+     */
     interface ColorFilter {
-    	Color filter(Color color);
+		/**
+		 * Filters the given color.
+		 *
+		 * @param color The original color.
+		 * @return The filtered color.
+		 */
+		Color filter(Color color);
 	}
 }

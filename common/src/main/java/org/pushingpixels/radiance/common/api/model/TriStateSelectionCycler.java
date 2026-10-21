@@ -29,7 +29,16 @@
  */
 package org.pushingpixels.radiance.common.api.model;
 
+/**
+ * Defines the selection cycling behavior for a tri-state button model.
+ */
 public interface TriStateSelectionCycler {
+    /**
+     * Returns the next selection state given the current state.
+     *
+     * @param currState The current selection state.
+     * @return The next selection state in the cycle.
+     */
     TriStateButtonModel.SelectionState getNextSelectionState(
             TriStateButtonModel.SelectionState currState);
 }

@@ -50,13 +50,27 @@ import java.awt.image.*;
  *
  * @author Romain Guy romain.guy@mac.com
  */
-
 public abstract class RadianceAbstractFilter implements BufferedImageOp {
+    /**
+     * Default constructor. Subclasses should use this constructor to initialize
+     * the filter.
+     */
+    protected RadianceAbstractFilter() {
+    }
+
     @Override
     public Rectangle2D getBounds2D(BufferedImage src) {
         return new Rectangle(0, 0, src.getWidth(), src.getHeight());
     }
 
+    /**
+     * Creates a compatible destination image for filtering operations.
+     *
+     * @param src     The source image.
+     * @param destCM  The desired color model for the destination image, or {@code null}
+     *                to use the source image's color model.
+     * @return A compatible destination image for the filter.
+     */
     public static BufferedImage createCompatibleDestImageForFilter(BufferedImage src,
             ColorModel destCM) {
         if (destCM == null) {
@@ -88,6 +102,18 @@ public abstract class RadianceAbstractFilter implements BufferedImageOp {
         return null;
     }
 
+    /**
+     * Extracts pixel data from a {@link BufferedImage} as an integer array.
+     *
+     * @param img    The source image.
+     * @param x      The x coordinate of the rectangle to extract.
+     * @param y      The y coordinate of the rectangle to extract.
+     * @param w      The width of the rectangle to extract.
+     * @param h      The height of the rectangle to extract.
+     * @param pixels The array to store the pixels in, or {@code null} to allocate a new array.
+     * @return The array of pixel values.
+     * @throws IllegalArgumentException if {@code pixels} is non-null and has length &lt; w*h.
+     */
     protected int[] getPixels(BufferedImage img, int x, int y, int w, int h,
             int[] pixels) {
         if (w == 0 || h == 0) {

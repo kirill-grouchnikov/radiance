@@ -38,6 +38,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.ItemEvent;
 
+/**
+ * Default implementation of the {@link TriStateButtonModel} interface.
+ */
 public class DefaultTriStateButtonModel implements TriStateButtonModel {
     private boolean isEnabled;
     private boolean isRollover;
@@ -47,6 +50,11 @@ public class DefaultTriStateButtonModel implements TriStateButtonModel {
 
     private EventListenerList listenerList = new EventListenerList();
 
+    /**
+     * Creates a new default tri-state button model with the given selection cycler.
+     *
+     * @param selectionCycler The selection cycler that determines the state transition order.
+     */
     public DefaultTriStateButtonModel(TriStateSelectionCycler selectionCycler) {
         this.isEnabled = true;
         this.isRollover = false;

@@ -31,6 +31,14 @@ package org.pushingpixels.radiance.common.api.model;
 
 import java.util.EventListener;
 
+/**
+ * Listener interface for tri-state selection change events.
+ */
 public interface TriStateSelectionChangeListener extends EventListener {
+    /**
+     * Called when the tri-state selection changes.
+     *
+     * @param e The selection change event.
+     */
     void itemTriStateSelectionChanged(TriStateSelectionChangeEvent e);
 }

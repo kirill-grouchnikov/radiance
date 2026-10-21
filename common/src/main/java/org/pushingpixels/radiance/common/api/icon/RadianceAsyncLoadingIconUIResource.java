@@ -32,8 +32,17 @@ package org.pushingpixels.radiance.common.api.icon;
 import org.pushingpixels.radiance.common.api.AsynchronousLoadListener;
 import org.pushingpixels.radiance.common.api.AsynchronousLoading;
 
+/**
+ * A {@link RadianceIconUIResource} that also supports asynchronous loading notifications
+ * by delegating to the underlying icon if it implements {@link AsynchronousLoading}.
+ */
 public class RadianceAsyncLoadingIconUIResource extends RadianceIconUIResource
 		implements AsynchronousLoading {
+	/**
+	 * Creates a new async-loading icon UI resource.
+	 *
+	 * @param delegate The delegate icon.
+	 */
 	public RadianceAsyncLoadingIconUIResource(RadianceIcon delegate) {
 		super(delegate);
 	}

@@ -92,6 +92,13 @@ public class ImageBackedFilterableRadianceIcon implements RadianceIcon, Asynchro
         }
     }
 
+    /**
+     * Creates a new image-backed filterable icon.
+     *
+     * @param sourceFactory The factory that creates the source icon.
+     * @param colorFilter   The color filter to apply. Note that this parameter is initially
+     *                      ignored until {@link #setDimension(Dimension)} is called.
+     */
     public ImageBackedFilterableRadianceIcon(RadianceIcon.Factory sourceFactory, ColorFilter colorFilter) {
         this.sourceFactory = sourceFactory;
         this.colorFilter = colorFilter;

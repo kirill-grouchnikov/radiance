@@ -52,8 +52,20 @@ import java.util.Map;
  * @author Kirill Grouchnikov.
  */
 public class RadianceCommonCortex {
+    /**
+     * Supported platform types for platform-specific font and rendering policies.
+     */
     public enum Platform {
-        MACOS, GNOME, KDE, WINDOWS, DEFAULT
+        /** macOS platform. */
+        MACOS,
+        /** GNOME desktop environment on Linux. */
+        GNOME,
+        /** KDE desktop environment on Linux. */
+        KDE,
+        /** Windows platform. */
+        WINDOWS,
+        /** Default/fallback platform when the actual platform cannot be determined. */
+        DEFAULT
     }
 
     private static final String PROP_DESKTOPHINTS = "awt.font.desktophints";
@@ -65,6 +77,11 @@ public class RadianceCommonCortex {
     private RadianceCommonCortex() {
     }
 
+    /**
+     * Detects and returns the current platform.
+     *
+     * @return The detected platform.
+     */
     public static synchronized Platform getPlatform() {
         if (platform != null) {
             return platform;
@@ -139,6 +156,7 @@ public class RadianceCommonCortex {
     /**
      * Creates a thumbnail of the specified width.
      *
+     * @param scale               The scale factor for the output image.
      * @param image               The original image.
      * @param requestedThumbWidth The width of the resulting thumbnail.
      * @return Thumbnail of the specified width.
@@ -170,6 +188,12 @@ public class RadianceCommonCortex {
         return thumb;
     }
 
+    /**
+     * Installs desktop-specific rendering hints on the given graphics context.
+     *
+     * @param g2   The graphics context.
+     * @param font The font being used for rendering.
+     */
     public static void installDesktopHints(Graphics2D g2, Font font) {
         // Special case for macOS on Mojave. The default system fonts, if rendered
         // with the hints returned from the "awt.font.desktophints" property of the
@@ -190,6 +214,12 @@ public class RadianceCommonCortex {
         }
     }
 
+    /**
+     * Clears the cached desktop hints for the device associated with the given graphics context.
+     *
+     * @param g2   The graphics context.
+     * @param font The font being used for rendering.
+     */
     public static void clearDesktopHints(Graphics2D g2, Font font) {
         GraphicsDevice device = g2.getDeviceConfiguration().getDevice();
         String deviceId = device.getIDstring();
@@ -232,6 +262,12 @@ public class RadianceCommonCortex {
         return (g instanceof PrintGraphics) || (g instanceof PrinterGraphics);
     }
 
+    /**
+     * Returns the scale factor for the given component.
+     *
+     * @param component The component to query.
+     * @return The scale factor (e.g. 1.0 for standard displays, 2.0 for HiDPI).
+     */
     public static double getScaleFactor(Component component) {
         if ((component == null) || (component.getGraphicsConfiguration() == null)) {
             // TODO - revisit this
@@ -257,6 +293,7 @@ public class RadianceCommonCortex {
      * {@link #getScaleFactor(Component)} to divide the image width and height for the
      * purposes of drawing.
      *
+     * @param scale  The scale factor for the image.
      * @param width  Width of the target image
      * @param height Width of the target image
      * @return A scaled, high-DPI aware image of specified dimensions.
@@ -290,6 +327,15 @@ public class RadianceCommonCortex {
         }
     }
 
+    /**
+     * Draws an image at the given position, accounting for the scale factor.
+     *
+     * @param g           The graphics context.
+     * @param scaleFactor The scale factor of the image.
+     * @param img         The image to draw.
+     * @param x           The x coordinate.
+     * @param y           The y coordinate.
+     */
     public static void drawImageWithScale(Graphics g, double scaleFactor, Image img, int x, int y) {
         if (img instanceof JBHiDPIScaledImage) {
             g.drawImage(img, x, y, (int) (img.getWidth(null) / scaleFactor),
@@ -299,6 +345,19 @@ public class RadianceCommonCortex {
         }
     }
 
+    /**
+     * Draws a region of an image at the given position, accounting for the scale factor.
+     *
+     * @param g           The graphics context.
+     * @param scaleFactor The scale factor of the image.
+     * @param img         The image to draw.
+     * @param x           The x coordinate of the destination.
+     * @param y           The y coordinate of the destination.
+     * @param width       The width of the region to draw.
+     * @param height      The height of the region to draw.
+     * @param offsetX     The x offset in the source image.
+     * @param offsetY     The y offset in the source image.
+     */
     public static void drawImageWithScale(Graphics g, double scaleFactor, Image img, int x, int y,
             int width, int height, int offsetX, int offsetY) {
         if (img instanceof JBHiDPIScaledImage) {
@@ -313,11 +372,34 @@ public class RadianceCommonCortex {
         }
     }
 
+    /**
+     * Paints a region at 1x scale, delegating to the painter callback.
+     *
+     * @param g                The graphics context.
+     * @param x                The x coordinate.
+     * @param y                The y coordinate.
+     * @param width            The width of the region.
+     * @param height           The height of the region.
+     * @param painterScale1X   The painter callback.
+     */
     public static void paintAtScale1x(Graphics2D g, int x, int y, int width, int height, RadianceCommonCortex.PainterScale1X painterScale1X) {
         HiDPIUtils.paintAtScale1x(g, x, y, width, height, painterScale1X);
     }
 
+    /**
+     * Callback interface for painting at 1x scale.
+     */
     public interface PainterScale1X {
+        /**
+         * Paints the content at 1x scale.
+         *
+         * @param g             The graphics context.
+         * @param x             The x coordinate.
+         * @param y             The y coordinate.
+         * @param scaledWidth   The scaled width.
+         * @param scaledHeight  The scaled height.
+         * @param scaleFactor   The scale factor.
+         */
         void paint(Graphics2D g, int x, int y, int scaledWidth, int scaledHeight, double scaleFactor);
     }
 }

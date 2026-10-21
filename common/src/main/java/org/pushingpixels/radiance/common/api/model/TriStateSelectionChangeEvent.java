@@ -31,11 +31,24 @@ package org.pushingpixels.radiance.common.api.model;
 
 import java.awt.*;
 
+/**
+ * Event fired when the selection state of a tri-state button changes.
+ */
 public class TriStateSelectionChangeEvent extends AWTEvent {
+    /** The item affected by the event. */
     private Object item;
 
+    /** The type of selection state change. */
     private TriStateButtonModel.SelectionState selectionStateChange;
 
+    /**
+     * Creates a new tri-state selection change event.
+     *
+     * @param source               The event source.
+     * @param id                   The event ID.
+     * @param item                 The item affected by the event.
+     * @param selectionStateChange The new selection state.
+     */
     public TriStateSelectionChangeEvent(Object source, int id, Object item,
             TriStateButtonModel.SelectionState selectionStateChange) {
         super(source, id);
@@ -54,6 +67,8 @@ public class TriStateSelectionChangeEvent extends AWTEvent {
 
     /**
      * Returns the type of selection state change.
+     *
+     * @return The type of selection state change.
      */
     public TriStateButtonModel.SelectionState getSelectionStateChange() {
         return this.selectionStateChange;

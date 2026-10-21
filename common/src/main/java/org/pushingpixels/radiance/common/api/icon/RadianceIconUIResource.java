@@ -32,9 +32,19 @@ package org.pushingpixels.radiance.common.api.icon;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 
+/**
+ * A {@link RadianceIcon} wrapper that implements {@link javax.swing.plaf.UIResource},
+ * allowing it to be used as a default Look and Feel resource.
+ */
 public class RadianceIconUIResource implements RadianceIcon, UIResource {
+    /** The delegate icon that provides the actual icon functionality. */
     protected RadianceIcon delegate;
 
+	/**
+	 * Creates a new UI resource wrapper for the given delegate icon.
+	 *
+	 * @param delegate The delegate icon.
+	 */
 	public RadianceIconUIResource(RadianceIcon delegate) {
 		this.delegate = delegate;
 	}
