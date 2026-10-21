@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.loading.api;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.ease.EasingFunctions;
+import org.pushingpixels.radiance.animation.api.ease.Linear;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes;
 import org.pushingpixels.radiance.animation.api.interpolator.KeyValues;
@@ -86,8 +87,7 @@ public class MorphSpinner extends BaseSpinner {
         // Corner radius: 0.08 → 0.5 at 30%, → 0.08 at 100%
         float[] crTimes = {0f, (float) d30 / duration, 1f};
         Float[] crVals = {0.08f, 0.5f, 0.08f};
-        // Use a combined approach: just use Linear for simplicity
-        KeyFrames<Float> crKF = new KeyFrames<>(KeyValues.create(crVals), new KeyTimes(crTimes), new org.pushingpixels.radiance.animation.api.ease.Linear());
+        KeyFrames<Float> crKF = new KeyFrames<>(KeyValues.create(crVals), new KeyTimes(crTimes), new Linear());
 
         this.timelines[0] = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
@@ -102,7 +102,7 @@ public class MorphSpinner extends BaseSpinner {
         // Rotate: 0 → 45 at 50%, → 90 at 100%
         float[] rotTimes = {0f, (float) halfDuration / duration, 1f};
         Float[] rotVals = {0f, 45f, 90f};
-        KeyFrames<Float> rotKF = new KeyFrames<>(KeyValues.create(rotVals), new KeyTimes(rotTimes), new org.pushingpixels.radiance.animation.api.ease.Linear());
+        KeyFrames<Float> rotKF = new KeyFrames<>(KeyValues.create(rotVals), new KeyTimes(rotTimes), new Linear());
 
         this.timelines[1] = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(

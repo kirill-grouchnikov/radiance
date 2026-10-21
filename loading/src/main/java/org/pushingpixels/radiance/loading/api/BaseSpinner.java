@@ -111,10 +111,16 @@ public abstract class BaseSpinner extends JComponent {
         }
     }
 
+    /**
+     * Sets the size of the spinner. Calling this will restart the animation
+     * if it is currently running.
+     *
+     * @param size the new spinner size
+     */
     public void setSize(int size) {
         int old = this.size;
         this.size = size;
-        firePropertyChange("duration", old, size);
+        firePropertyChange("size", old, size);
         if (isVisible() && isDisplayable()) {
             stopAnimations();
             startAnimations();
