@@ -59,8 +59,11 @@ public class DualSpinner extends BaseSpinner {
     /** Stroke cap style. */
     private int cap;
 
-    /** Rotation angles for outer and inner arcs. */
-    private float[] angleValues;
+    /** Rotation angle for the outer arc. */
+    private float outerAngle;
+
+    /** Rotation angle for the inner arc. */
+    private float innerAngle;
 
     /** Animation timelines for each arc. */
     private SwingRepaintTimeline[] timelines;
@@ -93,7 +96,6 @@ public class DualSpinner extends BaseSpinner {
     public DualSpinner(Color color, int duration, int cap) {
         super(color, duration);
         this.cap = cap;
-        this.angleValues = new float[]{0f, 0f};
     }
 
     /**
@@ -128,9 +130,9 @@ public class DualSpinner extends BaseSpinner {
         // Outer arc: 0→360
         SwingRepaintTimeline.Builder outerBuilder = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
-                        Timeline.<Float>property("angle0")
-                                .getWith((obj, fieldName) -> angleValues[0])
-                                .setWith((obj, fieldName, value) -> angleValues[0] = value)
+                        Timeline.<Float>property("outerAngle")
+                                .getWith((obj, fieldName) -> outerAngle)
+                                .setWith((obj, fieldName, value) -> outerAngle = value)
                                 .from(0f).to(360f))
                 .setEase(new Linear())
                 .setDuration(this.duration);
@@ -139,9 +141,9 @@ public class DualSpinner extends BaseSpinner {
         // Inner arc: 0→-360 (opposite direction)
         SwingRepaintTimeline.Builder innerBuilder = SwingRepaintTimeline.repaintBuilder(this)
                 .addPropertyToInterpolate(
-                        Timeline.<Float>property("angle1")
-                                .getWith((obj, fieldName) -> angleValues[1])
-                                .setWith((obj, fieldName, value) -> angleValues[1] = value)
+                        Timeline.<Float>property("innerAngle")
+                                .getWith((obj, fieldName) -> innerAngle)
+                                .setWith((obj, fieldName, value) -> innerAngle = value)
                                 .from(0f).to(-360f))
                 .setEase(new Linear())
                 .setDuration(this.duration);
@@ -207,7 +209,7 @@ public class DualSpinner extends BaseSpinner {
                     float dashOuter = DASH_RATIO_NUMERATOR * circumferenceOuter / DASH_RATIO_DENOMINATOR;
 
                     Graphics2D rotatedOuter = (Graphics2D) graphics1X.create();
-                    rotatedOuter.rotate(Math.toRadians(angleValues[0]), center, centerY);
+                    rotatedOuter.rotate(Math.toRadians(outerAngle), center, centerY);
                     rotatedOuter.setColor(color);
                     rotatedOuter.setStroke(new BasicStroke(strokeWidth, this.cap,
                             BasicStroke.JOIN_ROUND, 0, new float[]{dashOuter, circumferenceOuter - dashOuter}, 0));
@@ -222,7 +224,7 @@ public class DualSpinner extends BaseSpinner {
                     float dashInner = DASH_RATIO_NUMERATOR * circumferenceInner / DASH_RATIO_DENOMINATOR;
 
                     Graphics2D rotatedInner = (Graphics2D) graphics1X.create();
-                    rotatedInner.rotate(Math.toRadians(angleValues[1]), center, centerY);
+                    rotatedInner.rotate(Math.toRadians(innerAngle), center, centerY);
                     rotatedInner.setColor(color);
                     rotatedInner.setStroke(new BasicStroke(strokeWidth, this.cap,
                             BasicStroke.JOIN_ROUND, 0, new float[]{dashInner, circumferenceInner - dashInner}, 0));
