@@ -75,6 +75,9 @@ public abstract class RadianceLookAndFeel extends BasicLookAndFeel {
      */
     private String name;
 
+    /**
+     * The AWT event listener for tracking window events.
+     */
     private AWTEventListener awtEventListener;
 
     /**

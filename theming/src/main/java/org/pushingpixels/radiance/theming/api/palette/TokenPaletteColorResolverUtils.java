@@ -34,7 +34,23 @@ import org.pushingpixels.ephemeral.chroma.palettes.TokenPalette;
 import java.awt.*;
 import java.util.function.Function;
 
+/**
+ * Utility methods for {@link TokenPaletteColorResolver}. This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class TokenPaletteColorResolverUtils {
+    /**
+     * Constructs a {@code TokenPaletteColorResolverUtils}.
+     */
+    private TokenPaletteColorResolverUtils() {
+    }
+
+    /**
+     * Returns the default palette color resolver.
+     *
+     * @return The default palette color resolver.
+     */
     public static TokenPaletteColorResolver getPaletteColorResolver() {
         return new TokenPaletteColorResolver() {
             @Override
@@ -179,6 +195,13 @@ public class TokenPaletteColorResolverUtils {
         };
     }
     
+    /**
+     * Creates an overlay that applies the specified color overrides to the original resolver.
+     *
+     * @param original The original color resolver.
+     * @param overlay  The overlay with color overrides.
+     * @return The overlaid color resolver.
+     */
     public static TokenPaletteColorResolver overlayWith(TokenPaletteColorResolver original,
         TokenPaletteColorResolverOverlay overlay) {
         return new TokenPaletteColorResolver() {

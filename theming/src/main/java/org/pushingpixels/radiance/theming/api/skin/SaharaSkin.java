@@ -61,6 +61,9 @@ public class SaharaSkin extends RadianceSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code SaharaSkin}.
+	 */
 	public SaharaSkin() {
 		ContainerColorTokensBundle desertSandDefaultBundle = new ContainerColorTokensBundle(
 			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

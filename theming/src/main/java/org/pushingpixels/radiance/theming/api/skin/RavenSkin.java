@@ -59,6 +59,9 @@ public class RavenSkin extends RadianceSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code RavenSkin}.
+	 */
 	public RavenSkin() {
 		ContainerColorTokensBundle ravenDefaultBundle = new ContainerColorTokensBundle(
 			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

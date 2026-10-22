@@ -43,6 +43,12 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class WidestComboPopupPrototype<T> implements ComboPopupPrototypeCallback<T> {
+    /**
+     * Constructs a {@code WidestComboPopupPrototype}.
+     */
+    public WidestComboPopupPrototype() {
+    }
+
 	@SuppressWarnings("unchecked")
     @Override
 	public T getPopupPrototypeDisplayValue(JComboBox<T> jc) {

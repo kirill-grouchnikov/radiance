@@ -74,8 +74,14 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements RadianceT
      */
     protected boolean hasFocus;
 
+    /**
+     * Active contributions for animation state tracking.
+     */
     private Map<ComponentState, Float> activeContributions = new HashMap<>();
 
+    /**
+     * Mutable container color tokens for rendering.
+     */
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
     /**

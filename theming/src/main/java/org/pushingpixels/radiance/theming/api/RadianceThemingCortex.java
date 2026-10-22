@@ -87,7 +87,9 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 public class RadianceThemingCortex {
-    // No-op private constructor to prevent application code from directly creating instances
+    /**
+     * No-op private constructor to prevent application code from directly creating instances.
+     */
     private RadianceThemingCortex() {
     }
 
@@ -95,6 +97,12 @@ public class RadianceThemingCortex {
      * APIs in this scope apply to the global state of the application.
      */
     public static final class GlobalScope {
+        /**
+         * Constructs a {@code GlobalScope}.
+         */
+        private GlobalScope() {
+        }
+
         private final static String RADIANCE_FONT_POLICY_KEY =
                 "radiance.theming.internal.fontPolicyKey";
 
@@ -475,6 +483,13 @@ public class RadianceThemingCortex {
             RadiancePluginRepository.getInstance().registerSkinPlugin(skinPlugin);
         }
 
+        /**
+         * Registers a widget for the specified class.
+         *
+         * @param widgetClassName  The widget class name.
+         * @param supportedClass   The supported component class.
+         * @param isExact          {@code true} if the match should be exact.
+         */
         public static void registerWidget(String widgetClassName, Class<?> supportedClass,
                 boolean isExact) {
             RadianceThemingWidgetRepository.getRepository().registerWidget(widgetClassName,
@@ -664,10 +679,20 @@ public class RadianceThemingCortex {
                     null);
         }
 
+        /**
+         * Sets the timeline duration for animations.
+         *
+         * @param timelineDuration The timeline duration in milliseconds.
+         */
         public static void setTimelineDuration(long timelineDuration) {
             AnimationConfigurationManager.getInstance().setTimelineDuration(timelineDuration);
         }
 
+        /**
+         * Returns the current timeline duration for animations.
+         *
+         * @return The timeline duration in milliseconds.
+         */
         public static long getTimelineDuration() {
             return AnimationConfigurationManager.getInstance().getTimelineDuration();
         }
@@ -764,6 +789,11 @@ public class RadianceThemingCortex {
             GlobalScope.labelBundleClassLoader = labelBundleClassLoader;
         }
 
+        /**
+         * Returns the class loader for the label bundle.
+         *
+         * @return The class loader for the label bundle, or {@code null} if not set.
+         */
         public static ClassLoader getLabelBundleClassLoader() {
             return labelBundleClassLoader;
         }
@@ -1253,10 +1283,21 @@ public class RadianceThemingCortex {
                     comboBoxPopupPlacementStrategy);
         }
 
+        /**
+         * Returns a blank image of the specified size and scale.
+         *
+         * @param scaleFactor The scale factor.
+         * @param width       The image width.
+         * @param height      The image height.
+         * @return The blank image.
+         */
         public static BufferedImage getBlankImage(double scaleFactor, int width, int height) {
             return RadianceCoreUtilities.getBlankImage(scaleFactor, width, height);
         }
 
+        /**
+         * Configures Radiance to use the default Swing color chooser instead of the themed one.
+         */
         public static void setUseDefaultColorChooser() {
             UIManager.put(RadianceSynapse.USE_DEFAULT_COLOR_CHOOSER, Boolean.TRUE);
         }
@@ -1266,6 +1307,11 @@ public class RadianceThemingCortex {
      * APIs in this scope apply to individual application {@link Component}s.
      */
     public static final class ComponentScope {
+        /**
+         * Constructs a {@code ComponentScope}.
+         */
+        private ComponentScope() {
+        }
         /**
          * Returns the current skin for the specified component. If the current look-and-feel is not
          * Radiance, this method returns <code>null</code>.
@@ -1927,6 +1973,11 @@ public class RadianceThemingCortex {
      */
     public static final class ComponentOrParentScope {
         /**
+         * Constructs a {@code ComponentOrParentScope}.
+         */
+        private ComponentOrParentScope() {
+        }
+        /**
          * Specifies preview painter to be used for showing preview of the specific component or its
          * immediate children. Default implementation is available in the
          * {@link DefaultPreviewPainter}.
@@ -1982,6 +2033,11 @@ public class RadianceThemingCortex {
      * components of a container.
      */
     public static final class ComponentOrParentChainScope {
+        /**
+         * Constructs a {@code ComponentOrParentChainScope}.
+         */
+        private ComponentOrParentChainScope() {
+        }
         /**
          * Specifies whether the contents of the specified text component or its nested children
          * should be selected on focus gain.
@@ -2073,6 +2129,11 @@ public class RadianceThemingCortex {
      */
     public static final class RootPaneScope {
         /**
+         * Constructs a {@code RootPaneScope}.
+         */
+        private RootPaneScope() {
+        }
+        /**
          * Specifies a skin to be used on the specific root pane. This will affect all the controls
          * in that root pane. After calling this method, call
          * {@link SwingUtilities#updateComponentTreeUI(Component)} on the matching window.
@@ -2121,6 +2182,12 @@ public class RadianceThemingCortex {
             rootPane.putClientProperty(RadianceSynapse.CONTENTS_MODIFIED, contentsModified);
         }
 
+        /**
+         * Sets the title pane buttons provider for the specified root pane.
+         *
+         * @param rootPane                  The root pane.
+         * @param titlePaneButtonsProvider  The title pane buttons provider.
+         */
         public static void setTitlePaneButtonsProvider(JRootPane rootPane,
                 TitlePaneButtonsProvider titlePaneButtonsProvider) {
             if (rootPane == null) {
@@ -2131,6 +2198,12 @@ public class RadianceThemingCortex {
                     titlePaneButtonsProvider);
         }
 
+        /**
+         * Sets the title pane title text painter for the specified root pane.
+         *
+         * @param rootPane                    The root pane.
+         * @param titlePaneTitleTextPainter   The title pane title text painter.
+         */
         public static void setTitlePaneTitleTextPainter(JRootPane rootPane,
                 TitlePaneTitleTextPainter titlePaneTitleTextPainter) {
             if (rootPane == null) {
@@ -2162,6 +2235,11 @@ public class RadianceThemingCortex {
      * APIs in this scope apply to individual application {@link Window}s.
      */
     public static final class WindowScope {
+        /**
+         * Constructs a {@code WindowScope}.
+         */
+        private WindowScope() {
+        }
         /**
          * Marks the specified window to have its content extend vertically into the title pane
          * area. Use the following methods for finer control over such extended content:

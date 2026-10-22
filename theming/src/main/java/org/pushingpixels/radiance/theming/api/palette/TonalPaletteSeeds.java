@@ -31,26 +31,100 @@ package org.pushingpixels.radiance.theming.api.palette;
 
 import java.awt.*;
 
+/**
+ * Predefined color seeds for tonal palettes. This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class TonalPaletteSeeds {
+    /**
+     * Aqua color seed.
+     */
     public static final Color AQUA = new Color(112, 206, 239);
+    /**
+     * Barbie pink color seed.
+     */
     public static final Color BARBY_PINK = new Color(238, 139, 230);
+    /**
+     * Bottle green color seed.
+     */
     public static final Color BOTTLE_GREEN = new Color(63, 181, 59);
+    /**
+     * Brown color seed.
+     */
     public static final Color BROWN = new Color(217, 179, 89);
+    /**
+     * Charcoal color seed.
+     */
     public static final Color CHARCOAL = new Color(110, 21, 27);
+    /**
+     * Desert sand color seed.
+     */
     public static final Color DESERT_SAND = new Color(182, 200, 119);
+    /**
+     * Jade forest color seed.
+     */
     public static final Color JADE_FOREST = new Color(21, 82, 25);
+    /**
+     * Lime green color seed.
+     */
     public static final Color LIME_GREEN = new Color(169, 248, 57);
+    /**
+     * Metallic color seed.
+     */
     public static final Color METALLIC = new Color(180, 185, 190);
+    /**
+     * Olive color seed.
+     */
     public static final Color OLIVE = new Color(175, 183, 142);
+    /**
+     * Orange color seed.
+     */
     public static final Color ORANGE = new Color(245, 200, 144);
+    /**
+     * Purple color seed.
+     */
     public static final Color PURPLE = new Color(203, 175, 237);
+    /**
+     * Raspberry color seed.
+     */
     public static final Color RASPBERRY = new Color(251, 110, 144);
+    /**
+     * Sepia color seed.
+     */
     public static final Color SEPIA = new Color(195, 153, 128);
+    /**
+     * Steel blue color seed.
+     */
     public static final Color STEEL_BLUE = new Color(118, 165, 195);
+    /**
+     * Sunfire red color seed.
+     */
     public static final Color SUNFIRE_RED = new Color(224, 20, 10);
+    /**
+     * Sun glare color seed.
+     */
     public static final Color SUN_GLARE = new Color(255, 255, 80);
+    /**
+     * Sunset color seed.
+     */
     public static final Color SUNSET = new Color(255, 120, 41);
+    /**
+     * Terracotta color seed.
+     */
     public static final Color TERRACOTTA = new Color(239, 176, 105);
+    /**
+     * Ultramarine color seed.
+     */
     public static final Color ULTRAMARINE = new Color(46, 22, 124);
+    /**
+     * Violet color seed.
+     */
     public static final Color VIOLET = new Color(107, 22, 124);
+
+    /**
+     * Constructs a {@code TonalPaletteSeeds}.
+     */
+    private TonalPaletteSeeds() {
+    }
 }

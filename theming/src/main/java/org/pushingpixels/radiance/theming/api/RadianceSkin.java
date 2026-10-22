@@ -63,6 +63,9 @@ public abstract class RadianceSkin implements RadianceTrait {
      * in custom-painted parts of your UI.
      */
     public static abstract class Accented extends RadianceSkin {
+        /**
+         * Builder for configuring accent color tokens.
+         */
         public final static class AccentBuilder {
             private TokenPaletteColorResolver defaultAreaPaletteColorResolver;
             private ContainerColorTokens defaultAreaActiveTokens;
@@ -343,6 +346,9 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private final Set<RadianceThemingSlices.DecorationAreaType> decoratedAreaSet;
 
+    /**
+     * The decorators for this skin.
+     */
     protected RadianceDecorators decorators;
 
     /**
@@ -576,6 +582,13 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getSystemContainerTokens(systemContainerType);
     }
 
+    /**
+     * Returns system container tokens for the specified decoration area type.
+     *
+     * @param decorationAreaType    The decoration area type.
+     * @param systemContainerType   The system container type.
+     * @return The system container tokens.
+     */
     public final ContainerColorTokens getSystemContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType,
         RadianceThemingSlices.SystemContainerType systemContainerType) {
@@ -619,6 +632,13 @@ public abstract class RadianceSkin implements RadianceTrait {
             .getInverseSystemContainerTokens(systemContainerType);
     }
 
+    /**
+     * Returns inverse system container tokens for the specified decoration area type.
+     *
+     * @param decorationAreaType    The decoration area type.
+     * @param systemContainerType   The system container type.
+     * @return The inverse system container tokens.
+     */
     public final ContainerColorTokens getInverseSystemContainerTokens(
         RadianceThemingSlices.DecorationAreaType decorationAreaType,
         RadianceThemingSlices.SystemContainerType systemContainerType) {

@@ -41,25 +41,59 @@ import java.awt.*;
  * visuals under different Radiance skins and decoration area types.
  */
 public class RadianceTextArea extends JTextArea {
+    /**
+     * Constructs a {@code RadianceTextArea} with no initial text.
+     */
     public RadianceTextArea() {
     }
 
+    /**
+     * Constructs a {@code RadianceTextArea} with the specified text.
+     *
+     * @param text The initial text.
+     */
     public RadianceTextArea(String text) {
         super(text);
     }
 
+    /**
+     * Constructs a {@code RadianceTextArea} with the specified rows and columns.
+     *
+     * @param rows    The number of rows.
+     * @param columns The number of columns.
+     */
     public RadianceTextArea(int rows, int columns) {
         super(rows, columns);
     }
 
+    /**
+     * Constructs a {@code RadianceTextArea} with the specified text, rows, and columns.
+     *
+     * @param text    The initial text.
+     * @param rows    The number of rows.
+     * @param columns The number of columns.
+     */
     public RadianceTextArea(String text, int rows, int columns) {
         super(text, rows, columns);
     }
 
+    /**
+     * Constructs a {@code RadianceTextArea} with the specified document.
+     *
+     * @param doc The document model.
+     */
     public RadianceTextArea(Document doc) {
         super(doc);
     }
 
+    /**
+     * Constructs a {@code RadianceTextArea} with the specified document, text, rows, and columns.
+     *
+     * @param doc     The document model.
+     * @param text    The initial text.
+     * @param rows    The number of rows.
+     * @param columns The number of columns.
+     */
     public RadianceTextArea(Document doc, String text, int rows, int columns) {
         super(doc, text, rows, columns);
     }

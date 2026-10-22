@@ -61,6 +61,9 @@ import java.util.Map;
 @RadianceRenderer
 public class RadianceDefaultTableCellRenderer extends DefaultTableCellRenderer
         implements FilteredIconAwareRenderer {
+    /**
+     * Active contributions for animation state tracking.
+     */
     private Map<ComponentState, Float> activeContributions = new HashMap<>();
 
     /**

@@ -50,6 +50,12 @@ import java.util.Set;
  */
 public final class RadianceThemingSlices {
     /**
+     * Constructs a {@code RadianceThemingSlices}.
+     */
+    private RadianceThemingSlices() {
+    }
+
+    /**
      * Listener for the locale changes.
      *
      * @author Kirill Grouchnikov
@@ -91,6 +97,9 @@ public final class RadianceThemingSlices {
         BOTTOM
     }
 
+    /**
+     * Holds the configuration of open and straight sides for button shaping.
+     */
     public static class Sides {
         private Set<Side> openSides;
         private Set<Side> straightSides;
@@ -100,48 +109,102 @@ public final class RadianceThemingSlices {
             this.straightSides = straightSides;
         }
 
+        /**
+         * Returns the set of open sides.
+         *
+         * @return The set of open sides.
+         */
         public Set<Side> getOpenSides() {
             return this.openSides;
         }
 
+        /**
+         * Returns the set of straight sides.
+         *
+         * @return The set of straight sides.
+         */
         public Set<Side> getStraightSides() {
             return this.straightSides;
         }
 
+        /**
+         * Preconfigured sides where all sides are straight, forming a closed rectangle.
+         */
         public static Sides CLOSED_RECTANGLE = Sides.builder().setStraightSidesAll().build();
 
+        /**
+         * Creates a new {@link Builder} for constructing {@link Sides} instances.
+         *
+         * @return A new builder.
+         */
         public static Builder builder() {
             return new Builder();
         }
 
+        /**
+         * Builder for constructing {@link Sides} instances.
+         */
         public static class Builder {
             private Set<Side> openSides = new HashSet<>();
             private Set<Side> straightSides = new HashSet<>();
 
+            /**
+             * Constructs a {@code Builder}.
+             */
+            public Builder() {
+            }
+
+            /**
+             * Sets the open sides.
+             *
+             * @param openSides The set of open sides.
+             * @return This builder for chaining.
+             */
             public Builder setOpenSides(Set<Side> openSides) {
                 this.openSides.clear();
                 this.openSides.addAll(openSides);
                 return this;
             }
 
+            /**
+             * Sets all sides as open.
+             *
+             * @return This builder for chaining.
+             */
             public Builder setOpenSidesAll() {
                 this.openSides.clear();
                 this.openSides.addAll(EnumSet.allOf(RadianceThemingSlices.Side.class));
                 return this;
             }
 
+            /**
+             * Sets the straight sides.
+             *
+             * @param straightSides The set of straight sides.
+             * @return This builder for chaining.
+             */
             public Builder setStraightSides(Set<Side> straightSides) {
                 this.straightSides.clear();
                 this.straightSides.addAll(straightSides);
                 return this;
             }
 
+            /**
+             * Sets all sides as straight.
+             *
+             * @return This builder for chaining.
+             */
             public Builder setStraightSidesAll() {
                 this.straightSides.clear();
                 this.straightSides.addAll(EnumSet.allOf(RadianceThemingSlices.Side.class));
                 return this;
             }
 
+            /**
+             * Builds and returns the {@link Sides} instance.
+             *
+             * @return The built {@link Sides} instance.
+             */
             public Sides build() {
                 return new Sides(this.openSides, this.straightSides);
             }
@@ -415,6 +478,18 @@ public final class RadianceThemingSlices {
             }
         };
 
+        /**
+         * Paints the focus indication at 1X scale.
+         *
+         * @param mainComp         The main component.
+         * @param focusedComp      The focused component.
+         * @param graphics1X       The graphics context at 1X scale.
+         * @param scaleFactor      The scale factor.
+         * @param focusLoopPosition The position in the focus animation loop (0.0 to 1.0).
+         * @param focusShape       The custom focus shape, or {@code null} for default.
+         * @param textRect         The text rectangle, or {@code null}.
+         * @param extraPadding     Extra padding for inner focus indicators.
+         */
         public abstract void paintFocus1X(Component mainComp, Component focusedComp,
             Graphics2D graphics1X, double scaleFactor, float focusLoopPosition,
             Shape focusShape, Rectangle textRect, float extraPadding);
@@ -545,9 +620,17 @@ public final class RadianceThemingSlices {
             }
         };
 
+        /**
+         * Returns whether the default button should be placed on the leading edge.
+         *
+         * @return {@code true} if the default button is leading.
+         */
         public abstract boolean isDefaultButtonLeading();
     }
 
+    /**
+     * Enumerates horizontal content gravity options.
+     */
     public enum HorizontalGravity {
         /**
          * Platform-specific content gravity.
@@ -577,6 +660,9 @@ public final class RadianceThemingSlices {
         SWING_DEFAULT
     }
 
+    /**
+     * Enumerates vertical content gravity options.
+     */
     public enum VerticalGravity {
         /**
          * Align content to the top edge of the parent container.
@@ -594,6 +680,9 @@ public final class RadianceThemingSlices {
         BOTTOM
     }
 
+    /**
+     * Enumerates horizontal gravity options for title pane icons.
+     */
     public enum TitleIconHorizontalGravity {
         /**
          * Platform-specific icon gravity.
@@ -758,6 +847,11 @@ public final class RadianceThemingSlices {
     public final static class DecorationAreaType {
         private String displayName;
 
+        /**
+         * Constructs a {@code DecorationAreaType} with the specified display name.
+         *
+         * @param displayName The display name.
+         */
         public DecorationAreaType(String displayName) {
             this.displayName = displayName;
         }
@@ -806,6 +900,11 @@ public final class RadianceThemingSlices {
          */
         public final static DecorationAreaType NONE = new DecorationAreaType("None");
 
+        /**
+         * Returns the display name of this decoration area type.
+         *
+         * @return The display name.
+         */
         public String getDisplayName() {
             return this.displayName;
         }
@@ -820,9 +919,21 @@ public final class RadianceThemingSlices {
      * @see RadianceSkin#getInverseSystemContainerTokens(Component, SystemContainerType)
      */
     public enum SystemContainerType {
+        /**
+         * Information container.
+         */
         INFO,
+        /**
+         * Warning container.
+         */
         WARNING,
+        /**
+         * Error container.
+         */
         ERROR,
+        /**
+         * Success container.
+         */
         SUCCESS
     }
 
@@ -848,6 +959,9 @@ public final class RadianceThemingSlices {
         THEMED_FOLLOW_COLOR_TOKENS
     }
 
+    /**
+     * Enumerates strategies for painting component backgrounds.
+     */
     public enum BackgroundAppearanceStrategy {
         /**
          * Never paint background.
@@ -865,55 +979,128 @@ public final class RadianceThemingSlices {
         ALWAYS
     }
 
+    /**
+     * Enumerates separator appearance styles.
+     */
     public enum SeparatorAppearance {
-        // Start and end of the separator are fading
+        /**
+         * Soft separator — start and end fade.
+         */
         SOFT,
 
-        // Start and end of the separator do not fade
+        /**
+         * Hard separator — start and end do not fade.
+         */
         HARD
     }
 
+    /**
+     * Abstract base class for popup placement strategies.
+     */
     public abstract static class PopupPlacementStrategy {
+        /**
+         * Constructs a {@code PopupPlacementStrategy}.
+         */
         private PopupPlacementStrategy() {
         }
 
+        /**
+         * Popup placement strategy that positions the popup upward.
+         */
         public final static class Upward extends PopupPlacementStrategy {
+            /**
+             * Constructs an {@code Upward} placement strategy.
+             */
             private Upward() {
             }
 
+            /**
+             * Upward placement aligned to the start edge horizontally.
+             */
             public final static Upward HALIGN_START = new Upward();
+            /**
+             * Upward placement aligned to the end edge horizontally.
+             */
             public final static Upward HALIGN_END = new Upward();
         }
 
+        /**
+         * Popup placement strategy that positions the popup downward.
+         */
         public final static class Downward extends PopupPlacementStrategy {
+            /**
+             * Constructs a {@code Downward} placement strategy.
+             */
             private Downward() {
             }
 
+            /**
+             * Downward placement aligned to the start edge horizontally.
+             */
             public final static Downward HALIGN_START = new Downward();
+            /**
+             * Downward placement aligned to the end edge horizontally.
+             */
             public final static Downward HALIGN_END = new Downward();
         }
 
+        /**
+         * Popup placement strategy that centers the popup vertically.
+         */
         public final static class CenteredVertically extends PopupPlacementStrategy {
+            /**
+             * Constructs a {@code CenteredVertically} placement strategy.
+             */
             private CenteredVertically() {
             }
 
+            /**
+             * Vertically centered placement aligned to the start edge horizontally.
+             */
             public final static CenteredVertically HALIGN_START = new CenteredVertically();
+            /**
+             * Vertically centered placement aligned to the end edge horizontally.
+             */
             public final static CenteredVertically HALIGN_END = new CenteredVertically();
         }
 
+        /**
+         * Popup placement strategy that positions the popup toward the start edge.
+         */
         public final static class Startward extends PopupPlacementStrategy {
+            /**
+             * Constructs a {@code Startward} placement strategy.
+             */
             private Startward() {
             }
 
+            /**
+             * Startward placement aligned to the top edge vertically.
+             */
             public final static Startward VALIGN_TOP = new Startward();
+            /**
+             * Startward placement aligned to the bottom edge vertically.
+             */
             public final static Startward VALIGN_BOTTOM = new Startward();
         }
 
+        /**
+         * Popup placement strategy that positions the popup toward the end edge.
+         */
         public final static class Endward extends PopupPlacementStrategy {
+            /**
+             * Constructs an {@code Endward} placement strategy.
+             */
             private Endward() {
             }
 
+            /**
+             * Endward placement aligned to the top edge vertically.
+             */
             public final static Endward VALIGN_TOP = new Endward();
+            /**
+             * Endward placement aligned to the bottom edge vertically.
+             */
             public final static Endward VALIGN_BOTTOM = new Endward();
         }
     }
@@ -1014,6 +1201,11 @@ public final class RadianceThemingSlices {
             return Collections.unmodifiableSet(values);
         }
 
+        /**
+         * Returns the fallback association kind.
+         *
+         * @return The fallback association kind, or {@code null} if none.
+         */
         public ContainerColorTokensAssociationKind getFallback() {
             return this.fallback;
         }

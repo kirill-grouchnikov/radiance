@@ -61,6 +61,9 @@ public class SentinelSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code SentinelSkin}.
+     */
     public SentinelSkin() {
         ContainerColorTokensBundle sentinelDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

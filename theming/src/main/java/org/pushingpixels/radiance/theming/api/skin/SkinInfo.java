@@ -48,6 +48,8 @@ public class SkinInfo extends TraitInfoImpl {
 	 *            Display name of <code>this</code> skin.
 	 * @param skinClassNameResolver
 	 *            Class name resolver of <code>this</code> skin.
+	 * @param lookAndFeelClassNameResolver
+	 *            Class name resolver of the look-and-feel.
 	 */
 	public SkinInfo(String skinDisplayName, LazyClassNameResolver skinClassNameResolver,
 			LazyClassNameResolver lookAndFeelClassNameResolver) {
@@ -68,6 +70,11 @@ public class SkinInfo extends TraitInfoImpl {
 		return this.getDisplayName().hashCode();
 	}
 
+	/**
+	 * Returns the look-and-feel class name for this skin.
+	 *
+	 * @return The look-and-feel class name.
+	 */
 	public String getLookAndFeelClassName() {
 		if (!this.isLookAndFeelClassNameResolved) {
 			this.lookAndFeelClassName = this.lookAndFeelClassNameResolver.createClassName();

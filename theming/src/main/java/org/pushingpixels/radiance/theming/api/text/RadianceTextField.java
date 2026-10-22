@@ -41,21 +41,47 @@ import java.awt.*;
  * visuals under different Radiance skins and decoration area types.
  */
 public class RadianceTextField extends JTextField {
+    /**
+     * Constructs a {@code RadianceTextField} with no initial text.
+     */
     public RadianceTextField() {
     }
 
+    /**
+     * Constructs a {@code RadianceTextField} with the specified text.
+     *
+     * @param text The initial text.
+     */
     public RadianceTextField(String text) {
         super(text);
     }
 
+    /**
+     * Constructs a {@code RadianceTextField} with the specified number of columns.
+     *
+     * @param columns The number of columns.
+     */
     public RadianceTextField(int columns) {
         super(columns);
     }
 
+    /**
+     * Constructs a {@code RadianceTextField} with the specified text and columns.
+     *
+     * @param text    The initial text.
+     * @param columns The number of columns.
+     */
     public RadianceTextField(String text, int columns) {
         super(text, columns);
     }
 
+    /**
+     * Constructs a {@code RadianceTextField} with the specified document, text, and columns.
+     *
+     * @param doc     The document model.
+     * @param text    The initial text.
+     * @param columns The number of columns.
+     */
     public RadianceTextField(Document doc, String text, int columns) {
         super(doc, text, columns);
     }

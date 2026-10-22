@@ -41,9 +41,17 @@ import java.awt.*;
  * visuals under different Radiance skins and decoration area types.
  */
 public class RadianceTextPane extends JTextPane {
+    /**
+     * Constructs a {@code RadianceTextPane}.
+     */
     public RadianceTextPane() {
     }
 
+    /**
+     * Constructs a {@code RadianceTextPane} with the specified document.
+     *
+     * @param doc The styled document model.
+     */
     public RadianceTextPane(StyledDocument doc) {
         super(doc);
     }

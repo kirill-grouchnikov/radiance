@@ -39,6 +39,12 @@ import javax.swing.*;
  */
 public abstract class RadianceThemingWidget<T extends JComponent> {
 	/**
+	 * Constructs a {@code RadianceThemingWidget}.
+	 */
+	public RadianceThemingWidget() {
+	}
+
+	/**
      * Associated component.
      */
     protected T jcomp;

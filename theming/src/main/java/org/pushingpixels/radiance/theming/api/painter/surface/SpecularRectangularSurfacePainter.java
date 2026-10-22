@@ -57,6 +57,12 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
     private ContainerColorTokensSingleColorQuery topQuery;
     private ContainerColorTokensSingleColorQuery bottomQuery;
 
+    /**
+     * Constructs a {@code SpecularRectangularSurfacePainter} with the specified base painter and alpha.
+     *
+     * @param baseSurfacePainter The base surface painter.
+     * @param alpha              The alpha value for the specular effect.
+     */
     public SpecularRectangularSurfacePainter(RadianceSurfacePainter baseSurfacePainter, float alpha) {
         this(baseSurfacePainter,
             (colorTokens) -> colorTokens.isDark() ? colorTokens.getContainerSurfaceHighest()
@@ -66,6 +72,14 @@ public class SpecularRectangularSurfacePainter implements RadianceSurfacePainter
             alpha);
     }
 
+    /**
+     * Constructs a {@code SpecularRectangularSurfacePainter} with the specified parameters.
+     *
+     * @param baseSurfacePainter The base surface painter.
+     * @param topQuery           The color query for the top of the specular gradient.
+     * @param bottomQuery        The color query for the bottom of the specular gradient.
+     * @param alpha              The alpha value for the specular effect.
+     */
     public SpecularRectangularSurfacePainter(RadianceSurfacePainter baseSurfacePainter,
         ContainerColorTokensSingleColorQuery topQuery,
         ContainerColorTokensSingleColorQuery bottomQuery,

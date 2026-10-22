@@ -62,6 +62,9 @@ public class TwilightSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code TwilightSkin}.
+     */
     public TwilightSkin() {
         // For muted containers (enabled controls), use higher alpha values for disabled
         // controls for better contrast.

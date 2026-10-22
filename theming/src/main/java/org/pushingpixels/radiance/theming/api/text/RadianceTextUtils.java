@@ -34,7 +34,24 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilitie
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Utility methods for Radiance text components.
+ */
 public class RadianceTextUtils {
+    /**
+     * Constructs a {@code RadianceTextUtils}.
+     */
+    public RadianceTextUtils() {
+    }
+
+    /**
+     * Returns the preferred width for a single-line label with the specified text and font.
+     *
+     * @param component The component context.
+     * @param text      The label text.
+     * @param font      The font.
+     * @return The preferred width in pixels.
+     */
     public static int getLabelPreferredSingleLineWidth(JComponent component, String text, Font font) {
         return RadianceMetricsUtilities.getLabelPreferredSingleLineDimension(component, text, font).width;
     }

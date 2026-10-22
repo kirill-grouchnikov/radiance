@@ -62,6 +62,13 @@ public final class TopLineOverlayPainter implements RadianceDecorationPainter.Ov
         this(containerTokensQuery, 1.0f);
     }
 
+    /**
+     * Creates a new overlay painter that paints a single line at the top edge
+     * of the relevant decoration area.
+     *
+     * @param containerTokensQuery Used to compute the color of the line painted by this overlay painter.
+     * @param strokeWidth          The stroke width of the line.
+     */
     public TopLineOverlayPainter(ContainerColorTokensSingleColorQuery containerTokensQuery,
         float strokeWidth) {
         this.containerTokensQuery = containerTokensQuery;

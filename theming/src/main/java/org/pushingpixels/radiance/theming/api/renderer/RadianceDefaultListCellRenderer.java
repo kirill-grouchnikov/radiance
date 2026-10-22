@@ -212,6 +212,12 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
      */
     public static class RadianceUIResource extends RadianceDefaultListCellRenderer
             implements javax.swing.plaf.UIResource {
+        /**
+         * Constructs a {@code RadianceUIResource}.
+         */
+        public RadianceUIResource() {
+        }
+
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index,
                 boolean isSelected, boolean cellHasFocus) {
