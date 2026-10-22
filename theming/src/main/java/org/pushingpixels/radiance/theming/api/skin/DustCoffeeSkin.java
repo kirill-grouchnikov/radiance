@@ -49,6 +49,9 @@ public class DustCoffeeSkin extends DustAccentedSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code DustCoffeeSkin}.
+     */
     public DustCoffeeSkin() {
         super(new AccentBuilder()
             .withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(

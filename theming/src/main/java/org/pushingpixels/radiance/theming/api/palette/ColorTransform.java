@@ -49,6 +49,12 @@ public interface ColorTransform {
 	 */
 	Color transform(Color color);
 
+	/**
+	 * Creates a color transform that sets the alpha channel to the specified value.
+	 *
+	 * @param alpha The alpha value (0-255).
+	 * @return The color transform.
+	 */
 	static ColorTransform alpha(int alpha) {
 		return (color) -> RadianceColorUtilities.getAlphaColor(color, alpha);
 	}

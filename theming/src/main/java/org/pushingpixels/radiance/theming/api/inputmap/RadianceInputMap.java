@@ -33,21 +33,47 @@ import javax.swing.UIDefaults.LazyInputMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Input map for Radiance theming.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public final class RadianceInputMap {
+	/** The mapping. */
 	private Map<String, String> mapping;
 
+	/**
+	 * Constructs a {@code RadianceInputMap}.
+	 */
 	public RadianceInputMap() {
 		this.mapping = new TreeMap<>();
 	}
 
+	/**
+	 * Puts a key stroke to action name mapping.
+	 *
+	 * @param keyStroke   The key stroke.
+	 * @param actionName  The action name.
+	 */
 	public void put(String keyStroke, String actionName) {
 		this.mapping.put(keyStroke, actionName);
 	}
 
+	/**
+	 * Removes the mapping for the specified key stroke.
+	 *
+	 * @param keyStroke The key stroke.
+	 */
 	public void remove(String keyStroke) {
 		this.mapping.remove(keyStroke);
 	}
 
+	/**
+	 * Returns the UI map.
+	 *
+	 * @return The UI map.
+	 */
 	public LazyInputMap getUiMap() {
 		Object[] flat = new Object[2 * this.mapping.size()];
 		int index = 0;

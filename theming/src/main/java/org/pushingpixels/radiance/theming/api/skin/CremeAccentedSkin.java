@@ -53,6 +53,8 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Creates a new accented <code>Creme</code> skin.
+	 *
+	 * @param accentBuilder The accent builder.
 	 */
 	protected CremeAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);

@@ -39,6 +39,9 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingle
  * @author Kirill Grouchnikov
  */
 public class FlatLowOutlinePainter extends FractionBasedOutlinePainter {
+    /**
+     * Constructs a {@code FlatLowOutlinePainter}.
+     */
     public FlatLowOutlinePainter() {
         super(
             "Flat Low",

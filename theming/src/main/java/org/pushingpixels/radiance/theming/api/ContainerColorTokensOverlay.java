@@ -39,17 +39,44 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Overlay for container color tokens that provides active, muted, and neutral token variants.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class ContainerColorTokensOverlay {
+    /** The active container tokens. */
     private final ContainerColorTokens activeContainerTokens;
+    /** The muted container tokens. */
     private final ContainerColorTokens mutedContainerTokens;
+    /** The neutral container tokens. */
     private final ContainerColorTokens neutralContainerTokens;
+    /** Active token overrides by component state. */
     private final Map<ComponentState, ContainerColorTokens> activeTokenOverrides;
 
+    /**
+     * Provider interface for container color token overlays.
+     */
     public interface Provider {
+        /**
+         * Returns the overlay for the specified skin and decoration area type.
+         *
+         * @param skin                 The skin.
+         * @param decorationAreaType   The decoration area type.
+         * @return The overlay.
+         */
         ContainerColorTokensOverlay getOverlay(
             RadianceSkin skin, RadianceThemingSlices.DecorationAreaType decorationAreaType);
     }
 
+    /**
+     * Constructs a {@code ContainerColorTokensOverlay}.
+     *
+     * @param activeContainerTokens  The active container tokens.
+     * @param mutedContainerTokens   The muted container tokens.
+     * @param neutralContainerTokens The neutral container tokens.
+     */
     public ContainerColorTokensOverlay(ContainerColorTokens activeContainerTokens,
         ContainerColorTokens mutedContainerTokens, ContainerColorTokens neutralContainerTokens) {
         this.activeContainerTokens = activeContainerTokens;
@@ -58,12 +85,36 @@ public class ContainerColorTokensOverlay {
         this.activeTokenOverrides = new HashMap<>();
     }
 
+    /**
+     * Abstract base class for default overlay providers.
+     */
     public static abstract class DefaultOverlayProvider implements Provider {
+        /**
+         * Constructs a {@code DefaultOverlayProvider}.
+         */
+        public DefaultOverlayProvider() {
+        }
+
         private LazyResettableHashMap<ContainerColorTokensOverlay> overlays =
             new LazyResettableHashMap<>("ContainerColorTokensOverlay.DefaultOverlayProvider");
 
+        /**
+         * Returns the container tokens for the specified skin and decoration area type.
+         *
+         * @param skin                 The skin.
+         * @param decorationAreaType   The decoration area type.
+         * @return The container tokens.
+         */
         protected abstract ContainerColorTokens getContainerTokens(RadianceSkin skin,
             RadianceThemingSlices.DecorationAreaType decorationAreaType);
+
+        /**
+         * Returns the inverse container tokens for the specified skin and decoration area type.
+         *
+         * @param skin                 The skin.
+         * @param decorationAreaType   The decoration area type.
+         * @return The inverse container tokens.
+         */
         protected abstract ContainerColorTokens getInverseContainerTokens(RadianceSkin skin,
             RadianceThemingSlices.DecorationAreaType decorationAreaType);
 
@@ -238,6 +289,12 @@ public class ContainerColorTokensOverlay {
         }
     }
 
+    /**
+     * Creates a default system overlay provider for the specified system container type.
+     *
+     * @param systemContainerType The system container type.
+     * @return The overlay provider.
+     */
     public static ContainerColorTokensOverlay.Provider defaultSystemOverlayProvider(
         RadianceThemingSlices.SystemContainerType systemContainerType) {
 
@@ -256,6 +313,12 @@ public class ContainerColorTokensOverlay {
         };
     }
 
+    /**
+     * Creates a default overlay provider for the specified seed color.
+     *
+     * @param seed The seed color.
+     * @return The overlay provider.
+     */
     public static ContainerColorTokensOverlay.Provider defaultOverlayProvider(Color seed) {
         return new DefaultOverlayProvider() {
             private ContainerColorTokens lightTokens = ContainerColorTokensUtils.getContainerTokens(
@@ -283,10 +346,26 @@ public class ContainerColorTokensOverlay {
         };
     }
 
+    /**
+     * Abstract base class for default menu overlay providers.
+     */
     protected static abstract class DefaultMenuOverlayProvider implements Provider {
+        /**
+         * Constructs a {@code DefaultMenuOverlayProvider}.
+         */
+        public DefaultMenuOverlayProvider() {
+        }
+
         private LazyResettableHashMap<ContainerColorTokensOverlay> overlays =
             new LazyResettableHashMap<>("ContainerColorTokensOverlay.DefaultMenuOverlayProvider");
 
+        /**
+         * Returns the container tokens for the specified skin and decoration area type.
+         *
+         * @param skin                 The skin.
+         * @param decorationAreaType   The decoration area type.
+         * @return The container tokens.
+         */
         protected abstract ContainerColorTokens getContainerTokens(RadianceSkin skin,
             RadianceThemingSlices.DecorationAreaType decorationAreaType);
 
@@ -458,6 +537,12 @@ public class ContainerColorTokensOverlay {
         }
     }
 
+    /**
+     * Creates a default menu system overlay provider for the specified system container type.
+     *
+     * @param systemContainerType The system container type.
+     * @return The overlay provider.
+     */
     public static ContainerColorTokensOverlay.Provider defaultMenuSystemOverlayProvider(
         RadianceThemingSlices.SystemContainerType systemContainerType) {
 
@@ -470,6 +555,12 @@ public class ContainerColorTokensOverlay {
         };
     }
 
+    /**
+     * Creates a default menu overlay provider for the specified seed color.
+     *
+     * @param seed The seed color.
+     * @return The overlay provider.
+     */
     public static ContainerColorTokensOverlay.Provider defaultMenuOverlayProvider(Color seed) {
         return new DefaultMenuOverlayProvider() {
             private ContainerColorTokens lightTokens = ContainerColorTokensUtils.getContainerTokens(
@@ -489,14 +580,30 @@ public class ContainerColorTokensOverlay {
         };
     }
 
+    /**
+     * Returns the neutral container tokens.
+     *
+     * @return The neutral container tokens.
+     */
     public ContainerColorTokens getNeutralContainerTokens() {
         return this.neutralContainerTokens;
     }
 
+    /**
+     * Returns the muted container tokens.
+     *
+     * @return The muted container tokens.
+     */
     public ContainerColorTokens getMutedContainerTokens() {
         return this.mutedContainerTokens;
     }
 
+    /**
+     * Returns the active container tokens for the specified component state.
+     *
+     * @param componentState The component state.
+     * @return The active container tokens.
+     */
     public ContainerColorTokens getActiveContainerTokens(ComponentState componentState) {
         if (componentState.isDisabled()) {
             return getActiveContainerTokens(componentState.getEnabledMatch());

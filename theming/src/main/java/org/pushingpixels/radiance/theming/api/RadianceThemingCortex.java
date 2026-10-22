@@ -1825,7 +1825,8 @@ public class RadianceThemingCortex {
          * default placement strategy. Note that the combo arrow changes in accordance with the
          * combo popup placement strategy.
          *
-         * @param comboBoxPopupPlacementStrategy Placement strategy for combobox popup.
+         * @param comboBox                         Combo box.
+         * @param comboBoxPopupPlacementStrategy   Placement strategy for combobox popup.
          * @see GlobalScope#setComboBoxPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy)
          */
         public static void setComboBoxPopupPlacementStrategy(JComboBox comboBox,
@@ -1840,6 +1841,7 @@ public class RadianceThemingCortex {
         /**
          * Specifies how icon on the specified control is themed.
          *
+         * @param component                  Component.
          * @param activeIconFilterStrategy   Icon filter strategy for active states.
          * @param enabledIconFilterStrategy  Icon filter strategy for enabled state.
          * @param disabledIconFilterStrategy Icon filter strategy for disabled states.

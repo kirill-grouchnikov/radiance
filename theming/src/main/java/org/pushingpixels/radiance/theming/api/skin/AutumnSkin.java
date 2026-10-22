@@ -63,6 +63,9 @@ public class AutumnSkin extends RadianceSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs an {@code AutumnSkin}.
+	 */
 	public AutumnSkin() {
 		// For active containers, use softer outlines and shadows.
 		// Also use higher alpha values for disabled controls for better contrast.

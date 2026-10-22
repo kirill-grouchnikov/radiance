@@ -38,6 +38,12 @@ import java.awt.*;
  */
 public abstract class PreviewPainter {
 	/**
+	 * Constructs a {@code PreviewPainter}.
+	 */
+	public PreviewPainter() {
+	}
+
+	/**
 	 * Draws a component preview on the specified graphics.
 	 * 
 	 * @param parent

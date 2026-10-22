@@ -51,6 +51,9 @@ public class GraphiteSiennaSkin extends GraphiteAccentedSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code GraphiteSiennaSkin}.
+	 */
 	public GraphiteSiennaSkin() {
 		super(new AccentBuilder()
 			.withDefaultAreaSelectedTokens(ContainerColorTokensUtils.getContainerTokens(

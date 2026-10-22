@@ -50,6 +50,9 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code GraphiteChalkSkin}.
+	 */
 	public GraphiteChalkSkin() {
 		super(TokenPaletteColorResolverUtils.getPaletteColorResolver().overlayWith(
 			TokenPaletteColorResolverOverlay.builder()

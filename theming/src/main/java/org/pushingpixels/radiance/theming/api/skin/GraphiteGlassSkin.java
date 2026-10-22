@@ -60,6 +60,9 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code GraphiteGlassSkin}.
+	 */
 	public GraphiteGlassSkin() {
 		super();
 

@@ -49,6 +49,12 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class ClassicComponentShaper implements RadianceComponentShaper {
+    /**
+     * Constructs a {@code ClassicComponentShaper}.
+     */
+    public ClassicComponentShaper() {
+    }
+
     /** Cache of already computed outlines. */
     private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(
         "ClassicComponentShaper");
@@ -336,11 +342,27 @@ public class ClassicComponentShaper implements RadianceComponentShaper {
         return DEFAULT_HALF_SHAPE_SUPPLIER;
     }
 
+    /**
+     * Returns the classic corner radius for the specified font size.
+     *
+     * @param fontSize The font size.
+     * @return The classic corner radius.
+     */
     protected static float getClassicCornerRadius(int fontSize) {
         return RadianceSizeUtils.getAdjustedSize(fontSize, 3, 6, 1, false);
     }
 
+    /**
+     * Component shaper for toolbar buttons with smaller corner radius.
+     */
     public static class ToolbarComponentShaper extends ClassicComponentShaper {
+        /**
+         * Constructs a {@code ToolbarComponentShaper}.
+         */
+        public ToolbarComponentShaper() {
+            super();
+        }
+
         private final static ShapeSupplier TOOLBAR_BUTTON_SHAPE_SUPPLIER =
             new ToolbarButtonShapeSupplier();
 

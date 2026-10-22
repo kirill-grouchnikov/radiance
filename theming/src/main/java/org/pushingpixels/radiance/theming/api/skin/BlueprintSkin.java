@@ -430,6 +430,9 @@ public class BlueprintSkin extends RadianceSkin {
 		}
 	}
 
+	/**
+	 * Constructs a {@code BlueprintSkin}.
+	 */
 	public BlueprintSkin() {
 		Hct primaryBlue = Hct.fromInt(0xFF174792);
 		Hct darkPrimaryBlue = Hct.fromInt(0xFF103266);

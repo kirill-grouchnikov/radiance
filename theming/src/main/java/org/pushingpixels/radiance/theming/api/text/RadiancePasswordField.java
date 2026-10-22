@@ -41,21 +41,47 @@ import java.awt.*;
  * visuals under different Radiance skins and decoration area types.
  */
 public class RadiancePasswordField extends JPasswordField {
+    /**
+     * Constructs a {@code RadiancePasswordField}.
+     */
     public RadiancePasswordField() {
     }
 
+    /**
+     * Constructs a {@code RadiancePasswordField} with the specified text.
+     *
+     * @param text The text.
+     */
     public RadiancePasswordField(String text) {
         super(text);
     }
 
+    /**
+     * Constructs a {@code RadiancePasswordField} with the specified columns.
+     *
+     * @param columns The columns.
+     */
     public RadiancePasswordField(int columns) {
         super(columns);
     }
 
+    /**
+     * Constructs a {@code RadiancePasswordField} with the specified text and columns.
+     *
+     * @param text    The text.
+     * @param columns The columns.
+     */
     public RadiancePasswordField(String text, int columns) {
         super(text, columns);
     }
 
+    /**
+     * Constructs a {@code RadiancePasswordField} with the specified document, text, and columns.
+     *
+     * @param doc     The document.
+     * @param txt     The text.
+     * @param columns The columns.
+     */
     public RadiancePasswordField(Document doc, String txt, int columns) {
         super(doc, txt, columns);
     }

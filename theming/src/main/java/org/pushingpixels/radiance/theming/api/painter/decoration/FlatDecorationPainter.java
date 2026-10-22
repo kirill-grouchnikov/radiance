@@ -46,6 +46,12 @@ public class FlatDecorationPainter extends RadianceDecorationPainter {
 	 */
 	public static final String DISPLAY_NAME = "Flat";
 
+    /**
+     * Constructs a {@code FlatDecorationPainter}.
+     */
+    public FlatDecorationPainter() {
+    }
+
     @Override
 	public String getDisplayName() {
 		return DISPLAY_NAME;

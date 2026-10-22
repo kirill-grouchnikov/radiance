@@ -52,6 +52,9 @@ public class CremeSkin extends CremeAccentedSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code CremeSkin}.
+     */
     public CremeSkin() {
         super(new AccentBuilder()
             .withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(

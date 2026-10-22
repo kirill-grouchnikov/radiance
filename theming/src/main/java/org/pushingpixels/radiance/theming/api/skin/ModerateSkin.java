@@ -61,6 +61,9 @@ public class ModerateSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code ModerateSkin}.
+     */
     public ModerateSkin() {
         ContainerColorTokensBundle steelBlueDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

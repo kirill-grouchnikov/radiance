@@ -80,6 +80,8 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
          * @param graphics           Graphics context.
          * @param comp               Component.
          * @param decorationAreaType Decoration area type.
+         * @param x                  X coordinate.
+         * @param y                  Y coordinate.
          * @param width              Width.
          * @param height             Height.
          * @param scaleFactor        Scale factor.
@@ -100,6 +102,9 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
     /** Can be null. */
     private InlayPainter inlayPainter;
 
+    /**
+     * Constructs a {@code RadianceDecorationPainter}.
+     */
     protected RadianceDecorationPainter() {
         this.overlayPaintersMap = new HashMap<>();
     }
@@ -175,6 +180,8 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
 
     /**
      * Sets the inlay painter.
+     *
+     * @param inlayPainter The inlay painter.
      */
     public void setInlayPainter(InlayPainter inlayPainter) {
         this.inlayPainter = inlayPainter;
@@ -182,6 +189,8 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
 
     /**
      * Returns the inlay painter. The result can be <code>null</code>.
+     *
+     * @return The inlay painter.
      */
     public InlayPainter getInlayPainter() {
         return this.inlayPainter;
@@ -195,6 +204,7 @@ public abstract class RadianceDecorationPainter implements RadianceTrait {
      * @param decorationAreaType Decoration area type. Must not be <code>null</code>.
      * @param width              Width.
      * @param height             Height.
+     * @param scaleFactor        Scale factor.
      * @param colorTokens        Color tokens for painting the decoration area.
      */
     public abstract void paintDecorationArea(Graphics2D graphics, Component comp,

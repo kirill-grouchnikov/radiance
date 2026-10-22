@@ -41,8 +41,21 @@ import java.awt.*;
  */
 @FunctionalInterface
 public interface ContainerColorTokensSingleColorQuery {
+	/**
+	 * Queries the specified color tokens and returns a single color.
+	 *
+	 * @param colorTokens The color tokens.
+	 * @return The queried color.
+	 */
 	Color query(ContainerColorTokens colorTokens);
 
+	/**
+	 * Creates a composite query that applies the specified transforms to the result of the base query.
+	 *
+	 * @param base      The base query.
+	 * @param transforms The transforms to apply.
+	 * @return The composite query.
+	 */
 	static ContainerColorTokensSingleColorQuery composite(
 		ContainerColorTokensSingleColorQuery base, ColorTransform... transforms) {
 		return colorTokens -> {
@@ -54,6 +67,14 @@ public interface ContainerColorTokensSingleColorQuery {
 		};
 	}
 
+	/**
+	 * Creates a blend query that interpolates between two queries.
+	 *
+	 * @param first          The first query.
+	 * @param second         The second query.
+	 * @param firstLikeness  The likeness weight for the first query.
+	 * @return The blend query.
+	 */
 	static ContainerColorTokensSingleColorQuery blend(
 		ContainerColorTokensSingleColorQuery first,
 		ContainerColorTokensSingleColorQuery second,

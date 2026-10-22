@@ -49,6 +49,9 @@ public class GraphiteAquaSkin extends GraphiteAccentedSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code GraphiteAquaSkin}.
+     */
     public GraphiteAquaSkin() {
         super(new AccentBuilder()
             .withDefaultAreaSelectedTokens(ContainerColorTokensUtils.getContainerTokens(

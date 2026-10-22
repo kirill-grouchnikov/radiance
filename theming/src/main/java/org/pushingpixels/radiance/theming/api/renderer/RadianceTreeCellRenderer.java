@@ -34,6 +34,20 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 import javax.swing.*;
 import javax.swing.tree.TreeCellRenderer;
 
+/**
+ * Interface for tree cell renderers in Radiance.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public interface RadianceTreeCellRenderer extends TreeCellRenderer {
+    /**
+     * Returns the color tokens for the specified tree cell.
+     *
+     * @param tree  The tree.
+     * @param value The value.
+     * @param row   The row.
+     * @return The color tokens.
+     */
     ContainerColorTokens getColorTokens(JTree tree, Object value, int row);
 }

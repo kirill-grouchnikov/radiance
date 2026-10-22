@@ -96,8 +96,14 @@ public interface RadianceSurfacePainter extends RadianceTrait {
      * A composite overlay that chains one or more surface painter overlays.
      */
     class CompositeOverlay implements Overlay {
+        /** The overlays. */
         private Overlay[] overlays;
 
+        /**
+         * Constructs a {@code CompositeOverlay} with the specified overlays.
+         *
+         * @param overlays The overlays.
+         */
         public CompositeOverlay(Overlay... overlays) {
             this.overlays = new Overlay[overlays.length];
             System.arraycopy(overlays, 0, this.overlays, 0, overlays.length);

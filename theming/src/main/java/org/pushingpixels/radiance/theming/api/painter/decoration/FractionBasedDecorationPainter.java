@@ -118,6 +118,8 @@ public class FractionBasedDecorationPainter extends RadianceDecorationPainter {
 	 * @param fractions
 	 *            The fractions of this painter. Must be strictly increasing,
 	 *            starting from 0.0 and ending at 1.0.
+	 * @param alphas
+	 *            The alpha values for each fraction.
 	 * @param colorQueries
 	 *            The color queries of this painter. Must have the same size as
 	 *            the fractions array, and all entries must be non-

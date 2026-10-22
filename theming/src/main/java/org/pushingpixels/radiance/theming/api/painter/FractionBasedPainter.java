@@ -162,6 +162,11 @@ public abstract class FractionBasedPainter implements RadianceTrait {
 		return result;
 	}
 
+	/**
+	 * Returns the alphas of this painter.
+	 * 
+	 * @return Alphas of this painter.
+	 */
 	public int[] getAlphas() {
 		int[] result = new int[this.alphas.length];
 		System.arraycopy(this.alphas, 0, result, 0, this.alphas.length);

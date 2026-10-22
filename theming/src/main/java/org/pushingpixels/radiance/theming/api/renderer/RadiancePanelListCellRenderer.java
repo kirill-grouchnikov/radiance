@@ -61,8 +61,12 @@ import java.util.Map;
 @RadianceRenderer
 public abstract class RadiancePanelListCellRenderer<T> extends JPanel
         implements ListCellRenderer<T> {
+    /** The mutable container tokens. */
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
+    /**
+     * Constructs a {@code RadiancePanelListCellRenderer}.
+     */
     public RadiancePanelListCellRenderer() {
     }
 
@@ -126,6 +130,14 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
         return this;
     }
 
+    /**
+     * Binds the renderer with the specified data.
+     *
+     * @param list          The list.
+     * @param value         The value.
+     * @param index         The index.
+     * @param colorTokens   The color tokens.
+     */
     protected abstract void bindRenderer(JList<? extends T> list, T value, int index,
         ContainerColorTokens colorTokens);
 

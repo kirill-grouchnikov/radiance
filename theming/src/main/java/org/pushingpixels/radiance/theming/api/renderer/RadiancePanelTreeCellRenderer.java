@@ -58,8 +58,12 @@ import java.util.Map;
  */
 @RadianceRenderer
 public abstract class RadiancePanelTreeCellRenderer extends JPanel implements RadianceTreeCellRenderer {
+    /** The mutable container tokens. */
     private BladeContainerColorTokens mutableContainerTokens = new BladeContainerColorTokens();
 
+    /**
+     * Constructs a {@code RadiancePanelTreeCellRenderer}.
+     */
     public RadiancePanelTreeCellRenderer() {
     }
 
@@ -128,6 +132,14 @@ public abstract class RadiancePanelTreeCellRenderer extends JPanel implements Ra
         return this;
     }
 
+    /**
+     * Binds the renderer with the specified data.
+     *
+     * @param tree          The tree.
+     * @param value         The value.
+     * @param row           The row.
+     * @param colorTokens   The color tokens.
+     */
     protected abstract void bindRenderer(JTree tree, Object value, int row,
         ContainerColorTokens colorTokens);
 

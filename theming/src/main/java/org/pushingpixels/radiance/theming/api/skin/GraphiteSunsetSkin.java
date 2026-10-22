@@ -51,6 +51,9 @@ public class GraphiteSunsetSkin extends GraphiteAccentedSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code GraphiteSunsetSkin}.
+	 */
 	public GraphiteSunsetSkin() {
 		super(new AccentBuilder()
 			.withDefaultAreaSelectedTokens(ContainerColorTokensUtils.getContainerTokens(

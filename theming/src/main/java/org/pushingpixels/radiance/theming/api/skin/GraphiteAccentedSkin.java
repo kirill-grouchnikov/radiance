@@ -48,10 +48,13 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
  * @author Kirill Grouchnikov
  */
 public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
+	/** The default bundle for Graphite skins. */
 	protected ContainerColorTokensBundle graphiteDefaultBundle;
 
 	/**
 	 * Creates a new accented <code>Graphite</code> skin.
+	 *
+	 * @param accentBuilder The accent builder.
 	 */
 	protected GraphiteAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);

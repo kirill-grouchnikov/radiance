@@ -51,6 +51,9 @@ public class GraphiteGoldSkin extends GraphiteAccentedSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code GraphiteGoldSkin}.
+	 */
 	public GraphiteGoldSkin() {
 		super(new AccentBuilder()
 			.withDefaultAreaSelectedTokens(ContainerColorTokensUtils.getContainerTokens(

@@ -49,7 +49,10 @@ public class MistSilverSkin extends MistAccentedSkin {
 		return NAME;
 	}
 
-	public MistSilverSkin() {
+	 /**
+	  * Constructs a {@code MistSilverSkin}.
+	  */
+	 public MistSilverSkin() {
 		super(new AccentBuilder()
 			.withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFD4DEE5),

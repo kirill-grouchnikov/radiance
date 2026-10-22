@@ -50,6 +50,13 @@ public class ArcDecorationPainter extends RadianceDecorationPainter {
      */
     public static final String DISPLAY_NAME = "Arc";
 
+    /**
+     * Constructs an {@code ArcDecorationPainter}.
+     */
+    public ArcDecorationPainter() {
+        super();
+    }
+
     @Override
     public String getDisplayName() {
         return DISPLAY_NAME;

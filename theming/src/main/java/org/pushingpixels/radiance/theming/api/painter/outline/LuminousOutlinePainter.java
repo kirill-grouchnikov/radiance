@@ -101,6 +101,9 @@ public class LuminousOutlinePainter implements RadianceOutlinePainter {
                 ? innerHorizontalDarkQuery.query(colorTokens)
                 : colorTokens.getComplementaryContainerOutline()};
 
+    /**
+     * Constructs a {@code LuminousOutlinePainter}.
+     */
     public LuminousOutlinePainter() {
     }
 

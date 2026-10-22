@@ -54,6 +54,8 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Creates a new accented <code>Dust</code> skin.
+	 *
+	 * @param accentBuilder The accent builder.
 	 */
 	protected DustAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);

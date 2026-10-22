@@ -34,11 +34,23 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
 
+/**
+ * Default implementation of {@link RadianceRootPaneDecorator}.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class DefaultRootPaneDecorator implements RadianceRootPaneDecorator {
-    // Default border thickness in unscaled pixels.
+    /**
+     * Constructs a {@code DefaultRootPaneDecorator}.
+     */
+    public DefaultRootPaneDecorator() {
+    }
+
+    /** Default border thickness in unscaled pixels. */
     protected static final int BORDER_THICKNESS = 4;
 
-    // Default insets in unscaled pixels.
+    /** Default insets in unscaled pixels. */
     private static final Insets INSETS = new Insets(BORDER_THICKNESS, BORDER_THICKNESS,
         BORDER_THICKNESS, BORDER_THICKNESS);
 

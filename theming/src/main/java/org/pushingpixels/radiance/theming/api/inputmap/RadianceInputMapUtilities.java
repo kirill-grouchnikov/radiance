@@ -35,7 +35,24 @@ import org.pushingpixels.radiance.theming.internal.inputmaps.BaseInputMapSet;
 import org.pushingpixels.radiance.theming.internal.inputmaps.GnomeInputMapSet;
 import org.pushingpixels.radiance.theming.internal.inputmaps.WindowsInputMapSet;
 
+/**
+ * Utility class for input maps.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class RadianceInputMapUtilities {
+    /**
+     * Constructs a {@code RadianceInputMapUtilities}.
+     */
+    public RadianceInputMapUtilities() {
+    }
+
+    /**
+     * Returns the system input map set for the current platform.
+     *
+     * @return The system input map set.
+     */
     public static InputMapSet getSystemInputMapSet() {
         RadianceCommonCortex.Platform platform = RadianceCommonCortex.getPlatform();
         switch (platform) {

@@ -52,10 +52,18 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code GraphiteSkin}.
+     */
     public GraphiteSkin() {
         this(TokenPaletteColorResolverUtils.getPaletteColorResolver());
     }
 
+    /**
+     * Constructs a {@code GraphiteSkin} with the specified color resolver.
+     *
+     * @param tokenPaletteColorResolver The token palette color resolver.
+     */
     protected GraphiteSkin(TokenPaletteColorResolver tokenPaletteColorResolver) {
         super(new AccentBuilder()
             .withDefaultAreaPaletteColorResolver(tokenPaletteColorResolver)

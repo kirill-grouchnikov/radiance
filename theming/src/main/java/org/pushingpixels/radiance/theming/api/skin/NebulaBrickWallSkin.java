@@ -49,7 +49,10 @@ public class NebulaBrickWallSkin extends NebulaAccentedSkin {
 		return NAME;
 	}
 
-	public NebulaBrickWallSkin() {
+	 /**
+	  * Constructs a {@code NebulaBrickWallSkin}.
+	  */
+	 public NebulaBrickWallSkin() {
 		super(new AccentBuilder()
 			.withHeaderAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFFBAC23),

@@ -39,9 +39,26 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Default implementation of {@link TitlePaneTitleTextPainter}.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class DefaultTitlePaneTitleTextPainter implements TitlePaneTitleTextPainter {
     private static DefaultTitlePaneTitleTextPainter INSTANCE = new DefaultTitlePaneTitleTextPainter();
 
+    /**
+     * Constructs a {@code DefaultTitlePaneTitleTextPainter}.
+     */
+    public DefaultTitlePaneTitleTextPainter() {
+    }
+
+    /**
+     * Returns the singleton instance.
+     *
+     * @return The singleton instance.
+     */
     public static DefaultTitlePaneTitleTextPainter getInstance() {
         return INSTANCE;
     }

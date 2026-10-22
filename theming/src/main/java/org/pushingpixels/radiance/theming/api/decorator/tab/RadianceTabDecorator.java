@@ -36,27 +36,96 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
+/**
+ * Interface for decorating tabs in tabbed panes.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public interface RadianceTabDecorator {
+    /**
+     * Returns the insets for a tab.
+     *
+     * @return The tab insets.
+     */
     Insets getTabInsets();
 
+    /**
+     * Returns the content color for a tab.
+     *
+     * @param tabbedPane The tabbed pane.
+     * @param tabIndex   The tab index.
+     * @return The content color.
+     */
     Color getTabContentColor(JTabbedPane tabbedPane, int tabIndex);
-    
+
+    /**
+     * Returns the decorated content color for a tab.
+     *
+     * @param tabComponent The tab component.
+     * @param currState    The current state.
+     * @param activeStates The active states.
+     * @return The decorated content color.
+     */
     Color getDecoratedTabContentColor(JComponent tabComponent, ComponentState currState,
         Map<ComponentState, Float> activeStates);
 
+    /**
+     * Returns the outline color for a tab.
+     *
+     * @param tabComponent The tab component.
+     * @return The outline color.
+     */
     Color getTabOutlineColor(Component tabComponent);
 
+    /**
+     * Returns whether to draw an unbroken content edge.
+     *
+     * @return {@code true} if an unbroken content edge should be drawn.
+     */
     boolean shouldDrawUnbrokenContentEdge();
 
+    /**
+     * Paints the tab surface at 1X scale.
+     *
+     * @param graphics1X              The graphics context.
+     * @param tabComponent            The tab component.
+     * @param scaleFactor             The scale factor.
+     * @param originalScaledOffsetX   The original scaled X offset.
+     * @param originalScaledOffsetY   The original scaled Y offset.
+     * @param width                   The width.
+     * @param height                  The height.
+     * @param surfaceColorTokens      The surface color tokens.
+     */
     void paintTabSurfaceAt1X(Graphics2D graphics1X,
         JComponent tabComponent, double scaleFactor,
         int originalScaledOffsetX, int originalScaledOffsetY, int width, int height,
         ContainerColorTokens surfaceColorTokens);
 
+    /**
+     * Paints the tab surface highlight at 1X scale.
+     *
+     * @param graphics1X                The graphics context.
+     * @param tabComponent              The tab component.
+     * @param scaleFactor               The scale factor.
+     * @param width                     The width.
+     * @param height                    The height.
+     * @param surfaceHighlightColorTokens The surface highlight color tokens.
+     */
     void paintTabSurfaceHighlightAt1X(Graphics2D graphics1X,
         JComponent tabComponent, double scaleFactor, int width, int height,
         ContainerColorTokens surfaceHighlightColorTokens);
 
+    /**
+     * Paints the tab outline at 1X scale.
+     *
+     * @param graphics1X    The graphics context.
+     * @param tabComponent  The tab component.
+     * @param scaleFactor   The scale factor.
+     * @param width         The width.
+     * @param height        The height.
+     * @param outlineColor  The outline color.
+     */
     void paintTabOutlineAt1X(Graphics2D graphics1X,
         JComponent tabComponent, double scaleFactor, int width, int height, Color outlineColor);
 }

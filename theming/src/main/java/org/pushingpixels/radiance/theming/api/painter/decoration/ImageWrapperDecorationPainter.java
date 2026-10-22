@@ -211,6 +211,8 @@ public abstract class ImageWrapperDecorationPainter extends RadianceDecorationPa
     /**
      * Returns a colorized image tile.
      * 
+     * @param scale
+     *            Scale factor.
      * @param colorTokens
      *            Color tokens for the colorization.
      * @return Colorized tile.

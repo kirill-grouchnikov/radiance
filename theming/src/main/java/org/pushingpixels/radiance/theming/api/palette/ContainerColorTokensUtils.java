@@ -38,13 +38,40 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 
 import java.awt.*;
 
+/**
+ * Utility class for creating container color tokens.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class ContainerColorTokensUtils {
+    /**
+     * Constructs a {@code ContainerColorTokensUtils}.
+     */
+    public ContainerColorTokensUtils() {
+    }
+
+    /**
+     * Creates container color tokens from the specified seed and configuration.
+     *
+     * @param seed                   The seed color.
+     * @param containerConfiguration The container configuration.
+     * @return The container color tokens.
+     */
     public static ContainerColorTokens getContainerTokens(
         Hct seed, ContainerConfiguration containerConfiguration) {
         return getContainerTokens(seed, containerConfiguration,
             TokenPaletteColorResolverUtils.getPaletteColorResolver());
     }
 
+    /**
+     * Creates container color tokens from the specified seed, configuration, and color resolver.
+     *
+     * @param seed                   The seed color.
+     * @param containerConfiguration The container configuration.
+     * @param colorResolver          The color resolver.
+     * @return The container color tokens.
+     */
     public static ContainerColorTokens getContainerTokens(
         Hct seed, ContainerConfiguration containerConfiguration,
         TokenPaletteColorResolver colorResolver) {
@@ -201,6 +228,17 @@ public class ContainerColorTokensUtils {
         };
     }
 
+    /**
+     * Creates bimodal container color tokens from the specified seeds and configuration.
+     *
+     * @param seedOne                The first seed color.
+     * @param seedTwo                The second seed color.
+     * @param transitionRange        The transition range.
+     * @param fidelityTone           The fidelity tone.
+     * @param containerConfiguration The container configuration.
+     * @param colorResolver          The color resolver.
+     * @return The bimodal container color tokens.
+     */
     public static ContainerColorTokens getBimodalContainerTokens(
         Hct seedOne,
         Hct seedTwo,
@@ -364,6 +402,15 @@ public class ContainerColorTokensUtils {
         };
     }
 
+    /**
+     * Creates duotone container color tokens from the specified seeds and configuration.
+     *
+     * @param seedContainer          The container seed color.
+     * @param seedOnContainer        The on-container seed color.
+     * @param containerConfiguration The container configuration.
+     * @param colorResolver          The color resolver.
+     * @return The duotone container color tokens.
+     */
     public static ContainerColorTokens getDuotoneContainerTokens(
         Hct seedContainer,
         Hct seedOnContainer,

@@ -63,6 +63,9 @@ public class MagellanSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code MagellanSkin}.
+     */
     public MagellanSkin() {
         ContainerColorTokensBundle magellanDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getDuotoneContainerTokens(

@@ -47,6 +47,12 @@ import java.util.Set;
  */
 public class PillComponentShaper extends ClassicComponentShaper {
     /**
+     * Constructs a {@code PillComponentShaper}.
+     */
+    public PillComponentShaper() {
+    }
+
+    /**
      * Cache of already computed outlines.
      */
     private final static LazyResettableHashMap<Shape> outlines = new LazyResettableHashMap<>(

@@ -49,6 +49,9 @@ public class NebulaSkin extends NebulaAccentedSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code NebulaSkin}.
+     */
     public NebulaSkin() {
         super(new AccentBuilder()
             .withHeaderAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(

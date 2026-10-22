@@ -39,6 +39,9 @@ import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingle
  * @author Kirill Grouchnikov
  */
 public class FlatOutlinePainter extends FractionBasedOutlinePainter {
+	/**
+	 * Constructs a {@code FlatOutlinePainter}.
+	 */
 	public FlatOutlinePainter() {
 		super(
             "Flat",

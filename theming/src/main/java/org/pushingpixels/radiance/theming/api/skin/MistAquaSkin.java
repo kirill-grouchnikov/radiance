@@ -49,6 +49,9 @@ public class MistAquaSkin extends MistAccentedSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code MistAquaSkin}.
+     */
     public MistAquaSkin() {
         super(new AccentBuilder()
             .withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(

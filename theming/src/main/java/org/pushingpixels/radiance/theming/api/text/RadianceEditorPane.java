@@ -42,17 +42,38 @@ import java.net.URL;
  * visuals under different Radiance skins and decoration area types.
  */
 public class RadianceEditorPane extends JEditorPane {
+    /**
+     * Constructs a {@code RadianceEditorPane}.
+     */
     public RadianceEditorPane() {
     }
 
+    /**
+     * Constructs a {@code RadianceEditorPane} with the specified initial page.
+     *
+     * @param initialPage The initial page.
+     * @throws IOException If an I/O error occurs.
+     */
     public RadianceEditorPane(URL initialPage) throws IOException {
         super(initialPage);
     }
 
+    /**
+     * Constructs a {@code RadianceEditorPane} with the specified URL.
+     *
+     * @param url The URL.
+     * @throws IOException If an I/O error occurs.
+     */
     public RadianceEditorPane(String url) throws IOException {
         super(url);
     }
 
+    /**
+     * Constructs a {@code RadianceEditorPane} with the specified type and text.
+     *
+     * @param type The type.
+     * @param text The text.
+     */
     public RadianceEditorPane(String type, String text) {
         super(type, text);
     }

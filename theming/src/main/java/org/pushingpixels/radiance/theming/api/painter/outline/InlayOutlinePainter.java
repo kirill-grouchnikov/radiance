@@ -111,10 +111,18 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
      */
     private ContainerColorTokensSingleColorQuery[] innerColorQueries;
 
+    /**
+     * Returns a builder for {@code InlayOutlinePainter}.
+     *
+     * @return A new builder instance.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Builder for {@link InlayOutlinePainter}.
+     */
     public static final class Builder {
         private String displayName = null;
         private float strokeWidth = 1.0f;
@@ -134,11 +142,23 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
 
         private Builder() {}
 
+        /**
+         * Sets the display name.
+         *
+         * @param displayName The display name.
+         * @return This builder.
+         */
         public Builder displayName(String displayName) {
             this.displayName = displayName;
             return this;
         }
 
+        /**
+         * Sets the stroke width.
+         *
+         * @param strokeWidth The stroke width.
+         * @return This builder.
+         */
         public Builder strokeWidth(float strokeWidth) {
             if (strokeWidth <= 0.0f) {
                 throw new IllegalArgumentException("Unsupported stroke width " + strokeWidth);
@@ -179,6 +199,12 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             return result;
         }
 
+        /**
+         * Sets the outer color query.
+         *
+         * @param colorQuery The color query.
+         * @return This builder.
+         */
         public Builder outer(ContainerColorTokensSingleColorQuery colorQuery) {
             this.outerColorQueries = new ContainerColorTokensSingleColorQuery[] {
                 colorQuery,
@@ -187,6 +213,14 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             return this;
         }
 
+        /**
+         * Sets the outer fractions, alphas, and color queries.
+         *
+         * @param outerFractions The outer fractions.
+         * @param outerAlphas The outer alphas.
+         * @param outerColorQueries The outer color queries.
+         * @return This builder.
+         */
         public Builder outer(float[] outerFractions, int[] outerAlphas,
             ContainerColorTokensSingleColorQuery[] outerColorQueries) {
             verify(outerFractions, outerAlphas, outerColorQueries);
@@ -202,6 +236,13 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             return this;
         }
 
+        /**
+         * Sets the outer fractions and color queries.
+         *
+         * @param outerFractions The outer fractions.
+         * @param outerColorQueries The outer color queries.
+         * @return This builder.
+         */
         public Builder outer(float[] outerFractions,
             ContainerColorTokensSingleColorQuery[] outerColorQueries) {
 
@@ -209,6 +250,12 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
                 outerColorQueries);
         }
 
+        /**
+         * Sets the inner color query.
+         *
+         * @param colorQuery The color query.
+         * @return This builder.
+         */
         public Builder inner(ContainerColorTokensSingleColorQuery colorQuery) {
             this.innerColorQueries = new ContainerColorTokensSingleColorQuery[] {
                 colorQuery,
@@ -217,6 +264,14 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             return this;
         }
 
+        /**
+         * Sets the inner fractions, alphas, and color queries.
+         *
+         * @param innerFractions The inner fractions.
+         * @param innerAlphas The inner alphas.
+         * @param innerColorQueries The inner color queries.
+         * @return This builder.
+         */
         public Builder inner(float[] innerFractions, int[] innerAlphas,
             ContainerColorTokensSingleColorQuery[] innerColorQueries) {
             verify(innerFractions, innerAlphas, innerColorQueries);
@@ -232,6 +287,13 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
             return this;
         }
 
+        /**
+         * Sets the inner fractions and color queries.
+         *
+         * @param innerFractions The inner fractions.
+         * @param innerColorQueries The inner color queries.
+         * @return This builder.
+         */
         public Builder inner(float[] innerFractions,
             ContainerColorTokensSingleColorQuery[] innerColorQueries) {
 
@@ -239,6 +301,11 @@ public class InlayOutlinePainter implements RadianceOutlinePainter {
                 innerColorQueries);
         }
 
+        /**
+         * Builds the {@code InlayOutlinePainter}.
+         *
+         * @return The built painter.
+         */
         public InlayOutlinePainter build() {
             InlayOutlinePainter result = new InlayOutlinePainter();
             result.displayName = this.displayName;

@@ -33,9 +33,30 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 
 import java.awt.*;
 
+/**
+ * Interface for decorating root panes.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public interface RadianceRootPaneDecorator {
+    /**
+     * Returns the border insets for the root pane.
+     *
+     * @return The border insets.
+     */
     Insets getRootPaneBorderInsets();
 
+    /**
+     * Paints the root pane border.
+     *
+     * @param graphics     The graphics context.
+     * @param comp         The component.
+     * @param width        The width.
+     * @param height       The height.
+     * @param scaleFactor  The scale factor.
+     * @param colorTokens  The color tokens.
+     */
     void paintRootPaneBorder(Graphics2D graphics, Component comp,
         int width, int height, double scaleFactor, ContainerColorTokens colorTokens);
 }

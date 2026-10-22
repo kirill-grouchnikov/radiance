@@ -58,6 +58,9 @@ public class CeruleanSkin extends RadianceSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code CeruleanSkin}.
+	 */
 	public CeruleanSkin() {
 		ContainerColorTokensBundle ceruleanDefaultBundle = new ContainerColorTokensBundle(
 			/* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

@@ -52,6 +52,9 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code BusinessBlueSteelSkin}.
+	 */
 	public BusinessBlueSteelSkin() {
 		super(new AccentBuilder()
 			.withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(

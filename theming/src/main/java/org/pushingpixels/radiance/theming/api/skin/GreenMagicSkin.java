@@ -62,6 +62,9 @@ public class GreenMagicSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code GreenMagicSkin}.
+     */
     public GreenMagicSkin() {
         ContainerColorTokensBundle greenMagicDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

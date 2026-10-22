@@ -54,6 +54,8 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
 public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Creates a new accented <code>Business</code> skin.
+	 *
+	 * @param accentBuilder The accent builder.
 	 */
 	protected BusinessAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);
@@ -116,5 +118,10 @@ public abstract class BusinessAccentedSkin extends RadianceSkin.Accented {
 		this.decorators = RadianceDecorators.buildDefault();
 	}
 
+	/**
+	 * Returns whether the header is dark.
+	 *
+	 * @return {@code true} if the header is dark.
+	 */
 	protected abstract boolean isHeaderDark();
 }

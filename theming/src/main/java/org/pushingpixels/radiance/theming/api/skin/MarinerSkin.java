@@ -52,8 +52,12 @@ import org.pushingpixels.radiance.theming.api.shaper.ClassicComponentShaper;
  * @author Kirill Grouchnikov
  */
 public class MarinerSkin extends RadianceSkin {
+    /** The name of this skin. */
     public static final String NAME = "Mariner";
 
+    /**
+     * Constructs a {@code MarinerSkin}.
+     */
     public MarinerSkin() {
         ContainerColorTokensBundle marinerDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

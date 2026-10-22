@@ -39,6 +39,7 @@ import java.awt.*;
  * that returns the widest combo entry. This class is part of officially
  * supported API.
  * 
+ * @param <T> The type of the combo box elements.
  * @author Kirill Grouchnikov
  */
 public class WidestComboPopupPrototype<T> implements ComboPopupPrototypeCallback<T> {

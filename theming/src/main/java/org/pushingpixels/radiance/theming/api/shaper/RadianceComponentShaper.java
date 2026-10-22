@@ -43,12 +43,30 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public interface RadianceComponentShaper extends RadianceTrait {
+    /**
+     * Interface for supplying shapes for components.
+     */
     interface ShapeSupplier {
+        /**
+         * Returns the shape for the specified component.
+         *
+         * @param c                  The component.
+         * @param width              The width.
+         * @param height             The height.
+         * @param insets             The insets.
+         * @param radiusAdjustment   The radius adjustment.
+         * @param scaleFactor        The scale factor.
+         * @return The shape.
+         */
         Shape getShape(Component c, float width, float height, float insets,
             float radiusAdjustment, double scaleFactor);
     }
 
-    /** Returns the shape supplier for buttons. */
+    /**
+     * Returns the shape supplier for buttons.
+     *
+     * @return The shape supplier for buttons.
+     */
     ShapeSupplier getButtonShapeSupplier();
 
     /**
@@ -59,58 +77,134 @@ public interface RadianceComponentShaper extends RadianceTrait {
      */
     Dimension getButtonPreferredSize(AbstractButton button);
 
-    /** Returns the baseline (generic) shape supplier. */
+    /**
+     * Returns the baseline (generic) shape supplier.
+     *
+     * @return The baseline (generic) shape supplier.
+     */
     ShapeSupplier getBaselineShapeSupplier();
 
+    /**
+     * Returns the baseline insets for the specified component.
+     *
+     * @param c The component.
+     * @return The baseline insets.
+     */
     Insets getBaselineInsets(Component c);
 
-    /** Returns the baseline (generic) shape supplier. */
+    /**
+     * Returns the baseline (generic) shape supplier for the specified straight sides.
+     *
+     * @param straightSides The sides that should be straight.
+     * @return The baseline (generic) shape supplier.
+     */
     ShapeSupplier getBaselineShapeSupplier(
         Set<RadianceThemingSlices.Side> straightSides);
 
-    /** Returns the shape supplier for checkboxes. */
+    /**
+     * Returns the shape supplier for checkboxes.
+     *
+     * @return The shape supplier for checkboxes.
+     */
     ShapeSupplier getCheckBoxShapeSupplier();
 
-    /** Returns the shape supplier for comboboxes. */
+    /**
+     * Returns the shape supplier for comboboxes.
+     *
+     * @return The shape supplier for comboboxes.
+     */
     ShapeSupplier getComboBoxShapeSupplier();
 
-    /** Returns the shape supplier for progress bar progress. */
+    /**
+     * Returns the shape supplier for progress bar progress.
+     *
+     * @param straightSides The sides that should be straight.
+     * @return The shape supplier for progress bar progress.
+     */
     ShapeSupplier getProgressBarProgressShapeSupplier(
         Set<RadianceThemingSlices.Side> straightSides);
 
-    /** Returns the shape supplier for progress bar tracks. */
+    /**
+     * Returns the shape supplier for progress bar tracks.
+     *
+     * @return The shape supplier for progress bar tracks.
+     */
     ShapeSupplier getProgressBarTrackShapeSupplier();
 
-    /** Returns the shape supplier for radio buttons. */
+    /**
+     * Returns the shape supplier for radio buttons.
+     *
+     * @return The shape supplier for radio buttons.
+     */
     ShapeSupplier getRadioButtonShapeSupplier();
 
-    /** Returns the shape supplier for scrollbar thumbs. */
+    /**
+     * Returns the shape supplier for scrollbar thumbs.
+     *
+     * @return The shape supplier for scrollbar thumbs.
+     */
     ShapeSupplier getScrollBarThumbShapeSupplier();
 
-    /** Returns the shape supplier for directional slider thumbs. */
+    /**
+     * Returns the shape supplier for directional slider thumbs.
+     *
+     * @return The shape supplier for directional slider thumbs.
+     */
     ShapeSupplier getSliderThumbDirectionalShapeSupplier();
 
-    /** Returns the shape supplier for uniform slider thumbs. */
+    /**
+     * Returns the shape supplier for uniform slider thumbs.
+     *
+     * @return The shape supplier for uniform slider thumbs.
+     */
     ShapeSupplier getSliderThumbUniformShapeSupplier();
 
-    /** Returns the shape supplier for slider tracks. */
+    /**
+     * Returns the shape supplier for slider tracks.
+     *
+     * @return The shape supplier for slider tracks.
+     */
     ShapeSupplier getSliderTrackShapeSupplier();
 
-    /** Returns the shape supplier for switch thumbs. */
+    /**
+     * Returns the shape supplier for switch thumbs.
+     *
+     * @return The shape supplier for switch thumbs.
+     */
     ShapeSupplier getSwitchThumbShapeSupplier();
 
-    /** Returns the shape supplier for switch tracks. */
+    /**
+     * Returns the shape supplier for switch tracks.
+     *
+     * @return The shape supplier for switch tracks.
+     */
     ShapeSupplier getSwitchTrackShapeSupplier();
 
-    /** Returns the shape supplier for split divider bumps. */
+    /**
+     * Returns the shape supplier for split divider bumps.
+     *
+     * @return The shape supplier for split divider bumps.
+     */
     ShapeSupplier getSplitDividerBumpShapeSupplier();
 
-    /** Returns the shape supplier for tabs. */
+    /**
+     * Returns the shape supplier for tabs.
+     *
+     * @return The shape supplier for tabs.
+     */
     ShapeSupplier getTabShapeSupplier();
 
-    /** Returns the shape supplier for text components. */
+    /**
+     * Returns the shape supplier for text components.
+     *
+     * @return The shape supplier for text components.
+     */
     ShapeSupplier getTextComponentShapeSupplier();
 
-    /** Returns the shape supplier for split tree icons. */
+    /**
+     * Returns the shape supplier for split tree icons.
+     *
+     * @return The shape supplier for split tree icons.
+     */
     ShapeSupplier getTreeIconShapeSupplier();
 }

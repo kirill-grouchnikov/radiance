@@ -61,6 +61,9 @@ public class NightShadeSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code NightShadeSkin}.
+     */
     public NightShadeSkin() {
         ContainerColorTokensBundle nightShadeDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

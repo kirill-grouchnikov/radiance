@@ -29,9 +29,38 @@
  */
 package org.pushingpixels.radiance.theming.api.titlepane;
 
+/**
+ * Interface for providing title pane button providers.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public interface TitlePaneButtonsProvider {
+    /**
+     * Returns the close button provider.
+     *
+     * @return The close button provider.
+     */
     TitlePaneButtonProvider getCloseButtonProvider();
+
+    /**
+     * Returns the restore button provider.
+     *
+     * @return The restore button provider.
+     */
     TitlePaneButtonProvider getRestoreButtonProvider();
+
+    /**
+     * Returns the iconify button provider.
+     *
+     * @return The iconify button provider.
+     */
     TitlePaneButtonProvider getIconifyButtonProvider();
+
+    /**
+     * Returns the maximize button provider.
+     *
+     * @return The maximize button provider.
+     */
     TitlePaneButtonProvider getMaximizeButtonProvider();
 }

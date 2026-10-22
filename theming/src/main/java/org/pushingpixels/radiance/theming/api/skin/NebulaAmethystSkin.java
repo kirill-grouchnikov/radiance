@@ -52,7 +52,10 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 		return NAME;
 	}
 
-	public NebulaAmethystSkin() {
+     /**
+      * Constructs a {@code NebulaAmethystSkin}.
+      */
+     public NebulaAmethystSkin() {
 		super(new AccentBuilder()
 			.withHeaderAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(
 				/* seed */ Hct.fromInt(0xFFC2A9EF),

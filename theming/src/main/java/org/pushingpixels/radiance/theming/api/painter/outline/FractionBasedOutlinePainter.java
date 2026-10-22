@@ -89,6 +89,11 @@ public class FractionBasedOutlinePainter extends FractionBasedPainter
 		super(displayName, fractions, alphas, colorQueries);
 	}
 
+    /**
+     * Sets the stroke width.
+     *
+     * @param strokeWidth The stroke width.
+     */
     public void setStrokeWidth(float strokeWidth) {
         if (strokeWidth <= 0.0f) {
             throw new IllegalArgumentException("Unsupported stroke width " + strokeWidth);

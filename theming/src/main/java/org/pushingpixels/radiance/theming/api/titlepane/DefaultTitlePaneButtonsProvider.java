@@ -38,14 +38,39 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Default implementation of {@link TitlePaneButtonsProvider}.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider {
     private static DefaultTitlePaneButtonsProvider INSTANCE = new DefaultTitlePaneButtonsProvider();
 
+    /**
+     * Constructs a {@code DefaultTitlePaneButtonsProvider}.
+     */
+    public DefaultTitlePaneButtonsProvider() {
+    }
+
+    /**
+     * Returns the singleton instance.
+     *
+     * @return The singleton instance.
+     */
     public static DefaultTitlePaneButtonsProvider getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * Default close button provider.
+     */
     public static class DefaultCloseButtonProvider implements TitlePaneButtonProvider {
+        /**
+         * Constructs a {@code DefaultCloseButtonProvider}.
+         */
+        public DefaultCloseButtonProvider() {
+        }
         @Override
         public String getText(JRootPane rootPane) {
             if ((rootPane != null) && RadianceCoreUtilities.isRootPaneModified(rootPane)) {
@@ -71,7 +96,16 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         return new DefaultCloseButtonProvider();
     }
 
+    /**
+     * Default restore button provider.
+     */
     public static class DefaultRestoreButtonProvider implements TitlePaneButtonProvider {
+        /**
+         * Constructs a {@code DefaultRestoreButtonProvider}.
+         */
+        public DefaultRestoreButtonProvider() {
+        }
+
         @Override
         public String getText(JRootPane rootPane) {
             return RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.restore");
@@ -88,7 +122,16 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         return new DefaultRestoreButtonProvider();
     }
 
+    /**
+     * Default iconify button provider.
+     */
     public static class DefaultIconifyButtonProvider implements TitlePaneButtonProvider {
+        /**
+         * Constructs a {@code DefaultIconifyButtonProvider}.
+         */
+        public DefaultIconifyButtonProvider() {
+        }
+
         @Override
         public String getText(JRootPane rootPane) {
             return RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.iconify");
@@ -105,7 +148,16 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         return new DefaultIconifyButtonProvider();
     }
 
+    /**
+     * Default maximize button provider.
+     */
     public static class DefaultMaximizeButtonProvider implements TitlePaneButtonProvider {
+        /**
+         * Constructs a {@code DefaultMaximizeButtonProvider}.
+         */
+        public DefaultMaximizeButtonProvider() {
+        }
+
         @Override
         public String getText(JRootPane rootPane) {
             return RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.maximize");

@@ -52,6 +52,9 @@ public class BusinessSkin extends BusinessAccentedSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code BusinessSkin}.
+     */
     public BusinessSkin() {
         super(new AccentBuilder()
             .withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(

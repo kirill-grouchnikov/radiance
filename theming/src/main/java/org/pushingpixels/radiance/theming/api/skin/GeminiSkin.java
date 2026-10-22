@@ -62,6 +62,9 @@ public class GeminiSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code GeminiSkin}.
+     */
     public GeminiSkin() {
         // Same seed for active and muted
         ContainerColorTokens geminiDefaultActiveTokens = ContainerColorTokensUtils.getContainerTokens(

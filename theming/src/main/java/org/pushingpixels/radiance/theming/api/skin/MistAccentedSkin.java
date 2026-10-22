@@ -52,6 +52,8 @@ import org.pushingpixels.radiance.theming.api.shaper.PillComponentShaper;
 public abstract class MistAccentedSkin extends RadianceSkin.Accented {
 	/**
 	 * Creates a new accented <code>Mist</code> skin.
+	 *
+	 * @param accentBuilder The accent builder.
 	 */
 	protected MistAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);

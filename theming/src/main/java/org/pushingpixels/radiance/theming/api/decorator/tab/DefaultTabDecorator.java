@@ -41,7 +41,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
+/**
+ * Default implementation of {@link RadianceTabDecorator}.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class DefaultTabDecorator implements RadianceTabDecorator {
+    /**
+     * Constructs a {@code DefaultTabDecorator}.
+     */
+    public DefaultTabDecorator() {
+    }
+
     private static final int DELTA_Y = 3;
 
     @Override

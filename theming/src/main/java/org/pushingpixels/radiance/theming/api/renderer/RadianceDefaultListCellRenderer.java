@@ -54,8 +54,10 @@ import java.util.Map;
 @RadianceRenderer
 public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
         implements FilteredIconAwareRenderer {
+    /** The rollover arm amount. */
     protected float rolloverArmAmount;
 
+    /** The active contributions. */
     protected Map<ComponentState, Float> activeContributions = new HashMap<>();
 
     /**

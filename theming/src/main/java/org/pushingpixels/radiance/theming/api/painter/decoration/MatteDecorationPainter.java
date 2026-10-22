@@ -47,6 +47,12 @@ public class MatteDecorationPainter extends RadianceDecorationPainter {
      */
     public static final String DISPLAY_NAME = "Matte";
 
+    /**
+     * Constructs a {@code MatteDecorationPainter}.
+     */
+    public MatteDecorationPainter() {
+    }
+
     private static final int FLEX_POINT = 50;
 
     @Override

@@ -35,47 +35,224 @@ import org.pushingpixels.radiance.theming.internal.utils.filters.ContainerTokens
 
 import java.awt.*;
 
+/**
+ * Interface for container color tokens that define the color palette for a container.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public interface ContainerColorTokens {
+    /**
+     * Returns whether the tokens tracked by this object are in dark configuration (roughly corresponding
+     * to darker surface colors and light content colors).
+     *
+     * @return {@code true} if the tokens configuration is dark.
+     */
     boolean isDark();
 
+    /**
+     * Returns the lowest contrast container surface color.
+     *
+     * @return The lowest contrast container surface color.
+     */
     Color getContainerSurfaceLowest();
+
+    /**
+     * Returns the low contrast container surface color.
+     *
+     * @return The low contrast container surface color.
+     */
     Color getContainerSurfaceLow();
+
+    /**
+     * Returns the container surface color.
+     *
+     * @return The container surface color.
+     */
     Color getContainerSurface();
+
+    /**
+     * Returns the high contrast container surface color.
+     *
+     * @return The high contrast container surface color.
+     */
     Color getContainerSurfaceHigh();
+
+    /**
+     * Returns the highest contrast container surface color.
+     *
+     * @return The highest contrast container surface color.
+     */
     Color getContainerSurfaceHighest();
 
+    /**
+     * Returns the dim container surface color.
+     *
+     * @return The dim container surface color.
+     */
     Color getContainerSurfaceDim();
+
+    /**
+     * Returns the bright container surface color.
+     *
+     * @return The bright container surface color.
+     */
     Color getContainerSurfaceBright();
 
+    /**
+     * Returns the container shadow color.
+     *
+     * @return The container shadow color.
+     */
     Color getContainerShadow();
 
+    /**
+     * Returns the low contrast on-container color.
+     *
+     * @return The low contrast on-container color.
+     */
     Color getOnContainerLow();
+
+    /**
+     * Returns the on-container color.
+     *
+     * @return The on-container color.
+     */
     Color getOnContainer();
+
+    /**
+     * Returns the high contrast on-container color.
+     *
+     * @return The high contrast on-container color.
+     */
     Color getOnContainerHigh();
 
+    /**
+     * Returns the low contrast container outline color.
+     *
+     * @return The low contrast container outline color.
+     */
     Color getContainerOutlineLow();
+
+    /**
+     * Returns the container outline color.
+     *
+     * @return The container outline color.
+     */
     Color getContainerOutline();
+
+    /**
+     * Returns the high contrast container outline color.
+     *
+     * @return The high contrast container outline color.
+     */
     Color getContainerOutlineHigh();
 
+    /**
+     * Returns the alpha for container enabled surfaces.
+     *
+     * @return The alpha for container enabled surfaces.
+     */
     float getContainerSurfaceEnabledAlpha();
+
+    /**
+     * Returns the alpha for enabled on-container colors.
+     *
+     * @return The alpha for enabled on-container colors.
+     */
     float getOnContainerEnabledAlpha();
+
+    /**
+     * Returns the alpha for enabled container outline colors.
+     *
+     * @return The alpha for enabled container outline colors.
+     */
     float getContainerOutlineEnabledAlpha();
 
+    /**
+     * Returns the alpha for container disabled surfaces.
+     *
+     * @return The alpha for container disabled surfaces.
+     */
     float getContainerSurfaceDisabledAlpha();
+
+    /**
+     * Returns the alpha for disabled on-container colors.
+     *
+     * @return The alpha for disabled on-container colors.
+     */
     float getOnContainerDisabledAlpha();
+
+    /**
+     * Returns the alpha for disabled container outline colors.
+     *
+     * @return The alpha for disabled container outline colors.
+     */
     float getContainerOutlineDisabledAlpha();
 
+    /**
+     * Returns the inverse container surface color.
+     *
+     * @return The inverse container surface color.
+     */
     Color getInverseContainerSurface();
+
+    /**
+     * Returns the inverse on-container color.
+     *
+     * @return The inverse on-container color.
+     */
     Color getInverseOnContainer();
+
+    /**
+     * Returns the inverse container outline color.
+     *
+     * @return The inverse container outline color.
+     */
     Color getInverseContainerOutline();
 
+    /**
+     * Returns the complementary on-container color.
+     *
+     * @return The complementary on-container color.
+     */
     Color getComplementaryOnContainer();
+
+    /**
+     * Returns the complementary container outline color.
+     *
+     * @return The complementary container outline color.
+     */
     Color getComplementaryContainerOutline();
 
+    /**
+     * Returns the accent on-container color.
+     *
+     * @return The accent on-container color.
+     */
     Color getAccentOnContainer();
+
+    /**
+     * Returns the marker on-container color.
+     *
+     * @return The marker on-container color.
+     */
     Color getMarkerOnContainer();
+
+    /**
+     * Returns the complementary marker on-container color.
+     *
+     * @return The complementary marker on-container color.
+     */
     Color getComplementaryMarkerOnContainer();
 
+    /**
+     * Returns a color filter based on the container color tokens.
+     *
+     * @param brightnessFactor The brightness factor.
+     * @param alpha            The alpha value.
+     * @return A color filter.
+     */
     default RadianceIcon.ColorFilter getColorFilter(float brightnessFactor, float alpha) {
         ContainerColorTokens origin = this;
         return color -> {

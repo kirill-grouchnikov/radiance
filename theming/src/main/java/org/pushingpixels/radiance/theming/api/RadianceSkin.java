@@ -75,55 +75,108 @@ public abstract class RadianceSkin implements RadianceTrait {
             private ContainerColorTokens headerAreaNeutralTokens;
             private ContainerColorTokens headerAreaHighlightTokens;
 
+            /**
+             * Constructs an {@code AccentBuilder}.
+             */
             public AccentBuilder() {
                 this.defaultAreaPaletteColorResolver = TokenPaletteColorResolverUtils.getPaletteColorResolver();
             }
 
+            /**
+             * Sets the default area palette color resolver.
+             * @param defaultAreaPaletteColorResolver The palette color resolver.
+             * @return This builder.
+             */
             public AccentBuilder withDefaultAreaPaletteColorResolver(TokenPaletteColorResolver defaultAreaPaletteColorResolver) {
                 this.defaultAreaPaletteColorResolver = defaultAreaPaletteColorResolver;
                 return this;
             }
 
+            /**
+             * Sets the default area active tokens.
+             * @param defaultAreaActiveTokens The active tokens.
+             * @return This builder.
+             */
             public AccentBuilder withDefaultAreaActiveTokens(ContainerColorTokens defaultAreaActiveTokens) {
                 this.defaultAreaActiveTokens = defaultAreaActiveTokens;
                 return this;
             }
 
+            /**
+             * Sets the default area muted tokens.
+             * @param defaultAreaMutedTokens The muted tokens.
+             * @return This builder.
+             */
             public AccentBuilder withDefaultAreaMutedTokens(ContainerColorTokens defaultAreaMutedTokens) {
                 this.defaultAreaMutedTokens = defaultAreaMutedTokens;
                 return this;
             }
 
+            /**
+             * Sets the default area neutral tokens.
+             * @param defaultAreaNeutralTokens The neutral tokens.
+             * @return This builder.
+             */
             public AccentBuilder withDefaultAreaNeutralTokens(ContainerColorTokens defaultAreaNeutralTokens) {
                 this.defaultAreaNeutralTokens = defaultAreaNeutralTokens;
                 return this;
             }
 
+            /**
+             * Sets the default area highlight tokens.
+             * @param defaultAreaHighlightTokens The highlight tokens.
+             * @return This builder.
+             */
             public AccentBuilder withDefaultAreaHighlightTokens(ContainerColorTokens defaultAreaHighlightTokens) {
                 this.defaultAreaHighlightTokens = defaultAreaHighlightTokens;
                 return this;
             }
 
+            /**
+             * Sets the default area selected tokens.
+             * @param defaultAreaSelectedTokens The selected tokens.
+             * @return This builder.
+             */
             public AccentBuilder withDefaultAreaSelectedTokens(ContainerColorTokens defaultAreaSelectedTokens) {
                 this.defaultAreaSelectedTokens = defaultAreaSelectedTokens;
                 return this;
             }
 
+            /**
+             * Sets the header area active tokens.
+             * @param headerAreaActiveTokens The active tokens.
+             * @return This builder.
+             */
             public AccentBuilder withHeaderAreaActiveTokens(ContainerColorTokens headerAreaActiveTokens) {
                 this.headerAreaActiveTokens = headerAreaActiveTokens;
                 return this;
             }
 
+            /**
+             * Sets the header area muted tokens.
+             * @param headerAreaMutedTokens The muted tokens.
+             * @return This builder.
+             */
             public AccentBuilder withHeaderAreaMutedTokens(ContainerColorTokens headerAreaMutedTokens) {
                 this.headerAreaMutedTokens = headerAreaMutedTokens;
                 return this;
             }
 
+            /**
+             * Sets the header area neutral tokens.
+             * @param headerAreaNeutralTokens The neutral tokens.
+             * @return This builder.
+             */
             public AccentBuilder withHeaderAreaNeutralTokens(ContainerColorTokens headerAreaNeutralTokens) {
                 this.headerAreaNeutralTokens = headerAreaNeutralTokens;
                 return this;
             }
 
+            /**
+             * Sets the header area highlight tokens.
+             * @param headerAreaHighlightTokens The highlight tokens.
+             * @return This builder.
+             */
             public AccentBuilder withHeaderAreaHighlightTokens(ContainerColorTokens headerAreaHighlightTokens) {
                 this.headerAreaHighlightTokens = headerAreaHighlightTokens;
                 return this;
@@ -141,6 +194,11 @@ public abstract class RadianceSkin implements RadianceTrait {
         private final ContainerColorTokens headerAreaNeutralTokens;
         private final ContainerColorTokens headerAreaHighlightTokens;
 
+        /**
+         * Constructs an {@code Accented} skin with the specified accent builder.
+         *
+         * @param accentBuilder The accent builder.
+         */
         protected Accented(AccentBuilder accentBuilder) {
             this.defaultAreaPaletteColorResolver = accentBuilder.defaultAreaPaletteColorResolver;
             this.defaultAreaActiveTokens = accentBuilder.defaultAreaActiveTokens;
@@ -154,42 +212,82 @@ public abstract class RadianceSkin implements RadianceTrait {
             this.headerAreaHighlightTokens = accentBuilder.headerAreaHighlightTokens;
         }
 
+        /**
+         * Returns the default area palette color resolver.
+         * @return The default area palette color resolver.
+         */
         public TokenPaletteColorResolver getDefaultAreaPaletteColorResolver() {
             return this.defaultAreaPaletteColorResolver;
         }
 
+        /**
+         * Returns the default area active tokens.
+         * @return The default area active tokens.
+         */
         public ContainerColorTokens getDefaultAreaActiveTokens() {
             return this.defaultAreaActiveTokens;
         }
 
+        /**
+         * Returns the default area muted tokens.
+         * @return The default area muted tokens.
+         */
         public ContainerColorTokens getDefaultAreaMutedTokens() {
             return this.defaultAreaMutedTokens;
         }
 
+        /**
+         * Returns the default area neutral tokens.
+         * @return The default area neutral tokens.
+         */
         public ContainerColorTokens getDefaultAreaNeutralTokens() {
             return this.defaultAreaNeutralTokens;
         }
 
+        /**
+         * Returns the default area highlight tokens.
+         * @return The default area highlight tokens.
+         */
         public ContainerColorTokens getDefaultAreaHighlightTokens() {
             return this.defaultAreaHighlightTokens;
         }
 
+        /**
+         * Returns the default area selected tokens.
+         * @return The default area selected tokens.
+         */
         public ContainerColorTokens getDefaultAreaSelectedTokens() {
             return this.defaultAreaSelectedTokens;
         }
 
+        /**
+         * Returns the header area active tokens.
+         * @return The header area active tokens.
+         */
         public ContainerColorTokens getHeaderAreaActiveTokens() {
             return this.headerAreaActiveTokens;
         }
 
+        /**
+         * Returns the header area muted tokens.
+         * @return The header area muted tokens.
+         */
         public ContainerColorTokens getHeaderAreaMutedTokens() {
             return this.headerAreaMutedTokens;
         }
 
+        /**
+         * Returns the header area neutral tokens.
+         * @return The header area neutral tokens.
+         */
         public ContainerColorTokens getHeaderAreaNeutralTokens() {
             return this.headerAreaNeutralTokens;
         }
 
+        /**
+         * Returns the header area highlight tokens.
+         * @return The header area highlight tokens.
+         */
         public ContainerColorTokens getHeaderAreaHighlightTokens() {
             return this.headerAreaHighlightTokens;
         }
@@ -698,6 +796,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     /**
      * Returns the component shaper for the specified decoration area type.
      *
+     * @param decorationAreaType The decoration area type.
      * @return The component shaper for the specified decoration area type. A valid skin cannot have a
      * <code>null</code> value returned from this method. Call {@link #isValid()} to verify that
      * the skin is valid.

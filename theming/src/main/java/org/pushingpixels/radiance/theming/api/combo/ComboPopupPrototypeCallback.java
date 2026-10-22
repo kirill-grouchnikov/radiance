@@ -35,6 +35,7 @@ import javax.swing.*;
  * Interface for specifying a prototype entry for a combo popup. This class is
  * part of officially supported API.
  * 
+ * @param <T> The type of the combo box elements.
  * @author Kirill Grouchnikov
  */
 @FunctionalInterface

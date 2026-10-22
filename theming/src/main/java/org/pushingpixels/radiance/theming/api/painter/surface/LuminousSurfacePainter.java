@@ -53,6 +53,9 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
     private float alpha;
     private ContainerColorTokensSingleColorQuery lightSourceQuery;
 
+    /**
+     * Constructs a {@code LuminousSurfacePainter} with default parameters.
+     */
     public LuminousSurfacePainter() {
         this(new MatteSurfacePainter(),
             (colorTokens) -> colorTokens.isDark()
@@ -61,6 +64,13 @@ public class LuminousSurfacePainter implements RadianceSurfacePainter {
             1.0f);
     }
 
+    /**
+     * Constructs a {@code LuminousSurfacePainter} with the specified parameters.
+     *
+     * @param baseSurfacePainter The base surface painter.
+     * @param lightSourceQuery   The light source query.
+     * @param alpha              The alpha value.
+     */
     public LuminousSurfacePainter(RadianceSurfacePainter baseSurfacePainter,
         ContainerColorTokensSingleColorQuery lightSourceQuery, float alpha) {
         this.baseSurfacePainter = baseSurfacePainter;

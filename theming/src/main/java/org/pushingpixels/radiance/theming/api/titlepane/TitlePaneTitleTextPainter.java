@@ -33,7 +33,22 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokens;
 
 import java.awt.*;
 
+/**
+ * Interface for painting title text in title panes.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public interface TitlePaneTitleTextPainter {
+    /**
+     * Paints the title text.
+     *
+     * @param g               The graphics context.
+     * @param scaleFactor     The scale factor.
+     * @param tokens          The color tokens.
+     * @param text            The text to paint.
+     * @param textRectangle   The rectangle for the text.
+     */
     void paintTitleText(Graphics g, double scaleFactor, ContainerColorTokens tokens,
             String text, Rectangle textRectangle);
 }

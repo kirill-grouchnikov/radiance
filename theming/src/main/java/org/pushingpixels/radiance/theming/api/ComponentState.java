@@ -413,6 +413,7 @@ public final class ComponentState {
      *                     {@link #DISABLED_UNSELECTED} should pass both
      *                     {@link RadianceThemingSlices.ComponentStateFacet#ENABLE} and
      *                     {@link RadianceThemingSlices.ComponentStateFacet#SELECTION}.
+     * @param enabledMatch The enabled match state.
      */
     public ComponentState(String name, ComponentState hardFallback, ComponentState enabledMatch,
             RadianceThemingSlices.ComponentStateFacet[] facetsOn, RadianceThemingSlices.ComponentStateFacet[] facetsOff) {
@@ -524,6 +525,11 @@ public final class ComponentState {
         return Collections.synchronizedSet(allStates).toArray(new ComponentState[0]);
     }
 
+    /**
+     * Returns whether this state is active.
+     *
+     * @return {@code true} if this state is active.
+     */
     public boolean isActive() {
         if (this == ComponentState.ENABLED) {
             return false;
@@ -641,6 +647,13 @@ public final class ComponentState {
         return ENABLED;
     }
 
+    /**
+     * Retrieves component state based on the tri-state button model.
+     *
+     * @param model              Tri-state button model.
+     * @param toIgnoreSelection  If {@code true}, the selection state will not be checked.
+     * @return The matching component state.
+     */
     public static ComponentState getState(TriStateButtonModel model, boolean toIgnoreSelection) {
         TriStateButtonModel.SelectionState selectionState = model.getSelectionState();
 
@@ -744,6 +757,12 @@ public final class ComponentState {
         return value;
     }
 
+    /**
+     * Finds the best matching state from the given collection.
+     *
+     * @param states The collection of states to search.
+     * @return The best matching state, or {@code null} if no match is found.
+     */
     public ComponentState bestFit(Collection<ComponentState> states) {
         ComponentState bestFit = null;
         int bestFitValue = 0;
@@ -769,10 +788,20 @@ public final class ComponentState {
         return null;
     }
 
+    /**
+     * Returns the hard fallback state.
+     *
+     * @return The hard fallback state.
+     */
     public ComponentState getHardFallback() {
         return this.hardFallback;
     }
 
+    /**
+     * Returns the enabled match state.
+     *
+     * @return The enabled match state.
+     */
     public ComponentState getEnabledMatch() {
         return this.enabledMatch;
     }

@@ -49,6 +49,9 @@ public class DustSkin extends DustAccentedSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code DustSkin}.
+	 */
 	public DustSkin() {
 		super(new AccentBuilder()
 			.withDefaultAreaActiveTokens(ContainerColorTokensUtils.getContainerTokens(

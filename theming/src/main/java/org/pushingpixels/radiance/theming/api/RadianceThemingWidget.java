@@ -34,6 +34,7 @@ import javax.swing.*;
 /**
  * Interface for Radiance widgets (behavioral traits).
  * 
+ * @param <T> The type of the associated component.
  * @author Kirill Grouchnikov
  */
 public abstract class RadianceThemingWidget<T extends JComponent> {

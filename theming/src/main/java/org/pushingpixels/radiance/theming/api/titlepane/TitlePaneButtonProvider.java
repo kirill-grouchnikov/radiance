@@ -35,19 +35,38 @@ import org.pushingpixels.radiance.theming.api.ContainerColorTokensOverlay;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Interface for providing title pane buttons.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public interface TitlePaneButtonProvider {
     /**
      * Returns the text associated with this button. This is used as the button tooltip, as well
      * as the menu item text in the menu displayed when the user clicks on the application icon
      * in the title pane.
+     *
+     * @param rootPane The root pane.
+     * @return The text associated with this button.
      */
     String getText(JRootPane rootPane);
 
     /**
      * Draws the icon for this button.
+     *
+     * @param g             The graphics context.
+     * @param colorTokens   The color tokens.
+     * @param alpha         The alpha value.
+     * @param iconSize      The icon size.
      */
     void drawIcon(Graphics2D g, ContainerColorTokens colorTokens, float alpha, int iconSize);
 
+    /**
+     * Returns the container color tokens overlay provider.
+     *
+     * @return The container color tokens overlay provider, or {@code null} if none.
+     */
     default ContainerColorTokensOverlay.Provider getContainerColorTokensOverlayProvider() {
         return null;
     }

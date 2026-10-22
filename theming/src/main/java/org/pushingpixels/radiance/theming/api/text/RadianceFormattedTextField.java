@@ -41,25 +41,54 @@ import java.text.Format;
  * visuals under different Radiance skins and decoration area types.
  */
 public class RadianceFormattedTextField extends JFormattedTextField {
+    /**
+     * Constructs a {@code RadianceFormattedTextField}.
+     */
     public RadianceFormattedTextField() {
     }
 
+    /**
+     * Constructs a {@code RadianceFormattedTextField} with the specified value.
+     *
+     * @param value The value.
+     */
     public RadianceFormattedTextField(Object value) {
         super(value);
     }
 
+    /**
+     * Constructs a {@code RadianceFormattedTextField} with the specified format.
+     *
+     * @param format The format.
+     */
     public RadianceFormattedTextField(Format format) {
         super(format);
     }
 
+    /**
+     * Constructs a {@code RadianceFormattedTextField} with the specified formatter.
+     *
+     * @param formatter The formatter.
+     */
     public RadianceFormattedTextField(AbstractFormatter formatter) {
         super(formatter);
     }
 
+    /**
+     * Constructs a {@code RadianceFormattedTextField} with the specified factory.
+     *
+     * @param factory The factory.
+     */
     public RadianceFormattedTextField(AbstractFormatterFactory factory) {
         super(factory);
     }
 
+    /**
+     * Constructs a {@code RadianceFormattedTextField} with the specified factory and current value.
+     *
+     * @param factory        The factory.
+     * @param currentValue   The current value.
+     */
     public RadianceFormattedTextField(AbstractFormatterFactory factory, Object currentValue) {
         super(factory, currentValue);
     }

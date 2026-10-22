@@ -41,6 +41,12 @@ import org.pushingpixels.radiance.theming.internal.svg.*;
  */
 public class RadianceDefaultIconPack implements RadianceIconPack {
 
+    /**
+     * Constructs a {@code RadianceDefaultIconPack}.
+     */
+    public RadianceDefaultIconPack() {
+    }
+
     @Override
     public RadianceIcon getOptionPaneInformationIcon(int preferredSize,
         ContainerColorTokens preferredIconColorTokens) {

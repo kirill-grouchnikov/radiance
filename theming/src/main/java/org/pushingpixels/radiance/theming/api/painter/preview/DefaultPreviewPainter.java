@@ -43,6 +43,12 @@ import java.awt.image.BufferedImage;
  * @author Kirill Grouchnikov
  */
 public class DefaultPreviewPainter extends PreviewPainter {
+    /**
+     * Constructs a {@code DefaultPreviewPainter}.
+     */
+    public DefaultPreviewPainter() {
+    }
+
     @Override
     public boolean hasPreview(Container parent, Component component, int componentIndex) {
         return (component != null);

@@ -50,18 +50,38 @@ public class RadianceDecorators {
 
     private RadianceDecorators() {}
 
+    /**
+     * Returns the root pane decorator.
+     *
+     * @return The root pane decorator.
+     */
     public RadianceRootPaneDecorator getRootPaneDecorator() {
         return this.rootPaneDecorator;
     }
 
+    /**
+     * Returns the tab decorator.
+     *
+     * @return The tab decorator.
+     */
     public RadianceTabDecorator getTabDecorator() {
         return this.tabDecorator;
     }
 
+    /**
+     * Returns a builder for {@code RadianceDecorators}.
+     *
+     * @return A new builder instance.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Builds the default decorators.
+     *
+     * @return The default decorators.
+     */
     public static RadianceDecorators buildDefault() {
         RadianceDecorators result = new RadianceDecorators();
         result.rootPaneDecorator = new DefaultRootPaneDecorator();
@@ -69,12 +89,21 @@ public class RadianceDecorators {
         return result;
     }
 
+    /**
+     * Builder for {@link RadianceDecorators}.
+     */
     public static final class Builder {
         private RadianceRootPaneDecorator rootPaneDecorator;
         private RadianceTabDecorator tabDecorator;
 
         private Builder() {}
 
+        /**
+         * Sets the root pane decorator.
+         *
+         * @param rootPaneDecorator The root pane decorator.
+         * @return This builder.
+         */
         public Builder withRootPaneDecorator(RadianceRootPaneDecorator rootPaneDecorator) {
             if (rootPaneDecorator == null) {
                 throw new IllegalArgumentException("Cannot have a null root pane decorator");
@@ -83,6 +112,12 @@ public class RadianceDecorators {
             return this;
         }
 
+        /**
+         * Sets the tab decorator.
+         *
+         * @param tabDecorator The tab decorator.
+         * @return This builder.
+         */
         public Builder withTabDecorator(RadianceTabDecorator tabDecorator) {
             if (tabDecorator == null) {
                 throw new IllegalArgumentException("Cannot have a null tab decorator");
@@ -91,6 +126,11 @@ public class RadianceDecorators {
             return this;
         }
 
+        /**
+         * Builds the {@code RadianceDecorators}.
+         *
+         * @return The built decorators.
+         */
         public RadianceDecorators build() {
             RadianceDecorators result = new RadianceDecorators();
             result.rootPaneDecorator = this.rootPaneDecorator;

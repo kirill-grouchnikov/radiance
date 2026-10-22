@@ -51,6 +51,9 @@ public class GraphiteElectricSkin extends GraphiteAccentedSkin {
 		return NAME;
 	}
 
+	/**
+	 * Constructs a {@code GraphiteElectricSkin}.
+	 */
 	public GraphiteElectricSkin() {
 		super(new AccentBuilder()
 			.withDefaultAreaSelectedTokens(ContainerColorTokensUtils.getContainerTokens(

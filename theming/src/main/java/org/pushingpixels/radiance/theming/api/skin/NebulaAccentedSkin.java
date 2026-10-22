@@ -60,6 +60,8 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 
 	/**
 	 * Creates a new accented <code>Nebula</code> skin.
+	 *
+	 * @param accentBuilder The accent builder.
 	 */
 	protected NebulaAccentedSkin(AccentBuilder accentBuilder) {
 		super(accentBuilder);

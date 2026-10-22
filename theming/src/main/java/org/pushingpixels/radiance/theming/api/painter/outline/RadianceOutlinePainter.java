@@ -49,8 +49,14 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public interface RadianceOutlinePainter extends RadianceTrait {
+    /**
+     * The kind of inset.
+     */
     enum InsetKind {
-        SURFACE, CONTENT
+        /** Surface inset. */
+        SURFACE,
+        /** Content inset. */
+        CONTENT
     }
 
     /**
@@ -74,6 +80,12 @@ public interface RadianceOutlinePainter extends RadianceTrait {
     void paintOutline(Graphics g, Component c, float width, float height, double scaleFactor,
         RadianceComponentShaper.ShapeSupplier shapeSupplier, ContainerColorTokens colorTokens);
 
+    /**
+     * Returns the outline inset for the specified kind.
+     *
+     * @param insetKind The inset kind.
+     * @return The outline inset.
+     */
     float getOutlineInset(InsetKind insetKind);
 
     /**
@@ -108,8 +120,14 @@ public interface RadianceOutlinePainter extends RadianceTrait {
      * A composite overlay that chains one or more outline painter overlays.
      */
     class CompositeOverlay implements Overlay {
+        /** The overlays. */
         private Overlay[] overlays;
 
+        /**
+         * Constructs a {@code CompositeOverlay} with the specified overlays.
+         *
+         * @param overlays The overlays.
+         */
         public CompositeOverlay(Overlay... overlays) {
             this.overlays = new Overlay[overlays.length];
             System.arraycopy(overlays, 0, this.overlays, 0, overlays.length);
