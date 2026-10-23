@@ -45,6 +45,12 @@ public class RibbonApplicationMenuCommand extends BaseCommand<RibbonApplicationM
             RibbonApplicationMenu,
             RibbonApplicationMenuCommand.Builder> {
         /**
+         * Constructs a new {@link Builder} instance.
+         */
+        public Builder() {
+        }
+
+        /**
          * Builds a ribbon application menu command from this builder.
          *
          * @return Command.

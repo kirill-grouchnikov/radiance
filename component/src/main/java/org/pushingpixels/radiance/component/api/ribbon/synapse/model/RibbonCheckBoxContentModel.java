@@ -121,6 +121,12 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
     }
 
     public static class Builder {
+        /**
+         * Constructs a new {@link Builder} instance.
+         */
+        public Builder() {
+        }
+
         private boolean isEnabled = true;
         private RadianceIcon.Factory iconFactory;
         private String caption;
