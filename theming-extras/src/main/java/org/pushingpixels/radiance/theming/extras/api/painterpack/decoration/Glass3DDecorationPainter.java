@@ -42,10 +42,16 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class Glass3DDecorationPainter extends RadianceDecorationPainter {
-    /**
-     * The display name for the decoration painters of this class.
-     */
-    private static final String DISPLAY_NAME = "Glass 3D";
+	/**
+	 * Constructs a {@code Glass3DDecorationPainter}.
+	 */
+	public Glass3DDecorationPainter() {
+	}
+
+	/**
+	 * The display name for the decoration painters of this class.
+	 */
+	private static final String DISPLAY_NAME = "Glass 3D";
 
     @Override
     public String getDisplayName() {

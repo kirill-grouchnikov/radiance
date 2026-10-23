@@ -61,6 +61,9 @@ public class OfficeBlue2007Skin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code OfficeBlue2007Skin}.
+     */
     public OfficeBlue2007Skin() {
         // For active containers, use softer outline colors.
         // Also use higher alpha values for outlines of disabled controls.

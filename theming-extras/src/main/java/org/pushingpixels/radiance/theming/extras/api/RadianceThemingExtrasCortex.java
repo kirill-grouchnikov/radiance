@@ -42,11 +42,23 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class RadianceThemingExtrasCortex {
-    /**
-     * APIs in this scope apply to individual application {@link Component}s.
-     */
-    public static final class ComponentScope {
-        /**
+	/**
+	 * Constructs a {@code RadianceThemingExtrasCortex}.
+	 */
+	private RadianceThemingExtrasCortex() {
+	}
+
+	/**
+	 * APIs in this scope apply to individual application {@link Component}s.
+	 */
+	public static final class ComponentScope {
+		/**
+		 * Constructs a {@code ComponentScope}.
+		 */
+		private ComponentScope() {
+		}
+
+		/**
          * Sets the tab preview painter to be used for all tabs of the specified tabbed pane.
          * 
          * @param tabbedPane

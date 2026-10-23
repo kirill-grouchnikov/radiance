@@ -61,6 +61,9 @@ public class StreetlightsSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code StreetlightsSkin}.
+     */
     public StreetlightsSkin() {
         ContainerColorTokens streetlightsDefaultMutedTokens = ContainerColorTokensUtils.getDuotoneContainerTokens(
             /* seedContainer */ Hct.fromInt(0xFF052914),

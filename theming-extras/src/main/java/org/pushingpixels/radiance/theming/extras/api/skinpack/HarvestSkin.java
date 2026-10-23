@@ -63,6 +63,9 @@ public class HarvestSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code HarvestSkin}.
+     */
     public HarvestSkin() {
         ContainerColorTokensBundle harvestDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

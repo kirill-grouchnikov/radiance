@@ -59,6 +59,9 @@ public class MagmaSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code MagmaSkin}.
+     */
     public MagmaSkin() {
         ContainerColorTokensBundle magmaDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

@@ -46,17 +46,26 @@ import java.beans.PropertyChangeListener;
  * @author Kirill Grouchnikov
  */
 public class TabPagerWidget extends RadianceThemingWidget<JTabbedPane> {
-    /**
-     * Mouse wheel listener for Ctrl paging (from version 2.1).
-     */
-    protected MouseWheelListener mouseWheelListener;
+	/**
+	 * Constructs a {@code TabPagerWidget}.
+	 */
+	public TabPagerWidget() {
+	}
 
-    /**
-     * Mouse listener for Ctrl paging (from version 2.1).
-     */
-    protected MouseListener mouseListener;
+	/**
+	 * Mouse wheel listener for Ctrl paging (from version 2.1).
+	 */
+	protected MouseWheelListener mouseWheelListener;
 
-    protected PropertyChangeListener propertyChangeListener;
+	/**
+	 * Mouse listener for Ctrl paging (from version 2.1).
+	 */
+	protected MouseListener mouseListener;
+
+	/**
+	 * Listens for property changes on the tabbed pane.
+	 */
+	protected PropertyChangeListener propertyChangeListener;
 
     @Override
     public void installUI() {

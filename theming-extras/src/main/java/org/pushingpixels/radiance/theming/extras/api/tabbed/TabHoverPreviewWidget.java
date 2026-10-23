@@ -46,16 +46,28 @@ import java.awt.event.MouseMotionListener;
  */
 public class TabHoverPreviewWidget extends RadianceThemingWidget<JTabbedPane> {
 	/**
+	 * Constructs a {@code TabHoverPreviewWidget}.
+	 */
+	public TabHoverPreviewWidget() {
+	}
+
+	/**
 	 * Mouse listener for rollover effects.
 	 */
 	protected MouseRolloverHandler baseRolloverHandler;
 
 	/**
 	 * Mouse listener for rollover effects.
-	 * 
+	 *
 	 * @author Kirill Grouchnikov
 	 */
 	protected class MouseRolloverHandler implements MouseListener, MouseMotionListener {
+		/**
+		 * Constructs a {@code MouseRolloverHandler}.
+		 */
+		protected MouseRolloverHandler() {
+		}
+
 		/**
 		 * Index of previously rolled-over tab.
 		 */

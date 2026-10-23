@@ -61,6 +61,9 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code OfficeBlack2007Skin}.
+     */
     public OfficeBlack2007Skin() {
         // Set up token resolution overlays for all containers:
         // 1. Outlines with additional alpha to make them softer.

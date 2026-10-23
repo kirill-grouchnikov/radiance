@@ -43,6 +43,12 @@ import java.awt.image.BufferedImage;
  * @author Kirill Grouchnikov
  */
 public class DefaultTabPreviewPainter extends TabPreviewPainter {
+	/**
+	 * Constructs a {@code DefaultTabPreviewPainter}.
+	 */
+	public DefaultTabPreviewPainter() {
+	}
+
 	@Override
 	public boolean hasPreview(JTabbedPane tabPane, int tabIndex) {
 		return (tabPane.getComponentAt(tabIndex) != null);

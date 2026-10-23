@@ -62,6 +62,9 @@ public class FieldOfWheatSkin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code FieldOfWheatSkin}.
+     */
     public FieldOfWheatSkin() {
         ContainerColorTokensBundle fieldOfWheatDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(

@@ -42,6 +42,12 @@ import java.awt.image.BufferedImage;
  */
 public abstract class TabPreviewPainter {
 	/**
+	 * Constructs a {@code TabPreviewPainter}.
+	 */
+	public TabPreviewPainter() {
+	}
+
+	/**
 	 * Draws a tab preview on the specified graphics.
 	 * 
 	 * @param tabPane

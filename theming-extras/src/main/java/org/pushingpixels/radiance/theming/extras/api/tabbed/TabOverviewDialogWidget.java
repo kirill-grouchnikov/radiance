@@ -49,10 +49,16 @@ import java.beans.PropertyChangeListener;
  * @author Kirill Grouchnikov
  */
 public class TabOverviewDialogWidget extends RadianceThemingWidget<JTabbedPane> {
-    /**
-     * Tab overview button.
-     */
-    protected TabOverviewButton overviewButton;
+	/**
+	 * Constructs a {@code TabOverviewDialogWidget}.
+	 */
+	public TabOverviewDialogWidget() {
+	}
+
+	/**
+	 * Tab overview button.
+	 */
+	protected TabOverviewButton overviewButton;
 
     /**
      * Listens on changes to relevant tabbed pane properties.

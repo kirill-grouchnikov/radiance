@@ -29,9 +29,21 @@
  */
 package org.pushingpixels.radiance.theming.extras.api;
 
+/**
+ * Additional configuration slices for Radiance Theming Extras.
+ * This class is part of officially supported API.
+ *
+ * @author Kirill Grouchnikov
+ */
 public class RadianceExtrasSlices {
-    /**
-     * Enumerates all available kinds of tab overview dialog.
+	/**
+	 * Constructs a {@code RadianceExtrasSlices}.
+	 */
+	private RadianceExtrasSlices() {
+	}
+
+	/**
+	 * Enumerates all available kinds of tab overview dialog.
      * 
      * @author Kirill Grouchnikov
      */

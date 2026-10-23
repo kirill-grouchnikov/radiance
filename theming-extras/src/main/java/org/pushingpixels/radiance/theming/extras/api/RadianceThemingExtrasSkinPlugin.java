@@ -42,7 +42,13 @@ import java.util.Set;
  * @author Kirill Grouchnikov.
  */
 public class RadianceThemingExtrasSkinPlugin implements RadianceThemingSkinPlugin {
-    @Override
+	/**
+	 * Constructs a {@code RadianceThemingExtrasSkinPlugin}.
+	 */
+	public RadianceThemingExtrasSkinPlugin() {
+	}
+
+	@Override
     public Set<SkinInfo> getSkins() {
         Set<SkinInfo> result = new HashSet<>();
         result.add(new SkinInfo(FieldOfWheatSkin.NAME, FieldOfWheatSkin.class::getName,

@@ -61,6 +61,9 @@ public class OfficeSilver2007Skin extends RadianceSkin {
         return NAME;
     }
 
+    /**
+     * Constructs a {@code OfficeSilver2007Skin}.
+     */
     public OfficeSilver2007Skin() {
         ContainerColorTokensBundle officeSilverDefaultBundle = new ContainerColorTokensBundle(
             /* activeContainerTokens */ ContainerColorTokensUtils.getContainerTokens(
