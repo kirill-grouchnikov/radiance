@@ -41,8 +41,27 @@ import java.io.Writer;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Base Gradle task for SVG transcoding.
+ * <p>
+ * Provides the common logic for iterating over SVG files in a folder and transcoding
+ * each one using the {@link org.pushingpixels.radiance.tools.svgtranscoder.api.SvgTranscoder}.
+ *
+ * @author Kirill Grouchnikov.
+ */
 @CacheableTask
 public abstract class TranscodeBaseTask extends DefaultTask {
+    /**
+     * Transcodes all SVG files in the specified input folder.
+     *
+     * @param inputFolder               Folder containing the SVG files.
+     * @param outputFolder              Folder where the transcoded files will be written.
+     * @param outputClassNamePrefix     Prefix for the generated class names.
+     * @param outputFileNameExtension   File extension for the generated files.
+     * @param outputPackageName         Package name for the generated classes.
+     * @param languageRenderer          Language renderer for the target language.
+     * @param templateFileName          Path to the template resource file.
+     */
     protected void transcodeAllFilesInFolder(File inputFolder, File outputFolder,
             String outputClassNamePrefix, String outputFileNameExtension,
             String outputPackageName, LanguageRenderer languageRenderer,

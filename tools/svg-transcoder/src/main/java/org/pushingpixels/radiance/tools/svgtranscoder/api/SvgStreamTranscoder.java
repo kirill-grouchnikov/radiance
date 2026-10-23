@@ -40,7 +40,18 @@ import java.io.*;
  * @author Kirill Grouchnikov.
  */
 public class SvgStreamTranscoder extends SvgBaseTranscoder {
+    /**
+     * A Batik {@link SVGAbstractTranscoder} subclass that exposes the built GVT root.
+     * <p>
+     * Used internally to transcode an SVG input stream into a graphics vector tree
+     * before the main transcoder processes it.
+     */
     public static class RawTranscoder extends SVGAbstractTranscoder {
+        /**
+         * Returns the built graphics vector tree root.
+         *
+         * @return The GVT root.
+         */
         public GraphicsNode getGVTRoot() {
             return this.root;
         }

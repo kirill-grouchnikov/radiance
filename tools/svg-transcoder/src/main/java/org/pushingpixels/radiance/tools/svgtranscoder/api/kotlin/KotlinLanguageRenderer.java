@@ -34,6 +34,11 @@ import org.pushingpixels.radiance.tools.svgtranscoder.api.LanguageRenderer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Language renderer that generates Kotlin code constructs for the SVG transcoder.
+ *
+ * @author Kirill Grouchnikov.
+ */
 public class KotlinLanguageRenderer implements LanguageRenderer {
     @Override
     public String getStatementEnd() {

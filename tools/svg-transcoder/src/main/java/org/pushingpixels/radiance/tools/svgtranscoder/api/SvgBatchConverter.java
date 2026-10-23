@@ -38,6 +38,14 @@ import java.nio.file.NoSuchFileException;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+/**
+ * Batch SVG-to-Java2D transcoder that processes all SVG files in a single folder.
+ * <p>
+ * Invoked from the command line, it reads every {@code .svg} file in the specified source
+ * folder and generates a corresponding Java or Kotlin source file in the output folder.
+ *
+ * @author Kirill Grouchnikov.
+ */
 public class SvgBatchConverter extends SvgBatchBaseConverter {
     public static void main(String[] args) throws IOException {
         if (args.length < 4) {

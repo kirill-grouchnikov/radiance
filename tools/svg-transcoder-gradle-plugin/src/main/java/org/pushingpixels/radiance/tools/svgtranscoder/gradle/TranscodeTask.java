@@ -38,6 +38,14 @@ import org.pushingpixels.radiance.tools.svgtranscoder.api.kotlin.KotlinLanguageR
 
 import java.io.File;
 
+/**
+ * Gradle task that transcodes all SVG files in a single folder into Java or Kotlin source files.
+ * <p>
+ * Configure the input and output directories, the target package name, and the output language
+ * before running this task.
+ *
+ * @author Kirill Grouchnikov.
+ */
 @CacheableTask
 public class TranscodeTask extends TranscodeBaseTask {
     private String outputPackageName;
@@ -50,57 +58,111 @@ public class TranscodeTask extends TranscodeBaseTask {
 
     private File outputDirectory;
 
+    /**
+     * Returns the target package name for the generated classes.
+     *
+     * @return The package name.
+     */
     @Input
     public String getOutputPackageName() {
         return outputPackageName;
     }
 
+    /**
+     * Sets the target package name for the generated classes.
+     *
+     * @param outputPackageName The package name.
+     */
     @Option(option = "outputPackageName", description = "Configures the output package name.")
     public void setOutputPackageName(String outputPackageName) {
         this.outputPackageName = outputPackageName;
     }
 
+    /**
+     * Returns the target output language ("java" or "kotlin").
+     *
+     * @return The output language.
+     */
     @Input
     public String getOutputLanguage() {
         return outputLanguage;
     }
 
+    /**
+     * Sets the target output language ("java" or "kotlin").
+     *
+     * @param outputLanguage The output language.
+     */
     @Option(option = "outputLanguage", description = "Configures the output language.")
     public void setOutputLanguage(String outputLanguage) {
         this.outputLanguage = outputLanguage;
     }
 
+    /**
+     * Returns the prefix for the generated class names.
+     *
+     * @return The class name prefix.
+     */
     @Input
     public String getOutputClassNamePrefix() {
         return outputClassNamePrefix;
     }
 
+    /**
+     * Sets the prefix for the generated class names.
+     *
+     * @param outputClassNamePrefix The class name prefix.
+     */
     @Option(option = "outputClassNamePrefix", description = "Configures the output class name prefix.")
     public void setOutputClassNamePrefix(String outputClassNamePrefix) {
         this.outputClassNamePrefix = outputClassNamePrefix;
     }
 
+    /**
+     * Returns the input directory containing the SVG files.
+     *
+     * @return The input directory.
+     */
     @InputDirectory
     @PathSensitive(PathSensitivity.ABSOLUTE)
     public File getInputDirectory() {
         return inputDirectory;
     }
 
+    /**
+     * Sets the input directory containing the SVG files.
+     *
+     * @param inputDirectory The input directory.
+     */
     @Option(option = "inputDirectory", description = "Configures the input directory.")
     public void setInputDirectory(File inputDirectory) {
         this.inputDirectory = inputDirectory;
     }
 
+    /**
+     * Returns the output directory where the transcoded files will be written.
+     *
+     * @return The output directory.
+     */
     @OutputDirectory
     public File getOutputDirectory() {
         return outputDirectory;
     }
 
+    /**
+     * Sets the output directory where the transcoded files will be written.
+     *
+     * @param outputDirectory The output directory.
+     */
     @Option(option = "outputDirectory", description = "Configures the output directory.")
     public void setOutputDirectory(File outputDirectory) {
         this.outputDirectory = outputDirectory;
     }
 
+    /**
+     * Executes the transcoding: reads all SVG files from the input directory and generates
+     * the corresponding Java or Kotlin source files in the output directory.
+     */
     @TaskAction
     public void transcode() {
         Logger logger = getLogger();

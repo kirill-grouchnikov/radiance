@@ -42,6 +42,12 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.*;
 
+/**
+ * Scans an SVG graphics vector tree for embedded raster images and generates
+ * the corresponding base64-encoded image loader code.
+ *
+ * @author Kirill Grouchnikov.
+ */
 public class RasterScanner {
     private PrintWriter printWriter;
 
@@ -49,6 +55,12 @@ public class RasterScanner {
 
     private Set<String> processedMD5s = new HashSet<>();
 
+    /**
+     * Creates a new raster scanner.
+     *
+     * @param printWriter      Writer for the generated code.
+     * @param languageRenderer Language renderer for the target language.
+     */
     public RasterScanner(PrintWriter printWriter, LanguageRenderer languageRenderer) {
         this.printWriter = printWriter;
         this.languageRenderer = languageRenderer;
@@ -63,6 +75,11 @@ public class RasterScanner {
         scanGraphicsNode(gvtRoot);
     }
 
+    /**
+     * Returns whether any raster images were found during scanning.
+     *
+     * @return {@code true} if raster images were found.
+     */
     public boolean hasRasters() {
         return !this.processedMD5s.isEmpty();
     }
@@ -291,6 +308,12 @@ public class RasterScanner {
         }
     }
 
+    /**
+     * Computes the MD5 hash of a rendered image.
+     *
+     * @param renderedImage The image to hash.
+     * @return The MD5 hash as a hex string.
+     */
     public static String getMD5(RenderedImage renderedImage) {
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();

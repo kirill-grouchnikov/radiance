@@ -159,6 +159,11 @@ abstract class SvgBaseTranscoder {
         this.languageRenderer = languageRenderer;
     }
 
+    /**
+     * Sets the package name for the generated code.
+     *
+     * @param packageName The package name.
+     */
     public void setPackageName(String packageName) {
         this.packageName = packageName;
     }
@@ -173,6 +178,11 @@ abstract class SvgBaseTranscoder {
         this.setPrintWriter(new PrintWriter(this.listener.getWriter()));
     }
 
+    /**
+     * Sets the output writer for the generated code.
+     *
+     * @param printWriter The output writer.
+     */
     public void setPrintWriter(PrintWriter printWriter) {
         this.externalPrintWriter = printWriter;
     }

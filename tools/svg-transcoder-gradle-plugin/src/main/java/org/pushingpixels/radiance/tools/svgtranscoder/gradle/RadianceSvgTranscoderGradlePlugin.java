@@ -32,9 +32,23 @@ package org.pushingpixels.radiance.tools.svgtranscoder.gradle;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
+/**
+ * Gradle plugin that registers the SVG transcoding tasks.
+ * <p>
+ * When applied to a project, it creates two tasks: {@code transcode} for single-folder
+ * processing and {@code transcodeDeep} for recursive folder-tree processing.
+ *
+ * @author Kirill Grouchnikov.
+ */
 @SuppressWarnings({"unused", "RedundantSuppression"})
 public class RadianceSvgTranscoderGradlePlugin implements Plugin<Project> {
 
+    /**
+     * Applies the plugin to the given project by registering the transcoding tasks.
+     *
+     * @param project The Gradle project.
+     */
+    @Override
     public void apply(Project project) {
         project.getTasks().register("transcode", TranscodeTask.class);
         project.getTasks().register("transcodeDeep", TranscodeDeepTask.class);

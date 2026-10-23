@@ -37,6 +37,14 @@ import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.util.Map;
 
+/**
+ * A {@link Graphics2D} stub that throws {@link UnsupportedOperationException} on every method.
+ * <p>
+ * Used as a base class for custom Graphics2D implementations that override only the methods
+ * they need, ensuring that any unexpected call fails fast.
+ *
+ * @author Kirill Grouchnikov.
+ */
 public class McCrashyGraphics2D extends Graphics2D {
     @Override
     public void draw(Shape s) {

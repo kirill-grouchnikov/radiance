@@ -37,6 +37,14 @@ import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.util.Map;
 
+/**
+ * A {@link Graphics2D} stub that silently ignores every method call.
+ * <p>
+ * Used as a base class for custom Graphics2D implementations that override only the methods
+ * they need, allowing unhandled calls to pass through without error.
+ *
+ * @author Kirill Grouchnikov.
+ */
 public class McStableGraphics2D extends Graphics2D {
     @Override
     public void draw(Shape s) {

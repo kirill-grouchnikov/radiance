@@ -38,6 +38,14 @@ import org.pushingpixels.radiance.tools.svgtranscoder.api.kotlin.KotlinLanguageR
 
 import java.io.File;
 
+/**
+ * Gradle task that recursively transcodes all SVG files in a folder tree into Java or Kotlin source files.
+ * <p>
+ * Mirrors the input folder hierarchy as package structure in the output, so that sub-folders
+ * become sub-packages.
+ *
+ * @author Kirill Grouchnikov.
+ */
 @CacheableTask
 public class TranscodeDeepTask extends TranscodeBaseTask {
     private String outputRootPackageName;
@@ -50,57 +58,112 @@ public class TranscodeDeepTask extends TranscodeBaseTask {
 
     private File outputRootDirectory;
 
+    /**
+     * Returns the root package name for the generated classes.
+     *
+     * @return The root package name.
+     */
     @Input
     public String getOutputRootPackageName() {
         return outputRootPackageName;
     }
 
+    /**
+     * Sets the root package name for the generated classes.
+     *
+     * @param outputRootPackageName The root package name.
+     */
     @Option(option = "outputRootPackageName", description = "Configures the output root package name.")
     public void setOutputRootPackageName(String outputRootPackageName) {
         this.outputRootPackageName = outputRootPackageName;
     }
 
+    /**
+     * Returns the target output language ("java" or "kotlin").
+     *
+     * @return The output language.
+     */
     @Input
     public String getOutputLanguage() {
         return outputLanguage;
     }
 
+    /**
+     * Sets the target output language ("java" or "kotlin").
+     *
+     * @param outputLanguage The output language.
+     */
     @Option(option = "outputLanguage", description = "Configures the output language.")
     public void setOutputLanguage(String outputLanguage) {
         this.outputLanguage = outputLanguage;
     }
 
+    /**
+     * Returns the prefix for the generated class names.
+     *
+     * @return The class name prefix.
+     */
     @Input
     public String getOutputClassNamePrefix() {
         return outputClassNamePrefix;
     }
 
+    /**
+     * Sets the prefix for the generated class names.
+     *
+     * @param outputClassNamePrefix The class name prefix.
+     */
     @Option(option = "outputClassNamePrefix", description = "Configures the output class name prefix.")
     public void setOutputClassNamePrefix(String outputClassNamePrefix) {
         this.outputClassNamePrefix = outputClassNamePrefix;
     }
 
+    /**
+     * Returns the root input directory containing the SVG files.
+     *
+     * @return The root input directory.
+     */
     @InputDirectory
     @PathSensitive(PathSensitivity.ABSOLUTE)
     public File getInputRootDirectory() {
         return inputRootDirectory;
     }
 
+    /**
+     * Sets the root input directory containing the SVG files.
+     *
+     * @param inputRootDirectory The root input directory.
+     */
     @Option(option = "inputRootDirectory", description = "Configures the input root directory.")
     public void setInputRootDirectory(File inputRootDirectory) {
         this.inputRootDirectory = inputRootDirectory;
     }
 
+    /**
+     * Returns the root output directory where the transcoded files will be written.
+     *
+     * @return The root output directory.
+     */
     @OutputDirectory
     public File getOutputRootDirectory() {
         return outputRootDirectory;
     }
 
+    /**
+     * Sets the root output directory where the transcoded files will be written.
+     *
+     * @param outputRootDirectory The root output directory.
+     */
     @Option(option = "outputRootDirectory", description = "Configures the output root directory.")
     public void setOutputRootDirectory(File outputRootDirectory) {
         this.outputRootDirectory = outputRootDirectory;
     }
 
+    /**
+     * Executes the recursive transcoding: reads all SVG files from the input directory tree
+     * and generates the corresponding Java or Kotlin source files, mirroring the folder
+     * hierarchy as package structure.
+     */
     @TaskAction
     public void transcode() {
         Logger logger = getLogger();
@@ -130,6 +193,17 @@ public class TranscodeDeepTask extends TranscodeBaseTask {
                 outputRootPackageName, languageRenderer, templateFileName);
     }
 
+    /**
+     * Recursively processes a folder and all its sub-folders.
+     *
+     * @param inputFolder             Folder containing the SVG files.
+     * @param outputFolder            Folder where the transcoded files will be written.
+     * @param outputClassNamePrefix   Prefix for the generated class names.
+     * @param outputFileNameExtension File extension for the generated files.
+     * @param outputPackageName       Package name for the generated classes.
+     * @param languageRenderer        Language renderer for the target language.
+     * @param templateFile            Path to the template resource file.
+     */
     protected void processFolder(File inputFolder, File outputFolder,
             String outputClassNamePrefix, String outputFileNameExtension,
             String outputPackageName, LanguageRenderer languageRenderer,

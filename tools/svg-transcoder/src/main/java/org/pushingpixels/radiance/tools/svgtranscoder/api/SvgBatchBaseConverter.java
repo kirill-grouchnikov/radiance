@@ -37,9 +37,26 @@ import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Base class for batch SVG-to-Java2D transcoders.
+ * <p>
+ * Provides common functionality for locating command-line arguments and iterating
+ * over all SVG files in a folder, transcoding each one.
+ *
+ * @author Kirill Grouchnikov.
+ */
 public abstract class SvgBatchBaseConverter {
+    /** Message displayed when the user passes invalid arguments. */
     protected static final String CHECK_DOCUMENTATION = "Check the documentation for the parameters to pass";
 
+    /**
+     * Extracts a named argument value from the command-line arguments.
+     *
+     * @param args         Command-line arguments.
+     * @param argumentName The name of the argument to look for.
+     * @param defaultValue Default value if the argument is not present.
+     * @return The argument value or the default value.
+     */
     protected String getInputArgument(String[] args, String argumentName, String defaultValue) {
         for (String arg : args) {
             String[] split = arg.split("=");
@@ -55,6 +72,17 @@ public abstract class SvgBatchBaseConverter {
         return defaultValue;
     }
 
+    /**
+     * Transcodes all SVG files in the specified input folder.
+     *
+     * @param inputFolder            Folder containing the SVG files.
+     * @param outputFolder           Folder where the transcoded files will be written.
+     * @param outputClassNamePrefix  Prefix for the generated class names.
+     * @param outputFileNameExtension File extension for the generated files (e.g., ".java" or ".kt").
+     * @param outputPackageName      Package name for the generated classes.
+     * @param languageRenderer       Language renderer for the target language.
+     * @param templateFile           Path to the template resource file.
+     */
     protected void transcodeAllFilesInFolder(File inputFolder, File outputFolder,
             String outputClassNamePrefix, String outputFileNameExtension,
             String outputPackageName, LanguageRenderer languageRenderer,

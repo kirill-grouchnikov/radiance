@@ -38,6 +38,15 @@ import java.nio.file.NoSuchFileException;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+/**
+ * Batch SVG-to-Java2D transcoder that recursively processes all SVG files in a folder tree.
+ * <p>
+ * Invoked from the command line, it traverses the entire directory structure under the
+ * specified root folder, mirroring the folder hierarchy as Java/Kotlin package structure
+ * in the output.
+ *
+ * @author Kirill Grouchnikov.
+ */
 public class SvgDeepBatchConverter extends SvgBatchBaseConverter {
     public static void main(String[] args) throws IOException {
         if (args.length < 4) {
@@ -107,6 +116,17 @@ public class SvgDeepBatchConverter extends SvgBatchBaseConverter {
                 outputRootPackageName, languageRenderer, templateFile);
     }
 
+    /**
+     * Recursively processes a folder and all its sub-folders.
+     *
+     * @param inputFolder            Folder containing the SVG files.
+     * @param outputFolder           Folder where the transcoded files will be written.
+     * @param outputClassNamePrefix  Prefix for the generated class names.
+     * @param outputFileNameExtension File extension for the generated files.
+     * @param outputPackageName      Package name for the generated classes.
+     * @param languageRenderer       Language renderer for the target language.
+     * @param templateFile           Path to the template resource file.
+     */
     protected void processFolder(File inputFolder, File outputFolder,
             String outputClassNamePrefix, String outputFileNameExtension,
             String outputPackageName, LanguageRenderer languageRenderer,
