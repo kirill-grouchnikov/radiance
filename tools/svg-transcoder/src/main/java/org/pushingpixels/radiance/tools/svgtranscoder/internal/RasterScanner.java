@@ -49,10 +49,13 @@ import java.util.*;
  * @author Kirill Grouchnikov.
  */
 public class RasterScanner {
+    /** Writer for the generated code. */
     private PrintWriter printWriter;
 
+    /** Language renderer for the target language. */
     private LanguageRenderer languageRenderer;
 
+    /** Set of already-processed image MD5 hashes to avoid duplicates. */
     private Set<String> processedMD5s = new HashSet<>();
 
     /**
@@ -84,6 +87,11 @@ public class RasterScanner {
         return !this.processedMD5s.isEmpty();
     }
 
+    /**
+     * Scans a pattern paint for embedded raster images.
+     *
+     * @param paint The pattern paint.
+     */
     private void scanPatternPaint(PatternPaint paint) {
         // Since PatternGraphicsNode does not (yet?) expose its content, we ask it to
         // paint itself to a custom extension of Graphics2D that tracks image draw operations
@@ -221,6 +229,11 @@ public class RasterScanner {
         }
     }
 
+    /**
+     * Transcodes a rendered image to base64-encoded code.
+     *
+     * @param image The rendered image.
+     */
     private void transcodeRenderedImage(RenderedImage image) {
         String md5 = getMD5(image);
         if (this.processedMD5s.contains(md5)) {
@@ -271,6 +284,11 @@ public class RasterScanner {
         this.processedMD5s.add(md5);
     }
 
+    /**
+     * Scans a raster image node for embedded raster images.
+     *
+     * @param node The raster image node.
+     */
     private void scanRasterImageNode(RasterImageNode node) {
         RenderedImage image = node.getImage().createDefaultRendering();
         transcodeRenderedImage(image);
@@ -298,6 +316,12 @@ public class RasterScanner {
         }
     }
 
+    /**
+     * Converts a rendered image to a base64-encoded PNG string.
+     *
+     * @param renderedImage The image to encode.
+     * @return The base64-encoded string.
+     */
     private static String convertToBase64String(RenderedImage renderedImage) {
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();

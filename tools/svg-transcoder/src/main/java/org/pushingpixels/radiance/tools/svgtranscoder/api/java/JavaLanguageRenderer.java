@@ -40,6 +40,12 @@ import java.util.stream.Stream;
  * @author Kirill Grouchnikov.
  */
 public class JavaLanguageRenderer implements LanguageRenderer {
+    /**
+     * Creates a new Java language renderer.
+     */
+    public JavaLanguageRenderer() {
+    }
+
     @Override
     public String getStatementEnd() {
         return ";";

@@ -46,6 +46,12 @@ import java.util.concurrent.TimeUnit;
  * @author Kirill Grouchnikov.
  */
 public abstract class SvgBatchBaseConverter {
+    /**
+     * Creates a new batch converter base.
+     */
+    protected SvgBatchBaseConverter() {
+    }
+
     /** Message displayed when the user passes invalid arguments. */
     protected static final String CHECK_DOCUMENTATION = "Check the documentation for the parameters to pass";
 

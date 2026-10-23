@@ -52,6 +52,12 @@ import java.util.concurrent.TimeUnit;
 @CacheableTask
 public abstract class TranscodeBaseTask extends DefaultTask {
     /**
+     * Creates a new base transcoding task.
+     */
+    protected TranscodeBaseTask() {
+    }
+
+    /**
      * Transcodes all SVG files in the specified input folder.
      *
      * @param inputFolder               Folder containing the SVG files.

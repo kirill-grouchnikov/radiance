@@ -48,6 +48,12 @@ public class SvgStreamTranscoder extends SvgBaseTranscoder {
      */
     public static class RawTranscoder extends SVGAbstractTranscoder {
         /**
+         * Creates a new raw transcoder.
+         */
+        public RawTranscoder() {
+        }
+
+        /**
          * Returns the built graphics vector tree root.
          *
          * @return The GVT root.

@@ -48,6 +48,12 @@ import java.io.File;
  */
 @CacheableTask
 public class TranscodeDeepTask extends TranscodeBaseTask {
+    /**
+     * Creates a new deep transcoding task for recursive folder processing.
+     */
+    public TranscodeDeepTask() {
+    }
+
     private String outputRootPackageName;
 
     private String outputLanguage;

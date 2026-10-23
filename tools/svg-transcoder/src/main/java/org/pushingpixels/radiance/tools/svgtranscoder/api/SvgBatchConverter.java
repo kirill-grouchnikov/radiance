@@ -47,6 +47,24 @@ import java.util.stream.Stream;
  * @author Kirill Grouchnikov.
  */
 public class SvgBatchConverter extends SvgBatchBaseConverter {
+    /**
+     * Creates a new batch converter for a single folder.
+     */
+    public SvgBatchConverter() {
+    }
+
+    /**
+     * Entry point for the batch SVG-to-Java2D transcoder.
+     * <p>
+     * Processes all SVG files in a single folder and generates corresponding
+     * Java or Kotlin source files.
+     *
+     * @param args Command-line arguments:
+     *             {@code sourceFolder}, {@code outputPackageName}, {@code templateFile},
+     *             {@code outputLanguage}, {@code outputFolder} (optional),
+     *             {@code outputClassNamePrefix} (optional).
+     * @throws IOException if an I/O error occurs.
+     */
     public static void main(String[] args) throws IOException {
         if (args.length < 4) {
             System.out.println("=== Usage ===");

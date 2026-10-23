@@ -48,6 +48,12 @@ import java.io.File;
  */
 @CacheableTask
 public class TranscodeTask extends TranscodeBaseTask {
+    /**
+     * Creates a new transcoding task for a single folder.
+     */
+    public TranscodeTask() {
+    }
+
     private String outputPackageName;
 
     private String outputLanguage;

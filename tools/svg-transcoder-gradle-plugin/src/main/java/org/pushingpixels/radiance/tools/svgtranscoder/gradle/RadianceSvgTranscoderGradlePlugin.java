@@ -44,6 +44,12 @@ import org.gradle.api.Project;
 public class RadianceSvgTranscoderGradlePlugin implements Plugin<Project> {
 
     /**
+     * Creates a new Gradle plugin instance.
+     */
+    public RadianceSvgTranscoderGradlePlugin() {
+    }
+
+    /**
      * Applies the plugin to the given project by registering the transcoding tasks.
      *
      * @param project The Gradle project.

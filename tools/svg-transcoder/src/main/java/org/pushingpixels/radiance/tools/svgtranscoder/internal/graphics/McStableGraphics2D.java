@@ -46,6 +46,12 @@ import java.util.Map;
  * @author Kirill Grouchnikov.
  */
 public class McStableGraphics2D extends Graphics2D {
+    /**
+     * Creates a new stable Graphics2D stub.
+     */
+    public McStableGraphics2D() {
+    }
+
     @Override
     public void draw(Shape s) {
     }

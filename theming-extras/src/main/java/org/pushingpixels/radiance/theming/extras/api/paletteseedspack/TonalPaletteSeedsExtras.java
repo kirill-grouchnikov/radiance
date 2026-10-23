@@ -33,7 +33,8 @@ import java.awt.*;
 
 /**
  * Predefined color seeds for tonal palettes — extras pack.
- * Extends {@link TonalPaletteSeeds} with additional color options.
+ * Extends {@link org.pushingpixels.radiance.theming.api.palette.TonalPaletteSeeds}
+ * with additional color options.
  *
  * @author Kirill Grouchnikov
  */

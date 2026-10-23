@@ -46,6 +46,12 @@ import java.util.Map;
  * @author Kirill Grouchnikov.
  */
 public class McCrashyGraphics2D extends Graphics2D {
+    /**
+     * Creates a new crashy Graphics2D stub.
+     */
+    public McCrashyGraphics2D() {
+    }
+
     @Override
     public void draw(Shape s) {
         throw new UnsupportedOperationException("This operation is not supported");

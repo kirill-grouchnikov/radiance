@@ -69,6 +69,7 @@ public class SvgTranscoder extends SvgBaseTranscoder {
      * {@link #listener} is <code>null</code>.
      *
      * @param templateStream Stream with the template content
+     * @return The parsed SVG DOM document, or {@code null} if transcoding failed.
      */
     public Document transcode(InputStream templateStream) {
         if (this.listener == null)

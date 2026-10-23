@@ -48,6 +48,24 @@ import java.util.stream.Stream;
  * @author Kirill Grouchnikov.
  */
 public class SvgDeepBatchConverter extends SvgBatchBaseConverter {
+    /**
+     * Creates a new deep batch converter for recursive folder processing.
+     */
+    public SvgDeepBatchConverter() {
+    }
+
+    /**
+     * Entry point for the deep batch SVG-to-Java2D transcoder.
+     * <p>
+     * Recursively processes all SVG files in a folder tree and generates corresponding
+     * Java or Kotlin source files, mirroring the folder hierarchy as package structure.
+     *
+     * @param args Command-line arguments:
+     *             {@code sourceRootFolder}, {@code outputRootPackageName}, {@code templateFile},
+     *             {@code outputLanguage}, {@code outputRootFolder} (optional),
+     *             {@code outputClassNamePrefix} (optional).
+     * @throws IOException if an I/O error occurs.
+     */
     public static void main(String[] args) throws IOException {
         if (args.length < 4) {
             System.out.println("=== Usage ===");

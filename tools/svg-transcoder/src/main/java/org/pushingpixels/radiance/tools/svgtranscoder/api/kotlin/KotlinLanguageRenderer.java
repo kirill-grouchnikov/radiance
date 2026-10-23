@@ -40,6 +40,12 @@ import java.util.stream.Stream;
  * @author Kirill Grouchnikov.
  */
 public class KotlinLanguageRenderer implements LanguageRenderer {
+    /**
+     * Creates a new Kotlin language renderer.
+     */
+    public KotlinLanguageRenderer() {
+    }
+
     @Override
     public String getStatementEnd() {
         return "";

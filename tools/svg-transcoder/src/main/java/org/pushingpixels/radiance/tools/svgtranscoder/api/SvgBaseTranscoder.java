@@ -70,14 +70,24 @@ abstract class SvgBaseTranscoder {
      */
     private PrintWriterManager printWriterManager;
 
+    /**
+     * Language renderer for the target language.
+     */
     private LanguageRenderer languageRenderer;
 
-    // Class name for the generated Java2D code.
+    /**
+     * Class name for the generated Java2D code.
+     */
     private String classname;
 
-    // Package name for the generated Java2D code.
+    /**
+     * Package name for the generated Java2D code.
+     */
     private String packageName;
 
+    /**
+     * Whether the SVG contains raster images.
+     */
     private boolean hasRasters = false;
 
     private final static String TOKEN_PACKAGE = "TOKEN_PACKAGE";
@@ -102,33 +112,67 @@ abstract class SvgBaseTranscoder {
 
     private final static String TOKEN_ORIG_HEIGHT = "TOKEN_ORIG_HEIGHT";
 
+    /**
+     * Manages a rotating set of {@link PrintWriter} instances to avoid exceeding
+     * method size limits in the generated code.
+     * <p>
+     * When the number of lines exceeds a threshold, it switches to a new writer
+     * and accumulates the output streams for later concatenation.
+     */
     private static class PrintWriterManager {
+        /** Maximum number of lines before rotating to a new writer. */
         private static final int ROTATION_THRESHOLD = 1000;
 
+        /** List of byte arrays that hold the buffered output. */
         private List<ByteArrayOutputStream> streamList = new ArrayList<>();
 
+        /** The current print writer. */
         private PrintWriter currentWriter;
+        /** Line count in the current writer. */
         private int lines = 0;
 
+        /**
+         * Creates a new print writer manager.
+         */
         public PrintWriterManager() {
             ByteArrayOutputStream paintingCodeStream = new ByteArrayOutputStream();
             this.streamList.add(paintingCodeStream);
             this.currentWriter = new PrintWriter(paintingCodeStream);
         }
 
+        /**
+         * Prints a line to the current writer and increments the line count.
+         *
+         * @param string The string to print.
+         */
         public void println(String string) {
             this.currentWriter.println(string);
             this.lines++;
         }
 
+        /**
+         * Prints a string to the current writer without a line terminator.
+         *
+         * @param string The string to print.
+         */
         public void print(String string) {
             this.currentWriter.print(string);
         }
 
+        /**
+         * Prints a formatted string to the current writer.
+         *
+         * @param format The format string.
+         * @param args   The format arguments.
+         */
         public void format(String format, Object... args) {
             this.currentWriter.format(format, args);
         }
 
+        /**
+         * Checks whether the line count has exceeded the rotation threshold.
+         * If so, closes the current writer and creates a new one.
+         */
         public void checkin() {
             if (this.lines >= ROTATION_THRESHOLD) {
                 this.currentWriter.close();
@@ -139,10 +183,18 @@ abstract class SvgBaseTranscoder {
             }
         }
 
+        /**
+         * Closes the current writer.
+         */
         public void close() {
             this.currentWriter.close();
         }
 
+        /**
+         * Returns an unmodifiable list of all accumulated byte arrays.
+         *
+         * @return The list of byte arrays.
+         */
         public List<ByteArrayOutputStream> getStreamList() {
             return Collections.unmodifiableList(this.streamList);
         }
@@ -1163,6 +1215,11 @@ abstract class SvgBaseTranscoder {
         }
     }
 
+    /**
+     * Generates code to rotate the graphics context by the specified angle.
+     *
+     * @param angle The rotation angle.
+     */
     private void rotate(double angle) {
         if (Double.isFinite(angle) && angle != 0.0) {
             printWriterManager.println("g.rotate(" + angle + ")" + languageRenderer.getStatementEnd());
@@ -1199,6 +1256,12 @@ abstract class SvgBaseTranscoder {
         printWriterManager.checkin();
     }
 
+    /**
+     * Transcodes a rendered image by generating code that loads it from a base64-encoded string.
+     *
+     * @param image         The rendered image.
+     * @param graphicsName  The name of the graphics variable used to draw the image.
+     */
     private void transcodeRenderedImage(RenderedImage image, String graphicsName) {
         String md5 = RasterScanner.getMD5(image);
 
@@ -1210,6 +1273,13 @@ abstract class SvgBaseTranscoder {
         printWriterManager.println("}");
     }
 
+    /**
+     * Transcodes a raster image node.
+     *
+     * @param node    Raster image node.
+     * @param comment Comment (for associating the Java2D section with the corresponding SVG
+     *                section).
+     */
     private void transcodeRasterImageNode(RasterImageNode node, String comment) {
         printWriterManager.println("// " + comment);
 
@@ -1217,6 +1287,13 @@ abstract class SvgBaseTranscoder {
         transcodeRenderedImage(image, "g");
     }
 
+    /**
+     * Transcodes a text node.
+     *
+     * @param node    Text node.
+     * @param comment Comment (for associating the Java2D section with the corresponding SVG
+     *                section).
+     */
     private void transcodeTextNode(TextNode node, String comment) {
         printWriterManager.println("// " + comment);
         printWriterManager.println("{");
@@ -1493,6 +1570,12 @@ abstract class SvgBaseTranscoder {
         }
     }
 
+    /**
+     * Checks whether the specified transform is non-identity.
+     *
+     * @param transform The transform to check.
+     * @return {@code true} if the transform is non-null and non-identity.
+     */
     private boolean isNonIdentityTransform(AffineTransform transform) {
         if (transform == null) {
             return false;
