@@ -32,42 +32,108 @@ package org.pushingpixels.radiance.component.api.bcb;
 import org.pushingpixels.radiance.component.api.common.model.ImmutablePresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
+/**
+ * Presentation model for a breadcrumb bar.
+ */
 public class BreadcrumbBarPresentationModel implements ImmutablePresentationModel {
+    /**
+     * Icon filter strategy when a breadcrumb is active.
+     */
     private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
+    /**
+     * Icon filter strategy when a breadcrumb is enabled.
+     */
     private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
+    /**
+     * Icon filter strategy when a breadcrumb is disabled.
+     */
     private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
 
+    /**
+     * Constructs a {@code BreadcrumbBarPresentationModel}.
+     */
     private BreadcrumbBarPresentationModel() {
     }
 
+    /**
+     * Creates a new builder for {@link BreadcrumbBarPresentationModel}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Returns a presentation model with default settings.
+     *
+     * @return The default presentation model.
+     */
     public static BreadcrumbBarPresentationModel withDefaults() {
         return BreadcrumbBarPresentationModel.builder().build();
     }
 
+    /**
+     * Returns the icon filter strategy when a breadcrumb is active.
+     *
+     * @return The active icon filter strategy.
+     */
     public RadianceThemingSlices.IconFilterStrategy getActiveIconFilterStrategy() {
         return this.activeIconFilterStrategy;
     }
 
+    /**
+     * Returns the icon filter strategy when a breadcrumb is enabled.
+     *
+     * @return The enabled icon filter strategy.
+     */
     public RadianceThemingSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
         return this.enabledIconFilterStrategy;
     }
 
+    /**
+     * Returns the icon filter strategy when a breadcrumb is disabled.
+     *
+     * @return The disabled icon filter strategy.
+     */
     public RadianceThemingSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
         return this.disabledIconFilterStrategy;
     }
 
+    /**
+     * Builder for {@link BreadcrumbBarPresentationModel}.
+     */
     public static class Builder {
+        /**
+         * Constructs a new {@link Builder} instance.
+         */
+        public Builder() {
+        }
+
+        /**
+         * Icon filter strategy when active.
+         */
         private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
+        /**
+         * Icon filter strategy when enabled.
+         */
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
+        /**
+         * Icon filter strategy when disabled.
+         */
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_TOKENS;
 
+        /**
+         * Sets the icon filter strategies for active, enabled, and disabled states.
+         *
+         * @param activeIconFilterStrategy The active state strategy.
+         * @param enabledIconFilterStrategy The enabled state strategy.
+         * @param disabledIconFilterStrategy The disabled state strategy.
+         * @return This builder.
+         */
         public Builder setIconFilterStrategies(
                 RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy,
                 RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy,
@@ -78,6 +144,11 @@ public class BreadcrumbBarPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
+        /**
+         * Builds the {@link BreadcrumbBarPresentationModel}.
+         *
+         * @return The built model.
+         */
         public BreadcrumbBarPresentationModel build() {
             BreadcrumbBarPresentationModel presentationModel = new BreadcrumbBarPresentationModel();
             presentationModel.activeIconFilterStrategy = this.activeIconFilterStrategy;

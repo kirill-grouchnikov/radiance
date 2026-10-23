@@ -125,6 +125,11 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
     private CommandPanelContentModel panelContentModel;
     private CommandPanelPresentationModel panelPresentationModel;
 
+    /**
+     * Constructs a new {@code JCommandButtonPanel} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JCommandButtonPanel(Projection<JCommandButtonPanel,
             CommandPanelContentModel, CommandPanelPresentationModel> projection) {
         this.projection = projection;
@@ -134,6 +139,11 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         this.updateUI();
     }
 
+    /**
+     * Returns the projection for this command button panel.
+     *
+     * @return The projection.
+     */
     public Projection<JCommandButtonPanel, CommandPanelContentModel, CommandPanelPresentationModel> getProjection() {
         return this.projection;
     }
@@ -158,6 +168,9 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         return uiClassID;
     }
 
+    /**
+     * Scrolls the panel to make the selected command button visible.
+     */
     public void scrollToSelectedCommand() {
         this.getUI().scrollToSelectedCommand();
     }

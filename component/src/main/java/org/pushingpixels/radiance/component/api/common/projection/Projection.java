@@ -57,6 +57,8 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
     public interface ComponentSupplier<TC extends JComponent, CC extends ContentModel,
             PC extends PresentationModel> {
         /**
+         * Returns the component supplier for creating components from projections.
+         *
          * @param projection Information on the projection in case this
          *                   creator has logic that depends on specific field(s) of
          *                   the content model and / or the presentation model.

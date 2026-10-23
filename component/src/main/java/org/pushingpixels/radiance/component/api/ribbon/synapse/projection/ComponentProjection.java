@@ -47,6 +47,13 @@ import javax.swing.*;
  */
 public abstract class ComponentProjection<C extends JComponent,
         M extends ComponentContentModel> extends Projection<C, M, ComponentPresentationModel> {
+    /**
+     * Constructs a {@code ComponentProjection}.
+     *
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     * @param componentSupplier The component supplier.
+     */
     public ComponentProjection(M contentModel, ComponentPresentationModel presentationModel,
             ComponentSupplier<C, M, ComponentPresentationModel> componentSupplier) {
         super(contentModel, presentationModel, componentSupplier);

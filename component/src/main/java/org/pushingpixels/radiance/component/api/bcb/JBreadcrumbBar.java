@@ -67,6 +67,7 @@ public class JBreadcrumbBar<T> extends JComponent {
      * Creates a new breadcrumb bar.
      *
      * @param contentProvider Content provider for this breadcrumb bar.
+     * @param presentationModel Presentation model for this breadcrumb bar.
      */
     public JBreadcrumbBar(BreadcrumbBarContentProvider<T> contentProvider,
             BreadcrumbBarPresentationModel presentationModel) {

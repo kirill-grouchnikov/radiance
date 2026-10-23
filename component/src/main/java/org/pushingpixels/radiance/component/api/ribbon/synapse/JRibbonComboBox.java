@@ -37,7 +37,17 @@ import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+/**
+ * A combo box component for use in ribbon bands.
+ *
+ * @param <E> The type of elements in the combo box.
+ */
 public class JRibbonComboBox<E> extends JComboBox<E> {
+    /**
+     * Constructs a new {@code JRibbonComboBox} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JRibbonComboBox(Projection<JRibbonComboBox<E>,
             RibbonComboBoxContentModel<E>, ComponentPresentationModel> projection) {
         super(projection.getContentModel());

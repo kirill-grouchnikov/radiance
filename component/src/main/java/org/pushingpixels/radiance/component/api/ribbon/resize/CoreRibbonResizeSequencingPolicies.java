@@ -49,6 +49,12 @@ import java.util.List;
  */
 public class CoreRibbonResizeSequencingPolicies {
 	/**
+	 * Constructs a new {@link CoreRibbonResizeSequencingPolicies}.
+	 */
+	public CoreRibbonResizeSequencingPolicies() {
+	}
+
+	/**
 	 * The round robin resize sequencing policy. Under this policy the ribbon
 	 * bands are being collapsed in a cyclic fashion, distributing the collapsed
 	 * pixels between the different bands.

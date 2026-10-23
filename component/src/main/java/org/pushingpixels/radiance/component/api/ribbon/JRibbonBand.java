@@ -171,12 +171,23 @@ public class JRibbonBand extends AbstractRibbonBand {
         ((JBandControlPanel) this.getControlPanel()).addCommandButton(projection, priority);
     }
 
+    /**
+     * Adds a ribbon gallery to this band.
+     *
+     * @param galleryProjection The gallery projection.
+     * @param priority          The presentation priority.
+     */
     public void addRibbonGallery(RibbonGalleryProjection galleryProjection,
             PresentationPriority priority) {
         JRibbonGallery gallery = new JRibbonGallery(galleryProjection);
         ((JBandControlPanel) this.getControlPanel()).addRibbonGallery(gallery, priority);
     }
 
+    /**
+     * Adds a ribbon component to this band.
+     *
+     * @param projection The component projection.
+     */
     public void addRibbonComponent(
             ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
         JRibbonComponent ribbonComponent = new JRibbonComponent(projection);

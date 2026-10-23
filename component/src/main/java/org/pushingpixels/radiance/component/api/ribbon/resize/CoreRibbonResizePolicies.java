@@ -112,6 +112,11 @@ import java.util.Map;
  */
 public class CoreRibbonResizePolicies {
     /**
+     * Constructs a new {@link CoreRibbonResizePolicies}.
+     */
+    public CoreRibbonResizePolicies() {
+    }
+    /**
      * Maps the element priority associated with a ribbon band component to the
      * element priority assigned by the specific resize policy.
      *
@@ -129,6 +134,11 @@ public class CoreRibbonResizePolicies {
         JRibbonBand.PresentationPriority map(JRibbonBand.PresentationPriority priority);
     }
 
+    /**
+     * Base class for ribbon band resize policies.
+     *
+     * @param <B> The type of the ribbon band.
+     */
     public static abstract class BaseRibbonBandResizePolicy<B extends AbstractRibbonBand>
             implements RibbonBandResizePolicy {
         /**
@@ -136,6 +146,9 @@ public class CoreRibbonResizePolicies {
          */
         protected B ribbonBand;
 
+        /**
+         * The control panel associated with the ribbon band.
+         */
         protected AbstractBandControlPanel controlPanel;
 
         /**
@@ -968,6 +981,11 @@ public class CoreRibbonResizePolicies {
         public void install(int availableHeight, int gap) {
         }
 
+        /**
+         * Sets the maximum width for the collapsed ribbon band.
+         *
+         * @param maxWidth The maximum width.
+         */
         public void setMaxWidth(int maxWidth) {
             this.maxWidth = maxWidth;
         }

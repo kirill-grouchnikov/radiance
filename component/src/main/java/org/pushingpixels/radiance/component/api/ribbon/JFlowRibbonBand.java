@@ -73,11 +73,21 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
         updateUI();
     }
 
+    /**
+     * Adds a flow component to this band.
+     *
+     * @param projection The base projection.
+     */
     public void addFlowComponent(BaseProjection projection) {
         ((JFlowBandControlPanel) this.getControlPanel()).addFlowComponent(
                 projection.buildComponent());
     }
 
+    /**
+     * Adds a flow component to this band.
+     *
+     * @param projection The component projection.
+     */
     public void addFlowComponent(
             ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
         JRibbonComponent ribbonComponent = new JRibbonComponent(projection);

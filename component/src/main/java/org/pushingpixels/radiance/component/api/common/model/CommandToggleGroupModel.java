@@ -160,6 +160,9 @@ public class CommandToggleGroupModel {
         this.modelChangeListeners.remove(command);
     }
 
+    /**
+     * Removes all commands from the group and clears the selection.
+     */
     public void removeAll() {
         commands.clear();
         selection = null;

@@ -46,17 +46,32 @@ import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Default popup icon for command buttons.
+ */
 @TransitionAware
 public class CommandButtonDefaultPopupIcon implements RadianceIcon {
-    // Base width
+    /**
+     * Base width of the icon.
+     */
     private int baseWidth;
-    // Base height
+    /**
+     * Base height of the icon.
+     */
     private int baseHeight;
-    // Icon dimension
+    /**
+     * Icon dimension.
+     */
     private int dimension;
 
+    /**
+     * Mutable color tokens for rendering.
+     */
     private BladeContainerColorTokens mutableColorTokens = new BladeContainerColorTokens();
 
+    /**
+     * Constructs a {@code CommandButtonDefaultPopupIcon}.
+     */
     public CommandButtonDefaultPopupIcon() {
         int fontSize = RadianceSizeUtils.getComponentFontSize(null);
         this.baseWidth = (int) RadianceSizeUtils.getArrowIconWidth(fontSize);

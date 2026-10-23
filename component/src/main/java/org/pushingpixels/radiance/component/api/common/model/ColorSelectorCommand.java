@@ -31,17 +31,37 @@ package org.pushingpixels.radiance.component.api.common.model;
 
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 
+/**
+ * Command model for a color selector.
+ */
 public class ColorSelectorCommand extends BaseCommand<ColorSelectorPopupMenuContentModel> {
+    /**
+     * Creates a new builder for {@link ColorSelectorCommand}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Constructs a {@code ColorSelectorCommand}.
+     */
     private ColorSelectorCommand() {
     }
 
+    /**
+     * Builder for {@link ColorSelectorCommand}.
+     */
     public static class Builder extends BaseBuilder<ColorSelectorCommand,
             ColorSelectorPopupMenuContentModel,
             ColorSelectorCommand.Builder> {
+        /**
+         * Constructs a {@code Builder}.
+         */
+        public Builder() {
+        }
+
         /**
          * Builds a color selector command from this builder.
          *

@@ -40,6 +40,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.MouseEvent;
 
+/**
+ * A toggle switch component that visually represents an on/off state.
+ */
 public class JSwitch extends JToggleButton implements RichTooltipManager.WithRichTooltip {
     /**
      * The UI class ID string.
@@ -52,6 +55,11 @@ public class JSwitch extends JToggleButton implements RichTooltipManager.WithRic
 
     private ButtonModel buttonModel;
 
+    /**
+     * Constructs a new {@code JSwitch} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JSwitch(Projection<JSwitch, SwitchContentModel,
             SwitchPresentationModel> projection) {
         this.projection = projection;

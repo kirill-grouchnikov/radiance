@@ -93,6 +93,12 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
     }
 
     public static class Builder {
+        /**
+         * Constructs a new {@link Builder} instance.
+         */
+        public Builder() {
+        }
+
         private Insets contentPadding = DEFAULT_LABEL_CONTENT_PADDING;
         private Dimension iconDimension =
                 new Dimension(DEFAULT_LABEL_ICON_SIZE, DEFAULT_LABEL_ICON_SIZE);

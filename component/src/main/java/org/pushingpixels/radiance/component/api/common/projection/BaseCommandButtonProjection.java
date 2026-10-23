@@ -53,6 +53,9 @@ public abstract class BaseCommandButtonProjection<
         P extends BaseCommandButtonPresentationModel<MPM, P>,
         MPM extends BaseCommandPopupMenuPresentationModel>
         extends BaseProjection<JCommandButton, M, P> {
+    /**
+     * Supplier for creating command button components.
+     */
     private CommandButtonComponentSupplier<JCommandButton, M, MCM, P, MPM> componentSupplier;
 
     /**
@@ -74,6 +77,8 @@ public abstract class BaseCommandButtonProjection<
             P extends BaseCommandButtonPresentationModel<MPM, P>,
             MPM extends BaseCommandPopupMenuPresentationModel> {
         /**
+         * Returns the component supplier for creating command button components.
+         *
          * @param projection Information on the projection in case this
          *                   creator has logic that depends on specific field(s) of
          *                   the content model and / or the presentation model.
@@ -81,17 +86,28 @@ public abstract class BaseCommandButtonProjection<
          * gets one parameter - projection, and returns an instance of the matching
          * {@link JCommandButton} subclass that represents the Swing component to be
          * used to configure the projected component in the configureComponent() call.
-         * call.
          */
         Function<BaseCommandButtonProjection<M, MCM, P, MPM>, TC> getComponentSupplier(
                 BaseCommandButtonProjection<M, MCM, P, MPM> projection);
     }
 
+    /**
+     * Constructs a {@code BaseCommandButtonProjection}.
+     *
+     * @param command The command model.
+     * @param commandPresentation The presentation model.
+     */
     public BaseCommandButtonProjection(M command, P commandPresentation) {
         super(command, commandPresentation);
         this.componentSupplier = projection -> JCommandButton::new;
     }
 
+    /**
+     * Sets the component supplier for creating command button components.
+     *
+     * @param componentSupplier The supplier (must not be null).
+     * @throws IllegalArgumentException if the supplier is null.
+     */
     public void setComponentSupplier(BaseCommandButtonProjection.CommandButtonComponentSupplier<
             JCommandButton, M, MCM, P, MPM> componentSupplier) {
         if (componentSupplier == null) {
@@ -100,15 +116,37 @@ public abstract class BaseCommandButtonProjection<
         this.componentSupplier = componentSupplier;
     }
 
+    /**
+     * Returns the component supplier.
+     *
+     * @return The component supplier.
+     */
     public CommandButtonComponentSupplier<JCommandButton, M, MCM, P, MPM> getComponentSupplier() {
         return componentSupplier;
     }
 
+    /**
+     * Returns the popup menu panel projection.
+     *
+     * @return The popup menu panel projection.
+     */
     public abstract AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, MCM, MPM>
         getPopupMenuPanelProjection();
 
+    /**
+     * Re-projects the command with a new presentation model.
+     *
+     * @param newCommandPresentation The new presentation model.
+     * @return The re-projected button.
+     */
     public abstract BaseCommandButtonProjection<M, MCM, P, MPM> reproject(P newCommandPresentation);
 
+    /**
+     * Re-projects the command with an overlay applied to the current presentation model.
+     *
+     * @param overlay The overlay to apply.
+     * @return The re-projected button.
+     */
     public BaseCommandButtonProjection<M, MCM, P, MPM> reprojectWithOverlay(
             BaseCommandButtonPresentationModel.Overlay overlay) {
         return this.reproject(this.getPresentationModel().overlayWith(overlay));

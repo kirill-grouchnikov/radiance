@@ -36,8 +36,13 @@ import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceI
 
 import javax.swing.*;
 
+/**
+ * A circular progress indicator that shows indeterminate progress.
+ */
 public class JIndeterminateCircularProgress extends JComponent {
     /**
+     * The UI class ID for indeterminate circular progress.
+     *
      * @see #getUIClassID
      */
     public static final String uiClassID = "IndeterminateCircularProgressUI";
@@ -46,6 +51,11 @@ public class JIndeterminateCircularProgress extends JComponent {
     private IndeterminateProgressContentModel contentModel;
     private CircularProgressPresentationModel presentationModel;
 
+    /**
+     * Constructs a new {@code JIndeterminateCircularProgress} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JIndeterminateCircularProgress(Projection<JIndeterminateCircularProgress, IndeterminateProgressContentModel,
             CircularProgressPresentationModel> projection) {
         this.projection = projection;
@@ -55,6 +65,11 @@ public class JIndeterminateCircularProgress extends JComponent {
         this.updateUI();
     }
 
+    /**
+     * Returns the projection for this progress indicator.
+     *
+     * @return The projection.
+     */
     public Projection<JIndeterminateCircularProgress, IndeterminateProgressContentModel, CircularProgressPresentationModel> getProjection() {
         return this.projection;
     }

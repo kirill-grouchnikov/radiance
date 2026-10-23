@@ -37,7 +37,15 @@ import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+/**
+ * A radio button component for use in ribbon bands.
+ */
 public class JRibbonRadioButton extends JRadioButton {
+    /**
+     * Constructs a new {@code JRibbonRadioButton} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JRibbonRadioButton(Projection<JRibbonRadioButton,
             RibbonRadioButtonContentModel, ComponentPresentationModel> projection) {
         super(projection.getContentModel().getText());

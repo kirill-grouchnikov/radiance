@@ -45,6 +45,9 @@ import java.util.List;
  * @author Kirill Grouchnikov
  */
 public interface CommandButtonLayoutManager extends PropertyChangeListener {
+    /**
+     * Multiplier for popup icon layout padding.
+     */
     float POPUP_ICON_LAYOUT_PADDING_MULTIPLIER = 1.5f;
 
     /**
@@ -141,6 +144,12 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      */
     class TextLayoutInfo {
         /**
+         * Constructs a {@code TextLayoutInfo}.
+         */
+        public TextLayoutInfo() {
+        }
+
+        /**
          * Text itself.
          */
         public String text;
@@ -157,6 +166,12 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      * @author Kirill Grouchnikov
      */
     class CommandButtonLayoutInfo {
+        /**
+         * Constructs a {@code CommandButtonLayoutInfo}.
+         */
+        public CommandButtonLayoutInfo() {
+        }
+
         /**
          * The action area. A mouse click in this area will trigger all
          * listeners associated with the command button action model
@@ -181,6 +196,9 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
          */
         public Rectangle separatorArea;
 
+        /**
+         * Orientation of the separator.
+         */
         public CommandButtonSeparatorOrientation separatorOrientation;
 
         /**
@@ -214,6 +232,12 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
         public boolean isTextInActionArea;
     }
 
+    /**
+     * Returns the command button kind for the given button.
+     *
+     * @param commandButton The command button.
+     * @return The command button kind.
+     */
     default CommandButtonKind getCommandButtonKind(JCommandButton commandButton) {
         boolean hasAction = (commandButton.getContentModel().getAction() != null);
         boolean hasSecondary = commandButton.getContentModel().hasSecondaryContent();
@@ -236,6 +260,13 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
                 : CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP;
     }
 
+    /**
+     * Returns the command button kind for the given command and presentation model.
+     *
+     * @param command The command.
+     * @param presentationModel The presentation model.
+     * @return The command button kind.
+     */
     @SuppressWarnings("rawtypes")
     default CommandButtonKind getCommandButtonKind(BaseCommand command,
             BaseCommandButtonPresentationModel presentationModel) {
@@ -262,6 +293,10 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 
     /**
      * Returns the preferred icon size of a button using this layout manager.
+     *
+     * @param command The command.
+     * @param presentationModel The presentation model.
+     * @return The preferred icon size.
      */
     @SuppressWarnings("rawtypes")
     Dimension getPreferredIconSize(BaseCommand command,
@@ -269,6 +304,10 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 
     /**
      * Returns the preferred size of a button using this layout manager.
+     *
+     * @param command The command.
+     * @param presentationModel The presentation model.
+     * @return The preferred size.
      */
     @SuppressWarnings("rawtypes")
     Dimension getPreferredSize(BaseCommand command,

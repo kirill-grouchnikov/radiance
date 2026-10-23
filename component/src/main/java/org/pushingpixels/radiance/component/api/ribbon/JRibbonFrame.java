@@ -132,25 +132,50 @@ public class JRibbonFrame extends JFrame {
         }
     }
 
+    /**
+     * Represents a keyboard action associated with a ribbon command.
+     */
     public static class RibbonKeyboardAction {
         private String actionName;
         private KeyStroke actionKeyStroke;
         private Command command;
 
+        /**
+         * Constructs a new {@code RibbonKeyboardAction}.
+         *
+         * @param actionName     The action name.
+         * @param actionKeyStroke The key stroke.
+         * @param command        The associated command.
+         */
         public RibbonKeyboardAction(String actionName, KeyStroke actionKeyStroke, Command command) {
             this.actionName = actionName;
             this.actionKeyStroke = actionKeyStroke;
             this.command = command;
         }
 
+        /**
+         * Returns the action name.
+         *
+         * @return The action name.
+         */
         public String getActionName() {
             return actionName;
         }
 
+        /**
+         * Returns the key stroke.
+         *
+         * @return The key stroke.
+         */
         public KeyStroke getActionKeyStroke() {
             return actionKeyStroke;
         }
 
+        /**
+         * Returns the associated command.
+         *
+         * @return The command.
+         */
         public Command getCommand() {
             return command;
         }
@@ -485,7 +510,15 @@ public class JRibbonFrame extends JFrame {
         }
     }
 
+    /**
+     * Global popup menu panel for the ribbon frame.
+     */
     public static class GlobalPopupMenuPanel extends JCommandPopupMenuPanel {
+        /**
+         * Constructs a new {@code GlobalPopupMenuPanel}.
+         *
+         * @param projection The projection containing content and presentation models.
+         */
         public GlobalPopupMenuPanel(Projection<JCommandPopupMenuPanel, CommandMenuContentModel,
                 CommandPopupMenuPresentationModel> projection) {
             super(projection);
@@ -626,6 +659,11 @@ public class JRibbonFrame extends JFrame {
         return rp;
     }
 
+    /**
+     * Sets the keyboard actions for this ribbon frame.
+     *
+     * @param actions The set of keyboard actions.
+     */
     public void setKeyboardActions(Set<RibbonKeyboardAction> actions) {
         JRibbonRootPane rootPane = (JRibbonRootPane) this.getRootPane();
         rootPane.setKeyboardActions(actions);
@@ -637,6 +675,11 @@ public class JRibbonFrame extends JFrame {
         this.wasSetIconImagesCalled = true;
     }
 
+    /**
+     * Sets the application icon using a resizable icon factory.
+     *
+     * @param iconFactory The icon factory.
+     */
     public synchronized void setApplicationIcon(final RadianceIcon.Factory iconFactory) {
         if (iconFactory == null) {
             return;

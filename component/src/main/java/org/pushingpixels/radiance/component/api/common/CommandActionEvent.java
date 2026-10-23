@@ -33,19 +33,45 @@ import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * Event fired when a command action is triggered.
+ */
 public class CommandActionEvent extends ActionEvent {
+    /**
+     * The command that triggered this event.
+     */
     private BaseCommand<?> command;
 
+    /**
+     * Constructs a {@code CommandActionEvent}.
+     *
+     * @param source The event source.
+     * @param id The event ID.
+     * @param radianceCommand The command.
+     * @param command The command string.
+     * @param when The timestamp.
+     * @param modifiers The modifier keys.
+     */
     public CommandActionEvent(Object source, int id, BaseCommand<?> radianceCommand,
             String command, long when, int modifiers) {
         super(source, id, command, when, modifiers);
         this.command = radianceCommand;
     }
 
+    /**
+     * Returns the command that triggered this event.
+     *
+     * @return The command.
+     */
     public BaseCommand<?> getCommand() {
         return this.command;
     }
 
+    /**
+     * Returns the button source if the event source is a {@link JCommandButton}.
+     *
+     * @return The button source, or {@code null}.
+     */
     public JCommandButton getButtonSource() {
         Object source = this.getSource();
         if (source instanceof JCommandButton) {

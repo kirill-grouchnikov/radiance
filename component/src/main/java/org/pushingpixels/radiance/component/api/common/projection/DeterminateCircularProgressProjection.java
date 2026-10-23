@@ -33,9 +33,18 @@ import org.pushingpixels.radiance.component.api.common.JDeterminateCircularProgr
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.DeterminateProgressContentModel;
 
+/**
+ * Projection for a determinate circular progress indicator.
+ */
 public class DeterminateCircularProgressProjection extends Projection<JDeterminateCircularProgress,
         DeterminateProgressContentModel, CircularProgressPresentationModel> {
 
+    /**
+     * Constructs a {@code DeterminateCircularProgressProjection}.
+     *
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     */
     public DeterminateCircularProgressProjection(DeterminateProgressContentModel contentModel,
             CircularProgressPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JDeterminateCircularProgress::new);

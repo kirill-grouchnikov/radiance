@@ -35,13 +35,56 @@ import org.pushingpixels.radiance.component.api.common.model.ContentModel;
 
 import java.beans.PropertyChangeListener;
 
+/**
+ * Content model for a component in the ribbon.
+ */
 public interface ComponentContentModel extends ContentModel {
+    /**
+     * Returns whether the component is enabled.
+     *
+     * @return {@code true} if enabled.
+     */
     boolean isEnabled();
+
+    /**
+     * Sets whether the component is enabled.
+     *
+     * @param enabled {@code true} to enable.
+     */
     void setEnabled(boolean enabled);
+
+    /**
+     * Returns the icon factory.
+     *
+     * @return The icon factory.
+     */
     RadianceIcon.Factory getIconFactory();
+
+    /**
+     * Returns the caption text.
+     *
+     * @return The caption.
+     */
     String getCaption();
+
+    /**
+     * Returns the rich tooltip.
+     *
+     * @return The rich tooltip.
+     */
     RichTooltip getRichTooltip();
 
+    /**
+     * Adds a property change listener.
+     *
+     * @param pcl The listener.
+     */
     void addPropertyChangeListener(PropertyChangeListener pcl);
+
+    /**
+     * Removes a property change listener.
+     *
+     * @param pcl The listener.
+     */
     void removePropertyChangeListener(PropertyChangeListener pcl);
 }

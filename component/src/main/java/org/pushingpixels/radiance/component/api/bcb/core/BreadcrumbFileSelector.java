@@ -49,13 +49,34 @@ import java.util.*;
  * @author Brian Young
  */
 public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
+    /**
+     * Provider for file and directory icons.
+     */
     private IconProvider iconProvider;
 
+    /**
+     * Provider interface for file and directory icons.
+     */
     public interface IconProvider {
+        /**
+         * Returns the icon factory for the given file.
+         *
+         * @param file The file.
+         * @return The icon factory, or {@code null} for no icon.
+         */
         RadianceIcon.Factory getIconFactory(File file);
     }
 
+    /**
+     * Icon provider that returns folder icons for directories and file icons for files.
+     */
     public static class FixedIconProvider implements IconProvider {
+        /**
+         * Constructs a {@code FixedIconProvider}.
+         */
+        public FixedIconProvider() {
+        }
+
         @Override
         public RadianceIcon.Factory getIconFactory(File file) {
             if (file.isDirectory()) {
@@ -66,7 +87,16 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
         }
     }
 
+    /**
+     * Icon provider that returns no icons.
+     */
     public static class EmptyIconProvider implements IconProvider {
+        /**
+         * Constructs an {@code EmptyIconProvider}.
+         */
+        public EmptyIconProvider() {
+        }
+
         @Override
         public RadianceIcon.Factory getIconFactory(File file) {
             return null;
@@ -245,6 +275,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
      *
      * @param fileSystemView File system view.
      * @param iconProvider Icon provider.
+     * @param presentationModel Presentation model.
      */
     public BreadcrumbFileSelector(FileSystemView fileSystemView, IconProvider iconProvider,
             BreadcrumbBarPresentationModel presentationModel) {

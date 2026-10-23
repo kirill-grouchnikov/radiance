@@ -33,10 +33,19 @@ import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
 
+/**
+ * Projection for a command panel.
+ */
 public class CommandPanelProjection extends Projection<JCommandButtonPanel,
         CommandPanelContentModel, CommandPanelPresentationModel> {
 
-   public CommandPanelProjection(CommandPanelContentModel contentModel,
+    /**
+     * Constructs a {@code CommandPanelProjection}.
+     *
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     */
+    public CommandPanelProjection(CommandPanelContentModel contentModel,
             CommandPanelPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JCommandButtonPanel::new);
     }

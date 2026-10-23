@@ -93,6 +93,12 @@ public class LabelContentModel implements ContentModel, PropertyChangeAware {
     }
 
     public static class Builder {
+        /**
+         * Constructs a new {@link Builder} instance.
+         */
+        public Builder() {
+        }
+
         private String text = "";
         private boolean isEnabled = true;
         private RadianceIcon.Factory iconFactory;

@@ -35,10 +35,21 @@ import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentM
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 
+/**
+ * Projection for a command button.
+ *
+ * @param <M> The type of the command.
+ */
 public class CommandButtonProjection<M extends Command>
         extends BaseCommandButtonProjection<M, CommandMenuContentModel,
         CommandButtonPresentationModel, CommandPopupMenuPresentationModel> {
 
+    /**
+     * Constructs a {@code CommandButtonProjection}.
+     *
+     * @param command The command model.
+     * @param commandPresentation The presentation model.
+     */
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation) {
         super(command, commandPresentation);
     }

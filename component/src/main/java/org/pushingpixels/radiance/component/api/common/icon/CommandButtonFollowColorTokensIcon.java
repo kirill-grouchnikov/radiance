@@ -74,21 +74,36 @@ public class CommandButtonFollowColorTokensIcon implements RadianceIcon {
         /**
          * Draws the icon that matches the specified color tokens.
          *
+         * @param g      Graphics context.
          * @param tokens Color tokens.
+         * @param alpha  Alpha transparency value.
          * @param width  Icon width.
          * @param height Icon height.
          */
         void drawColorTokensIcon(Graphics2D g, ContainerColorTokens tokens, float alpha, int width, int height);
     }
 
-    // Color tokens association kind.
+    /**
+     * Color tokens association kind.
+     */
     private RadianceThemingSlices.ContainerColorTokensAssociationKind colorTokensAssociationKind;
 
-    // Delegate to compute the actual icons.
+    /**
+     * Delegate to compute the actual icons.
+     */
     private Delegate delegate;
 
+    /**
+     * Mutable color tokens for rendering.
+     */
     private BladeContainerColorTokens mutableTokens = new BladeContainerColorTokens();
 
+    /**
+     * Creates a new icon with MARK association kind.
+     *
+     * @param delegate Delegate to compute the actual icons.
+     * @param initialDim Initial icon dimension.
+     */
     public CommandButtonFollowColorTokensIcon(Delegate delegate, Dimension initialDim) {
         this(RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
             delegate, initialDim);

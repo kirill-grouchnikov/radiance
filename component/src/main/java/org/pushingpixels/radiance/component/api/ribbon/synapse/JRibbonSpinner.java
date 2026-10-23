@@ -37,7 +37,15 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * A spinner component for use in ribbon bands.
+ */
 public class JRibbonSpinner extends JSpinner {
+    /**
+     * Constructs a new {@code JRibbonSpinner} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JRibbonSpinner(Projection<JRibbonSpinner,
             RibbonSpinnerContentModel, ComponentPresentationModel> projection) {
         super(projection.getContentModel());

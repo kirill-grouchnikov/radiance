@@ -32,6 +32,14 @@ package org.pushingpixels.radiance.component.api.common;
 import javax.swing.*;
 import java.util.List;
 
+/**
+ * Interface for containers that support exo-focus behavior.
+ */
 public interface JExoContainer {
+    /**
+     * Returns the focus sequence for the contained components.
+     *
+     * @return The list of components in focus order.
+     */
     List<JComponent> getFocusSequence();
 }

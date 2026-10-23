@@ -31,6 +31,9 @@ package org.pushingpixels.radiance.component.api.common.model;
 
 import javax.swing.event.ChangeListener;
 
+/**
+ * Interface for objects that support change listeners.
+ */
 public interface ChangeAware {
     /**
      * Adds the specified change listener to track changes to the underlying source.

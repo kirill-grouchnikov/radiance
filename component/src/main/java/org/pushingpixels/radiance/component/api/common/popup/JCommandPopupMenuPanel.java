@@ -56,6 +56,8 @@ import java.util.List;
  */
 public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements ScrollableHost {
     /**
+     * The UI class ID for the command popup menu panel.
+     *
      * @see #getUIClassID
      */
     public static final String uiClassID = "CommandPopupMenuPanelUI";
@@ -78,6 +80,11 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
      */
     private JCommandButtonPanel mainButtonPanel;
 
+    /**
+     * Constructs a new {@code JCommandPopupMenuPanel} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JCommandPopupMenuPanel(Projection<JCommandPopupMenuPanel, CommandMenuContentModel,
             CommandPopupMenuPresentationModel> projection) {
         this.projection = projection;
@@ -184,6 +191,11 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
         }
     }
 
+    /**
+     * Returns the projection for this command popup menu panel.
+     *
+     * @return The projection.
+     */
     public Projection<JCommandPopupMenuPanel, CommandMenuContentModel, CommandPopupMenuPresentationModel> getProjection() {
         return this.projection;
     }

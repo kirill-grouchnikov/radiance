@@ -52,8 +52,13 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Popup menu panel for color selection.
+ */
 public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
     /**
+     * The UI class ID for the color selector popup menu panel.
+     *
      * @see #getUIClassID
      */
     public static final String uiClassID = "ColorSelectorPopupMenuPanelUI";
@@ -69,6 +74,11 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
 
     private static LinkedList<Color> recentlySelected = new LinkedList<>();
 
+    /**
+     * Constructs a new {@code JColorSelectorPopupMenuPanel} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JColorSelectorPopupMenuPanel(Projection<JColorSelectorPopupMenuPanel, ColorSelectorPopupMenuContentModel,
             ColorSelectorPopupMenuPresentationModel> projection) {
         this.projection = projection;
@@ -83,6 +93,11 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
         this.updateUI();
     }
 
+    /**
+     * Returns the projection for this color selector popup panel.
+     *
+     * @return The projection.
+     */
     public Projection<JColorSelectorPopupMenuPanel, ColorSelectorPopupMenuContentModel,
             ColorSelectorPopupMenuPresentationModel> getProjection() {
         return this.projection;
@@ -213,10 +228,20 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
         }
     }
 
+    /**
+     * Returns the list of recently used colors.
+     *
+     * @return The unmodifiable list of recently used colors.
+     */
     public synchronized static List<Color> getRecentlyUsedColors() {
         return Collections.unmodifiableList(recentlySelected);
     }
 
+    /**
+     * Adds a color to the recently used colors list.
+     *
+     * @param color The color to add.
+     */
     public synchronized static void addColorToRecentlyUsed(Color color) {
         // Is it already in?
         if (recentlySelected.contains(color)) {

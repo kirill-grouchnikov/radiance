@@ -33,10 +33,19 @@ import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopup
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 
+/**
+ * Projection for a color selector popup menu panel.
+ */
 public class ColorSelectorPopupMenuPanelProjection extends AbstractPopupMenuPanelProjection<
         JColorSelectorPopupMenuPanel, ColorSelectorPopupMenuContentModel,
         ColorSelectorPopupMenuPresentationModel> {
 
+    /**
+     * Constructs a {@code ColorSelectorPopupMenuPanelProjection}.
+     *
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     */
     public ColorSelectorPopupMenuPanelProjection(ColorSelectorPopupMenuContentModel contentModel,
             ColorSelectorPopupMenuPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JColorSelectorPopupMenuPanel::new);

@@ -31,5 +31,13 @@ package org.pushingpixels.radiance.component.api.common.popup.model;
 
 import org.pushingpixels.radiance.component.api.common.model.ImmutablePresentationModel;
 
+/**
+ * Base presentation model for command popup menus.
+ */
 public abstract class BaseCommandPopupMenuPresentationModel implements ImmutablePresentationModel {
+    /**
+     * Constructs a {@code BaseCommandPopupMenuPresentationModel}.
+     */
+    protected BaseCommandPopupMenuPresentationModel() {
+    }
 }

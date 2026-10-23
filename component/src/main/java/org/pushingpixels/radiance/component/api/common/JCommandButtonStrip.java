@@ -57,6 +57,11 @@ public class JCommandButtonStrip extends JComponent implements JExoContainer {
 
     private Projection<JCommandButtonStrip, CommandGroup, CommandStripPresentationModel> projection;
 
+    /**
+     * Constructs a new {@code JCommandButtonStrip} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JCommandButtonStrip(Projection<JCommandButtonStrip, CommandGroup,
             CommandStripPresentationModel> projection) {
         this.projection = projection;
@@ -66,6 +71,11 @@ public class JCommandButtonStrip extends JComponent implements JExoContainer {
         updateUI();
     }
 
+    /**
+     * Returns the projection for this command button strip.
+     *
+     * @return The projection.
+     */
     public Projection<JCommandButtonStrip, CommandGroup, CommandStripPresentationModel> getProjection() {
         return this.projection;
     }

@@ -29,5 +29,8 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
+/**
+ * Marker interface for immutable presentation models.
+ */
 public interface ImmutablePresentationModel extends PresentationModel {
 }

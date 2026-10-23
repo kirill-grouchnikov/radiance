@@ -38,7 +38,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Content model for a command panel.
+ */
 public class CommandPanelContentModel implements ContentModel, ChangeAware {
+    /**
+     * The command groups in this panel.
+     */
     private List<CommandGroup> commandGroups;
 
     /**
@@ -46,6 +52,9 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
      */
     private boolean isSingleSelectionMode;
 
+    /**
+     * Listener for command preview events.
+     */
     private Command.CommandActionPreview commandPreviewListener;
 
     /**
@@ -53,12 +62,29 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
      */
     private final WeakChangeSupport weakChangeSupport;
 
+    /**
+     * Listener for command group events.
+     */
     private CommandGroup.CommandGroupListener commandGroupListener;
+    /**
+     * Listener for command group property changes.
+     */
     private PropertyChangeListener commandGroupPropertyChangeListener;
+    /**
+     * Listener for command property changes.
+     */
     private PropertyChangeListener commandPropertyChangeListener;
 
+    /**
+     * The currently selected command.
+     */
     private Command selectedCommand;
 
+    /**
+     * Constructs a {@code CommandPanelContentModel} with the given command groups.
+     *
+     * @param commands The command groups.
+     */
     public CommandPanelContentModel(List<CommandGroup> commands) {
         this.weakChangeSupport = new WeakChangeSupport(this);
         this.commandGroups = new ArrayList<>(commands);
@@ -100,6 +126,11 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         }
     }
 
+    /**
+     * Adds a command group to this panel.
+     *
+     * @param commandGroupModel The command group to add.
+     */
     public void addCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
@@ -113,6 +144,11 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         }
     }
 
+    /**
+     * Removes a command group from this panel.
+     *
+     * @param commandGroupModel The command group to remove.
+     */
     public void removeCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
@@ -126,6 +162,9 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         }
     }
 
+    /**
+     * Removes all command groups from this panel.
+     */
     public void removeAllCommandGroups() {
         for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
@@ -141,10 +180,20 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         }
     }
 
+    /**
+     * Returns the command groups as an unmodifiable list.
+     *
+     * @return The command groups.
+     */
     public List<CommandGroup> getCommandGroups() {
         return Collections.unmodifiableList(this.commandGroups);
     }
 
+    /**
+     * Returns the total number of commands across all groups.
+     *
+     * @return The command count.
+     */
     public int getCommandCount() {
         int result = 0;
         for (CommandGroup commandGroupModel : this.getCommandGroups()) {
@@ -153,6 +202,12 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         return result;
     }
 
+    /**
+     * Finds the first command matching the given filter across all groups.
+     *
+     * @param commandFilter The filter.
+     * @return The first matching command, or {@code null}.
+     */
     public Command findFirstMatch(CommandGroup.CommandFilter commandFilter) {
         for (CommandGroup commandGroup : this.commandGroups) {
             Command result = commandGroup.findFirstMatch(commandFilter);
@@ -181,18 +236,38 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         this.fireStateChanged();
     }
 
+    /**
+     * Returns the currently selected command.
+     *
+     * @return The selected command.
+     */
     public Command getSelectedCommand() {
         return this.selectedCommand;
     }
 
+    /**
+     * Returns whether single selection mode is enabled.
+     *
+     * @return {@code true} if single selection mode is enabled.
+     */
     public boolean isSingleSelectionMode() {
         return this.isSingleSelectionMode;
     }
 
+    /**
+     * Sets the command preview listener.
+     *
+     * @param commandPreviewListener The listener.
+     */
     public void setCommandPreviewListener(Command.CommandActionPreview commandPreviewListener) {
         this.commandPreviewListener = commandPreviewListener;
     }
 
+    /**
+     * Returns the command preview listener.
+     *
+     * @return The listener.
+     */
     public Command.CommandActionPreview getCommandPreviewListener() {
         return this.commandPreviewListener;
     }
@@ -222,15 +297,28 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         return false;
     }
 
+    /**
+     * Adds a change listener.
+     *
+     * @param l The listener.
+     */
     public void addChangeListener(ChangeListener l) {
         this.weakChangeSupport.addChangeListener(l);
     }
 
+    /**
+     * Removes a change listener.
+     *
+     * @param l The listener.
+     */
     @Override
     public void removeChangeListener(ChangeListener l) {
         this.weakChangeSupport.removeChangeListener(l);
     }
 
+    /**
+     * Fires a state changed event to all registered listeners.
+     */
     private void fireStateChanged() {
         this.weakChangeSupport.fireStateChanged();
     }

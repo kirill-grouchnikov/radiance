@@ -466,6 +466,12 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
         protected Object tag;
 
         /**
+         * Constructs a {@code BaseBuilder}.
+         */
+        protected BaseBuilder() {
+        }
+
+        /**
          * Applies the builder configuration to the given command.
          * @param command The command to configure.
          */

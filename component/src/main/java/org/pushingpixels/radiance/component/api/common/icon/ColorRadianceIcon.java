@@ -109,6 +109,12 @@ public class ColorRadianceIcon implements RadianceIcon {
         g.fillRect(x, y, this.getIconWidth(), this.getIconHeight());
     }
 
+    /**
+     * Creates a factory for color icons with the given color.
+     *
+     * @param color The fill color.
+     * @return The factory.
+     */
     public static Factory factory(Color color) {
         return () -> new ColorRadianceIcon(16, color);
     }

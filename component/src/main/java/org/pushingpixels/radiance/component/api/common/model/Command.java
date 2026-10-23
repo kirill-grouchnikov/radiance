@@ -52,29 +52,67 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandButtonP
  * @see CommandButtonProjection
  */
 public class Command extends BaseCommand<CommandMenuContentModel> {
+    /**
+     * Constructs a {@code Command}.
+     */
     private Command() {
         super();
     }
 
+    /**
+     * Creates a new builder for {@link Command}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Projects this command with default presentation settings.
+     *
+     * @return The command button projection.
+     */
     public CommandButtonProjection<Command> project() {
         return new CommandButtonProjection<>(this, CommandButtonPresentationModel.withDefaults());
     }
 
+    /**
+     * Projects this command with the given presentation settings.
+     *
+     * @param commandPresentation The presentation model.
+     * @return The command button projection.
+     */
     public CommandButtonProjection<Command> project(
             CommandButtonPresentationModel commandPresentation) {
         return new CommandButtonProjection<>(this, commandPresentation);
     }
 
+    /**
+     * Returns a string representation of this command.
+     *
+     * @return The string representation.
+     */
     @Override
     public String toString() {
         return "Command @" + hashCode() + " {text='" + getText() + "'}";
     }
 
+    /**
+     * Builder for {@link Command}.
+     */
     public static class Builder extends BaseBuilder<Command, CommandMenuContentModel, Builder> {
+        /**
+         * Constructs a {@code Builder}.
+         */
+        public Builder() {
+        }
+
+        /**
+         * Builds the {@link Command}.
+         *
+         * @return The built command.
+         */
         @Override
         public Command build() {
             Command command = new Command();

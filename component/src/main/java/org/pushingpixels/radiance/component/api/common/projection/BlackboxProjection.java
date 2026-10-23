@@ -37,29 +37,70 @@ import org.pushingpixels.radiance.component.api.common.model.PresentationModel;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Abstract blackbox projection that holds content and presentation models.
+ *
+ * @param <C> The type of the content model.
+ * @param <P> The type of the presentation model.
+ */
 public abstract class BlackboxProjection<C extends ContentModel, P extends PresentationModel> {
+    /**
+     * The content model.
+     */
     private C contentModel;
+    /**
+     * The presentation model.
+     */
     private P presentationModel;
+    /**
+     * Overlays for individual commands.
+     */
     private Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays;
 
+    /**
+     * Constructs a {@code BlackboxProjection}.
+     *
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     */
     public BlackboxProjection(C contentModel, P presentationModel) {
         this.contentModel = contentModel;
         this.presentationModel = presentationModel;
         this.commandOverlays = new HashMap<>();
     }
 
+    /**
+     * Returns the content model.
+     *
+     * @return The content model.
+     */
     public C getContentModel() {
         return this.contentModel;
     }
 
+    /**
+     * Returns the presentation model.
+     *
+     * @return The presentation model.
+     */
     public P getPresentationModel() {
         return this.presentationModel;
     }
 
+    /**
+     * Sets the command overlays.
+     *
+     * @param commandOverlays The overlays map.
+     */
     public void setCommandOverlays(Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays) {
         this.commandOverlays = commandOverlays;
     }
 
+    /**
+     * Returns the command overlays.
+     *
+     * @return The overlays map.
+     */
     public Map<Command, CommandButtonPresentationModel.Overlay> getCommandOverlays() {
         return this.commandOverlays;
     }

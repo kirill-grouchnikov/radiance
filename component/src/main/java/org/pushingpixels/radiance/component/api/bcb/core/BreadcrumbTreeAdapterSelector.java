@@ -208,6 +208,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
      * @param isRootVisible If <code>true</code>, the first selector shows the tree root
      *                      node. If <code>false</code>, the first selector shows the tree
      *                      root child nodes.
+     * @param presentationModel The presentation model for the breadcrumb bar.
      */
     public BreadcrumbTreeAdapterSelector(TreeModel treeModel,
             TreeAdapter<T> treeAdapter, boolean isRootVisible,

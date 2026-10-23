@@ -29,42 +29,106 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
+/**
+ * Presentation model for a circular progress indicator.
+ */
 public class CircularProgressPresentationModel implements ImmutablePresentationModel {
+    /**
+     * Default radius for the progress circle.
+     */
     public static final int DEFAULT_RADIUS = 10;
+    /**
+     * Default stroke width for the progress circle.
+     */
     public static final float DEFAULT_STROKE_WIDTH = 2.0f;
 
+    /**
+     * Radius of the progress circle.
+     */
     private int size;
+    /**
+     * Stroke width of the progress circle.
+     */
     private float strokeWidth;
 
+    /**
+     * Constructs a {@code CircularProgressPresentationModel}.
+     */
     private CircularProgressPresentationModel() {
     }
 
+    /**
+     * Creates a new builder for {@link CircularProgressPresentationModel}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Returns the radius of the progress circle.
+     *
+     * @return The radius.
+     */
     public int getRadius() {
         return this.size;
     }
 
+    /**
+     * Returns the stroke width of the progress circle.
+     *
+     * @return The stroke width.
+     */
     public float getStrokeWidth() {
         return this.strokeWidth;
     }
 
+    /**
+     * Builder for {@link CircularProgressPresentationModel}.
+     */
     public static class Builder {
+        /**
+         * Constructs a new {@link Builder} instance.
+         */
+        public Builder() {
+        }
+        /**
+         * Radius of the progress circle.
+         */
         private int radius = DEFAULT_RADIUS;
+        /**
+         * Stroke width of the progress circle.
+         */
         private float strokeWidth = DEFAULT_STROKE_WIDTH;
 
+        /**
+         * Sets the radius of the progress circle.
+         *
+         * @param radius The radius.
+         * @return This builder.
+         */
         public Builder setRadius(int radius) {
             this.radius = radius;
             return this;
         }
 
+        /**
+         * Sets the stroke width of the progress circle.
+         *
+         * @param strokeWidth The stroke width.
+         * @return This builder.
+         */
         public Builder setStrokeWidth(float strokeWidth) {
             this.strokeWidth = strokeWidth;
             return this;
         }
 
+        /**
+         * Builds the {@link CircularProgressPresentationModel}.
+         *
+         * @return The built model.
+         */
         public CircularProgressPresentationModel build() {
             CircularProgressPresentationModel presentationModel = new CircularProgressPresentationModel();
             presentationModel.size = this.radius;

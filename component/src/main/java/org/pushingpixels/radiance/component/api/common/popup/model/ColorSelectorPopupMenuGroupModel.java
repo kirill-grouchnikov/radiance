@@ -41,11 +41,27 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Model for a group of entries in a color selector popup menu.
+ */
 public class ColorSelectorPopupMenuGroupModel implements ChangeAware {
+    /**
+     * Kind of entry in a group.
+     */
     public enum GroupEntryKind {
-        COMMAND, COLOR_SECTION, COLOR_SECTION_WITH_DERIVED, RECENTS_SECTION
+        /** A command entry. */
+        COMMAND,
+        /** A color section entry. */
+        COLOR_SECTION,
+        /** A color section with derived colors entry. */
+        COLOR_SECTION_WITH_DERIVED,
+        /** A recents section entry. */
+        RECENTS_SECTION
     }
 
+    /**
+     * The content of the group.
+     */
     private List<KeyValuePair<GroupEntryKind, Object>> groupContent;
 
     /**
@@ -53,102 +69,233 @@ public class ColorSelectorPopupMenuGroupModel implements ChangeAware {
      */
     private final WeakChangeSupport weakChangeSupport;
 
+    /**
+     * Model for a section of colors in a popup menu.
+     */
     public static class ColorSectionModel {
+        /**
+         * Title of the section.
+         */
         private String title;
+        /**
+         * Colors in the section.
+         */
         private Color[] colors;
 
+        /**
+         * Constructs a {@code ColorSectionModel} with the given title.
+         *
+         * @param title The section title.
+         */
         public ColorSectionModel(String title) {
             this.title = title;
         }
 
+        /**
+         * Constructs a {@code ColorSectionModel} with the given title and colors.
+         *
+         * @param title  The section title.
+         * @param colors The colors in the section.
+         */
         public ColorSectionModel(String title, Color[] colors) {
             this.title = title;
             this.colors = colors;
         }
 
+        /**
+         * Returns the section title.
+         *
+         * @return The title.
+         */
         public final String getTitle() {
             return this.title;
         }
 
+        /**
+         * Returns the colors in the section.
+         *
+         * @return The colors array.
+         */
         public final Color[] getColors() {
             return Arrays.copyOf(this.colors, this.colors.length);
         }
     }
 
+    /**
+     * Model for a section of colors with derived colors in a popup menu.
+     */
     public static class ColorSectionModelWithDerived {
+        /**
+         * Title of the section.
+         */
         private String title;
+        /**
+         * Colors in the section.
+         */
         private Color[] colors;
+        /**
+         * Number of derived colors.
+         */
         private int derivedCount;
 
+        /**
+         * Constructs a {@code ColorSectionModelWithDerived}.
+         *
+         * @param title        The section title.
+         * @param colors       The colors in the section.
+         * @param derivedCount The number of derived colors.
+         */
         public ColorSectionModelWithDerived(String title, Color[] colors, int derivedCount) {
             this.title = title;
             this.colors = colors;
             this.derivedCount = derivedCount;
         }
 
+        /**
+         * Returns the section title.
+         *
+         * @return The title.
+         */
         public final String getTitle() {
             return this.title;
         }
 
+        /**
+         * Returns the colors in the section.
+         *
+         * @return The colors array.
+         */
         public final Color[] getColors() {
             return Arrays.copyOf(this.colors, this.colors.length);
         }
 
+        /**
+         * Returns the number of derived colors.
+         *
+         * @return The derived count.
+         */
         public int getDerivedCount() {
             return this.derivedCount;
         }
     }
 
+    /**
+     * Creates a new builder for {@link ColorSelectorPopupMenuGroupModel}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Constructs a {@code ColorSelectorPopupMenuGroupModel}.
+     */
     private ColorSelectorPopupMenuGroupModel() {
         this.weakChangeSupport = new WeakChangeSupport(this);
     }
 
+    /**
+     * Returns the group content as an unmodifiable list.
+     *
+     * @return The group content.
+     */
     public List<KeyValuePair<GroupEntryKind, Object>> getGroupContent() {
         return Collections.unmodifiableList(this.groupContent);
     }
 
+    /**
+     * Adds a change listener.
+     *
+     * @param l The listener.
+     */
     public void addChangeListener(ChangeListener l) {
         this.weakChangeSupport.addChangeListener(l);
     }
 
+    /**
+     * Removes a change listener.
+     *
+     * @param l The listener.
+     */
     @Override
     public void removeChangeListener(ChangeListener l) {
         this.weakChangeSupport.removeChangeListener(l);
     }
 
+    /**
+     * Fires a state changed event to all registered listeners.
+     */
     private void fireStateChanged() {
         this.weakChangeSupport.fireStateChanged();
     }
 
+    /**
+     * Builder for {@link ColorSelectorPopupMenuGroupModel}.
+     */
     public static class Builder {
+        /**
+         * Constructs a new {@link Builder} instance.
+         */
+        public Builder() {
+        }
+
+        /**
+         * The group content being built.
+         */
         private List<KeyValuePair<GroupEntryKind, Object>> groupContent = new ArrayList<>();
 
+        /**
+         * Adds a command to the group.
+         *
+         * @param command The command.
+         * @return This builder.
+         */
         public Builder addCommand(Command command) {
             this.groupContent.add(new KeyValuePair<>(GroupEntryKind.COMMAND, command));
             return this;
         }
 
+        /**
+         * Adds a color section to the group.
+         *
+         * @param colorSectionModel The color section model.
+         * @return This builder.
+         */
         public Builder addColorSection(ColorSectionModel colorSectionModel) {
             this.groupContent.add(new KeyValuePair<>(GroupEntryKind.COLOR_SECTION, colorSectionModel));
             return this;
         }
 
+        /**
+         * Adds a color section with derived colors to the group.
+         *
+         * @param colorSectionModel The color section model with derived colors.
+         * @return This builder.
+         */
         public Builder addColorSectionWithDerived(ColorSectionModelWithDerived colorSectionModel) {
             this.groupContent.add(new KeyValuePair<>(GroupEntryKind.COLOR_SECTION_WITH_DERIVED,
                     colorSectionModel));
             return this;
         }
 
+        /**
+         * Adds a recents section to the group.
+         *
+         * @param colorSectionModel The recents section model.
+         * @return This builder.
+         */
         public Builder addRecentsSection(ColorSectionModel colorSectionModel) {
             this.groupContent.add(new KeyValuePair<>(GroupEntryKind.RECENTS_SECTION,
                     colorSectionModel));
             return this;
         }
 
+        /**
+         * Builds the {@link ColorSelectorPopupMenuGroupModel}.
+         *
+         * @return The built model.
+         */
         public ColorSelectorPopupMenuGroupModel build() {
             ColorSelectorPopupMenuGroupModel menuGroupModel = new ColorSelectorPopupMenuGroupModel();
             menuGroupModel.groupContent = Collections.unmodifiableList(this.groupContent);

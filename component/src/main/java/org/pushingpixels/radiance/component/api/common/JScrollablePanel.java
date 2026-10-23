@@ -43,20 +43,47 @@ import javax.swing.event.ChangeListener;
  */
 public class JScrollablePanel<T extends JComponent> extends JPanel {
 	/**
+	 * The UI class ID for the scrollable panel.
+	 *
 	 * @see #getUIClassID
 	 */
 	public static final String uiClassID = "ScrollablePanelUI";
 
+	/**
+	 * The contained view component.
+	 */
 	private T view;
 
+	/**
+	 * The scroll direction.
+	 */
 	private ScrollType scrollType;
 
+	/**
+	 * Whether scrolling occurs on rollover.
+	 */
 	private boolean isScrollOnRollover;
 
+	/**
+	 * The scroll direction type.
+	 */
 	public enum ScrollType {
-		VERTICALLY, HORIZONTALLY
+		/**
+		 * Scroll vertically.
+		 */
+		VERTICALLY,
+		/**
+		 * Scroll horizontally.
+		 */
+		HORIZONTALLY
 	}
 
+	/**
+	 * Constructs a new {@code JScrollablePanel} with the given view and scroll type.
+	 *
+	 * @param c         The view component.
+	 * @param scrollType The scroll direction.
+	 */
 	public JScrollablePanel(T c, final ScrollType scrollType) {
 		super();
 
@@ -82,6 +109,11 @@ public class JScrollablePanel<T extends JComponent> extends JPanel {
 		setUI(RadianceScrollablePanelUI.createUI(this));
 	}
 
+	/**
+	 * Sets whether scrolling occurs on rollover.
+	 *
+	 * @param toScrollOnRollover Whether to scroll on rollover.
+	 */
 	public void setScrollOnRollover(boolean toScrollOnRollover) {
 		boolean old = this.isScrollOnRollover;
 		this.isScrollOnRollover = toScrollOnRollover;
@@ -91,18 +123,39 @@ public class JScrollablePanel<T extends JComponent> extends JPanel {
 		}
 	}
 
+	/**
+	 * Scrolls to the specified position if necessary.
+	 *
+	 * @param startPosition The start position.
+	 * @param span          The span.
+	 */
 	public void scrollToIfNecessary(int startPosition, int span) {
 		this.getUI().scrollToIfNecessary(startPosition, span);
 	}
 
+	/**
+	 * Returns the contained view component.
+	 *
+	 * @return The view component.
+	 */
 	public T getView() {
 		return view;
 	}
 
+	/**
+	 * Adds a change listener.
+	 *
+	 * @param l The listener to add.
+	 */
 	public void addChangeListener(ChangeListener l) {
 		listenerList.add(ChangeListener.class, l);
 	}
 
+	/**
+	 * Removes a change listener.
+	 *
+	 * @param l The listener to remove.
+	 */
 	public void removeChangeListener(ChangeListener l) {
 		listenerList.remove(ChangeListener.class, l);
 	}
@@ -126,14 +179,29 @@ public class JScrollablePanel<T extends JComponent> extends JPanel {
 		this.fireStateChanged();
 	}
 
+	/**
+	 * Returns the scroll direction.
+	 *
+	 * @return The scroll direction.
+	 */
 	public ScrollType getScrollType() {
 		return scrollType;
 	}
 
+	/**
+	 * Returns whether scrolling occurs on rollover.
+	 *
+	 * @return Whether scrolling occurs on rollover.
+	 */
 	public boolean isScrollOnRollover() {
 		return this.isScrollOnRollover;
 	}
 
+	/**
+	 * Returns whether the scroll buttons are currently showing.
+	 *
+	 * @return Whether the scroll buttons are showing.
+	 */
 	public boolean isShowingScrollButtons() {
 		return this.getUI().isShowingScrollButtons();
 	}

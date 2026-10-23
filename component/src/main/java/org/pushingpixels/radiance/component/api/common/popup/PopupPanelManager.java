@@ -258,6 +258,8 @@ public class PopupPanelManager {
      *
      * @param popupOriginator The originator component.
      * @param popupContent    The content of the popup.
+     * @param xOnScreen       X coordinate on screen.
+     * @param yOnScreen       Y coordinate on screen.
      */
     public void showPopup(JComponent popupOriginator, JPopupPanel popupContent,
             int xOnScreen, int yOnScreen) {

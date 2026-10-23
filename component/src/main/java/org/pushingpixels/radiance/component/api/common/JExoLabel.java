@@ -36,6 +36,9 @@ import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceE
 
 import javax.swing.*;
 
+/**
+ * A label component with exo-focus support.
+ */
 public class JExoLabel extends JComponent {
     /**
      * The UI class ID string.
@@ -44,11 +47,21 @@ public class JExoLabel extends JComponent {
 
     private Projection<JExoLabel, LabelContentModel, LabelPresentationModel> projection;
 
+    /**
+     * Constructs a new {@code JExoLabel} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JExoLabel(Projection<JExoLabel, LabelContentModel, LabelPresentationModel> projection) {
         this.projection = projection;
         this.updateUI();
     }
 
+    /**
+     * Returns the projection for this label.
+     *
+     * @return The projection.
+     */
     public Projection<JExoLabel, LabelContentModel, LabelPresentationModel> getProjection() {
         return this.projection;
     }

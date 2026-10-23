@@ -29,7 +29,17 @@
  */
 package org.pushingpixels.radiance.component.api.ribbon;
 
+/**
+ * Default implementation of {@link RibbonTaskbarKeyTipPolicy} that assigns
+ * key tips to ribbon taskbar items.
+ */
 public class DefaultRibbonTaskbarKeyTipPolicy implements RibbonTaskbarKeyTipPolicy {
+    /**
+     * Constructs a new {@link DefaultRibbonTaskbarKeyTipPolicy}.
+     */
+    public DefaultRibbonTaskbarKeyTipPolicy() {
+    }
+
     private final static String LETTERS = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     @Override

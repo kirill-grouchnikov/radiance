@@ -212,6 +212,11 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         }
     }
 
+    /**
+     * Constructs a new {@code JCommandButton} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JCommandButton(BaseCommandButtonProjection<? extends BaseCommand<?>,
             ? extends BaseCommandMenuContentModel,
             ? extends BaseCommandButtonPresentationModel<?, ?>,
@@ -301,16 +306,31 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         return (CommandButtonUI) ui;
     }
 
+    /**
+     * Returns the projection for this command button.
+     *
+     * @return The projection.
+     */
     public BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel,
             ? extends BaseCommandButtonPresentationModel<?, ?>,
             ? extends BaseCommandPopupMenuPresentationModel> getProjection() {
         return this.projection;
     }
 
+    /**
+     * Returns the content model for this command button.
+     *
+     * @return The content model.
+     */
     public BaseCommand<? extends BaseCommandMenuContentModel> getContentModel() {
         return this.projection.getContentModel();
     }
 
+    /**
+     * Returns the presentation model for this command button.
+     *
+     * @return The presentation model.
+     */
     public BaseCommandButtonPresentationModel<? extends BaseCommandPopupMenuPresentationModel,
             ? extends BaseCommandButtonPresentationModel<?, ?>> getPresentationModel() {
         return this.projection.getPresentationModel();
@@ -678,6 +698,11 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         paintImmediately(new Rectangle(0, 0, size.width, size.height));
     }
 
+    /**
+     * Returns whether the popup associated with this button is currently visible.
+     *
+     * @return {@code true} if the popup is visible.
+     */
     public boolean isPopupVisible() {
         List<PopupPanelManager.PopupInfo> popupInfos =
                 PopupPanelManager.defaultManager().getShownPath();

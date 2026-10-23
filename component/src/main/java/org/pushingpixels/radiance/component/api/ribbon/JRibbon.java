@@ -216,28 +216,73 @@ public class JRibbon extends JComponent {
      */
     public static final String uiClassID = "RibbonUI";
 
+    /**
+     * Listener for contextual menu events in the ribbon.
+     */
     public interface OnShowContextualMenuListener {
+        /**
+         * Returns the contextual menu content model for the given gallery.
+         *
+         * @param ribbon           The ribbon.
+         * @param galleryProjection The gallery projection.
+         * @return The contextual menu content model.
+         */
         CommandMenuContentModel getContextualMenuContentModel(
                 JRibbon ribbon, RibbonGalleryProjection galleryProjection);
 
+        /**
+         * Returns the contextual menu content model for the given component.
+         *
+         * @param ribbon            The ribbon.
+         * @param componentProjection The component projection.
+         * @return The contextual menu content model.
+         */
         CommandMenuContentModel getContextualMenuContentModel(
                 JRibbon ribbon,
                 ComponentProjection<? extends JComponent, ? extends ComponentContentModel> componentProjection);
 
+        /**
+         * Returns the contextual menu content model for the given command.
+         *
+         * @param ribbon          The ribbon.
+         * @param commandProjection The command projection.
+         * @return The contextual menu content model.
+         */
         CommandMenuContentModel getContextualMenuContentModel(
                 JRibbon ribbon, BaseCommandButtonProjection<? extends BaseCommand<?>,
                 ? extends BaseCommandMenuContentModel,
                 ? extends BaseCommandButtonPresentationModel<?, ?>,
                 ? extends BaseCommandPopupMenuPresentationModel> commandProjection);
 
+        /**
+         * Returns the contextual menu content model for the given app link command.
+         *
+         * @param ribbon        The ribbon.
+         * @param appLinkCommand The app link command.
+         * @return The contextual menu content model.
+         */
         CommandMenuContentModel getContextualMenuContentModel(
                 JRibbon ribbon, Command appLinkCommand);
 
+        /**
+         * Returns the general contextual menu content model.
+         *
+         * @param ribbon The ribbon.
+         * @return The contextual menu content model.
+         */
         CommandMenuContentModel getContextualMenuContentModel(JRibbon ribbon);
     }
 
+    /**
+     * Listener for task selection changes.
+     */
     @FunctionalInterface
     public interface OnTaskSelectionChangeListener {
+        /**
+         * Called when the task selection changes.
+         *
+         * @param newSelection The new selected task.
+         */
         void onTaskSelectionChanged(RibbonTask newSelection);
     }
 
@@ -469,6 +514,11 @@ public class JRibbon extends JComponent {
         this.ribbonFrame = ribbonFrame;
     }
 
+    /**
+     * Sets the taskbar key tip policy.
+     *
+     * @param taskbarKeyTipPolicy The taskbar key tip policy.
+     */
     public void setTaskbarKeyTipPolicy(RibbonTaskbarKeyTipPolicy taskbarKeyTipPolicy) {
         if (taskbarKeyTipPolicy == null) {
             throw new IllegalArgumentException("Cannot pass null policy");
@@ -476,6 +526,11 @@ public class JRibbon extends JComponent {
         this.taskbarKeyTipPolicy = taskbarKeyTipPolicy;
     }
 
+    /**
+     * Returns the taskbar key tip policy.
+     *
+     * @return The taskbar key tip policy.
+     */
     public RibbonTaskbarKeyTipPolicy getTaskbarKeyTipPolicy() {
         return this.taskbarKeyTipPolicy;
     }
@@ -517,6 +572,15 @@ public class JRibbon extends JComponent {
         }
     }
 
+    /**
+     * Adds a command to the taskbar.
+     *
+     * @param <M>   The type of the command.
+     * @param <MCM> The type of the menu content model.
+     * @param <P>   The type of the presentation model.
+     * @param <MPM> The type of the popup menu presentation model.
+     * @param projection The command projection.
+     */
     public synchronized <M extends BaseCommand<MCM>,
             MCM extends BaseCommandMenuContentModel,
             P extends BaseCommandButtonPresentationModel<MPM, P>,
@@ -527,14 +591,30 @@ public class JRibbon extends JComponent {
         this.fireStateChanged();
     }
 
+    /**
+     * Returns whether the given command is showing in the taskbar.
+     *
+     * @param command The command.
+     * @return {@code true} if the command is showing in the taskbar.
+     */
     public synchronized boolean isShowingInTaskbar(BaseCommand<?> command) {
         return this.matchesTaskbarContentHandler(command);
     }
 
+    /**
+     * Removes a command from the taskbar.
+     *
+     * @param command The command to remove.
+     */
     public synchronized void removeTaskbarCommand(BaseCommand<?> command) {
         this.removeTaskbarContentHandlerFor(command);
     }
 
+    /**
+     * Adds an app menu link to the taskbar.
+     *
+     * @param appMenuCommand The app menu command.
+     */
     public synchronized void addTaskbarAppMenuLink(Command appMenuCommand) {
         if (this.applicationMenuProjection == null) {
             throw new IllegalArgumentException("Can't add app menu link when app menu is not set");
@@ -554,6 +634,11 @@ public class JRibbon extends JComponent {
         this.fireStateChanged();
     }
 
+    /**
+     * Removes an app menu link from the taskbar.
+     *
+     * @param appMenuCommand The app menu command to remove.
+     */
     public synchronized void removeTaskbarAppMenuLink(Command appMenuCommand) {
         if (this.applicationMenuProjection == null) {
             throw new IllegalArgumentException("Can't remove app menu link when app menu is not set");
@@ -571,6 +656,11 @@ public class JRibbon extends JComponent {
         this.removeTaskbarContentHandlerFor(appMenuCommand);
     }
 
+    /**
+     * Adds a component to the taskbar.
+     *
+     * @param projection The component projection.
+     */
     public synchronized void addTaskbarComponent(
             ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
         this.taskbarContentHandlers.add(new TaskbarComponentHandler<>(projection));
@@ -578,14 +668,30 @@ public class JRibbon extends JComponent {
         this.fireStateChanged();
     }
 
+    /**
+     * Returns whether the given component is showing in the taskbar.
+     *
+     * @param componentContentModel The component content model.
+     * @return {@code true} if the component is showing in the taskbar.
+     */
     public synchronized boolean isShowingInTaskbar(ComponentContentModel componentContentModel) {
         return this.matchesTaskbarContentHandler(componentContentModel);
     }
 
+    /**
+     * Removes a component from the taskbar.
+     *
+     * @param componentContentModel The component content model to remove.
+     */
     public synchronized void removeTaskbarComponent(ComponentContentModel componentContentModel) {
         this.removeTaskbarContentHandlerFor(componentContentModel);
     }
 
+    /**
+     * Adds a gallery dropdown to the taskbar.
+     *
+     * @param galleryProjection The gallery projection.
+     */
     public synchronized void addTaskbarGalleryDropdown(RibbonGalleryProjection galleryProjection) {
         this.taskbarContentHandlers.add(new TaskbarGalleryDropdownHandler(galleryProjection));
         this.syncTaskbarContent();
@@ -593,10 +699,21 @@ public class JRibbon extends JComponent {
     }
 
 
+    /**
+     * Returns whether the given gallery is showing in the taskbar.
+     *
+     * @param galleryContentModel The gallery content model.
+     * @return {@code true} if the gallery is showing in the taskbar.
+     */
     public synchronized boolean isShowingInTaskbar(RibbonGalleryContentModel galleryContentModel) {
         return this.matchesTaskbarContentHandler(galleryContentModel);
     }
 
+    /**
+     * Removes a gallery from the taskbar.
+     *
+     * @param galleryContentModel The gallery content model to remove.
+     */
     public synchronized void removeTaskbarGallery(RibbonGalleryContentModel galleryContentModel) {
         this.removeTaskbarContentHandlerFor(galleryContentModel);
     }
@@ -837,6 +954,11 @@ public class JRibbon extends JComponent {
         return uiClassID;
     }
 
+    /**
+     * Returns the taskbar components.
+     *
+     * @return The unmodifiable list of taskbar components.
+     */
     public synchronized List<Component> getTaskbarComponents() {
         return Collections.unmodifiableList(this.taskbarComponents);
     }
@@ -952,6 +1074,11 @@ public class JRibbon extends JComponent {
         this.firePropertyChange("applicationMenu", old, this.applicationMenuProjection);
     }
 
+    /**
+     * Returns the application menu command projection.
+     *
+     * @return The application menu command projection.
+     */
     public RibbonApplicationMenuCommandButtonProjection getApplicationMenuCommandProjection() {
         return this.applicationMenuCommandProjection;
     }
@@ -1009,15 +1136,30 @@ public class JRibbon extends JComponent {
         super.setVisible(flag);
     }
 
+    /**
+     * Sets the listener for contextual menu events.
+     *
+     * @param onShowContextualMenuListener The listener.
+     */
     public void setOnShowContextualMenuListener(
             OnShowContextualMenuListener onShowContextualMenuListener) {
         this.onShowContextualMenuListener = onShowContextualMenuListener;
     }
 
+    /**
+     * Returns the listener for contextual menu events.
+     *
+     * @return The listener.
+     */
     public OnShowContextualMenuListener getOnShowContextualMenuListener() {
         return this.onShowContextualMenuListener;
     }
 
+    /**
+     * Adds a listener for task selection changes.
+     *
+     * @param listener The listener to add.
+     */
     public synchronized void addOnTaskSelectionChangedListener(OnTaskSelectionChangeListener listener) {
         if (this.onTaskSelectionChangeListeners == null) {
             this.onTaskSelectionChangeListeners = new ArrayList<>();
@@ -1025,6 +1167,11 @@ public class JRibbon extends JComponent {
         this.onTaskSelectionChangeListeners.add(listener);
     }
 
+    /**
+     * Removes a listener for task selection changes.
+     *
+     * @param listener The listener to remove.
+     */
     public synchronized void removeOnTaskSelectionChangedListener(OnTaskSelectionChangeListener listener) {
         if (this.onTaskSelectionChangeListeners == null) {
             return;

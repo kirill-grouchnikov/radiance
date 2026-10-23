@@ -49,9 +49,18 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandButtonP
 public class CommandButtonPresentationModel extends BaseCommandButtonPresentationModel<
         CommandPopupMenuPresentationModel, CommandButtonPresentationModel> {
 
+    /**
+     * Constructs a {@code CommandButtonPresentationModel}.
+     */
     protected CommandButtonPresentationModel() {
     }
 
+    /**
+     * Creates an overlay of this presentation model with the specified customizations.
+     *
+     * @param overlay The overlay configuration to apply.
+     * @return A new presentation model with the overlay applied.
+     */
     @Override
     public CommandButtonPresentationModel overlayWith(BaseCommandButtonPresentationModel.Overlay overlay) {
         CommandButtonPresentationModel result = new CommandButtonPresentationModel();
@@ -123,17 +132,41 @@ public class CommandButtonPresentationModel extends BaseCommandButtonPresentatio
         return result;
     }
 
+    /**
+     * Returns a presentation model with default settings.
+     *
+     * @return The default presentation model.
+     */
     public static CommandButtonPresentationModel withDefaults() {
         return CommandButtonPresentationModel.builder().build();
     }
 
+    /**
+     * Creates a new builder for {@link CommandButtonPresentationModel}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
 
+    /**
+     * Builder for {@link CommandButtonPresentationModel}.
+     */
     public static class Builder extends BaseBuilder<CommandPopupMenuPresentationModel,
             CommandButtonPresentationModel, Builder> {
+        /**
+         * Constructs a {@code Builder}.
+         */
+        public Builder() {
+        }
+
+        /**
+         * Builds the {@link CommandButtonPresentationModel}.
+         *
+         * @return The built model.
+         */
         public CommandButtonPresentationModel build() {
             CommandButtonPresentationModel presentationModel = new CommandButtonPresentationModel();
             this.configureBaseCommandButtonPresentationModel(presentationModel);

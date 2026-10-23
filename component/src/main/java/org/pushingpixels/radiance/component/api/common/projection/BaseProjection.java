@@ -34,19 +34,47 @@ import org.pushingpixels.radiance.component.api.common.model.PresentationModel;
 
 import javax.swing.*;
 
+/**
+ * Base projection that builds a Swing component from content and presentation models.
+ *
+ * @param <T> The type of the Swing component.
+ * @param <C> The type of the content model.
+ * @param <P> The type of the presentation model.
+ */
 public abstract class BaseProjection<T extends JComponent, C extends ContentModel,
         P extends PresentationModel> extends BlackboxProjection<C, P> {
+    /**
+     * Constructs a {@code BaseProjection}.
+     *
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     */
     protected BaseProjection(C contentModel, P presentationModel) {
         super(contentModel, presentationModel);
     }
 
+    /**
+     * Builds the base component without configuration.
+     *
+     * @return The base component.
+     */
     public abstract T buildBaseComponent();
 
+    /**
+     * Builds and configures the component.
+     *
+     * @return The configured component.
+     */
     public final T buildComponent() {
         T result = this.buildBaseComponent();
         this.configureComponent(result);
         return result;
     }
 
+    /**
+     * Configures the component after it has been built.
+     *
+     * @param component The component to configure.
+     */
     protected void configureComponent(T component) {}
 }

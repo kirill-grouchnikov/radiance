@@ -37,7 +37,15 @@ import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+/**
+ * A check box component for use in ribbon bands.
+ */
 public class JRibbonCheckBox extends JCheckBox {
+    /**
+     * Constructs a new {@code JRibbonCheckBox} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JRibbonCheckBox(Projection<JRibbonCheckBox,
             RibbonCheckBoxContentModel, ComponentPresentationModel> projection) {
         super(projection.getContentModel().getText());

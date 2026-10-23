@@ -35,10 +35,19 @@ import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPa
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 
+/**
+ * Projection for a color selector command button.
+ */
 public class ColorSelectorCommandButtonProjection extends
         BaseCommandButtonProjection<ColorSelectorCommand, ColorSelectorPopupMenuContentModel,
                 ColorSelectorCommandButtonPresentationModel,
                 ColorSelectorPopupMenuPresentationModel> {
+    /**
+     * Constructs a {@code ColorSelectorCommandButtonProjection}.
+     *
+     * @param command The command model.
+     * @param commandPresentation The presentation model.
+     */
     public ColorSelectorCommandButtonProjection(ColorSelectorCommand command,
             ColorSelectorCommandButtonPresentationModel commandPresentation) {
         super(command, commandPresentation);

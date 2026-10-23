@@ -33,9 +33,18 @@ import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
 
+/**
+ * Projection for a command strip.
+ */
 public class CommandStripProjection extends Projection<JCommandButtonStrip,
         CommandGroup, CommandStripPresentationModel> {
 
+    /**
+     * Constructs a {@code CommandStripProjection}.
+     *
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     */
     public CommandStripProjection(CommandGroup contentModel,
             CommandStripPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JCommandButtonStrip::new);

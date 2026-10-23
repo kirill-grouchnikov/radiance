@@ -42,9 +42,18 @@ import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelector
 public class ColorSelectorCommandButtonPresentationModel extends BaseCommandButtonPresentationModel<ColorSelectorPopupMenuPresentationModel,
         ColorSelectorCommandButtonPresentationModel> {
 
+    /**
+     * Constructs a {@code ColorSelectorCommandButtonPresentationModel}.
+     */
     protected ColorSelectorCommandButtonPresentationModel() {
     }
 
+    /**
+     * Creates an overlay of this presentation model with the specified customizations.
+     *
+     * @param overlay The overlay configuration to apply.
+     * @return A new presentation model with the overlay applied.
+     */
     @Override
     public ColorSelectorCommandButtonPresentationModel overlayWith(Overlay overlay) {
         ColorSelectorCommandButtonPresentationModel result = new ColorSelectorCommandButtonPresentationModel();
@@ -116,17 +125,41 @@ public class ColorSelectorCommandButtonPresentationModel extends BaseCommandButt
         return result;
     }
 
+    /**
+     * Returns a presentation model with default settings.
+     *
+     * @return The default presentation model.
+     */
     public static ColorSelectorCommandButtonPresentationModel withDefaults() {
         return ColorSelectorCommandButtonPresentationModel.builder().build();
     }
 
+    /**
+     * Creates a new builder for {@link ColorSelectorCommandButtonPresentationModel}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
 
+    /**
+     * Builder for {@link ColorSelectorCommandButtonPresentationModel}.
+     */
     public static class Builder extends BaseBuilder<ColorSelectorPopupMenuPresentationModel,
             ColorSelectorCommandButtonPresentationModel, Builder> {
+        /**
+         * Constructs a {@code Builder}.
+         */
+        public Builder() {
+        }
+
+        /**
+         * Builds the {@link ColorSelectorCommandButtonPresentationModel}.
+         *
+         * @return The built model.
+         */
         public ColorSelectorCommandButtonPresentationModel build() {
             ColorSelectorCommandButtonPresentationModel presentationModel = new ColorSelectorCommandButtonPresentationModel();
             this.configureBaseCommandButtonPresentationModel(presentationModel);

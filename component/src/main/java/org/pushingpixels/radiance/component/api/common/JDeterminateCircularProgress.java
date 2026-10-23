@@ -36,8 +36,13 @@ import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceD
 
 import javax.swing.*;
 
+/**
+ * A circular progress indicator that shows determinate progress.
+ */
 public class JDeterminateCircularProgress extends JComponent {
     /**
+     * The UI class ID for determinate circular progress.
+     *
      * @see #getUIClassID
      */
     public static final String uiClassID = "DeterminateCircularProgressUI";
@@ -46,6 +51,11 @@ public class JDeterminateCircularProgress extends JComponent {
     private DeterminateProgressContentModel contentModel;
     private CircularProgressPresentationModel presentationModel;
 
+    /**
+     * Constructs a new {@code JDeterminateCircularProgress} with the given projection.
+     *
+     * @param projection The projection containing content and presentation models.
+     */
     public JDeterminateCircularProgress(Projection<JDeterminateCircularProgress, DeterminateProgressContentModel,
             CircularProgressPresentationModel> projection) {
         this.projection = projection;
@@ -55,6 +65,11 @@ public class JDeterminateCircularProgress extends JComponent {
         this.updateUI();
     }
 
+    /**
+     * Returns the projection for this progress indicator.
+     *
+     * @return The projection.
+     */
     public Projection<JDeterminateCircularProgress, DeterminateProgressContentModel, CircularProgressPresentationModel> getProjection() {
         return this.projection;
     }

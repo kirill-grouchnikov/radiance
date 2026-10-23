@@ -32,33 +32,73 @@ package org.pushingpixels.radiance.component.api.common.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * Content model for a determinate progress indicator.
+ */
 public class DeterminateProgressContentModel implements ContentModel {
+    /**
+     * Whether the progress indicator is enabled.
+     */
     private boolean isEnabled;
 
+    /**
+     * Current progress value (0.0 to 1.0).
+     */
     private float progress;
 
+    /**
+     * Property change support.
+     */
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /**
+     * Creates a new builder for {@link DeterminateProgressContentModel}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Constructs a {@code DeterminateProgressContentModel}.
+     */
     private DeterminateProgressContentModel() {
         super();
     }
 
+    /**
+     * Adds a property change listener.
+     *
+     * @param pcl The listener.
+     */
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         this.pcs.addPropertyChangeListener(pcl);
     }
 
+    /**
+     * Removes a property change listener.
+     *
+     * @param pcl The listener.
+     */
     public void removePropertyChangeListener(PropertyChangeListener pcl) {
         this.pcs.removePropertyChangeListener(pcl);
     }
 
+    /**
+     * Returns whether the progress indicator is enabled.
+     *
+     * @return {@code true} if enabled.
+     */
     public boolean isEnabled() {
         return this.isEnabled;
     }
 
+    /**
+     * Sets whether the progress indicator is enabled.
+     *
+     * @param enabled {@code true} to enable.
+     */
     public void setEnabled(boolean enabled) {
         if (this.isEnabled != enabled) {
             this.isEnabled = enabled;
@@ -66,10 +106,20 @@ public class DeterminateProgressContentModel implements ContentModel {
         }
     }
 
+    /**
+     * Returns the current progress value (0.0 to 1.0).
+     *
+     * @return The progress value.
+     */
     public float getProgress() {
         return this.progress;
     }
 
+    /**
+     * Sets the current progress value (0.0 to 1.0).
+     *
+     * @param progress The progress value.
+     */
     public void setProgress(float progress) {
         if (this.progress != progress) {
             float oldProgress = this.progress;
@@ -78,20 +128,52 @@ public class DeterminateProgressContentModel implements ContentModel {
         }
     }
 
+    /**
+     * Builder for {@link DeterminateProgressContentModel}.
+     */
     public static class Builder {
+        /**
+         * Whether the progress indicator is enabled.
+         */
         private boolean isEnabled = true;
+        /**
+         * Current progress value (0.0 to 1.0).
+         */
         private float progress = 0.0f;
 
+        /**
+         * Constructs a {@code Builder}.
+         */
+        public Builder() {
+        }
+
+        /**
+         * Sets whether the progress indicator is enabled.
+         *
+         * @param enabled {@code true} to enable.
+         * @return This builder.
+         */
         public Builder setEnabled(boolean enabled) {
             this.isEnabled = enabled;
             return this;
         }
 
+        /**
+         * Sets the current progress value (0.0 to 1.0).
+         *
+         * @param progress The progress value.
+         * @return This builder.
+         */
         public Builder setProgress(float progress) {
             this.progress = progress;
             return this;
         }
 
+        /**
+         * Builds the {@link DeterminateProgressContentModel}.
+         *
+         * @return The built model.
+         */
         public DeterminateProgressContentModel build() {
             DeterminateProgressContentModel model = new DeterminateProgressContentModel();
             model.isEnabled = this.isEnabled;

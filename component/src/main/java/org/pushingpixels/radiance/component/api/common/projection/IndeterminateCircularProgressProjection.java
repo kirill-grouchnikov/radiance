@@ -33,9 +33,18 @@ import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularPro
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgressContentModel;
 
+/**
+ * Projection for an indeterminate circular progress indicator.
+ */
 public class IndeterminateCircularProgressProjection extends Projection<JIndeterminateCircularProgress,
         IndeterminateProgressContentModel, CircularProgressPresentationModel> {
 
+    /**
+     * Constructs an {@code IndeterminateCircularProgressProjection}.
+     *
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     */
     public IndeterminateCircularProgressProjection(IndeterminateProgressContentModel contentModel,
             CircularProgressPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JIndeterminateCircularProgress::new);

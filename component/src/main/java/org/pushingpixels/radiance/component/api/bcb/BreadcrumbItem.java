@@ -55,24 +55,51 @@ public final class BreadcrumbItem<T> {
      */
     private T data;
 
+    /**
+     * Constructs a {@code BreadcrumbItem}.
+     *
+     * @param displayName The display name.
+     * @param iconFactory The icon factory.
+     * @param data The associated data.
+     */
     public BreadcrumbItem(String displayName, RadianceIcon.Factory iconFactory, T data) {
         this.displayName = displayName;
         this.iconFactory = iconFactory;
         this.data = data;
     }
 
+    /**
+     * Returns the display name.
+     *
+     * @return The display name.
+     */
     public String getDisplayName() {
         return this.displayName;
     }
 
+    /**
+     * Returns the icon factory.
+     *
+     * @return The icon factory.
+     */
     public RadianceIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
+    /**
+     * Returns the associated data.
+     *
+     * @return The data.
+     */
     public T getData() {
         return this.data;
     }
 
+    /**
+     * Returns a string representation of this item.
+     *
+     * @return The string representation.
+     */
     @Override
     public String toString() {
         return getDisplayName() + ":" + getData();

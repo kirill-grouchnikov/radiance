@@ -35,50 +35,121 @@ import javax.swing.event.EventListenerList;
 import java.beans.PropertyChangeListener;
 import java.util.*;
 
+/**
+ * A group of commands that can be managed together.
+ */
 public class CommandGroup implements ContentModel, PropertyChangeAware {
+    /**
+     * Title of the group.
+     */
     private String title;
+    /**
+     * List of commands in this group.
+     */
     private List<Command> commands;
 
     /**
      * Stores the listeners on this model.
      */
     private EventListenerList listenerList = new EventListenerList();
+    /**
+     * Property change support.
+     */
     private final WeakPropertyChangeSupport weakPropertyChangeSupport;
 
+    /**
+     * Listener for command group events.
+     */
     public interface CommandGroupListener extends EventListener {
+        /**
+         * Invoked when a command is added.
+         *
+         * @param command The added command.
+         */
         void onCommandAdded(Command command);
 
+        /**
+         * Invoked when a command is removed.
+         *
+         * @param command The removed command.
+         */
         void onCommandRemoved(Command command);
 
+        /**
+         * Invoked when all commands are removed.
+         *
+         * @param commands The removed commands.
+         */
         void onAllCommandsRemoved(List<Command> commands);
     }
 
+    /**
+     * Filter for matching commands.
+     */
     public interface CommandFilter {
+        /**
+         * Returns whether the given command matches this filter.
+         *
+         * @param command The command to check.
+         * @return {@code true} if the command matches.
+         */
         boolean matches(Command command);
     }
 
+    /**
+     * Constructs a {@code CommandGroup} with the given commands.
+     *
+     * @param commands The commands.
+     */
     public CommandGroup(Command... commands) {
         this(null, commands);
     }
 
+    /**
+     * Constructs a {@code CommandGroup} with the given commands.
+     *
+     * @param commands The commands.
+     */
     public CommandGroup(List<Command> commands) {
         this(null, commands);
     }
 
+    /**
+     * Constructs a {@code CommandGroup} with the given title and commands.
+     *
+     * @param title The title.
+     * @param commands The commands.
+     */
     public CommandGroup(String title, Command... commands) {
         this(title, Arrays.asList(commands));
     }
 
+    /**
+     * Constructs a {@code CommandGroup} with the given title and commands.
+     *
+     * @param title The title.
+     * @param commands The commands.
+     */
     public CommandGroup(String title, List<Command> commands) {
         this.weakPropertyChangeSupport = new WeakPropertyChangeSupport(this);
         this.title = title;
         this.commands = new ArrayList<>(commands);
     }
 
+    /**
+     * Returns the group title.
+     *
+     * @return The title.
+     */
     public String getTitle() {
         return this.title;
     }
 
+    /**
+     * Sets the group title.
+     *
+     * @param title The title.
+     */
     public void setTitle(String title) {
         if (!this.title.equals(title)) {
             String old = this.title;
@@ -87,10 +158,21 @@ public class CommandGroup implements ContentModel, PropertyChangeAware {
         }
     }
 
+    /**
+     * Returns the commands as an unmodifiable list.
+     *
+     * @return The commands.
+     */
     public List<Command> getCommands() {
         return Collections.unmodifiableList(this.commands);
     }
 
+    /**
+     * Finds the first command matching the given filter.
+     *
+     * @param filter The filter.
+     * @return The first matching command, or {@code null}.
+     */
     public Command findFirstMatch(CommandFilter filter) {
         for (Command command: this.commands) {
             if (filter.matches(command)) {
@@ -100,6 +182,11 @@ public class CommandGroup implements ContentModel, PropertyChangeAware {
         return null;
     }
 
+    /**
+     * Adds a command to this group.
+     *
+     * @param command The command to add.
+     */
     public void addCommand(Command command) {
         if ((command != null) && !this.commands.contains(command)) {
             this.commands.add(command);
@@ -107,12 +194,20 @@ public class CommandGroup implements ContentModel, PropertyChangeAware {
         }
     }
 
+    /**
+     * Removes a command from this group.
+     *
+     * @param command The command to remove.
+     */
     public void removeCommand(Command command) {
         if (this.commands.remove(command)) {
             this.fireCommandRemoved(command);
         }
     }
 
+    /**
+     * Removes all commands from this group.
+     */
     public void removeAllCommands() {
         List<Command> removed = new ArrayList<>(this.commands);
         this.commands.clear();
@@ -174,10 +269,20 @@ public class CommandGroup implements ContentModel, PropertyChangeAware {
         }
     }
 
+    /**
+     * Adds a property change listener.
+     *
+     * @param l The listener.
+     */
     public void addPropertyChangeListener(PropertyChangeListener l) {
         this.weakPropertyChangeSupport.addPropertyChangeListener(l);
     }
 
+    /**
+     * Removes a property change listener.
+     *
+     * @param l The listener.
+     */
     public void removePropertyChangeListener(PropertyChangeListener l) {
         this.weakPropertyChangeSupport.removePropertyChangeListener(l);
     }

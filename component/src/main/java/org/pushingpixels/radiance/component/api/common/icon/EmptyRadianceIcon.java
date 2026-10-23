@@ -97,6 +97,11 @@ public class EmptyRadianceIcon implements RadianceIcon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
     }
 
+    /**
+     * Creates a factory for empty icons.
+     *
+     * @return The factory.
+     */
     public static Factory factory() {
         return () -> new EmptyRadianceIcon(16);
     }

@@ -31,6 +31,9 @@ package org.pushingpixels.radiance.component.api.common;
 
 import java.util.EventListener;
 
+/**
+ * Listener for command activation events.
+ */
 @FunctionalInterface
 public interface CommandAction extends EventListener {
     /**

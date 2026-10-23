@@ -29,6 +29,14 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
+/**
+ * Base interface for command menu content models.
+ */
 public interface BaseCommandMenuContentModel extends ContentModel, ChangeAware {
+    /**
+     * Returns whether this content model has no entries.
+     *
+     * @return {@code true} if empty.
+     */
     boolean isEmpty();
 }

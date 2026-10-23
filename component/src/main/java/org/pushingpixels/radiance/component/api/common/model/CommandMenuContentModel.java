@@ -38,9 +38,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Content model for a command menu.
+ */
 public class CommandMenuContentModel implements BaseCommandMenuContentModel {
+    /**
+     * The panel content model.
+     */
     private CommandPanelContentModel panelContentModel;
+    /**
+     * The command groups in this menu.
+     */
     private List<CommandGroup> commandGroups;
+    /**
+     * The currently highlighted command.
+     */
     private Command highlightedCommand;
 
     /**
@@ -48,21 +60,48 @@ public class CommandMenuContentModel implements BaseCommandMenuContentModel {
      */
     private final WeakChangeSupport weakChangeSupport;
 
+    /**
+     * Listener for command group events.
+     */
     private CommandGroup.CommandGroupListener commandGroupListener;
+    /**
+     * Listener for panel content changes.
+     */
     private ChangeListener panelContentChangeListener;
 
+    /**
+     * Constructs a {@code CommandMenuContentModel} with a single command group.
+     *
+     * @param commands The command group.
+     */
     public CommandMenuContentModel(CommandGroup commands) {
         this(null, Collections.singletonList(commands));
     }
 
+    /**
+     * Constructs a {@code CommandMenuContentModel} with the given command groups.
+     *
+     * @param commandGroups The command groups.
+     */
     public CommandMenuContentModel(CommandGroup... commandGroups) {
         this(null, Arrays.asList(commandGroups));
     }
 
+    /**
+     * Constructs a {@code CommandMenuContentModel} with the given command groups.
+     *
+     * @param commands The command groups.
+     */
     public CommandMenuContentModel(List<CommandGroup> commands) {
         this(null, commands);
     }
 
+    /**
+     * Constructs a {@code CommandMenuContentModel}.
+     *
+     * @param panelContentModel The panel content model.
+     * @param commands The command groups.
+     */
     public CommandMenuContentModel(CommandPanelContentModel panelContentModel,
             List<CommandGroup> commands) {
         this.weakChangeSupport = new WeakChangeSupport(this);
@@ -93,22 +132,40 @@ public class CommandMenuContentModel implements BaseCommandMenuContentModel {
         }
     }
 
+    /**
+     * Returns the panel content model.
+     *
+     * @return The panel content model.
+     */
     public CommandPanelContentModel getPanelContentModel() {
         return this.panelContentModel;
     }
 
+    /**
+     * Adds a command group to this menu.
+     *
+     * @param commandGroupModel The command group to add.
+     */
     public void addCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
+    /**
+     * Removes a command group from this menu.
+     *
+     * @param commandGroupModel The command group to remove.
+     */
     public void removeCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
+    /**
+     * Removes all command groups from this menu.
+     */
     public void removeAllCommandGroups() {
         for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
@@ -117,15 +174,30 @@ public class CommandMenuContentModel implements BaseCommandMenuContentModel {
         this.fireStateChanged();
     }
 
+    /**
+     * Returns the currently highlighted command.
+     *
+     * @return The highlighted command.
+     */
     public Command getHighlightedCommand() {
         return this.highlightedCommand;
     }
 
+    /**
+     * Sets the highlighted command.
+     *
+     * @param highlightedCommand The highlighted command.
+     */
     public void setHighlightedCommand(Command highlightedCommand) {
         this.highlightedCommand = highlightedCommand;
         this.fireStateChanged();
     }
 
+    /**
+     * Returns the command groups as an unmodifiable list.
+     *
+     * @return The command groups.
+     */
     public List<CommandGroup> getCommandGroups() {
         return Collections.unmodifiableList(this.commandGroups);
     }
@@ -141,16 +213,29 @@ public class CommandMenuContentModel implements BaseCommandMenuContentModel {
         return isPanelContentModelEmpty && (regularCommandCount == 0);
     }
 
+    /**
+     * Adds a change listener.
+     *
+     * @param l The listener.
+     */
     @Override
     public void addChangeListener(ChangeListener l) {
         this.weakChangeSupport.addChangeListener(l);
     }
 
+    /**
+     * Removes a change listener.
+     *
+     * @param l The listener.
+     */
     @Override
     public void removeChangeListener(ChangeListener l) {
         this.weakChangeSupport.removeChangeListener(l);
     }
 
+    /**
+     * Fires a state changed event to all registered listeners.
+     */
     private void fireStateChanged() {
         this.weakChangeSupport.fireStateChanged();
     }

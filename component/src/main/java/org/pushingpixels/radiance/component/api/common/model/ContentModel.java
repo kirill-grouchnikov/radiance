@@ -29,5 +29,8 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
+/**
+ * Marker interface for content models.
+ */
 public interface ContentModel {
 }

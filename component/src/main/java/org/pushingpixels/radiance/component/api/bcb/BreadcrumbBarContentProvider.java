@@ -42,6 +42,12 @@ import java.util.List;
  */
 public abstract class BreadcrumbBarContentProvider<T> {
     /**
+     * Constructs a {@code BreadcrumbBarContentProvider}.
+     */
+    protected BreadcrumbBarContentProvider() {
+    }
+
+    /**
      * Returns the choice elements that correspond to the specified path. If the
      * path is empty, <code>null</code> should be returned. If path is
      * <code>null</code>, the "root" elements should be returned

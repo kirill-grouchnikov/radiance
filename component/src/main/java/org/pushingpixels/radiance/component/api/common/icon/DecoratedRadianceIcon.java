@@ -186,6 +186,13 @@ public class DecoratedRadianceIcon implements RadianceIcon, AsynchronousLoading 
         return false;
     }
 
+    /**
+     * Creates a factory for decorated icons.
+     *
+     * @param original The original icon factory.
+     * @param decorators The decorators to apply.
+     * @return The factory.
+     */
     public static Factory factory(Factory original, IconDecorator... decorators) {
         return () -> new DecoratedRadianceIcon(original.createNewIcon(), decorators);
     }

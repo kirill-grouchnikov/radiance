@@ -32,31 +32,68 @@ package org.pushingpixels.radiance.component.api.common.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * Content model for an indeterminate progress indicator.
+ */
 public class IndeterminateProgressContentModel implements ContentModel {
+    /**
+     * Whether the progress indicator is enabled.
+     */
     private boolean isEnabled;
 
+    /**
+     * Property change support.
+     */
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /**
+     * Creates a new builder for {@link IndeterminateProgressContentModel}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Constructs an {@code IndeterminateProgressContentModel}.
+     */
     private IndeterminateProgressContentModel() {
         super();
     }
 
+    /**
+     * Adds a property change listener.
+     *
+     * @param pcl The listener.
+     */
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         this.pcs.addPropertyChangeListener(pcl);
     }
 
+    /**
+     * Removes a property change listener.
+     *
+     * @param pcl The listener.
+     */
     public void removePropertyChangeListener(PropertyChangeListener pcl) {
         this.pcs.removePropertyChangeListener(pcl);
     }
 
+    /**
+     * Returns whether the progress indicator is enabled.
+     *
+     * @return {@code true} if enabled.
+     */
     public boolean isEnabled() {
         return this.isEnabled;
     }
 
+    /**
+     * Sets whether the progress indicator is enabled.
+     *
+     * @param enabled {@code true} to enable.
+     */
     public void setEnabled(boolean enabled) {
         if (this.isEnabled != enabled) {
             this.isEnabled = enabled;
@@ -64,14 +101,37 @@ public class IndeterminateProgressContentModel implements ContentModel {
         }
     }
 
+    /**
+     * Builder for {@link IndeterminateProgressContentModel}.
+     */
     public static class Builder {
+        /**
+         * Whether the progress indicator is enabled.
+         */
         private boolean isEnabled = true;
 
+        /**
+         * Constructs a {@code Builder}.
+         */
+        public Builder() {
+        }
+
+        /**
+         * Sets whether the progress indicator is enabled.
+         *
+         * @param enabled {@code true} to enable.
+         * @return This builder.
+         */
         public Builder setEnabled(boolean enabled) {
             this.isEnabled = enabled;
             return this;
         }
 
+        /**
+         * Builds the {@link IndeterminateProgressContentModel}.
+         *
+         * @return The built model.
+         */
         public IndeterminateProgressContentModel build() {
             IndeterminateProgressContentModel model = new IndeterminateProgressContentModel();
             model.isEnabled = this.isEnabled;

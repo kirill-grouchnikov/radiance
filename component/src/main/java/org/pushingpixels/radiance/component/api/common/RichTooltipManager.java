@@ -63,8 +63,24 @@ public class RichTooltipManager {
 
     private boolean tipShowing = false;
 
+    /**
+     * Interface for components that support rich tooltips.
+     */
     public interface WithRichTooltip {
+        /**
+         * Returns the rich tooltip for the given mouse event.
+         *
+         * @param mouseEvent The mouse event.
+         * @return The rich tooltip.
+         */
         RichTooltip getRichTooltip(MouseEvent mouseEvent);
+
+        /**
+         * Returns the rich tooltip presentation model for the given mouse event.
+         *
+         * @param mouseEvent The mouse event.
+         * @return The rich tooltip presentation model.
+         */
         RichTooltipPresentationModel getRichTooltipPresentationModel(MouseEvent mouseEvent);
     }
 

@@ -44,73 +44,181 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
  * @see ComponentProjection
  */
 public class ComponentPresentationModel implements ImmutablePresentationModel {
+    /**
+     * Background appearance strategy.
+     */
     private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
+    /**
+     * Horizontal alignment.
+     */
     private HorizontalAlignment horizontalAlignment;
+    /**
+     * Keyboard shortcut tip.
+     */
     private String keyTip;
+    /**
+     * Whether the component is resizing-aware.
+     */
     private boolean isResizingAware;
+    /**
+     * Rich tooltip presentation model.
+     */
     private RichTooltipPresentationModel richTooltipPresentationModel;
 
+    /**
+     * Constructs a {@code ComponentPresentationModel}.
+     */
     private ComponentPresentationModel() {
     }
 
+    /**
+     * Returns a presentation model with default settings.
+     *
+     * @return The default presentation model.
+     */
     public static ComponentPresentationModel withDefaults() {
         return ComponentPresentationModel.builder().build();
     }
 
+    /**
+     * Creates a new builder for {@link ComponentPresentationModel}.
+     *
+     * @return A new builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Returns the background appearance strategy.
+     *
+     * @return The strategy.
+     */
     public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
         return this.backgroundAppearanceStrategy;
     }
 
+    /**
+     * Returns the horizontal alignment.
+     *
+     * @return The alignment.
+     */
     public HorizontalAlignment getHorizontalAlignment() {
         return this.horizontalAlignment;
     }
 
+    /**
+     * Returns the keyboard shortcut tip.
+     *
+     * @return The key tip.
+     */
     public String getKeyTip() {
         return this.keyTip;
     }
 
+    /**
+     * Returns whether the component is resizing-aware.
+     *
+     * @return {@code true} if resizing-aware.
+     */
     public boolean isResizingAware() {
         return this.isResizingAware;
     }
 
+    /**
+     * Returns the rich tooltip presentation model.
+     *
+     * @return The rich tooltip presentation model.
+     */
     public RichTooltipPresentationModel getRichTooltipPresentationModel() {
         return this.richTooltipPresentationModel;
     }
 
+    /**
+     * Builder for {@link ComponentPresentationModel}.
+     */
     public static class Builder {
+        /**
+         * Background appearance strategy.
+         */
         private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
                 RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT;
+        /**
+         * Horizontal alignment.
+         */
         private HorizontalAlignment horizontalAlignment = HorizontalAlignment.FILL;
+        /**
+         * Keyboard shortcut tip.
+         */
         private String keyTip;
+        /**
+         * Whether the component is resizing-aware.
+         */
         private boolean isResizingAware;
+        /**
+         * Rich tooltip presentation model.
+         */
         private RichTooltipPresentationModel richTooltipPresentationModel =
                 RichTooltipPresentationModel.builder().build();
 
+        /**
+         * Constructs a {@code Builder}.
+         */
+        public Builder() {
+        }
+
+        /**
+         * Sets the background appearance strategy.
+         *
+         * @param backgroundAppearanceStrategy The strategy.
+         * @return This builder.
+         */
         public Builder setBackgroundAppearanceStrategy(
                 RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
             this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
             return this;
         }
 
+        /**
+         * Sets the horizontal alignment.
+         *
+         * @param horizontalAlignment The alignment.
+         * @return This builder.
+         */
         public Builder setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
             this.horizontalAlignment = horizontalAlignment;
             return this;
         }
 
+        /**
+         * Sets the keyboard shortcut tip.
+         *
+         * @param keyTip The key tip.
+         * @return This builder.
+         */
         public Builder setKeyTip(String keyTip) {
             this.keyTip = keyTip;
             return this;
         }
 
+        /**
+         * Sets whether the component is resizing-aware.
+         *
+         * @param resizingAware {@code true} if resizing-aware.
+         * @return This builder.
+         */
         public Builder setResizingAware(boolean resizingAware) {
             this.isResizingAware = resizingAware;
             return this;
         }
 
+        /**
+         * Sets the rich tooltip presentation model.
+         *
+         * @param richTooltipPresentationModel The model (must not be null).
+         * @return This builder.
+         * @throws IllegalArgumentException if the model is null.
+         */
         public Builder setRichTooltipPresentationModel(RichTooltipPresentationModel richTooltipPresentationModel) {
             if (richTooltipPresentationModel == null) {
                 throw new IllegalArgumentException("Cannot pass null presentation model");
@@ -119,6 +227,11 @@ public class ComponentPresentationModel implements ImmutablePresentationModel {
             return this;
         }
 
+        /**
+         * Builds the {@link ComponentPresentationModel}.
+         *
+         * @return The built model.
+         */
         public ComponentPresentationModel build() {
             ComponentPresentationModel componentPresentationModel = new ComponentPresentationModel();
             componentPresentationModel.horizontalAlignment = this.horizontalAlignment;

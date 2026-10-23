@@ -33,9 +33,18 @@ import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentM
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 
+/**
+ * Projection for a command popup menu panel.
+ */
 public class CommandPopupMenuPanelProjection extends AbstractPopupMenuPanelProjection<
         JCommandPopupMenuPanel, CommandMenuContentModel, CommandPopupMenuPresentationModel> {
 
+    /**
+     * Constructs a {@code CommandPopupMenuPanelProjection}.
+     *
+     * @param contentModel The content model.
+     * @param presentationModel The presentation model.
+     */
     public CommandPopupMenuPanelProjection(CommandMenuContentModel contentModel,
             CommandPopupMenuPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JCommandPopupMenuPanel::new);
