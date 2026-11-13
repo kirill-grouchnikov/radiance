@@ -186,34 +186,42 @@ public class ScanSpinner extends BaseSpinner {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
 
+                    float dim = Math.min(scaledWidth, scaledHeight);
+
+                    // The original design uses a 24x24 coordinate system.
+                    // Scale it to fit the actual dimension while maintaining aspect ratio.
+                    float unit = dim / 24f;
                     float scale = (float) scaleFactor;
 
                     // Rounded rectangle: x=3, y=3, width=18, height=18, rx=4
-                    float rectX = 3f * scale;
-                    float rectY = 3f * scale;
-                    float rectSize = 18f * scale;
-                    float cornerRadius = 4f * scale;
-                    float rectStrokeWidth = (float) (DEFAULT_RECT_STROKE_WIDTH * scale);
+                    // Centered within the dim x dim area
+                    float offset = 3f * unit - (dim / 2f - 12f * unit);
+                    float rectSize = 18f * unit;
+                    float cornerRadius = 4f * unit;
+                    float rectStrokeWidth = DEFAULT_RECT_STROKE_WIDTH * scale;
 
                     // Background rounded rect
                     int a20 = Math.round(0.2f * 255);
                     graphics1X.setColor(new Color(this.color.getRed(), this.color.getGreen(),
                             this.color.getBlue(), a20));
                     graphics1X.setStroke(new BasicStroke(rectStrokeWidth));
-                    graphics1X.drawRoundRect(Math.round(rectX), Math.round(rectY),
+                    graphics1X.drawRoundRect(Math.round(offset), Math.round(offset),
                             Math.round(rectSize), Math.round(rectSize),
                             Math.round(cornerRadius * 2), Math.round(cornerRadius * 2));
 
                     // Scan line: x1=7.5, x2=16.5, y moves from 6.5 to 6.5+11
-                    float travel = 11f * scale;
-                    float lineY = (6.5f * scale) + scanY * travel;
-                    float lineStrokeWidth = (float) (DEFAULT_LINE_STROKE_WIDTH * scale);
+                    float travel = 11f * unit;
+                    float lineY = (6.5f * unit - (dim / 2f - 12f * unit)) + scanY * travel;
+                    float lineStrokeWidth = DEFAULT_LINE_STROKE_WIDTH * scale;
+
+                    float lineX1 = 7.5f * unit - (dim / 2f - 12f * unit);
+                    float lineX2 = 16.5f * unit - (dim / 2f - 12f * unit);
 
                     graphics1X.setColor(color);
                     graphics1X.setStroke(new BasicStroke(lineStrokeWidth, this.cap,
                             BasicStroke.JOIN_ROUND, 0, null, 0));
-                    graphics1X.drawLine(Math.round(7.5f * scale), Math.round(lineY),
-                            Math.round(16.5f * scale), Math.round(lineY));
+                    graphics1X.drawLine(Math.round(lineX1), Math.round(lineY),
+                            Math.round(lineX2), Math.round(lineY));
                 });
 
         graphics.dispose();
