@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.4.20"
 coroutines = "1.11.0"
-dokka = "2.2.0"
+dokka = "2.3.0"
 
 batik = "1.20"
 retrofit = "3.0.0"
